@@ -41,7 +41,6 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="all" mode="IN" entity-name="CustRequestItem" optional="true"/>
-        <attribute name="fromPartyId" type="String" mode="IN" optional="false"/>
         <override name="custRequestName" allow-html="safe"/>
         <override name="description" allow-html="safe"/>
         <override name="story" allow-html="safe"/>

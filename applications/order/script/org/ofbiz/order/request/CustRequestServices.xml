@@ -62,9 +62,20 @@ under the License.
             <set field="newEntity.custRequestDate" from-field="nowTimestamp"/>
         </if-empty>
 
-        <!-- always start with submitted -->
-        <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
-
+        <!-- if not draft status input check for from fromPartyId present -->
+        <if-not-empty field="parameters.statusId">
+            <if-compare operator="not-equals" value="CRQ_DRAFT" field="parameters.statusId">
+                <if-empty field="newEntity.fromPartyId">
+                    <add-error>
+                        <fail-property property="OrderCustRequestShouldHaveFromPartyIdIfNotDraft" resource="OrderUiLabels"/>
+                   </add-error>
+                </if-empty>
+            </if-compare>
+        </if-not-empty>
+        
+        <!-- always start with draft -->
+        <set value="CRQ_DRAFT" field="newEntity.statusId"/>
+        
         <if-not-empty field="parameters.custRequestId">
             <set field="newEntity.custRequestId" from-field="parameters.custRequestId"/>
             <else>
@@ -72,13 +83,16 @@ under the License.
             </else>
         </if-not-empty>
 
+        <check-errors/>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.custRequestId" result-name="custRequestId"/>
 
-        <!-- set status fields and history -->
-        <set field="parameters.custRequestId" from-field="newEntity.custRequestId"/>
-        <set-service-fields service-name="setCustRequestStatus" map="parameters" to-map="setStat"/>
-        <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
+        <!-- set status fields and history if provided -->
+        <if-not-empty field="parameters.statusId">
+            <set field="setStat.statusId" from-field="parameters.statusId"/>
+            <set field="setStat.custRequestId" from-field="newEntity.custRequestId"/>
+            <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
+        </if-not-empty>
         
         <!-- create also the item if key fields are provided -->
         <if>
@@ -100,41 +114,43 @@ under the License.
     <simple-method method-name="updateCustRequest" short-description="Update Customer Request">
         <call-simple-method method-name="checkStatusCustRequest"/>
         <field-to-result field="custRequest.statusId" result-name="oldStatusId"/>
-        <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
-            <if-compare field="parameters.statusId" value="CRQ_CANCELLED" operator="equals">
-                <!-- check for related workefforts ...and when no time recorded cancel these too -->
-                <get-related value-field="custRequest" relation-name="CustRequestWorkEffort" list="workEfforts"/>
-                <if-not-empty field="workEfforts">
-                    <iterate entry="workEffort" list="workEfforts">
-                        <entity-one entity-name="WorkEffort" value-field="lowInfo">
-                            <field-map field-name="workEffortId" from-field="workEffort.workEffortId"/>
-                        </entity-one>
-                        <call-simple-method method-name="getHours" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
-                        <set field="actualHours" from-field="highInfo.actualHours"/>
-                        <!-- no hours recorded yet so custrequest can be cancelled -->
-                        <if-empty field="actualHours">
-                            <!-- changed status-->
-                            <set field="custRequest.statusId" from-field="parameters.statusId"/>
-                            <set field="updTask.workEffortId" from-field="workEffort.workEffortId"/>
-                            <set field="updTask.currentStatusId" value="PTS_CANCELLED"/>
-                            <call-service service-name="updateWorkEffort" in-map-name="updTask"/>
-                            <else>
-                                <set field="parameters.statusId" from-field="custRequest.statusId"/>
-                                <property-to-field resource="OrderUiLabels" property="OrderCannotCancelRequestAlreadyWorkedOn" field="errorMessage"/>
-                                <field-to-result field="errorMessage"/>
-                                <set field="isShowEvent" value="N"/>
-                            </else>
-                        </if-empty>
-                    </iterate>
+        <if-not-empty field="parameters.statusId">
+            <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
+                <if-compare field="parameters.statusId" value="CRQ_CANCELLED" operator="equals">
+                    <!-- check for related workefforts ...and when no time recorded cancel these too -->
+                    <get-related value-field="custRequest" relation-name="CustRequestWorkEffort" list="workEfforts"/>
+                    <if-not-empty field="workEfforts">
+                        <iterate entry="workEffort" list="workEfforts">
+                            <entity-one entity-name="WorkEffort" value-field="lowInfo">
+                                <field-map field-name="workEffortId" from-field="workEffort.workEffortId"/>
+                            </entity-one>
+                            <call-simple-method method-name="getHours" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+                            <set field="actualHours" from-field="highInfo.actualHours"/>
+                            <!-- no hours recorded yet so custrequest can be cancelled -->
+                            <if-empty field="actualHours">
+                                <!-- changed status-->
+                                <set field="custRequest.statusId" from-field="parameters.statusId"/>
+                                <set field="updTask.workEffortId" from-field="workEffort.workEffortId"/>
+                                <set field="updTask.currentStatusId" value="PTS_CANCELLED"/>
+                                <call-service service-name="updateWorkEffort" in-map-name="updTask"/>
+                                <else>
+                                    <set field="parameters.statusId" from-field="custRequest.statusId"/>
+                                    <property-to-field resource="OrderUiLabels" property="OrderCannotCancelRequestAlreadyWorkedOn" field="errorMessage"/>
+                                    <field-to-result field="errorMessage"/>
+                                    <set field="isShowEvent" value="N"/>
+                                </else>
+                            </if-empty>
+                        </iterate>
+                    </if-not-empty>
+                </if-compare>
+                <!-- update status and save the changed status in the history -->
+                <set-service-fields service-name="setCustRequestStatus" map="parameters" to-map="setStat"/>
+                <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
+                <if-not-empty field="isShowEvent">
+                    <clear-field field="successMessage"/>
                 </if-not-empty>
-            </if-compare>
-            <!-- update status and save the changed status in the history -->
-            <set-service-fields service-name="setCustRequestStatus" map="parameters" to-map="setStat"/>
-            <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
-            <if-not-empty field="isShowEvent">
-                <clear-field field="successMessage"/>
-            </if-not-empty>
-        </if-compare-field>
+            </if-compare-field>
+        </if-not-empty>
         <now-timestamp field="nowTimestamp"/>
         <set from-field="nowTimestamp" field="custRequest.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="custRequest.lastModifiedByUserLogin"/>
