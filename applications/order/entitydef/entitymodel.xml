@@ -1827,6 +1827,9 @@ under the License.
       <field name="noteId" type="id-ne"></field>
       <prim-key field="custRequestId"/>
       <prim-key field="noteId"/>
+      <relation type="one" fk-name="CRQ_CR" rel-entity-name="CustRequest">
+        <key-map field-name="custRequestId"/>
+      </relation>
       <relation type="one" fk-name="CRQ_NOTE" rel-entity-name="NoteData">
         <key-map field-name="noteId"/>
       </relation>
