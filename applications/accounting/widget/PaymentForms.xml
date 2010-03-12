@@ -598,16 +598,16 @@ under the License.
         <field name="statusId"  position="2" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
     </form>
     <form name="PaymentReport" type="single"  target="paymentReportHtml" extends="FindPayments" extends-resource="component://accounting/widget/PaymentForms.xml" target-window="_BLANK">
-    	<field name="contentType" action="document.PaymentReport.action=this.value" event="onchange">
-    		<drop-down>
-    			<option key="paymentReportHtml" description="text/html"></option>
-				<option key="paymentReportPdf" description="application/pdf"></option>
-				<!--option key="application/vnd.ms-excel">application/vnd.ms-excel</option>
-				<option key="application/vnd.ms-word">application/vnd.ms-word</option>
-				<option key="application/vnd.ms-powerpoint">application/vnd.ms-powerpoint</option-->
-    		</drop-down>
-    	</field>
-    	<field name="searchButton"><hidden/></field>
-    	<field name="report" title="Report" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="contentType" action="document.PaymentReport.action=this.value" event="onchange">
+            <drop-down>
+                <option key="paymentReportHtml" description="text/html"></option>
+                <option key="paymentReportPdf" description="application/pdf"></option>
+                <!--option key="application/vnd.ms-excel">application/vnd.ms-excel</option>
+                <option key="application/vnd.ms-word">application/vnd.ms-word</option>
+                <option key="application/vnd.ms-powerpoint">application/vnd.ms-powerpoint</option-->
+            </drop-down>
+        </field>
+        <field name="searchButton"><hidden/></field>
+        <field name="report" title="Report" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
