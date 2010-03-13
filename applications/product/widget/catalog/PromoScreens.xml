@@ -330,4 +330,35 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="EditProductPromoContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductPromoContent"/>
+                <set field="headerItem" value="promos"/>
+                <set field="tabButtonItem" value="EditProductPromoContent"/>
+                <set field="labelTitleProperty" value="ProductPromoContents"/>
+                <set field="productPromoId" from-field="parameters.productPromoId"/>
+                <set field="parameters.fromDate" type="Timestamp" from-field="parameters.fromDate"/>
+                <set field="parameters.thruDate" type="Timestamp" from-field="parameters.thruDate"/>
+                <entity-one entity-name="ProductPromo" value-field="productPromo"/>
+                <entity-one entity-name="ProductPromoContent" value-field="productPromoContent"/>
+                <entity-and list="productPromoContents" entity-name="ProductPromoContent">
+                    <field-map field-name="productPromoId" from-field="productPromoId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPromoDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleEditProductPromoContent}">
+                            <include-form name="EditProductPromoContentImage" location="component://product/widget/catalog/PromoForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductProductPromoContentList}">
+                            <include-form name="ListProductPromoContent" location="component://product/widget/catalog/PromoForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

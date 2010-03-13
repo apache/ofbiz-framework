@@ -4746,5 +4746,27 @@ under the License.
             <key-map field-name="parentTypeId" rel-field-name="webAnalyticsTypeId"/>
         </relation>
     </entity>
-    
+
+    <entity entity-name="ProductPromoContent"
+            package-name="org.ofbiz.product.promo"
+            title="Product Promo Content Entity">
+      <field name="productPromoId" type="id-ne"/>
+      <field name="contentId" type="id-ne"/>
+      <field name="productPromoContentTypeId" type="id-ne"/>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
+      <prim-key field="productPromoId"/>
+      <prim-key field="contentId"/>
+      <prim-key field="productPromoContentTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="PRODPR_CNT_PROD_PR" rel-entity-name="ProductPromo">
+        <key-map field-name="productPromoId"/>
+      </relation>
+      <relation type="one" fk-name="PRODPR_CNT_CNT" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <relation type="one" fk-name="PRODPR_CNT_TYPE" rel-entity-name="ProductContentType">
+        <key-map field-name="productPromoContentTypeId" rel-field-name="productContentTypeId"/>
+      </relation>
+    </entity>
 </entitymodel>
