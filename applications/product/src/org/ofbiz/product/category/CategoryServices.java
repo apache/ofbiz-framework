@@ -79,6 +79,7 @@ public class CategoryServices {
         String productId = (String) context.get("productId");
         boolean activeOnly = (context.get("activeOnly") != null ? ((Boolean) context.get("activeOnly")).booleanValue() : true);
         Integer index = (Integer) context.get("index");
+        Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
 
         if (index == null && productId == null) {
             return ServiceUtil.returnError("Both Index and ProductID cannot be null.");
@@ -86,7 +87,7 @@ public class CategoryServices {
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
         if (orderByFields == null) orderByFields = FastList.newInstance();
-        String entityName = getCategoryFindEntityName(delegator, orderByFields);
+        String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit);
 
         GenericValue productCategory;
         List<GenericValue> productCategoryMembers;
@@ -101,7 +102,10 @@ public class CategoryServices {
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
         }
-
+        if (introductionDateLimit != null) {
+            EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
+            productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, condition);
+        }
 
         if (productId != null && index == null) {
             for (GenericValue v: productCategoryMembers) {
@@ -140,9 +144,9 @@ public class CategoryServices {
         return result;
     }
 
-    private static String getCategoryFindEntityName(Delegator delegator, List<String> orderByFields) {
+    private static String getCategoryFindEntityName(Delegator delegator, List<String> orderByFields, Timestamp introductionDateLimit) {
         // allow orderByFields to contain fields from the Product entity, if there are such fields
-        String entityName = "ProductCategoryMember";
+        String entityName = introductionDateLimit == null ? "ProductCategoryMember" : "ProductAndCategoryMember";
         if (orderByFields == null) {
             return entityName;
         }
@@ -191,10 +195,11 @@ public class CategoryServices {
         String productCategoryId = (String) context.get("productCategoryId");
         boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
         int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();
+        Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
         if (orderByFields == null) orderByFields = FastList.newInstance();
-        String entityName = getCategoryFindEntityName(delegator, orderByFields);
+        String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit);
 
         String prodCatalogId = (String) context.get("prodCatalogId");
 
@@ -255,6 +260,10 @@ public class CategoryServices {
                     if (activeOnly) {
                         productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
                     }
+                    if (introductionDateLimit != null) {
+                        EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
+                        productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, condition);
+                    }
 
                     // filter out the view allow before getting the sublist
                     if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
@@ -283,6 +292,9 @@ public class CategoryServices {
                     if (activeOnly) {
                         mainCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
                         mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
+                    }
+                    if (introductionDateLimit != null) {
+                        mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit)));
                     }
                     EntityCondition mainCond = EntityCondition.makeCondition(mainCondList, EntityOperator.AND);
 

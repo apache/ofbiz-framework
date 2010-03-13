@@ -122,6 +122,7 @@ under the License.
         <attribute name="categoryId" type="String" mode="IN"/>
         <attribute name="productId" type="String" mode="IN"/>
         <attribute name="activeOnly" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="introductionDateLimit" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="orderByFields" type="List" mode="IN" optional="true"/>
         <attribute name="category" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="previousProductId" type="String" mode="OUT" optional="true"/>
@@ -139,6 +140,7 @@ under the License.
         <attribute name="viewSizeString" type="String" mode="IN" optional="true"/>
         <attribute name="useCacheForMembers" type="Boolean" mode="IN" optional="true"/>
         <attribute name="activeOnly" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="introductionDateLimit" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="orderByFields" type="List" mode="IN" optional="true"/>
         <attribute name="productCategory" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="productCategoryMembers" type="java.util.Collection" mode="OUT" optional="true"/> <!-- this list will only contain the limited members if limitView=true -->
