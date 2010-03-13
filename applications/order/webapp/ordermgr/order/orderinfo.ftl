@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
+<div class="screenlet order-info">
     <div class="screenlet-title-bar">
         <ul>
             <#if orderHeader.externalId?has_content>
@@ -102,8 +102,8 @@ under the License.
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderStatusHistory}</td>
               <td width="5%">&nbsp;</td>
-              <td valign="top" width="80%">
-                ${uiLabelMap.OrderCurrentStatus}: ${currentStatus.get("description",locale)}
+              <td valign="top" width="80%"<#if currentStatus.statusCode?has_content> class="${currentStatus.statusCode}"</#if>>
+                <span class="current-status">${uiLabelMap.OrderCurrentStatus}: ${currentStatus.get("description",locale)}</span>
                 <#if orderHeaderStatuses?has_content>
                   <hr/>
                   <#list orderHeaderStatuses as orderHeaderStatus>
