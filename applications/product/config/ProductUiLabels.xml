@@ -5467,6 +5467,9 @@
         <value xml:lang="th">แก้ไขราคาสินค้า</value>
         <value xml:lang="zh">编辑产品价格</value>
     </property>
+    <property key="PageTitleEditProductPromoContent">
+        <value xml:lang="en">Edit Product Promo Content</value>
+    </property>
     <property key="PageTitleEditProductPromoRules">
         <value xml:lang="de">Produkt Aktionsregeln bearbeiten</value>
         <value xml:lang="en">Edit Promo Rules</value>
@@ -16387,6 +16390,12 @@
         <value xml:lang="ru">Страница продукта</value>
         <value xml:lang="th">หน้าสินค้า</value>
         <value xml:lang="zh">产品页面</value>
+    </property>
+    <property key="ProductProductPromoContentList">
+        <value xml:lang="en">Product Promo Content List</value>
+    </property>
+    <property key="ProductProductPromoContentType">
+        <value xml:lang="en">Product Promo Content Type</value>
     </property>
     <property key="ProductProductPromotionsList">
         <value xml:lang="de">Produkt Aktionsliste</value>

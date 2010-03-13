@@ -118,4 +118,46 @@ under the License.
             </hyperlink>
         </field>
     </form>
+    
+    <form name="EditProductPromoContentImage" type="upload" target="addImageContentForProductPromo" default-map-name="productPromoContent">
+        <field name="productPromoId"><hidden/></field>
+        <field use-when="productPromoContent != null" name="contentId"><display/></field>
+        <field name="productPromoContentTypeId"><hidden value="ORIGINAL_IMAGE_URL"/></field>
+        <field name="fromDate" use-when="productPromoContent == null" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="fromDate" use-when="productPromoContent != null" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="uploadedFile" title="${uiLabelMap.ProductFile}"><file/></field>
+        <field use-when="productPromoContent == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="productPromoContent != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListProductPromoContent" type="list" list-name="productPromoContents"
+            odd-row-style="alternate-row" default-table-style="basic-table">
+        <field name="editProductPromoContent" title="${uiLabelMap.ProductContent}" widget-style="buttontext">
+            <hyperlink target="EditProductPromoContent" description="${description} [${contentId}]" also-hidden="false">
+                <parameter param-name="productPromoId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="productPromoContentTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        <field name="productPromoContentTypeId" title="${uiLabelMap.ProductProductPromoContentType}">
+            <display-entity entity-name="ProductContentType" key-field-name="productContentTypeId" also-hidden="false" description="${description}"/>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="editContent" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
+            <hyperlink target="/content/control/EditContent" target-type="inter-app" description="${contentId}" also-hidden="false">
+                <parameter param-name="contentId"/>
+            </hyperlink>
+        </field>
+        <field name="removeContent" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="removeContentFromProductPromo" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productPromoId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="productPromoContentTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
 </forms>

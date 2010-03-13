@@ -44,7 +44,9 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityJoinOperator;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.image.ScaleImage;
 import org.ofbiz.product.catalog.CatalogWorker;
@@ -1164,5 +1166,183 @@ public class ProductServices {
 
         return result;
     }
-}
 
+    public static Map<String, Object> addImageForProductPromo(DispatchContext dctx, Map<String, ? extends Object> context)
+            throws IOException, JDOMException {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String productPromoId = (String) context.get("productPromoId");
+        String productPromoContentTypeId = (String) context.get("productPromoContentTypeId");
+        ByteBuffer imageData = (ByteBuffer) context.get("uploadedFile");
+        String contentId = (String) context.get("contentId");
+
+        if (UtilValidate.isNotEmpty(context.get("_uploadedFile_fileName"))) {
+            String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
+            String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+            String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
+
+            FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
+            String id = productPromoId + "_Image_" + productPromoContentTypeId.charAt(productPromoContentTypeId.length() - 1);
+            String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "promo", "id", id));
+            String filePathPrefix = "";
+            String filenameToUse = fileLocation;
+            if (fileLocation.lastIndexOf("/") != -1) {
+                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
+                filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
+            }
+
+            List<GenericValue> fileExtension = FastList.newInstance();
+            try {
+                fileExtension = delegator.findList("FileExtension", EntityCondition.makeCondition("mimeTypeId", EntityOperator.EQUALS, (String) context.get("_uploadedFile_contentType")), null, null, null, false);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                ServiceUtil.returnError(e.getMessage());
+            }
+
+            GenericValue extension = EntityUtil.getFirst(fileExtension);
+            if (extension != null) {
+                filenameToUse += "." + extension.getString("fileExtensionId");
+            }
+
+            File makeResourceDirectory  = new File(imageServerPath + "/" + filePathPrefix);
+            if (!makeResourceDirectory.exists()) {
+                makeResourceDirectory.mkdirs();
+            }
+
+            File file = new File(imageServerPath + "/" + filePathPrefix + filenameToUse);
+
+            try {
+                RandomAccessFile out = new RandomAccessFile(file, "rw");
+                out.write(imageData.array());
+                out.close();
+            } catch (FileNotFoundException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError("Unable to open file for writing: " + file.getAbsolutePath());
+            } catch (IOException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError("Unable to write binary data to: " + file.getAbsolutePath());
+            }
+
+            String imageUrl = imageUrlPrefix + "/" + filePathPrefix + filenameToUse;
+
+            if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
+                Map<String, Object> dataResourceCtx = FastMap.newInstance();
+                dataResourceCtx.put("objectInfo", imageUrl);
+                dataResourceCtx.put("dataResourceName", (String) context.get("_uploadedFile_fileName"));
+                dataResourceCtx.put("userLogin", userLogin);
+
+                Map<String, Object> productPromoContentCtx = FastMap.newInstance();
+                productPromoContentCtx.put("productPromoId", productPromoId);
+                productPromoContentCtx.put("productPromoContentTypeId", productPromoContentTypeId);
+                productPromoContentCtx.put("fromDate", (Timestamp) context.get("fromDate"));
+                productPromoContentCtx.put("thruDate", (Timestamp) context.get("thruDate"));
+                productPromoContentCtx.put("userLogin", userLogin);
+
+                if (UtilValidate.isNotEmpty(contentId)) {
+                    GenericValue content = null;
+                    try {
+                        content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        ServiceUtil.returnError(e.getMessage());
+                    }
+
+                    if (UtilValidate.isNotEmpty(content)) {
+                        GenericValue dataResource = null;
+                        try {
+                            dataResource = content.getRelatedOne("DataResource");
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                            ServiceUtil.returnError(e.getMessage());
+                        }
+
+                        if (UtilValidate.isNotEmpty(dataResource)) {
+                            dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
+                            try {
+                                dispatcher.runSync("updateDataResource", dataResourceCtx);
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e, module);
+                                ServiceUtil.returnError(e.getMessage());
+                            }
+                        } else {
+                            dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
+                            dataResourceCtx.put("mimeTypeId", "text/html");
+                            Map<String, Object> dataResourceResult = FastMap.newInstance();
+                            try {
+                                dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e, module);
+                                ServiceUtil.returnError(e.getMessage());
+                            }
+
+                            Map<String, Object> contentCtx = FastMap.newInstance();
+                            contentCtx.put("contentId", contentId);
+                            contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
+                            contentCtx.put("userLogin", userLogin);
+                            try {
+                                dispatcher.runSync("updateContent", contentCtx);
+                            } catch (GenericServiceException e) {
+                                Debug.logError(e, module);
+                                ServiceUtil.returnError(e.getMessage());
+                            }
+                        }
+
+                        productPromoContentCtx.put("contentId", contentId);
+                        try {
+                            dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                            ServiceUtil.returnError(e.getMessage());
+                        }
+                    }
+                } else {
+                    dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
+                    dataResourceCtx.put("mimeTypeId", "text/html");
+                    Map<String, Object> dataResourceResult = FastMap.newInstance();
+                    try {
+                        dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        ServiceUtil.returnError(e.getMessage());
+                    }
+
+                    Map<String, Object> contentCtx = FastMap.newInstance();
+                    contentCtx.put("contentTypeId", "DOCUMENT");
+                    contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
+                    contentCtx.put("userLogin", userLogin);
+                    Map<String, Object> contentResult = FastMap.newInstance();
+                    try {
+                        contentResult = dispatcher.runSync("createContent", contentCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        ServiceUtil.returnError(e.getMessage());
+                    }
+
+                    productPromoContentCtx.put("contentId", contentResult.get("contentId"));
+                    try {
+                        dispatcher.runSync("createProductPromoContent", productPromoContentCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        ServiceUtil.returnError(e.getMessage());
+                    }
+                }
+            }
+        } else {
+            Map<String, Object> productPromoContentCtx = FastMap.newInstance();
+            productPromoContentCtx.put("productPromoId", productPromoId);
+            productPromoContentCtx.put("productPromoContentTypeId", productPromoContentTypeId);
+            productPromoContentCtx.put("contentId", contentId);
+            productPromoContentCtx.put("fromDate", (Timestamp) context.get("fromDate"));
+            productPromoContentCtx.put("thruDate", (Timestamp) context.get("thruDate"));
+            productPromoContentCtx.put("userLogin", userLogin);
+            try {
+                dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, module);
+                ServiceUtil.returnError(e.getMessage());
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
+}

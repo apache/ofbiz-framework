@@ -1289,4 +1289,33 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
+    <!-- Product Promo Content services -->
+    <service name="createProductPromoContent" default-entity-name="ProductPromoContent" engine="simple"
+            location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="createProductPromoContent" auth="true">
+        <description>Create Product Promo Content</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateProductPromoContent" default-entity-name="ProductPromoContent" engine="simple"
+            location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="updateProductPromoContent" auth="true">
+        <description>Update Product Promo Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeProductPromoContent" default-entity-name="ProductPromoContent" engine="simple"
+            location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="removeProductPromoContent" auth="true">
+        <description>Remove Product Promo Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="addImageForProductPromo" default-entity-name="ProductPromoContent" engine="java"
+            location="org.ofbiz.product.product.ProductServices" invoke="addImageForProductPromo" auth="true">
+        <implements service="uploadFileInterface"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contentId" mode="IN" optional="true" type="String"/>
+        <override name="productPromoContentTypeId" optional="false"/>
+        <override name="productPromoId" optional="false"/>
+    </service>
 </services>

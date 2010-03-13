@@ -2672,6 +2672,25 @@ under the License.
     </request-map>
 
     <!-- end of request mappings -->
+    
+    <!-- ================ Product Promo Content Requests ================= -->
+    <request-map uri="EditProductPromoContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductPromoContent"/>
+        <response name="error" type="view" value="EditProductPromoContent"/>
+    </request-map>    
+    <request-map uri="removeContentFromProductPromo">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeProductPromoContent"/>
+        <response name="success" type="view" value="EditProductPromoContent"/>
+        <response name="error" type="view" value="EditProductPromoContent"/>
+    </request-map>
+    <request-map uri="addImageContentForProductPromo">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addImageForProductPromo"/>
+        <response name="success" type="view" value="EditProductPromoContent"/>
+        <response name="error" type="view" value="EditProductPromoContent"/>
+    </request-map>
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://product/widget/catalog/CommonScreens.xml#main"/>
@@ -2771,6 +2790,7 @@ under the License.
     <view-map name="EditProductPromoStores" type="screen" page="component://product/widget/catalog/PromoScreens.xml#EditProductPromoStores"/>
     <view-map name="FindProductPromoCode" type="screen" page="component://product/widget/catalog/PromoScreens.xml#FindProductPromoCode"/>
     <view-map name="EditProductPromoCode" type="screen" page="component://product/widget/catalog/PromoScreens.xml#EditProductPromoCode"/>
+    <view-map name="EditProductPromoContent" type="screen" page="component://product/widget/catalog/PromoScreens.xml#EditProductPromoContent"/>
 
     <view-map name="FindPriceRules" type="screen" page="component://product/widget/catalog/PriceScreens.xml#FindProductPriceRule"/>
     <view-map name="EditProductPriceRules" type="screen" page="component://product/widget/catalog/PriceScreens.xml#EditProductPriceRules"/>
