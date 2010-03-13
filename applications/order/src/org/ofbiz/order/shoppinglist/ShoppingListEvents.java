@@ -74,13 +74,14 @@ public class ShoppingListEvents {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
         String shoppingListId = request.getParameter("shoppingListId");
+        String shoppingListTypeId = request.getParameter("shoppingListTypeId");
         String selectedCartItems[] = request.getParameterValues("selectedItem");
         if (UtilValidate.isEmpty(selectedCartItems)) {
             selectedCartItems = makeCartItemsArray(cart);
         }
 
         try {
-            shoppingListId = addBulkFromCart(delegator, dispatcher, cart, userLogin, shoppingListId, selectedCartItems, true, true);
+            shoppingListId = addBulkFromCart(delegator, dispatcher, cart, userLogin, shoppingListId, shoppingListTypeId, selectedCartItems, true, true);
         } catch (IllegalArgumentException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -90,19 +91,19 @@ public class ShoppingListEvents {
         return "success";
     }
 
-    public static String addBulkFromCart(Delegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, GenericValue userLogin, String shoppingListId, String[] items, boolean allowPromo, boolean append) throws IllegalArgumentException {
+    public static String addBulkFromCart(Delegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, GenericValue userLogin, String shoppingListId, String shoppingListTypeId, String[] items, boolean allowPromo, boolean append) throws IllegalArgumentException {
         String errMsg = null;
 
         if (items == null || items.length == 0) {
             errMsg = UtilProperties.getMessage(resource_error, "shoppinglistevents.select_items_to_add_to_list", cart.getLocale());
             throw new IllegalArgumentException(errMsg);
         }
-
+       
         if (UtilValidate.isEmpty(shoppingListId)) {
             // create a new shopping list
             Map newListResult = null;
             try {
-                newListResult = dispatcher.runSync("createShoppingList", UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(), "currencyUom", cart.getCurrency()));
+                newListResult = dispatcher.runSync("createShoppingList", UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(), "shoppingListTypeId", shoppingListTypeId, "currencyUom", cart.getCurrency()));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problems creating new ShoppingList", module);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.cannot_create_new_shopping_list", cart.getLocale());
@@ -403,7 +404,7 @@ public class ShoppingListEvents {
             try {
                 String[] itemsArray = makeCartItemsArray(cart);
                 if (itemsArray != null && itemsArray.length != 0) {
-                    addBulkFromCart(delegator, dispatcher, cart, userLogin, autoSaveListId, itemsArray, false, false);
+                    addBulkFromCart(delegator, dispatcher, cart, userLogin, autoSaveListId, null, itemsArray, false, false);
                 }
             } catch (IllegalArgumentException e) {
                 throw new GeneralException(e.getMessage(), e);
