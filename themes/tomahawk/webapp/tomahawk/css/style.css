@@ -2472,3 +2472,23 @@ background-color:#D4D0C8;
 .basic-table.order-items .alternate-row .screenlet-body {
 	background-color:#bfbfbf;
 }
+
+.order-info .current-status {
+font-size:145%;
+padding:10px;
+}
+.order-item-status-list .current-status {
+font-size:145%;
+}
+.order-info .APPROVED, .order-list .APPROVED {
+background-color:#a9b996;
+}
+.order-info .REJECTED, .order-list .REJECTED {
+background-color:#b29898;
+}
+.order-item-status-list.APPROVED .screenlet-body, .alternate-row .order-item-status-list.APPROVED .screenlet-body {
+background-color:#a9b996;
+}
+.order-item-status-list.REJECTED .screenlet-body, .alternate-row .order-item-status-list.REJECTED .screenlet-body {
+background-color:#b29898;
+}
