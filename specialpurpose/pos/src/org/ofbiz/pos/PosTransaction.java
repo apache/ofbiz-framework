@@ -1477,7 +1477,7 @@ public class PosTransaction implements Serializable {
         }
 
         try {
-            ShoppingListEvents.addBulkFromCart(delegator, dispatcher, cart, userLogin, shoppingListId, selectedCartItems, true, true);
+            ShoppingListEvents.addBulkFromCart(delegator, dispatcher, cart, userLogin, shoppingListId, null, selectedCartItems, true, true);
         } catch (IllegalArgumentException e) {
             Debug.logError(e, "Problem while creating new ShoppingList", module);
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList", locale));
