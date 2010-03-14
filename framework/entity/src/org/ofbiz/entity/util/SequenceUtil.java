@@ -45,14 +45,13 @@ public class SequenceUtil {
 
     Map<String, SequenceBank> sequences = new Hashtable<String, SequenceBank>();
     String helperName;
-    ModelEntity seqEntity;
+    long bankSize;
     String tableName;
     String nameColName;
     String idColName;
 
     public SequenceUtil(String helperName, ModelEntity seqEntity, String nameFieldName, String idFieldName) {
         this.helperName = helperName;
-        this.seqEntity = seqEntity;
         if (seqEntity == null) {
             throw new IllegalArgumentException("The sequence model entity was null but is required.");
         }
@@ -71,6 +70,11 @@ public class SequenceUtil {
             throw new IllegalArgumentException("Could not find the field definition for the sequence id field " + idFieldName);
         }
         this.idColName = idField.getColName();
+        long bankSize = SequenceBank.defaultBankSize;
+        if (seqEntity.getSequenceBankSize() != null) {
+            bankSize = seqEntity.getSequenceBankSize().longValue();
+        }
+        this.bankSize = bankSize;
     }
 
     public Long getNextSeqId(String seqName, long staggerMax, ModelEntity seqModelEntity) {
@@ -95,11 +99,7 @@ public class SequenceUtil {
             synchronized(this) {
                 bank = sequences.get(seqName);
                 if (bank == null) {
-                    long bankSize = SequenceBank.defaultBankSize;
-                    if (seqModelEntity != null && seqModelEntity.getSequenceBankSize() != null) {
-                        bankSize = seqModelEntity.getSequenceBankSize().longValue();
-                    }
-                    bank = new SequenceBank(seqName, bankSize, this);
+                    bank = new SequenceBank(seqName, this.bankSize, this);
                     sequences.put(seqName, bank);
                 }
             }
