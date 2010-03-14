@@ -62,17 +62,6 @@ under the License.
             <set field="newEntity.custRequestDate" from-field="nowTimestamp"/>
         </if-empty>
 
-        <!-- if not draft status input check for from fromPartyId present -->
-        <if-not-empty field="parameters.statusId">
-            <if-compare operator="not-equals" value="CRQ_DRAFT" field="parameters.statusId">
-                <if-empty field="newEntity.fromPartyId">
-                    <add-error>
-                        <fail-property property="OrderCustRequestShouldHaveFromPartyIdIfNotDraft" resource="OrderUiLabels"/>
-                   </add-error>
-                </if-empty>
-            </if-compare>
-        </if-not-empty>
-        
         <!-- always start with draft -->
         <set value="CRQ_DRAFT" field="newEntity.statusId"/>
         
@@ -83,7 +72,6 @@ under the License.
             </else>
         </if-not-empty>
 
-        <check-errors/>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.custRequestId" result-name="custRequestId"/>
 
@@ -448,8 +436,18 @@ under the License.
                     <log level="error" message="${msg}"/>
                 </if-empty>
             </if-compare-field>
-            <check-errors/>
         </if-not-empty>
+        
+        <!-- if not draft status input check for from fromPartyId present and name is present -->
+        <if-compare operator="not-equals" value="CRQ_DRAFT" field="parameters.statusId">
+            <if-empty field="custRequest.fromPartyId">
+                <add-error>
+                    <fail-property property="OrderCustRequestShouldHaveFromPartyIdIfNotDraft" resource="OrderUiLabels"/>
+                </add-error>
+            </if-empty>
+        </if-compare>
+        <check-errors/>
+
         <set field="custRequest.statusId" from-field="parameters.statusId"/>
         <store-value value-field="custRequest"/>
         <call-simple-method method-name="createCustRequestStatus"/>
