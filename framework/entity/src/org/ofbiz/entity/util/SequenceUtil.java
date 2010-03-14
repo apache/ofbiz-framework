@@ -99,7 +99,7 @@ public class SequenceUtil {
             synchronized(this) {
                 bank = sequences.get(seqName);
                 if (bank == null) {
-                    bank = new SequenceBank(seqName, this.bankSize);
+                    bank = new SequenceBank(seqName);
                     sequences.put(seqName, bank);
                 }
             }
@@ -119,14 +119,12 @@ public class SequenceUtil {
         long curSeqId;
         long maxSeqId;
         String seqName;
-        long bankSize;
 
-        public SequenceBank(String seqName, long bankSize) {
+        public SequenceBank(String seqName) {
             this.seqName = seqName;
-            this.bankSize = bankSize;
             curSeqId = 0;
             maxSeqId = 0;
-            fillBank(1, this.bankSize);
+            fillBank(1);
         }
 
         public synchronized Long getNextSeqId(long staggerMax) {
@@ -141,7 +139,7 @@ public class SequenceUtil {
                 curSeqId += stagger;
                 return retSeqId;
             } else {
-                fillBank(stagger, this.bankSize);
+                fillBank(stagger);
                 if ((curSeqId + stagger) <= maxSeqId) {
                     Long retSeqId = Long.valueOf(curSeqId);
                     curSeqId += stagger;
@@ -155,15 +153,16 @@ public class SequenceUtil {
 
         public void refresh(long staggerMax) {
             this.curSeqId = this.maxSeqId;
-            this.fillBank(staggerMax, this.bankSize);
+            this.fillBank(staggerMax);
         }
 
-        protected synchronized void fillBank(long stagger, long bankSize) {
+        protected synchronized void fillBank(long stagger) {
             //Debug.logWarning("[SequenceUtil.SequenceBank.fillBank] Starting fillBank Thread Name is: " + Thread.currentThread().getName() + ":" + Thread.currentThread().toString(), module);
 
             // no need to get a new bank, SeqIds available
             if ((curSeqId + stagger) <= maxSeqId) return;
 
+            long bankSize = SequenceUtil.this.bankSize;
             if (stagger > 1) {
                 // NOTE: could use staggerMax for this, but if that is done it would be easier to guess a valid next id without a brute force attack
                 bankSize = stagger * defaultBankSize;
