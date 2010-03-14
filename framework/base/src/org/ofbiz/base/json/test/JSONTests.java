@@ -186,54 +186,35 @@ public class JSONTests extends GenericTestCaseBase {
     }
 
     public void testParseErrors() throws Exception {
-        for (char c = 1; c < 1024; c++) {
-            switch (c) {
-                case '[':
-                    doParseExceptionTest("[:", JSONConstants.KEY_SEP);
-                    break;
-                case ']':
-                    doParseExceptionTest("]", JSONConstants.ARRAY_END);
-                    break;
-                case '{':
-                    doParseExceptionTest("{:", JSONConstants.KEY_SEP);
-                    break;
-                case '}':
-                    doParseExceptionTest("}", JSONConstants.OBJECT_END);
-                    break;
-                case ':':
-                    doParseExceptionTest(":", JSONConstants.KEY_SEP);
-                    break;
-                case ',':
-                    doParseExceptionTest(",", JSONConstants.ITEM_SEP);
-                    break;
-                case '"':
-                    doParseExceptionTest("\"", JSONConstants.EOF);
-                    break;
-                case 't':
-                    doParseExceptionTest("true:", JSONConstants.KEY_SEP);
-                    break;
-                case 'f':
-                    doParseExceptionTest("false:", JSONConstants.KEY_SEP);
-                    break;
-                case 'n':
-                    doParseExceptionTest("null:", JSONConstants.KEY_SEP);
-                    break;
-                case '-':   // numbers
-                case '.':
-                case '0': case '1': case '2': case '3': case '4':
-                case '5': case '6': case '7': case '8': case '9':
-                    break;
-                case '\t':
-                    doWhitespaceExceptionTest(Character.toString(c), 8);
-                    break;
-                case '\n':
-                case '\r':
-                case ' ':
-                    doWhitespaceExceptionTest(Character.toString(c), 1);
-                    break;
-                default:
-                    doTokenMgrErrorTest(c);
-                    break;
+        for (char c = 1; c < 128; c++) {
+            if (c == '\t') {
+                doWhitespaceExceptionTest(Character.toString(c), 8);
+            } else if (c == '\n' || c == '\r' || c == ' ') {
+                doWhitespaceExceptionTest(Character.toString(c), 1);
+            } else if (c == '"') {
+                doParseExceptionTest("\"", JSONConstants.EOF);
+            } else if (c == ',') {
+                doParseExceptionTest(",", JSONConstants.ITEM_SEP);
+            } else if (c == '-' || c == '.' || (c >= '0' && c <= '9')) {
+                // numbers
+            } else if (c == ':') {
+                doParseExceptionTest(":", JSONConstants.KEY_SEP);
+            } else if (c == '[') {
+                doParseExceptionTest("[:", JSONConstants.KEY_SEP);
+            } else if (c == ']') {
+                doParseExceptionTest("]", JSONConstants.ARRAY_END);
+            } else if (c == 't') {
+                doParseExceptionTest("true:", JSONConstants.KEY_SEP);
+            } else if (c == 'f') {
+                doParseExceptionTest("false:", JSONConstants.KEY_SEP);
+            } else if (c == 'n') {
+                doParseExceptionTest("null:", JSONConstants.KEY_SEP);
+            } else if (c == '{') {
+                doParseExceptionTest("{:", JSONConstants.KEY_SEP);
+            } else if (c == '}') {
+                doParseExceptionTest("}", JSONConstants.OBJECT_END);
+            } else {
+                doTokenMgrErrorTest(c);
             }
         }
     }
