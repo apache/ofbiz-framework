@@ -99,7 +99,7 @@ public class SequenceUtil {
             synchronized(this) {
                 bank = sequences.get(seqName);
                 if (bank == null) {
-                    bank = new SequenceBank(seqName, this.bankSize, this);
+                    bank = new SequenceBank(seqName, this.bankSize);
                     sequences.put(seqName, bank);
                 }
             }
@@ -119,12 +119,10 @@ public class SequenceUtil {
         long curSeqId;
         long maxSeqId;
         String seqName;
-        SequenceUtil parentUtil;
         long bankSize;
 
-        public SequenceBank(String seqName, long bankSize, SequenceUtil parentUtil) {
+        public SequenceBank(String seqName, long bankSize) {
             this.seqName = seqName;
-            this.parentUtil = parentUtil;
             this.bankSize = bankSize;
             curSeqId = 0;
             maxSeqId = 0;
@@ -201,7 +199,7 @@ public class SequenceUtil {
                             ResultSet rs = null;
 
                             try {
-                                connection = ConnectionFactory.getConnection(parentUtil.helperName);
+                                connection = ConnectionFactory.getConnection(SequenceUtil.this.helperName);
                             } catch (SQLException sqle) {
                                 Debug.logWarning("[SequenceUtil.SequenceBank.fillBank]: Unable to esablish a connection with the database... Error was:" + sqle.toString(), module);
                                 throw sqle;
@@ -221,34 +219,34 @@ public class SequenceUtil {
 
                                 stmt = connection.createStatement();
 
-                                sql = "SELECT " + parentUtil.idColName + " FROM " + parentUtil.tableName + " WHERE " + parentUtil.nameColName + "='" + this.seqName + "'";
+                                sql = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
                                 rs = stmt.executeQuery(sql);
                                 boolean gotVal1 = false;
                                 if (rs.next()) {
-                                    val1 = rs.getLong(parentUtil.idColName);
+                                    val1 = rs.getLong(SequenceUtil.this.idColName);
                                     gotVal1 = true;
                                 }
                                 rs.close();
 
                                 if (!gotVal1) {
                                     Debug.logWarning("[SequenceUtil.SequenceBank.fillBank] first select failed: will try to add new row, result set was empty for sequence [" + seqName + "] \nUsed SQL: " + sql + " \n Thread Name is: " + Thread.currentThread().getName() + ":" + Thread.currentThread().toString(), module);
-                                    sql = "INSERT INTO " + parentUtil.tableName + " (" + parentUtil.nameColName + ", " + parentUtil.idColName + ") VALUES ('" + this.seqName + "', " + startSeqId + ")";
+                                    sql = "INSERT INTO " + SequenceUtil.this.tableName + " (" + SequenceUtil.this.nameColName + ", " + SequenceUtil.this.idColName + ") VALUES ('" + this.seqName + "', " + startSeqId + ")";
                                     if (stmt.executeUpdate(sql) <= 0) {
                                         throw new GenericEntityException("No rows changed when trying insert new sequence row with this SQL: " + sql);
                                     }
                                     continue;
                                 }
 
-                                sql = "UPDATE " + parentUtil.tableName + " SET " + parentUtil.idColName + "=" + parentUtil.idColName + "+" + bankSize + " WHERE " + parentUtil.nameColName + "='" + this.seqName + "'";
+                                sql = "UPDATE " + SequenceUtil.this.tableName + " SET " + SequenceUtil.this.idColName + "=" + SequenceUtil.this.idColName + "+" + bankSize + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
                                 if (stmt.executeUpdate(sql) <= 0) {
                                     throw new GenericEntityException("[SequenceUtil.SequenceBank.fillBank] update failed, no rows changes for seqName: " + seqName);
                                 }
 
-                                sql = "SELECT " + parentUtil.idColName + " FROM " + parentUtil.tableName + " WHERE " + parentUtil.nameColName + "='" + this.seqName + "'";
+                                sql = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
                                 rs = stmt.executeQuery(sql);
                                 boolean gotVal2 = false;
                                 if (rs.next()) {
-                                    val2 = rs.getLong(parentUtil.idColName);
+                                    val2 = rs.getLong(SequenceUtil.this.idColName);
                                     gotVal2 = true;
                                 }
 
