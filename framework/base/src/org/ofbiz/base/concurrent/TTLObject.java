@@ -109,7 +109,7 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
             return ttlObject.newValueAndState(getValue(), future, nextState, serial, null, null);
         }
 
-        protected ValueAndState<T> valid(T value) throws ObjectException {
+        protected ValueAndState<T> valid(T value) {
             return ttlObject.newValueAndState(value, null, State.VALID, serialAccessor.incrementAndGet(ttlObject), null, new Pulse(ttlObject));
         }
 
@@ -125,7 +125,7 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
             });
         }
 
-        protected ValueAndState<T> error(Throwable t) throws ObjectException {
+        protected ValueAndState<T> error(Throwable t) {
             return ttlObject.newValueAndState(null, null, state != State.GENERATING_INITIAL ? State.ERROR : State.ERROR_INITIAL, serialAccessor.incrementAndGet(ttlObject), t, new Pulse(ttlObject));
         }
     }
@@ -150,7 +150,7 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
     protected final static class Pulse extends ExecutionPool.Pulse {
         protected final TTLObject<?> ttlObject;
 
-        protected Pulse(TTLObject<?> ttlObject) throws ObjectException {
+        protected Pulse(TTLObject<?> ttlObject) {
             super(ttlObject.getTTL());
             this.ttlObject = ttlObject;
         }
@@ -207,7 +207,7 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
         return getContainer().serial != serial;
     }
 
-    protected final void setObject(T newObject) throws ObjectException {
+    protected final void setObject(T newObject) {
         ValueAndState<T> container, nextContainer;
         State nextState;
         do {
