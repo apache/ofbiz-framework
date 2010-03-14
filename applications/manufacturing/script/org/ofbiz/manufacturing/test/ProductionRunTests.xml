@@ -202,7 +202,7 @@ under the License.
         <check-errors/>
     </simple-method>
 
-    <simple-method method-name="brokenTestProductionRunDateChange" short-description="Test the production run start date change" login-required="false">
+    <simple-method method-name="testProductionRunDateChange" short-description="Test the production run start date change" login-required="false">
         <set field="productId" value="PROD_MANUF"/>
         <set field="facilityId" value="WebStoreWarehouse"/>
         <set field="quantity" value="5.0" type="BigDecimal"/>
@@ -254,10 +254,16 @@ under the License.
             <field field="productionRunHeader.estimatedStartDate" type="Timestamp"/>
             <field field="productionRunHeader.estimatedCompletionDate" type="Timestamp"/>
         </call-class-method>
+        <set field="taskTimeDifference" value="${originalProductionRunEstimatedTime - newProductionRunEstimatedTime}" type="Double"/>
         <assert>
             <if-compare-field field="productionRunHeader.estimatedStartDate" operator="equals" to-field="productionRunNewStartDate" type="Timestamp"/>
             <if-compare-field field="productionRunTask.estimatedStartDate" operator="equals" to-field="productionRunNewStartDate" type="Timestamp"/>
-            <if-compare-field field="originalProductionRunEstimatedTime" operator="equals" to-field="newProductionRunEstimatedTime" type="Double"/>
+            <or>
+                <if-compare field="taskTimeDifference" operator="equals" value="0.0" type="Double"/>
+                <!-- a difference of +1 or -1 is accepted because it could be caused by DST change happening in one of the two time periods -->
+                <if-compare field="taskTimeDifference" operator="equals" value="1.0" type="Double"/>
+                <if-compare field="taskTimeDifference" operator="equals" value="-1.0" type="Double"/>
+            </or>
         </assert>
 
         <check-errors/>
