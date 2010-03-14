@@ -8517,6 +8517,9 @@
         <value xml:lang="th">การเงิน</value>
         <value xml:lang="zh">财务</value>
     </property>
+    <property key="FormFieldTitle_acceptButton">
+        <value xml:lang="en">Accept</value>
+    </property>
     <property key="FormFieldTitle_addButton">
         <value xml:lang="ar">إضافة</value>
         <value xml:lang="de">Hinzufügen</value>
