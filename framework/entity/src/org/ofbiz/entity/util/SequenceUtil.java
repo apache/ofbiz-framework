@@ -116,15 +116,19 @@ public class SequenceUtil {
         long maxSeqId;
         String seqName;
         SequenceUtil parentUtil;
-        ModelEntity seqModelEntity;
+        long bankSize;
 
         public SequenceBank(String seqName, ModelEntity seqModelEntity, SequenceUtil parentUtil) {
             this.seqName = seqName;
             this.parentUtil = parentUtil;
-            this.seqModelEntity = seqModelEntity;
+            long bankSize = defaultBankSize;
+            if (seqModelEntity != null && seqModelEntity.getSequenceBankSize() != null) {
+                bankSize = seqModelEntity.getSequenceBankSize().longValue();
+            }
+            this.bankSize = bankSize;
             curSeqId = 0;
             maxSeqId = 0;
-            fillBank(1, seqModelEntity);
+            fillBank(1, this.bankSize);
         }
 
         public synchronized Long getNextSeqId(long staggerMax) {
@@ -139,7 +143,7 @@ public class SequenceUtil {
                 curSeqId += stagger;
                 return retSeqId;
             } else {
-                fillBank(stagger, this.seqModelEntity);
+                fillBank(stagger, this.bankSize);
                 if ((curSeqId + stagger) <= maxSeqId) {
                     Long retSeqId = Long.valueOf(curSeqId);
                     curSeqId += stagger;
@@ -153,19 +157,15 @@ public class SequenceUtil {
 
         public void refresh(long staggerMax) {
             this.curSeqId = this.maxSeqId;
-            this.fillBank(staggerMax, this.seqModelEntity);
+            this.fillBank(staggerMax, this.bankSize);
         }
 
-        protected synchronized void fillBank(long stagger, ModelEntity seqModelEntity) {
+        protected synchronized void fillBank(long stagger, long bankSize) {
             //Debug.logWarning("[SequenceUtil.SequenceBank.fillBank] Starting fillBank Thread Name is: " + Thread.currentThread().getName() + ":" + Thread.currentThread().toString(), module);
 
             // no need to get a new bank, SeqIds available
             if ((curSeqId + stagger) <= maxSeqId) return;
 
-            long bankSize = defaultBankSize;
-            if (seqModelEntity != null && seqModelEntity.getSequenceBankSize() != null) {
-                bankSize = seqModelEntity.getSequenceBankSize().longValue();
-            }
             if (stagger > 1) {
                 // NOTE: could use staggerMax for this, but if that is done it would be easier to guess a valid next id without a brute force attack
                 bankSize = stagger * defaultBankSize;
