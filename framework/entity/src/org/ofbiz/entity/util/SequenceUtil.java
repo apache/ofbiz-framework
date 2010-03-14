@@ -95,7 +95,11 @@ public class SequenceUtil {
             synchronized(this) {
                 bank = sequences.get(seqName);
                 if (bank == null) {
-                    bank = new SequenceBank(seqName, seqModelEntity, this);
+                    long bankSize = SequenceBank.defaultBankSize;
+                    if (seqModelEntity != null && seqModelEntity.getSequenceBankSize() != null) {
+                        bankSize = seqModelEntity.getSequenceBankSize().longValue();
+                    }
+                    bank = new SequenceBank(seqName, bankSize, this);
                     sequences.put(seqName, bank);
                 }
             }
@@ -118,13 +122,9 @@ public class SequenceUtil {
         SequenceUtil parentUtil;
         long bankSize;
 
-        public SequenceBank(String seqName, ModelEntity seqModelEntity, SequenceUtil parentUtil) {
+        public SequenceBank(String seqName, long bankSize, SequenceUtil parentUtil) {
             this.seqName = seqName;
             this.parentUtil = parentUtil;
-            long bankSize = defaultBankSize;
-            if (seqModelEntity != null && seqModelEntity.getSequenceBankSize() != null) {
-                bankSize = seqModelEntity.getSequenceBankSize().longValue();
-            }
             this.bankSize = bankSize;
             curSeqId = 0;
             maxSeqId = 0;
