@@ -514,70 +514,70 @@ public class EntityTestSuite extends EntityTestCase {
         }
     }
 
-  /*
-   * This will test setting a blob field to null by creating a TestBlob entity whose blob field is not set
-   */
-  public void testSetNullBlob() throws Exception {
-      try {
-          delegator.create("TestBlob", "testBlobId", "null-blob");
-      } catch (GenericEntityException ex) {
-          assertTrue("GenericEntityException:" + ex.toString(), false);
-          return;
-      } finally {
-          List<GenericValue> allTestBlobs = delegator.findList("TestBlob", null, null, null, null, false);
-          delegator.removeAll(allTestBlobs);
-      }
-  }
+    /*
+     * This will test setting a blob field to null by creating a TestBlob entity whose blob field is not set
+     */
+    public void testSetNullBlob() throws Exception {
+        try {
+            delegator.create("TestBlob", "testBlobId", "null-blob");
+        } catch (GenericEntityException ex) {
+            assertTrue("GenericEntityException:" + ex.toString(), false);
+            return;
+        } finally {
+            List<GenericValue> allTestBlobs = delegator.findList("TestBlob", null, null, null, null, false);
+            delegator.removeAll(allTestBlobs);
+        }
+    }
 
-  /*
-   * Tests setting a byte value into a blob data type using the GenericValue .setBytes method
-   */
-  public void testBlobCreate() throws Exception {
-      try {
-          byte[] b = new byte[100000];
-          for (int i = 0; i < b.length; i++) {
-              b[i] = (byte) i;
-          }
-          GenericValue testingBlob = delegator.makeValue("TestBlob", "testBlobId", "byte-blob");
-          testingBlob.setBytes("testBlobField", b);
-          testingBlob.create();
-          TestCase.assertTrue("Blob with byte array created successfully", true);
-          testingBlob = delegator.findOne("TestBlob", UtilMisc.toMap("testBlobId", "byte-blob"), false);
-          byte[] c = testingBlob.getBytes("testBlobField");
-          TestCase.assertTrue("Byte array read from Blob data is the same length", b.length == c.length);
-          for (int i = 0; i < b.length; i++) {
-              if (b[i] != c[i]) {
-                  TestCase.fail("Blob data mismatch at " + i);
-              }
-          }
-          TestCase.assertTrue("Blob with byte array read successfully", true);
-      } catch (Exception ex) {
-          TestCase.fail(ex.getMessage());
-      } finally {
-          // Remove all our newly inserted values.
-          List<GenericValue> values = delegator.findList("TestBlob", null, null, null, null, false);
-          delegator.removeAll(values);
-      }
-  }
+    /*
+     * Tests setting a byte value into a blob data type using the GenericValue .setBytes method
+     */
+    public void testBlobCreate() throws Exception {
+        try {
+            byte[] b = new byte[100000];
+            for (int i = 0; i < b.length; i++) {
+                b[i] = (byte) i;
+            }
+            GenericValue testingBlob = delegator.makeValue("TestBlob", "testBlobId", "byte-blob");
+            testingBlob.setBytes("testBlobField", b);
+            testingBlob.create();
+            TestCase.assertTrue("Blob with byte array created successfully", true);
+            testingBlob = delegator.findOne("TestBlob", UtilMisc.toMap("testBlobId", "byte-blob"), false);
+            byte[] c = testingBlob.getBytes("testBlobField");
+            TestCase.assertTrue("Byte array read from Blob data is the same length", b.length == c.length);
+            for (int i = 0; i < b.length; i++) {
+                if (b[i] != c[i]) {
+                    TestCase.fail("Blob data mismatch at " + i);
+                }
+            }
+            TestCase.assertTrue("Blob with byte array read successfully", true);
+        } catch (Exception ex) {
+            TestCase.fail(ex.getMessage());
+        } finally {
+            // Remove all our newly inserted values.
+            List<GenericValue> values = delegator.findList("TestBlob", null, null, null, null, false);
+            delegator.removeAll(values);
+        }
+    }
 
-  /*
-   * This creates an string id from a number
-   */
-  private String getTestId(String strTestBase, int iNum) {
-      StringBuilder strBufTemp = new StringBuilder(strTestBase);
-      if (iNum < 10000) {
-         strBufTemp.append("0");
-      }
-      if (iNum < 1000) {
-         strBufTemp.append("0");
-      }
-      if (iNum < 100) {
-         strBufTemp.append("0");
-      }
-      if (iNum < 10) {
-         strBufTemp.append("0");
-      }
-      strBufTemp.append(iNum);
-      return strBufTemp.toString();
-  }
+    /*
+     * This creates an string id from a number
+     */
+    private String getTestId(String strTestBase, int iNum) {
+        StringBuilder strBufTemp = new StringBuilder(strTestBase);
+        if (iNum < 10000) {
+           strBufTemp.append("0");
+        }
+        if (iNum < 1000) {
+           strBufTemp.append("0");
+        }
+        if (iNum < 100) {
+           strBufTemp.append("0");
+        }
+        if (iNum < 10) {
+           strBufTemp.append("0");
+        }
+        strBufTemp.append(iNum);
+        return strBufTemp.toString();
+    }
 }
