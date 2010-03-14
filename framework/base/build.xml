@@ -56,6 +56,7 @@ under the License.
         <file name="org/ofbiz/base/util/collections/test/GenericMapTest.java"/>
         <file name="org/ofbiz/base/concurrent/test/SyncTTLObjectTest.java"/>
         <file name="org/ofbiz/base/concurrent/test/AsyncTTLObjectTest.java"/>
+        <file name="org/ofbiz/base/concurrent/test/TTLCachedObjectTest.java"/>
     </filelist>
 
     <target name="init">
