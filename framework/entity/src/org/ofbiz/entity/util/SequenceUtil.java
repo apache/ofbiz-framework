@@ -43,12 +43,12 @@ public class SequenceUtil {
 
     public static final String module = SequenceUtil.class.getName();
 
-    Map<String, SequenceBank> sequences = new Hashtable<String, SequenceBank>();
-    String helperName;
-    long bankSize;
-    String tableName;
-    String nameColName;
-    String idColName;
+    private final Map<String, SequenceBank> sequences = new Hashtable<String, SequenceBank>();
+    private final String helperName;
+    private final long bankSize;
+    private final String tableName;
+    private final String nameColName;
+    private final String idColName;
 
     public SequenceUtil(String helperName, ModelEntity seqEntity, String nameFieldName, String idFieldName) {
         this.helperName = helperName;
@@ -108,7 +108,7 @@ public class SequenceUtil {
         return bank;
     }
 
-    class SequenceBank {
+    private class SequenceBank {
         public static final long defaultBankSize = 10;
         public static final long maxBankSize = 5000;
         public static final long startSeqId = 10000;
@@ -116,18 +116,18 @@ public class SequenceUtil {
         public static final int maxWaitMillis = 50;
         public static final int maxTries = 5;
 
-        long curSeqId;
-        long maxSeqId;
-        String seqName;
+        private long curSeqId;
+        private long maxSeqId;
+        private final String seqName;
 
-        public SequenceBank(String seqName) {
+        private SequenceBank(String seqName) {
             this.seqName = seqName;
             curSeqId = 0;
             maxSeqId = 0;
             fillBank(1);
         }
 
-        public synchronized Long getNextSeqId(long staggerMax) {
+        private synchronized Long getNextSeqId(long staggerMax) {
             long stagger = 1;
             if (staggerMax > 1) {
                 stagger = Math.round(Math.random() * staggerMax);
@@ -151,12 +151,12 @@ public class SequenceUtil {
             }
         }
 
-        public void refresh(long staggerMax) {
+        private void refresh(long staggerMax) {
             this.curSeqId = this.maxSeqId;
             this.fillBank(staggerMax);
         }
 
-        protected synchronized void fillBank(long stagger) {
+        private synchronized void fillBank(long stagger) {
             //Debug.logWarning("[SequenceUtil.SequenceBank.fillBank] Starting fillBank Thread Name is: " + Thread.currentThread().getName() + ":" + Thread.currentThread().toString(), module);
 
             // no need to get a new bank, SeqIds available
