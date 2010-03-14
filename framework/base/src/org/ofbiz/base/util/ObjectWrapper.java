@@ -48,7 +48,7 @@ public interface ObjectWrapper<T> {
         }
     }
 
-    public class ConfigurationException extends ObjectException {
+    public class ConfigurationException extends RuntimeException {
         public ConfigurationException(String msg) {
             super(msg);
         }
