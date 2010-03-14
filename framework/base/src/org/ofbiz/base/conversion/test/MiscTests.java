@@ -76,7 +76,7 @@ public class MiscTests extends GenericTestCaseBase {
         Converter<S, ? super S> converter = Converters.getConverter(sourceClass, targetClass);
         Object result = converter.convert(UtilGenerics.<S>cast(wanted));
         assertEquals("pass thru convert", wanted, result);
-        assertTrue("pass thru exact equals", wanted == result);
+        assertSame("pass thru exact equals", wanted, result);
         assertTrue("pass thru can convert wanted", converter.canConvert(wanted.getClass(), targetClass));
         assertTrue("pass thru can convert source", converter.canConvert(sourceClass, targetClass));
         assertEquals("pass thru source class", wanted.getClass(), converter.getSourceClass());
