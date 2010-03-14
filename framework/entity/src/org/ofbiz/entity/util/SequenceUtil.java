@@ -112,8 +112,8 @@ public class SequenceUtil {
         public static final long defaultBankSize = 10;
         public static final long maxBankSize = 5000;
         public static final long startSeqId = 10000;
-        public static final int minWaitMillis = 5;
-        public static final int maxWaitMillis = 50;
+        public static final long minWaitMillis = 5;
+        public static final long maxWaitMillis = 50;
         public static final int maxTries = 5;
 
         private long curSeqId;
@@ -315,7 +315,7 @@ public class SequenceUtil {
                     }
 
                     // collision happened, wait a bounded random amount of time then continue
-                    int waitTime = (new Double(Math.random() * (maxWaitMillis - minWaitMillis))).intValue() + minWaitMillis;
+                    long waitTime = (long) (Math.random() * (maxWaitMillis - minWaitMillis) + minWaitMillis);
 
                     Debug.logWarning("[SequenceUtil.SequenceBank.fillBank] Collision found for seqName [" + seqName + "], val1=" + val1 + ", val2=" + val2 + ", val1+bankSize=" + (val1 + bankSize) + ", bankSize=" + bankSize + ", waitTime=" + waitTime, module);
 
