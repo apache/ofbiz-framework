@@ -338,9 +338,14 @@ public class MiscConverters implements ConverterLoader {
         }
     }
 
-    public static class NotAConverter {
-        protected NotAConverter() {
+    public static class NotAConverter_Helper {
+        protected NotAConverter_Helper() {
             throw new Error("Should not be loaded");
+        }
+    }
+
+    public static class NotAConverter {
+        public NotAConverter() {
         }
     }
 
