@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.concurrent;
 
-import org.ofbiz.base.util.ObjectWrapper;
-
 public final class GeneratedResult<T> {
     public final long lastModifiedTime;
     public final T object;
