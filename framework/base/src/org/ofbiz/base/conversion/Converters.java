@@ -188,7 +188,7 @@ OUTER:
         }
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
-            if (sourceClass == targetClass || targetClass == Object.class || ObjectType.instanceOf(sourceClass, targetClass)) {
+            if (ObjectType.instanceOf(sourceClass, targetClass)) {
                 return new PassThruConverter<S, T>(sourceClass, targetClass);
             } else {
                 return null;
