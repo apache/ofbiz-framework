@@ -28,7 +28,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
-import org.ofbiz.base.util.ObjectWrapper;
+import org.ofbiz.base.lang.ObjectWrapper;
 import org.ofbiz.base.util.UtilIO;
 
 public abstract class TTLObject<T> implements ObjectWrapper<T> {

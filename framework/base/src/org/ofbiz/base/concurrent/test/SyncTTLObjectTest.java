@@ -21,8 +21,8 @@ package org.ofbiz.base.concurrent.test;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
-import org.ofbiz.base.util.ObjectWrapper;
 import org.ofbiz.base.concurrent.TTLObject;
+import org.ofbiz.base.lang.ObjectWrapper;
 import org.ofbiz.base.test.GenericTestCaseBase;
 
 public class SyncTTLObjectTest extends TTLObjectTest {
