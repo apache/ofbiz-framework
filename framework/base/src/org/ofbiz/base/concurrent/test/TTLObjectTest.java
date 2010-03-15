@@ -113,10 +113,8 @@ public abstract class TTLObjectTest extends GenericTestCaseBase {
                     Thread.sleep(10);
                     if (checkSerial(serial)) break;
                 }
-                Thrower thrower;
-                do {
-                    thrower = (Thrower) throwException.get();
-                } while (!throwException.compareAndSet(thrower, null));
+                Thrower thrower = (Thrower) throwException.get();
+                throwException.compareAndSet(thrower, null);
                 if (thrower != null) {
                     thrower.throwException();
                 }
