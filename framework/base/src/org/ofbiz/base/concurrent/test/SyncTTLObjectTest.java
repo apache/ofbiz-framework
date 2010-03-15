@@ -125,6 +125,13 @@ public class SyncTTLObjectTest extends TTLObjectTest {
         assertEquals("two dones", 3, doneCount.get());
         object.getObject();
         assertEquals("two dones", 4, doneCount.get());
+        object.set("one");
+        assertEquals("one", "one", object.getObject());
+        assertEquals("two dones", 4, doneCount.get());
+        object.set("two");
+        object.refresh();
+        assertEquals("two", (String) null, object.getObject());
+        assertEquals("two dones", 5, doneCount.get());
     }
 
     public void testGetTTL() throws Exception {
