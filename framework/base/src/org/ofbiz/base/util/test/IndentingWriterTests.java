@@ -58,6 +58,9 @@ public class IndentingWriterTests extends GenericTestCaseBase {
     }
 
     public void testIndentingWriter() throws Exception {
+        StringWriter sw = new StringWriter();
+        IndentingWriter iw = IndentingWriter.makeIndentingWriter(sw);
+        assertSame("makeIndentingWriter - pass-thru", iw, IndentingWriter.makeIndentingWriter(iw));
         doTest("IndentingWriter doSpace:doNewline", true, true, "ab\n m\n 1\n 2 \n e");
         doTest("IndentingWriter doNewline", false, true, "ab\nm\n1\n2\ne");
         doTest("IndentingWriter doSpace", true, false, "ab\n m 1\n 2 \n e");
