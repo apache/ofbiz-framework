@@ -52,6 +52,10 @@ public class MiscTests extends GenericTestCaseBase {
         assertEquals(label, wanted, converter.convert(UtilGenerics.<S>cast(source)).getResult());
     }
 
+    public void testStaticHelperClass() throws Exception {
+        assertStaticHelperClass(Converters.class);
+    }
+
     public void testExtendsImplements() throws Exception {
         List<String> arraysList = Arrays.asList("a", "b", "c");
         assertConversion("", "[\n \"a\",\n \"b\",\n \"c\"\n]", JSONResult.Indenting.class, arraysList, arraysList.getClass());
