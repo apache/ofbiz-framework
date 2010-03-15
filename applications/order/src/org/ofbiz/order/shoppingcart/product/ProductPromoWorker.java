@@ -980,21 +980,21 @@ public class ProductPromoWorker {
             if (UtilValidate.isEmpty(partyId) || UtilValidate.isEmpty(condValue)) {
                 compareBase = Integer.valueOf(1);
             } else {
-                 String groupPartyId = condValue;
-                 if (partyId.equals(groupPartyId)) {
-                    compareBase = new Integer(0);
-                 } else {
+                String groupPartyId = condValue;
+                if (partyId.equals(groupPartyId)) {
+                    compareBase = Integer.valueOf(0);
+                } else {
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
-                     List<GenericValue> partyRelationshipList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"));
+                    List<GenericValue> partyRelationshipList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"));
                     // and from/thru date within range
                     partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, true);
-                            
+
                     if (UtilValidate.isNotEmpty(partyRelationshipList)) {
-                        compareBase = new Integer(0);
-                    } else { 
-                       compareBase = new Integer(checkConditionPartyHierarchy(delegator, nowTimestamp, groupPartyId, partyId));
-                    }            
-                 }
+                        compareBase = Integer.valueOf(0);
+                    } else {
+                        compareBase = Integer.valueOf(checkConditionPartyHierarchy(delegator, nowTimestamp, groupPartyId, partyId));
+                    }
+                }
             }
         } else if ("PPIP_PARTY_CLASS".equals(inputParamEnumId)) {
             if (UtilValidate.isEmpty(partyId) || UtilValidate.isEmpty(condValue)) {
