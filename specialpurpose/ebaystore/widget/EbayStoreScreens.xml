@@ -185,29 +185,54 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="productsearchexport">
+    <screen name="productSearchResults">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
                 <set field="headerItem" value="ebayStore"/>
                 <set field="tabButtonItem" value="exportProductListing"/>
-                <entity-condition entity-name="Geo" list="countries">
-                    <condition-expr field-name="geoTypeId" value="COUNTRY"/>
-                    <order-by field-name="geoName"/>
-                </entity-condition>
+                <set field="toEbayStore"  default-value="Y"/>
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
-                <entity-one entity-name="EbayConfig" value-field="ebayConfig">
-                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
-                </entity-one>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.groovy"/>
-                <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/ProductsExportToEbay.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://ebaystore/webapp/ebaystore/store/productsearchExport.ftl"/></html>
+                            <html><html-template location="component://ebay/webapp/ebay/find/EbayKeywordSearch.ftl"/></html>
                         </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://ebay/webapp/ebay/find/ebayExportLink.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="prepareProductListing">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSearchResults"/>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="exportProductListing"/>
+                <!--set field="layoutSettings.javaScripts[+0]" value="/ebaystore/js/itemSpecifics.js" global="true"/-->
+                <!--entity-condition entity-name="Geo" list="countries">
+                    <condition-expr field-name="geoTypeId" value="COUNTRY"/>
+                    <order-by field-name="geoName"/>
+                </entity-condition-->
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <set field="search_CategoryId" type="String" from-field="parameters.SEARCH_CATEGORY_ID"/>
+                <entity-one entity-name="EbayConfig" value-field="ebayConfig">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </entity-one>
+                <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/PrepareProductListing.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                            <platform-specific>
+                            <html><html-template location="component://ebaystore/webapp/ebaystore/store/productsearchExport.ftl"/></html>
+                            </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
