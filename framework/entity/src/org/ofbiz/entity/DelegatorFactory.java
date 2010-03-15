@@ -20,8 +20,8 @@ package org.ofbiz.entity;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ofbiz.base.lang.Factory;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.Factory;
 import org.ofbiz.base.util.UtilObject;
 
 /** <code>Delegator</code> factory abstract class. */

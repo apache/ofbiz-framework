@@ -27,6 +27,8 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
+import org.ofbiz.base.lang.Factory;
+
 /**
  * UtilObject
  *
