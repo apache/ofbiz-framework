@@ -41,8 +41,6 @@ public class Converters {
      * source object.
      *
      */
-    public static final Converter<Object, Object> nullConverter = new NullConverter();
-
     static {
         converterMap.setShared(true);
         registerCreator(new PassThruConverterCreator());
@@ -188,39 +186,6 @@ OUTER:
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Registered converter " + converter.getClass().getName(), module);
             }
-        }
-    }
-
-    /** Null converter used when the source and target java object
-     * types are the same. The <code>convert</code> method returns the
-     * source object.
-     *
-     */
-    protected static class NullConverter implements Converter<Object, Object> {
-        public NullConverter() {
-        }
-
-        public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            if (sourceClass.getName().equals(targetClass.getName()) || "java.lang.Object".equals(targetClass.getName())) {
-                return true;
-            }
-            return ObjectType.instanceOf(sourceClass, targetClass);
-        }
-
-        public Object convert(Object obj) throws ConversionException {
-            return obj;
-        }
-
-        public Object convert(Class<? extends Object> targetClass, Object obj) throws ConversionException {
-            return obj;
-        }
-
-        public Class<?> getSourceClass() {
-            return Object.class;
-        }
-
-        public Class<?> getTargetClass() {
-            return Object.class;
         }
     }
 
