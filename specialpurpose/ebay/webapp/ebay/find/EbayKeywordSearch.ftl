@@ -77,6 +77,7 @@ under the License.
       <form method="post" name="products">
         <fieldset>
           <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}" />
+          <input type="hidden" name="SEARCH_CATEGORY_ID" value="${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}" />
           <table class="basic-table border-top border-bottom">
             <#assign listIndex = lowIndex />
             <#assign altRow = false />

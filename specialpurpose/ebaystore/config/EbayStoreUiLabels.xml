@@ -190,6 +190,9 @@
         <value xml:lang="en">Buy It Now price</value>
         <value xml:lang="th">ราคาสุทธิ</value>
     </property>
+    <property key="FormFieldTitle_webSiteUrl">
+        <value xml:lang="en">Website Url</value>
+    </property>
     <property key="eBayOnlineAuction">
         <value xml:lang="en">Online Auction</value>
     </property>
@@ -275,7 +278,19 @@
     <property key="EbayAutoSendItemDispatchEmail">
         <value xml:lang="en">Automatic send item dispatched notification email</value>
     </property>
-        <property key="EbayUnsold">
+    <property key="EbayContinueListing">
+        <value xml:lang="en">Countinue</value>
+    </property>
+    <property key="EbayChangeCategory">
+        <value xml:lang="en">Change</value>
+    </property>
+    <property key="EbayStoreCategory">
+        <value xml:lang="en">eBay Store Category</value>
+    </property>
+    <property key="EbaySet">
+        <value xml:lang="en">Set</value>
+    </property>
+    <property key="EbayUnsold">
         <value xml:lang="en">unsold</value>
     </property>
     <property key="EbayActive">

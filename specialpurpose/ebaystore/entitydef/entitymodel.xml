@@ -78,4 +78,38 @@ under the License.
             <key-map field-name="autoPrefJobId" rel-field-name="jobId"/>
         </relation>
     </entity>
+    <entity entity-name="EbayProductListing" package-name="org.ofbiz.ebay.store"
+        title="eBay Product Listing">
+        <field name="productListingId" type="id-ne"/>
+        <field name="itemId" type="id-long"/>
+        <field name="productStoreId" type="id-ne"/>
+        <field name="productId" type="id-ne"/>
+        <field name="userLoginId" type="id-long"/>
+        <field name="statusId" type="id-ne"/>
+        <field name="listingXml" type="very-long"/>
+        <field name="startDateTime" type="date-time"/>
+        <field name="endDateTime" type="date-time"/>
+        <field name="autoRelisting" type="indicator"/>
+        <prim-key field="productListingId"/>
+        <relation type="one" fk-name="EBAY_PRODUCT" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="EBAY_STORE" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="EBAY_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+    </entity>
+    <entity entity-name="EbayProductListingAttribute" package-name="org.ofbiz.ebay.store"
+        title="eBay Product Listing">
+        <field name="productListingId" type="id-ne"/>
+        <field name="attrName" type="id-long-ne"/>
+        <field name="attrValue" type="value"/>
+        <prim-key field="productListingId"/>
+        <prim-key field="attrName"/>
+        <relation type="one" fk-name="EBAY_PROD_ATTR" rel-entity-name="EbayProductListing">
+            <key-map field-name="productListingId"/>
+        </relation>
+    </entity>
 </entitymodel>

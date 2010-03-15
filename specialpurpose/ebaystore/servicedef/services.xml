@@ -378,11 +378,39 @@ under the License.
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="getEbayStoreCategories" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreCategories" auth="true">
+        <description>Get Ebay Store Category</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="ebayStoreCategoryId" type="String" mode="IN" optional="true"></attribute>
+        <attribute name="storeCategories" type="List" mode="OUT" optional="false"></attribute>
+    </service>
     <service name="autoBlockItemsOutOfStock" engine="java" transaction-timeout="7200"
         location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoBlockItemsOutOfStock" auth="false">
         <description>Automatic service to send item dispatched notification email when user mark sold listing as dispatched</description>
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="exportProductEachItem" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="exportProductEachItem" auth="false">
+        <description>Export Product Each Item</description>
+        <attribute name="itemObject" mode="IN" type="Object" optional="false"/>
+    </service>
+    <service name="createEbayProductListing" engine="entity-auto" default-entity-name="EbayProductListing" invoke="create" auth="true">
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="autoRelisting" mode="IN" type="String" optional="false" default-value="N"/>
+        <attribute name="listingXml" mode="IN" type="String" optional="true" allow-html="any"/>
+    </service>
+    <service name="updateEbayProductListing" engine="entity-auto" default-entity-name="EbayProductListing" invoke="update" auth="true" >
+        <attribute name="productListingId" mode="IN" type="String" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true" />
+        <attribute name="listingXml" mode="IN" type="String" optional="true" allow-html="any"/>
+    </service>
+    <service name="setEbayProductListingAttribute" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="setEbayProductListingAttribute" auth="true">
+        <attribute name="productListingId" mode="IN" type="String" optional="false"/>
+        <attribute name="attributeMapList" mode="IN" type="java.util.HashMap" optional="false"/>
     </service>
     <service name="getMyeBaySelling" engine="java" transaction-timeout="3600"
         location="org.ofbiz.ebaystore.EbayStore" invoke="getMyeBaySelling" auth="true">

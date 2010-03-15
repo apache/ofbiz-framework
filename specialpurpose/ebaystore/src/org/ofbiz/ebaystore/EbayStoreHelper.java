@@ -24,6 +24,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletRequest;
 
 import javolution.util.FastMap;
 
@@ -49,7 +54,14 @@ import com.ebay.sdk.ApiAccount;
 import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiCredential;
 import com.ebay.sdk.ApiLogging;
+import com.ebay.sdk.call.AddItemCall;
+import com.ebay.soap.eBLBaseComponents.AddItemRequestType;
+import com.ebay.soap.eBLBaseComponents.AddItemResponseType;
+import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
+import com.ebay.soap.eBLBaseComponents.GeteBayDetailsResponseType;
+import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
+import com.ebay.soap.eBLBaseComponents.ShippingLocationDetailsType;
 
 import org.ofbiz.ebay.EbayHelper;
 
@@ -333,4 +345,133 @@ public class EbayStoreHelper {
         }
         return result;
     }
+
+    public static void mappedPaymentMethods(Map requestParams, String itemPkCateId, Map<String,Object> addItemObject, ItemType item, HashMap attributeMapList) {
+        String refName = "itemCateFacade_"+itemPkCateId;
+        if (UtilValidate.isNotEmpty(addItemObject) && UtilValidate.isNotEmpty(requestParams)) {
+            EbayStoreCategoryFacade cf = (EbayStoreCategoryFacade) addItemObject.get(refName);
+            BuyerPaymentMethodCodeType[] paymentMethods = cf.getPaymentMethods();
+            if (UtilValidate.isNotEmpty(paymentMethods)) {
+                BuyerPaymentMethodCodeType[] tempPayments = new BuyerPaymentMethodCodeType[paymentMethods.length];
+                int i = 0;
+                for (BuyerPaymentMethodCodeType paymentMethod : paymentMethods) {
+                    String pmName = paymentMethod.value();
+                    String payPara = (String) requestParams.get("Payments_".concat(pmName));
+                    if ("true".equals(payPara)) {
+                        tempPayments[i] = paymentMethod;
+                        attributeMapList.put(""+pmName, pmName);
+                        if ("PayPal".equals(pmName)) {
+                            if (UtilValidate.isNotEmpty(requestParams.get("paymentMethodPaypalEmail"))) {
+                                item.setPayPalEmailAddress(requestParams.get("paymentMethodPaypalEmail").toString());
+                                attributeMapList.put("PaypalEmail", requestParams.get("paymentMethodPaypalEmail").toString());
+                            }
+                        }
+                        i++;
+                    }
+                }
+                item.setPaymentMethods(tempPayments);
+            }
+        }
+    }
+
+    public static void mappedShippingLocations(Map requestParams, ItemType item, ApiContext apiContext, HttpServletRequest request, HashMap attributeMapList) {
+        try {
+            if (UtilValidate.isNotEmpty(requestParams)) {
+                EbayStoreSiteFacade sf = (EbayStoreSiteFacade) EbayEvents.getSiteFacade(apiContext, request);
+                Map<SiteCodeType, GeteBayDetailsResponseType> eBayDetailsMap = sf.getEBayDetailsMap();
+                GeteBayDetailsResponseType eBayDetails = eBayDetailsMap.get(apiContext.getSite());
+                ShippingLocationDetailsType[] shippingLocationDetails = eBayDetails.getShippingLocationDetails();
+                if (UtilValidate.isNotEmpty(shippingLocationDetails)) {
+                    int i = 0;
+                    String[] tempShipLocation = new String[shippingLocationDetails.length];
+                    for (ShippingLocationDetailsType shippingLocationDetail : shippingLocationDetails) {
+                        String shippingLocation = (String) shippingLocationDetail.getShippingLocation();
+                        String shipParam = (String)requestParams.get("Shipping_".concat(shippingLocation));
+                        if ("true".equals(shipParam)) {
+                            tempShipLocation[i] = shippingLocation;
+                            attributeMapList.put(""+shippingLocation, shippingLocation);
+                            i++;
+                        }
+                    }
+                    item.setShipToLocations(tempShipLocation);
+                }
+            }
+        } catch(Exception e) {
+            Debug.logError(e.getMessage(), module);
+        }
+    }
+
+    public static Map<String, Object> exportProductEachItem(DispatchContext dctx, Map<String, Object> context) {
+        Map<String,Object> result = FastMap.newInstance();
+        LocalDispatcher dispatcher = (LocalDispatcher) dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        Map<String, Object> itemObject = (Map<String, Object>) context.get("itemObject");
+        String productListingId = itemObject.get("productListingId").toString();
+        AddItemCall addItemCall = (AddItemCall) itemObject.get("addItemCall");
+        AddItemRequestType req = new AddItemRequestType();
+        AddItemResponseType resp = null;
+        try {
+            GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            ItemType item = addItemCall.getItem();
+            req.setItem(item);
+            resp = (AddItemResponseType) addItemCall.execute(req);
+            if (resp != null && "SUCCESS".equals(resp.getAck().toString()) || "WARNING".equals(resp.getAck().toString())) {
+                String itemId = resp.getItemID();
+                String listingXml = addItemCall.getRequestXml().toString();
+                Map<String, Object> updateItemMap = FastMap.newInstance();
+                updateItemMap.put("productListingId", productListingId);
+                updateItemMap.put("itemId", itemId);
+                updateItemMap.put("listingXml", listingXml);
+                updateItemMap.put("statusId", "ITEM_APPROVED");
+                updateItemMap.put("userLogin", userLogin);
+                try {
+                    dispatcher.runSync("updateEbayProductListing", updateItemMap);
+                } catch (GenericServiceException ex) {
+                    Debug.logError(ex.getMessage(), module);
+                    return ServiceUtil.returnError(ex.getMessage());
+                }
+            }
+            result = ServiceUtil.returnSuccess();
+        } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
+
+    public static Map<String, Object> setEbayProductListingAttribute(DispatchContext dctx, Map<String, Object> context) {
+        Map<String, Object>result = FastMap.newInstance();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        HashMap attributeMapList = (HashMap) context.get("attributeMapList");
+        String productListingId = (String) context.get("productListingId");
+        try {
+           List<GenericValue> attributeToClears = delegator.findByAnd("EbayProductListingAttribute", UtilMisc.toMap("productListingId", productListingId));
+           for (int clearCount = 0; clearCount < attributeToClears.size(); clearCount++) {
+              GenericValue valueToClear = attributeToClears.get(clearCount);
+              if (valueToClear != null) {
+                 valueToClear.remove();
+              }
+           }
+           Set attributeSet = attributeMapList.entrySet();
+           Iterator itr = attributeSet.iterator();
+           while (itr.hasNext()) {
+             Map.Entry attrMap = (Map.Entry) itr.next();
+
+             if (UtilValidate.isNotEmpty(attrMap.getKey())) {
+                 GenericValue ebayProductListingAttribute = delegator.makeValue("EbayProductListingAttribute");
+                  ebayProductListingAttribute.set("productListingId", productListingId);
+                  ebayProductListingAttribute.set("attrName", attrMap.getKey().toString());
+                  ebayProductListingAttribute.set("attrValue", attrMap.getValue().toString());
+                  ebayProductListingAttribute.create();
+              }
+           }
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
+
 }
