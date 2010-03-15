@@ -174,29 +174,22 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
         ValueAndState<T> nextContainer = null;
         do {
             container = getContainer();
-            switch (container.state) {
-                case INVALID:
-                    nextContainer = container.refresh(State.GENERATE);
-                    break;
-                case REGENERATING:
-                    nextContainer = container.refresh(State.REGEN);
-                    break;
-                case GENERATING:
-                    nextContainer = container.refresh(State.GENERATE);
-                    break;
-                case ERROR_INITIAL:
-                    nextContainer = container.refresh(State.INVALID);
-                    break;
-                case ERROR:
-                case VALID:
-                    nextContainer = container.refresh(getForeground() ? State.GENERATE : State.REGEN);
-                    break;
-                case REGEN:
-                case GENERATE:
-                    return;
+            if (container.state == State.INVALID) {
+                nextContainer = container.refresh(State.GENERATE);
+            } else if (container.state == State.REGENERATING) {
+                nextContainer = container.refresh(State.REGEN);
+            } else if (container.state == State.GENERATING) {
+                nextContainer = container.refresh(State.GENERATE);
+            } else if (container.state == State.ERROR_INITIAL) {
+                nextContainer = container.refresh(State.INVALID);
+            } else if (container.state == State.ERROR || container.state == State.VALID) {
+                nextContainer = container.refresh(getForeground() ? State.GENERATE : State.REGEN);
+            } else {
+                return;
             }
-        } while (!objectAccessor.compareAndSet(this, container, nextContainer));
-        cancelFuture(container);
+            objectAccessor.compareAndSet(this, container, nextContainer);
+            cancelFuture(container);
+        } while (true);
     }
 
     public final int getSerial() {
@@ -220,11 +213,8 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
 
     private void cancelFuture(ValueAndState<T> container) {
         ExecutionPool.removePulse(container.pulse);
-        switch (container.state) {
-            case REGENERATING:
-            case GENERATING:
-                container.future.cancel(false);
-                break;
+        if (container.state == State.REGENERATING || container.state == State.GENERATING) {
+            container.future.cancel(false);
         }
     }
 
@@ -235,53 +225,38 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
             do {
                 do {
                     container = getContainer();
-                    switch (container.state) {
-                        case ERROR:
-                        case ERROR_INITIAL:
-                            throw container.t;
-                        case VALID:
+                    if (container.state == State.ERROR || container.state == State.ERROR_INITIAL) {
+                        throw container.t;
+                    } else if (container.state == State.VALID) {
+                        return container.getValue();
+                    } else if (container.state == State.INVALID) {
+                        nextContainer = container.submit(getInitial(), State.GENERATING_INITIAL);
+                    } else if (container.state == State.REGENERATING || container.state == State.GENERATING || container.state == State.GENERATING_INITIAL) {
+                        if (container.state == State.REGENERATING && !container.future.isDone()) {
                             return container.getValue();
-                        case INVALID:
-                            nextContainer = container.submit(getInitial(), State.GENERATING_INITIAL);
-                            break;
-                        case REGENERATING:
-                            if (!container.future.isDone()) {
-                                return container.getValue();
-                            }
-                        case GENERATING:
-                        case GENERATING_INITIAL:
+                        }
+                        try {
                             try {
-                                try {
-                                    nextContainer = container.valid(container.future.get());
-                                } catch (ExecutionException e) {
-                                    throw e.getCause();
-                                }
-                            } catch (Throwable t) {
-                                nextContainer = container.error(t);
+                                nextContainer = container.valid(container.future.get());
+                            } catch (ExecutionException e) {
+                                throw e.getCause();
                             }
-                            break;
-                        case REGEN:
-                            nextContainer = container.submit(container.getValue(), State.REGENERATING);
-                            break;
-                        case GENERATE:
-                            nextContainer = container.submit(container.getValue(), State.GENERATING);
-                            break;
+                        } catch (Throwable t) {
+                            nextContainer = container.error(t);
+                        }
+                    } else if (container.state == State.REGEN) {
+                        nextContainer = container.submit(container.getValue(), State.REGENERATING);
+                    } else {
+                        nextContainer = container.submit(container.getValue(), State.GENERATING);
                     }
                 } while (!objectAccessor.compareAndSet(this, container, nextContainer));
-                switch (nextContainer.state) {
-                    case GENERATING:
-                    case GENERATING_INITIAL:
-                        nextContainer.future.run();
-                        break;
-                    case REGENERATING:
-                        updateExecutor.submit(nextContainer.future);
-                        break;
-                    case ERROR_INITIAL:
-                    case ERROR:
-                    case VALID:
-                        ExecutionPool.removePulse(container.pulse);
-                        ExecutionPool.addPulse(nextContainer.pulse);
-                        break;
+                if (nextContainer.state == State.GENERATING || nextContainer.state == State.GENERATING_INITIAL) {
+                    nextContainer.future.run();
+                } else if (nextContainer.state == State.REGENERATING) {
+                    updateExecutor.submit(nextContainer.future);
+                } else {
+                    ExecutionPool.removePulse(container.pulse);
+                    ExecutionPool.addPulse(nextContainer.pulse);
                 }
             } while (true);
         } catch (Throwable e) {
