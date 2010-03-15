@@ -80,7 +80,7 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
         ExecutionPool.pulseAll();
     }
 
-    public enum State { INVALID, REGEN, REGENERATING, GENERATE, GENERATING, GENERATING_INITIAL, VALID, ERROR, ERROR_INITIAL }
+    public enum State { INVALID, REGEN, REGENERATING, GENERATE, GENERATING, GENERATING_INITIAL, VALID, ERROR, ERROR_INITIAL, SET }
     private volatile ValueAndState<T> object = new StandardValueAndState<T>(this, null, null, State.INVALID, 0, null, null);
     private static final AtomicReferenceFieldUpdater<TTLObject, ValueAndState> objectAccessor = AtomicReferenceFieldUpdater.newUpdater(TTLObject.class, ValueAndState.class, "object");
     private static final AtomicIntegerFieldUpdater<TTLObject> serialAccessor = AtomicIntegerFieldUpdater.newUpdater(TTLObject.class, "serial");
@@ -111,6 +111,10 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
 
         protected ValueAndState<T> valid(T value) {
             return ttlObject.newValueAndState(value, null, State.VALID, serialAccessor.incrementAndGet(ttlObject), null, new Pulse(ttlObject));
+        }
+
+        protected ValueAndState<T> set(T value) {
+            return ttlObject.newValueAndState(value, null, State.SET, serialAccessor.incrementAndGet(ttlObject), null, null);
         }
 
         protected ValueAndState<T> submit(final T oldValue, State state) {
@@ -184,6 +188,8 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
                 nextContainer = container.refresh(State.INVALID);
             } else if (container.state == State.ERROR || container.state == State.VALID) {
                 nextContainer = container.refresh(getForeground() ? State.GENERATE : State.REGEN);
+            } else if (container.state == State.SET) {
+                nextContainer = container.refresh(getForeground() ? State.GENERATE : State.REGEN);
             } else {
                 return;
             }
@@ -201,14 +207,10 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
     }
 
     protected final void setObject(T newObject) {
-        ValueAndState<T> container, nextContainer;
-        State nextState;
-        do {
-            container = getContainer();
-            nextContainer = container.valid(newObject);
-        } while (!objectAccessor.compareAndSet(this, container, nextContainer));
+        ValueAndState<T> container = getContainer();
+        ValueAndState<T> nextContainer = container.set(newObject);
+        objectAccessor.compareAndSet(this, container, nextContainer);
         cancelFuture(container);
-        ExecutionPool.addPulse(nextContainer.pulse);
     }
 
     private void cancelFuture(ValueAndState<T> container) {
@@ -231,6 +233,8 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
                         return container.getValue();
                     } else if (container.state == State.INVALID) {
                         nextContainer = container.submit(getInitial(), State.GENERATING_INITIAL);
+                    } else if (container.state == State.SET) {
+                        nextContainer = container.valid(container.getValue());
                     } else if (container.state == State.REGENERATING || container.state == State.GENERATING || container.state == State.GENERATING_INITIAL) {
                         if (container.state == State.REGENERATING && !container.future.isDone()) {
                             return container.getValue();

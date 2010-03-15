@@ -69,6 +69,16 @@ public class AsyncTTLObjectTest extends TTLObjectTest {
         assertGetObject("Refreshed with old data", "b", 3, 0, 100000000);
         Thread.sleep(350);
         assertGetObject("Refreshed with old data", "4", 5, 0, 100000000);
+        object.set("5");
+        assertGetObject("set new data", "5", 5, 0, 100000000);
+        TTLObject.pulseAll();
+        sleepTime = 200;
+        loadData = "c";
+        object.set("5");
+        object.refresh();
+        assertGetObject("refresh after set", "5", 5, 0, 100000000);
+        Thread.sleep(300);
+        assertGetObject("refresh after set", "c", 6, 0, 100000000);
     }
 
     public void testSet() throws Exception {
