@@ -33,6 +33,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.concurrent.TTLObject;
 import org.ofbiz.base.conversion.Converter;
+import org.ofbiz.base.conversion.ConverterLoader;
 import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.conversion.JSONResult;
 import org.ofbiz.base.test.GenericTestCaseBase;
@@ -54,6 +55,16 @@ public class MiscTests extends GenericTestCaseBase {
 
     public void testStaticHelperClass() throws Exception {
         assertStaticHelperClass(Converters.class);
+    }
+
+    public static class ConverterLoaderImpl implements ConverterLoader {
+        public void loadConverters() {
+            throw new RuntimeException();
+        }
+    }
+
+    public void testLoadContainedConvertersIgnoresException() {
+        Converters.loadContainedConverters(MiscTests.class);
     }
 
     public void testExtendsImplements() throws Exception {
