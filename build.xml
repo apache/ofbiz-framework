@@ -23,6 +23,7 @@ under the License.
     <property name="site.dir" value="../site"/>
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
+    <property name="pos.memory.max.param" value="-Xmx512M"/>
     <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=128m"/>
 
     <available file="applications/build.xml" property="applications.present"/>
@@ -327,7 +328,7 @@ under the License.
             description="This will start OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
-            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${pos.memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
         </java>
     </target>
@@ -568,7 +569,7 @@ under the License.
                 <equals arg1="${component-name}" arg2="" casesensitive="false" trim="yes"/>
             </condition>
         </fail>
-    	<fail message="Resource name is mandatory">
+      <fail message="Resource name is mandatory">
             <condition>
                 <equals arg1="${component-resource-name}" arg2="" casesensitive="false" trim="yes"/>
             </condition>
@@ -583,7 +584,7 @@ under the License.
                 <equals arg1="${base-permission}" arg2="" casesensitive="false" trim="yes"/>
             </condition>
         </fail>
-    	<filterset id="replacePlaceholders">
+      <filterset id="replacePlaceholders">
             <filter token="component-name" value="${component-name}"/>
             <filter token="component-resource-name" value="${component-resource-name}"/>
             <filter token="base-permission" value="${base-permission}"/>
