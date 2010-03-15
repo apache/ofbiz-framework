@@ -236,8 +236,12 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
                     } else if (container.state == State.SET) {
                         nextContainer = container.valid(container.getValue());
                     } else if (container.state == State.REGENERATING || container.state == State.GENERATING || container.state == State.GENERATING_INITIAL) {
-                        if (container.state == State.REGENERATING && !container.future.isDone()) {
-                            return container.getValue();
+                        if (!container.future.isDone()) {
+                            if (container.state == State.GENERATING || container.state == State.GENERATING_INITIAL) {
+                                container.future.run();
+                            } else {
+                                return container.getValue();
+                            }
                         }
                         try {
                             try {
@@ -254,11 +258,9 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
                         nextContainer = container.submit(container.getValue(), State.GENERATING);
                     }
                 } while (!objectAccessor.compareAndSet(this, container, nextContainer));
-                if (nextContainer.state == State.GENERATING || nextContainer.state == State.GENERATING_INITIAL) {
-                    nextContainer.future.run();
-                } else if (nextContainer.state == State.REGENERATING) {
+                if (nextContainer.state == State.REGENERATING) {
                     updateExecutor.submit(nextContainer.future);
-                } else {
+                } else if (nextContainer.pulse != null) {
                     ExecutionPool.removePulse(container.pulse);
                     ExecutionPool.addPulse(nextContainer.pulse);
                 }
