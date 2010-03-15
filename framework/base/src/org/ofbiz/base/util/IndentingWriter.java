@@ -28,6 +28,10 @@ public class IndentingWriter extends FilterWriter {
     protected final boolean doNewline;
     protected boolean lastWasNewline;
 
+    public static IndentingWriter makeIndentingWriter(Writer writer) {
+        return writer instanceof IndentingWriter ? (IndentingWriter) writer : new IndentingWriter(writer);
+    }
+
     public IndentingWriter(Writer out, boolean doSpace, boolean doNewline) {
         super(out);
         this.doSpace = doSpace;
