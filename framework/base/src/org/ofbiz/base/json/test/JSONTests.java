@@ -19,8 +19,10 @@
 package org.ofbiz.base.json.test;
 
 import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +34,7 @@ import org.ofbiz.base.json.ParseException;
 import org.ofbiz.base.json.Token;
 import org.ofbiz.base.json.TokenMgrError;
 import org.ofbiz.base.test.GenericTestCaseBase;
+import org.ofbiz.base.util.IndentingWriter;
 
 public class JSONTests extends GenericTestCaseBase {
     public JSONTests(String name) {
@@ -58,6 +61,7 @@ public class JSONTests extends GenericTestCaseBase {
         } else {
             jsonWriter = new JSONWriter(writer);
         };
+        assertTrue("writer is IndentingWriter", jsonWriter.getWriter() instanceof IndentingWriter);
         jsonWriter.write(object);
         return writer.toString();
     }
@@ -102,6 +106,54 @@ public class JSONTests extends GenericTestCaseBase {
     protected void assertResolveJSON(String type, Object obj, String json) throws Exception {
         assertEquals("write " + type, json, getJSON(obj, true));
         assertEquals("parse " + type, obj, parseJSON(json, true));
+    }
+
+    public void testClose() throws Exception {
+        JSONWriter writer = new JSONWriter(new OutputStreamWriter(new ByteArrayOutputStream()));
+        writer.close();
+        IOException caught = null;
+        try {
+            writer.write("");
+        } catch (IOException e) {
+            caught = e;
+        } finally {
+            assertNotNull("write after close", caught);
+        }
+    }
+
+    public void testString() throws Exception {
+        StringBuilder wanted = new StringBuilder();
+        StringBuilder json = new StringBuilder().append('"');
+        for (int i = 0; i < 5120; i++) {
+            wanted.append((char) i);
+            if (i == '\b') {
+                json.append("\\b");
+            } else if (i == '\f') {
+                json.append("\\f");
+            } else if (i == '\t') {
+                json.append("\\t");
+            } else if (i == '\n') {
+                json.append("\\n");
+            } else if (i == '\r') {
+                json.append("\\r");
+            } else if (i == '"') {
+                json.append("\\\"");
+            } else if (i == '\\') {
+                json.append("\\\\");
+            } else if (i == '/') {
+                json.append("\\/");
+            } else if (i < 32 || i >= 256) {
+                json.append("\\u");
+                if (i < 16) json.append('0');
+                if (i < 256) json.append('0');
+                if (i < 4096) json.append('0');
+                json.append(Integer.toString(i, 16));
+            } else {
+                json.append((char) i);
+            }
+        }
+        json.append('"');
+        assertSimpleJSON("string", wanted.toString(), json.toString());
     }
 
     public void testParseBasicTypes() throws Exception {
@@ -186,7 +238,7 @@ public class JSONTests extends GenericTestCaseBase {
     }
 
     public void testParseErrors() throws Exception {
-        for (char c = 1; c < 128; c++) {
+        for (char c = 1; c < 1024; c++) {
             if (c == '\t') {
                 doWhitespaceExceptionTest(Character.toString(c), 8);
             } else if (c == '\n' || c == '\r' || c == ' ') {
@@ -266,5 +318,13 @@ public class JSONTests extends GenericTestCaseBase {
 
     public void testResolve() throws Exception {
         assertResolveJSON("url", new URL("http://ofbiz.apache.org"), "resolve(\"java.net.URL:http:\\/\\/ofbiz.apache.org\")");
+        IOException caught = null;
+        try {
+            getJSON(new URL("http://ofbiz.apache.org"), false);
+        } catch (IOException e) {
+            caught = e;
+        } finally {
+            assertNotNull("url not allowed", caught);
+        }
     }
 }

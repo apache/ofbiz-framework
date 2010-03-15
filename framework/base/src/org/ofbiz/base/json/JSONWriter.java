@@ -43,11 +43,11 @@ public class JSONWriter {
     }
 
     public JSONWriter(Writer writer) {
-        this(writer instanceof IndentingWriter ? (IndentingWriter) writer : new IndentingWriter(writer));
+        this(IndentingWriter.makeIndentingWriter(writer));
     }
 
     public JSONWriter(Writer writer, FallbackHandler fallbackHandler) {
-        this(writer instanceof IndentingWriter ? (IndentingWriter) writer : new IndentingWriter(writer), fallbackHandler);
+        this(IndentingWriter.makeIndentingWriter(writer), fallbackHandler);
     }
 
     public IndentingWriter getWriter() {
@@ -108,13 +108,13 @@ public class JSONWriter {
                 case '\r':  writer.write("\\r"); continue;
                 case '\t':  writer.write("\\t"); continue;
             }
-            if (32 <= c && c >= 256) {
+            if (c >= 32 && c < 256) {
+                writer.write(c);
+            } else {
                 writer.write("\\u");
                 String n = Integer.toString((int) c, 16);
                 for (int j = 4 - n.length(); j > 0; j--) writer.write('0');
                 writer.write(n);
-            } else {
-                writer.write(c);
             }
         }
         writer.write('"');
