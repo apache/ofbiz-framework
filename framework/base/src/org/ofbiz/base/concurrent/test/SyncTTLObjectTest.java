@@ -21,12 +21,50 @@ package org.ofbiz.base.concurrent.test;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
+import org.ofbiz.base.util.ObjectWrapper;
 import org.ofbiz.base.concurrent.TTLObject;
 import org.ofbiz.base.test.GenericTestCaseBase;
 
 public class SyncTTLObjectTest extends TTLObjectTest {
     public SyncTTLObjectTest(String name) {
         super(name, true);
+    }
+
+    private static class TTLStaticRegistryObject extends TTLObject<String> {
+        protected String load(String old, int serial) {
+            return old;
+        }
+    }
+
+    public void testTTLStaticRegistries() throws Exception {
+        ObjectWrapper.ConfigurationException caught = null;
+        try {
+            TTLObject.getTTLForClass(TTLStaticRegistryObject.class);
+        } catch (ObjectWrapper.ConfigurationException e) {
+            caught = e;
+        } finally {
+            assertNotNull("no ttl set", caught);
+        }
+        TTLObject.setDefaultTTLForClass(TTLStaticRegistryObject.class, 100);
+        assertEquals("ttl default", 100, TTLObject.getTTLForClass(TTLStaticRegistryObject.class));
+        TTLObject.setDefaultTTLForClass(TTLStaticRegistryObject.class, 200);
+        assertEquals("can't override ttl default", 100, TTLObject.getTTLForClass(TTLStaticRegistryObject.class));
+        TTLObject.setTTLForClass(TTLStaticRegistryObject.class, 200);
+        assertEquals("change ttl", 200, TTLObject.getTTLForClass(TTLStaticRegistryObject.class));
+        TTLObject.setTTLForClass(TTLStaticRegistryObject.class, 300);
+        assertEquals("change ttl", 300, TTLObject.getTTLForClass(TTLStaticRegistryObject.class));
+        caught = null;
+        assertTrue("default foreground", TTLObject.getForegroundForClass(TTLStaticRegistryObject.class));
+        TTLObject.setDefaultForegroundForClass(TTLStaticRegistryObject.class, false);
+        assertFalse("set foreground", TTLObject.getForegroundForClass(TTLStaticRegistryObject.class));
+        TTLObject.setDefaultForegroundForClass(TTLStaticRegistryObject.class, true);
+        assertFalse("can't override foreground", TTLObject.getForegroundForClass(TTLStaticRegistryObject.class));
+        TTLObject.setForegroundForClass(TTLStaticRegistryObject.class, true);
+        assertTrue("set foreground true", TTLObject.getForegroundForClass(TTLStaticRegistryObject.class));
+        TTLObject.setForegroundForClass(TTLStaticRegistryObject.class, false);
+        assertFalse("set foreground false", TTLObject.getForegroundForClass(TTLStaticRegistryObject.class));
+        // this is only to cause coverage to be 100%
+        new TTLStaticRegistryObject().getObject();
     }
 
     public void testRefresh() throws Exception {
@@ -138,6 +176,13 @@ public class SyncTTLObjectTest extends TTLObjectTest {
             }
         }, 50);
         assertGetObject("Refreshed with old data", "4", 5, 0, 100000000);
+        object.refresh();
+        loadData = "5";
+        assertGetObject("syncing after refresh", "5", 6, 0, 100000000);
+        loadData = "6";
+        assertGetObject("no load after refresh", "5", 6, 0, 100000000);
+        TTLObject.pulseAll();
+        assertGetObject("new data after pulse all", "6", 7, 0, 100000000);
     }
 
     public void testSetGetAbort() throws Exception {
