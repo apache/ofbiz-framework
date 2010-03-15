@@ -176,11 +176,7 @@ OUTER:
             sb.append("<null>");
         }
         sb.append(DELIMITER);
-        if (targetClass != null) {
-            sb.append(targetClass.getName());
-        } else {
-            sb.append("<null>");
-        }
+        sb.append(targetClass.getName());
         String key = sb.toString();
         if (converterMap.putIfAbsent(key, converter) == null) {
             if (Debug.verboseOn()) {
