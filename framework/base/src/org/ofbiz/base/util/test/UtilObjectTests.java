@@ -29,8 +29,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Set;
 
+import org.ofbiz.base.lang.Factory;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.Factory;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.test.GenericTestCaseBase;
