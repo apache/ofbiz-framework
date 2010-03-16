@@ -47,7 +47,7 @@ under the License.
         </div>
       </#if>
     </#if>
-    <br/>
+    <br />
     <div class="screenlet-body">
       <form name="selectOrderForm" method="post" action="<@ofbizUrl>VerifyPick</@ofbizUrl>">
         <input type="hidden" name="facilityId" value="${facility.facilityId?if_exists}"/>
@@ -74,7 +74,7 @@ under the License.
           </tr>
         </table>
       </form>
-      <br/>
+      <br />
       <!-- select picklist bin form -->
       <form name="selectPicklistBinForm" method="post" action="<@ofbizUrl>VerifyPick</@ofbizUrl>" style="margin: 0;">
         <input type="hidden" name="facilityId" value="${facility.facilityId?if_exists}"/>
@@ -118,28 +118,28 @@ under the License.
             <tr>
               <td valign="top">
                 <span class="label">${uiLabelMap.ProductShipToAddress}</span>
-                <br/>
+                <br />
                 ${uiLabelMap.CommonTo}: ${postalAddress.toName?default("")}
-                <br/>
+                <br />
                 <#if postalAddress.attnName?has_content>
                   ${uiLabelMap.CommonAttn}: ${postalAddress.attnName}
-                  <br/>
+                  <br />
                 </#if>
                 ${postalAddress.address1}
-                <br/>
+                <br />
                 <#if postalAddress.address2?has_content>
                   ${postalAddress.address2}
-                  <br/>
+                  <br />
                 </#if>
                 ${postalAddress.city?if_exists}, ${postalAddress.stateProvinceGeoId?if_exists} ${postalAddress.postalCode?if_exists}
-                <br/>
+                <br />
                 ${postalAddress.countryGeoId}
-                <br/>
+                <br />
               </td>
               <td>&nbsp;</td>
               <td valign="top">
                 <span class="label">${uiLabelMap.ProductCarrierShipmentMethod}</span>
-                <br/>
+                <br />
                 <#if carrier == "USPS">
                   <#assign color = "red">
                 <#elseif carrier == "UPS">
@@ -156,13 +156,13 @@ under the License.
               <td>&nbsp;</td>
               <td valign="top">
                 <span class="label">${uiLabelMap.OrderInstructions}</span>
-                <br/>
+                <br />
                 ${orderItemShipGroup.shippingInstructions?default("(${uiLabelMap.CommonNone})")}
               </td>
             </tr>
           </table>
         </#if>
-        <hr/>
+        <hr />
         <form name="singlePickForm" method="post" action="<@ofbizUrl>processVerifyPick</@ofbizUrl>">
           <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
           <input type="hidden" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}"/>
@@ -181,7 +181,7 @@ under the License.
             </tr>
           </table>
         </form>
-        <br/>
+        <br />
         <#assign orderItems = orderItems?if_exists>
         <form name="multiPickForm" method="post" action="<@ofbizUrl>processBulkVerifyPick</@ofbizUrl>">
           <input type="hidden" name="facilityId" value="${facility.facilityId?if_exists}"/>
@@ -313,7 +313,7 @@ under the License.
             </tr>
           </table>
         </form>
-        <br/>
+        <br />
       </div>
     </div>
     <#assign orderId = orderId?if_exists >

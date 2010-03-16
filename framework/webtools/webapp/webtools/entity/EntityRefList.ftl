@@ -38,7 +38,7 @@ under the License.
                 <a href="<@ofbizUrl>main</@ofbizUrl>" target='main'>${uiLabelMap.WebtoolsPopupWebToolsMain}</A><BR>
                 <a href="<@ofbizUrl>view/entityref_main</@ofbizUrl>" target="entityFrame">${uiLabelMap.WebtoolsEntityReferenceMainPage}</A><BR>
                 <a href="<@ofbizUrl>view/checkdb</@ofbizUrl>" target="entityFrame">${uiLabelMap.WebtoolsCheckUpdateDatabase}</A>
-                <hr/>
+                <hr />
                 <#-- want to leave these out because they are only working so-so, and cause people more problems that they solve, IMHO
                 <a href="<@ofbizUrl>ModelWriter</@ofbizUrl>" target='_blank'>Generate Entity Model XML (all in one)</A><BR>
                 <a href="<@ofbizUrl>ModelWriter?savetofile=true</@ofbizUrl>" target='_blank'>Save Entity Model XML to Files</A><BR>
@@ -50,18 +50,18 @@ under the License.
                 <a href="<@ofbizUrl>view/ModelInduceFromDb</@ofbizUrl>" target='_blank'>${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}</A><BR>
             </#if>
             <#if packageNames?has_content>
-                <hr/>
+                <hr />
                 <div class="section-header">${uiLabelMap.WebtoolsEntityPackages}</div>
                 <#list packageNames as packageName>
                     <#if forstatic>
-                        <a href="entityref_main.html#${packageName}" target="entityFrame">${packageName}</a><br/>
+                        <a href="entityref_main.html#${packageName}" target="entityFrame">${packageName}</a><br />
                     <#else>
-                        <a href="<@ofbizUrl>view/entityref_main#${packageName}</@ofbizUrl>" target="entityFrame">${packageName}</a><br/>
+                        <a href="<@ofbizUrl>view/entityref_main#${packageName}</@ofbizUrl>" target="entityFrame">${packageName}</a><br />
                     </#if>
                 </#list>
             </#if>
             <#if entitiesList?has_content>
-                <hr/>
+                <hr />
                 <div class="section-header">${uiLabelMap.WebtoolsEntitiesAlpha}</div>
                 <#list entitiesList as entity>
                     <#if forstatic>
@@ -69,7 +69,7 @@ under the License.
                     <#else>
                         <a href="<@ofbizUrl>view/entityref_main#${entity.entityName}${entity.url?if_exists}</@ofbizUrl>" target="entityFrame">${entity.entityName}</a>
                     </#if>
-                    <br/>
+                    <br />
                 </#list>
             </#if>
         </div>

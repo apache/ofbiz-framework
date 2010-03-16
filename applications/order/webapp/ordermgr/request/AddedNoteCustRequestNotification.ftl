@@ -25,14 +25,14 @@ under the License.
     <body>
         <h2>${title}</h2>
         <p>Hello ${person.firstName?if_exists} ${person.lastName?if_exists},</p>
-        <p>Your Customer Request ${custRequest.custRequestName?if_exists} [${custRequest.custRequestId}] has a note added to it:<br/>
+        <p>Your Customer Request ${custRequest.custRequestName?if_exists} [${custRequest.custRequestId}] has a note added to it:<br />
         ${StringUtil.wrapString(noteData.noteInfo?if_exists)}
-        <br/><br/>
-        Please login to the url below and add another note as a reply if required.<br/><br/>
-        The status and used hours can always be checked <br/>
+        <br /><br />
+        Please login to the url below and add another note as a reply if required.<br /><br />
+        The status and used hours can always be checked <br />
         <a href="${StringUtil.wrapString(baseSecureUrl?if_exists)}/myportal/control/showPortletDecorator?portalPortletId=ViewCustRequest&id=${custRequest.custRequestId}">here.....</a>
-        <br/><br/>
-        Regards.<br/><br/>
+        <br /><br />
+        Regards.<br /><br />
         Thank you for your business.
     </body>
 </html>

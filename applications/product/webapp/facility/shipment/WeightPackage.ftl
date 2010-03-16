@@ -61,7 +61,7 @@ under the License.
             </form>
           </#list>
         </#if>
-        <br/>
+        <br />
         <#if !(orderId?has_content)>
           <form name="selectOrderForm" method="post" action="<@ofbizUrl>WeightPackageOnly</@ofbizUrl>">
             <input type="hidden" name="facilityId" value="${(facility.facilityId)?if_exists}">
@@ -85,7 +85,7 @@ under the License.
               </tr>
             </table>
           </form>
-          <br/>
+          <br />
           <!-- select picklist bin form -->
           <form name="selectPicklistBinForm" method="post" action="<@ofbizUrl>WeightPackageOnly</@ofbizUrl>" style="margin: 0;">
             <input type="hidden" name="facilityId" value="${(facility.facilityId)?if_exists}">
@@ -190,21 +190,21 @@ under the License.
                 <tr>
                   <td>
                     <span class="label">${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):
-                      <br/>
+                      <br />
                       ${uiLabelMap.ProductPackage}
                       <input type="text" size="7" name="packageWeight" value=""/>
                     </span>
                   </td>
                   <td>
                     <span class="label">${uiLabelMap.CommonDimension} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultDimensionUomId)?eval}):</span>
-                    <br/>
+                    <br />
                     <span class="label">${uiLabelMap.CommonLength}<input type="text" name="packageLength" value="" size="5"/></span>
                     <span class="label">${uiLabelMap.ProductWidth}<input type="text" name="packageWidth" value="" size="5"/></span>
                     <span class="label">${uiLabelMap.PartyHeight}<input type="text" name="packageHeight" value="" size="5"/></span>
                   </td>
                   <td>
                     <span class="label">${uiLabelMap.ProductPackageInputBox}:</span>
-                    <br/>
+                    <br />
                     <select name="shipmentBoxTypeId">
                       <#if shipmentBoxTypes?has_content>
                         <option value=""></option>

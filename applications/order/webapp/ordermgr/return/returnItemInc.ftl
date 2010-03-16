@@ -160,7 +160,7 @@ under the License.
     <tr>
       <td colspan="9"><h3>${uiLabelMap.OrderReturnAdjustments} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td>
     </tr>
-    <tr><td colspan="9"><br/></td></tr>
+    <tr><td colspan="9"><br /></td></tr>
     <#if orderHeaderAdjustments?has_content>
       <tr class="header-row">
         <td>${uiLabelMap.CommonDescription}</td>

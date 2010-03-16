@@ -82,7 +82,7 @@ under the License.
             </div>
         </#list>
 
-        <div><hr/></div>
+        <div><hr /></div>
         <div class="tableheadtext">${uiLabelMap.EcommerceDigitalAddFromMyFiles}</div>
         <div>
         <form method="post" action="<@ofbizUrl>addCustomerDigitalDownloadProductFile</@ofbizUrl>" name="adddigitaluploadfile" style="margin: 0;">

@@ -47,7 +47,7 @@ under the License.
                     </form>
                     <span class="label">${uiLabelMap.ProductCreatedModifiedBy}</span> ${picklist.createdByUserLogin}/${picklist.lastModifiedByUserLogin}
                     <a href="<@ofbizUrl>PicklistReport.pdf?picklistId=${picklist.picklistId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPick}/${uiLabelMap.ProductPacking} ${uiLabelMap.CommonReports}</a>
-                    <hr/>
+                    <hr />
                 </div>
                 <#if picklistInfo.shipmentMethodType?has_content>
                     <div style="margin-left: 15px;">
@@ -88,7 +88,7 @@ under the License.
                         ${uiLabelMap.CommonBy} ${picklistStatusHistoryInfo.picklistStatusHistory.changeUserLoginId}
                     </div>
                 </#list>
-                <hr/>
+                <hr />
                 <#-- PicklistBin -->
                 <#list picklistInfo.picklistBinInfoList?if_exists as picklistBinInfo>
                     <#assign isBinComplete = Static["org.ofbiz.shipment.picklist.PickListServices"].isBinComplete(delegator, picklistBinInfo.picklistBin.picklistBinId)/>
@@ -173,7 +173,7 @@ under the License.
                     </#if>
                 </#list>
                 <#if picklistInfo_has_next>
-                   <hr/>
+                   <hr />
                 </#if>
             </#list>
         <#else/>

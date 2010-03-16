@@ -80,4 +80,4 @@ under the License.
             <p><strong>${uiLabelMap.CommonTotal}</strong>: <@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=currencyUomId/></p>
     </div>
 </div>
-<br/>
+<br />

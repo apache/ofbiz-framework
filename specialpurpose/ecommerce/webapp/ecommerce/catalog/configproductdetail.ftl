@@ -384,7 +384,7 @@ function getConfigDetails(event) {
           <input type="text" size="5" name="quantity" value="1">
           <a href="javascript:document.addToShoppingList.submit();" class="buttontext">[${uiLabelMap.OrderAddToShoppingList}]</a>
         </form>
-      <#else> <br/>
+      <#else> <br />
         ${uiLabelMap.OrderYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonBeLogged}</a>
         ${uiLabelMap.OrderToAddSelectedItemsToShoppingList}.&nbsp;
       </#if>
@@ -415,7 +415,7 @@ function getConfigDetails(event) {
                 </#if>
                 <td align="center" valign="bottom">
                   <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60"></a>
-                  <br/>
+                  <br />
                   <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);" class="buttontext">${key}</a>
                 </td>
               </#if>
@@ -739,7 +739,7 @@ ${setRequestAttribute("productValue", productValue)}
       ${screens.render(productsummaryScreen)}
     </div>
     <#if commonFeatureResultId_has_next>
-      <hr/>
+      <hr />
     </#if>
   </#list>
 </#if>

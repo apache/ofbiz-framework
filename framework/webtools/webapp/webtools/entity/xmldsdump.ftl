@@ -20,7 +20,7 @@ under the License.
 <h1>${uiLabelMap.WebtoolsExportFromDataSource}</h1>
 <br />
 <p>This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;".</p>
-<hr/>
+<hr />
 <#if security.hasPermission("ENTITY_MAINT", session)>
     <a href="<@ofbizUrl>xmldsrawdump</@ofbizUrl>" class="buttontext" target="_blank">Click Here to Get Data (or save to file)</a>
 <#else>
@@ -38,7 +38,7 @@ under the License.
 <h1>${uiLabelMap.PageTitleEntityExport}</h1>
 <br />
 <p>${uiLabelMap.WebtoolsXMLExportInfo}</p>
-<hr/>
+<hr />
 
 <#if security.hasPermission("ENTITY_MAINT", session)>
   <h2>${uiLabelMap.WebtoolsResults}:</h2>
@@ -53,7 +53,7 @@ under the License.
     <p>${uiLabelMap.WebtoolsNoFilenameSpecified}</p>
   </#if>
 
-  <hr/>
+  <hr />
 
   <h2>${uiLabelMap.WebtoolsExport}:</h2>
   <form method="post" action="<@ofbizUrl>xmldsdump</@ofbizUrl>" name="entityExport">
@@ -85,7 +85,7 @@ under the License.
         <td><input type="checkbox" name="tobrowser"<#if tobrowser?has_content> checked="checked"</#if>></td>
       </tr>
     </table>
-    <br/>
+    <br />
     <p>${uiLabelMap.WebtoolsEntityNames}:</p>
     <@displayButtonBar/>
       <div>${uiLabelMap.WebtoolsEntitySyncDump}:
@@ -100,7 +100,7 @@ under the License.
         <option value="Product3">${uiLabelMap.WebtoolsPreConfiguredSet4}</option>
         <option value="Product4">${uiLabelMap.WebtoolsPreConfiguredSet5}</option>
       </select>
-      <br/>
+      <br />
 
       <table>
         <tr>

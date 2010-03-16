@@ -28,7 +28,7 @@ under the License.
     <div><a href="<@ofbizUrl>WorkEffortSearchOptions</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
 
     <#if !workEffortIds?has_content>
-      <br/><h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
+      <br /><h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
     </#if>
 
     <#if workEffortIds?has_content>

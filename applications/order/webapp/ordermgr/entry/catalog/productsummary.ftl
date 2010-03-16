@@ -40,9 +40,9 @@ under the License.
           <table>
             <tr valign="top">
               <td>
-                <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br/>
-                ${uiLabelMap.ProductProductId}   : ${product.productId?if_exists}<br/>
-                ${uiLabelMap.ProductProductName} : ${product.productName?if_exists}<br/>
+                <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br />
+                ${uiLabelMap.ProductProductId}   : ${product.productId?if_exists}<br />
+                ${uiLabelMap.ProductProductName} : ${product.productName?if_exists}<br />
                 ${uiLabelMap.CommonDescription}  : ${product.description?if_exists}
               </td>
             </tr>
@@ -160,5 +160,5 @@ under the License.
         </div>
     </div>
 <#else>
-&nbsp;${uiLabelMap.ProductErrorProductNotFound}.<br/>
+&nbsp;${uiLabelMap.ProductErrorProductNotFound}.<br />
 </#if>

@@ -23,7 +23,7 @@ under the License.
     </tr>
     <tr>
         <td>
-            <br/>
+            <br />
             <span class="label">${uiLabelMap.ProductVariantProductIds}:</span>
             <textarea name="variantProductIdsBag" rows="6" cols="20"></textarea>
             <span class="label">Hazmat:</span>

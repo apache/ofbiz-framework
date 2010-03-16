@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <h1>Minerva Connection Objects</h1>
-<br/>
+<br />
 
 <div class="button-bar">
     <a href="<@ofbizUrl>minervainfo</@ofbizUrl>" class="smallSubmit">Refresh</a>

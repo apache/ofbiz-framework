@@ -33,7 +33,7 @@ under the License.
     <#if task?has_content>
       <form name="addTaskAndAssocForm" method="get" action="<@ofbizUrl>updateTaskAndAssoc</@ofbizUrl>">
     <#else>
-      <br/>
+      <br />
       <form name="addTaskAndAssocForm" method="get" action="<@ofbizUrl>createTaskAndAssoc</@ofbizUrl>">
     </#if>
         <table width="100%" cellpadding="2" cellspacing="0">

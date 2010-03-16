@@ -17,10 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 <span class="label">${uiLabelMap.OrderOrderQuoteCoefficients}</span>
-<br/>
+<br />
 <#list quoteCoefficients as quoteCoefficient>
     <div>${quoteCoefficient.coeffName}&nbsp;${quoteCoefficient.coeffValue}</div>
 </#list>
-<br/>
+<br />
 <div><span class="label">${uiLabelMap.CommonTotalCostMult}</span>&nbsp;${costMult}</div>
 <div><span class="label">${uiLabelMap.CommonTotalCostToPriceMult}</span>&nbsp;${costToPriceMult}</div>

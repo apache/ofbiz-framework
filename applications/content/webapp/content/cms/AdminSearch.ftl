@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<hr/>
+<hr />
     <form method="post"  action="/content/control/AdminSearch"  name="searchQuery" style="margin: 0;">
 <table border="0" cellpadding="2" cellspacing="0">
 
@@ -121,7 +121,7 @@ under the License.
 </form>
 
 
-<hr/>
+<hr />
 
 <#macro listSiteIds contentId indentIndex=0>
   <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in listSiteIds, contentId:" + contentId,"")/>

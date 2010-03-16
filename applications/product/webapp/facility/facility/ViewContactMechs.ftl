@@ -39,31 +39,31 @@ under the License.
                       <#if facilityContactMechPurpose.thruDate?has_content>
                       (${uiLabelMap.CommonExpire}: ${facilityContactMechPurpose.thruDate.toString()})
                       </#if>
-                      <br/>
+                      <br />
               </#list>
               <#if "POSTAL_ADDRESS" = contactMech.contactMechTypeId>
                   <#assign postalAddress = contactMechMap.postalAddress>
-                    <#if postalAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${postalAddress.toName}<br/></#if>
-                    <#if postalAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b> ${postalAddress.attnName}<br/></#if>
-                    ${postalAddress.address1?if_exists}<br/>
-                    <#if postalAddress.address2?has_content>${postalAddress.address2?if_exists}<br/></#if>
+                    <#if postalAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${postalAddress.toName}<br /></#if>
+                    <#if postalAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b> ${postalAddress.attnName}<br /></#if>
+                    ${postalAddress.address1?if_exists}<br />
+                    <#if postalAddress.address2?has_content>${postalAddress.address2?if_exists}<br /></#if>
                     ${postalAddress.city?if_exists},
                     ${postalAddress.stateProvinceGeoId?if_exists}
                     ${postalAddress.postalCode?if_exists}
-                    <#if postalAddress.countryGeoId?has_content><br/>${postalAddress.countryGeoId}</#if>
+                    <#if postalAddress.countryGeoId?has_content><br />${postalAddress.countryGeoId}</#if>
                   <#if (postalAddress?has_content && !postalAddress.countryGeoId?has_content) || postalAddress.countryGeoId = "USA">
                       <#assign addr1 = postalAddress.address1?if_exists>
                       <#if (addr1.indexOf(" ") > 0)>
                         <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
                         <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
-                        <br/><a target='_blank' href='${uiLabelMap.CommonLookupWhitepagesAddressLink}' class='buttontext'>${uiLabelMap.CommonLookupWhitepages}</a>
+                        <br /><a target='_blank' href='${uiLabelMap.CommonLookupWhitepagesAddressLink}' class='buttontext'>${uiLabelMap.CommonLookupWhitepages}</a>
                       </#if>
                   </#if>
                   <#if postalAddress.geoPointId?has_content>
                     <#if contactMechPurposeType?has_content>
                       <#assign popUptitle = contactMechPurposeType.get("description",locale) + uiLabelMap.CommonGeoLocation>
                     </#if>
-                    <br/><a href="javascript:popUp('<@ofbizUrl>geoLocation?geoPointId=${postalAddress.geoPointId}</@ofbizUrl>', '${popUptitle?if_exists}', '450', '550')" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
+                    <br /><a href="javascript:popUp('<@ofbizUrl>geoLocation?geoPointId=${postalAddress.geoPointId}</@ofbizUrl>', '${popUptitle?if_exists}', '450', '550')" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
                   </#if>
               <#elseif "TELECOM_NUMBER" = contactMech.contactMechTypeId>
                   <#assign telecomNumber = contactMechMap.telecomNumber>
@@ -71,7 +71,7 @@ under the License.
                     <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode}-</#if>${telecomNumber.contactNumber?if_exists}
                     <#if facilityContactMech.extension?has_content>${uiLabelMap.CommonExt} ${facilityContactMech.extension}</#if>
                     <#if (telecomNumber?has_content && !telecomNumber.countryCode?has_content) || telecomNumber.countryCode = "011">
-                      <br/><a target='_blank' href='${uiLabelMap.CommonLookupAnywhoLink}' class='buttontext'>${uiLabelMap.CommonLookupAnywho}</a>
+                      <br /><a target='_blank' href='${uiLabelMap.CommonLookupAnywhoLink}' class='buttontext'>${uiLabelMap.CommonLookupAnywho}</a>
                       <a target='_blank' href='${uiLabelMap.CommonLookupWhitepagesTelNumberLink}' class='buttontext'>${uiLabelMap.CommonLookupWhitepages}</a>
                     </#if>
               <#elseif "EMAIL_ADDRESS" = contactMech.contactMechTypeId>
@@ -85,8 +85,8 @@ under the License.
               <#else>
                     ${contactMech.infoString?if_exists}
               </#if>
-              <br/>(${uiLabelMap.CommonUpdated}: ${facilityContactMech.fromDate.toString()})
-              <#if facilityContactMech.thruDate?has_content><br/><b>${uiLabelMap.CommonUpdatedEffectiveThru}:&nbsp;${facilityContactMech.thruDate.toString()}</b></#if>
+              <br />(${uiLabelMap.CommonUpdated}: ${facilityContactMech.fromDate.toString()})
+              <#if facilityContactMech.thruDate?has_content><br /><b>${uiLabelMap.CommonUpdatedEffectiveThru}:&nbsp;${facilityContactMech.thruDate.toString()}</b></#if>
             </td>
             <td class="button-col">
               &nbsp;

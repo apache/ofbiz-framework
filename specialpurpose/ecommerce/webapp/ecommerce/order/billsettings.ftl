@@ -97,7 +97,7 @@ function shipBillAddr() {
                 </td>
               </tr>
               <tr>
-                <td colspan="3"><hr/></td>
+                <td colspan="3"><hr /></td>
               </tr>
             </#if>
 
@@ -116,7 +116,7 @@ function shipBillAddr() {
                 <#assign creditCard = requestParameters>
               </#if>
               <tr>
-                <td colspan="3"><hr/></td>
+                <td colspan="3"><hr /></td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="top"><div class="tableheadtext">${uiLabelMap.AccountingCreditCardInformation}</div></td>
@@ -133,7 +133,7 @@ function shipBillAddr() {
                 <#assign eftAccount = requestParameters>
               </#if>
               <tr>
-                <td colspan="3"><hr/></td>
+                <td colspan="3"><hr /></td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="top"><div class="tableheadtext">${uiLabelMap.AccountingEFTAccountInformation}</div></td>
@@ -202,7 +202,7 @@ function shipBillAddr() {
               <input type="hidden" name="addGiftCard" value="Y">
               <#if paymentMethodType != "GC">
                 <tr>
-                  <td colspan="3"><hr/></td>
+                  <td colspan="3"><hr /></td>
                 </tr>
               </#if>
               <tr>
@@ -259,21 +259,21 @@ function shipBillAddr() {
                 <td width='5%' nowrap><input type="checkbox" name="useGc" value="GC" <#if paymentMethodType?exists && paymentMethodType == "GC">checked</#if></td>
                 <td width='95%' nowrap><div class="tabletext">${uiLabelMap.AccountingCheckGiftCard}</div></td>
               </tr>
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE?exists>
               <tr>
                 <td width='5%' nowrap><input type="radio" name="paymentMethodType" value="offline" <#if paymentMethodType?exists && paymentMethodType == "offline">checked</#if></td>
                 <td width='95%'nowrap><div class="tabletext">${uiLabelMap.OrderPaymentOfflineCheckMoney}</div></td>
               </tr>
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
               <tr>
                 <td width='5%' nowrap><input type="radio" name="paymentMethodType" value="CC" <#if paymentMethodType?exists && paymentMethodType == "CC">checked</#if></td>
                 <td width='95%' nowrap><div class="tabletext">${uiLabelMap.AccountingVisaMastercardAmexDiscover}</div></td>
               </tr>
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
               <tr>

@@ -63,7 +63,7 @@ under the License.
   </div>
 </div>
 </#if>
-<br/>
+<br />
 <#if wfTransitions?exists && wfTransitions?has_content>
 <div class="screenlet">
   <div class="screenlet-title-bar">

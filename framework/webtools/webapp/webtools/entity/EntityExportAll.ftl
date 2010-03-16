@@ -23,14 +23,14 @@ under the License.
     ${uiLabelMap.WebtoolsXMLExportInfo}
 </p>
 <#if results?has_content>
-    <hr/>
+    <hr />
     <h2>${uiLabelMap.WebtoolsResults}:</h2>
     <#list results as result>
         <p>${result}</p>
     </#list>
 </#if>
 
-<hr/>
+<hr />
 
 <h2>${uiLabelMap.WebtoolsExport}:</h2>
 <form method="post" action="<@ofbizUrl>entityExportAll</@ofbizUrl>">

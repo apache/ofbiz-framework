@@ -112,7 +112,7 @@ function onClickShippingMethod(e) {
                 <textarea class='textAreaBox' cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
               </td>
             </tr>
-            <tr><td colspan="2"><hr/></td></tr>
+            <tr><td colspan="2"><hr /></td></tr>
             <tr>
               <td colspan="2">
                 <h2>${uiLabelMap.OrderPoNumber}</h2>&nbsp;
@@ -120,7 +120,7 @@ function onClickShippingMethod(e) {
               </td>
             </tr>
             <#if productStore.showCheckoutGiftOptions?if_exists != "N">
-            <tr><td colspan="2"><hr/></td></tr>
+            <tr><td colspan="2"><hr /></td></tr>
             <tr>
               <td colspan="2">
                 <div>
@@ -130,7 +130,7 @@ function onClickShippingMethod(e) {
                 </div>
               </td>
             </tr>
-            <tr><td colspan="2"><hr/></td></tr>
+            <tr><td colspan="2"><hr /></td></tr>
             <tr>
               <td colspan="2">
                 <h2>${uiLabelMap.OrderGiftMessage}</h2>
@@ -145,7 +145,7 @@ function onClickShippingMethod(e) {
         </table></div>
     </td>
     </tr>
-    <tr><td colspan="2"><hr/></td></tr>
+    <tr><td colspan="2"><hr /></td></tr>
     <tr><td colspan="2"><h2>${uiLabelMap.OrderShipAllAtOnce}?</h2></td></tr>
     <tr>
         <td valign="top" colspan="2">

@@ -20,7 +20,7 @@ under the License.
 <h1>${uiLabelMap.WorkflowReadXPDLFile}</h1>
 <br />
 <p>${uiLabelMap.WorkflowImportXPDLPageDescription}</p>
-<hr/>
+<hr />
 <#if security.hasPermission("WORKFLOW_MAINT", session)>
   <form method="post" action="<@ofbizUrl>readxpdl</@ofbizUrl>">
     <table class="basic-table form-widget-table">
@@ -44,7 +44,7 @@ under the License.
 
   <#if parameters.XPDL_LOCATION?has_content>
     <#if messages?has_content>
-      <hr/>
+      <hr />
       <h1>${uiLabelMap.CommonErrorMessage3}:</h1>
       <div>
         <#list messages as message>
@@ -57,7 +57,7 @@ under the License.
       <#list toBeStored as entity>
           <pre>${entity}</pre>
       </#list>
-      <hr/>
+      <hr />
       <div>${uiLabelMap.WorkflowReadAndPrintedNEntities}</div>
     <#else>
       <div>${uiLabelMap.WorkflowNoEntitiesRead}.</div>

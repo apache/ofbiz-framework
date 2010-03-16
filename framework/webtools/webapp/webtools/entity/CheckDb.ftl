@@ -111,7 +111,7 @@ under the License.
         ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
     </form>
-    <hr/>
+    <hr />
 </div>
 <#if miters?has_content>
     <ul>

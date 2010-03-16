@@ -29,7 +29,7 @@
   <body>
     <h1>${title}</h1>
     <#-- custom logo or text can be inserted here -->
-    <br/>
+    <br />
     <div class="screenlet-title-bar">
       <div class="h3">${uiLabelMap.OagisInventoryDescription}<b></b></div>
     </div>
@@ -43,7 +43,7 @@
           <td width="10%" align="right"><b>${uiLabelMap.OrderQuantity} (Message)</b></td>
           <td width="10%" align="right"><b>${uiLabelMap.OagisQuantityDiff}.</b></td>
         </tr>
-        <tr><td colspan="10"><hr/></td></tr>
+        <tr><td colspan="10"><hr /></td></tr>
         <#assign alt_row = false>
         <#list inventoryMapList as inventoryMap>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -57,7 +57,7 @@
           <#-- toggle the row color -->
           <#assign alt_row = !alt_row>
         </#list>
-        <tr><td colspan="10"><hr/></td></tr>
+        <tr><td colspan="10"><hr /></td></tr>
       </table>
     </div>
   </body>

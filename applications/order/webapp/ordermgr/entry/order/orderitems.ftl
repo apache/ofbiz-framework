@@ -38,7 +38,7 @@ under the License.
           </tr>
           <#list orderItems?if_exists as orderItem>
             <#assign itemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
-            <tr><td colspan="6"><hr/></td></tr>
+            <tr><td colspan="6"><hr /></td></tr>
             <tr>
               <#if orderItem.productId?exists && orderItem.productId == "_?_">
                 <td colspan="1" valign="top">
@@ -127,7 +127,7 @@ under the License.
              <tr><td><font color="red">${uiLabelMap.checkhelpertotalsdonotmatchordertotal}</font></td></tr>
            </#if>
 
-          <tr><td colspan="8"><hr/></td></tr>
+          <tr><td colspan="8"><hr /></td></tr>
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.OrderSubTotal}</b></div></td>
             <td align="right" nowrap><div>&nbsp;<#if orderSubTotal?exists><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></#if></div></td>
@@ -147,7 +147,7 @@ under the License.
             <td align="right" nowrap><div><#if orderTaxTotal?exists><@ofbizCurrency amount=orderTaxTotal isoCode=currencyUomId/></#if></div></td>
           </tr>
 
-          <tr><td colspan=2></td><td colspan="8"><hr/></td></tr>
+          <tr><td colspan=2></td><td colspan="8"><hr /></td></tr>
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.OrderGrandTotal}</b></div></td>
             <td align="right" nowrap>

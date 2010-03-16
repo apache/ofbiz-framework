@@ -31,12 +31,12 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-    <br/>
+    <br />
     <p>
         <b>${uiLabelMap.WebtoolsCacheName}</b> ${cacheName?if_exists} (${now})
         <b>${uiLabelMap.WebtoolsSizeTotal}</b> ${totalSize} ${uiLabelMap.WebtoolsBytes}
     </p>
-    <br/>
+    <br />
 
     <@displayButtonBar/>
 

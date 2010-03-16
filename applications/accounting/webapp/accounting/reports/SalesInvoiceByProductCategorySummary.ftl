@@ -38,10 +38,10 @@ under the License.
         <td>Day</td>
         <td>[No Product]</td>
     <#list productList as product>
-        <td>${product.internalName?default((Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher))?if_exists)}<br/>P:[${product.productId}]</td>
+        <td>${product.internalName?default((Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher))?if_exists)}<br />P:[${product.productId}]</td>
     </#list>
     <#list productCategoryList as productCategory>
-        <td>${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, dispatcher))?if_exists}<br/>C:[${productCategory.productCategoryId}]</td>
+        <td>${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, dispatcher))?if_exists}<br />C:[${productCategory.productCategoryId}]</td>
     </#list>
     </tr>
     <#-- Days of the month -->

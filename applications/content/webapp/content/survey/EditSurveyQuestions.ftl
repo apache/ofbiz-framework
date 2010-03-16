@@ -236,7 +236,7 @@ under the License.
     </div>
     <div class="screenlet-body">
       <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion}</a>
-      <br/><br/>
+      <br /><br />
       ${createSurveyQuestionCategoryWrapper.renderFormString(context)}
   <#else>
     <#if surveyQuestionId?has_content>
@@ -258,7 +258,7 @@ under the License.
     <div class="screenlet-body">
     </#if>
     <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&newCategory=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion} ${uiLabelMap.ContentSurveryCategory}</a>
-    <br/><br/>
+    <br /><br />
     ${createSurveyQuestionWrapper.renderFormString(context)}
   </#if>
   </div>

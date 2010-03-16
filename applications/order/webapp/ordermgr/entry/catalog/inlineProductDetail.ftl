@@ -374,7 +374,7 @@ ${virtualJavaScript?if_exists}
                 </#if>
                 <td align="center" valign="bottom">
                   <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60"></a>
-                  <br/>
+                  <br />
                   <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);" class="linktext">${key}</a>
                 </td>
               </#if>

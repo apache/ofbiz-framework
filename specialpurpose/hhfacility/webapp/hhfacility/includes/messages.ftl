@@ -37,7 +37,7 @@ under the License.
 
 <#-- display the error messages -->
 <#if (errorMessage?has_content || errorMessageList?has_content)>
-  <div class="errorMessage">Errors Occurred:</div><br/>
+  <div class="errorMessage">Errors Occurred:</div><br />
   <ul>
     <#if errorMessage?has_content>
       <li class="errorMessage">${errorMessage}</li>
@@ -48,12 +48,12 @@ under the License.
       </#list>
     </#if>
   </ul>
-  <br/>
+  <br />
 </#if>
 
 <#-- display the event messages -->
 <#if (eventMessage?has_content || eventMessageList?has_content)>
-  <div class="eventMessage">Events:</div><br/>
+  <div class="eventMessage">Events:</div><br />
   <ul>
     <#if eventMessage?has_content>
       <li class="eventMessage">${eventMessage}</li>
@@ -64,5 +64,5 @@ under the License.
       </#list>
     </#if>
   </ul>
-  <br/>
+  <br />
 </#if>

@@ -50,7 +50,7 @@ under the License.
     </#if>
   </div>
 </div>
-<br/>
+<br />
 <#if shoppingList?has_content>
 <div class="screenlet">
   <div class="screenlet-title-bar">
@@ -129,7 +129,7 @@ under the License.
   </div>
 </div>
 <#if childShoppingListDatas?has_content>
-<br/>
+<br />
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
@@ -158,7 +158,7 @@ under the License.
   </div>
 </div>
 </#if>
-<br/>
+<br />
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
@@ -221,7 +221,7 @@ under the License.
     </#if>
   </div>
 </div>
-<br/>
+<br />
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>

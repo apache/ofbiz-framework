@@ -80,7 +80,7 @@ under the License.
                   <#if cartLine.getProductId()?exists>
                     <#-- product item -->
                     <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="buttontext">${cartLine.getProductId()}</a> -
-                    <input size="60" type="text" name="description_${cartLineIndex}" value="${cartLine.getName()?default("")}"/><br/>
+                    <input size="60" type="text" name="description_${cartLineIndex}" value="${cartLine.getName()?default("")}"/><br />
                     <i>${cartLine.getDescription()?if_exists}</i>
                     <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">
                       <#-- only applies to sales orders, not purchase orders -->
@@ -103,11 +103,11 @@ under the License.
                        <#assign features = cartLine.getStandardFeatureList()>
                    </#if>
                    <#if features?has_content>
-                     <br/><i>${uiLabelMap.ProductFeatures}: <#list features as feature>${feature.description?default("")} </#list></i>
+                     <br /><i>${uiLabelMap.ProductFeatures}: <#list features as feature>${feature.description?default("")} </#list></i>
                    </#if>
                     <#-- show links to survey response for this item -->
                     <#if cartLine.getAttribute("surveyResponses")?has_content>
-                        <br/>Surveys:
+                        <br />Surveys:
                        <#list cartLine.getAttribute("surveyResponses") as surveyResponseId>
                         <a href="/content/control/ViewSurveyResponses?surveyResponseId=${surveyResponseId}&externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${surveyResponseId}</a>
                        </#list>
@@ -276,7 +276,7 @@ under the License.
                     <input size="6" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}"/>
                 </#if>
                 <#if (cartLine.getSelectedAmount() > 0) >
-                  <br/><b>${uiLabelMap.OrderAmount}:</b><br/><input size="6" type="text" name="amount_${cartLineIndex}" value="${cartLine.getSelectedAmount()?string.number}"/>
+                  <br /><b>${uiLabelMap.OrderAmount}:</b><br /><input size="6" type="text" name="amount_${cartLineIndex}" value="${cartLine.getSelectedAmount()?string.number}"/>
                 </#if>
               </div>
             </td>
@@ -301,7 +301,7 @@ under the License.
         </#list>
 
         <#if shoppingCart.getAdjustments()?has_content>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
               <tr>
                 <td colspan="4" nowrap align="right"><div>${uiLabelMap.OrderSubTotal}:</div></td>
                 <td nowrap align="right"><div><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=currencyUomId/></div></td>
@@ -327,7 +327,7 @@ under the License.
             <div><b>${uiLabelMap.OrderCartTotal}:</b></div>
           </td>
           <td align="right" valign="bottom">
-            <hr/>
+            <hr />
             <div><b><@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=currencyUomId/></b></div>
           </td>
         </tr>

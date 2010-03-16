@@ -53,7 +53,7 @@ function call_fieldlookup3(view_name) {
 </script>
 
 <#-- ============================================================= -->
-<br/>
+<br />
 <TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
   <TR>
     <TD width='100%'>

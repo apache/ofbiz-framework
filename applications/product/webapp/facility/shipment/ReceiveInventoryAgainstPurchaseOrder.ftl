@@ -92,7 +92,7 @@ under the License.
 
         <#assign itemsAvailableToReceive = totalAvailableToReceive?default(0) &gt; 0/>
         <#if orderItemDatas?exists>
-            <br/>
+            <br />
             <#assign rowCount = 0>
             <#assign totalReadyToReceive = 0/>
             <form action="<@ofbizUrl>issueOrderItemToShipmentAndReceiveAgainstPO?clearAll=Y</@ofbizUrl>" method="post" name="selectAllForm">
@@ -153,7 +153,7 @@ under the License.
                                 <div>
                                     <#if fulfilledReservations?has_content>
                                         <#list fulfilledReservations?sort_by("orderId") as fulfilledReservation>
-                                            ${fulfilledReservation.orderId}<br/>
+                                            ${fulfilledReservation.orderId}<br />
                                         </#list>
                                     </#if>
                                 </div>

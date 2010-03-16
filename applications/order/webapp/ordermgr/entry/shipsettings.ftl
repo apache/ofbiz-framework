@@ -51,7 +51,7 @@ under the License.
                     <div>${uiLabelMap.FacilityFacility}: ${facility.facilityName?if_exists} [${facility.facilityId}]</div>
                   </td>
                 </tr>
-                <tr><td colspan="4"><hr/></td></tr>
+                <tr><td colspan="4"><hr /></td></tr>
 
                 <#-- company postal addresses -->
 
@@ -66,14 +66,14 @@ under the License.
                     <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td valign="top" width="100%" nowrap>
                       <div>
-                        <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
-                        <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
-                        <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>
-                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>
+                        <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
+                        <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
+                        <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
+                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br /></#if>
                         <#if shippingAddress.city?has_content>${shippingAddress.city}</#if>
-                        <#if shippingAddress.stateProvinceGeoId?has_content><br/>${shippingAddress.stateProvinceGeoId}</#if>
-                        <#if shippingAddress.postalCode?has_content><br/>${shippingAddress.postalCode}</#if>
-                        <#if shippingAddress.countryGeoId?has_content><br/>${shippingAddress.countryGeoId}</#if>
+                        <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
+                        <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
+                        <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
                       </div>
                     </td>
                     <td>
@@ -81,7 +81,7 @@ under the License.
                     </td>
                   </tr>
                   <#if shippingContactMech_has_next>
-                  <tr><td colspan="4"><hr/></td></tr>
+                  <tr><td colspan="4"><hr /></td></tr>
                   </#if>
                   </#if>
                   <#assign i = i + 1>
@@ -123,7 +123,7 @@ under the License.
 <#assign currShipContactMechId = cart.getShippingContactMechId(shipGroupIndex)?if_exists>
 <#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)?if_exists>
 <#assign facilityId = cart.getShipGroupFacilityId(shipGroupIndex)?if_exists>
-            <hr/>
+            <hr />
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <tr>
                 <td colspan="3">
@@ -152,7 +152,7 @@ under the License.
                 </td>
               </tr>
             <#if shippingContactMechList?has_content>
-                <tr><td colspan="3"><hr/></td></tr>
+                <tr><td colspan="3"><hr /></td></tr>
                 <#assign i = 0>
                 <#list shippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
@@ -175,14 +175,14 @@ under the License.
                     </td>
                     <td valign="top" width="99%" nowrap>
                       <div>
-                        <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
-                        <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
-                        <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>
-                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>
+                        <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
+                        <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
+                        <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
+                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br /></#if>
                         <#if shippingAddress.city?has_content>${shippingAddress.city}</#if>
-                        <#if shippingAddress.stateProvinceGeoId?has_content><br/>${shippingAddress.stateProvinceGeoId}</#if>
-                        <#if shippingAddress.postalCode?has_content><br/>${shippingAddress.postalCode}</#if>
-                        <#if shippingAddress.countryGeoId?has_content><br/>${shippingAddress.countryGeoId}</#if>
+                        <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
+                        <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
+                        <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
                       </div>
                     </td>
                     <td>
@@ -190,15 +190,15 @@ under the License.
                     </td>
                   </tr>
                   <#if shippingContactMech_has_next>
-                  <tr><td colspan="3"><hr/></td></tr>
+                  <tr><td colspan="3"><hr /></td></tr>
                   </#if>
                   <#assign i = i + 1>
                 </#list>
             </#if>
             <#if shipToPartyShippingContactMechList?has_content>
-                <tr><td colspan="3"><hr/></td></tr>
+                <tr><td colspan="3"><hr /></td></tr>
                 <tr><td colspan="3">${uiLabelMap.OrderShipToAnotherParty}: <b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(shipToParty)}</b></td></tr>
-                <tr><td colspan="3"><hr/></td></tr>
+                <tr><td colspan="3"><hr /></td></tr>
                 <#list shipToPartyShippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                   <tr>
@@ -207,20 +207,20 @@ under the License.
                     </td>
                     <td valign="top" width="99%" nowrap>
                       <div>
-                        <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
-                        <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
-                        <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>
-                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>
+                        <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
+                        <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
+                        <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
+                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br /></#if>
                         <#if shippingAddress.city?has_content>${shippingAddress.city}</#if>
-                        <#if shippingAddress.stateProvinceGeoId?has_content><br/>${shippingAddress.stateProvinceGeoId}</#if>
-                        <#if shippingAddress.postalCode?has_content><br/>${shippingAddress.postalCode}</#if>
-                        <#if shippingAddress.countryGeoId?has_content><br/>${shippingAddress.countryGeoId}</#if>
+                        <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
+                        <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
+                        <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
                       </div>
                     </td>
                     <td>&nbsp;</td>
                   </tr>
                   <#if shippingContactMech_has_next>
-                  <tr><td colspan="3"><hr/></td></tr>
+                  <tr><td colspan="3"><hr /></td></tr>
                   </#if>
                 </#list>
             </#if>
@@ -237,7 +237,7 @@ under the License.
 
     <#-- select a party id to ship to instead -->
 
-    <br/>
+    <br />
     <form method="post" action="setShipping" name="partyshipform">
       <div class="screenlet">
         <div class="screenlet-title-bar">

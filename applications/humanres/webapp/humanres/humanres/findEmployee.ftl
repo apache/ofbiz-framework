@@ -70,7 +70,7 @@ under the License.
                 <tr><td><input type="hidden" name="groupName" value="${parameters.groupName?if_exists}"/></td></tr>
                 <tr><input type="hidden" name="roleTypeId" value="EMPLOYEE"/></tr>
             <#if extInfo == "P">
-                <tr><td colspan="3"><hr/></td></tr><tr>
+                <tr><td colspan="3"><hr /></td></tr><tr>
                     <td class="label">${uiLabelMap.CommonAddress1}</td>
                     <td><input type="text" name="address1" value="${parameters.address1?if_exists}"/></td>
                 </tr>
@@ -96,7 +96,7 @@ under the License.
                 </tr>
             </#if>
             <#if extInfo == "T">
-                <tr><td colspan="3"><hr/></td></tr>
+                <tr><td colspan="3"><hr /></td></tr>
                 <tr><td class="label">${uiLabelMap.PartyCountryCode}</td>
                     <td><input type="text" name="countryCode" value="${parameters.countryCode?if_exists}"/></td>
                 </tr>
@@ -108,12 +108,12 @@ under the License.
                 </tr>
             </#if>
             <#if extInfo == "O">
-                <tr><td colspan="3"><hr/></td></tr>
+                <tr><td colspan="3"><hr /></td></tr>
                 <tr><td class="label">${uiLabelMap.PartyContactInformation}</td>
                     <td><input type="text" name="infoString" value="${parameters.infoString?if_exists}"/></td>
                 </tr>
             </#if>
-                <tr><td colspan="3"><hr/></td></tr>
+                <tr><td colspan="3"><hr /></td></tr>
                 <tr align="center">
                     <td>&nbsp;</td>
                     <td><input type="submit" value="${uiLabelMap.PartyLookupParty}" onClick="javascript:document.lookupparty.submit();"/>
@@ -133,7 +133,7 @@ under the License.
         </script>
     </#if>
     <#if partyList?exists>
-    <br/>
+    <br />
     <div id="findEmployeeResults" class="screenlet">
         <div class="screenlet-title-bar">
             <ul>

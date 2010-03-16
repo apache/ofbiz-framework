@@ -26,6 +26,6 @@ under the License.
             <li<#if selected="EditFacilityGroupMembers"> class="selected"</#if>><a href="<@ofbizUrl>EditFacilityGroupMembers?facilityGroupId=${facilityGroupId}</@ofbizUrl>">${uiLabelMap.ProductFacilities}</a></li>
             <li<#if selected="EditFacilityGroupRoles"> class="selected"</#if>><a href="<@ofbizUrl>EditFacilityGroupRoles?facilityGroupId=${facilityGroupId}</@ofbizUrl>">${uiLabelMap.PartyRoles}</a></li>
         </ul>
-        <br/>
+        <br />
     </div>
 </#if>

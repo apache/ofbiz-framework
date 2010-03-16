@@ -461,7 +461,7 @@ function toggleOrderIdList() {
                   </select>
                 </td>
               </tr>
-              <tr><td colspan="3"><hr/></td></tr>
+              <tr><td colspan="3"><hr /></td></tr>
               <tr>
                 <td width='25%' align='right'>&nbsp;</td>
                 <td width='5%'>&nbsp;</td>
@@ -487,7 +487,7 @@ document.lookuporder.orderId.focus();
 </script>
 </#if>
 
-<br/>
+<br />
 
 <div id="findOrdersList" class="screenlet">
   <div class="screenlet-title-bar">

@@ -20,7 +20,7 @@ under the License.
 
 <#list blogList as blog>
     <i><b>${blog.contentName}</b></i>
-    <a href="ViewArticle?articleContentId=${blog.contentId}&blogContentId=${blogContentId}">[${blog.contentId}]</a><br/>
+    <a href="ViewArticle?articleContentId=${blog.contentId}&blogContentId=${blogContentId}">[${blog.contentId}]</a><br />
     <@renderSubContentCache subContentId=blog.contentId mapKey="SUMMARY"/>
-    <br/><br/>
+    <br /><br />
 </#list>

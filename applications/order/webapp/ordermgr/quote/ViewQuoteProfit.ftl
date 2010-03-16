@@ -20,13 +20,13 @@ under the License.
 <#list quoteCoefficients as quoteCoefficient>
     <div>${quoteCoefficient.coeffName}:&nbsp;${quoteCoefficient.coeffValue}</div>
 </#list>
-<br/>
+<br />
 <div><span class="label">${uiLabelMap.CommonTotalCostMult}</span>&nbsp;${costMult}</div>
 <div><span class="label">${uiLabelMap.CommonTotalCostToPriceMult}</span>&nbsp;${costToPriceMult}</div>
-<br/>
+<br />
 <div><span class="label">${uiLabelMap.CommonTotalCost}</span>&nbsp;<@ofbizCurrency amount=totalCost isoCode=quote.currencyUomId/></div>
 <div><span class="label">${uiLabelMap.CommonTotalAmount}</span>&nbsp;<@ofbizCurrency amount=totalPrice isoCode=quote.currencyUomId/></div>
-<br/>
+<br />
 <div><span class="label">${uiLabelMap.CommonTotalProfit}</span>&nbsp;<@ofbizCurrency amount=totalProfit isoCode=quote.currencyUomId/></div>
 <div><span class="label">${uiLabelMap.CommonTotalPercProfit}</span>&nbsp;${totalPercProfit}%</div>
-<br/>
+<br />

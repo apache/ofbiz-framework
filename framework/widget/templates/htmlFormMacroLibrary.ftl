@@ -32,7 +32,7 @@ under the License.
         </#if>
         
         <#if description?has_content>
-            ${description?replace("\n", "<br/>")}<#t/>
+            ${description?replace("\n", "<br />")}<#t/>
         <#else>
             &nbsp;<#t/>
         </#if>
@@ -417,7 +417,7 @@ ${item.description}</div>
 <#if titleStyle?has_content>
 </span><#rt/>
 </#if>
-<br/><#rt/>
+<br /><#rt/>
 <input type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/>
 <#if titleStyle?has_content>
  <span class="${titleStyle}" ><#rt/>
@@ -478,7 +478,7 @@ ${item.description}</div>
 </#list>
 </select> ${paginateViewSizeLabel}</li></#if>
 <li class="nav-displaying">${commonDisplaying}</li>
-</ul></div><br/>
+</ul></div><br />
 </#if>
 </#macro>
 
@@ -510,7 +510,7 @@ ${item.description}</div>
 
 <#macro renderFieldGroupClose style id title><#if style?has_content || id?has_content || title?has_content></div></div></#if></#macro>
 
-<#macro renderHyperlinkTitle name title showSelectAll="N"><#if title?has_content>${title}<br/></#if><#if showSelectAll="Y"><input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${name}');"/></#if></#macro>
+<#macro renderHyperlinkTitle name title showSelectAll="N"><#if title?has_content>${title}<br /></#if><#if showSelectAll="Y"><input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, '${name}');"/></#if></#macro>
 <#macro renderSortField style title linkUrl ajaxEnabled><a<#if style?has_content> class="${style}"</#if> href="<#if ajaxEnabled?has_content && ajaxEnabled>javascript:ajaxUpdateAreas('${linkUrl}')<#else>${linkUrl}</#if>">${title}</a></#macro>
 <#macro formatBoundaryComment boundaryType widgetType widgetName><!-- ${boundaryType}  ${widgetType}  ${widgetName} --></#macro>
 

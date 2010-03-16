@@ -31,7 +31,7 @@ under the License.
                     ${orderName}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
         </#if>
         <#-- order for party -->
         <#if (orderForParty?exists)>
@@ -44,7 +44,7 @@ under the License.
                     ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(orderForParty, false)} [${orderForParty.partyId}]
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
         </#if>
         <#if (cart.getPoNumber()?has_content)>
             <tr>
@@ -56,7 +56,7 @@ under the License.
                     ${cart.getPoNumber()}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
         </#if>
         <#if orderTerms?has_content>
             <tr>
@@ -72,7 +72,7 @@ under the License.
                             <td width="10%"><div><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
                             <td width="45%"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
                         </tr>
-                        <tr><td colspan="4"><hr/></td></tr>
+                        <tr><td colspan="4"><hr /></td></tr>
                         <#assign index=0/>
                         <#list orderTerms as orderTerm>
                         <tr>
@@ -82,14 +82,14 @@ under the License.
                             <td width="45%"><div>${orderTerm.textValue?default("")}</div></td>
                         </tr>
                             <#if orderTerms.size()&lt;index>
-                        <tr><td colspan="4"><hr/></td></tr>
+                        <tr><td colspan="4"><hr /></td></tr>
                             </#if>
                             <#assign index=index+1/>
                         </#list>
                     </table>
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
         </#if>
         <#-- tracking number -->
         <#if trackingNumber?has_content>
@@ -103,7 +103,7 @@ under the License.
                     <div>${trackingNumber}</div>
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
         </#if>
         <#-- splitting preference -->
             <tr>
@@ -120,7 +120,7 @@ under the License.
             </tr>
         <#-- shipping instructions -->
         <#if shippingInstructions?has_content>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%">
                     <div>&nbsp;<b>${uiLabelMap.OrderSpecialInstructions}</b></div>
@@ -131,7 +131,7 @@ under the License.
                 </td>
             </tr>
         </#if>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
         <#if orderType != "PURCHASE_ORDER" && (productStore.showCheckoutGiftOptions)?if_exists != "N">
         <#-- gift settings -->
             <tr>
@@ -146,7 +146,7 @@ under the License.
                     </div>
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <#if giftMessage?has_content>
             <tr>
                 <td align="right" valign="top" width="15%">
@@ -157,7 +157,7 @@ under the License.
                     <div>${giftMessage}</div>
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             </#if>
         </#if>
         <#if shipAfterDate?has_content>

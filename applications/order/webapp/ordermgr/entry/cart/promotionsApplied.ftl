@@ -18,6 +18,6 @@ under the License.
 -->
 
 <#if (shoppingCartSize?default(0) > 0)>
-  <br/>
+  <br />
   ${screens.render(promoUseDetailsInlineScreen)}
 </#if>

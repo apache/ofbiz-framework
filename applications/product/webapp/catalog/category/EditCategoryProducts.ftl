@@ -80,7 +80,7 @@ under the License.
                         <a href="javascript:call_cal(document.updateCategoryProductForm.thruDate${suffix}, '${(productCategoryMember.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                         <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)?if_exists}">
                         <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)?if_exists}">
-                        <br/>
+                        <br />
                         <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)?if_exists}</textarea>
                     </td>
                     <td align="center">
@@ -151,7 +151,7 @@ under the License.
                         <a href="javascript:call_fieldlookup2(document.addProductCategoryMemberForm.productId, 'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"></a>
                         <span class="label">${uiLabelMap.CommonFromDate}</span> <input type="text" size="22" name="fromDate">
                         <a href="javascript:call_cal(document.addProductCategoryMemberForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-                          <br/>
+                          <br />
                           <span class="label">${uiLabelMap.CommonComments}</span> <textarea name="comments" rows="2" cols="40"></textarea>
                           <input type="submit" value="${uiLabelMap.CommonAdd}">
                     </div>
@@ -174,10 +174,10 @@ under the License.
                         <span class="label">${uiLabelMap.ProductTargetProductCategory}</span>
                         <input type="text" name="productCategoryIdTo" size="20" maxlength="20"/>
                         <a href="javascript:call_fieldlookup2(document.copyCategoryProductMembersForm.productCategoryIdTo,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
-                        <br/>
+                        <br />
                         <span class="label">${uiLabelMap.ProductOptionalFilterWithDate}</span> <input type="text" size="20" name="validDate">
                         <a href="javascript:call_cal(document.copyCategoryProductMembersForm.validDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-                        <br/>
+                        <br />
                         <span class="label">${uiLabelMap.ProductIncludeSubCategories}?</span>
                         <select name="recurse">
                             <option value="N">${uiLabelMap.CommonN}</option>

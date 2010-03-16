@@ -79,7 +79,7 @@ under the License.
       <div class="screenlet-body">${uiLabelMap.WebtoolsStatsNoRequests}</div>
     </#if>
   </div>
-  <br/>
+  <br />
   <#-- Event Table -->
   <div id="event-statistics" class="screenlet">
     <div class="screenlet-title-bar">

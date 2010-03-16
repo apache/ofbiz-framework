@@ -95,7 +95,7 @@ under the License.
 </table>
 
 <#if security.hasEntityPermission("PAYPROC", "_CREATE", session)>
-<br/>
+<br />
 <table border="0" width='100%' cellpadding='0' cellspacing=0 class='boxoutside'>
   <tr>
     <td width='100%'>
@@ -205,6 +205,6 @@ under the License.
 </#if>
 
 <#else>
-  <br/>
+  <br />
   <h3>You do not have permission to view this page. ("PAYSETUP_VIEW" or "PAYSETUP_ADMIN" needed)</h3>
 </#if>

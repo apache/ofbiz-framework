@@ -39,7 +39,7 @@ under the License.
               <a href="<@ofbizUrl>editKeywordThesaurus?firstLetter=${letter}</@ofbizUrl>" class="buttontext"><#if highlight>[</#if>${letter}<#if highlight>]</#if></a>
             </#list>
         </div>
-        <br/>
+        <br />
         <#assign lastkeyword = "">
         <table cellspacing="0" class="basic-table">
             <#assign rowClass = "2">

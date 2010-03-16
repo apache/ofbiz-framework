@@ -57,7 +57,7 @@ under the License.
             <a href="#Entity_${firstChar}">${firstChar}</a>&nbsp;
         </#if>
     </#list>
-    <br/><br/>
+    <br /><br />
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>

@@ -94,7 +94,7 @@ under the License.
             </tr>
         </#if>
       </table>
-      <br/>
+      <br />
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
           <td width="18%">${uiLabelMap.ProductProductId}</td>

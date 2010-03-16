@@ -26,7 +26,7 @@ under the License.
             From: ${(contactMech.infoString)!}
             Subject: ${(communicationEvent.subject)!}
         </pre>
-        <hr/>
+        <hr />
         ${StringUtil.wrapString(communicationEvent.content)!}
 
     </body>

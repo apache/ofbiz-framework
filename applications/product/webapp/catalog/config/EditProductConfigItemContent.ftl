@@ -35,7 +35,7 @@ function insertImageName(size,nameValue) {
         <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
         <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
     </#if>
-<br/>
+<br />
 </#if>
 
 <#if !(configItem?exists)>
@@ -70,7 +70,7 @@ function insertImageName(size,nameValue) {
          </#if>
          </#list>
     </table>
-    <br/>
+    <br />
     <#if configItemId?has_content && configItem?has_content>
         <div class="screenlet">
             <div class="screenlet-title-bar">

@@ -106,7 +106,7 @@ under the License.
   </tr>
 </table>
 
-<br/>
+<br />
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

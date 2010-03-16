@@ -28,7 +28,7 @@ under the License.
        obj.submit();
     }
 </script>
-<br/>
+<br />
 <div class="screenlet">
         <div class="boxlink">
             <a href="<@ofbizUrl>createEmptyShoppingList?productStoreId=${productStoreId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
@@ -208,7 +208,7 @@ under the License.
                 </td>
                 <td>&nbsp;</td>
               </tr>
-              <tr><td colspan="9"><hr/></td></tr>
+              <tr><td colspan="9"><hr /></td></tr>
               <tr>
                 <td><div class="tableheadtext">${uiLabelMap.OrderShipTo}</div></td>
                 <td>
@@ -271,7 +271,7 @@ under the License.
                 </td>
                 <td>&nbsp;</td>
               </tr>
-              <tr><td colspan="9"><hr/></td></tr>
+              <tr><td colspan="9"><hr /></td></tr>
               <tr>
                 <td align="right" colspan="9">
                   <div class="tabletext">
@@ -283,7 +283,7 @@ under the License.
                 </td>
               </tr>
               <#if shoppingList.isActive?default("N") == "Y">
-                <tr><td colspan="9"><hr/></td></tr>
+                <tr><td colspan="9"><hr /></td></tr>
                 <tr>
                   <td colspan="9">
                     <#assign nextTime = recInfo.next(lastSlOrderTime)?if_exists>
@@ -352,7 +352,7 @@ under the License.
               </tr>
             </form>
           </#list>
-          <tr><td colspan="6"><hr/></td></tr>
+          <tr><td colspan="6"><hr /></td></tr>
           <tr>
             <td><div class="tabletext">&nbsp;</div></td>
             <td nowrap align="right">
@@ -430,7 +430,7 @@ under the License.
                       <#if isVirtual && productVariantAssocs?has_content>
                         <#assign replaceItemAction = "/replaceShoppingListItem/" + requestAttributes._CURRENT_VIEW_?if_exists>
                         <#assign addToCartAction = "/additem/" + requestAttributes._CURRENT_VIEW_?if_exists>
-                        <br/>
+                        <br />
                         <form method="post" action="<@ofbizUrl>${addToCartAction}</@ofbizUrl>" name="listreplform_${shoppingListItem.shoppingListItemSeqId}" style="margin: 0;">
                           <input type="hidden" name="shoppingListId" value="${shoppingListItem.shoppingListId}"/>
                           <input type="hidden" name="shoppingListItemSeqId" value="${shoppingListItem.shoppingListItemSeqId}"/>
@@ -444,9 +444,9 @@ under the License.
                                 </#if>
                               </#list>
                           </select>
-                          <br/>
+                          <br />
                           <a href="javascript:document.listreplform_${shoppingListItem.shoppingListItemSeqId}.action='<@ofbizUrl>${replaceItemAction}</@ofbizUrl>';document.listreplform_${shoppingListItem.shoppingListItemSeqId}.submit();" class="buttontext">${uiLabelMap.EcommerceReplaceWithVariation}</a>
-                          <br/>
+                          <br />
                           <a href="javascript:document.listreplform_${shoppingListItem.shoppingListItemSeqId}.action='<@ofbizUrl>${addToCartAction}</@ofbizUrl>';document.listreplform_${shoppingListItem.shoppingListItemSeqId}.submit();" class="buttontext">${uiLabelMap.CommonAdd}&nbsp;${shoppingListItem.quantity?string}&nbsp;${uiLabelMap.EcommerceVariationToCart}</a>
                         </form>
                       <#else>
@@ -455,7 +455,7 @@ under the License.
                     </td>
                   </tr>
               </#list>
-              <tr><td colspan="6"><hr/></td></tr>
+              <tr><td colspan="6"><hr /></td></tr>
               <tr>
                 <td><div class="tabletext">&nbsp;</div></td>
                 <td><div class="tabletext">&nbsp;</div></td>

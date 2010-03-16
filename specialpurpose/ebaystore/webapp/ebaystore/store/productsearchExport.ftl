@@ -345,7 +345,7 @@ under the License.
                                         </tr>
                                         <tr>
                                             <td class="label"></td>
-                                            <td><br/></td>
+                                            <td><br /></td>
                                         </tr>
                                      </table>
                                     </td>
@@ -353,9 +353,9 @@ under the License.
                                     <table width="100%" height="100%" id="table2" cellspacing="0">
                                         <tr>
                                                     <td>
-                                                        <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br/>
-                                                        ${uiLabelMap.ProductProductId}   : ${item.getSKU()?if_exists}<br/>
-                                                        ${uiLabelMap.ProductProductName} : ${item.getTitle()?if_exists}<br/>
+                                                        <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br />
+                                                        ${uiLabelMap.ProductProductId}   : ${item.getSKU()?if_exists}<br />
+                                                        ${uiLabelMap.ProductProductName} : ${item.getTitle()?if_exists}<br />
                                                         ${uiLabelMap.CommonDescription}  : ${item.getDescription()?if_exists}
                                                     </td>
                                                 </tr>
@@ -432,7 +432,7 @@ under the License.
                                                               }
                                                             </script>
                                                             <a id="themeImgUrl" href="javascript:popUpImg();"><img hspace="5" height="120" border="0" align="top" width="100" id="themeImg" name="themeImg" src="http://pics.ebay.com/aw/pics/vit/None2_sample_100x120.gif"/></a>
-                                                            <br/><div style="height:120px"></div>
+                                                            <br /><div style="height:120px"></div>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -471,7 +471,7 @@ under the License.
                                         <#if listingType.type?if_exists.equals("Chinese") > <#assign tabName = "Auction"></#if>
                                         <#if listingType.type?if_exists.equals("FixedPriceItem") ><#assign tabName = "Fixed Price"></#if>
                                        <div id="tabContent${id}" class="tabContent" <#if id != 1>style="display:none;"</#if>>
-                                            <br/>
+                                            <br />
                                             <table width="50%" height="100%" id="table2" cellspacing="0">
                                                     <tr>
                                                          <td class="label"></td>
@@ -556,10 +556,10 @@ under the License.
                                                         <td class="label"></td><!-- use when fixed price and store fixed price -->
                                                         <td><input type="checkbox" value="true" name="enableBestOffer_${id}" /><b>Enable Best Offer</b></td>
                                                         <td class="label"></td>
-                                                        <td><br/></td>
+                                                        <td><br /></td>
                                                     </tr>
                                                     </#if>
-                                                    <tr><td colspan="4"><br/></td></tr>
+                                                    <tr><td colspan="4"><br /></td></tr>
                                                 </table>
                                        </div>
                                        <#assign id = id + 1>
@@ -577,13 +577,13 @@ under the License.
                                  <div class="screenlet-title-bar"><ul><li class="h3">Payment</li></ul><br class="clear"/></div>
                                  <div class="screenlet-body">
                                      <table width="50%" height="100%" id="table2" cellspacing="0">
-                                        <tr><td colspan="4"><br/></td></tr>
+                                        <tr><td colspan="4"><br /></td></tr>
                                                      <tr>
                                                         <td colspan="4">
                                                             <b><u>${uiLabelMap.FormFieldTitle_paymentMethodsAccepted}</u></b>
                                                         </td>
                                                     </tr>
-                                                    <tr><td colspan="4"><br/></td></tr>
+                                                    <tr><td colspan="4"><br /></td></tr>
                                                     <tr>
                                                         <td colspan="4">
                                                             <#assign is_payPal = false>
@@ -609,7 +609,7 @@ under the License.
                                                                 </table>
                                                                 <#--assign i = 0>
                                                                 <#list paymentMethods as paymentMethod>
-                                                                    <input type="checkbox" value="${paymentMethod.name()?if_exists}" name="${paymentMethod.name()?if_exists}_${id}">${paymentMethod.value()?if_exists}</checkbox><span style="width:40px"/><#if i==3><br/><#assign i = -1></#if>
+                                                                    <input type="checkbox" value="${paymentMethod.name()?if_exists}" name="${paymentMethod.name()?if_exists}_${id}">${paymentMethod.value()?if_exists}</checkbox><span style="width:40px"/><#if i==3><br /><#assign i = -1></#if>
                                                                     <#assign i=i+1> 
                                                                 </#list-->
                                                             </#if>
@@ -620,10 +620,10 @@ under the License.
                                                         <td class="label">${uiLabelMap.FormFieldTitle_payPalEmail}</td>
                                                         <td><input type="text" name="paymentMethodPaypalEmail" id="paymentMethodPaypalEmail" size="50" maxlength="50" value="me@ebay.com" /></td>
                                                         <td class="label"></td>
-                                                        <td><br/></td>
+                                                        <td><br /></td>
                                                     </tr>
                                                     </#if>
-                                         <tr><td colspan="4"><br/></td></tr>
+                                         <tr><td colspan="4"><br /></td></tr>
                                      </table>
                                  </div>
                              </div>

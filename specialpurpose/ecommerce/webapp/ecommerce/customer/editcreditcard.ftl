@@ -63,12 +63,12 @@ under the License.
                      </div>
                    </#list>
                    <div class="tabletext">
-                   <#if curPostalAddress.toName?exists>${uiLabelMap.CommonTo}: ${curPostalAddress.toName}<br/></#if>
-                   <#if curPostalAddress.attnName?exists>${uiLabelMap.PartyAddrAttnName}: ${curPostalAddress.attnName}<br/></#if>
-                     ${curPostalAddress.address1?if_exists}<br/>
-                   <#if curPostalAddress.address2?exists>${curPostalAddress.address2}<br/></#if>
+                   <#if curPostalAddress.toName?exists>${uiLabelMap.CommonTo}: ${curPostalAddress.toName}<br /></#if>
+                   <#if curPostalAddress.attnName?exists>${uiLabelMap.PartyAddrAttnName}: ${curPostalAddress.attnName}<br /></#if>
+                     ${curPostalAddress.address1?if_exists}<br />
+                   <#if curPostalAddress.address2?exists>${curPostalAddress.address2}<br /></#if>
                      ${curPostalAddress.city}<#if curPostalAddress.stateProvinceGeoId?has_content>,&nbsp;${curPostalAddress.stateProvinceGeoId}</#if>&nbsp;${curPostalAddress.postalCode}
-                   <#if curPostalAddress.countryGeoId?exists><br/>${curPostalAddress.countryGeoId}</#if>
+                   <#if curPostalAddress.countryGeoId?exists><br />${curPostalAddress.countryGeoId}</#if>
                    <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${(curPartyContactMech.fromDate.toString())?if_exists})</div>
                    <#if curPartyContactMech.thruDate?exists><div class="tabletext">${uiLabelMap.CommonDelete}:&nbsp;${curPartyContactMech.thruDate.toString()}</#if>
                    </div>
@@ -106,12 +106,12 @@ under the License.
                      </div>
                    </#list>
                    <div class="tabletext">
-                     <#if postalAddress.toName?exists>${uiLabelMap.CommonTo}: ${postalAddress.toName}<br/></#if>
-                     <#if postalAddress.attnName?exists>${uiLabelMap.PartyAddrAttnName}: ${postalAddress.attnName}<br/></#if>
-                     ${postalAddress.address1?if_exists}<br/>
-                     <#if postalAddress.address2?exists>${postalAddress.address2}<br/></#if>
+                     <#if postalAddress.toName?exists>${uiLabelMap.CommonTo}: ${postalAddress.toName}<br /></#if>
+                     <#if postalAddress.attnName?exists>${uiLabelMap.PartyAddrAttnName}: ${postalAddress.attnName}<br /></#if>
+                     ${postalAddress.address1?if_exists}<br />
+                     <#if postalAddress.address2?exists>${postalAddress.address2}<br /></#if>
                      ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode}
-                     <#if postalAddress.countryGeoId?exists><br/>${postalAddress.countryGeoId}</#if>
+                     <#if postalAddress.countryGeoId?exists><br />${postalAddress.countryGeoId}</#if>
                    </div>
                    <div class="tabletext">(${uiLabelMap.CommonUpdated}:&nbsp;${(partyContactMech.fromDate.toString())?if_exists})</div>
                    <#if partyContactMech.thruDate?exists><div class="tabletext">${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</div></#if>

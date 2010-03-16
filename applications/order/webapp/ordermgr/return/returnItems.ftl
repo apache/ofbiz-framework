@@ -122,7 +122,7 @@ under the License.
               </table>
           </td></tr>
           </#if>
-          <tr><td colspan="10"><br/></td></tr>
+          <tr><td colspan="10"><br /></td></tr>
           <tr class="header-row">
             <td>${uiLabelMap.OrderOrderItems}</td>
             <td>${uiLabelMap.ProductProduct}</td>
@@ -185,9 +185,9 @@ under the License.
                         <input name="returnQuantity_o_${rowCount}" value="${item.returnQuantity}" type="text" size="8" align="right">
                     </#if>
                     <#if item.receivedQuantity?exists>
-                    <br/>${uiLabelMap.OrderTotalQuantityReceive}: ${item.receivedQuantity}
+                    <br />${uiLabelMap.OrderTotalQuantityReceive}: ${item.receivedQuantity}
                         <#list shipmentReceipts?if_exists as shipmentReceipt>
-                            <br/>${uiLabelMap.OrderQty}: ${shipmentReceipt.quantityAccepted}, ${shipmentReceipt.datetimeReceived}, <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}" class="buttontext">${shipmentReceipt.inventoryItemId}</a>
+                            <br />${uiLabelMap.OrderQty}: ${shipmentReceipt.quantityAccepted}, ${shipmentReceipt.datetimeReceived}, <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}" class="buttontext">${shipmentReceipt.inventoryItemId}</a>
                         </#list>
                     </#if>
                     </div></td>
@@ -299,7 +299,7 @@ under the License.
             </#list>
             </#if>
             <#-- show the return total -->
-            <tr><td colspan="5"></td><td><hr/></td></tr>
+            <tr><td colspan="5"></td><td><hr /></td></tr>
             <tr>
               <td colspan="2">&nbsp;</td>
               <td colspan="3" class="label">${uiLabelMap.OrderReturnTotal}</td>
@@ -333,7 +333,7 @@ under the License.
           </#list>
         </#if>
         <#if (returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED") && (rowCount > 0)>
-        <br/>
+        <br />
         <form name="acceptReturn" method="post" action="<@ofbizUrl>/updateReturn</@ofbizUrl>">
           <#if "CUSTOMER_RETURN" == returnHeader.returnHeaderTypeId>
             <#assign statusId = "RETURN_ACCEPTED">
@@ -349,7 +349,7 @@ under the License.
         </#if>
 
         <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
-        <br/>
+        <br />
         <form name="returnItems" method="post" action="<@ofbizUrl>returnItems</@ofbizUrl>">
           <input type="hidden" name="returnId" value="${returnId}">
           <table border='0' cellpadding='2' cellspacing='0'>

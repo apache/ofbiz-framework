@@ -25,7 +25,7 @@ under the License.
         <input type="text" id="productGoodIdentification" name="productGoodIdentification" size="40" maxlength="100">
         <div id="productsIdent" class="autocomplete" style="display:none"></div>
         <input type="submit" id="submitButton" name="submitButton" value="${uiLabelMap.OrderAddToCart}" onclick="ajaxSubmitFormUpdateAreas('SearchProducts', 'CartScreen, webpos/control/ShowCart,')">
-        <br/>
+        <br />
         <label for="searchBy"><b>&nbsp;${uiLabelMap.WebPosSearchBy}</b></label>
         <select id="searchBy" name="searchBy">
           <option value="productName" selected>${uiLabelMap.ProductProductName}</option>
@@ -35,7 +35,7 @@ under the License.
         <div id="products" class="autocomplete" style="display:none"></div>
     </div>
 </form>
-<br/>
+<br />
 <script language="javascript" type="text/javascript">
     document.SearchProducts.productGoodIdentification.focus();
 </script>

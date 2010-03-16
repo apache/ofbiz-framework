@@ -66,7 +66,7 @@ under the License.
                 </div>
                 </#if>
             </#if>
-            <br/>
+            <br />
 
             <!-- select order form -->
             <form name="selectOrderForm" method="post" action="<@ofbizUrl>PackOrder</@ofbizUrl>">
@@ -93,7 +93,7 @@ under the License.
                 </tr>
               </table>
             </form>
-            <br/>
+            <br />
 
             <!-- select picklist bin form -->
             <form name="selectPicklistBinForm" method="post" action="<@ofbizUrl>PackOrder</@ofbizUrl>" style="margin: 0;">
@@ -156,28 +156,28 @@ under the License.
                   <tr>
                     <td valign="top">
                       <span class="label">${uiLabelMap.ProductShipToAddress}</span>
-                      <br/>
+                      <br />
                       ${uiLabelMap.CommonTo}: ${postalAddress.toName?default("")}
-                      <br/>
+                      <br />
                       <#if postalAddress.attnName?has_content>
                           ${uiLabelMap.CommonAttn}: ${postalAddress.attnName}
-                          <br/>
+                          <br />
                       </#if>
                       ${postalAddress.address1}
-                      <br/>
+                      <br />
                       <#if postalAddress.address2?has_content>
                           ${postalAddress.address2}
-                          <br/>
+                          <br />
                       </#if>
                       ${postalAddress.city?if_exists}, ${postalAddress.stateProvinceGeoId?if_exists} ${postalAddress.postalCode?if_exists}
-                      <br/>
+                      <br />
                       ${postalAddress.countryGeoId}
-                      <br/>
+                      <br />
                     </td>
                     <td>&nbsp;</td>
                     <td valign="top">
                       <span class="label">${uiLabelMap.ProductCarrierShipmentMethod}</span>
-                      <br/>
+                      <br />
                       <#if carrier == "USPS">
                         <#assign color = "red">
                       <#elseif carrier == "UPS">
@@ -190,18 +190,18 @@ under the License.
                         &nbsp;
                       </#if>
                       ${orderItemShipGroup.shipmentMethodTypeId?default("??")}
-                      <br/>
+                      <br />
                       <span class="label">${uiLabelMap.ProductEstimatedShipCostForShipGroup}</span>
-                      <br/>
+                      <br />
                       <#if shipmentCostEstimateForShipGroup?exists>
                           <@ofbizCurrency amount=shipmentCostEstimateForShipGroup isoCode=orderReadHelper.getCurrency()?if_exists/>
-                          <br/>
+                          <br />
                       </#if>
                     </td>
                     <td>&nbsp;</td>
                     <td valign="top">
                       <span class="label">${uiLabelMap.OrderInstructions}</span>
-                      <br/>
+                      <br />
                       ${orderItemShipGroup.shippingInstructions?default("(${uiLabelMap.CommonNone})")}
                     </td>
                   </tr>
@@ -210,7 +210,7 @@ under the License.
 
               <!-- manual per item form -->
               <#if showInput != "N">
-                <hr/>
+                <hr />
                 <form name="singlePackForm" method="post" action="<@ofbizUrl>ProcessPackOrder</@ofbizUrl>">
                   <input type="hidden" name="packageSeq" value="${packingSession.getCurrentPackageSeq()}"/>
                   <input type="hidden" name="orderId" value="${orderId}"/>
@@ -241,7 +241,7 @@ under the License.
               <!-- auto grid form -->
               <#assign itemInfos = packingSession.getItemInfos()?if_exists>
               <#if showInput != "N" && hideGrid != "Y" && itemInfos?has_content>
-                <br/>
+                <br />
                 <form name="multiPackForm" method="post" action="<@ofbizUrl>ProcessBulkPackOrder</@ofbizUrl>">
                   <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
                   <input type="hidden" name="orderId" value="${orderId?if_exists}">
@@ -343,7 +343,7 @@ under the License.
                     </tr>
                   </table>
                 </form>
-                <br/>
+                <br />
               </#if>
 
               <!-- complete form -->
@@ -362,11 +362,11 @@ under the License.
                         <#if packageSeqIds?has_content>
                             <td>
                                 <span class="label">${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):</span>
-                                <br/>
+                                <br />
                                 <#list packageSeqIds as packageSeqId>
                                     ${uiLabelMap.ProductPackage} ${packageSeqId}
                                     <input type="text" size="7" name="packageWeight_${packageSeqId}" value="${packingSession.getPackageWeight(packageSeqId?int)?if_exists}">
-                                    <br/>
+                                    <br />
                                 </#list>
                                 <#if orderItemShipGroup?has_content>
                                     <input type="hidden" name="shippingContactMechId" value="${orderItemShipGroup.contactMechId?if_exists}"/>
@@ -379,16 +379,16 @@ under the License.
                         </#if>
                         <td nowrap="nowrap">
                             <span class="label">${uiLabelMap.ProductAdditionalShippingCharge}:</span>
-                            <br/>
+                            <br />
                             <input type="text" name="additionalShippingCharge" value="${packingSession.getAdditionalShippingCharge()?if_exists}" size="20"/>
                             <#if packageSeqIds?has_content>
                                 <a href="javascript:document.completePackForm.action='<@ofbizUrl>calcPackSessionAdditionalShippingCharge</@ofbizUrl>';document.completePackForm.submit();" class="buttontext">${uiLabelMap.ProductEstimateShipCost}</a>
-                                <br/>
+                                <br />
                             </#if>
                         </td>
                       <td>
                         <span class="label">${uiLabelMap.ProductHandlingInstructions}:</span>
-                        <br/>
+                        <br />
                         <textarea name="handlingInstructions" rows="2" cols="30">${packingSession.getHandlingInstructions()?if_exists}</textarea>
                       </td>
                       <td align="right">
@@ -402,7 +402,7 @@ under the License.
                       </td>
                     </tr>
                   </table>
-                  <br/>
+                  <br />
                 </form>
               </#if>
         </div>
@@ -424,10 +424,10 @@ under the License.
             <#list sortedKeys as key>
               <#assign packedLines = packageMap.get(key)>
               <#if packedLines?has_content>
-                <br/>
+                <br />
                 <#assign packedLine = packedLines.get(0)?if_exists>
                 <span class="label" style="font-size:1.2em">${uiLabelMap.ProductPackage}&nbsp;${packedLine.getPackageSeq()?if_exists}</span>
-                <br/>
+                <br />
                 <table class="basic-table" cellspacing='0'>
                   <tr class="header-row">
                     <td>${uiLabelMap.ProductItem} #</td>

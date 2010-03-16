@@ -37,7 +37,7 @@ under the License.
           </tr>
           <#list supplierProductList as supplierProduct>
             <#assign product = supplierProduct.getRelatedOneCache("Product")/>
-            <tr><td colspan="5"><hr/></td></tr>
+            <tr><td colspan="5"><hr /></td></tr>
             <tr>
               <td>
                 <div class="tabletext">${(product.productName)?if_exists}</div>

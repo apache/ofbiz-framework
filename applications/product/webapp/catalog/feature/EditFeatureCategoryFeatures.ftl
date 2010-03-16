@@ -34,7 +34,7 @@ under the License.
           </div>
           <input type="hidden" name="productFeatureCategoryId" value="${productFeatureCategoryId}">
         </form>
-        <br/>
+        <br />
     </div>
 </div>
 <div class="screenlet">
@@ -64,7 +64,7 @@ under the License.
                 </tr>
             </table>
         </#if>
-        <br/>
+        <br />
         <table cellspacing="0" class="basic-table">
             <form method='POST' action='<@ofbizUrl>UpdateProductFeatureInCategory</@ofbizUrl>' name="selectAllForm">
             <input type="hidden" name="_useRowSubmit" value="Y">

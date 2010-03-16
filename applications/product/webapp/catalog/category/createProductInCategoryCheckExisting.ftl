@@ -55,7 +55,7 @@ under the License.
             <h3>&nbsp;${uiLabelMap.ProductNoExistingProductsFound}.</h3>
         </#if>
     </div>
-    <br/>
+    <br />
     <div class="screenlet-body">
         <form name="createProductInCategoryForm" method="post" action="<@ofbizUrl>createProductInCategory</@ofbizUrl>" style="margin: 0;">
             <input type="hidden" name="productCategoryId" value="${productCategoryId}">

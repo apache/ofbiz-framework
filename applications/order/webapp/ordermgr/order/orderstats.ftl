@@ -34,7 +34,7 @@ under the License.
           </tr>
           <tr>
           <td colspan="2">&nbsp;</td>
-          <td colspan="4"><hr/></td></tr>
+          <td colspan="4"><hr /></td></tr>
           <tr>
             <td class="label">${uiLabelMap.OrderOrdersTotals}</td>
             <td colspan="5">&nbsp;</td>
@@ -63,7 +63,7 @@ under the License.
             <td align="right">${monthItemTotalPending}</td>
             <td align="right">${yearItemTotalPending}</td>
           </tr>
-          <tr><td colspan="6"><hr/></td></tr>
+          <tr><td colspan="6"><hr /></td></tr>
           <tr>
             <td class="label">${uiLabelMap.OrderOrdersItemCounts}</td>
             <td colspan="5">&nbsp;</td>
@@ -92,7 +92,7 @@ under the License.
             <td align="right">${monthItemCountPending?string.number}</td>
             <td align="right">${yearItemCountPending?string.number}</td>
           </tr>
-          <tr><td colspan="6"><hr/></td></tr>
+          <tr><td colspan="6"><hr /></td></tr>
           <tr>
             <td class="label">${uiLabelMap.OrderOrdersPending}</td>
             <td colspan="5">&nbsp;</td>
@@ -121,7 +121,7 @@ under the License.
             <td align="right">--</td>
             <td align="right">--</td>
           </tr>
-          <tr><td colspan="6"><hr/></td></tr>
+          <tr><td colspan="6"><hr /></td></tr>
           <tr>
             <td class="label">${uiLabelMap.OrderStatusChanges}</td>
             <td colspan="5">&nbsp;</td>

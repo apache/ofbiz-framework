@@ -28,7 +28,7 @@ under the License.
           <#if "RETURN_RECEIVED" == returnHeader.getString("statusId")>
             <h3>${uiLabelMap.ProductReturnCompletelyReceived}</h3>
           </#if>
-          <br/>
+          <br />
           <table cellspacing="0" class="basic-table">
             <tr class="header-row">
               <td>${uiLabelMap.ProductReceipt}</td>
@@ -51,7 +51,7 @@ under the License.
               </tr>
             </#list>
           </table>
-          <br/>
+          <br />
         </#if>
 
         <#-- Multi-Item Return Receiving -->

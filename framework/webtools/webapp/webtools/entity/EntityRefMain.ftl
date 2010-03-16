@@ -47,12 +47,12 @@ under the License.
         </style>
     </head>
     <body>
-        <div class='toptext'>${uiLabelMap.WebtoolsEntityReferenceChart}<br/>
+        <div class='toptext'>${uiLabelMap.WebtoolsEntityReferenceChart}<br />
             ${numberOfEntities} ${uiLabelMap.WebtoolsTotalEntities}
         </div>
         <#assign numberShowed = 0>
         <#list packagesList as package>
-            <hr/><div id='${package.packageName}' class='packagetext'>${package.packageName}</div><hr/>
+            <hr /><div id='${package.packageName}' class='packagetext'>${package.packageName}</div><hr />
             <#list package.entitiesList as entity>
                 <table width="95%" border="1" cellpadding='2' cellspacing='0'>
                     <tr class='entityheader'>
@@ -110,7 +110,7 @@ under the License.
                     </#list>
                     <#if entity.relationsList?has_content>
                         <tr class='entityheader'>
-                            <td colspan="5"><hr/></td>
+                            <td colspan="5"><hr /></td>
                         </tr>
                         <tr class='headertext'>
                             <th>${uiLabelMap.WebtoolsRelation}</th>
@@ -121,10 +121,10 @@ under the License.
                                 <td>
                                     <#if relation.title?has_content><b>${relation.title}</b> </#if><a href='#${relation.relEntity}'>${relation.relEntity}</a>
                                     <#if relation.fkName?has_content>
-                                        <br/>${uiLabelMap.WebtoolsFKName}: ${relation.fkName}
+                                        <br />${uiLabelMap.WebtoolsFKName}: ${relation.fkName}
                                     </#if>
                                     <#if relation.description?has_content>
-                                        <br/><span class='descriptiontext'>${relation.description}</span>
+                                        <br /><span class='descriptiontext'>${relation.description}</span>
                                     </#if>
                                 </td>
                                 <td width="60%" colspan='4'>
@@ -134,7 +134,7 @@ under the License.
                                     </#if>
                                     <#if relation.keysList?has_content>
                                         <#list relation.keysList as keyList>
-                                            <br/>&nbsp;&nbsp;${keyList.row})&nbsp;
+                                            <br />&nbsp;&nbsp;${keyList.row})&nbsp;
                                               <#if keyList.fieldName == keyList.relFieldName>
                                                   ${keyList.fieldName}
                                               <#else>
@@ -148,7 +148,7 @@ under the License.
                     </#if>
                     <#if entity.indexList?has_content>
                         <tr class='entityheader'>
-                            <td colspan="5"><hr/></td>
+                            <td colspan="5"><hr /></td>
                         </tr>
                         <tr class='headertext'>
                             <th>${uiLabelMap.WebtoolsIndexName}</th>
@@ -166,12 +166,12 @@ under the License.
                         </#list>
                     </#if>
                 </table>
-                <br/>
+                <br />
                 <#assign numberShowed = numberShowed + 1>
             </#list>
         </#list>
         <div align="center">
-            <br/><br/>
+            <br /><br />
               ${uiLabelMap.WebtoolsEntityDisplayed}: ${numberShowed}
           <div>
     </body>

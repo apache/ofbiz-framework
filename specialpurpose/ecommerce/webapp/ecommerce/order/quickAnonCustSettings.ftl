@@ -131,7 +131,7 @@ under the License.
          </td>
      </tr>
      <tr>
-        <td colspan="3" align="center"><hr/></td>
+        <td colspan="3" align="center"><hr /></td>
      </tr>
      <tr>
         <td width="50%">

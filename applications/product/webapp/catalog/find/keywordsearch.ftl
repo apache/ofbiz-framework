@@ -28,7 +28,7 @@ under the License.
     <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
 
     <#if !productIds?has_content>
-      <br/><h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
+      <br /><h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
     </#if>
 
     <#if productIds?has_content>
@@ -89,7 +89,7 @@ under the License.
             </b>
           </td>
         </tr>
-        <tr><td colspan="2"><hr/></td></tr>
+        <tr><td colspan="2"><hr /></td></tr>
     </table>
 
     <form method="post" name="products">
@@ -116,7 +116,7 @@ under the License.
     </form>
 
     <table cellspacing="0" class="basic-table">
-        <tr><td colspan="2"><hr/></td></tr>
+        <tr><td colspan="2"><hr /></td></tr>
         <tr>
           <td align="right">
             <b>

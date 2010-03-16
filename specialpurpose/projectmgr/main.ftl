@@ -17,12 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<br/>
+<br />
 <h2>${text1}</h2>
-<br/>
+<br />
 <#if text2?exists>
 <h2>${text2}</h2>
-</#if><br/>
+</#if><br />
 <#if link1?exists>
 <h2>1. <a href="${link1}" target="new1">${link1Text}</a></h2>
 </#if>

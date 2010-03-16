@@ -27,6 +27,6 @@ under the License.
     <noframes>
         <h2>${uiLabelMap.CommonFrameAlert1}</h2>
         <p>${uiLabelMap.CommonFrameAlert2}</p>
-        <br/>
+        <br />
     </noframes>
 </html>

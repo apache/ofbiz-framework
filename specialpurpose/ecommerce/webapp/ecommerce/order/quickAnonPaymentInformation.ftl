@@ -141,7 +141,7 @@ function getPaymentInformation() {
                  </td>
               </tr>
               <tr><td nowrap colspan="3"><div id="paymentInfoSection"></div></td></tr>
-              <tr><td colspan="3"><hr/></td></tr>
+              <tr><td colspan="3"><hr /></td></tr>
               <#-- gift card fields -->
               <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
               <tr>

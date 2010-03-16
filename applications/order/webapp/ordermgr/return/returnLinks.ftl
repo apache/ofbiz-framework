@@ -24,7 +24,7 @@ under the License.
       <li<#if selected="OrderReturnItems"> class="selected"</#if>><a href="<@ofbizUrl>returnItems?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnItems}</a></li>
       <li<#if selected="OrderReturnHistory"> class="selected"</#if>><a href="<@ofbizUrl>ReturnHistory?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnHistory}</a></li>
     </ul>
-    <br/>
+    <br />
   </div>
   <div>
     <#if selected != "OrderReturnHistory">
@@ -68,5 +68,5 @@ under the License.
   <#if requestParameters.returnId?has_content>
     <h2>${uiLabelMap.OrderNoReturnFoundWithId} : ${requestParameters.returnId}</h2>
   </#if>
-  <br/>
+  <br />
 </#if>

@@ -32,7 +32,7 @@ under the License.
                     ${(custRequestType.get("description",locale))?default(custRequest.custRequestTypeId?if_exists)}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <#-- request status information -->
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
@@ -44,7 +44,7 @@ under the License.
                 </td>
             </tr>
             <#-- party -->
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                  <td align="right" valign="top" width="15%" class="label">
                      &nbsp;${uiLabelMap.PartyPartyId}
@@ -55,7 +55,7 @@ under the License.
                  </td>
             </tr>
             <#-- request name -->
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
                     &nbsp;${uiLabelMap.CommonName}
@@ -66,7 +66,7 @@ under the License.
                 </td>
             </tr>
             <#-- request description -->
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
                     &nbsp;${uiLabelMap.CommonDescription}
@@ -77,7 +77,7 @@ under the License.
                 </td>
             </tr>
             <#-- request currency -->
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
                     &nbsp;${uiLabelMap.CommonCurrency}
@@ -88,7 +88,7 @@ under the License.
                 </td>
             </tr>
             <#-- request currency -->
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
                     &nbsp;${uiLabelMap.ProductProductStore}
@@ -99,7 +99,7 @@ under the License.
                 </td>
             </tr>
             <#-- request comment -->
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
                     &nbsp;${uiLabelMap.CommonInternalComment}
@@ -110,7 +110,7 @@ under the License.
                 </td>
             </tr>
             <#-- request reason -->
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
                     &nbsp;${uiLabelMap.CommonReason}

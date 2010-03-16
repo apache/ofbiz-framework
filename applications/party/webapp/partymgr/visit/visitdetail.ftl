@@ -189,7 +189,7 @@ under the License.
               <td><input type="submit" value="${uiLabelMap.CommonSubmit}"></td>
             </tr>
             <tr>
-              <td colspan="3"><hr/></td>
+              <td colspan="3"><hr /></td>
             </tr>
           </form>
           <form name="setFollower" method="get" action="<@ofbizUrl>setAppletFollower</@ofbizUrl>">

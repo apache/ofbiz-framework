@@ -36,7 +36,7 @@ under the License.
     <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
     <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
         </#if>
-    <br/>
+    <br />
     </#if>
     <form action="<@ofbizUrl>updateProductContent</@ofbizUrl>" method="post" style="margin: 0;" name="productForm">
         <input type="hidden" name="productId" value="${productId?if_exists}"/>
@@ -67,7 +67,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">
                     <input type="text" name="detailScreen" value="${(product.detailScreen)?if_exists}" size="60" maxlength="250"/>
-                    <br/><span class="tooltip">${uiLabelMap.ProductIfNotSpecifiedDefaultsIsProductdetail} &quot;productdetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#productdetail&quot;</span>
+                    <br /><span class="tooltip">${uiLabelMap.ProductIfNotSpecifiedDefaultsIsProductdetail} &quot;productdetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#productdetail&quot;</span>
                 </td>
             </tr>
             <tr>

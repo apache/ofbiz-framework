@@ -18,7 +18,7 @@ under the License.
 -->
 
 <h1>${uiLabelMap.AccountingManualTransaction}</h1>
-<br/>
+<br />
 
 <#if security.hasEntityPermission("MANUAL", "_PAYMENT", session)>
   ${setRequestAttribute("validTx", "false")}
@@ -106,9 +106,9 @@ under the License.
       <#elseif txType?has_content>
         <tr>
           <td colspan="3" align="center">
-            <br/>
+            <br />
             <h2>${uiLabelMap.AccountingTransactionTypeNotYetSupported}</h2>
-            <br/>
+            <br />
           </td>
         </tr>
       </#if>

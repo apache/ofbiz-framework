@@ -18,13 +18,13 @@ under the License.
 -->
 
 <#if productIds?has_content>
-    <hr/>
+    <hr />
     <span class="label"><b>${uiLabelMap.ProductNote}:</b></span> ${uiLabelMap.ProductNoteKeywordSearch}
-    <hr/>
+    <hr />
 
     ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVirtualWithVariantsFormInclude")}
 
-    <hr/>
+    <hr />
 
     <div>
         <form method="post" action="<@ofbizUrl>searchRemoveFromCategory</@ofbizUrl>" name="searchRemoveFromCategory">
@@ -33,11 +33,11 @@ under the License.
           <a href="javascript:call_fieldlookup2(document.searchRemoveFromCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
           <input type="hidden" name="clearSearch" value="N">
           <input type="submit" value="${uiLabelMap.CommonRemove}" class="smallSubmit">
-          <br/>
+          <br />
         </form>
     </div>
 
-    <hr/>
+    <hr />
 
     <div>
         <form method="post" action="<@ofbizUrl>searchExpireFromCategory</@ofbizUrl>" name="searchExpireFromCategory">
@@ -47,11 +47,11 @@ under the License.
           <span class="label">${uiLabelMap.CommonThru}</span><input type="text" size="25" name="thruDate"><a href="javascript:call_cal(document.searchExpireFromCategory.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
           <input type="hidden" name="clearSearch" value="N">
           <input type="submit" value="${uiLabelMap.CommonExpire}" class="smallSubmit">
-          <br/>
+          <br />
         </form>
     </div>
 
-    <hr/>
+    <hr />
 
     <div>
         <form method="post" action="<@ofbizUrl>searchAddToCategory</@ofbizUrl>" name="searchAddToCategory">
@@ -61,19 +61,19 @@ under the License.
           <span class="label">${uiLabelMap.CommonFrom}</span><input type="text" size="25" name="fromDate"><a href="javascript:call_cal(document.searchAddToCategory.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
           <input type="hidden" name="clearSearch" value="N">
           <input type="submit" value="${uiLabelMap.ProductAddToCategory}" class="smallSubmit">
-          <br/>
+          <br />
         </form>
     </div>
 
-    <hr/>
+    <hr />
 
     <div>
         <form method="post" action="<@ofbizUrl>searchAddFeature</@ofbizUrl>" name="searchAddFeature">
-          <span class="label">${uiLabelMap.ProductAddFeatureToResults}:</span><br/>
+          <span class="label">${uiLabelMap.ProductAddFeatureToResults}:</span><br />
           <span class="label">${uiLabelMap.ProductFeatureId}</span><input type="text" size="10" name="productFeatureId" value="">
           <span class="label">${uiLabelMap.CommonFrom}</span><input type="tex"t size="25" name="fromDate"><a href="javascript:call_cal(document.searchAddFeature.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
           <span class="label">${uiLabelMap.CommonThru}</span><input type="text" size="25" name="thruDate"><a href="javascript:call_cal(document.searchAddFeature.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-          <br/>
+          <br />
           <span class="label">${uiLabelMap.CommonAmount}</span><input type="text" size="5" name="amount" value="">
           <span class="label">${uiLabelMap.CommonSequence}</span><input type="text" size="5" name="sequenceNum" value="">
           <span class="label">${uiLabelMap.ProductFeatureApplicationType}</span>
@@ -89,35 +89,35 @@ under the License.
           </select>
           <input type="hidden" name="clearSearch" value="N">
           <input type="submit" value="${uiLabelMap.ProductAddFeature}" class="smallSubmit">
-          <br/>
+          <br />
         </form>
     </div>
 
-    <hr/>
+    <hr />
 
     <div>
         <form method="post" action="<@ofbizUrl>searchRemoveFeature</@ofbizUrl>" name="searchRemoveFeature">
-          <span class="label">${uiLabelMap.ProductRemoveFeatureFromResults}:</span><br/>
+          <span class="label">${uiLabelMap.ProductRemoveFeatureFromResults}:</span><br />
           <span class="label">${uiLabelMap.ProductFeatureId}</span><input type="text" size="10" name="productFeatureId" value="">
           <input type="hidden" name="clearSearch" value="N">
           <input type="submit" value="${uiLabelMap.ProductRemoveFeature}" class="smallSubmit">
-          <br/>
+          <br />
         </form>
     </div>
 
-    <hr/>
+    <hr />
 
     <div>
         <form method="post" action="" name="searchShowParams">
           <#assign searchParams = Static["org.ofbiz.product.product.ProductSearchSession"].makeSearchParametersString(session)>
           <span class="label">${uiLabelMap.ProductPlainSearchParameters}:</span><input type="text" size="60" name="searchParameters" value="${StringUtil.wrapString(searchParams)}">
-          <br/>
+          <br />
           <span class="label">${uiLabelMap.ProductHtmlSearchParameters}:</span><input type="text" size="60" name="searchParameters" value="${StringUtil.wrapString(searchParams)?html}">
           <input type="hidden" name="clearSearch" value="N">
         </form>
     </div>
 
-    <hr/>
+    <hr />
 
     <div>
       <span class="label">${uiLabelMap.ProductSearchExportProductList}:</span><a href="<@ofbizUrl>searchExportProductList?clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchExport}</a>

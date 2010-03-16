@@ -68,9 +68,9 @@ under the License.
       </#if>
     </#list>
   </table>
-  <br/>
+  <br />
   <h2>${uiLabelMap.ProductAssociatePartyToProduct}:</h2>
-  <br/>
+  <br />
   <form method="post" action="<@ofbizUrl>addPartyToProduct</@ofbizUrl>" name="addNewForm">
     <input type="hidden" name="productId" value="${productId}">
     <input type="text" size="20" maxlength="20" name="partyId" value="">

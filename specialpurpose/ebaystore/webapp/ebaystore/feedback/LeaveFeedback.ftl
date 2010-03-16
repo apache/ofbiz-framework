@@ -93,7 +93,7 @@ under the License.
                                 onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
                             <div id="rate${feedbackCounter}" style="display:none">
                                 <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
-                                <br/>80 characters left<br/><br/>
+                                <br />80 characters left<br /><br />
                             </div>
                         </td>
                         <td>
@@ -128,7 +128,7 @@ under the License.
                             onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
                         <div id="rate${feedbackCounter}" style="display:none">
                             <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
-                            <br/>80 characters left<br/><br/>
+                            <br />80 characters left<br /><br />
                             <b>Rate details about this purchase</b>
                             <table>
                                 <tr>
@@ -250,7 +250,7 @@ under the License.
                             onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
                         <div id="rate${feedbackCounter}" style="display:none">
                             <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
-                            <br/>80 characters left<br/><br/>
+                            <br />80 characters left<br /><br />
                         </div>
                     </td>
                     <td>
@@ -287,7 +287,7 @@ under the License.
                         onclick="document.getElementById('rate${feedbackCounter}').style.display='none';"/><span>I'll leave Feedback later</span>
                     <div id="rate${feedbackCounter}" style="display:none">
                         <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
-                        <br/>80 characters left<br/><br/>
+                        <br />80 characters left<br /><br />
                         <b>Rate details about this purchase</b>
                         <table>
                             <tr>
@@ -419,7 +419,7 @@ under the License.
                 <#if leaveFeedback.role == "seller">
                     <div id="rate${feedbackCounter}" style="display:none">
                         <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
-                        <br/>80 characters left<br/><br/>
+                        <br />80 characters left<br /><br />
                         <b>Rate details about this purchase</b>
                         <table>
                             <tr>
@@ -512,7 +512,7 @@ under the License.
                 <#else>
                     <div id="rate${feedbackCounter}" style="display:none">
                         <input type="text" value="" maxlength="80" size="80" name="commentText${feedbackCounter}" label="Tell us more"/>
-                        <br/>80 characters left<br/><br/>
+                        <br />80 characters left<br /><br />
                     </div>
                 </#if>
                 </td>
@@ -529,7 +529,7 @@ under the License.
         </#list>
     </tbody>
 </table>
-<br/>
+<br />
 <input type="hidden" name="feedbackSize" value="${feedbackCounter}"/>
 <input type="submit" value="Leave Feedback"/>
 </form>

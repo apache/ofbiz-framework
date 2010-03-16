@@ -39,7 +39,7 @@ under the License.
           <#list contactMeches as contactMechMap>
             <#assign contactMech = contactMechMap.contactMech>
             <#assign partyContactMech = contactMechMap.partyContactMech>
-            <tr><td colspan="4"><hr/></td></tr>
+            <tr><td colspan="4"><hr /></td></tr>
             <tr>
               <td class="label align-top">${contactMechMap.contactMechType.get("description",locale)}</td>
               <td>
