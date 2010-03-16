@@ -207,9 +207,9 @@ under the License.
             <set from-field="newEntity.communicationEventId" field="eventOrder.communicationEventId"/>
             <create-value value-field="eventOrder"/>
         </if-not-empty>
-        <if-not-empty field="parameters.custReqId">
+        <if-not-empty field="parameters.custRequestId">
             <make-value value-field="eventRequest" entity-name="CustRequestCommEvent"/>
-            <set from-field="parameters.custReqId" field="eventRequest.custReqId"/>
+            <set from-field="parameters.custRequestId" field="eventRequest.custRequestId"/>
             <set from-field="newEntity.communicationEventId" field="eventRequest.communicationEventId"/>
             <create-value value-field="eventRequest"/>
         </if-not-empty>
