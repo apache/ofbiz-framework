@@ -35,7 +35,6 @@ under the License.
         <field name="shortDescription" parameter-name="description" use-when="custRequest==null" encode-output="false"><text/></field>
         <!--field name="description" parameter-name="story" use-when="custRequest==null" encode-output="false"><textarea cols="60" rows="12" default-value="${communicationEvent.content}"/></field-->
         <field name="workEffortName"><hidden value="${custRequestName}"/></field>
-        <field name="workEffortId"><hidden value="${custRequestId}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
         <!--field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field-->
