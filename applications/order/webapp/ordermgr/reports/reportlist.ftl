@@ -22,7 +22,7 @@ They use the JasperReports reporting tool. They have not been polished yet, but
 they are good examples of creating detailed reports that you have a lot of
 control over. special thanks for Britton LaRoche for creating the first pass of
 these reports and helping to improve them.</div>
-<br/>
+<br />
 
 <FORM METHOD="post" NAME="orderreportform" ACTION="<@ofbizUrl>orderreportjasper.pdf</@ofbizUrl>" TARGET="OrderReport">
 <Table>

@@ -22,7 +22,7 @@ under the License.
          txType?default("") == "PRDS_PAY_RELEASE" || txType?default("") == "PRDS_PAY_REFUND">
       ${setRequestAttribute("validTx", "true")}
       <#assign validTx = true>
-      <tr><td colspan="3"><hr/></td></tr>
+      <tr><td colspan="3"><hr /></td></tr>
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.AccountingReferenceNumber}</b></td>
         <td width="5">&nbsp;</td>

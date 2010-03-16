@@ -20,7 +20,7 @@ under the License.
 <h1>${uiLabelMap.WebtoolsImportToDataSource}</h1>
 <br />
 <p>${uiLabelMap.WebtoolsXMLImportInfo}</p>
-<hr/>
+<hr />
   <h2>${uiLabelMap.WebtoolsImport}:</h2>
 
   <form method="post" action="<@ofbizUrl>entityImportReaders</@ofbizUrl>">
@@ -34,7 +34,7 @@ under the License.
     <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImport}"/></div>
   </form>
   <#if messages?exists>
-      <hr/>
+      <hr />
       <h3>${uiLabelMap.WebtoolsResults}:</h3>
       <#list messages as message>
           <p>${message}</p>

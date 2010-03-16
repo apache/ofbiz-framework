@@ -32,7 +32,7 @@ under the License.
     <#if (nowTimestamp >= period.start) && (nowTimestamp <= period.end)><#assign currentPeriod = true/></#if>
   <tr<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
     <td class="label">
-      ${period.start?time?string.short}<br/>
+      ${period.start?time?string.short}<br />
       <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=day&form=edit&parentTypeId=${parentTypeId?if_exists}&start=${parameters.start?if_exists}&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a>
     </td>
       <#list period.calendarEntries as calEntry>
@@ -68,7 +68,7 @@ under the License.
     <#else>
       ${startDate?time?string.short}-${completionDate?time?string.short}
     </#if>
-    <br/>
+    <br />
     ${setRequestAttribute("periodType", "day")}
     ${setRequestAttribute("workEffortId", calEntry.workEffort.workEffortId)}
     ${screens.render("component://workeffort/widget/CalendarScreens.xml#calendarEventContent")}

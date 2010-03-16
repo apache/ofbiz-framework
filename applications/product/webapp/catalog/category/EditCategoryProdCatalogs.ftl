@@ -89,7 +89,7 @@ under the License.
             </#if>
             </#list>
             </table>
-            <br/>
+            <br />
         </div>
     </div>
     <div class="screenlet">

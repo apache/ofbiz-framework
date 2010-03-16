@@ -56,7 +56,7 @@ under the License.
 </#if>
 
 <#if productCategoryMembers?exists && 0 < productCategoryMembers?size>
-  <br/>
+  <br />
   <center>
   <form method="post" action="<@ofbizUrl>addtocartbulk</@ofbizUrl>" name="bulkaddform" style='margin: 0;'>
     <input type='hidden' name='category_id' value='${categoryId}'>

@@ -42,7 +42,7 @@ function ShowTab(lname) {
   <div class="screenlet-body">
     <h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
     <h2>${uiLabelMap.WebtoolsWithPk}: ${findByPk}</h2>
-    <br/>
+    <br />
     <div class="button-bar">
       <a href='<@ofbizUrl>FindGeneric?entityName=${entityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>' class="smallSubmit">${uiLabelMap.WebtoolsBackToFindScreen}</a>
       <#if enableEdit = "false">
@@ -67,7 +67,7 @@ function ShowTab(lname) {
           </#list>
         </select>
       </form>
-      <br/>
+      <br />
     </#if>
     <div id="area1" class="screenlet">
       <div class="screenlet-title-bar">
@@ -270,7 +270,7 @@ function ShowTab(lname) {
       <p>
       <#if value?has_content>
         <#assign valueXmlDoc = Static["org.ofbiz.entity.GenericValue"].makeXmlDocument([value]) />
-        ${Static["org.ofbiz.base.util.UtilXml"].writeXmlDocument(valueXmlDoc)?replace("\n", "<br/>")?replace("    ", "&nbsp;&nbsp;&nbsp;&nbsp;")}
+        ${Static["org.ofbiz.base.util.UtilXml"].writeXmlDocument(valueXmlDoc)?replace("\n", "<br />")?replace("    ", "&nbsp;&nbsp;&nbsp;&nbsp;")}
       </#if>
       </p>
     </div>

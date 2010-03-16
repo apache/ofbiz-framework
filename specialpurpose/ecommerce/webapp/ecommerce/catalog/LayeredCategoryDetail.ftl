@@ -102,6 +102,6 @@ under the License.
       </div>
     <@paginationControls/>
 <#else>
-    <hr/>
+    <hr />
     <div>${uiLabelMap.ProductNoProductsInThisCategory}</div>
 </#if>

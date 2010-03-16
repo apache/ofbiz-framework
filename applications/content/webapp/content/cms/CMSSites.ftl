@@ -35,7 +35,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
     <#assign rootForumId=defaultSiteId?if_exists/>
 </#if>
 <@checkPermission entityOperation="_ADMIN" targetOperation="CONTENT_ADMIN" >
-<br/>
+<br />
 <TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
   <TR>
     <TD width='100%'>
@@ -84,9 +84,9 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
   <TR>
     <TD width='100%'>
       <TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-         <tr><td><hr/></td></tr>
+         <tr><td><hr /></td></tr>
          <tr><td align="center"><h1>Unapproved entries for forum Id:${requestParameters.moderatedSiteId}</h1></td></tr>
-         <tr><td><hr/></td></tr>
+         <tr><td><hr /></td></tr>
          <@moderateSite rootForumId=rootForumId forumId=requestParameters.moderatedSiteId />
       </TABLE>
     </TD>
@@ -96,9 +96,9 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
   <TR>
     <TD width='100%'>
       <TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-         <tr><td><hr/></td></tr>
+         <tr><td><hr /></td></tr>
          <tr><td align="center"><h1>Associated roles for forum Id:${requestParameters.permRoleSiteId}</h1></td></tr>
-         <tr><td><hr/></td></tr>
+         <tr><td><hr /></td></tr>
          <@grantSiteRoles rootForumId=rootForumId forumId=requestParameters.permRoleSiteId/>
       </TABLE>
     </TD>
@@ -178,11 +178,11 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
           <input type="hidden" name="contentId_o_${row}" value="${content.contentId}"/>
         <tr>
           <td colspan="6" class="tabletext">
-          <b>content:</b><br/>
+          <b>content:</b><br />
             <@renderSubContentCache subContentId=content.contentId/>
           </td>
         </tr>
-        <tr> <td colspan="5"> <hr/> </td> </tr>
+        <tr> <td colspan="5"> <hr /> </td> </tr>
         <#assign row = row + 1/>
       </@injectNodeTrailCsv >
     </@checkPermission >

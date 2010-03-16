@@ -146,7 +146,7 @@ under the License.
             <td><input type="text" name="softIdentifier" value="${parameters.softIdentifier?if_exists}"/></td>
           </tr>
           <#if extInfo == "P">
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td class="label">${uiLabelMap.CommonAddress1}</td>
               <td><input type="text" name="address1" value="${parameters.address1?if_exists}"/></td>
@@ -178,7 +178,7 @@ under the License.
             </tr>
           </#if>
           <#if extInfo == "T">
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td class="label">${uiLabelMap.PartyCountryCode}</td>
               <td><input type="text" name="countryCode" value="${parameters.countryCode?if_exists}"/></td>
@@ -193,7 +193,7 @@ under the License.
             </tr>
           </#if>
           <#if extInfo == "O">
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td class="label">${uiLabelMap.PartyContactInformation}</td>
               <td><input type="text" name="infoString" value="${parameters.infoString?if_exists}"/></td>
@@ -214,7 +214,7 @@ under the License.
 
   <#if partyList?exists>
     <#if hideFields != "Y">
-      <hr/>
+      <hr />
     </#if>
     <div id="findPartyResults">
       <h2>${uiLabelMap.CommonSearchResults}</h2>

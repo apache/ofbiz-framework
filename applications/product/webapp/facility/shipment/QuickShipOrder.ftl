@@ -117,7 +117,7 @@ function setWeight(weight) {
             <#-- display the links for label/packing slip -->
             <#assign allDone = "yes">
             <center>
-              <a href="<@ofbizUrl>viewShipmentPackageRouteSegLabelImage?shipmentId=${requestParameters.shipmentId}&shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}&shipmentPackageSeqId=00001</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductShippingLabel}</a><br/>
+              <a href="<@ofbizUrl>viewShipmentPackageRouteSegLabelImage?shipmentId=${requestParameters.shipmentId}&shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}&shipmentPackageSeqId=00001</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductShippingLabel}</a><br />
               <a href="<@ofbizUrl>ShipmentManifest.pdf?shipmentId=${requestParameters.shipmentId}&shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
             </center>
           </#if>
@@ -166,12 +166,12 @@ function setWeight(weight) {
       <#else>
         <div class="alert">${uiLabelMap.ProductErrorNoPackagesFoundForShipment} !</div>
       </#if>
-      <hr/>
+      <hr />
       ${pages.get("/shipment/ViewShipmentInfo.ftl")}
-      <br/>${pages.get("/shipment/ViewShipmentItemInfo.ftl")}
-      <br/>${pages.get("/shipment/ViewShipmentPackageInfo.ftl")}
+      <br />${pages.get("/shipment/ViewShipmentItemInfo.ftl")}
+      <br />${pages.get("/shipment/ViewShipmentPackageInfo.ftl")}
       <#if allDone?default("no") == "yes">
-        <br/>${pages.get("/shipment/ViewShipmentRouteInfo.ftl")}
+        <br />${pages.get("/shipment/ViewShipmentRouteInfo.ftl")}
       </#if>
     </#if>
   <#else>

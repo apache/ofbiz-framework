@@ -53,7 +53,7 @@ under the License.
   <div>Repository is empty.</div>
 </#if>
 
-<br/>
+<br />
 <h2>Upload XPDL</h2>
 <div>&nbsp;</div>
 <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>repository?upload=xpdl</@ofbizUrl>" name="xpdlUploadForm">

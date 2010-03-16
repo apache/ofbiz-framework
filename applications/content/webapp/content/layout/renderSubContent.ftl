@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<hr/>
+<hr />
 <#if parameters.contentId?exists>
     <#assign id=parameters.contentId/>
     <@editRenderSubContent contentId="TEMPLATE_MASTER" mapKey="" editTemplate="true" subContentId=id?if_exists>

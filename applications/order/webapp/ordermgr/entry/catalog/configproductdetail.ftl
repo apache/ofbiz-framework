@@ -366,7 +366,7 @@ function getConfigDetails(event) {
       </form>
     <div>
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
-        <hr/>
+        <hr />
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
           <input type="hidden" name="productId" value="${product.productId}">
           <input type="hidden" name="product_id" value="${product.productId}">
@@ -384,7 +384,7 @@ function getConfigDetails(event) {
           <input type="text" size="5" name="quantity" value="1">
           <a href="javascript:document.addToShoppingList.submit();" class="buttontext">[${uiLabelMap.OrderAddToShoppingList}]</a>
         </form>
-      <#else> <br/>
+      <#else> <br />
         ${uiLabelMap.OrderYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonBeLogged}</a>
         ${uiLabelMap.OrderToAddSelectedItemsToShoppingList}.&nbsp;
       </#if>
@@ -415,7 +415,7 @@ function getConfigDetails(event) {
                 </#if>
                 <td align="center" valign="bottom">
                   <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60"></a>
-                  <br/>
+                  <br />
                   <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);" class="buttontext">${key}</a>
                 </td>
               </#if>
@@ -459,7 +459,7 @@ function getConfigDetails(event) {
                 </div>
             </td>
           </tr>
-          <tr><td><hr/></td></tr>
+          <tr><td><hr /></td></tr>
           <#assign counter = 0>
           <#assign questions = configwrapper.questions>
           <#list questions as question>
@@ -614,7 +614,7 @@ function getConfigDetails(event) {
             </td>
           </tr>
           <#if question_has_next>
-            <tr><td><hr/></td></tr>
+            <tr><td><hr /></td></tr>
           </#if>
           <#assign counter = counter + 1>
         </#list>
@@ -633,7 +633,7 @@ function getConfigDetails(event) {
   <#if assocProducts?has_content>
     <tr><td>&nbsp;</td></tr>
     <tr><td colspan="2"><h2>${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</h2></td></tr>
-    <tr><td><hr/></td></tr>
+    <tr><td><hr /></td></tr>
     <#list assocProducts as productAssoc>
       <tr><td>
         <div>
@@ -655,7 +655,7 @@ function getConfigDetails(event) {
         </td>
       </tr>
       <#local listIndex = listIndex + 1>
-      <tr><td><hr/></td></tr>
+      <tr><td><hr /></td></tr>
     </#list>
     ${setRequestAttribute("optProductId", "")}
     ${setRequestAttribute("formNamePrefix", "")}
@@ -680,7 +680,7 @@ ${setRequestAttribute("productValue", productValue)}
 <#-- special cross/up-sell area using commonFeatureResultIds (from common feature product search) -->
 <#if commonFeatureResultIds?has_content>
   <h2>Similar Products That Might Interest You...</h2>
-  <hr/>
+  <hr />
 
   <#list commonFeatureResultIds as commonFeatureResultId>
     <div>
@@ -691,7 +691,7 @@ ${setRequestAttribute("productValue", productValue)}
       ${screens.render(productsummaryScreen)}
     </div>
     <#if commonFeatureResultId_has_next>
-      <hr/>
+      <hr />
     </#if>
   </#list>
 </#if>

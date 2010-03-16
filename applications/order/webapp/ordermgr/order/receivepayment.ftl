@@ -57,7 +57,7 @@ under the License.
       <a href="javascript:document.paysetupform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
     </div>
 </div>
-<br/>
+<br />
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

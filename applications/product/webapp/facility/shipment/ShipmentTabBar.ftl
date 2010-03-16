@@ -40,6 +40,6 @@ under the License.
             <li<#if selected="ViewShipmentReceipts"> class="selected"</#if>><a href="<@ofbizUrl>ViewShipmentReceipts?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductShipmentReceipts}</a></li>
         </#if>
         </ul>
-        <br/>
+        <br />
     </div>
 </#if>

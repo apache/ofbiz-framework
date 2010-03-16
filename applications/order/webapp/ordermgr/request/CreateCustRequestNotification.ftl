@@ -26,14 +26,14 @@ under the License.
         <h1>${title}</h1>
         <p>Hello ${person.firstName?if_exists} ${person.middleName?if_exists} ${person.lastName?if_exists},</p>
         <p>Your Customer Request ${custRequest.custRequestName?if_exists} [${custRequest.custRequestId}] has been created successfully.
-        <br/><br/>
+        <br /><br />
         We will solve/implement the request as soon as possible
-        <br/><br/>
-        The status and used hours can always be checked <br/>
+        <br /><br />
+        The status and used hours can always be checked <br />
         <a href="${StringUtil.wrapString(baseUrl?if_exists)}/myportal/control/showPortletDecorator?portalPortletId=ViewCustRequest&id=${custRequest.custRequestId}">here....</a>
-        <br/><br/>
+        <br /><br />
         Regards.
-        <br/><br/>
+        <br /><br />
         PS. we will notify you when the customer request is completed.
         </p>
     </body>

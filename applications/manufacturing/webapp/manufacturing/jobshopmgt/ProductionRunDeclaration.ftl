@@ -32,4 +32,4 @@ under the License.
             </tr>
         </table>
     </#if>
-    <br/>
+    <br />

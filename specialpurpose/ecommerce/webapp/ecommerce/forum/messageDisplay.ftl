@@ -46,7 +46,7 @@ under the License.
                     ${result.resultData.electronicText.textData}
                 </#if>
             </div>
-            <hr/>
+            <hr />
           <#else>
               <div class="tabletext"> ${result.errorMessage?if_exists}</div>
         </#if>

@@ -25,13 +25,13 @@ under the License.
   </div>
   <div class="screenlet-body">
     <#if hasViewPermission>
-        <br/>
+        <br />
         <h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
-        <br/>
+        <br />
         <div class="button-bar">
             <a href="<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsBackToFindScreen}</a>
         </div>
-        <br/>
+        <br />
         <table class="basic-table hover-bar" cellspacing="0">
             <tr class="header-row">
                 <td>${uiLabelMap.WebtoolsTitle}</td>
@@ -49,7 +49,7 @@ under the License.
                     <td>${relation.fkName}</td>
                     <td>
                         <#list relation.relFields as field>
-                            ${field.fieldName} -> ${field.relFieldName}<br/>
+                            ${field.fieldName} -> ${field.relFieldName}<br />
                         </#list>
                     </td>
                 </tr>

@@ -27,7 +27,7 @@ under the License.
   <div class="screenlet-body">
       <#if !userLogin?has_content>
           <div>${uiLabelMap.WorkEffortInterestingSure}.</div>
-          <br/>
+          <br />
       </#if>
       <div class="label">${uiLabelMap.WorkEffortApplicationEventsTasksWorkflowActivities}.</div>
   </div>

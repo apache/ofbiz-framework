@@ -42,7 +42,7 @@ under the License.
     </tr>
 
     <tr>
-      <td><hr/></td>
+      <td><hr /></td>
     </tr>
 
     <tr>

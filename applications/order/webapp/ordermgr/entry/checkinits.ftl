@@ -127,7 +127,7 @@ under the License.
 </div>
 </#if>
 </#if>
-<br/>
+<br />
 <!-- Purchase Order Entry -->
 <#if security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session)>
   <#if shoppingCartOrderType != "SALES_ORDER">

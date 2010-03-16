@@ -137,7 +137,7 @@ function submitForm(form, mode, value) {
                 <#assign groupIdx = groupIdx + 1>
                 <#if group_has_next>
                   <tr>
-                    <td colspan="6"><hr/></td>
+                    <td colspan="6"><hr /></td>
                   </tr>
                 </#if>
               </form>

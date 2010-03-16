@@ -89,13 +89,13 @@ under the License.
       <tr>
         <td colspan="4" align="center">
           <#if (duplicatedLocalesLabels > 0)>
-            <br/>
+            <br />
             <b>${uiLabelMap.WebtoolsLabelManagerWarningMessage} (${duplicatedLocalesLabels})</b>
-            <br/>
+            <br />
             <#list duplicatedLocalesLabelsList as duplicatedLocalesLabel>
                 <br>${duplicatedLocalesLabel.labelKey}
             </#list>
-            <br/><br/>${uiLabelMap.WebtoolsLabelManagerClearCacheAfterFixingDuplicateLabels}
+            <br /><br />${uiLabelMap.WebtoolsLabelManagerClearCacheAfterFixingDuplicateLabels}
           <#else>
             <input type="submit" name="searchLabels" value="${uiLabelMap.CommonFind}"/>
           </#if>

@@ -19,16 +19,16 @@ under the License.
 
 <#assign nowTimestamp = Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp()>
 
-<br/>
+<br />
 <div align="center">
     <a href="http://jigsaw.w3.org/css-validator/"><img style="border:0;width:88px;height:31px" src="<@ofbizContentUrl>/images/vcss.gif</@ofbizContentUrl>" alt="Valid CSS!"/></a>
     <a href="http://validator.w3.org/check?uri=referer"><img style="border:0;width:88px;height:31px" src="<@ofbizContentUrl>/images/valid-xhtml10.png</@ofbizContentUrl>" alt="Valid XHTML 1.0!"/></a>
 </div>
-<br/>
+<br />
 <div align="center">
     <div>Copyright (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" class="tabletext" target="_blank">www.apache.org</a></div>
     <div>Powered by <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a></div>
 </div>
-<br/>
+<br />
 </body>
 </html>

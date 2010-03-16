@@ -27,7 +27,7 @@ under the License.
 <ul>
 <li><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreementAvailable}</a></li>
 </ul>
-<br/>
+<br />
      </td>
   </tr>
   <tr>
@@ -39,7 +39,7 @@ under the License.
 <ul>
 <li><a href="<@ofbizUrl>FindBillingAccount</@ofbizUrl>">${uiLabelMap.CommonShow} ${uiLabelMap.AccountingCustomer} ${uiLabelMap.AccountingBillingAccount}</a></li>
 </ul>
-<br/>
+<br />
      </td>
   </tr>
 
@@ -52,7 +52,7 @@ under the License.
 <ul>
 <li><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingShowAllFixedAssets}</a></li>
 </ul>
-<br/>
+<br />
      </td>
   </tr>
 

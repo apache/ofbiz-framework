@@ -21,7 +21,7 @@ under the License.
 <table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
 <tr>
     <td width='100%'>
-      <br/>
+      <br />
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
@@ -59,7 +59,7 @@ under the License.
 <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", supplierPartyId))?if_exists />
 
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               <tr>
                 <td colspan="2">
                     <h1><b>${uiLabelMap.OrderShipGroup} ${uiLabelMap.CommonNbr} ${currIndex}</b><#if supplier?has_content> - ${supplier.groupName?default(supplier.partyId)}</#if></h1>
@@ -208,7 +208,7 @@ under the License.
   </tr>
 </table>
 
-<br/>
+<br />
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

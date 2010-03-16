@@ -107,12 +107,12 @@
         <td>&nbsp;</td>
         <td width="60%">
             <div class="inputBox">Existing file name:  <#if imageContent?has_content && imageContent.drObjectInfo?has_content>${imageContent.drObjectInfo}</#if></div>
-            <br/>
+            <br />
             <input type="file" class="inputBox" name="uploadedFile" size="25"/>
             <#--
             Force: <input type="checkbox" value="true" name="forceElectronicText"/>
             -->
-            <br/>
+            <br />
             Top-left:<input type="radio" ${topleft_check} class="inputBox" name="templateId" value="BLOG_TPL_TOPLEFT"/>
             &nbsp;Top-center:<input type="radio" ${topcenter_check} class="inputBox" name="templateId" value="BLOG_TPL_TOPCENTER"/>
         </td>

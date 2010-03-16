@@ -18,9 +18,9 @@ under the License.
 -->
 
 <h1>${uiLabelMap.AccountingGiftCardLink}</h1>
-<br/>
+<br />
 <div class="tabletext">${uiLabelMap.AccountingEnterGiftCardLink}.</div>
-<br/>
+<br />
 
 <form name="gclink" method="post" action="<@ofbizUrl>linkgiftcard</@ofbizUrl>">
   <input type="hidden" name="paymentConfig" value="${paymentProperties?default("payment.properties")}">
@@ -65,4 +65,4 @@ under the License.
     </tr>
   </table>
 </form>
-<br/>
+<br />

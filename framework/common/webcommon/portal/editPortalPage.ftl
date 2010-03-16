@@ -21,7 +21,7 @@ under the License.
   <tr>
     <#list portalPageColumnList?if_exists as portalPageColumn>
       <td class="manage-portal-column-toolbar" style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
-        <hr/>
+        <hr />
         <ul>
           <li id="delete-column"><form method="post" action="<@ofbizUrl>deletePortalPageColumn</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="delPortalPageId_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.delPortalPageId_${portalPageColumn_index}.submit()">${uiLabelMap.CommonRemove}</a></li>
           <li id="add-portlet"><form method="post" action="<@ofbizUrl>AddPortlet</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="addPortlet_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.addPortlet_${portalPageColumn_index}.submit()">${uiLabelMap.CommonAddAPortlet}</a></li>

@@ -47,7 +47,7 @@ under the License.
       <tr><td class="label">${uiLabelMap.CommonType}</td><td>${(workEffortType.description)?default("&nbsp;")}</td></tr>
       <tr><td class="label">${uiLabelMap.CommonPurpose}</td><td>${(workEffortPurposeType.description)?default("&nbsp;")}</td></tr>
       <tr><td class="label">${uiLabelMap.CommonStatus}</td><td>${(currentStatusItem.description)?default("&nbsp;")}</td></tr>
-      <tr><td colspan="2"><hr/></td>
+      <tr><td colspan="2"><hr /></td>
     </table>
     <#if partyAssignments?has_content>
       <div><b>${uiLabelMap.PageTitleListWorkEffortPartyAssigns}</b></div>

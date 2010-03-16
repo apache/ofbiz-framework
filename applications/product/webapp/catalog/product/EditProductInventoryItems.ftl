@@ -31,7 +31,7 @@ under the License.
                 <a href="<@ofbizUrl>EditProductInventoryItems?productId=${productId}&showEmpty=true</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductShowEmptyItems}</a>
             </#if>
         </#if>
-        <br/>
+        <br />
         <#if productId?exists>
             <table cellspacing="0" class="basic-table">
             <tr class="header-row">

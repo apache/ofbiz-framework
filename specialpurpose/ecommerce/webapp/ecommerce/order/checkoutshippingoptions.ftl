@@ -94,7 +94,7 @@ function submitForm(form, mode, value) {
                   </td>
                 </tr>
               </#if>
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               <tr>
                 <td colspan="2">
                   <h2>${uiLabelMap.OrderShipAllAtOnce}?</h2>
@@ -116,7 +116,7 @@ function submitForm(form, mode, value) {
                   <div class="tabletext">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</div>
                 </td>
               </tr>
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               <tr>
                 <td colspan="2">
                   <h2>${uiLabelMap.OrderSpecialInstructions}</h2>
@@ -127,7 +127,7 @@ function submitForm(form, mode, value) {
                   <textarea class="textAreaBox" cols="30" rows="3" wrap="hard" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
                 </td>
               </tr>
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               <tr>
                 <td colspan="2">
                   <h2>${uiLabelMap.OrderPoNumber}</h2>&nbsp;
@@ -138,7 +138,7 @@ function submitForm(form, mode, value) {
                 </td>
               </tr>
               <#if productStore.showCheckoutGiftOptions?if_exists != "N">
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               <tr>
                 <td colspan="2">
                   <div>
@@ -148,7 +148,7 @@ function submitForm(form, mode, value) {
                   </div>
                 </td>
               </tr>
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               <tr>
                 <td colspan="2">
                   <h2>${uiLabelMap.OrderGiftMessage}</h2>
@@ -162,7 +162,7 @@ function submitForm(form, mode, value) {
               <#else/>
               <input type="hidden" name="is_gift" value="false"/>
               </#if>
-              <tr><td colspan="2"><hr/></td></tr>
+              <tr><td colspan="2"><hr /></td></tr>
               <tr>
                 <td colspan="2">
                   <h2>${uiLabelMap.PartyEmailAddresses}</h2>
@@ -179,7 +179,7 @@ function submitForm(form, mode, value) {
                     </b>
                   </div>
                   <div class="tabletext">${uiLabelMap.OrderUpdateEmailAddress} <a href="<@ofbizUrl>viewprofile?DONE_PAGE=checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyProfile}</a>.</div>
-                  <br/>
+                  <br />
                   <div class="tabletext">${uiLabelMap.OrderCommaSeperatedEmailAddresses}:</div>
                   <input type="text" class="inputBox" size="30" name="order_additional_emails" value="${shoppingCart.getOrderAdditionalEmails()?if_exists}"/>
                 </td>

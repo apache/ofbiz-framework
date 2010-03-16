@@ -19,7 +19,7 @@ under the License.
 
 <#-- eft fields -->
 <#if !eftAccount?has_content><#assign eftAccount = requestParameters></#if>
-<tr><td colspan="3"><hr/>
+<tr><td colspan="3"><hr />
 <input type="hidden" name="paymentMethodId" value="${parameters.paymentMethodId?if_exists}"/></td></tr>
 <tr><td width="26%" align="right" valign="top"><div class="tableheadtext">${uiLabelMap.AccountingEFTAccountInformation}</div></td><td width="5">&nbsp;</td><td width="74%">&nbsp;</td></tr>
 <tr>

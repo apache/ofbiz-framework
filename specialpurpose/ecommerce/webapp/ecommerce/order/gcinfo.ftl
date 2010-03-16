@@ -22,7 +22,7 @@ under the License.
   <#assign giftCard = giftCard?if_exists>
   <#if paymentMethodTypeId?if_exists != "GIFT_CARD">
     <tr>
-      <td colspan="3"><hr/></td>
+      <td colspan="3"><hr /></td>
     </tr>
   </#if>
   <tr>

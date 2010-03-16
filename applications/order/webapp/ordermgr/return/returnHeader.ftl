@@ -263,14 +263,14 @@ under the License.
                         <input type='radio' name="originContactMechId" value="${postalAddress.contactMechId?if_exists}"
                           <#if ( postalAddressFrom?has_content && postalAddressFrom.contactMechId?default("") == postalAddress.contactMechId)>checked="checked"</#if>>
                       </#if>
-                      <#if postalAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${postalAddress.toName}<br/></#if>
-                      <#if postalAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span>&nbsp;${postalAddress.attnName}<br/></#if>
-                      <#if postalAddress.address1?has_content>&nbsp;&nbsp;&nbsp;&nbsp;${postalAddress.address1}<br/></#if>
-                      <#if postalAddress.address2?has_content>&nbsp;&nbsp;&nbsp;&nbsp;${postalAddress.address2}<br/></#if>
+                      <#if postalAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${postalAddress.toName}<br /></#if>
+                      <#if postalAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span>&nbsp;${postalAddress.attnName}<br /></#if>
+                      <#if postalAddress.address1?has_content>&nbsp;&nbsp;&nbsp;&nbsp;${postalAddress.address1}<br /></#if>
+                      <#if postalAddress.address2?has_content>&nbsp;&nbsp;&nbsp;&nbsp;${postalAddress.address2}<br /></#if>
                       <#if postalAddress.city?has_content>&nbsp;&nbsp;&nbsp;&nbsp;${postalAddress.city}</#if>
                       <#if postalAddress.stateProvinceGeoId?has_content>&nbsp;${postalAddress.stateProvinceGeoId}</#if>
                       <#if postalAddress.postalCode?has_content>&nbsp;${postalAddress.postalCode}</#if>
-                      <#if postalAddress.countryGeoId?has_content><br/>&nbsp;&nbsp;&nbsp;&nbsp;${postalAddress.countryGeoId}</#if>
+                      <#if postalAddress.countryGeoId?has_content><br />&nbsp;&nbsp;&nbsp;&nbsp;${postalAddress.countryGeoId}</#if>
                     </div>
             </#if>
         </#macro>

@@ -163,11 +163,11 @@ under the License.
 <input type="hidden" name="surveyId" value="${survey.surveyId}"/>
 
 <h1>${survey.description?if_exists}</h1>
-<br/>
+<br />
 
 <#if survey.comments?has_content>
 <div class="tabletext">${survey.comments}</div>
-<br/>
+<br />
 </#if>
 
 <table width="100%" border="0" cellpadding="2" cellspacing="0">
@@ -276,7 +276,7 @@ under the License.
       <#if surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_TEXT">
         <td colspan="5"><div class="tabletext">${surveyQuestionAndAppl.question?if_exists}</div></td>
       <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_LINE"/>
-        <td colspan="5"><hr/></td>
+        <td colspan="5"><hr /></td>
       <#else/>
         <#-- standard question options -->
         <td align="right">

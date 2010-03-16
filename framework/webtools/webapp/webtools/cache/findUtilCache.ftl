@@ -33,7 +33,7 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-    <br/>
+    <br />
     <p>
         <u><b>${uiLabelMap.WebtoolsMemory}</b></u>
         <b>${uiLabelMap.WebtoolsTotalMemory}</b> ${memory}
@@ -41,7 +41,7 @@ under the License.
         <b>${uiLabelMap.WebtoolsUsedMemory}</b> ${usedMemory}
         <b>${uiLabelMap.WebtoolsMaxMemory}</b> ${maxMemory}
     </p>
-    <br/>
+    <br />
 
     <@displayButtonBar/>
 

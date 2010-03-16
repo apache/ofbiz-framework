@@ -18,11 +18,11 @@ under the License.
 -->
 
 <h1>${uiLabelMap.AccountingGiftCardBalance}</h1>
-<br/>
+<br />
 <div class="tabletext">${uiLabelMap.AccountingEnterGiftCardNumber}</div>
-<br/>
+<br />
 
-<br/>
+<br />
 <table align="center">
   <#if requestAttributes.processResult?exists>
     <tr>
@@ -62,4 +62,4 @@ under the License.
     </tr>
   </form>
 </table>
-<br/>
+<br />

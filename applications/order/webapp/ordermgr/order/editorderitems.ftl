@@ -76,7 +76,7 @@ float: right;
                 <#list orderItemList as orderItem>
                     <#if orderItem.productId?exists> <#-- a null product may come from a quote -->
                       <#assign orderItemContentWrapper = Static["org.ofbiz.order.order.OrderContentWrapper"].makeOrderContentWrapper(orderItem, request)>
-                      <tr><td colspan="8"><hr/></td></tr>
+                      <tr><td colspan="8"><hr /></td></tr>
                       <tr>
                           <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
                           <#assign productId = orderItem.productId?if_exists>
@@ -108,7 +108,7 @@ float: right;
                                               <span class="alert">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
                                           </#if>
                                       </#if>
-                                      ${uiLabelMap.CommonDescription}<br/>
+                                      ${uiLabelMap.CommonDescription}<br />
                                       <input type="text" size="20" name="idm_${orderItem.orderItemSeqId}" value="${orderItem.itemDescription?if_exists}"/>
                                       </#if>
                                   </div>
@@ -126,11 +126,11 @@ float: right;
                               <#-- now show status details per line item -->
                               <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem")>
                               <td>
-                                  ${uiLabelMap.CommonCurrent}&nbsp;${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}<br/>
+                                  ${uiLabelMap.CommonCurrent}&nbsp;${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}<br />
                                   <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                                   <#list orderItemStatuses as orderItemStatus>
                                   <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem")>
-                                  ${orderItemStatus.statusDatetime.toString()}&nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}<br/>
+                                  ${orderItemStatus.statusDatetime.toString()}&nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}<br />
                                   </#list>
                                   <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
                                   <#if returns?has_content>
@@ -165,9 +165,9 @@ float: right;
                                 <#else>
                                   <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - shippedQuantity?double)>
                                 </#if>
-                                  ${uiLabelMap.OrderOrdered}&nbsp;${orderItem.quantity?default(0)?string.number}&nbsp;&nbsp;<br/>
-                                  ${uiLabelMap.OrderCancelled}:&nbsp;${orderItem.cancelQuantity?default(0)?string.number}&nbsp;&nbsp;<br/>
-                                  ${uiLabelMap.OrderRemaining}:&nbsp;${remainingQuantity}&nbsp;&nbsp;<br/>
+                                  ${uiLabelMap.OrderOrdered}&nbsp;${orderItem.quantity?default(0)?string.number}&nbsp;&nbsp;<br />
+                                  ${uiLabelMap.OrderCancelled}:&nbsp;${orderItem.cancelQuantity?default(0)?string.number}&nbsp;&nbsp;<br />
+                                  ${uiLabelMap.OrderRemaining}:&nbsp;${remainingQuantity}&nbsp;&nbsp;<br />
                               </td>
                               <td class="align-text" valign="top" nowrap="nowrap">
                                   <#-- check for permission to modify price -->
@@ -282,7 +282,7 @@ float: right;
                         <input type="submit" value="${uiLabelMap.OrderUpdateItems}" class="buttontext"/>
                     </td>
                 </tr>
-                <tr><td colspan="8"><hr/></td></tr>
+                <tr><td colspan="8"><hr /></td></tr>
             </table>
             </form>
         </#if>
@@ -348,7 +348,7 @@ float: right;
                 <input type="hidden" name="comments" value="Added manually by [${userLogin.userLoginId}]"/>
                 <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
                 <table class="basic-table" cellspacing="0">
-                    <tr><td colspan="3"><hr/></td></tr>
+                    <tr><td colspan="3"><hr /></td></tr>
                     <tr>
                         <td class="align-text" width="55%">
                             <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;
@@ -376,7 +376,7 @@ float: right;
 
         <#-- subtotal -->
         <table class="basic-table" cellspacing="0">
-            <tr><td colspan="4"><hr/></td></tr>
+            <tr><td colspan="4"><hr /></td></tr>
             <tr class="align-text">
               <td width="80%"><span class="label">${uiLabelMap.OrderItemsSubTotal}</span></td>
               <td width="10%" nowrap="nowrap"><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></td>

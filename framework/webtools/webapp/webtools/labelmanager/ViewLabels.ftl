@@ -123,11 +123,11 @@ under the License.
         <td/>
         <td>${uiLabelMap.WebtoolsLabelStatsTotal}: ${totalLabels}</td>
         <td colspan="2">
-          ${uiLabelMap.WebtoolsLabelStatsExist}:<br/>
+          ${uiLabelMap.WebtoolsLabelStatsExist}:<br />
           ${uiLabelMap.WebtoolsLabelStatsMissing}:
         </td>
         <td>
-          ${existingLabels}<br/>
+          ${existingLabels}<br />
           ${missingLabels}
         </td>
       </tr>

@@ -37,7 +37,7 @@ under the License.
           <input type="hidden" name="currencyUomId" value="${orderHeader.currencyUom}"/>
           </#if>
           <#include "returnItemInc.ftl"/>
-          <hr/>
+          <hr />
           <#if "CUSTOMER_RETURN" == returnHeaderTypeId>
           <h3>${uiLabelMap.FormFieldTitle_paymentMethodId}:</h3>
           <table cellspacing="0" class="basic-table">
@@ -82,14 +82,14 @@ under the License.
                       </td>
                       <td width="99%" valign="top" nowrap>
                         <div>
-                          <#if shippingAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${shippingAddress.toName}<br/></#if>
-                          <#if shippingAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span></b>&nbsp;${shippingAddress.attnName}<br/></#if>
-                          <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>
-                          <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>
+                          <#if shippingAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${shippingAddress.toName}<br /></#if>
+                          <#if shippingAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span></b>&nbsp;${shippingAddress.attnName}<br /></#if>
+                          <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
+                          <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br /></#if>
                           <#if shippingAddress.city?has_content>${shippingAddress.city}</#if>
-                          <#if shippingAddress.stateProvinceGeoId?has_content><br/>${shippingAddress.stateProvinceGeoId}</#if>
-                          <#if shippingAddress.postalCode?has_content><br/>${shippingAddress.postalCode}</#if>
-                          <#if shippingAddress.countryGeoId?has_content><br/>${shippingAddress.countryGeoId}</#if>
+                          <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
+                          <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
+                          <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
                           <#--<a href="<@ofbizUrl>editcontactmech?DONE_PAGE=checkoutoptions&contactMechId=${shippingAddress.contactMechId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonUpdate}]</a>-->
                         </div>
                       </td>

@@ -71,7 +71,7 @@ height: auto;
         <#if !completionDate?has_content && calEntry.workEffort.estimatedMilliSeconds?has_content>
             <#assign completionDate =  calEntry.workEffort.estimatedStartDate + calEntry.workEffort.estimatedMilliSeconds>
         </#if>    
-        <hr/>
+        <hr />
         <#if (startDate.compareTo(period.start) <= 0 && completionDate?has_content && completionDate.compareTo(period.end) >= 0)>
           ${uiLabelMap.CommonAllDay}
         <#elseif startDate.before(period.start) && completionDate?has_content>
@@ -83,11 +83,11 @@ height: auto;
         <#else>
           ${startDate?time?string.short}-${completionDate?time?string.short}
         </#if>
-        <br/>
+        <br />
         ${setRequestAttribute("periodType", "month")}
         ${setRequestAttribute("workEffortId", calEntry.workEffort.workEffortId)}
         ${screens.render("component://workeffort/widget/CalendarScreens.xml#calendarEventContent")}
-        <br/>
+        <br />
       </#list>
     </td>
 
@@ -112,7 +112,7 @@ height: auto;
             <#else>
               ${calEntry.workEffort.estimatedStartDate?time?string.short}-${calEntry.workEffort.estimatedCompletionDate?time?string.short}
             </#if>
-            <br/>
+            <br />
             <a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>" class="event">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;
           </td>
         </tr>

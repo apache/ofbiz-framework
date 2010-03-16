@@ -36,7 +36,7 @@ under the License.
             </form>
         </div>
     </div>
-    <br/>
+    <br />
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.ProductPromotionAddSetOfPromotionCodes}</h3>

@@ -39,7 +39,7 @@
         <td></td>
   </tr>
    <#if (arraySize > 0)>
-           <tr><td colspan="3"><hr/></td></tr>
+           <tr><td colspan="3"><hr /></td></tr>
    </#if>
 </table>
 <table class="basic-table hover-bar" cellspacing="0">

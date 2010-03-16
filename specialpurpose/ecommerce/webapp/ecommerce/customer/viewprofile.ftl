@@ -150,12 +150,12 @@ under the License.
                 <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists />
                 <div class="tabletext">
                   <#if postalAddress?exists>
-                    <#if postalAddress.toName?has_content>${uiLabelMap.CommonTo}: ${postalAddress.toName}<br/></#if>
-                    <#if postalAddress.attnName?has_content>${uiLabelMap.PartyAddrAttnName}: ${postalAddress.attnName}<br/></#if>
-                    ${postalAddress.address1}<br/>
-                    <#if postalAddress.address2?has_content>${postalAddress.address2}<br/></#if>
+                    <#if postalAddress.toName?has_content>${uiLabelMap.CommonTo}: ${postalAddress.toName}<br /></#if>
+                    <#if postalAddress.attnName?has_content>${uiLabelMap.PartyAddrAttnName}: ${postalAddress.attnName}<br /></#if>
+                    ${postalAddress.address1}<br />
+                    <#if postalAddress.address2?has_content>${postalAddress.address2}<br /></#if>
                     ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode?if_exists}
-                    <#if postalAddress.countryGeoId?has_content><br/>${postalAddress.countryGeoId}</#if>
+                    <#if postalAddress.countryGeoId?has_content><br />${postalAddress.countryGeoId}</#if>
                     <#if (!postalAddress.countryGeoId?has_content || postalAddress.countryGeoId?if_exists = "USA")>
                       <#assign addr1 = postalAddress.address1?if_exists />
                       <#if (addr1.indexOf(" ") > 0)>
@@ -216,7 +216,7 @@ under the License.
       </#list>
     </table>
   <#else>
-    <label>${uiLabelMap.PartyNoContactInformation}.</label><br/>
+    <label>${uiLabelMap.PartyNoContactInformation}.</label><br />
   </#if>
   </div>
 </div>

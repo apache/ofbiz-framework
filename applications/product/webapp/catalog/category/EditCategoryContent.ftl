@@ -59,7 +59,7 @@ under the License.
                     <td>&nbsp;</td>
                     <td width="74%">
                         <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen?if_exists}"</#if> name="detailScreen" size="60" maxlength="250">
-                        <br/>
+                        <br />
                         <span class="tooltip">${uiLabelMap.ProductDefaultsTo} &quot;categorydetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#categorydetail&quot;</span>
                     </td>
                 </tr>

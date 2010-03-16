@@ -37,8 +37,8 @@ function lookupBom() {
     <#if product?has_content>
         <a href="<@ofbizUrl>BomSimulation</@ofbizUrl>?productId=${productId}&bomType=${productAssocTypeId}" class="buttontext">${uiLabelMap.ManufacturingBomSimulation}</a>
     </#if>
-    <br/>
-    <br/>
+    <br />
+    <br />
     <form name="searchform" action="<@ofbizUrl>UpdateProductBom</@ofbizUrl>#topform" method="post">
     <input type="hidden" name="UPDATE_MODE" value=""/>
 
@@ -82,7 +82,7 @@ function lookupBom() {
         </tr>
     </table>
     </form>
-    <hr/>
+    <hr />
     <form action="<@ofbizUrl>UpdateProductBom</@ofbizUrl>" method="post" name="editProductAssocForm">
     <#if !(productAssoc?exists)>
         <input type="hidden" name="UPDATE_MODE" value="CREATE"/>
@@ -316,7 +316,7 @@ function lookupBom() {
         <#assign alt_row = !alt_row>
         </#list>
       </table>
-      <br/>
+      <br />
       ${uiLabelMap.CommonNote}: <b class="alert">${uiLabelMap.CommonRed}</b> ${uiLabelMap.ManufacturingNote1} <b style="color: red;">${uiLabelMap.CommonRed}</b>${uiLabelMap.ManufacturingNote2} <b style="color: red;">${uiLabelMap.CommonRed}</b>${uiLabelMap.ManufacturingNote3}
   </div>
 </div>

@@ -31,7 +31,7 @@ under the License.
                     ${(custRequest.custRequestDate.toString())?if_exists}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="25%" class="label">
                     &nbsp;${uiLabelMap.OrderRequestCreatedDate}
@@ -41,7 +41,7 @@ under the License.
                     ${(custRequest.createdDate.toString())?if_exists}
                 </td>
             </tr>
-            <tr><td colspan="7"><hr/></td></tr>
+            <tr><td colspan="7"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="25%" class="label">
                     &nbsp;${uiLabelMap.OrderRequestLastModifiedDate}

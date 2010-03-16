@@ -17,9 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
-<br/>
+<br />
 <div class="label">[${product.productId}] ${product.internalName}</div>
-<br/>
+<br />
 <#if searchFeatures?has_content>
     <table cellspacing="0" class="basic-table">
         <form method="post" action="<@ofbizUrl>LookupVariantProduct</@ofbizUrl>" name="selectAllForm">
@@ -50,7 +50,7 @@ under the License.
     </tr>
     </table>
 </#if>
-<br/>
+<br />
 <#if variantProducts?exists>
     <table cellspacing="0" class="basic-table">
         <tr class="header-row">

@@ -86,7 +86,7 @@ under the License.
                               <option value="Y">${uiLabelMap.CommonY}</option>
                           </select>
                       </td>
-                      <td>${review.getRelatedOne("Product").internalName?if_exists}<br/><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${review.productId}</@ofbizUrl>">${review.productId}</a></td>
+                      <td>${review.getRelatedOne("Product").internalName?if_exists}<br /><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${review.productId}</@ofbizUrl>">${review.productId}</a></td>
                       <td>
                           <input type="text" size='3' name="productRating_o_${rowCount}" value="${review.productRating?if_exists?string}">
                       </td>

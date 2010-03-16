@@ -20,7 +20,7 @@ under the License.
 <#if !creditCard?has_content>
   <#assign creditCard = requestParameters>
 </#if>
-<tr><td colspan="3"><hr/></td></tr>
+<tr><td colspan="3"><hr /></td></tr>
 
 ${screens.render("component://accounting/widget/CommonScreens.xml#creditCardFields")}
 

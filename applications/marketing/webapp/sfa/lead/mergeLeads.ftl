@@ -41,10 +41,10 @@ under the License.
           <table  >
             <tr width="100%">
               <td width="20%" ></td>
-              <td width="30%"><h2>${uiLabelMap.SfaFirstContact}</h2><br/></b></td>
-              <td width="30%"><h2>${uiLabelMap.SfaSecondContact}</h2><br/></b></td>
+              <td width="30%"><h2>${uiLabelMap.SfaFirstContact}</h2><br /></b></td>
+              <td width="30%"><h2>${uiLabelMap.SfaSecondContact}</h2><br /></b></td>
               <td width="20%"><h2>${uiLabelMap.CommonSelect}</h2></td>
-              <br/><br/>
+              <br /><br />
             </tr>
             <tr width="100%">
               <td width="20%">${uiLabelMap.PartyFirstName}</td>
@@ -57,9 +57,9 @@ under the License.
               <td width="30%"><h3>${contactInfo1.lastName?if_exists}</h3></td>
               <td width="30%"><h3>${contactInfo2.lastName?if_exists}</h3></td>
               <td width="20%"></td>
-            </tr><br/>
+            </tr><br />
             <tr>
-              <td width="30"><br/><h3>${uiLabelMap.PartyGeneralCorrespondenceAddress}</h3></td>
+              <td width="30"><br /><h3>${uiLabelMap.PartyGeneralCorrespondenceAddress}</h3></td>
               <td width="30"></td>
             <tr>
               <td width="20%" >${uiLabelMap.PartyAddressLine1}</td>
@@ -98,8 +98,8 @@ under the License.
               <td width="30%">${contactInfo1.country?if_exists}</td>
               <td width="30%">${contactInfo2.country?if_exists}</td>
               <td width="20%"></td>
-            </tr><br/>
-            <tr><td><br/><h3>${uiLabelMap.PartyPrimaryPhone}</h3></td></tr>
+            </tr><br />
+            <tr><td><br /><h3>${uiLabelMap.PartyPrimaryPhone}</h3></td></tr>
             <tr>
               <td width="20%">${uiLabelMap.PartyCountryCode}</td>
               <td width="30%">${contactInfo1.countryCode?if_exists}</td>
@@ -125,7 +125,7 @@ under the License.
               <td width="10%"><input type="checkbox" name="useEmail2" value="Y"/></td>
             </tr>
             <tr>
-              <td colspan="4" align="center"><br/>
+              <td colspan="4" align="center"><br />
                 <input type="submit" value="${uiLabelMap.CommonSubmit}"/>
               </td>
             </tr>

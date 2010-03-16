@@ -21,7 +21,7 @@ under the License.
   <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=TASK&amp;currentStatusId=CAL_NEEDS_ACTION</@ofbizUrl>" class="buttontext create">${uiLabelMap.WorkEffortNewTask}</a>
 </div>
   <h2>${uiLabelMap.WorkEffortAssignedTasks}</h2>
-  <br/>
+  <br />
   <table class="basic-table hover-bar" cellspacing="0">
     <tr class="header-row-2">
       <td>${uiLabelMap.CommonStartDateTime}</td>
@@ -42,7 +42,7 @@ under the License.
   </table>
   <#if (activities.size() > 0)>
     <h2>${uiLabelMap.WorkEffortWorkflowActivitiesUser}</h2>
-    <br/>
+    <br />
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row-2">
         <td>${uiLabelMap.CommonStartDateTime}</td>
@@ -72,7 +72,7 @@ under the License.
   </#if>
   <#if (roleActivities.size() > 0)>
     <h2>${uiLabelMap.WorkEffortWorkflowActivitiesUserRole}</h2>
-    <br/>
+    <br />
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row-2">
         <td>${uiLabelMap.CommonStartDateTime}</td>
@@ -102,7 +102,7 @@ under the License.
   </#if>
   <#if (groupActivities.size() > 0)>
     <h2>${uiLabelMap.WorkEffortWorkflowActivitiesUserGroup}</h2>
-    <br/>
+    <br />
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row-2">
         <td>${uiLabelMap.CommonStartDateTime}</td>

@@ -41,7 +41,7 @@ under the License.
       </select>
       <input type="submit" value="${uiLabelMap.CommonView}"/>
     </form>
-    <br/>
+    <br />
     &nbsp;
     <form style="display: inline;" action="<@ofbizUrl>${parameters.targetRequestUri}</@ofbizUrl>" method="post">
       <input type="hidden" name="start" value="${start.time?string("#")}"/>

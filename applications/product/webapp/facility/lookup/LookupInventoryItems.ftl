@@ -26,7 +26,7 @@ under the License.
     <td>${uiLabelMap.ProductAtp}</td>
     <td>${uiLabelMap.FormFieldTitle_unitCost}</td>
   </tr>
-  <tr><td colspan="6"><hr/></td></tr>
+  <tr><td colspan="6"><hr /></td></tr>
   <#if (inventoryItemsForPo?exists && inventoryItemsForPo?has_content)>
     <tr class="header-row-2"><td colspan="6"><span class="label">&nbsp;${uiLabelMap.ProductInventoryItemsFor} ${uiLabelMap.ProductPurchaseOrder} - ${orderId}</span></td></tr>
     <#list inventoryItemsForPo as inventoryItem>

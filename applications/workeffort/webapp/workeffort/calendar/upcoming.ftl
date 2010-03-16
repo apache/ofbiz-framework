@@ -28,7 +28,7 @@ under the License.
       <#list days as day>
         <#assign workEfforts = day.calendarEntries>
         <#if workEfforts?has_content>
-          <tr class="header-row"><th colspan="4"><hr/></th></tr>
+          <tr class="header-row"><th colspan="4"><hr /></th></tr>
           <#assign alt_row = false>
           <#list workEfforts as calendarEntry>
             <#assign workEffort = calendarEntry.workEffort>

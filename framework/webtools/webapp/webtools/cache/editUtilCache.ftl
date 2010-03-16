@@ -31,7 +31,7 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-    <br/>
+    <br />
     <@displayButtonBar/>
 
     <#if cache?has_content>

@@ -25,7 +25,7 @@ under the License.
 </#if>
 
 <h1>${uiLabelMap.CommonLogin}</h1>
-<br/>
+<br />
 
 <div style="float: center; width: 49%; margin-right: 5px; text-align: center;" class="screenlet">
     <div class="screenlet-title-bar">

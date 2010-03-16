@@ -75,7 +75,7 @@ under the License.
             <h3 style="color: red;">${uiLabelMap.ProductWarningOrderStatus} ${(orderHeaderStatus.get("description",locale))?default(orderHeader.statusId?if_exists)}; ${uiLabelMap.ProductApprovedBeforeShipping}.</h3>
         </#if>
     </#if>
-    <br/>
+    <br />
     <#if orderItemDatas?exists>
         <#assign rowCount = 0>
         <#if isSalesOrder>
@@ -87,7 +87,7 @@ under the License.
         <input type="hidden" name="_useRowSubmit" value="Y">
         <table cellspacing="0" cellpadding="2" class="basic-table hover-bar">
             <tr class="header-row">
-                <td>${uiLabelMap.ProductOrderId}<br/>${uiLabelMap.ProductOrderShipGroupId}<br/>${uiLabelMap.ProductOrderItem}</td>
+                <td>${uiLabelMap.ProductOrderId}<br />${uiLabelMap.ProductOrderShipGroupId}<br />${uiLabelMap.ProductOrderItem}</td>
                 <td>${uiLabelMap.ProductProduct}</td>
                 <#if isSalesOrder>
                     <td>${uiLabelMap.ProductItemsIssuedReserved}</td>

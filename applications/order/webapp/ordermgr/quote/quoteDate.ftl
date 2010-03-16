@@ -31,7 +31,7 @@ under the License.
                     ${(quote.issueDate.toString())?if_exists}
                 </td>
             </tr>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
                     &nbsp;${uiLabelMap.CommonValidFromDate}
@@ -41,7 +41,7 @@ under the License.
                     ${(quote.validFromDate.toString())?if_exists}
                 </td>
             </tr>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
                     &nbsp;${uiLabelMap.CommonValidThruDate}

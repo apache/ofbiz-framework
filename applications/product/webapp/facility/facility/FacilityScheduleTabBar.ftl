@@ -19,12 +19,12 @@ under the License.
 <#assign selected = scheduleTabButtonItem?default("void")>
 
 <#if facilityId?has_content>
-    <br/>
+    <br />
     <div class="button-bar tab-bar">
         <ul>
             <li<#if selected="ScheduleTabButton"> class="selected"</#if>><a href="<@ofbizUrl>ScheduleShipmentRouteSegment?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.ProductSchedule}</a></li>
             <li<#if selected="LabelsTabButton"> class="selected"</#if>><a href="<@ofbizUrl>Labels?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.ProductLabels}</a></li>
         </ul>
-        <br/>
+        <br />
     </div>
 </#if>

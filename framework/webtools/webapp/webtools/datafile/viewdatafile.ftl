@@ -24,9 +24,9 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-    <br/>
+    <br />
     <p>${uiLabelMap.WebtoolsDataFileMessage1}.</p>
-    <br/>
+    <br />
     <#if security.hasPermission("DATAFILE_MAINT", session)>
       <form method="post" action="<@ofbizUrl>viewdatafile</@ofbizUrl>">
         <table class="basic-table" cellspacing="0">
@@ -76,7 +76,7 @@ under the License.
       </form>
 
       <#if messages?has_content>
-        <hr/>
+        <hr />
         <h1>${uiLabelMap.CommonFollowingOccurred}:</h1>
         <div>
           <#list messages as message>
@@ -92,7 +92,7 @@ under the License.
           <#-- if record is different than the last displayed, make a new table and header row -->
           <#if !modelRecord.name.equals(lastRecordName)>
             <#if lastRecordName != null>
-              </table><br/>
+              </table><br />
             </#if>
             <table class="basic-table hover-bar" cellspacing="0">
               <tr>
@@ -130,7 +130,7 @@ under the License.
     </#macro>
 
       <#if dataFile?has_content && modelDataFile?has_content && (!parameters.ENTITYXML_FILE_SAVE?has_content || parameters.ENTITYXML_FILE_SAVE.length() == 0) && (parameters.DATAFILE_SAVE == null || parameters.DATAFILE_SAVE.length() == 0)>
-        <hr/>
+        <hr />
         <table class="basic-table" cellspacing="0">
           <tr class="header-row">
             <td>Name</td>
@@ -153,7 +153,7 @@ under the License.
             <td colspan="">${modelDataFile.description}</td>
           </tr>
         </table>
-        <br/>
+        <br />
         <@displayrecords records = dataFile.getRecords()/>
       </#if>
     <#else>

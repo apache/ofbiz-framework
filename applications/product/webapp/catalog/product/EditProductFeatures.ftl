@@ -150,7 +150,7 @@ under the License.
   </#list>
       </select>
       <span class='label'>${uiLabelMap.CommonIdCode}: </span><input type="text" size='10' name='idCode' value=''/>
-      <br/>
+      <br />
       <span class='label'>${uiLabelMap.ProductFeatureApplicationType}: </span>
       <select name='productFeatureApplTypeId' size="1">
   <#list productFeatureApplTypes as productFeatureApplType>
@@ -160,7 +160,7 @@ under the License.
             >${(productFeatureApplType.get("description",locale))?if_exists} </option>
   </#list>
       </select>
-      <br/>
+      <br />
       <span class='label'>${uiLabelMap.CommonFrom} : </span><input type="text" size='25' name='fromDate'/>
       <a href="javascript:call_cal(document.addFeatureByTypeIdCode.fromDate, '${nowTimestamp?string}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
       <span class='label'>${uiLabelMap.CommonThru} : </span><input type="text" size='25' name='thruDate'/>
@@ -193,7 +193,7 @@ under the License.
             >${(productFeatureApplType.get("description",locale))?if_exists} </option>
   </#list>
       </select>
-      <br/>
+      <br />
       <span class="label">${uiLabelMap.CommonFrom} : </span><input type="text" size="25" name="fromDate"/>
       <a href="javascript:call_cal(document.addFeatureById.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
       <span class="label">${uiLabelMap.CommonThru} : </span><input type="text" size="25" name="thruDate"/>

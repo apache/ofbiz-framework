@@ -34,7 +34,7 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-      <br/>
+      <br />
         <div class="align-float">
             <span class="label">
             <#if (visitSize > 0)>
@@ -49,7 +49,7 @@ under the License.
             </span>
         </div>
         <br class="clear"/>
-      <br/>
+      <br />
       <table class="basic-table hover-bar" cellspacing="0">
         <tr class="header-row">
           <td><a href="<@ofbizUrl>showvisits?sort=visitId&showAll=${showAll}<#if partyId?has_content>&partyId=${partyId}</#if></@ofbizUrl>">${uiLabelMap.PartyVisitId}</a></td>
@@ -78,7 +78,7 @@ under the License.
           <#assign alt_row = !alt_row>
         </#list>
       </table>
-      <br/>
+      <br />
       <div class="align-float">
           <span class="label">
           <#if (visitSize > 0)>

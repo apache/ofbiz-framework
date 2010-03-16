@@ -97,7 +97,7 @@ under the License.
   </table>
   </form>
   <#if locationSeqId?exists>
-  <br/>
+  <br />
   <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductLocationProduct}</h3>

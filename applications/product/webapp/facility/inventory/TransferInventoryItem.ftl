@@ -110,7 +110,7 @@ under the License.
             </tr>
         <tr>
             <td width="14%">&nbsp;</td>
-            <td colspan="3"><hr/></td>
+            <td colspan="3"><hr /></td>
         </tr>
         <tr>
             <td width="14%">&nbsp;</td>
@@ -150,7 +150,7 @@ under the License.
                             </#list>
                         </select>
                         <span class="tooltip">${uiLabelMap.ProductSelectFacility}</span>
-                        <br/>
+                        <br />
                         <input type="text" name="containerIdTo" value="${(inventoryTransfer.containerIdTo)?if_exists}" size="20" maxlength="20">
                         <span class="tooltip">${uiLabelMap.ProductOrEnterContainerId}</span>
                     </div>

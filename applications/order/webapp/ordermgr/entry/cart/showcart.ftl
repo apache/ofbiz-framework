@@ -158,7 +158,7 @@ under the License.
           </td>
         </tr>
         <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
-        <tr><td><hr/></td></tr>
+        <tr><td><hr /></td></tr>
         <tr>
           <td>
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="bulkworkaddform" style="margin: 0;">

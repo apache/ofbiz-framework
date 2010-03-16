@@ -21,7 +21,7 @@ under the License.
         <h3>${uiLabelMap.PageTitleEditProductFeatureGroups}</h3>
     </div>
     <div class="screenlet-body">
-        <br/>
+        <br />
         <table cellspacing="0" class="basic-table">
           <tr class="header-row">
             <td><b>${uiLabelMap.CommonId}</b></td>
@@ -48,7 +48,7 @@ under the License.
             </#if>
           </#list>
         </table>
-        <br/>
+        <br />
     </div>
 </div>
 <div class="screenlet">
@@ -57,7 +57,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>CreateProductFeatureGroup</@ofbizUrl>">
-          <br/>
+          <br />
           <table cellspacing="0" class="basic-table">
             <tr>
               <td class="label">${uiLabelMap.CommonDescription}:</td>
@@ -68,6 +68,6 @@ under the License.
             </tr>
           </table>
         </form>
-        <br/>
+        <br />
     </div>
 </div>

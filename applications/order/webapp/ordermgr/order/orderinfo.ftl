@@ -96,7 +96,7 @@ under the License.
               <td width="5%">&nbsp;</td>
               <td valign="top" width="80%">${orderHeader.orderName}</td>
             </tr>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             </#if>
             <#-- order status history -->
             <tr>
@@ -105,7 +105,7 @@ under the License.
               <td valign="top" width="80%"<#if currentStatus.statusCode?has_content> class="${currentStatus.statusCode}"</#if>>
                 <span class="current-status">${uiLabelMap.OrderCurrentStatus}: ${currentStatus.get("description",locale)}</span>
                 <#if orderHeaderStatuses?has_content>
-                  <hr/>
+                  <hr />
                   <#list orderHeaderStatuses as orderHeaderStatus>
                     <#assign loopStatusItem = orderHeaderStatus.getRelatedOne("StatusItem")>
                     <#assign userlogin = orderHeaderStatus.getRelatedOne("UserLogin")>
@@ -118,27 +118,27 @@ under the License.
                 </#if>
               </td>
             </tr>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderDateOrdered}</td>
               <td width="5%">&nbsp;</td>
               <td valign="top" width="80%">${orderHeader.orderDate.toString()}</td>
             </tr>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.CommonCurrency}</td>
               <td width="5%">&nbsp;</td>
               <td valign="top" width="80%">${orderHeader.currencyUom?default("???")}</td>
             </tr>
             <#if orderHeader.internalCode?has_content>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderInternalCode}</td>
               <td width="5%">&nbsp;</td>
               <td valign="top" width="80%">${orderHeader.internalCode}</td>
             </tr>
             </#if>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderSalesChannel}</td>
               <td width="5%">&nbsp;</td>
@@ -151,7 +151,7 @@ under the License.
                   </#if>
               </td>
             </tr>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderProductStore}</td>
               <td width="5%">&nbsp;</td>
@@ -163,7 +163,7 @@ under the License.
                   </#if>
               </td>
             </tr>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderOriginFacility}</td>
               <td width="5%">&nbsp;</td>
@@ -175,7 +175,7 @@ under the License.
                   </#if>
               </td>
             </tr>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.CommonCreatedBy}</td>
               <td width="5%">&nbsp;</td>
@@ -188,7 +188,7 @@ under the License.
               </td>
             </tr>
             <#if orderItem.cancelBackOrderDate?exists>
-              <tr><td colspan="3"><hr/></td></tr>
+              <tr><td colspan="3"><hr /></td></tr>
               <tr>
                 <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.FormFieldTitle_cancelBackOrderDate}</td>
                 <td width="5%">&nbsp;</td>
@@ -196,7 +196,7 @@ under the License.
               </tr>
             </#if>
             <#if distributorId?exists>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderDistributor}</td>
               <td width="5%">&nbsp;</td>
@@ -207,7 +207,7 @@ under the License.
             </tr>
             </#if>
             <#if affiliateId?exists>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderAffiliate}</td>
               <td width="5%">&nbsp;</td>
@@ -219,7 +219,7 @@ under the License.
             </tr>
             </#if>
             <#if orderContentWrapper.get("IMAGE_URL")?has_content>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderImage}</td>
               <td width="5%">&nbsp;</td>
@@ -231,7 +231,7 @@ under the License.
             <#if "SALES_ORDER" == orderHeader.orderTypeId>
               <form action="setOrderReservationPriority" method="post" name="setOrderReservationPriority">
                 <input type = "hidden" name="orderId" value="${orderId}"/>
-                <tr><td colspan="3"><hr/></td></tr>
+                <tr><td colspan="3"><hr /></td></tr>
                 <tr>
                   <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.FormFieldTitle_priority}</td>
                   <td width="5%">&nbsp;</td>
@@ -244,7 +244,7 @@ under the License.
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.FormFieldTitle_reserveInventory}"/>
                   </td>
                 </tr>
-                <tr><td colspan="3"><hr/></td></tr>
+                <tr><td colspan="3"><hr /></td></tr>
               </form>
             </#if>
             <#if orderHeader.isViewed?has_content && orderHeader.isViewed == "Y">

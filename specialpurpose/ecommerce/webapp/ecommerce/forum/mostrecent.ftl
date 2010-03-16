@@ -53,7 +53,7 @@ under the License.
           <input type="hidden" name="contentId_o_${row}" value="${content.contentId}"/>
         <tr>
           <td colspan="5" class="tabletext">
-          ${uiLabelMap.CommonContent}:<br/>
+          ${uiLabelMap.CommonContent}:<br />
             <@renderSubContentCache subContentId=content.contentId/>
           </td>
         </tr>

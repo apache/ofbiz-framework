@@ -30,8 +30,8 @@ under the License.
         <#assign smallImageUrl = "/images/defaultImage.jpg"/>
     </#if>
         <td>
-            <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br/>
-            ${productContentWrapper.get("PRODUCT_NAME")}<br/>
+            <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br />
+            ${productContentWrapper.get("PRODUCT_NAME")}<br />
     <#if totalPrice?exists>
             <div>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
     <#else>

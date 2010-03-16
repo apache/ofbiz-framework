@@ -101,12 +101,12 @@ under the License.
                 <#-- toggle the row color -->
                 <#assign alt_row = !alt_row>
             </#list>
-            <tr><td colspan="10"><hr/></td></tr>
+            <tr><td colspan="10"><hr /></td></tr>
             <tr>
                 <td align="right" colspan="6" class="label">${uiLabelMap.CommonSubtotal}</td>
                 <td align="right"><@ofbizCurrency amount=totalQuoteAmount isoCode=quote.currencyUomId/></td>
             </tr>
-            <tr><td colspan="5"></td><td colspan="6"><hr/></td></tr>
+            <tr><td colspan="5"></td><td colspan="6"><hr /></td></tr>
             <#assign totalQuoteHeaderAdjustmentAmount = 0.0>
             <#assign findAdjustment = false>
             <#list quoteAdjustments as quoteAdjustment>
@@ -122,7 +122,7 @@ under the License.
             </#list>
             <#assign grandTotalQuoteAmount = totalQuoteAmount + totalQuoteHeaderAdjustmentAmount>
             <#if findAdjustment>
-            <tr><td colspan="5"></td><td colspan="6"><hr/></td></tr>
+            <tr><td colspan="5"></td><td colspan="6"><hr /></td></tr>
             </#if>
             <tr>
                 <td align="right" colspan="6" class="label">${uiLabelMap.OrderGrandTotal}</td>

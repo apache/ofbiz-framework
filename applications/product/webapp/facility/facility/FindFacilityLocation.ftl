@@ -71,9 +71,9 @@ under the License.
 
     <#if foundLocations?exists>
         <#-- TODO: Put this in a screenlet - make it look more like the party find screen -->
-        <br/>
+        <br />
         <h1>${uiLabelMap.CommonFound}:&nbsp;${foundLocations.size()}&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [ID:${facilityId?if_exists}]</h1>
-        <br/>
+        <br />
         <table class="basic-table hover-bar" cellspacing="0">
         <tr class="header-row-2">
             <td>${uiLabelMap.ProductFacility}</td>

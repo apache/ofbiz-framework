@@ -105,29 +105,29 @@ under the License.
 <#else>
   <#-- Create new expression -->
   <@CreateForm "DATE_RANGE" CreateDateRange/>
-  <hr/>
+  <hr />
   <@CreateForm "DAY_IN_MONTH" DayInMonth/>
-  <hr/>
+  <hr />
   <@CreateForm "DAY_OF_MONTH_RANGE" DayOfMonthRange/>
-  <hr/>
+  <hr />
   <@CreateForm "DAY_OF_WEEK_RANGE" DayOfWeekRange/>
-  <hr/>
+  <hr />
   <@CreateForm "FREQUENCY" CreateFrequency/>
-  <hr/>
+  <hr />
   <@CreateForm "HOUR_RANGE" HourOfDayRange/>
-  <hr/>
+  <hr />
   <@CreateForm "MINUTE_RANGE" MinuteRange/>
-  <hr/>
+  <hr />
   <@CreateForm "MONTH_RANGE" MonthRange/>
-  <hr/>
+  <hr />
   <@CreateForm "TIME_OF_DAY_RANGE" TimeOfDayRange/>
-  <hr/>
+  <hr />
   <@CreateForm "INTERSECTION"/>
-  <hr/>
+  <hr />
   <@CreateForm "UNION"/>
-  <hr/>
+  <hr />
   <@CreateForm "DIFFERENCE"/>
-  <hr/>
+  <hr />
   <@CreateForm "SUBSTITUTION"/>
 </#if>
 

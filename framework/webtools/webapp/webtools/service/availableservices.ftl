@@ -126,7 +126,7 @@ under the License.
           <b>${selectedServiceMap.implServices}</b>
         <#elseif selectedServiceMap.implServices?has_content>
           <#list selectedServiceMap.implServices as implSrv>
-            <a href='<@ofbizUrl>${url}?sel_service_name=${implSrv.getService()}</@ofbizUrl>'>${implSrv.getService()}</a><br/>
+            <a href='<@ofbizUrl>${url}?sel_service_name=${implSrv.getService()}</@ofbizUrl>'>${implSrv.getService()}</a><br />
           </#list>
         </#if>
       </div>
@@ -228,7 +228,7 @@ under the License.
                         <td><b>${uiLabelMap.WebtoolsRHSValueName}</b> ${condition.rhsValueName?default(uiLabelMap.CommonNA)}</td>
                         <td>&nbsp;</td>
                       </tr>
-                    </table><br/>
+                    </table><br />
                   </#list>
                 </td>
               </#if>
@@ -258,7 +258,7 @@ under the License.
                           <td colspan="2">&nbsp;</td>
                         </#if>
                       </tr>
-                    </table><br/>
+                    </table><br />
                   </#list>
                 </td>
               </#if>

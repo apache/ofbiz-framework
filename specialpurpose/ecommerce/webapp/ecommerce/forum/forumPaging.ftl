@@ -20,7 +20,7 @@ under the License.
 <#assign viewIndex = viewIndex?default(0)>
 <#assign lowIndex = viewIndex?int * viewSize?int + 1>
 <#assign highIndex = viewIndex?int * viewSize?int + viewSize>
-<#--<br/>== viewIndex: ${viewIndex} ==viewSize: ${viewSize} ==lowIndex: ${lowIndex}== highIndex: ${highIndex} == ListSize: ${listSize}-->
+<#--<br />== viewIndex: ${viewIndex} ==viewSize: ${viewSize} ==lowIndex: ${lowIndex}== highIndex: ${highIndex} == ListSize: ${listSize}-->
 <#if forumMessages?has_content && forumMessages?size gt 0>
     <#assign listSize = forumMessages?size/>
     <#if highIndex gt listSize><#assign highIndex = listSize></#if>

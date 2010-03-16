@@ -150,7 +150,7 @@ document.lookupinventory.productId.focus();
           <td align="right">${uiLabelMap.ManufacturingTotalQuantity}</td>
         </tr>
         <tr>
-          <td colspan="7"><hr/></td>
+          <td colspan="7"><hr /></td>
         </tr>
         <#assign count = lowIndex>
         <#assign productTmp = "">
@@ -230,9 +230,9 @@ document.lookupinventory.productId.focus();
 
        </table>
       <#else>
-       <br/>
+       <br />
        <div align="center">${uiLabelMap.CommonNoElementFound}</div>
-       <br/>
+       <br />
       </#if>
     </#if>
     </td>

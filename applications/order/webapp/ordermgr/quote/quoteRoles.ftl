@@ -37,7 +37,7 @@ under the License.
                     </td>
                 </tr>
             <#if quoteRoles.size() != row>
-                <tr><td colspan="3"><hr/></td></tr>
+                <tr><td colspan="3"><hr /></td></tr>
             </#if>
             <#assign row = row + 1>
             </#list>

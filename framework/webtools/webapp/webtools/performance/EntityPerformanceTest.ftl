@@ -24,7 +24,7 @@ under the License.
   <div class="screenlet-body">
     <#if security.hasPermission("ENTITY_MAINT", session)>
       <p>${uiLabelMap.WebtoolsNotePerformanceResultsMayVary}</p>
-      <br/>
+      <br />
       <#if performanceList?has_content>
         <table class="basic-table hover-bar" cellspacing="0">
           <tr class="header-row">

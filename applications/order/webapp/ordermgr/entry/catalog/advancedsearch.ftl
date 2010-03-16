@@ -19,7 +19,7 @@ under the License.
 <#assign searchOptionsHistoryList = Static["org.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)>
 <#assign currentCatalogId = Static["org.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)>
 <h1>${uiLabelMap.ProductAdvancedSearchInCategory}</h1>
-<br/>
+<br />
 <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
   <input type="hidden" name="VIEW_SIZE" value="10">
   <table border="0" wdith="100%">
@@ -135,7 +135,7 @@ under the License.
   </table>
 
   <#if searchOptionsHistoryList?has_content>
-    <hr/>
+    <hr />
 
     <h2>${uiLabelMap.OrderLastSearches}...</h2>
 
@@ -155,7 +155,7 @@ under the License.
           <div>&nbsp;-&nbsp;${constraintString}</div>
         </#list>
         <#if searchOptions_has_next>
-          <hr/>
+          <hr />
         </#if>
     </#list>
   </#if>

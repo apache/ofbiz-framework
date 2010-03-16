@@ -29,7 +29,7 @@ under the License.
         <#-- Receiving Results -->
         <#if receivedItems?has_content>
           <h3>${uiLabelMap.ProductReceiptPurchaseOrder} ${purchaseOrder.orderId}</h3>
-          <hr/>
+          <hr />
           <table class="basic-table" cellspacing="0">
             <tr class="header-row">
               <td>${uiLabelMap.ProductShipmentId}</td>
@@ -66,9 +66,9 @@ under the License.
                 </tr>
               </form>
             </#list>
-            <tr><td colspan="10"><hr/></td></tr>
+            <tr><td colspan="10"><hr /></td></tr>
           </table>
-          <br/>
+          <br />
         </#if>
 
         <#-- Single Product Receiving -->
@@ -259,7 +259,7 @@ under the License.
                 <#assign shipmentType = shipment.getRelatedOneCache("ShipmentType")/>
                 <#assign shipmentDate = shipment.estimatedArrivalDate?if_exists/>
                 <tr>
-                  <td><hr/></td>
+                  <td><hr /></td>
                 </tr>
                 <tr>
                   <td>
@@ -278,7 +278,7 @@ under the License.
                 </tr>
               </#list>
               <tr>
-                <td><hr/></td>
+                <td><hr /></td>
               </tr>
               <tr>
                 <td>
@@ -357,7 +357,7 @@ under the License.
                   </#if>
 
                   <tr>
-                    <td colspan="2"><hr/></td>
+                    <td colspan="2"><hr /></td>
                   </tr>
                   <tr>
                     <td>
@@ -472,7 +472,7 @@ under the License.
                 </#list>
                 <tr>
                   <td colspan="2">
-                    <hr/>
+                    <hr />
                   </td>
                 </tr>
                 <#if rowCount == 0>

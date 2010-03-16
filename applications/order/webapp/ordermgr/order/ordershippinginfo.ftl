@@ -341,7 +341,7 @@ under the License.
       <table width="100%" border="0" cellpadding="1" cellspacing="0">
         <#if shipGroup.supplierPartyId?has_content>
           <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", shipGroup.supplierPartyId))?if_exists />
-          <tr><td colspan="3"><hr/></td></tr>
+          <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <span class="label">&nbsp;${uiLabelMap.ProductDropShipment} - ${uiLabelMap.PartySupplier}</span>
@@ -357,7 +357,7 @@ under the License.
         <#-- getShipGroupEstimate method of ShippingEvents class can be used for get shipping estimate from system, on the basis of new package's weight -->
         <#if shippingRateList?has_content>
           <#if orderReadHelper.getOrderTypeId() != "PURCHASE_ORDER">
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <tr> 
               <td colspan="3">
                 <table>
@@ -403,7 +403,7 @@ under the License.
 
         <#-- tracking number -->
         <#if shipGroup.trackingNumber?has_content || orderShipmentInfoSummaryList?has_content>
-          <tr><td colspan="3"><hr/></td></tr>
+          <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <span class="label">&nbsp;${uiLabelMap.OrderTrackingNumber}</span>
@@ -430,7 +430,7 @@ under the License.
           </tr>
         </#if>
         <#if shipGroup.maySplit?has_content && noShipment?default("false") != "true">
-          <tr><td colspan="3"><hr/></td></tr>
+          <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <span class="label">&nbsp;${uiLabelMap.OrderSplittingPreference}</span>
@@ -499,7 +499,7 @@ under the License.
           <form name="setGiftMessageForm" method="post" action="<@ofbizUrl>setGiftMessage</@ofbizUrl>">
             <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
             <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
-            <tr><td colspan="3"><hr/></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <td align="right" valign="top" width="15%">
               <span class="label">&nbsp;${uiLabelMap.OrderGiftMessage}</span>
             </td>
@@ -521,7 +521,7 @@ under the License.
         <form name="setShipGroupDates_${shipGroup.shipGroupSeqId}" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">
         <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
         <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
-         <tr><td colspan="3"><hr/></td></tr>
+         <tr><td colspan="3"><hr /></td></tr>
          <tr>
             <td align="right" valign="top" width="15%">
               <span class="label">&nbsp;${uiLabelMap.OrderShipAfterDate}<span>
@@ -546,7 +546,7 @@ under the License.
         </form>
        <#assign shipGroupShipments = shipGroup.getRelated("PrimaryShipment")>
        <#if shipGroupShipments?has_content>
-          <tr><td colspan="3"><hr/></td></tr>
+          <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
               <span class="label">&nbsp;${uiLabelMap.FacilityShipments}<span>
@@ -582,14 +582,14 @@ under the License.
 
 
          <#-- Manual shipment options -->
-         <tr><td colspan="3"><hr/></td></tr>
+         <tr><td colspan="3"><hr /></td></tr>
          <tr>
             <td colspan="3" valign="top" width="100%" align="center">
              <#if orderHeader.orderTypeId == "SALES_ORDER">
                <#if !shipGroup.supplierPartyId?has_content>
                  <#if orderHeader.statusId == "ORDER_APPROVED">
                  <a href="/facility/control/PackOrder?facilityId=${storeFacilityId?if_exists}&amp;orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup}</a>
-                 <br/>
+                 <br />
                  </#if>
                  <a href="javascript:document.createShipment_${shipGroup.shipGroupSeqId}.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
                  <form name="createShipment_${shipGroup.shipGroupSeqId}" method="post" action="/facility/control/createShipment">

@@ -44,7 +44,7 @@ under the License.
       <#if first = "yes"> 
         <h1>${subSection}</h1>
       <#else>
-        <br/><h2>${subSection}</h2>
+        <br /><h2>${subSection}</h2>
       </#if>
     <#elseif subSection?node_name = "para">
         <p><@para para=subSection/></p>

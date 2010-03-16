@@ -65,25 +65,25 @@ under the License.
                 <td>
                     <span>${(carrierPerson.firstName)?if_exists} ${(carrierPerson.middleName)?if_exists} ${(carrierPerson.lastName)?if_exists} ${(carrierPartyGroup.groupName)?if_exists} [${shipmentRouteSegment.carrierPartyId?if_exists}]</span>
                     <span>${shipmentMethodType.description?default(shipmentRouteSegment.shipmentMethodTypeId?if_exists)}</span>
-                    <br/>
+                    <br />
                     <span class="label">${uiLabelMap.ProductOrigin}</span>
                     <span>${(originFacility.facilityName)?if_exists} [${originFacility.facilityId?if_exists}]</span>
-                    <br/>
+                    <br />
                     <span class="label">${uiLabelMap.ProductDest}</span>
                     <span>${(destFacility.facilityName)?if_exists} [${destFacility.facilityId?if_exists}]</span>
-                    <br/>
+                    <br />
                     <span class="label">${uiLabelMap.ProductOrigin}</span>
                     <span><#if originPostalAddress?has_content>${uiLabelMap.CommonTo} : ${originPostalAddress.toName?if_exists}, ${uiLabelMap.CommonAttn} : ${originPostalAddress.attnName?if_exists}, ${originPostalAddress.address1?if_exists}, ${originPostalAddress.address2?if_exists}, ${originPostalAddress.city?if_exists}, ${originPostalAddress.stateProvinceGeoId?if_exists}, ${originPostalAddress.postalCode?if_exists}, ${originPostalAddress.countryGeoId?if_exists}</#if> [${shipmentRouteSegment.originContactMechId?if_exists}]</span>
-                    <br/>
+                    <br />
                     <span class="label">${uiLabelMap.ProductDest}</span>
                     <span><#if destPostalAddress?has_content>${uiLabelMap.CommonTo} : ${destPostalAddress.toName?if_exists}, ${uiLabelMap.CommonAttn} : ${destPostalAddress.attnName?if_exists}, ${destPostalAddress.address1?if_exists}, ${destPostalAddress.address2?if_exists}, ${destPostalAddress.city?if_exists}, ${destPostalAddress.stateProvinceGeoId?if_exists}, ${destPostalAddress.postalCode?if_exists}, ${destPostalAddress.countryGeoId?if_exists}</#if> [${shipmentRouteSegment.destContactMechId?if_exists}]</span>
-                    <br/>
+                    <br />
                     <span class="label">${uiLabelMap.ProductOrigin}</span>
                     <span><#if originTelecomNumber?has_content>${originTelecomNumber.countryCode?if_exists}  ${originTelecomNumber.areaCode?if_exists} ${originTelecomNumber.contactNumber?if_exists}</#if> [${shipmentRouteSegment.originTelecomNumberId?if_exists}]</span>
-                    <br/>
+                    <br />
                     <span class="label">${uiLabelMap.ProductDest}</span>
                     <span><#if destTelecomNumber?has_content>${destTelecomNumber.countryCode?if_exists}  ${destTelecomNumber.areaCode?if_exists} ${destTelecomNumber.contactNumber?if_exists}</#if> [${shipmentRouteSegment.destTelecomNumberId?if_exists}]</span>
-                    <br/>
+                    <br />
                 </td>
                 <td>
                     <div>${(carrierServiceStatus.description)?default("&nbsp;")}</div>

@@ -104,7 +104,7 @@ function doPublish() {
                 </tr>
             </table>
         </form>
-        <br/>
+        <br />
         <form action="<@ofbizUrl>updateProductQuickAdminSelFeat</@ofbizUrl>" method="post" style="margin: 0;" name="selectableFeature">
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
         <input type="hidden" name="productFeatureTypeId" value="${(productFeatureTypeId)?if_exists}"/>
@@ -341,7 +341,7 @@ function doPublish() {
         </td>
         </tr>
         </table>
-        <br/>
+        <br />
         <form action="<@ofbizUrl>EditProductQuickAdmin</@ofbizUrl>">
         <input type="hidden" name="productFeatureTypeId" value="${(productFeatureTypeId)?if_exists}"/>
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
