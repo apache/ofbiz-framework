@@ -98,7 +98,7 @@
              }
          }
          if (pkCateId) {
-         refName = "itemCateFacade_"pkCateId;
+         refName = "itemCateFacade_" + pkCateId;
              if (addItemObj.get(refName)) {
                     cf = addItemObj.get(refName);
                     if (cf) {
