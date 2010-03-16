@@ -561,18 +561,24 @@ public class Record implements Serializable {
                     strVal = (String)modelField.defaultValue;
                 }
             } else {
-                try {
-                    strVal = st.nextToken();
-                    if (strVal.equals("" + delimiter)) {
-                        strVal = null;
-                    } else {
-                        if (st.hasMoreTokens()) {
-                            st.nextToken();
+                //some input lines may be less than the header model.
+                if (st.hasMoreTokens()) {
+                    try {
+                        strVal = st.nextToken();
+                        if (strVal.equals("" + delimiter)) {
+                            strVal = null;
+                        } else {
+                            if (st.hasMoreTokens()) {
+                                st.nextToken();
+                            }
                         }
-                    }
-                } catch (NoSuchElementException nsee) {
-                    throw new DataFileException("Field " + modelField.name + " could not be read from a line (" + lineNum + ") with only " +
-                            line.length() + " chars.", nsee);
+                    } catch (NoSuchElementException nsee) {
+                        throw new DataFileException("Field " + modelField.name + " could not be read from a line (" + lineNum + ") with only " +
+                                line.length() + " chars.", nsee);
+                    }                
+                }
+                else { //if input line is less than the header model then pad with null
+                    strVal = null;
                 }
             }
             try {
