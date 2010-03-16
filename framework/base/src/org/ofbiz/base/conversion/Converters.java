@@ -36,11 +36,7 @@ public class Converters {
     protected static final FastMap<String, Converter<?, ?>> converterMap = FastMap.newInstance();
     protected static final FastSet<ConverterCreator> creators = FastSet.newInstance();
     protected static final FastSet<String> noConversions = FastSet.newInstance();
-    /** Null converter used when the source and target java object
-     * types are the same. The <code>convert</code> method returns the
-     * source object.
-     *
-     */
+
     static {
         converterMap.setShared(true);
         registerCreator(new PassThruConverterCreator());
