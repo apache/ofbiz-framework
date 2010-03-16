@@ -26,6 +26,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Stack;
 
+import org.ofbiz.base.util.Debug;
+
 
 /**
  *  Record Iterator for reading large files
@@ -84,7 +86,6 @@ public class RecordIterator {
         this.nextRecord = null;
 
         boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle);
-        boolean isFixedLength = ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.separatorStyle);
         boolean isDelimited = ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle);
         // if (Debug.infoOn()) Debug.logInfo("[DataFile.readDataFile] separatorStyle is " + modelDataFile.separatorStyle + ", isFixedRecord: " + isFixedRecord, module);
 
@@ -111,12 +112,14 @@ public class RecordIterator {
         } else {
             try {
                 nextLine = br.readLine();
-            } catch (IOException e) {
+                Debug.logInfo("br.readLine()=\"" + nextLine + "\"", module);
+                } catch (IOException e) {
                 throw new DataFileException("Error reading line #" + nextLineNum + " from location: " + locationInfo, e);
             }
         }
 
-        if (nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length())) {
+        //if (nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length())) {
+        if (nextLine != null && !((nextLine.contains(eof) ) )) {
             nextLineNum++;
             ModelRecord modelRecord = findModelForLine(nextLine, nextLineNum, modelDataFile);
             if (isDelimited) {
@@ -136,7 +139,8 @@ public class RecordIterator {
     }
 
     public boolean hasNext() {
-        return nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length());
+        //return nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length());
+        return nextLine != null && !((nextLine.contains(eof) ) );
 
     }
 
