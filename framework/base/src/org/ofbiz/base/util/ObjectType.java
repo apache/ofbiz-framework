@@ -516,7 +516,7 @@ public class ObjectType {
             LocalizedConverter<Object, Object> localizedConverter = null;
             try {
                 localizedConverter = (LocalizedConverter) converter;
-            } catch (Exception e) {}
+            } catch (ClassCastException e) {}
             if (localizedConverter != null) {
                 if (timeZone == null) {
                     timeZone = TimeZone.getDefault();
