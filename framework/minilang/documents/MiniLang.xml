@@ -18,11 +18,11 @@
     under the License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../applications/content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Entity Engine</title>
-	<para>
-	   A description of the Mini Language guide can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBIZ/Mini-Language+Guide">OFBiz documentation site</link>
-	</para>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../applications/content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Entity Engine</title>
+    <para>
+       A description of the Mini Language guide can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBIZ/Mini-Language+Guide">OFBiz documentation site</link>
+    </para>
 </section>

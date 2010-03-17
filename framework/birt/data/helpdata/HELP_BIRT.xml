@@ -25,9 +25,9 @@ under the License.
     
     <title>OFBiz BIRT Overview</title>
     <para>
-    	Welcome to OFBiz BIRT. The part installed within OFBiz allows you to run the reports which are prepared using Eclipse with the BIRT plugin installed.
-    	As a demo we have prepared a product report as an example.
-    	Look at the <link xl:href="http://eclipse.org/birt/phoenix/">Eclipse BIRT web site</link> for more information.
+        Welcome to OFBiz BIRT. The part installed within OFBiz allows you to run the reports which are prepared using Eclipse with the BIRT plugin installed.
+        As a demo we have prepared a product report as an example.
+        Look at the <link xl:href="http://eclipse.org/birt/phoenix/">Eclipse BIRT web site</link> for more information.
     </para>
     <para>
         This is a short document to help you get started using BIRT to make a report.
@@ -47,8 +47,8 @@ under the License.
     <section>
         <title>Examine the Example Report</title>
         <para>
-        	The example report that run in OFBiz is in the file component://birt/webapp/birt/report/product.rptdesign. When you have started Eclipse BIRT, open this document.
-        	This report show how a report receives data from OFBiz through Scripted Data Source using the OFBiz delegator.
+            The example report that run in OFBiz is in the file component://birt/webapp/birt/report/product.rptdesign. When you have started Eclipse BIRT, open this document.
+            This report show how a report receives data from OFBiz through Scripted Data Source using the OFBiz delegator.
             This report has the scripted data source name "OFBiz" and the data set that use the script data source name is called "Product". 
             Open the script editor for Product data set, it uses the delegator object query data from the Product entity.
             A report that runs on the OFBiz platform can use the delegator object, dispatcher object, security object and classpath of OFBiz environment in the script.</para>
@@ -56,8 +56,8 @@ under the License.
     <section>
         <title>Important file for using BIRT's jsp tags</title>
         <para>
-        	If a web applications wants to use the report in a screen, copy birt.tld file to [WEB APP]/WEB-INF/ directory ant assign in in ftl 
-        	like &lt;#assign birt = JspTaglibs["/WEB-INF/birt.tld"]/&gt;</para>
+            If a web applications wants to use the report in a screen, copy birt.tld file to [WEB APP]/WEB-INF/ directory ant assign in in ftl 
+            like &lt;#assign birt = JspTaglibs["/WEB-INF/birt.tld"]/&gt;</para>
     </section>
     <section>
         <title>Important tag's attribute in ftl.</title>

@@ -42,11 +42,11 @@
 
  int lastIntMonth = Integer.parseInt(request.getParameter("lastIntMonth"));
  if (lastIntMonth == 0 ){
-	 fromOrderDate = null;
+     fromOrderDate = null;
  }else{
-	 fromDateTime = UtilDateTime.getDayStart(UtilDateTime.toTimestamp(UtilDateTime.nowTimestamp()), (lastIntMonth*(-30)));
-	 fromOrderDate = UtilDateTime.toDateString(fromDateTime,"MMMM dd, yyyy")
-	 Debug.logInfo("====fromDate======="+fromOrderDate.toString(),"");
+     fromDateTime = UtilDateTime.getDayStart(UtilDateTime.toTimestamp(UtilDateTime.nowTimestamp()), (lastIntMonth*(-30)));
+     fromOrderDate = UtilDateTime.toDateString(fromDateTime,"MMMM dd, yyyy")
+     Debug.logInfo("====fromDate======="+fromOrderDate.toString(),"");
  }
 
  birtParameters.facilityId = request.getParameter("facilityId");

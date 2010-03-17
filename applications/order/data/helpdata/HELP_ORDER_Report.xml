@@ -19,81 +19,81 @@
     xmlns="http://docbook.org/ns/docbook">
     <title>Order Reports Help.</title>
     <para>
-    	The Order Reports provide general information about orders in the system.
+        The Order Reports provide general information about orders in the system.
     </para>
     <section>
-    	<title>
-    		Initial steps.
-    	</title>
-    		<section>
+        <title>
+            Initial steps.
+        </title>
+            <section>
                 <para>
                     If your reports look empty it may be required to initialize the warehouse entities in the BI component. 
                 </para>
-    			<orderedlist>
-    				<listitem>
-    					<para>Go to :<link xl:href="https://localhost:8443/bi/control/main">Business Intelligence</link></para>
-    				</listitem>
-    				<listitem>
-    					<para>Click "Quick Init DataWarehouse". System will automatic initial Data in the warehouse for Reports</para>
-    				</listitem>
-    				<listitem>
-    					<para>Go back to : <link xl:href="https://localhost:8443/ordermgr/control/OrderPurchaseReportOptions">Order Reports.</link></para>
-    				</listitem>
-    			</orderedlist>
-    		</section>
+                <orderedlist>
+                    <listitem>
+                        <para>Go to :<link xl:href="https://localhost:8443/bi/control/main">Business Intelligence</link></para>
+                    </listitem>
+                    <listitem>
+                        <para>Click "Quick Init DataWarehouse". System will automatic initial Data in the warehouse for Reports</para>
+                    </listitem>
+                    <listitem>
+                        <para>Go back to : <link xl:href="https://localhost:8443/ordermgr/control/OrderPurchaseReportOptions">Order Reports.</link></para>
+                    </listitem>
+                </orderedlist>
+            </section>
     </section>
     <section>
         <title>Reports List</title>
         <section>
-        	<title>1. Sales Order By Referrer Report</title>
-       		<para>
-       			There are referrers, link, totals orders, quantity totals and amount totals. They are grouped by referrer.
-       		</para>
+            <title>1. Sales Order By Referrer Report</title>
+               <para>
+                   There are referrers, link, totals orders, quantity totals and amount totals. They are grouped by referrer.
+               </para>
         </section>
         <section>
-        	<title>2. Sales Order By Channel Report</title>
-        	<para>
-        		There are total Orders, total Items, quantity totals and amount totals. They are grouped by Sales Channel.
-        	</para>
+            <title>2. Sales Order By Channel Report</title>
+            <para>
+                There are total Orders, total Items, quantity totals and amount totals. They are grouped by Sales Channel.
+            </para>
         </section>
-	    <section>
-	    	<title>3. Sale Orders Discount Code Report</title>
-	    	<para>
-        		There are order, product, promotion and discount. This report is list of All orders.
-	    	</para>
-	    </section>
-	    <section>
-	    	<title>4. Last Three Months Sales Report</title>
-	    	<para>
-        		There are products, prices, stock, sale out quantity and sale out total amount. 
-        		This report is list of all products, it contains the sales and movements in last 3 months.
-	    	</para>
-	    </section>
-	    <section>
-	    	<title>5. Coupon Sales Report</title>
-	    	<para>
-        		This report lists promotions, total orders, percent of total orders, total orders amount, percent of total orders amount and shipping amounts.
-	    	</para>
-	    </section>
-    	<section>
-    		<title>6. Sales Report</title>
-    		<para>
-    			This Sales report contains paid and unpaid sales orders.
-    		</para>
-    	</section>
-    	<section>
-    		<title>7. Net Before Overhead Report</title>
-    		<para>
-    			Net Before Overhead Report is the profit calculation of paid-shipped orders and all the occurred fee excluding the overhead cost.
-    			They are grouped by Product Store Id.(Demo data for Net Before Overhead Report have in Product Store Id "B2CStore")
-    		</para>
-    	</section>
-    	<section>
-    		<title>8. Product Demand Report</title>
-    		<para>
-    			Product Demand Report is the report to show us which product sells good and which product doesn’t sell good or not selling at all in one account as well as for all accounts in last 4 weeks.
-    			They are grouped by Product Store Id.(Demo data for Product Demand Report have in Product Store Id "B2CStore")
-    		</para>
-    	</section>
+        <section>
+            <title>3. Sale Orders Discount Code Report</title>
+            <para>
+                There are order, product, promotion and discount. This report is list of All orders.
+            </para>
+        </section>
+        <section>
+            <title>4. Last Three Months Sales Report</title>
+            <para>
+                There are products, prices, stock, sale out quantity and sale out total amount. 
+                This report is list of all products, it contains the sales and movements in last 3 months.
+            </para>
+        </section>
+        <section>
+            <title>5. Coupon Sales Report</title>
+            <para>
+                This report lists promotions, total orders, percent of total orders, total orders amount, percent of total orders amount and shipping amounts.
+            </para>
+        </section>
+        <section>
+            <title>6. Sales Report</title>
+            <para>
+                This Sales report contains paid and unpaid sales orders.
+            </para>
+        </section>
+        <section>
+            <title>7. Net Before Overhead Report</title>
+            <para>
+                Net Before Overhead Report is the profit calculation of paid-shipped orders and all the occurred fee excluding the overhead cost.
+                They are grouped by Product Store Id.(Demo data for Net Before Overhead Report have in Product Store Id "B2CStore")
+            </para>
+        </section>
+        <section>
+            <title>8. Product Demand Report</title>
+            <para>
+                Product Demand Report is the report to show us which product sells good and which product doesn’t sell good or not selling at all in one account as well as for all accounts in last 4 weeks.
+                They are grouped by Product Store Id.(Demo data for Product Demand Report have in Product Store Id "B2CStore")
+            </para>
+        </section>
     </section>
 </section>

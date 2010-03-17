@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-	<form name="NewEbayAccount" type="single"  target="createEbayAccount">
+    <form name="NewEbayAccount" type="single"  target="createEbayAccount">
         <auto-fields-service service-name="createEbayAccount"/>
         <field name="statusId"><hidden value="PARTY_ENABLED"/></field>
         <field name="gender">

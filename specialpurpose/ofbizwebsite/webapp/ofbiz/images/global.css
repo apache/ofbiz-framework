@@ -79,11 +79,11 @@ body > #wrap {height: auto; min-height: 100%;}
 
 body {
     font: 11px/ 165% "Lucida Grande", Geneva, Verdana, Arial, Helvetica, sans-serif;
-	color: #666666;
-	margin: 0;
-	padding: 0;
-	background: url(/ofbiz/images/bg.png) top left repeat-x #b5b5b5;
-	text-align: center;
+    color: #666666;
+    margin: 0;
+    padding: 0;
+    background: url(/ofbiz/images/bg.png) top left repeat-x #b5b5b5;
+    text-align: center;
 }
 
 .clearfix:after {
@@ -118,60 +118,60 @@ html[xmlns] .clearfix {
  Typography
 ********************************/
 a,a:active,a:link {
-	text-decoration: none;
-	color: #0066CC;
+    text-decoration: none;
+    color: #0066CC;
 }
 
 a:visited {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 a:hover {
-	color: #030d1c;
+    color: #030d1c;
 }
 
 h1,h2,h3 {
-	font-family: "Trebuchet MS", Tahoma, Arial, Sans-serif;
-	color: #555;
+    font-family: "Trebuchet MS", Tahoma, Arial, Sans-serif;
+    color: #555;
 }
 
 h1 {
-	font-family: "Lucida Grande", Geneva, Verdana, Arial, Helvetica, sans-serif;
-	font-size: 350%;
-	font-weight: normal;
-	letter-spacing: -2px;
-	padding: 15px 10px 5px 10px;
-	margin: 0;
+    font-family: "Lucida Grande", Geneva, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 350%;
+    font-weight: normal;
+    letter-spacing: -2px;
+    padding: 15px 10px 5px 10px;
+    margin: 0;
 }
 
 h2 {
-	font-size: 200%;
-	color: #895F30;
-	padding: 20px 10px 5px 10px;
-	margin: 0;
+    font-size: 200%;
+    color: #895F30;
+    padding: 20px 10px 5px 10px;
+    margin: 0;
 }
 
 h3 {
-	font-size: 170%;
-	font-weight: normal;
-	padding: 20px 10px 5px 10px;
-	margin: 0;
+    font-size: 170%;
+    font-weight: normal;
+    padding: 20px 10px 5px 10px;
+    margin: 0;
 }
 
 h4 {
-	font-size: 100%;
-	font-weight: bolder;
-	color: #000000;
-	padding: 20px 10px 5px 10px;
-	margin: 0;
+    font-size: 100%;
+    font-weight: bolder;
+    color: #000000;
+    padding: 20px 10px 5px 10px;
+    margin: 0;
 }
 
 strong {
     font-size: 100%;
-	font-weight: bolder;
-	color: #000000;
-	padding: 20px 10px 5px 10px;
-	margin: 0;
+    font-weight: bolder;
+    color: #000000;
+    padding: 20px 10px 5px 10px;
+    margin: 0;
 }
 
 p{
@@ -179,31 +179,31 @@ p{
 }
 
 p,dl {
-	padding: 10px;
-	margin: 0;
+    padding: 10px;
+    margin: 0;
 }
 
 ul{
-	margin: 10px 10px;
-	padding: 0 0 0 10px;
+    margin: 10px 10px;
+    padding: 0 0 0 10px;
 }
 
 ul {
-	list-style: none;
+    list-style: none;
 }
 
 ol {
-	margin: 10px 30px;
-	padding: 0;
+    margin: 10px 30px;
+    padding: 0;
 }
 
 dt {
-	font-weight: bold;
-	color: #b13f1a;
+    font-weight: bold;
+    color: #b13f1a;
 }
 
 dd {
-	padding-left: 25px;
+    padding-left: 25px;
 }
 
 /******************************** 
@@ -265,28 +265,28 @@ blockquote {
  Tables
 ********************************/
 table {
-	border-collapse: collapse;
-	margin: 15px 10px;
+    border-collapse: collapse;
+    margin: 15px 10px;
 }
 
 th {
-	background: #d14b1f url(/ofbiz/images/header-bg.jpg) repeat-x 0 -100px;
-	height: 38px;
-	padding-left: 12px;
-	padding-right: 12px;
-	color: #fff;
-	text-align: left;
-	border-left: 1px solid #d14b1f;
-	border-bottom: solid 2px #fff;
+    background: #d14b1f url(/ofbiz/images/header-bg.jpg) repeat-x 0 -100px;
+    height: 38px;
+    padding-left: 12px;
+    padding-right: 12px;
+    color: #fff;
+    text-align: left;
+    border-left: 1px solid #d14b1f;
+    border-bottom: solid 2px #fff;
 }
 
 tr {
-	height: 34px;
+    height: 34px;
 }
 
 td {
-	padding-left: 11px;
-	padding-right: 11px;
+    padding-left: 11px;
+    padding-right: 11px;
 }
 
 /******************************** 
@@ -356,20 +356,20 @@ input.button {
 #wrap{
     background: #fff url(/ofbiz/images/wrapper.jpg) top center no-repeat;
     width: 945px;
-	margin: 0 auto;
+    margin: 0 auto;
     text-align:left;
 }
 
 #content-wrap  {
     width:945px;
-	margin:0 auto;
+    margin:0 auto;
     padding-bottom: 42px;
 }
 
 #content {
     width:500px;
-	float:left;
-	padding:30px 0 25px 0;
+    float:left;
+    padding:30px 0 25px 0;
 }
 
 /******************************** 
@@ -378,11 +378,11 @@ input.button {
 #footer {
     background: url(/ofbiz/images/footer.jpg) bottom center no-repeat;
     position: relative;
-	margin: -42px auto 0px auto;
-	height: 42px;
-	clear:both;
-	font-size:11px;
-	font-family:Verdana, Arial, sans-serif;
+    margin: -42px auto 0px auto;
+    height: 42px;
+    clear:both;
+    font-size:11px;
+    font-family:Verdana, Arial, sans-serif;
     width:945px;
 }
 
@@ -543,20 +543,20 @@ input.button {
 }
 
 #main h2 {
-	padding-bottom: 3px;
-	margin-top: 15px;
-	font: normal 2.5em "Lucida Grande", Geneva, Verdana, Arial, Helvetica, sans-serif;
-	color: #333;
-	letter-spacing: -2px;
-	text-transform: none;
-	border-bottom: 1px solid #ebebeb;
+    padding-bottom: 3px;
+    margin-top: 15px;
+    font: normal 2.5em "Lucida Grande", Geneva, Verdana, Arial, Helvetica, sans-serif;
+    color: #333;
+    letter-spacing: -2px;
+    text-transform: none;
+    border-bottom: 1px solid #ebebeb;
 }
 
 #main h2 a {
-	color: #333;
-	text-decoration: none;
-	background: none;
-	border: none;
+    color: #333;
+    text-decoration: none;
+    background: none;
+    border: none;
 }
 
 #main ul li {
@@ -590,51 +590,51 @@ input.button {
 }
 
 #main #col1 h2, #main #col2 h2 {
-	border-bottom: 1px solid #ebebeb;
-	color:#304C70;
-	padding-bottom: 3px;
-	letter-spacing: -3px;
-	text-transform: none;
-	font-size:30px;
+    border-bottom: 1px solid #ebebeb;
+    color:#304C70;
+    padding-bottom: 3px;
+    letter-spacing: -3px;
+    text-transform: none;
+    font-size:30px;
 }
 
 .feature {
-	margin:0px;
-	padding:0px;
-	height:435px;
+    margin:0px;
+    padding:0px;
+    height:435px;
 }
 
 .screen {
-	margin:10px 0 5px 0;
-	padding:0px;
-	background:#fff;
-	border:1px solid #eee;
-	width:255px;
-	height:200px;
-	overflow:hidden;
+    margin:10px 0 5px 0;
+    padding:0px;
+    background:#fff;
+    border:1px solid #eee;
+    width:255px;
+    height:200px;
+    overflow:hidden;
 }
 
 #main .hero {
-	margin:10px 0 5px 0;
-	padding:0px;
-	background:#fff;
-	border:1px solid #eee;
-	width:555px;
+    margin:10px 0 5px 0;
+    padding:0px;
+    background:#fff;
+    border:1px solid #eee;
+    width:555px;
 }
 
 #main .highlights {
-	float:right;
-	width:240px;
-	background:#dfe9ef;
-	border:1px solid #eee;
-	margin:0px 10px 0px 5px;
-	display:inline;
+    float:right;
+    width:240px;
+    background:#dfe9ef;
+    border:1px solid #eee;
+    margin:0px 10px 0px 5px;
+    display:inline;
 }
 
 #main .form {
-	width:240px;
-	margin:0px 10px 0px 5px;
-	display:inline;
+    width:240px;
+    margin:0px 10px 0px 5px;
+    display:inline;
 }
 
 #main .highlights ul li {
@@ -642,7 +642,7 @@ input.button {
 }
 
 #main .highlights h4 {
-	padding:5px 5px 0 5px;
+    padding:5px 5px 0 5px;
 }
 
 #sidebar {
@@ -792,160 +792,160 @@ p.thumbs {
 ********************************/
 /*HOME*/
 body#home #wrap {
-	position: relative;
-	background: #fff url(/ofbiz/images/home-wrapper.jpg) top center no-repeat;
-	width: 945px;
-	margin: 0 auto;
-	text-align: left;
+    position: relative;
+    background: #fff url(/ofbiz/images/home-wrapper.jpg) top center no-repeat;
+    width: 945px;
+    margin: 0 auto;
+    text-align: left;
 }
 
 body#home #header {
-	position: relative;
-	width: 945px;
-	height: 403px;
-	padding: 0;
-	margin: 0 auto;
-	background: transparent;
+    position: relative;
+    width: 945px;
+    height: 403px;
+    padding: 0;
+    margin: 0 auto;
+    background: transparent;
 }
 
 body#home #header #slides {
-	position: absolute;
-	top: 128px;
-	left: 10px;
-	background: url(/ofbiz/images/slideshow-bg.jpg) top center no-repeat;
-	width: 923px;
-	height: 260px;
+    position: absolute;
+    top: 128px;
+    left: 10px;
+    background: url(/ofbiz/images/slideshow-bg.jpg) top center no-repeat;
+    width: 923px;
+    height: 260px;
 }
 
 body#home #header #slides .slideshow {
-	width:923px;
-	height:260px;
-	margin:0px;
-	padding:0px;
+    width:923px;
+    height:260px;
+    margin:0px;
+    padding:0px;
 }
 
 body#home #header #slides .callout {
-	position: absolute;
-	top: 35px;
-	left: 30px;
-	font-size: 30px;
-	line-height: 30px;
-	color: #2b1f48;
+    position: absolute;
+    top: 35px;
+    left: 30px;
+    font-size: 30px;
+    line-height: 30px;
+    color: #2b1f48;
 }
 
 body#home #header #slides .description {
-	position: absolute;
-	top: 175px;
-	left: 30px;
-	font-size: 14px;
-	line-height: 15px;
-	color: #e0e0e0;
-	width: 350px;
+    position: absolute;
+    top: 175px;
+    left: 30px;
+    font-size: 14px;
+    line-height: 15px;
+    color: #e0e0e0;
+    width: 350px;
 }
 
 body#home #header #slides .controls {
-	width: 100px;
-	position: absolute;
-	top: 15px;
-	left: 750px;
-	height:30px;
+    width: 100px;
+    position: absolute;
+    top: 15px;
+    left: 750px;
+    height:30px;
 }
 
 body#home #header #slides .controls a {
-	border: none;
-	position:absolute;
-	height:30px;
-	line-height:24px;
-	padding:5px;
-	text-indent:-9999px;
-	outline:none;
+    border: none;
+    position:absolute;
+    height:30px;
+    line-height:24px;
+    padding:5px;
+    text-indent:-9999px;
+    outline:none;
 }
 
 body#home #header #slides .controls a.previous {
-	background: url(/ofbiz/images/backward.gif) top center no-repeat;
-	left:0px;
-	height:30px;
-	width:16px;
+    background: url(/ofbiz/images/backward.gif) top center no-repeat;
+    left:0px;
+    height:30px;
+    width:16px;
 }
 
 body#home #header #slides .controls a.next {
-	background: url(/ofbiz/images/forward.gif) top center no-repeat;
-	left:60px;
-	height:30px;
-	width:16px;
+    background: url(/ofbiz/images/forward.gif) top center no-repeat;
+    left:60px;
+    height:30px;
+    width:16px;
 }
 
 body#home #header #slides .controls a.stop {
-	background: url(/ofbiz/images/pause.gif) top center no-repeat;
-	left:30px;
-	height:30px;
-	width:16px;
+    background: url(/ofbiz/images/pause.gif) top center no-repeat;
+    left:30px;
+    height:30px;
+    width:16px;
 }
 
 body#home #header #slides .controls a.start {
-	background: url(/ofbiz/images/start.gif) top center no-repeat;
-	left:30px;
-	height:30px;
-	width:16px;
+    background: url(/ofbiz/images/start.gif) top center no-repeat;
+    left:30px;
+    height:30px;
+    width:16px;
 }
 
 body#home #header #slides .controls a img {
-	background: none;
-	border: none;
-	cursor: pointer;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 body#home #header #slides .mantle{
-	position:absolute;
-	top:58px;
-	left:385px;
+    position:absolute;
+    top:58px;
+    left:385px;
 }
 
 body#home #col1 {
-	float: left;
-	width: 260px;
-	padding: 0;
-	margin: 5px 0 0 0px;
-	display: inline;
+    float: left;
+    width: 260px;
+    padding: 0;
+    margin: 5px 0 0 0px;
+    display: inline;
 }
 
 body#home #col2 {
-	float: left;
-	width: 260px;
-	padding: 0;
-	margin: 5px 0 0 20px;
-	display: inline;
+    float: left;
+    width: 260px;
+    padding: 0;
+    margin: 5px 0 0 20px;
+    display: inline;
 }
 
 .downloadNow {
-	margin:30px 0 10px 0;
+    margin:30px 0 10px 0;
 }
 
 .downloadLinks span.docs {
-	float:left;
-	margin:0px 0px 0 0;
-	display:inline;
+    float:left;
+    margin:0px 0px 0 0;
+    display:inline;
 }
 
 .downloadLinks span.previousVersions {
-	float:right;
-	margin:0px 20px 0 0;
-	display:inline;
+    float:right;
+    margin:0px 20px 0 0;
+    display:inline;
 }
 
 /*SUBPAGE - NO SIDEBAR*/
 body#full #wrap {
-	position: relative;
-	background: #ffffff url(/ofbiz/images/full-wrapper.jpg) top center no-repeat;
-	width: 945px;
-	margin: 0 auto;
-	text-align: left;
+    position: relative;
+    background: #ffffff url(/ofbiz/images/full-wrapper.jpg) top center no-repeat;
+    width: 945px;
+    margin: 0 auto;
+    text-align: left;
 }
 
 body#semi #wrap {
-	position: relative;
-	background: #ffffff url(/ofbiz/images/wrapper.jpg) top center no-repeat;
-	width: 945px;
-	margin: 0 auto;
-	text-align: left;
+    position: relative;
+    background: #ffffff url(/ofbiz/images/wrapper.jpg) top center no-repeat;
+    width: 945px;
+    margin: 0 auto;
+    text-align: left;
 }

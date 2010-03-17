@@ -1,5 +1,5 @@
 Date.prototype.toFormattedString = function(include_time) {
-	var hour;
+    var hour;
     var str = this.getFullYear() + "-" + Date.padded2(this.getMonth() + 1) + "-" +Date.padded2(this.getDate());
     if (include_time) {
         hour = this.getHours();

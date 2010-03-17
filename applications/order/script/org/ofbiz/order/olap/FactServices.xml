@@ -266,8 +266,8 @@ under the License.
                 <field-map field-name="visitId" from-field="orderHeader.visitId"/>
                 </entity-one>
                 <if-not-empty field="visit">
-                	<set field="fact.visitId" from-field="visit.visitId"/>
-                	<set field="fact.initialReferrer" from-field="visit.initialReferrer"/>
+                    <set field="fact.visitId" from-field="visit.visitId"/>
+                    <set field="fact.initialReferrer" from-field="visit.initialReferrer"/>
                 </if-not-empty>
             </if-not-empty>
             

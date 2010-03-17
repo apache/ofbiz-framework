@@ -31,43 +31,43 @@
         <title>How to setup OFBiz integration eBay.</title>
             <orderedlist>
                 <listitem><para>Register  with ebay developer site for obtain keys and certificate (eBayExport.devId,eBayExport.appId,eBayExport.cerId and eBayExport.token etc.) at <link xl:href="https://developer.ebay.com/join/">Join with ebay developers</link> </para></listitem>
-		<listitem>
-			<para>
-				After registered it should be following the keys below  :# ebay keys example
-				<orderedlist>
-					<listitem><para>eBayExport.devID=f3586481-93c7-4aaf-ab87-d383d56b71b1</para></listitem>
-					<listitem><para>eBayExport.appID=antwebc0f-9bf9-4829-998b-e5e8fb773ac</para></listitem>
-					<listitem><para>eBayExport.certID=7f363bc0-11d6-489a-a54d-4a44de82f790</para></listitem>
-				</orderedlist>
-				# token key generated from ebay account example :
-				<orderedlist>
-					<listitem><para>eBayExport.token=AgAAAA**AQAAAA**aAAAAA**Ccn7Sg.....</para></listitem>
-				</orderedlist>
-			</para>
-		</listitem>
+        <listitem>
+            <para>
+                After registered it should be following the keys below  :# ebay keys example
+                <orderedlist>
+                    <listitem><para>eBayExport.devID=f3586481-93c7-4aaf-ab87-d383d56b71b1</para></listitem>
+                    <listitem><para>eBayExport.appID=antwebc0f-9bf9-4829-998b-e5e8fb773ac</para></listitem>
+                    <listitem><para>eBayExport.certID=7f363bc0-11d6-489a-a54d-4a44de82f790</para></listitem>
+                </orderedlist>
+                # token key generated from ebay account example :
+                <orderedlist>
+                    <listitem><para>eBayExport.token=AgAAAA**AQAAAA**aAAAAA**Ccn7Sg.....</para></listitem>
+                </orderedlist>
+            </para>
+        </listitem>
                 <listitem>
-			<para>
-				Following file in specialpurpose/ebay/config/eBayExport.properties.  You will see Merchant  configurations.					
-				For : 			
-				eBayExport.xmlGatewayUri :
-					<orderedlist>
-					<listitem><para>https://api.sandbox.ebay.com/ws/api.dll (sandbox environment used for testing and develoment )if you want to use for testing should select sandbox enviroment.  </para></listitem>
-					<listitem><para>https://api.ebay.com/ws/api.dll (production environment). </para></listitem>
-					</orderedlist>
-				For : eBayExport.siteID	:
-					<orderedlist>
-					<listitem><para>It was siteId you want to sell products ex: site id (0=US, 101=Italy, ...) obtain from <link xl:href="http://developer.ebay.com/DevZone/XML/docs/Reference/eBay/types/SiteCodeType.html">SiteCodeType</link>
-		</para></listitem>
-					</orderedlist>
-				
-			</para>
-		</listitem>
+            <para>
+                Following file in specialpurpose/ebay/config/eBayExport.properties.  You will see Merchant  configurations.                    
+                For :             
+                eBayExport.xmlGatewayUri :
+                    <orderedlist>
+                    <listitem><para>https://api.sandbox.ebay.com/ws/api.dll (sandbox environment used for testing and develoment )if you want to use for testing should select sandbox enviroment.  </para></listitem>
+                    <listitem><para>https://api.ebay.com/ws/api.dll (production environment). </para></listitem>
+                    </orderedlist>
+                For : eBayExport.siteID    :
+                    <orderedlist>
+                    <listitem><para>It was siteId you want to sell products ex: site id (0=US, 101=Italy, ...) obtain from <link xl:href="http://developer.ebay.com/DevZone/XML/docs/Reference/eBay/types/SiteCodeType.html">SiteCodeType</link>
+        </para></listitem>
+                    </orderedlist>
+                
+            </para>
+        </listitem>
                 
                 <listitem>
-			<para>
-				Go to ebay-->Ebay Configurations screen(see link in the bottom of page) This screen will displayed ebay configurations  with each stores. You need to  “add” or “edit”   the configuration keys you got from ebay for each productstores into this screen. This configuration  is for connect to ebay site and export or import data to ebay.
-			</para>
-		</listitem>
+            <para>
+                Go to ebay-->Ebay Configurations screen(see link in the bottom of page) This screen will displayed ebay configurations  with each stores. You need to  “add” or “edit”   the configuration keys you got from ebay for each productstores into this screen. This configuration  is for connect to ebay site and export or import data to ebay.
+            </para>
+        </listitem>
                 <listitem><para>Go to ebay-->Export to eBay screen or eBay orders Import then try to test export products and import orders from ebay. </para></listitem>
             </orderedlist>
     </section>

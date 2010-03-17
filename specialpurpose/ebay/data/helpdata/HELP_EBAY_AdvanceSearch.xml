@@ -25,10 +25,10 @@ This screen allows the user to find products for export from ofbiz store to Ebay
         <title>How to search products?</title>
         <orderedlist>
             <listitem><para>select  products store you want to export products example : OFBiz E-Commerce [9000]</para></listitem>
-	    <listitem><para>select catalog 'eBay Catalog'</para></listitem>
-	    <listitem><para>select category in example you can use 'Ebay E-Commerce ... [eBay_ECom_Category]'</para></listitem>
-	    <listitem><para>select the other condition if you want</para></listitem>
-	    <listitem><para>Press 'Find' button at the below of page to find products</para></listitem>
+        <listitem><para>select catalog 'eBay Catalog'</para></listitem>
+        <listitem><para>select category in example you can use 'Ebay E-Commerce ... [eBay_ECom_Category]'</para></listitem>
+        <listitem><para>select the other condition if you want</para></listitem>
+        <listitem><para>Press 'Find' button at the below of page to find products</para></listitem>
         </orderedlist>
     </section>
 </section>

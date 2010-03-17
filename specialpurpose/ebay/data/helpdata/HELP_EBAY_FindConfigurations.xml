@@ -21,34 +21,34 @@
     <para>
         The default screen is for the Ebay Configurations tab is 'Find Ebay Configurations'. It is used to locate existing configurations that have been created automatically by the system or manually by the user. It can also be used to create a new configurations or edit to integration between OFBiz and eBay.        
     </para>
-	<section>
+    <section>
         <title>How to find Ebay configurations?</title>
             <orderedlist>
                 <listitem><para>
-			Select 'product store' you want to see configuration.
-			(Example product store is 'OFBiz E-Commerce Store [9000]')
-		</para></listitem>
+            Select 'product store' you want to see configuration.
+            (Example product store is 'OFBiz E-Commerce Store [9000]')
+        </para></listitem>
                 <listitem><para>
-			Select 'web site' if known.
-		</para></listitem>
-		<listitem><para>Press the 'Search' button to view  configurations.</para></listitem>
-		<listitem><para>Select 'Any' then Press the 'Search' button to view all configurations.</para></listitem>
-	   </orderedlist>
+            Select 'web site' if known.
+        </para></listitem>
+        <listitem><para>Press the 'Search' button to view  configurations.</para></listitem>
+        <listitem><para>Select 'Any' then Press the 'Search' button to view all configurations.</para></listitem>
+       </orderedlist>
     </section>
     <section>
         <title>Edit Ebay configurations.</title>
             <orderedlist>
                 <listitem><para>
-			Press 'Edit' button at product store  you want to edit configuration.System will show screen for edit configuration data.
-		</para></listitem>
-	   </orderedlist>
+            Press 'Edit' button at product store  you want to edit configuration.System will show screen for edit configuration data.
+        </para></listitem>
+       </orderedlist>
     </section>
     <section>
         <title>Delete Ebay configurations.</title>
             <orderedlist>
                 <listitem><para>
-			Press 'Delete' button at product store  you want to delete configuration.
-		</para></listitem>
-	   </orderedlist>
+            Press 'Delete' button at product store  you want to delete configuration.
+        </para></listitem>
+       </orderedlist>
     </section>
 </section>

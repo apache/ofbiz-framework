@@ -25,13 +25,13 @@ This screen allows the user to add shipping methods rate for intregrate ofbiz an
         <title>How to add shipping methods?</title>
         <orderedlist>
             <listitem><para>Enter  'Shipment Method Name ' (ex:'LocalDelivery')</para></listitem>
-	    <listitem><para>Select 'product store' (ex:'OFBiz E-Commerce Store [9000]')</para></listitem>
-	    <listitem><para>Enter  'Amount' </para></listitem>
-	    <listitem><para>Enter  'Additional Amount' (if you want )</para></listitem>
-	    <listitem><para>Enter  'Additional Percent' (if you want )</para></listitem>
-	    <listitem><para>Enter  'Method Type Enum Id' (ex:Flat Rate Shipping)</para></listitem>
-	    <listitem><para>Enter  'Carrier Party Id' select from lookup (Default is UPS)</para></listitem>
-	    <listitem><para>select   'Shipment Method Type Id' </para></listitem>
+        <listitem><para>Select 'product store' (ex:'OFBiz E-Commerce Store [9000]')</para></listitem>
+        <listitem><para>Enter  'Amount' </para></listitem>
+        <listitem><para>Enter  'Additional Amount' (if you want )</para></listitem>
+        <listitem><para>Enter  'Additional Percent' (if you want )</para></listitem>
+        <listitem><para>Enter  'Method Type Enum Id' (ex:Flat Rate Shipping)</para></listitem>
+        <listitem><para>Enter  'Carrier Party Id' select from lookup (Default is UPS)</para></listitem>
+        <listitem><para>select   'Shipment Method Type Id' </para></listitem>
  
             <listitem><para>Press the 'Add' button to add shipping method.</para></listitem>
         </orderedlist>

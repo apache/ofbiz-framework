@@ -333,22 +333,22 @@ try {
 input =  FastMap.newInstance();
 inputFields =  FastMap.newInstance();
 if(params!=null){
-	inputFields.put("partyIdTo", params["partyIdTo"]);
-	inputFields.put("paymentId", params["paymentId"]);
-	inputFields.put("paymentTypeId", params["paymentTypeId"]);
-	inputFields.put("paymentId_op", params["paymentId_op"]);
-	inputFields.put("paymentRefNum_ic", params["paymentRefNum_ic"]);
-	inputFields.put("noConditionFind", params["noConditionFind"]);
-	inputFields.put("partyIdFrom", params["partyIdFrom"]);
-	inputFields.put("paymentRefNum_op", params["paymentRefNum_op"]);
-	inputFields.put("amount", params["amount"]);
-	inputFields.put("statusId", params["statusId"]);
-	inputFields.put("paymentGatewayResponseId", params["paymentGatewayResponseId"]);
-	inputFields.put("paymentId_ic", params["paymentId_ic"]);
-	inputFields.put("paymentRefNum", params["paymentRefNum"]);
-	inputFields.put("comments_ic", params["comments_ic"]);
-	inputFields.put("comments_op", params["comments_op"]);
-	inputFields.put("comments", params["comments"]);
+    inputFields.put("partyIdTo", params["partyIdTo"]);
+    inputFields.put("paymentId", params["paymentId"]);
+    inputFields.put("paymentTypeId", params["paymentTypeId"]);
+    inputFields.put("paymentId_op", params["paymentId_op"]);
+    inputFields.put("paymentRefNum_ic", params["paymentRefNum_ic"]);
+    inputFields.put("noConditionFind", params["noConditionFind"]);
+    inputFields.put("partyIdFrom", params["partyIdFrom"]);
+    inputFields.put("paymentRefNum_op", params["paymentRefNum_op"]);
+    inputFields.put("amount", params["amount"]);
+    inputFields.put("statusId", params["statusId"]);
+    inputFields.put("paymentGatewayResponseId", params["paymentGatewayResponseId"]);
+    inputFields.put("paymentId_ic", params["paymentId_ic"]);
+    inputFields.put("paymentRefNum", params["paymentRefNum"]);
+    inputFields.put("comments_ic", params["comments_ic"]);
+    inputFields.put("comments_op", params["comments_op"]);
+    inputFields.put("comments", params["comments"]);
 }
 input.put("userLogin",userLogin);
 input.put("inputFields",inputFields);
@@ -364,16 +364,16 @@ try {
 }]]></method>
             <method name="fetch"><![CDATA[if(payments==null)return false;
 if(payment=payments.next()){
-	row["paymentId"] = payment.getString("paymentId");
-	row["paymentType"] = payment.getString("paymentTypeId");
-	row["status"] = payment.getString("statusId");
-	row["from"] = payment.getString("partyIdFrom");
-	row["to"] = payment.getString("partyIdTo");
-	row["date"] = payment.getString("effectiveDate");
-	row["amount"] = payment.getString("amount");
+    row["paymentId"] = payment.getString("paymentId");
+    row["paymentType"] = payment.getString("paymentTypeId");
+    row["status"] = payment.getString("statusId");
+    row["from"] = payment.getString("partyIdFrom");
+    row["to"] = payment.getString("partyIdTo");
+    row["date"] = payment.getString("effectiveDate");
+    row["amount"] = payment.getString("amount");
 }else{
-	payments.close();
-	return false;
+    payments.close();
+    return false;
 }
 return true;]]></method>
         </script-data-set>

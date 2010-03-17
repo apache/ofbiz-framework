@@ -17,25 +17,25 @@ License.
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../applications/content/dtd/docbook.xsd">
     <title>Ebay Features</title>
-	<orderedlist>
-		    <listitem>
-			<para>Ebay configurations for  ofbiz intregrate with ebay.</para>
-		    </listitem>
-		    <listitem>
-			<para>Setup shipping methods.</para>
-		    </listitem>
-		    <listitem>
-			<para>Export products into ebay categories.</para>
-		    </listitem>
-		    <listitem>
-			<para>Export products into ebay categories.</para>
-		    </listitem>
-		    <listitem>
-			<para>Import transactions from ebay</para>
-		    </listitem>
+    <orderedlist>
+            <listitem>
+            <para>Ebay configurations for  ofbiz intregrate with ebay.</para>
+            </listitem>
+            <listitem>
+            <para>Setup shipping methods.</para>
+            </listitem>
+            <listitem>
+            <para>Export products into ebay categories.</para>
+            </listitem>
+            <listitem>
+            <para>Export products into ebay categories.</para>
+            </listitem>
+            <listitem>
+            <para>Import transactions from ebay</para>
+            </listitem>
 <listitem>
-			<para>Import orders from ebay</para>
-		    </listitem>
-	</orderedlist>
+            <para>Import orders from ebay</para>
+            </listitem>
+    </orderedlist>
 
 </section>

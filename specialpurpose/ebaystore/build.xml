@@ -29,7 +29,7 @@ under the License.
     <property name="name" value="ofbiz-ebaystore"/>
 
     <path id="local.class.path">
-    	<fileset dir="${lib.dir}" includes="*.jar"/>
+        <fileset dir="${lib.dir}" includes="*.jar"/>
         <fileset dir="../../framework/base/lib" includes="*.jar"/>
         <fileset dir="../../framework/base/lib/commons" includes="*.jar"/>
         <fileset dir="../../framework/base/lib/j2eespecs" includes="*.jar"/>
@@ -46,6 +46,6 @@ under the License.
         <fileset dir="../../applications/product/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/party/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/order/build/lib" includes="*.jar"/>
-    	<fileset dir="../../specialpurpose/ebay/build/lib" includes="*.jar"/>
+        <fileset dir="../../specialpurpose/ebay/build/lib" includes="*.jar"/>
     </path>
 </project>

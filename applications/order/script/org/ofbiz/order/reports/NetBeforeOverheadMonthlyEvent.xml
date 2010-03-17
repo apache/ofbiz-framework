@@ -26,7 +26,7 @@
             <set field="DateYear" value="2009"/>
             <set field="DateMonth" value="12"/>
             <entity-condition entity-name="SalesOrderItemStarSchema" list="countdates" distinct="true">
-                <condition-list combine="and">  	
+                <condition-list combine="and">      
                     <condition-expr field-name="orderDateYearName" operator="equals" from-field="DateYear"/>
                     <condition-expr field-name="orderDateMonthOfYear" operator="equals" from-field="DateMonth"/>
                     <condition-expr field-name="productStoreId" operator="equals" from-field="productStoreId"/>
@@ -45,7 +45,7 @@
                 <select-field field-name="NBO"/>
             </entity-condition>
             <entity-condition entity-name="SalesOrderItemStarSchema" list="saleschannels" distinct="true">
-                <condition-list combine="and">  	
+                <condition-list combine="and">      
                     <condition-expr field-name="orderDateYearName" operator="equals" from-field="DateYear"/>
                     <condition-expr field-name="orderDateMonthOfYear" operator="equals" from-field="DateMonth"/>
                     <condition-expr field-name="productStoreId" operator="equals" from-field="productStoreId"/>

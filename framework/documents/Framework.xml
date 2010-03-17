@@ -18,11 +18,11 @@
     under the License.
 -->
 <chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The OFBiz Framework Introduction.</title>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The OFBiz Framework Introduction.</title>
     <para>
-	   For a core configuration guide check <link xl:href="http://ofbiz.apache.org/docs/coreconfig.html">the OFBiz website.</link>
+       For a core configuration guide check <link xl:href="http://ofbiz.apache.org/docs/coreconfig.html">the OFBiz website.</link>
     </para>
 </chapter>

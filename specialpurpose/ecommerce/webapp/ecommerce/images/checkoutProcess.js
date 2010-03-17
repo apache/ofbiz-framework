@@ -275,7 +275,7 @@ function getShipOptions() {
     var shipOptions = null;
     var optionList = [];
     if ($F('shipMethod') == "" || $F('shipMethod') == null) {
-	    new Ajax.Request('getShipOptions', {
+        new Ajax.Request('getShipOptions', {
             asynchronous: false,
             onSuccess: function(transport) {
                 var data = transport.responseText.evalJSON(true);
@@ -586,7 +586,7 @@ function updateShippingSummary() {
 }
 
 function updateBillingSummary() {
-	var fullName = $F('firstNameOnCard') + " " +$F('lastNameOnCard');
+    var fullName = $F('firstNameOnCard') + " " +$F('lastNameOnCard');
     $('completedBillToAttn').update("Attn: " + fullName);
     var extension = "";
     if ($F('billToExtension')) {

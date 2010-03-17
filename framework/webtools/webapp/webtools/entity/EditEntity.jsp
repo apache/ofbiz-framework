@@ -411,20 +411,20 @@ A.listtext:hover {color:red;}
     <!ELEMENT view-entity ( description?, member-entity+, alias+, view-link+, relation* )>
     <!ELEMENT member-entity EMPTY>
     <!ATTLIST member-entity
-	entity-alias CDATA #REQUIRED
-	entity-name CDATA #REQUIRED >
+    entity-alias CDATA #REQUIRED
+    entity-name CDATA #REQUIRED >
     <!ELEMENT alias EMPTY>
     <!ATTLIST alias
-	entity-alias CDATA #REQUIRED
-	name CDATA #REQUIRED
-	field CDATA #IMPLIED
-	prim-key CDATA #IMPLIED
-	group-by ( true | false ) "false"
-	function ( min | max | sum | avg | count | count-distinct | upper | lower ) #IMPLIED>
+    entity-alias CDATA #REQUIRED
+    name CDATA #REQUIRED
+    field CDATA #IMPLIED
+    prim-key CDATA #IMPLIED
+    group-by ( true | false ) "false"
+    function ( min | max | sum | avg | count | count-distinct | upper | lower ) #IMPLIED>
     <!ELEMENT view-link ( key-map+ )>
     <!ATTLIST view-link
-	entity-alias CDATA #REQUIRED
-	rel-entity-alias CDATA #REQUIRED >
+    entity-alias CDATA #REQUIRED
+    rel-entity-alias CDATA #REQUIRED >
 --%>
 
 <%}%>

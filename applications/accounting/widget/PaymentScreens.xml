@@ -542,7 +542,7 @@ under the License.
     <screen name="PaymentReport">
         <section>
             <actions>
-            	<set field="headerItem" value="payments"/>
+                <set field="headerItem" value="payments"/>
                 <set field="tabButtonItem" value="paymentReport"/>
             </actions>
             <widgets>
@@ -550,9 +550,9 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-	                            <screenlet title="Payment Report">
-	                            	<include-form name="PaymentReport" location="component://accounting/widget/PaymentForms.xml"/>
-	                            </screenlet>
+                                <screenlet title="Payment Report">
+                                    <include-form name="PaymentReport" location="component://accounting/widget/PaymentForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>

@@ -1103,7 +1103,7 @@ under the License.
         <response name="success" type="view" value="OrderByReferrerReport"/>
     </request-map>
     <request-map uri="OrdersByChannel.pdf"><security https="true" auth="true"/>
-    	<event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="OrderByChannel.groovy"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="OrderByChannel.groovy"/>
         <response name="success" type="view" value="OrdersByChannelReport"/>
     </request-map>
     <request-map uri="OrderDiscountCode.pdf">

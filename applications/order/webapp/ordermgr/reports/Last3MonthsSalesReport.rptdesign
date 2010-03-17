@@ -224,51 +224,51 @@ try {
     month = thisMonth;
     while(i<3){
     i = i + 1;
-	switch(month)
-	{
-	case 1:
-	  months.add(1);
-	  break;
-	case 2:
-	  months.add(2);
-	  break;
-	case 3:
-	  months.add(3);
-	  break;
-	case 4:
-	  months.add(4);
-	  break;
-	case 5:
-	  months.add(5);
-	  break;
-	case 6:
-	  months.add(6);
-	  break;
-	case 7:
-	  months.add(7);
-	  break;
-	case 8:
-	  months.add(8);
-	  break;
-	case 9:
-	  months.add(9);
-	  break;
-	case 10:
-	  months.add(10);
-	  break;
-	case 11:
-	  months.add(11);
-	  break;
-	case 12:
-	  months.add(12);
-	  break;
-	}
-	month = month - 1
-	}
-	Debug.log("================  Last 3 Months Sale Order Report====="+months);
-	cond = FastList.newInstance();
-	cond.add(EntityCondition.makeCondition("orderDateMonthOfYear", EntityOperator.IN, months));
-	cond.add(EntityCondition.makeCondition("orderDateYearName", EntityOperator.EQUALS, thisYear));
+    switch(month)
+    {
+    case 1:
+      months.add(1);
+      break;
+    case 2:
+      months.add(2);
+      break;
+    case 3:
+      months.add(3);
+      break;
+    case 4:
+      months.add(4);
+      break;
+    case 5:
+      months.add(5);
+      break;
+    case 6:
+      months.add(6);
+      break;
+    case 7:
+      months.add(7);
+      break;
+    case 8:
+      months.add(8);
+      break;
+    case 9:
+      months.add(9);
+      break;
+    case 10:
+      months.add(10);
+      break;
+    case 11:
+      months.add(11);
+      break;
+    case 12:
+      months.add(12);
+      break;
+    }
+    month = month - 1
+    }
+    Debug.log("================  Last 3 Months Sale Order Report====="+months);
+    cond = FastList.newInstance();
+    cond.add(EntityCondition.makeCondition("orderDateMonthOfYear", EntityOperator.IN, months));
+    cond.add(EntityCondition.makeCondition("orderDateYearName", EntityOperator.EQUALS, thisYear));
     salesOrderItemStarSchemas  = delegator.findList("SalesOrderItemStarSchema", EntityCondition.makeCondition(cond, EntityOperator.AND), null, null, null, false);
 } catch(e) {
         Debug.logError(e,"");
@@ -298,13 +298,13 @@ price = 0;
 internalName = "None";
 input =  FastMap.newInstance();
 try {
-	product = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId", salesOrderItemStarSchema.getString("productProductId")));
-	input.put("product", product);
-	input.put("userLogin", userLogin);
+    product = delegator.findByPrimaryKey("Product",UtilMisc.toMap("productId", salesOrderItemStarSchema.getString("productProductId")));
+    input.put("product", product);
+    input.put("userLogin", userLogin);
     result = dispatcher.runSync("calculateProductPrice", input);
     price = result.get("price");
     if(product.get("internalName")){
-    	internalName = product.get("internalName");
+        internalName = product.get("internalName");
     }
 } catch (e) {
     Debug.logError(e, module);

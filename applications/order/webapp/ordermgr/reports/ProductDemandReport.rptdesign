@@ -265,7 +265,7 @@ classLoader = appContext.get(EngineConstants.APPCONTEXT_CLASSLOADER_KEY);
 starschemas = null;
 try 
 {
-	productStoreId = params["productStoreId"].value;
+    productStoreId = params["productStoreId"].value;
     Week = params["Week"].value;
     Year = params["Year"].value;
     methodContext = new MethodContext(appContext, classLoader, MethodContext.SERVICE);
@@ -289,41 +289,41 @@ if (starschemas)
 }]]></method>
             <method name="fetch"><![CDATA[if (currentRow >= totalRows - 1) return false;
 {
-	starschema = starschemas.get(currentRow);
-	orderDateDateValue = starschema.getString("orderDateDateValue");
-	orderDateDayName = starschema.getString("orderDateDayName");
-	orderDateDayOfMonth = starschema.getString("orderDateDayOfMonth");
-	orderDateMonthName = starschema.getString("orderDateMonthName");
-	orderDateYearName = starschema.getString("orderDateYearName");
-	orderDateYearMonthDay = starschema.getString("orderDateYearMonthDay");
-	orderDateMonthOfYear = starschema.getString("orderDateMonthOfYear");
-	orderDateDescription = starschema.getString("orderDateDescription");
-	
-	WeekOfYear = starschema.getString("orderDateWeekOfYear");
-	SKU = starschema.getString("productProductId");
-	ProductName = starschema.getString("productInternalName");
-	CategoryName = starschema.getString("categoryName");
-	QuantitySold = starschema.getString("quantity");
-	GS = starschema.getString("GrossSales");
-	GMS = starschema.getString("GrossMerchandizeSales");
-	GMP = starschema.getString("GrossMerchandizeProfit");
-	GSP = starschema.getString("GrossShippingProfit");
-	GP = starschema.getString("GrossProfit");
-	
-	salesChannelEnumId = starschema.getString("salesChannelEnumId");
-	
-	row["Week"] = WeekOfYear;
-	row["SKU"] = SKU;
-	row["ProductName"] = ProductName;
-	row["CategoryName"] = CategoryName;
-	row["QuantitySold"] = QuantitySold;
-	row["GS"] = GS;
-	row["GMS"] = GMS;
-	row["GMP"] = GMP;
-	row["GSP"] = GSP;
-	row["GP"] = GP;
-	
-	currentRow ++;
+    starschema = starschemas.get(currentRow);
+    orderDateDateValue = starschema.getString("orderDateDateValue");
+    orderDateDayName = starschema.getString("orderDateDayName");
+    orderDateDayOfMonth = starschema.getString("orderDateDayOfMonth");
+    orderDateMonthName = starschema.getString("orderDateMonthName");
+    orderDateYearName = starschema.getString("orderDateYearName");
+    orderDateYearMonthDay = starschema.getString("orderDateYearMonthDay");
+    orderDateMonthOfYear = starschema.getString("orderDateMonthOfYear");
+    orderDateDescription = starschema.getString("orderDateDescription");
+    
+    WeekOfYear = starschema.getString("orderDateWeekOfYear");
+    SKU = starschema.getString("productProductId");
+    ProductName = starschema.getString("productInternalName");
+    CategoryName = starschema.getString("categoryName");
+    QuantitySold = starschema.getString("quantity");
+    GS = starschema.getString("GrossSales");
+    GMS = starschema.getString("GrossMerchandizeSales");
+    GMP = starschema.getString("GrossMerchandizeProfit");
+    GSP = starschema.getString("GrossShippingProfit");
+    GP = starschema.getString("GrossProfit");
+    
+    salesChannelEnumId = starschema.getString("salesChannelEnumId");
+    
+    row["Week"] = WeekOfYear;
+    row["SKU"] = SKU;
+    row["ProductName"] = ProductName;
+    row["CategoryName"] = CategoryName;
+    row["QuantitySold"] = QuantitySold;
+    row["GS"] = GS;
+    row["GMS"] = GMS;
+    row["GMP"] = GMP;
+    row["GSP"] = GSP;
+    row["GP"] = GP;
+    
+    currentRow ++;
 }
 
 return true;]]></method>

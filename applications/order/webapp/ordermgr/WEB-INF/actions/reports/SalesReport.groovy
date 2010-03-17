@@ -24,10 +24,10 @@ thruDateStr = parameters.thruDate;
 
 birtParameters = [:];
 try {
-	birtParameters.fromDate = Date.valueOf(fromDateStr);
-	birtParameters.thruDate = Date.valueOf(thruDateStr);
+    birtParameters.fromDate = Date.valueOf(fromDateStr);
+    birtParameters.thruDate = Date.valueOf(thruDateStr);
 } catch (e) {
-	Debug.logError(e, "");
+    Debug.logError(e, "");
 }
 
 request.setAttribute("birtParameters", birtParameters);

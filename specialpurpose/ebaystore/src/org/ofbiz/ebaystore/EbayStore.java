@@ -1449,7 +1449,7 @@ public class EbayStore {
                             entry.put("buyer", buyer);
                             String buyerEmail = null;
                             if (sellingManagerSoldOrder.getBuyerID() != null) {
-                            	buyerEmail  = sellingManagerSoldOrder.getBuyerEmail();
+                                buyerEmail  = sellingManagerSoldOrder.getBuyerEmail();
                             }
                             entry.put("buyerEmail", buyerEmail);
                             GetItemCall api = new GetItemCall(apiContext);
@@ -1504,7 +1504,7 @@ public class EbayStore {
                                     shippedStatus = sellingManagerSoldOrder.getOrderStatus().getShippedStatus().value();
                                 }
                                 if (sellingManagerSoldOrder.getOrderStatus().getShippedTime() != null) {
-                                	shippedTime = sellingManagerSoldOrder.getOrderStatus().getShippedTime().getTime();
+                                    shippedTime = sellingManagerSoldOrder.getOrderStatus().getShippedTime().getTime();
                                 }
                             }
                             entry.put("paidTime", paidTime);

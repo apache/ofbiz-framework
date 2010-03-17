@@ -27,11 +27,11 @@ under the License.
                 <#list context.displayFieldsSet as key>
                 <#assign field = autocompleteOption.get(key)?if_exists>
                 <#if field?has_content>
-	                <#if (key == context.returnField)>
+                    <#if (key == context.returnField)>
                         <#assign returnField = field/>
-	                <#else>
+                    <#else>
                         <#assign displayString = displayString + field + " ">
-	                </#if>
+                    </#if>
                 </#if>
             </#list>
             <#if ("Y" == displayReturnField)>

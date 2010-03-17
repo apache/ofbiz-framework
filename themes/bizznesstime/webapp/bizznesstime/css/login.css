@@ -72,27 +72,27 @@ table {
 General Styles
 ***********************************************/
 body {
-	background: url(../images/page.png) top left repeat-x #f3f4f4; 
-	color: #000; 
-	font: .75em/1.5em Verdana, Arial, Helvetica, sans-serif;
+    background: url(../images/page.png) top left repeat-x #f3f4f4; 
+    color: #000; 
+    font: .75em/1.5em Verdana, Arial, Helvetica, sans-serif;
 }
 html>body {font-size: 12px;}
 
 img {display: inline-block; vertical-align: bottom;}
 
 a {
-	background:#E7EFF5;
-	text-decoration: none; 
-	color:#699BC9;
-	height:18px;
-	display:block;
-	line-height:10px;
-	padding:5px 0 0px 0;
-	font-size:11px;
+    background:#E7EFF5;
+    text-decoration: none; 
+    color:#699BC9;
+    height:18px;
+    display:block;
+    line-height:10px;
+    padding:5px 0 0px 0;
+    font-size:11px;
 }
 a:hover {
-	color: #486a8a;
-	text-decoration: none;
+    color: #486a8a;
+    text-decoration: none;
 }
 
 
@@ -137,43 +137,43 @@ form.horizontal .field {padding-left: 150px;}
 form.horizontal .field label {display: inline; float: left; width: 140px; margin-left: -150px;}
 
 input[type="text"],input[type="password"] {
-	border: #ddd solid 2px;
-	font-size: 1.1em;
-	padding:2px 4px;
-	width:250px;
+    border: #ddd solid 2px;
+    font-size: 1.1em;
+    padding:2px 4px;
+    width:250px;
 }
 
 input[type="password"] {
     border: #ddd solid 2px;
-	font-size: 1.1em;
-	padding:2px 4px;
-	width:250px;
-	
+    font-size: 1.1em;
+    padding:2px 4px;
+    width:250px;
+    
 }
 
 input[type="submit"],input[type="button"],input[type="reset"] {
-	background-color: #ffffff;
-	border: #ddd solid 2px;
+    background-color: #ffffff;
+    border: #ddd solid 2px;
     color: #444;
-	font-weight:bold;
-	line-height:1.8em;
-	margin:5px 5px 2px 5px;
-	padding:2px 4px;
-	text-transform:uppercase;
+    font-weight:bold;
+    line-height:1.8em;
+    margin:5px 5px 2px 5px;
+    padding:2px 4px;
+    text-transform:uppercase;
 }
 
 input[type="submit"]:hover {
-	color: #444;
-	cursor: pointer;
-	text-decoration: none;
+    color: #444;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .label {
-	font-weight:bold;
-	margin:0 0 0 0;
-	text-align:right;
-	white-space:nowrap;
-	width:40%;
+    font-weight:bold;
+    margin:0 0 0 0;
+    text-align:right;
+    white-space:nowrap;
+    width:40%;
 }
 
 
@@ -188,12 +188,12 @@ html, body, #wrap {height: 100%;}
 body > #wrap {height: auto; min-height: 100%;}
 
 body {
-	text-align:center;
+    text-align:center;
 
 }
 
 #wrap {
-	margin: 0;
+    margin: 0;
 }
 
 #header {
@@ -201,34 +201,34 @@ body {
 }
 
 #app-navigation{
-	display:none;
+    display:none;
 }
 
 
 
 #column-container {
-	width:700px;
-	margin:0 auto;
-	padding:70px 0 0 0;
-	background:url(../images/login-logo.gif) center  5px no-repeat;
+    width:700px;
+    margin:0 auto;
+    padding:70px 0 0 0;
+    background:url(../images/login-logo.gif) center  5px no-repeat;
 }
 
 #content-main-section {
-	background:#fff;
-	border:5px solid #f1f1f1;
-	padding:0px;
+    background:#fff;
+    border:5px solid #f1f1f1;
+    padding:0px;
 }
 
 .screenlet-title-bar {
-	background:#094460;
-	color:#fff;
-	padding:10px 0 10px 0;
-	text-transform:uppercase;
+    background:#094460;
+    color:#fff;
+    padding:10px 0 10px 0;
+    text-transform:uppercase;
 }
 
 .screenlet-body {
-	text-align:center;
-	padding:2px;
+    text-align:center;
+    padding:2px;
 }
 
 #footer {
@@ -240,10 +240,10 @@ Clear Fix
 ***********************************************/
 .clearfix:after {
     content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
 
 .clearfix {display: inline-block;}
@@ -253,9 +253,9 @@ html[xmlns] .clearfix { display: block; }
 
 /*NOTE .clear deprecated, clear floats automatically using .clearfix instead of using extra div */
 .clear {
-	clear: both;
-	height: 0;
-	visibility: hidden;
+    clear: both;
+    height: 0;
+    visibility: hidden;
 }
 
 /*********************************************** 
@@ -346,20 +346,20 @@ span #modal-close-btn{
 }
 
 .DEBUG {
-	color: #808080;
+    color: #808080;
 }
 
 .WARN {
-	color: #0000ff;
-	font-weight: bold;
+    color: #0000ff;
+    font-weight: bold;
 }
 
 .INFO {
-	color: #008000;
+    color: #008000;
 }
 
 .ERROR {
-	border: 0.2em solid #ff0000;
-	color: #ff0000;
-	font-weight: bold;
+    border: 0.2em solid #ff0000;
+    color: #ff0000;
+    font-weight: bold;
 }

@@ -70,7 +70,7 @@ under the License.
         <entity-condition entity-name="InventoryItem" list="inventoryItems">
             <condition-expr field-name="inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
         </entity-condition>
-		<iterate list="inventoryItems" entry="inventoryItem">
+        <iterate list="inventoryItems" entry="inventoryItem">
             <clear-field field="inventMap"/>
             <set field="inventMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
             <call-service service-name="loadInventoryFact" in-map-name="inventMap"></call-service>

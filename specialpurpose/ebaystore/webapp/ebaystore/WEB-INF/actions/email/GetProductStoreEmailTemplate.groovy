@@ -22,13 +22,13 @@ import org.ofbiz.base.util.*;
 contentId = null;
 contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER"));
 if (contentRoles.size() != 0) {
-	contentRoles.each { contentRole->
-		contents = delegator.findByAnd("Content", UtilMisc.toMap("contentId", contentRole.getString("contentId"), "ownerContentId", emailType));
-		if (contents.size() != 0) {
-			if (emailType.equals(contents.get(0).getString("ownerContentId"))) {
-				contentId = contents.get(0).getString("contentId");
-			}
-		}
-	}
+    contentRoles.each { contentRole->
+        contents = delegator.findByAnd("Content", UtilMisc.toMap("contentId", contentRole.getString("contentId"), "ownerContentId", emailType));
+        if (contents.size() != 0) {
+            if (emailType.equals(contents.get(0).getString("ownerContentId"))) {
+                contentId = contents.get(0).getString("contentId");
+            }
+        }
+    }
 }
 context.contentId =  contentId;

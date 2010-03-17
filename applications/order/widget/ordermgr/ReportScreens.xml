@@ -25,7 +25,7 @@ under the License.
         <section>
             <actions>
 
-            	<set field="titleProperty" value="OrderReports"/>
+                <set field="titleProperty" value="OrderReports"/>
                 <set field="headerItem" value="reports"/>
 
                 <set field="parameters.portalPageId" value="OrderReportPage"/>

@@ -64,7 +64,7 @@ list-style: none;
 }
 
 ol.numbers {
-	list-style: decimal; 
+    list-style: decimal; 
     padding-left: 20px;
 }
 ul.dots {

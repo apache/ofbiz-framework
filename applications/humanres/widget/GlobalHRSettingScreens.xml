@@ -238,7 +238,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                    	<include-menu name="EmplLeaveReasonTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                        <include-menu name="EmplLeaveReasonTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                         <screenlet id="AddEmplLeaveTypePanel" title="${uiLabelMap.HumanResAddEmplLeaveType}" collapsible="true">
                             <include-form name="AddEmplLeaveType" location="component://humanres/widget/forms/GlobalHrSettingForms.xml"/>
                         </screenlet>

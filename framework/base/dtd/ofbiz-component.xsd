@@ -252,6 +252,6 @@ under the License.
         <service-resource type="group" loader="maincomponent" location="service/groups_test.xml"/>
         <service-resource type="eca" loader="maincomponent" location="service/secas_test.xml"/>
 
-    	<webapp name="webtools" title="WebTools" server="default" location="webtools" mount-point="/webtools"/>
+        <webapp name="webtools" title="WebTools" server="default" location="webtools" mount-point="/webtools"/>
     </ofbiz-component>
 -->

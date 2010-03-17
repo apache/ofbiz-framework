@@ -254,10 +254,10 @@ module = "OrdersByChannel.rptdesign";]]></method>
             <property name="dataSource">OFBIZ</property>
             <method name="open"><![CDATA[salesOrderItemFacts = null;
 try {
-	if(params["saleChannel"] != "null"){
-    	salesOrderItemFacts = delegator.findByAnd("SalesOrderItemFact", UtilMisc.toMap("saleChannel", params["saleChannel"]));
+    if(params["saleChannel"] != "null"){
+        salesOrderItemFacts = delegator.findByAnd("SalesOrderItemFact", UtilMisc.toMap("saleChannel", params["saleChannel"]));
     }else{
-    	salesOrderItemFacts = delegator.findAll("SalesOrderItemFact");
+        salesOrderItemFacts = delegator.findAll("SalesOrderItemFact");
     }
 } catch (e) {
     Debug.logError(e, module);

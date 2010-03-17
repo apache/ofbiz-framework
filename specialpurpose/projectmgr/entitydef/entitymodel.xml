@@ -31,7 +31,7 @@ under the License.
 
   <extend-entity entity-name="WorkEffort">
       <field name="sequenceNum" type="numeric">
-  		<description>To order the workefforts under a workeffort parent</description>
+          <description>To order the workefforts under a workeffort parent</description>
       </field>
   </extend-entity>
 

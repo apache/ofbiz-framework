@@ -18,469 +18,469 @@
  */
 
 .tooltip { /* tooltip style */
-	background-color: #ffffbb;
-	border: 0.1em solid #999999;
-	color: #000000;
-	font-style: italic;
-	margin: 0.4em;
-	padding: 0.1em;
+    background-color: #ffffbb;
+    border: 0.1em solid #999999;
+    color: #000000;
+    font-style: italic;
+    margin: 0.4em;
+    padding: 0.1em;
 }
 
 .page-container {
-	background-color: #B8DFFC;
+    background-color: #B8DFFC;
 }
 
 /***********************************************
 Boxes
 ***********************************************/
 .boxhead {
-	color: #FFFFFF;
-	font-size: 1.1em;
-	font-weight: bold;
+    color: #FFFFFF;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 
 .boxlink {
-	float: right;
+    float: right;
 }
 
 div.boxtop {
-	background-color: #333;
-	border-color: #999999;
-	border-style: solid;
-	margin: 0 auto 0 auto;
-	padding: 0.1em 0.4em 0.1em 0.4em;
-	text-align: center;
+    background-color: #333;
+    border-color: #999999;
+    border-style: solid;
+    margin: 0 auto 0 auto;
+    padding: 0.1em 0.4em 0.1em 0.4em;
+    text-align: center;
 }
 
 div.boxhead-left {
-	border: none;
-	color: #FFFFFF;
-	float: left;
-	font-size: 1.1em;
-	font-weight: bold;
-	width: auto;
+    border: none;
+    color: #FFFFFF;
+    float: left;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: auto;
 }
 
 div.boxhead-fill {
-	border: none;
-	color: #FFFFFF;
-	font-size: 1.1em;
-	font-weight: bold;
-	text-align: center;
-	width: 0;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    width: 0;
 }
 
 div.boxhead-right {
-	border: none;
-	color: #FFFFFF;
-	float: right;
-	font-size: 1.1em;
-	font-weight: bold;
-	width: auto;
+    border: none;
+    color: #FFFFFF;
+    float: right;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: auto;
 }
 
 .boxoutside {
-	background-color: #FFFFFF;
-	border: 0.1em solid #999999;
+    background-color: #FFFFFF;
+    border: 0.1em solid #999999;
 }
 
 .boxtop {
-	background-color: #333;
-	border: 0 solid #999999;
-	padding: 0.1em 0.4em 0.1em 0.4em;
+    background-color: #333;
+    border: 0 solid #999999;
+    padding: 0.1em 0.4em 0.1em 0.4em;
 }
 
 .boxbottom {
-	background-color: #FFFFFF;
-	border: 0 solid #999999;
-	padding: 0.4em;
+    background-color: #FFFFFF;
+    border: 0 solid #999999;
+    padding: 0.4em;
 }
 
 /***********************************************
 Submenu
 ***********************************************/
 .submenutextinfo {
-	border-right: 0.1em solid #5886C6;
-	color: #ffffff;
-	font-size: 0.9em;
-	font-weight: bold;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
+    border-right: 0.1em solid #5886C6;
+    color: #ffffff;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .submenutext,a.submenutext,a.submenutext:visited {
-	color: #333;
-	font-size: 0.9em;
-	font-weight: bold;
-	padding-left: 0.2em;
-	padding-right: 0.5em;
+    color: #333;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-left: 0.2em;
+    padding-right: 0.5em;
 }
 
 a.submenutext:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 .submenutextdisabled,
 a.submenutextdisabled {
-	color: #ccc;
-	font-size: 0.9em;
-	font-weight: bold;
-	padding-left: 0.2em;
-	padding-right: 0.5em;
+    color: #ccc;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-left: 0.2em;
+    padding-right: 0.5em;
 }
 
 a.submenutextdisabled:hover {
-	color: #ccc;
+    color: #ccc;
 }
 
 .submenutextinforight {
-	color: #ffffff;
-	font-size: 0.9em;
-	font-weight: bold;
-	padding-left: 0.2em;
+    color: #ffffff;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-left: 0.2em;
 }
 
 .submenutextright,
 a.submenutextright {
-	color: #333;
-	font-size: 0.9em;
-	font-weight: bold;
-	padding-left: 0.2em;
+    color: #333;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-left: 0.2em;
 }
 
 a.submenutextright:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 .submenutextrightdisabled,
 a.submenutextrightdisabled {
-	color: #ccc;
-	font-size: 0.9em;
-	font-weight: bold;
-	padding-left: 0.2em;
+    color: #ccc;
+    font-size: 0.9em;
+    font-weight: bold;
+    padding-left: 0.2em;
 }
 
 a.submenutextrightdisabled:hover {
-	color: #ccc;
+    color: #ccc;
 }
 
 a img.imageborder {
-	border: 2px solid #ddd;
+    border: 2px solid #ddd;
 }
 
 /***********************************************
 Trees
 ***********************************************/
 .treeWrapper {
-	background-color: #ffffff;
-	border-top: 0.1em solid #eee;
-	border-left: 0.1em solid #eee;
-	color: #444;
-	font-size: 1.6em;
-	font-weight: normal;
-	margin-left: 1.2em;
-	margin-top: 0.2em;
-	text-align: left;
-	text-decoration: none;
+    background-color: #ffffff;
+    border-top: 0.1em solid #eee;
+    border-left: 0.1em solid #eee;
+    color: #444;
+    font-size: 1.6em;
+    font-weight: normal;
+    margin-left: 1.2em;
+    margin-top: 0.2em;
+    text-align: left;
+    text-decoration: none;
 }
 
 .treewrapper {
-	margin-left: 1em;
+    margin-left: 1em;
 }
 
 .treeitem {
-	border: #888888 solid 0.1em;
-	color: #333;
-	font-size: 1.4em;
-	font-weight: bold;
+    border: #888888 solid 0.1em;
+    color: #333;
+    font-size: 1.4em;
+    font-weight: bold;
 }
 
 .basic-tree ul {
-	padding-left: 1em;
+    padding-left: 1em;
 }
 
 .basic-tree li {
-	padding-left: 1em;
-	white-space: nowrap;
+    padding-left: 1em;
+    white-space: nowrap;
 }
 
 .basic-tree li .expanded {
-	background: url(/images/collapse.gif) no-repeat left center;
-	padding-right: 1em;
+    background: url(/images/collapse.gif) no-repeat left center;
+    padding-right: 1em;
 }
 
 .basic-tree li .collapsed {
-	background: url(/images/expand.gif) no-repeat left center;
-	padding-right: 1em;
+    background: url(/images/expand.gif) no-repeat left center;
+    padding-right: 1em;
 }
 
 .basic-tree li .leafnode {
-	background: url(/images/expand-collapse-placeholder.gif) no-repeat left center;
-	padding-right: 1em;
+    background: url(/images/expand-collapse-placeholder.gif) no-repeat left center;
+    padding-right: 1em;
 }
 
 .basic-tree li .treeitem { 
-	border-style: none;
-	color: #333;
-	font-size: 1em;
+    border-style: none;
+    color: #333;
+    font-size: 1em;
 }
 
 .basic-tree li a:hover {
-	color: #333;
+    color: #333;
 }
 
 /***********************************************
 Navigation Bars
 ***********************************************/
 .basic-nav { 
-	padding-left: 1em;
+    padding-left: 1em;
 }
 
 .basic-nav ul a {
-	color: #333;
-	font-size: 1.1em;
+    color: #333;
+    font-size: 1.1em;
 }
 
 .basic-nav ul .selected,
 .basic-nav ul .selected a {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 .basic-nav ul a:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 .basic-nav ul .disabled,
 .basic-nav ul .disabled a {
-	color: #ccc;
+    color: #ccc;
 }
 
 .tool-bar {
-	background-color: #D4D0C8;
-	border: 0.1em solid #333;
-	padding: 0.2em;
+    background-color: #D4D0C8;
+    border: 0.1em solid #333;
+    padding: 0.2em;
 }
 
 .tool-bar ul li {
-	background-color: #D4D0C8;
-	padding: 0.1em;
+    background-color: #D4D0C8;
+    padding: 0.1em;
 }
 
 .nav-pager {
-	padding:0.08em 0 0.5em 0;
-	clear:both;
-	display:block;
-	position:relative;
-	margin:0px 0 10px 0;
+    padding:0.08em 0 0.5em 0;
+    clear:both;
+    display:block;
+    position:relative;
+    margin:0px 0 10px 0;
 }
 
 .nav-pager ul {
-	display: inline; /* IE Fix */
+    display: inline; /* IE Fix */
 }
 
 .nav-pager ul li {
-	background-color: #ffffff;
-	float: left;
-	font-weight: bold;
-	line-height: 1.8em;
-	margin: 0.2em;
+    background-color: #ffffff;
+    float: left;
+    font-weight: bold;
+    line-height: 1.8em;
+    margin: 0.2em;
 }
 
 .nav-pager ul li a {
-	display: block;
-	color:#444444;
-	font-weight: bold;
+    display: block;
+    color:#444444;
+    font-weight: bold;
 }
 
 .nav-pager ul .nav-first,
 .nav-pager ul .nav-previous,
 .nav-pager ul .nav-next,
 .nav-pager ul .nav-last {
-	background-color:#fff;
-	border:2px solid #ddd;
-	color:#444;
-	padding: 0 0.5em 0 0.5em;
+    background-color:#fff;
+    border:2px solid #ddd;
+    color:#444;
+    padding: 0 0.5em 0 0.5em;
 }
 
 .nav-pager ul .nav-first-disabled,
 .nav-pager ul .nav-previous-disabled,
 .nav-pager ul .nav-next-disabled,
 .nav-pager ul .nav-last-disabled {
-	background-color:#fff;
-	border:2px solid #ddd;
-	color:#ccc;
-	padding: 0 0.5em 0 0.5em;
+    background-color:#fff;
+    border:2px solid #ddd;
+    color:#ccc;
+    padding: 0 0.5em 0 0.5em;
 }
 
 .nav-pager select {
-	margin: 0;
+    margin: 0;
 }
 
 /***********************************************
 Legacy Table Styles
 ***********************************************/
 .formTableBordered {
-	border: 2px solid #eee;
-	width: 100%;
+    border: 2px solid #eee;
+    width: 100%;
 }
 
 .basic-table {
-	margin-bottom: 1em;
-	width: 100%;
+    margin-bottom: 1em;
+    width: 100%;
 }
 
 form .basic-table,
 .screenlet-body .basic-table {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .basic-table tr th,.basic-table .header-row {
-	font-weight: bold;
-	text-align: left;
+    font-weight: bold;
+    text-align: left;
 }
 
 .basic-table .header-row td {
-	border-bottom: 1px solid #999;
+    border-bottom: 1px solid #999;
 }
 
 .basic-table .header-row td a {
-	color: #000000;
+    color: #000000;
 }
 
 .basic-table .alternate-row { 
-	background-color: #f5f6eb;
+    background-color: #f5f6eb;
 }
 
 .basic-table .selected {
-	background: #FFFCCF;
+    background: #FFFCCF;
 }
 
 .basic-table .alternate-rowSelected {
-	background: #FFF55F;
+    background: #FFF55F;
 }
 
 .basic-table .Validate { 
-	background: #A0D5F7;
+    background: #A0D5F7;
 }
 
 .basic-table .alternate-rowValidate {
-	background: #72A8F2;
+    background: #72A8F2;
 }
 
 .basic-table .Warn { 
-	background: #f55C5C;
+    background: #f55C5C;
 }
 
 .basic-table .alternate-rowWarn { 
-	background: #FC7455;
+    background: #FC7455;
 }
 
 .basic-table tr .button-col { 
-	vertical-align: top;
+    vertical-align: top;
 }
 
 .basic-table tr .button-col a {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border: 2px solid #ddd;
-	color: #333;
-	float: left;
-	font-weight:bold;
-	margin: 0 0.1em 0 0.1em;
-	padding: 0.1em 0.4em 0.1em 0.4em;
-	text-transform:uppercase;
-	white-space: nowrap;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border: 2px solid #ddd;
+    color: #333;
+    float: left;
+    font-weight:bold;
+    margin: 0 0.1em 0 0.1em;
+    padding: 0.1em 0.4em 0.1em 0.4em;
+    text-transform:uppercase;
+    white-space: nowrap;
 }
 
 .basic-table tr .smallSubmit,.basic-table tr .smallSubmit:visited {
-	background:url(../images/btn-bg.gif) center left repeat-x;
-	border:2px solid #ddd;
-	color:#444;
-	font-weight:bold;
-	line-height:1.8em;
-	margin:5px 5px 2px;
-	padding:2px 4px;
-	text-transform:uppercase;
+    background:url(../images/btn-bg.gif) center left repeat-x;
+    border:2px solid #ddd;
+    color:#444;
+    font-weight:bold;
+    line-height:1.8em;
+    margin:5px 5px 2px;
+    padding:2px 4px;
+    text-transform:uppercase;
 }
 
 .basic-table tr .button-col a:hover,
 .basic-table tr .button-col a:active {
-	color: #1c334d;
-	margin: 0 0.1em 0 0.1em;
-	padding: 0.1em 0.4em 0.1em 0.4em;
+    color: #1c334d;
+    margin: 0 0.1em 0 0.1em;
+    padding: 0.1em 0.4em 0.1em 0.4em;
 }
 
 .basic-table .collapsed {
-	visibility: collapse;
+    visibility: collapse;
 }
 
 .basic-table .header-row-2 th,
 .basic-table .header-row-2 td {
-	background:#D14B1F url(../images/tableheader-bg.jpg) repeat-x scroll 0 -100px;
-	border-bottom:2px solid #FFFFFF;
-	border-left:1px solid #D14B1F;
-	color: #fff;
-	font-weight: bold;
-	text-align: left;
+    background:#D14B1F url(../images/tableheader-bg.jpg) repeat-x scroll 0 -100px;
+    border-bottom:2px solid #FFFFFF;
+    border-left:1px solid #D14B1F;
+    color: #fff;
+    font-weight: bold;
+    text-align: left;
 }
 
 .basic-table .header-row-2 th a,
 .basic-table .header-row-2 td a {
-	color:#fff;
+    color:#fff;
 }
 
 .basic-table .header-row-2 th .sort-order-asc,
 .basic-table .header-row-2 td .sort-order-asc {
-	background: url(/images/arrow-gr-up.png) no-repeat right;
-	padding-right: 20px;
+    background: url(/images/arrow-gr-up.png) no-repeat right;
+    padding-right: 20px;
 }
 
 .basic-table .header-row-2 th .sort-order-desc,
 .basic-table .header-row-2 td .sort-order-desc {
-	background: url(/images/arrow-gr-dw.png) no-repeat right;
-	padding-right: 20px;
+    background: url(/images/arrow-gr-dw.png) no-repeat right;
+    padding-right: 20px;
 }
 
 .basic-table .header-row-2 th .sort-order,
 .basic-table .header-row-2 td .sort-order {
-	background: url(/images/arrow-gr.png) no-repeat right;
-	padding-right: 20px;
+    background: url(/images/arrow-gr.png) no-repeat right;
+    padding-right: 20px;
 }
 
 .dark-grid {
-	border-right: 0.1em solid #000000;
-	border-top: 0.1em solid #000000;
+    border-right: 0.1em solid #000000;
+    border-top: 0.1em solid #000000;
 }
 
 .dark-grid td,
 .dark-grid .header-row-2 th,
 .dark-grid .header-row-2 td {
-	border-bottom: 0.1em solid #000000;
-	border-left: 0.1em solid #000000;
+    border-bottom: 0.1em solid #000000;
+    border-left: 0.1em solid #000000;
 }
 
 .light-grid {
-	border-right: 0.1em solid #cccccc;
-	border-top: 0.1em solid #cccccc;
+    border-right: 0.1em solid #cccccc;
+    border-top: 0.1em solid #cccccc;
 }
 
 .light-grid td,
 .light-grid .header-row td {
-	border-bottom: 0.1em solid #cccccc;
-	border-left: 0.1em solid #cccccc;
+    border-bottom: 0.1em solid #cccccc;
+    border-left: 0.1em solid #cccccc;
 }
 
 .form-widget table tr .label,
 .form-widget-table tr .label {
-	/* Added for backward compatibility */
-	width: 20%;
+    /* Added for backward compatibility */
+    width: 20%;
 }
 
 .form-widget table,.form-widget-table {
-	width: auto;
+    width: auto;
 }
 
 .form-widget-table {
-	margin-bottom: 1em;
+    margin-bottom: 1em;
 }
 
 /***********************************************
@@ -520,184 +520,184 @@ height:16px;
 }
 
 .calendar {
-	border-right: 0.1em solid #cccccc;
+    border-right: 0.1em solid #cccccc;
 }
 
 .calendar tr td {
-	border-bottom: 0.1em solid #cccccc;
-	border-left: 0.1em solid #cccccc;
-	vertical-align: top;
-	padding: 0.5em;
+    border-bottom: 0.1em solid #cccccc;
+    border-left: 0.1em solid #cccccc;
+    vertical-align: top;
+    padding: 0.5em;
 }
 
 .calendar .header-row td {
-	background-color: #69a9d9;
-	border-bottom: 0.1em solid #cccccc;
-	border-left: 0.1em solid #cccccc;
-	color: #ffffff;
-	height: auto;
-	text-align: center;
+    background-color: #69a9d9;
+    border-bottom: 0.1em solid #cccccc;
+    border-left: 0.1em solid #cccccc;
+    color: #ffffff;
+    height: auto;
+    text-align: center;
 }
 
 .calendar tr td .add-new {
-	float: right;
+    float: right;
 }
 
 .calendar tr td .h1 {
-	color: #333;
-	float: left;
+    color: #333;
+    float: left;
 }
 
 .calendar .current-period {
-	background-color: #ffffcc;
+    background-color: #ffffcc;
 }
 
 .calendar .active-period {
-	background-color: #eeeeee;
+    background-color: #eeeeee;
 }
 
 .calendar_date_select {
-	color: #fff;
-	border: #bbb 2px solid;
-	display: block;
-	width: 300px;
-	z-index: 1000;
+    color: #fff;
+    border: #bbb 2px solid;
+    display: block;
+    width: 300px;
+    z-index: 1000;
 }
 
 .calendar_date_select thead th {
-	font-weight: bold;
-	background-color: #666;
-	border-top: 1px solid #777;
-	border-bottom: 2px solid #777;
-	color: white !important;
+    font-weight: bold;
+    background-color: #666;
+    border-top: 1px solid #777;
+    border-bottom: 2px solid #777;
+    color: white !important;
 }
 
 .calendar_date_select .cds_buttons {
-	text-align: center;
-	padding: 5px 0px;
-	background-color: #666;
+    text-align: center;
+    padding: 5px 0px;
+    background-color: #666;
 }
 
 .calendar_date_select .cds_footer {
-	background-color: #fff;
-	padding: 3px;
-	font-size: 12px;
-	text-align: center;
-	color:#333;
+    background-color: #fff;
+    padding: 3px;
+    font-size: 12px;
+    text-align: center;
+    color:#333;
 }
 
 .calendar_date_select .cds_footer span {
-	display:none
+    display:none
 }
 
 .calendar_date_select table {
-	margin: 0px;
-	padding: 0px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .calendar_date_select .cds_header {
-	background-color: #fff;
-	border-bottom: 2px solid #777;
-	text-align: center;
+    background-color: #fff;
+    border-bottom: 2px solid #777;
+    text-align: center;
 }
 
 .calendar_date_select .cds_header span {
-	font-size: 15px;
-	color: #000;
-	font-weight: bold;
+    font-size: 15px;
+    color: #000;
+    font-weight: bold;
 }
 
 .calendar_date_select select {
-	font-size: 11px;
+    font-size: 11px;
 }
 
 .calendar_date_select .cds_header a:hover {
-	color: #1c334d;
+    color: #1c334d;
 }
 
 .calendar_date_select .cds_header a {
-	width: 22px;
-	height: 20px;
-	text-decoration: none;
-	font-size: 14px;
-	color: #000 !important;
+    width: 22px;
+    height: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #000 !important;
 }
 
 .calendar_date_select .cds_header a.prev {
-	float: left;
+    float: left;
 }
 
 .calendar_date_select .cds_header a.next {
-	float: right;
+    float: right;
 }
 
 .calendar_date_select .cds_header a.close {
-	float: right;
-	display: none;
+    float: right;
+    display: none;
 }
 
 .calendar_date_select .cds_header select.month {
-	width: 90px;
+    width: 90px;
 }
 
 .calendar_date_select .cds_header select.year {
-	width: 61px;
+    width: 61px;
 }
 
 .calendar_date_select .cds_buttons a {
-	color: #ccc;
-	font-size: 11px;
+    color: #ccc;
+    font-size: 11px;
 }
 
 .calendar_date_select td {
-	font-size: 12px;
-	width: 24px;
-	height: 21px;
-	text-align: center;
-	vertical-align: middle;
-	background-color: #f2f2f2;
+    font-size: 12px;
+    width: 24px;
+    height: 21px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f2f2f2;
 }
 
 .calendar_date_select td.weekend {
-	background-color: #f6f6f6;
+    background-color: #f6f6f6;
 }
 
 .calendar_date_select td div {
-	color: #333;
+    color: #333;
 }
 
 .calendar_date_select td div.other {
-	color: #888;
+    color: #888;
 }
 
 .calendar_date_select td.selected div {
-	color: #000;
+    color: #000;
 }
 
 .calendar_date_select tbody td {
-	border-bottom: 1px solid #555;
+    border-bottom: 1px solid #555;
 }
 
 .calendar_date_select td.selected {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .calendar_date_select td.today {
-	border: 1px dashed #222;
+    border: 1px dashed #222;
 }
 
 .calendar_date_select td.disabled div {
-	color: #454545;
+    color: #454545;
 }
 
 /* this is a fun ie6 hack to get drop downs to stay behind the popup window.  This should always be just underneath .calendar_date_select */
 iframe.ie6_blocker {
-	position: absolute;
-	z-index: 999;
+    position: absolute;
+    z-index: 999;
 }
 
 .fieldWithErrors .calendar_date_select {
-	border: 2px solid #FF0000;
+    border: 2px solid #FF0000;
 }
 
 /***********************************************
@@ -713,41 +713,41 @@ Legacy Forms
                    <label>, etc...
 ***********************************************/
 .label { 
-	font-weight: bold;
-	text-align: right;
-	white-space: nowrap;
-	width: 1%;
-	margin:0 4px 0 0px;
-	vertical-align:middle;
+    font-weight: bold;
+    text-align: right;
+    white-space: nowrap;
+    width: 1%;
+    margin:0 4px 0 0px;
+    vertical-align:middle;
 }
 
 .basic-form {
-	clear:both;
-	display:block;
-	margin:5px 0 5px 0;
-	width:100%;
+    clear:both;
+    display:block;
+    margin:5px 0 5px 0;
+    width:100%;
 }
 
 .required,input.required { 
-	background-color: #eeeeee;
+    background-color: #eeeeee;
 }
 
 .fieldgroup-title-bar {
-	font-size: 1em;
-	font-weight: bold;
-	padding: 0.1em 0.5em 0.2em 0.5em;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
 .fieldgroup-title-bar ul .collapsed {
-	background: url(/images/expand.gif) no-repeat left center;
-	min-height: 1.1em;
-	min-width: 1.1em;
+    background: url(/images/expand.gif) no-repeat left center;
+    min-height: 1.1em;
+    min-width: 1.1em;
 }
 
 .fieldgroup-title-bar ul .expanded {
-	background: url(/images/collapse.gif) no-repeat left center;
-	min-height: 1.1em;
-	min-width: 1.1em;
+    background: url(/images/collapse.gif) no-repeat left center;
+    min-height: 1.1em;
+    min-width: 1.1em;
 }
 
 .fieldgroup-title-bar a {
@@ -760,83 +760,83 @@ padding-left: 10px;
 Portals
 ***********************************************/
 .portlet-config {
-	background-color: #D4D0C8;
-	border: 2px solid #D4D0C8;
-	margin-bottom: 5px;
+    background-color: #D4D0C8;
+    border: 2px solid #D4D0C8;
+    margin-bottom: 5px;
 }
 
 .portlet-config-title-bar .title {
-	color: #555555;
-	font-size: 1.2em;
-	float: left;
+    color: #555555;
+    font-size: 1.2em;
+    float: left;
 }
 
 .portlet-config-title-bar ul {
-	display: inline; /* IE Fix */
+    display: inline; /* IE Fix */
 }
 
 .portlet-config-title-bar ul li {
-	float: right;
-	font-size: 1em;
-	font-weight: bold;
-	padding: 0.1em 0.5em 0.2em 0.5em;
+    float: right;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
 .portlet-config-title-bar ul li.move-up {
-	background: url(/images/arrow-single-up-green.png) no-repeat center center;
+    background: url(/images/arrow-single-up-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.move-down {
-	background: url(/images/arrow-single-down-green.png) no-repeat center center;
+    background: url(/images/arrow-single-down-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.move-left {
-	background: url(/images/arrow-single-left-green.png) no-repeat center center;
+    background: url(/images/arrow-single-left-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.move-right {
-	background: url(/images/arrow-single-right-green.png) no-repeat center center;
+    background: url(/images/arrow-single-right-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.move-top {
-	background: url(/images/arrow-end-up-green.png) no-repeat center center;
+    background: url(/images/arrow-end-up-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.move-bottom {
-	background: url(/images/arrow-end-down-green.png) no-repeat center center;
+    background: url(/images/arrow-end-down-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.remove {
-	background: url(/images/mini-trash.png) no-repeat center center;
+    background: url(/images/mini-trash.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.edit {
-	background: url(/images/mini-edit.png) no-repeat center center;
+    background: url(/images/mini-edit.png) no-repeat center center;
 }
 
 #manage-portal-toolbar {
-	background-color: #D4D0C8;
-	margin-bottom: 0.5em;
+    background-color: #D4D0C8;
+    margin-bottom: 0.5em;
 }
 
 #manage-portal-toolbar ul li {
-	float: left;
-	padding: 0.1em 0.5em 0.2em 0.5em;
+    float: left;
+    padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
 #manage-portal-toolbar #config-on-off,
 #manage-portal-toolbar #manage-portal-page,
 #manage-portal-toolbar #add-column {
-	float: right;
+    float: right;
 }
 
 #manage-portal-toolbar #portal-page-name {
-	font-size: 1.5em;
-	font-weight: bold;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 .manage-portal-column-toolbar #add-portlet,
 .manage-portal-column-toolbar #delete-column,
 .manage-portal-column-toolbar #column-width {
-	float: right;
+    float: right;
 }
