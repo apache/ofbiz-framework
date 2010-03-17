@@ -407,7 +407,7 @@ function setAlternateGwp(field) {
         </tr>
         <tr>
           <td>
-            <input type="checkbox" onclick="javascript:document.cartform.submit()" name="alwaysShowcart" <#if shoppingCart.viewCartOnAdd()>checked</#if> />&nbsp;${uiLabelMap.EcommerceAlwaysViewCartAfterAddingAnItem}.</div>
+            <input type="checkbox" onclick="javascript:document.cartform.submit()" name="alwaysShowcart" <#if shoppingCart.viewCartOnAdd()>checked="checked"</#if>/>${uiLabelMap.EcommerceAlwaysViewCartAfterAddingAnItem}.
           </td>
         </tr>
       </table>
