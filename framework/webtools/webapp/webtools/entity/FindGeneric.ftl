@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
         <form method="post" action="<@ofbizUrl>FindGeneric?entityName=${entityName}</@ofbizUrl>">
-          <input type="hidden" name="find" value="true">
+          <input type="hidden" name="find" value="true"/>
           <table class="basic-table hover-bar" cellspacing="0">
             <tr class="header-row-2">
               <td>${uiLabelMap.WebtoolsFieldName}</td>
@@ -31,13 +31,13 @@ under the License.
                     <td>${field.name}</td>
                     <td><#if field.isPk == 'Y'>*</#if></td>
                     <td>${field.javaType},&nbsp;${field.sqlType}</td>
-                    <td><input type="text" name="${field.name}" value="${field.param}" size="40"></td>
+                    <td><input type="text" name="${field.name}" value="${field.param}" size="40"/></td>
                 </tr>
                 <#assign alt_row = !alt_row>
             </#list>
                 <tr>
                     <td colspan="3"><h3>${uiLabelMap.WebtoolsToFindAll} ${entityName}, ${uiLabelMap.WebtoolsLeaveAllEntriesBlank}</h3></td>
-                    <td><input type="submit" value="${uiLabelMap.CommonFind}"></td>
+                    <td><input type="submit" value="${uiLabelMap.CommonFind}"/></td>
                 </tr>
             </table>
         </form>
