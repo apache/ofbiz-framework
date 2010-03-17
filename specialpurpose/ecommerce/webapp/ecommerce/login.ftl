@@ -37,7 +37,7 @@ under the License.
             <input type="submit" class="button" value="${uiLabelMap.CommonLogin}"/>
           </div>
           <div>
-            <label for="newcustomer_submit">${uiLabelMap.CommonMayCreateNewAccountHere}:
+            <label for="newcustomer_submit">${uiLabelMap.CommonMayCreateNewAccountHere}:</label>
             <a href="<@ofbizUrl>newcustomer</@ofbizUrl>">${uiLabelMap.CommonMayCreate}</a>
           </div>
         </fieldset>
