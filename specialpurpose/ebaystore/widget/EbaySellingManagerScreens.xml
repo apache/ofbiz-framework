@@ -279,7 +279,7 @@
             <actions>
                 <set field="headerItem" value="ebayStore"/>
                 <set field="autoPrefEnumId" value="EBAY_AUTO_RELISTING"/>
-                <set field="serviceName" value="automaticEbayRelistSoldItems"/>
+                <set field="serviceName" value="autoRelistingItems"/>
                 <entity-one value-field="ebayPrefRelisting" entity-name="EbayProductStorePref">
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                     <field-map field-name="autoPrefEnumId" from-field="autoPrefEnumId"/>

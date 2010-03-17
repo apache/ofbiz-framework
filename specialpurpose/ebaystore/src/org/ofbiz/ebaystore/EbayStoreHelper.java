@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -57,11 +58,24 @@ import com.ebay.sdk.ApiLogging;
 import com.ebay.sdk.call.AddItemCall;
 import com.ebay.soap.eBLBaseComponents.AddItemRequestType;
 import com.ebay.soap.eBLBaseComponents.AddItemResponseType;
+import com.ebay.soap.eBLBaseComponents.AmountType;
 import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
+import com.ebay.soap.eBLBaseComponents.CategoryType;
+import com.ebay.soap.eBLBaseComponents.CountryCodeType;
+import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
 import com.ebay.soap.eBLBaseComponents.GeteBayDetailsResponseType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
+import com.ebay.soap.eBLBaseComponents.ListingDesignerType;
+import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
+import com.ebay.soap.eBLBaseComponents.PictureDetailsType;
+import com.ebay.soap.eBLBaseComponents.ReturnPolicyType;
+import com.ebay.soap.eBLBaseComponents.ShippingDetailsType;
+import com.ebay.soap.eBLBaseComponents.ShippingServiceCodeType;
+import com.ebay.soap.eBLBaseComponents.ShippingServiceOptionsType;
+import com.ebay.soap.eBLBaseComponents.ShippingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
 import com.ebay.soap.eBLBaseComponents.ShippingLocationDetailsType;
+import com.ebay.soap.eBLBaseComponents.VATDetailsType;
 
 import org.ofbiz.ebay.EbayHelper;
 
@@ -473,5 +487,120 @@ public class EbayStoreHelper {
         return ServiceUtil.returnSuccess();
     }
 
-
+    public static ItemType prepareAddItem(Delegator delegator, GenericValue attribute) {
+        ItemType item = new ItemType();
+        try {
+            List<GenericValue> attrs = delegator.findByAnd("EbayProductListingAttribute", UtilMisc.toMap("productListingId", attribute.getString("productListingId")));
+            AmountType amount = new AmountType();
+            AmountType shippingServiceCost = new AmountType();
+            PictureDetailsType picture = new PictureDetailsType();
+            CategoryType category = new CategoryType();
+            ListingDesignerType designer = new ListingDesignerType();
+            ShippingDetailsType shippingDetail = new ShippingDetailsType();
+            ShippingServiceOptionsType shippingOption = new ShippingServiceOptionsType();
+            for (int index = 0; index < attrs.size(); index++) {
+                if ("Title".equals(attrs.get(index).getString("attrName"))) {
+                    item.setTitle(attrs.get(index).getString("attrValue"));
+                } else if ("SKU".equals(attrs.get(index).getString("attrName"))) {
+                    item.setSKU(attrs.get(index).getString("attrValue"));
+                } else if ("Currency".equals(attrs.get(index).getString("attrName"))) {
+                    amount.setCurrencyID(CurrencyCodeType.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("Description".equals(attrs.get(index).getString("attrName"))) {
+                    item.setDescription(attrs.get(index).getString("attrValue"));
+                } else if ("ApplicationData".equals(attrs.get(index).getString("attrName"))) {
+                    item.setApplicationData(attrs.get(index).getString("attrValue"));
+                } else if ("Country".equals(attrs.get(index).getString("attrName"))) {
+                    item.setCountry(CountryCodeType.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("PictureURL".equals(attrs.get(index).getString("attrName"))) {
+                    String[] pictureUrl = {attrs.get(index).getString("attrValue")};
+                    picture.setPictureURL(pictureUrl);
+                } else if ("Site".equals(attrs.get(index).getString("attrName"))) {
+                    item.setSite(SiteCodeType.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("UseTaxTable".equals(attrs.get(index).getString("attrName"))) {
+                    item.setUseTaxTable(Boolean.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("BestOfferEnabled".equals(attrs.get(index).getString("attrName"))) {
+                    item.setBestOfferEnabled(Boolean.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("AutoPayEnabled".equals(attrs.get(index).getString("attrName"))) {
+                    item.setAutoPay(Boolean.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("CategoryID".equals(attrs.get(index).getString("attrName"))) {
+                    category.setCategoryID(attrs.get(index).getString("attrValue"));
+                } else if ("CategoryLevel".equals(attrs.get(index).getString("attrName"))) {
+                    category.setCategoryLevel(Integer.parseInt(attrs.get(index).getString("attrValue")));
+                } else if ("CategoryName".equals(attrs.get(index).getString("attrName"))) {
+                    category.setCategoryName(attrs.get(index).getString("attrValue"));
+                } else if ("CategoryParentID".equals(attrs.get(index).getString("attrName"))) {
+                    String[] parent = {attrs.get(index).getString("attrValue")};
+                    category.setCategoryParentID(parent );
+                } else if ("LeafCategory".equals(attrs.get(index).getString("attrName"))) {
+                    category.setLeafCategory(Boolean.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("LSD".equals(attrs.get(index).getString("attrName"))) {
+                    category.setLSD(Boolean.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("ReturnsAcceptedOption".equals(attrs.get(index).getString("attrName"))) {
+                    ReturnPolicyType policy = new ReturnPolicyType();
+                    policy.setReturnsAcceptedOption(attrs.get(index).getString("attrValue"));
+                    item.setReturnPolicy(policy);
+                } else if ("LayoutID".equals(attrs.get(index).getString("attrName"))) {
+                    designer.setLayoutID(Integer.parseInt(attrs.get(index).getString("attrValue")));
+                } else if ("ThemeID".equals(attrs.get(index).getString("attrName"))) {
+                    designer.setThemeID(Integer.parseInt(attrs.get(index).getString("attrValue")));
+                } else if ("BuyItNowPrice".equals(attrs.get(index).getString("attrName"))) {
+                    amount = new AmountType();
+                    amount.setValue(Double.parseDouble(attrs.get(index).getString("attrValue")));
+                    item.setBuyItNowPrice(amount);
+                } else if ("ReservePrice".equals(attrs.get(index).getString("attrName"))) {
+                    amount = new AmountType();
+                    amount.setValue(Double.parseDouble(attrs.get(index).getString("attrValue")));
+                    item.setReservePrice(amount);
+                } else if ("ListingType".equals(attrs.get(index).getString("attrName"))) {
+                    item.setListingType(ListingTypeCodeType.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("StartPrice".equals(attrs.get(index).getString("attrName"))) {
+                    amount = new AmountType();
+                    amount.setValue(Double.parseDouble(attrs.get(index).getString("attrValue")));
+                    item.setStartPrice(amount);
+                } else if ("ShippingService".equals(attrs.get(index).getString("attrName"))) {
+                    shippingOption.setShippingService(attrs.get(index).getString("attrValue"));
+                } else if ("ShippingServiceCost".equals(attrs.get(index).getString("attrName"))) {
+                    shippingServiceCost.setValue(Double.parseDouble(attrs.get(index).getString("attrValue")));
+                    shippingOption.setShippingServiceCost(shippingServiceCost);
+                } else if ("ShippingServiceCostCurrency".equals(attrs.get(index).getString("attrName"))) {
+                    shippingServiceCost.setCurrencyID(CurrencyCodeType.valueOf(attrs.get(index).getString("attrValue")));
+                    shippingOption.setShippingServiceCost(shippingServiceCost);
+                } else if ("ShippingServicePriority".equals(attrs.get(index).getString("attrName"))) {
+                    shippingOption.setShippingServicePriority(Integer.parseInt(attrs.get(index).getString("attrValue")));
+                } else if ("ShippingType".equals(attrs.get(index).getString("attrName"))) {
+                    shippingDetail.setShippingType(ShippingTypeCodeType.valueOf(attrs.get(index).getString("attrValue")));
+                } else if ("VATPercent".equals(attrs.get(index).getString("attrName"))) {
+                    VATDetailsType vat = new VATDetailsType();
+                    vat.setVATPercent(new Float(attrs.get(index).getString("attrValue")));
+                    item.setVATDetails(vat);
+                } else if ("Location".equals(attrs.get(index).getString("attrName"))) {
+                    item.setLocation(attrs.get(index).getString("attrValue"));
+                } else if ("Quantity".equals(attrs.get(index).getString("attrName"))) {
+                    item.setQuantity(Integer.parseInt(attrs.get(index).getString("attrValue")));
+                } else if ("ListingDuration".equals(attrs.get(index).getString("attrName"))) {
+                    item.setListingDuration(attrs.get(index).getString("attrValue"));
+                } else if ("LotSize".equals(attrs.get(index).getString("attrName"))) {
+                    item.setLotSize(Integer.parseInt(attrs.get(index).getString("attrValue")));
+                } else if ("PostalCode".equals(attrs.get(index).getString("attrName"))) {
+                    item.setPostalCode(attrs.get(index).getString("attrValue"));
+                } else if ("Title".equals(attrs.get(index).getString("attrName"))) {
+                    item.setTitle(attrs.get(index).getString("attrValue"));
+                }
+                if (category != null) {
+                    item.setPrimaryCategory(category);
+                }
+                if (shippingOption != null) {
+                    ShippingServiceOptionsType[] options = {shippingOption};
+                    shippingDetail.setShippingServiceOptions(options);
+                }
+                if (shippingDetail != null) {
+                    item.setShippingDetails(shippingDetail);
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+            return null;
+        }
+        return item;
+    }
 }

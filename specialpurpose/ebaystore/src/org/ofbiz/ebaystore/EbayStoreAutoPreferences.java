@@ -59,6 +59,7 @@ import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
 import com.ebay.sdk.SdkSoapException;
+import com.ebay.sdk.call.AddItemCall;
 import com.ebay.sdk.call.AddOrderCall;
 import com.ebay.sdk.call.AddDisputeCall;
 import com.ebay.sdk.call.DeleteSellingManagerTemplateCall;
@@ -70,6 +71,7 @@ import com.ebay.soap.eBLBaseComponents.AddOrderRequestType;
 import com.ebay.soap.eBLBaseComponents.AddOrderResponseType;
 import com.ebay.soap.eBLBaseComponents.AmountType;
 import com.ebay.sdk.call.RelistItemCall;
+import com.ebay.sdk.util.eBayUtil;
 import com.ebay.soap.eBLBaseComponents.AutomatedLeaveFeedbackEventCodeType;
 import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
 import com.ebay.soap.eBLBaseComponents.CommentTypeCodeType;
@@ -83,6 +85,8 @@ import com.ebay.soap.eBLBaseComponents.FeedbackDetailType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryRequestType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryResponseType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
+import com.ebay.soap.eBLBaseComponents.ListingDurationCodeType;
+import com.ebay.soap.eBLBaseComponents.ListingDurationDefinitionType;
 import com.ebay.soap.eBLBaseComponents.OrderType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerOrderStatusType;
@@ -1097,4 +1101,49 @@ public class EbayStoreAutoPreferences {
         return result;
     }
 
+    public static Map<String, Object> autoRelistingItems(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> itemObject = FastMap.newInstance();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        try {
+            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
+            EntityCondition expression1 = EntityCondition.makeCondition("autoRelisting", EntityOperator.EQUALS, "Y");
+            EntityCondition expression2 = EntityCondition.makeCondition("endDateTime", EntityOperator.LESS_THAN, UtilDateTime.nowTimestamp());
+            EntityCondition expression3 = EntityCondition.makeCondition("itemId", EntityOperator.NOT_EQUAL, null);
+            List expressions = FastList.newInstance();
+            expressions.add(expression1);
+            expressions.add(expression2);
+            expressions.add(expression3);
+            EntityCondition cond = EntityCondition.makeCondition(expressions, EntityOperator.AND);
+            List<GenericValue> ebayProductListings = delegator.findList("EbayProductListing", cond , null, null, null, false);
+            for (int index = 0; index < ebayProductListings.size(); index++) {
+                Map<String, Object> inMap = FastMap.newInstance();
+                AddItemCall addItemCall = new AddItemCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
+                GenericValue ebayProductListing = ebayProductListings.get(index);
+                ItemType item = EbayStoreHelper.prepareAddItem(delegator, ebayProductListing);
+                addItemCall.setItem(item);
+                itemObject.put("addItemCall", addItemCall);
+                itemObject.put("productListingId", ebayProductListing.getString("productListingId"));
+                inMap.put("itemObject", itemObject);
+                inMap.put("userLogin", userLogin);
+                Map<String, Object>result = dispatcher.runSync("exportProductEachItem", inMap);
+                String success = (String) result.get("responseMessage");
+                if ("success".equals(success)) {
+                    String duration = item.getListingDuration();
+                    if (duration.length() > 4) {
+                        Timestamp startDateTime = UtilDateTime.nowTimestamp();
+                        int durationInt = Integer.parseInt(duration.replace("DAYS_", ""));
+                        Timestamp endDateTime = UtilDateTime.addDaysToTimestamp(startDateTime, durationInt);
+                        ebayProductListing.set("startDateTime", startDateTime);
+                        ebayProductListing.set("endDateTime", endDateTime);
+                        ebayProductListing.store();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return ServiceUtil.returnSuccess();
+    }
 }
