@@ -25,15 +25,15 @@ under the License.
 </#if>
 
 <#if (shoppingCartSize > 0)>
-  <div class="screenlet">
-    <h3>${uiLabelMap.CommonCheckoutAnonymous}</h3>
-    <p>${uiLabelMap.CommonCheckoutAnonymousMsg}:</p>
-    <ul>
-      <li><a href="<@ofbizUrl>setCustomer</@ofbizUrl>">${uiLabelMap.OrderCheckout}</a></li>
-      <li><a href="<@ofbizUrl>quickAnonCheckout</@ofbizUrl>">${uiLabelMap.OrderCheckoutQuick}</a></li>
-      <li><a href="<@ofbizUrl>anonOnePageCheckout</@ofbizUrl>">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
-      <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
-    </ul>
-  </div>
+<div class="screenlet">
+  <h3>${uiLabelMap.CommonCheckoutAnonymous}</h3>
+  <p>${uiLabelMap.CommonCheckoutAnonymousMsg}:</p>
+  <ul>
+    <li><a href="<@ofbizUrl>setCustomer</@ofbizUrl>">${uiLabelMap.OrderCheckout}</a></li>
+    <li><a href="<@ofbizUrl>quickAnonCheckout</@ofbizUrl>">${uiLabelMap.OrderCheckoutQuick}</a></li>
+    <li><a href="<@ofbizUrl>anonOnePageCheckout</@ofbizUrl>">${uiLabelMap.EcommerceOnePageCheckout}</a></li>
+    <li><a href="<@ofbizUrl>googleCheckout</@ofbizUrl>">${uiLabelMap.EcommerceCartToGoogleCheckout}</a></li>
+  </ul>
+</div>
 </#if>
 
