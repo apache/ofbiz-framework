@@ -63,7 +63,7 @@ under the License.
     </#if>
     <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
       <#include "component://common/webcommon/includes/helplink.ftl" />
-      <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);" title=${uiLabelMap.CommonHelp}></a></li>
+      <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
     </#if>
     <#if userLogin?exists>
       <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
@@ -89,7 +89,7 @@ under the License.
 <div class="clear">
 </div>
 
-<script>
+<script type="text/javascript">
   var mainmenu = new DropDownMenu($('main-navigation'));
   var appmenu = new DropDownMenu($('app-navigation'));
 </script>
