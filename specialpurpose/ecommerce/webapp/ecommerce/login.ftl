@@ -68,9 +68,7 @@ under the License.
   </form>
 </div>
 -->
-</div>
 <div class="endcolumns">&nbsp;</div>
-</div>
 
 <script language="JavaScript" type="text/javascript">
   <#if autoUserLogin?has_content>document.loginform.PASSWORD.focus();</#if>
