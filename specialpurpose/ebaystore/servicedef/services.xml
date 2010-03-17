@@ -427,4 +427,10 @@ under the License.
         <attribute name="unsoldeSize" mode="OUT" type="Integer" optional="true"/>
         <attribute name="scheduledSize" mode="OUT" type="Integer" optional="true"/>
     </service>
+    <service name="autoRelistingItems" engine="java" transaction-timeout="7200"
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoRelistingItems" auth="false">
+        <description>Automatic service to re-listing items when They are end item</description>
+        <attribute name="jobId" mode="IN" type="String" optional="false"/>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
 </services>

@@ -296,4 +296,10 @@
     <property key="EbayActive">
         <value xml:lang="en">Active</value>
     </property>
+    <property key="EbayAutoRelistingItems">
+        <value xml:lang="en">Auto Relisting Items</value>
+    </property>
+    <property key="EbayAutoRelistingItemsDescription">
+        <value xml:lang="en">Auto Relisting Items when they are end item.</value>
+    </property>
 </resource>
