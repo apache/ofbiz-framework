@@ -25,9 +25,9 @@ This screen allows the user to find and import orders data from ebay site. you c
         <title>Section 'Search Options'.</title>
         <orderedlist>
             <listitem><para>select product store ex: use 'OFBiz E-Commerce Store' because example ebay catalog link with this store.</para></listitem>
-	    <listitem><para>enter begin time in field 'From Date Time' </para></listitem>
-	    <listitem><para>enter end time in field 'Thru Date Time' </para></listitem>
-	    <listitem><para>Press 'Find' button then  system will show results from ebay site. </para></listitem>
+        <listitem><para>enter begin time in field 'From Date Time' </para></listitem>
+        <listitem><para>enter end time in field 'Thru Date Time' </para></listitem>
+        <listitem><para>Press 'Find' button then  system will show results from ebay site. </para></listitem>
         </orderedlist>
     </section>
     <section>
@@ -40,8 +40,8 @@ This screen allows the user to find and import orders data from ebay site. you c
         <title>How to import order from eBay?</title>
         <orderedlist>
             <listitem><para></para></listitem>
-	    <listitem><para>Click checkbox at rows you want to import orders  in the  'Search Result' section</para></listitem>
-	    <listitem><para>Press 'Import Orders From ebay' button then system will return the message on the screen. and you can check orders list in the 'Order' module.</para></listitem>
+        <listitem><para>Click checkbox at rows you want to import orders  in the  'Search Result' section</para></listitem>
+        <listitem><para>Press 'Import Orders From ebay' button then system will return the message on the screen. and you can check orders list in the 'Order' module.</para></listitem>
         </orderedlist>
     </section>
 </section>

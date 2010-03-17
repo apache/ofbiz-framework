@@ -2112,19 +2112,19 @@ z-index: 999;
 }
 
 .calendar_date_select thead th {
-	font-weight: bold;
-	background-image: url(../images/bkgd_header.gif);
-	background-color: #CCC;
-	_border-top: 1px solid #fdeb71;
-	_border-bottom: 1px solid #d68a12;
-	color: white !important;
+    font-weight: bold;
+    background-image: url(../images/bkgd_header.gif);
+    background-color: #CCC;
+    _border-top: 1px solid #fdeb71;
+    _border-bottom: 1px solid #d68a12;
+    color: white !important;
 }
 
 .calendar_date_select .cds_buttons {
-	text-align: center;
-	padding: 5px 0px;
-	background-image: url(../images/header_top_bg.gif);
-	background-color: #CCC;
+    text-align: center;
+    padding: 5px 0px;
+    background-image: url(../images/header_top_bg.gif);
+    background-color: #CCC;
 }
 
 .calendar_date_select .cds_footer {
@@ -2197,13 +2197,13 @@ font-size: 9px;
 }
 
 .calendar_date_select td {
-	font-size: 12px;
-	width: 24px;
-	height: 21px;
-	text-align: center;
-	vertical-align: middle;
-	background-color: #FFF;
-	color:#333;
+    font-size: 12px;
+    width: 24px;
+    height: 21px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #FFF;
+    color:#333;
 }
 
 .calendar_date_select td.weekend {
@@ -2234,7 +2234,7 @@ background-color: #ea9f27;
 }
 
 .calendar_date_select td:hover {
-	background-color: #FD8500;
+    background-color: #FD8500;
 }
 
 .calendar_date_select td.today {
@@ -2259,10 +2259,10 @@ padding: 5px 0 5px 10px;
 }
 
 .fieldgroup-body {
-	border-top:#999 solid thin;
-	border-bottom:#F5F5F5 solid thin;
-	background-color:#CCC;
-	padding:0.6em;
+    border-top:#999 solid thin;
+    border-bottom:#F5F5F5 solid thin;
+    background-color:#CCC;
+    padding:0.6em;
 }
 
 
@@ -2460,17 +2460,17 @@ background-color:#D4D0C8;
 }
 
 .basic-table.order-items tr td {
-	vertical-align:top;
+    vertical-align:top;
 }
 .order-items .order-item-description {
-	display:inline;
-	font-size:145%;
+    display:inline;
+    font-size:145%;
 }
 .basic-table.order-items .screenlet-body {
-	background-color:#dfdfdf;
+    background-color:#dfdfdf;
 }
 .basic-table.order-items .alternate-row .screenlet-body {
-	background-color:#bfbfbf;
+    background-color:#bfbfbf;
 }
 
 .order-info .current-status {

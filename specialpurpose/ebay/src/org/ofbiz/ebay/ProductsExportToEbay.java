@@ -245,7 +245,7 @@ public class ProductsExportToEbay {
 
                 String listingFormat = "";
                 if (UtilValidate.isNotEmpty(context.get("listingFormat"))) {
-                	listingFormat = (String) context.get("listingFormat");
+                    listingFormat = (String) context.get("listingFormat");
                     UtilXml.addChildElementValue(itemElem, "ListingType", listingFormat, itemDocument);
                 }
                 if (listingFormat.equals("FixedPriceItem")) {

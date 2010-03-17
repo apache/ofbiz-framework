@@ -468,408 +468,408 @@ if (starschemas)
 }]]></method>
             <method name="fetch"><![CDATA[if (currentRow >= totalRows - 1) return false;
 {
-	starschema = starschemas.get(currentRow);
-	orderDateDescription = starschema.getString("orderDateDescription");
-	orderDateDayName = starschema.getString("orderDateDayName");
-	orderDateDayOfMonth = starschema.getString("orderDateDayOfMonth");
-	orderDateMonthName = starschema.getString("orderDateMonthName");
-	orderDateYearName = starschema.getString("orderDateYearName");
-	orderDateWeekOfYear = starschema.getString("orderDateWeekOfYear");
-	orderDateYearMonthDay = starschema.getString("orderDateYearMonthDay");
-	orderDateMonthOfYear = starschema.getString("orderDateMonthOfYear");
-	
-	quantity = starschema.getString("quantity");
-	GrossSales = starschema.getString("GrossSales");
-	GrossMerchandizeSales = starschema.getString("GrossMerchandizeSales");
-	GrossMerchandizeProfit = starschema.getString("GrossMerchandizeProfit");
-	GrossShippingProfit = starschema.getString("GrossShippingProfit");
-	GrossProfit = starschema.getString("GrossProfit");
-	
-	salesChannelEnumId = starschema.getString("salesChannelEnumId");
-	saleChannel = starschema.getString("saleChannel");
-	
-	if (salesChannelEnumId == "B2C_AU_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_AU;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2C_CA_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_CA;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2C_IE_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_IE;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2C_SG_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_SG;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2C_UK_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_UK;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2C_US_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_US;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2C_DE_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_DE;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2C_ES_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_ES;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2C_FR_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_FR;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2C_IT_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type1;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_IT;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_AU_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2B_AU;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_CA_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2B_CA;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_IE_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2B_IE;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_SG_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2B_SG;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_UK_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2B_UK;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_US_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2B_US;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_DE_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2B_DE;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_ES_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2B_ES;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_FR_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2B_FR;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	if (salesChannelEnumId == "B2B_IT_SALES_CHANNEL")
-	{
-		row["AccountType"] = account_type2;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2B_IT;
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateMonthOfYear"] = orderDateMonthOfYear;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-		row["orderDateDayName"] = orderDateDayName;
-		row["orderDateDescription"] = orderDateDescription;
-		row["quantity"] = quantity;
-		row["GrossSales"] = GrossSales;
-		row["GrossMerchandizeSales"] = GrossMerchandizeSales;
-		row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
-		row["GrossShippingProfit"] = GrossShippingProfit;
-		row["GrossProfit"] = GrossProfit;
-	}
-	
-	currentRow ++;
+    starschema = starschemas.get(currentRow);
+    orderDateDescription = starschema.getString("orderDateDescription");
+    orderDateDayName = starschema.getString("orderDateDayName");
+    orderDateDayOfMonth = starschema.getString("orderDateDayOfMonth");
+    orderDateMonthName = starschema.getString("orderDateMonthName");
+    orderDateYearName = starschema.getString("orderDateYearName");
+    orderDateWeekOfYear = starschema.getString("orderDateWeekOfYear");
+    orderDateYearMonthDay = starschema.getString("orderDateYearMonthDay");
+    orderDateMonthOfYear = starschema.getString("orderDateMonthOfYear");
+    
+    quantity = starschema.getString("quantity");
+    GrossSales = starschema.getString("GrossSales");
+    GrossMerchandizeSales = starschema.getString("GrossMerchandizeSales");
+    GrossMerchandizeProfit = starschema.getString("GrossMerchandizeProfit");
+    GrossShippingProfit = starschema.getString("GrossShippingProfit");
+    GrossProfit = starschema.getString("GrossProfit");
+    
+    salesChannelEnumId = starschema.getString("salesChannelEnumId");
+    saleChannel = starschema.getString("saleChannel");
+    
+    if (salesChannelEnumId == "B2C_AU_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_AU;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2C_CA_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_CA;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2C_IE_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_IE;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2C_SG_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_SG;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2C_UK_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_UK;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2C_US_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_US;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2C_DE_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_DE;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2C_ES_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_ES;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2C_FR_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_FR;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2C_IT_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type1;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_IT;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_AU_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2B_AU;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_CA_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2B_CA;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_IE_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2B_IE;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_SG_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2B_SG;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_UK_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2B_UK;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_US_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2B_US;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_DE_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2B_DE;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_ES_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2B_ES;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_FR_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2B_FR;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    if (salesChannelEnumId == "B2B_IT_SALES_CHANNEL")
+    {
+        row["AccountType"] = account_type2;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2B_IT;
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateMonthOfYear"] = orderDateMonthOfYear;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateWeekOfYear"] = orderDateWeekOfYear;
+        row["orderDateDayName"] = orderDateDayName;
+        row["orderDateDescription"] = orderDateDescription;
+        row["quantity"] = quantity;
+        row["GrossSales"] = GrossSales;
+        row["GrossMerchandizeSales"] = GrossMerchandizeSales;
+        row["GrossMerchandizeProfit"] = GrossMerchandizeProfit;
+        row["GrossShippingProfit"] = GrossShippingProfit;
+        row["GrossProfit"] = GrossProfit;
+    }
+    
+    currentRow ++;
 }
 
 return true;]]></method>

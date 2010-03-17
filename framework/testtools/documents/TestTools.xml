@@ -18,13 +18,13 @@
     under the License.
 -->
 <chapter xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The OFBiz Test Tools Introduction.</title>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The OFBiz Test Tools Introduction.</title>
     <para>
         Ofbiz contains a test framework consisting out of the <link xl:href="http://junit.org">JUnit framework</link>  
         and the <link xl:href="http://seleniumhq.org/">Selenium firefox plugin.</link> with the <link xl:href="http://sourceforge.net/projects/seleniumxml/">XML extension.</link>
-	    For a excellent JUnit introduction check the <link xl:href="http://clarkware.com/articles/JUnitPrimer.html">Clarkware site.</link>
+        For a excellent JUnit introduction check the <link xl:href="http://clarkware.com/articles/JUnitPrimer.html">Clarkware site.</link>
     </para>
 </chapter>

@@ -118,7 +118,7 @@ try {
 input =  FastMap.newInstance();
 inputFields =  FastMap.newInstance();
 if(params!=null){
-	inputFields.put("noConditionFind", "Y");
+    inputFields.put("noConditionFind", "Y");
 }
 
 input.put("userLogin",userLogin);
@@ -134,16 +134,16 @@ try {
 }]]></method>
             <method name="fetch"><![CDATA[if(orders == null)return false;
 if(order = orders.next()){
-	row["orderId"] = order.getString("orderId");
-	row["productId"] = order.getString("productProductId");
-	row["productName"] = order.getString("productInternalName");
-	row["discount"] = order.getString("extDiscountAmount");
-	row["promoCode"] = order.getString("productPromoCode");
-	Debug.logInfo("-----------order---------"+order.getString("orderId"),module);
-	return true;
+    row["orderId"] = order.getString("orderId");
+    row["productId"] = order.getString("productProductId");
+    row["productName"] = order.getString("productInternalName");
+    row["discount"] = order.getString("extDiscountAmount");
+    row["promoCode"] = order.getString("productPromoCode");
+    Debug.logInfo("-----------order---------"+order.getString("orderId"),module);
+    return true;
 }else{
-	orders.close();
-	return false;
+    orders.close();
+    return false;
 }]]></method>
         </script-data-set>
     </data-sets>

@@ -6690,7 +6690,7 @@
         <value xml:lang="en">Organization GL Settings</value>
         <value xml:lang="fr">Configurations internes du GL</value>
         <value xml:lang="hi_IN">संगठन जीएल(Gl) सेटिंग्स</value>
-        <value xml:lang="nl">Organisatie grootboek instellingen</value>		
+        <value xml:lang="nl">Organisatie grootboek instellingen</value>        
         <value xml:lang="zh">组织机构总账设置</value>
     </property>
     <property key="AccountingOrganizationPartyId">

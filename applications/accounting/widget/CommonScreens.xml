@@ -73,13 +73,13 @@ under the License.
                             <widgets>
                                 <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                 <container style="leftclear">
-                                	<section>
-                                		<condition>
-                                			<not><if-empty field="paymentId"/></not>
-                                		</condition>
-                                		<widgets>
-                                		<label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
-                                		</widgets>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field="paymentId"/></not>
+                                        </condition>
+                                        <widgets>
+                                        <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
+                                        </widgets>
                                     </section>
                                 </container>
                                 <decorator-section-include name="body"/>

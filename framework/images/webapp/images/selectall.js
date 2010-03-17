@@ -313,7 +313,7 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
            $('content-messages' ).update(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
            new Effect.Appear('content-messages',{duration: 0.5});
         }else {
-        	if($('content-messages')) {
+            if($('content-messages')) {
                 $('content-messages').removeClassName('errorMessage');
                 new Effect.Fade('content-messages',{duration: 0.0});
             }
@@ -333,15 +333,15 @@ function ajaxAutoCompleter(areaCsvString) {
     var areaArray = areaCsvString.split(",");
     var numAreas = parseInt(areaArray.length / 3);
     for (var i = 0; i < numAreas * 3; i = i + 3) {
-	    var optionsDivId = areaArray[i] + "_autoCompleterOptions";
-	    var indicatorId = areaArray[i] + "_indicator";
-	    $(areaArray[i]).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
+        var optionsDivId = areaArray[i] + "_autoCompleterOptions";
+        var indicatorId = areaArray[i] + "_indicator";
+        $(areaArray[i]).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
         new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2], indicator: indicatorId, afterUpdateElement : getSelectionId});
     }
 }
 
 function getSelectionId(text, li) {
-	text.value = li.id;
+    text.value = li.id;
 }
 
 /** Enable auto-completion for drop-down elements.

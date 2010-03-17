@@ -167,38 +167,38 @@ totalShippingCharge = 0;
 totalShippingBalance = 0;
 productPromoCodes = delegator.findList("ProductPromoCode", EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId), null, null, null, false);
 if(productPromoCodes.size()>0){
-	productPromoCodeId = productPromoCodes.get(0).getString("productPromoCodeId");
-	orderProductPromoCodes = delegator.findList("OrderProductPromoCode", EntityCondition.makeCondition("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId), null, null, null, false);
-	totalOrders = orderProductPromoCodes.size();
-	for(i = 0; i < totalOrders; i++){
-		orderId = orderProductPromoCodes.get(i).getString("orderId");
-		input.put("userLogin",userLogin);
-		input.put("orderId",orderId);
-		//Order Total
-		orderInfo = dispatcher.runSync("getOrderHeaderInformation", input);
-    	amount = orderInfo.get("grandTotal");
-		totalOrdersAmount = totalOrdersAmount + amount;
-		//Shipping Total
-		cond =  FastList.newInstance();
-		cond.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
-		cond.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "SHIPPING_CHARGES"));
-		orderAdjustments = delegator.findList("OrderAdjustment", EntityCondition.makeCondition(cond, EntityOperator.AND), null, null, null, false);
-		orderAdjustmentSize = orderAdjustments.size();
-		for(j = 0; j < orderAdjustmentSize; j++){
-			shippingCharge = 0;
-			shippingCharge = orderAdjustments.get(j).get("amount");
-			if(shippingCharge){
-				shippingCharge = shippingCharge.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-			}
-			totalShippingCharge = totalShippingCharge + shippingCharge;
-		}
-		shippingAmount = dispatcher.runSync("getOrderShippingAmount", input);
-		amount = shippingAmount.get("shippingAmount");
-		if(amount){
-			amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-		}
-		totalShippingAmount = totalShippingAmount + amount;
-	}
+    productPromoCodeId = productPromoCodes.get(0).getString("productPromoCodeId");
+    orderProductPromoCodes = delegator.findList("OrderProductPromoCode", EntityCondition.makeCondition("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId), null, null, null, false);
+    totalOrders = orderProductPromoCodes.size();
+    for(i = 0; i < totalOrders; i++){
+        orderId = orderProductPromoCodes.get(i).getString("orderId");
+        input.put("userLogin",userLogin);
+        input.put("orderId",orderId);
+        //Order Total
+        orderInfo = dispatcher.runSync("getOrderHeaderInformation", input);
+        amount = orderInfo.get("grandTotal");
+        totalOrdersAmount = totalOrdersAmount + amount;
+        //Shipping Total
+        cond =  FastList.newInstance();
+        cond.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
+        cond.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "SHIPPING_CHARGES"));
+        orderAdjustments = delegator.findList("OrderAdjustment", EntityCondition.makeCondition(cond, EntityOperator.AND), null, null, null, false);
+        orderAdjustmentSize = orderAdjustments.size();
+        for(j = 0; j < orderAdjustmentSize; j++){
+            shippingCharge = 0;
+            shippingCharge = orderAdjustments.get(j).get("amount");
+            if(shippingCharge){
+                shippingCharge = shippingCharge.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            }
+            totalShippingCharge = totalShippingCharge + shippingCharge;
+        }
+        shippingAmount = dispatcher.runSync("getOrderShippingAmount", input);
+        amount = shippingAmount.get("shippingAmount");
+        if(amount){
+            amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        }
+        totalShippingAmount = totalShippingAmount + amount;
+    }
 }
 row["productPromoId"] = productPromoId;
 row["promoName"] = promoName;

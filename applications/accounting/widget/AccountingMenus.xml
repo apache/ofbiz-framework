@@ -378,7 +378,7 @@ under the License.
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
-       	<menu-item name="paymentReport" title="Payment Report">
+           <menu-item name="paymentReport" title="Payment Report">
             <link target="paymentReport"/>
         </menu-item>
     </menu>

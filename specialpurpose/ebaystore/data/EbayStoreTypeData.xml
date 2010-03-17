@@ -27,7 +27,7 @@ under the License.
 
     <EnumerationType description="Ebay setting auto preferences" enumTypeId="EBAY_AUTO_PREF" hasTable="N" parentTypeId=""/>
     
-	<!-- Automation Preference -->
+    <!-- Automation Preference -->
     <Enumeration enumId="EBAY_AUTO_DISPUTE1" description="Automatic Dispute not complete" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_DISPUTE2" description="Automatic Dispute not pay" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_RELISTING" description="Automatic Relisting" enumTypeId="EBAY_AUTO_PREF"/>
@@ -38,13 +38,13 @@ under the License.
     <Enumeration enumId="EBAY_AUTO_ITEM_DISP" description="Automatic send item dispatched email" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_BLK_ITEM" description="Automatic block item that out of stock" enumTypeId="EBAY_AUTO_PREF"/>
 
-	<!-- Automation email -->
-	<Enumeration enumId="EBAY_WIN_BUYER_NOTI" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold." enumTypeId="PRDS_EMAIL"/>
-	<Enumeration enumId="EBAY_PAY_RECIEVED" description="Automatically send Payment Received email when payment has been received." enumTypeId="PRDS_EMAIL"/>
-	<Enumeration enumId="EBAY_FEEBACK_REMIN" description="Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent." enumTypeId="PRDS_EMAIL"/>
+    <!-- Automation email -->
+    <Enumeration enumId="EBAY_WIN_BUYER_NOTI" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold." enumTypeId="PRDS_EMAIL"/>
+    <Enumeration enumId="EBAY_PAY_RECIEVED" description="Automatically send Payment Received email when payment has been received." enumTypeId="PRDS_EMAIL"/>
+    <Enumeration enumId="EBAY_FEEBACK_REMIN" description="Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent." enumTypeId="PRDS_EMAIL"/>
     <Enumeration enumId="EBAY_ITEM_DISPATCH" description="Automatic send item dispatched notification email when user mark sold listing as dispatched" enumTypeId="PRDS_EMAIL"/>
     <!-- Content main for specify Enumeration -->
-	<Content contentId="EBAY_WIN_BUYER_NOTI" contentTypeId="TEMPLATE" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold."/>
+    <Content contentId="EBAY_WIN_BUYER_NOTI" contentTypeId="TEMPLATE" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold."/>
     <Content contentId="EBAY_PAY_RECIEVED" contentTypeId="TEMPLATE" description="Automatically send Payment Received email when payment has been received."/>
     <Content contentId="EBAY_FEEBACK_REMIN" contentTypeId="TEMPLATE" description="Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent"/>
     <Content contentId="EBAY_ITEM_DISPATCH" contentTypeId="TEMPLATE" description="Automatic send item dispatched notification email when user mark sold listing as dispatched"/>

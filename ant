@@ -26,14 +26,14 @@ else
 fi
 
 find_jar() {
-	top="$(cd "$(dirname "$0")"; echo "$PWD")"
-	set -- "$top"/framework/base/lib/ant-launcher-*.jar
-	if [ $# = 1 ] && [ -e "$1" ]; then
-		echo "$1"
-	else
-		echo "Couldn't find ant-launcher.jar" 1>&2
-		exit 1
-	fi
+    top="$(cd "$(dirname "$0")"; echo "$PWD")"
+    set -- "$top"/framework/base/lib/ant-launcher-*.jar
+    if [ $# = 1 ] && [ -e "$1" ]; then
+        echo "$1"
+    else
+        echo "Couldn't find ant-launcher.jar" 1>&2
+        exit 1
+    fi
 }
 "$JAVA" -jar "$(find_jar)" "$@"
 

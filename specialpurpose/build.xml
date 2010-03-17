@@ -29,7 +29,7 @@
         oagis/build.xml,
         googlebase/build.xml,
         ebay/build.xml,
-    	ebaystore/build.xml,
+        ebaystore/build.xml,
         projectmgr/build.xml,
         ldap/build.xml,
         crowd/build.xml,

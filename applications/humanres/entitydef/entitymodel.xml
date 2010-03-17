@@ -436,7 +436,7 @@ under the License.
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
         <field name="approverPartyId" type="id-ne"/>
-      	<field name="leaveStatus" type="short-varchar"/>
+          <field name="leaveStatus" type="short-varchar"/>
         <field name="description" type="description"/>
         <prim-key field="partyId"/>
         <prim-key field="leaveTypeId"/>
@@ -452,7 +452,7 @@ under the License.
         </relation>
         <relation type="one" fk-name="EMPL_LEAVE_APPR" title="Approver" rel-entity-name="Party">
             <key-map field-name="approverPartyId" rel-field-name="partyId"/>
-	    </relation>
+        </relation>
     </entity>
     <entity entity-name="EmplLeaveType"
             package-name="org.ofbiz.humanres.employment"

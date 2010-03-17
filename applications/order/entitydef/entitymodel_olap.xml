@@ -39,7 +39,7 @@ under the License.
         <field name="origCurrencyDimId" type="id-ne"></field>
         <field name="billToCustomerDimId" type="id-ne"></field> <!-- TODO: implement the dimension -->
         
-        <field name="productStoreId" type="id-ne"></field>  	
+        <field name="productStoreId" type="id-ne"></field>      
         <field name="salesChannelEnumId" type="id-ne"></field>
         <field name="saleChannel" type="description"></field>
         <field name="orderStatus" type="description"></field>
@@ -215,8 +215,8 @@ under the License.
             <exclude field="salesChannelEnumId"/>
             <exclude field="saleChannel"/>
             <exclude field="orderStatus"/>
-	    	<exclude field="visitId"/>
-	    	<exclude field="initialReferrer"/>
+            <exclude field="visitId"/>
+            <exclude field="initialReferrer"/>
             <exclude field="productPromoCode"/>
             <exclude field="categoryName"/>
         </alias-all>

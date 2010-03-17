@@ -39,7 +39,7 @@ under the License.
             <xs:choice minOccurs="1" maxOccurs="unbounded">
                 <xs:element ref="test-case"/>
                 <xs:element ref="test-group"/>
-	    </xs:choice>
+        </xs:choice>
             <xs:attributeGroup ref="attlist.test-suite"/>
         </xs:complexType>
     </xs:element>

@@ -82,9 +82,9 @@ under the License.
 </xs:schema>
 <!--
     <service-group>
-    	<group name="testOne" send-mode="none">
-    		<invoke name="testScv" mode="async"/>
-    		<invoke name="testScv" mode="sync"/>
-    	</group>
+        <group name="testOne" send-mode="none">
+            <invoke name="testScv" mode="async"/>
+            <invoke name="testScv" mode="sync"/>
+        </group>
     </service-group>
 -->

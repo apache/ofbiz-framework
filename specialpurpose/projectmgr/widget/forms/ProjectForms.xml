@@ -314,13 +314,13 @@
         </field>
         <field entry-name="sequenceNum" name="taskSeqNum" parameter-name="sequenceNum"><text size="3"/></field>
         <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}">
-        	<text/>
+            <text/>
         </field>
          <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
             <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${description}" also-hidden="false"/>
          </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-        	<display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}" also-hidden="false"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}" also-hidden="false"/>
          </field>
         <field name="plannedHours" parameter-name="estimatedDuration" title="${uiLabelMap.ProjectMgrPlannedHours}"><text size="3"/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
@@ -340,7 +340,7 @@
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><date-time type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><date-time type="date"/></field>
         <field name="edit" title=" ">
-        	<hyperlink target="EditTask?workEffortId=${workEffortId}" description="${uiLabelMap.CommonEdit}"></hyperlink>
+            <hyperlink target="EditTask?workEffortId=${workEffortId}" description="${uiLabelMap.CommonEdit}"></hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>

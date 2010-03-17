@@ -2531,7 +2531,7 @@ under the License.
 
     <!-- Reports -->
     <request-map uri="paymentReport">
-    	<security https="true" auth="true"/>
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="paymentReport"/>
     </request-map>
     <request-map uri="paymentReportHtml">

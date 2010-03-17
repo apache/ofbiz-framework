@@ -1761,7 +1761,7 @@ under the License.
     <ProductPromo productPromoId="DEMO_PROMO004" promoName="Demo Promotion 4" promoText="With special code [9021] get products in the Featured Products category for their special promotion price." userEntered="Y" showToCustomer="Y" requireCode="Y" createdDate="2001-05-13 12:00:00.0"/>
     <ProductPromo productPromoId="DEMO_PROMO005" promoName="Demo Promotion 5" promoText="With special code [9021] get products in the Featured Products category for their special promotion price." userEntered="Y" showToCustomer="Y" requireCode="Y" createdDate="2001-05-13 12:00:00.0"/>
     
-   	<ProductPromoCode productPromoCodeId="DEMO_PROMOCODE001" productPromoId="DEMO_PROMO001" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0"/>
+       <ProductPromoCode productPromoCodeId="DEMO_PROMOCODE001" productPromoId="DEMO_PROMO001" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0"/>
     <ProductPromoCode productPromoCodeId="DEMO_PROMOCODE002" productPromoId="DEMO_PROMO002" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0"/>
     <ProductPromoCode productPromoCodeId="DEMO_PROMOCODE003" productPromoId="DEMO_PROMO003" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0"/>
     <ProductPromoCode productPromoCodeId="DEMO_PROMOCODE004" productPromoId="DEMO_PROMO003" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0"/>
@@ -1771,16 +1771,16 @@ under the License.
     <ProductPromoCode productPromoCodeId="DEMO_PROMOCODE008" productPromoId="DEMO_PROMO004" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0"/>
     <ProductPromoCode productPromoCodeId="DEMO_PROMOCODE009" productPromoId="DEMO_PROMO004" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0"/>
     <ProductPromoCode productPromoCodeId="DEMO_PROMOCODE010" productPromoId="DEMO_PROMO005" userEntered="Y" requireEmailOrParty="N" createdDate="2001-05-13 12:00:00.0"/>
-	
-	<OrderProductPromoCode orderId="DEMO_B2C_AU01" productPromoCodeId="DEMO_PROMOCODE001"/>
-	<OrderProductPromoCode orderId="DEMO_B2C_CA01" productPromoCodeId="DEMO_PROMOCODE002"/>
-	<OrderProductPromoCode orderId="DEMO_B2C_IE01" productPromoCodeId="DEMO_PROMOCODE003"/>
-	<OrderProductPromoCode orderId="DEMO_B2C_SG01" productPromoCodeId="DEMO_PROMOCODE004"/>
-	<OrderProductPromoCode orderId="DEMO_B2C_UK01" productPromoCodeId="DEMO_PROMOCODE005"/>
-	<OrderProductPromoCode orderId="DEMO_B2C_US01" productPromoCodeId="DEMO_PROMOCODE006"/>
-	<OrderProductPromoCode orderId="DEMO_B2C_DE01" productPromoCodeId="DEMO_PROMOCODE007"/>
-	<OrderProductPromoCode orderId="DEMO_B2C_ES01" productPromoCodeId="DEMO_PROMOCODE008"/>
-	<OrderProductPromoCode orderId="DEMO_B2C_FR01" productPromoCodeId="DEMO_PROMOCODE009"/>
-	<OrderProductPromoCode orderId="DEMO_B2C_IT01" productPromoCodeId="DEMO_PROMOCODE010"/>
-	
+    
+    <OrderProductPromoCode orderId="DEMO_B2C_AU01" productPromoCodeId="DEMO_PROMOCODE001"/>
+    <OrderProductPromoCode orderId="DEMO_B2C_CA01" productPromoCodeId="DEMO_PROMOCODE002"/>
+    <OrderProductPromoCode orderId="DEMO_B2C_IE01" productPromoCodeId="DEMO_PROMOCODE003"/>
+    <OrderProductPromoCode orderId="DEMO_B2C_SG01" productPromoCodeId="DEMO_PROMOCODE004"/>
+    <OrderProductPromoCode orderId="DEMO_B2C_UK01" productPromoCodeId="DEMO_PROMOCODE005"/>
+    <OrderProductPromoCode orderId="DEMO_B2C_US01" productPromoCodeId="DEMO_PROMOCODE006"/>
+    <OrderProductPromoCode orderId="DEMO_B2C_DE01" productPromoCodeId="DEMO_PROMOCODE007"/>
+    <OrderProductPromoCode orderId="DEMO_B2C_ES01" productPromoCodeId="DEMO_PROMOCODE008"/>
+    <OrderProductPromoCode orderId="DEMO_B2C_FR01" productPromoCodeId="DEMO_PROMOCODE009"/>
+    <OrderProductPromoCode orderId="DEMO_B2C_IT01" productPromoCodeId="DEMO_PROMOCODE010"/>
+    
 </entity-engine-xml>

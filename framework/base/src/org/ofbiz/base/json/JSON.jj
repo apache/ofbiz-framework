@@ -56,8 +56,8 @@ public class JSON {
 
     public JSON allowResolve(boolean allowResolve) {
         this.allowResolve = allowResolve;
-	token_source.SwitchTo(allowResolve ? RESOLVE : DEFAULT);
-	return this;
+    token_source.SwitchTo(allowResolve ? RESOLVE : DEFAULT);
+    return this;
     }
 }
 

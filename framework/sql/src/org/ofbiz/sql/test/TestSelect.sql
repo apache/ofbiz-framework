@@ -18,27 +18,27 @@
  */
 
 SELECT
-	a.*,
-	b.firstName,
-	b.lastName
+    a.*,
+    b.firstName,
+    b.lastName
 FROM
-	Party a JOIN Person b ON a.partyId = b.partyId
+    Party a JOIN Person b ON a.partyId = b.partyId
 WHERE
-	a.partyTypeId = 'PERSON'
-	AND
-	b.lastName LIKE ?lastName
+    a.partyTypeId = 'PERSON'
+    AND
+    b.lastName LIKE ?lastName
 HAVING
-	b.firstName LIKE '%foo%'
+    b.firstName LIKE '%foo%'
 OFFSET 5
 LIMIT 10
 ;
 SELECT
-	a.partyTypeId,
-	COUNT(a.partyId) AS count
+    a.partyTypeId,
+    COUNT(a.partyId) AS count
 FROM
-	Party a LEFT JOIN Person b USING partyId
-	LEFT JOIN PartyGroup c USING partyId
+    Party a LEFT JOIN Person b USING partyId
+    LEFT JOIN PartyGroup c USING partyId
 GROUP BY
-	partyTypeId
+    partyTypeId
 ;
 

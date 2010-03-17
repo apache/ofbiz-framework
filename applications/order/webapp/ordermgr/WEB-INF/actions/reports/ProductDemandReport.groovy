@@ -28,11 +28,11 @@ int Year = cal.get(Calendar.YEAR);
 birtParameters = [:];
 try 
 {
-	birtParameters.productStoreId = productStoreId;
-	birtParameters.Week = Week;
-	birtParameters.Year = Year;
+    birtParameters.productStoreId = productStoreId;
+    birtParameters.Week = Week;
+    birtParameters.Year = Year;
 } catch (e) {
-	Debug.logError(e, "");
+    Debug.logError(e, "");
 }
 
 request.setAttribute("birtParameters", birtParameters);

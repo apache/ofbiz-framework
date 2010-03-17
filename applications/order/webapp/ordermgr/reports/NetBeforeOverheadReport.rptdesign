@@ -543,7 +543,7 @@ classLoader = appContext.get(EngineConstants.APPCONTEXT_CLASSLOADER_KEY);
 starschemas = null;
 try 
 {
-	productStoreId = params["productStoreId"].value;
+    productStoreId = params["productStoreId"].value;
     DateMonth = params["DateMonth"].value;
     DateYear = params["DateYear"].value;
     methodContext = new MethodContext(appContext, classLoader, MethodContext.SERVICE);
@@ -580,261 +580,261 @@ if (starschemas)
 }]]></method>
             <method name="fetch"><![CDATA[if (currentRow >= totalRows) return false;
 {
-	starschema = starschemas.get(currentRow);
-	orderDateDateValue = starschema.getString("orderDateDateValue");
-	orderDateDayName = starschema.getString("orderDateDayName");
-	orderDateDayOfMonth = starschema.getString("orderDateDayOfMonth");
-	orderDateMonthName = starschema.getString("orderDateMonthName");
-	orderDateYearName = starschema.getString("orderDateYearName");
-	orderDateYearMonthDay = starschema.getString("orderDateYearMonthDay");
-	orderDateMonthOfYear = starschema.getString("orderDateMonthOfYear");
-	orderDateDescription = starschema.getString("orderDateDescription");
-	
-	quantity = starschema.getString("quantity");
-	GS = starschema.getString("GrossSales");
-	GMS = starschema.getString("GrossMerchandizeSales");
-	GMP = starschema.getString("GrossMerchandizeProfit");
-	GSP = starschema.getString("GrossShippingProfit");
-	GP = starschema.getString("GrossProfit");
-	eBay = starschema.getString("eBay");
-	RRC = starschema.getString("RRC");
-	Others = starschema.getString("OtherFree");
-	NBO = starschema.getString("NBO");
-	
-	salesChannelEnumId = starschema.getString("salesChannelEnumId");
+    starschema = starschemas.get(currentRow);
+    orderDateDateValue = starschema.getString("orderDateDateValue");
+    orderDateDayName = starschema.getString("orderDateDayName");
+    orderDateDayOfMonth = starschema.getString("orderDateDayOfMonth");
+    orderDateMonthName = starschema.getString("orderDateMonthName");
+    orderDateYearName = starschema.getString("orderDateYearName");
+    orderDateYearMonthDay = starschema.getString("orderDateYearMonthDay");
+    orderDateMonthOfYear = starschema.getString("orderDateMonthOfYear");
+    orderDateDescription = starschema.getString("orderDateDescription");
+    
+    quantity = starschema.getString("quantity");
+    GS = starschema.getString("GrossSales");
+    GMS = starschema.getString("GrossMerchandizeSales");
+    GMP = starschema.getString("GrossMerchandizeProfit");
+    GSP = starschema.getString("GrossShippingProfit");
+    GP = starschema.getString("GrossProfit");
+    eBay = starschema.getString("eBay");
+    RRC = starschema.getString("RRC");
+    Others = starschema.getString("OtherFree");
+    NBO = starschema.getString("NBO");
+    
+    salesChannelEnumId = starschema.getString("salesChannelEnumId");
 
-	if (orderDateMonthOfYear == DateMonth)
-	{
-		row["Daily"] = 1;
-	}
-	else
-	{
-		row["Daily"] = 2;
-	}
-	
-	if (salesChannelEnumId == "B2C_AU_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_AU;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-	if (salesChannelEnumId == "B2C_CA_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_CA;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-	if (salesChannelEnumId == "B2C_IE_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_IE;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-	if (salesChannelEnumId == "B2C_SG_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_SG;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-	if (salesChannelEnumId == "B2C_UK_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_UK;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-	if (salesChannelEnumId == "B2C_US_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_US;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-	if (salesChannelEnumId == "B2C_DE_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_DE;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-	if (salesChannelEnumId == "B2C_ES_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_ES;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-	if (salesChannelEnumId == "B2C_FR_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_FR;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-	if (salesChannelEnumId == "B2C_IT_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_IT;
-		row["Date"] = orderDateYearMonthDay;
-		row["Month"] = orderDateMonthOfYear;
-		row["MonthName"] = orderDateMonthName;
-		row["Today"] = DateDay;
-	}
-		
-	currentRow ++;
+    if (orderDateMonthOfYear == DateMonth)
+    {
+        row["Daily"] = 1;
+    }
+    else
+    {
+        row["Daily"] = 2;
+    }
+    
+    if (salesChannelEnumId == "B2C_AU_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_AU;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+    if (salesChannelEnumId == "B2C_CA_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_CA;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+    if (salesChannelEnumId == "B2C_IE_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_IE;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+    if (salesChannelEnumId == "B2C_SG_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_SG;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+    if (salesChannelEnumId == "B2C_UK_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_UK;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+    if (salesChannelEnumId == "B2C_US_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_US;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+    if (salesChannelEnumId == "B2C_DE_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_DE;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+    if (salesChannelEnumId == "B2C_ES_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_ES;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+    if (salesChannelEnumId == "B2C_FR_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_FR;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+    if (salesChannelEnumId == "B2C_IT_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_IT;
+        row["Date"] = orderDateYearMonthDay;
+        row["Month"] = orderDateMonthOfYear;
+        row["MonthName"] = orderDateMonthName;
+        row["Today"] = DateDay;
+    }
+        
+    currentRow ++;
 }
 
 return true;]]></method>
@@ -1167,7 +1167,7 @@ classLoader = appContext.get(EngineConstants.APPCONTEXT_CLASSLOADER_KEY);
 starschemas = null;
 try 
 {
-	productStoreId = params["productStoreId"].value;
+    productStoreId = params["productStoreId"].value;
     DateDay = params["DateDay"].value;
     methodContext = new MethodContext(appContext, classLoader, MethodContext.SERVICE);
     methodContext.putEnv("productStoreId", productStoreId);
@@ -1201,242 +1201,242 @@ if (Date_starschemas)
 }]]></method>
             <method name="fetch"><![CDATA[if (currentRow >= totalRows) return false;
 {
-	Date_starschema = Date_starschemas.get(currentRow);
-	orderDateDateValue = Date_starschema.getString("orderDateDateValue");
-	orderDateDayName = Date_starschema.getString("orderDateDayName");
-	orderDateDayOfMonth = Date_starschema.getString("orderDateDayOfMonth");
-	orderDateMonthName = Date_starschema.getString("orderDateMonthName");
-	orderDateYearName = Date_starschema.getString("orderDateYearName");
-	orderDateYearMonthDay = Date_starschema.getString("orderDateYearMonthDay");
-	orderDateMonthOfYear = Date_starschema.getString("orderDateMonthOfYear");
-	orderDateDescription = Date_starschema.getString("orderDateDescription");
-	
-	quantity = Date_starschema.getString("quantity");
-	GS = Date_starschema.getString("GrossSales");
-	GMS = Date_starschema.getString("GrossMerchandizeSales");
-	GMP = Date_starschema.getString("GrossMerchandizeProfit");
-	GSP = Date_starschema.getString("GrossShippingProfit");
-	GP = Date_starschema.getString("GrossProfit");
-	eBay = Date_starschema.getString("eBay");
-	RRC = Date_starschema.getString("RRC");
-	Others = Date_starschema.getString("OtherFree");
-	NBO = Date_starschema.getString("NBO");
-	
-	salesChannelEnumId = Date_starschema.getString("salesChannelEnumId");
-	
-	if (salesChannelEnumId == "B2C_AU_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_AU;
-		row["Date"] = orderDateYearMonthDay;
-	}
-	if (salesChannelEnumId == "B2C_CA_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_CA;
-		row["Date"] = orderDateYearMonthDay;
-	}
-	if (salesChannelEnumId == "B2C_IE_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_IE;
-		row["Date"] = orderDateYearMonthDay;
-	}
-	if (salesChannelEnumId == "B2C_SG_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_SG;
-		row["Date"] = orderDateYearMonthDay;
-	}
-	if (salesChannelEnumId == "B2C_UK_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_UK;
-		row["Date"] = orderDateYearMonthDay;
-	}
-	if (salesChannelEnumId == "B2C_US_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_US;
-		row["Date"] = orderDateYearMonthDay;
-	}
-	if (salesChannelEnumId == "B2C_DE_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_DE;
-		row["Date"] = orderDateYearMonthDay;
-	}
-	if (salesChannelEnumId == "B2C_ES_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_ES;
-		row["Date"] = orderDateYearMonthDay;
-	}
-	if (salesChannelEnumId == "B2C_FR_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_FR;
-		row["Date"] = orderDateYearMonthDay;
-	}
-	if (salesChannelEnumId == "B2C_IT_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateDayOfMonth"] = orderDateDayOfMonth;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["orderDateYearName"] = orderDateYearName;
-		row["orderDateDateValue"] = orderDateDateValue;
-		row["Parcel"] = quantity;
-		row["GS"] = GS;
-		row["GMS"] = GMS;
-		row["GMP"] = GMP;
-		row["GSP"] = GSP;
-		row["GP"] = GP;
-		row["eBay"] = eBay;
-		row["RRC"] = RRC;
-		row["Others"] = Others;
-		row["NBO"] = NBO;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_IT;
-		row["Date"] = orderDateYearMonthDay;
-	}
-		
-	currentRow ++;
+    Date_starschema = Date_starschemas.get(currentRow);
+    orderDateDateValue = Date_starschema.getString("orderDateDateValue");
+    orderDateDayName = Date_starschema.getString("orderDateDayName");
+    orderDateDayOfMonth = Date_starschema.getString("orderDateDayOfMonth");
+    orderDateMonthName = Date_starschema.getString("orderDateMonthName");
+    orderDateYearName = Date_starschema.getString("orderDateYearName");
+    orderDateYearMonthDay = Date_starschema.getString("orderDateYearMonthDay");
+    orderDateMonthOfYear = Date_starschema.getString("orderDateMonthOfYear");
+    orderDateDescription = Date_starschema.getString("orderDateDescription");
+    
+    quantity = Date_starschema.getString("quantity");
+    GS = Date_starschema.getString("GrossSales");
+    GMS = Date_starschema.getString("GrossMerchandizeSales");
+    GMP = Date_starschema.getString("GrossMerchandizeProfit");
+    GSP = Date_starschema.getString("GrossShippingProfit");
+    GP = Date_starschema.getString("GrossProfit");
+    eBay = Date_starschema.getString("eBay");
+    RRC = Date_starschema.getString("RRC");
+    Others = Date_starschema.getString("OtherFree");
+    NBO = Date_starschema.getString("NBO");
+    
+    salesChannelEnumId = Date_starschema.getString("salesChannelEnumId");
+    
+    if (salesChannelEnumId == "B2C_AU_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_AU;
+        row["Date"] = orderDateYearMonthDay;
+    }
+    if (salesChannelEnumId == "B2C_CA_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_CA;
+        row["Date"] = orderDateYearMonthDay;
+    }
+    if (salesChannelEnumId == "B2C_IE_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_IE;
+        row["Date"] = orderDateYearMonthDay;
+    }
+    if (salesChannelEnumId == "B2C_SG_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_SG;
+        row["Date"] = orderDateYearMonthDay;
+    }
+    if (salesChannelEnumId == "B2C_UK_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_UK;
+        row["Date"] = orderDateYearMonthDay;
+    }
+    if (salesChannelEnumId == "B2C_US_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_US;
+        row["Date"] = orderDateYearMonthDay;
+    }
+    if (salesChannelEnumId == "B2C_DE_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_DE;
+        row["Date"] = orderDateYearMonthDay;
+    }
+    if (salesChannelEnumId == "B2C_ES_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_ES;
+        row["Date"] = orderDateYearMonthDay;
+    }
+    if (salesChannelEnumId == "B2C_FR_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_FR;
+        row["Date"] = orderDateYearMonthDay;
+    }
+    if (salesChannelEnumId == "B2C_IT_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateDayOfMonth"] = orderDateDayOfMonth;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["orderDateYearName"] = orderDateYearName;
+        row["orderDateDateValue"] = orderDateDateValue;
+        row["Parcel"] = quantity;
+        row["GS"] = GS;
+        row["GMS"] = GMS;
+        row["GMP"] = GMP;
+        row["GSP"] = GSP;
+        row["GP"] = GP;
+        row["eBay"] = eBay;
+        row["RRC"] = RRC;
+        row["Others"] = Others;
+        row["NBO"] = NBO;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_IT;
+        row["Date"] = orderDateYearMonthDay;
+    }
+        
+    currentRow ++;
 }
 
 return true;]]></method>
@@ -1559,7 +1559,7 @@ classLoader = appContext.get(EngineConstants.APPCONTEXT_CLASSLOADER_KEY);
 starschemas = null;
 try 
 {
-	productStoreId = params["productStoreId"].value;
+    productStoreId = params["productStoreId"].value;
     DateMonth = params["DateMonth"].value;
     DateYear = params["DateYear"].value;
     methodContext = new MethodContext(appContext, classLoader, MethodContext.SERVICE);
@@ -1595,106 +1595,106 @@ if (starschemas)
 }]]></method>
             <method name="fetch"><![CDATA[if (currentRow >= totalRows) return false;
 {
-	starschema = starschemas.get(currentRow);
+    starschema = starschemas.get(currentRow);
 
-	salesChannelEnumId = starschema.getString("salesChannelEnumId");
-	orderDateMonthName = starschema.getString("orderDateMonthName");
-	orderDateYearName = starschema.getString("orderDateYearName");
-	NBO = starschema.getString("NBO");
-	CountDate = starschema.getString("CountDate");
-	
-	if (salesChannelEnumId == "B2C_AU_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_AU;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-	if (salesChannelEnumId == "B2C_CA_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_CA;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-	if (salesChannelEnumId == "B2C_IE_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_IE;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-	if (salesChannelEnumId == "B2C_SG_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_SG;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-	if (salesChannelEnumId == "B2C_UK_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_UK;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-	if (salesChannelEnumId == "B2C_US_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod1;
-		row["Account"] = account_B2C_US;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-	if (salesChannelEnumId == "B2C_DE_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_DE;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-	if (salesChannelEnumId == "B2C_ES_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_ES;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-	if (salesChannelEnumId == "B2C_FR_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_FR;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-	if (salesChannelEnumId == "B2C_IT_SALES_CHANNEL")
-	{
-		row["SalesChannel"] = salesChannelEnumId;
-		row["orderDateMonthName"] = orderDateMonthName;
-		row["Pod"] = pod2;
-		row["Account"] = account_B2C_IT;
-		row["NBO"] = NBO;
-		row["CountDate"] = CountDate;
-	}
-		
-	currentRow ++;
+    salesChannelEnumId = starschema.getString("salesChannelEnumId");
+    orderDateMonthName = starschema.getString("orderDateMonthName");
+    orderDateYearName = starschema.getString("orderDateYearName");
+    NBO = starschema.getString("NBO");
+    CountDate = starschema.getString("CountDate");
+    
+    if (salesChannelEnumId == "B2C_AU_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_AU;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+    if (salesChannelEnumId == "B2C_CA_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_CA;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+    if (salesChannelEnumId == "B2C_IE_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_IE;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+    if (salesChannelEnumId == "B2C_SG_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_SG;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+    if (salesChannelEnumId == "B2C_UK_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_UK;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+    if (salesChannelEnumId == "B2C_US_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod1;
+        row["Account"] = account_B2C_US;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+    if (salesChannelEnumId == "B2C_DE_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_DE;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+    if (salesChannelEnumId == "B2C_ES_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_ES;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+    if (salesChannelEnumId == "B2C_FR_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_FR;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+    if (salesChannelEnumId == "B2C_IT_SALES_CHANNEL")
+    {
+        row["SalesChannel"] = salesChannelEnumId;
+        row["orderDateMonthName"] = orderDateMonthName;
+        row["Pod"] = pod2;
+        row["Account"] = account_B2C_IT;
+        row["NBO"] = NBO;
+        row["CountDate"] = CountDate;
+    }
+        
+    currentRow ++;
 }
 
 return true;]]></method>
@@ -4299,11 +4299,11 @@ return true;]]></method>
                     <property name="name">Show_Daily</property>
                     <expression name="expression">if(dimension["Account"]["Daily"]==1)
 {
-	"Daily Avg in "+dimension["Account"]["Daily"]["orderDateMonthName"].substring(0,3)
+    "Daily Avg in "+dimension["Account"]["Daily"]["orderDateMonthName"].substring(0,3)
 }
 else if(dimension["Account"]["Daily"]==2)
 {
-	"Daily Avg in "+dimension["Account"]["Daily"]["orderDateMonthName"].substring(0,3)
+    "Daily Avg in "+dimension["Account"]["Daily"]["orderDateMonthName"].substring(0,3)
 }</expression>
                     <property name="dataType">string</property>
                 </structure>

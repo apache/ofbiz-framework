@@ -18,10 +18,10 @@
     under the License.
 -->
 <section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xsi:schemaLocation="http://docbook.org/ns/docbook ../../../applications/content/dtd/docbook.xsd"
-	xmlns="http://docbook.org/ns/docbook">
-	<title>The Service Engine</title>
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../applications/content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Service Engine</title>
     <para>
        A description of the service engine can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBTECH/Service+Engine+Guide">OFBiz documentation site</link>
     </para>

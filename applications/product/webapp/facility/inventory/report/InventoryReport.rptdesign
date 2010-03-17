@@ -182,22 +182,22 @@ try {
 inputInvent =  FastMap.newInstance();
 inputInventFields =  FastMap.newInstance();
 if(params!=null){
-	inputInventFields.put("facilityId", params["facilityId"]);
-	inputInventFields.put("noConditionFind", "Y");
-	//inputFields.put("productInternalName", params["internalName"]);
-	/*
-	inputFields.put("quantityOnHandTotal", params["offsetQOHQty"]);
-	inputFields.put("availableToPromiseTotal", params["offsetATPQty"]);
-	inputFields.put("productId", params["productId"]);
-	inputFields.put("productTypeId", params["productTypeId"]);
-	inputFields.put("searchInProductCategoryId", params["searchInProductCategoryId"]);
-	inputFields.put("productSupplierId", params["productSupplierId"]);
-	inputFields.put("productsSoldThruTimestamp", params["productsSoldThruTimestamp"]);
-	inputFields.put("statusId", params["statusId"]);
-	inputFields.put("VIEW_SIZE", params["VIEW_SIZE"]);
-	inputFields.put("monthsInPastLimit", params["monthsInPastLimit"]);
-	inputFields.put("fromDateSellThrough", params["fromDateSellThrough"]);
-	inputFields.put("thruDateSellThrough", params["thruDateSellThrough"]);*/
+    inputInventFields.put("facilityId", params["facilityId"]);
+    inputInventFields.put("noConditionFind", "Y");
+    //inputFields.put("productInternalName", params["internalName"]);
+    /*
+    inputFields.put("quantityOnHandTotal", params["offsetQOHQty"]);
+    inputFields.put("availableToPromiseTotal", params["offsetATPQty"]);
+    inputFields.put("productId", params["productId"]);
+    inputFields.put("productTypeId", params["productTypeId"]);
+    inputFields.put("searchInProductCategoryId", params["searchInProductCategoryId"]);
+    inputFields.put("productSupplierId", params["productSupplierId"]);
+    inputFields.put("productsSoldThruTimestamp", params["productsSoldThruTimestamp"]);
+    inputFields.put("statusId", params["statusId"]);
+    inputFields.put("VIEW_SIZE", params["VIEW_SIZE"]);
+    inputFields.put("monthsInPastLimit", params["monthsInPastLimit"]);
+    inputFields.put("fromDateSellThrough", params["fromDateSellThrough"]);
+    inputFields.put("thruDateSellThrough", params["thruDateSellThrough"]);*/
 }
 inputInvent.put("userLogin",userLogin);
 inputInvent.put("inputFields",inputInventFields);
@@ -212,17 +212,17 @@ try {
 }]]></method>
             <method name="fetch"><![CDATA[if(inventories == null)return false;
 if(inventory = inventories.next()){
-	row["productId"] = inventory.getString("productProductId");
-	row["productName"] = inventory.getString("productInternalName");
-	row["quantityOnHand"] = inventory.getString("quantityOnHandTotal");
-	row["availableToPromise"] = inventory.getString("availableToPromiseTotal");
-	row["retailPrice"] = inventory.getString("unitCost");
-	row["datetimeReceived"] = inventory.getString("inventoryDateDateValue");
-	Debug.logInfo("-----------inventory---------"+inventory.getString("productProductId"),module);
-	return true;
+    row["productId"] = inventory.getString("productProductId");
+    row["productName"] = inventory.getString("productInternalName");
+    row["quantityOnHand"] = inventory.getString("quantityOnHandTotal");
+    row["availableToPromise"] = inventory.getString("availableToPromiseTotal");
+    row["retailPrice"] = inventory.getString("unitCost");
+    row["datetimeReceived"] = inventory.getString("inventoryDateDateValue");
+    Debug.logInfo("-----------inventory---------"+inventory.getString("productProductId"),module);
+    return true;
 }else{
-	inventories.close();
-	return false;
+    inventories.close();
+    return false;
 }]]></method>
         </script-data-set>
         <script-data-set name="Order" id="191">
@@ -283,8 +283,8 @@ try {
 }
 inputOrderFields =  FastMap.newInstance();
 if(params!=null){
-	inputOrderFields.put("orderDateDateValue_fld0_op", params["orderDateDateValue_fld0_op"]);
-	inputOrderFields.put("noConditionFind", "Y");
+    inputOrderFields.put("orderDateDateValue_fld0_op", params["orderDateDateValue_fld0_op"]);
+    inputOrderFields.put("noConditionFind", "Y");
 }
 
 orders = null;
@@ -302,13 +302,13 @@ try {
             <method name="fetch"><![CDATA[if(orders == null)return false;
 if(order = orders.next()){
     row["productOrderId"] = order.getString("productProductId");
-	row["quantity"] = order.getString("quantity");
-	row["orderDate"] = order.getString("orderDateDescription");
-	Debug.logInfo("++++++++++++order++++++++"+order.getString("quantity"),module);
-	return true;
+    row["quantity"] = order.getString("quantity");
+    row["orderDate"] = order.getString("orderDateDescription");
+    Debug.logInfo("++++++++++++order++++++++"+order.getString("quantity"),module);
+    return true;
 }else{
-	orders.close();
-	return false;
+    orders.close();
+    return false;
 }]]></method>
         </script-data-set>
     </data-sets>

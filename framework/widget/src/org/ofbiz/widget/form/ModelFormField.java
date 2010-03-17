@@ -2075,11 +2075,11 @@ public class ModelFormField {
             return alsoHidden;
         }
         public String getType(){
-        	return this.type;
+            return this.type;
         }
 
         public String getImageLocation(){
-        	return this.imageLocation;
+            return this.imageLocation;
         }
 
         public String getDescription(Map<String, Object> context) {
