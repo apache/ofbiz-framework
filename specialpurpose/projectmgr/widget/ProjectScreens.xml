@@ -421,7 +421,7 @@ under the License.
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GanttChart.groovy"/>
             </actions>
             <widgets>
-                <label text="${project}"></label>
+                <label text="${project}"/>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleProjectGanttChart}">
@@ -540,7 +540,7 @@ under the License.
                             <not><if-empty field="clientAssigns"/></not>
                         </condition>
                         <widgets>
-                            <label style="h3" text="${uiLabelMap.ProjectMgrClientContacts}"></label>
+                            <label style="h3" text="${uiLabelMap.ProjectMgrClientContacts}"/>
                             <include-form name="ListProjectClientParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </widgets>
                     </section>
@@ -549,7 +549,7 @@ under the License.
                             <not><if-empty field="companyAssigns"/></not>
                         </condition>
                         <widgets>
-                            <label style="h3" text="${uiLabelMap.ProjectMgrCompanies}"></label>
+                            <label style="h3" text="${uiLabelMap.ProjectMgrCompanies}"/>
                             <include-form name="ListProjectCompanyParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </widgets>
                     </section>
@@ -1105,7 +1105,7 @@ under the License.
                         <if-empty field="projects"/>
                     </condition>
                     <widgets>
-                        <label style="h2" text="${uiLabelMap.ProjectMgrNoProjectsFound}"></label>
+                        <label style="h2" text="${uiLabelMap.ProjectMgrNoProjectsFound}"/>
                     </widgets>
                 </section>
             </widgets>
