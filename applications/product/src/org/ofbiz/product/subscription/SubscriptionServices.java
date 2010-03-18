@@ -237,7 +237,7 @@ public class SubscriptionServices {
                 String msg = "No OrderRole found for orderId:" + orderId;
                 return ServiceUtil.returnFailure(msg);
             }
-            orderHeader = delegator.findByPrimaryKeyCache("OrderHeader", UtilMisc.toMap("orderId", orderId));
+            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader == null) {
                 String msg = "No OrderHeader found for orderId:" + orderId;
                 return ServiceUtil.returnError(msg);

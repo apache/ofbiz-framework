@@ -94,7 +94,7 @@ context.returnItemTypeMap = typeMap;
 if (orderId) {
     returnRes = dispatcher.runSync("getReturnableItems", [orderId : orderId]);
     context.returnableItems = returnRes.returnableItems;
-    orderHeader = delegator.findByPrimaryKeyCache("OrderHeader", [orderId : orderId]);
+    orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
     context.orderHeader = orderHeader;
 }
 
