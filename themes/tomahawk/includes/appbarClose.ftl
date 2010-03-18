@@ -89,7 +89,9 @@ under the License.
 <div class="clear">
 </div>
 
+<#if userLogin?exists>
 <script type="text/javascript">
   var mainmenu = new DropDownMenu($('main-navigation'));
   var appmenu = new DropDownMenu($('app-navigation'));
 </script>
+</#if>
