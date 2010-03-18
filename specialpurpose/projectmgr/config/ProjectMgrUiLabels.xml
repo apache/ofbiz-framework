@@ -1862,6 +1862,10 @@
         <value xml:lang="th">คุณต้องการการอนุญาตอย่างน้อยที่สุด PROJECTMGR_READ ในการแสดงหน้าจอนี้</value>
         <value xml:lang="zh">你至少需要有PROJECTMGR_READ权限才能查看本页</value>
     </property>
+    <property key="ProjectMgrAdminViewPermissionError">
+        <value xml:lang="en">You need at least a PROJECT_ADMIN permission to view this screen</value>
+        <value xml:lang="fr">Il vous faut au moins l'autorisation PROJECTMGR_ADMIN pour voir cet écran</value>
+    </property>
     <property key="ProjectMgrWeek">
         <value xml:lang="de">Woche</value>
         <value xml:lang="en">Week</value>
