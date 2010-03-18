@@ -341,7 +341,7 @@
     <screen name="SoldListing">
         <section>
             <actions>
-                <service service-name="getMyeBaySelling" result-map="result">
+                <service service-name="getEbaySoldItems" result-map="result">
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                 </service>
                 <set field="soldItemList" from-field="result.soldItems"/>
@@ -351,7 +351,6 @@
                 <decorator-screen name="EbaySoldListing">
                     <decorator-section name="body">
                         <screenlet title="Sold Listing">
-                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="SoldItemList"/>
                         </screenlet>
                     </decorator-section>
@@ -453,6 +452,7 @@
             <actions>
                 <service service-name="getMyeBaySelling" result-map="result">
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="listingType" from-field="requestParameters.listingType"/>
                 </service>
                 <set field="activeItemList" from-field="result.activeItems"/>
                 <set field="target" value="activeListing"/>
@@ -488,6 +488,7 @@
             <actions>
                 <service service-name="getMyeBaySelling" result-map="result">
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="listingType" from-field="parameters.listingType"/>
                 </service>
                 <set field="unsoldItemList" from-field="result.unsoldItems"/>
                 <set field="target" value="unsoldListing"/>
@@ -498,6 +499,31 @@
                         <screenlet title="Unsold Listing">
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="UnsoldItemList"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="WaitingToShipping">
+        <section>
+            <actions>
+                <set field="sellingManagerItem" value="waitingToShipping"/>
+                <service service-name="getEbaySoldItems" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="filter" value="PAID_NOT_SHIPPED"/>
+                    <field-map field-name="itemId" from-field="parameters.itemId"/>
+                    <field-map field-name="buyerId" from-field="parameters.buyerId"/>
+                </service>
+                <set field="soldItemList" from-field="result.soldItems"/>
+                <set field="target" value="waitingToShipping"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="uiLabelMap.EbayWaitingToShipping">
+                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="WaitingToShippingOption"/>
+                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="SoldItemList"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

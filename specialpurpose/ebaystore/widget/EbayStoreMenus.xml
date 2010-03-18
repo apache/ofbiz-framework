@@ -76,6 +76,11 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
+        <menu-item name="waitingToShipping" title="${uiLabelMap.EbayWaitingToShipping}">
+            <link target="waitingToShipping">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
         <menu-item name="automationPreferences" title="Automation Preferences">
             <link target="automationPreferences">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>

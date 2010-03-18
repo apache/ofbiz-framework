@@ -168,6 +168,9 @@ under the License.
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
         <attribute name="status" mode="IN" type="String" optional="true"/>
         <attribute name="period" mode="IN" type="String" optional="true"/>
+        <attribute name="filter" mode="IN" type="String" optional="true"/>
+        <attribute name="itemId" mode="IN" type="String" optional="true"/>
+        <attribute name="buyerId" mode="IN" type="String" optional="true"/>
         <attribute name="soldItems" mode="OUT" type="List" optional="true"/>
     </service>
     <!-- ebay inventory -->

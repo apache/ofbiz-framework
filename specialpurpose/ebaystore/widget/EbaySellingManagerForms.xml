@@ -76,7 +76,8 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
             <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/SoldAction.groovy"/>
         </row-actions>
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
-        <field name="itemId"><display description="${itemId} - ${title}"/></field>
+        <field name="itemId"><display description="${itemId}"/></field>
+        <field name="title"><display description="${title}"/></field>
         <field name="buyer"><display description="${buyer}"/></field>
         <field name="listingType"><display description="${listingType}"/></field>
         <field name="quantity"><display description="${quantity}"/></field>
@@ -500,5 +501,11 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
             </drop-down>
         </field>
         <field name="submitButton"><submit/></field>
+    </form>
+    <form name="WaitingToShippingOption" type="single" target="${target}">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="itemId"><text/></field>
+        <field name="buyerId"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSearch}"><submit/></field>
     </form>
 </forms>
