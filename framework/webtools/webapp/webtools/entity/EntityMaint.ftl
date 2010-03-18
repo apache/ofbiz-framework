@@ -24,8 +24,8 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-    <p>
-       <form target="<@ofbizUrl>/entitymaint</@ofbizUrl>">
+    <div>
+       <form action="<@ofbizUrl>/entitymaint</@ofbizUrl>">
           <b>${uiLabelMap.CommonGroup}:</b>
           <select name="filterByGroupName">
              <option value="">${uiLabelMap.CommonAll}</option>
@@ -34,10 +34,10 @@ under the License.
              </#list>
           </select>
           <b>${uiLabelMap.WebtoolsEntityName}:</b>
-          <input type= "text" name= "filterByEntityName" value="${parameters.filterByEntityName?if_exists}">
+          <input type= "text" name= "filterByEntityName" value="${parameters.filterByEntityName?if_exists}"/>
           <input type="submit"/>
        </form>
-    </p>
+    </div>
     <p><b><u>${uiLabelMap.CommonNote}</u></b></p>
     <p>
        <b>${uiLabelMap.WebtoolsCreate}</b> = ${uiLabelMap.CommonCreateNew}&nbsp;&nbsp;
