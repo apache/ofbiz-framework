@@ -49,7 +49,7 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="migrateOrderShipment" short-description="Migrate data from ItemIssuaces to OrderShipments when the records are not used to record item issuances but only an order to shipment association.">
+    <simple-method method-name="migrateOrderShipment" short-description="Migrate data from ItemIssuances to OrderShipments when the records are not used to record item issuances but only an order to shipment association.">
         <entity-condition entity-name="ItemIssuance" list="itemIssuances">
             <condition-list combine="and">
                 <condition-expr field-name="inventoryItemId" operator="equals" from-field="nullField"/>
