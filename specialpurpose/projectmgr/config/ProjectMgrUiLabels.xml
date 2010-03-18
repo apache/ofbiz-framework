@@ -173,6 +173,10 @@
         <value xml:lang="nl">Template ID</value>
         <value xml:lang="zh">模板Id</value>
     </property>
+    <property key="FormFieldTitle_timesheetPartyId">
+        <value xml:lang="en">Associated to</value>
+        <value xml:lang="fr">Associée à</value>
+    </property>
     <property key="PageTitleAddATimesheet">
         <value xml:lang="de">Neue wöchentliche Zeiterfassung hinzufügen</value>
         <value xml:lang="en">Add a new weekly Timesheet</value>
