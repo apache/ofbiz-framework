@@ -237,43 +237,6 @@ under the License.
         <call-service service-name="updateCommunicationEvent" in-map-name="updateCommEventMap"/>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testCreateNewRequest" short-description="create a new request" login-required="false">
-        <set field="createNewRequestMap.custRequestTypeId" value="RF_PROPOSAL"/>
-        <set field="createNewRequestMap.statusId" value="CRQ_SUBMITTED"/>
-        <set field="createNewRequestMap.priority" value="1L" type="Long"/>
-        <set field="createNewRequestMap.fromPartyId" value="DemoCustomer"/>
-        <entity-one entity-name="UserLogin" value-field="createNewRequestMap.userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <call-service service-name="createCustRequest" in-map-name="createNewRequestMap">
-          <result-to-field result-name="custRequestId" field="requestMap.custRequestId"/>
-        </call-service>
-        <call-simple-method method-name="inlineUpdateRequest"/>
-        <entity-one entity-name="CustRequest" value-field="custRequest">
-            <field-map field-name="custRequestId" from-field="requestMap.custRequestId"/>
-        </entity-one>
-        <assert>
-            <not><if-empty field="custRequest"/></not>
-            <if-compare-field field="custRequest.custRequestId" to-field="requestMap.custRequestId" operator="equals"/>
-            <if-compare-field field="custRequest.custRequestTypeId" to-field="updateRequestMap.custRequestTypeId" operator="equals"/>
-            <if-compare-field field="custRequest.statusId" to-field="updateRequestMap.statusId" operator="equals"/>
-            <if-compare-field field="custRequest.priority" to-field="updateRequestMap.priority" operator="equals"/>
-            <if-compare-field field="custRequest.fromPartyId" to-field="updateRequestMap.fromPartyId" operator="equals"/>
-        </assert>
-        <check-errors/>
-    </simple-method>
-    <simple-method method-name="inlineUpdateRequest" short-description="update a request" login-required="false">
-        <set field="updateRequestMap.custRequestId" from-field="requestMap.custRequestId"/>
-        <set field="updateRequestMap.custRequestTypeId" value="RF_INFO"/>
-        <set field="updateRequestMap.statusId" value="CRQ_ACCEPTED"/>
-        <set field="updateRequestMap.priority" value="2L" type="Long"/>
-        <set field="updateRequestMap.fromPartyId" value="admin"/>
-        <entity-one entity-name="UserLogin" value-field="updateRequestMap.userLogin">
-            <field-map field-name="userLoginId" value="system"/>
-        </entity-one>
-        <call-service service-name="updateCustRequest" in-map-name="updateRequestMap"/>
-        <check-errors/>
-    </simple-method>
 
     <simple-method method-name="testCreatePartyTelecomNumber" short-description="Test createPartyTelecomNumber service"  login-required="false">
         <set field="partyId" value="DemoCustomer"/>
