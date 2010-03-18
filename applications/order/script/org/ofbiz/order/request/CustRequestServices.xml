@@ -103,7 +103,14 @@ under the License.
 
     <simple-method method-name="updateCustRequest" short-description="Update Customer Request">
         <call-simple-method method-name="checkStatusCustRequest"/>
-        <field-to-result field="custRequest.statusId" result-name="oldStatusId"/>
+        <set field="oldStatusId" from-field="custRequest.statusId"/>
+        <field-to-result field="oldStatusId"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set from-field="nowTimestamp" field="custRequest.lastModifiedDate"/>
+        <set from-field="userLogin.userLoginId" field="custRequest.lastModifiedByUserLogin"/>
+        <set-nonpk-fields map="parameters" value-field="custRequest"/>
+        <set field="custRequest.statusId" from-field="oldStatusId"/><!-- not update status yet -->
+        <store-value value-field="custRequest"/>
         <if-not-empty field="parameters.statusId">
             <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
                 <if-compare field="parameters.statusId" value="CRQ_CANCELLED" operator="equals">
@@ -141,11 +148,6 @@ under the License.
                 </if-not-empty>
             </if-compare-field>
         </if-not-empty>
-        <now-timestamp field="nowTimestamp"/>
-        <set from-field="nowTimestamp" field="custRequest.lastModifiedDate"/>
-        <set from-field="userLogin.userLoginId" field="custRequest.lastModifiedByUserLogin"/>
-        <set-nonpk-fields map="parameters" value-field="custRequest"/>
-        <store-value value-field="custRequest"/>
         
         <!-- if story is provided update the first item of the customer request -->
         <if-not-empty field="parameters.story">
@@ -443,6 +445,11 @@ under the License.
             <if-empty field="custRequest.fromPartyId">
                 <add-error>
                     <fail-property property="OrderCustRequestShouldHaveFromPartyIdIfNotDraft" resource="OrderUiLabels"/>
+                </add-error>
+            </if-empty>
+            <if-empty field="custRequest.custRequestName">
+                <add-error>
+                    <fail-property property="OrderCustRequestShouldHaveCustRequestNameIfNotDraft" resource="OrderUiLabels"/>
                 </add-error>
             </if-empty>
         </if-compare>
