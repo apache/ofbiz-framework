@@ -48,7 +48,7 @@ public class SubscriptionServices {
 
     public static final String module = SubscriptionServices.class.getName();
 
-    public static Map<String, Object> processExtendSubscription(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
+    public static Map<String, Object> processExtendSubscription(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
