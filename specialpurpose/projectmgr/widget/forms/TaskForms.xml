@@ -547,7 +547,7 @@
             </hyperlink>
         </field>
         <field name="taskDescription" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
         <field name="estimatedStartDate"><display type="date"/></field>
         <field name="estimatedCompletionDate"><display type="date"/></field>
@@ -578,7 +578,7 @@
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <display-entity entity-name="RoleType"/>
         </field>
-        <field name="statusId"><display-entity entity-name="StatusItem"></display-entity></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="deleteButton" widget-style="smallSubmit"><submit button-type="button"/></field>

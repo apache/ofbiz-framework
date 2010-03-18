@@ -111,7 +111,7 @@ under the License.
                                     </widgets>
                                     <fail-widgets>
                                         <screenlet title="${uiLabelMap.ProjectMgrAssignATaskToMe}">
-                                            <label style="h3" text="${uiLabelMap.ProjectMgrTaskMember}"></label>
+                                            <label style="h3" text="${uiLabelMap.ProjectMgrTaskMember}"/>
                                         </screenlet>
                                     </fail-widgets>
                                 </section>
@@ -144,10 +144,10 @@ under the License.
                         <fail-widgets>
                             <screenlet title="${uiLabelMap.PageTitleTaskAssignedToMe}">
                                 <container>
-                                    <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen1}"></label>
+                                    <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen1}"/>
                                 </container>
                                 <container>
-                                    <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen2}"></label>
+                                    <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen2}"/>
                                 </container>
                             </screenlet>
                         </fail-widgets>
@@ -479,7 +479,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="h1" text="${uiLabelMap.OrderRequest} : ${custRequest.custRequestName} [${parameters.custRequestId}] ${uiLabelMap.CommonFrom} ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} "></label>
+                        <label style="h1" text="${uiLabelMap.OrderRequest} : ${custRequest.custRequestName} [${parameters.custRequestId}] ${uiLabelMap.CommonFrom} ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} "/>
                         <container style="lefthalf">
                             <screenlet title="${uiLabelMap.PageTitleCreateTaskbyRequest}">
                                 <include-form name="EditTaskFromRequest" location="component://projectmgr/widget/forms/TaskForms.xml"/>
