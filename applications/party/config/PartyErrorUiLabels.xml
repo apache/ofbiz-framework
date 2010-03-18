@@ -458,7 +458,7 @@
     </property>
     <property key="party.id_is_digit">
         <value xml:lang="de">Die angegebene Akteur ID beginnt mit einer Zahl. Numerische IDs sind für vom System automatisch erstellte IDs reserviert.</value>
-        <value xml:lang="en">Specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs</value>
+        <value xml:lang="en">Specified party ID cannot be a digit, numeric IDs are reserved for auto-generated IDs</value>
         <value xml:lang="es">El código no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados.</value>
         <value xml:lang="fr">L'identifiant spécifié pour l'acteur ne peut démarrer par un chiffre, cela est réservé aux identifiants générés automatiquement</value>
         <value xml:lang="hi_IN">निर्दिष्ट पार्टी क्रमांक एक अंक के साथ शुरू नहीं कर सकते ऑटो उत्पन्न क्रमांको के लिए अंकीय क्रमांक आरक्षित हैं|</value>
@@ -708,7 +708,7 @@
         <value xml:lang="zh">不能创建，已经存在指定会员标识的附属。</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_digit">
-        <value xml:lang="en">Cannot create affiliate, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
+        <value xml:lang="en">Cannot create affiliate, specified party ID cannot be a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="es">No se pudo crear afiliado, el código del participante no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados.</value>
         <value xml:lang="fr">Impossible de créer l'affilié(e), la réf. d'acteur ne peut pas commencer par un chiffre, les identifiants numériques sont réservés aux identifiants générés automatiquement.</value>
         <value xml:lang="hi_IN">संबद्ध नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक एक अंक के साथ शुरू नहीं कर सकते ऑटो उत्पन्न क्रमांको के लिए अंकीय क्रमांक आरक्षित हैं|</value>
@@ -817,7 +817,7 @@
     </property>
     <property key="partyservices.could_not_create_party_ID_digit">
         <value xml:lang="de">Akteurgruppe kann nicht erstellt werden, Akteur ID darf nicht mit Zahl beginnen. Numerische Akteur IDs sind für das System reserviert.</value>
-        <value xml:lang="en">Cannot create party group, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
+        <value xml:lang="en">Cannot create party group, specified party ID cannot be a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="es">No se pudo crear grupo de participantes, el código no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados</value>
         <value xml:lang="fr">Impossible de créer le groupe d'acteur, L'identifiant spécifié pour l'acteur ne peut démarrer par un chiffre, cela est réservé aux identifiants générés automatiquement.</value>
         <value xml:lang="hi_IN">पार्टी समूह नहीं बना सकते, निर्दिष्ट पार्टी क्रमांक एक अंक के साथ शुरू नहीं कर सकते ऑटो उत्पन्न क्रमांको के लिए अंकीय क्रमांक आरक्षित हैं|</value>

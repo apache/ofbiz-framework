@@ -112,7 +112,7 @@ public class PartyServices {
         String description = (String) context.get("description");
 
         // if specified partyId starts with a number, return an error
-        if (UtilValidate.isNotEmpty(partyId) && Character.isDigit(partyId.charAt(0))) {
+        if (UtilValidate.isNotEmpty(partyId) && partyId.matches("\\d+")) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "party.id_is_digit", locale));
         }
 
@@ -348,7 +348,7 @@ public class PartyServices {
             }
         } else {
             // if specified partyId starts with a number, return an error
-            if (Character.isDigit(partyId.charAt(0))) {
+            if (partyId.matches("\\d+")) {
                 errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_create_party_ID_digit", locale);
                 return ServiceUtil.returnError(errMsg);
             }
@@ -511,7 +511,7 @@ public class PartyServices {
         String partyId = getPartyId(context);
 
         // if specified partyId starts with a number, return an error
-        if (Character.isDigit(partyId.charAt(0))) {
+        if (UtilValidate.isNotEmpty(partyId) && partyId.matches("\\d+")) {
             errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_create_affiliate_digit", locale);
             return ServiceUtil.returnError(errMsg);
         }
