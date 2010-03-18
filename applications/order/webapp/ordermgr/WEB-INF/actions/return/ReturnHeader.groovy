@@ -88,7 +88,7 @@ orderHeader = null;
 if (orderId) {
     orderRoles = delegator.findByAnd("OrderRole", [orderId : orderId, roleTypeId : "BILL_TO_CUSTOMER"]);
     orderRole = EntityUtil.getFirst(orderRoles);
-    orderHeader = delegator.findByPrimaryKeyCache("OrderHeader", [orderId : orderId]);
+    orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
 }
 context.orderRole = orderRole;
 context.orderHeader = orderHeader;
