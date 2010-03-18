@@ -119,8 +119,7 @@ public class SubscriptionServices {
             calendar.add(times[0], (useTime.intValue() * times[1]));
         } else {
             Debug.logWarning("Don't know anything about useTimeUomId [" + useTimeUomId + "], defaulting to month", module);
-            // FIXME: times[] can only be null here
-            //calendar.add(Calendar.MONTH, (useTime.intValue() * times[1]));
+            calendar.add(Calendar.MONTH, useTime);
         }
 
         thruDate = new Timestamp(calendar.getTimeInMillis());
