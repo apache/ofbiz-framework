@@ -42,7 +42,7 @@ under the License.
                 </screenlet>
             </widgets>
             <fail-widgets>
-                <label style="h2" text="You need at least a PROJECT_ADMIN permission"/>
+                <label style="h2" text="${uiLabelMap.ProjectMgrAdminViewPermissionError}"/>
             </fail-widgets>
         </section>
     </screen>
