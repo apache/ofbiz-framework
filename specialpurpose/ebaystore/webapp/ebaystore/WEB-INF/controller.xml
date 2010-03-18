@@ -382,6 +382,11 @@
         <security auth="true" https="true"/>
         <response name="success" type="view" value="UnsoldListing"/>
     </request-map>
+    <!-- waiting to shipping -->
+    <request-map uri="waitingToShipping">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="WaitingToShipping"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -422,5 +427,7 @@
     <view-map name="MakeSecondChanceOffer" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#MakeSecondChanceOffer"/>
     <!-- Unsold -->
     <view-map name="UnsoldListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#UnsoldListing"/>
+    <!-- Waiting to shipping -->
+    <view-map name="WaitingToShipping" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#WaitingToShipping"/>
     <!-- end of view mappings -->
 </site-conf>

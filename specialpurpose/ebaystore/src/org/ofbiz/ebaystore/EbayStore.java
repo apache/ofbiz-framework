@@ -43,6 +43,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.common.DataModelConstants;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -82,6 +83,7 @@ import com.ebay.soap.eBLBaseComponents.ItemSortTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.MerchDisplayCodeType;
 import com.ebay.soap.eBLBaseComponents.OfferType;
+import com.ebay.soap.eBLBaseComponents.OrderTransactionArrayType;
 import com.ebay.soap.eBLBaseComponents.OrderTransactionType;
 import com.ebay.soap.eBLBaseComponents.OrderType;
 import com.ebay.soap.eBLBaseComponents.PaginationType;
@@ -89,6 +91,9 @@ import com.ebay.soap.eBLBaseComponents.SecondChanceOfferDurationCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductDetailsType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductInventoryStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerSearchType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerSearchTypeCodeType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerSoldListingsPropertyTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsArrayType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerTemplateDetailsType;
 import com.ebay.soap.eBLBaseComponents.SellingStatusType;
@@ -117,12 +122,14 @@ import com.ebay.soap.eBLBaseComponents.StoreThemeArrayType;
 import com.ebay.soap.eBLBaseComponents.StoreThemeType;
 import com.ebay.soap.eBLBaseComponents.StoreType; 
 import com.ebay.soap.eBLBaseComponents.TaskStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.TransactionArrayType;
 import com.ebay.soap.eBLBaseComponents.TransactionType;
 import com.ebay.soap.eBLBaseComponents.UserType;
 import com.ebay.soap.eBLBaseComponents.VerifyAddSecondChanceItemResponseType;
 
 import java.sql.Timestamp;
 
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
  
@@ -1414,6 +1421,10 @@ public class EbayStore {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String productStoreId = (String) context.get("productStoreId");
+        String filter = (String) context.get("filter");
+        String itemId = (String) context.get("itemId");
+        String buyerId = (String) context.get("buyerId");
+        String listingType = (String) context.get("listingType");
         List soldItems = FastList.newInstance();
         try {
             Map<String, Object> inMap = FastMap.newInstance();
@@ -1423,10 +1434,26 @@ public class EbayStore {
             String userID = (String) resultUser.get("userLoginId");
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             GetSellingManagerSoldListingsCall sellingManagerSoldListings = new GetSellingManagerSoldListingsCall(apiContext);
+            if (UtilValidate.isNotEmpty(filter)) {
+                SellingManagerSoldListingsPropertyTypeCodeType[] filterObject = {SellingManagerSoldListingsPropertyTypeCodeType.valueOf(filter)};
+                sellingManagerSoldListings.setFilter(filterObject );
+            }
+            if (UtilValidate.isNotEmpty(itemId)) {
+                SellingManagerSearchType search = new SellingManagerSearchType();
+                search.setSearchType(SellingManagerSearchTypeCodeType.ITEM_ID);
+                search.setSearchValue(itemId);
+                sellingManagerSoldListings.setSearch(search);
+            }
+            if (UtilValidate.isNotEmpty(buyerId)) {
+                SellingManagerSearchType search = new SellingManagerSearchType();
+                search.setSearchType(SellingManagerSearchTypeCodeType.BUYER_USER_ID);
+                search.setSearchValue(buyerId);
+                sellingManagerSoldListings.setSearch(search);
+            }
             sellingManagerSoldListings.getSellingManagerSoldListings();
             SellingManagerSoldOrderType[] sellingManagerSoldOrders = sellingManagerSoldListings.getReturnedSaleRecord();
 
-            if (sellingManagerSoldOrders != null) {
+            if (UtilValidate.isNotEmpty(sellingManagerSoldOrders)) { 
                 int soldOrderLength = sellingManagerSoldOrders.length;
                 for (int i = 0; i < soldOrderLength; i++) {
                     SellingManagerSoldOrderType sellingManagerSoldOrder = sellingManagerSoldOrders[i];
@@ -1831,7 +1858,7 @@ public class EbayStore {
         return ServiceUtil.returnSuccess("Add Second Chance Offer Successful.");
     }
 
-    public static Map<String, Object> getMyeBaySelling(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public Map<String, Object> getMyeBaySelling(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object>result = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1849,7 +1876,6 @@ public class EbayStore {
             GetMyeBaySellingCall api = new GetMyeBaySellingCall(apiContext);
             ItemListCustomizationType itemListType = new ItemListCustomizationType();
             itemListType.setInclude(Boolean.TRUE);
-            itemListType.setSort(ItemSortTypeCodeType.START_TIME_DESCENDING);
 
             String entriesPerPage = (String) context.get("entriesPerPage");
             String pageNumber = (String) context.get("pageNumber");
@@ -1875,12 +1901,13 @@ public class EbayStore {
             api.setActiveList(itemListType);
             api.setScheduledList(itemListType);
             api.setSoldList(itemListType);
+            api.setUnsoldList(itemListType);
             api.getMyeBaySelling();
             ItemType[] tempActiveItems = null;
             if (api.getReturnedActiveList() != null) tempActiveItems = (api.getReturnedActiveList().getItemArray()).getItem();
             final ItemType[] activeItems = tempActiveItems;
             // Display active items in table.
-            TableModel dataModel = new AbstractTableModel() {
+            AbstractTableModel dataModel = new AbstractTableModel() {
                 public int getColumnCount() { return 0; }
                 public int getRowCount() { return activeItems == null ? 0 : activeItems.length;}
                 public Map<String, Object> getValueAt(int row, int col) {
@@ -1907,23 +1934,12 @@ public class EbayStore {
             List<Map> scheduledList = getDataModelToList(dataModel);
             int scheduledSize = dataModel.getRowCount();
             OrderTransactionType[] tempSoldItems = null;
-            if (api.getReturnedSoldList() != null)
-                tempSoldItems = (api.getReturnedSoldList().getOrderTransactionArray()).getOrderTransaction();
-            final OrderTransactionType[] soldItems = tempSoldItems;
-            // Display Sold items in table.
-            dataModel = new AbstractTableModel() {
-                public int getColumnCount() { return 0; }
-                public int getRowCount() { return soldItems == null ? 0 : soldItems.length;}
-                public Map<String, Object> getValueAt(int row, int col) {
-                    OrderTransactionType orderTrans = soldItems[row];
-                    return OrderToColumns(orderTrans);
-                }
-            };
+            if (UtilValidate.isNotEmpty(api.getReturnedSoldList())) tempSoldItems = (api.getReturnedSoldList().getOrderTransactionArray()).getOrderTransaction();
             // add to list
-            List<Map> soldList = getDataModelToList(dataModel);
-            int soldSize = dataModel.getRowCount();
+            List<Map> soldList =  EbayStore.getOrderTransactions(tempSoldItems);
+            int soldSize = tempSoldItems == null ? 0 : tempSoldItems.length;
             ItemType[] tempUnSoldItems = null;
-            if (api.getReturnedUnsoldList() != null) tempUnSoldItems = (api.getReturnedUnsoldList().getItemArray()).getItem();
+            if (UtilValidate.isNotEmpty(api.getReturnedUnsoldList())) tempUnSoldItems = (api.getReturnedUnsoldList().getItemArray()).getItem();
             final ItemType[] unSoldItems = tempUnSoldItems;
             // Display unsold items in table.
             dataModel = new AbstractTableModel() {
@@ -1953,7 +1969,7 @@ public class EbayStore {
         return result;
     }
     // set output data list (MyeBaySelling)
-    private static List<Map> getDataModelToList(TableModel dataModel) {
+    public List<Map> getDataModelToList(TableModel dataModel) {
         List<Map> list = FastList.newInstance();
         for (int rowIndex = 0; rowIndex < dataModel.getRowCount(); rowIndex++) {
             list.add((Map<String, Object>) dataModel.getValueAt(rowIndex, 0));
@@ -1965,11 +1981,11 @@ public class EbayStore {
         int i = 0;
         cols.put("itemId", item.getItemID() != null ? item.getItemID() : "");
         cols.put("title", item.getTitle() != null ? item.getTitle() : "");
-
+        
         SellingStatusType sst = item.getSellingStatus();
         String currentPrice = null;
         String bidCount = null;
-        if (sst != null) {
+        if (UtilValidate.isNotEmpty(sst)) {
             AmountType amt = sst.getCurrentPrice();
             currentPrice = amt != null ? (new Double(amt.getValue()).toString()) : "";
             bidCount = sst.getBidCount() != null ? sst.getBidCount().toString() : "";
@@ -1982,7 +1998,7 @@ public class EbayStore {
 
         Integer quantity = item.getQuantity();
         String quantityStr = null;
-        if (quantity != null) {
+        if (UtilValidate.isNotEmpty(quantity)) {
             quantityStr = quantity.toString();
         }
         cols.put("quantity", quantityStr);
@@ -2003,7 +2019,7 @@ public class EbayStore {
 
         Integer quantity = item.getQuantity();
         String quantityStr = null;
-        if (quantity != null) {
+        if (UtilValidate.isNotEmpty(quantity)) {
             quantityStr = quantity.toString();
         }
         cols.put("quantity", quantityStr);
@@ -2028,7 +2044,7 @@ public class EbayStore {
 
         Integer quantity = item.getQuantity();
         String quantityStr = null;
-        if (quantity != null) {
+        if (UtilValidate.isNotEmpty(quantity)) {
             quantityStr = quantity.toString();
         }
         cols.put("quantity", quantityStr);
@@ -2036,66 +2052,121 @@ public class EbayStore {
         return cols;
     }
 
-    static Map<String, Object> OrderToColumns(OrderTransactionType order) {
+    public static List<Map> getOrderTransactions(OrderTransactionType[] orderTrans) {
+        List<Map> colsList = FastList.newInstance();
+        OrderTransactionType orderTran = null;
+        OrderType order = null;
+        TransactionType transaction= null;
+        for (int rowIndex = 0; rowIndex < orderTrans.length; rowIndex++) {
+            orderTran = orderTrans[rowIndex];
+            order = orderTran.getOrder();
+            transaction = orderTran.getTransaction();
+            if (UtilValidate.isNotEmpty(order)) {
+                TransactionType[] trans = order.getTransactionArray().getTransaction();
+                String orderId = order.getOrderID();
+                for (int rowIndex1 = 0; rowIndex1 < trans.length; rowIndex1++) {
+                    colsList.add(EbayStore.getTransaction(trans[rowIndex1]));
+                }
+            } else {
+                colsList.add(EbayStore.getTransaction(transaction));
+            }
+        }
+        return colsList;
+    }
+
+    public static Map<String, Object> getTransaction(TransactionType transaction){
         Map<String, Object> cols = FastMap.newInstance();
-        int i = 0;
-        TransactionType transaction = order.getTransaction();
-        OrderType orders = order.getOrder();
         ItemType item = transaction.getItem();
         String itemId = null; 
         String title = null;
-        String status = null;
-        String endTime = null;
-        if (item != null) {
+        if (UtilValidate.isNotEmpty(item)) {
             itemId = item.getItemID();
             title = item.getTitle();
-            SellingStatusType sst = item.getSellingStatus();
-            if (sst != null) status = new Double((sst.getCurrentPrice()).getValue()).toString();
-            endTime = eBayUtil.toAPITimeString(item.getListingDetails().getEndTime().getTime());
         }
         cols.put("itemId", itemId);
         cols.put("title", title);
-        cols.put("price", status);
-        cols.put("endTime", endTime);
         UserType buyer = transaction.getBuyer();
         String user = null;
-        if (buyer != null) user = buyer.getUserID();
+        if (UtilValidate.isNotEmpty(buyer)) user = buyer.getUserID();
         cols.put("buyer", user);
         cols.put("listingType", item.getListingType().value());
         Date paidTime = null;
         String checkoutStatus = null;
-        String shippedStatus = null;
-        String shippedTime = null;
+        String eBayPaymentStatus = null;
+        String completeStatus = null;
+        String buyerPaidStatus = null;
+        Date shippedTime = null;
         String unpaidItemStatus = null;
-        int quantity = 0;
         String transactionId = null;
-        double totalAmount = 0;
-        String creationTime = null;
-        if (orders.getCheckoutStatus() != null) {
-            checkoutStatus = orders.getCheckoutStatus().getStatus().value();
+        double totalPrice = 0;
+        double transactionPrice = 0;
+        Date createdDate = null;
+        String sellerPaidStatus = null;
+        String orderId = null;
+        double adjustmentAmount = 0;
+        double amountPaid = 0;
+        if (UtilValidate.isNotEmpty(transaction.getStatus())) {
+            if (UtilValidate.isNotEmpty(transaction.getStatus().getCheckoutStatus())) {
+                checkoutStatus = transaction.getStatus().getCheckoutStatus().value();
+            }
+            if (UtilValidate.isNotEmpty(transaction.getStatus().getEBayPaymentStatus())) {
+                eBayPaymentStatus = transaction.getStatus().getEBayPaymentStatus().value();
+            }
+            if (UtilValidate.isNotEmpty(transaction.getStatus().getCompleteStatus())) {
+                completeStatus = transaction.getStatus().getCompleteStatus().value();
+            }
         }
-        if (orders.getPaidTime() != null) {
-            paidTime = orders.getPaidTime().getTime();
+        if (UtilValidate.isNotEmpty(transaction.getBuyerPaidStatus())) {
+            buyerPaidStatus = transaction.getBuyerPaidStatus().value();
         }
-        if (orders.getShippedTime() != null) {
-            shippedTime = eBayUtil.toAPITimeString(orders.getShippedTime().getTime());
+        if (UtilValidate.isNotEmpty(transaction.getPaidTime())) {
+            paidTime = transaction.getPaidTime().getTime();
         }
-        if (transaction.getBuyerPaidStatus() != null) {
-            unpaidItemStatus = transaction.getBuyerPaidStatus().values().toString();
+        if (UtilValidate.isNotEmpty(transaction.getShippedTime())) {
+            shippedTime = transaction.getShippedTime().getTime();
         }
-        quantity = transaction.getQuantityPurchased();
-        transactionId = transaction.getTransactionID().toString();
-        totalAmount = orders.getTotal().getValue();
-        creationTime = orders.getCreatedTime().getTime().toString();
-
-        cols.put("paidTime", paidTime);
+        if (UtilValidate.isNotEmpty(transaction.getTransactionID())) {
+            transactionId = transaction.getTransactionID().toString();
+        }
+        if (UtilValidate.isNotEmpty(transaction.getTotalPrice())) {
+            totalPrice = transaction.getTotalPrice().getValue();
+        }
+        if (UtilValidate.isNotEmpty(transaction.getTransactionPrice())) {
+            transactionPrice = transaction.getTransactionPrice().getValue();
+        }
+        if (UtilValidate.isNotEmpty(transaction.getCreatedDate())) {
+            createdDate = transaction.getCreatedDate().getTime();
+        }
+        if (UtilValidate.isNotEmpty(transaction.getSellerPaidStatus())) {
+            sellerPaidStatus = transaction.getSellerPaidStatus().value();
+        }
+        if (UtilValidate.isNotEmpty(transaction.getContainingOrder())) {
+            if (UtilValidate.isNotEmpty(transaction.getContainingOrder().getCheckoutStatus())) {
+                checkoutStatus = transaction.getContainingOrder().getCheckoutStatus().getStatus().value();
+            }
+            orderId = transaction.getContainingOrder().getOrderID();
+        }
+        if (UtilValidate.isNotEmpty(transaction.getAdjustmentAmount())) {
+            adjustmentAmount = transaction.getAdjustmentAmount().getValue();
+        }
+        if (UtilValidate.isNotEmpty(transaction.getAmountPaid())) {
+            amountPaid = transaction.getAmountPaid().getValue();
+        }
+        cols.put("amountPaid", amountPaid);
+        cols.put("adjustmentAmount", adjustmentAmount);
+        cols.put("orderId", orderId);
         cols.put("checkoutStatus", checkoutStatus);
+        cols.put("eBayPaymentStatus", eBayPaymentStatus);
+        cols.put("completeStatus", completeStatus);
+        cols.put("buyerPaidStatus", buyerPaidStatus);
+        cols.put("paidTime", paidTime);
         cols.put("shippedTime", shippedTime);
-        cols.put("unpaidItemStatus", unpaidItemStatus);
-        cols.put("quantity", quantity);
+        cols.put("quantity", transaction.getQuantityPurchased());
         cols.put("transactionId", transactionId);
-        cols.put("totalAmount", totalAmount);
-        cols.put("creationTime", creationTime);
-        return cols;
+        cols.put("transactionPrice", transactionPrice);
+        cols.put("totalPrice", totalPrice);
+        cols.put("createdDate", createdDate);
+        cols.put("sellerPaidStatus", sellerPaidStatus);
+        return cols; 
     }
 }

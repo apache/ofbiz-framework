@@ -302,4 +302,7 @@
     <property key="EbayAutoRelistingItemsDescription">
         <value xml:lang="en">Auto Relisting Items when they are end item.</value>
     </property>
+    <property key="EbayWaitingToShipping">
+        <value xml:lang="en">Waiting to shipping</value>
+    </property>
 </resource>
