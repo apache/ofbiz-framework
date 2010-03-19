@@ -194,7 +194,8 @@ public class ModelEntityChecker {
 
                         // make sure all FK names are <= 18 characters
                         if (relation.getFkName().length() > 18) {
-                            warningList.add("[RelFKNameGT18] The foregn key name (length:" + relation.getFkName().length()
+                            warningList.add("[RelFKNameGT18] The foreign key named " + relation.getFkName() 
+                                            + " (length:" + relation.getFkName().length()
                                             + ") was greater than 18 characters in length for relation " + relation.getTitle() + relation.getRelEntityName()
                                             + " of entity " + entity.getEntityName() + ".");
                         }
