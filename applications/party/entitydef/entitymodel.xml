@@ -1710,6 +1710,7 @@ under the License.
     </view-entity>
     <entity entity-name="PartyIdentificationType"
             package-name="org.ofbiz.party.party"
+            default-resource-name="PartyEntityLabels"
             title="Party Identification Type Entity">
       <field name="partyIdentificationTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
