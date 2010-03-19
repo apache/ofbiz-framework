@@ -23,9 +23,10 @@ under the License.
     
     <simple-method method-name="createFacilityContent" short-description="Create Facility Content">
         <call-simple-method method-name="createGenericContent" xml-resource="component://content/script/org/ofbiz/content/layout/LayoutEvents.xml"/>
+        <set field="facilityContext.contentId" from-field="context.contentId"/>        
         <set field="facilityContext.facilityId" from-field="formInput.formInput.facilityId"/>
-        <set field="facilityContext.contentId" from-field="context.contentId"/>
-
+        <set field="facilityContext.fromDate" from-field="formInput.formInput.fromDate" type="Timestamp"/> 
+        <set field="facilityContext.thruDate" from-field="formInput.formInput.thruDate" type="Timestamp"/>
         <!-- Create FacilityContent -->
         <call-service service-name="createFacilityContent" in-map-name="facilityContext">
             <result-to-field result-name="contentId" field="contentId"/>
