@@ -196,7 +196,7 @@
         <value xml:lang="en">Marketing Campaign Id</value>
         <value xml:lang="es">Campaña</value>
         <value xml:lang="fr">Réf. de campagne marketing</value>
-        <value xml:lang="it">Codice Campagna Vendita</value>
+        <value xml:lang="it">Codice campagna vendita</value>
         <value xml:lang="nl">ID Campagne</value>
         <value xml:lang="pt_BR">ID de Campanha de Marketing</value>
         <value xml:lang="ro">Cod Campanie Vanzare</value>
@@ -294,7 +294,7 @@
         <value xml:lang="en">Contact List</value>
         <value xml:lang="es">Lista de contactos</value>
         <value xml:lang="fr">Liste de contacts</value>
-        <value xml:lang="it">Lista Contatto</value>
+        <value xml:lang="it">Lista contatti</value>
         <value xml:lang="nl">Contactenlijst</value>
         <value xml:lang="pt_BR">Lista de contatos</value>
         <value xml:lang="ro">Lista Contact</value>
@@ -305,7 +305,7 @@
         <value xml:lang="en">Create New Contact List Comm Event</value>
         <value xml:lang="es">Crear evento de comunicación</value>
         <value xml:lang="fr">Nouvel évènement de communication de la liste de contact</value>
-        <value xml:lang="it">Creare Nuova Lista Contatto Evento Comunicazione</value>
+        <value xml:lang="it">Nuovo evento comunicazione della lista contatti</value>
         <value xml:lang="nl">Nieuwe contactenlijst Comm Event</value>
         <value xml:lang="pt_BR">Criar envento de comunicação</value>
         <value xml:lang="ro">Creare Noua Lista Contact Eveniment Comunicatie</value>
@@ -342,7 +342,7 @@
         <value xml:lang="en">Contact List Id</value>
         <value xml:lang="es">Código de lista</value>
         <value xml:lang="fr">Réf. de la liste de contact</value>
-        <value xml:lang="it">Codice Lista Contatto</value>
+        <value xml:lang="it">Codice lista contatti</value>
         <value xml:lang="nl">ID Contactenlijst</value>
         <value xml:lang="pt_BR">ID de lista de contatos</value>
         <value xml:lang="ro">Cod Lista Contact</value>
@@ -353,7 +353,7 @@
         <value xml:lang="en">Contact List Name</value>
         <value xml:lang="es">Nombre de lista</value>
         <value xml:lang="fr">Nom de la liste de contact</value>
-        <value xml:lang="it">Nome Lista Contatto</value>
+        <value xml:lang="it">Nome lista contatti</value>
         <value xml:lang="nl">Naam Contactenlijst</value>
         <value xml:lang="pt_BR">Nome da lista de contatos</value>
         <value xml:lang="ro">Nume Lista Contact</value>
@@ -364,7 +364,7 @@
         <value xml:lang="en">Contact List Type Id</value>
         <value xml:lang="es">Tipo de lista</value>
         <value xml:lang="fr">Réf. du type de liste de contact</value>
-        <value xml:lang="it">Tipo Lista Contatto</value>
+        <value xml:lang="it">Tipo lista contatti</value>
         <value xml:lang="nl">ID Soort Contactenlijst</value>
         <value xml:lang="pt_BR">ID do tipo de lista de contato</value>
         <value xml:lang="ro">Tip Lista Contact</value>
@@ -375,7 +375,7 @@
         <value xml:lang="en">Contact Mechanism Type Id</value>
         <value xml:lang="es">Mecanismo de contacto</value>
         <value xml:lang="fr">Type de mécanisme de contact </value>
-        <value xml:lang="it">Tipo Contatto</value>
+        <value xml:lang="it">Tipo di contatti</value>
         <value xml:lang="nl">ID Soort Contact Mechanism</value>
         <value xml:lang="pt_BR">ID do tipo de mecanismo de contato</value>
         <value xml:lang="ro">Tip Contact</value>
@@ -386,7 +386,7 @@
         <value xml:lang="en">Create New Contact List</value>
         <value xml:lang="es">Crear nueva lista de contactos</value>
         <value xml:lang="fr">Nouvelle liste de contact</value>
-        <value xml:lang="it">Creare Nuova Lista Contatto</value>
+        <value xml:lang="it">Nuova lista contatti</value>
         <value xml:lang="nl">Nieuwe Contactenlijst</value>
         <value xml:lang="pt_BR">Criar nova lista de contatos</value>
         <value xml:lang="ro">Creare Noua Lista Contact</value>
@@ -396,7 +396,7 @@
     <property key="MarketingContactListFindContactLists">
         <value xml:lang="en">Find Contact Lists</value>
         <value xml:lang="fr">Rechercher les listes de contact</value>
-        <value xml:lang="it">Ricerca Liste Contatto</value>
+        <value xml:lang="it">Ricerca liste contatti</value>
         <value xml:lang="nl">Zoek Contactenlijst</value>
         <value xml:lang="pt_BR">Encontrar lista de contato</value>
         <value xml:lang="ro">Cauta Liste Contact</value>
@@ -408,7 +408,7 @@
         <value xml:lang="en">Is Public ?</value>
         <value xml:lang="es">Es pública ?</value>
         <value xml:lang="fr">Est publique ?</value>
-        <value xml:lang="it">E' Pubblico ?</value>
+        <value xml:lang="it">E' pubblica ?</value>
         <value xml:lang="nl">Openbaar?</value>
         <value xml:lang="pt_BR">É pública ?</value>
         <value xml:lang="ro">Este Public ?</value>
@@ -419,7 +419,7 @@
         <value xml:lang="de">Einmalige Nutzung ?</value>
         <value xml:lang="en">Is Single Use ?</value>
         <value xml:lang="fr">Est à usage unique ?</value>
-        <value xml:lang="it">E' Uso Singolo ?</value>
+        <value xml:lang="it">E' a singolo uso ?</value>
         <value xml:lang="nl">Single Use?</value>
         <value xml:lang="pt_BR">É de uso único ?</value>
         <value xml:lang="ro">Este pentru un unic utilizatir?</value>
@@ -453,7 +453,7 @@
         <value xml:lang="en">Owner Party Id</value>
         <value xml:lang="es">Propietario</value>
         <value xml:lang="fr">Réf. d'acteur propriétaire</value>
-        <value xml:lang="it">Codice Soggetto Proprietario</value>
+        <value xml:lang="it">Codice soggetto proprietario</value>
         <value xml:lang="nl">ID Manager Contactenlijst</value>
         <value xml:lang="pt_BR">ID do proprietário</value>
         <value xml:lang="ro">Cod Subiect Proprietar</value>
@@ -464,7 +464,7 @@
         <value xml:lang="en">Contact List Party</value>
         <value xml:lang="es">Participantes</value>
         <value xml:lang="fr">Abonné à la liste de contact</value>
-        <value xml:lang="it">Lista Contatti Soggetti</value>
+        <value xml:lang="it">Membro lista contatti</value>
         <value xml:lang="nl">Partij Contactlijst</value>
         <value xml:lang="pt_BR">Participante de Lista de contatos</value>
         <value xml:lang="ro">Lista Contacte Subiecti</value>
@@ -475,7 +475,7 @@
         <value xml:lang="en">Create New Contact List Party</value>
         <value xml:lang="es">Asociar participante</value>
         <value xml:lang="fr">Créer un nouvel abonné à  la liste de contact</value>
-        <value xml:lang="it">Creare Nuova Lista Contatto Soggetto</value>
+        <value xml:lang="it">Nuovo membro lista contatti</value>
         <value xml:lang="nl">Nieuwe Partij Contactenlijst</value>
         <value xml:lang="pt_BR">Criar novo participante de lista de contatos</value>
         <value xml:lang="ro">Creare Noua Lista Contact Subiect</value>
@@ -487,7 +487,7 @@
         <value xml:lang="en">Party Id</value>
         <value xml:lang="es">Código de participante</value>
         <value xml:lang="fr">Réf. d'abonné à la liste de contact</value>
-        <value xml:lang="it">Codice Soggetto</value>
+        <value xml:lang="it">Codice membro lista contatti</value>
         <value xml:lang="nl">ID Deelnemer</value>
         <value xml:lang="pt_BR">ID de participante</value>
         <value xml:lang="ro">Cod Subiect</value>
@@ -498,7 +498,7 @@
         <value xml:lang="en">Preferred Contact Mechanism</value>
         <value xml:lang="es">Mecanismo de contacto</value>
         <value xml:lang="fr">Mécanisme de contact favori</value>
-        <value xml:lang="it">Contatto Preferito</value>
+        <value xml:lang="it">Modo di contatto preferito</value>
         <value xml:lang="nl">Voorkeur Contact Mechanism</value>
         <value xml:lang="pt_BR">Mecanismo de contato preferencial</value>
         <value xml:lang="ro">Contact Preferit</value>
@@ -510,7 +510,7 @@
         <value xml:lang="en">Verify Email From</value>
         <value xml:lang="es">E-mail de verificación</value>
         <value xml:lang="fr">Adresse courriel de vérification</value>
-        <value xml:lang="it">Verifica Email Da</value>
+        <value xml:lang="it">Verifica Email da</value>
         <value xml:lang="nl">Verifieer email van</value>
         <value xml:lang="pt_BR">Verificação de e-mail de origem</value>
         <value xml:lang="ro">Verifica Email De la</value>
@@ -522,7 +522,7 @@
         <value xml:lang="en">Verify Email Screen</value>
         <value xml:lang="es">Pantalla de verificación</value>
         <value xml:lang="fr">Ecran de vérification du courriel</value>
-        <value xml:lang="it">Verifica Email Videata</value>
+        <value xml:lang="it">Schermo di verifica Email</value>
         <value xml:lang="nl">Verificatiescherm email</value>
         <value xml:lang="pt_BR">Tela de verificação de e-mail</value>
         <value xml:lang="ro">Verifica Email Videata</value>
@@ -1483,7 +1483,7 @@
         <value xml:lang="en">Edit Contact List</value>
         <value xml:lang="es">Editar lista de contactos</value>
         <value xml:lang="fr">Modifier la liste de contact</value>
-        <value xml:lang="it">Aggiorna lista contatto</value>
+        <value xml:lang="it">Aggiorna lista contatti</value>
         <value xml:lang="pt_BR">Editar lista de contatos</value>
         <value xml:lang="ro">Editeaza Lista Contacte</value>
         <value xml:lang="th">แก้ไขรายการติดต่อ</value>
@@ -1503,7 +1503,7 @@
         <value xml:lang="en">Edit Contact List Party</value>
         <value xml:lang="es">Añadir participante</value>
         <value xml:lang="fr">Modifier l'abonné à la liste de contact</value>
-        <value xml:lang="it">Aggiorna Lista Contatto Soggetto</value>
+        <value xml:lang="it">Aggiorna membro lista contatti</value>
         <value xml:lang="pt_BR">Editar participante de lista de contatos</value>
         <value xml:lang="ro">Editeaza Lista Contacte Parteneri</value>
         <value xml:lang="th">แก้ไขรายการติดต่อกลุ่มผู้ใช้</value>
@@ -1637,7 +1637,7 @@
         <value xml:lang="en">Find Associated CommEvents</value>
         <value xml:lang="es">Buscar eventos asociados</value>
         <value xml:lang="fr">Rechercher les évènements de communication associés</value>
-        <value xml:lang="it">Ricerca Associazioni Eventi Comunicazioni</value>
+        <value xml:lang="it">Ricerca eventi comunicazione associati</value>
         <value xml:lang="pt_BR">Buscar Eventos de comunicação associados</value>
         <value xml:lang="ro">Cauta Asociatii Evenimente de Comunicare</value>
         <value xml:lang="th">ค้นหาผลการติดต่อที่สัมพันธ์กัน</value>
@@ -1647,7 +1647,7 @@
         <value xml:lang="en">Find Contact List Parties</value>
         <value xml:lang="es">Buscar participantes</value>
         <value xml:lang="fr">Rechercher les abonnés à la liste de contact</value>
-        <value xml:lang="it">Ricerca Lista Contatto Soggetti</value>
+        <value xml:lang="it">Ricerca membri della lista contatti</value>
         <value xml:lang="pt_BR">Buscar participantes na lsita de contatos</value>
         <value xml:lang="ro">Cauta Lista Contact Parteneri</value>
         <value xml:lang="th">ค้นหารายการติดต่อกลุ่มผู้ใช้</value>
@@ -1742,7 +1742,7 @@
         <value xml:lang="en">List Contact List Parties</value>
         <value xml:lang="es">Mostrar participantes</value>
         <value xml:lang="fr">Liste des abonnés à la liste de contact</value>
-        <value xml:lang="it">Visualizza Lista Contatti Soggetti</value>
+        <value xml:lang="it">Elenco membri della lista contatti</value>
         <value xml:lang="pt_BR">Listar participantes da lista de contatos</value>
         <value xml:lang="ro">Visualizeaza Lista Contacte Subiecti</value>
         <value xml:lang="th">ลงรายการติดต่อกลุ่มผู้ใช้</value>
