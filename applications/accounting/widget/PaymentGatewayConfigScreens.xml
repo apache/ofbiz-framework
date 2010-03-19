@@ -29,11 +29,12 @@ under the License.
             <widgets>
                 <!-- main defines the regions of the HTML page -->
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                <!-- body is the primary display for this page and is called recursively -->
+                    <decorator-section name="pre-body">
+                        <include-menu name="PaymentGatewayConfigTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="PaymentGatewayConfigTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                 <container>
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
