@@ -27,10 +27,6 @@ float:left;
 width:20em;
 }
 
-div.contentarea {
-margin: 10px 0 0 0.5em;
-padding:0 0 0 0.5em;
-}
 .leftonly {
 float:none;
 min-height:25em;
@@ -43,11 +39,25 @@ width:auto;
 
 div.screenlet-body {
 border: none;
+overflow: hidden;
 }
 
-#content-main-section h1,
-#content-main-section .h1 {
+#Document .contentarea {
+background:none;
+}
+
+#Document #column-container {
+background:none;
+}
+
+#content-main-section h1 {
 display: block;
+font-weight:bold;
+}
+
+#content-main-section h2 {
+background:none;
+font-weight:bold;
 }
 
 ol.numbers {
