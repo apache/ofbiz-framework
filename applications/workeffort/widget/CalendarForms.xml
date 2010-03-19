@@ -20,6 +20,33 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FilterCalendarEvents" type="single" target="calendar">
+        <field name="partyId">
+            <lookup target-form-name="LookupPartyName" size="16"/>
+        </field>
+        <field name="workEffortTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="WorkEffortType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="facilityId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Facility" description="${facilityName}">
+                    <entity-order-by field-name="facilityName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fixedAssetId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="FixedAsset" description="${fixedAssetId} - ${fixedAssetName}">
+                    <entity-order-by field-name="fixedAssetId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="viewButton" title="${uiLabelMap.CommonView}"><submit/></field>
+    </form>
     <!-- Forms Specific to portlet -->
     <form name="EditCalendar" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
         <field name="initialView" entry-name="attributeMap.initialView">

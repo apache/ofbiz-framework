@@ -147,22 +147,17 @@ under the License.
                                 <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
                             </condition>
                             <actions>
-                                <entity-condition entity-name="Facility" list="allFacilities">
-                                    <order-by field-name="facilityName"/>
-                                </entity-condition>
-                                <entity-condition entity-name="FixedAsset" list="allFixedAssets">
-                                    <order-by field-name="fixedAssetId"/>
-                                </entity-condition>
-                                <entity-condition entity-name="WorkEffortType" list="allWorkEffortTypes">
-                                    <order-by field-name="description"/>
-                                </entity-condition>
                                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
                             </actions>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://workeffort/webapp/workeffort/calendar/eventsByForms.ftl"/></html>
-                                </platform-specific>
-                                <decorator-section-include name="body"/>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FilterCalendarEvents" location="component://workeffort/widget/CalendarForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <decorator-section-include name="body"/>
+                                    </decorator-section>
+                                </decorator-screen>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.WorkEffortViewPermissionError}</label>
