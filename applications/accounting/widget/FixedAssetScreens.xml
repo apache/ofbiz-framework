@@ -538,8 +538,9 @@ under the License.
                                     <section>
                                         <condition>
                                             <and>
-                                                <if-compare-field field="assetDepreciationResultMap.plannedPastDepreciationTotal" to-field="depreciation" operator="greater"/>
+                                                <not><if-empty field="assetDepreciationResultMap.plannedPastDepreciationTotal"/></not>
                                                 <not><if-empty field="fixedAsset.partyId"/></not>
+                                                <if-compare-field field="assetDepreciationResultMap.plannedPastDepreciationTotal" to-field="depreciation" operator="greater" type="BigDecimal"/>
                                             </and>
                                         </condition>
                                         <actions>
