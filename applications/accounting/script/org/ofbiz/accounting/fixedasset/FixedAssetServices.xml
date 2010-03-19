@@ -573,18 +573,23 @@ under the License.
             <then>
                 <set field="depreciation" value="0.0" type="BigDecimal"/>
                 <!--FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired) -->
-                <calculate field="depreciation" decimal-scale="2">
-                    <calcop operator="divide">
-                        <calcop operator="subtract">
-                            <calcop operator="get" field="purchaseCost"/>
-                            <calcop operator="get" field="salvageValue"/>
-                        </calcop>
-                        <calcop operator="subtract">
-                            <calcop operator="get" field="expEndOfLifeYear"/>
-                            <calcop operator="get" field="assetAcquiredYear"/>
-                        </calcop>
+                <calculate field="numberOfYears">
+                    <calcop operator="subtract">
+                        <calcop operator="get" field="expEndOfLifeYear"/>
+                        <calcop operator="get" field="assetAcquiredYear"/>
                     </calcop>
                 </calculate>
+                <if-compare field="numberOfYears" operator="greater" value="0.0" type="BigDecimal">
+                    <calculate field="depreciation" decimal-scale="2">
+                        <calcop operator="divide">
+                            <calcop operator="subtract">
+                                <calcop operator="get" field="purchaseCost"/>
+                                <calcop operator="get" field="salvageValue"/>
+                            </calcop>
+                            <calcop operator="get" field="numberOfYears"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
                 <set field="depreciationYear" from-field="assetAcquiredYear" type="BigDecimal"/>
                 <loop count="${intUsageYears}">
                     <calculate field="purchaseCost">
@@ -640,21 +645,25 @@ under the License.
             <then>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
                 <!--FORMULA :  depreciation = (purchaseCost - salvageValue - pastDepreciations) / remainingYears -->
-                <calculate field="nextDepreciationAmount" decimal-scale="2">
-                    <calcop operator="divide">
-                        <calcop operator="subtract">
-                            <calcop operator="get" field="fixedAsset.purchaseCost"/>
-                            <calcop operator="get" field="salvageValue"/>
-                            <calcop operator="get" field="fixedAsset.depreciation"/>
-                        </calcop>
-                        <!-- Remaining years -->
-                        <calcop operator="subtract">
-                            <calcop operator="get" field="expEndOfLifeYear"/>
-                            <calcop operator="get" field="assetAcquiredYear"/>
-                            <calcop operator="get" field="intUsageYears"/>
-                        </calcop>
+                <calculate field="remainingYears">
+                    <calcop operator="subtract">
+                        <calcop operator="get" field="expEndOfLifeYear"/>
+                        <calcop operator="get" field="assetAcquiredYear"/>
+                        <calcop operator="get" field="intUsageYears"/>
                     </calcop>
                 </calculate>
+                <if-compare field="remainingYears" operator="greater" value="0.0" type="BigDecimal">
+                    <calculate field="nextDepreciationAmount" decimal-scale="2">
+                        <calcop operator="divide">
+                            <calcop operator="subtract">
+                                <calcop operator="get" field="fixedAsset.purchaseCost"/>
+                                <calcop operator="get" field="salvageValue"/>
+                                <calcop operator="get" field="fixedAsset.depreciation"/>
+                            </calcop>
+                            <calcop operator="get" field="remainingYears"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
             </then>
         </if>
         <field-to-result field="nextDepreciationAmount"/>
@@ -676,24 +685,28 @@ under the License.
             <then>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
                 <!--FORMULA :  depreciation = 2 * (purchaseCost - salvageValue - pastDepreciations) / remainingYears -->
-                <calculate field="nextDepreciationAmount" decimal-scale="2">
-                    <calcop operator="multiply">
-                        <calcop operator="divide">
-                            <calcop operator="subtract">
-                                <calcop operator="get" field="fixedAsset.purchaseCost"/>
-                                <calcop operator="get" field="salvageValue"/>
-                                <calcop operator="get" field="fixedAsset.depreciation"/>
-                            </calcop>
-                            <!-- Remaining years -->
-                            <calcop operator="subtract">
-                                <calcop operator="get" field="expEndOfLifeYear"/>
-                                <calcop operator="get" field="assetAcquiredYear"/>
-                                <calcop operator="get" field="intUsageYears"/>
-                            </calcop>
-                        </calcop>
-                        <number value="2"/>
+                <calculate field="remainingYears">
+                    <calcop operator="subtract">
+                        <calcop operator="get" field="expEndOfLifeYear"/>
+                        <calcop operator="get" field="assetAcquiredYear"/>
+                        <calcop operator="get" field="intUsageYears"/>
                     </calcop>
                 </calculate>
+                <if-compare field="remainingYears" operator="greater" value="0.0" type="BigDecimal">
+                    <calculate field="nextDepreciationAmount" decimal-scale="2">
+                        <calcop operator="multiply">
+                            <calcop operator="divide">
+                                <calcop operator="subtract">
+                                    <calcop operator="get" field="fixedAsset.purchaseCost"/>
+                                    <calcop operator="get" field="salvageValue"/>
+                                    <calcop operator="get" field="fixedAsset.depreciation"/>
+                                </calcop>
+                                <calcop operator="get" field="remainingYears"/>
+                            </calcop>
+                            <number value="2"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
             </then>
         </if>
         <field-to-result field="nextDepreciationAmount"/>
@@ -712,21 +725,26 @@ under the License.
                 <loop count="${intUsageYears}">
                     <set field="depreciation" value="0.0" type="BigDecimal"/>
                     <!--FORMULA : depreciation = (NBV - salvageValue) * 2 / (expectedEndOfLife - dateAcquired) -->
-                    <calculate field="depreciation" decimal-scale="2">
-                        <calcop operator="multiply">
-                            <calcop operator="divide">
-                               <calcop operator="subtract">
-                                    <calcop operator="get" field="purchaseCost"/>
-                                    <calcop operator="get" field="salvageValue"/>
-                                </calcop>
-                                <calcop operator="subtract">
-                                    <calcop operator="get" field="expEndOfLifeYear"/>
-                                    <calcop operator="get" field="assetAcquiredYear"/>
-                                </calcop>
-                            </calcop>
-                            <number value="2"/>
+                    <calculate field="numberOfYears">
+                        <calcop operator="subtract">
+                            <calcop operator="get" field="expEndOfLifeYear"/>
+                            <calcop operator="get" field="assetAcquiredYear"/>
                         </calcop>
                     </calculate>
+                    <if-compare field="numberOfYears" operator="greater" value="0.0" type="BigDecimal">
+                        <calculate field="depreciation" decimal-scale="2">
+                            <calcop operator="multiply">
+                                <calcop operator="divide">
+                                   <calcop operator="subtract">
+                                        <calcop operator="get" field="purchaseCost"/>
+                                        <calcop operator="get" field="salvageValue"/>
+                                    </calcop>
+                                    <calcop operator="get" field="numberOfYears"/>
+                                </calcop>
+                                <number value="2"/>
+                            </calcop>
+                        </calculate>
+                    </if-compare>
                     <calculate field="assetAcquiredYear">
                         <calcop operator="add">
                            <calcop operator="get" field="assetAcquiredYear"/>
