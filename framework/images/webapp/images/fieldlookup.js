@@ -192,7 +192,7 @@ var FieldLookupPopup = Class.create({
             CURRENT_LOOKUP.removeLayer();
         }
         //fade the background if the flag is set
-        if (!fadeBackground != "false") {
+        if (fadeBackground != "false") {
             this.createFadedBackground();
         }
         //set dimension isn't set, set default parameters
