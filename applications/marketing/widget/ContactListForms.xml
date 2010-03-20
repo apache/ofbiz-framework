@@ -173,7 +173,7 @@ under the License.
      </form>
     
 
-    <form name="FindContactListParties" type="single" target="ListContactListParties" title=""
+    <form name="FindContactListParties" type="single" target="FindContactListParties" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="contactListId" title="${uiLabelMap.MarketingContactListContactListId}"><text-find/></field>
         <field name="partyId" title="${uiLabelMap.MarketingContactListPartyId}"><lookup target-form-name="LookupPartyName"/></field>
