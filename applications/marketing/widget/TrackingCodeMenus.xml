@@ -22,7 +22,7 @@ under the License.
     <menu name="TrackingCodeTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="TrackingCode" selected-menuitem-context-field-name="trackingCodeTabButtonItem">
         <menu-item name="TrackingCode" title="${uiLabelMap.MarketingTrackingCode}">
-            <link target="/FindTrackingCode"/>
+            <link target="FindTrackingCode"/>
         </menu-item>
         <menu-item name="TrackingCodeOrder" title="${uiLabelMap.MarketingTrackingCodeOrder}">
         <condition>
@@ -30,7 +30,7 @@ under the License.
                 <if-empty field="trackingCodeId"/>
             </not>
         </condition>
-            <link target="/FindTrackingCodeOrders">
+            <link target="FindTrackingCodeOrders">
                 <parameter param-name="trackingCodeId"/>
             </link>
         </menu-item>
@@ -40,12 +40,12 @@ under the License.
                 <if-empty field="trackingCodeId"/>
             </not>
         </condition>
-            <link target="/FindTrackingCodeVisits">
+            <link target="FindTrackingCodeVisits">
                 <parameter param-name="trackingCodeId"/>
             </link>
         </menu-item>
         <menu-item name="TrackingCodeType" title="${uiLabelMap.MarketingTrackingCodeType}">
-            <link target="/FindTrackingCodeType"/>
+            <link target="FindTrackingCodeType"/>
         </menu-item>
     </menu>
 </menus>
