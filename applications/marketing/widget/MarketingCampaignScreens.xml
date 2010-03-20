@@ -84,8 +84,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditMarketingCampaign}">
-                                    <container>
-                                        <link  text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign" style="buttontext">
+                                    <container style="button-bar">
+                                        <link  text="${uiLabelMap.MarketingCampaignCreate}" target="EditMarketingCampaign" style="buttontext create">
                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                         </link>
                                     </container>
@@ -118,8 +118,8 @@ under the License.
                 <decorator-screen name="CommonMarketingCampaignDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListMarketingCampaign}">
-                            <container>
-                                <link text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign" style="buttontext">
+                            <container style="button-bar">
+                                <link text="${uiLabelMap.MarketingCampaignCreate}" target="EditMarketingCampaign" style="buttontext create">
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
@@ -148,8 +148,8 @@ under the License.
                 <decorator-screen name="CommonMarketingCampaignDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditMarketingCampaignRole}">
-                            <container>
-                                <link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles">
+                            <container style="button-bar">
+                                <link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="EditMarketingCampaignRoles" style="buttontext create">
                                     <parameter param-name="marketingCampaignId"/>
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
@@ -176,8 +176,8 @@ under the License.
                 <decorator-screen name="CommonMarketingCampaignDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListMarketingCampaignRole}">
-                            <container>
-                                <link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles">
+                            <container style="button-bar">
+                                <link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="EditMarketingCampaignRoles" style="buttontext create">
                                     <parameter param-name="marketingCampaignId"/>
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>

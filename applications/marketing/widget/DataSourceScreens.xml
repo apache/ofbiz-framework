@@ -80,8 +80,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditDataSource}">
-                                    <container>
-                                        <link text="${uiLabelMap.DataSourceCreate}" target="/EditDataSource" style="buttontext">
+                                    <container style="button-bar">
+                                        <link text="${uiLabelMap.DataSourceCreate}" target="EditDataSource" style="buttontext create">
                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                         </link>
                                     </container>
@@ -115,8 +115,8 @@ under the License.
                 <decorator-screen name="CommonDataSourceDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListDataSource}">
-                            <container>
-                                <link text="${uiLabelMap.DataSourceCreate}" target="/EditDataSource" style="buttontext">
+                            <container style="button-bar">
+                                <link text="${uiLabelMap.DataSourceCreate}" target="EditDataSource" style="buttontext create">
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
@@ -148,8 +148,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditDataSourceType}">
-                                    <container>
-                                        <link  text="${uiLabelMap.DataSourceTypeCreate}" target="/EditDataSourceType" style="buttontext">
+                                    <container style="button-bar">
+                                        <link  text="${uiLabelMap.DataSourceTypeCreate}" target="EditDataSourceType" style="buttontext create">
                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                         </link>
                                     </container>
@@ -184,8 +184,8 @@ under the License.
                 <decorator-screen name="CommonDataSourceDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListDataSourceType}">
-                            <container>
-                                <link text="${uiLabelMap.DataSourceTypeCreate}" target="/EditDataSourceType" style="buttontext">
+                            <container style="button-bar">
+                                <link text="${uiLabelMap.DataSourceTypeCreate}" target="EditDataSourceType" style="buttontext create">
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
