@@ -184,7 +184,7 @@
         <value xml:lang="en">Create Marketing Campaign</value>
         <value xml:lang="es">Crear campaña de marketing</value>
         <value xml:lang="fr">Nouvelle campagne marketing</value>
-        <value xml:lang="it">Creare Campagna Vendita</value>
+        <value xml:lang="it">Nuova campagna di vendita</value>
         <value xml:lang="nl">Nieuwe Marketing Campagne</value>
         <value xml:lang="pt_BR">Criar Campanha de Marketing</value>
         <value xml:lang="ro">Creare Campanie Vanzare</value>
@@ -230,7 +230,7 @@
         <value xml:lang="en">Marketing Campaign Report</value>
         <value xml:lang="es">Informe de campañas de marketing</value>
         <value xml:lang="fr">Rapport des campagnes de marketing</value>
-        <value xml:lang="it">Stampe Campagne di Vendita</value>
+        <value xml:lang="it">Report campagne di vendita</value>
         <value xml:lang="nl">Campaigne Rapport</value>
         <value xml:lang="pt_BR">Relatório de campanha de marketing</value>
         <value xml:lang="ro">Tiparire Campanie de Vanzare</value>
@@ -579,6 +579,7 @@
     <property key="MarketingEmailStatusReport">
         <value xml:lang="de">E-Mail Statusbericht</value>
         <value xml:lang="en">Email Status Report</value>
+        <value xml:lang="it">Report stato e-mail</value>
         <value xml:lang="pt_BR">Relatório de estado de e-mail</value>
     </property>
     <property key="MarketingFindAccounts">
@@ -683,6 +684,7 @@
     </property>
     <property key="MarketingPartyStatusReport">
         <value xml:lang="en">Party Status Report</value>
+        <value xml:lang="it">Report stato soggetti</value>
         <value xml:lang="pt_BR">Relatório de estado de participante</value>
     </property>
     <property key="MarketingReports">
@@ -690,7 +692,7 @@
         <value xml:lang="en">Reports</value>
         <value xml:lang="es">Informes</value>
         <value xml:lang="fr">Rapports</value>
-        <value xml:lang="it">Stampe</value>
+        <value xml:lang="it">Report</value>
         <value xml:lang="nl">Rapporten</value>
         <value xml:lang="pt_BR">Relatórios</value>
         <value xml:lang="ro">Tiparire</value>
@@ -740,7 +742,7 @@
         <value xml:lang="en">Create New Segment Group</value>
         <value xml:lang="es">Nuevo segmento</value>
         <value xml:lang="fr">Créer un nouveau groupe de segment</value>
-        <value xml:lang="it">Creare Nuovo Gruppo Segmento</value>
+        <value xml:lang="it">Nuovo gruppo di segmento</value>
         <value xml:lang="nl">Nieuwe Segmentgroep</value>
         <value xml:lang="pt_BR">Criar novo grupo de segmento</value>
         <value xml:lang="ro">Creare Nou Grup Segment</value>
@@ -1015,7 +1017,7 @@
         <value xml:lang="en">Create Tracking Code</value>
         <value xml:lang="es">Crear seguimiento</value>
         <value xml:lang="fr">Nouveau code de suivi</value>
-        <value xml:lang="it">Creare Codice Tracciatura</value>
+        <value xml:lang="it">Nuovo codice tracciatura</value>
         <value xml:lang="nl">Nieuwe Tracking Code</value>
         <value xml:lang="pt_BR">Criar código de rastreio</value>
         <value xml:lang="ro">Creare Cod Traseu</value>
@@ -1159,7 +1161,7 @@
         <value xml:lang="en">Tracking Code Report</value>
         <value xml:lang="es">Informe de seguimientos</value>
         <value xml:lang="fr">Rapport de code de suivi</value>
-        <value xml:lang="it">Stampe Codice Tracciatura</value>
+        <value xml:lang="it">Report codici tracciatura</value>
         <value xml:lang="pt_BR">Relatório de código de rastreio</value>
         <value xml:lang="ro">Tiparire Cod Traseu</value>
         <value xml:lang="th">รหัส Tracking</value>
@@ -1209,7 +1211,7 @@
         <value xml:lang="en">Tracking Code Type</value>
         <value xml:lang="es">Tipo de seguimiento</value>
         <value xml:lang="fr">Type de code de suivi</value>
-        <value xml:lang="it">Tipo Codice Tracciatura</value>
+        <value xml:lang="it">Tipo tracciatura</value>
         <value xml:lang="pt_BR">Tipo de código de rastreio</value>
         <value xml:lang="ro">Tip Cod Traseu</value>
         <value xml:lang="th">ประเภทรหัส Tracking</value>
@@ -1219,7 +1221,7 @@
         <value xml:lang="en">Create Tracking Code Type</value>
         <value xml:lang="es">Crear tipo de seguimiento</value>
         <value xml:lang="fr">Nouveau type de code de suivi</value>
-        <value xml:lang="it">Creare Tipo Tracciatura</value>
+        <value xml:lang="it">Nuovo tipo tracciatura</value>
         <value xml:lang="pt_BR">Criar tipo de código de rastreio</value>
         <value xml:lang="ro">Creare Tip Traseu</value>
         <value xml:lang="th">สร้างประเภทรหัส Tracking</value>
@@ -1396,7 +1398,7 @@
         <value xml:lang="en">Add New Marketing Campaign</value>
         <value xml:lang="es">Nueva campaña de marketing</value>
         <value xml:lang="fr">Ajouter une nouvelle campagne de marketing</value>
-        <value xml:lang="it">Aggiungi Nuova Campagna Vendita</value>
+        <value xml:lang="it">Aggiungi nuova campagna di vendita</value>
         <value xml:lang="pt_BR">Adicionar nova Campanha de Marketing</value>
         <value xml:lang="ro">Adauga Noua Campanie Marketing</value>
         <value xml:lang="th">เพิ่มแผนการตลาดใหม่</value>
@@ -1416,7 +1418,7 @@
         <value xml:lang="en">Add New Tracking Code Type</value>
         <value xml:lang="es">Nuevo tipo de código</value>
         <value xml:lang="fr">Ajouter un nouveau type de code de suivi</value>
-        <value xml:lang="it">Aggiungi Nuovo Tipo Tracciatura</value>
+        <value xml:lang="it">Aggiungi nuovo tipo tracciatura</value>
         <value xml:lang="pt_BR">Adicionar novo tipo de código de rastreio</value>
         <value xml:lang="ro">Adauga Noul Tip Traseu</value>
         <value xml:lang="th">เพิ่มประเภทรหัส Tracking ใหม่</value>
@@ -1547,7 +1549,7 @@
         <value xml:lang="en">Edit Segment Group</value>
         <value xml:lang="es">Editar segmento</value>
         <value xml:lang="fr">Modifier le groupe de segment</value>
-        <value xml:lang="it">Aggiorna Gruppo Segmento</value>
+        <value xml:lang="it">Aggiorna gruppo segmento</value>
         <value xml:lang="pt_BR">Editar Grupo de Segmento</value>
         <value xml:lang="ro">Editeaza Grup Segment</value>
         <value xml:lang="th">แก้ไขการแบ่งกลุ่ม</value>
@@ -1607,7 +1609,7 @@
         <value xml:lang="en">Edit Tracking Code Type</value>
         <value xml:lang="es">Editar tipo de seguimiento</value>
         <value xml:lang="fr">Modifier le type de code de suivi</value>
-        <value xml:lang="it">Aggiorna Tipo Tracciatura</value>
+        <value xml:lang="it">Aggiorna tipo tracciatura</value>
         <value xml:lang="pt_BR">Editar tipo de código de rastreio</value>
         <value xml:lang="ro">Editeaza Tip Traseu</value>
         <value xml:lang="th">แก้ไขประเภทรหัส Tracking</value>
@@ -1752,7 +1754,7 @@
         <value xml:lang="en">List Marketing Campaign</value>
         <value xml:lang="es">Mostrar campañas de marketing</value>
         <value xml:lang="fr">Liste des campagnes marketing</value>
-        <value xml:lang="it">Lista Campagna Vendita</value>
+        <value xml:lang="it">Lista campagne di vendita</value>
         <value xml:lang="pt_BR">Listar Campanhas de Marketing</value>
         <value xml:lang="ro">Lista Campanie Marketing</value>
         <value xml:lang="th">รายการแผนการตลาด</value>
@@ -1792,7 +1794,7 @@
         <value xml:lang="en">List Tracking Code</value>
         <value xml:lang="es">Mostrar seguimientos</value>
         <value xml:lang="fr">Liste des codes de suivi</value>
-        <value xml:lang="it">Lista Codice Tracciatura</value>
+        <value xml:lang="it">Lista codici tracciatura</value>
         <value xml:lang="pt_BR">Listar códigos de rastreio</value>
         <value xml:lang="ro">Lista Cod Traseu</value>
         <value xml:lang="th">รายการรหัส Tracking</value>
@@ -1832,7 +1834,7 @@
         <value xml:lang="en">List Tracking Code Type</value>
         <value xml:lang="es">Editar tipo de seguimiento</value>
         <value xml:lang="fr">Liste des types de code de suivi</value>
-        <value xml:lang="it">Lista Tipo Tracciatura</value>
+        <value xml:lang="it">Lista tipi tracciatura</value>
         <value xml:lang="pt_BR">Listar tipo de código de rastreio</value>
         <value xml:lang="ro">Lista Tip Traseu</value>
         <value xml:lang="th">รายการรหัส Tracking ประเภท</value>
@@ -1908,7 +1910,7 @@
         <value xml:lang="en">Lookup Tracking Code Type</value>
         <value xml:lang="es">Buscar tipo de seguimiento</value>
         <value xml:lang="fr">Consulter le type de code de suivi</value>
-        <value xml:lang="it">Ricerca Tipo Tracciatura</value>
+        <value xml:lang="it">Ricerca tipo tracciatura</value>
         <value xml:lang="pt_BR">Buscar por tipo de código de rastreio</value>
         <value xml:lang="ro">Cauta Tip Traseu</value>
         <value xml:lang="th">ค้นหาข้อมูลรหัส Tracking ประเภท</value>
