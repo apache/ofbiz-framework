@@ -25,6 +25,8 @@ under the License.
        <section>
            <actions>
                <set field="titleProperty" value="MarketingContactListFindContactLists"/>
+               <set field="headerItem" value="ContactList"/>
+               <set field="tabButtonItem" value="ContactList"/>               
                <set field="contactListTabButtonItem" value="ContactList"/>
                <set field="labelTitleProperty" value="PageTitleFindContactLists"/>
                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/FindContactList"/>
@@ -216,15 +218,22 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleFindContactListParty}">
-                            <container style="button-bar">
-                                <link  text="${uiLabelMap.MarketingContactListPartyCreate}" target="EditContactListParty" style="buttontext create">
-                                    <parameter param-name="contactListId"/>
-                                    <parameter param-name="DONE_PAGE" from-field="donePage"/>
-                                </link>
-                            </container>
-                            <include-form name="FindContactListParties" location="component://marketing/widget/ContactListForms.xml"/>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <container style="button-bar">
+                                    <link  text="${uiLabelMap.MarketingContactListPartyCreate}" target="EditContactListParty" style="buttontext create">
+                                        <parameter param-name="contactListId"/>
+                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                    </link>
+                                </container>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindContactListParties" location="component://marketing/widget/ContactListForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListContactListParties" location="component://marketing/widget/ContactListForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                    </decorator-section>
                 </decorator-screen>
             </widgets>
