@@ -30,7 +30,7 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <!-- do check for MARKETING, _VIEW permission -->
                             <condition>
@@ -42,7 +42,16 @@ under the License.
                                         <include-menu name="TrackingCodeTabBar" location="component://marketing/widget/TrackingCodeMenus.xml"/>
                                     </widgets>
                                 </section>
-
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for MARKETING, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="MARKETING" action="_VIEW"/>
+                            </condition>
+                            <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -109,8 +118,8 @@ under the License.
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListTrackingCode}">
-                            <container>
-                                <link text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext">
+                            <container style="button-bar">
+                                <link text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext create">
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
@@ -346,8 +355,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditTrackingCodeType}">
-                                    <container>
-                                        <link  text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext">
+                                    <container style="button-bar">
+                                        <link  text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext create">
                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                         </link>
                                     </container>
@@ -381,8 +390,8 @@ under the License.
                 <decorator-screen name="CommonTrackingCodeDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListTrackingCodeType}">
-                            <container>
-                                <link text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext">
+                            <container style="button-bar">
+                                <link text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext create">
                                     <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                 </link>
                             </container>
