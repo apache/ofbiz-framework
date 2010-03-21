@@ -226,6 +226,7 @@ under the License.
     <StatusValidChange condition="" statusId="CRQ_DRAFT" statusIdTo="CRQ_SUBMITTED" transitionName="Submit Request"/>
     <StatusValidChange condition="" statusId="CRQ_DRAFT" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
     <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
+    <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
     <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_REJECTED" transitionName="Reject Request"/>
     <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
     <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_PENDING" transitionName="Pending customer"/>
