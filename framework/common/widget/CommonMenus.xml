@@ -29,4 +29,6 @@ under the License.
 
     <menu name="CommonTabBarMenu" selected-menuitem-context-field-name="tabButtonItem" type="simple"
           menu-container-style="button-bar tab-bar" default-selected-style="selected"/>
+
+    <menu name="CommonButtonBarMenu" type="simple" menu-container-style="button-bar" default-widget-style="buttontext"/>
 </menus>
