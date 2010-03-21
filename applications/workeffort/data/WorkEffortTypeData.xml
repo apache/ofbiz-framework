@@ -37,6 +37,10 @@ under the License.
     <Enumeration description="Restricted, private access" enumCode="PRIVATE" enumId="WES_PRIVATE" sequenceId="02" enumTypeId="WORK_EFF_SCOPE"/>
     <Enumeration description="Very restricted, confidential access" enumCode="CONFIDENTIAL" enumId="WES_CONFIDENTIAL" sequenceId="03" enumTypeId="WORK_EFF_SCOPE"/>
 
+    <EnumerationType description="Calendar Type" enumTypeId="CALENDAR_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Personal Calendar" enumCode="PERSONAL" enumId="CAL_PERSONAL" sequenceId="01" enumTypeId="CALENDAR_TYPE"/>
+    <Enumeration description="Manufacturing Calendar" enumCode="MANUFACTURING" enumId="CAL_MANUFACTURING" sequenceId="02" enumTypeId="CALENDAR_TYPE"/>
+
     <!-- workeffort status -->
     <StatusType description="WorkEffort Asset" hasTable="N" parentTypeId="" statusTypeId="WORK_EFF_ASSET_STTS"/>
     <StatusType description="WorkEffort Assignment" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_ASSIGN"/>
