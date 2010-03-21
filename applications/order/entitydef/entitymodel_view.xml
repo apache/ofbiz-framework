@@ -1309,6 +1309,22 @@ under the License.
         <key-map field-name="workEffortId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="CustRequestAndNote"
+            package-name="org.ofbiz.order.request"
+            title="Customer Request And Note">
+      <member-entity entity-alias="CRN" entity-name="CustRequestNote"/>
+      <member-entity entity-alias="ND" entity-name="NoteData"/>
+      <alias-all entity-alias="CRN">
+        <exclude field="noteId"/>
+      </alias-all>
+      <alias-all entity-alias="ND"/>
+      <view-link entity-alias="CRN" rel-entity-alias="ND">
+        <key-map field-name="noteId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="CustRequest">
+        <key-map field-name="custRequestId"/>
+      </relation>
+    </view-entity>
     <view-entity entity-name="CustRequestInfoAndWorkEffortAndPartyRel"
             package-name="org.ofbiz.order.request"
             title="Customer Request And WorkEffort">
