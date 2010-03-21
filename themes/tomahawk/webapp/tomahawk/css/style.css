@@ -1418,10 +1418,6 @@ font-weight: bold;
 float: right;
 }
 
-.button-bar ul a,.tabContainer ul a {
-display: block;
-}
-
 .button-bar ul a,.button-bar a {
 background-image:url(../images/tab_normal1.png);
 color:#000000;
@@ -1551,6 +1547,10 @@ margin: 0px;
 margin: 0 2px 0 2px;
 float:left;
 padding:0;
+}
+
+.tab-bar ul a {
+display: block;
 }
 
 .tab-bar ul a,.tab-bar ul a:visited {
