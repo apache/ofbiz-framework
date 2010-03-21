@@ -218,6 +218,7 @@ under the License.
     <StatusItem description="Submitted" sequenceId="01" statusCode="SUBMITTED" statusId="CRQ_SUBMITTED" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="CRQ_ACCEPTED" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Reviewed" sequenceId="03" statusCode="REVIEWED" statusId="CRQ_REVIEWED" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Pending Cust." sequenceId="09" statusCode="PENDING" statusId="CRQ_PENDING" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Completed" sequenceId="04" statusCode="COMPLETED" statusId="CRQ_COMPLETED" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="CRQ_REJECTED" statusTypeId="CUSTREQ_STTS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="CRQ_CANCELLED" statusTypeId="CUSTREQ_STTS"/>
@@ -227,10 +228,15 @@ under the License.
     <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
     <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_REJECTED" transitionName="Reject Request"/>
     <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange condition="" statusId="CRQ_SUBMITTED" statusIdTo="CRQ_PENDING" transitionName="Pending customer"/>
+    <StatusValidChange condition="" statusId="CRQ_PENDING" statusIdTo="CRQ_SUBMITTED" transitionName="Submit Request"/>
+    <StatusValidChange condition="" statusId="CRQ_PENDING" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
     <StatusValidChange condition="" statusId="CRQ_ACCEPTED" statusIdTo="CRQ_REVIEWED" transitionName="Review Request"/>
     <StatusValidChange condition="" statusId="CRQ_ACCEPTED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange condition="" statusId="CRQ_ACCEPTED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
     <StatusValidChange condition="" statusId="CRQ_REVIEWED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
     <StatusValidChange condition="" statusId="CRQ_REVIEWED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange condition="" statusId="CRQ_REVIEWED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
 
     <!-- Requirement statuses -->
     <StatusType description="Requirement Status" hasTable="N" parentTypeId="" statusTypeId="REQUIREMENT_STATUS"/>
