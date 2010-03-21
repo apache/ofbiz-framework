@@ -349,41 +349,35 @@ public class WorkEffortServices {
         return resultMap;
     }
 
-    private static List<EntityCondition> getDefaultWorkEffortExprList(Collection<String> partyIds, String facilityId, String fixedAssetId, String workEffortTypeId, List<EntityCondition> cancelledCheckAndList) {
-        List<EntityCondition> entityExprList = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"), EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"));
+    private static List<EntityCondition> getDefaultWorkEffortExprList(String calendarType, Collection<String> partyIds, String workEffortTypeId, List<EntityCondition> cancelledCheckAndList) {
+        List<EntityCondition> entityExprList = FastList.newInstance();
+        if (cancelledCheckAndList != null) {
+            entityExprList.addAll(cancelledCheckAndList);
+        }
         List<EntityExpr> typesList = FastList.newInstance();
         if (UtilValidate.isNotEmpty(workEffortTypeId)) {
             typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, workEffortTypeId));
         }
-        if (UtilValidate.isNotEmpty(partyIds)) {
-            // (non cancelled) public events, with a startdate
+        if ("CAL_PERSONAL".equals(calendarType)) {
+            // public events are always included to the "personal calendar"
             List<EntityCondition> publicEvents = UtilMisc.<EntityCondition>toList(
                     EntityCondition.makeCondition("scopeEnumId", EntityOperator.EQUALS, "WES_PUBLIC"),
                     EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "EVENT")
                     );
-
-            if (cancelledCheckAndList != null) {
-                publicEvents.addAll(cancelledCheckAndList);
+            if (UtilValidate.isNotEmpty(partyIds)) {
+                entityExprList.add(
+                        EntityCondition.makeCondition(UtilMisc.toList(
+                                EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds),
+                                EntityCondition.makeCondition(publicEvents, EntityJoinOperator.AND)
+                        ), EntityJoinOperator.OR));
             }
+        }
+        if ("CAL_MANUFACTURING".equals(calendarType)) {
             entityExprList.add(
                     EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds),
-                            EntityCondition.makeCondition(publicEvents, EntityJoinOperator.AND)
+                            EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_HEADER"),
+                            EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK")
                     ), EntityJoinOperator.OR));
-        }
-        if (UtilValidate.isNotEmpty(facilityId)) {
-            entityExprList.add(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId));
-            typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_HEADER"));
-            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
-            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
-            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
-        }
-        if (UtilValidate.isNotEmpty(fixedAssetId)) {
-            entityExprList.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
-//            typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"));
-//            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
-//            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
-            entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
         }
         EntityCondition typesCondition = null;
         if (typesList.size() == 0) {
@@ -463,6 +457,10 @@ public class WorkEffortServices {
         Timestamp startDay = (Timestamp) context.get("start");
         Integer numPeriodsInteger = (Integer) context.get("numPeriods");
 
+        String calendarType = (String) context.get("calendarType");
+        if (UtilValidate.isEmpty(calendarType)) {
+            calendarType = "CAL_PERSONAL";
+        }
         String partyId = (String) context.get("partyId");
         Collection<String> partyIds = UtilGenerics.checkCollection(context.get("partyIds"));
         String facilityId = (String) context.get("facilityId");
@@ -507,8 +505,7 @@ public class WorkEffortServices {
                 return ServiceUtil.returnError("You do not have permission to view information for party with ID [" + partyId + "], you must be logged in as a user associated with this party, or have the WORKEFFORTMGR_VIEW or WORKEFFORTMGR_ADMIN permissions.");
             }
         } else {
-            // if a facilityId or a fixedAssetId are not specified, don't set a default partyId...
-            if (UtilValidate.isEmpty(facilityId) && UtilValidate.isEmpty(fixedAssetId) && UtilValidate.isNotEmpty(userLogin.getString("partyId"))) {
+            if ("CAL_PERSONAL".equals(calendarType) && UtilValidate.isNotEmpty(userLogin.getString("partyId"))) {
                 partyIdsToUse.add(userLogin.getString("partyId"));
             }
         }
@@ -516,12 +513,20 @@ public class WorkEffortServices {
         // cancelled status id's
         List<EntityCondition> cancelledCheckAndList = UtilMisc.<EntityCondition>toList(
                 EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"),
-                EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
+                EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
+                EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"));
 
 
         List<EntityCondition> entityExprList = UtilGenerics.checkList(context.get("entityExprList"));
         if (entityExprList == null) {
-            entityExprList = getDefaultWorkEffortExprList(partyIdsToUse, facilityId, fixedAssetId, workEffortTypeId, cancelledCheckAndList);
+            entityExprList = getDefaultWorkEffortExprList(calendarType, partyIdsToUse, workEffortTypeId, cancelledCheckAndList);
+        }
+
+        if (UtilValidate.isNotEmpty(facilityId)) {
+            entityExprList.add(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId));
+        }
+        if (UtilValidate.isNotEmpty(fixedAssetId)) {
+            entityExprList.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
         }
 
         // should have at least a start date
@@ -578,35 +583,21 @@ public class WorkEffortServices {
                 ), EntityJoinOperator.OR);
 
         List<String> orderByList = UtilMisc.toList("estimatedStartDate");
-        if (partyIdsToUse.size() > 0 || UtilValidate.isNotEmpty(facilityId) || UtilValidate.isNotEmpty(fixedAssetId)) {
-            try {
-                List<GenericValue> tempWorkEfforts = null;
-                if (UtilValidate.isNotEmpty(partyIdsToUse)) {
-                    // Debug.log("=====conditions for party: " + eclTotal);
-                    tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssignAndType", eclTotal, null, orderByList, null, false));
-                } else if (UtilValidate.isNotEmpty(fixedAssetId)) {
-                    EntityConditionList<EntityCondition> ecl =
-                        EntityCondition.makeCondition(UtilMisc.toList(
-                            eclTotal,
-                            EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId)
-                    ), EntityJoinOperator.AND);
-                    // Get "old style" work efforts and "new style" work efforts
-                    // Debug.log("=====conditions for fixed asset: " + ecl);
-                    tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, orderByList, null, false);
-                    tempWorkEfforts.addAll(EntityUtil.filterByDate(delegator.findList("WorkEffortAndFixedAssetAssign", ecl, null, orderByList, null, false)));
-                } else {
-                    EntityConditionList<EntityCondition> ecl =
-                        EntityCondition.makeCondition(UtilMisc.toList(
-                            eclTotal,
-                            EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId)
-                    ), EntityJoinOperator.AND);
-                    // Debug.log("=====conditions for facility: " + ecl);
-                    tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("estimatedStartDate"), null, false);
-                }
-                validWorkEfforts = WorkEffortWorker.removeDuplicateWorkEfforts(tempWorkEfforts);
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+        try {
+            List<GenericValue> tempWorkEfforts = null;
+            if (UtilValidate.isNotEmpty(partyIdsToUse)) {
+                // Debug.log("=====conditions for party: " + eclTotal);
+                tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssignAndType", eclTotal, null, orderByList, null, false));
+            } else {
+                tempWorkEfforts = delegator.findList("WorkEffort", eclTotal, null, orderByList, null, false);
             }
+            if (!"CAL_PERSONAL".equals(calendarType) && UtilValidate.isNotEmpty(fixedAssetId)) {
+                // Get "new style" work efforts
+                tempWorkEfforts.addAll(EntityUtil.filterByDate(delegator.findList("WorkEffortAndFixedAssetAssign", eclTotal, null, orderByList, null, false)));
+            }
+            validWorkEfforts = WorkEffortWorker.removeDuplicateWorkEfforts(tempWorkEfforts);
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, module);
         }
 
         // Split the WorkEffort list into a map with entries for each period, period start is the key

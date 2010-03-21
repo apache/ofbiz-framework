@@ -21,7 +21,8 @@ facilityId = parameters.facilityId;
 fixedAssetId = parameters.fixedAssetId;
 partyId = parameters.partyId;
 workEffortTypeId = parameters.workEffortTypeId;
- 
+calendarType = parameters.calendarType;
+
 urlParam = "";
 if (facilityId) {
     urlParam = "facilityId=" + facilityId;
@@ -44,6 +45,13 @@ if (workEffortTypeId) {
         urlParam = urlParam + "&";
     }
     urlParam = urlParam + "workEffortTypeId=" + workEffortTypeId;
+}
+
+if (calendarType) {
+    if (urlParam) {
+        urlParam = urlParam + "&";
+    }
+    urlParam = urlParam + "calendarType=" + calendarType;
 }
 
 if (urlParam) {

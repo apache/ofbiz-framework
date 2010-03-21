@@ -32,6 +32,7 @@ facilityId = parameters.facilityId;
 fixedAssetId = parameters.fixedAssetId;
 partyId = parameters.partyId;
 workEffortTypeId = parameters.workEffortTypeId;
+calendarType = parameters.calendarType;
 entityExprList = context.entityExprList;
 
 start = null;
@@ -75,7 +76,7 @@ if (followingMonthDays < 0) {
 numDays += followingMonthDays; 
 
 serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "numPeriods", new Integer(numDays), "periodType", new Integer(Calendar.DATE));
-serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "locale", locale, "timeZone", timeZone));
+serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "calendarType", calendarType, "locale", locale, "timeZone", timeZone));
 if (entityExprList) {
     serviceCtx.putAll(["entityExprList" : entityExprList]);
 }
