@@ -39,7 +39,7 @@ under the License.
                 <set field="layoutSettings.suppressTab" value="ofbizsetup"/><!-- diseable ofbiz setup by default -->
                 <!-- system info notes -->
                 <service service-name="getLastSystemInfoNote" result-map="resultNote"/>
-                <set field="linkStart" value="/myportal/control/showPortletDecorator?portalPortletId="/>
+                <set field="linkStart" value="/myportal/control/showPortletMainDecorator?portalPortletId="/>
                 <set field="layoutSettings.middleTopHeader" value="---------- ${uiLabelMap.CommonLastSytemNotes} ----------"/>
                 <set field="layoutSettings.middleTopMessage1" value="${groovy:resultNote.lastSystemInfoNote1!=null?resultNote.lastSystemInfoNote1.noteDateTime.toString().substring(0,16) + &quot; &quot; + resultNote.lastSystemInfoNote1.noteInfo:&quot;&quot;}"/>
                 <set field="layoutSettings.middleTopLink1" value="${linkStart}${resultNote.lastSystemInfoNote1.moreInfoPortletId}&amp;id=${resultNote.lastSystemInfoNote1.moreInfoItemId}"/>
