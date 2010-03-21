@@ -32,7 +32,7 @@
                 <para>These event can be notified to the user even when not logged on to OFBiz by using a firefox plugin and when it changes the
                     employee is notified from within firefox </para>
                 <para>The plugin: http://updatescanner.mozdev.org/en/index.html and it should check the following url: (adjust to your requirements)
-                    <![CDATA[https://localhost:8443/myportal/control/showPortlet?portalPortletId=SystemInfoNotes&USERNAME=admin&PASSWORD=ofbiz]]></para>
+                    <![CDATA[https://localhost:8443/myportal/control/showPortletSimpleDecorator?portalPortletId=SystemInfoNotes&USERNAME=admin&PASSWORD=ofbiz]]></para>
                 <para> In the Flat Grey theme (only) notifications show in the header when they are available. </para>
             </listitem>
         </orderedlist>
