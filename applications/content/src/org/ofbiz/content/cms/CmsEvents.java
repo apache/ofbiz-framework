@@ -108,7 +108,7 @@ public class CmsEvents {
         if (pathInfo == null) {
             List<GenericValue> defaultContents = null;
             try {
-                defaultContents = delegator.findByAnd("WebSiteContent", UtilMisc.toMap("webSiteId", webSiteId,
+                defaultContents = delegator.findByAndCache("WebSiteContent", UtilMisc.toMap("webSiteId", webSiteId,
                         "webSiteContentTypeId", "DEFAULT_PAGE"), UtilMisc.toList("-fromDate"));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
