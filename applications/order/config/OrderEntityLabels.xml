@@ -25,6 +25,7 @@
         <value xml:lang="es">Duplicado</value>
         <value xml:lang="fr">Dupliquée</value>
         <value xml:lang="it">Duplicato</value>
+        <value xml:lang="pt_BR">Duplicata</value>
         <value xml:lang="ro">Duplicat</value>
         <value xml:lang="ru">Повторное</value>
         <value xml:lang="th">จำลอง</value>
@@ -36,6 +37,7 @@
         <value xml:lang="es">Resuelto</value>
         <value xml:lang="fr">Corrigée</value>
         <value xml:lang="it">Risolto</value>
+        <value xml:lang="pt_BR">Resolvido</value>
         <value xml:lang="ro">Solutionat</value>
         <value xml:lang="ru">Исправлено</value>
         <value xml:lang="th">แก้ไข</value>
@@ -47,6 +49,7 @@
         <value xml:lang="es">Implementado</value>
         <value xml:lang="fr">Implémentée</value>
         <value xml:lang="it">Implementato</value>
+        <value xml:lang="pt_BR">Implementado</value>
         <value xml:lang="ro">Implementat</value>
         <value xml:lang="ru">Реализовано</value>
         <value xml:lang="th">ทำให้เห็นผล</value>
@@ -58,6 +61,7 @@
         <value xml:lang="es">Rechazado</value>
         <value xml:lang="fr">Rejetée</value>
         <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="pt_BR">Recusado</value>
         <value xml:lang="ro">Refuzat</value>
         <value xml:lang="ru">Отказано</value>
         <value xml:lang="th">ปฏิเสธ</value>
@@ -69,6 +73,7 @@
         <value xml:lang="es">No se resuelve</value>
         <value xml:lang="fr">Non corrigée</value>
         <value xml:lang="it">Non verra fissato</value>
+        <value xml:lang="pt_BR">Não se resolve</value>
         <value xml:lang="ro">Nu Va fi Fixat</value>
         <value xml:lang="ru">Не исправлено</value>
         <value xml:lang="th">ไม่สามารถแก้ไขได้</value>
@@ -80,6 +85,7 @@
         <value xml:lang="es">Me funciona</value>
         <value xml:lang="fr">Fonctionne pour moi</value>
         <value xml:lang="it">Per me funziona</value>
+        <value xml:lang="pt_BR">Funciona para mim</value>
         <value xml:lang="ro">Cred ca Functioneaza</value>
         <value xml:lang="ru">Для нас работает</value>
         <value xml:lang="th">งานสำหรับฉัน</value>
@@ -91,6 +97,7 @@
         <value xml:lang="es">Petición de corregir error</value>
         <value xml:lang="fr">Correction d'erreur</value>
         <value xml:lang="it">Richiesta di bug fix</value>
+        <value xml:lang="pt_BR">Requisição para conserto de Bug</value>
         <value xml:lang="ro">Cerere De Bug Fix</value>
         <value xml:lang="ru">Запрос на исправление ошибки</value>
         <value xml:lang="th">คำขอร้องสำหรับการแก้บัค</value>
@@ -102,6 +109,7 @@
         <value xml:lang="es">Petición de catálogo</value>
         <value xml:lang="fr">Demande catalogue</value>
         <value xml:lang="it">Richiesta di catalogo</value>
+        <value xml:lang="pt_BR">Requisição para catálogo</value>
         <value xml:lang="ro">Cerere De Catalog</value>
         <value xml:lang="ru">Запрос каталога</value>
         <value xml:lang="th">คำขอร้องสำหรับหมวดหมู่</value>
@@ -113,6 +121,7 @@
         <value xml:lang="es">Petición de característica</value>
         <value xml:lang="fr">Demande de caractéristique</value>
         <value xml:lang="it">Richiesta di caratteristica</value>
+        <value xml:lang="pt_BR">Requisição por característica</value>
         <value xml:lang="ro">Cerere Caracteristica</value>
         <value xml:lang="ru">Запрос особенности</value>
         <value xml:lang="th">คำขอร้องสำหรับลักษณะ</value>
@@ -124,6 +133,7 @@
         <value xml:lang="es">Petición de información</value>
         <value xml:lang="fr">Demande d'information</value>
         <value xml:lang="it">Richiesta di informazione</value>
+        <value xml:lang="pt_BR">Requisição por informação</value>
         <value xml:lang="ro">Cerere Informatie</value>
         <value xml:lang="ru">Запрос информации</value>
         <value xml:lang="th">คำขอร้องสำหรับข้อมูล</value>
@@ -135,6 +145,7 @@
         <value xml:lang="es">Petición de propuesta</value>
         <value xml:lang="fr">Proposition</value>
         <value xml:lang="it">Richiesta di proposta</value>
+        <value xml:lang="pt_BR">Requisição por proposta</value>
         <value xml:lang="ro">Cerere De Propunere</value>
         <value xml:lang="ru">Запрос предложения</value>
         <value xml:lang="th">คำขอร้องสำหรับข้อเสนอ</value>
@@ -146,6 +157,7 @@
         <value xml:lang="es">Petición de presupuesto de compra</value>
         <value xml:lang="fr">Demande de devis pour achat</value>
         <value xml:lang="it">Richiesta Di Preventivo Acquisto</value>
+        <value xml:lang="pt_BR">Requisição por cotação para compra</value>
         <value xml:lang="ru">Запрос закупочных цен</value>
         <value xml:lang="th">คำขอร้องสำหรับการอ้างอิงการสั่งซื้อ</value>
         <value xml:lang="zh">采购询价</value>
@@ -156,6 +168,7 @@
         <value xml:lang="es">Petición de presupuesto</value>
         <value xml:lang="fr">Demande de devis</value>
         <value xml:lang="it">Richiesta di preventivo</value>
+        <value xml:lang="pt_BR">Requisição por cotação</value>
         <value xml:lang="ro">Cerere De Oferta</value>
         <value xml:lang="ru">Запрос цены</value>
         <value xml:lang="th">คำขอร้องสำหรับการอ้างอิง</value>
@@ -167,6 +180,7 @@
         <value xml:lang="es">Petición de ayuda</value>
         <value xml:lang="fr">Demande de support</value>
         <value xml:lang="it">Richiesta di supporto</value>
+        <value xml:lang="pt_BR">Requisição por suporte</value>
         <value xml:lang="ro">Cerere De Suport</value>
         <value xml:lang="ru">Запрос поддержки</value>
         <value xml:lang="th">คำขอร้องสำหรับการสนับสนุน</value>
@@ -178,6 +192,7 @@
         <value xml:lang="es">Característica adicional</value>
         <value xml:lang="fr">Caractéristique additionnelle</value>
         <value xml:lang="it">Caratteristica aggiuntiva</value>
+        <value xml:lang="pt_BR">Característica adicional</value>
         <value xml:lang="ro">Caracteristica Suplimentara</value>
         <value xml:lang="ru">Дополнительная возможность</value>
         <value xml:lang="th">เพิ่มเติมลักษณะ</value>
@@ -189,6 +204,7 @@
         <value xml:lang="es">Descuento</value>
         <value xml:lang="fr">Remise</value>
         <value xml:lang="it">Sconto</value>
+        <value xml:lang="pt_BR">Desconto</value>
         <value xml:lang="ro">Scont</value>
         <value xml:lang="ru">Скидка</value>
         <value xml:lang="th">ส่วนลด</value>
@@ -200,6 +216,7 @@
         <value xml:lang="es">Tasa</value>
         <value xml:lang="fr">Honoraires</value>
         <value xml:lang="it">Tassa</value>
+        <value xml:lang="pt_BR">Taxa</value>
         <value xml:lang="ro">Taxa</value>
         <value xml:lang="ru">Сбор</value>
         <value xml:lang="th">ค่าธรรมเนียม</value>
@@ -211,6 +228,7 @@
         <value xml:lang="es">Gastos diversos</value>
         <value xml:lang="fr">Frais divers</value>
         <value xml:lang="it">Ricarico vario</value>
+        <value xml:lang="pt_BR">Gastos diversos</value>
         <value xml:lang="ro">Incarcare mixta</value>
         <value xml:lang="ru">Различные расходы</value>
         <value xml:lang="th">ค่าธรรมเนียมเบ็ดเตล็ด</value>
@@ -222,6 +240,7 @@
         <value xml:lang="es">Ajuste de paquete de marketing</value>
         <value xml:lang="fr">Offre marketing (ajustement)</value>
         <value xml:lang="it">Aggiustamento paccho di vendita</value>
+        <value xml:lang="pt_BR">Ajuste de pacote de marketing</value>
         <value xml:lang="ro">Adaptare Pachet Vanzare</value>
         <value xml:lang="ru">Настройка маркетингового пакета</value>
         <value xml:lang="th">การปรับปรุงรายการทางการตลาด</value>
@@ -233,6 +252,7 @@
         <value xml:lang="es">Promoción</value>
         <value xml:lang="fr">Promotion</value>
         <value xml:lang="it">Promozione</value>
+        <value xml:lang="pt_BR">Promoção</value>
         <value xml:lang="ro">Promotie</value>
         <value xml:lang="ru">Акция</value>
         <value xml:lang="th">โปรโมชัน</value>
@@ -244,6 +264,7 @@
         <value xml:lang="es">Reemplazo</value>
         <value xml:lang="fr">Remplacement</value>
         <value xml:lang="it">Sostituzione</value>
+        <value xml:lang="pt_BR">Reposição</value>
         <value xml:lang="ro">Substituire</value>
         <value xml:lang="ru">Замена</value>
         <value xml:lang="th">จากการเปลี่ยนแปลง</value>
@@ -255,6 +276,7 @@
         <value xml:lang="es">Impuestos de venta</value>
         <value xml:lang="fr">Taxes de vente</value>
         <value xml:lang="it">Tassa di vendita</value>
+        <value xml:lang="pt_BR">Taxas de venda</value>
         <value xml:lang="ro">Taxa Vanzare</value>
         <value xml:lang="ru">Налог с продаж</value>
         <value xml:lang="th">ภาษีการขาย</value>
@@ -266,6 +288,7 @@
         <value xml:lang="es">Envío y seguimiento</value>
         <value xml:lang="fr">Port et emballage</value>
         <value xml:lang="it">Spesa di spedizione e imballaggio</value>
+        <value xml:lang="pt_BR">Envio e manuseio</value>
         <value xml:lang="ro">Cheltueli cu Expedierea si Ambalarea</value>
         <value xml:lang="ru">Поставка и обработка</value>
         <value xml:lang="th">การขนส่งและการควบคุม</value>
@@ -277,6 +300,7 @@
         <value xml:lang="es">Recargo</value>
         <value xml:lang="fr">Supplément</value>
         <value xml:lang="it">Sovraccarico</value>
+        <value xml:lang="pt_BR">Sobretaxa</value>
         <value xml:lang="ro">Supraincarcare</value>
         <value xml:lang="ru">Надбавка</value>
         <value xml:lang="th">การคิดเงินเพิ่ม</value>
@@ -288,6 +312,7 @@
         <value xml:lang="es">Garantía</value>
         <value xml:lang="fr">Garantie</value>
         <value xml:lang="it">Garanzia</value>
+        <value xml:lang="pt_BR">Garantia</value>
         <value xml:lang="ro">Garantie</value>
         <value xml:lang="ru">Гарантия</value>
         <value xml:lang="th">การรับประกัน</value>
@@ -299,6 +324,7 @@
         <value xml:lang="es">Dirección bloqueada</value>
         <value xml:lang="fr">Mettre l'adresse en liste noire</value>
         <value xml:lang="it">Indirizzo blacklist</value>
+        <value xml:lang="pt_BR">Lista negra de endereços</value>
         <value xml:lang="th">ที่อยู่</value>
         <value xml:lang="zh">地址黑名单</value>
     </property>
@@ -308,6 +334,7 @@
         <value xml:lang="es">Tarjeta de crédito bloqueada</value>
         <value xml:lang="fr">Mettre la carte de crédit en liste noire</value>
         <value xml:lang="it">Blacklist carta di credito</value>
+        <value xml:lang="pt_BR">Lista negra de cartões de crédito</value>
         <value xml:lang="th">บัตรเครดิต</value>
         <value xml:lang="zh">信用卡黑名单</value>
     </property>
@@ -317,6 +344,7 @@
         <value xml:lang="es">Email bloqueado</value>
         <value xml:lang="fr">Mettre l'addresse de courriel en liste noire</value>
         <value xml:lang="it">Email blacklist</value>
+        <value xml:lang="pt_BR">Lista negra de e-mails</value>
         <value xml:lang="th">อีเมล</value>
         <value xml:lang="zh">电子邮件黑名单</value>
     </property>
@@ -326,6 +354,7 @@
         <value xml:lang="es">Teléfono bloqueado</value>
         <value xml:lang="fr">Mettre le n° de téléphone en liste noire</value>
         <value xml:lang="it">Telefono blacklist</value>
+        <value xml:lang="pt_BR">Lista negra de telefones</value>
         <value xml:lang="th">หมายเลขโทรศัพท์</value>
         <value xml:lang="zh">电话黑名单</value>
     </property>
@@ -335,6 +364,7 @@
         <value xml:lang="es">URL de Imagen</value>
         <value xml:lang="fr">URL d'image</value>
         <value xml:lang="it">URL immagine</value>
+        <value xml:lang="pt_BR">URL de imagem</value>
         <value xml:lang="th">รูปภาพ</value>
         <value xml:lang="zh">图像网址</value>
     </property>
@@ -344,6 +374,7 @@
         <value xml:lang="es">Ítem a granel</value>
         <value xml:lang="fr">Vrac</value>
         <value xml:lang="it">Riga ordine bulk</value>
+        <value xml:lang="pt_BR">Item no atacado</value>
         <value xml:lang="th">รายการความจุ</value>
         <value xml:lang="zh">大宗订单明细</value>
     </property>
@@ -353,6 +384,7 @@
         <value xml:lang="es">Ítem de pedido</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Prodotto riga ordine</value>
+        <value xml:lang="pt_BR">Item de pedido</value>
         <value xml:lang="th">รายการ</value>
         <value xml:lang="zh">产品订单明细</value>
     </property>
@@ -362,6 +394,7 @@
         <value xml:lang="es">Ítem de alquiler</value>
         <value xml:lang="fr">Location</value>
         <value xml:lang="it">Riga ordine di affitto</value>
+        <value xml:lang="pt_BR">Item de aluguel</value>
         <value xml:lang="th">รายการการเช่า</value>
         <value xml:lang="zh">租赁订单明细</value>
     </property>
@@ -371,6 +404,7 @@
         <value xml:lang="es">Ítem de trabajo</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Riga ordine di lavoro</value>
+        <value xml:lang="pt_BR">Item de trabalho</value>
         <value xml:lang="th">รายการงาน</value>
         <value xml:lang="zh">派工单明细</value>
     </property>
@@ -380,6 +414,7 @@
         <value xml:lang="es">Pedido de Compra</value>
         <value xml:lang="fr">Achats</value>
         <value xml:lang="it">Ordine di acquisto</value>
+        <value xml:lang="pt_BR">Pedido de compra</value>
         <value xml:lang="ro">Cumparare</value>
         <value xml:lang="ru">Закупка</value>
         <value xml:lang="th">รายการการสั่งซื้อ</value>
@@ -391,6 +426,7 @@
         <value xml:lang="es">Pedido de Venta</value>
         <value xml:lang="fr">Ventes</value>
         <value xml:lang="it">Ordine di vendita</value>
+        <value xml:lang="pt_BR">Pedido de vendas</value>
         <value xml:lang="ro">Vanzare</value>
         <value xml:lang="ru">Продажи</value>
         <value xml:lang="th">รายการขาย</value>
@@ -402,6 +438,7 @@
         <value xml:lang="es">Pedido de Trabajo</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Ordine di lavoro</value>
+        <value xml:lang="pt_BR">Pedido de trabalho</value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">派工单</value>
     </property>
@@ -411,6 +448,7 @@
         <value xml:lang="es">Otros</value>
         <value xml:lang="fr">Autres</value>
         <value xml:lang="it">Altro</value>
+        <value xml:lang="pt_BR">Outros</value>
         <value xml:lang="ro">Alte</value>
         <value xml:lang="ru">Другие</value>
         <value xml:lang="th">อื่น ๆ</value>
@@ -422,6 +460,7 @@
         <value xml:lang="es">Producto</value>
         <value xml:lang="fr">Produit</value>
         <value xml:lang="it">Prodotto</value>
+        <value xml:lang="pt_BR">Produto</value>
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Цены на продукцию</value>
         <value xml:lang="th">สินค้า</value>
@@ -433,6 +472,7 @@
         <value xml:lang="es">Propuesta</value>
         <value xml:lang="fr">Proposition</value>
         <value xml:lang="it">Proposta</value>
+        <value xml:lang="pt_BR">Proposta</value>
         <value xml:lang="ro">Propunere</value>
         <value xml:lang="ru">Предложение</value>
         <value xml:lang="th">ข้อเสนอ</value>
@@ -444,6 +484,7 @@
         <value xml:lang="es">Propuesta de compra</value>
         <value xml:lang="fr">Proposition d'achat</value>
         <value xml:lang="it">Proposta di acquisto</value>
+        <value xml:lang="pt_BR">Proposta de compra</value>
         <value xml:lang="th">ข้อเสนอการซื้อ</value>
         <value xml:lang="zh">采购建议</value>
     </property>
@@ -453,6 +494,7 @@
         <value xml:lang="es">Presupuesto Compra de producto</value>
         <value xml:lang="fr">Achat</value>
         <value xml:lang="it">Prodotto acquistato</value>
+        <value xml:lang="pt_BR">Compra de produto</value>
         <value xml:lang="ro">Produs Cumparat</value>
         <value xml:lang="ru">Закупочное предложение</value>
         <value xml:lang="th">การสั่งซื้อสินค้า</value>
@@ -464,6 +506,7 @@
         <value xml:lang="es">Requisito de cliente</value>
         <value xml:lang="fr">Besoin client</value>
         <value xml:lang="it">Fabbisogno cliente</value>
+        <value xml:lang="pt_BR">Exigência de cliente</value>
         <value xml:lang="ro">Necesar Cliente</value>
         <value xml:lang="ru">Требование заказчика</value>
         <value xml:lang="th">ความต้องการของลูกค้า</value>
@@ -475,6 +518,7 @@
         <value xml:lang="es">Requisito interno</value>
         <value xml:lang="fr">Besoin interne</value>
         <value xml:lang="it">Fabbisogno interno</value>
+        <value xml:lang="pt_BR">Exigência interna</value>
         <value xml:lang="ro">Necesar Intern</value>
         <value xml:lang="ru">Внутреннее требование</value>
         <value xml:lang="th">ความต้องการภายใน</value>
@@ -486,6 +530,7 @@
         <value xml:lang="es">Requisito de producción según MRP</value>
         <value xml:lang="fr">Besoins du cycle de production proposé au processus MRP</value>
         <value xml:lang="it">Fabbisogno ciclo produzione proposto dal processo MRP</value>
+        <value xml:lang="pt_BR">Pedido de produção segundo MRP</value>
         <value xml:lang="ro">Necesar Ciclu Productie propus de procesul MRP</value>
         <value xml:lang="th">MRP_PRO_PROD_ORDER</value>
         <value xml:lang="zh">MRP中产品订单的物料需求</value>
@@ -496,6 +541,7 @@
         <value xml:lang="es">Requisito de compra según MRP</value>
         <value xml:lang="fr">Besoins d'achat proposé au processus MRP</value>
         <value xml:lang="it">Fabbisogno ordine acquisto proposto dal processo MRP</value>
+        <value xml:lang="pt_BR">Pedido de compra segundo MRP</value>
         <value xml:lang="ro">Necesar Comanda Comparare propusa de procesul MRP</value>
         <value xml:lang="th">MRP_PRO_PURCH_ORDER</value>
         <value xml:lang="zh">MRP中采购订单的物料需求</value>
@@ -506,6 +552,7 @@
         <value xml:lang="es">Requisito de producto</value>
         <value xml:lang="fr">Besoin en produit</value>
         <value xml:lang="it">Fabbisogno prodotto</value>
+        <value xml:lang="pt_BR">Requisito de produto</value>
         <value xml:lang="ro">Necesar Produs</value>
         <value xml:lang="ru">Требование продукции</value>
         <value xml:lang="th">ความต้องการสินค้า</value>
@@ -517,6 +564,7 @@
         <value xml:lang="es">Requisito de trabajo</value>
         <value xml:lang="fr">Besoin de production</value>
         <value xml:lang="it">Fabbisogno lavoro</value>
+        <value xml:lang="pt_BR">Requisito de trabalho</value>
         <value xml:lang="ro">Necesar de Lucru</value>
         <value xml:lang="ru">Требование работ</value>
         <value xml:lang="th">ความต้องการงาน</value>
@@ -525,61 +573,73 @@
     <property key="ReturnAdjustmentType.description.RET_ADD_FEATURE_ADJ">
         <value xml:lang="en">Return Additional Feature</value>
         <value xml:lang="it">Caratteristiche aggiuntive sul reso</value>
+        <value xml:lang="pt_BR">Devolução de funcionalidade adicional</value>
         <value xml:lang="zh">退货的附加特征</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_DISCOUNT_ADJ">
         <value xml:lang="en">Return Discount</value>
         <value xml:lang="it">Sconto sul reso</value>
+        <value xml:lang="pt_BR">Desconto por devolução</value>
         <value xml:lang="zh">退货的折扣</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_FEE_ADJ">
         <value xml:lang="en">Return Fee</value>
         <value xml:lang="it">Commissioni sul reso</value>
+        <value xml:lang="pt_BR">Taxa de devolução</value>
         <value xml:lang="zh">退货的费用</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MAN_ADJ">
         <value xml:lang="en">Return Manual Adjustment</value>
         <value xml:lang="it">Aggiustamento manuale sul reso</value>
+        <value xml:lang="pt_BR">Ajuste manual sobre devolução</value>
         <value xml:lang="zh">退货的手册调整</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MISC_ADJ">
         <value xml:lang="en">Return Miscellaneous Charges</value>
         <value xml:lang="it">Ricarichi vari sul reso</value>
+        <value xml:lang="pt_BR">Taxas diversas sobre devolução</value>
         <value xml:lang="zh">退货的杂费</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MKTG_PKG_ADJ">
         <value xml:lang="en">Return Marketing Package Adjustment</value>
         <value xml:lang="it">Aggiustamento pacco di vendita sul reso</value>
+        <value xml:lang="pt_BR">Ajuste sobre a a devolução de pacote de marketing</value>
         <value xml:lang="zh">退货的行销包装调整</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_PROMOTION_ADJ">
         <value xml:lang="en">Return Promotion</value>
         <value xml:lang="it">Promozione reso</value>
+        <value xml:lang="pt_BR">Promoção devolução</value>
         <value xml:lang="zh">退货的促销</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_REPLACE_ADJ">
         <value xml:lang="en">Return Replacement</value>
         <value xml:lang="it">Reso in sostituzione</value>
+        <value xml:lang="pt_BR">Devolução de reposição</value>
         <value xml:lang="zh">退货的替代</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SALES_TAX_ADJ">
         <value xml:lang="en">Return Sales Tax</value>
         <value xml:lang="it">Tasse di vendita sul reso</value>
+        <value xml:lang="pt_BR">Taxa de devolução de venda</value>
         <value xml:lang="zh">退货的营业税</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SHIPPING_ADJ">
         <value xml:lang="en">Return Shipping and Handling</value>
         <value xml:lang="it">Spese di trasporto sul reso</value>
+        <value xml:lang="pt_BR">Devolução de envio e manuseio</value>
         <value xml:lang="zh">退货的装运费</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SURCHARGE_ADJ">
         <value xml:lang="en">Return Surcharge</value>
         <value xml:lang="it">Spese supplementari sul reso</value>
+        <value xml:lang="pt_BR">Devolução de sobretaxa</value>
         <value xml:lang="zh">退货的附加费</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_WARRANTY_ADJ">
         <value xml:lang="en">Return Warranty</value>
         <value xml:lang="it">Garanzia sul reso</value>
+        <value xml:lang="pt_BR">Devolução de garantia</value>
         <value xml:lang="zh">退货的保证条款</value>
     </property>
     <property key="ReturnReason.description.RTN_COD_REJECT">
@@ -588,6 +648,7 @@
         <value xml:lang="es">Pago acordado rechazado a la entrega</value>
         <value xml:lang="fr">COD paiement rejeté</value>
         <value xml:lang="it">Pagmento contrassegno rifiutato</value>
+        <value xml:lang="pt_BR">Pagamento mediante recebimento rejeitado</value>
         <value xml:lang="ru">COD платеж не принят</value>
         <value xml:lang="th">ปฏิเสธการชำระเงินด่วน</value>
         <value xml:lang="zh">货到付款被拒绝了</value>
@@ -598,6 +659,7 @@
         <value xml:lang="es">Producto defectuoso</value>
         <value xml:lang="fr">Défectueux</value>
         <value xml:lang="it">Prodotto difettoso</value>
+        <value xml:lang="pt_BR">Produto defeituoso</value>
         <value xml:lang="ro">Produs Defectuos</value>
         <value xml:lang="ru">Дефектное изделие</value>
         <value xml:lang="th">รายการมีตำหนิ</value>
@@ -609,6 +671,7 @@
         <value xml:lang="es">Error de entrega via electrónica</value>
         <value xml:lang="fr">Erreur de chargement de fichier </value>
         <value xml:lang="it">Soddisfazione digitale fallita</value>
+        <value xml:lang="pt_BR">Falha no processamento eletrônico</value>
         <value xml:lang="ro">Satisfactie Digitala Falita</value>
         <value xml:lang="ru">Выполнение поставки цифр. продукта не удалось</value>
         <value xml:lang="th">การปฏิบัติการของดิจิตอลล้มเหลว</value>
@@ -620,6 +683,7 @@
         <value xml:lang="es">Ítem mal enviado</value>
         <value xml:lang="fr">Ligne d'expédition manquante</value>
         <value xml:lang="it">Prodotto non-spedito</value>
+        <value xml:lang="pt_BR">Item enviado errado</value>
         <value xml:lang="ro">Produs Ne-Expediat</value>
         <value xml:lang="ru">Ошибочная поставка</value>
         <value xml:lang="th">ไม่มีรายการขนส่ง</value>
@@ -631,6 +695,7 @@
         <value xml:lang="es">No quiere el ítem</value>
         <value xml:lang="fr">Non demandé</value>
         <value xml:lang="it">Prodotto non voluto</value>
+        <value xml:lang="pt_BR">Não quis o item</value>
         <value xml:lang="ro">Produs Non Volut</value>
         <value xml:lang="ru">Ненужная позиция</value>
         <value xml:lang="th">ไม่ต้องการรายการ</value>
@@ -639,6 +704,7 @@
     <property key="ReturnReason.description.RTN_SIZE_EXCHANGE">
         <value xml:lang="en">Size Exchange</value>
         <value xml:lang="it">Cambio taglia</value>
+        <value xml:lang="pt_BR">Troca de tamanho</value>
     </property>
     <property key="ReturnType.description.RTN_CREDIT">
         <value xml:lang="de">Guthaben</value>
@@ -646,6 +712,7 @@
         <value xml:lang="es">Crédito de la tienda</value>
         <value xml:lang="fr">Avoir</value>
         <value xml:lang="it">Credito negozio</value>
+        <value xml:lang="pt_BR">Crédito da loja</value>
         <value xml:lang="ro">Credit Magazin</value>
         <value xml:lang="ru">Торговый кредит</value>
         <value xml:lang="th">สะสมเครดิต</value>
@@ -657,6 +724,7 @@
         <value xml:lang="es">Reemplazo en la entrega</value>
         <value xml:lang="fr">Remplacement à la livraison </value>
         <value xml:lang="it">Sostituzione cross-ship</value>
+        <value xml:lang="pt_BR">Troca mediante outro pagamento</value>
         <value xml:lang="ro">Substitutie Cross-Ship</value>
         <value xml:lang="ru">Замена на другой продукт</value>
         <value xml:lang="th">Cross-Ship Replacement</value>
@@ -668,6 +736,7 @@
         <value xml:lang="es">Reembolso/Devolución</value>
         <value xml:lang="fr">Remboursement</value>
         <value xml:lang="it">Rimborsato</value>
+        <value xml:lang="pt_BR">Reembolso</value>
         <value xml:lang="ro">Rambursat</value>
         <value xml:lang="ru">Возмещение</value>
         <value xml:lang="th">การคืนเงิน</value>
@@ -679,6 +748,7 @@
         <value xml:lang="es">Reemplazo de reparación</value>
         <value xml:lang="fr">Réparation</value>
         <value xml:lang="it">Riparato sostituito</value>
+        <value xml:lang="pt_BR">Produto sobressalente</value>
         <value xml:lang="ru">Замена при ремонте</value>
         <value xml:lang="th">ชดเชยการทดแทน</value>
         <value xml:lang="zh">修理替换</value>
@@ -689,6 +759,7 @@
         <value xml:lang="es">Reemplazo</value>
         <value xml:lang="fr">Remplacement</value>
         <value xml:lang="it">Sostituito</value>
+        <value xml:lang="pt_BR">Substituto</value>
         <value xml:lang="ro">Substituit</value>
         <value xml:lang="ru">Замена</value>
         <value xml:lang="th">การทดแทน</value>
@@ -700,6 +771,7 @@
         <value xml:lang="es">Volver a pedir automáticamente</value>
         <value xml:lang="fr">Commander automatiquement un produit déjà commandé  </value>
         <value xml:lang="it">Ri-ordini automatici</value>
+        <value xml:lang="pt_BR">Refazer pedido automaticamente</value>
         <value xml:lang="ro">Comenzi reordinate Automatic</value>
         <value xml:lang="ru">Автоматический повторный заказ</value>
         <value xml:lang="th">สั่งใหม่โดยอัตโนมัติ</value>
@@ -711,6 +783,7 @@
         <value xml:lang="es">Compras frecuentes</value>
         <value xml:lang="fr">Achats fréquents</value>
         <value xml:lang="it">Acquisti frequenti</value>
+        <value xml:lang="pt_BR">Compras frequentes</value>
         <value xml:lang="ro">Cumparari Frecvente</value>
         <value xml:lang="ru">Частые покупки</value>
         <value xml:lang="th">การสั่งซื้อเป็นประจำ</value>
@@ -722,6 +795,7 @@
         <value xml:lang="es">Lista de regalos</value>
         <value xml:lang="fr">Liste de cadeaux</value>
         <value xml:lang="it">Registro omaggi</value>
+        <value xml:lang="pt_BR">Lista de presentes</value>
         <value xml:lang="ro">Registru Omagiu</value>
         <value xml:lang="ru">Реестр подарков</value>
         <value xml:lang="th">การจดทะเบียนของขวัญ</value>
@@ -733,6 +807,7 @@
         <value xml:lang="es">Casos especiales</value>
         <value xml:lang="fr">Occasions spéciales</value>
         <value xml:lang="it">Funzione speciale</value>
+        <value xml:lang="pt_BR">Propósito especial</value>
         <value xml:lang="ro">Functie Speciala</value>
         <value xml:lang="ru">Специальное назначение</value>
         <value xml:lang="th">เป้าหมายพิเศษ</value>
@@ -744,6 +819,7 @@
         <value xml:lang="es">Lista de deseos</value>
         <value xml:lang="fr">Liste de souhaits</value>
         <value xml:lang="it">Lista dei desideri</value>
+        <value xml:lang="pt_BR">Lista de desejos</value>
         <value xml:lang="ro">Lista Dorintelor</value>
         <value xml:lang="ru">Список пожеланий</value>
         <value xml:lang="th">รายการความต้องการ</value>
@@ -755,6 +831,7 @@
         <value xml:lang="es">Entrega</value>
         <value xml:lang="fr">Livraisons</value>
         <value xml:lang="it">Consegna</value>
+        <value xml:lang="pt_BR">Entrega</value>
         <value xml:lang="ro">Livreaza</value>
         <value xml:lang="ru">Доставка</value>
         <value xml:lang="th">ประกาศ</value>
@@ -766,6 +843,7 @@
         <value xml:lang="es">Utiliza</value>
         <value xml:lang="fr">Déployements</value>
         <value xml:lang="it">Distribuisci</value>
+        <value xml:lang="pt_BR">Utiliza</value>
         <value xml:lang="ro">Distribuie</value>
         <value xml:lang="ru">Развертывание</value>
         <value xml:lang="th">กระจาย</value>
@@ -777,6 +855,7 @@
         <value xml:lang="es">Arregla</value>
         <value xml:lang="fr">Corrections</value>
         <value xml:lang="it">Fissa</value>
+        <value xml:lang="pt_BR">Conserta</value>
         <value xml:lang="ro">Fixeaza</value>
         <value xml:lang="ru">Исправления</value>
         <value xml:lang="th">แก้ไข</value>
@@ -788,6 +867,7 @@
         <value xml:lang="es">Implementa</value>
         <value xml:lang="fr">Implémentations</value>
         <value xml:lang="it">Implementa</value>
+        <value xml:lang="pt_BR">Implementa</value>
         <value xml:lang="ro">Implementeaza</value>
         <value xml:lang="ru">Реализация</value>
         <value xml:lang="th">ทำให้ได้ผล</value>
@@ -799,6 +879,7 @@
         <value xml:lang="es">Prueba</value>
         <value xml:lang="fr">Tests</value>
         <value xml:lang="it">Testa</value>
+        <value xml:lang="pt_BR">Testa</value>
         <value xml:lang="ro">Testeaza</value>
         <value xml:lang="ru">Тестирование</value>
         <value xml:lang="th">ทดสอบ</value>
