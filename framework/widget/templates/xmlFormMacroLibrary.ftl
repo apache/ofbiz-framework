@@ -109,6 +109,6 @@ under the License.
 <#macro renderSortField style title linkUrl ajaxEnabled></#macro>
 <#macro formatBoundaryComment boundaryType widgetType widgetName></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description><@renderField description /></#macro>
-<#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc linkUrl targetWindow description confirmation><@renderField description /></#macro>
+<#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc alternate linkUrl targetWindow description confirmation><@renderField description /></#macro>
 <#macro renderTooltip tooltip tooltipStyle></#macro>
 <#macro renderAsterisks requiredField requiredStyle></#macro>
