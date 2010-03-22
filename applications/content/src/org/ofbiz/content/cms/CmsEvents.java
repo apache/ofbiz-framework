@@ -31,7 +31,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.Debug;
@@ -195,7 +194,7 @@ public class CmsEvents {
             }
 
             // We try to find a specific Error page for this website concerning the status code
-            if (statusCode != HttpServletResponseWrapper.SC_OK) {
+            if (statusCode != HttpServletResponse.SC_OK) {
                 List<GenericValue> errorContainers = null;
                 try {
                     errorContainers = delegator.findByAndCache("WebSiteContent",
@@ -244,7 +243,7 @@ public class CmsEvents {
 
             }
 
-            if (statusCode == HttpServletResponseWrapper.SC_OK || hasErrorPage) {
+            if (statusCode == HttpServletResponse.SC_OK || hasErrorPage) {
                 // create the template map
                 MapStack<String> templateMap = MapStack.create();
                 ScreenRenderer.populateContextForRequest(templateMap, null, request, response, servletContext);
@@ -338,7 +337,7 @@ public class CmsEvents {
         publishPoints = EntityUtil.filterByDate(publishPoints);
         if (UtilValidate.isNotEmpty(publishPoints)) {
             if (Debug.verboseOn()) Debug.logVerbose("Found publish points: " + publishPoints, module);
-            return HttpServletResponseWrapper.SC_OK;
+            return HttpServletResponse.SC_OK;
         } else {
             // the passed in contentId is not a publish point for the web site;
             // however we will publish its content if it is a node of one of the trees that have a publish point as the root
@@ -349,16 +348,16 @@ public class CmsEvents {
             if (topLevelContentValues != null) {
                 for (GenericValue point: topLevelContentValues) {
                     int subContentStatusCode = verifySubContent(delegator, contentId, point.getString("contentId"));
-                    if (subContentStatusCode == HttpServletResponseWrapper.SC_OK) {
-                        return HttpServletResponseWrapper.SC_OK;
-                    } else if (subContentStatusCode == HttpServletResponseWrapper.SC_GONE) {
+                    if (subContentStatusCode == HttpServletResponse.SC_OK) {
+                        return HttpServletResponse.SC_OK;
+                    } else if (subContentStatusCode == HttpServletResponse.SC_GONE) {
                         hasContent = true;
                     }
                 }
             }
         }
-        if (hasContent) return HttpServletResponseWrapper.SC_GONE;
-        return HttpServletResponseWrapper.SC_NOT_FOUND;
+        if (hasContent) return HttpServletResponse.SC_GONE;
+        return HttpServletResponse.SC_NOT_FOUND;
     }
 
     protected static int verifySubContent(Delegator delegator, String contentId, String contentIdFrom) throws GeneralException {
@@ -374,18 +373,18 @@ public class CmsEvents {
             if (assocs != null) {
                 for (GenericValue assoc : assocs) {
                     int subContentStatusCode = verifySubContent(delegator, contentId, assoc.getString("contentIdTo"));
-                    if (subContentStatusCode == HttpServletResponseWrapper.SC_OK) {
-                        return HttpServletResponseWrapper.SC_OK;
-                    } else if (subContentStatusCode == HttpServletResponseWrapper.SC_GONE) {
+                    if (subContentStatusCode == HttpServletResponse.SC_OK) {
+                        return HttpServletResponse.SC_OK;
+                    } else if (subContentStatusCode == HttpServletResponse.SC_GONE) {
                         hasContent = true;
                     }
                 }
             }
         } else {
             if (Debug.verboseOn()) Debug.logVerbose("Found assocs: " + contentAssoc, module);
-            return HttpServletResponseWrapper.SC_OK;
+            return HttpServletResponse.SC_OK;
         }
-        if (hasContent) return HttpServletResponseWrapper.SC_GONE;
-        return HttpServletResponseWrapper.SC_NOT_FOUND;
+        if (hasContent) return HttpServletResponse.SC_GONE;
+        return HttpServletResponse.SC_NOT_FOUND;
     }
 }
