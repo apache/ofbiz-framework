@@ -353,14 +353,14 @@ public class CmsEvents {
     }
 
     protected static int verifySubContent(Delegator delegator, String contentId, String contentIdFrom) throws GeneralException {
-        List<GenericValue> contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId, "contentAssocTypeId", "SUB_CONTENT"));
+        List<GenericValue> contentAssoc = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId, "contentAssocTypeId", "SUB_CONTENT"));
         boolean hadContent = false;
         if (UtilValidate.isNotEmpty(contentAssoc)) {
             hadContent = true;
         }
         contentAssoc = EntityUtil.filterByDate(contentAssoc);
         if (UtilValidate.isEmpty(contentAssoc)) {
-            List<GenericValue> assocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom));
+            List<GenericValue> assocs = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom));
             assocs = EntityUtil.filterByDate(assocs);
             if (assocs != null) {
                 for (GenericValue assoc : assocs) {
