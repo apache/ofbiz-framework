@@ -1108,7 +1108,7 @@ under the License.
                 <calcop operator="get" field="unitCost"/>
             </calcop>
         </calculate>
-        <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) -->
+        <!-- prepare the double posting (D/C) entries (AcctgTransEntry) -->
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
         <set field="creditEntry.debitCreditFlag" value="C"/>
