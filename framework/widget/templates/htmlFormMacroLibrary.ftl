@@ -431,7 +431,7 @@ ${item.description}</div>
 </#if>
 </#macro>
 
-<#macro renderLookupField className="" alert="" name="" value="" size="20" maxlength="20" id="" event="" action="" disabled="" autocomplete="" descriptionFieldName="" formName="" lookupFieldFormName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled="" lookupPresentation="" lookupWidth="20" lookupHeight="20" lookupPosition="20" fadeBackground="">
+<#macro renderLookupField className="" alert="" name="" value="" size="20" maxlength="20" id="" event="" action="" disabled="" autocomplete="" descriptionFieldName="" formName="" lookupFieldFormName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled="" lookupPresentation="" lookupWidth="20" lookupHeight="20" lookupPosition="20" fadeBackground="" clearText="">
 <div class="field-lookup"><ul>
 <#if size?has_content && size="0"><li><input type="hidden" <#if name?has_content> name="${name}"/></#if></li><#else><li><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/><#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></li></#if>
 <li><#if lookupPresentation?has_content && descriptionFieldName?has_content && lookupPresentation == "layer">
@@ -451,6 +451,7 @@ ${item.description}</div>
 );">
 <#if ajaxEnabled?has_content && ajaxEnabled><span id="${id}_indicator" style="display: none" class="indicator"><img /></span></#if>
 </a></li><#rt>
+<#if disabled?has_content && disabled><li><a id="${id}_clear" style="background:none;margin-left:-6px;margin-right:15px;" class="clearField" href="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></li></#if>
 </ul></div>
 <#if ajaxEnabled?has_content && ajaxEnabled>
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}');</script><#t/>
