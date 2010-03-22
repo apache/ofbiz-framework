@@ -205,7 +205,7 @@ public class CmsEvents {
 
                     List<GenericValue> errorPages = null;
                     try {
-                        errorPages = delegator.findByAnd("ContentAssocViewTo", UtilMisc.toMap("contentIdStart", errorContainer.getString("contentId"), "caContentAssocTypeId", "TREE_CHILD", "contentTypeId", "DOCUMENT", "caMapKey", ""+statusCode));
+                        errorPages = delegator.findByAnd("ContentAssocViewTo", UtilMisc.toMap("contentIdStart", errorContainer.getString("contentId"), "caContentAssocTypeId", "TREE_CHILD", "contentTypeId", "DOCUMENT", "caMapKey", String.valueOf(statusCode)));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }
