@@ -316,8 +316,6 @@ public class CmsEvents {
         }
         request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: " + siteName + " [" + webSiteId + "] not even a default page!");
         return "error";
-        // throw an unknown request error
-        //throw new GeneralRuntimeException("Unknown request; this request does not exist or cannot be called directly.");
     }
 
     protected static int verifyContentToWebSite(Delegator delegator, String webSiteId, String contentId) throws GeneralException {
