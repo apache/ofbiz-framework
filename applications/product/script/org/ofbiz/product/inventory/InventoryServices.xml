@@ -303,6 +303,7 @@ under the License.
         <!-- if availableToPromiseDiff or quantityOnHandDiff are empty set to 0 -->
         <if-empty field="newEntity.availableToPromiseDiff"><set field="newEntity.availableToPromiseDiff" value="0" type="BigDecimal"/></if-empty>
         <if-empty field="newEntity.quantityOnHandDiff"><set field="newEntity.quantityOnHandDiff" value="0" type="BigDecimal"/></if-empty>
+        <if-empty field="newEntity.accountingQuantityDiff"><set field="newEntity.accountingQuantityDiff" value="0" type="BigDecimal"/></if-empty>
 
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -312,6 +313,7 @@ under the License.
 
         <set field="inventoryItem.availableToPromiseTotal" from-field="inventoryItemDetailSummary.availableToPromiseTotal"/>
         <set field="inventoryItem.quantityOnHandTotal" from-field="inventoryItemDetailSummary.quantityOnHandTotal"/>
+        <set field="inventoryItem.accountingQuantityTotal" from-field="inventoryItemDetailSummary.accountingQuantityTotal"/>
         <store-value value-field="inventoryItem"/>
     </simple-method>
 
