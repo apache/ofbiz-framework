@@ -1098,6 +1098,7 @@ under the License.
         </entity-and>
         <first-from-list list="billToCustomers" entry="billToCustomer"/>
         <!-- TODO: handle serialized inventory -->
+        <!--
         <set field="getProdAvgCostMap.inventoryItem" from-field="inventoryItem"/>
         <call-service service-name="getProductAverageCost" in-map-name="getProdAvgCostMap">
             <result-to-field result-name="unitCost"/>
@@ -1108,27 +1109,88 @@ under the License.
                 <calcop operator="get" field="unitCost"/>
             </calcop>
         </calculate>
+        -->
         <!-- prepare the double posting (D/C) entries (AcctgTransEntry) -->
         <!-- Credit -->
-        <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
-        <set field="creditEntry.debitCreditFlag" value="C"/>
-        <set field="creditEntry.glAccountTypeId" value="INVENTORY_ACCOUNT"/>
-        <set field="creditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
-        <set field="creditEntry.productId" from-field="inventoryItem.productId"/>
-        <set field="creditEntry.origAmount" from-field="origAmount"/>
-        <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
-        <if-not-empty field="billToCustomer">
-            <set field="creditEntry.partyId" from-field="billToCustomer.partyId"/>
-            <set field="creditEntry.roleTypeId" from-field="billToCustomer.roleTypeId"/>
-        </if-not-empty>
-        <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+        <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
+             <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
+        </call-service>
+        <if-compare field="partyAcctgPreference.cogsMethodId" operator="equals" value="COGS_FIFO" type="String">
+            <set value="+datetimeReceived" field="orderByString"/>
+        </if-compare>
+        <if-compare field="partyAcctgPreference.cogsMethodId" operator="equals" value="COGS_LIFO" type="String">
+            <set value="-datetimeReceived" field="orderByString"/>
+        </if-compare>
+        <if-empty field="orderByString">
+            <add-error><fail-message message="COGS costing method is not supported: ${partyAcctgPreference.cogsMethodId}"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <entity-condition entity-name="InventoryItem" list="costInventoryItems">
+            <condition-list combine="and">
+                <condition-expr field-name="ownerPartyId" operator="equals" from-field="inventoryItem.ownerPartyId"/>
+                <condition-expr field-name="facilityId" operator="equals" from-field="inventoryItem.facilityId"/>
+                <condition-expr field-name="productId" operator="equals" from-field="inventoryItem.productId"/>
+                <condition-expr field-name="accountingQuantityTotal" operator="greater" value="0.0"/>
+            </condition-list>
+            <order-by field-name="${orderByString}"/>
+        </entity-condition>
+        <set field="remainingQuantity" from-field="itemIssuance.quantity"/>
+        <set field="totalAmount" value="0.0" type="BigDecimal"/>
+        <iterate list="costInventoryItems" entry="costInventoryItem">
+            <if-compare field="remainingQuantity" operator="greater" value="0.0" type="BigDecimal">
+                <if-compare-field field="remainingQuantity" operator="less-equals" to-field="costInventoryItem.accountingQuantityTotal" type="BigDecimal">
+                    <set field="costInventoryItemQuantity" from-field="remainingQuantity"/>
+                    <set field="remainingQuantity" value="0.0" type="BigDecimal"/>
+                    <else>
+                        <set field="costInventoryItemQuantity" from-field="costInventoryItem.accountingQuantityTotal"/>
+                        <set field="remainingQuantity" value="${remainingQuantity - costInventoryItem.accountingQuantityTotal}" type="BigDecimal"/>
+                    </else>
+                </if-compare-field>
+                <!-- An inventory item detail record is created to keep track of the units (value) that we are going to add to the inventory account -->
+                <set from-field="costInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+                <set value="${-1 * costInventoryItemQuantity}" field="createDetailMap.accountingQuantityDiff" type="BigDecimal"/>
+                <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+
+                <calculate field="costInventoryItemAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                    <calcop operator="multiply">
+                        <calcop operator="get" field="costInventoryItemQuantity"/>
+                        <calcop operator="get" field="costInventoryItem.unitCost"/>
+                    </calcop>
+                </calculate>
+                <calculate field="totalAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                    <calcop operator="sum">
+                        <calcop operator="get" field="costInventoryItemAmount"/>
+                        <calcop operator="get" field="totalAmount"/>
+                    </calcop>
+                </calculate>
+                <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
+                <set field="creditEntry.debitCreditFlag" value="C"/>
+                <set field="creditEntry.glAccountTypeId" value="INVENTORY_ACCOUNT"/>
+                <set field="creditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+                <set field="creditEntry.productId" from-field="inventoryItem.productId"/>
+                <set field="creditEntry.inventoryItemId" from-field="costInventoryItem.inventoryItemId"/>
+                <set field="creditEntry.origAmount" from-field="costInventoryItemAmount"/>
+                <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
+                <if-not-empty field="billToCustomer">
+                    <set field="creditEntry.partyId" from-field="billToCustomer.partyId"/>
+                    <set field="creditEntry.roleTypeId" from-field="billToCustomer.roleTypeId"/>
+                </if-not-empty>
+                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+                <clear-field field="creditEntry"/>
+            </if-compare>
+        </iterate>
+        <if-compare field="remainingQuantity" operator="greater" value="0.0" type="BigDecimal">
+            <add-error><fail-message message="Could not find enough accounting inventory for product [${inventoryItem.productId}]; remaining quantity: ${remainingQuantity}"/></add-error>
+            <check-errors/>
+        </if-compare>
         <!-- Debit -->
         <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
         <set field="debitEntry.debitCreditFlag" value="D"/>
         <set field="debitEntry.glAccountTypeId" value="COGS_ACCOUNT"/>
         <set field="debitEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
         <set field="debitEntry.productId" from-field="inventoryItem.productId"/>
-        <set field="debitEntry.origAmount" from-field="origAmount"/>
+        <set field="debitEntry.origAmount" from-field="totalAmount"/>
         <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
         <if-not-empty field="billToCustomer">
             <set field="debitEntry.partyId" from-field="billToCustomer.partyId"/>
@@ -1139,6 +1201,7 @@ under the License.
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="SALES_SHIPMENT"/>
         <set field="createAcctgTransAndEntriesInMap.shipmentId" from-field="itemIssuance.shipmentId"/>
+        <set field="createAcctgTransAndEntriesInMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <set field="createAcctgTransAndEntriesInMap.transactionDate" from-field="itemIssuance.issuedDateTime"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
@@ -1236,6 +1299,10 @@ under the License.
                 <calcop operator="get" field="unitCost"/>
             </calcop>
         </calculate>
+        <!-- An inventory item detail record is created to keep track of the units (value) that we are going to add to the inventory account -->
+        <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+        <set from-field="shipmentReceipt.quantityAccepted" field="createDetailMap.accountingQuantityDiff"/>
+        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
         <!-- prepare the double posting (D/C) entries (AcctgTransEntry) -->
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>

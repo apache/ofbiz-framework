@@ -208,7 +208,7 @@ under the License.
     <!-- GL journal for suspended transactions (failed post) -->
     <GlJournal organizationPartyId="Company" glJournalId="ERROR_JOURNAL" glJournalName="Suspense transactions"/>
 
-    <PartyAcctgPreference partyId="Company" taxFormId="US_IRS_1120" cogsMethodId="COGS_AVG_COST" baseCurrencyUomId="USD"
+    <PartyAcctgPreference partyId="Company" taxFormId="US_IRS_1120" cogsMethodId="COGS_LIFO" baseCurrencyUomId="USD"
         invoiceSequenceEnumId="INVSQ_ENF_SEQ" invoiceIdPrefix="CI"
         quoteSequenceEnumId="INVSQ_ENF_SEQ" quoteIdPrefix="CQ"
         orderSequenceEnumId="INVSQ_ENF_SEQ" orderIdPrefix="CO"

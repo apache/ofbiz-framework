@@ -1742,6 +1742,7 @@ under the License.
       <field name="theirPartyId" type="id"></field>
       <field name="productId" type="id"></field>
       <field name="theirProductId" type="id"></field>
+      <field name="inventoryItemId" type="id"></field>
       <field name="glAccountTypeId" type="id"></field>
       <field name="glAccountId" type="id-ne"></field>
       <field name="organizationPartyId" type="id-ne"></field>
@@ -1769,6 +1770,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="ACCTTXENT_ACTX" rel-entity-name="AcctgTrans">
         <key-map field-name="acctgTransId"/>
+      </relation>
+      <relation type="one" fk-name="ACCTTXENT_INVITEM" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
       </relation>
       <relation type="one" fk-name="ACCTTXENT_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>

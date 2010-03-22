@@ -1839,6 +1839,7 @@ under the License.
       <field name="comments" type="comment"></field>
       <field name="quantityOnHandTotal" type="fixed-point"></field>
       <field name="availableToPromiseTotal" type="fixed-point"></field>
+      <field name="accountingQuantityTotal" type="fixed-point"></field>
       <field name="oldQuantityOnHand" col-name="QUANTITY_ON_HAND" type="fixed-point"></field>
       <field name="oldAvailableToPromise" col-name="AVAILABLE_TO_PROMISE" type="fixed-point"></field>
       <field name="serialNumber" type="value"></field>
@@ -1971,6 +1972,7 @@ under the License.
       <field name="effectiveDate" type="date-time"></field>
       <field name="quantityOnHandDiff" type="fixed-point"></field>
       <field name="availableToPromiseDiff" type="fixed-point"></field>
+      <field name="accountingQuantityDiff" type="fixed-point"></field>
       <field name="unitCost" type="fixed-point"></field>
       <field name="orderId" type="id"></field>
       <field name="orderItemSeqId" type="id"></field>
@@ -2037,12 +2039,14 @@ under the License.
       <alias entity-alias="IID" name="inventoryItemId" group-by="true"/>
       <alias entity-alias="IID" name="availableToPromiseTotal" field="availableToPromiseDiff" function="sum"/>
       <alias entity-alias="IID" name="quantityOnHandTotal" field="quantityOnHandDiff" function="sum"/>
+      <alias entity-alias="IID" name="accountingQuantityTotal" field="accountingQuantityDiff" function="sum"/>
     </view-entity>
     <view-entity entity-name="InventoryItemDetailForSum" package-name="org.ofbiz.product.inventory"
         title="Inventory Item  And Inventory Item Detail for Summation View Entity">
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
         <alias entity-alias="IID" name="quantityOnHandSum" field="quantityOnHandDiff" function="sum"/>
+        <alias entity-alias="IID" name="accountingQuantitySum" field="accountingQuantityDiff" function="sum"/>
         <alias entity-alias="II" name="inventoryItemTypeId" group-by="true"></alias>
         <alias entity-alias="II" name="facilityId" group-by="true"></alias>
         <alias entity-alias="II" name="productId" group-by="true"></alias>

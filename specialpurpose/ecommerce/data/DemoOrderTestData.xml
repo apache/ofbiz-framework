@@ -121,7 +121,7 @@ under the License.
     
     <InventoryItem inventoryItemId="9025" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-2644" ownerPartyId="Company" datetimeReceived="2009-08-13 17:47:31.095" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" quantityOnHandTotal="2.000000" availableToPromiseTotal="2.000000" unitCost="24.000000" currencyUomId="USD"/>
     <ShipmentReceipt receiptId="9000" inventoryItemId="9025" productId="GZ-2644" shipmentId="9997" orderId="Demo1001" orderItemSeqId="00001" datetimeReceived="2009-08-13 17:47:31.095" quantityAccepted="2.000000" quantityRejected="0.000000"/>
-    <InventoryItemDetail inventoryItemId="9025" inventoryItemDetailSeqId="00001" effectiveDate="2009-08-13 17:47:46.78" quantityOnHandDiff="2.000000" availableToPromiseDiff="2.000000" unitCost="24.000000" orderId="Demo1001" orderItemSeqId="00001" shipmentId="9997" receiptId="9000"/>
+    <InventoryItemDetail inventoryItemId="9025" inventoryItemDetailSeqId="00001" effectiveDate="2009-08-13 17:47:46.78" quantityOnHandDiff="2.000000" availableToPromiseDiff="2.000000" accountingQuantityDiff="2.000000" unitCost="24.000000" orderId="Demo1001" orderItemSeqId="00001" shipmentId="9997" receiptId="9000"/>
     <ItemIssuance itemIssuanceId="9000" orderId="Demo1001" orderItemSeqId="00001" shipGroupSeqId="00001" shipmentId="9997" shipmentItemSeqId="00001" issuedDateTime="2009-08-13 17:46:29.603" quantity="2.000000"/>
 
     <Invoice invoiceId="8008" invoiceTypeId="PURCHASE_INVOICE" description="Purchase Order Invoice" partyIdFrom="DemoSupplier" partyId="Company" statusId="INVOICE_READY" invoiceDate="2009-08-13 17:47:47.929" currencyUomId="USD"/>
