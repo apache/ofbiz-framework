@@ -94,10 +94,10 @@ public class CmsEvents {
         String mapKey = null;
 
         String pathInfo = request.getPathInfo();
-        if (targetRequest.equals(actualRequest)) {
+        if (targetRequest.equals(actualRequest) && pathInfo != null) {
             // was called directly -- path info is everything after the request
             String[] pathParsed = pathInfo.split("/", 3);
-            if (pathParsed != null && pathParsed.length > 2) {
+            if (pathParsed.length > 2) {
                 pathInfo = pathParsed[2];
             } else {
                 pathInfo = null;
