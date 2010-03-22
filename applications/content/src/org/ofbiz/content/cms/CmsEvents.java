@@ -168,15 +168,11 @@ public class CmsEvents {
             // get the contentId/mapKey from URL
             if (contentId == null) {
                 if (Debug.verboseOn()) Debug.logVerbose("Current PathInfo: " + pathInfo, module);
-                if (pathInfo.indexOf("/") != -1) {
-                    String[] pathSplit = pathInfo.split("/");
-                    if (Debug.verboseOn()) Debug.logVerbose("Split pathinfo: " + pathSplit.length, module);
-                    contentId = pathSplit[0];
-                    if (pathSplit.length > 1) {
-                        mapKey = pathSplit[1];
-                    }
-                } else {
-                    contentId = pathInfo;
+                String[] pathSplit = pathInfo.split("/");
+                if (Debug.verboseOn()) Debug.logVerbose("Split pathinfo: " + pathSplit.length, module);
+                contentId = pathSplit[0];
+                if (pathSplit.length > 1) {
+                    mapKey = pathSplit[1];
                 }
             }
 
