@@ -171,11 +171,9 @@ public class CmsEvents {
                 if (pathInfo.indexOf("/") != -1) {
                     String[] pathSplit = pathInfo.split("/");
                     if (Debug.verboseOn()) Debug.logVerbose("Split pathinfo: " + pathSplit.length, module);
-                    if (pathSplit != null && pathSplit.length > 0) {
-                        contentId = pathSplit[0];
-                        if (pathSplit.length > 1) {
-                            mapKey = pathSplit[1];
-                        }
+                    contentId = pathSplit[0];
+                    if (pathSplit.length > 1) {
+                        mapKey = pathSplit[1];
                     }
                 } else {
                     contentId = pathInfo;
