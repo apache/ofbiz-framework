@@ -890,6 +890,7 @@ public class ContactMechServices {
             deletePcmCtx.put("contactMechPurposeTypeId", context.get("contactMechPurposeTypeId"));
             deletePcmCtx.put("fromDate", tempVal.get("fromDate"));
             deletePcmCtx.put("userLogin", context.get("userLogin"));
+            deletePcmCtx.put("partyId", partyId);
             try {
                 Map<String, Object> deletePcmResult = ctx.getDispatcher().runSync("deletePartyContactMechPurpose", deletePcmCtx);
                 if (ServiceUtil.isError(deletePcmResult)) {
