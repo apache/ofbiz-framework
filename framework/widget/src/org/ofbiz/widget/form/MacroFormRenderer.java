@@ -332,6 +332,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("image", hyperlinkField.getImage());
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
 
+        String encodedAlternate = encode(hyperlinkField.getAlternate(context), modelFormField, context);
+        this.request.setAttribute("alternate", encodedAlternate);
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context),
                 hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), hyperlinkField.getConfirmation(context), modelFormField,
                 this.request, this.response, context);
@@ -2841,6 +2843,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             String event = "";
             String action = "";
             String imgSrc = "";
+            String alt = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
 
             if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
@@ -2850,6 +2853,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
                 imgSrc = request.getAttribute("image").toString();
+                alt = request.getAttribute("alternate").toString();
             }
 
             StringWriter sr = new StringWriter();
@@ -2864,6 +2868,8 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append(action);
             sr.append("\" imgSrc=\"");
             sr.append(imgSrc);
+            sr.append("\" alternate=\"");
+            sr.append(alt);
             sr.append("\" linkUrl=\"");
             sr.append(linkUrl.toString());
             sr.append("\" targetWindow=\"");
