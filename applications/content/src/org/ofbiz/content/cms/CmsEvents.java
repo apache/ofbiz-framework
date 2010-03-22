@@ -315,7 +315,7 @@ public class CmsEvents {
     protected static int verifyContentToWebSite(Delegator delegator, String webSiteId, String contentId) throws GeneralException {
         // first check if the passed in contentId is a publish point for the web site
         List<GenericValue> publishPoints = null;
-        boolean hasContent = false;
+        boolean hadContent = false;
         try {
             publishPoints = delegator.findByAndCache("WebSiteContent",
                     UtilMisc.toMap("webSiteId", webSiteId, "contentId", contentId, "webSiteContentTypeId", "PUBLISH_POINT"),
@@ -324,7 +324,7 @@ public class CmsEvents {
             throw e;
         }
         if (UtilValidate.isNotEmpty(publishPoints)) {
-            hasContent = true;
+            hadContent = true;
         }
         publishPoints = EntityUtil.filterByDate(publishPoints);
         if (UtilValidate.isNotEmpty(publishPoints)) {
@@ -343,20 +343,20 @@ public class CmsEvents {
                     if (subContentStatusCode == HttpServletResponse.SC_OK) {
                         return HttpServletResponse.SC_OK;
                     } else if (subContentStatusCode == HttpServletResponse.SC_GONE) {
-                        hasContent = true;
+                        hadContent = true;
                     }
                 }
             }
         }
-        if (hasContent) return HttpServletResponse.SC_GONE;
+        if (hadContent) return HttpServletResponse.SC_GONE;
         return HttpServletResponse.SC_NOT_FOUND;
     }
 
     protected static int verifySubContent(Delegator delegator, String contentId, String contentIdFrom) throws GeneralException {
         List<GenericValue> contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId, "contentAssocTypeId", "SUB_CONTENT"));
-        boolean hasContent = false;
+        boolean hadContent = false;
         if (UtilValidate.isNotEmpty(contentAssoc)) {
-            hasContent = true;
+            hadContent = true;
         }
         contentAssoc = EntityUtil.filterByDate(contentAssoc);
         if (UtilValidate.isEmpty(contentAssoc)) {
@@ -368,7 +368,7 @@ public class CmsEvents {
                     if (subContentStatusCode == HttpServletResponse.SC_OK) {
                         return HttpServletResponse.SC_OK;
                     } else if (subContentStatusCode == HttpServletResponse.SC_GONE) {
-                        hasContent = true;
+                        hadContent = true;
                     }
                 }
             }
@@ -376,7 +376,7 @@ public class CmsEvents {
             if (Debug.verboseOn()) Debug.logVerbose("Found assocs: " + contentAssoc, module);
             return HttpServletResponse.SC_OK;
         }
-        if (hasContent) return HttpServletResponse.SC_GONE;
+        if (hadContent) return HttpServletResponse.SC_GONE;
         return HttpServletResponse.SC_NOT_FOUND;
     }
 }
