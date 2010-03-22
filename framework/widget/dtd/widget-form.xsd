@@ -836,6 +836,9 @@ under the License.
             <xs:annotation><xs:documentation>Specifies the string to display, can use the ${} syntax to insert context values; if empty the value of the field will be printed for a default.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="target-window"/>
+        <xs:attribute type="xs:string" name="alternate">
+            <xs:annotation><xs:documentation>Alternate text if the image is not found at image-location</xs:documentation></xs:annotation>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="image-location"/>
         <xs:attribute name="request-confirmation" default="false">
             <xs:annotation><xs:documentation>If true then the user is presented with a dialog box, if confirmation-message is empty, use default</xs:documentation></xs:annotation>
