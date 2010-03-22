@@ -1992,6 +1992,14 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isEmpty(fadeBackground)){
             fadeBackground = "false";
         }
+        
+        String clearText = "";
+        Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));        
+        if (uiLabelMap != null) {
+            clearText = (String) uiLabelMap.get("CommonClear");            
+        } else {
+            Debug.logWarning("Could not find uiLabelMap in context", module);
+        }
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
@@ -2046,6 +2054,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(lookupPosition);
         sr.append("\" fadeBackground=\"");
         sr.append(fadeBackground);
+        sr.append("\" clearText=\"");
+        sr.append(clearText);
         sr.append("\" />");
         executeMacro(sr.toString());
 
