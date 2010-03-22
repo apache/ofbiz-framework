@@ -184,8 +184,8 @@ public class CmsEvents {
             }
 
             // verify the request content is associated with the current website
-            int statusCode=-1;
-            boolean hasErrorPage=false;
+            int statusCode = -1;
+            boolean hasErrorPage = false;
 
             try {
                 statusCode = verifyContentToWebSite(delegator, webSiteId, contentId);
@@ -195,7 +195,7 @@ public class CmsEvents {
             }
 
             // We try to find a specific Error page for this website concerning the status code
-            if (statusCode!=HttpServletResponseWrapper.SC_OK) {
+            if (statusCode != HttpServletResponseWrapper.SC_OK) {
                 List<GenericValue> errorContainers = null;
                 try {
                     errorContainers = delegator.findByAndCache("WebSiteContent",
@@ -212,18 +212,17 @@ public class CmsEvents {
 
                     List<GenericValue> errorPages = null;
                     try {
-                        errorPages = delegator.findByAnd("ContentAssocViewTo", UtilMisc.toMap("contentIdStart", errorContainer.getString("contentId"), "caContentAssocTypeId", "TREE_CHILD", "contentTypeId", "DOCUMENT", "caMapKey",""+statusCode));
+                        errorPages = delegator.findByAnd("ContentAssocViewTo", UtilMisc.toMap("contentIdStart", errorContainer.getString("contentId"), "caContentAssocTypeId", "TREE_CHILD", "contentTypeId", "DOCUMENT", "caMapKey", ""+statusCode));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }
                     errorPages = EntityUtil.filterByDate(errorPages);
                     if (UtilValidate.isNotEmpty(errorPages)) {
-                        if (Debug.verboseOn()) Debug.logVerbose("Found error pages "+ statusCode + " : " + errorPages, module);
-                        contentId=EntityUtil.getFirst(errorPages).getString("contentId");
-                    }
-                    else {
-                        if (Debug.verboseOn()) Debug.logVerbose("No specific error page, falling back to the Error Container for "+ statusCode, module);
-                        contentId=errorContainer.getString("contentId");
+                        if (Debug.verboseOn()) Debug.logVerbose("Found error pages " + statusCode + " : " + errorPages, module);
+                        contentId = EntityUtil.getFirst(errorPages).getString("contentId");
+                    } else {
+                        if (Debug.verboseOn()) Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
+                        contentId = errorContainer.getString("contentId");
                     }
                     mapKey = null;
                     hasErrorPage=true;
@@ -231,12 +230,12 @@ public class CmsEvents {
                 // We try to find a generic content Error page concerning the status code
                 if (!hasErrorPage) {
                     try {
-                        GenericValue errorPage = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", "CONTENT_ERROR_"+statusCode));
-                        if (errorPage!=null) {
+                        GenericValue errorPage = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", "CONTENT_ERROR_" + statusCode));
+                        if (errorPage != null) {
                             Debug.logVerbose("Found generic page " + statusCode, module);
-                            contentId=errorPage.getString("contentId");
+                            contentId = errorPage.getString("contentId");
                             mapKey = null;
-                            hasErrorPage=true;
+                            hasErrorPage = true;
                         }
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
@@ -245,7 +244,7 @@ public class CmsEvents {
 
             }
 
-            if (statusCode==HttpServletResponseWrapper.SC_OK || hasErrorPage) {
+            if (statusCode == HttpServletResponseWrapper.SC_OK || hasErrorPage) {
                 // create the template map
                 MapStack<String> templateMap = MapStack.create();
                 ScreenRenderer.populateContextForRequest(templateMap, null, request, response, servletContext);
@@ -296,10 +295,9 @@ public class CmsEvents {
                 String siteName = null;
                 try {
                     GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
-                    if (content !=null && UtilValidate.isNotEmpty(content)) {
+                    if (content != null && UtilValidate.isNotEmpty(content)) {
                         contentName = content.getString("contentName");
-                    }
-                    else {
+                    } else {
                         request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: [" + webSiteId + "]");
                         return "error";
                     }
@@ -307,7 +305,7 @@ public class CmsEvents {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
-                request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: "+ siteName + " [" + webSiteId + "]");
+                request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: " + siteName + " [" + webSiteId + "]");
                 return "error";
             }
         }
@@ -317,7 +315,7 @@ public class CmsEvents {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: "+ siteName + " [" + webSiteId + "] not even a default page!");
+        request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: " + siteName + " [" + webSiteId + "] not even a default page!");
         return "error";
         // throw an unknown request error
         //throw new GeneralRuntimeException("Unknown request; this request does not exist or cannot be called directly.");
@@ -326,7 +324,7 @@ public class CmsEvents {
     protected static int verifyContentToWebSite(Delegator delegator, String webSiteId, String contentId) throws GeneralException {
         // first check if the passed in contentId is a publish point for the web site
         List<GenericValue> publishPoints = null;
-        boolean hasContent=false;
+        boolean hasContent = false;
         try {
             publishPoints = delegator.findByAndCache("WebSiteContent",
                     UtilMisc.toMap("webSiteId", webSiteId, "contentId", contentId, "webSiteContentTypeId", "PUBLISH_POINT"),
@@ -335,7 +333,7 @@ public class CmsEvents {
             throw e;
         }
         if (UtilValidate.isNotEmpty(publishPoints)) {
-            hasContent=true;
+            hasContent = true;
         }
         publishPoints = EntityUtil.filterByDate(publishPoints);
         if (UtilValidate.isNotEmpty(publishPoints)) {
@@ -350,11 +348,11 @@ public class CmsEvents {
 
             if (topLevelContentValues != null) {
                 for (GenericValue point: topLevelContentValues) {
-                    int subContentStatusCode=verifySubContent(delegator, contentId, point.getString("contentId"));
-                    if (subContentStatusCode== HttpServletResponseWrapper.SC_OK) {
+                    int subContentStatusCode = verifySubContent(delegator, contentId, point.getString("contentId"));
+                    if (subContentStatusCode == HttpServletResponseWrapper.SC_OK) {
                         return HttpServletResponseWrapper.SC_OK;
-                    } else if (subContentStatusCode== HttpServletResponseWrapper.SC_GONE) {
-                        hasContent=true;
+                    } else if (subContentStatusCode == HttpServletResponseWrapper.SC_GONE) {
+                        hasContent = true;
                     }
                 }
             }
@@ -365,21 +363,21 @@ public class CmsEvents {
 
     protected static int verifySubContent(Delegator delegator, String contentId, String contentIdFrom) throws GeneralException {
         List<GenericValue> contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId, "contentAssocTypeId", "SUB_CONTENT"));
-        boolean hasContent=false;
+        boolean hasContent = false;
         if (UtilValidate.isNotEmpty(contentAssoc)) {
-            hasContent=true;
+            hasContent = true;
         }
         contentAssoc = EntityUtil.filterByDate(contentAssoc);
         if (UtilValidate.isEmpty(contentAssoc)) {
             List<GenericValue> assocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom));
             assocs = EntityUtil.filterByDate(assocs);
             if (assocs != null) {
-                for (GenericValue assoc: assocs) {
-                    int subContentStatusCode=verifySubContent(delegator, contentId, assoc.getString("contentIdTo"));
-                    if (subContentStatusCode== HttpServletResponseWrapper.SC_OK) {
+                for (GenericValue assoc : assocs) {
+                    int subContentStatusCode = verifySubContent(delegator, contentId, assoc.getString("contentIdTo"));
+                    if (subContentStatusCode == HttpServletResponseWrapper.SC_OK) {
                         return HttpServletResponseWrapper.SC_OK;
-                    } else if (subContentStatusCode== HttpServletResponseWrapper.SC_GONE) {
-                        hasContent=true;
+                    } else if (subContentStatusCode == HttpServletResponseWrapper.SC_GONE) {
+                        hasContent = true;
                     }
                 }
             }
