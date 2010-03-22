@@ -39,6 +39,7 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/MiscData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentHttpErrorData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentPortletData.xml"/>
     <!-- these files cannot be loaded in their original component because they are earlier than the content component -->
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PartyHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/WebtoolsHelpData.xml"/>
