@@ -1169,7 +1169,7 @@ under the License.
                 <calcop operator="get" field="unitCost"/>
             </calcop>
         </calculate>
-        <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) -->
+        <!-- prepare the double posting (D/C) entries (AcctgTransEntry) -->
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
         <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -1236,7 +1236,7 @@ under the License.
                 <calcop operator="get" field="unitCost"/>
             </calcop>
         </calculate>
-        <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) -->
+        <!-- prepare the double posting (D/C) entries (AcctgTransEntry) -->
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
         <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -1384,7 +1384,7 @@ under the License.
                 <calcop operator="get" field="inventoryItem.unitCost"/>
             </calcop>
         </calculate>
-        <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) -->
+        <!-- prepare the double posting (D/C) entries (AcctgTransEntry) -->
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
         <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -1502,7 +1502,7 @@ under the License.
                 </calcop>
             </calculate>
         </if-not-empty>
-        <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) for old OwnerPartyId  -->
+        <!-- prepare the double posting (D/C) entries (AcctgTransEntry) for old OwnerPartyId  -->
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="oldPartyCreditEntry"/>
         <set field="oldPartyCreditEntry.debitCreditFlag" value="C"/>
@@ -1520,7 +1520,7 @@ under the License.
         <set field="oldPartyDebitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
         <set field="oldPartyDebitEntry.organizationPartyId" from-field="parameters.oldOwnerPartyId"/>
         <set field="oldPartyDebitEntry.glAccountTypeId" value="INVENTORY_ACCOUNT"/>
-        <!-- prepare the doble posting (D/C) entries (AcctgTransEntry) for New ownerPartyId -->
+        <!-- prepare the double posting (D/C) entries (AcctgTransEntry) for New ownerPartyId -->
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="newPartyCreditEntry"/>
         <set field="newPartyCreditEntry.debitCreditFlag" value="C"/>
