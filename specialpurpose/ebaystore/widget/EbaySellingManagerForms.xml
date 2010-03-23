@@ -508,4 +508,44 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="buyerId"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSearch}"><submit/></field>
     </form>
+    <form name="findOrdersImported" type="single" target="searchOrdersImported">
+        <actions>
+            <entity-and entity-name="ProductStoreRole" list="storeList">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="roleTypeId" value="EBAY_ACCOUNT"/>
+            </entity-and>
+            <set field="partyId" value="${bsh:
+                import org.ofbiz.entity.util.EntityUtil;
+                GenericValue partyStore = EntityUtil.getFirst(storeList);
+                if(partyStore!=null) partyId = partyStore.getString(&quot;partyId&quot;);
+                return partyId;
+                }"/>
+        </actions>
+        <field name="productStoreId"><hidden value="10000"/></field>
+        <field name="viewSize"><hidden value="20"/></field>
+        <field name="viewIndex"><hidden value="1"/></field>
+        <!--field name="partyId"><hidden value="${partyId}"/></field-->
+        <field name="salesChannelEnumId"><hidden value="EBAY_SALES_CHANNEL"/></field>
+        <field name="countryGeoId"><hidden value="USA"/></field>
+        <field name="includeCountry"><hidden value="N"/></field>
+        <field name="orderId" title="Order Id"><text size="25"></text></field>
+        <field name="productId" title="Product Id"><text size="25"></text></field>
+        <field name="orderTypeId" title="Order Type">
+            <drop-down>
+                <option key="" description="Any Order Type"/>
+                <option key="PURCHASE_ORDER" description="Purchase Order"/>
+                <option key="SALES_ORDER" description="Sales Order"/>
+            </drop-down>
+        </field>
+        <field name="statusId" title="Status">
+            <drop-down>
+                <option key="" description="All Status"/>
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
 </forms>

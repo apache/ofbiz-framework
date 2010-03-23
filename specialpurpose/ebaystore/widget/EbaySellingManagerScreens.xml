@@ -530,4 +530,29 @@
             </widgets>
         </section>
     </screen>
+    <screen name="ordersImported">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="ordersImported"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FindOrders.groovy"/>
+                <set field="orderList" value="${orderList}" type="List"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Find Orders Imported">
+                            <include-form name="findOrdersImported" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://ebaystore/webapp/ebaystore/store/orderImported.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
