@@ -292,7 +292,7 @@ public abstract class ModelFormAction {
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
                 }
-            } else if (location.contains(".groovy")) {
+            } else if (location.endsWith(".groovy")) {
                 try {
                     groovy.lang.Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(location), new Binding(context));
                     if (UtilValidate.isEmpty(method)) {
