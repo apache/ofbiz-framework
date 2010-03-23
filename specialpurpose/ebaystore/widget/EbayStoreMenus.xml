@@ -86,6 +86,11 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
+        <menu-item name="ordersImported" title="Orders Imported">
+            <link target="ordersImported">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="EbayAccountTabBar" selected-menuitem-context-field-name="accountItem" type="simple" 
         default-selected-style="selected" menu-container-style="button-bar button-style-2">

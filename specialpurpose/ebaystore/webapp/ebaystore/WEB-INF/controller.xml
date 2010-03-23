@@ -387,6 +387,17 @@
         <security auth="true" https="true"/>
         <response name="success" type="view" value="WaitingToShipping"/>
     </request-map>
+    <request-map uri="ordersImported">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ordersImported"/>
+        <response name="error" type="view" value="ordersImported"/>
+    </request-map>
+    <request-map uri="searchOrdersImported">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="findOrders"/>
+        <response name="success" type="view" value="ordersImported"/>
+        <response name="error" type="view" value="ordersImported"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -429,5 +440,6 @@
     <view-map name="UnsoldListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#UnsoldListing"/>
     <!-- Waiting to shipping -->
     <view-map name="WaitingToShipping" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#WaitingToShipping"/>
+    <view-map name="ordersImported" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ordersImported"/>
     <!-- end of view mappings -->
 </site-conf>

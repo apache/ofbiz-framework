@@ -305,4 +305,10 @@
     <property key="EbayWaitingToShipping">
         <value xml:lang="en">Waiting to shipping</value>
     </property>
+    <property key="EbayListOrderImported">
+        <value xml:lang="en">List Orders Imported</value>
+    </property>
+    <property key="EbayNoOrderImported">
+        <value xml:lang="en">No orders imported found</value>
+    </property>
 </resource>
