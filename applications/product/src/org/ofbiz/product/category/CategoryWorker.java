@@ -271,12 +271,7 @@ public class CategoryWorker {
                 // if cur category is in crumb, remove everything after it and return
                 int cindex = trail.lastIndexOf(currentCategoryId);
 
-                if (cindex < (trail.size() - 1)) {
-                    for (int i = trail.size() - 1; i > cindex; i--) {
-                        trail.remove(i);
-                        //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after current category index: " + i + " catname: " + deadCat, module);
-                    }
-                }
+                trail = trail.subList(0, cindex);
                 return trail;
             } else {
                 // current category is not in the list, and no previous category was specified, go back to the beginning
@@ -300,13 +295,7 @@ public class CategoryWorker {
         } else {
             // remove all categories after the previous category, preparing for adding the current category
             int index = trail.indexOf(previousCategoryId);
-
-            if (index < (trail.size() - 1)) {
-                for (int i = trail.size() - 1; i > index; i--) {
-                    trail.remove(i);
-                    //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after previous category index: " + i + " catname: " + deadCat, module);
-                }
-            }
+            trail = trail.subList(0, index);
         }
 
         // add the current category to the end of the list
