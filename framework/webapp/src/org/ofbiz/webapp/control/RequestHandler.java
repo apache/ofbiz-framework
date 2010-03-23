@@ -159,6 +159,11 @@ public class RequestHandler {
             } else {
                 overrideViewUri = RequestHandler.getOverrideViewUri(chain);
             }
+            if (overrideViewUri != null) {
+                // put this in a request attribute early in case an event needs to access it
+                // not using _POST_CHAIN_VIEW_ because it shouldn't be set unless the event execution is successful
+                request.setAttribute("_CURRENT_CHAIN_VIEW_", overrideViewUri);
+            }
             if (Debug.infoOn()) Debug.logInfo("[RequestHandler]: Chain in place: requestUri=" + chainRequestUri + " overrideViewUri=" + overrideViewUri + " sessionId=" + UtilHttp.getSessionId(request), module);
         } else {
             // Check if X509 is required and we are not secure; throw exception
