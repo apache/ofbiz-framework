@@ -88,7 +88,7 @@ public class CategoryWorker {
             for (GenericValue curCat: allCategories) {
                 Collection<GenericValue> parentCats = curCat.getRelatedCache("CurrentProductCategoryRollup");
 
-                if (parentCats == null || parentCats.size() <= 0)
+                if (parentCats.isEmpty())
                     results.add(curCat);
             }
         } catch (GenericEntityException e) {
@@ -117,7 +117,7 @@ public class CategoryWorker {
     public static void getRelatedCategories(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
         List<GenericValue> categories = getRelatedCategoriesRet(request, attributeName, parentId, limitView, excludeEmpty);
 
-        if (categories.size() > 0)
+        if (!categories.isEmpty())
             request.setAttribute(attributeName, categories);
     }
 
@@ -147,7 +147,7 @@ public class CategoryWorker {
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
         }
-        if (UtilValidate.isNotEmpty(rollups)) {
+        if (rollups != null) {
             // Debug.log("Rollup size: " + rollups.size(), module);
             for (GenericValue parent: rollups) {
                 // Debug.log("Adding child of: " + parent.getString("parentProductCategoryId"), module);
@@ -346,7 +346,7 @@ public class CategoryWorker {
             GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
             List<GenericValue> productAssocs = ProductWorker.getVariantVirtualAssocs(product);
             //this does take into account that a product could be a variant of multiple products, but this shouldn't ever really happen...
-            if (UtilValidate.isNotEmpty(productAssocs)) {
+            if (productAssocs != null) {
                 for (GenericValue productAssoc: productAssocs) {
                     if (isProductInCategory(delegator, productAssoc.getString("productId"), productCategoryId)) {
                         return true;
