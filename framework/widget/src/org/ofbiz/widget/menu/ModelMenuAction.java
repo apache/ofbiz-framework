@@ -25,16 +25,22 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import groovy.lang.Binding;
+import org.codehaus.groovy.runtime.InvokerHelper;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -45,10 +51,8 @@ import org.ofbiz.entity.finder.ByConditionFinder;
 import org.ofbiz.entity.finder.PrimaryKeyFinder;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
-
+import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -324,11 +328,15 @@ public abstract class ModelMenuAction {
     }
 
     public static class Script extends ModelMenuAction {
+        protected static final Object[] EMPTY_ARGS = {};
         protected String location;
+        protected String method;
 
         public Script(ModelMenu modelMenu, Element scriptElement) {
             super (modelMenu, scriptElement);
-            this.location = scriptElement.getAttribute("location");
+            String scriptLocation = scriptElement.getAttribute("location");
+            this.location = WidgetWorker.getScriptLocation(scriptLocation);
+            this.method = WidgetWorker.getScriptMethodName(scriptLocation);
         }
 
         @Override
@@ -343,7 +351,12 @@ public abstract class ModelMenuAction {
                 }
             } else if (location.endsWith(".groovy")) {
                 try {
-                    GroovyUtil.runScriptAtLocation(location, context);
+                    groovy.lang.Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(location), new Binding(context));
+                    if (UtilValidate.isEmpty(method)) {
+                        script.run();
+                    } else {
+                        script.invokeMethod(method, EMPTY_ARGS);
+                    }
                 } catch (GeneralException e) {
                     String errMsg = "Error running Groovy script at location [" + location + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);

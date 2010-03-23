@@ -31,6 +31,9 @@ import java.util.regex.PatternSyntaxException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import groovy.lang.Binding;
+
+import org.codehaus.groovy.runtime.InvokerHelper;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -49,6 +52,7 @@ import org.ofbiz.entity.finder.PrimaryKeyFinder;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 
 
@@ -267,11 +271,15 @@ public abstract class ModelFormAction {
     }
 
     public static class Script extends ModelFormAction {
+        protected static final Object[] EMPTY_ARGS = {};
         protected String location;
+        protected String method;
 
         public Script(ModelForm modelForm, Element scriptElement) {
             super (modelForm, scriptElement);
-            this.location = scriptElement.getAttribute("location");
+            String scriptLocation = scriptElement.getAttribute("location");
+            this.location = WidgetWorker.getScriptLocation(scriptLocation);
+            this.method = WidgetWorker.getScriptMethodName(scriptLocation);
         }
 
         @Override
@@ -284,9 +292,14 @@ public abstract class ModelFormAction {
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
                 }
-            } else if (location.endsWith(".groovy")) {
+            } else if (location.contains(".groovy")) {
                 try {
-                    GroovyUtil.runScriptAtLocation(location, context);
+                    groovy.lang.Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(location), new Binding(context));
+                    if (UtilValidate.isEmpty(method)) {
+                        script.run();
+                    } else {
+                        script.invokeMethod(method, EMPTY_ARGS);
+                    }
                 } catch (GeneralException e) {
                     String errMsg = "Error running Groovy script at location [" + location + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
