@@ -436,4 +436,9 @@ under the License.
         <attribute name="jobId" mode="IN" type="String" optional="false"/>
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="uploadTrackingInfoBackToEbay" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStoreHelper" invoke="uploadTrackingInfoBackToEbay" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>
