@@ -148,7 +148,6 @@ public class CategoryWorker {
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            rollups = null;
         }
         if (UtilValidate.isNotEmpty(rollups)) {
             // Debug.log("Rollup size: " + rollups.size(), module);
@@ -160,7 +159,6 @@ public class CategoryWorker {
                     cv = parent.getRelatedOneCache("CurrentProductCategory");
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), module);
-                    cv = null;
                 }
                 if (cv != null) {
                     if (excludeEmpty) {
