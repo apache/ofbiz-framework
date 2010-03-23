@@ -20,6 +20,9 @@ package org.ofbiz.service.engine;
 
 import java.util.Map;
 
+import org.codehaus.groovy.runtime.InvokerHelper;
+import groovy.lang.Binding;
+import groovy.lang.Script;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
 import static org.ofbiz.base.util.UtilGenerics.cast;
@@ -33,6 +36,8 @@ import org.ofbiz.service.ServiceUtil;
  * Groovy Script Service Engine
  */
 public final class GroovyEngine extends GenericAsyncEngine {
+
+    protected static final Object[] EMPTY_ARGS = {};
 
     public GroovyEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -58,22 +63,23 @@ public final class GroovyEngine extends GenericAsyncEngine {
         if (UtilValidate.isEmpty(modelService.location)) {
             throw new GenericServiceException("Cannot run Groovy service with empty location");
         }
-
-        String location = this.getLocation(modelService);
         context.put("dctx", dispatcher.getLocalContext(localName));
-
         try {
-            Object resultObj = GroovyUtil.runScriptAtLocation(location, context);
-
-            if (resultObj != null && resultObj instanceof Map) {
+            Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService)), new Binding(context));
+            Object resultObj = null;
+            if (UtilValidate.isEmpty(modelService.invoke)) {
+                resultObj = script.run();
+            } else {
+                resultObj = script.invokeMethod(modelService.invoke, EMPTY_ARGS);
+            }
+            if (resultObj != null && resultObj instanceof Map<?, ?>) {
                 return cast(resultObj);
-            } else if (context.get("result") != null && context.get("result") instanceof Map) {
+            } else if (context.get("result") != null && context.get("result") instanceof Map<?, ?>) {
                 return cast(context.get("result"));
             }
         } catch (GeneralException e) {
             throw new GenericServiceException(e);
         }
-
         return ServiceUtil.returnSuccess();
     }
 }
