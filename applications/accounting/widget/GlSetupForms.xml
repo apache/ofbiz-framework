@@ -78,7 +78,7 @@ under the License.
             <service service-name="getPartyAccountingPreferences" result-map="result">
                 <field-map field-name="organizationPartyId"/>
             </service>
-            <set field="aggregatedPartyAcctgPreference" from-field="result.partyAccountingPreference" type="Map"/>
+            <set field="aggregatedPartyAcctgPreference" from-field="result.partyAccountingPreference" type="Object"/>
         </actions>
         <alt-target use-when="partyAcctgPreference!=null" target="updatePartyAcctgPreference"/>
         <auto-fields-service service-name="createPartyAcctgPreference"/>
