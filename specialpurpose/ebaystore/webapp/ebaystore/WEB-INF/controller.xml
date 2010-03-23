@@ -398,6 +398,12 @@
         <response name="success" type="view" value="ordersImported"/>
         <response name="error" type="view" value="ordersImported"/>
     </request-map>
+    <request-map uri="uploadTrackingCodeBack">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="uploadTrackingInfoBackToEbay"/>
+        <response name="success" type="view" value="ordersImported"/>
+        <response name="error" type="view" value="ordersImported"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

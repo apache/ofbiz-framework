@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Iterator;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,25 +57,37 @@ import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiCredential;
 import com.ebay.sdk.ApiLogging;
 import com.ebay.sdk.call.AddItemCall;
+import com.ebay.sdk.call.AddOrderCall;
+import com.ebay.sdk.call.GetOrdersCall;
 import com.ebay.soap.eBLBaseComponents.AddItemRequestType;
 import com.ebay.soap.eBLBaseComponents.AddItemResponseType;
+import com.ebay.soap.eBLBaseComponents.AddOrderRequestType;
+import com.ebay.soap.eBLBaseComponents.AddOrderResponseType;
 import com.ebay.soap.eBLBaseComponents.AmountType;
 import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
 import com.ebay.soap.eBLBaseComponents.CategoryType;
 import com.ebay.soap.eBLBaseComponents.CountryCodeType;
 import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
+import com.ebay.soap.eBLBaseComponents.GetOrdersRequestType;
+import com.ebay.soap.eBLBaseComponents.GetOrdersResponseType;
 import com.ebay.soap.eBLBaseComponents.GeteBayDetailsResponseType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.ListingDesignerType;
 import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
+import com.ebay.soap.eBLBaseComponents.OrderArrayType;
+import com.ebay.soap.eBLBaseComponents.OrderIDArrayType;
+import com.ebay.soap.eBLBaseComponents.OrderStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.OrderType;
 import com.ebay.soap.eBLBaseComponents.PictureDetailsType;
 import com.ebay.soap.eBLBaseComponents.ReturnPolicyType;
+import com.ebay.soap.eBLBaseComponents.ShipmentTrackingDetailsType;
 import com.ebay.soap.eBLBaseComponents.ShippingDetailsType;
 import com.ebay.soap.eBLBaseComponents.ShippingServiceCodeType;
 import com.ebay.soap.eBLBaseComponents.ShippingServiceOptionsType;
 import com.ebay.soap.eBLBaseComponents.ShippingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
 import com.ebay.soap.eBLBaseComponents.ShippingLocationDetailsType;
+import com.ebay.soap.eBLBaseComponents.TradingRoleCodeType;
 import com.ebay.soap.eBLBaseComponents.VATDetailsType;
 
 import org.ofbiz.ebay.EbayHelper;
@@ -602,5 +615,88 @@ public class EbayStoreHelper {
             return null;
         }
         return item;
+    }
+
+    public static Map<String, Object> uploadTrackingInfoBackToEbay(DispatchContext dctx, Map<String, Object> context) {
+    Delegator delegator = dctx.getDelegator();
+    Locale locale = (Locale) context.get("locale");
+    String productStoreId = (String) context.get("productStoreId");
+    String orderId = (String) context.get("orderId");
+    GetOrdersRequestType req = new GetOrdersRequestType();
+    GetOrdersResponseType resp = null;
+    try {
+        GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+        if (UtilValidate.isNotEmpty(orderHeader)) {
+            String externalId = orderHeader.getString("externalId").toString();
+            List<GenericValue> orderShipment = orderHeader.getRelated("OrderShipment");
+            if (orderShipment.size() > 0) {
+                List<GenericValue> trackingOrders = orderHeader.getRelated("TrackingCodeOrder");
+                ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+                GetOrdersCall ordersCall = new GetOrdersCall(apiContext);
+                OrderIDArrayType orderIdArr = new OrderIDArrayType();
+                String[] orderIdStr = {""+externalId};
+                orderIdArr.setOrderID(orderIdStr);
+                req.setOrderIDArray(orderIdArr);
+                Calendar orderFrom = Calendar.getInstance();
+                orderFrom.setTime(UtilDateTime.toDate("01/01/2001 00:00:00"));
+                req.setCreateTimeFrom(orderFrom);
+                Calendar orderTo = Calendar.getInstance();
+                orderTo.setTime(UtilDateTime.nowDate());
+                req.setCreateTimeTo(orderTo);
+                req.setOrderStatus(OrderStatusCodeType.SHIPPED);
+                req.setOrderRole(TradingRoleCodeType.SELLER);
+                resp = (GetOrdersResponseType) ordersCall.execute(req);
+                if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
+                    OrderArrayType orderArr = resp.getOrderArray();
+                    OrderType[] orderTypeList = orderArr.getOrder();
+                    for (OrderType order : orderTypeList) {
+                        String orderID = order.getOrderID();
+                        if (orderID.equals(externalId)) {
+                            AddOrderCall addOrderCall = new AddOrderCall(apiContext);
+                            AddOrderRequestType addReq = new AddOrderRequestType();
+                            AddOrderResponseType addResp = null;
+                            OrderType newOrder = new OrderType();
+                            ShippingDetailsType shippingDetail = (ShippingDetailsType) order.getShippingDetails();
+                            if (trackingOrders.size() > 0) {
+                                ShipmentTrackingDetailsType[] trackDetails = new ShipmentTrackingDetailsType[trackingOrders.size()];
+                                for (int i = 0; i < trackDetails.length; i++) {
+                                    ShipmentTrackingDetailsType track = new ShipmentTrackingDetailsType();
+                                    track.setShipmentTrackingNumber(trackingOrders.get(i).get("trackingCodeId").toString());
+                                    trackDetails[i] = track;
+                                }
+                                shippingDetail.setShipmentTrackingDetails(trackDetails);
+                                newOrder.setShippingDetails(shippingDetail);
+                            }
+                            newOrder.setOrderID(order.getOrderID());
+                            newOrder.setOrderStatus(order.getOrderStatus());
+                            newOrder.setAdjustmentAmount(order.getAdjustmentAmount());
+                            newOrder.setAmountSaved(order.getAmountSaved());
+                            newOrder.setCheckoutStatus(order.getCheckoutStatus());
+                            newOrder.setShippingDetails(order.getShippingDetails());
+                            newOrder.setCreatingUserRole(order.getCreatingUserRole());
+                            newOrder.setCreatedTime(order.getCreatedTime());
+                            newOrder.setPaymentMethods(order.getPaymentMethods());
+                            newOrder.setShippingAddress(order.getShippingAddress());
+                            newOrder.setSubtotal(order.getSubtotal());
+                            newOrder.setTotal(order.getTotal());
+                            newOrder.setTransactionArray(order.getTransactionArray());
+                            newOrder.setBuyerUserID(order.getBuyerUserID());
+                            newOrder.setPaidTime(order.getPaidTime());
+                            newOrder.setShippedTime(order.getShippedTime());
+                            newOrder.setIntegratedMerchantCreditCardEnabled(order.isIntegratedMerchantCreditCardEnabled());
+                            addReq.setOrder(newOrder);
+                            addResp = (AddOrderResponseType) addOrderCall.execute(addReq);
+                            if (addResp != null && "SUCCESS".equals(addResp.getAck().toString())) {
+                                Debug.log("Upload tracking code to eBay success...");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } catch (Exception e) {
+        return ServiceUtil.returnError(e.getMessage());
+    }
+    return ServiceUtil.returnSuccess();
     }
 }
