@@ -93,16 +93,24 @@ public class CmsEvents {
         String contentId = null;
         String mapKey = null;
 
-        String pathInfo = request.getPathInfo();
-        if (targetRequest.equals(actualRequest) && pathInfo != null) {
-            // was called directly -- path info is everything after the request
-            String[] pathParsed = pathInfo.split("/", 3);
-            if (pathParsed.length > 2) {
-                pathInfo = pathParsed[2];
-            } else {
-                pathInfo = null;
-            }
-        } // if called through the default request, there is no request in pathinfo
+        String pathInfo = null;
+
+        // If an override view is present then use that in place of request.getPathInfo()
+        String overrideViewUri = (String) request.getAttribute("_CURRENT_CHAIN_VIEW_");
+        if (UtilValidate.isNotEmpty(overrideViewUri)) {
+            pathInfo = overrideViewUri;
+        } else {
+            pathInfo = request.getPathInfo();
+            if (targetRequest.equals(actualRequest) && pathInfo != null) {
+                // was called directly -- path info is everything after the request
+                String[] pathParsed = pathInfo.split("/", 3);
+                if (pathParsed.length > 2) {
+                    pathInfo = pathParsed[2];
+                } else {
+                    pathInfo = null;
+                }
+            } // if called through the default request, there is no request in pathinfo
+        }
 
         // if path info is null; check for a default content
         if (pathInfo == null) {
