@@ -33,6 +33,9 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import groovy.lang.Binding;
+import org.codehaus.groovy.runtime.InvokerHelper;
+
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -58,6 +61,7 @@ import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 
 
@@ -392,11 +396,15 @@ public abstract class ModelScreenAction implements Serializable {
     }
 
     public static class Script extends ModelScreenAction {
+        protected static final Object[] EMPTY_ARGS = {};
         protected String location;
+        protected String method;
 
         public Script(ModelScreen modelScreen, Element scriptElement) {
             super (modelScreen, scriptElement);
-            this.location = scriptElement.getAttribute("location");
+            String scriptLocation = scriptElement.getAttribute("location");
+            this.location = WidgetWorker.getScriptLocation(scriptLocation);
+            this.method = WidgetWorker.getScriptMethodName(scriptLocation);
         }
 
         @Override
@@ -409,19 +417,22 @@ public abstract class ModelScreenAction implements Serializable {
                 }
             } else if (location.endsWith(".groovy")) {
                 try {
-                    GroovyUtil.runScriptAtLocation(location, context);
+                    groovy.lang.Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(location), new Binding(context));
+                    if (UtilValidate.isEmpty(method)) {
+                        script.run();
+                    } else {
+                        script.invokeMethod(method, EMPTY_ARGS);
+                    }
                 } catch (GeneralException e) {
                     throw new GeneralException("Error running Groovy script at location [" + location + "]", e);
                 }
-            } else if (location.contains(".xml#")) {
-                String xmlResource = ScreenFactory.getResourceNameFromCombined(location);
-                String methodName = ScreenFactory.getScreenNameFromCombined(location);
+            } else if (location.endsWith(".xml")) {
                 Map<String, Object> localContext = FastMap.newInstance();
                 localContext.putAll(context);
                 DispatchContext ctx = this.modelScreen.getDispatcher(context).getDispatchContext();
                 MethodContext methodContext = new MethodContext(ctx, localContext, null);
                 try {
-                    SimpleMethod.runSimpleMethod(xmlResource, methodName, methodContext);
+                    SimpleMethod.runSimpleMethod(location, method, methodContext);
                     context.putAll(methodContext.getResults());
                 } catch (MiniLangException e) {
                     throw new GeneralException("Error running simple method at location [" + location + "]", e);

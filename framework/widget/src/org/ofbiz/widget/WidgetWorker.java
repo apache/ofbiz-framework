@@ -378,4 +378,34 @@ public class WidgetWorker {
             return linkType;
         }
     }
+
+    /** Returns the script location based on a script combined name:
+     * <code>location#methodName</code>.
+     * 
+     * @param combinedName The combined location/method name
+     * @return The script location
+     */
+    public static String getScriptLocation(String combinedName) {
+        int pos = combinedName.lastIndexOf("#");
+        if (pos == -1) {
+            return combinedName;
+        }
+        return combinedName.substring(0, pos);
+    }
+
+    /** Returns the script method name based on a script combined name:
+     * <code>location#methodName</code>. Returns <code>null</code> if
+     * no method name is found.
+     * 
+     * @param combinedName The combined location/method name
+     * @return The method name or <code>null</code>
+     */
+    public static String getScriptMethodName(String combinedName) {
+        int pos = combinedName.lastIndexOf("#");
+        if (pos == -1) {
+            return null;
+        }
+        return combinedName.substring(pos + 1);
+    }
+
 }
