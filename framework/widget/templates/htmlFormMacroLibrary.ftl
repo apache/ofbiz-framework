@@ -451,7 +451,7 @@ ${item.description}</div>
 );">
 <#if ajaxEnabled?has_content && ajaxEnabled><span id="${id}_indicator" style="display: none" class="indicator"><img /></span></#if>
 </a></li><#rt>
-<#if disabled?has_content && disabled><li><a id="${id}_clear" style="background:none;margin-left:-6px;margin-right:15px;" class="clearField" href="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></li></#if>
+<#if disabled?has_content && disabled><li><a id="${id}_clear" style="background:none;margin-left:-6px;margin-right:15px;" class="clearField" href="javascript:void();" onclick="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></li></#if>
 </ul></div>
 <#if ajaxEnabled?has_content && ajaxEnabled>
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}');</script><#t/>
