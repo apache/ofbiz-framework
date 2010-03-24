@@ -25,6 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
@@ -157,7 +158,7 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
         protected final TTLObject<?> ttlObject;
 
         protected Pulse(TTLObject<?> ttlObject) {
-            super(ttlObject.getTTL());
+            super(TimeUnit.NANOSECONDS.convert(ttlObject.getTTL(), TimeUnit.MILLISECONDS));
             this.ttlObject = ttlObject;
         }
 

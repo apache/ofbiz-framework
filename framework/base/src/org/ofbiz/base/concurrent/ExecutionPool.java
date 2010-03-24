@@ -118,8 +118,8 @@ public final class ExecutionPool {
     public static abstract class Pulse implements Delayed, Runnable {
         protected final long expireTimeNanos;
 
-        protected Pulse(long delayMillis) {
-            expireTimeNanos = System.nanoTime() + TimeUnit.NANOSECONDS.convert(delayMillis, TimeUnit.MILLISECONDS);
+        protected Pulse(long delayNanos) {
+            expireTimeNanos = System.nanoTime() + delayNanos;
         }
 
         public final long getDelay(TimeUnit unit) {
