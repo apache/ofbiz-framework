@@ -1983,13 +1983,16 @@ public class EbayStore {
         cols.put("title", item.getTitle() != null ? item.getTitle() : "");
         
         SellingStatusType sst = item.getSellingStatus();
-        String currentPrice = null;
-        String bidCount = null;
+        double currentPrice = 0;
+        int bidCount = 0;
+        double reservPrice = 0;
+        int hitCount = 0;
         if (UtilValidate.isNotEmpty(sst)) {
             AmountType amt = sst.getCurrentPrice();
-            currentPrice = amt != null ? (new Double(amt.getValue()).toString()) : "";
-            bidCount = sst.getBidCount() != null ? sst.getBidCount().toString() : "";
+            currentPrice = amt != null ? (new Double(amt.getValue())) : 0;
+            bidCount = sst.getBidCount() != null ? sst.getBidCount() : 0;
         }
+        cols.put("buyItNowPrice", item.getBuyItNowPrice().getValue());
         cols.put("currentPrice", currentPrice);
         cols.put("bidCount", bidCount);
 
@@ -1998,11 +2001,14 @@ public class EbayStore {
 
         Integer quantity = item.getQuantity();
         String quantityStr = null;
-        if (UtilValidate.isNotEmpty(quantity)) {
-            quantityStr = quantity.toString();
-        }
+        if (UtilValidate.isNotEmpty(quantity)) quantityStr = quantity.toString();
         cols.put("quantity", quantityStr);
         cols.put("listingType", item.getListingType().value());
+        cols.put("viewItemURL", item.getListingDetails().getViewItemURL());
+        cols.put("SKU", item.getSKU());
+        if (UtilValidate.isNotEmpty(item.getReservePrice())) reservPrice = item.getReservePrice().getValue();
+        cols.put("reservePrice", reservPrice);
+        cols.put("hitCount", item.getHitCount() != null ? item.getHitCount() : 0);
         return cols;
     }
 

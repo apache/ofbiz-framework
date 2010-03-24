@@ -311,4 +311,7 @@
     <property key="EbayNoOrderImported">
         <value xml:lang="en">No orders imported found</value>
     </property>
+    <property key="EbayOpenListings">
+        <value xml:lang="en">Open Listings</value>
+    </property>
 </resource>

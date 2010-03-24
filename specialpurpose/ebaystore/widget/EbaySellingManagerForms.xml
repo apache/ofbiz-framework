@@ -469,9 +469,14 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
     <form name="ActiveItemList" type="list"  target="doAction" list-name="activeItemList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
         <field name="itemId"><display/></field>
-        <field name="title"><display/></field>
-        <field name="price"><display/></field>
+        <field name="SKU"><display/></field>
+        <field name="title">
+            <hyperlink target="${viewItemURL}" description="${title}" target-type="plain" target-window="_BLANK"/>
+        </field>
+        <field name="buyItNowPrice"><display/></field>
+        <field name="reservePrice"><display/></field>
         <field name="bidCount"><display/></field>
+        <field name="hitCount"><display/></field>
         <field name="startTime"><display/></field>
         <field name="quantity"><display/></field>
         <field name="listingType"><display/></field>
