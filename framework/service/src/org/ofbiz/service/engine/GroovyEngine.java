@@ -18,13 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.service.engine;
 
+import static org.ofbiz.base.util.UtilGenerics.cast;
+import groovy.lang.Script;
+
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.codehaus.groovy.runtime.InvokerHelper;
-import groovy.lang.Script;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
-import static org.ofbiz.base.util.UtilGenerics.cast;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
@@ -62,7 +65,12 @@ public final class GroovyEngine extends GenericAsyncEngine {
         if (UtilValidate.isEmpty(modelService.location)) {
             throw new GenericServiceException("Cannot run Groovy service with empty location");
         }
+        Map<String, Object> params = FastMap.newInstance();
+        params.putAll(context);
+        context.put("parameters", params);
         context.put("dctx", dispatcher.getLocalContext(localName));
+        context.put("dispatcher", dispatcher);
+        context.put("delegator", dispatcher.getDelegator());
         try {
             Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService)), GroovyUtil.getBinding(context));
             Object resultObj = null;
