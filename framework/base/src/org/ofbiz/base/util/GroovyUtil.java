@@ -28,6 +28,8 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyShell;
 
+import javolution.util.FastMap;
+
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.runtime.InvokerHelper;
 import org.ofbiz.base.location.FlexibleLocation;
@@ -60,19 +62,25 @@ public class GroovyUtil {
         return new GroovyClassLoader().parseClass(UtilIO.readString(in), location);
     }
 
+    /** Returns a <code>Binding</code> instance initialized with the
+     * variables contained in <code>context</code>. If <code>context</code>
+     * is <code>null</code>, an empty <code>Binding</code> is returned.
+     * <p>The <code>context Map</code> is added to the <code>Binding</code>
+     * as a variable called "context" so that variables can be passed
+     * back to the caller. Any variables that are created in the script
+     * are lost when the script ends unless they are copied to the
+     * "context" <code>Map</code>.</p>
+     * 
+     * @param context A <code>Map</code> containing initial variables
+     * @return A <code>Binding</code> instance
+     */
     public static Binding getBinding(Map<String, ? extends Object> context) {
-        Binding binding = new Binding();
+        Map<String, Object> vars = FastMap.newInstance();
         if (context != null) {
-            Set<String> keySet = context.keySet();
-            for (Object key : keySet) {
-                binding.setVariable((String) key, context.get(key));
-            }
-
-            // include the context itself in for easier access in the scripts
-            binding.setVariable("context", context);
+            vars.putAll(context);
+            vars.put("context", context);
         }
-
-        return binding;
+        return new Binding(vars);
     }
 
     /**
