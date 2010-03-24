@@ -116,18 +116,18 @@ public final class ExecutionPool {
     }
 
     public static abstract class Pulse implements Delayed, Runnable {
-        protected final long expireTime;
+        protected final long expireTimeNanos;
 
-        protected Pulse(long delayInMillis) {
-            expireTime = System.nanoTime() + TimeUnit.NANOSECONDS.convert(delayInMillis, TimeUnit.MILLISECONDS);
+        protected Pulse(long delayMillis) {
+            expireTimeNanos = System.nanoTime() + TimeUnit.NANOSECONDS.convert(delayMillis, TimeUnit.MILLISECONDS);
         }
 
         public final long getDelay(TimeUnit unit) {
-            return unit.convert(expireTime - System.nanoTime(), TimeUnit.NANOSECONDS);
+            return unit.convert(expireTimeNanos - System.nanoTime(), TimeUnit.NANOSECONDS);
         }
 
         public final int compareTo(Delayed other) {
-            long r = (expireTime - ((Pulse) other).expireTime);
+            long r = (expireTimeNanos - ((Pulse) other).expireTimeNanos);
             if (r < 0) return -1;
             if (r > 0) return 1;
             return 0;
