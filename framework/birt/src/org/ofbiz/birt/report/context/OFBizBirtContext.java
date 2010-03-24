@@ -34,6 +34,7 @@ public class OFBizBirtContext extends BirtContext {
         super(request, response);
     }
 
+    @Override
     protected void __init() {
         this.bean = (ViewerAttributeBean) request
                 .getAttribute( IBirtConstants.ATTRIBUTE_BEAN );

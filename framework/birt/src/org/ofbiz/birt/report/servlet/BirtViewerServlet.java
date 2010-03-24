@@ -36,6 +36,7 @@ public class BirtViewerServlet extends ViewerServlet {
 
     public final static String module = BirtViewerServlet.class.getName();
 
+    @Override
     protected void __init(ServletConfig config) {
         BirtReportServiceFactory.init( new OFBizBirtViewerReportService( config
                 .getServletContext( ) ) );
@@ -51,6 +52,7 @@ public class BirtViewerServlet extends ViewerServlet {
         run.setJSPRootPath( "/webcontent/birt" );
     }
 
+    @Override
     protected IContext __getContext( HttpServletRequest request,
             HttpServletResponse response ) throws BirtException
     {

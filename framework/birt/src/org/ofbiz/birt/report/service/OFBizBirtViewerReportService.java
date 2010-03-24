@@ -63,6 +63,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
         super(servletContext);
     }
 
+    @Override
     public String runReport(IViewerReportDesignHandle design,
             String outputDocName, InputOptions runOptions, Map parameters,
             Map displayTexts, List<Exception> errorList) throws ReportServiceException {
@@ -241,6 +242,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
      *      java.lang.String, org.eclipse.birt.report.service.api.InputOptions,
      *      java.util.Map, java.io.OutputStream, java.util.List, java.util.Map)
      */
+    @Override
     public void runAndRenderReport( IViewerReportDesignHandle design,
             String outputDocName, InputOptions options, Map parameters,
             OutputStream out, List activeIds, Map displayTexts )

@@ -37,6 +37,7 @@ public class BirtViewerAttributeBean extends ViewerAttributeBean {
         super(request);
     }
 
+    @Override
     protected void __init( HttpServletRequest request ) throws Exception
     {
         String reportParam = DataUtil.trimString( ParameterAccessor.getParameter( request, ParameterAccessor.PARAM_REPORT ));
