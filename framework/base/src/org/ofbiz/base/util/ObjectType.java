@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
@@ -785,7 +786,7 @@ public class ObjectType {
         return false;
     }
 
-    public static final class NullObject {
+    public static final class NullObject implements Serializable {
         public NullObject() { }
 
         @Override
