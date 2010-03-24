@@ -224,6 +224,8 @@ under the License.
         <attribute name="sendCc" type="String" mode="IN" optional="true"/>
         <attribute name="note" type="String" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="true"/>
+        <attribute name="subject" type="String" mode="OUT" optional="true"/>
+        <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
     </service>
      <service name="storeQuote" engine="java" default-entity-name="Quote" validate="true" auth="true"
             location="org.ofbiz.order.quote.QuoteServices" invoke="storeQuote">
