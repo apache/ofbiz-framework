@@ -43,7 +43,7 @@ under the License.
     <screen name="main">
         <section>
             <actions>
-                <set field="headerItem" value="main"/>
+                <set field="tabButtonItem" value="main"></set>
                 <set field="parameters.portalPageId" value="ArPortalPage"/>
                 <set field="invoiceTypeId" value="SALES_INVOICE"/>
             </actions>
