@@ -257,25 +257,6 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
     }
 
     /**
-     * get connection
-     */
-    private Connection getConnection() {
-        Connection connection = null;
-        try {
-            String delegatorGroupHelperName = BirtContainer.getDelegatorGroupHelperName();
-            Delegator delegator = BirtContainer.getDelegator();
-            Debug.logInfo("Get the JDBC connection from group helper's name:" + delegatorGroupHelperName, module);
-            String helperName = delegator.getGroupHelperName(delegatorGroupHelperName);    // gets the helper (localderby, localmysql, localpostgres, etc.) for your entity group org.ofbiz
-            connection = ConnectionFactory.getConnection(helperName);
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        } catch (SQLException e) {
-            Debug.logError(e, module);
-        }
-        return connection;
-    }
-
-    /**
      * @param e
      * @throws DummyRemoteException
      */
