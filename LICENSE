@@ -478,6 +478,7 @@ The following libraries distributed with Apache OFBiz are licensed under the
 BSD License:
 ofbiz/trunk/framework/base/lib/antisamy-bin.1.2.jar
 ofbiz/trunk/framework/base/lib/freemarker-2.3.15.jar
+ofbiz/trunk/framework/base/lib/hamcrest-all-1.2.jar
 ofbiz/trunk/framework/base/lib/httpunit.jar
 ofbiz/trunk/framework/base/lib/ical4j-1.0-rc2.jar
 ofbiz/trunk/framework/base/lib/javacc/javacc-4.1.jar
