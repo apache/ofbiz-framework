@@ -64,40 +64,37 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
     }
 
     @Override
-    public String runReport(IViewerReportDesignHandle design,
-            String outputDocName, InputOptions runOptions, Map parameters,
+    public String runReport(IViewerReportDesignHandle design, String outputDocName, InputOptions runOptions, Map parameters,
             Map displayTexts, List<Exception> errorList) throws ReportServiceException {
 
-        if ( design == null || design.getDesignObject( ) == null )
-            throw new ReportServiceException( BirtResources.getMessage( ResourceConstants.GENERAL_EXCEPTION_NO_REPORT_DESIGN ) );
+        if (design == null || design.getDesignObject( ) == null) {
+            throw new ReportServiceException(BirtResources.getMessage(ResourceConstants.GENERAL_EXCEPTION_NO_REPORT_DESIGN));
+        }
 
         IReportRunnable runnable;
-        HttpServletRequest request = (HttpServletRequest) runOptions.getOption( InputOptions.OPT_REQUEST );
-        Locale locale = (Locale) runOptions.getOption( InputOptions.OPT_LOCALE );
-        TimeZone timeZone = (TimeZone) runOptions.getOption( InputOptions.OPT_TIMEZONE );
+        HttpServletRequest request = (HttpServletRequest) runOptions.getOption(InputOptions.OPT_REQUEST);
+        Locale locale = (Locale) runOptions.getOption(InputOptions.OPT_LOCALE);
+        TimeZone timeZone = (TimeZone) runOptions.getOption(InputOptions.OPT_TIMEZONE);
 
-        ViewerAttributeBean attrBean = (ViewerAttributeBean) request.getAttribute( IBirtConstants.ATTRIBUTE_BEAN );
+        ViewerAttributeBean attrBean = (ViewerAttributeBean) request.getAttribute(IBirtConstants.ATTRIBUTE_BEAN);
         // Set parameters
-        Map parsedParams = attrBean.getParameters( );
-        if ( parameters != null )
-        {
-            parsedParams.putAll( parameters );
+        Map parsedParams = attrBean.getParameters();
+        if (parameters != null) {
+            parsedParams.putAll(parameters);
         }
         // Set display Text of select parameters
-        Map displayTextMap = attrBean.getDisplayTexts( );
-        if ( displayTexts != null )
-        {
-            displayTextMap.putAll( displayTexts );
+        Map displayTextMap = attrBean.getDisplayTexts();
+        if (displayTexts != null) {
+            displayTextMap.putAll(displayTexts);
         }
 
-        runnable = (IReportRunnable) design.getDesignObject( );
-        try
-        {
+        runnable = (IReportRunnable) design.getDesignObject();
+        try {
             // get maxRows
             Integer maxRows = null;
-            if ( ParameterAccessor.isReportParameterExist( request,
-                    ParameterAccessor.PARAM_MAXROWS ) )
-                maxRows = Integer.valueOf( ParameterAccessor.getMaxRows( request ) );
+            if (ParameterAccessor.isReportParameterExist(request, ParameterAccessor.PARAM_MAXROWS)) {
+                maxRows = Integer.valueOf(ParameterAccessor.getMaxRows(request));
+            }
 
             try {
                 // put all app context from Birt Container to Report Engine Service
@@ -111,29 +108,15 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
             } catch (Exception e) {
                 Debug.logError(e, module);
             }
-            List<Exception> errors = this.runReport( request,
-                            runnable,
-                            outputDocName,
-                            locale,
-                            timeZone,
-                            parsedParams,
-                            displayTextMap,
-                            maxRows );
-            if ( errors != null && !errors.isEmpty( ) )
-            {
-                errorList.addAll( errors );
+            List<Exception> errors = this.runReport(request, runnable, outputDocName, locale, timeZone, parsedParams, displayTextMap, maxRows);
+            if (errors != null && !errors.isEmpty()) {
+                errorList.addAll(errors);
             }
-        }
-        catch ( RemoteException e )
-        {
-            if ( e.getCause( ) instanceof ReportServiceException )
-            {
-                throw (ReportServiceException) e.getCause( );
-            }
-            else
-            {
-                throw new ReportServiceException( e.getLocalizedMessage( ),
-                        e.getCause( ) );
+        } catch ( RemoteException e ) {
+            if (e.getCause() instanceof ReportServiceException) {
+                throw (ReportServiceException) e.getCause();
+            } else {
+                throw new ReportServiceException(e.getLocalizedMessage(), e.getCause());
             }
         }
         return outputDocName;
@@ -154,83 +137,75 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
      * @return list of exceptions which occured during the run or null
      * @throws RemoteException
      */
-    public List<Exception> runReport( HttpServletRequest request,
+    public List<Exception> runReport(HttpServletRequest request,
             IReportRunnable runnable, String documentName, Locale locale,
-            TimeZone timeZone, Map parameters, Map displayTexts, Integer maxRows )
-            throws RemoteException
-    {
+            TimeZone timeZone, Map parameters, Map displayTexts, Integer maxRows)
+            throws RemoteException {
         assert runnable != null;
 
-        // Preapre the run report task.
+        // Prepare the run report task.
         IRunTask runTask = null;
         try {
-            runTask = BirtContainer.getReportEngine().createRunTask( runnable );
+            runTask = BirtContainer.getReportEngine().createRunTask(runnable);
         } catch (Exception e) {
             throwDummyException(e);
         }
-        runTask.setLocale( locale );
+        runTask.setLocale(locale);
 
-        com.ibm.icu.util.TimeZone tz = BirtUtility.toICUTimeZone( timeZone );
-        if ( tz != null )
-        {
-            runTask.setTimeZone( tz );
+        com.ibm.icu.util.TimeZone tz = BirtUtility.toICUTimeZone(timeZone);
+        if (tz != null) {
+            runTask.setTimeZone(tz);
         }
 
-        runTask.setParameterValues( parameters );
+        runTask.setParameterValues(parameters);
 
         // set MaxRows settings
-        if ( maxRows != null )
-            runTask.setMaxRowsPerQuery( maxRows.intValue( ) );
+        if (maxRows != null) {
+            runTask.setMaxRowsPerQuery(maxRows.intValue());
+        }
 
         // add task into session
-        BirtUtility.addTask( request, runTask );
+        BirtUtility.addTask(request, runTask);
 
         // Set display Text for select parameters
-        if ( displayTexts != null )
+        if (displayTexts != null)
         {
-            Iterator keys = displayTexts.keySet( ).iterator( );
-            while ( keys.hasNext( ) )
-            {
-                String paramName = DataUtil.getString( keys.next( ) );
-                String displayText = DataUtil.getString( displayTexts
-                        .get( paramName ) );
-                runTask.setParameterDisplayText( paramName, displayText );
+            Iterator keys = displayTexts.keySet().iterator();
+            while (keys.hasNext()) {
+                String paramName = DataUtil.getString(keys.next());
+                String displayText = DataUtil.getString(displayTexts.get(paramName));
+                runTask.setParameterDisplayText(paramName, displayText);
             }
         }
 
         // set app context
-        Map context = BirtUtility.getAppContext( request );
-        runTask.setAppContext( context );
+        Map context = BirtUtility.getAppContext(request);
+        runTask.setAppContext(context);
 
         // Run report.
-        try
-        {
-            runTask.run( documentName );
-        }
-        catch ( BirtException e )
-        {
+        try {
+            runTask.run(documentName);
+        } catch (BirtException e) {
             // clear document file
-            File doc = new File( documentName );
-            if ( doc != null )
-                doc.delete( );
-
-            throwDummyException( e );
-        }
-        finally
-        {
+            File doc = new File(documentName);
+            if (doc != null) {
+                doc.delete();
+            }
+            throwDummyException(e);
+        } finally {
             // Remove task from http session
-            BirtUtility.removeTask( request );
+            BirtUtility.removeTask(request);
 
             // Append errors
-            if ( ParameterAccessor.isDesigner( ) )
-                BirtUtility.error( request, runTask.getErrors( ) );
+            if (ParameterAccessor.isDesigner()) {
+                BirtUtility.error(request, runTask.getErrors());
+            }
 
-            runTask.close( );
+            runTask.close();
 
             // check for non-fatal errors
-            List<Exception> errors = UtilGenerics.cast(runTask.getErrors( ));
-            if ( !errors.isEmpty( ) )
-            {
+            List<Exception> errors = UtilGenerics.cast(runTask.getErrors());
+            if (!errors.isEmpty()) {
                 return errors;
             }
         }
@@ -243,32 +218,30 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
      *      java.util.Map, java.io.OutputStream, java.util.List, java.util.Map)
      */
     @Override
-    public void runAndRenderReport( IViewerReportDesignHandle design,
+    public void runAndRenderReport(IViewerReportDesignHandle design,
             String outputDocName, InputOptions options, Map parameters,
-            OutputStream out, List activeIds, Map displayTexts )
-            throws ReportServiceException
-    {
-        if ( design == null || design.getDesignObject( ) == null )
-            throw new ReportServiceException( BirtResources.getMessage( ResourceConstants.GENERAL_EXCEPTION_NO_REPORT_DESIGN ) );
+            OutputStream out, List activeIds, Map displayTexts) throws ReportServiceException {
 
-        HttpServletRequest request = (HttpServletRequest) options.getOption( InputOptions.OPT_REQUEST );
+        if (design == null || design.getDesignObject() == null) {
+            throw new ReportServiceException(BirtResources.getMessage(ResourceConstants.GENERAL_EXCEPTION_NO_REPORT_DESIGN));
+        }
 
-        try
-        {
-            ViewerAttributeBean attrBean = (ViewerAttributeBean) request.getAttribute( IBirtConstants.ATTRIBUTE_BEAN );
-            String reportTitle = ParameterAccessor.htmlDecode( attrBean.getReportTitle( ) );
-            IReportRunnable runnable = (IReportRunnable) design.getDesignObject( );
+        HttpServletRequest request = (HttpServletRequest) options.getOption(InputOptions.OPT_REQUEST);
+
+        try {
+            ViewerAttributeBean attrBean = (ViewerAttributeBean) request.getAttribute(IBirtConstants.ATTRIBUTE_BEAN);
+            String reportTitle = ParameterAccessor.htmlDecode(attrBean.getReportTitle());
+            IReportRunnable runnable = (IReportRunnable) design.getDesignObject();
 
             // get maxRows
             Integer maxRows = null;
-            if ( ParameterAccessor.isReportParameterExist( request,
-                    ParameterAccessor.PARAM_MAXROWS ) )
-                maxRows = Integer.valueOf( ParameterAccessor.getMaxRows( request ) );
+            if (ParameterAccessor.isReportParameterExist(request, ParameterAccessor.PARAM_MAXROWS)) {
+                maxRows = Integer.valueOf(ParameterAccessor.getMaxRows(request));
+            }
 
             try {
                 // put all app context from Birt Container to Report Engine Service
-                ReportEngineService.getInstance().getEngineConfig().getAppContext().putAll(
-                        BirtContainer.getReportEngine().getConfig().getAppContext());
+                ReportEngineService.getInstance().getEngineConfig().getAppContext().putAll(BirtContainer.getReportEngine().getConfig().getAppContext());
                 /*
                 --- DISABLE JDBC FEATURE
                 Connection connection = getConnection();
@@ -277,20 +250,9 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
             } catch (Exception e) {
                 Debug.logError(e, module);
             }
-            ReportEngineService.getInstance( ).runAndRenderReport( runnable,
-                    out,
-                    options,
-                    parameters,
-                    null,
-                    null,
-                    null,
-                    displayTexts,
-                    reportTitle,
-                    maxRows );
-        }
-        catch ( RemoteException e )
-        {
-            throwReportServiceException( e );
+            ReportEngineService.getInstance().runAndRenderReport(runnable, out, options, parameters, null, null, null, displayTexts, reportTitle, maxRows);
+        } catch (RemoteException e) {
+            throwReportServiceException(e);
         }
     }
 
@@ -317,17 +279,11 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
      * @param e
      * @throws DummyRemoteException
      */
-    private void throwDummyException( Exception e )
-            throws DummyRemoteException
-    {
-        if ( e instanceof ReportServiceException )
-        {
+    private void throwDummyException(Exception e) throws DummyRemoteException {
+        if (e instanceof ReportServiceException) {
             throw new DummyRemoteException(e);
-        }
-        else
-        {
-            throw new DummyRemoteException( new ReportServiceException( e
-                .getLocalizedMessage( ), e ) );
+        } else {
+            throw new DummyRemoteException(new ReportServiceException(e.getLocalizedMessage(), e));
         }
     }
 
@@ -335,26 +291,17 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
      * Temporary method for extracting the exception from the
      * DummyRemoteException and throwing it.
      */
-    private void throwReportServiceException( RemoteException e )
-            throws ReportServiceException
-    {
+    private void throwReportServiceException(RemoteException e) throws ReportServiceException {
         Throwable wrappedException = e;
-        if ( e instanceof ReportEngineService.DummyRemoteException )
-        {
-            wrappedException = e.getCause( );
+        if (e instanceof ReportEngineService.DummyRemoteException) {
+            wrappedException = e.getCause();
         }
-        if ( wrappedException instanceof ReportServiceException )
-        {
+        if (wrappedException instanceof ReportServiceException) {
             throw (ReportServiceException) wrappedException;
-        }
-        else if ( wrappedException != null )
-        {
-            throw new ReportServiceException( wrappedException.getLocalizedMessage( ),
-                    wrappedException );
-        }
-        else
-        {
-            throw new ReportServiceException( e.getLocalizedMessage( ), e );
+        } else if (wrappedException != null) {
+            throw new ReportServiceException(wrappedException.getLocalizedMessage(), wrappedException);
+        } else {
+            throw new ReportServiceException(e.getLocalizedMessage(), e);
         }
     }
 }
