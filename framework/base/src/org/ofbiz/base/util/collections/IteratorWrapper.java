@@ -36,9 +36,10 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
         if (!it.hasNext()) return false;
         do {
             lastSrc = it.next();
-            if (isValid(lastSrc)) {
+            DEST nextDest = convert(lastSrc);
+            if (isValid(lastSrc, nextDest)) {
                 nextCalled = true;
-                lastDest = convert(lastSrc);
+                lastDest = nextDest;
                 return true;
             }
         } while (it.hasNext());
@@ -55,8 +56,8 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
 
     public void remove() {
         if (lastSrc != null) {
-            it.remove();
             noteRemoval(lastDest, lastSrc);
+            it.remove();
             lastDest = null;
             lastSrc = null;
         } else {
@@ -64,7 +65,7 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
         }
     }
 
-    protected boolean isValid(SRC src) {
+    protected boolean isValid(SRC src, DEST dest) {
         return true;
     }
 
