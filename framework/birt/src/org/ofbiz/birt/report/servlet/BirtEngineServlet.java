@@ -35,6 +35,7 @@ public class BirtEngineServlet extends org.eclipse.birt.report.servlet.BirtEngin
 
     public final static String module = BirtEngineServlet.class.getName();
 
+    @Override
     protected void __init( ServletConfig config )
     {
         BirtReportServiceFactory.init( new OFBizBirtViewerReportService( config
@@ -47,6 +48,7 @@ public class BirtEngineServlet extends org.eclipse.birt.report.servlet.BirtEngin
         requester.setJSPRootPath( "/webcontent/birt" );
     }
 
+    @Override
     protected IContext __getContext( HttpServletRequest request,
             HttpServletResponse response ) throws BirtException
     {
