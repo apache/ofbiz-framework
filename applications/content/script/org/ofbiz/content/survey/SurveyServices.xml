@@ -433,8 +433,10 @@
                     <field-map field-name="surveyId" from-field="survey.surveyId"/>
                 </entity-and>
                 <if-not-empty field="existingResponses">
-                    <add-error><fail-message message="You have already responded to this survey; multiple responses are not allowed"/></add-error>
-                    <check-errors/>
+                    <if-compare field="survey.allowUpdate" operator="not-equals" value="Y">
+                        <add-error><fail-message message="You have already responded to this survey; multiple responses are not allowed"/></add-error>
+                        <check-errors/>
+                    </if-compare>
                 </if-not-empty>
             </if-not-empty>
         </if-compare>
@@ -475,7 +477,7 @@
         <!-- create/update the response -->
         <if-compare field="survey.allowUpdate" operator="equals" value="Y">
             <if-not-empty field="parameters.surveyResponseId">
-                <entity-one entity-name="SurveyResponse" value-field="lookupRespMap"/>
+                <entity-one entity-name="SurveyResponse" value-field="surveyResponse"/>
             </if-not-empty>
         </if-compare>
 
