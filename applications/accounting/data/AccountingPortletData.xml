@@ -46,7 +46,7 @@
     <PortletPortletCategory portalPortletId="ArPastDueInvoices" portletCategoryId="ACCOUNTING"/>
     <PortletPortletCategory portalPortletId="ArInvoicesDueSoon" portletCategoryId="ACCOUNTING"/>
 
-    <PortalPage portalPageId="ArPortalPage" sequenceNum="0" portalPageName="Portal Page in AR" description="Portal page for Past Due Invoices and Invoices Due Soon in AR" ownerUserLoginId="_NA_"/>
+    <PortalPage portalPageId="ArPortalPage" sequenceNum="0" portalPageName="Main" description="Portal page for Past Due Invoices and Invoices Due Soon in AR" ownerUserLoginId="_NA_"/>
 
     <PortalPageColumn portalPageId="ArPortalPage" columnSeqId="00001"/>
 
@@ -62,7 +62,7 @@
     <PortletPortletCategory portalPortletId="ApPastDueInvoices" portletCategoryId="ACCOUNTING"/>
     <PortletPortletCategory portalPortletId="ApInvoicesDueSoon" portletCategoryId="ACCOUNTING"/>
 
-    <PortalPage portalPageId="ApPortalPage" sequenceNum="0" portalPageName="Portal Page in AP" description="Portal page for Past Due Invoices and Invoices Due Soon in AP" ownerUserLoginId="_NA_"/>
+    <PortalPage portalPageId="ApPortalPage" sequenceNum="0" portalPageName="Main" description="Portal page for Past Due Invoices and Invoices Due Soon in AP" ownerUserLoginId="_NA_"/>
 
     <PortalPageColumn portalPageId="ApPortalPage" columnSeqId="00001"/>
 

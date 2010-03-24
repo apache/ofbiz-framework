@@ -140,7 +140,7 @@
         screenshot="/images/portlets/MyCommunications.png"/>
     <PortletPortletCategory portalPortletId="MyCommunications" portletCategoryId="COMMUNICATIONS"/>
 
-    <PortalPage portalPageId="PartyProfile" sequenceNum="0" portalPageName="Party Profile Portal Page" description="Party profile page using flexible Portal technology" ownerUserLoginId="_NA_"/>
+    <PortalPage portalPageId="PartyProfile" sequenceNum="0" portalPageName="Profile" description="Party profile page using flexible Portal technology" ownerUserLoginId="_NA_"/>
     <PortalPageColumn portalPageId="PartyProfile" columnSeqId="00001" columnWidthPercentage="50"/>
     <PortalPageColumn portalPageId="PartyProfile" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
 
