@@ -19,7 +19,6 @@
 package org.ofbiz.birt.container;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -42,7 +41,6 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 
@@ -163,7 +161,7 @@ public class BirtContainer implements Container {
         return "birt-container";
     }
 
-    public static IReportEngine getReportEngine() throws GenericEntityException, SQLException {
+    public static IReportEngine getReportEngine() {
         return engine;
     }
 
