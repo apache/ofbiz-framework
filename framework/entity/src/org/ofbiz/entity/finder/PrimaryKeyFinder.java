@@ -41,6 +41,7 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by a condition
  *
  */
+@SuppressWarnings("serial")
 public class PrimaryKeyFinder extends Finder {
     public static final String module = PrimaryKeyFinder.class.getName();
 
@@ -99,9 +100,9 @@ public class PrimaryKeyFinder extends Finder {
         if (autoFieldMap) {
             GenericValue tempVal = delegator.makeValue(modelEntity.getEntityName());
 
-            // try a map called "parameters", try it first so values from here are overriden by values in the main context
+            // try a map called "parameters", try it first so values from here are overridden by values in the main context
             Object parametersObj = context.get("parameters");
-            if (parametersObj != null && parametersObj instanceof Map) {
+            if (parametersObj != null && parametersObj instanceof Map<?, ?>) {
                 tempVal.setAllFields(UtilGenerics.checkMap(parametersObj), true, null, Boolean.TRUE);
             }
 
