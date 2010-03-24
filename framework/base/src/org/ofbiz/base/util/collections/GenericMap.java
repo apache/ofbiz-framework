@@ -223,7 +223,6 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
     protected abstract <KE extends K, VE extends V> void putAllIterator(Iterator<Map.Entry<KE, VE>> it);
 
     public String toString() {
-        StringBuilder sb = new StringBuilder();
         return appendTo(new StringBuilder()).toString();
     }
 
