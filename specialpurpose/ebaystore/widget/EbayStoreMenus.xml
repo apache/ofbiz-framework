@@ -61,7 +61,7 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
-        <menu-item name="activeListing" title="${uiLabelMap.EbayActive}">
+        <menu-item name="activeListing" title="${uiLabelMap.EbayOpenListings}">
             <link target="activeListing">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>

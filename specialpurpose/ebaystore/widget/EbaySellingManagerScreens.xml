@@ -460,7 +460,7 @@
             <widgets>
                 <decorator-screen name="EbayActiveListing">
                     <decorator-section name="body">
-                        <screenlet title="Active Listing">
+                        <screenlet title="${uiLabelMap.EbayOpenListings}">
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ActiveItemList"/>
                         </screenlet>
