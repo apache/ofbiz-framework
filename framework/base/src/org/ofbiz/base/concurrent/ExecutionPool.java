@@ -81,12 +81,14 @@ public final class ExecutionPool {
         delayQueue.remove(pulse);
     }
 
-    public static void pulseAll() {
+    public static void pulseAll(Class<? extends Pulse> match) {
         Iterator<Pulse> it = delayQueue.iterator();
         while (it.hasNext()) {
             Pulse pulse = it.next();
-            it.remove();
-            pulse.run();
+            if (match.isInstance(pulse)) {
+                it.remove();
+                pulse.run();
+            }
         }
     }
 

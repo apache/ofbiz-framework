@@ -80,7 +80,7 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
     }
 
     public static void pulseAll() {
-        ExecutionPool.pulseAll();
+        ExecutionPool.pulseAll(Pulse.class);
     }
 
     public enum State { INVALID, REGEN, REGENERATING, GENERATE, GENERATING, GENERATING_INITIAL, VALID, ERROR, ERROR_INITIAL, SET }
