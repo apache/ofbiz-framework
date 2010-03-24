@@ -25,11 +25,13 @@ import java.util.Map;
 import java.util.Set;
 import java.math.BigDecimal;
 
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 
+@SourceMonitor("Adam Heath")
 public class FlexibleMapAccessorTests extends GenericTestCaseBase {
     private static final Locale localeToTest = new Locale("en", "US");
     private static final Locale badLocale = new Locale("fr");

@@ -22,9 +22,11 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 import org.ofbiz.base.concurrent.TTLObject;
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.lang.ObjectWrapper;
 import org.ofbiz.base.test.GenericTestCaseBase;
 
+@SourceMonitor("Adam Heath")
 public class SyncTTLObjectTest extends TTLObjectTest {
     public SyncTTLObjectTest(String name) {
         super(name, true);

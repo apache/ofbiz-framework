@@ -23,9 +23,11 @@ package org.ofbiz.base.util.test;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.TimeZone;
 
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.util.TimeDuration;
 import org.ofbiz.base.test.GenericTestCaseBase;
 
+@SourceMonitor("Adam Heath")
 public class TimeDurationTests extends GenericTestCaseBase {
     private static final Calendar zero = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 
