@@ -113,7 +113,7 @@ under the License.
             <display/>
         </field>
         <field name="totals" title="${uiLabelMap.ProductAvailablePromiseQuantityHand}">
-                <display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/>
+            <display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/>
         </field>
 
         <field use-when="inventoryItem!=null" name="submit" title="${uiLabelMap.CommonUpdate}">
