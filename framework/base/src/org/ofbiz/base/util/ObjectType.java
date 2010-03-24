@@ -794,6 +794,11 @@ public class ObjectType {
         }
 
         @Override
+        public int hashCode() {
+            return toString().hashCode();
+        }
+
+        @Override
         public boolean equals(Object other) {
             if (other instanceof NullObject) {
                 // should do equality of object? don't think so, just same type
