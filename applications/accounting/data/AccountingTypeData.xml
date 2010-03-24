@@ -955,6 +955,7 @@ under the License.
     <Enumeration description="LIFO" enumCode="LIFO" enumId="COGS_LIFO" sequenceId="01" enumTypeId="COGS_METHODS"/>
     <Enumeration description="FIFO" enumCode="FIFO" enumId="COGS_FIFO" sequenceId="02" enumTypeId="COGS_METHODS"/>
     <Enumeration description="Average Cost" enumCode="AVG_COST" enumId="COGS_AVG_COST" sequenceId="03" enumTypeId="COGS_METHODS"/>
+    <Enumeration description="Inventory Item Cost" enumCode="INV_COST" enumId="COGS_INV_COST" sequenceId="04" enumTypeId="COGS_METHODS"/>
 
     <!-- inventory sequencing mode for accounting preferences -->
     <EnumerationType description="Invoice Sequence Mode" enumTypeId="INVOICE_SEQMD" hasTable="N" parentTypeId=""/>
