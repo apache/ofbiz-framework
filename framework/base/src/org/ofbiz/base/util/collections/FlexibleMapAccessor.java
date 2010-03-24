@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 import javax.el.PropertyNotFoundException;
 
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilObject;
@@ -36,6 +37,7 @@ import org.ofbiz.base.util.string.UelUtil;
  * accessing sub-map values and the "[]" (square bracket) syntax for accessing
  * list elements. See individual Map operations for more information.
  */
+@SourceMonitor("Adam Heath")
 @SuppressWarnings("serial")
 public class FlexibleMapAccessor<T> implements Serializable {
     public static final String module = FlexibleMapAccessor.class.getName();

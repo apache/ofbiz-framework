@@ -30,11 +30,13 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.ofbiz.base.lang.Factory;
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.test.GenericTestCaseBase;
 
+@SourceMonitor("Adam Heath")
 public class UtilObjectTests extends GenericTestCaseBase {
     public UtilObjectTests(String name) {
         super(name);

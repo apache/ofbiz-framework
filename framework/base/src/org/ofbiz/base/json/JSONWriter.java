@@ -25,10 +25,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.util.IndentingWriter;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilIO;
 
+@SourceMonitor("Adam Heath")
 public class JSONWriter {
     private final IndentingWriter writer;
     private final FallbackHandler fallbackHandler;

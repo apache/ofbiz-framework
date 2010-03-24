@@ -35,6 +35,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Attr;
 
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -44,6 +45,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.test.GenericTestCaseBase;
 
+@SourceMonitor("Adam Heath")
 public class ObjectTypeTests extends GenericTestCaseBase {
     public static final String module = ObjectTypeTests.class.getName();
     private static final LocaleData localeData = new LocaleData("en_US", "Pacific/Wake", "fr", "GMT");

@@ -20,9 +20,11 @@ package org.ofbiz.base.util.test;
 
 import java.io.StringWriter;
 
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.util.IndentingWriter;
 import org.ofbiz.base.test.GenericTestCaseBase;
 
+@SourceMonitor("Adam Heath")
 public class IndentingWriterTests extends GenericTestCaseBase {
     public IndentingWriterTests(String name) {
         super(name);

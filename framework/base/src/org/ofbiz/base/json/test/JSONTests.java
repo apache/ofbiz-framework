@@ -33,9 +33,11 @@ import org.ofbiz.base.json.JSONWriter;
 import org.ofbiz.base.json.ParseException;
 import org.ofbiz.base.json.Token;
 import org.ofbiz.base.json.TokenMgrError;
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.IndentingWriter;
 
+@SourceMonitor("Adam Heath")
 public class JSONTests extends GenericTestCaseBase {
     public JSONTests(String name) {
         super(name);

@@ -28,12 +28,14 @@ import java.util.TimeZone;
 
 import junit.framework.TestCase;
 
+import org.ofbiz.base.lang.SourceMonitor;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.conversion.AbstractConverter;
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.Converters;
 
+@SourceMonitor("Adam Heath")
 public class FlexibleStringExpanderTests extends TestCase {
     private static final Locale localeToTest = new Locale("en", "US");
     private static final Locale badLocale = new Locale("fr");
