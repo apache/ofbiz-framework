@@ -31,8 +31,6 @@ import java.util.regex.PatternSyntaxException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import groovy.lang.Binding;
-
 import org.codehaus.groovy.runtime.InvokerHelper;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
@@ -294,7 +292,7 @@ public abstract class ModelFormAction {
                 }
             } else if (location.endsWith(".groovy")) {
                 try {
-                    groovy.lang.Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(location), new Binding(context));
+                    groovy.lang.Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(location), GroovyUtil.getBinding(context));
                     if (UtilValidate.isEmpty(method)) {
                         script.run();
                     } else {

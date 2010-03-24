@@ -21,7 +21,6 @@ package org.ofbiz.service.engine;
 import java.util.Map;
 
 import org.codehaus.groovy.runtime.InvokerHelper;
-import groovy.lang.Binding;
 import groovy.lang.Script;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
@@ -65,7 +64,7 @@ public final class GroovyEngine extends GenericAsyncEngine {
         }
         context.put("dctx", dispatcher.getLocalContext(localName));
         try {
-            Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService)), new Binding(context));
+            Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService)), GroovyUtil.getBinding(context));
             Object resultObj = null;
             if (UtilValidate.isEmpty(modelService.invoke)) {
                 resultObj = script.run();
