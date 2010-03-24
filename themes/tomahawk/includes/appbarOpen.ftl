@@ -26,7 +26,7 @@ under the License.
 
 <#assign appModelMenu = Static["org.ofbiz.widget.menu.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,delegator,dispatcher)>
 <#if appModelMenu.getModelMenuItemByName(headerItem)?exists && !parameters.portalPageId?exists>
-  <#if headerItem!="main" && headerItem!="viewprofile">
+  <#if headerItem!="main">
     <#assign show_last_menu = true>
   </#if>
 </#if>
