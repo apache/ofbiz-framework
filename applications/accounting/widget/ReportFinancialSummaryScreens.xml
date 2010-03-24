@@ -1367,42 +1367,22 @@ under the License.
                                     <condition>
                                         <if-compare field="parameters.showSearchResults" operator="equals" value="Y"/>
                                     </condition>
-                                    <actions>
-                                        <service service-name="getInventoryValuationList" result-map="inventoryValuation"/>
-                                        <set field="inventoryValuationList" from-field="inventoryValuation.inventoryValuationList" type="List"/>
-                                    </actions>
                                     <widgets>
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field="inventoryValuationList"/></not>
-                                            </condition>
-                                            <widgets>
-                                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="InventoryValuation.pdf">
-                                                    <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                                                    <parameter param-name="facilityId" from-field="parameters.facilityId"/>
-                                                    <parameter param-name="productId" from-field="parameters.productId"/>
-                                                    <parameter param-name="productCategoryId" from-field="parameters.productCategoryId"/>
-                                                    <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                                    <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                                    <parameter param-name="cogsMethodId" from-field="parameters.cogsMethodId"/>
-                                                </link>
-                                                <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="InventoryValuation.csv">
-                                                    <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                                                    <parameter param-name="facilityId" from-field="parameters.facilityId"/>
-                                                    <parameter param-name="productId" from-field="parameters.productId"/>
-                                                    <parameter param-name="productCategoryId" from-field="parameters.productCategoryId"/>
-                                                    <parameter param-name="fromDate" from-field="parameters.fromDate"/>
-                                                    <parameter param-name="thruDate" from-field="parameters.thruDate"/>
-                                                    <parameter param-name="cogsMethodId" from-field="parameters.cogsMethodId"/>
-                                                </link>
-                                                <screenlet title="${uiLabelMap.AccountingInventoryValuationList}">
-                                                    <include-form name="InventoryValuationList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
-                                                </screenlet>
-                                            </widgets>
-                                            <fail-widgets>
-                                                <label style="h3">${uiLabelMap.AccountingNoRecordFound}</label>
-                                            </fail-widgets>
-                                        </section>
+                                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="InventoryValuation.pdf">
+                                            <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                            <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                                            <parameter param-name="productId" from-field="parameters.productId"/>
+                                            <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                        </link>
+                                        <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="InventoryValuation.csv">
+                                            <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                                            <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                                            <parameter param-name="productId" from-field="parameters.productId"/>
+                                            <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                        </link>
+                                        <screenlet title="${uiLabelMap.AccountingInventoryValuationList}">
+                                            <include-form name="InventoryValuationList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                        </screenlet>
                                     </widgets>
                                 </section>
                             </decorator-section>
@@ -1418,18 +1398,15 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <service service-name="getInventoryValuationList" result-map="inventoryValuation"/>
-                <set field="inventoryValuationList" from-field="inventoryValuation.inventoryValuationList" type="List"/>
+                <set field="viewSize" value="99999"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <xsl-fo>
-                                <html-template location="component://accounting/webapp/accounting/reports/InventoryValuationReport.fo.ftl"/>
-                            </xsl-fo>
-                        </platform-specific>
+                        <container>
+                            <label style="h1" text="${uiLabelMap.AccountingInventoryValuation}"/>
+                            <include-form name="InventoryValuationList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1441,13 +1418,11 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <service service-name="getInventoryValuationList" result-map="inventoryValuation"/>
-                <set field="inventoryValuationList" from-field="inventoryValuation.inventoryValuationList" type="List"/>
+                <set field="viewSize" value="99999"/>
             </actions>
             <widgets>
                 <container>
-                    <include-form name="InventoryValuationCsv" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                    <include-form name="InventoryValuationList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                 </container>
             </widgets>
         </section>

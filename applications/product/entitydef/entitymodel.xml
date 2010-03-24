@@ -2050,9 +2050,13 @@ under the License.
         <alias entity-alias="II" name="inventoryItemTypeId" group-by="true"></alias>
         <alias entity-alias="II" name="facilityId" group-by="true"></alias>
         <alias entity-alias="II" name="productId" group-by="true"></alias>
+        <alias entity-alias="II" name="unitCost" group-by="true"></alias>
+        <alias entity-alias="II" name="currencyUomId" group-by="true"></alias>
         <alias entity-alias="IID" name="effectiveDate"><description>For query only, not in fields to select.</description></alias>
         <alias entity-alias="IID" name="orderId"><description>For query only, not in fields to select.</description></alias>
+        <alias entity-alias="II" name="ownerPartyId"><description>For query only, not in fields to select.</description></alias>
         <alias entity-alias="IID" name="quantityOnHandDiff"><description>For query only, not in fields to select.</description></alias>
+        <alias entity-alias="IID" name="accountingQuantityDiff"><description>For query only, not in fields to select.</description></alias>
         <view-link entity-alias="II" rel-entity-alias="IID">
             <key-map field-name="inventoryItemId"/>
         </view-link>
