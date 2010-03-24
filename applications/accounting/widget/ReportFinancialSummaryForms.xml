@@ -496,41 +496,34 @@ under the License.
                     <entity-order-by field-name="facilityId"/>
                 </entity-options>
             </drop-down>
-       </field>
-        <field name="cogsMethodId" position="2">
-            <drop-down allow-empty="false">
-                <!--TODO for now Average Cost is being calculated-->
-                <!--<entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
-                    <entity-constraint name="enumTypeId" operator="equals" value="COGS_METHODS"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>-->
-                <option key="COGS_AVG_COST" description="${uiLabelMap.ProductAverageCost}"/>
-            </drop-down>
         </field>
-        <field name="productId" position="1"><lookup target-form-name="LookupProduct"/></field>
-        <field name="productCategoryId" position="2"><lookup target-form-name="LookupProductCategory"/></field>
-        <field name="fromDate" position="1"><date-time/></field>
-        <field name="thruDate" position="2"><date-time/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="thruDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="organizationPartyId"><hidden/></field>
         <field name="showSearchResults"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="InventoryValuationList" extends="ListInventoryAverageCosts" extends-resource="component://product/widget/facility/FacilityForms.xml"
-            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" list-name="inventoryValuationList" paginate-target="InventoryValuation">
-        <field name="productAverageCost" use-when="currencyUomId!=null"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="productAverageCost" use-when="currencyUomId==null" title="${uiLabelMap.FormFieldTitle_unitCost}"><display description="${uiLabelMap.ProductDifferentCurrencies}"/></field>
-        <field name="totalInventoryCost" use-when="currencyUomId!=null" title="${uiLabelMap.CommonTotalValue}"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="totalInventoryCost" use-when="currencyUomId==null" title="${uiLabelMap.CommonTotalValue}"><display description="${uiLabelMap.ProductDifferentCurrencies}"/></field>
-    </form>
-
-    <form name="InventoryValuationCsv" type="list" list-name="inventoryValuationList" view-size="99999">
-        <field name="productId" title="${uiLabelMap.AccountingProductId}"><display/></field>
-        <field name="totalQuantityOnHand" title="${uiLabelMap.AccountingTotalQuantityOnHand}"><display/></field>
-        <field name="productAverageCost" use-when="currencyUomId!=null" title="${uiLabelMap.FormFieldTitle_unitCost}" ><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="productAverageCost" use-when="currencyUomId==null" title="${uiLabelMap.FormFieldTitle_unitCost}" ><display description="${uiLabelMap.ProductDifferentCurrencies}"/></field>
-        <field name="totalInventoryCost" use-when="currencyUomId!=null" title="${uiLabelMap.CommonTotalValue}" ><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="totalInventoryCost" use-when="currencyUomId==null" title="${uiLabelMap.CommonTotalValue}"><display description="${uiLabelMap.ProductDifferentCurrencies}"/></field>
+    <form name="InventoryValuationList" type="list" list-name="inventoryValuationList" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="InventoryItemDetailForSum" list="inventoryValuationList" use-cache="false">
+                <condition-list>
+                    <condition-expr field-name="ownerPartyId" operator="equals" from-field="parameters.organizationPartyId"/>
+                    <condition-expr field-name="accountingQuantityDiff" operator="not-equals" value="0.0"/>
+                    <condition-expr field-name="effectiveDate" operator="less-equals" from-field="parameters.thruDate"/>
+                    <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId" ignore-if-empty="true"/>
+                    <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" ignore-if-empty="true"/>
+                </condition-list>
+                <select-field field-name="productId"/>
+                <select-field field-name="unitCost"/>
+                <select-field field-name="currencyUomId"/>
+                <select-field field-name="accountingQuantitySum"/>
+            </entity-condition>
+        </actions>
+        <field name="productId"><display/></field>
+        <field name="unitCost" widget-style="tabletextright"><display currency="${currencyUomId}" type="currency"/></field>
+        <field name="accountingQuantitySum" widget-style="tabletextright"><display/></field>
+        <field name="value" widget-style="tabletextright"><display description="${accountingQuantitySum * unitCost}" currency="${currencyUomId}" type="currency"/></field>
     </form>
 
     <form name="TrialBalanceFinancialTimePeriodSelection" type="single" header-row-style="header-row" target="TrialBalance" default-table-style="basic-table">
