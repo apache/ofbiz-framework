@@ -120,7 +120,11 @@ public final class ExecutionPool {
         protected final long loadTimeNanos;
 
         protected Pulse(long delayNanos) {
-            loadTimeNanos = System.nanoTime();
+            this(System.nanoTime(), delayNanos);
+        }
+
+        protected Pulse(long loadTimeNanos, long delayNanos) {
+            this.loadTimeNanos = loadTimeNanos;
             expireTimeNanos = loadTimeNanos + delayNanos;
         }
 
