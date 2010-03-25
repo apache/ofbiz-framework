@@ -77,6 +77,7 @@ import org.ofbiz.entity.util.EntityDataLoader;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.entityext.EntityGroupUtil;
+import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
@@ -508,6 +509,7 @@ public class WebToolsServices {
                             continue;
                         }
 
+                        TransactionUtil.begin();
                         // some databases don't support cursors, or other problems may happen, so if there is an error here log it and move on to get as much as possible
                         try {
                             values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), null);
@@ -527,6 +529,10 @@ public class WebToolsServices {
                             do {
                                 value.writeXmlText(writer, "");
                                 numberWritten++;
+                                if (numberWritten % 500 == 0) {
+                                    TransactionUtil.commit();
+                                    TransactionUtil.begin();
+                                }
                             } while ((value = (GenericValue) values.next()) != null);
                             writer.println("</entity-engine-xml>");
                             writer.close();
@@ -535,6 +541,7 @@ public class WebToolsServices {
                             results.add("["+fileNumber +"] [---] " + curEntityName + " has no records, not writing file");
                         }
                         values.close();
+                        TransactionUtil.commit();
                     } catch (Exception ex) {
                         if (values != null) {
                             try {
