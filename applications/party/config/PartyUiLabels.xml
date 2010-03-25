@@ -7813,6 +7813,9 @@
         <value xml:lang="pt_BR">Substituir quantidade da taxa padrão</value>
         <value xml:lang="zh">覆盖缺省税金金额</value>
     </property>
+    <property key="PartyOtherAndGeneralCommunicationEvents">
+        <value xml:lang="en">Others and General Communication Events</value>
+    </property>
     <property key="PartyPagePushFollowing">
         <value xml:lang="de">Page Push/Following</value>
         <value xml:lang="en">Page Push/Following</value>

@@ -536,9 +536,12 @@ under the License.
     <form name="ListChildCommEvents" type="list" extends="ListCommEvents" paginate-target="EditCommunicationEvent">
         <actions>
             <entity-condition entity-name="CommunicationEvent" list="commEvents">
-                <condition-list combine="or">
-                    <condition-expr field-name="parentCommEventId" operator="equals" value="${communicationEventId}"/>
-                    <condition-expr field-name="origCommEventId" operator="equals" value="${communicationEventId}"/>
+                <condition-list combine="and">
+                    <condition-expr field-name="statusId" operator="not-equals" value="COM_COMPLETE"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="parentCommEventId" operator="equals" value="${communicationEventId}"/>
+                        <condition-expr field-name="origCommEventId" operator="equals" value="${communicationEventId}"/>
+                    </condition-list>
                 </condition-list>
             </entity-condition>
         </actions>
