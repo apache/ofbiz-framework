@@ -26,5 +26,5 @@ under the License.
     <!-- ========================================================= -->
     <entity-group group="org.ofbiz.tenant" entity="Tenant"/>
     <entity-group group="org.ofbiz.tenant" entity="TenantDataSource"/>
-    <entity-group group="org.ofbiz.tenant" entity="TenantUserLogin"/>
+<!--     <entity-group group="org.ofbiz.tenant" entity="TenantUserLogin"/> -->
 </entitygroup>
