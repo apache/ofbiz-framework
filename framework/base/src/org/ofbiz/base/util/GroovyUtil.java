@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
-import java.util.Set;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
@@ -36,52 +35,14 @@ import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.cache.UtilCache;
 
 /**
- * GroovyUtil - Groovy Utilities
+ * Groovy Utilities.
  *
  */
 public class GroovyUtil {
 
     public static final String module = GroovyUtil.class.getName();
 
-    @SuppressWarnings("unchecked")
-    public static UtilCache<String, Class> parsedScripts = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
-
-    public static Class loadClass(String path) throws ClassNotFoundException {
-        return new GroovyClassLoader().loadClass(path);
-    }
-
-    public static Class parseClass(String text) {
-        return new GroovyClassLoader().parseClass(text);
-    }
-
-    public static Class parseClass(String text, String location) {
-        return new GroovyClassLoader().parseClass(text, location);
-    }
-
-    public static Class parseClass(InputStream in, String location) throws IOException {
-        return new GroovyClassLoader().parseClass(UtilIO.readString(in), location);
-    }
-
-    /** Returns a <code>Binding</code> instance initialized with the
-     * variables contained in <code>context</code>. If <code>context</code>
-     * is <code>null</code>, an empty <code>Binding</code> is returned.
-     * <p>The <code>context Map</code> is added to the <code>Binding</code>
-     * as a variable called "context" so that variables can be passed
-     * back to the caller. Any variables that are created in the script
-     * are lost when the script ends unless they are copied to the
-     * "context" <code>Map</code>.</p>
-     * 
-     * @param context A <code>Map</code> containing initial variables
-     * @return A <code>Binding</code> instance
-     */
-    public static Binding getBinding(Map<String, ? extends Object> context) {
-        Map<String, Object> vars = FastMap.newInstance();
-        if (context != null) {
-            vars.putAll(context);
-            vars.put("context", context);
-        }
-        return new Binding(vars);
-    }
+    public static UtilCache<String, Class<?>> parsedScripts = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
 
     /**
      * Evaluate a Groovy condition or expression
@@ -118,24 +79,25 @@ public class GroovyUtil {
         return o;
     }
 
-    @SuppressWarnings("unchecked")
-    public static Object runScriptFromClasspath(String script, Map<String,Object> context) throws GeneralException {
-        try {
-            Class scriptClass = parsedScripts.get(script);
-            if (scriptClass == null) {
-                scriptClass = loadClass(script);
-                if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script: " + script, module);
-                parsedScripts.put(script, scriptClass);
-            }
-
-            return InvokerHelper.createScript(scriptClass, getBinding(context)).run();
-        } catch (CompilationFailedException e) {
-            String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
-            throw new GeneralException(errMsg, e);
-        } catch (ClassNotFoundException e) {
-            String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
-            throw new GeneralException(errMsg, e);
+    /** Returns a <code>Binding</code> instance initialized with the
+     * variables contained in <code>context</code>. If <code>context</code>
+     * is <code>null</code>, an empty <code>Binding</code> is returned.
+     * <p>The <code>context Map</code> is added to the <code>Binding</code>
+     * as a variable called "context" so that variables can be passed
+     * back to the caller. Any variables that are created in the script
+     * are lost when the script ends unless they are copied to the
+     * "context" <code>Map</code>.</p>
+     * 
+     * @param context A <code>Map</code> containing initial variables
+     * @return A <code>Binding</code> instance
+     */
+    public static Binding getBinding(Map<String, ? extends Object> context) {
+        Map<String, Object> vars = FastMap.newInstance();
+        if (context != null) {
+            vars.putAll(context);
+            vars.put("context", context);
         }
+        return new Binding(vars);
     }
 
     public static Class<?> getScriptClassFromLocation(String location) throws GeneralException {
@@ -158,7 +120,44 @@ public class GroovyUtil {
         }
     }
 
+    public static Class<?> loadClass(String path) throws ClassNotFoundException {
+        return new GroovyClassLoader().loadClass(path);
+    }
+
+    public static Class<?> parseClass(InputStream in, String location) throws IOException {
+        return new GroovyClassLoader().parseClass(UtilIO.readString(in), location);
+    }
+
+    public static Class<?> parseClass(String text) {
+        return new GroovyClassLoader().parseClass(text);
+    }
+
+    public static Class<?> parseClass(String text, String location) {
+        return new GroovyClassLoader().parseClass(text, location);
+    }
+
     public static Object runScriptAtLocation(String location, Map<String, Object> context) throws GeneralException {
         return InvokerHelper.createScript(getScriptClassFromLocation(location), getBinding(context)).run();
     }
+
+    public static Object runScriptFromClasspath(String script, Map<String,Object> context) throws GeneralException {
+        try {
+            Class<?> scriptClass = parsedScripts.get(script);
+            if (scriptClass == null) {
+                scriptClass = loadClass(script);
+                if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script: " + script, module);
+                parsedScripts.put(script, scriptClass);
+            }
+
+            return InvokerHelper.createScript(scriptClass, getBinding(context)).run();
+        } catch (CompilationFailedException e) {
+            String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
+            throw new GeneralException(errMsg, e);
+        } catch (ClassNotFoundException e) {
+            String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
+            throw new GeneralException(errMsg, e);
+        }
+    }
+
+    private GroovyUtil() {}
 }
