@@ -31,6 +31,7 @@ import java.util.Map;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -104,13 +105,13 @@ public class ContextFilter implements Filter {
         // check the serverId
         getServerId();
         // initialize the delegator
-        getDelegator();
+        getDelegator(config.getServletContext());
         // initialize authorizer
         getAuthz();
         // initialize security
         getSecurity();
         // initialize the services dispatcher
-        getDispatcher();
+        getDispatcher(config.getServletContext());
 
         // this will speed up the initial sessionId generation
         new java.security.SecureRandom().nextLong();
@@ -273,7 +274,7 @@ public class ContextFilter implements Filter {
      * @see javax.servlet.Filter#destroy()
      */
     public void destroy() {
-        getDispatcher().deregister();
+        getDispatcher(config.getServletContext()).deregister();
         try {
             destroyRmiContainer(); // used in Geronimo/WASCE to allow to deregister
         } catch (ServletException e) {
@@ -282,57 +283,65 @@ public class ContextFilter implements Filter {
         config = null;
     }
 
-    protected LocalDispatcher getDispatcher() {
-        LocalDispatcher dispatcher = (LocalDispatcher) config.getServletContext().getAttribute("dispatcher");
+    protected static LocalDispatcher getDispatcher(ServletContext servletContext) {
+        LocalDispatcher dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");
         if (dispatcher == null) {
-            Delegator delegator = getDelegator();
-
-            if (delegator == null) {
-                Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", module);
-                return null;
-            }
-            Collection<URL> readers = null;
-            String readerFiles = config.getServletContext().getInitParameter("serviceReaderUrls");
-
-            if (readerFiles != null) {
-                readers = FastList.newInstance();
-                for (String name: StringUtil.split(readerFiles, ";")) {
-                    try {
-                        URL readerURL = config.getServletContext().getResource(name);
-                        if (readerURL != null) readers.add(readerURL);
-                    } catch (NullPointerException npe) {
-                        Debug.logInfo(npe, "[ContextFilter.init] ERROR: Null pointer exception thrown.", module);
-                    } catch (MalformedURLException e) {
-                        Debug.logError(e, "[ContextFilter.init] ERROR: cannot get URL from String.", module);
-                    }
-                }
-            }
-            // get the unique name of this dispatcher
-            String dispatcherName = config.getServletContext().getInitParameter("localDispatcherName");
-
-            if (dispatcherName == null) {
-                Debug.logError("No localDispatcherName specified in the web.xml file", module);
-            }
-            dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator, readers, null);
-            config.getServletContext().setAttribute("dispatcher", dispatcher);
-            if (dispatcher == null) {
-                Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", module);
-            }
+            Delegator delegator = getDelegator(servletContext);
+            dispatcher = makeWebappDispatcher(servletContext, delegator);
+            servletContext.setAttribute("dispatcher", dispatcher);
         }
         return dispatcher;
     }
-
-    protected Delegator getDelegator() {
-        Delegator delegator = (Delegator) config.getServletContext().getAttribute("delegator");
+    
+    /** This method only sets up a dispatcher for the current webapp and passed in delegator, it does not save it to the ServletContext or anywhere else, just returns it */
+    public static LocalDispatcher makeWebappDispatcher(ServletContext servletContext, Delegator delegator) {
         if (delegator == null) {
-            String delegatorName = config.getServletContext().getInitParameter("entityDelegatorName");
+            Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", module);
+            return null;
+        }
+        Collection<URL> readers = null;
+        String readerFiles = servletContext.getInitParameter("serviceReaderUrls");
+
+        if (readerFiles != null) {
+            readers = FastList.newInstance();
+            for (String name: StringUtil.split(readerFiles, ";")) {
+                try {
+                    URL readerURL = servletContext.getResource(name);
+                    if (readerURL != null) readers.add(readerURL);
+                } catch (NullPointerException npe) {
+                    Debug.logInfo(npe, "[ContextFilter.init] ERROR: Null pointer exception thrown.", module);
+                } catch (MalformedURLException e) {
+                    Debug.logError(e, "[ContextFilter.init] ERROR: cannot get URL from String.", module);
+                }
+            }
+        }
+        // get the unique name of this dispatcher
+        String dispatcherName = servletContext.getInitParameter("localDispatcherName");
+
+        if (dispatcherName == null) {
+            Debug.logError("No localDispatcherName specified in the web.xml file", module);
+            dispatcherName = delegator.getDelegatorName();
+        }
+        
+        LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator, readers, null);
+        if (dispatcher == null) {
+            Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", module);
+        }
+        
+        return dispatcher;
+    }
+
+    protected static Delegator getDelegator(ServletContext servletContext) {
+        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+        if (delegator == null) {
+            String delegatorName = servletContext.getInitParameter("entityDelegatorName");
 
             if (delegatorName == null || delegatorName.length() <= 0) {
                 delegatorName = "default";
             }
             if (Debug.verboseOn()) Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, module);
             delegator = DelegatorFactory.getDelegator(delegatorName);
-            config.getServletContext().setAttribute("delegator", delegator);
+            servletContext.setAttribute("delegator", delegator);
             if (delegator == null) {
                 Debug.logError("[ContextFilter.init] ERROR: delegator factory returned null for delegatorName \"" + delegatorName + "\"", module);
             }

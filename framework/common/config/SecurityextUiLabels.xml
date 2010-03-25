@@ -177,7 +177,7 @@
     </property>
     <property key="loginevents.unable_to_login_this_application">
         <value xml:lang="de">Anmeldung bei der Anwendung nicht erfolgreich</value>
-        <value xml:lang="en">unable to login this application</value>
+        <value xml:lang="en">You cannot login to this application</value>
         <value xml:lang="es">No puedo conectarse a esta aplicación (faltan permisos)</value>
         <value xml:lang="fr">Impossible de se connecter à cette application.</value>
         <value xml:lang="it">L'autenticazione per questa applicazione non è stata completata (permessi non sufficienti).</value>
@@ -186,6 +186,9 @@
         <value xml:lang="ru">Регистрация для этого приложения не может быть завершена (отсутствуют требуемые права).</value>
         <value xml:lang="th">ไม่สามารถลอกอินเข้าสู่โปรแกรมประยุกต์นี้</value>
         <value xml:lang="zh">无法登录这个应用程序</value>
+    </property>
+    <property key="loginevents.unable_to_login_tenant">
+        <value xml:lang="en">You cannot login to this tenant</value>
     </property>
     <property key="loginevents.user_already_logged_in">
         <value xml:lang="de">Dieser User ist bereits eingeloggt.</value>

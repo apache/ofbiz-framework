@@ -7075,6 +7075,9 @@
         <value xml:lang="nl">Belasting</value>
         <value xml:lang="zh">税</value>
     </property>
+    <property key="CommonTenantId">
+        <value xml:lang="en">Tenant ID</value>
+    </property>
     <property key="CommonTelephoneAbbr">
         <value xml:lang="ar">هاتف</value>
         <value xml:lang="de">Tel</value>

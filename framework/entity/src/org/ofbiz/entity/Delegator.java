@@ -29,6 +29,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.datasource.GenericHelper;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.eca.EntityEcaHandler;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelEntity;
@@ -504,6 +505,8 @@ public interface Delegator {
     public Cache getCache();
 
     public String getDelegatorName();
+    public String getDelegatorBaseName();
+    public String getDelegatorTenantId();
 
     public <T> EntityEcaHandler<T> getEntityEcaHandler();
 
@@ -599,6 +602,8 @@ public interface Delegator {
      */
     public String getGroupHelperName(String groupName);
 
+    public GenericHelperInfo getGroupHelperInfo(String entityGroupName);
+    
     /**
      * Gets the instance of ModelEntity that corresponds to this delegator and
      * the specified entityName

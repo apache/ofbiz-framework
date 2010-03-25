@@ -28,6 +28,7 @@ import org.apache.commons.pool.impl.GenericObjectPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.transaction.TransactionFactory;
 import org.w3c.dom.Element;
 
@@ -48,24 +49,26 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
     public static final String module = DBCPConnectionFactory.class.getName();
     protected static Map<String, ManagedDataSource> dsCache = FastMap.newInstance();
 
-    public Connection getConnection(String helperName, Element jdbcElement) throws SQLException, GenericEntityException {
-        ManagedDataSource mds = dsCache.get(helperName);
+    public Connection getConnection(GenericHelperInfo helperInfo, Element jdbcElement) throws SQLException, GenericEntityException {
+        ManagedDataSource mds = dsCache.get(helperInfo.getHelperFullName());
         if (mds != null) {
-            return TransactionFactory.getCursorConnection(helperName, mds.getConnection());
+            return TransactionFactory.getCursorConnection(helperInfo, mds.getConnection());
         }
 
         synchronized (DBCPConnectionFactory.class) {
-            mds = dsCache.get(helperName);
+            mds = dsCache.get(helperInfo.getHelperFullName());
             if (mds != null) {
-                return TransactionFactory.getCursorConnection(helperName, mds.getConnection());
+                return TransactionFactory.getCursorConnection(helperInfo, mds.getConnection());
             }
 
             // connection properties
             TransactionManager txMgr = TransactionFactory.getTransactionManager();
             String driverName = jdbcElement.getAttribute("jdbc-driver");
-            String dbUri = jdbcElement.getAttribute("jdbc-uri");
-            String dbUser = jdbcElement.getAttribute("jdbc-username");
-            String dbPass = jdbcElement.getAttribute("jdbc-password");
+
+            
+            String jdbcUri = UtilValidate.isNotEmpty(helperInfo.getOverrideJdbcUri()) ? helperInfo.getOverrideJdbcUri() : jdbcElement.getAttribute("jdbc-uri");
+            String jdbcUsername = UtilValidate.isNotEmpty(helperInfo.getOverrideUsername()) ? helperInfo.getOverrideUsername() : jdbcElement.getAttribute("jdbc-username");
+            String jdbcPassword = UtilValidate.isNotEmpty(helperInfo.getOverridePassword()) ? helperInfo.getOverridePassword() : jdbcElement.getAttribute("jdbc-password");
 
             // pool settings
             int maxSize, minSize, timeBetweenEvictionRunsMillis;
@@ -111,11 +114,11 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
             // connection factory properties
             Properties cfProps = new Properties();
-            cfProps.put("user", dbUser);
-            cfProps.put("password", dbPass);
+            cfProps.put("user", jdbcUsername);
+            cfProps.put("password", jdbcPassword);
 
             // create the connection factory
-            ConnectionFactory cf = new DriverConnectionFactory(jdbcDriver, dbUri, cfProps);
+            ConnectionFactory cf = new DriverConnectionFactory(jdbcDriver, jdbcUri, cfProps);
 
             // wrap it with a LocalXAConnectionFactory
             XAConnectionFactory xacf = new LocalXAConnectionFactory(txMgr, cf);
@@ -156,9 +159,9 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
             mds.setAccessToUnderlyingConnectionAllowed(true);
 
             // cache the pool
-            dsCache.put(helperName, mds);
+            dsCache.put(helperInfo.getHelperFullName(), mds);
 
-            return TransactionFactory.getCursorConnection(helperName, mds.getConnection());
+            return TransactionFactory.getCursorConnection(helperInfo, mds.getConnection());
         }
     }
 

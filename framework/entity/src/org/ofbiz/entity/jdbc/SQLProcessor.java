@@ -39,6 +39,7 @@ import org.ofbiz.entity.GenericDataSourceException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 
@@ -57,7 +58,7 @@ public class SQLProcessor {
     public static boolean ENABLE_TEST = false;
 
     /** The datasource helper (see entityengine.xml <datasource name="..">) */
-    private String helperName;
+    private GenericHelperInfo helperInfo;
 
     // / The database resources to be used
     private Connection _connection = null;
@@ -87,8 +88,8 @@ public class SQLProcessor {
      *
      * @param helperName  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
      */
-    public SQLProcessor(String helperName) {
-        this.helperName = helperName;
+    public SQLProcessor(GenericHelperInfo helperInfo) {
+        this.helperInfo = helperInfo;
         this._manualTX = true;
     }
 
@@ -99,8 +100,8 @@ public class SQLProcessor {
      * @param helperName  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
      * @param connection  The connection to be used
      */
-    public SQLProcessor(String helperName, Connection connection) {
-        this.helperName = helperName;
+    public SQLProcessor(GenericHelperInfo helperInfo, Connection connection) {
+        this.helperInfo = helperInfo;
         this._connection = connection;
 
         // Do not commit while closing
@@ -245,7 +246,7 @@ public class SQLProcessor {
         _manualTX = true;
 
         try {
-            _connection = ConnectionFactory.getConnection(helperName);
+            _connection = ConnectionFactory.getConnection(helperInfo);
             if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:connection() : manualTx=" + _manualTX, module);
         } catch (SQLException sqle) {
             throw new GenericDataSourceException("Unable to esablish a connection with the database.", sqle);
@@ -729,7 +730,7 @@ public class SQLProcessor {
         if (field != null) {
             _ps.setBlob(_ind, field);
         } else {
-            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperName);
+            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperInfo.getHelperBaseName());
             if (datasourceInfo.useBinaryTypeForBlob) {
                 _ps.setNull(_ind, Types.BINARY);
             } else {
@@ -780,7 +781,7 @@ public class SQLProcessor {
                 throw new SQLException(ex.getMessage());
             }
         } else {
-            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperName);
+            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperInfo.getHelperBaseName());
             if (datasourceInfo.useBinaryTypeForBlob) {
                 _ps.setNull(_ind, Types.BINARY);
             } else {
@@ -803,7 +804,7 @@ public class SQLProcessor {
         if (bytes != null) {
             _ps.setBytes(_ind, bytes);
         } else {
-            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperName);
+            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(this.helperInfo.getHelperBaseName());
             if (datasourceInfo.useBinaryTypeForBlob) {
                 _ps.setNull(_ind, Types.BINARY);
             } else {
@@ -841,7 +842,7 @@ public class SQLProcessor {
 
         // check if the statement was called with a specific fetch size, if not grab the default from the datasource
         if (fetchSize < 0) {
-            DatasourceInfo ds = EntityConfigUtil.getDatasourceInfo(helperName);
+            DatasourceInfo ds = EntityConfigUtil.getDatasourceInfo(this.helperInfo.getHelperBaseName());
             if (ds != null) {
                 fetchSize = ds.resultFetchSize;
             } else {

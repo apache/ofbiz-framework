@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.CursorConnection;
 
 /**
@@ -92,25 +93,25 @@ public class TransactionFactory {
         return getTransactionFactory().getTxMgrName();
     }
 
-    public static Connection getConnection(String helperName) throws SQLException, GenericEntityException {
-        return getTransactionFactory().getConnection(helperName);
+    public static Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
+        return getTransactionFactory().getConnection(helperInfo);
     }
 
     public static void shutdown() {
         getTransactionFactory().shutdown();
     }
 
-    public static Connection getCursorConnection(String helperName, Connection con) {
-        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+    public static Connection getCursorConnection(GenericHelperInfo helperInfo, Connection con) {
+        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperInfo.getHelperBaseName());
         if (datasourceInfo == null) {
-            Debug.logWarning("Could not find configuration for " + helperName + " datasource.", module);
+            Debug.logWarning("Could not find configuration for " + helperInfo.getHelperBaseName() + " datasource.", module);
             return con;
         } else if (datasourceInfo.useProxyCursor) {
             try {
                 if (datasourceInfo.resultFetchSize > 1)
                     con = CursorConnection.newCursorConnection(con, datasourceInfo.cursorName, datasourceInfo.resultFetchSize);
             } catch (Exception ex) {
-                Debug.logWarning(ex, "Error creating the cursor connection proxy " + helperName + " datasource.", module);
+                Debug.logWarning(ex, "Error creating the cursor connection proxy " + helperInfo.getHelperBaseName() + " datasource.", module);
             }
         }
         return con;

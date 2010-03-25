@@ -35,6 +35,7 @@ under the License.
     <!--  - org.ofbiz.entity.audit -->
     <!--  - org.ofbiz.entity.crypto -->
     <!--  - org.ofbiz.entity.sequence -->
+    <!--  - org.ofbiz.entity.tenant -->
     <!-- ========================================================= -->
 
     <entity entity-name="EntityAuditLog" package-name="org.ofbiz.entity.audit" title="Entity Audit Log">
@@ -59,4 +60,65 @@ under the License.
       <field name="seqId" type="numeric"></field>
       <prim-key field="seqName"/>
     </entity>
+
+    <!-- ========================================================= -->
+    <!-- org.ofbiz.entity.tenant -->
+    <!-- ========================================================= -->
+    
+    <entity entity-name="Tenant" package-name="org.ofbiz.entity.tenant">
+        <field name="tenantId" type="id-ne"/>
+        <field name="tenantName" type="name"/>
+        <field name="disabled" type="indicator"><description>Disabled if 'Y', defaults to 'N' (not disabled).</description></field>
+        <prim-key field="tenantId"/>
+    </entity>
+    <entity entity-name="TenantDataSource" package-name="org.ofbiz.entity.tenant">
+        <description>
+            There should be one record for each tenant and each group-map for the active delegator.
+            The jdbc fields will override the datasource -> inline-jdbc values for the per-tenant delegator.
+        </description>
+        <field name="tenantId" type="id-ne"/>
+        <field name="entityGroupName" type="name"/>
+        <field name="jdbcUri" type="long-varchar"/>
+        <field name="jdbcUsername" type="long-varchar"/>
+        <field name="jdbcPassword" type="long-varchar">
+            <!-- This field should probably be encrypted, but the encrypt=true attribute will not work in this case
+            because different tenants will have different sets of encryption keys because the EntityKeyStore table is
+            in the per-tenant database an not in the shared tenant control database, which causes different keys to
+            be used for those logged in under different tenants, causing decryption errors unless you do all 
+            TenantDataSource maintenance from only one tenant (or the non-tenant master db).
+            
+            The problem is that each tenant has their own encryption keys, and that is they way it should be since 
+            having easy access to the encryption keys that other tenants are using would be bad, and not having access 
+            to your own encryption keys would also be bad. Because of that we can't move the EntityKeyStore entity 
+            into the tenant control database. If we encrypt this with the keys from one tenant then no one logged in 
+            with another tenant database will be able to decrypt it, so we can't use the keys in the per-tenant 
+            databases for this.
+            
+            Technically we don't have to encrypt the JDBC password, it often isn't encrypted in the configuration 
+            files anyway. But it would be nice to encrypt it to protect other databases anyway, even if they are 
+            probably on the same box and in the same database server instance.
+            -->
+        </field>
+        <prim-key field="tenantId"/>
+        <prim-key field="entityGroupName"/>
+        <relation type="one" fk-name="TNTDTSRC_TNT" rel-entity-name="Tenant">
+            <key-map field-name="tenantId"/>
+        </relation>
+    </entity>
+    <!-- may be no reason for this entity, user is authenticated inside the tenant and this would only be useful to 
+    get a list of tenants per user
+    <entity entity-name="TenantUserLogin" package-name="org.ofbiz.entity.tenant">
+        <field name="tenantId" type="id-ne"/>
+        <field name="userLoginId" type="name"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <prim-key field="tenantId"/>
+        <prim-key field="userLoginId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="TNTUSRLGN_TNT" rel-entity-name="Tenant">
+            <key-map field-name="tenantId"/>
+        </relation>
+        <!- - NOTE: there is no FK to the UserLogin entity, which is in a higher-level component, and would normally be in a separate database - ->
+    </entity>
+    -->
 </entitymodel>

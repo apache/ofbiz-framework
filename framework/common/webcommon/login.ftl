@@ -42,6 +42,10 @@ under the License.
             <td><input type="password" name="PASSWORD" value="" size="20"/></td>
           </tr>
           <tr>
+            <td class="label">${uiLabelMap.CommonTenantId}</td>
+            <td><input type="text" name="tenantId" value="${parameters.tenantId?if_exists}" size="20"/></td>
+          </tr>
+          <tr>
             <td colspan="2" align="center">
               <input type="submit" value="${uiLabelMap.CommonLogin}"/>
             </td>

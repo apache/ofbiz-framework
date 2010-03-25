@@ -36,6 +36,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 /**
@@ -106,14 +107,14 @@ public class DumbFactory implements TransactionFactoryInterface {
         return "dumb";
     }
 
-    public Connection getConnection(String helperName) throws SQLException, GenericEntityException {
-        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+    public Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
+        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperInfo.getHelperBaseName());
 
         if (datasourceInfo.inlineJdbcElement != null) {
-            Connection otherCon = ConnectionFactory.getManagedConnection(helperName, datasourceInfo.inlineJdbcElement);
-            return TransactionFactory.getCursorConnection(helperName, otherCon);
+            Connection otherCon = ConnectionFactory.getManagedConnection(helperInfo, datasourceInfo.inlineJdbcElement);
+            return TransactionFactory.getCursorConnection(helperInfo, otherCon);
         } else {
-            Debug.logError("Dumb/Empty is the configured transaction manager but no inline-jdbc element was specified in the " + helperName + " datasource. Please check your configuration", module);
+            Debug.logError("Dumb/Empty is the configured transaction manager but no inline-jdbc element was specified in the " + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", module);
             return null;
         }
     }

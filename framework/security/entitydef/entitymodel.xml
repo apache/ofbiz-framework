@@ -125,7 +125,7 @@ under the License.
         <key-map field-name="userLoginId"/>
       </relation>
     </entity>
-
+    
   <!-- ========================================================= -->
   <!-- org.ofbiz.security.securitygroup -->
   <!-- ========================================================= -->

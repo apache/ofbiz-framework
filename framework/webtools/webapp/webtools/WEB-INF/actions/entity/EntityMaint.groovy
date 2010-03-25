@@ -26,7 +26,7 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelViewEntity;
 
 mgr = delegator.getModelGroupReader();
-entityGroups = mgr.getGroupNames(delegator.getDelegatorName()).iterator();
+entityGroups = mgr.getGroupNames(delegator.getDelegatorBaseName()).iterator();
 
 filterByGroupName = parameters.filterByGroupName;
 context.filterByGroupName = filterByGroupName;

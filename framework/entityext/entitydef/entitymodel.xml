@@ -34,6 +34,7 @@ under the License.
   <!-- The modules in this file are as follows:                  -->
   <!--  - org.ofbiz.entity.group -->
   <!--  - org.ofbiz.entity.synchronization -->
+  <!--  - org.ofbiz.entity.tenant -->
   <!-- ========================================================= -->
 
 
@@ -171,4 +172,3 @@ under the License.
       <prim-key field="entitySyncRemoveId"/>
     </entity>
 </entitymodel>
-
