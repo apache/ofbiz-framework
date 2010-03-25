@@ -339,14 +339,12 @@ under the License.
                     <section>
                         <actions>
                             <entity-and list="commEvents" entity-name="CommunicationEvent">
-                                <field-map field-name="parentCommEventId"
-                                    from-field="parameters.communicationEventId"/>
+                                <field-map field-name="parentCommEventId" from-field="parameters.communicationEventId"/>
                             </entity-and>
                         </actions>
                         <widgets>
                             <screenlet title="${uiLabelMap.PartyChildCommunicationEvents}">
-                                <include-form name="ListCommEvents"
-                                    location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                <include-form name="ListCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                             </screenlet>
                         </widgets>
                     </section>
@@ -1095,7 +1093,7 @@ under the License.
                         <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent} ${parameters.communicationEventId}">
                             <include-form name="EditCommEvent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.PartyChildCommunicationEvents}" navigation-form-name="ListChildCommEvents">
+                        <screenlet title="${uiLabelMap.PartyOtherAndGeneralCommunicationEvents}" navigation-form-name="ListChildCommEvents">
                             <include-form  name="ListChildCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                         </screenlet>
                     </widgets>
