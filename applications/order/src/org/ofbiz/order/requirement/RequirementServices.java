@@ -215,21 +215,23 @@ public class RequirementServices {
                 GenericValue item = (GenericValue) iter.next();
                 GenericValue product = item.getRelatedOne("Product");
                 if (product == null) continue;
-                if (! "PRODRQM_AUTO".equals(product.get("requirementMethodEnumId"))) continue;
-
-                BigDecimal quantity = item.getBigDecimal("quantity");
-                BigDecimal cancelQuantity = item.getBigDecimal("cancelQuantity");
-                BigDecimal required = quantity.subtract(cancelQuantity == null ? BigDecimal.ZERO : cancelQuantity);
-                if (required.compareTo(BigDecimal.ZERO) <= 0) continue;
-
-                Map input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
-                Map results = dispatcher.runSync("createRequirement", input);
-                if (ServiceUtil.isError(results)) return results;
-                String requirementId = (String) results.get("requirementId");
-
-                input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"), "requirementId", requirementId, "quantity", required);
-                results = dispatcher.runSync("createOrderRequirementCommitment", input);
-                if (ServiceUtil.isError(results)) return results;
+                if ("PRODRQM_AUTO".equals(productStore.get("requirementMethodEnumId")) || "PRODRQM_AUTO".equals(product.get("requirementMethodEnumId"))) {
+                    BigDecimal quantity = item.getBigDecimal("quantity");
+                    BigDecimal cancelQuantity = item.getBigDecimal("cancelQuantity");
+                    BigDecimal required = quantity.subtract(cancelQuantity == null ? BigDecimal.ZERO : cancelQuantity);
+                    if (required.compareTo(BigDecimal.ZERO) <= 0) continue;
+    
+                    Map input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
+                    Map results = dispatcher.runSync("createRequirement", input);
+                    if (ServiceUtil.isError(results)) return results;
+                    String requirementId = (String) results.get("requirementId");
+    
+                    input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"), "requirementId", requirementId, "quantity", required);
+                    results = dispatcher.runSync("createOrderRequirementCommitment", input);
+                    if (ServiceUtil.isError(results)) return results;
+                } else if (! "PRODRQM_AUTO".equals(product.get("requirementMethodEnumId"))) {
+                    continue;
+                }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
