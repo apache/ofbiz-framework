@@ -2928,9 +2928,8 @@ public class GenericDelegator implements Delegator {
             if (sequencer == null) {
                 synchronized (this) {
                     if (sequencer == null) {
-                        String helperName = this.getEntityHelperName("SequenceValueItem");
                         ModelEntity seqEntity = this.getModelEntity("SequenceValueItem");
-                        sequencer = new SequenceUtil(helperName, seqEntity, "seqName", "seqId");
+                        sequencer = new SequenceUtil(this.getEntityHelperInfo("SequenceValueItem"), seqEntity, "seqName", "seqId");
                     }
                 }
             }

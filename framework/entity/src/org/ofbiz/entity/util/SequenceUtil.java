@@ -29,6 +29,7 @@ import javax.transaction.Transaction;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -44,18 +45,18 @@ public class SequenceUtil {
     public static final String module = SequenceUtil.class.getName();
 
     private final Map<String, SequenceBank> sequences = new Hashtable<String, SequenceBank>();
-    private final String helperName;
+    private final GenericHelperInfo helperInfo;
     private final long bankSize;
     private final String tableName;
     private final String nameColName;
     private final String idColName;
 
-    public SequenceUtil(String helperName, ModelEntity seqEntity, String nameFieldName, String idFieldName) {
-        this.helperName = helperName;
+    public SequenceUtil(GenericHelperInfo helperInfo, ModelEntity seqEntity, String nameFieldName, String idFieldName) {
+        this.helperInfo = helperInfo;
         if (seqEntity == null) {
             throw new IllegalArgumentException("The sequence model entity was null but is required.");
         }
-        this.tableName = seqEntity.getTableName(helperName);
+        this.tableName = seqEntity.getTableName(helperInfo.getHelperBaseName());
 
         ModelField nameField = seqEntity.getField(nameFieldName);
 
@@ -198,7 +199,7 @@ public class SequenceUtil {
                             ResultSet rs = null;
 
                             try {
-                                connection = ConnectionFactory.getConnection(SequenceUtil.this.helperName);
+                                connection = ConnectionFactory.getConnection(SequenceUtil.this.helperInfo);
                             } catch (SQLException sqle) {
                                 Debug.logWarning("[SequenceUtil.SequenceBank.fillBank]: Unable to esablish a connection with the database... Error was:" + sqle.toString(), module);
                                 throw sqle;
