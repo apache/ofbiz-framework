@@ -7077,6 +7077,7 @@
     </property>
     <property key="CommonTenantId">
         <value xml:lang="en">Tenant ID</value>
+        <value xml:lang="fr">Instance</value>
     </property>
     <property key="CommonTelephoneAbbr">
         <value xml:lang="ar">هاتف</value>
