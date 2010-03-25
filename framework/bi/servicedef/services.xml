@@ -41,8 +41,8 @@ under the License.
     <service name="quickInitDataWarehouse" auth="true" engine="simple"
         location="component://bi/script/org/ofbiz/bi/DimensionServices.xml" invoke="quickInitDataWarehouse">
         <description>Quickly initialize the dimensions (Currency, Date, Product) and facts (SalesInvoiceItem): useful to quickly initialize the datawarehouse.</description>
-        <attribute name="fromDate" type="Date" mode="IN" optional="false"/>
-        <attribute name="thruDate" type="Date" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
 
 </services>
