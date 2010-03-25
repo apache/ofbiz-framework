@@ -25,8 +25,8 @@ under the License.
     <service name="loadDateDimension" engine="java" transaction-timeout="300"
         location="org.ofbiz.common.olap.CommonDimensionServices" invoke="loadDateDimension" auth="true">
         <description>Loads data in the DateDimension entity (olap entity) using the update strategy of 'type 1': overwrite the values of the attributes</description>
-        <attribute name="fromDate" type="Date" mode="IN" optional="false"/>
-        <attribute name="thruDate" type="Date" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
     <service name="loadCurrencyDimension" auth="true" engine="simple"
         location="component://common/script/org/ofbiz/common/olap/CommonDimensionServices.xml" invoke="loadCurrencyDimension">
