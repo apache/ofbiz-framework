@@ -301,13 +301,13 @@ under the License.
             </calculate>-->
             
             <!-- eBay -->
-            <set field="fact.eBay" value="7"/>
+            <set field="fact.eBay" value="7" type="BigDecimal"/>
                 
             <!-- RRC -->
-            <set field="fact.RRC" value="2"/>
+            <set field="fact.RRC" value="2" type="BigDecimal"/>
             
             <!-- Others -->
-            <set field="fact.OtherFree" value="5"/>
+            <set field="fact.OtherFree" value="5" type="BigDecimal"/>
             
             <!-- Others -->
             <calculate field="fees">
@@ -328,7 +328,7 @@ under the License.
             <set field="fact.NBO" from-field="NBO"/>
             
             <!-- CountDate -->
-            <set field="fact.CountDate" value="1"/>
+            <set field="fact.CountDate" value="1" type="BigDecimal"/>
             
             <!-- Category -->
             <if-not-empty field="orderItem.productId">
