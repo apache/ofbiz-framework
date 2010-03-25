@@ -23,6 +23,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.connection.ConnectionFactoryInterface;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.transaction.TransactionFactory;
 import org.w3c.dom.Element;
 
@@ -71,9 +72,19 @@ public class ConnectionFactory {
     public static Connection getConnection(String helperName) throws SQLException, GenericEntityException {
         // Debug.logVerbose("Getting a connection", module);
 
-        Connection con = TransactionFactory.getConnection(helperName);
+        Connection con = TransactionFactory.getConnection(new GenericHelperInfo(null, helperName));
         if (con == null) {
             Debug.logError("******* ERROR: No database connection found for helperName \"" + helperName + "\"", module);
+        }
+        return con;
+    }
+
+    public static Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
+        // Debug.logVerbose("Getting a connection", module);
+
+        Connection con = TransactionFactory.getConnection(helperInfo);
+        if (con == null) {
+            Debug.logError("******* ERROR: No database connection found for helperName \"" + helperInfo.getHelperFullName() + "\"", module);
         }
         return con;
     }
@@ -120,8 +131,8 @@ public class ConnectionFactory {
         return _factory;
     }
 
-    public static Connection getManagedConnection(String helperName, Element inlineJdbcElement) throws SQLException, GenericEntityException {
-        return getManagedConnectionFactory().getConnection(helperName, inlineJdbcElement);
+    public static Connection getManagedConnection(GenericHelperInfo helperInfo, Element inlineJdbcElement) throws SQLException, GenericEntityException {
+        return getManagedConnectionFactory().getConnection(helperInfo, inlineJdbcElement);
     }
 
     public static void closeAllManagedConnections() {

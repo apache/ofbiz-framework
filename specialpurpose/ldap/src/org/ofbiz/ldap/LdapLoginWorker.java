@@ -96,7 +96,7 @@ public class LdapLoginWorker extends LoginWorker {
 
             if (!hasBasePermission(userLogin, request) || isFlaggedLoggedOut(userLogin) || hasLdapLoggedOut) {
                 Debug.logInfo("User does not have permission or is flagged as logged out", module);
-                doBasicLogout(userLogin, request);
+                doBasicLogout(userLogin, request, response);
                 userLogin = null;
             }
         }
@@ -179,7 +179,7 @@ public class LdapLoginWorker extends LoginWorker {
         // invalidate the security group list cache
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
-        doBasicLogout(userLogin, request);
+        doBasicLogout(userLogin, request, response);
 
         Element rootElement = getRootElement(request);
 

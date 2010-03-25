@@ -30,6 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.transaction.TransactionFactory;
 import org.ofbiz.minerva.pool.jdbc.xa.XAPoolDataSource;
 import org.ofbiz.minerva.pool.jdbc.xa.wrapper.XADataSourceImpl;
@@ -43,28 +44,33 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
     public static final String module = MinervaConnectionFactory.class.getName();
     protected static Map<String, XAPoolDataSource> dsCache = FastMap.newInstance();
 
-    public Connection getConnection(String helperName, Element jdbcElement) throws SQLException, GenericEntityException {
-        XAPoolDataSource pds = dsCache.get(helperName);
+    public Connection getConnection(GenericHelperInfo helperInfo, Element jdbcElement) throws SQLException, GenericEntityException {
+        XAPoolDataSource pds = dsCache.get(helperInfo.getHelperFullName());
         if (pds != null) {
-            return TransactionFactory.getCursorConnection(helperName, pds.getConnection());
+            return TransactionFactory.getCursorConnection(helperInfo, pds.getConnection());
         }
 
         synchronized (MinervaConnectionFactory.class) {
-            pds = dsCache.get(helperName);
+            pds = dsCache.get(helperInfo.getHelperFullName());
             if (pds != null) {
                 return pds.getConnection();
             } else {
                 pds = new XAPoolDataSource();
-                pds.setPoolName(helperName);
+                pds.setPoolName(helperInfo.getHelperFullName());
             }
 
             XADataSourceImpl ds = new XADataSourceImpl();
 
-            if (ds == null)
+            if (ds == null) {
                 throw new GenericEntityException("XADataSource was not created, big problem!");
+            }
+            
+            String jdbcUri = UtilValidate.isNotEmpty(helperInfo.getOverrideJdbcUri()) ? helperInfo.getOverrideJdbcUri() : jdbcElement.getAttribute("jdbc-uri");
+            String jdbcUsername = UtilValidate.isNotEmpty(helperInfo.getOverrideUsername()) ? helperInfo.getOverrideUsername() : jdbcElement.getAttribute("jdbc-username");
+            String jdbcPassword = UtilValidate.isNotEmpty(helperInfo.getOverridePassword()) ? helperInfo.getOverridePassword() : jdbcElement.getAttribute("jdbc-password");
 
             ds.setDriver(jdbcElement.getAttribute("jdbc-driver"));
-            ds.setURL(jdbcElement.getAttribute("jdbc-uri"));
+            ds.setURL(jdbcUri);
 
             String transIso = jdbcElement.getAttribute("isolation-level");
             if (UtilValidate.isNotEmpty(transIso)) {
@@ -83,8 +89,8 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
 
             // set the datasource in the pool
             pds.setDataSource(ds);
-            pds.setJDBCUser(jdbcElement.getAttribute("jdbc-username"));
-            pds.setJDBCPassword(jdbcElement.getAttribute("jdbc-password"));
+            pds.setJDBCUser(jdbcUsername);
+            pds.setJDBCPassword(jdbcPassword);
 
             // set the transaction manager in the pool
             pds.setTransactionManager(TransactionFactory.getTransactionManager());
@@ -110,9 +116,9 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
             }
 
             // cache the pool
-            dsCache.put(helperName, pds);
+            dsCache.put(helperInfo.getHelperFullName(), pds);
 
-            return TransactionFactory.getCursorConnection(helperName, pds.getConnection());
+            return TransactionFactory.getCursorConnection(helperInfo, pds.getConnection());
         }
     }
 

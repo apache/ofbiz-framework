@@ -149,7 +149,19 @@ public class VisitHandler {
                             // get the visitorId
                             GenericValue visitor = (GenericValue) session.getAttribute("visitor");
                             if (visitor != null) {
-                                visit.set("visitorId", visitor.get("visitorId"));
+                                String visitorId = visitor.getString("visitorId");
+                                
+                                // sometimes these values get stale, so check it before we use it
+                                try {
+                                    GenericValue checkVisitor = delegator.findOne("Visitor", false, "visitorId", visitorId);
+                                    if (checkVisitor == null) {
+                                        GenericValue newVisitor = delegator.create("Visitor", "visitorId", visitorId);
+                                        session.setAttribute("visitor", visitor);
+                                    }
+                                    visit.set("visitorId", visitorId);
+                                } catch (GenericEntityException e) {
+                                    Debug.logWarning("Problem checking the visitorId: " + e.toString(), module);
+                                }
                             }
 
                             // get localhost ip address and hostname to store

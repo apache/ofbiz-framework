@@ -37,20 +37,19 @@ public class GenericHelperFactory {
     // protected static UtilCache helperCache = new UtilCache("entity.GenericHelpers", 0, 0);
     protected static Map<String, GenericHelper> helperCache = new HashMap<String, GenericHelper>();
 
-    public static GenericHelper getHelper(String helperName) {
-        GenericHelper helper = helperCache.get(helperName);
+    public static GenericHelper getHelper(GenericHelperInfo helperInfo) {
+        GenericHelper helper = helperCache.get(helperInfo.getHelperFullName());
 
-        if (helper == null) // don't want to block here
-        {
+        if (helper == null) { // don't want to block here
             synchronized (GenericHelperFactory.class) {
                 // must check if null again as one of the blocked threads can still enter
-                helper = helperCache.get(helperName);
+                helper = helperCache.get(helperInfo.getHelperFullName());
                 if (helper == null) {
                     try {
-                        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+                        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperInfo.getHelperBaseName());
 
                         if (datasourceInfo == null) {
-                            throw new IllegalStateException("Could not find datasource definition with name " + helperName);
+                            throw new IllegalStateException("Could not find datasource definition with name " + helperInfo.getHelperBaseName());
                         }
                         String helperClassName = datasourceInfo.helperClass;
                         Class<?> helperClass = null;
@@ -65,8 +64,8 @@ public class GenericHelperFactory {
                             }
                         }
 
-                        Class<?>[] paramTypes = new Class<?>[] {String.class};
-                        Object[] params = new Object[] {helperName};
+                        Class<?>[] paramTypes = new Class<?>[] {GenericHelperInfo.class};
+                        Object[] params = new Object[] {helperInfo};
 
                         java.lang.reflect.Constructor<?> helperConstructor = null;
 
@@ -92,7 +91,7 @@ public class GenericHelperFactory {
                         }
 
                         if (helper != null)
-                            helperCache.put(helperName, helper);
+                            helperCache.put(helperInfo.getHelperFullName(), helper);
                     } catch (SecurityException e) {
                         Debug.logError(e, module);
                         throw new IllegalStateException("Error loading GenericHelper class: " + e.toString());

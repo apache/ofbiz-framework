@@ -45,6 +45,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
@@ -66,7 +67,7 @@ public class DatabaseUtil {
     // OFBiz Connections
     protected ModelFieldTypeReader modelFieldTypeReader = null;
     protected DatasourceInfo datasourceInfo = null;
-    protected String helperName = null;
+    protected GenericHelperInfo helperInfo = null;
 
     // Legacy Connections
     protected String connectionUrl = null;
@@ -77,10 +78,10 @@ public class DatabaseUtil {
     boolean isLegacy = false;
 
     // OFBiz DatabaseUtil
-    public DatabaseUtil(String helperName) {
-        this.helperName = helperName;
-        this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
-        this.datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+    public DatabaseUtil(GenericHelperInfo helperInfo) {
+        this.helperInfo = helperInfo;
+        this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
+        this.datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperInfo.getHelperBaseName());
     }
 
     // Legacy DatabaseUtil
@@ -95,14 +96,14 @@ public class DatabaseUtil {
     protected Connection getConnection() throws SQLException, GenericEntityException {
         Connection connection = null;
         if (!isLegacy) {
-            connection = ConnectionFactory.getConnection(helperName);
+            connection = ConnectionFactory.getConnection(helperInfo);
         } else {
             connection = ConnectionFactory.getConnection(driverName, connectionUrl, null, userName, password);
         }
 
         if (connection == null) {
             if (!isLegacy) {
-                throw new GenericEntityException("No connection available for helper named [" + helperName + "]");
+                throw new GenericEntityException("No connection available for helper named [" + helperInfo.getHelperFullName() + "]");
             } else {
                 throw new GenericEntityException("No connection avaialble for URL [" + connectionUrl + "]");
             }
@@ -1709,11 +1710,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -1857,12 +1858,12 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(errMsg, module);
             if (messages != null) messages.add(errMsg);
             return;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(errMsg, module);
             if (messages != null) messages.add(errMsg);
             return;
@@ -1911,11 +1912,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2016,11 +2017,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2089,14 +2090,14 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             if (messages != null) {
                 messages.add(errMsg);
             }
             return;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             if (messages != null) {
                 messages.add(errMsg);
@@ -2146,11 +2147,11 @@ public class DatabaseUtil {
             connection = getConnection();
         } catch (SQLException e) {
             if (messages != null)
-                messages.add("Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString());
+                messages.add("Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString());
             return;
         } catch (GenericEntityException e) {
             if (messages != null)
-                messages.add("Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString());
+                messages.add("Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString());
             return;
         }
 
@@ -2321,11 +2322,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2498,11 +2499,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2578,9 +2579,9 @@ public class DatabaseUtil {
             try {
                 connection = getConnection();
             } catch (SQLException e) {
-                return "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                return "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             } catch (GenericEntityException e) {
-                return "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                return "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             }
 
             // now add constraint clause
@@ -2660,11 +2661,11 @@ public class DatabaseUtil {
             try {
                 connection = getConnection();
             } catch (SQLException e) {
-                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 return errMsg;
             } catch (GenericEntityException e) {
-                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 return errMsg;
             }
@@ -2764,11 +2765,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2873,11 +2874,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -2971,11 +2972,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -3092,11 +3093,11 @@ public class DatabaseUtil {
         try {
             connection = getConnection();
         } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
             Debug.logError(e, errMsg, module);
             return errMsg;
         }
@@ -3172,11 +3173,11 @@ public class DatabaseUtil {
             try {
                 connection = getConnection();
             } catch (SQLException e) {
-                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 messages.add(errMsg);
             } catch (GenericEntityException e) {
-                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperName + "]... Error was: " + e.toString();
+                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 messages.add(errMsg);
             }

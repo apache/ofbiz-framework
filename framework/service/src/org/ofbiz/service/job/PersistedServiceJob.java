@@ -77,6 +77,8 @@ public class PersistedServiceJob extends GenericServiceJob {
         this.storedDate = jobValue.getTimestamp("runTime");
         this.runtime = storedDate.getTime();
         this.maxRetry = jobValue.get("maxRetry") != null ? jobValue.getLong("maxRetry").longValue() : -1;
+        
+        // Debug.logInfo("=============== New PersistedServiceJob, delegator from dctx is [" + dctx.getDelegator().getDelegatorName() + "] and delegator from jobValue is [" + jobValue.getDelegator().getDelegatorName() + "]", module);
     }
 
     @Override
@@ -316,7 +318,7 @@ public class PersistedServiceJob extends GenericServiceJob {
             GenericValue jobObj = delegator.findOne("JobSandbox", false, "jobId", getJobId());
 
             if (jobObj == null) {
-                throw new InvalidJobException("Job [" + getJobId() + "] came back null from datasource");
+                throw new InvalidJobException("Job [" + getJobId() + "] came back null from datasource from delegator " + delegator.getDelegatorName());
             }
             return jobObj;
         } catch (GenericEntityException e) {

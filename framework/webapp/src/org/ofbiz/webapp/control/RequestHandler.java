@@ -385,7 +385,7 @@ public class RequestHandler {
                     // save the server hit for the request event
                     if (this.trackStats(request)) {
                         ServerHitBin.countEvent(cname + "." + requestMap.event.invoke, request, eventStartTime,
-                                System.currentTimeMillis() - eventStartTime, userLogin, delegator);
+                                System.currentTimeMillis() - eventStartTime, userLogin);
                     }
 
                     // set the default event return
@@ -855,7 +855,7 @@ public class RequestHandler {
 
         if (this.trackStats(req) && vname != null) {
             ServerHitBin.countView(cname + "." + vname, req, viewStartTime,
-                System.currentTimeMillis() - viewStartTime, userLogin, delegator);
+                System.currentTimeMillis() - viewStartTime, userLogin);
         }
     }
 

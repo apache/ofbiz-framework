@@ -37,7 +37,9 @@ import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
+import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityDataLoader;
@@ -225,19 +227,18 @@ public class EntityDataLoadContainer implements Container {
 
         String delegatorNameToUse = overrideDelegator != null ? overrideDelegator : delegatorName;
         String groupNameToUse = overrideGroup != null ? overrideGroup : entityGroupName;
-        Delegator delegator = null;
-        delegator = DelegatorFactory.getDelegator(delegatorNameToUse);
+        Delegator delegator = DelegatorFactory.getDelegator(delegatorNameToUse);
         if (delegator == null) {
             throw new ContainerException("Invalid delegator name!");
         }
 
-        String helperName = delegator.getGroupHelperName(groupNameToUse);
-        if (helperName == null) {
+        GenericHelperInfo helperInfo = delegator.getGroupHelperInfo(groupNameToUse);
+        if (helperInfo == null) {
             throw new ContainerException("Unable to locate the datasource helper for the group [" + groupNameToUse + "]");
         }
 
         // get the database util object
-        DatabaseUtil dbUtil = new DatabaseUtil(helperName);
+        DatabaseUtil dbUtil = new DatabaseUtil(helperInfo);
         Map<String, ModelEntity> modelEntities;
         try {
             modelEntities = delegator.getModelEntityMapByGroup(groupNameToUse);
@@ -324,9 +325,9 @@ public class EntityDataLoadContainer implements Container {
         // get the reader name URLs first
         List<URL> urlList = null;
         if (readerNames != null) {
-            urlList = EntityDataLoader.getUrlList(helperName, component, readerNames);
+            urlList = EntityDataLoader.getUrlList(helperInfo.getHelperBaseName(), component, readerNames);
         } else if (!"none".equalsIgnoreCase(this.readers)) {
-            urlList = EntityDataLoader.getUrlList(helperName, component);
+            urlList = EntityDataLoader.getUrlList(helperInfo.getHelperBaseName(), component);
         }
 
         // need a list if it is empty
@@ -379,7 +380,7 @@ public class EntityDataLoadContainer implements Container {
 
             for (URL dataUrl: urlList) {
                 try {
-                    int rowsChanged = EntityDataLoader.loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts);
+                    int rowsChanged = EntityDataLoader.loadData(dataUrl, helperInfo.getHelperBaseName(), delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts);
                     totalRowsChanged += rowsChanged;
                     infoMessages.add(changedFormat.format(rowsChanged) + " of " + changedFormat.format(totalRowsChanged) + " from " + dataUrl.toExternalForm());
                 } catch (GenericEntityException e) {

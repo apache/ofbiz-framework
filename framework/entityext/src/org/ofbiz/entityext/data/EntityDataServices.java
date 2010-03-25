@@ -26,6 +26,7 @@ import org.ofbiz.security.Security;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -344,8 +345,8 @@ public class EntityDataServices {
         if (fixSizes == null) fixSizes = Boolean.FALSE;
         List<String> messages = FastList.newInstance();
 
-        String helperName = delegator.getGroupHelperName(groupName);
-        DatabaseUtil dbUtil = new DatabaseUtil(helperName);
+        GenericHelperInfo helperInfo = delegator.getGroupHelperInfo(groupName);
+        DatabaseUtil dbUtil = new DatabaseUtil(helperInfo);
         Map<String, ModelEntity> modelEntities;
         try {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);

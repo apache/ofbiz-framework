@@ -169,13 +169,17 @@ public class ModelGroupReader implements Serializable {
      * @param entityName The entityName of the Entity Group definition to use.
      * @return A group name
      */
-    public String getEntityGroupName(String entityName, String delegatorName) {
+    public String getEntityGroupName(String entityName, String delegatorBaseName) {
         Map<String, String> gc = getGroupCache();
 
         if (gc != null) {
             String groupName = gc.get(entityName);
             if (groupName == null) {
-                groupName = EntityConfigUtil.getDelegatorInfo(delegatorName).defaultGroupName;
+                DelegatorInfo delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorBaseName);
+                if (delegatorInfo == null) {
+                    throw new RuntimeException("Could not find DelegatorInfo for delegatorBaseName [" + delegatorBaseName + "]");
+                }
+                groupName = delegatorInfo.defaultGroupName;
             }
             return groupName;
         } else {
@@ -186,11 +190,15 @@ public class ModelGroupReader implements Serializable {
     /** Creates a Set with all of the groupNames defined in the specified XML Entity Group Descriptor file.
      * @return A Set of groupNames Strings
      */
-    public Set<String> getGroupNames(String delegatorName) {
+    public Set<String> getGroupNames(String delegatorBaseName) {
+        if (delegatorBaseName.indexOf('#') >= 0) {
+            delegatorBaseName = delegatorBaseName.substring(0, delegatorBaseName.indexOf('#'));
+        }
+        
         getGroupCache();
         if (this.groupNames == null) return null;
         Set<String> newSet = FastSet.newInstance();
-        newSet.add(EntityConfigUtil.getDelegatorInfo(delegatorName).defaultGroupName);
+        newSet.add(EntityConfigUtil.getDelegatorInfo(delegatorBaseName).defaultGroupName);
         newSet.addAll(this.groupNames);
         return newSet;
     }
