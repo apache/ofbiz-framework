@@ -165,7 +165,7 @@ under the License.
                         </tr>
                         <tr>
                            <td width='10%'>
-                              <select name="inventoryItemTypeId_o_${rowCount}" size="1">
+                              <select name="inventoryItemTypeId_o_${rowCount}" size="1" id="inventoryItemTypeId_o_${rowCount}" onchange="javascript:setInventoryItemStatus(this,${rowCount});">
                                  <#list inventoryItemTypes as nextInventoryItemType>
                                     <option value='${nextInventoryItemType.inventoryItemTypeId}'
                                  <#if (facility.defaultInventoryItemTypeId?has_content) && (nextInventoryItemType.inventoryItemTypeId == facility.defaultInventoryItemTypeId)>
@@ -177,10 +177,10 @@ under the License.
                           </td>
                           <td width="35%">
                             <span class="label">${uiLabelMap.ProductInitialInventoryItemStatus}:</span>&nbsp;&nbsp;
-                            <select name="statusId_o_${rowCount}" size='1'>
+                            <select name="statusId_o_${rowCount}" size='1' id = "statusId_o_${rowCount}">
                               <option value="INV_RETURNED">${uiLabelMap.ProductReturned}</option>
                               <option value="INV_AVAILABLE">${uiLabelMap.ProductAvailable}</option>
-                              <option value="INV_DEFECTIVE" <#if returnItem.returnReasonId?default("") == "RTN_DEFECTIVE_ITEM">Selected</#if>>${uiLabelMap.ProductDefective}</option>
+                              <option value="INV_NS_DEFECTIVE" <#if returnItem.returnReasonId?default("") == "RTN_DEFECTIVE_ITEM">Selected</#if>>${uiLabelMap.ProductDefective}</option>
                             </select>
                           </td>
                           <#if serializedInv?has_content>
@@ -262,3 +262,9 @@ under the License.
         </#if>
     </div>
 </div>
+<script language="JavaScript" type="text/javascript">
+    function setInventoryItemStatus(selection,index) {
+        var statusId = "statusId_o_" + index;
+        new Ajax.Updater($(statusId), 'UpdatedInventoryItemStatus',{parameters: {inventoryItemType:selection.value,inventoryItemStatus:$(statusId).value}});
+    }
+</script>

@@ -609,6 +609,10 @@ under the License.
         <response name="success" type="view" value="ReceiveReturn"/>
         <response name="error" type="view" value="ReceiveReturn"/>
     </request-map>
+    <request-map uri="UpdatedInventoryItemStatus">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="UpdatedInventoryItemStatus"/>
+    </request-map>
 
     <!-- ================ Picklist Requests ================= -->
     <request-map uri="PicklistOptions">
@@ -1382,7 +1386,7 @@ under the License.
     <view-map name="TransferInventoryItem" type="screen" page="component://product/widget/facility/FacilityScreens.xml#TransferInventoryItem"/>
     <view-map name="ReceiveInventory" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ReceiveInventory"/>
     <view-map name="ReceiveReturn" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ReceiveReturn"/>
-
+    <view-map name="UpdatedInventoryItemStatus" type="screen" page="component://product/widget/facility/FacilityScreens.xml#UpdatedInventoryItemStatus"/>
     <view-map name="FindFacilityPhysicalInventory" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacilityPhysicalInventory"/>
 
     <view-map name="PicklistOptions" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PicklistOptions"/>
