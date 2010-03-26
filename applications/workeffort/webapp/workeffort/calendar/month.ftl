@@ -51,7 +51,27 @@ height: auto;
       <span class="h1"><a href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=day&start=${period.start.time?string("#")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${period.start?date?string("d")?cap_first}</a></span>
       <a class="add-new" href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=month&form=edit&start=${parameters.start?if_exists}&parentTypeId=${parentTypeId?if_exists}&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
       <br class="clear"/>
-      
+
+      <#assign maxNumberOfPersons = 0/>
+      <#assign maxNumberOfEvents = 0/>
+      <#assign ranges = period.calendarEntriesByDateRange.keySet()/>
+      <#list ranges as range>
+          <#assign eventsInRange = period.calendarEntriesByDateRange.get(range)/>
+          <#assign numberOfPersons = 0/>
+          <#list eventsInRange as eventInRange>
+              <#assign numberOfPersons = numberOfPersons + eventInRange.workEffort.reservPersons?default(0)/>
+          </#list>
+          <#if (numberOfPersons > maxNumberOfPersons)>
+              <#assign maxNumberOfPersons = numberOfPersons/>
+          </#if>
+          <#if (eventsInRange.size() > maxNumberOfEvents)>
+              <#assign maxNumberOfEvents = eventsInRange.size()/>
+          </#if>
+      </#list>
+      <#if (maxNumberOfPersons > 0)>
+          ${uiLabelMap.WorkEffortMaxNumberOfPersons}: ${maxNumberOfPersons}<br/>
+      </#if>
+
       <#list period.calendarEntries as calEntry>
         <#if calEntry.workEffort.actualStartDate?exists>
             <#assign startDate = calEntry.workEffort.actualStartDate>
