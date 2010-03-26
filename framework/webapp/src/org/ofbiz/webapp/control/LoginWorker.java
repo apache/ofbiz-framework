@@ -586,7 +586,9 @@ public class LoginWorker {
         }
 
         // set the logged out flag
-        LoginWorker.setLoggedOut(userLogin.getString("userLoginId"), delegator);
+        if (userLogin != null) {
+            LoginWorker.setLoggedOut(userLogin.getString("userLoginId"), delegator);
+        }
 
         // this is a setting we don't want to lose, although it would be good to have a more general solution here...
         String currCatalog = (String) session.getAttribute("CURRENT_CATALOG_ID");
