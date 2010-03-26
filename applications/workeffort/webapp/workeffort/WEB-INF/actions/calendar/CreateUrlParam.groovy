@@ -22,6 +22,7 @@ fixedAssetId = parameters.fixedAssetId;
 partyId = parameters.partyId;
 workEffortTypeId = parameters.workEffortTypeId;
 calendarType = parameters.calendarType;
+hideEvents = parameters.hideEvents;
 
 urlParam = "";
 if (facilityId) {
@@ -52,6 +53,13 @@ if (calendarType) {
         urlParam = urlParam + "&";
     }
     urlParam = urlParam + "calendarType=" + calendarType;
+}
+
+if (hideEvents) {
+    if (urlParam) {
+        urlParam = urlParam + "&";
+    }
+    urlParam = urlParam + "hideEvents=" + hideEvents;
 }
 
 if (urlParam) {
