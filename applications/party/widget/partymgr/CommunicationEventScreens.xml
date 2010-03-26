@@ -284,9 +284,6 @@ under the License.
             </actions>
             <widgets>
                 <section>
-                    <condition>
-                        <if-empty field="parameters.my"/>
-                    </condition>
                     <widgets>
                         <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
@@ -294,13 +291,6 @@ under the License.
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
-                    <fail-widgets>
-                        <decorator-screen name="CommonMyCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <include-screen name="commOverview"/>
-                            </decorator-section>
-                        </decorator-screen>
-                    </fail-widgets>
                 </section>
             </widgets>
         </section>

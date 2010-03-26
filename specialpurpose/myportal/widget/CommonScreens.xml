@@ -88,7 +88,7 @@ under the License.
     <screen name="CommonCommunicationEventDecorator">
         <section>
             <widgets>
-                <decorator-screen name="CommonMyCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>
                     </decorator-section>
