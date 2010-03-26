@@ -885,6 +885,7 @@ under the License.
         <attribute name="sendTo" type="String" mode="IN" optional="false"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="OUT"/>
     </service>
     <service name="updateCommEventAfterEmail" engine="java"

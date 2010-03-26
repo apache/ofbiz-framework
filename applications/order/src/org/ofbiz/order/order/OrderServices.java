@@ -2458,6 +2458,9 @@ public class OrderServices {
         if (sendResp != null && !ServiceUtil.isError(sendResp)) {
             sendResp.put("emailType", emailType);
         }
+        if (UtilValidate.isNotEmpty(orderId)) {
+            sendResp.put("orderId", orderId);
+        }
         return sendResp;
     }
 
