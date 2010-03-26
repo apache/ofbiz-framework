@@ -20,7 +20,7 @@ package org.ofbiz.base.lang;
 
 /** An immutable range of values. */
 @SourceMonitor("Adam Heath")
-public class ComparableRange<T extends Comparable<T>> implements Range<T> {
+public class ComparableRange<T extends Comparable<T>> implements Range<T>, Comparable<ComparableRange<T>> {
 
     protected final T start;
     protected final T end;
@@ -75,6 +75,13 @@ public class ComparableRange<T extends Comparable<T>> implements Range<T> {
             return this.start.equals(that.start) && this.end.equals(that.end);
         } catch (ClassCastException e) {}
         return false;
+    }
+
+    public int compareTo(ComparableRange<T> range) {
+        if (this == range) {
+            return 0;
+        }
+        return (this.start.equals(range.start)? this.end.compareTo(range.end()): this.start.compareTo(range.start()));
     }
 
     @Override
