@@ -42,6 +42,7 @@ under the License.
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="messageId" type="String" mode="INOUT" optional="true"/>
         <attribute name="emailType" type="String" mode="INOUT" optional="true"/>
+        <attribute name="orderId" type="String" mode="INOUT" optional="true"/>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/><!-- mail can be disabled in general.properties so no output -->
         <!--  used for parsing and ECAs -->
         <attribute name="communicationEventId" type="String" mode="INOUT" optional="true"/>        

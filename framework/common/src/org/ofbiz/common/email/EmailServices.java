@@ -98,6 +98,7 @@ public class EmailServices {
      */
     public static Map<String, Object> sendMail(DispatchContext ctx, Map<String, ? extends Object> context) {
         String communicationEventId = (String) context.get("communicationEventId");
+        String orderId = (String) context.get("orderId");
         if (communicationEventId != null) {
             Debug.logInfo("SendMail Running, for communicationEventId : " + communicationEventId, module);
         }
@@ -113,6 +114,10 @@ public class EmailServices {
         results.put("communicationEventId", communicationEventId);
         results.put("partyId", partyId);
         results.put("subject", subject);
+        
+        if (UtilValidate.isNotEmpty(orderId)) {
+            results.put("orderId", orderId);
+        }
         if (UtilValidate.isNotEmpty(body)) {
             body = FlexibleStringExpander.expandString(body, context);
             results.put("body", body);
@@ -425,6 +430,8 @@ public class EmailServices {
         if (partyId == null) {
             partyId = (String) bodyParameters.get("partyId");
         }
+        String orderId = (String) bodyParameters.get("orderId");
+        
         bodyParameters.put("communicationEventId", serviceContext.get("communicationEventId"));
         NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         String contentType = (String) serviceContext.remove("contentType");
@@ -557,7 +564,10 @@ public class EmailServices {
         Debug.logInfo("Expanded email subject to: " + subject, module);
         serviceContext.put("subject", subject);
         serviceContext.put("partyId", partyId);
-
+        if (UtilValidate.isNotEmpty(orderId)) {
+            serviceContext.put("orderId", orderId);
+        }            
+        
         if (Debug.verboseOn()) Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, module);
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -580,6 +590,9 @@ public class EmailServices {
         result.put("messageWrapper", sendMailResult.get("messageWrapper"));
         result.put("body", bodyWriter.toString());
         result.put("subject", subject);
+        if (UtilValidate.isNotEmpty(orderId)) {
+            result.put("orderId", orderId);
+        }            
         return result;
     }
 
