@@ -2192,6 +2192,10 @@
         <value xml:lang="th">จำนวนมาก</value>
         <value xml:lang="zh">最大金额</value>
     </property>
+    <property key="WorkEffortMaxNumberOfEvents">
+        <value xml:lang="en">Max # of Events</value>
+        <value xml:lang="it">Max numero di eventi</value>
+    </property>
     <property key="WorkEffortMaxNumberOfPersons">
         <value xml:lang="en">Max # of Persons</value>
         <value xml:lang="it">Max numero di persone</value>
