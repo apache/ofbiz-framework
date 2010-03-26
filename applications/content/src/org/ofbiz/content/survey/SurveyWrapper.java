@@ -264,7 +264,7 @@ public class SurveyWrapper {
         }
 
         GenericValue survey = this.getSurvey();
-        if (!"Y".equals(survey.getString("allowMultiple")) || !"Y".equals(survey.getString("allowUpdate"))) {
+        if (!"Y".equals(survey.getString("allowMultiple")) && !"Y".equals(survey.getString("allowUpdate"))) {
             return false;
         }
         return true;
