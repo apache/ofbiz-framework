@@ -182,6 +182,7 @@ under the License.
         <attribute name="custRequestTypeId" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestName" mode="IN" type="String" optional="true" allow-html="safe"/>
         <attribute name="story" mode="IN" type="String" optional="true" allow-html="safe"/>
+        <override name="content" allow-html="safe"/>
     </service>
 
     <!-- custRequest content services -->
