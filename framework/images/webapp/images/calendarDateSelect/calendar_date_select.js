@@ -43,7 +43,7 @@ Date.prototype.toFormattedString = function(include_time){
   var hour, str;
   str = this.getFullYear() + "-" + Date.padded2(this.getMonth() + 1) + "-" + Date.padded2(this.getDate());
 
-  if (include_time) { hour=this.getHours(); str += " " + this.getAMPMHour() + ":" + this.getPaddedMinutes() + ":" + this.getSeconds() + "." + this.getMilliseconds() }
+  if (include_time) { hour=this.getHours(); str += " " + this.getHours() + ":" + this.getPaddedMinutes() + ":" + this.getSeconds() + "." + this.getMilliseconds() }
   return str;
 }
 /* mod end*/
