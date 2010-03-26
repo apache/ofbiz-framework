@@ -2192,6 +2192,10 @@
         <value xml:lang="th">จำนวนมาก</value>
         <value xml:lang="zh">最大金额</value>
     </property>
+    <property key="WorkEffortMaxNumberOfPersons">
+        <value xml:lang="en">Max # of Persons</value>
+        <value xml:lang="it">Max numero di persone</value>
+    </property>
     <property key="WorkEffortMonthView">
         <value xml:lang="en">Month View</value>
         <value xml:lang="es">Vista por meses</value>

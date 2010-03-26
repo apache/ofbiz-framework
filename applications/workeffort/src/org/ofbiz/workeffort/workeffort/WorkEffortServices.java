@@ -28,6 +28,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -347,6 +349,39 @@ public class WorkEffortServices {
         if (tryEntity != null) resultMap.put("tryEntity", tryEntity);
         if (currentStatus != null) resultMap.put("currentStatusItem", currentStatus);
         return resultMap;
+    }
+
+    private static TreeMap<DateRange, List<Map<String, Object>>> groupCalendarEntriesByDateRange(DateRange inDateRange, List<Map<String, Object>> calendarEntries) {
+        TreeMap<DateRange, List<Map<String, Object>>> calendarEntriesByDateRange = new TreeMap();
+        TreeSet<Date> dateBoundaries = new TreeSet();
+        if (inDateRange != null) {
+            dateBoundaries.add(inDateRange.start());
+            dateBoundaries.add(inDateRange.end());
+        }
+        for (Map<String, Object>calendarEntry: calendarEntries) {
+            DateRange calEntryRange = (DateRange)calendarEntry.get("calEntryRange");
+            dateBoundaries.add(calEntryRange.start());
+            dateBoundaries.add(calEntryRange.end());
+        }
+        Date prevDateBoundary = null;
+        for (Date dateBoundary: dateBoundaries) {
+            if (prevDateBoundary != null) {
+                DateRange dateRange = new DateRange(prevDateBoundary, dateBoundary);
+                for (Map<String, Object>calendarEntry: calendarEntries) {
+                    DateRange calEntryRange = (DateRange)calendarEntry.get("calEntryRange");
+                    if (calEntryRange.intersectsRange(dateRange) && !(calEntryRange.end().equals(dateRange.start()) || calEntryRange.start().equals(dateRange.end()))) {
+                        List<Map<String, Object>> calendarEntryByDateRangeList = calendarEntriesByDateRange.get(dateRange);
+                        if (calendarEntryByDateRangeList == null) {
+                            calendarEntryByDateRangeList = FastList.newInstance();
+                        }
+                        calendarEntryByDateRangeList.add(calendarEntry);
+                        calendarEntriesByDateRange.put(dateRange, calendarEntryByDateRangeList);
+                    }
+                }
+            }
+            prevDateBoundary = dateBoundary;
+        }
+        return calendarEntriesByDateRange;
     }
 
     private static List<EntityCondition> getDefaultWorkEffortExprList(String calendarType, Collection<String> partyIds, String workEffortTypeId, List<EntityCondition> cancelledCheckAndList) {
@@ -673,6 +708,8 @@ public class WorkEffortServices {
                         long length = ((weRange.end().after(endStamp) ? endStamp.getTime() : weRange.end().getTime()) - (weRange.start().before(startStamp) ? startStamp.getTime() : weRange.start().getTime()));
                         int periodSpan = (int) Math.ceil((double) length / periodLen);
                         calEntry.put("periodSpan", Integer.valueOf(periodSpan));
+                        DateRange calEntryRange = new DateRange((weRange.start().before(startStamp) ? startStamp : weRange.start()), (weRange.end().after(endStamp) ? endStamp : weRange.end()));
+                        calEntry.put("calEntryRange", calEntryRange);
                         if (firstEntry) {
                             // If this is the first period any valid entry is starting here
                             calEntry.put("startOfPeriod", Boolean.TRUE);
@@ -691,6 +728,7 @@ public class WorkEffortServices {
                 entry.put("start", periodRange.startStamp());
                 entry.put("end", periodRange.endStamp());
                 entry.put("calendarEntries", curWorkEfforts);
+                entry.put("calendarEntriesByDateRange", groupCalendarEntriesByDateRange(periodRange, curWorkEfforts));
                 periods.add(entry);
             }
         }
