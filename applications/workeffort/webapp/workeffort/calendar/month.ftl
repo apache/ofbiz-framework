@@ -68,6 +68,9 @@ height: auto;
               <#assign maxNumberOfEvents = eventsInRange.size()/>
           </#if>
       </#list>
+      <#if (maxNumberOfEvents > 0)>
+          ${uiLabelMap.WorkEffortMaxNumberOfEvents}: ${maxNumberOfEvents}<br/>
+      </#if>
       <#if (maxNumberOfPersons > 0)>
           ${uiLabelMap.WorkEffortMaxNumberOfPersons}: ${maxNumberOfPersons}<br/>
       </#if>
