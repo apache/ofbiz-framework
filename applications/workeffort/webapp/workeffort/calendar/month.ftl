@@ -71,7 +71,7 @@ height: auto;
       <#if (maxNumberOfPersons > 0)>
           ${uiLabelMap.WorkEffortMaxNumberOfPersons}: ${maxNumberOfPersons}<br/>
       </#if>
-
+      <#if parameters.hideEvents?default("") != "Y">
       <#list period.calendarEntries as calEntry>
         <#if calEntry.workEffort.actualStartDate?exists>
             <#assign startDate = calEntry.workEffort.actualStartDate>
@@ -109,6 +109,7 @@ height: auto;
         ${screens.render("component://workeffort/widget/CalendarScreens.xml#calendarEventContent")}
         <br />
       </#list>
+      </#if>
     </td>
 
 <#--

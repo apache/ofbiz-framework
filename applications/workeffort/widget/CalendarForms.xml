@@ -53,6 +53,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="hideEvents"><check/></field>
         <field name="viewButton" title="${uiLabelMap.CommonView}"><submit/></field>
     </form>
     <!-- Forms Specific to portlet -->
