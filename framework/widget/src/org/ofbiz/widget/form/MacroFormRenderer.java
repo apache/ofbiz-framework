@@ -2034,7 +2034,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(descriptionFieldName);
         sr.append("\" formName=\"");
         sr.append(formName);
-        sr.append("\" lookupFieldFormName=\"");
+        sr.append("\" fieldFormName=\"");
         sr.append(lookupFieldFormName);
         sr.append("\" targetParameterIter=");
         sr.append(targetParameterIter.toString());
@@ -2044,13 +2044,13 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(ajaxUrl);
         sr.append("\" ajaxEnabled=");
         sr.append(Boolean.toString(ajaxEnabled));
-        sr.append(" lookupPresentation=\"");
+        sr.append(" presentation=\"");
         sr.append(lookupPresentation);
-        sr.append("\" lookupHeight=\"");
+        sr.append("\" height=\"");
         sr.append(lookupHeight);
-        sr.append("\" lookupWidth=\"");
+        sr.append("\" width=\"");
         sr.append(lookupWidth);
-        sr.append("\" lookupPosition=\"");
+        sr.append("\" position=\"");
         sr.append(lookupPosition);
         sr.append("\" fadeBackground=\"");
         sr.append(fadeBackground);
