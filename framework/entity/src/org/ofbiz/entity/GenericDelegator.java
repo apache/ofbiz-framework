@@ -1441,7 +1441,7 @@ public class GenericDelegator implements Delegator {
                 } else {
                     // don't send fields that are the same, and if no fields have changed, update nothing
                     ModelEntity modelEntity = value.getModelEntity();
-                    GenericValue toStore = GenericValue.create(this, modelEntity, (Map<String, ? extends Object>) value.getPrimaryKey());
+                    GenericValue toStore = GenericValue.create(this, modelEntity, value.getPrimaryKey());
                     boolean atLeastOneField = false;
                     Iterator<ModelField> nonPksIter = modelEntity.getNopksIterator();
                     while (nonPksIter.hasNext()) {
@@ -2712,7 +2712,7 @@ public class GenericDelegator implements Delegator {
      */
     public GenericValue getFromPrimaryKeyCache(GenericPK primaryKey) {
         if (primaryKey == null) return null;
-        GenericValue value = (GenericValue) cache.get(primaryKey);
+        GenericValue value = cache.get(primaryKey);
         if (value == GenericValue.NULL_VALUE) {
             return null;
         }
