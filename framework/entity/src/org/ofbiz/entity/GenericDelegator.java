@@ -1017,7 +1017,7 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_REMOVE, primaryKey, false);
 
             // if audit log on for any fields, save old value before removing so it's still there
-            if (primaryKey != null && primaryKey.getModelEntity().getHasFieldWithAuditLog()) {
+            if (primaryKey.getModelEntity().getHasFieldWithAuditLog()) {
                 createEntityAuditLogAll(this.findOne(primaryKey.getEntityName(), primaryKey, false), true, true);
             }
 
@@ -1083,7 +1083,7 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_REMOVE, value, false);
 
             // if audit log on for any fields, save old value before actual remove
-            if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
+            if (value.getModelEntity().getHasFieldWithAuditLog()) {
                 createEntityAuditLogAll(value, true, true);
             }
 
@@ -1346,7 +1346,7 @@ public class GenericDelegator implements Delegator {
             this.encryptFields(value);
 
             // if audit log on for any fields, save old value before the update so we still have both
-            if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
+            if (value.getModelEntity().getHasFieldWithAuditLog()) {
                 createEntityAuditLogAll(value, true, false);
             }
 
