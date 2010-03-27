@@ -749,6 +749,10 @@ public class GenericDelegator implements Delegator {
     public GenericValue createSetNextSeqId(GenericValue value) throws GenericEntityException {
         boolean doCacheClear = true;
 
+        if (value == null) {
+            throw new GenericEntityException("Cannot create a null value");
+        }
+
         GenericHelper helper = getEntityHelper(value.getEntityName());
         // just make sure it is this delegator...
         value.setDelegator(this);
@@ -763,10 +767,6 @@ public class GenericDelegator implements Delegator {
 
             EntityEcaRuleRunner<?> ecaRunner = this.getEcaRuleRunner(value.getEntityName());
             ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_CREATE, value, false);
-
-            if (value == null) {
-                throw new GenericEntityException("Cannot create a null value");
-            }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_CREATE, value, false);
 
@@ -855,12 +855,13 @@ public class GenericDelegator implements Delegator {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            EntityEcaRuleRunner<?> ecaRunner = this.getEcaRuleRunner(value.getEntityName());
-            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_CREATE, value, false);
-
             if (value == null) {
                 throw new GenericEntityException("Cannot create a null value");
             }
+
+            EntityEcaRuleRunner<?> ecaRunner = this.getEcaRuleRunner(value.getEntityName());
+            ecaRunner.evalRules(EntityEcaHandler.EV_VALIDATE, EntityEcaHandler.OP_CREATE, value, false);
+
             GenericHelper helper = getEntityHelper(value.getEntityName());
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_CREATE, value, false);
