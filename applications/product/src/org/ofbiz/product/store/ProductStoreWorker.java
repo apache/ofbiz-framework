@@ -674,13 +674,7 @@ public class ProductStoreWorker {
                 return false;
             }
 
-            try {
-                isInventoryAvailable = ProductWorker.isProductInventoryAvailableByFacility(productConfig, inventoryFacilityId, quantity, dispatcher);
-            } catch (GenericServiceException e) {
-                Debug.logWarning(e, "Error invoking isProductInventoryAvailableByFacility in isCatalogInventoryAvailable", module);
-                return false;
-            }
-            return isInventoryAvailable;
+            return ProductWorker.isProductInventoryAvailableByFacility(productConfig, inventoryFacilityId, quantity, dispatcher);
 
         } else {
             GenericValue product = productConfig.getProduct();
@@ -695,14 +689,9 @@ public class ProductStoreWorker {
 
             if (UtilValidate.isNotEmpty(productFacilities)) {
                 for (GenericValue pfValue: productFacilities) {
-                    try {
-                        isInventoryAvailable = ProductWorker.isProductInventoryAvailableByFacility(productConfig, pfValue.getString("facilityId"), quantity, dispatcher);
-                        if (isInventoryAvailable == true) {
-                            return isInventoryAvailable;
-                        }
-                    } catch (GenericServiceException e) {
-                        Debug.logWarning(e, "Error invoking isProductInventoryAvailableByFacility in isCatalogInventoryAvailable", module);
-                        return false;
+                    isInventoryAvailable = ProductWorker.isProductInventoryAvailableByFacility(productConfig, pfValue.getString("facilityId"), quantity, dispatcher);
+                    if (isInventoryAvailable == true) {
+                        return isInventoryAvailable;
                     }
                 }
             }
