@@ -205,7 +205,7 @@ public class ProductWorker {
      * invokes the getInventoryAvailableByFacility service, returns true if specified quantity is available, else false
      * this is only used in the related method that uses a ProductConfigWrapper, until that is refactored into a service as well...
      */
-    private static boolean isProductInventoryAvailableByFacility(String productId, String inventoryFacilityId, BigDecimal quantity, LocalDispatcher dispatcher) throws GenericServiceException {
+    private static boolean isProductInventoryAvailableByFacility(String productId, String inventoryFacilityId, BigDecimal quantity, LocalDispatcher dispatcher) {
         BigDecimal availableToPromise = null;
 
         try {
@@ -237,7 +237,7 @@ public class ProductWorker {
      * Invokes the getInventoryAvailableByFacility service, returns true if specified quantity is available for all the selected parts, else false.
      * Also, set the available flag for all the product configuration's options.
      **/
-    public static boolean isProductInventoryAvailableByFacility(ProductConfigWrapper productConfig, String inventoryFacilityId, BigDecimal quantity, LocalDispatcher dispatcher) throws GenericServiceException {
+    public static boolean isProductInventoryAvailableByFacility(ProductConfigWrapper productConfig, String inventoryFacilityId, BigDecimal quantity, LocalDispatcher dispatcher) {
         boolean available = true;
         List<ConfigOption> options = productConfig.getSelectedOptions();
         for (ConfigOption ci: options) {
