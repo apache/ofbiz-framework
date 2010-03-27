@@ -687,7 +687,7 @@ public class ProductWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        return getCurrentProductCategories(delegator, product);
+        return getCurrentProductCategories(product);
     }
 
     /**
