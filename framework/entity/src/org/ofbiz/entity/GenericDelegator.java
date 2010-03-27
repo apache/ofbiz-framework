@@ -1579,7 +1579,6 @@ public class GenericDelegator implements Delegator {
             try {
                 value = helper.findByPrimaryKey(primaryKey);
             } catch (GenericEntityNotFoundException e) {
-                value = null;
             }
             if (value != null) {
                 value.setDelegator(this);
@@ -1707,7 +1706,6 @@ public class GenericDelegator implements Delegator {
             try {
                 value = helper.findByPrimaryKeyPartial(primaryKey, keys);
             } catch (GenericEntityNotFoundException e) {
-                value = null;
             }
             if (value != null) value.setDelegator(this);
 
