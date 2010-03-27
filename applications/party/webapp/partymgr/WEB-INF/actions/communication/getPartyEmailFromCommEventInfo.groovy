@@ -25,12 +25,16 @@ communicationEvent = delegator.findOne("CommunicationEvent", [communicationEvent
 
 if (!communicationEvent.note) return;
 nameString = "Sent from: ";
-int startEmail = communicationEvent.note.indexOf(nameString) + nameString.length();
+nameStringIndexValue = communicationEvent.note.indexOf(nameString);
+if (nameStringIndexValue == -1) return;
+int startEmail = nameStringIndexValue + nameString.length();
 int endEmail = communicationEvent.note.indexOf(";", startEmail);
 context.emailAddress = communicationEvent.note.substring(startEmail, endEmail);
 
 nameString = "Sent Name from: ";
-int startName = communicationEvent.note.indexOf(nameString) + nameString.length();
+nameStringIndexValue = communicationEvent.note.indexOf(nameString);
+if (nameStringIndexValue == -1) return;
+int startName = nameStringIndexValue + nameString.length();
 int endName = communicationEvent.note.indexOf(";", startName);
 name = communicationEvent.note.substring(startName, endName);
 if (name) {
