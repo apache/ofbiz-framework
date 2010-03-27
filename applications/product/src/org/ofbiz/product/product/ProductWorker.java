@@ -62,12 +62,6 @@ public class ProductWorker {
 
     public static final MathContext generalRounding = new MathContext(10);
 
-    /** @deprecated */
-    @Deprecated
-    public static void getProduct(PageContext pageContext, String attributeName) {
-        getProduct(pageContext, attributeName, null);
-    }
-
     public static boolean shippingApplies(GenericValue product) {
         String errMsg = "";
         if (product != null) {
@@ -151,30 +145,6 @@ public class ProductWorker {
         } else {
             throw new IllegalArgumentException(errMsg);
         }
-    }
-
-    /** @deprecated */
-    @Deprecated
-    public static void getProduct(PageContext pageContext, String attributeName, String productId) {
-        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
-        ServletRequest request = pageContext.getRequest();
-
-        if (productId == null)
-            productId = UtilFormatOut.checkNull(request.getParameter("product_id"), request.getParameter("PRODUCT_ID"));
-
-        if (productId.equals(""))
-            return;
-
-        GenericValue product = null;
-
-        try {
-            product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
-        } catch (GenericEntityException e) {
-            Debug.logWarning(e.getMessage(), module);
-            product = null;
-        }
-        if (product != null)
-            pageContext.setAttribute(attributeName, product);
     }
 
     public static String getInstanceAggregatedId(Delegator delegator, String instanceProductId) throws GenericEntityException {
@@ -293,46 +263,6 @@ public class ProductWorker {
             }
         }
         return available;
-    }
-
-    /** @deprecated */
-    @Deprecated
-    public static void getAssociatedProducts(PageContext pageContext, String productAttributeName, String assocPrefix) {
-        GenericValue product = (GenericValue) pageContext.getAttribute(productAttributeName);
-
-        if (product == null)
-            return;
-
-        try {
-            List<GenericValue> upgradeProducts = product.getRelatedByAndCache("MainProductAssoc",
-                    UtilMisc.toMap("productAssocTypeId", "PRODUCT_UPGRADE"));
-
-            List<GenericValue> complementProducts = product.getRelatedByAndCache("MainProductAssoc",
-                    UtilMisc.toMap("productAssocTypeId", "PRODUCT_COMPLEMENT"));
-
-            List<GenericValue> obsolescenceProducts = product.getRelatedByAndCache("AssocProductAssoc",
-                    UtilMisc.toMap("productAssocTypeId", "PRODUCT_OBSOLESCENCE"));
-
-            List<GenericValue> obsoleteByProducts = product.getRelatedByAndCache("MainProductAssoc",
-                    UtilMisc.toMap("productAssocTypeId", "PRODUCT_OBSOLESCENCE"));
-
-            // since ProductAssoc records have a fromDate and thruDate, we can filter by now so that only assocs in the date range are included
-            upgradeProducts = EntityUtil.filterByDate(upgradeProducts);
-            complementProducts = EntityUtil.filterByDate(complementProducts);
-            obsolescenceProducts = EntityUtil.filterByDate(obsolescenceProducts);
-            obsoleteByProducts = EntityUtil.filterByDate(obsoleteByProducts);
-
-            if (UtilValidate.isNotEmpty(upgradeProducts))
-                pageContext.setAttribute(assocPrefix + "upgrade", upgradeProducts);
-            if (UtilValidate.isNotEmpty(complementProducts))
-                pageContext.setAttribute(assocPrefix + "complement", complementProducts);
-            if (UtilValidate.isNotEmpty(obsolescenceProducts))
-                pageContext.setAttribute(assocPrefix + "obsolescence", obsolescenceProducts);
-            if (UtilValidate.isNotEmpty(obsoleteByProducts))
-                pageContext.setAttribute(assocPrefix + "obsoleteby", obsoleteByProducts);
-        } catch (GenericEntityException e) {
-            Debug.logWarning(e, module);
-        }
     }
 
     /**
