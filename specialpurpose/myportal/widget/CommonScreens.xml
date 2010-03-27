@@ -35,7 +35,6 @@ under the License.
                 <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="headerItem" value="${parameters._HOME_VIEW_PARAMS_.portalPageId}"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.MyPortalInformation" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.PartyCompanySubtitle" global="true"/>
                 <set field="applicationMenuName" value="MyPortalAppBar" global="true"/>
