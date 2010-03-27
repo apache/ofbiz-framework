@@ -36,7 +36,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupPartyName" type="list" list-name="listIt" paginate-target="LookupPartyName"
+    <form name="listLookupPartyName" type="list" list-name="listIt" paginate-target="LookupPartyExamplePopup"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="inputFields" from-field="parameters"/>
@@ -60,6 +60,9 @@ under the License.
     <form name="lookupPartyNameByName" target="LookupPartyExamplePopupByName" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="find"/>-->
+        <field name="secLayFrom" title="Layer Layer Field">
+            <lookup target-form-name="LookupPartyExamplePopup" presentation="layer" position="center" fade-background="false"/>
+        </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <drop-down allow-empty="true">
@@ -72,7 +75,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupPartyNameByName" type="list" list-name="listIt" paginate-target="LookupPartyName"
+    <form name="listLookupPartyNameByName" type="list" list-name="listIt" paginate-target="LookupPartyExamplePopupByName"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="inputFields" from-field="parameters"/>
