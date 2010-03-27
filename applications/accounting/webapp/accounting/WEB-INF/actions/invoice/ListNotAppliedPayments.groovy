@@ -74,7 +74,7 @@ List getPayments(List payments, boolean actual) {
                 paymentMap.currencyUomId = payment.currencyUomId;
                 paymentToApply = payment.getBigDecimal("amount")?.setScale(decimals,rounding).subtract(paymentApplied);
             }
-            if (paymentToApply.signum() == 1) {
+            if (paymentToApply?.signum() == 1) {
                 paymentMap.paymentId = payment.paymentId;
                 paymentMap.effectiveDate = payment.effectiveDate;
                 if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
