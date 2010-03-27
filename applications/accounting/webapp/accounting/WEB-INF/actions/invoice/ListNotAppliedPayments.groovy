@@ -68,11 +68,11 @@ List getPayments(List payments, boolean actual) {
             if (actual) {
                 paymentMap.amount = payment.actualCurrencyAmount;
                 paymentMap.currencyUomId = payment.actualCurrencyUomId;
-                paymentToApply = payment.getBigDecimal("actualCurrencyAmount")?.setScale(decimals,rounding).subtract(paymentApplied);
+                paymentToApply = payment.getBigDecimal("actualCurrencyAmount")?.setScale(decimals,rounding)?.subtract(paymentApplied);
             } else {
                 paymentMap.amount = payment.amount;
                 paymentMap.currencyUomId = payment.currencyUomId;
-                paymentToApply = payment.getBigDecimal("amount")?.setScale(decimals,rounding).subtract(paymentApplied);
+                paymentToApply = payment.getBigDecimal("amount")?.setScale(decimals,rounding)?.subtract(paymentApplied);
             }
             if (paymentToApply?.signum() == 1) {
                 paymentMap.paymentId = payment.paymentId;
