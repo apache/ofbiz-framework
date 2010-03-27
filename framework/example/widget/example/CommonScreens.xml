@@ -259,6 +259,7 @@ under the License.
             the user. -->
         <section>
             <actions>
+                <set field="tabButtonItem" value="main"/>
                 <set field="parameters.portalPageId" value="EXAMPLE"/>
                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
                 <get-related value-field="portalPage" relation-name="PortalPageColumn" list="portalPageColumns"/>

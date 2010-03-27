@@ -23,7 +23,7 @@ under the License.
     <menu name="MyPortalAppBar" title="${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} ${partyNameView.groupName}"
         extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" parent-portal-page-value="${parameters.parentPortalPageId}"/>
-        <menu-item name="Preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
+        <menu-item name="Dashboard" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
             <link target="ManagePortalPages">
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </link>

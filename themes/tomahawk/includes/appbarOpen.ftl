@@ -25,7 +25,7 @@ under the License.
 <#assign displaySecondaryApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "secondary")>
 
 <#assign appModelMenu = Static["org.ofbiz.widget.menu.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,delegator,dispatcher)>
-<#if appModelMenu.getModelMenuItemByName(headerItem)?exists && !parameters.portalPageId?exists>
+<#if appModelMenu.getModelMenuItemByName(headerItem)?exists>
   <#if headerItem!="main">
     <#assign show_last_menu = true>
   </#if>
