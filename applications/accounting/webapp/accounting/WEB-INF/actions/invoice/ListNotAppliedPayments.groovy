@@ -68,19 +68,13 @@ List getPayments(List payments, boolean actual) {
             if (actual) {
                 paymentMap.amount = payment.actualCurrencyAmount;
                 paymentMap.currencyUomId = payment.actualCurrencyUomId;
-                paymentToApply = payment.getBigDecimal("actualCurrencyAmount");
-                if (paymentToApply) {
-                    paymentToApply = paymentToApply.setScale(decimals,rounding).subtract(paymentApplied);
-                }
+                paymentToApply = payment.getBigDecimal("actualCurrencyAmount")?.setScale(decimals,rounding).subtract(paymentApplied);
             } else {
                 paymentMap.amount = payment.amount;
                 paymentMap.currencyUomId = payment.currencyUomId;
-                paymentToApply = payment.getBigDecimal("amount");
-                if (paymentToApply) {
-                    paymentToApply = paymentToApply.setScale(decimals,rounding).subtract(paymentApplied);
-                }
+                paymentToApply = payment.getBigDecimal("amount")?.setScale(decimals,rounding).subtract(paymentApplied);
             }
-            if (paymentToApply && paymentToApply.signum() == 1) {
+            if (paymentToApply.signum() == 1) {
                 paymentMap.paymentId = payment.paymentId;
                 paymentMap.effectiveDate = payment.effectiveDate;
                 if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
