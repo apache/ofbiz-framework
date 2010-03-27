@@ -215,7 +215,7 @@
     <property key="AccountingActualCurrencyUomId">
         <value xml:lang="de">Ist-Währung</value>
         <value xml:lang="en">Actual Currency Uom Id</value>
-        <value xml:lang="fr">réf. UOM de la devise réelle</value>
+        <value xml:lang="fr">Réf. UOM de la devise réelle</value>
         <value xml:lang="hi_IN">वास्तविक मुद्रा माप की इकाई क्रमांक</value>
         <value xml:lang="it">Attuale Udm Valuta</value>
         <value xml:lang="nl">UoM ID werkelijke valuta</value>
@@ -10857,7 +10857,7 @@
     </property>
     <property key="FormFieldTitle_glAccountCategoryTypeId">
         <value xml:lang="en">GL Account Category Type Id</value>
-        <value xml:lang="fr">Réf. de ype de catégorie de compte GL</value>
+        <value xml:lang="fr">Réf. de type de catégorie de compte GL</value>
         <value xml:lang="hi_IN">जीएल(Gl) खाता श्रेणी प्रकार क्रमांक</value>
     </property>
     <property key="FormFieldTitle_glAccountClassId">
