@@ -377,20 +377,18 @@ public class ProductWorker {
         }
         List<GenericValue> features = null;
         try {
-            if (product != null) {
-                List<GenericValue> productAppls;
-                List<EntityCondition> condList = UtilMisc.toList(
-                        EntityCondition.makeCondition("productId", product.getString("productId")),
-                        EntityUtil.getFilterByDateExpr()
-                );
-                if (productFeatureApplTypeId != null) {
-                    condList.add(EntityCondition.makeCondition("productFeatureApplTypeId", productFeatureApplTypeId));
-                }
-                EntityCondition cond = EntityCondition.makeCondition(condList);
-                productAppls = product.getDelegator().findList("ProductFeatureAppl", cond, null, null, null, false);
-                features = EntityUtil.getRelated("ProductFeature", productAppls);
-                features = EntityUtil.orderBy(features, UtilMisc.toList("description"));
+            List<GenericValue> productAppls;
+            List<EntityCondition> condList = UtilMisc.toList(
+                    EntityCondition.makeCondition("productId", product.getString("productId")),
+                    EntityUtil.getFilterByDateExpr()
+            );
+            if (productFeatureApplTypeId != null) {
+                condList.add(EntityCondition.makeCondition("productFeatureApplTypeId", productFeatureApplTypeId));
             }
+            EntityCondition cond = EntityCondition.makeCondition(condList);
+            productAppls = product.getDelegator().findList("ProductFeatureAppl", cond, null, null, null, false);
+            features = EntityUtil.getRelated("ProductFeature", productAppls);
+            features = EntityUtil.orderBy(features, UtilMisc.toList("description"));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             features = FastList.newInstance();
@@ -432,45 +430,43 @@ public class ProductWorker {
         }
         List <List<Map<String,String>>> featureTypeFeatures = FastList.newInstance();
         try {
-            if (product != null) {
-                Delegator delegator = product.getDelegator();
-                Map<String,String> fields = UtilMisc.toMap("productId", product.getString("productId"), "productFeatureApplTypeId", "SELECTABLE_FEATURE");
-                List<String> order = UtilMisc.toList("productFeatureTypeId", "sequenceNum");
-                List<GenericValue> features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
-                List<GenericValue> featuresSorted = EntityUtil.orderBy(features, order);
-                String oldType = null;
-                List<Map<String,String>> featureList = FastList.newInstance();
-                for (GenericValue productFeatureAppl: featuresSorted) {
-                    if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
-                        // use first entry for type and description
-                        if (oldType != null) {
-                            featureTypeFeatures.add(featureList);
-                            featureList = FastList.newInstance();
-                            }
-                        GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId",
-                                productFeatureAppl.getString("productFeatureTypeId")));
-                        featureList.add(UtilMisc.<String, String>toMap("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId"),
-                                                        "description", productFeatureType.getString("description")));
-                        oldType = productFeatureAppl.getString("productFeatureTypeId");
+            Delegator delegator = product.getDelegator();
+            Map<String,String> fields = UtilMisc.toMap("productId", product.getString("productId"), "productFeatureApplTypeId", "SELECTABLE_FEATURE");
+            List<String> order = UtilMisc.toList("productFeatureTypeId", "sequenceNum");
+            List<GenericValue> features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
+            List<GenericValue> featuresSorted = EntityUtil.orderBy(features, order);
+            String oldType = null;
+            List<Map<String,String>> featureList = FastList.newInstance();
+            for (GenericValue productFeatureAppl: featuresSorted) {
+                if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
+                    // use first entry for type and description
+                    if (oldType != null) {
+                        featureTypeFeatures.add(featureList);
+                        featureList = FastList.newInstance();
                     }
-                    // fill other entries with featureId, description and default price and currency
-                    Map<String,String> featureData = UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"));
-                    if (UtilValidate.isNotEmpty(productFeatureAppl.get("description"))) {
-                        featureData.put("description", productFeatureAppl.getString("description"));
-                    } else {
-                        featureData.put("description", productFeatureAppl.getString("productFeatureId"));
-                    }
-                    List<GenericValue> productFeaturePrices = EntityUtil.filterByDate(delegator.findByAnd("ProductFeaturePrice",
-                            UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"), "productPriceTypeId", "DEFAULT_PRICE")));
-                    if (UtilValidate.isNotEmpty(productFeaturePrices)) {
-                        GenericValue productFeaturePrice = productFeaturePrices.get(0);
-                        if (UtilValidate.isNotEmpty(productFeaturePrice.get("price"))) {
-                            featureData.put("price", productFeaturePrice.getBigDecimal("price").toString());
-                            featureData.put("currencyUomId", productFeaturePrice.getString("currencyUomId"));
-                        }
-                    }
-                    featureList.add(featureData);
+                    GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId",
+                            productFeatureAppl.getString("productFeatureTypeId")));
+                    featureList.add(UtilMisc.<String, String>toMap("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId"),
+                            "description", productFeatureType.getString("description")));
+                    oldType = productFeatureAppl.getString("productFeatureTypeId");
                 }
+                // fill other entries with featureId, description and default price and currency
+                Map<String,String> featureData = UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"));
+                if (UtilValidate.isNotEmpty(productFeatureAppl.get("description"))) {
+                    featureData.put("description", productFeatureAppl.getString("description"));
+                } else {
+                    featureData.put("description", productFeatureAppl.getString("productFeatureId"));
+                }
+                List<GenericValue> productFeaturePrices = EntityUtil.filterByDate(delegator.findByAnd("ProductFeaturePrice",
+                        UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"), "productPriceTypeId", "DEFAULT_PRICE")));
+                if (UtilValidate.isNotEmpty(productFeaturePrices)) {
+                    GenericValue productFeaturePrice = productFeaturePrices.get(0);
+                    if (UtilValidate.isNotEmpty(productFeaturePrice.get("price"))) {
+                        featureData.put("price", productFeaturePrice.getBigDecimal("price").toString());
+                        featureData.put("currencyUomId", productFeaturePrice.getString("currencyUomId"));
+                    }
+                }
+                featureList.add(featureData);
                 if (oldType != null) {
                     // last map
                     featureTypeFeatures.add(featureList);
