@@ -350,6 +350,7 @@ under the License.
     <!-- notification of a customer request received and accepted -->
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_ACCEPTED"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="CRQ_PENDING"/>
         <condition field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
         <set field-name="bodyParameters.custRequestName" env-name="custRequestName"/>
