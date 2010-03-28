@@ -66,10 +66,47 @@ under the License.
   <#if text?has_content>
     <#-- Label is considered block level element in screen widget. There is not reason to render text outside of any html element. Use of style element has set pattern and we'll use style 
        to determine appropriate html element to use -->
-    <#if "h1~h2~h3~h4~h5~h6"?contains(style)>
-      <${style}<#if id?has_content> id="${id}"</#if>>${text}</${style}>
+    <#if style?has_content>
+      <#if style=="h1">
+        <h1 
+      <#elseif style=="h2">
+        <h2 
+      <#elseif style=="h3">
+        <h3 
+      <#elseif style=="h4">
+        <h4 
+      <#elseif style=="h5">
+        <h5 
+      <#elseif style=="h6">
+        <h6 
+      <#else>
+        <p class="${style}" 
+      </#if>
     <#else>
-      <p<#if style?has_content> class="${style}"</#if><#if id?has_content> id="${id}"</#if>>${text}</p> 
+      <p 
+    </#if>
+    <#if id?has_content >
+        <#if id?has_content> id="${id}"</#if>
+    </#if>
+        >${text}
+    <#if style?has_content>
+      <#if style=="h1">
+        </h1> 
+      <#elseif style=="h2">
+        </h2> 
+      <#elseif style=="h3">
+        </h3> 
+      <#elseif style=="h4">
+        </h4> 
+      <#elseif style=="h5">
+        </h5> 
+      <#elseif style=="h6">
+        </h6> 
+      <#else>
+        </p> 
+      </#if>
+    <#else>
+      </p>
     </#if>
   </#if>
 </#macro>
