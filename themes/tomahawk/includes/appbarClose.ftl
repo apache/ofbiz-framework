@@ -40,7 +40,7 @@ under the License.
   </#if>
 </#if>
 
-<#if parameters.portalPageId?exists && !appModelMenu.getModelMenuItemByName(headerItem)?exists>
+<#if parameters.portalPageId?exists && !appModelMenu.getModelMenuItemByName(headerItem)?exists && userLogin?exists>
     <#assign findMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("portalPageId", parameters.portalPageId)>
     <#assign portalPage = delegator.findByPrimaryKeyCache("PortalPage", findMap)>
     <#if portalPage?exists>
