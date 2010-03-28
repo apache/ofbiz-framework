@@ -770,7 +770,7 @@ public class ComponentConfig {
             // load the init parameters
             List<? extends Element> initParamList = UtilXml.childElementList(element, "init-param");
             if (UtilValidate.isNotEmpty(initParamList)) {
-                for (Element e: virtHostList) {
+                for (Element e: initParamList) {
                     this.initParameters.put(e.getAttribute("name"), e.getAttribute("value"));
                 }
             }
