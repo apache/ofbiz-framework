@@ -116,10 +116,10 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="approverId" field-name="partyId" widget-style="buttontext">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
+        <field name="approverId" widget-style="buttontext">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverId}" link-style="buttontext">
-                    <parameter param-name="approverId" from-field="approverId"/>
+                    <parameter param-name="partyId" from-field="approverId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -184,10 +184,10 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="approverId" field-name="partyId" widget-style="buttontext">
-            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
+        <field name="approverId" widget-style="buttontext">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverId}" link-style="buttontext">
-                    <parameter param-name="approverId" from-field="approverId"/>
+                    <parameter param-name="partyId" from-field="approverId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
