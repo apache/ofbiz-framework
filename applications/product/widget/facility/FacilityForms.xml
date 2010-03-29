@@ -893,7 +893,9 @@ under the License.
         </field>
         <field name="contentTypeId" title="${uiLabelMap.FormFieldTitle_contentTypeId}">
             <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
-                <entity-options description="${description}" entity-name="ContentType"/>
+                <entity-options description="${description}" entity-name="ContentType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
