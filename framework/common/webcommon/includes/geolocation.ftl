@@ -31,7 +31,21 @@ under the License.
             <#if geoChart.center?has_content>
               map.setCenter(new GLatLng(${geoChart.center.lat?c}, ${geoChart.center.lon?c}), ${geoChart.center.zoom});
             <#else>
-              map.setCenter(new GLatLng(37.4419, -122.1419), 12);
+              <#if geoChart.points?has_content>
+                var latlng = [
+                <#list geoChart.points as point>
+                  new GLatLng(${point.lat?c}, ${point.lon?c})<#if point_has_next>,</#if>
+                </#list>
+                ];
+                var latlngbounds = new GLatLngBounds();
+                for (var i = 0; i < latlng.length; i++) {
+                  latlngbounds.extend(latlng[i]);
+                }
+                map.setCenter(latlngbounds.getCenter(), map.getBoundsZoomLevel(latlngbounds) - 1);//reduce bounds zoom level to see all markers
+              <#else>
+                //map.setCenter(new GLatLng(37.4419, -122.1419), 12);
+                map.setCenter(new GLatLng(0, 0), 1);
+              </#if>
             </#if>
             <#if geoChart.controlUI?has_content && geoChart.controlUI == "small">
               map.addControl(new GSmallMapControl());
