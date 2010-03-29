@@ -38,7 +38,7 @@ if (facilityId && locationSeqId) {
                 "link", UtilMisc.toMap("url", "EditFacilityLocation?facilityId="+ facilityId + "&locationSeqId=" + locationSeqId,
                 "label", uiLabelMap.ProductFacilityLocation  + " " + uiLabelMap.CommonOf + " " + facilityId + "/" + locationSeqId)));
 
-        Map geoChart = UtilMisc.toMap("width", "500", "height", "450", "controlUI" , "small", "dataSourceId", latestGeoPoint.dataSourceId, "points", geoPoints);
+        Map geoChart = UtilMisc.toMap("width", "500px", "height", "450px", "controlUI" , "small", "dataSourceId", latestGeoPoint.dataSourceId, "points", geoPoints);
         context.geoChart = geoChart;
     }
     if (latestGeoPoint && latestGeoPoint.elevationUomId) {
