@@ -1502,6 +1502,11 @@ under the License.
                 <calcop operator="get" field="inventoryItem.unitCost"/>
             </calcop>
         </calculate>
+        <!-- An inventory item detail record is created to keep track of the units (value) that we are going to add to the inventory account -->
+        <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+        <set from-field="inventoryItem.quantityOnHandTotal" field="createDetailMap.accountingQuantityDiff"/>
+        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+
         <!-- prepare the double posting (D/C) entries (AcctgTransEntry) -->
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
