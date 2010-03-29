@@ -1485,9 +1485,9 @@ under the License.
             <result-to-field result-name="acctgTransId"/>
         </call-service>
         <field-to-result field="acctgTransId" result-name="acctgTransId"/>
-   </simple-method>
+    </simple-method>
 
-   <simple-method method-name="createAcctgTransForWorkEffortInventoryProduced" short-description="Create an accounting transactions for a Work Effort Inventory Produced (D: INVENTORY_ACCOUNT, C: WIP_INVENTORY)">
+    <simple-method method-name="createAcctgTransForWorkEffortInventoryProduced" short-description="Create an accounting transactions for a Work Effort Inventory Produced (D: INVENTORY_ACCOUNT, C: WIP_INVENTORY)">
         <!-- retrieve ledger rounding properties -->
         <call-simple-method method-name="getGlArithmeticSettingsInline"/>
         <entity-one entity-name="WorkEffortInventoryProduced" value-field="workEffortInventoryProduced">
