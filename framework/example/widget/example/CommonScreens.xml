@@ -196,8 +196,8 @@ under the License.
             <actions>
                 <set field="headerItem" value="ExampleGeoLocation"/>
                 <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
-                <set field="geoChart.width" value="600"/>
-                <set field="geoChart.height" value="500"/>                
+                <set field="geoChart.width" value="600px"/>
+                <set field="geoChart.height" value="500px"/>                
                 <set field="geoChart.points" from-field="geoPoints"/>
                 <set field="geoChart.center" from-field="geoCenter"/>
             </actions>

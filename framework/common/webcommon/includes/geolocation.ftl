@@ -19,7 +19,7 @@ under the License.
 <#if geoChart?has_content>
     <#if geoChart.dataSourceId?has_content>
       <#if geoChart.dataSourceId == "GEOPT_GOOGLE">
-        <div id="<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>" style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}px; height:${geoChart.height}px; margin:2em auto;">
+        <div id="<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>" style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}; height:${geoChart.height}; margin:2em auto;">
           <div style="padding:1em; color:gray;">${uiLabelMap.CommonLoading}</div>
         </div>
         <#assign defaultUrl = "https." + request.getServerName()>

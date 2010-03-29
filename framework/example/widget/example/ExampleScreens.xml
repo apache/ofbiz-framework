@@ -212,8 +212,8 @@ under the License.
                 <set field="headerItem" value="ExampleGeoLocation"/>
                 <set field="tabButtonItem" value="ExampleGeoLocationPointSet4"/>
                 <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
-                <set field="geoChart.width" value="600"/>
-                <set field="geoChart.height" value="500"/>
+                <set field="geoChart.width" value="600px"/>
+                <set field="geoChart.height" value="500px"/>
                 <set field="geoChart.points" from-field="geoPoints"/>
                 <set field="geoChart.center" from-field="geoCenter"/>
             </actions>
@@ -238,8 +238,8 @@ under the License.
                                         <set field="geoCenter.zoom" value="12"/>
                                         <set field="geoChart.id" value="chart1"/>
                                         <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
-                                        <set field="geoChart.width" value="600"/>
-                                        <set field="geoChart.height" value="500"/>
+                                        <set field="geoChart.width" value="600px"/>
+                                        <set field="geoChart.height" value="500px"/>
                                         <set field="geoChart.points" from-field="geoPoints"/>
                                         <set field="geoChart.center" from-field="geoCenter"/>
                                     </actions>
@@ -262,8 +262,8 @@ under the License.
                                         <set field="geoCenter.zoom" value="11"/>
                                         <set field="geoChart.id" value="chart2"/>
                                         <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
-                                        <set field="geoChart.width" value="800"/>
-                                        <set field="geoChart.height" value="500"/>
+                                        <set field="geoChart.width" value="800px"/>
+                                        <set field="geoChart.height" value="500px"/>
                                         <set field="geoChart.points" from-field="geoPoints"/>
                                         <set field="geoChart.center" from-field="geoCenter"/>
                                     </actions>
@@ -284,8 +284,8 @@ under the License.
                 <set field="headerItem" value="ExampleGeoLocation"/>
                 <set field="tabButtonItem" value="ExampleGeoLocationAddress"/>
                 <set field="geoChart.dataSourceId" value="GEOPT_ADDRESS_GOOGLE"/>
-                <set field="geoChart.width" value="800"/>
-                <set field="geoChart.height" value="500"/>
+                <set field="geoChart.width" value="800px"/>
+                <set field="geoChart.height" value="500px"/>
 
                 <set field="contactMechId" value="9015"/>
                 <entity-one entity-name="PostalAddress" value-field="address"/>
