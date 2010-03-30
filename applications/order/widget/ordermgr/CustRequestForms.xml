@@ -105,7 +105,7 @@ under the License.
         </field>
         <field name="lastModifiedDate"><display/></field>
         <!--field name="statusId"><hidden value="CRQ_REJECTED"/></field-->
-        <field name="reject">
+        <field name="rejectButton">
             <hyperlink target="setCustRequestStatus" description="${uiLabelMap.FormFieldTitle_rejectButton}">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="statusId" value="CRQ_REJECTED"/>
