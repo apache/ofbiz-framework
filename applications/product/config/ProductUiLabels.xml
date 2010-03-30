@@ -3616,18 +3616,6 @@
         <value xml:lang="th">วันเวลาการจอง</value>
         <value xml:lang="zh">预订的日期时间</value>
     </property>
-    <property key="FormFieldTitle_responseRequiredDate">
-        <value xml:lang="de">Antwort benötigt Datum</value>
-        <value xml:lang="en">Response Required Date</value>
-        <value xml:lang="es">Fecha exigida para respuesta</value>
-        <value xml:lang="fr">Date requise de la réponse</value>
-        <value xml:lang="it">Data Richiesta Risposta</value>
-        <value xml:lang="nl">Antwoord geven voor</value>
-        <value xml:lang="ro">Data Cerere Raspuns</value>
-        <value xml:lang="ru">Требуемая дата ответа</value>
-        <value xml:lang="th">วันที่ตอบสนองการร้องขอ</value>
-        <value xml:lang="zh">回答需要的日期</value>
-    </property>
     <property key="FormFieldTitle_responseService">
         <value xml:lang="ar">خدمة الجواب</value>
         <value xml:lang="de">Antwortdienst</value>
