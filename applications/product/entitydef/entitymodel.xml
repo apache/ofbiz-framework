@@ -992,7 +992,7 @@ under the License.
         <field name="defaultInventoryItemTypeId" type="id"></field>
         <field name="facilityName" type="name"></field>
         <field name="primaryFacilityGroupId" type="id"></field>
-        <field name="squareFootage" type="numeric"></field>
+        <field name="squareFootage" type="fixed-point"></field>
         <field name="productStoreId" type="id"></field>
         <field name="defaultDaysToShip" type="numeric"><description>In the absence of a product specific days to ship in ProductFacility, this will be used</description></field>
         <field name="openedDate" type="date-time"></field>
