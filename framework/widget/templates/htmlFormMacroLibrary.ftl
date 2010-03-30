@@ -330,7 +330,7 @@ ${item.description}</div>
 <#if opEquals?has_content>
 <select <#if name?has_content>name="${name}_op"</#if>    class="selectBox"><#rt/>
 <option value="equals"<#if defaultOption=="equals"> selected="selected"</#if>>${opEquals}</option><#rt/>
-<option value="like"<#if defaultOption=="like"> selected</#if>>${opBeginsWith}</option><#rt/>
+<option value="like"<#if defaultOption=="like"> selected="selected"</#if>>${opBeginsWith}</option><#rt/>
 <option value="contains"<#if defaultOption=="contains"> selected="selected"</#if>>${opContains}</option><#rt/>
 <option value="empty"<#rt/><#if defaultOption=="empty"> selected="selected"</#if>>${opIsEmpty}</option><#rt/>
 <option value="notEqual"<#if defaultOption=="notEqual"> selected="selected"</#if>>${opNotEqual}</option><#rt/>
@@ -449,7 +449,7 @@ ${item.description}</div>
  </#list>
 </#if>
 );">
-<#if ajaxEnabled?has_content && ajaxEnabled><span id="${id}_indicator" style="display: none" class="indicator"><img /></span></#if>
+<#if ajaxEnabled?has_content && ajaxEnabled><span id="${id}_indicator" style="display: none" class="indicator"><img src="" alt=""/></span></#if>
 </a></li><#rt>
 <#if disabled?has_content && disabled><li><a id="${id}_clear" style="background:none;margin-left:-6px;margin-right:15px;" class="clearField" href="javascript:void();" onclick="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></li></#if>
 </ul></div>

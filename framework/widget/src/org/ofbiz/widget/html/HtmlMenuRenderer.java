@@ -262,29 +262,34 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             writer.append("<h2>").append(menuTitle).append("</h2>");
             appendWhitespace(writer);
         }
-        writer.append("<ul>");
-        appendWhitespace(writer);
-        writer.append("<li>");
-        appendWhitespace(writer);
-        writer.append(" <ul>");
-        appendWhitespace(writer);
+        if (modelMenu.renderedMenuItemCount(context) > 0) {
+        	writer.append("<ul>");
+        	appendWhitespace(writer);
+        	writer.append("<li>");
+        	appendWhitespace(writer);
+        	writer.append(" <ul>");
+        	appendWhitespace(writer);
+        }
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.widget.menu.MenuStringRenderer#renderMenuClose(java.io.Writer, java.util.Map, org.ofbiz.widget.menu.ModelMenu)
      */
     public void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
+    	// TODO: div can't be directly inside an UL
         String fillStyle = modelMenu.getFillStyle();
         if (UtilValidate.isNotEmpty(fillStyle)) {
             writer.append("<div class=\"").append(fillStyle).append("\">&nbsp;</div>");
         }
         //String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
-        writer.append(" </ul>");
-        appendWhitespace(writer);
-        writer.append("</li>");
-        appendWhitespace(writer);
-        writer.append("</ul>");
-        appendWhitespace(writer);
+        if (modelMenu.renderedMenuItemCount(context) > 0) {      
+	        writer.append(" </ul>");
+	        appendWhitespace(writer);
+	        writer.append("</li>");
+	        appendWhitespace(writer);
+	        writer.append("</ul>");
+	        appendWhitespace(writer);
+        }
         writer.append(" <br class=\"clear\"/>");
         appendWhitespace(writer);
         writer.append("</div>");

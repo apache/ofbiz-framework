@@ -140,7 +140,7 @@ collapsed"><a <#if javaScriptEnabled>onclick="javascript:toggleScreenlet(this, '
 <#else>
 expanded"><a <#if javaScriptEnabled>onclick="javascript:toggleScreenlet(this, '${collapsibleAreaId}', '${saveCollapsed?string}', '${expandToolTip}', '${collapseToolTip}');"<#else>href="${fullUrlString}"</#if><#if expandToolTip?has_content> title="${expandToolTip}"</#if>
 </#if>
->&nbsp</a></li>
+>&nbsp;</a></li>
 </#if>
 <#if !collapsed>
 ${menuString}

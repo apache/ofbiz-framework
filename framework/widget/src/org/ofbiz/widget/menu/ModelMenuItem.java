@@ -257,6 +257,16 @@ public class ModelMenuItem {
 
     }
 
+    public boolean shouldBeRendered(Map<String, Object> context) {
+        boolean passed = true;
+        if (this.condition != null) {
+            if (!this.condition.eval(context)) {
+                passed = false;
+            }
+        }
+        return passed;
+    }
+    
     public void renderMenuItemString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
 
         boolean passed = true;
