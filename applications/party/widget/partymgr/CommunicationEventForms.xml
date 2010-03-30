@@ -22,6 +22,7 @@ under the License.
 
     <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent">
         <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>
+        <field name="action"><hidden value="${parameters.action}"/></field>
         <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
         <field name="my"><hidden value="${my}"/></field>
         <field name="parentCommEventId" position="2">
