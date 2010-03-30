@@ -87,9 +87,8 @@ under the License.
                 <set field="newEntity.partyIdFrom" from-field="parameters.partyIdFrom" default-value="parameters.userLogin.partyId"/>
                 <set field="newEntity.partyIdTo" from-field="parentCommEvent.partyIdFrom"/>
                 <set field="newEntity.parentCommEventId" from-field="parentCommEvent.communicationEventId"/>
-                                
                 <set field="newEntity.subject" value="RE: ${parentCommEvent.subject}"/>
-                
+                <set field="newEntity.contentMimeTypeId" from-field="parentCommEvent.contentMimeTypeId"/>
                 <set field="newEntity.content" value="${groovy:
                     def localContent = parentCommEvent.content;
                     if (!localContent) return(&quot;&quot;);
