@@ -854,6 +854,7 @@ public class EbayStore {
 
                     result.put("ebayStore", ebayResp);
                 } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store : getEbayStoreOutput", resp.getMessage());
                     result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
                     result.put(ModelService.ERROR_MESSAGE, resp.getAck().toString() +":"+ resp.getMessage());
                 }
@@ -939,6 +940,8 @@ public class EbayStore {
                         i++;
                     }
                     result.put("storeFontScheme", storeColorSchemeMap);
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveThemeColorSchemeByThemeId", resp.getMessage());
                 }
             }
         } catch (ApiException e) {
@@ -981,6 +984,8 @@ public class EbayStore {
                     }
                     result = ServiceUtil.returnSuccess("load store logo data success..");
                     result.put("storeLogoOptList", logoList);
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrievePredesignedLogoOption", resp.getMessage());
                 }
             }
         } catch (ApiException e) {
@@ -1030,6 +1035,8 @@ public class EbayStore {
                     }
                     result = ServiceUtil.returnSuccess("load store Basic Theme option data success..");
                     result.put("storeThemeList", themeList);
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveBasicThemeArray", resp.getMessage());
                 }
             }
         } catch (ApiException e) {
@@ -1084,6 +1091,8 @@ public class EbayStore {
                         j++;
                     }
                     result.put("storeAdvancedThemeColorOptList", themeColorList);
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveAdvancedThemeArray", resp.getMessage());
                 }
                 //this.returnedSubscriptionArray = resp.getSubscriptionArray();
             }
@@ -1207,6 +1216,8 @@ public class EbayStore {
                     }
                     result = ServiceUtil.returnSuccess("load store Basic Theme option data success..");
                     result.put("advanceFontTheme", advanceFontTheme);
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveStoreFontTheme", resp.getMessage());
                 }
             }
         } catch (ApiException e) {

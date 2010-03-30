@@ -404,6 +404,11 @@
         <response name="success" type="view" value="ordersImported"/>
         <response name="error" type="view" value="ordersImported"/>
     </request-map>
+    <request-map uri="errorMessageList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="errorMessageList"/>
+        <response name="error" type="view" value="errorMessageList"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -447,5 +452,6 @@
     <!-- Waiting to shipping -->
     <view-map name="WaitingToShipping" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#WaitingToShipping"/>
     <view-map name="ordersImported" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ordersImported"/>
+    <view-map name="errorMessageList" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#errorMessageList"/>
     <!-- end of view mappings -->
 </site-conf>

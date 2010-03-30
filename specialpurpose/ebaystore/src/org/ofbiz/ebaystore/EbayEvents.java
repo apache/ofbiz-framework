@@ -794,6 +794,7 @@ public class EbayEvents {
 
     public static String verifyItemBeforeAdd(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map<String,Object> requestParams = UtilHttp.getParameterMap(request);
         Locale locale = UtilHttp.getLocale(request);
         String productStoreId = (String) requestParams.get("productStoreId");
@@ -829,6 +830,8 @@ public class EbayEvents {
                                 double dfee = fee.getFee().getValue();
                                 feesummary = feesummary + dfee;
                             }
+                        } else {
+                            EbayStoreHelper.createErrorLogMessage(dispatcher, productStoreId, resp.getAck().toString(), "Verify Item : verifyItemBeforeAdd", resp.getMessage());
                         }
                     }
                 }

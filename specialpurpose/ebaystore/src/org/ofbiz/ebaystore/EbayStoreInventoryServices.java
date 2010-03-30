@@ -99,6 +99,8 @@ public class EbayStoreInventoryServices {
                             break;
                         }
                     }
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), invenResp.getAck().toString(), "GetSellingManagerInventoryCall : updateEbayStoreInventory", invenResp.getMessage());
                 }
 
                 // checkProduct is true then update detail  but is false do create new one.
@@ -160,6 +162,7 @@ public class EbayStoreInventoryServices {
                     ebayProductStoreInventory.put("folderId", folderId);
                     ebayProductStoreInventory.store();
                 } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), productResp.getAck().toString(), "AddSellingManagerProductCall : createNewProductInEbayInventoryFolder", productResp.getMessage());
                     Debug.logError("Fail to  create inventory product ".concat(productId).concat("in productStore ").concat(context.get("productStoreId").toString()).concat(" message from ebay : ").concat(productResp.getMessage()), module);
                 }
             }
@@ -214,6 +217,7 @@ public class EbayStoreInventoryServices {
                     ebayProductStoreInventory.put("folderId", folderId);
                     ebayProductStoreInventory.store();
                 } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "ReviseSellingManagerProductCall : updateProductInEbayInventoryFolder", resp.getMessage());
                     Debug.logError("Fail to  update inventory product ".concat(productId).concat("in productStore ").concat(context.get("productStoreId").toString()).concat(" message from ebay : ").concat(resp.getMessage()), module);
                 }
             }
@@ -258,6 +262,8 @@ public class EbayStoreInventoryServices {
                     if (!flag) {
                         folderId = createNewFolderInEbayStoreInventory(dctx,context);
                     }
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "GetSellingManagerInventoryFolderCall : getFolderInEbayStoreInventory", resp.getMessage());
                 }
                 result = ServiceUtil.returnSuccess("load ebay store folderId "+folderId+" success..");
             }
@@ -290,6 +296,7 @@ public class EbayStoreInventoryServices {
                 if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
                     folderId = String.valueOf(resp.getFolderID());
                 } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "AddSellingManagerInventoryFolderCall : createNewFolderInEbayStoreInventory", resp.getMessage());
                     Debug.logError("The problem with create new folder on ebay site.", module);
                     return folderId;
                 }
@@ -343,6 +350,7 @@ public class EbayStoreInventoryServices {
                         }
                     }
                 } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "GetSellingManagerInventoryCall : updateEbayInventoryStatusByProductId", resp.getMessage());
                     Debug.logError("The problem with get manage inventory detail from ebay site.", module);
                 }
             }

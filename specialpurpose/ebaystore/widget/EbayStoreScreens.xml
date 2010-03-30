@@ -238,4 +238,25 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="errorMessageList">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="errorMessageList"/>
+                <entity-and entity-name="EBayLogMessagesInfo" list="errorMsgList">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <order-by field-name="createDatetime DESC"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.EbayErrorMessageList}">
+                            <include-form name="errorMessageList" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
