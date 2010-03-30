@@ -28,28 +28,28 @@ under the License.
       <tr>
         <td><b>${(paymentCash.get("description", locale))?if_exists}</b></td>
         <td align="right"><@ofbizCurrency amount=cashAmount isoCode=shoppingCart.getCurrency()/></td>
-        <td align="center"><input type="checkbox" name="clearCash" value="Y" checked/></td>
+        <td align="center"><input type="checkbox" name="clearCash" value="Y" checked="checked" /></td>
       </tr>
       </#if>
       <#if (checkAmount?default(0) > 0.00)>
       <tr>
         <td><b>${(paymentCheck.get("description", locale))?if_exists}</b></td>
         <td align="right"><@ofbizCurrency amount=checkAmount isoCode=shoppingCart.getCurrency()/></td>
-        <td align="center"><input type="checkbox" name="clearCheck" value="Y" checked/></td>
+        <td align="center"><input type="checkbox" name="clearCheck" value="Y" checked="checked" /></td>
       </tr>
       </#if>
       <#if (giftAmount?default(0) > 0.00)>
       <tr>
         <td><b>${(paymentGift.get("description", locale))?if_exists}</b></td>
         <td align="right"><@ofbizCurrency amount=giftAmount isoCode=shoppingCart.getCurrency()/></td>
-        <td align="center"><input type="checkbox" name="clearGift" value="Y" checked/></td>
+        <td align="center"><input type="checkbox" name="clearGift" value="Y" checked="checked" /></td>
       </tr>
       </#if>
       <#if (creditAmount?default(0) > 0.00)>
       <tr>
         <td><b>${(paymentCredit.get("description", locale))?if_exists}</b></td>
         <td align="right"><@ofbizCurrency amount=creditAmount isoCode=shoppingCart.getCurrency()/></td>
-        <td align="center"><input type="checkbox" name="clearCredit" value="Y" checked/></td>
+        <td align="center"><input type="checkbox" name="clearCredit" value="Y" checked="checked" /></td>
       </tr>
       </#if>
       <tr>

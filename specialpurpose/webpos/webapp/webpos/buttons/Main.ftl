@@ -73,40 +73,40 @@ under the License.
     </tr>
     <tr>
         <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-1001&quantity=1</@ofbizUrl>" class="posButton">NAN GIZMO</a>
+            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-1001&amp;quantity=1</@ofbizUrl>" class="posButton">NAN GIZMO</a>
         </td>
         <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-5005&quantity=1</@ofbizUrl>" class="posButton">PURPLE GIZMO</a>
+            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-5005&amp;quantity=1</@ofbizUrl>" class="posButton">PURPLE GIZMO</a>
         </td>
         <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-2644&quantity=1</@ofbizUrl>" class="posButton">ROUND GIZMO</a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-2002&quantity=1</@ofbizUrl>" class="posButton">SQUARE GIZMO</a>
-        </td>
-        <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-7000&quantity=1</@ofbizUrl>" class="posButton">MASSIVE GIZMO</a>
-        </td>
-        <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=WG-5569&quantity=1</@ofbizUrl>" class="posButton">TINY WIDGET</a>
+            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-2644&amp;quantity=1</@ofbizUrl>" class="posButton">ROUND GIZMO</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-1004&quantity=1</@ofbizUrl>" class="posButton">RAINBOW GIZMO</a>
+            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-2002&amp;quantity=1</@ofbizUrl>" class="posButton">SQUARE GIZMO</a>
         </td>
         <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-1005&quantity=1</@ofbizUrl>" class="posButton">NIT GIZMO</a>
+            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-7000&amp;quantity=1</@ofbizUrl>" class="posButton">MASSIVE GIZMO</a>
         </td>
         <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-8544&quantity=1</@ofbizUrl>" class="posButton">BIG GIZMO</a>
+            <a href="<@ofbizUrl>AddItem?add_product_id=WG-5569&amp;quantity=1</@ofbizUrl>" class="posButton">TINY WIDGET</a>
         </td>
     </tr>
     <tr>
         <td>
-            <a href="<@ofbizUrl>AddItem?add_product_id=WG-1111&quantity=1</@ofbizUrl>" class="posButton">MICRO WIDGET</a>
+            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-1004&amp;quantity=1</@ofbizUrl>" class="posButton">RAINBOW GIZMO</a>
+        </td>
+        <td>
+            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-1005&amp;quantity=1</@ofbizUrl>" class="posButton">NIT GIZMO</a>
+        </td>
+        <td>
+            <a href="<@ofbizUrl>AddItem?add_product_id=GZ-8544&amp;quantity=1</@ofbizUrl>" class="posButton">BIG GIZMO</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="<@ofbizUrl>AddItem?add_product_id=WG-1111&amp;quantity=1</@ofbizUrl>" class="posButton">MICRO WIDGET</a>
         </td>
         <td>
             &nbsp;
