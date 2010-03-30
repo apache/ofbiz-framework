@@ -33,9 +33,8 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.ProjectMgrCustomerRequestList}" navigation-menu-name="ProjectRequestList">
+                <screenlet title="${uiLabelMap.ProjectMgrCustomerRequestList}">
                     <label style="h2" text="${uiLabelMap.ProjectMgrAcceptedCustomerRequestList}"/>
-                    <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                     <include-form name="ListRequests" location="component://projectmgr/widget/forms/CustRequestForms.xml"/>
                     <label style="h2" text="${uiLabelMap.ProjectMgrReviewedCustomerRequestTaskList}"/>
                     <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/CustRequestForms.xml"/>
@@ -55,7 +54,7 @@ under the License.
                 <set field="headerItem" value="request"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-screen name="ProjectRequestList"/>
                     </decorator-section>
