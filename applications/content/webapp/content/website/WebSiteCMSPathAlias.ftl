@@ -79,11 +79,11 @@
             <tr><td colspan="2">&nbsp;</td></tr>
             <tr>
                 <td class="label">Path Alias</td>
-                <td><input type="text" name="pathAlias" value=""></td>
+                <td><input type="text" name="pathAlias" value="" /></td>
             </tr>
             <tr>
                 <td class="label">Map Key</td>
-                <td><input type="text" name="mapKey" value=""></td>
+                <td><input type="text" name="mapKey" value="" /></td>
             </tr>
             <tr>
                 <td colspan="2" align="center"><input id="submit" type="button" onclick="javascript:pathSave('${contentId}');" class="smallSubmit" value="Create"/></td>

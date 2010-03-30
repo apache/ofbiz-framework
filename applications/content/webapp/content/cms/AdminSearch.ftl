@@ -29,7 +29,7 @@ under the License.
 <input type="text" class="inputBox" name="queryLine" size="60"/>
 </td>
 </tr>
-<tr>
+
 <tr>
 <td width="20%" align="right">
 <span class="tableheadtext">${uiLabelMap.CommonSelect} ${uiLabelMap.ContentCategory}</span>
@@ -46,15 +46,16 @@ under the License.
 
 <!-- category form -->
 <tr>
-  <table border="0" wdith="100%">
+<td>
+  <table border="0" width="100%">
     <tr>
       <td align="right" valign="middle">
         <div class="tabletext">${uiLabelMap.ProductFeatures}:</div>
       </td>
       <td align="right" valign="middle">
         <div class="tabletext">
-          ${uiLabelMap.CommonAll} <input type="radio" name="any_or_all" value="all" checked>
-          ${uiLabelMap.CommonAny} <input type="radio" name="any_or_all" value="any">
+          ${uiLabelMap.CommonAll} <input type="radio" name="any_or_all" value="all" checked="checked"/>
+          ${uiLabelMap.CommonAny} <input type="radio" name="any_or_all" value="any"/>
         </div>
       </td>
     </tr>
@@ -65,9 +66,9 @@ under the License.
       </td>
       <td valign="middle">
         <div class="tabletext">
-          <input type="text" class="inputBox" name="SEARCH_FEAT" size="15" value="${requestParameters.SEARCH_FEAT?if_exists}">&nbsp;
-          <input type="text" class="inputBox" name="SEARCH_FEAT2" size="15" value="${requestParameters.SEARCH_FEAT?if_exists}">&nbsp;
-          <input type="text" class="inputBox" name="SEARCH_FEAT3" size="15" value="${requestParameters.SEARCH_FEAT?if_exists}">&nbsp;
+          <input type="text" class="inputBox" name="SEARCH_FEAT" size="15" value="${requestParameters.SEARCH_FEAT?if_exists}"/>&nbsp;
+          <input type="text" class="inputBox" name="SEARCH_FEAT2" size="15" value="${requestParameters.SEARCH_FEAT?if_exists}"/>&nbsp;
+          <input type="text" class="inputBox" name="SEARCH_FEAT3" size="15" value="${requestParameters.SEARCH_FEAT?if_exists}"/>&nbsp;
         </div>
       </td>
     </tr>
@@ -103,12 +104,16 @@ under the License.
             </#list>
             <div class="tabletext">${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
             <div class="tabletext">
-              ${uiLabelMap.CommonNew} ${uiLabelMap.CommonSearch} <input type="radio" name="clearSearch" value="Y" checked>
-              ${uiLabelMap.CommonRefineSearch} <input type="radio" name="clearSearch" value="N">
+              ${uiLabelMap.CommonNew} ${uiLabelMap.CommonSearch} <input type="radio" name="clearSearch" value="Y" checked="checked"/>
+              ${uiLabelMap.CommonRefineSearch} <input type="radio" name="clearSearch" value="N"/>
             </div>
         </td>
       </tr>
     </#if>
+    </table>
+    </td>
+</tr>
+<tr>
 <td width="20%" align="right">
 &nbsp;</td>
 <td>&nbsp;</td>
