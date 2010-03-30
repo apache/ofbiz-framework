@@ -34,7 +34,7 @@
     </path>
 
     <!-- ================================================================= -->
-    <!--                                                  Targets to create  patch files                                     -->
+    <!-- Targets to create  patch files                                    -->
     <!-- ================================================================= -->
 
     <target name="create-ofbiz-patches" description="Creates patch for framework, application, specialpurpose components">
