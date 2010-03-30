@@ -376,7 +376,7 @@
             <fail-message message="Security Error: to run createSurveyTrigger you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="SurveyQuestionType" value-field="newEntity"/>
+        <make-value entity-name="SurveyTrigger" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
