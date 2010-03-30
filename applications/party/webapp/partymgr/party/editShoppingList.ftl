@@ -25,7 +25,7 @@ under the License.
       <li>
         <form id="createEmptyShoppingList" action="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>" method="post">
           <input type="hidden" name="partyId" value="${partyId?if_exists}" />
-          <a href="javascript:$('createEmptyShoppingList').submit();"" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
+          <a href="javascript:$('createEmptyShoppingList').submit();" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
         </form>
       </li>      
     </ul>
@@ -57,7 +57,7 @@ under the License.
     <ul>
       <li class="h3">${uiLabelMap.PartyShoppingListDetail} - ${shoppingList.listName}</li>
       <li><a href="javascript:document.updateList.submit();">${uiLabelMap.CommonSave}</a></li>
-      <li><a href="/ordermgr/control/createQuoteFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}&applyStorePromotions=N">${uiLabelMap.PartyCreateNewQuote}</a></li>
+      <li><a href="/ordermgr/control/createQuoteFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}&amp;applyStorePromotions=N">${uiLabelMap.PartyCreateNewQuote}</a></li>
       <li><a href="/ordermgr/control/createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}">${uiLabelMap.PartyCreateNewCustRequest}</a></li>
       <li><a href="/ordermgr/control/loadCartFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}">${uiLabelMap.OrderNewOrder}</a></li>
     </ul>
@@ -65,16 +65,16 @@ under the License.
   </div>
   <div class="screenlet-body">
     <form name="updateList" method="post" action="<@ofbizUrl>updateShoppingList</@ofbizUrl>">
-      <input type="hidden" name="shoppingListId" value="${shoppingList.shoppingListId}">
-      <input type="hidden" name="partyId" value="${shoppingList.partyId?if_exists}">
+      <input type="hidden" name="shoppingListId" value="${shoppingList.shoppingListId}" />
+      <input type="hidden" name="partyId" value="${shoppingList.partyId?if_exists}" />
       <table class="basic-table" cellspacing='0'>
         <tr>
           <td class="label">${uiLabelMap.PartyListName}</td>
-          <td><input type="text" size="25" name="listName" value="${shoppingList.listName}" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
+          <td><input type="text" size="25" name="listName" value="${shoppingList.listName}" <#if shoppingList.listName?default("") == "auto-save">disabled="disabled"</#if> />
         </tr>
         <tr>
           <td class="label">${uiLabelMap.CommonDescription}</td>
-          <td><input type="text" size="70" name="description" value="${shoppingList.description?if_exists}" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
+          <td><input type="text" size="70" name="description" value="${shoppingList.description?if_exists}" <#if shoppingList.listName?default("") == "auto-save">disabled="disabled"</#if> />
         </tr>
         <tr>
           <td class="label">${uiLabelMap.PartyListType}</td>
@@ -134,7 +134,7 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.PartyChildShoppingList} - ${shoppingList.listName}</li>
-      <li><a href="<@ofbizUrl>addListToCart?shoppingListId=${shoppingList.shoppingListId}&includeChild=yes</@ofbizUrl>">${uiLabelMap.PartyAddChildListsToCart}</a></li>
+      <li><a href="<@ofbizUrl>addListToCart?shoppingListId=${shoppingList.shoppingListId}&amp;includeChild=yes</@ofbizUrl>">${uiLabelMap.PartyAddChildListsToCart}</a></li>
     </ul>
     <br class="clear"/>
   </div>
@@ -188,27 +188,27 @@ under the License.
           <#assign productVariantAssocs = shoppingListItemData.productVariantAssocs?if_exists>
           <#assign isVirtual = product.isVirtual?exists && product.isVirtual.equals("Y")>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-            <td><a href="/catalog/control/EditProduct?productId=${shoppingListItem.productId}&externalLoginKey=${requestAttributes.externalLoginKey}">${shoppingListItem.productId} -
+            <td><a href="/catalog/control/EditProduct?productId=${shoppingListItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}">${shoppingListItem.productId} -
               ${productContentWrapper.get("PRODUCT_NAME")?default("No Name")}</a> : ${productContentWrapper.get("DESCRIPTION")?if_exists}
             </td>
             <form method="post" action="<@ofbizUrl>updateShoppingListItem</@ofbizUrl>" name='listform_${shoppingListItem.shoppingListItemSeqId}'>
-              <input type="hidden" name="shoppingListId" value="${shoppingListItem.shoppingListId}">
-              <input type="hidden" name="shoppingListItemSeqId" value="${shoppingListItem.shoppingListItemSeqId}">
+              <input type="hidden" name="shoppingListId" value="${shoppingListItem.shoppingListId}" />
+              <input type="hidden" name="shoppingListItemSeqId" value="${shoppingListItem.shoppingListItemSeqId}" />
               <td>
-                <input size="6" type="text" name="quantity" value="${shoppingListItem.quantity?string.number}">
+                <input size="6" type="text" name="quantity" value="${shoppingListItem.quantity?string.number}" />
               </td>
               <td>
                 <input size="6" type="text" name="quantityPurchased"
                   <#if shoppingListItem.quantityPurchased?has_content>
                     value="${shoppingListItem.quantityPurchased?if_exists?string.number}"
-                  </#if>>
+                  </#if> />
               </td>
             </form>
             <td class="align-float"><@ofbizCurrency amount=unitPrice isoCode=currencyUomId/></td>
             <td class="align-float"><@ofbizCurrency amount=totalPrice isoCode=currencyUomId/></td>
             <td class="button-col align-float">
               <a href="javascript:document.listform_${shoppingListItem.shoppingListItemSeqId}.submit();">${uiLabelMap.CommonUpdate}</a>
-              <a href="<@ofbizUrl>removeFromShoppingList?shoppingListId=${shoppingListItem.shoppingListId}&shoppingListItemSeqId=${shoppingListItem.shoppingListItemSeqId}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
+              <a href="<@ofbizUrl>removeFromShoppingList?shoppingListId=${shoppingListItem.shoppingListId}&amp;shoppingListItemSeqId=${shoppingListItem.shoppingListItemSeqId}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
             </td>
           </tr>
           <#-- toggle the row color -->
@@ -231,11 +231,11 @@ under the License.
   </div>
   <div class="screenlet-body">
     <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
-      <input type="hidden" name="shoppingListId" value="${shoppingList.shoppingListId}">
-      <input type="hidden" name="partyId" value="${shoppingList.partyId?if_exists}">
-      <input type="text" name="productId" value="">
-      <input type="text" size="5" name="quantity" value="${requestParameters.quantity?default("1")}">
-      <input type="submit" value="${uiLabelMap.PartyAddToShoppingList}">
+      <input type="hidden" name="shoppingListId" value="${shoppingList.shoppingListId}" />
+      <input type="hidden" name="partyId" value="${shoppingList.partyId?if_exists}" />
+      <input type="text" name="productId" value="" />
+      <input type="text" size="5" name="quantity" value="${requestParameters.quantity?default("1")}" />
+      <input type="submit" value="${uiLabelMap.PartyAddToShoppingList}" />
     </form>
   </div>
 </div>

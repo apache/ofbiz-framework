@@ -26,7 +26,7 @@ under the License.
     <#else>
       <h3>${uiLabelMap.AccountingEditGiftCard}</h3>
       <form method="post" action="<@ofbizUrl>updateGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
-        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}">
+        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}" />
     </#if>
   </div>
   <div class="screenlet-body">
@@ -39,13 +39,13 @@ under the License.
         <tr>
           <td class="label">${uiLabelMap.AccountingCardNumber}</td>
           <td>
-            <input type="text" size="20" maxlength="60" name="cardNumber" value="${giftCardData.cardNumber?if_exists}">
+            <input type="text" size="20" maxlength="60" name="cardNumber" value="${giftCardData.cardNumber?if_exists}" />
           </td>
         </tr>
         <tr>
           <td class="label">${uiLabelMap.AccountingPinNumber}</td>
           <td>
-            <input type="text" size="10" maxlength="60" name="pinNumber" value="${giftCardData.pinNumber?if_exists}">
+            <input type="text" size="10" maxlength="60" name="pinNumber" value="${giftCardData.pinNumber?if_exists}" />
           </td>
         </tr>
         <tr>
@@ -87,7 +87,7 @@ under the License.
         <tr>
           <td class="label">${uiLabelMap.CommonDescription}</td>
           <td>
-            <input type="text" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}">
+            <input type="text" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}" />
           </td>
         </tr>
         </table>

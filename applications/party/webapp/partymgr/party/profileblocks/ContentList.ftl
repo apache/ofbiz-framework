@@ -27,7 +27,7 @@ under the License.
             <#assign status = content.getRelatedOneCache("StatusItem")?if_exists>
             <#assign pcType = pContent.getRelatedOne("PartyContentType")>
             <tr>
-              <td class="button-col"><a href="<@ofbizUrl>EditPartyContents?contentId=${pContent.contentId}&partyId=${pContent.partyId}&partyContentTypeId=${pContent.partyContentTypeId}&fromDate=${pContent.fromDate}</@ofbizUrl>">${content.contentId}</a></td>
+              <td class="button-col"><a href="<@ofbizUrl>EditPartyContents?contentId=${pContent.contentId}&amp;partyId=${pContent.partyId}&amp;partyContentTypeId=${pContent.partyContentTypeId}&amp;fromDate=${pContent.fromDate}</@ofbizUrl>">${content.contentId}</a></td>
               <td>${pcType.description?if_exists}</td>
               <td>${content.contentName?if_exists}</td>
               <td>${(contentType.get("description",locale))?if_exists}</td>
@@ -39,10 +39,10 @@ under the License.
                     <a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>">${uiLabelMap.CommonView}</a>
                 </#if>
                 <form name="removePartyContent_${pContent_index}" method="post" action="<@ofbizUrl>removePartyContent/viewprofile</@ofbizUrl>">
-                  <input type="hidden" name="contentId" value="${pContent.contentId}">
-                  <input type="hidden" name="partyId" value="${pContent.partyId}">
-                  <input type="hidden" name="partyContentTypeId" value= ${pContent.partyContentTypeId}">
-                  <input type="hidden" name="fromDate" value="${pContent.fromDate}">
+                  <input type="hidden" name="contentId" value="${pContent.contentId}" />
+                  <input type="hidden" name="partyId" value="${pContent.partyId}" />
+                  <input type="hidden" name="partyContentTypeId" value= ${pContent.partyContentTypeId}" />
+                  <input type="hidden" name="fromDate" value="${pContent.fromDate}" />
                   <a href="javascript:document.removePartyContent_${pContent_index}.submit()">${uiLabelMap.CommonRemove}</a>
                 </form>
               </td>

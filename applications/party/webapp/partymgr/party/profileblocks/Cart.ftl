@@ -24,7 +24,7 @@ under the License.
           <li class="h3">${uiLabelMap.PartyCurrentShoppingCart}</li>
           <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
             <#if savedCartListId?has_content>
-              <#assign listParam = "&shoppingListId=" + savedCartListId>
+              <#assign listParam = "&amp;shoppingListId=" + savedCartListId>
             <#else>
               <#assign listParam = "">
             </#if>
@@ -45,7 +45,7 @@ under the License.
             <#list savedCartItems as savedCartItem>
               <tr>
                 <td>${savedCartItem.shoppingListItemSeqId?if_exists}</td>
-                <td class="button-col"><a href="/catalog/control/EditProduct?productId=${savedCartItem.productId}&externalLoginKey=${requestAttributes.externalLoginKey}">${savedCartItem.productId?if_exists}</a></td>
+                <td class="button-col"><a href="/catalog/control/EditProduct?productId=${savedCartItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}">${savedCartItem.productId?if_exists}</a></td>
                 <td>${savedCartItem.quantity?if_exists}</td>
                 <td>${savedCartItem.quantityPurchased?if_exists}</td>
               </tr>

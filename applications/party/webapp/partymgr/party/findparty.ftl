@@ -29,9 +29,9 @@ under the License.
 </#if>
 <h1>${uiLabelMap.PartyFindParties}</h1>
 <#if (parameters.firstName?has_content || parameters.lastName?has_content)>
-    <#assign createUrl = "editperson?create_new=Y&lastName=${parameters.lastName?if_exists}&firstName=${parameters.firstName?if_exists}"/>
+    <#assign createUrl = "editperson?create_new=Y&amp;lastName=${parameters.lastName?if_exists}&amp;firstName=${parameters.firstName?if_exists}"/>
 <#elseif (parameters.groupName?has_content)>
-    <#assign createUrl = "editpartygroup?create_new=Y&groupName=${parameters.groupName?if_exists}"/>
+    <#assign createUrl = "editpartygroup?create_new=Y&amp;groupName=${parameters.groupName?if_exists}"/>
 <#else>
     <#assign createUrl = "createnew"/>
 </#if>
@@ -41,9 +41,9 @@ under the License.
     <#if partyList?has_content>
       <ul>
         <#if hideFields == "Y">
-          <li class="collapsed"><a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonShowLookupFields}">&nbsp</a></li>
+          <li class="collapsed"><a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonShowLookupFields}">&nbsp;</a></li>
         <#else>
-          <li class="expanded"><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonHideFields}">&nbsp</a></li>
+          <li class="expanded"><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonHideFields}">&nbsp;</a></li>
         </#if>
         <#if (partyListSize > 0)>
           <#if (partyListSize > highIndex)>
@@ -202,7 +202,7 @@ under the License.
           <tr>
             <td>&nbsp;</td>
             <td>
-              <input type="submit" value="${uiLabelMap.CommonFind}" onClick="javascript:document.lookupparty.submit();"/>
+              <input type="submit" value="${uiLabelMap.CommonFind}" onclick="javascript:document.lookupparty.submit();"/>
             </td>
           </tr>
         </table>
@@ -329,11 +329,11 @@ under the License.
               <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
               <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
                   <form name= "searchorders_o_${rowCount}" method= "post" action= "/ordermgr/control/searchorders">
-                    <input type= "hidden" name= "lookupFlag" value= "Y">
-                    <input type= "hidden" name= "hideFields" value= "Y">
-                    <input type= "hidden" name= "partyId" value= "${partyRow.partyId}">
-                    <input type= "hidden" name= "viewIndex" value= "1">
-                    <input type= "hidden" name= "viewSize" value= "20">
+                    <input type= "hidden" name= "lookupFlag" value= "Y" />
+                    <input type= "hidden" name= "hideFields" value= "Y" />
+                    <input type= "hidden" name= "partyId" value= "${partyRow.partyId}" />
+                    <input type= "hidden" name= "viewIndex" value= "1" />
+                    <input type= "hidden" name= "viewSize" value= "20" />
                     <a href="javascript:document.searchorders_o_${rowCount}.submit()">${uiLabelMap.OrderOrders}</a>
                 </form>
                 <a href="/ordermgr/control/FindQuote?partyId=${partyRow.partyId + externalKeyParam}">${uiLabelMap.OrderOrderQuotes}</a>
@@ -350,7 +350,7 @@ under the License.
         </#list>
       </table>
     <#else>
-      <div id="findPartyResults">
+      <div id="findPartyResults_2">
         <h3>${uiLabelMap.PartyNoPartiesFound}</h3>
       </div>
     </#if>
