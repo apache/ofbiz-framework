@@ -53,6 +53,11 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
+        <menu-item name="errorMessageList" title="${uiLabelMap.EbayErrorMessageList}">
+            <link target="errorMessageList">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="EbaySellingManagerTabBar" selected-menuitem-context-field-name="sellingManagerItem" type="simple" 
         default-selected-style="selected" menu-container-style="button-bar button-style-2">

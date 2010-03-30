@@ -112,4 +112,17 @@ under the License.
             <key-map field-name="productListingId"/>
         </relation>
     </entity>
+    <entity entity-name="EBayLogMessagesInfo" package-name="org.ofbiz.ebay.store"
+        title="eBay Log Messages Info">
+        <field name="productStoreId" type="id-ne"/>
+        <field name="ack" type="name"/>
+        <field name="functionName" type="name"/>
+        <field name="message" type="very-long"/>
+        <field name="createDatetime" type="date-time"/>
+        <prim-key field="productStoreId"/>
+        <prim-key field="createDatetime"/>
+        <relation type="one" fk-name="EBAY_ERROR_STR" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
 </entitymodel>

@@ -314,4 +314,7 @@
     <property key="EbayOpenListings">
         <value xml:lang="en">Open Listings</value>
     </property>
+    <property key="EbayErrorMessageList">
+        <value xml:lang="en">Error Messages List</value>
+    </property>
 </resource>

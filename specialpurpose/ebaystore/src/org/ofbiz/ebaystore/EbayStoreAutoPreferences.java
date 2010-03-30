@@ -871,6 +871,8 @@ public class EbayStoreAutoPreferences {
                                         if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
                                             String orderId = resp.getOrderID();
                                             Debug.log(":: new order id is = " + orderId);
+                                        } else {
+                                            EbayStoreHelper.createErrorLogMessage(dispatcher, productStoreId, resp.getAck().toString(), "Add order : runCombineOrders", resp.getMessage());
                                         }
                                     }
                                 }
@@ -1082,12 +1084,16 @@ public class EbayStoreAutoPreferences {
                                    tresp = (DeleteSellingManagerTemplateResponseType) tcall.execute(treq);
                                    if (tresp != null && "SUCCESS".equals(tresp.getAck().toString())) {
                                       result = ServiceUtil.returnSuccess();
+                                   } else {
+                                       EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), tresp.getAck().toString(), "Delete selling manager template : autoBlockItemsOutOfStock", tresp.getMessage());
                                    }
                                }
                            }
                        }
                     }
                     result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get selling manager inventory : autoBlockItemsOutOfStock", resp.getMessage());
                 }
                 result = ServiceUtil.returnSuccess();
             } catch (ApiException e) {

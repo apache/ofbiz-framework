@@ -20,6 +20,7 @@
 package org.ofbiz.ebaystore;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -688,9 +689,13 @@ public class EbayStoreHelper {
                             addResp = (AddOrderResponseType) addOrderCall.execute(addReq);
                             if (addResp != null && "SUCCESS".equals(addResp.getAck().toString())) {
                                 Debug.log("Upload tracking code to eBay success...");
+                            } else {
+                                createErrorLogMessage(dctx.getDispatcher(), productStoreId, addResp.getAck().toString(), "Update order : uploadTrackingInfoBackToEbay", addResp.getMessage());
                             }
                         }
                     }
+                } else {
+                    createErrorLogMessage(dctx.getDispatcher(), productStoreId, resp.getAck().toString(), "Get order : uploadTrackingInfoBackToEbay", resp.getMessage());
                 }
             }
         }
@@ -699,4 +704,20 @@ public class EbayStoreHelper {
     }
     return ServiceUtil.returnSuccess();
     }
+
+    public static void createErrorLogMessage(LocalDispatcher dispatcher, String productStoreId, String ack, String fuction, String errorMessage) {
+        if (!"".equals(productStoreId) && (!"".equals(errorMessage))) {
+            try {
+                Map<String, Object> newMap = FastMap.newInstance();
+                newMap.put("productStoreId", productStoreId);
+                newMap.put("ack", ack.toLowerCase());
+                newMap.put("functionName", fuction);
+                newMap.put("message", errorMessage);
+                newMap.put("createDatetime", UtilDateTime.nowTimestamp());
+                dispatcher.runSync("insertErrorMessagesFromEbay", newMap);
+            } catch (Exception ex) {
+                Debug.log("Error from create error log messages : "+ex.getMessage());
+            }
+        }
+     }
 }

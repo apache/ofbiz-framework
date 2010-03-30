@@ -70,6 +70,7 @@ public class EbayStoreOptions {
     public static String retrieveThemeColorSchemeByThemeId(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GetStoreOptionsRequestType req = null;
         GetStoreOptionsResponseType resp  = null;
         StoreThemeArrayType returnedBasicThemeArray = null;
@@ -126,6 +127,8 @@ public class EbayStoreOptions {
                         }
                         i++;
                     }
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(dispatcher, paramMap.get("productStoreId").toString(), resp.getAck().toString(), "GetStoreOptionsCall : retrieveThemeColorSchemeByThemeId", resp.getMessage());
                 }
             }
         } catch (ApiException e) {
