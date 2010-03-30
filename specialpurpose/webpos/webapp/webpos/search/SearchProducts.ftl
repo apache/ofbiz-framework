@@ -19,19 +19,19 @@ under the License.
 
 <form name="SearchProducts" method="post" action="<@ofbizUrl>AddItem</@ofbizUrl>">
     <div>
-        <input type="hidden" id="quantity" name="quantity" value="1">
-        <input type="hidden" id="add_product_id" name="add_product_id" value="${parameters.add_product_id?if_exists}">
+        <input type="hidden" id="quantity" name="quantity" value="1" />
+        <input type="hidden" id="add_product_id" name="add_product_id" value="${parameters.add_product_id?if_exists}" />
         <label for="productGoodIdentification"><b>&nbsp;${uiLabelMap.ProductGoodIdentification}</b></label>
-        <input type="text" id="productGoodIdentification" name="productGoodIdentification" size="40" maxlength="100">
+        <input type="text" id="productGoodIdentification" name="productGoodIdentification" size="40" maxlength="100" />
         <div id="productsIdent" class="autocomplete" style="display:none"></div>
-        <input type="submit" id="submitButton" name="submitButton" value="${uiLabelMap.OrderAddToCart}" onclick="ajaxSubmitFormUpdateAreas('SearchProducts', 'CartScreen, webpos/control/ShowCart,')">
+        <input type="submit" id="submitButton" name="submitButton" value="${uiLabelMap.OrderAddToCart}" onclick="ajaxSubmitFormUpdateAreas('SearchProducts', 'CartScreen, webpos/control/ShowCart,')" />
         <br />
         <label for="searchBy"><b>&nbsp;${uiLabelMap.WebPosSearchBy}</b></label>
         <select id="searchBy" name="searchBy">
-          <option value="productName" selected>${uiLabelMap.ProductProductName}</option>
+          <option value="productName" selected="selected">${uiLabelMap.ProductProductName}</option>
           <option value="productDescription">${uiLabelMap.ProductProductDescription}</option>
         </select>
-        <input type="text" id="productToSearch" name="productToSearch" size="40" maxlength="100">
+        <input type="text" id="productToSearch" name="productToSearch" size="40" maxlength="100"/>
         <div id="products" class="autocomplete" style="display:none"></div>
     </div>
 </form>

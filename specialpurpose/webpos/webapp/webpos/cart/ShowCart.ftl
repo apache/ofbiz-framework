@@ -58,18 +58,18 @@ under the License.
 <div class="pos-cart-scroll">
     <table class="basic-table" cellspacing="0">
         <tr class="header-row">
-            <td nowrap>&nbsp;</td>
-            <td nowrap><b>${uiLabelMap.OrderProduct}</b></td>
-            <td nowrap>&nbsp;</td>
-            <td nowrap align="center"><b>${uiLabelMap.CommonQuantity}</b></td>
-            <td nowrap align="right"><b>${uiLabelMap.WebPosUnitPrice}</b></td>
-            <td nowrap align="right"><b>${uiLabelMap.WebPosAdjustments}</b></td>
-            <td nowrap align="right"><b>${uiLabelMap.WebPosItemTotal}</b></td>
-            <td nowrap align="center"><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"></td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap"><b>${uiLabelMap.OrderProduct}</b></td>
+            <td nowrap="nowrap">&nbsp;</td>
+            <td nowrap="nowrap" align="center"><b>${uiLabelMap.CommonQuantity}</b></td>
+            <td nowrap="nowrap" align="right"><b>${uiLabelMap.WebPosUnitPrice}</b></td>
+            <td nowrap="nowrap" align="right"><b>${uiLabelMap.WebPosAdjustments}</b></td>
+            <td nowrap="nowrap" align="right"><b>${uiLabelMap.WebPosItemTotal}</b></td>
+            <td nowrap="nowrap" align="center"><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);" /></td>
         </tr>
         <#if (shoppingCartSize > 0)>
             <form method="post" action="<@ofbizUrl>ModifyCart</@ofbizUrl>" name="cartform">
-              <input type="hidden" name="removeSelected" value="false">
+              <input type="hidden" name="removeSelected" value="false" />
                 <#assign itemsFromList = false>
                 <#-- set initial row color -->
                 <#assign alt_row = false>
@@ -104,18 +104,18 @@ under the License.
                           </#if>
                         </div>
                     </td>
-                    <td nowrap align="right">
+                    <td nowrap="nowrap" align="right">
                         &nbsp;
                     </td>
-                    <td nowrap align="center">
+                    <td nowrap="nowrap" align="center">
                       <div>
-                        <input size="6" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}">
+                        <input size="6" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" />
                       </div>
                     </td>
-                    <td nowrap align="right"><div><@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency()/></div></td>
-                    <td nowrap align="right"><div><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></div></td>
-                    <td nowrap align="right"><div><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
-                    <td nowrap align="center"><div><#if !cartLine.getIsPromo()><input type="checkbox" name="selectedItem" value="${cartLineIndex}" onclick="javascript:checkToggle(this);"><#else>&nbsp;</#if></div></td>
+                    <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency()/></div></td>
+                    <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></div></td>
+                    <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
+                    <td nowrap="nowrap" align="center"><div><#if !cartLine.getIsPromo()><input type="checkbox" name="selectedItem" value="${cartLineIndex}" onclick="javascript:checkToggle(this);" /><#else>&nbsp;</#if></div></td>
                   </tr>
                   <#-- toggle the row color -->
                   <#assign alt_row = !alt_row>
