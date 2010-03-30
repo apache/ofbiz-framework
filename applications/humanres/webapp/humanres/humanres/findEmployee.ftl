@@ -64,11 +64,12 @@ under the License.
                 </tr>
                 <tr><td class="label">${uiLabelMap.PartyLastName}</td>
                     <td><input type="text" name="lastName" value="${parameters.lastName?if_exists}"/></td>
-                </tr><td class="label">${uiLabelMap.PartyFirstName}</td>
+                </tr>
+                <tr><td class="label">${uiLabelMap.PartyFirstName}</td>
                     <td><input type="text" name="firstName" value="${parameters.firstName?if_exists}"/></td>
                 </tr>
                 <tr><td><input type="hidden" name="groupName" value="${parameters.groupName?if_exists}"/></td></tr>
-                <tr><input type="hidden" name="roleTypeId" value="EMPLOYEE"/></tr>
+                <tr><td><input type="hidden" name="roleTypeId" value="EMPLOYEE"/></td></tr>
             <#if extInfo == "P">
                 <tr><td colspan="3"><hr /></td></tr><tr>
                     <td class="label">${uiLabelMap.CommonAddress1}</td>
@@ -116,7 +117,7 @@ under the License.
                 <tr><td colspan="3"><hr /></td></tr>
                 <tr align="center">
                     <td>&nbsp;</td>
-                    <td><input type="submit" value="${uiLabelMap.PartyLookupParty}" onClick="javascript:document.lookupparty.submit();"/>
+                    <td><input type="submit" value="${uiLabelMap.PartyLookupParty}" onclick="javascript:document.lookupparty.submit();"/>
                         <a href="<@ofbizUrl>findEmployees?roleTypeId=EMPLOYEE&amp;hideFields=Y&amp;lookupFlag=Y</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonShowAllRecords}</a>
                     </td>
                 </tr>
