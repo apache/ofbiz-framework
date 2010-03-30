@@ -839,6 +839,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListUnknownPartyComms" save-home-view="true"/>
     </request-map>
+    <request-map uri="FindCommunicationByOrder">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindCommunicationByOrder"/>
+    </request-map>
     <request-map uri="editRequestFromCommEvent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditRequestFromCommEvent" save-last-view="true"/>
@@ -1326,6 +1330,7 @@ under the License.
     <view-map name="PendingCommunications" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#PendingCommunications"/>
     <view-map name="ListPartyCommEvents" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListPartyCommEvents"/>
     <view-map name="ListUnknownPartyComms" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#ListUnknownPartyComms"/>
+    <view-map name="FindCommunicationByOrder" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#FindCommunicationByOrder"/>
     <view-map name="MyCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#PartyCommunicationEvents"/>
     <view-map name="FindCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#FindCommunicationEvents"/>
     <view-map name="EditCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#EditCommunicationEvent"/>

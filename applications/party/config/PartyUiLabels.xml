@@ -5467,6 +5467,9 @@
         <value xml:lang="th">ค้นหาผลการติดต่อ</value>
         <value xml:lang="zh">查找沟通事件</value>
     </property>
+    <property key="PartyFindCommunicationsByOrder">
+        <value xml:lang="en">Find Communications by Order</value>
+    </property>
     <property key="PartyFindParties">
         <value xml:lang="de">Akteure suchen</value>
         <value xml:lang="en">Find Parties</value>
