@@ -586,6 +586,9 @@
         <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.PartyEmailFromUnknownParties}">
             <link target="listUnknownPartyComms"/>
         </menu-item>
+        <menu-item name="FindCommunicationByOrder" title="${uiLabelMap.PartyFindCommunicationsByOrder}">
+            <link target="FindCommunicationByOrder"/>
+        </menu-item>
         <menu-item name="UpdateCommOrders" title="${uiLabelMap.OrderOrders}">
             <condition><not><if-empty field="communicationEvent"/></not></condition>
             <link target="UpdateCommOrders">

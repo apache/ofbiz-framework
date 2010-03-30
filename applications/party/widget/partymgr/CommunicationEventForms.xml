@@ -434,6 +434,57 @@ under the License.
         <field name="entryDate" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display type="date"/></field>
     </form>
+
+    <form name="FindCommunicationByOrder" type="single" target="FindCommunicationByOrder" paginate="true" focus-field-name="submitButton"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="orderId" position="1"><text-find/></field>
+        <field name="communicationEventId" position="1"><text-find/></field>
+        <field name="partyIdFrom" position="1" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo" position="2" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" position="1" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.PartyAnyRole}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="communicationEventTypeId" position="2">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/>
+            </drop-down>
+        </field>
+        <field name="statusId" position="2">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListCommunicationByOrder" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2">
+        <actions>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map from-field="parameters" field-name="inputFields"/>
+                <field-map from-field="entityName" field-name="entityName"/>
+                <field-map value="-entryDate" field-name="orderBy"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="orderId" title="${uiLabelMap.FormFieldTitle_orderId}">
+            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="inter-app"/>
+        </field>
+        <field name="communicationEventId">
+            <hyperlink description="${communicationEventId}" target="ViewCommunicationEvent">
+                <parameter param-name="communicationEventId"/>
+            </hyperlink>
+        </field>
+        <field name="subject">
+            <hyperlink description="${subject}" target="ViewCommunicationEvent">
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
+                <parameter param-name="roleTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
+    
     <form name="ListPartyCommEvents" type="list" target="RemoveCommunicationEventRole" list-name="listIt"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
