@@ -56,6 +56,12 @@ under the License.
         <override name="description" allow-html="safe"/>
     </service>
 
+    <service name="deleteCustRequest" engine="simple" default-entity-name="CustRequest"
+            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="deleteCustRequest" auth="true">
+        <description>Delete a custRequest record in draft status</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
     <service name="createCustRequestAttribute" engine="simple"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestAttribute" auth="true">
         <description>Create CustRequestAttribute record</description>

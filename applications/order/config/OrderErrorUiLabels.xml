@@ -19,10 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="CheckCustRequest">
-        <value xml:lang="en">Can't only update CustRequest, when status is in-process...is now: ${custRequest.statusId}</value>
-        <value xml:lang="pt_BR">Não se pode apenas atualizar CustRequest, quando o estado está "em processamento"... é agora: ${custRequest.statusId}</value>
-    </property>
     <property key="OrderAProductStoreMustBeSelectedForASalesOrder">
         <value xml:lang="en">A Product Store MUST be selected for a Sales Order. </value>
         <value xml:lang="es">Se debe seleccionar una tienda para un pedido de venta</value>
@@ -204,6 +200,13 @@
         <value xml:lang="ru">При обновлении корзины перехвачено исключение синтаксического разбора. </value>
         <value xml:lang="th">การอัพเดทบนบัตรพบว่ามีข้อยกเว้นการวิเคราะห์</value>
         <value xml:lang="zh">更新购物车时发生解析错误。 </value>
+    </property>
+    <property key="OrderCheckCustRequest">
+        <value xml:lang="en">Can only update customer request, when status is in-process...is now: ${custRequest.statusId}</value>
+        <value xml:lang="pt_BR">Não se pode apenas atualizar CustRequest, quando o estado está "em processamento"... é agora: ${custRequest.statusId}</value>
+    </property>
+    <property key="OrderCheckCustRequestDraftStatusForDelete">
+        <value xml:lang="en">Can only delete customer request in 'draft' status, status is now however: ${custRequest.statusId}</value>
     </property>
     <property key="OrderCouldNotFindOrderHeaderForOrderIdInGetProductStoreFromOrderReturningNull">
         <value xml:lang="en">Could not find OrderHeader for orderId [ ${orderId} ] in getProductStoreFromOrder, returning null</value>

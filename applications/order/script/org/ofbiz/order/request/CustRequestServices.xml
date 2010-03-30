@@ -101,6 +101,19 @@ under the License.
         
     </simple-method>
 
+    <simple-method method-name="deleteCustRequest" short-description="Delete a draft Customer Request with no relations yet">
+        <entity-one value-field="custRequest" entity-name="CustRequest"/>
+        <if-compare operator="not-equals" value="CRQ_DRAFT" field="custRequest.statusId">
+            <add-error ><fail-property resource="OrderErrorUiLabels" property="OrderCheckCustRequestDraftStatusForDelete"/></add-error>
+        </if-compare>
+        <check-errors/>
+        <!-- delete attached content/roles first -->
+        <remove-related relation-name="CustRequestContent" value-field="custRequest"/>
+        <remove-related relation-name="CustRequestParty" value-field="custRequest"/>
+        <remove-related relation-name="CustRequestStatus" value-field="custRequest"/>
+        <remove-value value-field="custRequest"/>
+    </simple-method>
+
     <simple-method method-name="updateCustRequest" short-description="Update Customer Request">
         <call-simple-method method-name="checkStatusCustRequest"/>
         <set field="oldStatusId" from-field="custRequest.statusId"/>
@@ -184,8 +197,8 @@ under the License.
                 </or>
             </condition>
             <then>       
-                <add-error><fail-property resource="OrderErrorUiLabels" property="CheckCustRequest"/></add-error>
-                <log level="info" message="Can't only update CustRequest, when status is in-process...is now: ${custRequest.statusId}"/>                    
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderCheckCustRequest"/></add-error>
+                <log level="info" message="Can only update CustRequest, when status is in-process...is now: ${custRequest.statusId}"/>                    
                 <check-errors/>
             </then>
         </if>
@@ -503,7 +516,7 @@ under the License.
     </simple-method>
 
     <!-- Create/Delete  CustRequest Content -->
-    <simple-method method-name="createCustRequestContent" short-description="Create Work Effort Content">
+    <simple-method method-name="createCustRequestContent" short-description="Create Customer request Content">
         <call-simple-method method-name="checkStatusCustRequest"/>        
         <make-value entity-name="CustRequestContent" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
