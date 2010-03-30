@@ -173,15 +173,15 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle()) || modelFormField.shouldBeRed(context)) {
             str.append("<span class=\"");
             str.append(modelFormField.getWidgetStyle());
+            // add a style of red if this is a date/time field and redWhen is true
+            if (modelFormField.shouldBeRed(context)) {
+            	str.append(" alert");
+            }
             str.append('"');
             if (UtilValidate.isNotEmpty(idName)) {
                 str.append(" id=\"");
                 str.append(idName);
                 str.append('"');
-            }
-            // add a style of red if this is a date/time field and redWhen is true
-            if (modelFormField.shouldBeRed(context)) {
-                str.append(" alert");
             }
             str.append('>');
         }

@@ -323,6 +323,16 @@ public class ModelMenu extends ModelWidget {
             //Debug.logInfo("in ModelMenu, buffer:" + buffer.toString(), module);
     }
 
+    public int renderedMenuItemCount(Map<String, Object> context)
+    {
+        int count = 0;    	
+        for (ModelMenuItem item : this.menuItemList) {
+            if (item.shouldBeRendered(context))
+            	count++;        	
+        }
+        return count;
+    }
+    
     public void renderSimpleMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         //Iterator menuItemIter = null;
         //Set alreadyRendered = new TreeSet();

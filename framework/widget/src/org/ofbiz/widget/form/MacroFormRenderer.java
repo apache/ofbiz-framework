@@ -1928,9 +1928,9 @@ public class MacroFormRenderer implements FormStringRenderer {
             if (lookupFieldFormName.indexOf('?') == -1) {
                 autoCompleterTarget = lookupFieldFormName + "?";
             } else {
-                autoCompleterTarget = lookupFieldFormName + "&amp;";
+                autoCompleterTarget = lookupFieldFormName + "&amp;amp;";
             }
-            autoCompleterTarget = autoCompleterTarget + "ajaxLookup=Y&amp;searchValueField=" + lookupField.getModelFormField().getParameterName(context);
+            autoCompleterTarget = autoCompleterTarget + "ajaxLookup=Y&amp;amp;searchValueField=" + lookupField.getModelFormField().getParameterName(context);
             updateAreas = FastList.newInstance();
             updateAreas.add(new ModelForm.UpdateArea("change", id, autoCompleterTarget));
         }
@@ -2690,6 +2690,9 @@ public class MacroFormRenderer implements FormStringRenderer {
         String queryString = UtilHttp.stripNamedParamsFromQueryString(str, paramName);
         String urlPath = UtilHttp.removeQueryStringFromTarget(targetService);
         String prepLinkText = UtilHttp.getQueryStringFromTarget(targetService);
+
+        queryString = UtilHttp.encodeAmpersands(queryString);
+
         if (prepLinkText == null) {
             prepLinkText = "";
         }
