@@ -356,8 +356,14 @@ public class CmsEvents {
                 }
             }
         }
-        if (hadContent) return HttpServletResponse.SC_GONE;
-        return HttpServletResponse.SC_NOT_FOUND;
+        int responseCode;
+        if (hadContent) {
+            responseCode = HttpServletResponse.SC_GONE;
+        } else {
+            responseCode = HttpServletResponse.SC_NOT_FOUND;
+        }
+        Debug.logWarning("Could not verify contentId [" + contentId + "] to webSiteId [" + webSiteId + "], returning code: " + responseCode, module);
+        return responseCode;
     }
 
     protected static int verifySubContent(Delegator delegator, String contentId, String contentIdFrom) throws GeneralException {
