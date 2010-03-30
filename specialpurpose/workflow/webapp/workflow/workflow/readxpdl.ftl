@@ -26,17 +26,17 @@ under the License.
     <table class="basic-table form-widget-table">
       <tr>
         <td class="label">${uiLabelMap.WorkflowXpdlFilenameOrUrl}</td>
-        <td><input name='XPDL_LOCATION' type="text" size='60' value='${parameters.XPDL_LOCATION?if_exists}'></td>
-        <td><span class="label">${uiLabelMap.WorkflowDataIsUrl}</span><input type="checkbox" name='XPDL_IS_URL'<#if parameters.XPDL_IS_URL?has_content> checked="checked"</#if>></td>
+        <td><input name='XPDL_LOCATION' type="text" size='60' value='${parameters.XPDL_LOCATION?if_exists}'/></td>
+        <td><span class="label">${uiLabelMap.WorkflowDataIsUrl}</span><input type="checkbox" name='XPDL_IS_URL'<#if parameters.XPDL_IS_URL?has_content> checked="checked"</#if>/></td>
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WorkflowImportUpdateToDB}</td>
-        <td><input type="checkbox" name='XPDL_IMPORT'></td>
+        <td><input type="checkbox" name='XPDL_IMPORT'/></td>
         <td>&nbsp;</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
-        <td><input type="submit" value='${uiLabelMap.CommonView}'></td>
+        <td><input type="submit" value='${uiLabelMap.CommonView}'/></td>
         <td>&nbsp;</td>
       </tr>
     </table>
