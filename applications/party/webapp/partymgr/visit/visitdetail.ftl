@@ -53,7 +53,7 @@ under the License.
         </tr>
         <tr>
           <td class="label">${uiLabelMap.PartyClient}</td>
-          <td><a href="http://ws.arin.net/cgi-bin/whois.pl?queryinput=${visit.clientIpAddress?if_exists}" target="_blank">${visit.clientIpAddress?if_exists}</a> / <a href="http://www.networksolutions.com/cgi-bin/whois/whois?STRING=${visit.clientHostName?if_exists}&SearchType=do" target="_blank">${visit.clientHostName?if_exists}</a></td>
+          <td><a href="http://ws.arin.net/cgi-bin/whois.pl?queryinput=${visit.clientIpAddress?if_exists}" target="_blank">${visit.clientIpAddress?if_exists}</a> / <a href="http://www.networksolutions.com/cgi-bin/whois/whois?STRING=${visit.clientHostName?if_exists}&amp;SearchType=do" target="_blank">${visit.clientHostName?if_exists}</a></td>
         </tr>
         <tr>
           <td class="label">${uiLabelMap.PartyClientUser}</td>
@@ -98,13 +98,13 @@ under the License.
         <div class="align-float">
           <span class="label">
             <#if 0 < viewIndex>
-              <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |
+              <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |
             </#if>
             <#if 0 < listSize>
               ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
             </#if>
             <#if highIndex < listSize>
-              | <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonNext}</a>
+              | <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonNext}</a>
             </#if>
           </span>
         </div>
@@ -154,13 +154,13 @@ under the License.
         <div class="align-float">
           <span class="label">
             <#if 0 < viewIndex>
-              <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |
+              <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonPrevious}</a> |
             </#if>
             <#if 0 < listSize>
               ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
             </#if>
             <#if highIndex < listSize>
-              | <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonNext}</a>
+              | <a href="<@ofbizUrl>visitdetail?visitId=${visitId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonNext}</a>
             </#if>
           </span>
         </div>
@@ -182,11 +182,11 @@ under the License.
             <tr>
               <th>${uiLabelMap.PartyPushURL}</th>
               <td>
-                <input type="hidden" name="followerSid" value="${visit.sessionId}">
-                <input type="hidden" name="visitId" value="${visit.visitId}">
-                <input type="text" name="pageUrl">
+                <input type="hidden" name="followerSid" value="${visit.sessionId}" />
+                <input type="hidden" name="visitId" value="${visit.visitId}" />
+                <input type="text" name="pageUrl" />
               </td>
-              <td><input type="submit" value="${uiLabelMap.CommonSubmit}"></td>
+              <td><input type="submit" value="${uiLabelMap.CommonSubmit}" /></td>
             </tr>
             <tr>
               <td colspan="3"><hr /></td>
@@ -196,11 +196,11 @@ under the License.
             <tr>
               <th>${uiLabelMap.PartyFollowSession}</th>
               <td>
-                <input type="hidden" name="followerSid" value="${visit.sessionId}">
-                <input type="hidden" name="visitId" value="${visit.visitId}">
-                <input type="text" name="followSid">
+                <input type="hidden" name="followerSid" value="${visit.sessionId}" />
+                <input type="hidden" name="visitId" value="${visit.visitId}" />
+                <input type="text" name="followSid" />
               </td>
-              <td><input type="submit" value="${uiLabelMap.CommonSubmit}"></td>
+              <td><input type="submit" value="${uiLabelMap.CommonSubmit}" /></td>
             </tr>
           </form>
         </table>

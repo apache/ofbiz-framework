@@ -67,7 +67,7 @@ under the License.
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="${uiLabelMap.PageTitleFindMatches}"></td>
+            <td><input type="submit" value="${uiLabelMap.PageTitleFindMatches}" /></td>
         </tr>
       </form>
       <#if match?has_content>

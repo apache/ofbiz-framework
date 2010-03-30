@@ -26,7 +26,7 @@ under the License.
     <#else>
       <h3>${uiLabelMap.AccountingEditCreditCard}</h3>
       <form method="post" action="<@ofbizUrl>updateCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform" style="margin: 0;">
-        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}">
+        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}" />
     </#if>
   </div>
   <div class="screenlet-body">
@@ -52,7 +52,7 @@ under the License.
               <#assign hasCurrent = true>
               <tr>
                 <td class="button-col">
-                  <input type="radio" name="contactMechId" value="${curContactMechId}" checked>
+                  <input type="radio" name="contactMechId" value="${curContactMechId}" checked="checked" />
                 </td>
                 <td>
                   <p><b>${uiLabelMap.PartyUseCurrentAddress}:</b></p>
@@ -96,7 +96,7 @@ under the License.
                 <#assign partyContactMech = postalAddressInfo.partyContactMech>
                 <tr>
                   <td class="button-col">
-                    <input type="radio" name="contactMechId" value="${contactMech.contactMechId}">
+                    <input type="radio" name="contactMechId" value="${contactMech.contactMechId}" />
                   </td>
                   <td>
                     <#list partyContactMechPurposes as partyContactMechPurpose>
@@ -123,7 +123,7 @@ under the License.
               <#-- not yet supported in party manager
               <tr>
                 <td align="right" valigh="top" width="1%">
-                  <input type="radio" name="contactMechId" value="_NEW_" <#if !hasCurrent>checked</#if>>
+                  <input type="radio" name="contactMechId" value="_NEW_" <#if !hasCurrent>checked="checked"</#if> />
                 </td>
                 <td valign="middle" width="80%">
                   ${uiLabelMap.PartyCreateNewBillingAddress}.
