@@ -29,18 +29,18 @@ under the License.
             <link id="contentfind" target="CMSContentFind"/>
         </menu-item>
         <menu-item name="subsites" title="${uiLabelMap.ContentSubSites}" >
-            <link id="dflt" target="CMSSites">
+            <link id="sites" target="CMSSites">
                 <parameter param-name="forumId" from-field="subsites.forumId"/>
             </link>
         </menu-item>
 
         <menu-item name="index" title="${uiLabelMap.ContentIndex}" >
-            <link id="dflt" target="AdminIndex">
+            <link id="index" target="AdminIndex">
             </link>
         </menu-item>
 
         <menu-item name="search" title="${uiLabelMap.CommonFind}" >
-            <link id="dflt" target="AdminSearch">
+            <link id="search" target="AdminSearch">
             </link>
         </menu-item>
 

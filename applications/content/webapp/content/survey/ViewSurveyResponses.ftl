@@ -34,7 +34,7 @@ under the License.
           <#else>
 
             <#-- standard questions -->
-            <td align='right' nowrap class="label">
+            <td align='right' nowrap="nowrap" class="label">
               <#assign answerString = "${uiLabelMap.ContentAnswers}">
               <#if (results._total?default(0) == 1)>
                 <#assign answerString = "${uiLabelMap.ContentAnswer}">

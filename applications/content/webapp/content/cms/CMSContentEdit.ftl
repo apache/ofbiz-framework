@@ -55,9 +55,9 @@ ${menuWrapper.renderMenuString()}
 <#-- ============================================================= -->
 
 <br />
-<TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <TR>
-    <TD width='100%'>
+<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
           <td valign="middle">
@@ -65,10 +65,10 @@ ${menuWrapper.renderMenuString()}
           </td>
         </tr>
       </table>
-    </TD>
-  </TR>
-  <TR>
-    <TD width='100%'>
+    </td>
+  </tr>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
@@ -92,14 +92,14 @@ ${menuWrapper.renderMenuString()}
         </tr>
 
       </table>
-    </TD>
-  </TR>
-</TABLE>
+    </td>
+  </tr>
+</table>
 
 <br />
-<TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <TR>
-    <TD width='100%'>
+<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
           <td valign="middle">
@@ -107,10 +107,10 @@ ${menuWrapper.renderMenuString()}
           </td>
         </tr>
       </table>
-    </TD>
-  </TR>
-  <TR>
-    <TD width='100%'>
+    </td>
+  </tr>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
@@ -166,14 +166,14 @@ ${menuWrapper.renderMenuString()}
         </tr>
 
       </table>
-    </TD>
-  </TR>
-</TABLE>
+    </td>
+  </tr>
+</table>
 
 <#--
-<TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <TR>
-    <TD width='100%'>
+<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
           <td valign="middle">
@@ -184,24 +184,24 @@ ${menuWrapper.renderMenuString()}
           </td>
         </tr>
       </table>
-    </TD>
-  </TR>
-  <TR>
-    <TD width='100%'>
+    </td>
+  </tr>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>Image</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
+    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Image</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
         <img src="<@ofbizUrl>img?imgId=${imgDataResourceId?if_exists}</@ofbizUrl>" />
 <div></td></tr>
   </table>
           </td>
         </tr>
       </table>
-    </TD>
-  </TR>
-</TABLE>
+    </td>
+  </tr>
+</table>
 -->
 
 
@@ -232,42 +232,42 @@ ${menuWrapper.renderMenuString()}
 
 <#macro renderTextData content textData >
     <#assign contentId=content.contentId?if_exists/>
-<TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <TR>
-    <TD width='100%'>
+<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
           <td valign="middle">
             <div class="boxhead">&nbsp;</div>
           </td>
           <td valign="middle" align="right">
-            <a href="<@ofbizUrl>EditAddContent?contentId=${content.contentId?if_exists}&contentIdTo=${content.caContentIdTo?if_exists}&contentAssocTypeId=${content.caContentAssocTypeId?if_exists}&fromDate=${content.caFromDate?if_exists}&mapKey=${content.caMapKey?if_exists}</@ofbizUrl>" class="submenutextright">Update</a>
+            <a href="<@ofbizUrl>EditAddContent?contentId=${content.contentId?if_exists}&amp;contentIdTo=${content.caContentIdTo?if_exists}&amp;contentAssocTypeId=${content.caContentAssocTypeId?if_exists}&amp;fromDate=${content.caFromDate?if_exists}&amp;mapKey=${content.caMapKey?if_exists}</@ofbizUrl>" class="submenutextright">Update</a>
           </td>
         </tr>
       </table>
-    </TD>
-  </TR>
-  <TR>
-    <TD width='100%'>
+    </td>
+  </tr>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>Content Name</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.contentName?if_exists}</div></td></tr>
-    <tr><td align="right" nowrap><div class='tabletext'><b>Description</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.description?if_exists}<div></td></tr>
+    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Content Name</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.contentName?if_exists}</div></td></tr>
+    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Description</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.description?if_exists}<div></td></tr>
   </table>
           </td>
         </tr>
       </table>
-    </TD>
-  </TR>
-  <TR>
-    <TD width='100%'>
+    </td>
+  </tr>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b></b></div></td><td>&nbsp;</td><td><div class='tabletext'>
+    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b></b></div></td><td>&nbsp;</td><td><div class='tabletext'>
 <#-- ${textData?if_exists} -->
 <@renderContentAsText subContentId=content.contentId  editRequestName="/EditAddContent"/>
 <div></td></tr>
@@ -275,9 +275,9 @@ ${menuWrapper.renderMenuString()}
           </td>
         </tr>
       </table>
-    </TD>
-  </TR>
-</TABLE>
+    </td>
+  </tr>
+</table>
 </#macro>
 
 <#macro publishContent forumId contentId formAction="/updatePublishLinksMulti"  indentIndex=0 catTrail=[]>
