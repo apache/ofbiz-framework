@@ -29,8 +29,8 @@ under the License.
           <td valign="middle">
             <div>
               <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}"/>&nbsp;
-              ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked</#if>/>
-              ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked</#if>/>
+              ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/>
+              ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/>
             </div>
           </td>
         </tr>
@@ -52,8 +52,8 @@ under the License.
           </td>
         </tr>
         <tr>
-          <td align="right" valign="middle" nowrap class="label">${uiLabelMap.FormFieldTitle_workEffortAssocTypeId}</td>
-          <td valign="middle" nowrap>
+          <td align="right" valign="middle" nowrap="nowrap" class="label">${uiLabelMap.FormFieldTitle_workEffortAssocTypeId}</td>
+          <td valign="middle" nowrap="nowrap">
             <div>
               <select name="workEffortAssocTypeId">
                 <option value="">- ${uiLabelMap.WorkEffortAnyAssocType} -</option>
@@ -62,7 +62,7 @@ under the License.
                   </#list>
                   </select>
                   ${uiLabelMap.WorkEffortIncludeAllSubWorkEfforts}?
-                  ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_WORK_EFFORTS" value="Y" checked/>
+                  ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_WORK_EFFORTS" value="Y" checked="checked"/>
                   ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_WORK_EFFORTS" value="N"/>
             </div>
           </td>
@@ -112,14 +112,14 @@ under the License.
           <td>
             <table class="basic-table" cellspacing="0">
                <tr>
-                  <td nowrap>
+                  <td nowrap="nowrap">
                     <input type='text' size='25' name='fromDate' value='${requestParameters.fromDate?if_exists}'/>
                       <a href="javascript:call_cal(document.advToKeyWordSearchForm.fromDate,'${fromDateStr}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
                         <span>${uiLabelMap.CommonFrom}</span>
                   </td>
                </tr>
                <tr>
-                  <td nowrap>
+                  <td nowrap="nowrap">
                     <input type='text' size='25' name='thruDate' value='${requestParameters.thruDate?if_exists}'/>
                     <a href="javascript:call_cal(document.advToKeyWordSearchForm.thruDate,'${thruDateStr}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
                     <span>${uiLabelMap.CommonThru}</span>
@@ -136,7 +136,7 @@ under the License.
                 <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevancy}</option>
                 <option value="SortWorkEffortField:workEffortName">${uiLabelMap.WorkEffortName}</option>
               </select>
-              ${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked/>
+              ${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked="checked"/>
               ${uiLabelMap.ProductHighToLow}<input type="radio" name="sortAscending" value="N"/>
             </div>
           </td>
@@ -150,7 +150,7 @@ under the License.
                 </#list>
                 <div class="label">${uiLabelMap.CommonSortedBy} ${searchSortOrderString}</div>
                 <div>
-                  ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked/>
+                  ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked"/>
                   ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N"/>
                 </div>
             </td>

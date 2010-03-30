@@ -28,7 +28,7 @@ under the License.
   </a>
   &nbsp;${workEffort.workEffortName?default("Undefined")}<#if workEffort.reservPersons?exists>&nbsp;Persons:${workEffort.reservPersons}</#if>
 <#else>
-  <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&parentTypeId=${parentTypeId?if_exists}&period=${periodType?if_exists}&start=${parameters.start?if_exists}&workEffortId=${workEffort.workEffortId}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>" class="event">
+  <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&amp;parentTypeId=${parentTypeId?if_exists}&amp;period=${periodType?if_exists}&amp;start=${parameters.start?if_exists}&amp;workEffortId=${workEffort.workEffortId}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>" class="event">
     ${workEffort.workEffortId}
   </a>
   &nbsp;${workEffort.workEffortName?default("")}
