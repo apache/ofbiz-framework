@@ -229,6 +229,9 @@ under the License.
                 <set field="periodType" value="${groovy: request.getAttribute('periodType');}"/>
                 <set field="workEffortId" value="${groovy: request.getAttribute('workEffortId');}"/>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <get-related-one value-field="workEffort" relation-name="ParentWorkEffort" to-value-field="parentWorkEffort"/>
+                <get-related value-field="workEffort" relation-name="WorkOrderItemFulfillment" list="workOrderItemFulfillments"/>
+                <get-related value-field="parentWorkEffort" relation-name="WorkOrderItemFulfillment" list="parentWorkOrderItemFulfillments"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://workeffort/webapp/workeffort/calendar/calendarEventContent.ftl"/></html></platform-specific>
