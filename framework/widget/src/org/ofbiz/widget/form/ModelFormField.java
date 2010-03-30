@@ -2252,6 +2252,7 @@ public class ModelFormField {
         protected FlexibleStringExpander target;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander alternate;
+        protected FlexibleStringExpander imageTitle;
         protected FlexibleStringExpander targetWindowExdr;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
 
@@ -2274,6 +2275,7 @@ public class ModelFormField {
 
             this.setDescription(element.getAttribute("description"));
             this.setAlternate(element.getAttribute("alternate"));
+            this.setImageTitle(element.getAttribute("image-title"));
             this.setTarget(element.getAttribute("target"));
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
             this.linkType = element.getAttribute("link-type");
@@ -2343,6 +2345,10 @@ public class ModelFormField {
             return this.alternate.expandString(context);
         }
 
+        public String getImageTitle(Map<String, Object> context) {
+            return this.imageTitle.expandString(context);
+        }
+
         public String getTarget(Map<String, Object> context) {
             return this.target.expandString(context);
         }
@@ -2374,6 +2380,13 @@ public class ModelFormField {
          */
         public void setDescription(String string) {
             this.description = FlexibleStringExpander.getInstance(string);
+        }
+
+        /**
+         * @param string
+         */
+        public void setImageTitle(String string) {
+            this.imageTitle = FlexibleStringExpander.getInstance(string);
         }
 
         /**
