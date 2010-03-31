@@ -81,7 +81,7 @@ public class ComparableRange<T extends Comparable<T>> implements Range<T>, Compa
         if (this == range) {
             return 0;
         }
-        return (this.start.equals(range.start)? this.end.compareTo(range.end()): this.start.compareTo(range.start()));
+        return this.start.equals(range.start) ? this.end.compareTo(range.end()) : this.start.compareTo(range.start());
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ComparableRange<T extends Comparable<T>> implements Range<T>, Compa
         if (this.isPoint) {
             return value.equals(this.start);
         }
-        return (value.compareTo(this.start) >= 0 && value.compareTo(this.end) <= 0);
+        return value.compareTo(this.start) >= 0 && value.compareTo(this.end) <= 0;
     }
 
     @Override
