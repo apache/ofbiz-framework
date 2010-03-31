@@ -453,7 +453,7 @@ public class UtilCache<K, V> implements Serializable {
     /** Returns the current maximum number of elements in the cache
      * @return The maximum number of elements in the cache
      */
-    public long getMaxSize() {
+    public int getMaxSize() {
         return maxSize;
     }
 
