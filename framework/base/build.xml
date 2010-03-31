@@ -48,6 +48,7 @@ under the License.
         <file name="org/ofbiz/base/util/string/test/FlexibleStringExpanderTests.java"/>
         <file name="org/ofbiz/base/util/collections/test/FlexibleMapAccessorTests.java"/>
         <file name="org/ofbiz/base/util/test/TimeDurationTests.java"/>
+        <file name="org/ofbiz/base/util/cache/test/UtilCacheTests.java"/>
         <file name="org/ofbiz/base/json/test/JSONTests.java"/>
         <file name="org/ofbiz/base/conversion/test/DateTimeTests.java"/>
         <file name="org/ofbiz/base/conversion/test/MiscTests.java"/>
