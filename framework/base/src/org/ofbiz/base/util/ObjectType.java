@@ -33,7 +33,7 @@ import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.conversion.LocalizedConverter;
-import org.ofbiz.base.lang.SourceMonitor;
+import org.ofbiz.base.lang.SourceMonitored;
 import org.w3c.dom.Node;
 
 /**
@@ -471,7 +471,7 @@ public class ObjectType {
      * @return the converted value
      * @throws GeneralException
      */
-    @SourceMonitor("Adam Heath")
+    @SourceMonitored
     @SuppressWarnings("unchecked")
     public static Object simpleTypeConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
         if (obj == null) {

@@ -28,13 +28,13 @@ import java.util.Iterator;
 import java.util.ServiceLoader;
 
 import org.ofbiz.base.lang.Factory;
-import org.ofbiz.base.lang.SourceMonitor;
+import org.ofbiz.base.lang.SourceMonitored;
 
 /**
  * UtilObject
  *
  */
-@SourceMonitor("Adam Heath")
+@SourceMonitored
 public final class UtilObject {
     private UtilObject() {
     }

@@ -22,9 +22,9 @@ import java.io.IOException;
 import java.io.FilterWriter;
 import java.io.Writer;
 
-import org.ofbiz.base.lang.SourceMonitor;
+import org.ofbiz.base.lang.SourceMonitored;
 
-@SourceMonitor("Adam Heath")
+@SourceMonitored
 public class IndentingWriter extends FilterWriter {
     protected final StringBuilder indent = new StringBuilder();
     protected final boolean doSpace;

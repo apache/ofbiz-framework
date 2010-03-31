@@ -21,9 +21,9 @@ package org.ofbiz.base.concurrent.test;
 import org.ofbiz.base.concurrent.GeneratedResult;
 import org.ofbiz.base.concurrent.TTLCachedObject;
 import org.ofbiz.base.concurrent.TTLObject;
-import org.ofbiz.base.lang.SourceMonitor;
+import org.ofbiz.base.lang.SourceMonitored;
 
-@SourceMonitor("Adam Heath")
+@SourceMonitored
 public class TTLCachedObjectTest extends TTLObjectTest {
     static {
         TTLObject.setDefaultTTLForClass(TTLCachedObjectTestTTLObject.class, 100);

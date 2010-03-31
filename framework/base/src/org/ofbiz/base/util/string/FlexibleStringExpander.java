@@ -27,7 +27,7 @@ import java.util.TimeZone;
 
 import javax.el.PropertyNotFoundException;
 
-import org.ofbiz.base.lang.SourceMonitor;
+import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GroovyUtil;
@@ -50,7 +50,7 @@ import bsh.EvalError;
  * and specified (XXX) currency.<p>This class extends the UEL by allowing
  * nested expressions.</p>
  */
-@SourceMonitor("Adam Heath")
+@SourceMonitored
 @SuppressWarnings("serial")
 public abstract class FlexibleStringExpander implements Serializable {
 
