@@ -200,7 +200,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         assertUtilCacheSettings(UtilCache.createUtilCache(name, 12, 8, 22000, false, true, "c", "d"), 12, 8, 22000L, Boolean.FALSE, Boolean.TRUE);
     }
 
-    public <K, V> void assertKey(String label, UtilCache<K, V> cache, K key, V value, V other, int size, Map<K, V> map) {
+    public static <K, V> void assertKey(String label, UtilCache<K, V> cache, K key, V value, V other, int size, Map<K, V> map) {
         assertNull(label + ":get-empty", cache.get(key));
         assertFalse(label + ":containsKey-empty", cache.containsKey(key));
         V oldValue = cache.put(key, other);
@@ -218,7 +218,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         assertEquals(label + ":map-values", map.values(), cache.values());
     }
 
-    private <K, V> void assertHasSingleKey(UtilCache<K, V> cache, K key, V value) {
+    private static <K, V> void assertHasSingleKey(UtilCache<K, V> cache, K key, V value) {
         assertFalse("is-empty", cache.isEmpty());
         assertEquals("size", 1, cache.size());
         assertTrue("found", cache.containsKey(key));
@@ -229,7 +229,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         assertEquals("values", UtilMisc.toList(value), cache.values());
     }
 
-    private <K, V> void assertNoSingleKey(UtilCache<K, V> cache, K key) {
+    private static <K, V> void assertNoSingleKey(UtilCache<K, V> cache, K key) {
         assertFalse("not-found", cache.containsKey(key));
         assertFalse("validKey", UtilCache.validKey(cache.getName(), key));
         assertNull("no-get", cache.get(key));
@@ -240,8 +240,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         assertEquals("values", Collections.emptyList(), cache.values());
     }
 
-    public void testBasicDisk() throws Exception {
-        UtilCache<String, String> cache = createUtilCache(0, 0, 0, false, true);
+    private static void basicTest(UtilCache<String, String> cache) throws Exception {
         Listener<String, String> gotListener = createListener(cache);
         Listener<String, String> wantedListener = new Listener<String, String>();
         for (int i = 0; i < 2; i++) {
@@ -313,77 +312,14 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         cache.clear();
     }
 
+    public void testBasicDisk() throws Exception {
+        UtilCache<String, String> cache = createUtilCache(5, 0, 0, false, true);
+        basicTest(cache);
+    }
+
     public void testSimple() throws Exception {
         UtilCache<String, String> cache = createUtilCache(5, 0, 0, false, false);
-        Listener<String, String> gotListener = createListener(cache);
-        Listener<String, String> wantedListener = new Listener<String, String>();
-        for (int i = 0; i < 2; i++) {
-            assertTrue("UtilCacheTable.keySet", UtilCache.getUtilCacheTableKeySet().contains(cache.getName()));
-            assertSame("UtilCache.findCache", cache, UtilCache.findCache(cache.getName()));
-            assertSame("UtilCache.getOrCreateUtilCache", cache, UtilCache.getOrCreateUtilCache(cache.getName(), cache.getMaxSize(), cache.getMaxInMemory(), cache.getExpireTime(), cache.getUseSoftReference(), cache.getUseFileSystemStore()));
-
-            assertNoSingleKey(cache, "one");
-            long origByteSize = cache.getSizeInBytes();
-
-            wantedListener.noteKeyAddition(cache, null, "null");
-            assertNull("put", cache.put(null, "null"));
-            assertHasSingleKey(cache, null, "null");
-            long nullByteSize = cache.getSizeInBytes();
-            assertThat(nullByteSize, greaterThan(origByteSize));
-
-            wantedListener.noteKeyRemoval(cache, null, "null");
-            assertEquals("remove", "null", cache.remove(null));
-            assertNoSingleKey(cache, null);
-
-            wantedListener.noteKeyAddition(cache, "one", "uno");
-            assertNull("put", cache.put("one", "uno"));
-            assertHasSingleKey(cache, "one", "uno");
-            long unoByteSize = cache.getSizeInBytes();
-            assertThat(unoByteSize, greaterThan(origByteSize));
-
-            wantedListener.noteKeyUpdate(cache, "one", "single", "uno");
-            assertEquals("replace", "uno", cache.put("one", "single"));
-            assertHasSingleKey(cache, "one", "single");
-            long singleByteSize = cache.getSizeInBytes();
-            assertThat(singleByteSize, greaterThan(origByteSize));
-            assertThat(singleByteSize, greaterThan(unoByteSize));
-
-            wantedListener.noteKeyRemoval(cache, "one", "single");
-            assertEquals("remove", "single", cache.remove("one"));
-            assertNoSingleKey(cache, "one");
-            assertEquals("byteSize", origByteSize, cache.getSizeInBytes());
-
-            wantedListener.noteKeyAddition(cache, "one", "uno");
-            assertNull("put", cache.put("one", "uno"));
-            assertHasSingleKey(cache, "one", "uno");
-
-            wantedListener.noteKeyUpdate(cache, "one", "only", "uno");
-            assertEquals("replace", "uno", cache.put("one", "only"));
-            assertHasSingleKey(cache, "one", "only");
-
-            wantedListener.noteKeyRemoval(cache, "one", "only");
-            assertEquals("remove", "only", cache.remove("one"));
-            assertNoSingleKey(cache, "one");
-            assertEquals("byteSize", origByteSize, cache.getSizeInBytes());
-
-            cache.setExpireTime(100);
-            wantedListener.noteKeyAddition(cache, "one", "uno");
-            assertNull("put", cache.put("one", "uno"));
-            assertHasSingleKey(cache, "one", "uno");
-
-            wantedListener.noteKeyRemoval(cache, "one", "uno");
-            Thread.sleep(200);
-            assertNoSingleKey(cache, "one");
-        }
-
-        assertEquals("get-miss", 10, cache.getMissCountNotFound());
-        assertEquals("get-miss-total", 10, cache.getMissCountTotal());
-        assertEquals("get-hit", 24, cache.getHitCount());
-        assertEquals("remove-hit", 6, cache.getRemoveHitCount());
-        assertEquals("remove-miss", 10, cache.getRemoveMissCount());
-        cache.removeListener(gotListener);
-        assertEquals("listener", wantedListener, gotListener);
-        cache.clear();
+        basicTest(cache);
     }
 
     public void testChangeSize() throws Exception {
