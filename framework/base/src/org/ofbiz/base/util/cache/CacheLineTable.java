@@ -77,14 +77,9 @@ public class CacheLineTable<K, V> implements Serializable {
             }
             if (CacheLineTable.jdbmMgr != null) {
                 try {
-                    long recno = CacheLineTable.jdbmMgr.getNamedObject(cacheName);
-                    if (recno != 0) {
-                        this.fileTable = jdbm.htree.HTree.load(CacheLineTable.jdbmMgr, recno);
-                    } else {
-                        this.fileTable = jdbm.htree.HTree.createInstance(CacheLineTable.jdbmMgr);
-                        CacheLineTable.jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
-                        CacheLineTable.jdbmMgr.commit();
-                    }
+                    this.fileTable = jdbm.htree.HTree.createInstance(CacheLineTable.jdbmMgr);
+                    CacheLineTable.jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
+                    CacheLineTable.jdbmMgr.commit();
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
