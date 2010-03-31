@@ -22,6 +22,9 @@ import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.lang.ComparableRange;
 import org.ofbiz.base.lang.SourceMonitored;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 @SourceMonitored
 public class ComparableRangeTests extends GenericTestCaseBase {
 
@@ -67,16 +70,34 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         assertFalse(label + ":c-d isPoint", second.isPoint());
         assertFalse(label + ":a-d isPoint", all.isPoint());
         assertEquals(label + ":a-b == a-b", first, first);
+        assertEquals(label + ":a-b.compareTo(a-b)", 0, first.compareTo(first));
         assertEquals(label + ":a-b equals a-b", first, new ComparableRange<T>(a, b));
+        assertEquals(label + ":a-b.compareTo(new a-b)", 0, first.compareTo(new ComparableRange<T>(a, b)));
         assertEquals(label + ":a-b equals b-a", first, new ComparableRange<T>(b, a));
+        assertEquals(label + ":a-b.compareTo(new b-a)", 0, first.compareTo(new ComparableRange<T>(b, a)));
         assertNotEquals(label + ":a-b not-equal other", first, ComparableRangeTests.class);
+        ClassCastException caught = null;
+        try {
+            ((Comparable) first).compareTo(ComparableRangeTests.class);
+        } catch (ClassCastException e) {
+            caught = e;
+        } finally {
+            assertNotNull(label + " compareTo CCE", caught);
+        }
         assertNotEquals(label + ":a-a != a-b", new ComparableRange<T>(a, a), first);
+        assertThat(label + ":a-a.compareTo(a-b) < 0", 0, greaterThan(new ComparableRange<T>(a, a).compareTo(first)));
         assertNotEquals(label + ":a-a != c-d", new ComparableRange<T>(a, a), second);
+        assertThat(label + ":a-a.compareTo(c-d) < 0", 0, greaterThan(new ComparableRange<T>(a, a).compareTo(second)));
         assertNotEquals(label + ":a-a != a-d", new ComparableRange<T>(a, a), all);
+        assertThat(label + ":a-a.compareTo(a-d) < 0", 0, greaterThan(new ComparableRange<T>(a, a).compareTo(all)));
         assertTrue(label + ":b-c after a-b", second.after(first));
+        assertThat(label + ":b-c.compareTo(a-b)", 0, lessThan(second.compareTo(first)));
         assertFalse(label + ":c-d !after c-d", second.after(second));
+        assertEquals(label + ":c-d.compareTo(c-d)", 0, second.compareTo(second));
         assertTrue(label + ":a-b before c-d", first.before(second));
+        assertThat(label + ":a-b.compareTo(c-d)", 0, greaterThan(first.compareTo(second)));
         assertFalse(label + ":a-b !before a-b", first.before(first));
+        assertEquals(label + ":a-b.compareTo(a-b)", 0, first.compareTo(first));
         assertTrue(label + ":a-d includes a-b", all.includes(first));
         assertTrue(label + ":a-b overlaps b-c", first.overlaps(new ComparableRange<T>(b, c)));
         assertTrue(label + ":b-c overlaps c-d", new ComparableRange<T>(b, c).overlaps(second));
