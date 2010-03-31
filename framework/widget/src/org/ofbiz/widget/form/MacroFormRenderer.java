@@ -2691,7 +2691,9 @@ public class MacroFormRenderer implements FormStringRenderer {
         String urlPath = UtilHttp.removeQueryStringFromTarget(targetService);
         String prepLinkText = UtilHttp.getQueryStringFromTarget(targetService);
 
-        queryString = UtilHttp.encodeAmpersands(queryString);
+        if (UtilValidate.isNotEmpty(queryString)) {
+            queryString = UtilHttp.encodeAmpersands(queryString);
+        }
 
         if (prepLinkText == null) {
             prepLinkText = "";
