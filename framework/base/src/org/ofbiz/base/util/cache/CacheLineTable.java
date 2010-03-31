@@ -133,7 +133,7 @@ public class CacheLineTable<K, V> implements Serializable {
         }
         if (fileTable != null) {
             try {
-                if (oldValue == null) oldValue = getFileTable(key);
+                if (oldValue == null) oldValue = getFileTable(key != null ? key : ObjectType.NULL);
                 fileTable.put(key != null ? key : ObjectType.NULL, value);
                 CacheLineTable.jdbmMgr.commit();
             } catch (IOException e) {

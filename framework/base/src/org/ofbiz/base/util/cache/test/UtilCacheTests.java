@@ -252,7 +252,6 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             assertNoSingleKey(cache, "one");
             long origByteSize = cache.getSizeInBytes();
 
-            /*
             wantedListener.noteKeyAddition(cache, null, "null");
             assertNull("put", cache.put(null, "null"));
             assertHasSingleKey(cache, null, "null");
@@ -262,7 +261,6 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             wantedListener.noteKeyRemoval(cache, null, "null");
             assertEquals("remove", "null", cache.remove(null));
             assertNoSingleKey(cache, null);
-            */
 
             wantedListener.noteKeyAddition(cache, "one", "uno");
             assertNull("put", cache.put("one", "uno"));
@@ -305,11 +303,11 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             assertNoSingleKey(cache, "one");
         }
 
-        assertEquals("get-miss", 8, cache.getMissCountNotFound());
-        assertEquals("get-miss-total", 8, cache.getMissCountTotal());
-        assertEquals("get-hit", 20, cache.getHitCount());
-        assertEquals("remove-hit", 4, cache.getRemoveHitCount());
-        assertEquals("remove-miss", 8, cache.getRemoveMissCount());
+        assertEquals("get-miss", 10, cache.getMissCountNotFound());
+        assertEquals("get-miss-total", 10, cache.getMissCountTotal());
+        assertEquals("get-hit", 24, cache.getHitCount());
+        assertEquals("remove-hit", 6, cache.getRemoveHitCount());
+        assertEquals("remove-miss", 10, cache.getRemoveMissCount());
         cache.removeListener(gotListener);
         assertEquals("listener", wantedListener, gotListener);
         cache.clear();
