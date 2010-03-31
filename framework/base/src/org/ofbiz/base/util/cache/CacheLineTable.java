@@ -63,7 +63,12 @@ public class CacheLineTable<K, V> implements Serializable {
                     if (CacheLineTable.jdbmMgr == null) {
                         try {
                             Debug.logImportant("Creating file system cache store for cache with name: " + cacheName, module);
-                            CacheLineTable.jdbmMgr = new JdbmRecordManager(fileStore);
+                            String ofbizHome = System.getProperty("ofbiz.home");
+                            if (ofbizHome == null) {
+                                Debug.logError("No ofbiz.home property set in environment", module);
+                            } else {
+                                CacheLineTable.jdbmMgr = new JdbmRecordManager(ofbizHome + "/" + fileStore);
+                            }
                         } catch (IOException e) {
                             Debug.logError(e, "Error creating file system cache store for cache with name: " + cacheName, module);
                         }
