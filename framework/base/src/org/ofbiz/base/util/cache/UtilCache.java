@@ -457,6 +457,10 @@ public class UtilCache<K, V> implements Serializable {
         return maxSize;
     }
 
+    public int getMaxInMemory() {
+        return maxInMemory;
+    }
+
     /** Sets the expire time for the cache elements.
      * If 0, elements never expire.
      * @param expireTime The expire time for the cache elements
