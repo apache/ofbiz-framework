@@ -1034,7 +1034,7 @@ under the License.
         <relation type="one" fk-name="FACILITY_GEOPT" rel-entity-name="GeoPoint">
           <key-map field-name="geoPointId"/>
         </relation>
-      <relation type="one" fk-name="FACILITY_SUOM" title="Size" rel-entity-name="Uom">
+      <relation type="one" fk-name="FACILITY_SUOM" title="FacilitySize" rel-entity-name="Uom">
         <key-map field-name="facilitySizeUomId" rel-field-name="uomId"/>
       </relation>      
     </entity>
