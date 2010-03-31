@@ -72,7 +72,7 @@ public class ComparableRange<T extends Comparable<T>> implements Range<T>, Compa
         }
         try {
             ComparableRange that = (ComparableRange) obj;
-            return this.start.equals(that.start) && this.end.equals(that.end);
+            return this.start.equals(that.start()) && this.end.equals(that.end());
         } catch (ClassCastException e) {}
         return false;
     }
@@ -81,7 +81,7 @@ public class ComparableRange<T extends Comparable<T>> implements Range<T>, Compa
         if (this == range) {
             return 0;
         }
-        return this.start.equals(range.start) ? this.end.compareTo(range.end()) : this.start.compareTo(range.start());
+        return this.start.equals(range.start()) ? this.end.compareTo(range.end()) : this.start.compareTo(range.start());
     }
 
     @Override
@@ -92,9 +92,9 @@ public class ComparableRange<T extends Comparable<T>> implements Range<T>, Compa
     @Override
     public boolean includes(T value) {
         if (this.isPoint) {
-            return value.equals(this.start);
+            return value.equals(this.start());
         }
-        return value.compareTo(this.start) >= 0 && value.compareTo(this.end) <= 0;
+        return value.compareTo(this.start()) >= 0 && value.compareTo(this.end()) <= 0;
     }
 
     @Override
@@ -104,7 +104,7 @@ public class ComparableRange<T extends Comparable<T>> implements Range<T>, Compa
 
     @Override
     public boolean overlaps(Range<T> range) {
-        return range.includes(this.start) || range.includes(this.end) || this.includes(range);
+        return range.includes(this.start()) || range.includes(this.end()) || this.includes(range);
     }
 
     @Override
