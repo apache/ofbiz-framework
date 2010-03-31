@@ -195,9 +195,9 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         assertUtilCacheSettings(UtilCache.createUtilCache(name, 7, 17000, false), 7, null, 17000L, Boolean.FALSE, null);
         assertUtilCacheSettings(UtilCache.createUtilCache(name, 8, 18000, true), 8, null, 18000L, Boolean.TRUE, null);
         assertUtilCacheSettings(UtilCache.createUtilCache(name, 9, 5, 19000, false, false), 9, 5, 19000L, Boolean.FALSE, null);
-        //assertUtilCacheSettings(UtilCache.createUtilCache(name, 10, 6, 20000, false, true), 10, 6, 20000L, Boolean.FALSE, null);
+        assertUtilCacheSettings(UtilCache.createUtilCache(name, 10, 6, 20000, false, true), 10, 6, 20000L, Boolean.FALSE, null);
         assertUtilCacheSettings(UtilCache.createUtilCache(name, 11, 7, 21000, false, false, "a", "b"), 11, 7, 21000L, Boolean.FALSE, Boolean.FALSE);
-        //assertUtilCacheSettings(UtilCache.createUtilCache(name, 12, 8, 22000, false, true, "c", "d"), 12, 8, 22000L, Boolean.FALSE, Boolean.TRUE);
+        assertUtilCacheSettings(UtilCache.createUtilCache(name, 12, 8, 22000, false, true, "c", "d"), 12, 8, 22000L, Boolean.FALSE, Boolean.TRUE);
     }
 
     public <K, V> void assertKey(String label, UtilCache<K, V> cache, K key, V value, V other, int size, Map<K, V> map) {
