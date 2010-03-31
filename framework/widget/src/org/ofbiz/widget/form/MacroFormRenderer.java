@@ -2874,8 +2874,12 @@ public class MacroFormRenderer implements FormStringRenderer {
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))) {
                 imgSrc = request.getAttribute("image").toString();
             }
-            alt = request.getAttribute("alternate").toString();
-            imgTitle = request.getAttribute("imageTitle").toString();
+            if (UtilValidate.isNotEmpty(request.getAttribute("alternate"))) {
+                alt = request.getAttribute("alternate").toString();
+            }
+            if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
+                imgTitle = request.getAttribute("imageTitle").toString();
+            }
             if(UtilValidate.isEmpty(imgTitle)){
                 imgTitle = modelFormField.getTitle(context);
             }
