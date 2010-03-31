@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,6 +41,18 @@ import junit.framework.TestCase;
 public abstract class GenericTestCaseBase extends TestCase {
     protected GenericTestCaseBase(String name) {
         super(name);
+    }
+
+    public static void useAllMemory() throws Exception {
+        LinkedList<long[]> dummy = new LinkedList<long[]>();
+        try {
+            do {
+                dummy.add(new long[1048576]);
+            } while (true);
+        } catch (OutOfMemoryError e) {
+            System.gc();
+            Thread.sleep(100);
+        }
     }
 
     public static void assertStaticHelperClass(Class<?> clz) throws Exception {
