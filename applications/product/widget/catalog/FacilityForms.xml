@@ -40,7 +40,7 @@ under the License.
             <display-entity entity-name="FacilityType" description="${description}"/>
         </field>
         <field name="ownerPartyId" title="${uiLabelMap.ProductFacilityOwner}"><display/></field>
-        <field name="squareFootage" title="${uiLabelMap.ProductSqFt}"><display/></field>
+        <field name="facilitySize" title="${uiLabelMap.ProductFacilitySize}"><display/></field>
         <field name="description"><display/></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="FacilitySearchResults"/>
     </form>

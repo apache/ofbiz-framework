@@ -10757,6 +10757,10 @@
         <value xml:lang="th">ประเภทรายการสินค้าคงเหลือเริ่มต้น</value>
         <value xml:lang="zh">缺省库存明细类型</value>
     </property>
+    <property key="ProductFacilityDefaultAreaUnit">
+        <value xml:lang="en">Area Unit</value>
+        <value xml:lang="fr">Unité de surface</value>
+    </property>
     <property key="ProductFacilityDefaultWeightUnit">
         <value xml:lang="de">Standart Gewichtseinheit</value>
         <value xml:lang="en">Default Weight Unit</value>
@@ -10768,7 +10772,7 @@
         <value xml:lang="ru">Единица веса по умолчанию</value>
         <value xml:lang="th">หน่วยน้ำหนักเริ่มต้น</value>
         <value xml:lang="zh">缺省重量单位</value>
-    </property>
+    </property>    
     <property key="ProductFacilityGroup">
         <value xml:lang="de">Einrichtungsgruppe</value>
         <value xml:lang="en">Facility Group</value>
@@ -19536,16 +19540,12 @@
         <value xml:lang="th">SqFt</value>
         <value xml:lang="zh">平方英尺</value>
     </property>
-    <property key="ProductSquareFootage">
-        <value xml:lang="de">Fläche (m^2)</value>
-        <value xml:lang="en">Square Footage</value>
-        <value xml:lang="es">Superficie (m^2)</value>
+    <property key="ProductFacilitySize">
+        <value xml:lang="de">Fläche</value>
+        <value xml:lang="en">Area</value>
+        <value xml:lang="es">Superficie</value>
         <value xml:lang="fr">Surface</value>
-        <value xml:lang="it">Metri Quadrati</value>
-        <value xml:lang="ro">Metri Patrati</value>
-        <value xml:lang="ru">Площадь в кв. футах</value>
-        <value xml:lang="th">Square Footage</value>
-        <value xml:lang="zh">平方英尺</value>
+        <value xml:lang="th">Area</value>
     </property>
     <property key="ProductStandard">
         <value xml:lang="de">Standard</value>

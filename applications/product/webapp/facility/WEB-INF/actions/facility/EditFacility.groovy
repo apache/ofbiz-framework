@@ -43,5 +43,8 @@ if (facilityTypes) {
 // all possible inventory item types
 context.inventoryItemTypes = delegator.findList("InventoryItemType", null, null, ['description'], null, true);
 
-// unit of measures
+// weight unit of measures
 context.weightUomList = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'WEIGHT_MEASURE']), null, null, null, true);
+
+// area unit of measures
+context.areaUomList = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'AREA_MEASURE']), null, null, null, true);

@@ -100,9 +100,24 @@ under the License.
     <td><input type="text" name="facilityName" value="${facility.facilityName?if_exists}" size="30" maxlength="60"></td>
   </tr>
   <tr>
-    <td class="label">${uiLabelMap.ProductSquareFootage}</td>
-    <td><input type="text" name="squareFootage" value="${facility.squareFootage?if_exists}" size="10" maxlength="20"></td>
+    <td class="label">${uiLabelMap.ProductFacilitySize}</td>
+    <td><input type="text" name="facilitySize" value="${facility.facilitySize?if_exists}" size="10" maxlength="20"></td>
   </tr>
+  <tr>
+   <td class="label">${uiLabelMap.ProductFacilityDefaultAreaUnit}</td>
+    <td>
+      <select name="facilitySizeUomId">
+          <option value=''>${uiLabelMap.CommonNone}</option>
+          <#list areaUomList as uom>
+            <option value='${uom.uomId}'
+               <#if (facility.facilitySizeUomId?has_content) && (uom.uomId == facility.facilitySizeUomId)>
+               SELECTED
+               </#if>
+             >${uom.get("description",locale)?default(uom.uomId)}</option>
+          </#list>
+      </select>
+    </td>
+  </tr>  
   <tr>
     <td class="label">${uiLabelMap.ProductProductDescription}</td>
     <td ><input type="text" name="description" value="${facility.description?if_exists}" size="60" maxlength="250"></td>
