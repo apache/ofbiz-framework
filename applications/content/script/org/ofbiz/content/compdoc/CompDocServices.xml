@@ -213,18 +213,8 @@ under the License.
             <condition>
                 <or>
                     <if-compare field="persistMap.contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
-                    <if-compare field="persistMap.contentTypeId" operator="equals" value="TEMPLATE"/>
-                </or>
-            </condition>
-            <then>
-                <!--  if no rootTemplateContentId exists, this must be a root op, so set contentId = itemContentId -->
-                <set from-field="pResults.contentId" field="revisionMap.contentId"/>
-            </then>
-        </if>
-        <if>
-            <condition>
-                <or>
                     <if-compare field="persistMap.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/>
+                    <if-compare field="persistMap.contentTypeId" operator="equals" value="TEMPLATE"/>
                     <if-compare field="persistMap.contentTypeId" operator="equals" value="DOCUMENT"/>
                 </or>
             </condition>
