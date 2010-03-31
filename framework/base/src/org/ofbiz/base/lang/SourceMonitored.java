@@ -26,7 +26,5 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE)
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE})
-public @interface SourceMonitor {
-    String[] value();
-    String address() default "dev@ofbiz.apache.org";
+public @interface SourceMonitored {
 }

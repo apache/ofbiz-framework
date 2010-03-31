@@ -19,7 +19,7 @@
 package org.ofbiz.base.lang;
 
 /** An immutable range of values. */
-@SourceMonitor("Adam Heath")
+@SourceMonitored
 public class ComparableRange<T extends Comparable<T>> implements Range<T>, Comparable<ComparableRange<T>> {
 
     protected final T start;

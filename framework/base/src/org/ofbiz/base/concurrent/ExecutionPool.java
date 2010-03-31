@@ -27,9 +27,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
-import org.ofbiz.base.lang.SourceMonitor;
+import org.ofbiz.base.lang.SourceMonitored;
 
-@SourceMonitor("Adam Heath")
+@SourceMonitored
 public final class ExecutionPool {
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
         private final String namePrefix;
