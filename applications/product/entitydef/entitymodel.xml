@@ -1034,6 +1034,9 @@ under the License.
         <relation type="one" fk-name="FACILITY_GEOPT" rel-entity-name="GeoPoint">
           <key-map field-name="geoPointId"/>
         </relation>
+      <relation type="one" fk-name="FACILITY_SUOM" title="Size" rel-entity-name="Uom">
+        <key-map field-name="facilitySizeUomId" rel-field-name="uomId"/>
+      </relation>      
     </entity>
     <view-entity entity-name="FacilityAndContactMech" package-name="org.ofbiz.product.facility" title="Facility and Contact Mech View Entity">
         <member-entity entity-alias="FA" entity-name="Facility"/>
