@@ -78,7 +78,7 @@ your template file:
   </tr>
 </#macro>
 
-<#macro HourOfDayRange fromHour=1 toHour=31>
+<#macro HourOfDayRange fromHour=1 toHour=23>
   <tr>
     <td class="label">${uiLabelMap.CommonFrom}</td>
     <td><@HourOfDayField fieldName="integer1" fieldValue=fromHour/></td>
@@ -129,7 +129,7 @@ your template file:
   </tr>
 </#macro>
 
-<#macro MinuteRange fromMinute=1 toMinute=31>
+<#macro MinuteRange fromMinute=1 toMinute=59>
   <tr>
     <td class="label">${uiLabelMap.CommonFrom}</td>
     <td><@MinuteField fieldName="integer1" fieldValue=fromMinute/></td>
