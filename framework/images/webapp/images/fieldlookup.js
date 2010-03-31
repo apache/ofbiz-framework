@@ -710,6 +710,7 @@ function setSourceColor(src) {
 }
 // function passing selected value to calling window
 function set_value (value) {
+    obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);
     var target = obj_caller.target;
     
     write_value(value, target);
