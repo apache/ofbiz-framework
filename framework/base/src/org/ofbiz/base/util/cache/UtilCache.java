@@ -113,7 +113,7 @@ public class UtilCache<K, V> implements Serializable {
     protected Set<CacheListener<K, V>> listeners = new CopyOnWriteArraySet<CacheListener<K, V>>();
 
     protected transient HTree<Object, V> fileTable = null;
-    protected Map<Object, CacheLine<V>> memoryTable = null;
+    protected ConcurrentMap<Object, CacheLine<V>> memoryTable = null;
 
     protected JdbmRecordManager jdbmMgr;
 
@@ -139,7 +139,7 @@ public class UtilCache<K, V> implements Serializable {
         int maxMemSize = this.maxInMemory;
         if (maxMemSize == 0) maxMemSize = sizeLimit;
         if (maxMemSize == 0) {
-            memoryTable = FastMap.newInstance();
+            memoryTable = new ConcurrentHashMap<Object, CacheLine<V>>();
         } else {
             memoryTable = ConcurrentLinkedHashMap.create(ConcurrentLinkedHashMap.EvictionPolicy.LRU, maxMemSize);
         }
@@ -610,7 +610,7 @@ public class UtilCache<K, V> implements Serializable {
                 this.memoryTable = ConcurrentLinkedHashMap.create(ConcurrentLinkedHashMap.EvictionPolicy.LRU, newInMemory);
             }
         } else {
-            this.memoryTable = FastMap.newInstance();
+            this.memoryTable = new ConcurrentHashMap<Object, CacheLine<V>>();
         }
 
         this.memoryTable.putAll(oldmap);
