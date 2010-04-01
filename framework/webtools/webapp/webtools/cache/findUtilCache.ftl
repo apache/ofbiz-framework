@@ -53,7 +53,7 @@ under the License.
                 <td>${uiLabelMap.WebtoolsHits}</td>
                 <td>${uiLabelMap.WebtoolsMisses}</td>
                 <td>${uiLabelMap.WebtoolsRemoves}</td>
-                <td>${uiLabelMap.WebtoolsMaxSize}</td>
+                <td>${uiLabelMap.WebtoolsMaxInMemory}</td>
                 <td>${uiLabelMap.WebtoolsExpireTime}</td>
                 <td align="center">${uiLabelMap.WebtoolsUseSoftRef}</td>
                 <td align="center">${uiLabelMap.WebtoolsUseFileStore}</td>
@@ -67,7 +67,7 @@ under the License.
                     <td>${cache.hitCount?if_exists}</td>
                     <td>${cache.missCountTot?if_exists}/${cache.missCountNotFound?if_exists}/${cache.missCountExpired?if_exists}/${cache.missCountSoftRef?if_exists}</td>
                     <td>${cache.removeHitCount?if_exists}/${cache.removeMissCount?if_exists}</td>
-                    <td>${cache.maxSize?if_exists}</td>
+                    <td>${cache.maxInMemory?if_exists}</td>
                     <td>${cache.expireTime?if_exists}</td>
                     <td align="center">${cache.useSoftReference?if_exists}</td>
                     <td align="center">${cache.useFileSystemStore?if_exists}</td>

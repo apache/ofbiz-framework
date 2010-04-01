@@ -2116,6 +2116,9 @@
         <value xml:lang="th">ขนาดสูงสุด</value>
         <value xml:lang="zh">最大大小</value>
     </property>
+    <property key="WebtoolsMaxInMemory">
+        <value xml:lang="en">Max In Memory</value>
+    </property>
     <property key="WebtoolsMemory">
         <value xml:lang="de">Speicher</value>
         <value xml:lang="en">Memory</value>

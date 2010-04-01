@@ -84,7 +84,7 @@ public class UtilCache<K, V> implements Serializable {
     /** The maximum number of elements in the cache.
      * If set to 0, there will be no limit on the number of elements in the cache.
      */
-    protected int maxSize = 0;
+    protected int sizeLimit = 0;
     protected int maxInMemory = 0;
 
     /** Specifies the amount of time since initial loading before an element will be reported as expired.
@@ -102,16 +102,16 @@ public class UtilCache<K, V> implements Serializable {
     /** The set of listeners to receive notifcations when items are modidfied(either delibrately or because they were expired). */
     protected Set<CacheListener<K, V>> listeners = new CopyOnWriteArraySet<CacheListener<K, V>>();
 
-    /** Constructor which specifies the cacheName as well as the maxSize, expireTime and useSoftReference.
-     * The passed maxSize, expireTime and useSoftReference will be overridden by values from cache.properties if found.
-     * @param maxSize The maxSize member is set to this value
+    /** Constructor which specifies the cacheName as well as the sizeLimit, expireTime and useSoftReference.
+     * The passed sizeLimit, expireTime and useSoftReference will be overridden by values from cache.properties if found.
+     * @param sizeLimit The sizeLimit member is set to this value
      * @param expireTime The expireTime member is set to this value
      * @param cacheName The name of the cache.
      * @param useSoftReference Specifies whether or not to use soft references for this cache.
      */
-    private UtilCache(String cacheName, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String propName, String... propNames) {
+    private UtilCache(String cacheName, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String propName, String... propNames) {
         this.name = cacheName;
-        this.maxSize = maxSize;
+        this.sizeLimit = sizeLimit;
         this.maxInMemory = maxInMemory;
         this.expireTime = expireTime;
         this.useSoftReference = useSoftReference;
@@ -119,7 +119,7 @@ public class UtilCache<K, V> implements Serializable {
         setPropertiesParams(propName);
         setPropertiesParams(propNames);
         int maxMemSize = this.maxInMemory;
-        if (maxMemSize == 0) maxMemSize = maxSize;
+        if (maxMemSize == 0) maxMemSize = sizeLimit;
         this.cacheLineTable = new CacheLineTable<K, V>(this.fileStore, this.name, this.useFileSystemStore, maxMemSize);
     }
 
@@ -166,7 +166,7 @@ public class UtilCache<K, V> implements Serializable {
             try {
                 String value = getPropertyParam(res, propNames, "maxSize");
                 if (UtilValidate.isNotEmpty(value)) {
-                    this.maxSize = Integer.parseInt(value);
+                    this.sizeLimit = Integer.parseInt(value);
                 }
             } catch (Exception e) {
                 Debug.logWarning(e, "Error getting maxSize value from cache.properties file for propNames: " + propNames, module);
@@ -438,21 +438,35 @@ public class UtilCache<K, V> implements Serializable {
     /** Sets the maximum number of elements in the cache.
      * If 0, there is no maximum.
      * @param maxSize The maximum number of elements in the cache
+     * @deprecated Use setMaxInMemory
      */
     public void setMaxSize(int maxSize) {
-        cacheLineTable.setLru(maxSize);
-        this.maxSize = maxSize;
+        setMaxInMemory(maxSize);
     }
 
     /** Returns the current maximum number of elements in the cache
      * @return The maximum number of elements in the cache
+     * @deprecated Use getMaxInMemory
      */
     public int getMaxSize() {
-        return maxSize;
+        return getMaxInMemory();
+    }
+
+    public void setMaxInMemory(int newMaxInMemory) {
+        cacheLineTable.setLru(newMaxInMemory);
+        this.maxInMemory = newMaxInMemory;
     }
 
     public int getMaxInMemory() {
         return maxInMemory;
+    }
+
+    public void setSizeLimit(int newSizeLimit) {
+        this.sizeLimit = sizeLimit;
+    }
+
+    public int getSizeLimit() {
+        return sizeLimit;
     }
 
     /** Sets the expire time for the cache elements.
@@ -629,11 +643,11 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
+    public static <K, V> UtilCache<K, V> getOrCreateUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
         UtilCache<K, V> existingCache = (UtilCache<K, V>) utilCacheTable.get(name);
         if (existingCache != null) return existingCache;
         String cacheName = name + getNextDefaultIndex(name);
-        UtilCache<K, V> newCache = new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names);
+        UtilCache<K, V> newCache = new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names);
         UtilCache<K, V> oldCache = (UtilCache<K, V>) utilCacheTable.putIfAbsent(name, newCache);
         if (oldCache == null) {
             return newCache;
@@ -642,29 +656,29 @@ public class UtilCache<K, V> implements Serializable {
         }
     }
 
-    public static <K, V> UtilCache<K, V> createUtilCache(String name, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names));
     }
 
-    public static <K, V> UtilCache<K, V> createUtilCache(String name, int maxSize, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
+    public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String name, int maxSize, long expireTime, boolean useSoftReference) {
+    public static <K,V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, long expireTime, boolean useSoftReference) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxSize, expireTime, useSoftReference, false, name));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, sizeLimit, expireTime, useSoftReference, false, name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(String name, int maxSize, long expireTime) {
+    public static <K,V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, long expireTime) {
         String cacheName = name + getNextDefaultIndex(name);
-        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxSize, expireTime, false, false, name));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, sizeLimit, expireTime, false, false, name));
     }
 
-    public static <K,V> UtilCache<K, V> createUtilCache(int maxSize, long expireTime) {
+    public static <K,V> UtilCache<K, V> createUtilCache(int sizeLimit, long expireTime) {
         String cacheName = "specified" + getNextDefaultIndex("specified");
-        return storeCache(new UtilCache<K, V>(cacheName, maxSize, maxSize, expireTime, false, false, "specified"));
+        return storeCache(new UtilCache<K, V>(cacheName, sizeLimit, sizeLimit, expireTime, false, false, "specified"));
     }
 
     public static <K,V> UtilCache<K, V> createUtilCache(String name, boolean useSoftReference) {
