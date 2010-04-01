@@ -48,7 +48,7 @@ public class CacheLineTable<K, V> implements Serializable {
     public static final String module = CacheLineTable.class.getName();
     protected static transient RecordManager jdbmMgr = null;
 
-    protected transient HTree fileTable = null;
+    protected transient HTree<Object, CacheLine<V>> fileTable = null;
     protected Map<K, CacheLine<V>> memoryTable = null;
     protected String fileStore = null;
     protected String cacheName = null;
@@ -93,24 +93,18 @@ public class CacheLineTable<K, V> implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    private CacheLine<V> getFileTable(Object key) throws IOException {
-        return (CacheLine<V>) fileTable.get(key);
-    }
-
-
-    @SuppressWarnings("unchecked")
     private void addAllFileTableValues(List<CacheLine<V>> values) throws IOException {
-        FastIterator iter = fileTable.values();
-        Object value = iter.next();
+        FastIterator<CacheLine<V>> iter = fileTable.values();
+        CacheLine<V> value = iter.next();
         while (value != null) {
-            values.add((CacheLine<V>) value);
+            values.add(value);
             value = iter.next();
         }
     }
 
     @SuppressWarnings("unchecked")
     private void addAllFileTableKeys(Set<K> keys) throws IOException {
-        FastIterator iter = fileTable.keys();
+        FastIterator<Object> iter = fileTable.keys();
         Object key = null;
         while ((key = iter.next()) != null) {
             if (key instanceof ObjectType.NullObject) {
@@ -137,7 +131,7 @@ public class CacheLineTable<K, V> implements Serializable {
         }
         if (fileTable != null) {
             try {
-                if (oldValue == null) oldValue = getFileTable(key != null ? key : ObjectType.NULL);
+                if (oldValue == null) oldValue = fileTable.get(key != null ? key : ObjectType.NULL);
                 fileTable.put(key != null ? key : ObjectType.NULL, value);
                 CacheLineTable.jdbmMgr.commit();
             } catch (IOException e) {
@@ -168,7 +162,7 @@ public class CacheLineTable<K, V> implements Serializable {
         if (value == null) {
             if (fileTable != null) {
                 try {
-                    value = getFileTable(key != null ? key : ObjectType.NULL);
+                    value = fileTable.get(key != null ? key : ObjectType.NULL);
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
@@ -226,10 +220,10 @@ public class CacheLineTable<K, V> implements Serializable {
         List<Map.Entry<K, ? extends CacheLine<V>>> list = FastList.newInstance();
         if (fileTable != null) {
             try {
-                FastIterator iter = fileTable.keys();
+                FastIterator<Object> iter = fileTable.keys();
                 Object key = iter.next();
                 while (key != null) {
-                    CacheLine<V> value = UtilGenerics.cast(fileTable.get(key));
+                    CacheLine<V> value = fileTable.get(key);
                     if (key instanceof ObjectType.NullObject) {
                         key = null;
                     }
