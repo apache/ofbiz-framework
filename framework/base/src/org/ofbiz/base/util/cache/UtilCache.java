@@ -351,21 +351,9 @@ public class UtilCache<K, V> implements Serializable {
     /** Removes all elements from this cache */
     public static void clearAllCaches() {
         // We make a copy since clear may take time
-        List<UtilCache<?,?>> list = getUtilCacheTableValuesImage();
-        for (UtilCache<?,?> cache : list) {
+        for (UtilCache<?,?> cache : utilCacheTable.values()) {
             cache.clear();
         }
-        list.clear();
-    }
-
-    /**
-     * Return an image of the values at a time
-     * @return {@link List}
-     */
-    private static List<UtilCache<?, ?>> getUtilCacheTableValuesImage() {
-        List<UtilCache<?, ?>> list = new ArrayList<UtilCache<?, ?>>(utilCacheTable.size());
-        list.addAll(utilCacheTable.values());
-        return list;
     }
 
     public static Set<String> getUtilCacheTableKeySet() {
@@ -604,11 +592,9 @@ public class UtilCache<K, V> implements Serializable {
     /** Clears all expired cache entries from all caches */
     public static void clearExpiredFromAllCaches() {
         // We make a copy since clear may take time
-        List<UtilCache<?,?>> list = getUtilCacheTableValuesImage();
-        for (UtilCache<?,?> utilCache : list) {
+        for (UtilCache<?,?> utilCache : utilCacheTable.values()) {
             utilCache.clearExpired();
         }
-        list.clear();
     }
 
     /** Checks for a non-expired key in a specific cache */
