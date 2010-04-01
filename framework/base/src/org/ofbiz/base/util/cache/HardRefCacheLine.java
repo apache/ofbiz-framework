@@ -31,9 +31,4 @@ public abstract class HardRefCacheLine<V> extends CacheLine<V> {
     public V getValue() {
         return value;
     }
-
-    @Override
-    public boolean isInvalid() {
-        return value == null;
-    }
 }

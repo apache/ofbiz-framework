@@ -18,23 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.base.util.cache;
 
-import java.lang.ref.SoftReference;
-import java.lang.ref.ReferenceQueue;
 import java.io.Serializable;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ReferenceCleaner;
 
 @SuppressWarnings("serial")
-public class CacheSoftReference<V> extends SoftReference<V> implements Serializable {
+public abstract class CacheSoftReference<V> extends ReferenceCleaner.Soft<V> implements Serializable {
 
     public static final String module = CacheSoftReference.class.getName();
 
     public CacheSoftReference(V o) {
         super(o);
-    }
-
-    public CacheSoftReference(V o, ReferenceQueue<? super V> referenceQueue) {
-        super(o, referenceQueue);
     }
 
     @Override

@@ -24,16 +24,20 @@ public abstract class SoftRefCacheLine<V> extends CacheLine<V> {
 
     public SoftRefCacheLine(V value, long loadTimeNanos, long expireTimeNanos) {
         super(loadTimeNanos, expireTimeNanos);
-        this.ref = new CacheSoftReference<V>(value);
+        this.ref = new CacheSoftReference<V>(value) {
+            public void remove() {
+                SoftRefCacheLine.this.remove();
+            }
+        };
+    }
+
+    @Override
+    void cancel() {
+        ref.clear();
     }
 
     @Override
     public V getValue() {
         return ref.get();
-    }
-
-    @Override
-    public boolean isInvalid() {
-        return ref.get() == null;
     }
 }

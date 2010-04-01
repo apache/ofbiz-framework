@@ -21,7 +21,6 @@ under the License.
     <div class="button-bar">
         <a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>" class="buttontext refresh">${uiLabelMap.WebtoolsReloadCacheList}</a>
         <a href="<@ofbizUrl>FindUtilCacheClearAll</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsClearAllCaches}</a>
-        <a href="<@ofbizUrl>FindUtilCacheClearAllExpired</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsClearExpiredFromAll}</a>
         <a href="<@ofbizUrl>ForceGarbageCollection</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsRunGC}</a>
     </div>
 </#macro>

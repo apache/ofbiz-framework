@@ -168,28 +168,6 @@ public class UtilCacheEvents {
         return "success";
     }
 
-    /** An HTTP WebEvent handler that clears all caches
-     * @param request The HTTP request object for the current JSP or Servlet request.
-     * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return
-     */
-    public static String clearAllExpiredEvent(HttpServletRequest request, HttpServletResponse response) {
-        String errMsg = "";
-        Locale locale = UtilHttp.getLocale(request);
-
-        Security security = (Security) request.getAttribute("security");
-        if (!security.hasPermission("UTIL_CACHE_EDIT", request.getSession())) {
-            errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCacheEvents.permissionEdit", locale) + ".";
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        }
-
-        UtilCache.clearExpiredFromAllCaches();
-        errMsg = UtilProperties.getMessage(UtilCacheEvents.err_resource, "utilCache.clearAllExpiredElements", locale) + ".";
-        request.setAttribute("_EVENT_MESSAGE_", errMsg);
-        return "success";
-    }
-
     /** An HTTP WebEvent handler that updates the named cache
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
