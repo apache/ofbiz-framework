@@ -444,8 +444,8 @@ under the License.
     <service name="insertErrorMessagesFromEbay" engine="entity-auto" default-entity-name="EBayLogMessagesInfo" invoke="create" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="ack" mode="IN" type="String" optional="false"/>
+        <attribute name="logAck" mode="IN" type="String" optional="false"/>
         <attribute name="functionName" mode="IN" type="String" optional="false"/>
-        <attribute name="message" mode="IN" type="String" optional="false"/>
+        <attribute name="logMessage" mode="IN" type="String" optional="false"/>
     </service>
 </services>

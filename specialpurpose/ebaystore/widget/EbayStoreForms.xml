@@ -123,8 +123,8 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
     <form name="errorMessageList" type="list" target="" list-name="errorMsgList" view-size="30"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="createDatetime"><display/></field>
-        <field name="ack"><display/></field>
+        <field name="logAck"><display/></field>
         <field name="functionName"><display/></field>
-        <field name="message"><display/></field>
+        <field name="logMessage"><display/></field>
     </form>
 </forms>
