@@ -145,15 +145,12 @@ public class CacheLineTable<K, V> implements Serializable {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to get with null key, using NullObject" + this.cacheName, module);
         }
-        return getNoCheck(fromKey(key));
-    }
-
-    protected CacheLine<V> getNoCheck(Object key) {
-        CacheLine<V> value = memoryTable.get(key);
+        Object nulledKey = fromKey(key);
+        CacheLine<V> value = memoryTable.get(nulledKey);
         if (value == null) {
             if (fileTable != null) {
                 try {
-                    value = fileTable.get(key);
+                    value = fileTable.get(nulledKey);
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
