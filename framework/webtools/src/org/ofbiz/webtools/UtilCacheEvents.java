@@ -79,7 +79,7 @@ public class UtilCacheEvents {
         if (utilCache != null) {
             Object key = null;
 
-            if (utilCache.getMaxSize() > 0) {
+            if (utilCache.getMaxInMemory() > 0) {
                 try {
                     key = utilCache.getCacheLineTable().getKeyFromMemory(number);
                 } catch (Exception e) {}
@@ -220,15 +220,15 @@ public class UtilCacheEvents {
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
-        String maxSizeStr = request.getParameter("UTIL_CACHE_MAX_SIZE");
+        String maxInMemoryStr = request.getParameter("UTIL_CACHE_MAX_IN_MEMORY");
         String expireTimeStr = request.getParameter("UTIL_CACHE_EXPIRE_TIME");
         String useSoftReferenceStr = request.getParameter("UTIL_CACHE_USE_SOFT_REFERENCE");
 
-        Integer maxSize = null;
+        Integer maxInMemory = null;
         Long expireTime = null;
 
         try {
-            maxSize = Integer.valueOf(maxSizeStr);
+            maxInMemory = Integer.valueOf(maxInMemoryStr);
         } catch (Exception e) {}
         try {
             expireTime = Long.valueOf(expireTimeStr);
@@ -237,8 +237,8 @@ public class UtilCacheEvents {
         UtilCache<?, ?> utilCache = UtilCache.findCache(name);
 
         if (utilCache != null) {
-            if (maxSize != null)
-                utilCache.setMaxSize(maxSize.intValue());
+            if (maxInMemory != null)
+                utilCache.setMaxInMemory(maxInMemory.intValue());
             if (expireTime != null)
                 utilCache.setExpireTime(expireTime.longValue());
             if (useSoftReferenceStr != null) {

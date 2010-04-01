@@ -74,9 +74,9 @@ under the License.
                     <td colspan="2">${cache.removeMissCount?if_exists}</td>
                 </tr>
                 <tr>
-                    <td class="label">${uiLabelMap.WebtoolsMaxSize}</td>
-                    <td>${cache.maxSize?if_exists}</td>
-                    <td><input type="text" size="15" maxlength="15" name="UTIL_CACHE_MAX_SIZE" value="${cache.maxSize?if_exists}"/></td>
+                    <td class="label">${uiLabelMap.WebtoolsMaxInMemory}</td>
+                    <td>${cache.maxInMemory?if_exists}</td>
+                    <td><input type="text" size="15" maxlength="15" name="UTIL_CACHE_MAX_IN_MEMORY" value="${cache.maxInMemory?if_exists}"/></td>
                 </tr>
                 <tr>
                     <td class="label">${uiLabelMap.WebtoolsExpireTime}</td>

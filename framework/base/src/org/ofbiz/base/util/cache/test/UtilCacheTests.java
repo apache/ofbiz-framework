@@ -157,13 +157,13 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         super(name);
     }
 
-    private <K, V> UtilCache<K, V> createUtilCache(int maxSize, int maxInMemory, long ttl, boolean useSoftReference, boolean useFileSystemStore) {
-        return UtilCache.createUtilCache(getClass().getName() + "." + getName(), maxSize, maxInMemory, ttl, useSoftReference, useFileSystemStore);
+    private <K, V> UtilCache<K, V> createUtilCache(int sizeLimit, int maxInMemory, long ttl, boolean useSoftReference, boolean useFileSystemStore) {
+        return UtilCache.createUtilCache(getClass().getName() + "." + getName(), sizeLimit, maxInMemory, ttl, useSoftReference, useFileSystemStore);
     }
 
-    private static <K, V> void assertUtilCacheSettings(UtilCache<K, V> cache, Integer maxSize, Integer maxInMemory, Long expireTime, Boolean useSoftReference, Boolean useFileSystemStore) {
-        if (maxSize != null) {
-            assertEquals(cache.getName() + ":maxSize", maxSize.intValue(), cache.getMaxSize());
+    private static <K, V> void assertUtilCacheSettings(UtilCache<K, V> cache, Integer sizeLimit, Integer maxInMemory, Long expireTime, Boolean useSoftReference, Boolean useFileSystemStore) {
+        if (sizeLimit != null) {
+            assertEquals(cache.getName() + ":sizeLimit", sizeLimit.intValue(), cache.getSizeLimit());
         }
         if (maxInMemory != null) {
             assertEquals(cache.getName() + ":maxInMemory", maxInMemory.intValue(), cache.getMaxInMemory());
@@ -246,7 +246,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         for (int i = 0; i < 2; i++) {
             assertTrue("UtilCacheTable.keySet", UtilCache.getUtilCacheTableKeySet().contains(cache.getName()));
             assertSame("UtilCache.findCache", cache, UtilCache.findCache(cache.getName()));
-            assertSame("UtilCache.getOrCreateUtilCache", cache, UtilCache.getOrCreateUtilCache(cache.getName(), cache.getMaxSize(), cache.getMaxInMemory(), cache.getExpireTime(), cache.getUseSoftReference(), cache.getUseFileSystemStore()));
+            assertSame("UtilCache.getOrCreateUtilCache", cache, UtilCache.getOrCreateUtilCache(cache.getName(), cache.getSizeLimit(), cache.getMaxInMemory(), cache.getExpireTime(), cache.getUseSoftReference(), cache.getUseFileSystemStore()));
 
             assertNoSingleKey(cache, "one");
             long origByteSize = cache.getSizeInBytes();
@@ -322,7 +322,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         basicTest(cache);
     }
 
-    public void testChangeSize() throws Exception {
+    public void testChangeMemSize() throws Exception {
         int size = 5;
         long ttl = 2000;
         UtilCache<String, Serializable> cache = createUtilCache(size, size, ttl, false, false);
@@ -331,7 +331,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             String s = Integer.toString(i);
             assertKey(s, cache, s, new String(s), new String(":" + s), i + 1, map);
         }
-        cache.setMaxSize(2);
+        cache.setMaxInMemory(2);
         for (int i = 0; i < size - 2; i++) {
             String s = Integer.toString(i);
             map.remove(s);
