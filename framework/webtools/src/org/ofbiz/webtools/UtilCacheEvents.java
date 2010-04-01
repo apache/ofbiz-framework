@@ -79,24 +79,18 @@ public class UtilCacheEvents {
         if (utilCache != null) {
             Object key = null;
 
-            if (utilCache.getMaxInMemory() > 0) {
-                try {
-                    key = utilCache.getCacheLineTable().getKeyFromMemory(number);
-                } catch (Exception e) {}
-            } else {
-                // no LRU, try looping through the keySet to see if we find the specified index...
-                Iterator<?> ksIter = utilCache.getCacheLineTable().keySet().iterator();
-                int curNum = 0;
+            // no LRU, try looping through the keySet to see if we find the specified index...
+            Iterator<?> ksIter = utilCache.getCacheLineTable().keySet().iterator();
+            int curNum = 0;
 
-                while (ksIter.hasNext()) {
-                    if (number == curNum) {
-                        key = ksIter.next();
-                        break;
-                    } else {
-                        ksIter.next();
-                    }
-                    curNum++;
+            while (ksIter.hasNext()) {
+                if (number == curNum) {
+                    key = ksIter.next();
+                    break;
+                } else {
+                    ksIter.next();
                 }
+                curNum++;
             }
 
             if (key != null) {

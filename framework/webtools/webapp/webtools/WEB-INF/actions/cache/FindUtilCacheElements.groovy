@@ -33,25 +33,13 @@ cacheElementsList = [];
 if (cacheName) {
     utilCache = UtilCache.findCache(cacheName);
     if (utilCache) {
-        int keyNum = 0;
-        utilCache.getCacheLineTable().keySet().each { key ->
-            cacheElement = [:];
-            line = utilCache.getCacheLineTable().get(key);
-            expireTime = "";
-            if (line?.loadTime > 0) {
-                expireTime = (new Date(line.loadTime + utilCache.getExpireTime())).toString();
+        cacheElementsList = utilCache.getLineInfos()
+        cacheElementsList.each {
+            if (it.expireTime != null) {
+                it.expireTime = it.expireTime.toString();
             }
-            lineSize = line.getSizeInBytes();
-            totalSize += lineSize;
-
-            cacheElement.elementKey = key;
-            cacheElement.expireTime = expireTime;
-            cacheElement.lineSize = UtilFormatOut.formatQuantity(lineSize);
-            cacheElement.keyNum = keyNum;
-
-            cacheElementsList.add(cacheElement);
-
-            keyNum++;
+            totalSize += it.lineSize;
+            it.lineSize = UtilFormatOut.formatQuantity(it.lineSize);
         }
     }
 }

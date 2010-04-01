@@ -514,6 +514,10 @@ public class UtilCache<K, V> implements Serializable {
         return cacheLineTable.values();
     }
 
+    public Collection<? extends Map<String, Object>> getLineInfos() {
+        return cacheLineTable.getLineInfos();
+    }
+
     /** Returns a boolean specifying whether or not the element corresponding to the key has expired.
      * Only returns true if element is in cache and has expired. Error conditions return false, if no expireTable entry, returns true.
      * Always returns false if expireTime <= 0.

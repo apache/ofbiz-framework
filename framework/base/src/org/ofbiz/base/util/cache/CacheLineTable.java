@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -196,6 +197,42 @@ public class CacheLineTable<K, V> implements Serializable {
         }
 
         return Collections.unmodifiableCollection(values);
+    }
+
+    private Map<String, Object> createLineInfo(int keyNum, K key, CacheLine<V> line) {
+        Map<String, Object> lineInfo = FastMap.newInstance();
+        lineInfo.put("elementKey", key);
+        if (line.loadTime > 0) {
+            lineInfo.put("expireTime", new Date(line.loadTime + line.expireTime));
+        }
+        lineInfo.put("lineSize", line.getSizeInBytes());
+        lineInfo.put("keyNum", keyNum);
+        return lineInfo;
+    }
+
+    public Collection<? extends Map<String, Object>> getLineInfos() {
+        Set<? extends K> keys = keySet();
+        List<Map<String, Object>> lineInfos = FastList.newInstance();
+        int keyIndex = 0;
+        for (K key: keySet()) {
+            Object nulledKey = fromKey(key);
+            CacheLine<V> line;
+            if (fileTable != null) {
+                try {
+                    line = fileTable.get(nulledKey);
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                    line = null;
+                }
+            } else {
+                line = memoryTable.get(nulledKey);
+            }
+            if (line != null) {
+                lineInfos.add(createLineInfo(keyIndex, key, line));
+            }
+            keyIndex++;
+        }
+        return lineInfos;
     }
 
     public synchronized Iterator<Map.Entry<K, ? extends CacheLine<V>>> iterator() {
