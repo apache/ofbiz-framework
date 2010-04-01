@@ -27,6 +27,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import com.reardencommerce.kernel.collections.shared.evictable.ConcurrentLinkedHashMap;
 
@@ -47,7 +49,10 @@ import org.ofbiz.base.util.collections.ReadOnlyMapEntry;
 public class CacheLineTable<K, V> implements Serializable {
 
     public static final String module = CacheLineTable.class.getName();
-    protected static transient RecordManager jdbmMgr = null;
+    // weak ref on this
+    private static final ConcurrentMap<String, jdbm.RecordManager> fileManagers = new ConcurrentHashMap<String, jdbm.RecordManager>();
+
+    protected transient RecordManager jdbmMgr = null;
 
     protected transient HTree<Object, CacheLine<V>> fileTable = null;
     protected Map<Object, CacheLine<V>> memoryTable = null;
@@ -61,26 +66,25 @@ public class CacheLineTable<K, V> implements Serializable {
         this.maxInMemory = maxInMemory;
         if (useFileSystemStore) {
             // create the manager the first time it is needed
+            jdbmMgr = fileManagers.get(fileStore);
             if (jdbmMgr == null) {
-                synchronized (this) {
-                    if (jdbmMgr == null) {
-                        try {
-                            Debug.logImportant("Creating file system cache store for cache with name: " + cacheName, module);
-                            String ofbizHome = System.getProperty("ofbiz.home");
-                            if (ofbizHome == null) {
-                                Debug.logError("No ofbiz.home property set in environment", module);
-                            } else {
-                                jdbmMgr = new JdbmRecordManager(ofbizHome + "/" + fileStore);
-                            }
-                        } catch (IOException e) {
-                            Debug.logError(e, "Error creating file system cache store for cache with name: " + cacheName, module);
-                        }
+                Debug.logImportant("Creating file system cache store for cache with name: " + cacheName, module);
+                try {
+                    String ofbizHome = System.getProperty("ofbiz.home");
+                    if (ofbizHome == null) {
+                        Debug.logError("No ofbiz.home property set in environment", module);
+                    } else {
+                        jdbmMgr = new JdbmRecordManager(ofbizHome + "/" + fileStore);
                     }
+                } catch (IOException e) {
+                    Debug.logError(e, "Error creating file system cache store for cache with name: " + cacheName, module);
                 }
+                fileManagers.putIfAbsent(fileStore, jdbmMgr);
             }
+            jdbmMgr = fileManagers.get(fileStore);
             if (jdbmMgr != null) {
                 try {
-                    this.fileTable = HTree.createInstance(CacheLineTable.jdbmMgr);
+                    this.fileTable = HTree.createInstance(jdbmMgr);
                     jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
                     jdbmMgr.commit();
                 } catch (IOException e) {
