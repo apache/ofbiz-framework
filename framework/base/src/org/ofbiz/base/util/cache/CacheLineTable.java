@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.reardencommerce.kernel.collections.shared.evictable.ConcurrentLinkedHashMap;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -39,7 +41,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.collections.LRUMap;
 import org.ofbiz.base.util.collections.ReadOnlyMapEntry;
 
 @SuppressWarnings("serial")
@@ -88,7 +89,7 @@ public class CacheLineTable<K, V> implements Serializable {
             }
         }
         if (maxInMemory > 0) {
-            this.memoryTable = Collections.synchronizedMap(new LRUMap<Object, CacheLine<V>>(maxInMemory));
+            this.memoryTable = ConcurrentLinkedHashMap.create(ConcurrentLinkedHashMap.EvictionPolicy.LRU, maxInMemory);
         } else {
             this.memoryTable = FastMap.newInstance();
         }
@@ -293,7 +294,7 @@ public class CacheLineTable<K, V> implements Serializable {
         Map<Object, CacheLine<V>> oldmap = this.memoryTable;
 
         if (newSize > 0) {
-            this.memoryTable = Collections.synchronizedMap(new LRUMap<Object, CacheLine<V>>(newSize));
+            this.memoryTable = ConcurrentLinkedHashMap.create(ConcurrentLinkedHashMap.EvictionPolicy.LRU, newSize);
         } else {
             this.memoryTable = FastMap.newInstance();
         }
