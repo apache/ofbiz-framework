@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javolution.util.FastList;
@@ -58,7 +59,7 @@ public class UtilCache<K, V> implements Serializable {
     private static final ConcurrentHashMap<String, UtilCache<?, ?>> utilCacheTable = new ConcurrentHashMap<String, UtilCache<?, ?>>();
 
     /** An index number appended to utilCacheTable names when there are conflicts. */
-    private final static ConcurrentHashMap<String, Integer> defaultIndices = new ConcurrentHashMap<String, Integer>();
+    private final static ConcurrentHashMap<String, AtomicInteger> defaultIndices = new ConcurrentHashMap<String, AtomicInteger>();
 
     /** The name of the UtilCache instance, is also the key for the instance in utilCacheTable. */
     private final String name;
@@ -124,21 +125,13 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     private static String getNextDefaultIndex(String cacheName) {
-        Integer curInd;
-        do {
+        AtomicInteger curInd = defaultIndices.get(cacheName);
+        if (curInd == null) {
+            defaultIndices.putIfAbsent(cacheName, new AtomicInteger(0));
             curInd = defaultIndices.get(cacheName);
-            if (curInd == null) {
-                if (defaultIndices.putIfAbsent(cacheName, 1) == null) {
-                    // no one else was able to store a value before us
-                    break;
-                }
-            } else if (defaultIndices.replace(cacheName, curInd, curInd + 1)) {
-                // replaced the current value, so we know that this iteration
-                // has control over curInd
-                break;
-            }
-        } while (true);
-        return curInd == null ? "" : Integer.toString(curInd + 1);
+        }
+        int i = curInd.getAndIncrement();
+        return i == 0 ? "" : Integer.toString(i);
     }
 
     public static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
