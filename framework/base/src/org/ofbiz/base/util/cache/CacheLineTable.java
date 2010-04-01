@@ -294,8 +294,18 @@ public class CacheLineTable<K, V> implements Serializable {
         Map<Object, CacheLine<V>> oldmap = this.memoryTable;
 
         if (newSize > 0) {
-            this.memoryTable = ConcurrentLinkedHashMap.create(ConcurrentLinkedHashMap.EvictionPolicy.LRU, newSize);
+            if (this.memoryTable instanceof ConcurrentLinkedHashMap) {
+                Debug.logInfo("a setLru(" + newSize + ")", module);
+                Debug.logInfo("before " + this.memoryTable.keySet(), module);
+                ((ConcurrentLinkedHashMap) this.memoryTable).setCapacity(newSize);
+                Debug.logInfo("after " + this.memoryTable.keySet(), module);
+                return;
+            } else {
+                Debug.logInfo("b setLru(" + newSize + ")", module);
+                this.memoryTable = ConcurrentLinkedHashMap.create(ConcurrentLinkedHashMap.EvictionPolicy.LRU, newSize);
+            }
         } else {
+            Debug.logInfo("c setLru(" + newSize + ")", module);
             this.memoryTable = FastMap.newInstance();
         }
 
