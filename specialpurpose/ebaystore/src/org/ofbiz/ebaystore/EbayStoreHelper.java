@@ -710,9 +710,9 @@ public class EbayStoreHelper {
             try {
                 Map<String, Object> newMap = FastMap.newInstance();
                 newMap.put("productStoreId", productStoreId);
-                newMap.put("ack", ack.toLowerCase());
+                newMap.put("logAck", ack.toLowerCase());
                 newMap.put("functionName", fuction);
-                newMap.put("message", errorMessage);
+                newMap.put("logMessage", errorMessage);
                 newMap.put("createDatetime", UtilDateTime.nowTimestamp());
                 dispatcher.runSync("insertErrorMessagesFromEbay", newMap);
             } catch (Exception ex) {

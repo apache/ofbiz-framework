@@ -115,9 +115,9 @@ under the License.
     <entity entity-name="EBayLogMessagesInfo" package-name="org.ofbiz.ebay.store"
         title="eBay Log Messages Info">
         <field name="productStoreId" type="id-ne"/>
-        <field name="ack" type="name"/>
+        <field name="logAck" type="name"/>
         <field name="functionName" type="name"/>
-        <field name="message" type="very-long"/>
+        <field name="logMessage" type="very-long"/>
         <field name="createDatetime" type="date-time"/>
         <prim-key field="productStoreId"/>
         <prim-key field="createDatetime"/>
