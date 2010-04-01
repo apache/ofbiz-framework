@@ -834,10 +834,19 @@ public class UtilCache<K, V> implements Serializable {
     private Map<String, Object> createLineInfo(int keyNum, K key, CacheLine<V> line) {
         Map<String, Object> lineInfo = FastMap.newInstance();
         lineInfo.put("elementKey", key);
-        if (line.loadTime > 0) {
-            lineInfo.put("expireTime", new Date(line.loadTime + line.expireTime));
+
+        if (line.getLoadTimeNanos() > 0) {
+            lineInfo.put("expireTimeMillis", TimeUnit.MILLISECONDS.convert(line.getExpireTimeNanos() - System.nanoTime(), TimeUnit.NANOSECONDS));
         }
-        lineInfo.put("lineSize", line.getSizeInBytes());
+        lineInfo.put("lineSize", findSizeInBytes(line.getValue()));
+        lineInfo.put("keyNum", keyNum);
+        return lineInfo;
+    }
+
+    private Map<String, Object> createLineInfo(int keyNum, K key, V value) {
+        Map<String, Object> lineInfo = FastMap.newInstance();
+        lineInfo.put("elementKey", key);
+        lineInfo.put("lineSize", findSizeInBytes(value));
         lineInfo.put("keyNum", keyNum);
         return lineInfo;
     }
@@ -847,19 +856,17 @@ public class UtilCache<K, V> implements Serializable {
         int keyIndex = 0;
         for (K key: getCacheLineKeys()) {
             Object nulledKey = fromKey(key);
-            CacheLine<V> line;
             if (fileTable != null) {
                 try {
-                    line = fileTable.get(nulledKey);
+                    lineInfos.add(createLineInfo(keyIndex, key, fileTable.get(nulledKey)));
                 } catch (IOException e) {
                     Debug.logError(e, module);
-                    line = null;
                 }
             } else {
-                line = memoryTable.get(nulledKey);
-            }
-            if (line != null) {
-                lineInfos.add(createLineInfo(keyIndex, key, line));
+                CacheLine<V> line = memoryTable.get(nulledKey);
+                if (line != null) {
+                    lineInfos.add(createLineInfo(keyIndex, key, line));
+                }
             }
             keyIndex++;
         }

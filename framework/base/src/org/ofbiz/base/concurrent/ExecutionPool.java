@@ -130,6 +130,14 @@ public final class ExecutionPool {
             expireTimeNanos = loadTimeNanos + delayNanos;
         }
 
+        public long getLoadTimeNanos() {
+            return loadTimeNanos;
+        }
+
+        public long getExpireTimeNanos() {
+            return expireTimeNanos;
+        }
+
         public final long getDelay(TimeUnit unit) {
             return unit.convert(expireTimeNanos - System.nanoTime(), TimeUnit.NANOSECONDS);
         }
