@@ -53,7 +53,7 @@ under the License.
                 <#list cacheElementsList as cacheElement>
                     <tr<#if alt_row> class="alternate-row"</#if>>
                         <td>${cacheElement.elementKey?if_exists}</td>
-                        <td nowrap="nowrap">${cacheElement.expireTime?if_exists}</td>
+                        <td nowrap="nowrap">${cacheElement.expireTimeMillis?if_exists}</td>
                         <td>${cacheElement.lineSize?if_exists}</td>
                         <td class="button-col">
                             <#if hasUtilCacheEdit>
