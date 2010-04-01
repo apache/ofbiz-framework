@@ -112,7 +112,7 @@ public class UtilCache<K, V> implements Serializable {
     /** The set of listeners to receive notifcations when items are modidfied(either delibrately or because they were expired). */
     protected Set<CacheListener<K, V>> listeners = new CopyOnWriteArraySet<CacheListener<K, V>>();
 
-    protected transient HTree<Object, CacheLine<V>> fileTable = null;
+    protected transient HTree<Object, V> fileTable = null;
     protected Map<Object, CacheLine<V>> memoryTable = null;
 
     protected JdbmRecordManager jdbmMgr;
@@ -245,9 +245,9 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    private void addAllFileTableValues(List<CacheLine<V>> values) throws IOException {
-        FastIterator<CacheLine<V>> iter = fileTable.values();
-        CacheLine<V> value = iter.next();
+    private void addAllFileTableValues(List<V> values) throws IOException {
+        FastIterator<V> iter = fileTable.values();
+        V value = iter.next();
         while (value != null) {
             values.add(value);
             value = iter.next();
@@ -302,8 +302,18 @@ public class UtilCache<K, V> implements Serializable {
      * @param expireTime how long to keep this key in the cache
      */
     public V put(K key, V value, long expireTime) {
-        CacheLine<V> oldCacheLine = putInternal(fromKey(key), createCacheLine(value, expireTime));
+        Object nulledKey = fromKey(key);
+        CacheLine<V> oldCacheLine = memoryTable.put(nulledKey, createCacheLine(value, expireTime));
         V oldValue = oldCacheLine == null ? null : oldCacheLine.getValue();
+        if (fileTable != null) {
+            try {
+                if (oldValue == null) oldValue = fileTable.get(nulledKey);
+                fileTable.put(nulledKey, value);
+                jdbmMgr.commit();
+            } catch (IOException e) {
+                Debug.logError(e, module);
+            }
+        }
         if (oldValue == null) {
             noteAddition(key, value);
             return null;
@@ -313,50 +323,35 @@ public class UtilCache<K, V> implements Serializable {
         }
     }
 
-    CacheLine<V> putInternal(Object key, CacheLine<V> newCacheLine) {
-        CacheLine<V> oldCacheLine = memoryTable.put(key, newCacheLine);
-        if (fileTable != null) {
-            try {
-                if (oldCacheLine == null) oldCacheLine = fileTable.get(key);
-                fileTable.put(key, newCacheLine);
-                jdbmMgr.commit();
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-        }
-        return oldCacheLine;
-    }
-
     /** Gets an element from the cache according to the specified key.
      * If the requested element hasExpired, it is removed before it is looked up which causes the function to return null.
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @return The value of the element specified by the key
      */
     public V get(Object key) {
-        CacheLine<V> line = getInternal(key, true);
+        boolean countGet = true;
+        Object nulledKey = fromKey(key);
+        CacheLine<V> line = memoryTable.get(nulledKey);
         if (line == null) {
-            return null;
-        } else {
-            return line.getValue();
-        }
-    }
-
-    protected CacheLine<V> getInternalNoCheck(Object key) {
-        CacheLine<V> value = memoryTable.get(key);
-        if (value == null && fileTable != null) {
-            try {
-                value = fileTable.get(key);
-            } catch (IOException e) {
-                Debug.logError(e, module);
+            if (fileTable != null) {
+                V value;
+                try {
+                    value = fileTable.get(nulledKey);
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                    value = null;
+                }
+                if (value == null) {
+                    missCountNotFound.incrementAndGet();
+                    return null;
+                } else {
+                    hitCount.incrementAndGet();
+                }
+                memoryTable.put(nulledKey, createCacheLine(value, expireTime));
+                return value;
+            } else {
+                missCountNotFound.incrementAndGet();
             }
-        }
-        return value;
-    }
-
-    protected CacheLine<V> getInternal(Object key, boolean countGet) {
-        CacheLine<V> line = getInternalNoCheck(fromKey(key));
-        if (line == null) {
-            if (countGet) missCountNotFound.incrementAndGet();
         } else if (line.isInvalid()) {
             removeInternal(key, false);
             if (countGet) missCountSoftRef.incrementAndGet();
@@ -370,17 +365,17 @@ public class UtilCache<K, V> implements Serializable {
         } else {
             if (countGet) hitCount.incrementAndGet();
         }
-        return line;
+        return line != null ? line.getValue() : null;
     }
 
     public Collection<V> values() {
         if (fileTable != null) {
             List<V> values = FastList.newInstance();
             try {
-                FastIterator<CacheLine<V>> iter = fileTable.values();
-                CacheLine<V> value = iter.next();
+                FastIterator<V> iter = fileTable.values();
+                V value = iter.next();
                 while (value != null) {
-                    values.add(value.getValue());
+                    values.add(value);
                     value = iter.next();
                 }
             } catch (IOException e) {
@@ -409,8 +404,8 @@ public class UtilCache<K, V> implements Serializable {
         long totalSize = 0;
         if (fileTable != null) {
             try {
-                FastIterator<CacheLine<V>> iter = fileTable.values();
-                CacheLine<V> value = iter.next();
+                FastIterator<V> iter = fileTable.values();
+                V value = iter.next();
                 while (value != null) {
                     totalSize += findSizeInBytes(value);
                     value = iter.next();
@@ -421,7 +416,7 @@ public class UtilCache<K, V> implements Serializable {
             }
         } else {
             for (CacheLine<V> line: memoryTable.values()) {
-                totalSize += findSizeInBytes(line);
+                totalSize += findSizeInBytes(line.getValue());
             }
         }
         return totalSize;
@@ -442,18 +437,32 @@ public class UtilCache<K, V> implements Serializable {
             if (Debug.verboseOn()) Debug.logVerbose("In UtilCache tried to remove with null key, using NullObject" + this.name, module);
         }
         Object nulledKey = fromKey(key);
-        CacheLine<V> oldCacheLine = getInternalNoCheck(nulledKey);
+        CacheLine<V> oldCacheLine;
+        V oldValue;
         if (fileTable != null) {
             try {
+                try {
+                    oldValue = fileTable.get(nulledKey);
+                } catch (IOException e) {
+                    oldValue = null;
+                    throw e;
+                }
                 fileTable.remove(nulledKey);
                 jdbmMgr.commit();
             } catch (IOException e) {
+                oldValue = null;
                 Debug.logError(e, module);
             }
+            memoryTable.remove(nulledKey);
+        } else {
+            oldCacheLine = memoryTable.remove(nulledKey);
+            oldValue = oldCacheLine != null ? oldCacheLine.getValue() : null;
         }
-        memoryTable.remove(nulledKey);
-        if (oldCacheLine != null) {
-            V oldValue = oldCacheLine.getValue();
+        return postRemove((K) key, oldValue, countRemove);
+    }
+
+    V postRemove(K key, V oldValue, boolean countRemove) {
+        if (oldValue != null) {
             noteRemoval((K) key, oldValue);
             if (countRemove) removeHitCount.incrementAndGet();
             return oldValue;
@@ -475,8 +484,8 @@ public class UtilCache<K, V> implements Serializable {
             }
             for (Object key: keys) {
                 try {
-                    CacheLine<V> value = fileTable.get(key);
-                    noteRemoval(toKey(key), value.getValue());
+                    V value = fileTable.get(key);
+                    noteRemoval(toKey(key), value);
                     removeHitCount.incrementAndGet();
                     fileTable.remove(key);
                     jdbmMgr.commit();
@@ -626,16 +635,14 @@ public class UtilCache<K, V> implements Serializable {
     public void setExpireTime(long expireTime) {
         // if expire time was <= 0 and is now greater, fill expire table now
         if (this.expireTime <= 0 && expireTime > 0) {
-            for (K key: getCacheLineKeys()) {
-                Object nulledKey = fromKey(key);
-                CacheLine<V> line = getInternalNoCheck(nulledKey);
-                putInternal(nulledKey, line.changeLine(useSoftReference, expireTime));
+            this.expireTime = expireTime;
+            for (Map.Entry<?, CacheLine<V>> entry: memoryTable.entrySet()) {
+                entry.setValue(entry.getValue().changeLine(useSoftReference, expireTime));
             }
         } else if (this.expireTime <= 0 && expireTime > 0) {
+            this.expireTime = expireTime;
             // if expire time was > 0 and is now <=, do nothing, just leave the load times in place, won't hurt anything...
         }
-
-        this.expireTime = expireTime;
     }
 
     /** return the current expire time for the cache elements
@@ -649,10 +656,8 @@ public class UtilCache<K, V> implements Serializable {
     public void setUseSoftReference(boolean useSoftReference) {
         if (this.useSoftReference != useSoftReference) {
             this.useSoftReference = useSoftReference;
-            for (K key: getCacheLineKeys()) {
-                Object nulledKey = fromKey(key);
-                CacheLine<V> line = getInternalNoCheck(nulledKey);
-                putInternal(nulledKey, line.changeLine(useSoftReference, expireTime));
+            for (Map.Entry<?, CacheLine<V>> entry: memoryTable.entrySet()) {
+                entry.setValue(entry.getValue().changeLine(useSoftReference, expireTime));
             }
         }
     }
@@ -692,11 +697,28 @@ public class UtilCache<K, V> implements Serializable {
      * @return True is the cache contains an element corresponding to the specified key, otherwise false
      */
     public boolean containsKey(Object key) {
-        CacheLine<V> line = getInternal(key, false);
-        if (line != null) {
-            return true;
-        } else {
+        Object nulledKey = fromKey(key);
+        CacheLine<V> line = memoryTable.get(nulledKey);
+        if (line == null) {
+            if (fileTable != null) {
+                try {
+                    FastIterator<Object> iter = fileTable.keys();
+                    Object checkKey = null;
+                    while ((checkKey = iter.next()) != null) {
+                        if (nulledKey.equals(checkKey)) {
+                            return true;
+                        }
+                    }
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                }
+            }
             return false;
+        } else if (line.hasExpired()) {
+            removeInternal(key, false);
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -732,23 +754,7 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     public Collection<? extends CacheLine<V>> getCacheLineValues() {
-        Collection<CacheLine<V>> values;
-        if (fileTable != null) {
-            values = FastList.newInstance();
-            try {
-                FastIterator<CacheLine<V>> iter = fileTable.values();
-                CacheLine<V> value = iter.next();
-                while (value != null) {
-                    values.add(value);
-                    value = iter.next();
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-        } else {
-            values = memoryTable.values();
-        }
-        return values;
+        throw new UnsupportedOperationException();
     }
 
     private Map<String, Object> createLineInfo(int keyNum, K key, CacheLine<V> line) {
@@ -795,17 +801,20 @@ public class UtilCache<K, V> implements Serializable {
      * @return True is the element corresponding to the specified key has expired, otherwise false
      */
     public boolean hasExpired(Object key) {
-        CacheLine<V> line = getInternalNoCheck(fromKey(key));
+        CacheLine<V> line = memoryTable.get(fromKey(key));
         if (line == null) return false;
         return line.hasExpired();
     }
 
     /** Clears all expired cache entries; also clear any cache entries where the SoftReference in the CacheLine object has been cleared by the gc */
     public void clearExpired() {
-        for (K key: getCacheLineKeys()) {
-            CacheLine<V> line = getInternalNoCheck(key);
+        Iterator<Map.Entry<Object, CacheLine<V>>> it = memoryTable.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Object, CacheLine<V>> entry = it.next();
+            CacheLine<V> line = entry.getValue();
             if (line.isInvalid()) {
-                removeInternal(key, false);
+                it.remove();
+                postRemove(toKey(entry.getKey()), line.getValue(), false);
             }
         }
     }
