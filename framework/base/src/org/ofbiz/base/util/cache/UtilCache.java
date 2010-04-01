@@ -416,10 +416,6 @@ public class UtilCache<K, V> implements Serializable {
             } else {
                 missCountNotFound.incrementAndGet();
             }
-        } else if (line.isInvalid()) {
-            removeInternal(key, line);
-            if (countGet) missCountSoftRef.incrementAndGet();
-            line = null;
         } else {
             if (countGet) hitCount.incrementAndGet();
         }
@@ -791,9 +787,6 @@ public class UtilCache<K, V> implements Serializable {
                 }
             }
             return false;
-        } else if (line.isInvalid()) {
-            removeInternal(key, false);
-            return false;
         } else {
             return true;
         }
@@ -876,24 +869,19 @@ public class UtilCache<K, V> implements Serializable {
      *
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @return True is the element corresponding to the specified key has expired, otherwise false
+     * @deprecated elements are automatically expired in the background
      */
+    @Deprecated
     public boolean hasExpired(Object key) {
-        CacheLine<V> line = memoryTable.get(fromKey(key));
-        if (line == null) return false;
-        return line.isInvalid();
+        return !memoryTable.containsKey(fromKey(key));
     }
 
-    /** Clears all expired cache entries; also clear any cache entries where the SoftReference in the CacheLine object has been cleared by the gc */
+    /** Clears all expired cache entries; also clear any cache entries where the SoftReference in the CacheLine object has been cleared by the gc
+     * @deprecated entries are removed automatically now
+    */
+    @Deprecated
     public void clearExpired() {
-        Iterator<Map.Entry<Object, CacheLine<V>>> it = memoryTable.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<Object, CacheLine<V>> entry = it.next();
-            CacheLine<V> line = entry.getValue();
-            if (line.isInvalid()) {
-                it.remove();
-                postRemove(toKey(entry.getKey()), line.getValue(), false);
-            }
-        }
+        // do nothing, expired values are removed automatically in the background
     }
 
     /** Send a key addition event to all registered listeners */
@@ -927,12 +915,12 @@ public class UtilCache<K, V> implements Serializable {
         listeners.remove(listener);
     }
 
-    /** Clears all expired cache entries from all caches */
+    /** Clears all expired cache entries from all caches
+     * @deprecated entries are removed automatically now
+    */
+    @Deprecated
     public static void clearExpiredFromAllCaches() {
-        // We make a copy since clear may take time
-        for (UtilCache<?,?> utilCache : utilCacheTable.values()) {
-            utilCache.clearExpired();
-        }
+        // do nothing, expired values are removed automatically in the background
     }
 
     /** Checks for a non-expired key in a specific cache */

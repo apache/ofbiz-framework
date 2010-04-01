@@ -37,7 +37,6 @@ public abstract class CacheLine<V> extends ExecutionPool.Pulse {
         return this.expireTimeNanos - loadTimeNanos - expireTimeNanos != 0;
     }
     public abstract V getValue();
-    public abstract boolean isInvalid();
 
     void cancel() {
     }

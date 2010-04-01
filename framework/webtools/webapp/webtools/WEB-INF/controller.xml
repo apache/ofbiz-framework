@@ -188,12 +188,6 @@ under the License.
         <response name="success" type="view" value="FindUtilCache"/>
         <response name="error" type="view" value="FindUtilCache"/>
     </request-map>
-    <request-map uri="FindUtilCacheClearAllExpired">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.webtools.UtilCacheEvents" invoke="clearAllExpiredEvent"/>
-        <response name="success" type="view" value="FindUtilCache"/>
-        <response name="error" type="view" value="FindUtilCache"/>
-    </request-map>
     <request-map uri="ForceGarbageCollection">
         <security https="true" auth="true"/>
         <event type="service" invoke="forceGarbageCollection"/>
