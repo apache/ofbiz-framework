@@ -4923,7 +4923,7 @@
     </property>
     <property key="PageTitleEditFacilityContent">
         <value xml:lang="en">Edit Facility Content for ${facility.facilityName} [${facility.facilityId}]</value>
-    </property>    
+    </property>
     <property key="PageTitleEditFacilityGroup">
         <value xml:lang="de">Einrichtungsgruppe bearbeiten</value>
         <value xml:lang="en">Edit Facility Group</value>
@@ -5847,6 +5847,9 @@
         <value xml:lang="fr">Géolocalisation de l'emplacement de stokage</value>
         <value xml:lang="it">Posizione Stabilimento GeoLocation</value>
         <value xml:lang="zh">场所的地理位置</value>
+    </property>
+    <property key="PageTitleFacilityGeoLocation">
+        <value xml:lang="en">Facility Geo Location</value>
     </property>
     <property key="PageTitleFindConfigItems">
         <value xml:lang="de">Konfigurationsposition suchen</value>
@@ -6875,6 +6878,9 @@
     </property>
     <property key="ProductAddFacilityContent">
         <value xml:lang="en">Add Facility Content</value>
+    </property>
+    <property key="ProductEditFacilityGeoLocation">
+        <value xml:lang="en">Edit Facility Geo Location</value>
     </property>
     <property key="ProductAddFeature">
         <value xml:lang="de">Merkmal hinzufügen</value>

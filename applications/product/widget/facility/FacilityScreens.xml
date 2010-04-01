@@ -1509,4 +1509,33 @@ under the License.
             </widgets>
          </section>
     </screen>
+
+    <screen name="EditFacilityGeoPoint">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="EditFacilityGeoPoint"/>
+                <set field="titleProperty" value="PageTitleFacilityGeoLocation"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <entity-one entity-name="Facility" value-field="facility"/>
+                <get-related-one relation-name="GeoPoint" to-value-field="geoPoint" value-field="facility"/>
+                <get-related-one relation-name="ElevationUom" to-value-field="uom" value-field="geoPoint"/>
+                <set field="geoPoints[+0].lat" from-field="geoPoint.latitude"/>
+                <set field="geoPoints[0].lon" from-field="geoPoint.longitude"/>
+                <set field="geoChart.dataSourceId" from-field="geoPoint.dataSourceId"/>
+                <set field="geoChart.width" value="600px"/>
+                <set field="geoChart.height" value="500px"/>
+                <set field="geoChart.points" from-field="geoPoints"/>           
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="edit-facility-geopoint" title="${uiLabelMap.ProductEditFacilityGeoLocation}" collapsible="true" initially-collapsed="true">
+                            <include-form name="EditFacilityGeoPoint" location="component://product/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
+                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>    
 </screens>

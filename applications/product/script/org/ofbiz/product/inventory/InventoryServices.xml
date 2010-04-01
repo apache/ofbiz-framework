@@ -1326,4 +1326,19 @@ under the License.
             <clear-field field="productFacilityCtx"/>
         </iterate>
     </simple-method>
+    <simple-method method-name="createUpdateFacilityGeoPoint" short-description="Create or update GeoPoint assigned to facility">
+        <if-empty field="parameters.geoPointId">
+            <set-service-fields service-name="createGeoPoint" to-map="createGeoPointMap" map="parameters"/>
+            <call-service service-name="createGeoPoint" in-map-name="createGeoPointMap">
+                <result-to-field result-name="geoPointId" field="geoPointId"/>
+            </call-service>
+            <entity-one value-field="facility" entity-name="Facility"/>
+            <set field="facility.geoPointId" from-field="geoPointId"/>
+            <store-value value-field="facility"/>
+            <else>
+                <set-service-fields service-name="updateGeoPoint" to-map="updateGeoPointMap" map="parameters"/>
+                <call-service service-name="updateGeoPoint" in-map-name="updateGeoPointMap"/>
+            </else>
+        </if-empty>
+    </simple-method>
 </simple-methods>

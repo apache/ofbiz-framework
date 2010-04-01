@@ -931,4 +931,31 @@ under the License.
            </hyperlink>
         </field>   
     </form>
+
+    <form name="EditFacilityGeoPoint" type="single" target="createUpdateFacilityGeoPoint" default-map-name="geoPoint"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="facilityId"><hidden value="${facilityId}"/></field>
+        <field name="geoPointId"><hidden/></field>
+        <field name="dataSourceId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="DataSource">
+                    <entity-constraint name="dataSourceTypeId" value="GEOPOINT_SUPPLIER"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="latitude"><text/></field>
+        <field name="longitude"><text/></field>
+        <field name="elevation"><text/></field>
+        <field name="elevationUomId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="Uom" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" value="LENGTH_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="information"><text size="50" maxlength="60"/></field>
+        <field name="selectButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
 </forms>
