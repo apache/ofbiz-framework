@@ -135,17 +135,20 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     public static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
-        String value = null;
-        for (String propName: propNames) {
-            try {
-                value = res.getString(propName + '.' + parameter);
-            } catch (MissingResourceException e) {}
+        try {
+            for (String propName: propNames) {
+                try {
+                    return res.getString(propName + '.' + parameter);
+                } catch (MissingResourceException e) {}
+            }
+            // don't need this, just return null
+            //if (value == null) {
+            //    throw new MissingResourceException("Can't find resource for bundle", res.getClass().getName(), Arrays.asList(propNames) + "." + parameter);
+            //}
+        } catch (Exception e) {
+            Debug.logWarning(e, "Error getting " + parameter + " value from cache.properties file for propNames: " + propNames, module);
         }
-        // don't need this, just return null
-        //if (value == null) {
-        //    throw new MissingResourceException("Can't find resource for bundle", res.getClass().getName(), Arrays.asList(propNames) + "." + parameter);
-        //}
-        return value;
+        return null;
     }
 
     protected void setPropertiesParams(String cacheName) {
@@ -156,48 +159,28 @@ public class UtilCache<K, V> implements Serializable {
         ResourceBundle res = ResourceBundle.getBundle("cache");
 
         if (res != null) {
-            try {
-                String value = getPropertyParam(res, propNames, "maxSize");
-                if (UtilValidate.isNotEmpty(value)) {
-                    this.sizeLimit = Integer.parseInt(value);
-                }
-            } catch (Exception e) {
-                Debug.logWarning(e, "Error getting maxSize value from cache.properties file for propNames: " + propNames, module);
+            String value = getPropertyParam(res, propNames, "maxSize");
+            if (UtilValidate.isNotEmpty(value)) {
+                this.sizeLimit = Integer.parseInt(value);
+            }
+            value = getPropertyParam(res, propNames, "maxInMemory");
+            if (UtilValidate.isNotEmpty(value)) {
+                this.maxInMemory = Integer.parseInt(value);
+            }
+            value = getPropertyParam(res, propNames, "expireTime");
+            if (UtilValidate.isNotEmpty(value)) {
+                this.expireTime = Long.parseLong(value);
+            }
+            value = getPropertyParam(res, propNames, "useSoftReference");
+            if (value != null) {
+                useSoftReference = "true".equals(value);
+            }
+            value = getPropertyParam(res, propNames, "useFileSystemStore");
+            if (value != null) {
+                useFileSystemStore = "true".equals(value);
             }
             try {
-                String value = getPropertyParam(res, propNames, "maxInMemory");
-                if (UtilValidate.isNotEmpty(value)) {
-                    this.maxInMemory = Integer.parseInt(value);
-                }
-            } catch (Exception e) {
-                Debug.logWarning(e, "Error getting maxInMemory value from cache.properties file for propNames: " + propNames, module);
-            }
-            try {
-                String value = getPropertyParam(res, propNames, "expireTime");
-                if (UtilValidate.isNotEmpty(value)) {
-                    this.expireTime = Long.parseLong(value);
-                }
-            } catch (Exception e) {
-                Debug.logWarning(e, "Error getting expireTime value from cache.properties file for propNames: " + propNames, module);
-            }
-            try {
-                String value = getPropertyParam(res, propNames, "useSoftReference");
-                if (value != null) {
-                    useSoftReference = "true".equals(value);
-                }
-            } catch (Exception e) {
-                Debug.logWarning(e, "Error getting useSoftReference value from cache.properties file for propNames: " + propNames, module);
-            }
-            try {
-                String value = getPropertyParam(res, propNames, "useFileSystemStore");
-                if (value != null) {
-                    useFileSystemStore = "true".equals(value);
-                }
-            } catch (Exception e) {
-                Debug.logWarning(e, "Error getting useFileSystemStore value from cache.properties file for propNames: " + propNames, module);
-            }
-            try {
-                String value = res.getString("cache.file.store");
+                value = res.getString("cache.file.store");
                 if (value != null) {
                     fileStore = value;
                 }
