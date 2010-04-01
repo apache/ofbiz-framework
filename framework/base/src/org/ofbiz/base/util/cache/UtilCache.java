@@ -500,13 +500,7 @@ public class UtilCache<K, V> implements Serializable {
             this.useSoftReference = useSoftReference;
             for (K key: cacheLineTable.keySet()) {
                 CacheLine<V> line = cacheLineTable.get(key);
-                if (useSoftReference) {
-                    if (line instanceof SoftRefCacheLine) continue;
-                    cacheLineTable.put(key, new SoftRefCacheLine<V>(line.getValue(), line.loadTime, line.expireTime));
-                } else {
-                    if (line instanceof HardRefCacheLine) continue;
-                    cacheLineTable.put(key, new HardRefCacheLine<V>(line.getValue(), line.loadTime, line.expireTime));
-                }
+                cacheLineTable.put(key, line.changeLine(useSoftReference, line.expireTime));
             }
         }
     }
