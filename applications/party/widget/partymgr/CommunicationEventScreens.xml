@@ -107,7 +107,7 @@ under the License.
                                         <not><if-empty field="contacts"/></not>
                                     </condition>
                                     <widgets> 
-                                        <horizontal-separator></horizontal-separator>
+                                        <horizontal-separator/>
                                         <container style="h1"><label text="${uiLabelMap.PageTitleListCommunicationsRelatedParties} ${partyId}"/></container>
                                         <iterate-section entry="contact" list="contacts">
                                             <section>
@@ -163,7 +163,7 @@ under the License.
                                                 </or>
                                             </condition>
                                             <widgets>
-                                                <horizontal-separator></horizontal-separator>
+                                                <horizontal-separator/>
                                                 <container style="h1"><label text="${uiLabelMap.PageTitleListCommunicationsRelatedParties} ${partyId}"/></container>
                                                 <container style="h2"><label text="${partyIdFrom}"/></container>       
                                                 <iterate-section entry="account" list="accounts">
@@ -995,7 +995,7 @@ under the License.
                         <not><if-empty field="commEventsUnknown"/></not>
                     </condition>
                     <widgets>
-                        <label style="h2" text="${uiLabelMap.PartyEmailsFromUnknownOrigin}"></label>
+                        <label style="h2" text="${uiLabelMap.PartyEmailsFromUnknownOrigin}"/>
                         <include-form name="ListMyUnknownPartyEmails" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                     </widgets>
                 </section>
@@ -1005,7 +1005,7 @@ under the License.
                         <not><if-empty field="commEventDraft"/></not>
                     </condition>
                     <widgets>
-                        <label style="h2" text="${uiLabelMap.PartyDraftEmails}"></label>
+                        <label style="h2" text="${uiLabelMap.PartyDraftEmails}"/>
                         <include-form name="ListDraftEmails" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                     </widgets>
                 </section>
@@ -1014,7 +1014,7 @@ under the License.
                         <not><if-empty field="commEventProgress"/></not>
                     </condition>
                     <widgets>
-                        <label style="h2" text="${uiLabelMap.PartyInProgresstEmails}"></label>
+                        <label style="h2" text="${uiLabelMap.PartyInProgresstEmails}"/>
                         <include-form name="ListProgressEmails" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                     </widgets>
                 </section>
