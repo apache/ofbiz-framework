@@ -89,14 +89,24 @@
          }
          // get category detail 
          pkCateId = null;
+         stCate1ID = null;
+         stCate2ID = null;
          addItems.each{ addItemMap ->
              addItem = addItemMap.addItemCall;
              item = addItem.getItem();
              if (productId == item.getSKU()) {
                  primaryCate = item.getPrimaryCategory();
+                 storeFront = item.getStorefront();
+                 if (storeFront) {
+                     stCate1ID = storeFront.getStoreCategoryID();
+                     stCate2ID = storeFront.getStoreCategory2ID();
+                     context.storeFront = storeFront;
+                 }
                  if (primaryCate) pkCateId = primaryCate.getCategoryID();
              }
          }
+         context.stCate1ID = stCate1ID;
+         context.stCate2ID = stCate2ID;
          if (pkCateId) {
          refName = "itemCateFacade_" + pkCateId;
              if (addItemObj.get(refName)) {

@@ -28,6 +28,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.ebay.EbayHelper;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -49,6 +50,7 @@ import com.ebay.sdk.attributes.model.ICategoryCSProvider;
 import com.ebay.sdk.call.GetAttributesCSCall;
 import com.ebay.sdk.call.GetCategory2CSCall;
 import com.ebay.sdk.call.GetDescriptionTemplatesCall;
+import com.ebay.sdk.call.GetStoreCall;
 import com.ebay.sdk.helper.cache.CategoriesDownloader;
 import com.ebay.sdk.helper.cache.DetailsDownloader;
 import com.ebay.sdk.helper.cache.FeaturesDownloader;
@@ -60,11 +62,16 @@ import com.ebay.soap.eBLBaseComponents.FeatureDefinitionsType;
 import com.ebay.soap.eBLBaseComponents.GetCategoryFeaturesResponseType;
 import com.ebay.soap.eBLBaseComponents.GetDescriptionTemplatesRequestType;
 import com.ebay.soap.eBLBaseComponents.GetDescriptionTemplatesResponseType;
+import com.ebay.soap.eBLBaseComponents.GetStoreRequestType;
+import com.ebay.soap.eBLBaseComponents.GetStoreResponseType;
 import com.ebay.soap.eBLBaseComponents.GeteBayDetailsResponseType;
 import com.ebay.soap.eBLBaseComponents.ItemSpecificsEnabledCodeType;
 import com.ebay.soap.eBLBaseComponents.ItemSpecificsEnabledDefinitionType;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
 import com.ebay.soap.eBLBaseComponents.SiteDefaultsType;
+import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryArrayType;
+import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryType;
+import com.ebay.soap.eBLBaseComponents.StoreType;
 import com.ebay.soap.eBLBaseComponents.ThemeGroupType;
 
 public class EbayStoreSiteFacade {
@@ -73,6 +80,7 @@ public class EbayStoreSiteFacade {
     private IAttributesMaster attrMaster = null;
     private static final int MAP_SIZE = 30000;
     private Map<SiteCodeType, Map<String, CategoryType>> siteCategoriesMap = new HashMap<SiteCodeType, Map<String, CategoryType>>();
+    private Map<SiteCodeType, List<StoreCustomCategoryType>> siteStoreCategoriesMap = new HashMap<SiteCodeType, List<StoreCustomCategoryType>>();
     private Map<SiteCodeType, List<CategoryType>> siteCategoriesCSMap = new HashMap<SiteCodeType,List<CategoryType>>();
     private Map<SiteCodeType, Map<String, CategoryFeatureType>> siteCategoriesFeaturesMap = new HashMap<SiteCodeType, Map<String, CategoryFeatureType>>();
     private Map<SiteCodeType, SiteDefaultsType> siteFeatureDefaultMap = new HashMap<SiteCodeType, SiteDefaultsType>();
@@ -85,6 +93,7 @@ public class EbayStoreSiteFacade {
         syncAllCategoriesFeatures();
         syncEBayDetails();
         getAllMergedCategories();
+        getEbayStoreCategories();
     }
 
     public static IAttributesXslProvider getDefaultStyleXsl() throws java.io.IOException {
@@ -190,6 +199,34 @@ public class EbayStoreSiteFacade {
         }
     }
 
+    //get all categories from ebay store depend on siteId
+    private List<StoreCustomCategoryType> getEbayStoreCategories() {
+        Map<String, StoreCustomCategoryType> catsMap = new HashMap<String, StoreCustomCategoryType>(30000);
+        List<StoreCustomCategoryType> catsList = FastList.newInstance();
+        try {
+            GetStoreCall call = new GetStoreCall(this.apiContext);
+            GetStoreRequestType req = new GetStoreRequestType();
+            GetStoreResponseType resp = null;
+            resp = (GetStoreResponseType) call.execute(req);
+            if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
+                StoreType store = resp.getStore();
+                StoreCustomCategoryArrayType categoriesArr = store.getCustomCategories();
+                StoreCustomCategoryType[] cateogries = categoriesArr.getCustomCategory();
+                for (StoreCustomCategoryType cat : cateogries) {
+                    String categoryId = Long.toString(cat.getCategoryID());
+                    catsMap.put(categoryId, cat);
+                }
+                for (StoreCustomCategoryType cat : catsMap.values()) {
+                    catsList.add(cat);
+                }
+                siteStoreCategoriesMap.put(this.apiContext.getSite(), catsList);
+            }
+        } catch (Exception e) {
+            return siteStoreCategoriesMap.get(this.apiContext.getSite());
+        }
+        return catsList;
+    }
+
     public IAttributesMaster getAttrMaster() {
         return attrMaster;
     }
@@ -212,6 +249,10 @@ public class EbayStoreSiteFacade {
 
     public Map<SiteCodeType, List<CategoryType>> getSiteCategoriesCSMap() {
         return siteCategoriesCSMap;
+    }
+
+    public Map<SiteCodeType, List<StoreCustomCategoryType>> getSiteStoreCategoriesMap() {
+        return siteStoreCategoriesMap;
     }
 
     public Map<SiteCodeType, GeteBayDetailsResponseType> getEBayDetailsMap() {

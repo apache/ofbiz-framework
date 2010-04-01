@@ -310,6 +310,72 @@ under the License.
                                         </tr>
                                         <!-- end of set category -->
                                         <tr>
+                                            <td class="label">Store category 1</td>
+                                            <td>
+                                              <div>
+                                                  <div id="loading"></div>
+                                                  <select id="ebayStore1Category" name="ebayStore1Category">
+                                                        <option value="">Please select</option>
+                                                        <#if storeCategories?exists>
+                                                            <#if storeFront?has_content>
+                                                                <#if !storeFront.isLeafCategory()?has_content> 
+                                                                    <#assign  leafCate  = "false">
+                                                                <#else>
+                                                                    <#assign  leafCate  = "true">
+                                                                </#if>
+                                                                <#assign storeCate1Id  = storeFront.getStoreCategoryID()?if_exists>
+                                                                 <option selected value="${storeFront.getStoreCategoryID()?if_exists}" >${storeFront.getStoreCategoryID()?if_exists}</option>
+                                                            <#else>
+                                                                <#list storeCategories as csCate>
+                                                                    <#if !csCate.IsLeafCategory?has_content> 
+                                                                        <#assign  leafCate  = "false">
+                                                                    <#else>
+                                                                        CH_${storeFront.getStoreCategoryID()?if_exists}<#assign  leafCate  = "true">
+                                                                    </#if>
+                                                                    <#assign categoryId = csCate.getCategoryID()?if_exists>
+                                                                    <option value="${csCate.getCategoryID()?if_exists}" >${csCate.getName()?if_exists}</option>
+                                                                </#list>
+                                                            </#if>
+                                                        </#if>
+                                                  </select>
+                                              </div>
+                                              <input type="hidden" name="storeCate1Id" value="${storeCate1Id?if_exists}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label">Store category 2</td>
+                                            <td>
+                                              <div>
+                                                  <div id="loading"></div>
+                                                  <select id="ebayStore2Category" name="ebayStore2Category">
+                                                        <option value="">Please select</option>
+                                                        <#if storeCategories?exists>
+                                                            <#if storeFront?has_content>
+                                                                <#if !storeFront.isLeafCategory()?has_content> 
+                                                                    <#assign  leafCate  = "false">
+                                                                <#else>
+                                                                    <#assign  leafCate  = "true">
+                                                                </#if>
+                                                                <#assign storeCate1Id  = storeFront.getStoreCategoryID()?if_exists>
+                                                                 <option selected value="${storeFront.getStoreCategoryID()?if_exists}" >${storeFront.getStoreCategoryID()?if_exists}</option>
+                                                            <#else>
+                                                                <#list storeCategories as csCate>
+                                                                    <#if !csCate.IsLeafCategory?has_content> 
+                                                                        <#assign  leafCate  = "false">
+                                                                    <#else>
+                                                                        CH_${storeFront.getStoreCategoryID()?if_exists}<#assign  leafCate  = "true">
+                                                                    </#if>
+                                                                    <#assign categoryId = csCate.getCategoryID()?if_exists>
+                                                                    <option value="${csCate.getCategoryID()?if_exists}" >${csCate.getName()?if_exists}</option>
+                                                                </#list>
+                                                            </#if>
+                                                        </#if>
+                                                  </select>
+                                              </div>
+                                              <input type="hidden" name="storeCate2Id" value="${storeCate1Id?if_exists}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td class="label">Title</td>
                                             <td><input type="text" size="60"  name="title" value="${item.getTitle()?if_exists}"/></td>
                                         </tr>

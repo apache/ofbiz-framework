@@ -64,6 +64,8 @@ import com.ebay.soap.eBLBaseComponents.ReturnPolicyType;
 import com.ebay.soap.eBLBaseComponents.ShippingServiceDetailsType;
 import com.ebay.soap.eBLBaseComponents.ShippingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
+import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryType;
+import com.ebay.soap.eBLBaseComponents.StorefrontType;
 import com.ebay.soap.eBLBaseComponents.VATDetailsType;
 import com.ebay.soap.eBLBaseComponents.WarningLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.ListingDesignerType;
@@ -414,6 +416,60 @@ public class EbayEvents {
         return categories;
     }
 
+    public static List<StoreCustomCategoryType> getStoreChildCategories(HttpServletRequest request) throws ApiException, SdkException, Exception {
+        List<StoreCustomCategoryType> categories = FastList.newInstance();
+        EbayStoreSiteFacade sf = null;
+        String categoryId = null;
+
+        if (UtilValidate.isEmpty(request.getParameter("productStoreId")) && UtilValidate.isEmpty(request.getAttribute("productStoreId"))) {
+            Debug.logError("Required productStoreId for get ebay LeafCategories.", module);
+            return categories;
+        }
+        if (UtilValidate.isNotEmpty(request.getParameter("categoryId")) || UtilValidate.isNotEmpty(request.getAttribute("categoryId"))) {
+            categoryId = (String) request.getParameter("categoryId") != null ? request.getParameter("categoryId") : (String) request.getAttribute("categoryId");
+            Debug.logInfo("Load child categories from session following site id and categoryId is ".concat(categoryId), module);
+        } else {
+            Debug.logWarning("No categoryId to get child categories.", module);
+        }
+
+        ApiContext apiContext = getApiContext(request);
+        sf = getSiteFacade(apiContext,request);
+        if (UtilValidate.isNotEmpty(sf)) {
+            Map<SiteCodeType, List<StoreCustomCategoryType>> csCateMaps = sf.getSiteStoreCategoriesMap();
+            List<StoreCustomCategoryType> csCateList = csCateMaps.get(apiContext.getSite());
+            if (UtilValidate.isNotEmpty(csCateList)) {
+                for (StoreCustomCategoryType csCate : csCateList) {
+                    StoreCustomCategoryType[] categoryChildCategories = csCate.getChildCategory();
+                    if (categoryChildCategories.length > 0) {
+                        for (StoreCustomCategoryType childCategory : categoryChildCategories) {
+                            StoreCustomCategoryType[] categoryChild2 = childCategory.getChildCategory();
+                            if (categoryChild2.length > 0) {
+                                for (StoreCustomCategoryType categoryChild3 : categoryChild2) {
+                                    categories.add(categoryChild3);
+                                }
+                            } else {
+                                categories.add(childCategory);
+                            }
+                        }
+                    } else {
+                        categories.add(csCate);
+                    }
+                }
+                //sort the cats list
+                Collections.sort(categories, new Comparator() {
+                    public int compare(Object a, Object b) {
+                        StoreCustomCategoryType cat1 = (StoreCustomCategoryType) a;
+                        StoreCustomCategoryType cat2 = (StoreCustomCategoryType) b;
+                        int catId1 = Integer.parseInt(Long.toString(cat1.getCategoryID()));
+                        int catId2 = Integer.parseInt(Long.toString(cat2.getCategoryID()));
+                        return catId1 - catId2;
+                    }
+                });
+            }
+        }
+        return categories;
+    }
+
     public static CategoryType getCsCategoriesMapped(HttpServletRequest request) throws ApiException, SdkException, Exception{
         EbayStoreSiteFacade sf = null;
         String categoryId = null;
@@ -718,8 +774,18 @@ public class EbayEvents {
                             item.setPostalCode(requestParams.get("postalCode".concat(id)).toString());
                             attributeMapList.put("PostalCode", requestParams.get("postalCode".concat(id)).toString());
                         }
+                        StorefrontType storeFront = new StorefrontType();
+                        if (UtilValidate.isNotEmpty(requestParams.get("ebayStore1Category"))) {
+                            storeFront.setStoreCategoryID(new Long(requestParams.get("ebayStore1Category").toString()));
+                            attributeMapList.put("StoreCategoryID", requestParams.get("ebayStore1Category").toString());
+                        }
+                        if (UtilValidate.isNotEmpty(requestParams.get("ebayStore2Category"))) {
+                            storeFront.setStoreCategory2ID(new Long(requestParams.get("ebayStore2Category").toString()));
+                            attributeMapList.put("StoreCategory2ID", requestParams.get("ebayStore2Category").toString());
+                        }
+                        item.setStorefront(storeFront);
                         addItemCall.setItem(item);
-                        
+
                         // create/update EbayProductListing entity
                         Map<String, Object> prodMap = FastMap.newInstance();
                         prodMap.put("productStoreId", productStoreId);

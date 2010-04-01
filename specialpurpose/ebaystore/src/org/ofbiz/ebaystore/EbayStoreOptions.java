@@ -55,6 +55,7 @@ import com.ebay.soap.eBLBaseComponents.GetStoreOptionsRequestType;
 import com.ebay.soap.eBLBaseComponents.GetStoreOptionsResponseType;
 import com.ebay.soap.eBLBaseComponents.StoreColorSchemeType;
 import com.ebay.soap.eBLBaseComponents.StoreColorType;
+import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryType;
 import com.ebay.soap.eBLBaseComponents.StoreFontFaceCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreFontSizeCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreFontType;
@@ -241,35 +242,6 @@ public class EbayStoreOptions {
         } catch (SdkException e) {
             Debug.logError(e.getMessage(), module);
         } catch (Exception e) {
-            Debug.logError(e.getMessage(), module);
-        }
-        return "success";
-    }
-
-    public static String retrieveEbayStoreCategoryByParent(HttpServletRequest request, HttpServletResponse response) {
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        HttpSession session = request.getSession();
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        Map<String,Object> result = FastMap.newInstance();
-        Map<String,Object> context = FastMap.newInstance();
-        try {
-            Map paramMap = UtilHttp.getCombinedMap(request);
-            if (paramMap.get("productStoreId") != null) {
-                String ebayCategoryId = (String)paramMap.get("ebayCategoryId");
-                context.put("productStoreId", paramMap.get("productStoreId"));
-                context.put("ebayStoreCategoryId", ebayCategoryId);
-                context.put("userLogin", userLogin);
-                result = dispatcher.runSync("getEbayStoreCategories", context);
-                if (result != null) {
-                    List<Map<String,Object>> categories = (List<Map<String,Object>>) result.get("storeCategories");
-                    if (categories.size()>0) {
-                        toJsonObjectList(categories,response);
-                    }
-                }
-            }
-        } catch (GenericServiceException e) {
-            Debug.logError(e.getMessage(), module);
-        } catch (EventHandlerException e) {
             Debug.logError(e.getMessage(), module);
         }
         return "success";
