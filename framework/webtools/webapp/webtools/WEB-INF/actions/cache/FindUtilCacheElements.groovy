@@ -35,8 +35,8 @@ if (cacheName) {
     if (utilCache) {
         cacheElementsList = utilCache.getLineInfos()
         cacheElementsList.each {
-            if (it.expireTime != null) {
-                it.expireTime = it.expireTime.toString();
+            if (it.expireTimeMillis != null) {
+                it.expireTimeMillis = it.expireTimeMillis / 1000 .toString();
             }
             totalSize += it.lineSize;
             it.lineSize = UtilFormatOut.formatQuantity(it.lineSize);
