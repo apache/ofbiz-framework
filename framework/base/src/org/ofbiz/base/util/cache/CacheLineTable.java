@@ -167,16 +167,16 @@ public class CacheLineTable<K, V> implements Serializable {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to remove with null key, using NullObject" + this.cacheName, module);
         }
         Object nulledKey = fromKey(key);
-        CacheLine<V> value = this.getNoCheck(nulledKey);
+        CacheLine<V> value = memoryTable.remove(nulledKey);
         if (fileTable != null) {
             try {
+                if (value == null) value = fileTable.get(nulledKey);
                 fileTable.remove(nulledKey);
                 jdbmMgr.commit();
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
         }
-        memoryTable.remove(nulledKey);
         return value;
     }
 
