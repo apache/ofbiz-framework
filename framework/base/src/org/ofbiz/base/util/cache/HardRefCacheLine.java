@@ -19,24 +19,12 @@
 package org.ofbiz.base.util.cache;
 
 @SuppressWarnings("serial")
-public final class HardRefCacheLine<V> extends CacheLine<V> {
+public abstract class HardRefCacheLine<V> extends CacheLine<V> {
     public final V value;
 
-    public HardRefCacheLine(V value, long loadTime, long expireTime) {
-        super(loadTime, expireTime);
+    public HardRefCacheLine(V value, long loadTimeNanos, long expireTimeNanos) {
+        super(loadTimeNanos, expireTimeNanos);
         this.value = value;
-    }
-
-    CacheLine<V> changeLine(boolean useSoftReference, long expireTime) {
-        if (useSoftReference) {
-            return new SoftRefCacheLine<V>(getValue(), loadTime, expireTime);
-        } else {
-            if (this.expireTime == expireTime) {
-                return this;
-            } else {
-                return new HardRefCacheLine<V>(getValue(), loadTime, expireTime);
-            }
-        }
     }
 
     @Override

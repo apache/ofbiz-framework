@@ -34,6 +34,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -46,6 +47,7 @@ import javolution.util.FastSet;
 import jdbm.helper.FastIterator;
 import jdbm.htree.HTree;
 
+import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilObject;
@@ -100,7 +102,7 @@ public class UtilCache<K, V> implements Serializable {
     /** Specifies the amount of time since initial loading before an element will be reported as expired.
      * If set to 0, elements will never expire.
      */
-    protected long expireTime = 0;
+    protected long expireTimeNanos = 0;
 
     /** Specifies whether or not to use soft references for this cache, defaults to false */
     protected boolean useSoftReference = false;
@@ -127,11 +129,11 @@ public class UtilCache<K, V> implements Serializable {
      * @param cacheName The name of the cache.
      * @param useSoftReference Specifies whether or not to use soft references for this cache.
      */
-    private UtilCache(String cacheName, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String propName, String... propNames) {
+    private UtilCache(String cacheName, int sizeLimit, int maxInMemory, long expireTimeMillis, boolean useSoftReference, boolean useFileSystemStore, String propName, String... propNames) {
         this.name = cacheName;
         this.sizeLimit = sizeLimit;
         this.maxInMemory = maxInMemory;
-        this.expireTime = expireTime;
+        this.expireTimeNanos = TimeUnit.NANOSECONDS.convert(expireTimeMillis, TimeUnit.MILLISECONDS);
         this.useSoftReference = useSoftReference;
         this.useFileSystemStore = useFileSystemStore;
         setPropertiesParams(propName);
@@ -218,7 +220,7 @@ public class UtilCache<K, V> implements Serializable {
             }
             value = getPropertyParam(res, propNames, "expireTime");
             if (UtilValidate.isNotEmpty(value)) {
-                this.expireTime = Long.parseLong(value);
+                this.expireTimeNanos = TimeUnit.NANOSECONDS.convert(Long.parseLong(value), TimeUnit.MILLISECONDS);
             }
             value = getPropertyParam(res, propNames, "useSoftReference");
             if (value != null) {
@@ -284,27 +286,90 @@ public class UtilCache<K, V> implements Serializable {
      * @param value The value of the element
      */
     public V put(K key, V value) {
-        return put(key, value, expireTime);
+        return putInternal(key, value, expireTimeNanos);
     }
 
-    private CacheLine<V> createCacheLine(V value, long expireTime) {
-        long loadTime = expireTime > 0 ? System.currentTimeMillis() : 0;
-        if (useSoftReference) {
-            return new SoftRefCacheLine<V>(value, loadTime, expireTime);
-        } else {
-            return new HardRefCacheLine<V>(value, loadTime, expireTime);
+    CacheLine<V> createSoftRefCacheLine(final Object key, V value, long loadTimeNanos, long expireTimeNanos) {
+        return tryRegister(loadTimeNanos, new SoftRefCacheLine<V>(value, loadTimeNanos, expireTimeNanos) {
+            @Override
+            CacheLine<V> changeLine(boolean useSoftReference, long expireTimeNanos) {
+                if (useSoftReference) {
+                    if (differentExpireTime(expireTimeNanos)) {
+                        return this;
+                    } else {
+                        return createSoftRefCacheLine(key, getValue(), loadTimeNanos, expireTimeNanos);
+                    }
+                } else {
+                    return createHardRefCacheLine(key, getValue(), loadTimeNanos, expireTimeNanos);
+                }
+            }
+
+            @Override
+            void remove() {
+                removeInternal(key, this);
+            }
+        });
+    }
+
+    CacheLine<V> createHardRefCacheLine(final Object key, V value, long loadTimeNanos, long expireTimeNanos) {
+        return tryRegister(loadTimeNanos, new HardRefCacheLine<V>(value, loadTimeNanos, expireTimeNanos) {
+            @Override
+            CacheLine<V> changeLine(boolean useSoftReference, long expireTimeNanos) {
+                if (useSoftReference) {
+                    return createSoftRefCacheLine(key, getValue(), loadTimeNanos, expireTimeNanos);
+                } else {
+                    if (differentExpireTime(expireTimeNanos)) {
+                        return this;
+                    } else {
+                        return createHardRefCacheLine(key, getValue(), loadTimeNanos, expireTimeNanos);
+                    }
+                }
+            }
+
+            @Override
+            void remove() {
+                removeInternal(key, this);
+            }
+        });
+    }
+
+    private CacheLine<V> tryRegister(long loadTimeNanos, CacheLine<V> line) {
+        if (loadTimeNanos > 0) {
+            ExecutionPool.addPulse(line);
         }
+        return line;
+    }
+
+    private CacheLine<V> createCacheLine(K key, V value, long expireTimeNanos) {
+        long loadTimeNanos = expireTimeNanos > 0 ? System.nanoTime() : 0;
+        if (useSoftReference) {
+            return createSoftRefCacheLine(key, value, loadTimeNanos, expireTimeNanos);
+        } else {
+            return createHardRefCacheLine(key, value, loadTimeNanos, expireTimeNanos);
+        }
+    }
+    private V cancel(CacheLine<V> line) {
+        // FIXME: this is a race condition, the item could expire
+        // between the time it is replaced, and it is cancelled
+        V oldValue = line.getValue();
+        ExecutionPool.removePulse(line);
+        line.cancel();
+        return oldValue;
     }
 
     /** Puts or loads the passed element into the cache
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @param value The value of the element
-     * @param expireTime how long to keep this key in the cache
+     * @param expireTimeMillis how long to keep this key in the cache
      */
-    public V put(K key, V value, long expireTime) {
+    public V put(K key, V value, long expireTimeMillis) {
+        return putInternal(key, value, TimeUnit.NANOSECONDS.convert(expireTimeMillis, TimeUnit.MILLISECONDS));
+    }
+
+    V putInternal(K key, V value, long expireTimeNanos) {
         Object nulledKey = fromKey(key);
-        CacheLine<V> oldCacheLine = memoryTable.put(nulledKey, createCacheLine(value, expireTime));
-        V oldValue = oldCacheLine == null ? null : oldCacheLine.getValue();
+        CacheLine<V> oldCacheLine = memoryTable.put(nulledKey, createCacheLine(key, value, expireTimeNanos));
+        V oldValue = oldCacheLine == null ? null : cancel(oldCacheLine);
         if (fileTable != null) {
             try {
                 if (oldValue == null) oldValue = fileTable.get(nulledKey);
@@ -324,7 +389,6 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     /** Gets an element from the cache according to the specified key.
-     * If the requested element hasExpired, it is removed before it is looked up which causes the function to return null.
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @return The value of the element specified by the key
      */
@@ -347,20 +411,14 @@ public class UtilCache<K, V> implements Serializable {
                 } else {
                     hitCount.incrementAndGet();
                 }
-                memoryTable.put(nulledKey, createCacheLine(value, expireTime));
+                memoryTable.put(nulledKey, createCacheLine((K) key, value, expireTimeNanos));
                 return value;
             } else {
                 missCountNotFound.incrementAndGet();
             }
         } else if (line.isInvalid()) {
-            removeInternal(key, false);
+            removeInternal(key, line);
             if (countGet) missCountSoftRef.incrementAndGet();
-            line = null;
-        } else if (line.hasExpired()) {
-            // note that print.info in debug.properties cannot be checked through UtilProperties here, it would cause infinite recursion...
-            // if (Debug.infoOn()) Debug.logInfo("Element has expired with key " + key, module);
-            removeInternal(key, false);
-            if (countGet) missCountExpired.incrementAndGet();
             line = null;
         } else {
             if (countGet) hitCount.incrementAndGet();
@@ -453,12 +511,32 @@ public class UtilCache<K, V> implements Serializable {
                 oldValue = null;
                 Debug.logError(e, module);
             }
-            memoryTable.remove(nulledKey);
+            oldCacheLine = memoryTable.remove(nulledKey);
         } else {
             oldCacheLine = memoryTable.remove(nulledKey);
             oldValue = oldCacheLine != null ? oldCacheLine.getValue() : null;
         }
+        if (oldCacheLine != null) {
+            cancel(oldCacheLine);
+        }
         return postRemove((K) key, oldValue, countRemove);
+    }
+
+    protected synchronized void removeInternal(Object key, CacheLine<V> existingCacheLine) {
+        Object nulledKey = fromKey(key);
+        cancel(existingCacheLine);
+        if (!memoryTable.remove(nulledKey, existingCacheLine)) {
+            return;
+        }
+        if (fileTable != null) {
+            try {
+                fileTable.remove(nulledKey);
+                jdbmMgr.commit();
+            } catch (IOException e) {
+                Debug.logError(e, module);
+            }
+        }
+        noteRemoval((K) key, existingCacheLine.getValue());
     }
 
     V postRemove(K key, V oldValue, boolean countRemove) {
@@ -632,15 +710,15 @@ public class UtilCache<K, V> implements Serializable {
      * If 0, elements never expire.
      * @param expireTime The expire time for the cache elements
      */
-    public void setExpireTime(long expireTime) {
+    public void setExpireTime(long expireTimeMillis) {
         // if expire time was <= 0 and is now greater, fill expire table now
-        if (this.expireTime <= 0 && expireTime > 0) {
-            this.expireTime = expireTime;
+        if (expireTimeMillis > 0) {
+            this.expireTimeNanos = TimeUnit.NANOSECONDS.convert(expireTimeMillis, TimeUnit.MILLISECONDS);
             for (Map.Entry<?, CacheLine<V>> entry: memoryTable.entrySet()) {
-                entry.setValue(entry.getValue().changeLine(useSoftReference, expireTime));
+                entry.setValue(entry.getValue().changeLine(useSoftReference, expireTimeNanos));
             }
-        } else if (this.expireTime <= 0 && expireTime > 0) {
-            this.expireTime = expireTime;
+        } else {
+            this.expireTimeNanos = 0;
             // if expire time was > 0 and is now <=, do nothing, just leave the load times in place, won't hurt anything...
         }
     }
@@ -649,7 +727,7 @@ public class UtilCache<K, V> implements Serializable {
      * @return The expire time for the cache elements
      */
     public long getExpireTime() {
-        return expireTime;
+        return TimeUnit.MILLISECONDS.convert(expireTimeNanos, TimeUnit.NANOSECONDS);
     }
 
     /** Set whether or not the cache lines should use a soft reference to the data */
@@ -657,7 +735,7 @@ public class UtilCache<K, V> implements Serializable {
         if (this.useSoftReference != useSoftReference) {
             this.useSoftReference = useSoftReference;
             for (Map.Entry<?, CacheLine<V>> entry: memoryTable.entrySet()) {
-                entry.setValue(entry.getValue().changeLine(useSoftReference, expireTime));
+                entry.setValue(entry.getValue().changeLine(useSoftReference, expireTimeNanos));
             }
         }
     }
@@ -692,7 +770,6 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     /** Returns a boolean specifying whether or not an element with the specified key is in the cache.
-     * If the requested element hasExpired, it is removed before it is looked up which causes the function to return false.
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @return True is the cache contains an element corresponding to the specified key, otherwise false
      */
@@ -714,7 +791,7 @@ public class UtilCache<K, V> implements Serializable {
                 }
             }
             return false;
-        } else if (line.hasExpired()) {
+        } else if (line.isInvalid()) {
             removeInternal(key, false);
             return false;
         } else {
@@ -803,7 +880,7 @@ public class UtilCache<K, V> implements Serializable {
     public boolean hasExpired(Object key) {
         CacheLine<V> line = memoryTable.get(fromKey(key));
         if (line == null) return false;
-        return line.hasExpired();
+        return line.isInvalid();
     }
 
     /** Clears all expired cache entries; also clear any cache entries where the SoftReference in the CacheLine object has been cleared by the gc */
