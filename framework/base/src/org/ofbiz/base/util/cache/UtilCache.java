@@ -231,20 +231,21 @@ public class UtilCache<K, V> implements Serializable {
         return put(key, value, expireTime);
     }
 
+    private CacheLine<V> createCacheLine(V value, long expireTime) {
+        if (expireTime > 0) {
+            return useSoftReference ? new SoftRefCacheLine<V>(value, System.currentTimeMillis(), expireTime) : new HardRefCacheLine<V>(value, System.currentTimeMillis(), expireTime);
+        } else {
+            return useSoftReference ? new SoftRefCacheLine<V>(value, 0, expireTime) : new HardRefCacheLine<V>(value, 0, expireTime);
+        }
+    }
+
     /** Puts or loads the passed element into the cache
      * @param key The key for the element, used to reference it in the hastables and LRU linked list
      * @param value The value of the element
      * @param expireTime how long to keep this key in the cache
      */
     public V put(K key, V value, long expireTime) {
-        CacheLine<V> oldCacheLine;
-        CacheLine<V> newCacheLine;
-        if (expireTime > 0) {
-            newCacheLine = useSoftReference ? new SoftRefCacheLine<V>(value, System.currentTimeMillis(), expireTime) : new HardRefCacheLine<V>(value, System.currentTimeMillis(), expireTime);
-        } else {
-            newCacheLine = useSoftReference ? new SoftRefCacheLine<V>(value, 0, expireTime) : new HardRefCacheLine<V>(value, 0, expireTime);
-        }
-        oldCacheLine = cacheLineTable.put(key, newCacheLine);
+        CacheLine<V> oldCacheLine = cacheLineTable.put(key, createCacheLine(value, expireTime));
 
         if (oldCacheLine == null) {
             noteAddition(key, value);
