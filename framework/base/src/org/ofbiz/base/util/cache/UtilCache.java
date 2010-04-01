@@ -48,6 +48,7 @@ import jdbm.htree.HTree;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 
 /**
@@ -395,6 +396,15 @@ public class UtilCache<K, V> implements Serializable {
         }
     }
 
+    private long findSizeInBytes(Object o) {
+        try {
+            return UtilObject.getByteCount(o);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public long getSizeInBytes() {
         long totalSize = 0;
         if (fileTable != null) {
@@ -402,7 +412,7 @@ public class UtilCache<K, V> implements Serializable {
                 FastIterator<CacheLine<V>> iter = fileTable.values();
                 CacheLine<V> value = iter.next();
                 while (value != null) {
-                    totalSize += value.getSizeInBytes();
+                    totalSize += findSizeInBytes(value);
                     value = iter.next();
                 }
             } catch (IOException e) {
@@ -411,7 +421,7 @@ public class UtilCache<K, V> implements Serializable {
             }
         } else {
             for (CacheLine<V> line: memoryTable.values()) {
-                totalSize += line.getSizeInBytes();
+                totalSize += findSizeInBytes(line);
             }
         }
         return totalSize;

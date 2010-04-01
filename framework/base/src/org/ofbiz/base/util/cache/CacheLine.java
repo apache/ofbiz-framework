@@ -20,8 +20,6 @@ package org.ofbiz.base.util.cache;
 
 import java.io.Serializable;
 
-import org.ofbiz.base.util.UtilObject;
-
 public abstract class CacheLine<V> implements Serializable {
     public long loadTime;
     public final long expireTime;
@@ -37,14 +35,6 @@ public abstract class CacheLine<V> implements Serializable {
 
     public long getExpireTime() {
         return this.expireTime;
-    }
-
-    public long getSizeInBytes() {
-        try {
-            return UtilObject.getByteCount(this);
-        } catch (Exception e) {
-            return 0;
-        }
     }
 
     public boolean hasExpired() {
