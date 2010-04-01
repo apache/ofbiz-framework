@@ -62,16 +62,16 @@ public class CacheLineTable<K, V> implements Serializable {
         this.maxInMemory = maxInMemory;
         if (useFileSystemStore) {
             // create the manager the first time it is needed
-            if (CacheLineTable.jdbmMgr == null) {
+            if (jdbmMgr == null) {
                 synchronized (this) {
-                    if (CacheLineTable.jdbmMgr == null) {
+                    if (jdbmMgr == null) {
                         try {
                             Debug.logImportant("Creating file system cache store for cache with name: " + cacheName, module);
                             String ofbizHome = System.getProperty("ofbiz.home");
                             if (ofbizHome == null) {
                                 Debug.logError("No ofbiz.home property set in environment", module);
                             } else {
-                                CacheLineTable.jdbmMgr = new JdbmRecordManager(ofbizHome + "/" + fileStore);
+                                jdbmMgr = new JdbmRecordManager(ofbizHome + "/" + fileStore);
                             }
                         } catch (IOException e) {
                             Debug.logError(e, "Error creating file system cache store for cache with name: " + cacheName, module);
@@ -79,11 +79,11 @@ public class CacheLineTable<K, V> implements Serializable {
                     }
                 }
             }
-            if (CacheLineTable.jdbmMgr != null) {
+            if (jdbmMgr != null) {
                 try {
                     this.fileTable = HTree.createInstance(CacheLineTable.jdbmMgr);
-                    CacheLineTable.jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
-                    CacheLineTable.jdbmMgr.commit();
+                    jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
+                    jdbmMgr.commit();
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
@@ -133,7 +133,7 @@ public class CacheLineTable<K, V> implements Serializable {
             try {
                 if (oldValue == null) oldValue = fileTable.get(key != null ? key : ObjectType.NULL);
                 fileTable.put(key != null ? key : ObjectType.NULL, value);
-                CacheLineTable.jdbmMgr.commit();
+                jdbmMgr.commit();
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
@@ -270,14 +270,14 @@ public class CacheLineTable<K, V> implements Serializable {
             try {
                 // remove this table
                 long recid = fileTable.getRecid();
-                CacheLineTable.jdbmMgr.delete(recid);
-                CacheLineTable.jdbmMgr.commit();
+                jdbmMgr.delete(recid);
+                jdbmMgr.commit();
                 this.fileTable = null;
 
                 // create a new table
-                this.fileTable = HTree.createInstance(CacheLineTable.jdbmMgr);
-                CacheLineTable.jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
-                CacheLineTable.jdbmMgr.commit();
+                this.fileTable = HTree.createInstance(jdbmMgr);
+                jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
+                jdbmMgr.commit();
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
