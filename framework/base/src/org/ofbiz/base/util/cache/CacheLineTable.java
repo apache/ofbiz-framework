@@ -49,12 +49,10 @@ public class CacheLineTable<K, V> implements Serializable {
     protected static transient RecordManager jdbmMgr = null;
 
     protected transient HTree<Object, CacheLine<V>> fileTable = null;
-    protected Map<K, CacheLine<V>> memoryTable = null;
+    protected Map<Object, CacheLine<V>> memoryTable = null;
     protected String fileStore = null;
     protected String cacheName = null;
     protected int maxInMemory = 0;
-    protected boolean isNullSet = false;
-    protected CacheLine<V> nullValue = null;
 
     public CacheLineTable(String fileStore, String cacheName, boolean useFileSystemStore, int maxInMemory) {
         this.fileStore = fileStore;
@@ -92,8 +90,17 @@ public class CacheLineTable<K, V> implements Serializable {
         this.setLru(maxInMemory);
     }
 
+    private Object fromKey(Object key) {
+        return key == null ? ObjectType.NULL : key;
+    }
+
     @SuppressWarnings("unchecked")
-    private void addAllFileTableValues(List<CacheLine<V>> values) throws IOException {
+    private K toKey(Object key) {
+        return key == ObjectType.NULL ? null : (K) key;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void addAllFileTableValues(Collection<CacheLine<V>> values) throws IOException {
         FastIterator<CacheLine<V>> iter = fileTable.values();
         CacheLine<V> value = iter.next();
         while (value != null) {
@@ -103,36 +110,24 @@ public class CacheLineTable<K, V> implements Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    private void addAllFileTableKeys(Set<K> keys) throws IOException {
+    private void addAllFileTableKeys(Set<Object> keys) throws IOException {
         FastIterator<Object> iter = fileTable.keys();
         Object key = null;
         while ((key = iter.next()) != null) {
-            if (key instanceof ObjectType.NullObject) {
-                keys.add(null);
-            } else {
-                keys.add((K) key);
-            }
+            keys.add((K) key);
         }
     }
 
     public synchronized CacheLine<V> put(K key, CacheLine<V> value) {
-        CacheLine<V> oldValue;
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to put with null key, using NullObject" + this.cacheName, module);
-            if (memoryTable instanceof FastMap) {
-                oldValue = isNullSet ? nullValue : null;
-                isNullSet = true;
-                nullValue = value;
-            } else {
-                oldValue = memoryTable.put(key, value);
-            }
-        } else {
-            oldValue = memoryTable.put(key, value);
         }
+        Object nulledKey = fromKey(key);
+        CacheLine<V> oldValue = memoryTable.put(nulledKey, value);
         if (fileTable != null) {
             try {
-                if (oldValue == null) oldValue = fileTable.get(key != null ? key : ObjectType.NULL);
-                fileTable.put(key != null ? key : ObjectType.NULL, value);
+                if (oldValue == null) oldValue = fileTable.get(nulledKey);
+                fileTable.put(nulledKey, value);
                 jdbmMgr.commit();
             } catch (IOException e) {
                 Debug.logError(e, module);
@@ -145,24 +140,15 @@ public class CacheLineTable<K, V> implements Serializable {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to get with null key, using NullObject" + this.cacheName, module);
         }
-        return getNoCheck(key);
+        return getNoCheck(fromKey(key));
     }
 
     protected CacheLine<V> getNoCheck(Object key) {
-        CacheLine<V> value;
-        if (memoryTable instanceof FastMap) {
-            if (key == null) {
-                value = isNullSet ? nullValue : null;
-            } else {
-                value = memoryTable.get(key);
-            }
-        } else {
-            value = memoryTable.get(key);
-        }
+        CacheLine<V> value = memoryTable.get(key);
         if (value == null) {
             if (fileTable != null) {
                 try {
-                    value = fileTable.get(key != null ? key : ObjectType.NULL);
+                    value = fileTable.get(key);
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
@@ -175,43 +161,35 @@ public class CacheLineTable<K, V> implements Serializable {
         if (key == null) {
             if (Debug.verboseOn()) Debug.logVerbose("In CacheLineTable tried to remove with null key, using NullObject" + this.cacheName, module);
         }
-        CacheLine<V> value = this.getNoCheck(key);
+        Object nulledKey = fromKey(key);
+        CacheLine<V> value = this.getNoCheck(nulledKey);
         if (fileTable != null) {
             try {
-                fileTable.remove(key != null ? key : ObjectType.NULL);
+                fileTable.remove(nulledKey);
                 jdbmMgr.commit();
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
         }
-        if (key == null) {
-            if (memoryTable instanceof FastMap) {
-                isNullSet = false;
-                nullValue = null;
-            } else {
-                memoryTable.remove(key);
-            }
-        } else {
-            memoryTable.remove(key);
-        }
+        memoryTable.remove(nulledKey);
         return value;
     }
 
     public synchronized Collection<? extends CacheLine<V>> values() {
-        List<CacheLine<V>> values = FastList.newInstance();
+        Collection<CacheLine<V>> values;
 
         if (fileTable != null) {
+            values = FastList.newInstance();
             try {
                 addAllFileTableValues(values);
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
         } else {
-            if (isNullSet) values.add(nullValue);
-            values.addAll(memoryTable.values());
+            values = memoryTable.values();
         }
 
-        return values;
+        return Collections.unmodifiableCollection(values);
     }
 
     public synchronized Iterator<Map.Entry<K, ? extends CacheLine<V>>> iterator() {
@@ -225,19 +203,15 @@ public class CacheLineTable<K, V> implements Serializable {
                 Object key = iter.next();
                 while (key != null) {
                     CacheLine<V> value = fileTable.get(key);
-                    if (key instanceof ObjectType.NullObject) {
-                        key = null;
-                    }
-                    list.add(new ReadOnlyMapEntry<K, CacheLine<V>>(UtilGenerics.<K>cast(key), value));
+                    list.add(new ReadOnlyMapEntry<K, CacheLine<V>>(UtilGenerics.<K>cast(toKey(key)), value));
                     key = iter.next();
                 }
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
         } else {
-            list.addAll(memoryTable.entrySet());
-            if (isNullSet) {
-                list.add(new ReadOnlyMapEntry<K, CacheLine<V>>(null, nullValue));
+            for (Map.Entry<Object, ? extends CacheLine<V>> entry: memoryTable.entrySet()) {
+                list.add(new ReadOnlyMapEntry<K, CacheLine<V>>(UtilGenerics.<K>cast(toKey(entry.getKey())), entry.getValue()));
             }
         }
         return list.iterator();
@@ -249,7 +223,7 @@ public class CacheLineTable<K, V> implements Serializable {
      */
     public synchronized Set<? extends K> keySet() {
         // note that this must be a HashSet and not a FastSet in order to have a null value
-        Set<K> keys = new HashSet<K>();
+        Set<Object> keys = new HashSet<Object>();
 
         if (fileTable != null) {
             try {
@@ -259,10 +233,12 @@ public class CacheLineTable<K, V> implements Serializable {
             }
         } else {
             keys.addAll(memoryTable.keySet());
-            if (isNullSet) keys.add(null);
+        }
+        if (keys.remove(ObjectType.NULL)) {
+            keys.add(null);
         }
 
-        return Collections.unmodifiableSet(keys);
+        return Collections.unmodifiableSet((Set<? extends K>) keys);
     }
 
     public synchronized void clear() {
@@ -283,8 +259,6 @@ public class CacheLineTable<K, V> implements Serializable {
             }
         }
         memoryTable.clear();
-        isNullSet = false;
-        nullValue = null;
     }
 
     public synchronized boolean isEmpty() {
@@ -296,11 +270,7 @@ public class CacheLineTable<K, V> implements Serializable {
                 return false;
             }
         } else {
-            if (isNullSet) {
-                return false;
-            } else {
-                return memoryTable.isEmpty();
-            }
+            return memoryTable.isEmpty();
         }
     }
 
@@ -308,18 +278,14 @@ public class CacheLineTable<K, V> implements Serializable {
         if (fileTable != null) {
             return this.keySet().size();
         } else {
-            if (isNullSet) {
-                return memoryTable.size() + 1;
-            } else {
-                return memoryTable.size();
-            }
+            return memoryTable.size();
         }
     }
 
     public synchronized void setLru(int newSize) {
         this.maxInMemory = newSize;
 
-        Map<K, CacheLine<V>> oldmap = null;
+        Map<Object, CacheLine<V>> oldmap = null;
         if (this.memoryTable != null) {
             // using linked map to preserve the order when using LRU (FastMap is a linked map)
             oldmap = FastMap.newInstance();
@@ -327,12 +293,7 @@ public class CacheLineTable<K, V> implements Serializable {
         }
 
         if (newSize > 0) {
-            this.memoryTable = Collections.synchronizedMap(new LRUMap<K, CacheLine<V>>(newSize));
-            if (isNullSet) {
-                this.memoryTable.put(null, nullValue);
-                isNullSet = false;
-                nullValue = null;
-            }
+            this.memoryTable = Collections.synchronizedMap(new LRUMap<Object, CacheLine<V>>(newSize));
         } else {
             this.memoryTable = FastMap.newInstance();
         }
@@ -344,15 +305,9 @@ public class CacheLineTable<K, V> implements Serializable {
 
     public synchronized K getKeyFromMemory(int index) {
         int currentIdx = 0;
-        if (isNullSet) {
+        for (Object key: memoryTable.keySet()) {
             if (currentIdx == index) {
-                return null;
-            }
-            currentIdx++;
-        }
-        for (K key: memoryTable.keySet()) {
-            if (currentIdx == index) {
-                return key;
+                return toKey(key);
             }
             currentIdx++;
         }
