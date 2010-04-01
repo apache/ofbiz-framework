@@ -547,7 +547,7 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     /** Removes all elements from this cache */
-    public synchronized void clear() {
+    public synchronized void erase() {
         if (fileTable != null) {
             // FIXME: erase from memory too
             Set<Object> keys = new HashSet<Object>();
@@ -577,6 +577,10 @@ public class UtilCache<K, V> implements Serializable {
                 it.remove();
             }
         }
+    }
+
+    public void clear() {
+        erase();
         clearCounters();
     }
 
