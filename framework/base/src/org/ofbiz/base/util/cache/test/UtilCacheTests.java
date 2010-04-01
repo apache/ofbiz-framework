@@ -304,7 +304,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
 
         assertEquals("get-miss", 10, cache.getMissCountNotFound());
         assertEquals("get-miss-total", 10, cache.getMissCountTotal());
-        assertEquals("get-hit", 24, cache.getHitCount());
+        assertEquals("get-hit", 12, cache.getHitCount());
         assertEquals("remove-hit", 6, cache.getRemoveHitCount());
         assertEquals("remove-miss", 10, cache.getRemoveMissCount());
         cache.removeListener(gotListener);
