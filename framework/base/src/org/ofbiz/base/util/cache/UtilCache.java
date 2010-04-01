@@ -273,19 +273,19 @@ public class UtilCache<K, V> implements Serializable {
     protected CacheLine<V> getInternal(Object key, boolean countGet) {
         CacheLine<V> line = getInternalNoCheck(key);
         if (line == null) {
-            if (countGet) incrementCounter(missCountNotFound);
+            if (countGet) missCountNotFound.incrementAndGet();
         } else if (line.isInvalid()) {
             removeInternal(key, false);
-            if (countGet) incrementCounter(missCountSoftRef);
+            if (countGet) missCountSoftRef.incrementAndGet();
             line = null;
         } else if (line.hasExpired()) {
             // note that print.info in debug.properties cannot be checked through UtilProperties here, it would cause infinite recursion...
             // if (Debug.infoOn()) Debug.logInfo("Element has expired with key " + key, module);
             removeInternal(key, false);
-            if (countGet) incrementCounter(missCountExpired);
+            if (countGet) missCountExpired.incrementAndGet();
             line = null;
         } else {
-            if (countGet) incrementCounter(hitCount);
+            if (countGet) hitCount.incrementAndGet();
         }
         return line;
     }
@@ -330,10 +330,10 @@ public class UtilCache<K, V> implements Serializable {
         CacheLine<V> line = cacheLineTable.remove(key);
         if (line != null) {
             noteRemoval((K) key, line.getValue());
-            if (countRemove) incrementCounter(removeHitCount);
+            if (countRemove) removeHitCount.incrementAndGet();
             return line.getValue();
         } else {
-            if (countRemove) incrementCounter(removeMissCount);
+            if (countRemove) removeMissCount.incrementAndGet();
             return null;
         }
     }
@@ -367,13 +367,6 @@ public class UtilCache<K, V> implements Serializable {
      */
     public String getName() {
         return this.name;
-    }
-
-    private static final void incrementCounter(AtomicLong stat) {
-        long currentValue;
-        do {
-            currentValue = stat.get();
-        } while (!stat.weakCompareAndSet(currentValue, currentValue + 1));
     }
 
     /** Returns the number of successful hits on the cache
