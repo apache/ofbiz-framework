@@ -224,10 +224,11 @@ public class UtilCacheEvents {
         String expireTimeStr = request.getParameter("UTIL_CACHE_EXPIRE_TIME");
         String useSoftReferenceStr = request.getParameter("UTIL_CACHE_USE_SOFT_REFERENCE");
 
-        Long maxSize = null, expireTime = null;
+        Integer maxSize = null;
+        Long expireTime = null;
 
         try {
-            maxSize = Long.valueOf(maxSizeStr);
+            maxSize = Integer.valueOf(maxSizeStr);
         } catch (Exception e) {}
         try {
             expireTime = Long.valueOf(expireTimeStr);
