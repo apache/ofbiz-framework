@@ -232,10 +232,11 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     private CacheLine<V> createCacheLine(V value, long expireTime) {
-        if (expireTime > 0) {
-            return useSoftReference ? new SoftRefCacheLine<V>(value, System.currentTimeMillis(), expireTime) : new HardRefCacheLine<V>(value, System.currentTimeMillis(), expireTime);
+        long loadTime = expireTime > 0 ? System.currentTimeMillis() : 0;
+        if (useSoftReference) {
+            return new SoftRefCacheLine<V>(value, loadTime, expireTime);
         } else {
-            return useSoftReference ? new SoftRefCacheLine<V>(value, 0, expireTime) : new HardRefCacheLine<V>(value, 0, expireTime);
+            return new HardRefCacheLine<V>(value, loadTime, expireTime);
         }
     }
 
