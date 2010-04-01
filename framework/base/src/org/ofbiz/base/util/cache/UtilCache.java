@@ -302,7 +302,12 @@ public class UtilCache<K, V> implements Serializable {
 
         List<V> valuesList = FastList.newInstance();
         for (K key: cacheLineTable.keySet()) {
-            valuesList.add(this.get(key));
+            CacheLine<V> line = this.getInternal(key, false);
+            if (line == null) {
+                continue;
+            } else {
+                valuesList.add(line.getValue());
+            }
         }
 
         return valuesList;
