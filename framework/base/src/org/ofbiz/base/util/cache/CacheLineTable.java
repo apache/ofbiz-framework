@@ -179,6 +179,7 @@ public class CacheLineTable<K, V> implements Serializable {
         if (fileTable != null) {
             try {
                 fileTable.remove(key != null ? key : ObjectType.NULL);
+                jdbmMgr.commit();
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
