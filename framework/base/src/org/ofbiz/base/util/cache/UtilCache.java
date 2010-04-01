@@ -242,7 +242,7 @@ public class UtilCache<K, V> implements Serializable {
         if (expireTime > 0) {
             newCacheLine = useSoftReference ? new SoftRefCacheLine<V>(value, System.currentTimeMillis(), expireTime) : new HardRefCacheLine<V>(value, System.currentTimeMillis(), expireTime);
         } else {
-            newCacheLine = useSoftReference ? new SoftRefCacheLine<V>(value, expireTime) : new HardRefCacheLine<V>(value, expireTime);
+            newCacheLine = useSoftReference ? new SoftRefCacheLine<V>(value, 0, expireTime) : new HardRefCacheLine<V>(value, 0, expireTime);
         }
         oldCacheLine = cacheLineTable.put(key, newCacheLine);
 
