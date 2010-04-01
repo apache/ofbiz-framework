@@ -26,10 +26,6 @@ public abstract class CacheLine<V> implements Serializable {
     public long loadTime;
     public final long expireTime;
 
-    protected CacheLine(long expireTime) {
-        this(0, expireTime);
-    }
-
     protected CacheLine(long loadTime, long expireTime) {
         this.expireTime = expireTime;
         this.loadTime = loadTime;

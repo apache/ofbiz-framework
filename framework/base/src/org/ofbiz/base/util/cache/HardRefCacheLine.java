@@ -22,11 +22,6 @@ package org.ofbiz.base.util.cache;
 public final class HardRefCacheLine<V> extends CacheLine<V> {
     public final V value;
 
-    public HardRefCacheLine(V value, long expireTime) {
-        super(expireTime);
-        this.value = value;
-    }
-
     public HardRefCacheLine(V value, long loadTime, long expireTime) {
         super(loadTime, expireTime);
         this.value = value;
