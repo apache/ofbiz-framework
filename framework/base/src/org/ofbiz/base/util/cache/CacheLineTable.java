@@ -285,12 +285,8 @@ public class CacheLineTable<K, V> implements Serializable {
     public synchronized void setLru(int newSize) {
         this.maxInMemory = newSize;
 
-        Map<Object, CacheLine<V>> oldmap = null;
-        if (this.memoryTable != null) {
-            // using linked map to preserve the order when using LRU (FastMap is a linked map)
-            oldmap = FastMap.newInstance();
-            oldmap.putAll(this.memoryTable);
-        }
+        // using linked map to preserve the order when using LRU (FastMap is a linked map)
+        Map<Object, CacheLine<V>> oldmap = this.memoryTable;
 
         if (newSize > 0) {
             this.memoryTable = Collections.synchronizedMap(new LRUMap<Object, CacheLine<V>>(newSize));
