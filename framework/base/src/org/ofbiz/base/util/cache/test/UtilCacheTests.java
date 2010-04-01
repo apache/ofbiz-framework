@@ -333,10 +333,28 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         }
         cache.setMaxInMemory(2);
         for (int i = 0; i < size - 2; i++) {
-            String s = Integer.toString(i);
-            map.remove(s);
+            map.remove(Integer.toString(i));
         }
-        assertEquals("size", 2, cache.size());
+        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
+        assertEquals("map-values", map.values(), cache.values());
+        cache.setMaxInMemory(0);
+        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
+        assertEquals("map-values", map.values(), cache.values());
+        for (int i = size * 2; i < size * 3; i++) {
+            String s = Integer.toString(i);
+            assertKey(s, cache, s, new String(s), new String(":" + s), i - size * 2 + 3, map);
+        }
+        cache.setMaxInMemory(0);
+        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
+        assertEquals("map-values", map.values(), cache.values());
+        cache.setMaxInMemory(size);
+        for (int i = 0; i < size * 2; i++) {
+            map.remove(Integer.toString(i));
+        }
+        // Can't compare the contents of these collections, as setting LRU after not
+        // having one, means the items that get evicted are essentially random.
+        assertEquals("map-keys", map.keySet().size(), cache.getCacheLineKeys().size());
+        assertEquals("map-values", map.values().size(), cache.values().size());
     }
 
     private void expireTest(UtilCache<String, Serializable> cache, int size, long ttl) throws Exception {
