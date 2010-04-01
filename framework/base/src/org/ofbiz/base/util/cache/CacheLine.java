@@ -35,6 +35,7 @@ public abstract class CacheLine<V> implements Serializable {
         this.loadTime = loadTime;
     }
 
+    abstract CacheLine<V> changeLine(boolean useSoftReference, long expireTime);
     public abstract V getValue();
     public abstract boolean isInvalid();
 

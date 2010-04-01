@@ -32,6 +32,18 @@ public final class HardRefCacheLine<V> extends CacheLine<V> {
         this.value = value;
     }
 
+    CacheLine<V> changeLine(boolean useSoftReference, long expireTime) {
+        if (useSoftReference) {
+            return new SoftRefCacheLine<V>(getValue(), loadTime, expireTime);
+        } else {
+            if (this.expireTime == expireTime) {
+                return this;
+            } else {
+                return new HardRefCacheLine<V>(getValue(), loadTime, expireTime);
+            }
+        }
+    }
+
     @Override
     public V getValue() {
         return value;
