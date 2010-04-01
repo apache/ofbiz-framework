@@ -18,18 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.project;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.*;
-import java.lang.*;
-import java.util.TimeZone;
+import java.util.List;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
@@ -37,15 +33,12 @@ public class Various {
 
     public static final String module = Various.class.getName();
 
-
     public static void setDatesFollowingTasks(GenericValue task) {
 
         try {
-            List assocs = task.getRelated("FromWorkEffortAssoc");
+            List<GenericValue> assocs = task.getRelated("FromWorkEffortAssoc");
             if (UtilValidate.isNotEmpty(assocs)) {
-                Iterator a = assocs.iterator();
-                while (a.hasNext()) {
-                    GenericValue assoc = (GenericValue) a.next();
+            	for (GenericValue assoc : assocs) {
                     GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort");
                       Timestamp newStartDate = task.getTimestamp("estimatedCompletionDate"); // start of next task the next day
                       if (nextTask.get("estimatedStartDate") == null || nextTask.getTimestamp("estimatedStartDate").before(newStartDate)) {
@@ -66,10 +59,8 @@ public class Various {
         Double plannedHours = 0.00;
         try {
             // get planned hours
-            List standards = task.getRelated("WorkEffortSkillStandard");
-            Iterator t = standards.iterator();
-            while (t.hasNext()) {
-                GenericValue standard = (GenericValue) t.next();
+            List<GenericValue> standards = task.getRelated("WorkEffortSkillStandard");
+            for (GenericValue standard : standards) {
                 if (standard.getDouble("estimatedNumPeople") == null) {
                     standard.put("estimatedNumPeople", new Double("1"));
                 }
@@ -98,15 +89,12 @@ public class Various {
     }
 
     public static double calculateActualHours(Delegator delegator, String timesheetId) {
-        List actuals = FastList.newInstance();
         double actualHours = 0.00;
         if (timesheetId != null) {
             try {
-                actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
+            	List<GenericValue> actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
                 if (actuals.size() > 0) {
-                    Iterator ite = actuals.iterator();
-                    while (ite.hasNext()) {
-                        GenericValue actual =(GenericValue)ite.next();
+                	for (GenericValue actual : actuals) {
                          Double hour = (Double) actual.get("hours");
                          double hours = hour.doubleValue();
                          actualHours = actualHours + hours;
