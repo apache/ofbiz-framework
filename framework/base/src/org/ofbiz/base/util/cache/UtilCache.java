@@ -208,6 +208,7 @@ public class UtilCache<K, V> implements Serializable {
                 if (value != null) {
                     fileStore = value;
                 }
+            } catch (MissingResourceException e) {
             } catch (Exception e) {
                 Debug.logWarning(e, "Error getting cache.file.store value from cache.properties file for propNames: " + propNames, module);
             }

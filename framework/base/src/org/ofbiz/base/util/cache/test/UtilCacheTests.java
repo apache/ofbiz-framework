@@ -189,7 +189,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         assertUtilCacheSettings(UtilCache.createUtilCache(), null, null, null, null, null);
         assertUtilCacheSettings(UtilCache.createUtilCache(name), null, null, null, null, null);
         assertUtilCacheSettings(UtilCache.createUtilCache(name, false), null, null, null, Boolean.FALSE, null);
-        //assertUtilCacheSettings(UtilCache.createUtilCache(name, true), null, null, null, Boolean.TRUE, null);
+        assertUtilCacheSettings(UtilCache.createUtilCache(name, true), null, null, null, Boolean.TRUE, null);
         assertUtilCacheSettings(UtilCache.createUtilCache(5, 15000), 5, null, 15000L, null, null);
         assertUtilCacheSettings(UtilCache.createUtilCache(name, 6, 16000), 6, null, 16000L, null, null);
         assertUtilCacheSettings(UtilCache.createUtilCache(name, 7, 17000, false), 7, null, 17000L, Boolean.FALSE, null);
