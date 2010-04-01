@@ -274,6 +274,11 @@
         <event type="java" path="org.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayCategoryByParent"/>
         <response name="success" type="view" value="main"/>
     </request-map>
+    <request-map uri="retrieveEbayStoreCategoryByParent">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayStoreCategoryByParent"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
     <request-map uri="clearExpListing">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="clearProductListing"/>
@@ -309,23 +314,6 @@
         <response name="success" type="request" value="clearExpListing"/>
         <response name="error" type="view" value="exportProductListing"/>
     </request-map>
-
-    <!--request-map uri="prepareProductListingDetails">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayEvents" invoke="prepareProductListingDetails"/>
-        <response name="success" type="view" value="prepareProductListing"/>
-    </request-map-->
-    <!--request-map uri="retrieveEbayStoreCategoryByParent">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayStoreCategoryByParent"/>
-        <response name="success" type="view" value="main"/>
-    </request-map-->
-    <!--request-map uri="exportProductsFromEbayStore">
-        <security https="true" auth="true"/>
-        <event type="service-multi" invoke="exportProductsFromEbayStore"/>
-        <response name="success" type="view" value="exportProductListing"/>
-        <response name="error" type="view" value="exportProductListing"/>
-    </request-map-->
 
     <!-- Selling Manager -->
     <request-map uri="sellingManager">
