@@ -1940,7 +1940,7 @@ JPython version 1.1.x
 =========================================================================
 The JDBM library is licensed under the JDBM LICENSE v1.00 as follows.
 This license is nearly equivalent to the BSD License.
-ofbiz/trunk/framework/base/lib/jdbm-1.0.jar
+ofbiz/trunk/framework/base/lib/jdbm-1.0-SNAPSHOT.jar
 =========================================================================
 /**
  * JDBM LICENSE v1.00

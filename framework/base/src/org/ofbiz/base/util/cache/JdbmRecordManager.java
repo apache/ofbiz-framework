@@ -21,6 +21,7 @@ package org.ofbiz.base.util.cache;
 import java.io.IOException;
 
 import jdbm.RecordManager;
+import jdbm.helper.ISerializationHandler;
 import jdbm.helper.Serializer;
 import jdbm.recman.BaseRecordManager;
 
@@ -31,11 +32,23 @@ import jdbm.recman.BaseRecordManager;
 public class JdbmRecordManager implements RecordManager {
 
     protected BaseRecordManager manager = null;
-    protected Serializer serial = null;
+    protected JdbmSerializer serial = null;
 
     public JdbmRecordManager(String name) throws IOException {
         manager = new BaseRecordManager(name);
         serial = new JdbmSerializer();
+    }
+
+    public ISerializationHandler getSerializationHandler() {
+        return serial;
+    }
+
+    public RecordManager getBaseRecordManager() {
+        return manager;
+    }
+
+    public RecordManager getRecordManager() {
+        return this;
     }
 
     public long insert(Object o) throws IOException {
