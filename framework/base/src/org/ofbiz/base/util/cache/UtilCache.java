@@ -644,12 +644,8 @@ public class UtilCache<K, V> implements Serializable {
         if (existingCache != null) return existingCache;
         String cacheName = name + getNextDefaultIndex(name);
         UtilCache<K, V> newCache = new UtilCache<K, V>(cacheName, sizeLimit, maxInMemory, expireTime, useSoftReference, useFileSystemStore, name, names);
-        UtilCache<K, V> oldCache = (UtilCache<K, V>) utilCacheTable.putIfAbsent(name, newCache);
-        if (oldCache == null) {
-            return newCache;
-        } else {
-            return oldCache;
-        }
+        utilCacheTable.putIfAbsent(name, newCache);
+        return (UtilCache<K, V>) utilCacheTable.get(name);
     }
 
     public static <K, V> UtilCache<K, V> createUtilCache(String name, int sizeLimit, int maxInMemory, long expireTime, boolean useSoftReference, boolean useFileSystemStore, String... names) {
