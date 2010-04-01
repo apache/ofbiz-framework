@@ -930,4 +930,14 @@ under the License.
         <description>Schedule service that updates lastInventoryCount hourly for products available in facility</description>
         <attribute name="recurrenceInfoId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="createUpdateFacilityGeoPoint" engine="simple" default-entity-name="GeoPoint"
+                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createUpdateFacilityGeoPoint">
+        <description>Create or update GeoPoint assigned to facility</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        <attribute name="facilityId" mode="IN" type="String"/>
+        <auto-attributes include="all" mode="IN" optional="true"/>
+        <override name="dataSourceId" optional="false"/>
+        <override name="latitude" optional="false"/>
+        <override name="longitude" optional="false"/>
+    </service>
 </services>

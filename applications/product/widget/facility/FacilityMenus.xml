@@ -156,6 +156,11 @@ under the License.
                 <parameter param-name="facilityId"/>
             </link>
         </menu-item>
+        <menu-item name="EditFacilityGeoPoint" title="${uiLabelMap.CommonGeoLocation}">
+            <link target="EditFacilityGeoPoint">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="InventoryItemLabelsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="FindInventoryItemLabels">
