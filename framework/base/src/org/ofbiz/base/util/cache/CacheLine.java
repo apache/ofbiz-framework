@@ -18,35 +18,33 @@
  *******************************************************************************/
 package org.ofbiz.base.util.cache;
 
-public abstract class CacheLine<V> {
-    public long loadTime;
-    public final long expireTime;
+import java.util.concurrent.TimeUnit;
 
-    protected CacheLine(long loadTime, long expireTime) {
-        this.expireTime = expireTime;
-        this.loadTime = loadTime;
+import org.ofbiz.base.concurrent.ExecutionPool;
+
+public abstract class CacheLine<V> extends ExecutionPool.Pulse {
+    protected CacheLine(long loadTimeNanos, long expireTimeNanos) {
+        super(loadTimeNanos, expireTimeNanos);
+        // FIXME: this seems very odd to me (ARH)
+        //if (loadTime <= 0) {
+        //    hasExpired = true;
+        //}
     }
 
-    abstract CacheLine<V> changeLine(boolean useSoftReference, long expireTime);
+    abstract CacheLine<V> changeLine(boolean useSoftReference, long expireTimeNanos);
+    abstract void remove();
+    boolean differentExpireTime(long expireTimeNanos) {
+        return this.expireTimeNanos - loadTimeNanos - expireTimeNanos != 0;
+    }
     public abstract V getValue();
     public abstract boolean isInvalid();
 
-    public long getExpireTime() {
-        return this.expireTime;
+    void cancel() {
     }
 
-    public boolean hasExpired() {
-        // check this BEFORE checking to see if expireTime <= 0, ie if time expiration is enabled
-        // check to see if we are using softReference first, slight performance increase
-        if (isInvalid()) return true;
-
-        // check if expireTime <= 0, ie if time expiration is not enabled
-        if (expireTime <= 0) return false;
-
-        // check if the time was saved for this; if the time was not saved, but expire time is > 0, then we don't know when it was saved so expire it to be safe
-        if (loadTime <= 0) return true;
-
-        return (loadTime + expireTime) < System.currentTimeMillis();
+    @Override
+    public void run() {
+        remove();
     }
 }
 
