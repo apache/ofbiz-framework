@@ -52,15 +52,15 @@ public class JdbmRecordManager implements RecordManager {
     }
 
     public long insert(Object o) throws IOException {
-        return manager.insert(o, serial);
+        return insert(o, serial);
     }
 
     public void update(long l, Object o) throws IOException {
-        manager.update(l, o, serial);
+        update(l, o, serial);
     }
 
     public Object fetch(long l) throws IOException {
-        return manager.fetch(l, serial);
+        return fetch(l, serial);
     }
 
     public void close() throws IOException {
