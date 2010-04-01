@@ -87,7 +87,11 @@ public class CacheLineTable<K, V> implements Serializable {
                 }
             }
         }
-        this.setLru(maxInMemory);
+        if (maxInMemory > 0) {
+            this.memoryTable = Collections.synchronizedMap(new LRUMap<Object, CacheLine<V>>(maxInMemory));
+        } else {
+            this.memoryTable = FastMap.newInstance();
+        }
     }
 
     private Object fromKey(Object key) {
@@ -294,9 +298,7 @@ public class CacheLineTable<K, V> implements Serializable {
             this.memoryTable = FastMap.newInstance();
         }
 
-        if (oldmap != null) {
-            this.memoryTable.putAll(oldmap);
-        }
+        this.memoryTable.putAll(oldmap);
     }
 
     public synchronized K getKeyFromMemory(int index) {
