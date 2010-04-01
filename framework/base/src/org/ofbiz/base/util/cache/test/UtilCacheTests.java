@@ -288,7 +288,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             assertHasSingleKey(cache, "one", "only");
 
             wantedListener.noteKeyRemoval(cache, "one", "only");
-            assertEquals("remove", "only", cache.remove("one"));
+            cache.erase();
             assertNoSingleKey(cache, "one");
             assertEquals("byteSize", origByteSize, cache.getSizeInBytes());
 
@@ -309,7 +309,8 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         assertEquals("remove-miss", 10, cache.getRemoveMissCount());
         cache.removeListener(gotListener);
         assertEquals("listener", wantedListener, gotListener);
-        cache.clear();
+        UtilCache.clearCache(cache.getName());
+        UtilCache.clearCache(":::" + cache.getName());
     }
 
     public void testBasicDisk() throws Exception {
