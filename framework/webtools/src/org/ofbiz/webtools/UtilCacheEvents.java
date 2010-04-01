@@ -79,8 +79,7 @@ public class UtilCacheEvents {
         if (utilCache != null) {
             Object key = null;
 
-            // no LRU, try looping through the keySet to see if we find the specified index...
-            Iterator<?> ksIter = utilCache.getCacheLineTable().keySet().iterator();
+            Iterator<?> ksIter = utilCache.getCacheLineKeys().iterator();
             int curNum = 0;
 
             while (ksIter.hasNext()) {
