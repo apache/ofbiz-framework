@@ -18,9 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.util.cache;
 
-import java.io.Serializable;
-
-public abstract class CacheLine<V> implements Serializable {
+public abstract class CacheLine<V> {
     public long loadTime;
     public final long expireTime;
 
