@@ -476,9 +476,9 @@ public class UtilCache<K, V> implements Serializable {
     public void setExpireTime(long expireTime) {
         // if expire time was <= 0 and is now greater, fill expire table now
         if (this.expireTime <= 0 && expireTime > 0) {
-            long currentTime = System.currentTimeMillis();
-            for (CacheLine<V> line: cacheLineTable.values()) {
-                line.loadTime = currentTime;
+            for (K key: getCacheLineKeys()) {
+                CacheLine<V> line = getInternalNoCheck(key);
+                cacheLineTable.put(key, line.changeLine(useSoftReference, expireTime));
             }
         } else if (this.expireTime <= 0 && expireTime > 0) {
             // if expire time was > 0 and is now <=, do nothing, just leave the load times in place, won't hurt anything...
