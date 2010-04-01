@@ -20,19 +20,21 @@ package org.ofbiz.base.util.cache;
 
 import java.io.IOException;
 
+import jdbm.RecordManager;
 import jdbm.helper.Serializer;
+import jdbm.recman.BaseRecordManager;
 
 /**
  * Customer JDBM Record Manager
  *
  */
-public class JdbmRecordManager implements jdbm.RecordManager {
+public class JdbmRecordManager implements RecordManager {
 
-    protected jdbm.recman.BaseRecordManager manager = null;
-    protected jdbm.helper.Serializer serial = null;
+    protected BaseRecordManager manager = null;
+    protected Serializer serial = null;
 
     public JdbmRecordManager(String name) throws IOException {
-        manager = new jdbm.recman.BaseRecordManager(name);
+        manager = new BaseRecordManager(name);
         serial = new JdbmSerializer();
     }
 

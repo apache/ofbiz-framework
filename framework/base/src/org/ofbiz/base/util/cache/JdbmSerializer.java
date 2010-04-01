@@ -20,6 +20,9 @@ package org.ofbiz.base.util.cache;
 
 import java.io.IOException;
 
+import jdbm.RecordManager;
+import jdbm.helper.Serializer;
+
 import org.ofbiz.base.util.UtilObject;
 
 /**
@@ -28,7 +31,7 @@ import org.ofbiz.base.util.UtilObject;
  *
  */
 @SuppressWarnings("serial")
-public class JdbmSerializer implements jdbm.helper.Serializer {
+public class JdbmSerializer implements Serializer {
 
     public byte[] serialize(Object o) throws IOException {
         return UtilObject.getBytes(o);

@@ -31,6 +31,10 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import jdbm.RecordManager;
+import jdbm.htree.HTree;
+import jdbm.helper.FastIterator;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
@@ -42,9 +46,9 @@ import org.ofbiz.base.util.collections.ReadOnlyMapEntry;
 public class CacheLineTable<K, V> implements Serializable {
 
     public static final String module = CacheLineTable.class.getName();
-    protected static transient jdbm.RecordManager jdbmMgr = null;
+    protected static transient RecordManager jdbmMgr = null;
 
-    protected transient jdbm.htree.HTree fileTable = null;
+    protected transient HTree fileTable = null;
     protected Map<K, CacheLine<V>> memoryTable = null;
     protected String fileStore = null;
     protected String cacheName = null;
@@ -77,7 +81,7 @@ public class CacheLineTable<K, V> implements Serializable {
             }
             if (CacheLineTable.jdbmMgr != null) {
                 try {
-                    this.fileTable = jdbm.htree.HTree.createInstance(CacheLineTable.jdbmMgr);
+                    this.fileTable = HTree.createInstance(CacheLineTable.jdbmMgr);
                     CacheLineTable.jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
                     CacheLineTable.jdbmMgr.commit();
                 } catch (IOException e) {
@@ -96,7 +100,7 @@ public class CacheLineTable<K, V> implements Serializable {
 
     @SuppressWarnings("unchecked")
     private void addAllFileTableValues(List<CacheLine<V>> values) throws IOException {
-        jdbm.helper.FastIterator iter = fileTable.values();
+        FastIterator iter = fileTable.values();
         Object value = iter.next();
         while (value != null) {
             values.add((CacheLine<V>) value);
@@ -106,7 +110,7 @@ public class CacheLineTable<K, V> implements Serializable {
 
     @SuppressWarnings("unchecked")
     private void addAllFileTableKeys(Set<K> keys) throws IOException {
-        jdbm.helper.FastIterator iter = fileTable.keys();
+        FastIterator iter = fileTable.keys();
         Object key = null;
         while ((key = iter.next()) != null) {
             if (key instanceof ObjectType.NullObject) {
@@ -222,7 +226,7 @@ public class CacheLineTable<K, V> implements Serializable {
         List<Map.Entry<K, ? extends CacheLine<V>>> list = FastList.newInstance();
         if (fileTable != null) {
             try {
-                jdbm.helper.FastIterator iter = fileTable.keys();
+                FastIterator iter = fileTable.keys();
                 Object key = iter.next();
                 while (key != null) {
                     CacheLine<V> value = UtilGenerics.cast(fileTable.get(key));
@@ -276,7 +280,7 @@ public class CacheLineTable<K, V> implements Serializable {
                 this.fileTable = null;
 
                 // create a new table
-                this.fileTable = jdbm.htree.HTree.createInstance(CacheLineTable.jdbmMgr);
+                this.fileTable = HTree.createInstance(CacheLineTable.jdbmMgr);
                 CacheLineTable.jdbmMgr.setNamedObject(cacheName, this.fileTable.getRecid());
                 CacheLineTable.jdbmMgr.commit();
             } catch (IOException e) {
