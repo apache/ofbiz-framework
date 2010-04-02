@@ -337,10 +337,8 @@ under the License.
         <form name="acceptReturn" method="post" action="<@ofbizUrl>/updateReturn</@ofbizUrl>">
           <#if "CUSTOMER_RETURN" == returnHeader.returnHeaderTypeId>
             <#assign statusId = "RETURN_ACCEPTED">
-            <#assign partyId = returnHeader.fromPartyId>
           <#else>
             <#assign statusId = "SUP_RETURN_ACCEPTED">
-            <#assign partyId = returnHeader.toPartyId>
           </#if>
           <input type="hidden" name="returnId" value="${returnId}">
           <input type="hidden" name="statusId" value="${statusId}">

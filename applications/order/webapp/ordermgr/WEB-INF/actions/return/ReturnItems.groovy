@@ -85,6 +85,7 @@ if (returnHeaderTypeId == "VENDOR_RETURN") {
 }
 partyOrders = delegator.findByAnd("OrderHeaderAndRoles", [roleTypeId : roleTypeId, partyId : partyId], ["orderId"]);
 context.partyOrders = partyOrders;
+context.partyId = partyId;
 
 // get the list of return shipments associated to the return
 findOptions = new EntityFindOptions();
