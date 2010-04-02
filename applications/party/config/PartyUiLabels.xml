@@ -5573,6 +5573,7 @@
     </property>
     <property key="PartyForward">
         <value xml:lang="en">Forward</value>
+        <value xml:lang="fr">Transférer</value>
         <value xml:lang="hi_IN">आगे</value>
         <value xml:lang="it">Inoltra</value>
         <value xml:lang="pt_BR">Encaminhar</value>
@@ -5622,6 +5623,7 @@
     </property>
     <property key="PartyFullName">
         <value xml:lang="en">Full Name</value>
+        <value xml:lang="fr">Nom complet</value>
         <value xml:lang="it">Nome completo</value>
         <value xml:lang="pt_BR">Nome completo</value>
     </property>
@@ -5880,6 +5882,7 @@
     </property>
     <property key="PartyInProgresstEmails">
         <value xml:lang="en">Emails scheduled to be sent</value>
+        <value xml:lang="fr">Courriels prêts à être envoyés</value>
         <value xml:lang="hi_IN">ईमेल भेजने के लिए शिड्यूल है</value>
         <value xml:lang="it">Email schedulate da inviare</value>
         <value xml:lang="pt_BR">E-mails agendados para o envio</value>
@@ -6579,6 +6582,7 @@
     </property>
     <property key="PartyMainRole">
         <value xml:lang="en">Main Role</value>
+        <value xml:lang="fr">Rôle principal</value>
         <value xml:lang="it">Ruolo principale</value>
         <value xml:lang="pt_BR">Pepel principal</value>
     </property>
@@ -6951,6 +6955,7 @@
     </property>
     <property key="PartyMyCommunications">
         <value xml:lang="en">My Communications</value>
+        <value xml:lang="fr">Mes communications</value>
         <value xml:lang="hi_IN">मेरा संचार</value>
         <value xml:lang="it">Proprie comunicazioni</value>
         <value xml:lang="pt_BR">Minhas comunicações</value>
@@ -9143,6 +9148,7 @@
     </property>
     <property key="PartyReplyAll">
         <value xml:lang="en">Reply All</value>
+        <value xml:lang="fr">Répondre à tous</value>
         <value xml:lang="hi_IN">सभी को जवाब दे</value>
         <value xml:lang="it">Rispondi a tutti</value>
         <value xml:lang="pt_BR">Responder para todos</value>
