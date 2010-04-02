@@ -760,6 +760,10 @@ under the License.
         <field name="groupName" type="name"></field>
         <prim-key field="orderId"/>
         <prim-key field="orderItemGroupSeqId"/>
+        <relation type="many" rel-entity-name="OrderItem">
+            <key-map field-name="orderId"/>
+            <key-map field-name="orderItemGroupSeqId"/>
+        </relation>
         <relation type="one" fk-name="ORDERITMGRP_HDR" rel-entity-name="OrderHeader">
             <key-map field-name="orderId"/>
         </relation>
