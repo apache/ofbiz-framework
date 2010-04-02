@@ -39,6 +39,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.Log4jLoggerWriter;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
@@ -403,13 +404,14 @@ public class PosTransaction implements Serializable {
                 payInfo.put("cardNumber", cardStr);  // masked cardNumber
 
             } else if ("GIFT_CARD".equals(paymentMethodTypeId)) {
-                 @SuppressWarnings("unused")
+                /*
                 GenericValue gc = null;
                 try {
                     gc = infValue.getRelatedOne("GiftCard"); //FIXME is this really useful ? (Maybe later...)
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
+                */
             }
         }
 
@@ -865,7 +867,7 @@ public class PosTransaction implements Serializable {
         output.print(UtilProperties.getMessage(resource, "PosProcessing", locale));
         Map<String, Object> payRes = null;
         try {
-            payRes = (Map<String, Object>) ch.processPayment(ProductStoreWorker.getProductStore(productStoreId, session.getDelegator()), session.getUserLogin(), true);
+            payRes = ch.processPayment(ProductStoreWorker.getProductStore(productStoreId, session.getDelegator()), session.getUserLogin(), true);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             throw e;
@@ -1237,7 +1239,7 @@ public class PosTransaction implements Serializable {
         } else{
             Integer orderListSize = (Integer) svcRes.get("orderListSize");
             if (orderListSize > 0) {
-               List<GenericValue> orderList = (List<GenericValue>) svcRes.get("orderList");
+               List<GenericValue> orderList = UtilGenerics.checkList(svcRes.get("orderList"), GenericValue.class);
                return orderList;
             }
         }
@@ -1330,7 +1332,7 @@ public class PosTransaction implements Serializable {
 
     public boolean restoreOrder(String orderId, PosScreen pos, boolean append) {
         trace("Restore an order");
-        Delegator delegator = session.getDelegator();
+
         LocalDispatcher dispatcher = session.getDispatcher();
 
         Map<String, Object> svcCtx = FastMap.newInstance();
@@ -1402,11 +1404,6 @@ public class PosTransaction implements Serializable {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList", locale));
             return;
         }
-        Delegator delegator = this.session.getDelegator();
-        LocalDispatcher dispatcher = session.getDispatcher();
-        GenericValue userLogin = session.getUserLogin();
-        String shoppingListId = null;
-
         if (!UtilValidate.isEmpty(shoppingListName)) {
             // attach the party ID to the cart
             cart.setOrderPartyId(partyId);
@@ -1492,7 +1489,6 @@ public class PosTransaction implements Serializable {
         return result;
     }
 
-    // TODO, I really wonder if there is not a better way to do this (DynamicView excluded because of the contactMechId collisions between phone and email)!
     private List<Map<String, String>> searchContactMechs(Delegator delegator, PosScreen pos, List<Map<String, String>> partyList, String valueToCompare, String contactMechType) {
         ListIterator<Map<String, String>>  partyListIt = partyList.listIterator();
         while(partyListIt.hasNext()) {
@@ -1511,7 +1507,7 @@ public class PosTransaction implements Serializable {
                     keyType = "contactMech";
                     key = "infoString";
                 }
-                Map<String, Object> keyTypeMap = (Map<String, Object>) partyContactMechValueMap.get(keyType);
+                Map<String, Object> keyTypeMap = UtilGenerics.checkMap(partyContactMechValueMap.get(keyType));
                 String keyTypeValue = ((String) keyTypeMap.get(key)).trim();
                 if (valueToCompare.equals(keyTypeValue) || UtilValidate.isEmpty(valueToCompare)) {
                     if (nb == 1) {

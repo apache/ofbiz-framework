@@ -170,8 +170,8 @@ public class ButtonEventConfig implements java.io.Serializable {
         }
 
         // two variations are available
-        Class[] paramTypes1 = new Class[] { PosScreen.class, AWTEvent.class };
-        Class[] paramTypes2 = new Class[] { PosScreen.class };
+        Class<?>[] paramTypes1 = new Class[] { PosScreen.class, AWTEvent.class };
+        Class<?>[] paramTypes2 = new Class[] { PosScreen.class };
         Object[] params1 = new Object[] { pos, event };
         Object[] params2 = new Object[] { pos };
 

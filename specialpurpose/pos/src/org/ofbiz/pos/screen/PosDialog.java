@@ -48,7 +48,7 @@ import org.ofbiz.base.util.cache.UtilCache;
 public class PosDialog {
 
     public static final String module = PosDialog.class.getName();
-    protected static UtilCache instances = UtilCache.createUtilCache("pos.Dialogs", 0, 0);
+    protected static UtilCache<Object, Object> instances = UtilCache.createUtilCache("pos.Dialogs", 0, 0);
 
     protected final Frame clientFrame = XProjectManager.getCurrentProject().getAppFrame();
     protected final Window appWindow = XProjectManager.getCurrentProject().getAppWindow();

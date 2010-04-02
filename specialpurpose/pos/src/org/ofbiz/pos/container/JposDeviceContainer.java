@@ -18,15 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.pos.container;
 
-import java.util.Map;
-
 import org.ofbiz.base.container.Container;
-import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.container.ContainerConfig;
-import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.pos.device.DeviceLoader;
-
 
 public class JposDeviceContainer implements Container {
 
@@ -45,9 +42,8 @@ public class JposDeviceContainer implements Container {
         }
 
         // load the devices
-        Map devices = cc.properties;
         try {
-            DeviceLoader.load(devices);
+            DeviceLoader.load(cc.properties);
         } catch (GeneralException e) {
             Debug.logInfo("******************************************************", module);
             Debug.logInfo("Please verify that your receipt printer is connected !", module);

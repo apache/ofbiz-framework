@@ -19,12 +19,10 @@
 package org.ofbiz.pos.component;
 
 import java.awt.Color;
-import java.io.StringWriter;
 import java.util.Locale;
 
 import javax.swing.ListSelectionModel;
 
-import net.xoetrope.data.XDataSource;
 import net.xoetrope.swing.XScrollPane;
 import net.xoetrope.swing.XTable;
 import net.xoetrope.xui.XProject;
@@ -195,12 +193,5 @@ public class Journal {
             newNode.set(value);
         }
         return newNode;
-    }
-
-    private String getModelText(XModel model)
-    {
-        StringWriter sw = new StringWriter();
-        XDataSource.outputModel(sw, model);
-        return "<Datasets>" + sw.toString() + "</Datasets>";
     }
 }

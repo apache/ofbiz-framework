@@ -70,7 +70,7 @@ public class Keyboard extends GenericDevice {
                         return;
                     }
 
-                    List buttonEvents = ButtonEventConfig.findButtonKeyAssign(keyCode);
+                    List<String> buttonEvents = ButtonEventConfig.findButtonKeyAssign(keyCode);
                     if (UtilValidate.isNotEmpty(buttonEvents)) {
 
                         Debug.log("Key -> Button Mapping(s) Found [" + keyCode + "]", module);

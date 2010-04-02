@@ -34,7 +34,7 @@ import org.ofbiz.pos.jpos.service.BaseService;
 public class OfbizJposServiceFactory extends Object implements JposServiceInstanceFactory {
 
     public static final String module = OfbizJposServiceFactory.class.getName();
-    private static Map serviceMap = new HashMap();
+    private static Map<String, Object> serviceMap = new HashMap<String, Object>();
 
     public JposServiceInstance createInstance(String logicalName, JposEntry entry) throws JposException {
         // check to see if we have a service class property

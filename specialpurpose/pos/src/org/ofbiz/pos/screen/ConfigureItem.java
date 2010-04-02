@@ -345,7 +345,6 @@ public class ConfigureItem extends XPage {
     }
 
     protected class ListButtonQuestion implements Question, ListQuestion{
-        @SuppressWarnings("unused")
         private XButton button = null; // FIXME a bit weird, but I have no time to clean it up...
         private XScrollPane scrollpane = null;
         private ConfigItem question = null;
@@ -355,6 +354,10 @@ public class ConfigureItem extends XPage {
             return;
         }
 
+        public XButton getButton() {
+            return this.button;
+        }
+        
         public void setupButton(XButton button) {
             this.button = button;
             button.setText(question.getQuestion());

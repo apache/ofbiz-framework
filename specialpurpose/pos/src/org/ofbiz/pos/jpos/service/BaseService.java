@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.pos.jpos.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
+
+import javolution.util.FastList;
 
 import jpos.services.EventCallbacks;
 import jpos.JposException;
@@ -37,7 +37,7 @@ public class BaseService implements jpos.services.BaseService, jpos.loader.JposS
     public static final String module = BaseService.class.getName();
     protected static boolean claimed = false;
 
-    protected List eventQueue = new ArrayList();
+    protected List<Object> eventQueue = FastList.newInstance();
     protected JposEntry entry = null;
 
     protected boolean freezeEvents = false;
@@ -184,13 +184,9 @@ public class BaseService implements jpos.services.BaseService, jpos.loader.JposS
     }
 
     private void fireQueuedEvents() {
-        List queuedList = new ArrayList(eventQueue);
-        this.eventQueue = new ArrayList();
-        Iterator i = queuedList.iterator();
-
-        while (i.hasNext()) {
-            Object obj = i.next();
-            i.remove();
+        List<Object> queuedList = new FastList<Object>(eventQueue);
+        this.eventQueue = FastList.newInstance();
+        for (Object obj : queuedList) {
             this.fireEvent(obj);
         }
     }

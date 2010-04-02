@@ -50,7 +50,7 @@ public class DeviceLoader {
     public static Receipt receipt = null;
     public static Scanner scanner = null;
 
-    public static void load(Map devices) throws GeneralException {
+    public static void load(Map<String, ContainerConfig.Container.Property> devices) throws GeneralException {
         // load the keyboard
         if (devices.get("Keyboard") != null) {
             String keyboardDevice = ((ContainerConfig.Container.Property) devices.get("Keyboard")).value;
