@@ -113,7 +113,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private List paymentInfo = FastList.newInstance();
     private List<CartShipInfo> shipInfo = FastList.<CartShipInfo> newInstance();
     private Map contactMechIdsMap = new HashMap();
-    private Map orderAttributes = new HashMap();
+    private Map<String, String> orderAttributes = FastMap.newInstance();
     private Map<String, Object> attributes = new HashMap<String, Object>(); // user defined attributes
     // Lists of internal/public notes: when the order is stored they are transformed into OrderHeaderNotes
     private List internalOrderNotes = FastList.newInstance(); // internal notes
@@ -384,7 +384,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public String getOrderAttribute(String name) {
-        return (String) this.orderAttributes.get(name);
+        return this.orderAttributes.get(name);
     }
 
     public void setHoldOrder(boolean b) {
@@ -3878,24 +3878,22 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
-    public List makeAllOrderAttributes() {
+    public List<GenericValue> makeAllOrderAttributes() {
 
         return makeAllOrderAttributes(null, ALL);
     }
 
-    public List makeAllOrderAttributes(String orderId, int mode) {
+    public List<GenericValue> makeAllOrderAttributes(String orderId, int mode) {
 
-        List allOrderAttributes = new LinkedList();
+        List<GenericValue> allOrderAttributes = FastList.newInstance();
 
-        Iterator i = orderAttributes.entrySet().iterator();
-        while (i.hasNext()) {
-            Map.Entry entry = (Map.Entry) i.next();
+        for (Map.Entry<String, String> entry: orderAttributes.entrySet()) {
             GenericValue orderAtt = this.getDelegator().makeValue("OrderAttribute");
             if (UtilValidate.isNotEmpty(orderId)) {
                 orderAtt.set("orderId", orderId);
             }
-            String key = (String) entry.getKey();
-            String value = (String) entry.getValue();
+            String key = entry.getKey();
+            String value = entry.getValue();
 
             orderAtt.put("attrName", key);
             orderAtt.put("attrValue", value);
@@ -4884,11 +4882,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         super.finalize();
     }
 
-    public Map getOrderAttributes() {
+    public Map<String, String> getOrderAttributes() {
         return orderAttributes;
     }
 
-    public void setOrderAttributes(Map orderAttributes) {
+    public void setOrderAttributes(Map<String, String> orderAttributes) {
         this.orderAttributes = orderAttributes;
     }
 
