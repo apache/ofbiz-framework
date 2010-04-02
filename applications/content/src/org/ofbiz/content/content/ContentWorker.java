@@ -222,6 +222,11 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         // look for a content decorator
         String contentDecoratorId = content.getString("decoratorContentId");
+        // Check that the decoratorContent is not the same as the current content
+        if (contentId.equals(contentDecoratorId)) {
+            Debug.logError("[" + contentId + "] decoratorContentId is the same as contentId, ignoring.", module);
+            contentDecoratorId = null;
+        }
         // check to see if the decorator has already been run
         boolean isDecorated = Boolean.TRUE.equals(templateContext.get("_IS_DECORATED_"));
         if (!isDecorated && UtilValidate.isNotEmpty(contentDecoratorId)) {
