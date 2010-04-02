@@ -554,7 +554,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
