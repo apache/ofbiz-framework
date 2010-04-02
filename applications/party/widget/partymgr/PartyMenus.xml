@@ -150,7 +150,7 @@
         </menu-item>
         <menu-item name="FinancialHistory" title="${uiLabelMap.PartyFinancialHistory}">
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <link target="PartyFinancialHistory">
                 <parameter param-name="partyId"/>
@@ -170,7 +170,7 @@
     <menu name="ProfileSubTabBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="createNew" title="${uiLabelMap.AccountingBillingAccount}" >
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <link target="/accounting/control/FindBillingAccount" url-mode="inter-app">
                 <parameter param-name="partyId"/>
@@ -178,7 +178,7 @@
         </menu-item>
         <menu-item name="finAccounts" title="${uiLabelMap.AccountingFinAccounts}">
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <link target="/accounting/control/FindFinAccount" url-mode="inter-app">
                 <parameter param-name="ownerPartyId" from-field="partyId"/>

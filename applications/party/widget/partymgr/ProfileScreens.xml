@@ -288,7 +288,7 @@
                     <condition>
                         <and>
                             <not><if-empty field="ownedFinAccountList"/></not>
-                            <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                            <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
                         </and>
                     </condition>
                     <widgets>
