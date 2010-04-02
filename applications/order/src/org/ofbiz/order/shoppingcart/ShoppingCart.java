@@ -114,7 +114,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private List<CartShipInfo> shipInfo = FastList.<CartShipInfo> newInstance();
     private Map contactMechIdsMap = new HashMap();
     private Map<String, String> orderAttributes = FastMap.newInstance();
-    private Map<String, Object> attributes = new HashMap<String, Object>(); // user defined attributes
+    private Map<String, Object> attributes = FastMap.newInstance(); // user defined attributes
     // Lists of internal/public notes: when the order is stored they are transformed into OrderHeaderNotes
     private List internalOrderNotes = FastList.newInstance(); // internal notes
     private List orderNotes = FastList.newInstance(); // public notes (printed on documents etc.)
