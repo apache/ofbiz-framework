@@ -894,7 +894,7 @@
     <property key="ContentType.description.BLOG_ROOT">
         <value xml:lang="da">Blog rod</value>
         <value xml:lang="en">Blog Root</value>
-        <value xml:lang="it">Blog principale</value>
+        <value xml:lang="it">Blog principal</value>
         <value xml:lang="zh">博客的根</value>
     </property>
     <property key="ContentType.description.DECORATOR">
@@ -2459,5 +2459,35 @@
         <value xml:lang="ro">URL</value>
         <value xml:lang="th">URL</value>
         <value xml:lang="zh">网址</value>
+    </property>
+    <property key="WebSiteContentType.description.BLOG_ROOT">
+        <value xml:lang="en">Blog Root</value>
+        <value xml:lang="fr">Racine du blog</value>
+    </property>
+    <property key="WebSiteContentType.description.DEFAULT_PAGE">
+        <value xml:lang="en">Default Page</value>
+        <value xml:lang="fr">Page par défaut</value>
+    </property>
+    <property key="WebSiteContentType.description.ERROR_ROOT">
+        <value xml:lang="en">Error Root</value>
+        <value xml:lang="fr">Erreur</value>
+    </property>
+    <property key="WebSiteContentType.description.MENU_ROOT">
+        <value xml:lang="en">Menu Root</value>
+        <value xml:lang="fr">Racine du menu</value>
+    </property>
+    <property key="WebSiteContentType.description.FORUM_ROOT">
+        <value xml:lang="en">Forum Root</value>
+        <value xml:lang="fr">Racine du forum</value>
+    </property>
+    <property key="WebSiteContentType.description.PUBLISH_POINT">
+        <value xml:lang="da">Udgivelsespunkt</value>
+        <value xml:lang="de">Veröffentlichungsort</value>
+        <value xml:lang="en">Publish Point</value>
+        <value xml:lang="fr">Point de publication</value>
+        <value xml:lang="it">Punto Pubblico</value>
+        <value xml:lang="ro">Punct Public</value>
+        <value xml:lang="th">ความคิดเห็นที่ลงประกาศ</value>
+        <value xml:lang="zh">发布点</value>
     </property>
 </resource>
