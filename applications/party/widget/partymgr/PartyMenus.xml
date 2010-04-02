@@ -28,7 +28,7 @@
         <menu-item name="classification" title="${uiLabelMap.PartyClassifications}"><link target="showclassgroups"/></menu-item>
         <menu-item name="security" title="${uiLabelMap.CommonSecurity}">
             <condition>
-                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <link target="FindSecurityGroup"/>
         </menu-item>

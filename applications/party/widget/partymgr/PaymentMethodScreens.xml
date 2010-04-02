@@ -133,7 +133,7 @@ under the License.
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditAvsOverride}">

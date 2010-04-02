@@ -313,7 +313,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                    <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <!-- do check for PARTYMGR, _VIEW permission -->
                             <widgets>

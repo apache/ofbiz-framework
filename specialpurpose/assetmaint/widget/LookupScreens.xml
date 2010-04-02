@@ -25,7 +25,7 @@
         <section>
             <condition>
                 <or>
-                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                    <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                 </or>
             </condition>
             <actions>
