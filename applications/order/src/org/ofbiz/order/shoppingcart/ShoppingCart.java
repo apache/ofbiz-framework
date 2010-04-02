@@ -925,6 +925,24 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return newGroup.getGroupNumber();
     }
 
+    public ShoppingCartItemGroup addItemGroup(GenericValue itemGroupValue) throws GenericEntityException {
+        if (itemGroupValue == null) {
+            return null;
+        }
+        String itemGroupNumber = itemGroupValue.getString("orderItemGroupSeqId");
+        ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(itemGroupNumber);
+        if (itemGroup == null) {
+            ShoppingCartItemGroup parentGroup = addItemGroup(itemGroupValue.getRelatedOneCache("ParentOrderItemGroup"));
+            itemGroup = new ShoppingCartItemGroup(itemGroupNumber, itemGroupValue.getString("groupName"), parentGroup);
+            int parsedGroupNumber = Integer.parseInt(itemGroupNumber);
+            if (parsedGroupNumber > this.nextGroupNumber) {
+                this.nextGroupNumber = parsedGroupNumber + 1;
+            }
+            this.itemGroupByNumberMap.put(itemGroupNumber, itemGroup);
+        }
+        return itemGroup;
+    }
+
     public List getCartItemsInNoGroup() {
         List cartItemList = FastList.newInstance();
         for (ShoppingCartItem cartItem : cartLines) {
@@ -4214,7 +4232,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         /** Note that to avoid foreign key issues when the groups are created a parentGroup should have a lower number than the child group. */
         protected ShoppingCartItemGroup(long groupNumber, String groupName, ShoppingCartItemGroup parentGroup) {
-            this.groupNumber = UtilFormatOut.formatPaddedNumber(groupNumber, 2);
+            this(UtilFormatOut.formatPaddedNumber(groupNumber, 2), groupName, parentGroup);
+        }
+
+        protected ShoppingCartItemGroup(String groupNumber, String groupName, ShoppingCartItemGroup parentGroup) {
+            this.groupNumber = groupNumber;
             this.groupName = groupName;
             this.parentGroup = parentGroup;
         }

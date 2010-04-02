@@ -473,6 +473,12 @@ public class ShoppingCartServices {
                 ShoppingCartItem cartItem = cart.findCartItem(itemIndex);
                 cartItem.setOrderItemSeqId(item.getString("orderItemSeqId"));
 
+                try {
+                    cartItem.setItemGroup(cart.addItemGroup(item.getRelatedOneCache("OrderItemGroup")));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
                 // attach surveyResponseId for each item
                 if (UtilValidate.isNotEmpty(surveyResponseResult)){
                     cartItem.setAttribute("surveyResponseId",surveyResponseResult.get("surveyResponseId"));
