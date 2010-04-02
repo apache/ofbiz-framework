@@ -371,8 +371,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.attributes.remove(name);
     }
 
-    public Object getAttribute(String name) {
-        return this.attributes.get(name);
+    @SuppressWarnings("unchecked")
+    public <T> T getAttribute(String name) {
+        return (T) this.attributes.get(name);
     }
 
     public void removeOrderAttribute(String name) {
@@ -4335,8 +4336,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             this.attributes.remove(name);
         }
 
-        public Object getAttribute(String name) {
-            return this.attributes.get(name);
+        @SuppressWarnings("unchecked")
+        public <T> T getAttribute(String name) {
+            return (T) this.attributes.get(name);
         }
 
         public String getOrderTypeId() { return orderTypeId; }
