@@ -29,6 +29,12 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
 
+    <service name="acctgBasePermissionCheck" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
+        <description>Accounting Basic Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
+
     <service name="acctgBillingAcctCheck" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgBillingAcctCheck">
         <description>Basic Billing Account Permission Checking Logic</description>

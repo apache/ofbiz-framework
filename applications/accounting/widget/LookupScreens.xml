@@ -23,7 +23,7 @@ under the License.
     <screen name="LookupPayment">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -49,7 +49,7 @@ under the License.
     <screen name="LookupInvoice">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -102,7 +102,7 @@ under the License.
     <screen name="LookupBillingAccount">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -129,7 +129,7 @@ under the License.
     <screen name="LookupGlAccount">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -156,7 +156,7 @@ under the License.
     <screen name="LookupAgreement">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -183,7 +183,7 @@ under the License.
     <screen name="LookupAgreementItem">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -210,7 +210,7 @@ under the License.
     <screen name="LookupPaymentGroupMember">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -235,7 +235,7 @@ under the License.
     <screen name="LookupGlReconciliation">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
