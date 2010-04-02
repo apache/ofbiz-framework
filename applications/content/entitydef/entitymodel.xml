@@ -1543,6 +1543,7 @@ under the License.
     </view-entity>
     <entity entity-name="WebSiteContentType"
         package-name="org.ofbiz.content.website"
+        default-resource-name="ContentEntityLabels"
         title="Web Site Content Type">
         <field name="webSiteContentTypeId" type="id-ne"></field>
         <field name="description" type="description"></field>
