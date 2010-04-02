@@ -54,7 +54,7 @@ under the License.
             </sub-node>
         </node>
         <node name="node-body">
-            <link target="EditFixedAsset" text="${fixedAssetId} ${fixedAssetName ${instanceOfProductId} ${fixedAssetTypeId} ">
+            <link target="EditFixedAsset" text="${fixedAssetId} ${fixedAssetName} ${instanceOfProductId} ${fixedAssetTypeId} ">
                 <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
             </link>
             <sub-node node-name="node-body">

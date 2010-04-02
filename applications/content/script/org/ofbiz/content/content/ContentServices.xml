@@ -734,7 +734,7 @@
             <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
         </entity-one>
         <if-empty field="dataResource">
-            <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
+            <add-error><fail-message message="No data resource found for ID: [${parameters.dataResourceId}]"/></add-error>
         </if-empty>
         <check-errors/>
 
