@@ -99,6 +99,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="skipInventoryChecks" type="Boolean" mode="IN" optional="true"/>
         <attribute name="skipProductChecks" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="includePromoItems" type="Boolean" mode="IN" optional="true"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
 
