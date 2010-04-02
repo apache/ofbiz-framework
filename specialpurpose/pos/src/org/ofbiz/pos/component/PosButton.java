@@ -18,16 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.pos.component;
 
+import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.AWTEvent;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import net.xoetrope.swing.XButton;
-import net.xoetrope.xui.helper.SwingWorker;
 import net.xoetrope.xui.events.XEventHelper;
+import net.xoetrope.xui.helper.SwingWorker;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
@@ -39,7 +38,7 @@ public class PosButton {
 
     public static final String module = PosButton.class.getName();
 
-    protected Map loadedXButtons = new HashMap();
+    protected Map<String, PosButtonWrapper> loadedXButtons = new HashMap<String, PosButtonWrapper>();
     protected PosScreen pos = null;
 
     public PosButton(PosScreen pos) {
@@ -83,9 +82,7 @@ public class PosButton {
     }
 
     public void setLock(boolean lock) {
-        Iterator i = loadedXButtons.keySet().iterator();
-        while (i.hasNext()) {
-            String buttonName = (String) i.next();
+        for (String buttonName : loadedXButtons.keySet()) {
             if (this.isLockable(buttonName) && lock) {
                 this.setLock(buttonName, lock);
             } else {

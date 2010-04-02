@@ -19,7 +19,6 @@
 package org.ofbiz.pos.screen;
 
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
@@ -36,16 +35,17 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.pos.PosTransaction;
 
 
+@SuppressWarnings("serial")
 public class SelectProduct extends XPage {
 
     /**
-     * To choose a product in a list of products whith the same bar code
+     * To choose a product in a list of products with the same bar code
      */
 
     public static final String module = SelectProduct.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
-    static protected Hashtable m_productsMap = new Hashtable();
+    static protected Hashtable<String, Object> m_productsMap = new Hashtable<String, Object>();
     protected XList m_productsList = null;
     protected XButton m_cancel = null;
     protected XButton m_select = null;
@@ -55,7 +55,7 @@ public class SelectProduct extends XPage {
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
 
-    public SelectProduct(Hashtable saleMap, PosTransaction trans, PosScreen page) {
+    public SelectProduct(Hashtable<String, Object> saleMap, PosTransaction trans, PosScreen page) {
         m_productsMap.putAll(saleMap);
         m_trans = trans;
         m_pos = page;
@@ -76,9 +76,7 @@ public class SelectProduct extends XPage {
         XEventHelper.addMouseHandler(this, m_select, "selectProduct");
 
         m_listModel = new DefaultListModel();
-        for (Iterator i = m_productsMap.entrySet().iterator(); i.hasNext();) {
-            Object o = i.next();
-            Map.Entry entry = (Map.Entry)o;
+        for (Map.Entry<String, Object> entry : m_productsMap.entrySet()) {
             String val = entry.getValue().toString();
             m_listModel.addElement(val);
         }
@@ -114,10 +112,7 @@ public class SelectProduct extends XPage {
     private void selectProductId() {
         if (null != m_productsList.getSelectedValue()) {
             String product = (String) m_productsList.getSelectedValue();
-            Iterator i = m_productsMap.entrySet().iterator();
-            while (i.hasNext()) {
-                Object o = i.next();
-                Map.Entry entry = (Map.Entry)o;
+            for (Map.Entry<String, Object> entry : m_productsMap.entrySet()) {
                 String val = entry.getValue().toString();
                 if (val.equals(product)) {
                     m_productIdSelected = entry.getKey().toString();

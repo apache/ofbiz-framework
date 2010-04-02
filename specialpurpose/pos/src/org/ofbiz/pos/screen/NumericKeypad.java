@@ -30,6 +30,7 @@ import net.xoetrope.xui.PageSupport;
 import net.xoetrope.xui.XPage;
 import net.xoetrope.xui.events.XEventHelper;
 
+@SuppressWarnings("serial")
 public class NumericKeypad extends XPage
 {
     public static final String module = NumericKeypad.class.getName();
@@ -97,11 +98,6 @@ public class NumericKeypad extends XPage
     private void disableButton(String button) {
         XButton xbutton = (XButton) m_dialog.findComponent(button);
         xbutton.setVisible(false);
-    }
-
-    private void enableButton(String button) {
-        XButton xbutton = (XButton) m_dialog.findComponent(button);
-        xbutton.setVisible(true);
     }
 
     private void setupEvents() {

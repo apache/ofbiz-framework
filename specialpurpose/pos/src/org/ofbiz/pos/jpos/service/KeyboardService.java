@@ -34,6 +34,7 @@ import jpos.services.EventCallbacks;
 import org.ofbiz.pos.adaptor.KeyboardReceiver;
 import org.ofbiz.pos.adaptor.KeyboardAdaptor;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 
 public class KeyboardService extends BaseService implements jpos.services.POSKeyboardService17, KeyboardReceiver, KeyListener {
@@ -48,7 +49,7 @@ public class KeyboardService extends BaseService implements jpos.services.POSKey
     protected int keyData = -1;
 
     protected KeyEvent lastEvent = null;
-    protected Map keyMapping = null;
+    protected Map<Integer, PosKey> keyMapping = null;
 
     public KeyboardService() {
         KeyboardAdaptor.getInstance(this, KeyboardAdaptor.KEYBOARD_DATA);
@@ -59,10 +60,10 @@ public class KeyboardService extends BaseService implements jpos.services.POSKey
         super.open(deviceName, ecb);
 
         // setup the key mapping
-        this.keyMapping = new HashMap();
-        Enumeration props = entry.getPropertyNames();
+        this.keyMapping = new HashMap<Integer, PosKey>();
+        Enumeration<String> props = UtilGenerics.cast(entry.getPropertyNames());
         while (props.hasMoreElements()) {
-            String propName = (String) props.nextElement();
+            String propName = props.nextElement();
             if (propName.startsWith("key.")) {
                 String propValue = (String) entry.getPropertyValue(propName);
                 propName = propName.substring(4);

@@ -19,10 +19,7 @@
 package org.ofbiz.pos.screen;
 
 import java.awt.Color;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.pos.PosTransaction;
+import java.util.Locale;
 
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
@@ -30,9 +27,11 @@ import net.xoetrope.swing.XEdit;
 import net.xoetrope.xui.PageSupport;
 import net.xoetrope.xui.XPage;
 import net.xoetrope.xui.events.XEventHelper;
-import java.awt.Panel;
-import java.util.Locale;
 
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.pos.PosTransaction;
+
+@SuppressWarnings("serial")
 public class Keyboard extends XPage {
     public static final String module = Keyboard.class.getName();
 

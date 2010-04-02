@@ -26,6 +26,7 @@ import net.xoetrope.swing.XDialog;
 //
 //import org.ofbiz.base.util.Debug;
 //
+@SuppressWarnings("serial")
 public class XFocusDialog extends XDialog {
 //
 //    protected XEdit m_focused = null;

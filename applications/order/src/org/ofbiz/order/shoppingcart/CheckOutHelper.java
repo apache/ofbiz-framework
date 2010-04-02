@@ -558,12 +558,12 @@ public class CheckOutHelper {
         return result;
     }
 
-    public Map createOrder(GenericValue userLogin) {
+    public Map<String, Object> createOrder(GenericValue userLogin) {
         return createOrder(userLogin, null, null, null, false, null, null);
     }
 
     // Create order event - uses createOrder service for processing
-    public Map createOrder(GenericValue userLogin, String distributorId, String affiliateId,
+    public Map<String, Object> createOrder(GenericValue userLogin, String distributorId, String affiliateId,
             List trackingCodeOrders, boolean areOrderItemsExploded, String visitId, String webSiteId) {
         if (this.cart == null) {
             return null;
@@ -873,19 +873,19 @@ public class CheckOutHelper {
         return UtilMisc.toList(orderAdj, itemAdj);
     }
 
-    public Map processPayment(GenericValue productStore, GenericValue userLogin) throws GeneralException {
+    public Map<String, Object> processPayment(GenericValue productStore, GenericValue userLogin) throws GeneralException {
         return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
     }
 
-    public Map processPayment(GenericValue productStore, GenericValue userLogin, boolean faceToFace) throws GeneralException {
+    public Map<String, Object> processPayment(GenericValue productStore, GenericValue userLogin, boolean faceToFace) throws GeneralException {
         return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, faceToFace, false, dispatcher, delegator);
     }
 
-    public Map processPayment(GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold) throws GeneralException {
+    public Map<String, Object> processPayment(GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold) throws GeneralException {
         return CheckOutHelper.processPayment(this.cart.getOrderId(), this.cart.getGrandTotal(), this.cart.getCurrency(), productStore, userLogin, faceToFace, manualHold, dispatcher, delegator);
     }
 
-    public static Map processPayment(String orderId, BigDecimal orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, Delegator delegator) throws GeneralException {
+    public static Map<String, Object> processPayment(String orderId, BigDecimal orderTotal, String currencyUomId, GenericValue productStore, GenericValue userLogin, boolean faceToFace, boolean manualHold, LocalDispatcher dispatcher, Delegator delegator) throws GeneralException {
         // Get some payment related strings
         String DECLINE_MESSAGE = productStore.getString("authDeclinedMessage");
         String ERROR_MESSAGE = productStore.getString("authErrorMessage");
@@ -1453,7 +1453,7 @@ public class CheckOutHelper {
         return accountMap;
     }
 
-    public Map validatePaymentMethods() {
+    public Map<String, Object> validatePaymentMethods() {
         String errMsg = null;
         String billingAccountId = cart.getBillingAccountId();
         BigDecimal billingAccountAmt = cart.getBillingAccountAmount();
