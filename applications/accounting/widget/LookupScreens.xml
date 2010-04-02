@@ -23,9 +23,7 @@ under the License.
     <screen name="LookupPayment">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -51,9 +49,7 @@ under the License.
     <screen name="LookupInvoice">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -106,9 +102,7 @@ under the License.
     <screen name="LookupBillingAccount">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -135,9 +129,7 @@ under the License.
     <screen name="LookupGlAccount">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -243,9 +235,7 @@ under the License.
     <screen name="LookupGlReconciliation">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
