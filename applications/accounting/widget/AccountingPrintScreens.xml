@@ -39,7 +39,7 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                            <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
                             <!-- can always see own invoice -->
                             <if-compare field="invoice.partyIdFrom" operator="equals" value="${userLogin.partyId}"/>
                             <if-compare field="invoice.partyId" operator="equals" value="${userLogin.partyId}"/>
@@ -85,7 +85,7 @@ under the License.
     <screen name="PrintCheckPDF">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <set field="titleProperty" value="AccountingPrintChecks"/>
