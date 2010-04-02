@@ -34,5 +34,12 @@ under the License.
             party/data/PartyTypeData.xml
         </description>
     </service>
+    <service name="migrateFacilitySquareFootage" engine="simple"
+            location="component://product/script/org/ofbiz/product/UpgradeServices.xml" invoke="migrateFacilitySquareFootage">
+        <description>
+            Migrate data from Facility.oldSquareFootage to Facility.facilitySize.
+            The field Facility.squareFootageSince has been deprecated since revision 929912 (2010-04-01)
+        </description>
+    </service>
 
 </services>
