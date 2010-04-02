@@ -4201,7 +4201,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public static class ShoppingCartItemGroup implements Serializable {
-        private long groupNumber;
+        private String groupNumber;
         private String groupName;
         private ShoppingCartItemGroup parentGroup;
 
@@ -4214,7 +4214,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         /** Note that to avoid foreign key issues when the groups are created a parentGroup should have a lower number than the child group. */
         protected ShoppingCartItemGroup(long groupNumber, String groupName, ShoppingCartItemGroup parentGroup) {
-            this.groupNumber = groupNumber;
+            this.groupNumber = UtilFormatOut.formatPaddedNumber(groupNumber, 2);
             this.groupName = groupName;
             this.parentGroup = parentGroup;
         }
@@ -4226,7 +4226,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         public String getGroupNumber() {
-            return UtilFormatOut.formatPaddedNumber(this.groupNumber, 2);
+            return this.groupNumber;
         }
 
         public String getGroupName() {
@@ -4260,7 +4260,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public boolean equals(Object obj) {
             if (obj == null) return false;
             ShoppingCartItemGroup that = (ShoppingCartItemGroup) obj;
-            if (that.groupNumber == this.groupNumber) {
+            if (that.groupNumber.equals(this.groupNumber)) {
                 return true;
             }
             return false;
