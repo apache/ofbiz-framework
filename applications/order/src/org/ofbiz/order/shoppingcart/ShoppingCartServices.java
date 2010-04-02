@@ -161,6 +161,7 @@ public class ShoppingCartServices {
         String orderId = (String) context.get("orderId");
         Boolean skipInventoryChecks = (Boolean) context.get("skipInventoryChecks");
         Boolean skipProductChecks = (Boolean) context.get("skipProductChecks");
+        boolean includePromoItems = Boolean.TRUE.equals(context.get("includePromoItems"));
         Locale locale = (Locale) context.get("locale");
 
         if (UtilValidate.isEmpty(skipInventoryChecks)) {
@@ -377,7 +378,7 @@ public class ShoppingCartServices {
                 }
 
                 // do not include PROMO items
-                if (item.get("isPromo") != null && "Y".equals(item.getString("isPromo"))) {
+                if (!includePromoItems && item.get("isPromo") != null && "Y".equals(item.getString("isPromo"))) {
                     continue;
                 }
 
