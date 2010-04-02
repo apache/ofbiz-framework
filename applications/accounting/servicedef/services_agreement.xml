@@ -247,16 +247,4 @@ under the License.
         <description>Delete AgreementWorkEffortApplic</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-
-    <!-- Permission services -->
-    <service name="acctgAgreementPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgAgreementPermissionCheck">
-        <description>Accounting Agreement Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
-    <service name="acctgCommissionPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="commissionPermissionCheck">
-        <description>Accounting Commission Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
 </services>

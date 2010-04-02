@@ -64,13 +64,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!-- Permission services -->
-    <service name="acctgCostPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgCostPermissionCheck">
-        <description>Accounting Cost Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
-
     <service name="createProductAverageCost" default-entity-name="ProductAverageCost" engine="entity-auto" invoke="create" auth="true">
         <description>Create Product Average Cost record</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="CREATE"/>

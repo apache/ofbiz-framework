@@ -241,13 +241,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!-- Fixed Asset Permission Services -->
-    <service name="fixedAssetPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
-        <description>Fixed Asset Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
-
     <!-- Fixed Asset Depreciation Services -->
     <service name="createFixedAssetDepMethod" default-entity-name="FixedAssetDepMethod" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Fixed Asset Depreciation Method</description>

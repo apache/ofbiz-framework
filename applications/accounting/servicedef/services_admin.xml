@@ -119,18 +119,6 @@ under the License.
         <auto-attributes mode="IN" entity-name="PaymentMethodTypeGlAccount" include="pk" optional="false"/>
     </service>
 
-    <!-- Permission services -->
-    <service name="acctgPrefPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="preferencePermissionCheck">
-        <description>Accounting Preferences Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
-    <service name="acctgFxPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgFxPermissionCheck">
-        <description>Accounting Foreign Exchange Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
-    
     <service name="getFXConversion" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="getFXConversion">
         <description>get the conversion rate</description>

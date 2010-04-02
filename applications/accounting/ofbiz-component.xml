@@ -79,6 +79,9 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_verisign.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_orbital.xml"/>
 
+    <!-- Accounting Permission Services -->
+    <service-resource type="model" loader="main" location="servicedef/services_perm.xml"/>
+
     <!-- Accounting Migration Service Definition -->
     <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
 
