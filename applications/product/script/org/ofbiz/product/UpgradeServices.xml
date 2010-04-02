@@ -45,4 +45,15 @@ under the License.
         </iterate>
     </simple-method>
 
+    <simple-method method-name="migrateFacilitySquareFootage" short-description="Migrate Data From from Facility.oldSquareFootage to Facility.facilitySize">
+        <entity-condition entity-name="Facility" list="facilities"/>
+        <iterate list="facilities" entry="facility">
+            <if-not-empty field="facility.oldSquareFootage">
+                <set field="facility.facilitySize" from-field="facility.oldSquareFootage"/>
+                <set field="facility.facilitySizeUomId" value="AREA_ft2"/>
+                <store-value value-field="facility"/>
+            </if-not-empty>
+        </iterate>
+    </simple-method>
+
 </simple-methods>
