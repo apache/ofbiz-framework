@@ -70,8 +70,8 @@ under the License.
         <attribute name="oldProductId" type="String" mode="IN" optional="false"/>
         <attribute name="newInternalName" type="String" mode="IN" optional="true"/>
         <attribute name="newProductName" type="String" mode="IN" optional="true"/>
-        <attribute name="newDescription" type="String" mode="IN" optional="true"/>
-        <attribute name="newLongDescription" type="String" mode="IN" optional="true"/>
+        <attribute name="newDescription" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="newLongDescription" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="duplicatePrices" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateIDs" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateContent" type="String" mode="IN" optional="true"/>
