@@ -340,7 +340,7 @@ under the License.
                         <parameter param-name="rootTemplateContentId"/>
                         <parameter param-name="rootTemplateRevSeqId"/>
                         <parameter param-name="rootInstanceContentId"/>
-                        <parameter param-name="rootInstanceRevSeqId" from-field="rootInstanceRevSeqId}"/>
+                        <parameter param-name="rootInstanceRevSeqId" from-field="rootInstanceRevSeqId"/>
                       </link>
                             <link target="AddRootCompDocTemplate"  text="${ContentCreateNewRootCompDocTemplate}" style="buttontext">
                         <parameter param-name="contentId"/>
