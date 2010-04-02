@@ -65,7 +65,7 @@
                         <section>
                             <condition>
                                 <and>
-                                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                    <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                                     <not><if-empty field="party"/></not>
                                 </and>
                             </condition>
@@ -78,7 +78,7 @@
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <section>

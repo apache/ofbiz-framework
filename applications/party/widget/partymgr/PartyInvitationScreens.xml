@@ -33,7 +33,7 @@ under the License.
                         <section>
                             <condition>
                                 <and>
-                                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                    <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                                     <not><if-empty field="partyInvitation"/></not>
                                 </and>
                             </condition>
@@ -46,7 +46,7 @@ under the License.
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -80,7 +80,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
@@ -118,7 +118,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap[titleProperty]}}">
