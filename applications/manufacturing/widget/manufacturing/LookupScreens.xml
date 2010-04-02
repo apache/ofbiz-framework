@@ -23,9 +23,7 @@ under the License.
     <screen name="LookupRouting">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -52,9 +50,7 @@ under the License.
     <screen name="LookupRoutingTask">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>

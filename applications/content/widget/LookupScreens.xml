@@ -23,9 +23,7 @@ under the License.
     <screen name="LookupListLayout">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
@@ -46,9 +44,7 @@ under the License.
     <screen name="LookupSubContent">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>

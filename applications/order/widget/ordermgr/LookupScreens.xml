@@ -23,9 +23,7 @@ under the License.
     <screen name="LookupOrderHeader">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
@@ -54,9 +52,7 @@ under the License.
     <screen name="LookupOrderHeaderAndShipInfo">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
@@ -83,9 +79,7 @@ under the License.
     <screen name="LookupPurchaseOrderHeaderAndShipInfo">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
@@ -111,9 +105,7 @@ under the License.
     <screen name="LookupCustRequest">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
@@ -140,9 +132,7 @@ under the License.
     <screen name="LookupCustRequestItem">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
@@ -169,9 +159,7 @@ under the License.
     <screen name="LookupQuote">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
@@ -197,9 +185,7 @@ under the License.
     <screen name="LookupQuoteItem">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
@@ -226,9 +212,7 @@ under the License.
     <screen name="LookupRequirement">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
@@ -254,9 +238,7 @@ under the License.
     <screen name="LookupShoppingList">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>

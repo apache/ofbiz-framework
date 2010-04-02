@@ -24,9 +24,7 @@
     <screen name="LookupPerson">
         <section>
             <condition>
-                <or>
-                    <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
-                </or>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
