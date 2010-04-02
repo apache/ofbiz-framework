@@ -448,13 +448,6 @@ under the License.
         <implements service="itemFulfillmentInterface"/>
     </service>
 
-    <!-- Permission services -->
-    <service name="acctgFinAcctPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgFinAcctPermissionCheck">
-        <description>Accounting Financial Account Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
-
     <service name="depositWithdrawPayments" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="depositWithdrawPayments">
         <description>Deposit withdraw payments</description>

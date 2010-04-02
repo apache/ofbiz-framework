@@ -282,12 +282,6 @@ under the License.
         <attribute name="invoicedTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
-    <!-- Permission services -->
-    <service name="acctgInvoicePermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgInvoicePermissionCheck">
-        <description>Accounting Invoice Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
     <service name="updateInvoiceItemType" engine="simple" default-entity-name="InvoiceItemType"
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItemType">
         <description>Update Invoice Item Type Record</description>

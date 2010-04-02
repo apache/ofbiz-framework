@@ -398,17 +398,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!-- Permission services -->
-    <service name="basicGeneralLedgerPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
-        <description>Basic General Ledger Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
-    <service name="acctgTransactionPermissionCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgTransactionPermissionCheck">
-        <description>Basic General Ledger Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
     <service name="createAcctgTransForWorkEffortIssuance" engine="simple" auth="true"
         location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForWorkEffortIssuance">
         <description>Create an accounting transaction for inventory that is issued to a work effort (Type: INVENTORY D: RAWMAT_INVENTORY, C: WIP_INVENTORY)</description>

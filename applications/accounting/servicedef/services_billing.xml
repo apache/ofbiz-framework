@@ -113,9 +113,4 @@ under the License.
         <attribute name="availableToCapture" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="billingAccount" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
-    <service name="acctgBillingAcctCheck" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgBillingAcctCheck">
-        <description>Basic Billing Account Permission Checking Logic</description>
-        <implements service="permissionInterface"/>
-    </service>
 </services>
