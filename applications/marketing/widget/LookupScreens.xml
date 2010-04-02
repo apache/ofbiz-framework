@@ -25,9 +25,7 @@ under the License.
     <screen name="LookupSegmentGroup">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="MARKETING" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="MARKETING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -53,9 +51,7 @@ under the License.
     <screen name="LookupSalesForecast">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="MARKETING" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="MARKETING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>

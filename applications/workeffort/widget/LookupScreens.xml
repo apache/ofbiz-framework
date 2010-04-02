@@ -23,9 +23,7 @@ under the License.
     <screen name="LookupWorkEffort">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
@@ -52,9 +50,7 @@ under the License.
     <screen name="LookupTimesheet">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
@@ -81,9 +77,7 @@ under the License.
     <screen name="LookupWorkEffortShort">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
