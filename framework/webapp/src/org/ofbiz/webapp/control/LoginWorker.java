@@ -334,6 +334,7 @@ public class LoginWorker {
             String currentDelegatorTenantId = null;
             if (delegatorNameHashIndex > 0) {
                 currentDelegatorTenantId = oldDelegatorName.substring(delegatorNameHashIndex + 1);
+                if (currentDelegatorTenantId != null) currentDelegatorTenantId.trim();
             }
             
             if (delegatorNameHashIndex == -1 || (currentDelegatorTenantId != null && !tenantId.equals(currentDelegatorTenantId))) {
