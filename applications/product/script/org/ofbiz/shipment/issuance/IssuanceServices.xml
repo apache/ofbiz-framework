@@ -22,9 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ItemIssuance services -->
     <simple-method method-name="createItemIssuance" short-description="Create ItemIssuance">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createItemIssuance you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Create ItemIssuance" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
@@ -50,9 +47,6 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateItemIssuance" short-description="Update ItemIssuance">
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updateItemIssuance you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Update ItemIssuance" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
@@ -62,9 +56,6 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteItemIssuance" short-description="Delete ItemIssuance">
-        <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deleteItemIssuance you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Delete ItemIssuance" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
@@ -75,27 +66,19 @@ under the License.
 
     <!-- ItemIssuanceRole services -->
     <simple-method method-name="createItemIssuanceRole" short-description="Create ItemIssuanceRole">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createItemIssuanceRole you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Create ItemIssuanceRole" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
-
         <make-value value-field="newEntity" entity-name="ItemIssuanceRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
         <create-value value-field="newEntity"/>
     </simple-method>
+
     <simple-method method-name="deleteItemIssuanceRole" short-description="Delete ItemIssuanceRole">
-        <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deleteItemIssuanceRole you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Delete ItemIssuanceRole" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
-
         <entity-one entity-name="ItemIssuanceRole" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
@@ -103,12 +86,6 @@ under the License.
     <!-- the actual issuance services -->
     <simple-method method-name="issueOrderItemToShipment" short-description="Issue OrderItem to Shipment">
         <set value="Issue OrderItem to Shipment" field="operationName"/>
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
 
         <!-- get orderHeader -->
@@ -137,12 +114,6 @@ under the License.
 
     <simple-method method-name="issueOrderItemShipGrpInvResToShipment" short-description="Issue OrderItemShipGrpInvRes to Shipment">
         <set value="Issue OrderItemShipGrpInvRes to Shipment" field="operationName"/>
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
 
         <!-- get orderItemShipGrpInvRes -->
