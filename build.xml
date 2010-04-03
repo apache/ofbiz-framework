@@ -351,7 +351,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-multitenant" depends="build"
-            description="This loads all data needed for the multi-tenancy demonstration">
+            description="This loads all data needed for the multi-tenancy demonstration. Caution: this creates three databases, with each one loaded with all demo data.">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
