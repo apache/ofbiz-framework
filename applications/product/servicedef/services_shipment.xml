@@ -133,6 +133,7 @@ under the License.
     <service name="createShipment" default-entity-name="Shipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipment" auth="true">
         <description>Create Shipment</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
@@ -145,6 +146,7 @@ under the License.
     <service name="updateShipment" default-entity-name="Shipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipment" auth="true">
         <description>Update Shipment</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="shipmentTypeId"/>
@@ -163,21 +165,34 @@ under the License.
     <service name="deleteShipment" default-entity-name="Shipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipment" auth="true">
         <description>Delete Shipment</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="setShipmentSettingsFromPrimaryOrder" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="setShipmentSettingsFromPrimaryOrder" auth="true">
         <description>Set Shipment Settings From Primary Order</description>
+        <required-permissions join-type="AND">
+            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        </required-permissions>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="setShipmentSettingsFromFacilities" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="setShipmentSettingsFromFacilities" auth="true">
         <description>Set Shipment Settings From Facilities</description>
+        <required-permissions join-type="AND">
+            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        </required-permissions>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="sendShipmentScheduledNotification" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="sendShipmentScheduledNotification" auth="true">
         <description>Send Shipment Scheduled Notification</description>
+        <required-permissions join-type="OR">
+            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        </required-permissions>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="balanceItemIssuancesForShipment" engine="simple"
@@ -187,6 +202,10 @@ under the License.
             actually received; it is invoked as a seca when the purchase shipment
             is marked as 'received'
         </description>
+        <required-permissions join-type="OR">
+            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        </required-permissions>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="checkCancelItemIssuanceAndOrderShipmentFromShipment" engine="simple"
@@ -207,6 +226,7 @@ under the License.
     <service name="createShipmentItem" default-entity-name="ShipmentItem" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentItem" auth="true">
         <description>Create ShipmentItem</description>
+         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="shipmentItemSeqId" mode="INOUT" optional="true"/>
@@ -214,12 +234,14 @@ under the License.
     <service name="updateShipmentItem" default-entity-name="ShipmentItem" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentItem" auth="true">
         <description>Update ShipmentItem</description>
+         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteShipmentItem" default-entity-name="ShipmentItem" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentItem" auth="true">
         <description>Delete ShipmentItem</description>
+         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -237,6 +259,7 @@ under the License.
     <service name="createShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackage" auth="true">
         <description>Create ShipmentPackage</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="dateCreated"/>
@@ -246,12 +269,14 @@ under the License.
     <service name="updateShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackage" auth="true">
         <description>Update ShipmentPackage</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteShipmentPackage" default-entity-name="ShipmentPackage" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackage" auth="true">
         <description>Delete ShipmentPackage</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -259,6 +284,7 @@ under the License.
     <service name="createShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackageContent" auth="true">
         <description>Create ShipmentPackageContent</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="shipmentPackageSeqId" mode="INOUT" optional="false"/>
@@ -266,17 +292,20 @@ under the License.
     <service name="updateShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackageContent" auth="true">
         <description>Update ShipmentPackageContent</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteShipmentPackageContent" default-entity-name="ShipmentPackageContent" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackageContent" auth="true">
         <description>Delete ShipmentPackageContent</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="addShipmentContentToPackage" default-entity-name="ShipmentPackageContent" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="addShipmentContentToPackage" auth="true">
         <description>Add Shipment Content To Package</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="quantity" mode="IN" optional="false"/>
@@ -287,18 +316,21 @@ under the License.
     <service name="createShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentPackageRouteSeg" auth="true">
         <description>Create ShipmentPackageRouteSeg</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentPackageRouteSeg" auth="true">
         <description>Update ShipmentPackageRouteSeg</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteShipmentPackageRouteSeg" default-entity-name="ShipmentPackageRouteSeg" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentPackageRouteSeg" auth="true">
         <description>Delete ShipmentPackageRouteSeg</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -306,18 +338,21 @@ under the License.
     <service name="createShipmentContactMech" default-entity-name="ShipmentContactMech" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentContactMech" auth="true">
         <description>Create ShipmentContactMech</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateShipmentContactMech" default-entity-name="ShipmentContactMech" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentContactMech" auth="true">
         <description>Update ShipmentContactMech</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteShipmentContactMech" default-entity-name="ShipmentContactMech" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentContactMech" auth="true">
         <description>Delete ShipmentContactMech</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -325,6 +360,7 @@ under the License.
     <service name="createShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentRouteSegment" auth="true">
         <description>Create ShipmentRouteSegment</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="shipmentRouteSegmentId" mode="INOUT" optional="true"/>
@@ -332,12 +368,14 @@ under the License.
     <service name="updateShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateShipmentRouteSegment" auth="true">
         <description>Update ShipmentRouteSegment</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteShipmentRouteSegment" auth="true">
         <description>Delete ShipmentRouteSegment</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="duplicateShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="java"
@@ -361,18 +399,21 @@ under the License.
     <service name="createItemIssuance" default-entity-name="ItemIssuance" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="createItemIssuance" auth="true">
         <description>Create ItemIssuance</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateItemIssuance" default-entity-name="ItemIssuance" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="updateItemIssuance" auth="true">
         <description>Update ItemIssuance</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteItemIssuance" default-entity-name="ItemIssuance" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="deleteItemIssuance" auth="true">
         <description>Delete ItemIssuance</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -380,17 +421,23 @@ under the License.
     <service name="createItemIssuanceRole" default-entity-name="ItemIssuanceRole" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="createItemIssuanceRole" auth="true">
         <description>Create ItemIssuanceRole</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteItemIssuanceRole" default-entity-name="ItemIssuanceRole" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="deleteItemIssuanceRole" auth="true">
         <description>Delete ItemIssuanceRole</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="issueOrderItemToShipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="issueOrderItemToShipment" auth="true">
         <description>Issue an OrderItem to a Shipment - only for non-sales orders</description>
+        <required-permissions join-type="AND">
+            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        </required-permissions>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderItemShipGroupAssoc" include="pk" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
@@ -399,6 +446,10 @@ under the License.
     <service name="issueOrderItemShipGrpInvResToShipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="issueOrderItemShipGrpInvResToShipment" auth="true">
         <description>Add an OrderItemShipGrpInvRes to a Shipment - only for sales orders</description>
+        <required-permissions join-type="AND">
+            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        </required-permissions>
         <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="OrderItemShipGrpInvRes" include="pk" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>

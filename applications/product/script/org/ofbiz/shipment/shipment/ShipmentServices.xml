@@ -22,11 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- Shipment services -->
     <simple-method method-name="createShipment" short-description="Create Shipment">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createShipment you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="newEntity" entity-name="Shipment"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -99,9 +94,6 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateShipment" short-description="Update Shipment">
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updateShipment you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Update Shipment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusDelivered"/>
 
@@ -289,14 +281,11 @@ under the License.
         <field-to-result field="lookedUpValue.shipmentId" result-name="shipmentId"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
+
     <simple-method method-name="deleteShipment" short-description="Delete Shipment">
-        <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deleteShipment you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Delete Shipment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
-
         <entity-one entity-name="Shipment" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
@@ -409,12 +398,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="setShipmentSettingsFromPrimaryOrder" short-description="Set Shipment Settings From Primary Order">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run setShipmentSettingsFromPrimaryOrder you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run setShipmentSettingsFromPrimaryOrder you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Set Shipment Settings From Primary Order" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -657,12 +640,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="setShipmentSettingsFromFacilities" short-description="Set Shipment Settings From Facilities">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run setShipmentSettingsFromFacilities you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run setShipmentSettingsFromFacilities you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Set Shipment Settings From Facilities" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -724,12 +701,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="sendShipmentScheduledNotification" short-description="Send Shipment Scheduled Notification">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <alt-permission permission="FACILITY" action="_UPDATE"/>
-            <fail-message message="Security Error: to run createShipmentItem you must have the FACILITY_CREATE, FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="Shipment" value-field="shipment"/>
 
         <!-- find email address for currently logged in user, set as sendFrom -->
@@ -794,12 +765,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="balanceItemIssuancesForShipment" short-description="Release the purchase order's items assigned to the shipment but not actually received">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <alt-permission permission="FACILITY" action="_UPDATE"/>
-            <fail-message message="Security Error: to run balanceItemIssuancesForShipment you must have the FACILITY_CREATE, FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <entity-one entity-name="Shipment" value-field="shipment"/>
         <get-related value-field="shipment" relation-name="ItemIssuance" list="issuances"/>
         <iterate list="issuances" entry="issuance">
@@ -823,9 +788,6 @@ under the License.
 
     <!-- ShipmentItem services -->
     <simple-method method-name="createShipmentItem" short-description="Create ShipmentItem">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createShipmentItem you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Create ShipmentItem" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -839,9 +801,6 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateShipmentItem" short-description="Update ShipmentItem">
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updateShipmentItem you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Update ShipmentItem" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -853,9 +812,6 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentItem" short-description="Delete ShipmentItem">
-        <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deleteShipmentItem you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Delete ShipmentItem" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -960,9 +916,6 @@ under the License.
 
     <!-- ShipmentPackage services -->
     <simple-method method-name="createShipmentPackage" short-description="Create ShipmentPackage">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createShipmentPackage you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Create ShipmentPackage" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -988,9 +941,6 @@ under the License.
         <call-simple-method method-name="ensurePackageRouteSeg"/>
     </simple-method>
     <simple-method method-name="updateShipmentPackage" short-description="Update ShipmentPackage">
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updateShipmentPackage you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Update ShipmentPackage" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusShipped"/>
         <check-errors/>
@@ -1006,9 +956,6 @@ under the License.
         <call-simple-method method-name="ensurePackageRouteSeg"/>
     </simple-method>
     <simple-method method-name="deleteShipmentPackage" short-description="Delete ShipmentPackage">
-        <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deleteShipmentPackage you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Delete ShipmentPackage" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -1053,9 +1000,6 @@ under the License.
 
     <!-- ShipmentPackageContent services -->
     <simple-method method-name="createShipmentPackageContent" short-description="Create ShipmentPackageContent">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createShipmentPackageContent you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Create ShipmentPackageContent" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -1068,9 +1012,6 @@ under the License.
         <field-to-result field="newEntity.shipmentPackageSeqId" result-name="shipmentPackageSeqId"/>
     </simple-method>
     <simple-method method-name="updateShipmentPackageContent" short-description="Update ShipmentPackageContent">
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updateShipmentPackageContent you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Update ShipmentPackageContent" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -1082,9 +1023,6 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentPackageContent" short-description="Delete ShipmentPackageContent">
-        <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deleteShipmentPackageContent you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Delete ShipmentPackageContent" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -1095,9 +1033,6 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="addShipmentContentToPackage" short-description="Add Shipment Content To Package">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run addShipmentContentToPackage you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Create ShipmentPackageContent" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -1126,11 +1061,6 @@ under the License.
 
     <!-- ShipmentPackageRouteSeg services -->
     <simple-method method-name="createShipmentPackageRouteSeg" short-description="Create ShipmentPackageRouteSeg">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createShipmentPackageRouteSeg you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="newEntity" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -1138,11 +1068,6 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateShipmentPackageRouteSeg" short-description="Update ShipmentPackageRouteSeg">
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updateShipmentPackageRouteSeg you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map="lookupPKMap" value-field="lookedUpValue"/>
@@ -1150,9 +1075,6 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentPackageRouteSeg" short-description="Delete ShipmentPackageRouteSeg">
-        <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deleteShipmentPackageRouteSeg you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Delete ShipmentPackageRouteSeg" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -1165,11 +1087,6 @@ under the License.
 
     <!-- ShipmentContactMech services -->
     <simple-method method-name="createShipmentContactMech" short-description="Create ShipmentContactMech">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createShipmentContactMech you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="newEntity" entity-name="ShipmentContactMech"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -1177,11 +1094,6 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateShipmentContactMech" short-description="Update ShipmentContactMech">
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updateShipmentContactMech you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-errors/>
-
         <make-value value-field="lookupPKMap" entity-name="ShipmentContactMech"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentContactMech" map="lookupPKMap" value-field="lookedUpValue"/>
@@ -1189,9 +1101,6 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentContactMech" short-description="Delete ShipmentContactMech">
-        <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deleteShipmentContactMech you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Delete ShipmentContactMech" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -1204,9 +1113,6 @@ under the License.
 
     <!-- ShipmentRouteSegment services -->
     <simple-method method-name="createShipmentRouteSegment" short-description="Create ShipmentRouteSegment">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createShipmentRouteSegment you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Create ShipmentRouteSegment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
@@ -1230,9 +1136,6 @@ under the License.
         <call-simple-method method-name="ensureRouteSegPackage"/>
     </simple-method>
     <simple-method method-name="updateShipmentRouteSegment" short-description="Update ShipmentRouteSegment">
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updateShipmentRouteSegment you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Update ShipmentRouteSegment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusDelivered"/>
         <check-errors/>
@@ -1254,9 +1157,6 @@ under the License.
         <call-simple-method method-name="ensureRouteSegPackage"/>
     </simple-method>
     <simple-method method-name="deleteShipmentRouteSegment" short-description="Delete ShipmentRouteSegment">
-        <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deleteShipmentRouteSegment you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <set value="Delete ShipmentRouteSegment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
