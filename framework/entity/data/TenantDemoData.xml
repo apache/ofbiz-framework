@@ -18,9 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <!-- to prep the databases for these (just like the main databases need to be prepped) run something like:
-        java -Xmx512m -XX:MaxPermSize=128m -jar ofbiz.jar -install -delegator=default#DEMO1
-    -->
+    <!-- Search the Ofbiz Wiki for "Multitenancy support" to get instructions on how to setup multi-tenancy -->
     <Tenant tenantId="DEMO1" tenantName="Demo Tenant One"/>
     <TenantDataSource tenantId="DEMO1" entityGroupName="org.ofbiz" 
         jdbcUri="jdbc:derby:ofbiz_DEMO1;create=true" jdbcUsername="ofbiz" jdbcPassword="ofbiz"/>
