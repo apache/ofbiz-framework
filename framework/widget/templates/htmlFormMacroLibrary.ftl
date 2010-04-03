@@ -82,55 +82,62 @@ under the License.
 </#macro>
 
 <#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName>
-<div class="view-calendar"><ul>
-<li><input type="text" name="${name}" <@renderClass className alert /><#rt/>
-<#if title?has_content> title="${title}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#rt/>
-<#if maxlength?has_content>  maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if>/><#rt/></li>
-<#if dateType!="time" >
-<li>
-<#if shortDateInput?exists && shortDateInput>
- <a href="javascript:call_cal_notime(document.<#rt/>
-<#else>
- <a href="javascript:call_cal(document.<#rt/>
-</#if>
-${formName}.<#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if><#if defaultDateTimeString?has_content>,'${defaultDateTimeString}'</#if>);" 
-title="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>"><#rt/>
-</a><#rt/>
-</li>
-</#if>
-<#if timeDropdown?has_content && timeDropdown=="time-dropdown">
-<li>
- <select name="${timeHourName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
- <#if isTwelveHour>
-<#assign x=11>
-<#list 0..x as i>
-<option value="${i}"<#if hour1?has_content><#if i=hour1> selected="selected"</#if></#if>>${i}</option><#rt/>
-</#list>
-<#else>
-<#assign x=23>
-<#list 0..x as i>
-<option value="${i}"<#if hour2?has_content><#if i=hour2> selected="selected"</#if></#if>>${i}</option><#rt/>
-</#list>
-</#if>
-</select>:<select name="${timeMinutesName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
-<#assign x=59>
-<#list 0..x as i>
-<option value="${i}"<#if minutes?has_content><#if i=minutes> selected="selected"</#if></#if>>${i}</option><#rt/>
-</#list>
-</select></li>
-<#rt/>
-<#if isTwelveHour>
-<li>
- <select name="${ampmName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
- <option value="AM" ${amSelected}>AM</option><#rt/>
- <option value="PM" ${pmSelected}>PM</option><#rt/>
- </select>
-</li><#rt/>
-</#if>
-<input type="hidden" name="${compositeType}" value="Timestamp"/>
-</#if>
-</ul>
-</div>
+  <div class="view-calendar">
+    <ul>
+      <li><input type="text" name="${name}" <@renderClass className alert /><#rt/>
+        <#if title?has_content> title="${title}"</#if>
+        <#if value?has_content> value="${value}"</#if>
+        <#if size?has_content> size="${size}"</#if><#rt/>
+        <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
+        <#if id?has_content> id="${id}"</#if>/><#rt/>
+      </li>
+      <#if dateType!="time" >
+        <li>
+          <#if shortDateInput?exists && shortDateInput>
+             <a href="javascript:call_cal_notime(document.<#rt/>
+          <#else>
+             <a href="javascript:call_cal(document.<#rt/>
+          </#if>
+          ${formName}.
+          <#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if>
+          <#if defaultDateTimeString?has_content>,'${defaultDateTimeString}'</#if>);" 
+          title="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>"><#rt/>
+          </a><#rt/>
+        </li>
+      </#if>
+      <#if timeDropdown?has_content && timeDropdown=="time-dropdown">
+        <li>
+          <select name="${timeHourName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
+          <#if isTwelveHour>
+            <#assign x=11>
+            <#list 0..x as i>
+              <option value="${i}"<#if hour1?has_content><#if i=hour1> selected="selected"</#if></#if>>${i}</option><#rt/>
+            </#list>
+          <#else>
+            <#assign x=23>
+            <#list 0..x as i>
+              <option value="${i}"<#if hour2?has_content><#if i=hour2> selected="selected"</#if></#if>>${i}</option><#rt/>
+            </#list>
+          </#if>
+          </select>:<select name="${timeMinutesName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
+            <#assign x=59>
+            <#list 0..x as i>
+              <option value="${i}"<#if minutes?has_content><#if i=minutes> selected="selected"</#if></#if>>${i}</option><#rt/>
+            </#list>
+          </select>
+        </li><#rt/>
+        <#if isTwelveHour>
+          <li>
+            <select name="${ampmName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
+              <option value="AM" <#if amSelected == "selected">selected="selected"</#if> >AM</option><#rt/>
+              <option value="PM" <#if pmSelected == "selected">selected="selected"</#if>>PM</option><#rt/>
+            </select>
+          </li><#rt/>
+        </#if>
+      </#if>
+    </ul>
+    <input type="hidden" name="${compositeType}" value="Timestamp"/>
+  </div>
 </#macro>
 
 <#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch>
