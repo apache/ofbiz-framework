@@ -188,6 +188,7 @@ under the License.
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-permission"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-role-member"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="permission-service"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.required-permissions"/>
         </xs:complexType>
