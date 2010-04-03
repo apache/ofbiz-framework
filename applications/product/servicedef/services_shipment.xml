@@ -103,18 +103,14 @@ under the License.
     <service name="createShipmentForReturn" default-entity-name="ReturnHeader" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentForReturn">
         <description>Create a Return Shipment with information from ReturnHeader fields</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="FACILITY" action="_CREATE"/>
-        </required-permissions>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createShipmentAndItemsForReturn" default-entity-name="ReturnHeader" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentAndItemsForReturn">
         <description>Create a Return Shipment and ShipmentItems with information from ReturnHeader and ReturnItems</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="FACILITY" action="_CREATE"/>
-        </required-permissions>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>
@@ -122,9 +118,7 @@ under the License.
     <service name="createShipmentAndItemsForVendorReturn" default-entity-name="Shipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentAndItemsForVendorReturn">
         <description>Create a Return Shipment and ShipmentItems with primaryReturnId</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="FACILITY" action="_CREATE"/>
-        </required-permissions>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
         <override name="primaryReturnId" optional="false"/>
@@ -733,6 +727,7 @@ under the License.
     <service name="createShipmentReceipt" engine="simple"
             location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="createShipmentReceipt" auth="true">
         <description>Creates a ShipmentReceipt Record</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceShipmentReceipt"/>
         <attribute name="receiptId" type="String" mode="OUT" optional="false"/>
     </service>
@@ -751,6 +746,7 @@ under the License.
     <service name="receiveInventoryProduct" engine="simple" transaction-timeout="600"
             location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="receiveInventoryProduct" auth="true">
         <description>Receive Inventory In Warehouse</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes entity-name="InventoryItem" include="nonpk" mode="IN" optional="true">
             <exclude field-name="availableToPromiseTotal"/>
             <exclude field-name="quantityOnHandTotal"/>
@@ -773,12 +769,17 @@ under the License.
     <service name="issueOrderItemToShipmentAndReceiveAgainstPO" engine="simple" transaction-timeout="600"
             location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="issueOrderItemToShipmentAndReceiveAgainstPO" auth="true">
         <description>Issues order item quantity specified to the shipment, then receives inventory for that item and quantity</description>
+        <required-permissions join-type="AND">
+            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        </required-permissions>
         <implements service="issueOrderItemToShipment"/>
         <implements service="receiveInventoryProduct"/>
     </service>
 
     <service name="quickReceiveReturn" engine="simple"
             location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="quickReceiveReturn" auth="true">
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
@@ -793,11 +794,13 @@ under the License.
     <service name="createShipmentReceiptRole" engine="simple"
             location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="createShipmentReceiptRole" auth="true">
         <description>Create a ShipmentReceipt Role entry</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceShipmentReceiptRole"/>
     </service>
     <service name="removeShipmentReceiptRole" engine="simple"
             location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="removeShipmentReceiptRole" auth="true">
         <description>Remove a ShipmentReceipt Role entry</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <implements service="interfaceShipmentReceiptRole"/>
     </service>
 
