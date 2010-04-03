@@ -394,6 +394,19 @@ public class ModelServiceReader implements Serializable {
             perm.serviceModel = service;
             group.permissions.add(perm);
         }
+        // Create the permissions based on permission services
+        for (Element element : UtilXml.childElementList(baseElement, "permission-service")) {
+            ModelPermission perm = new ModelPermission();
+            if (baseElement != null) {
+                perm.permissionType = ModelPermission.PERMISSION_SERVICE;
+                perm.permissionServiceName = element.getAttribute("service-name");
+                perm.action = element.getAttribute("main-action");
+                perm.permissionResourceDesc = element.getAttribute("resource-description");
+                perm.auth = true; // auth is always required when permissions are set
+                perm.serviceModel = service;
+                group.permissions.add(perm);
+            }
+        }
     }
 
     private void createGroupDefs(Element baseElement, ModelService service) {
