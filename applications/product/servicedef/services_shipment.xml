@@ -211,6 +211,7 @@ under the License.
     <service name="checkCancelItemIssuanceAndOrderShipmentFromShipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="checkCancelItemIssuanceAndOrderShipmentFromShipment" auth="true">
         <description>Check Shipment Items and cancel Item Issuance and Order Shipment</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="quickDropShipOrder" engine="simple"
@@ -473,6 +474,7 @@ under the License.
     <service name="cancelOrderItemIssuanceFromSalesShipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="cancelOrderItemIssuanceFromSalesShipment" auth="true">
         <description>Cancel an ItemIssuance from Sales Shipment</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="canceledQuantity" type="BigDecimal" mode="OUT" optional="false"/>
@@ -694,6 +696,10 @@ under the License.
     <service name="addOrderShipmentToShipment" engine="simple" default-entity-name="OrderShipment"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="addOrderShipmentToShipment" auth="true">
         <description>Add an OrderShipment and a ShipmentItem - only for sales orders</description>
+        <required-permissions join-type="AND">
+            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
         <override name="shipmentItemSeqId" mode="IN" optional="true"/>
@@ -701,6 +707,10 @@ under the License.
     <service name="removeOrderShipmentFromShipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="removeOrderShipmentFromShipment" auth="true">
         <description>Delete an OrderShipment and updates the ShipmentItem</description>
+        <required-permissions join-type="AND">
+            <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+            <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
+        </required-permissions>
         <auto-attributes entity-name="OrderShipment" include="pk" mode="IN" optional="false"/>
     </service>
     <service name="getQuantityForShipment" engine="simple" default-entity-name="OrderItem"
@@ -871,17 +881,20 @@ under the License.
     <service name="createQuantityBreak" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createQuantityBreak" auth="true">
         <description>Create a QuantityBreak</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes entity-name="QuantityBreak" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateQuantityBreak" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="updateQuantityBreak" auth="true">
         <description>Update a QuantityBreak</description>
+        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <auto-attributes entity-name="QuantityBreak" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="QuantityBreak" include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteQuantityBreak" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="deleteQuantityBreak" auth="true">
         <description>Delete a QuantityBreak</description>
+        <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes entity-name="QuantityBreak" include="pk" mode="IN" optional="false"/>
     </service>
 
