@@ -71,6 +71,7 @@ public class ContentMapFacade implements Map {
     protected final boolean cache;
     protected boolean allowRender = true;
     protected boolean isDecorated = false;
+    protected ContentMapFacade decoratedContent = null;
 
     // internal objects
     private String sortOrder="-fromDate";
@@ -207,6 +208,10 @@ public class ContentMapFacade implements Map {
         this.subContent.setStatusFilter(obj);
     }
 
+    public void setDecoratedContent(ContentMapFacade decoratedContent) {
+        this.decoratedContent = decoratedContent;
+    }
+
     // implemented get method
     public Object get(Object obj) {
         if (!(obj instanceof String)) {
@@ -305,6 +310,9 @@ public class ContentMapFacade implements Map {
         // TODO: change to use the MapStack instead of a cloned Map
         Map renderCtx = FastMap.newInstance();
         renderCtx.putAll(context);
+        if (this.decoratedContent != null) {
+            renderCtx.put("decoratedContent", decoratedContent);
+        }
 
         if (this.isDecorated) {
             renderCtx.put("_IS_DECORATED_", Boolean.TRUE);

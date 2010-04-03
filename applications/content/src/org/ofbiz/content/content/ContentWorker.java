@@ -219,6 +219,11 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         // create the content facade
         ContentMapFacade facade = new ContentMapFacade(dispatcher, content, templateContext, locale, mimeTypeId, cache);
+        // If this content is decorating something then tell the facade about it in order to maintain the chain of decoration
+        ContentMapFacade decoratedContent = (ContentMapFacade) templateContext.get("decoratedContent");
+        if (decoratedContent != null) {
+            facade.setDecoratedContent(decoratedContent);
+        }
 
         // look for a content decorator
         String contentDecoratorId = content.getString("decoratorContentId");
@@ -244,6 +249,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
             // render the decorator
             ContentMapFacade decFacade = new ContentMapFacade(dispatcher, decorator, templateContext, locale, mimeTypeId, cache);
+            decFacade.setDecoratedContent(facade);
             facade.setIsDecorated(true);
             templateContext.put("decoratedContent", facade); // decorated content
             templateContext.put("thisContent", decFacade); // decorator content
