@@ -47,12 +47,12 @@ under the License.
         <td width="5">&nbsp;</td>
         <td width='74%'>
           <#if currentStore?has_content>
-            <div>${currentStore.storeName}</div>
+            <div><#if currentStore.storeName?exists>${currentStore.storeName}<#else>${currentStore.productStoreId}</#if></div>
             <input type="hidden" name="productStoreId" value="${currentStore.productStoreId}">
           <#else>
             <select name="productStoreId">
               <#list productStores as productStore>
-                <option value="${productStore.productStoreId}">${productStore.storeName}</option>
+                <option value="${productStore.productStoreId}"><#if productStore.storeName?exists>${productStore.storeName}<#else>${productStore.productStoreId}</#if></option>
               </#list>
             </select>
           </#if>
