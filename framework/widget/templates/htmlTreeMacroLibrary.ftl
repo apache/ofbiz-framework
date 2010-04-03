@@ -24,7 +24,7 @@ under the License.
 
 <#macro renderLastElement style>
 <ul<#if style?has_content> class="${style}"</#if>>
-<li><#rt/>
+<#rt/>
 </#macro>
   
 <#macro renderNodeEnd processChildren isRootNode>
