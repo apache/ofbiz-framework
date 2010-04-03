@@ -21,9 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createShipmentReceipt" short-description="Create a ShipmentReceipt">
-        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run createShipmentReceipt you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value value-field="newEntity" entity-name="ShipmentReceipt"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -51,9 +48,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createShipmentReceiptRole" short-description="Create a ShipmentReceipt Role">
-        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run createShipmentReceiptRole you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value value-field="newEntity" entity-name="ShipmentReceiptRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -62,9 +56,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="removeShipmentReceiptRole" short-description="Remove a ShipmentReceipt Role">
-        <check-permission permission="FACILITY" action="_DELETE"><fail-message message="Security Error: to run removeShipmentReceiptRole you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <make-value value-field="lookupPKMap" entity-name="ShipmentReceiptRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentReceiptRole" map="lookupPKMap" value-field="lookedUpValue"/>
@@ -72,9 +63,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="receiveInventoryProduct" short-description="Receive Inventory in new Inventory Item(s)">
-        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run receiveInventoryProduct you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <!-- NOTES
             - for serialized items with a serial number passed in: the quantityAccepted _should_ always be 1
             - if the type is SERIALIZED_INV_ITEM but there is not serial number (which is weird...) we'll create a bunch of individual InventoryItems
@@ -188,9 +176,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="quickReceiveReturn" short-description="Quick Receive Entire Return">
-        <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run quickReceiveReturn you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
-        <check-errors/>
-
         <entity-one entity-name="ReturnHeader" value-field="returnHeader">
             <field-map field-name="returnId" from-field="parameters.returnId"/>
         </entity-one>
@@ -316,12 +301,6 @@ under the License.
     
     <simple-method method-name="issueOrderItemToShipmentAndReceiveAgainstPO" short-description="Issues order item quantity specified to the shipment, then receives inventory for that item and quantity">
         <set value="Issue OrderItem to Shipment and Receive against PO" field="operationName"/>
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
 
         <!-- get orderItem -->
