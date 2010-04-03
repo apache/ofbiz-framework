@@ -31,7 +31,7 @@ under the License.
   <br />
   <div class="label">${uiLabelMap.ProductEditCategoryWithCategoryId}:</div>
   <form method="post" action="<@ofbizUrl>EditCategory</@ofbizUrl>" style="margin: 0;" name="EditCategoryForm">
-    <@formrenderer.renderLookupField name="productCategoryId" id="productCategoryId" formName="EditCategoryForm" fieldFormName="LookupProductCategory" presentation="layer" position="center"/>
+    <@formrenderer.renderLookupField name="productCategoryId" id="productCategoryId" formName="EditCategoryForm" fieldFormName="LookupProductCategory"/>
     <input type="submit" value="${uiLabelMap.ProductEditCategory}" class="smallSubmit"/>
   </form>
   <br />
