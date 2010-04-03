@@ -1845,13 +1845,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="removeOrderShipmentFromShipment" short-description="Delete an OrderShipment and updates the ShipmentItem">
-        <set value="Delete OrderShipment entry" field="operationName"/>
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
         <make-value entity-name="OrderShipment" value-field="lookupPk"/>
         <set-pk-fields value-field="lookupPk" map="parameters"/>
         <find-by-primary-key entity-name="OrderShipment" map="lookupPk" value-field="orderShipment"/>
@@ -1892,14 +1885,6 @@ under the License.
     <!-- for a given order item and quantity it creates (or updates if already exists) an -->
     <!-- entry in the ShipmentPlan. -->
     <simple-method method-name="addOrderShipmentToShipment" short-description="Add or update a ShipmentPlan entry">
-        <set value="Put Ordered Quantity to Shipment Plan" field="operationName"/>
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-
         <!-- if quantity is greater than 0 we add or update the ShipmentPlan -->
         <if-compare field="parameters.quantity" operator="greater" value="0" type="BigDecimal">
 
@@ -1989,11 +1974,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="checkCancelItemIssuanceAndOrderShipmentFromShipment" short-description="Check Shipment Items and Cancel Item Issuance and Order Shipment">
-        <set value="Cancel Item Issuance and Order Shipment from a Sales Shipment" field="operationName"/>
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-
         <entity-and entity-name="OrderShipment" list="orderShipmentList">
             <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
         </entity-and>
@@ -2015,10 +1995,6 @@ under the License.
     <!-- QuantityBreak services -->
     <!-- create a new QuantityBreak -->
     <simple-method method-name="createQuantityBreak" short-description="Create a QuoteAttribute">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuantityBreak"/>
-        </check-permission>
-        <check-errors/>
         <make-value value-field="quantityBreak" entity-name="QuantityBreak"/>
         <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
         <sequenced-id sequence-name="QuantityBreak" field="quantityBreak.quantityBreakId"/>
@@ -2028,10 +2004,6 @@ under the License.
 
     <!-- update an existing QuantityBreak -->
     <simple-method method-name="updateQuantityBreak" short-description="Update an existing QuantityBreak">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuantityBreak"/>
-        </check-permission>
-        <check-errors/>
         <entity-one entity-name="QuantityBreak" value-field="quantityBreak" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
@@ -2041,10 +2013,6 @@ under the License.
 
     <!-- remove an existing QuantityBreak -->
     <simple-method method-name="deleteQuantityBreak" short-description="Remove an existing QuantityBreak">
-        <check-permission permission="FACILITY" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuantityBreak"/>
-        </check-permission>
-        <check-errors/>
         <entity-one entity-name="QuantityBreak" value-field="quantityBreak" auto-field-map="true"/>
         <check-errors/>
         <remove-value value-field="quantityBreak"/>

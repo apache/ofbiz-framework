@@ -430,11 +430,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="cancelOrderItemIssuanceFromSalesShipment" short-description="Cancel an ItemIssuance quantity from Sales Shipment">
-        <set value="Cancel Order Item Issuance from Sales Shipment" field="operationName"/>
-        <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
-        </check-permission>
-
         <!-- get ItemIssuance and related entities-->
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="OrderHeader" to-value-field="orderHeader"/>
