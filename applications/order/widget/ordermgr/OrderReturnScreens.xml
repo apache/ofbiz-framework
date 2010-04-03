@@ -69,7 +69,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/QuickReturn.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonOrderReturnDecorator">
+                <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleFindQuickReturn}">
                             <platform-specific>
@@ -92,7 +92,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHeader.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonOrderReturnDecorator">
+                <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -112,7 +112,7 @@ under the License.
                 <entity-condition list="returnList" entity-name="ReturnHeader"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonOrderReturnDecorator">
+                <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleReturnList}">
                             <platform-specific>
@@ -133,7 +133,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnItems.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonOrderReturnDecorator">
+                <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -160,7 +160,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnItems.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonOrderReturnDecorator">
+                <decorator-screen name="CommonOrderReturnDecorator" location="${parameters.orderReturnDecoratorLocation}">
                     <decorator-section name="body">
                         <include-screen name="ReturnStatusHistory"/>
                         <include-screen name="ReturnTypeHistory"/>
