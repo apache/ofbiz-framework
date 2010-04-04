@@ -34,8 +34,8 @@ under the License.
 
 <h2>${uiLabelMap.WebtoolsExport}:</h2>
 <form method="post" action="<@ofbizUrl>entityExportAll</@ofbizUrl>">
-    ${uiLabelMap.WebtoolsOutputDirectory}: <input type="text" size="60" name="outpath" value="${outpath?if_exists}"><br />
+    ${uiLabelMap.WebtoolsOutputDirectory}: <input type="text" size="60" name="outpath" value="${outpath?if_exists}" /><br />
     ${uiLabelMap.WebtoolsTimeoutSeconds}: <input type="text" size="6" value="${txTimeout?default('7200')}" name="txTimeout"/><br />
     <br />
-    <input type="submit" value="${uiLabelMap.WebtoolsExport}">
+    <input type="submit" value="${uiLabelMap.WebtoolsExport}" />
 </form>

@@ -160,7 +160,7 @@ under the License.
         <!-- ***************** -->
         <field name="field8"
                title="${uiLabelMap.ExampleDropDownField8Title}"
-               event="onChange"
+               event="onchange"
                action="return alert('You have changed the value in the select box');"
                tooltip="${uiLabelMap.ExampleDropDownField8Tooltip}">
             <drop-down>

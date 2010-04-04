@@ -100,7 +100,7 @@ under the License.
                                var loadPercent = data.loadPercent;
                                $('loadpercent').innerHTML = ''+loadPercent+'%';
                                var contentLength  = data.contentLength;
-                               //$('filesize').innerHTML = '<b>'+contentLength/1000 + ' k</b>';
+                               //$('filesize').innerHTML = '&lt;b&gt;'+contentLength/1000 + ' k&lt;/b&gt;';
                                progressBar.setProgress(loadPercent);
                                if(loadPercent > 99){
                                     $('download').innerHTML = 'download';

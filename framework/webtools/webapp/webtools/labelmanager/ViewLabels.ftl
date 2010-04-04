@@ -90,9 +90,9 @@ under the License.
         <#if showLabel == true>
           <tr <#if rowNum == "1">class="alternate-row"</#if>>
             <td>${rowNumber}</td>
-            <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${labelKey}&sourceFileName=${label.fileName}&sourceKeyComment=${label.labelKeyComment?if_exists}</@ofbizUrl>" <#if previousKey == labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
+            <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${labelKey}&amp;sourceFileName=${label.fileName}&amp;sourceKeyComment=${label.labelKeyComment?if_exists}</@ofbizUrl>" <#if previousKey == labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
             <td>${label.fileName}</td>
-            <td><a href="<@ofbizUrl>ViewReferences?sourceKey=${labelKey}&labelFileName=${label.fileName}</@ofbizUrl>">${uiLabelMap.WebtoolsLabelManagerReferences}</a></td>
+            <td><a href="<@ofbizUrl>ViewReferences?sourceKey=${labelKey}&amp;labelFileName=${label.fileName}</@ofbizUrl>">${uiLabelMap.WebtoolsLabelManagerReferences}</a></td>
             <#list localesFound as localeFound>
               <#assign labelVal = label.getLabelValue(localeFound)?if_exists>
               <#assign showLocale = true>

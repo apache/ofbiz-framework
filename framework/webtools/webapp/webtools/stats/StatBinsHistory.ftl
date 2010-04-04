@@ -21,7 +21,7 @@ under the License.
       <h3>${uiLabelMap.WebtoolsStatsBinsPageTitle}</h3>
     </div>
     <div class="button-bar"><a href="<@ofbizUrl>StatsSinceStart</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsMainPageTitle}</a>
-    <a href="<@ofbizUrl>StatBinsHistory?statsId=${parameters.statsId}&type=${parameters.type}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
+    <a href="<@ofbizUrl>StatBinsHistory?statsId=${parameters.statsId}&amp;type=${parameters.type}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsStatsReloadPage}</a></div>
     <p><span class="label">${uiLabelMap.WebtoolsStatsCurrentTime}</span> ${nowTimestamp}</p>
 </div>
 <#if security.hasPermission("SERVER_STATS_VIEW", session)>

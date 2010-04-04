@@ -42,7 +42,7 @@ under the License.
           <li class="h3">${uiLabelMap.WebtoolsService} ${selectedServiceMap.serviceName}</li>
           <li><a href='<@ofbizUrl>${url}</@ofbizUrl>'>${uiLabelMap.CommonListAll}</a></li>
           <li><a href='<@ofbizUrl>/scheduleJob?SERVICE_NAME=${selectedServiceMap.serviceName}</@ofbizUrl>'>${uiLabelMap.WebtoolsSchedule}</a></li>
-          <li><a href='<@ofbizUrl>/setSyncServiceParameters?SERVICE_NAME=${selectedServiceMap.serviceName}&POOL_NAME=pool&_RUN_SYNC_=Y</@ofbizUrl>'>${uiLabelMap.PageTitleRunService}</a></li>
+          <li><a href='<@ofbizUrl>/setSyncServiceParameters?SERVICE_NAME=${selectedServiceMap.serviceName}&amp;POOL_NAME=pool&amp;_RUN_SYNC_=Y</@ofbizUrl>'>${uiLabelMap.PageTitleRunService}</a></li>
         </ul>
         <br class="clear"/>
       </div>
@@ -62,13 +62,13 @@ under the License.
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsExportable}</td>
-            <td>${selectedServiceMap.export}<#if selectedServiceMap.export = "True">&nbsp;(<a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}&show_wsdl=true</@ofbizUrl>'>${uiLabelMap.WebtoolsShowShowWSDL}</a>)</#if></td>
+            <td>${selectedServiceMap.export}<#if selectedServiceMap.export = "True">&nbsp;(<a href='<@ofbizUrl>${url}?sel_service_name=${selectedServiceMap.serviceName}&amp;show_wsdl=true</@ofbizUrl>'>${uiLabelMap.WebtoolsShowShowWSDL}</a>)</#if></td>
             <td class="label">${uiLabelMap.WebtoolsLocation}</td>
             <td><a href='<@ofbizUrl>${url}?constraint=location@${selectedServiceMap.location}</@ofbizUrl>'>${selectedServiceMap.location}</a></td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsArtifactInfo}</td>
-            <td><a href='<@ofbizUrl>ArtifactInfo?name=${selectedServiceMap.serviceName}&type=service</@ofbizUrl>'>${uiLabelMap.WebtoolsArtifactInfo}</a></td>
+            <td><a href='<@ofbizUrl>ArtifactInfo?name=${selectedServiceMap.serviceName}&amp;type=service</@ofbizUrl>'>${uiLabelMap.WebtoolsArtifactInfo}</a></td>
             <td class="label">${uiLabelMap.WebtoolsDefaultEntityName}</td>
             <td><a href='<@ofbizUrl>${url}?constraint=default_entity_name@${selectedServiceMap.defaultEntityName}</@ofbizUrl>'>${selectedServiceMap.defaultEntityName}</a></td>
           </tr>
@@ -345,7 +345,7 @@ under the License.
                 }
             }
           </script>
-          <select id='sd' name='selDisp' onChange='submitDispForm();'>
+          <select id='sd' name='selDisp' onchange='submitDispForm();'>
             <option value='' selected="selected">${uiLabelMap.WebtoolsSelectDispatcher}</option>
             <option value='' ></option>
             <#list dispArrList as disp>

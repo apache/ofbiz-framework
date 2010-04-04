@@ -40,7 +40,7 @@ under the License.
             </tr>
           </#list>
           <tr>
-            <td>&nbsp</td>
+            <td>&nbsp;</td>
             <td class="label">${uiLabelMap.WebtoolsServiceClearPreviousParams} ? <input type="checkbox" name="_CLEAR_PREVIOUS_PARAMS_" /></td>
             <td><input type="submit" value="${uiLabelMap.CommonSubmit}"/></td>
           </tr>

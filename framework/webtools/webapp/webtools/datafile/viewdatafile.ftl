@@ -32,8 +32,8 @@ under the License.
         <table class="basic-table" cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataDefinitionFileName}</td>
-            <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${parameters.DEFINITION_LOCATION?if_exists}"></td>
-            <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if>></td>
+            <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${parameters.DEFINITION_LOCATION?if_exists}" /></td>
+            <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if> /></td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataDefinitionName}</td>
@@ -47,15 +47,15 @@ under the License.
                   </#list>
                 </select>
               <#else>
-                <input name="DEFINITION_NAME" type="text" size="30" value="${definitionName?if_exists}">
+                <input name="DEFINITION_NAME" type="text" size="30" value="${definitionName?if_exists}" />
               </#if>
             </td>
             <td>&nbsp;</td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataFileName}</td>
-            <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${parameters.DATAFILE_LOCATION?if_exists}"></td>
-            <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if>></td>
+            <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${parameters.DATAFILE_LOCATION?if_exists}" /></td>
+            <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if> /></td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataSaveToFile}</td>
@@ -64,12 +64,12 @@ under the License.
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataSaveToXml}</td>
-            <td><input name="ENTITYXML_FILE_SAVE" type="text" size="60" value="${parameters.ENTITYXML_FILE_SAVE?if_exists}"></td>
+            <td><input name="ENTITYXML_FILE_SAVE" type="text" size="60" value="${parameters.ENTITYXML_FILE_SAVE?if_exists}" /></td>
             <td>&nbsp;</td>
           </tr>
           <tr>
             <td>&nbsp;</td>
-            <td><input type="submit" value="${uiLabelMap.CommonRun}"></td>
+            <td><input type="submit" value="${uiLabelMap.CommonRun}" /></td>
             <td>&nbsp;</td>
           </tr>
         </table>

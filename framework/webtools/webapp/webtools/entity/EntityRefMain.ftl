@@ -63,10 +63,10 @@ under the License.
                             </div>
                             <div>${entity.title}&nbsp;
                                 <#if !forstatic>
-                                    <a target='main' href="<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&find=true&VIEW_SIZE=50&VIEW_INDEX=0</@ofbizUrl>">[${uiLabelMap.WebtoolsViewData}]</a>
+                                    <a target='main' href="<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>">[${uiLabelMap.WebtoolsViewData}]</a>
                                 </#if>
                                 <#if !forstatic>
-                                    <a target='main' href="<@ofbizUrl>ArtifactInfo?name=${entity.entityName}&type=entity</@ofbizUrl>">[${uiLabelMap.WebtoolsArtifactInfo}]</a>
+                                    <a target='main' href="<@ofbizUrl>ArtifactInfo?name=${entity.entityName}&amp;type=entity</@ofbizUrl>">[${uiLabelMap.WebtoolsArtifactInfo}]</a>
                                 </#if>
                             </div>
                             <#if entity.description?has_content &&
@@ -84,7 +84,7 @@ under the License.
                         <th width="30%">${uiLabelMap.WebtoolsDbName}</th>
                         <th width="10%">${uiLabelMap.WebtoolsFieldType}</th>
                         <th width="15%">${uiLabelMap.WebtoolsJavaType}</th>
-                        <th width="15%" nowrap>${uiLabelMap.WebtoolsSqlType}</th>
+                        <th width="15%" nowrap="nowrap">${uiLabelMap.WebtoolsSqlType}</th>
                     </tr>
                     <#list entity.javaNameList as javaName>
                         <tr class='entitytext'>

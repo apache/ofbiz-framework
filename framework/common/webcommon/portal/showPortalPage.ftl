@@ -20,14 +20,14 @@ under the License.
 <table width="100%">
   <tr>
     <#list portalPageColumns?if_exists as portalPageColumn>
-      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>" id="${portalPageColumn.columnSeqId}" name="portalColumn">
+      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>" id="portalColumn_${portalPageColumn.columnSeqId}">
       <#assign firstInColumn = true/>
       <#list portalPagePortlets as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
           <#if portlet.screenName?has_content>
             <#assign portletFields = '<input name="portalPageId" value="' + portlet.portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
             <form method="post" action="<@ofbizUrl>movePortletToPortalPage</@ofbizUrl>" name="movePP_${portlet_index}">${portletFields}<input name="newPortalPageId" value="${portlet.portalPageId}" type="hidden"/></form>
-            <div id="${portlet_index}" name="portalPortlet" class="noClass">
+            <div id="portalPortlet_${portlet_index}" class="noClass">
             ${setRequestAttribute("portalPageId", portalPage.portalPageId)}
             ${setRequestAttribute("portalPortletId", portlet.portalPortletId)}
             ${setRequestAttribute("portletSeqId", portlet.portletSeqId)}
