@@ -48,21 +48,15 @@ public final class ExecutionPool {
         }
     }
 
-    private static class ExecutionPoolFactory {
-        protected static ScheduledThreadPoolExecutor getExecutor(String namePrefix, int threadCount) {
-            ExecutionPoolThreadFactory threadFactory = new ExecutionPoolThreadFactory(namePrefix);
-            ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadCount, threadFactory);
-            executor.prestartAllCoreThreads();
-            return executor;
-        }
-    }
-
     public static ThreadFactory createThreadFactory(String namePrefix) {
         return new ExecutionPoolThreadFactory(namePrefix);
     }
 
     public static ScheduledExecutorService getExecutor(String namePrefix, int threadCount) {
-        return ExecutionPoolFactory.getExecutor(namePrefix, threadCount);
+        ExecutionPoolThreadFactory threadFactory = new ExecutionPoolThreadFactory(namePrefix);
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadCount, threadFactory);
+        executor.prestartAllCoreThreads();
+        return executor;
     }
 
     public static ScheduledExecutorService getNewExactExecutor(String namePrefix) {
