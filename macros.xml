@@ -94,7 +94,7 @@ under the License.
      <delete dir="@{prefix}build/gen-src/javacc/@{dir}"/>
      <mkdir dir="@{prefix}build/gen-src/javacc/@{dir}"/>
      <javacc target="@{prefix}src/@{dir}/@{file}.jj"
-      javacchome="${ofbiz.home.dir}/framework/base/lib/javacc"
+      javacchome="${ofbiz.home.dir}/lib/build/javacc"
       outputdirectory="@{prefix}build/gen-src/javacc/@{dir}"/>
      <delete dir="@{prefix}build/classes/@{dir}"/>
     </commands>
@@ -117,7 +117,7 @@ under the License.
      <delete dir="@{prefix}build/gen-src/jjtree/@{dir}"/>
      <mkdir dir="@{prefix}build/gen-src/jjtree/@{dir}"/>
      <jjtree target="@{prefix}src/@{dir}/@{file}.jjt"
-      javacchome="${ofbiz.home.dir}/framework/base/lib/javacc"
+      javacchome="${ofbiz.home.dir}/lib/build/javacc"
       outputdirectory="@{prefix}build/gen-src/jjtree/@{dir}"/>
     </commands>
    </if>
@@ -131,7 +131,7 @@ under the License.
      <delete dir="@{prefix}build/gen-src/javacc/@{dir}"/>
      <mkdir dir="@{prefix}build/gen-src/javacc/@{dir}"/>
      <javacc target="@{prefix}build/gen-src/jjtree/@{dir}/@{file}.jj"
-      javacchome="${ofbiz.home.dir}/framework/base/lib/javacc"
+      javacchome="${ofbiz.home.dir}/lib/build/javacc"
       outputdirectory="@{prefix}build/gen-src/javacc/@{dir}"/>
      <delete dir="@{prefix}build/classes/@{dir}"/>
     </commands>

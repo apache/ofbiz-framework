@@ -482,7 +482,7 @@ ofbiz/trunk/framework/base/lib/freemarker-2.3.15.jar
 ofbiz/trunk/framework/base/lib/hamcrest-all-1.2.jar
 ofbiz/trunk/framework/base/lib/httpunit.jar
 ofbiz/trunk/framework/base/lib/ical4j-1.0-rc2.jar
-ofbiz/trunk/framework/base/lib/javacc/javacc-4.1.jar
+ofbiz/trunk/lib/build/javacc/javacc-4.1.jar
 ofbiz/trunk/framework/base/lib/javolution-5.4.3.jar
 ofbiz/trunk/framework/base/lib/junitperf.jar
 ofbiz/trunk/framework/base/lib/xpp3_min-1.1.4c.jar
