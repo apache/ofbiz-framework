@@ -81,6 +81,7 @@ import org.ofbiz.base.util.DateRange;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.TimeDuration;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -317,7 +318,6 @@ public class ICalConverter {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     protected static void getAlarms(GenericValue workEffort, ComponentList alarms) throws GenericEntityException {
         Description description = null;
         if (workEffort.get("description") != null) {
@@ -334,7 +334,7 @@ public class ICalConverter {
             VAlarm alarm = null;
             PropertyList alarmProps = null;
             boolean newAlarm = true;
-            Iterator<VAlarm> i = alarms.iterator();
+            Iterator<VAlarm> i = UtilGenerics.cast(alarms.iterator());
             while (i.hasNext()) {
                 alarm = i.next();
                 Property xProperty = alarm.getProperty(reminderXPropName);
@@ -439,11 +439,10 @@ public class ICalConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected static List<GenericValue> getRelatedWorkEfforts(GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
         Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", workEffort.getString("workEffortId"));
         Map<String, Object> resultMap = invokeService("getICalWorkEfforts", serviceMap, context);
-        List<GenericValue> workEfforts = (List) resultMap.get("workEfforts");
+        List<GenericValue> workEfforts = UtilGenerics.checkList(resultMap.get("workEfforts"), GenericValue.class);
         if (workEfforts != null) {
             return WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
         }
@@ -523,7 +522,6 @@ public class ICalConverter {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected static void loadRelatedParties(List<GenericValue> relatedParties, PropertyList componentProps, Map<String, Object> context) {
         PropertyList attendees = componentProps.getProperties("ATTENDEE");
         for (GenericValue partyValue : relatedParties) {
@@ -534,7 +532,7 @@ public class ICalConverter {
                 String partyId = partyValue.getString("partyId");
                 boolean newAttendee = true;
                 Attendee attendee = null;
-                Iterator<Attendee> i = attendees.iterator();
+                Iterator<Attendee> i = UtilGenerics.cast(attendees.iterator());
                 while (i.hasNext()) {
                     attendee = i.next();
                     Parameter xParameter = attendee.getParameter(partyIdXParamName);
@@ -690,7 +688,6 @@ public class ICalConverter {
      * @throws GenericEntityException
      * @throws GenericServiceException
      */
-    @SuppressWarnings("unchecked")
     public static ResponseProperties storeCalendar(InputStream is, Map<String, Object> context) throws IOException, ParserException, GenericEntityException, GenericServiceException {
         CalendarBuilder builder = new CalendarBuilder();
         Calendar calendar = null;
@@ -727,14 +724,14 @@ public class ICalConverter {
         }
         boolean hasCreatePermission = hasPermission(workEffortId, "CREATE", context);
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
-        Set validWorkEfforts = FastSet.newInstance();
+        Set<String> validWorkEfforts = FastSet.newInstance();
         if (UtilValidate.isNotEmpty(workEfforts)) {
             // Security issue: make sure only related work efforts get updated
             for (GenericValue workEffort : workEfforts) {
                 validWorkEfforts.add(workEffort.getString("workEffortId"));
             }
         }
-        List<Component> components = calendar.getComponents();
+        List<Component> components = UtilGenerics.checkList(calendar.getComponents(), Component.class);
         ResponseProperties responseProps = null;
         for (Component component : components) {
             if (Component.VEVENT.equals(component.getName()) || Component.VTODO.equals(component.getName())) {
@@ -779,14 +776,13 @@ public class ICalConverter {
         return ICalWorker.createOkResponse(null);
     }
 
-    @SuppressWarnings("unchecked")
     protected static ResponseProperties storePartyAssignments(String workEffortId, Component component, Map<String, Object> context) {
         ResponseProperties responseProps = null;
         Map<String, Object> serviceMap = FastMap.newInstance();
         List<Property> partyList = FastList.newInstance();
-        partyList.addAll(component.getProperties("ATTENDEE"));
-        partyList.addAll(component.getProperties("CONTACT"));
-        partyList.addAll(component.getProperties("ORGANIZER"));
+        partyList.addAll(UtilGenerics.checkList(component.getProperties("ATTENDEE"), Property.class));
+        partyList.addAll(UtilGenerics.checkList(component.getProperties("CONTACT"), Property.class));
+        partyList.addAll(UtilGenerics.checkList(component.getProperties("ORGANIZER"), Property.class));
         for (Property property : partyList) {
             String partyId = fromXParameter(property.getParameters(), partyIdXParamName);
             if (partyId == null) {
@@ -842,7 +838,6 @@ public class ICalConverter {
         return storePartyAssignments(workEffortId, component, context);
     }
 
-    @SuppressWarnings("unchecked")
     protected static ResponseProperties toCalendarComponent(ComponentList components, GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
         Delegator delegator = workEffort.getDelegator();
         String workEffortId = workEffort.getString("workEffortId");
@@ -862,7 +857,7 @@ public class ICalConverter {
         } else {
             return null;
         }
-        Iterator<Component> i = resultList.iterator();
+        Iterator<Component> i = UtilGenerics.cast(resultList.iterator());
         while (i.hasNext()) {
             result = i.next();
             Property xProperty = result.getProperty(workEffortIdXPropName);

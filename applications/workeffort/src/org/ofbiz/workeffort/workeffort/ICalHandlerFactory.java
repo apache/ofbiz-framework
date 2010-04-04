@@ -36,7 +36,6 @@ import org.ofbiz.webapp.webdav.RequestHandlerFactory;
 /** WebDAV request handler factory for iCalendar. This class is a simple connector
  * between the WebDAV servlet and the <code>ICalWorker</code> class.
  */
-@SuppressWarnings("serial")
 public class ICalHandlerFactory implements RequestHandlerFactory {
 
     public static final String module = ICalHandlerFactory.class.getName();

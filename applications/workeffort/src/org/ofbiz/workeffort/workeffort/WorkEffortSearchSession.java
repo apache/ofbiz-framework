@@ -19,7 +19,6 @@
 package org.ofbiz.workeffort.workeffort;
 
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -36,13 +35,15 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.ResultSortOrder;
-import org.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchConstraint;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.SortKeywordRelevancy;
+import org.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchConstraint;
 
 public class WorkEffortSearchSession {
 
     public static final String module = WorkEffortSearchSession.class.getName();
-    public static class WorkEffortSearchOptions implements java.io.Serializable {
+    
+    @SuppressWarnings("serial")
+	public static class WorkEffortSearchOptions implements java.io.Serializable {
         protected List<WorkEffortSearchConstraint> constraintList = null;
         protected ResultSortOrder resultSortOrder = null;
         protected Integer viewIndex = null;

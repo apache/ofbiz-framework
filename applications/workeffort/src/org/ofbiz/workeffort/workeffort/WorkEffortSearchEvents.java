@@ -40,7 +40,7 @@ public class WorkEffortSearchEvents {
 
     public static final String module = WorkEffortSearchEvents.class.getName();
 
-    public static Map getWorkEffortSearchResult(HttpServletRequest request, Delegator delegator) {
+    public static Map<String, Object> getWorkEffortSearchResult(HttpServletRequest request, Delegator delegator) {
 
         // ========== Create View Indexes
         int viewIndex = 0;
@@ -65,7 +65,7 @@ public class WorkEffortSearchEvents {
         Integer maxResults = Integer.valueOf(viewSize);
 
         // ========== Do the actual search
-        ArrayList workEffortIds = null;
+        ArrayList<String> workEffortIds = null;
         String visitId = VisitHandler.getVisitId(session);
         List<WorkEffortSearchConstraint> workEffortSearchConstraintList = WorkEffortSearchOptions.getConstraintList(session);
         // if no constraints, don't do a search...
