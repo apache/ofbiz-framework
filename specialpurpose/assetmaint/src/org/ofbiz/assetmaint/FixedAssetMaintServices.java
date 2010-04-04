@@ -19,11 +19,12 @@ specific language governing permissions and limitations
 under the License.
 **/
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -45,7 +46,7 @@ public class FixedAssetMaintServices {
 
     public static final String module = FixedAssetMaintServices.class.getName();
 
-    public static Map addPartFixedAssetMaint(DispatchContext ctx, Map context) {
+    public static Map<String, Object> addPartFixedAssetMaint(DispatchContext ctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -62,10 +63,10 @@ public class FixedAssetMaintServices {
                 return ServiceUtil.returnError
                 (UtilProperties.getMessage("AssetMaintUiLabels","AssetMaintInvalidPartProductIdError", UtilMisc.toMap("productId", productId), locale));
             }
-            Map findCurrInventoryParams =  UtilMisc.toMap("productId", productId, "facilityId", facilityId);
+            Map<String, ? extends Object> findCurrInventoryParams =  UtilMisc.toMap("productId", productId, "facilityId", facilityId);
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             // Call issuance service
-            Map result = dispatcher.runSync("getInventoryAvailableByFacility", findCurrInventoryParams);
+            Map<String, Object> result = dispatcher.runSync("getInventoryAvailableByFacility", findCurrInventoryParams);
             if (ServiceUtil.isError(result)) {
                 return ServiceUtil.returnError("Problem in getting Inventory level for " + productId , null, null, result);
             }
@@ -83,20 +84,20 @@ public class FixedAssetMaintServices {
                     EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
                     EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.GREATER_THAN, "0")),
                     EntityOperator.AND);
-            List inventoryItems = delegator.findByAnd("InventoryItem", ecl, null, null, null, false);   //&& inventoryItems.size() > 0
-            Iterator itr = inventoryItems.iterator();
+            List<GenericValue> inventoryItems = delegator.findByAnd("InventoryItem", ecl, null, null, null, false);   //&& inventoryItems.size() > 0
+            Iterator<GenericValue> itr = inventoryItems.iterator();
             while (requestedQty > 0 && itr.hasNext()) {
                 GenericValue inventoryItem = (GenericValue)itr.next();
                 String inventoryItemId = inventoryItem.getString("inventoryItemId");
                 atp = inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
-                findCurrInventoryParams =  UtilMisc.toMap("inventoryItemId",inventoryItemId);
+                findCurrInventoryParams = UtilMisc.toMap("inventoryItemId", inventoryItemId);
                 Double issueQuantity = null;
                 if (requestedQty > atp) {
                     issueQuantity = new Double(atp);
                 } else {
                     issueQuantity = new Double(requestedQty);
                 }
-                Map itemIssuanceCtx = new HashMap();
+                Map<String, Object> itemIssuanceCtx = FastMap.newInstance();
                 itemIssuanceCtx.put("userLogin", userLogin);
                 itemIssuanceCtx.put("inventoryItemId", inventoryItemId);
                 itemIssuanceCtx.put("fixedAssetId", fixedAssetId);
