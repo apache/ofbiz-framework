@@ -31,6 +31,7 @@
         <junit-test-suite class-name="org.ofbiz.base.util.cache.test.UtilCacheTests"/>
         <junit-test-suite class-name="org.ofbiz.base.conversion.test.DateTimeTests.java"/>
         <junit-test-suite class-name="org.ofbiz.base.conversion.test.MiscTests.java"/>
+        <junit-test-suite class-name="org.ofbiz.base.concurrent.test.DepedencyPoolTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.UtilIOTests"/>
         <junit-test-suite class-name="org.ofbiz.base.test.BaseUnitTests"/>
     </test-case>

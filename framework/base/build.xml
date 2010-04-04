@@ -55,6 +55,7 @@ under the License.
         <file name="org/ofbiz/base/util/test/UtilIOTests.java"/>
         <file name="org/ofbiz/base/test/BaseUnitTests.java"/>
         <file name="org/ofbiz/base/util/collections/test/GenericMapTest.java"/>
+        <file name="org/ofbiz/base/concurrent/test/DependencyPoolTests.java"/>
         <file name="org/ofbiz/base/concurrent/test/SyncTTLObjectTest.java"/>
         <file name="org/ofbiz/base/concurrent/test/AsyncTTLObjectTest.java"/>
         <file name="org/ofbiz/base/concurrent/test/TTLCachedObjectTest.java"/>
