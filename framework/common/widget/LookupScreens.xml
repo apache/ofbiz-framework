@@ -31,7 +31,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="entityName" value="Geo"/>
-                <set field="searchFields" value="[geoId, geoName, geoTypeId, geoCode]"/>                
+                <set field="searchFields" value="[geoId, geoName, geoCode]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
