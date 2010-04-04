@@ -30,6 +30,7 @@ import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -37,6 +38,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.GenericServiceException;
@@ -160,8 +162,7 @@ public class WorkEffortWorker {
         if (result != null && result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))
             Debug.logError((String) result.get(ModelService.ERROR_MESSAGE), module);
         if (result != null && result.containsKey("activityContext")) {
-            Map aC = (Map) result.get("activityContext");
-
+            Object aC = UtilGenerics.checkMap(result.get("activityContext"));
             pageContext.setAttribute(attribute, aC);
         }
     }
@@ -180,19 +181,19 @@ public class WorkEffortWorker {
 
         List<GenericValue> workEfforts = FastList.newInstance();
         try {
-            EntityConditionList exprsLevelFirst = EntityCondition.makeCondition(UtilMisc.toList(
+            EntityConditionList<EntityExpr> exprsLevelFirst = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition(left, workEffortId),
                     EntityCondition.makeCondition("workEffortAssocTypeId", workEffortAssocTypeId)), EntityOperator.AND);
             List<GenericValue> childWEAssocsLevelFirst = delegator.findList("WorkEffortAssoc", exprsLevelFirst, null, null, null, true);
             for (GenericValue childWEAssocLevelFirst : childWEAssocsLevelFirst) {
-                EntityConditionList exprsLevelNext = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityConditionList<EntityExpr> exprsLevelNext = EntityCondition.makeCondition(UtilMisc.toList(
                         EntityCondition.makeCondition(left, childWEAssocLevelFirst.get(right)),
                         EntityCondition.makeCondition("workEffortAssocTypeId", workEffortAssocTypeId)), EntityOperator.AND);
                 List<GenericValue> childWEAssocsLevelNext = delegator.findList("WorkEffortAssoc", exprsLevelNext, null, null, null, true);
                 while (UtilValidate.isNotEmpty(childWEAssocsLevelNext)) {
                     List<GenericValue> tempWorkEffortList = FastList.newInstance();
                     for (GenericValue childWEAssocLevelNext : childWEAssocsLevelNext) {
-                        EntityConditionList exprsLevelNth = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityConditionList<EntityExpr> exprsLevelNth = EntityCondition.makeCondition(UtilMisc.toList(
                                 EntityCondition.makeCondition(left, childWEAssocLevelNext.get(right)),
                                 EntityCondition.makeCondition("workEffortAssocTypeId", workEffortAssocTypeId)), EntityOperator.AND);
                         List<GenericValue> childWEAssocsLevelNth = delegator.findList("WorkEffortAssoc", exprsLevelNth, null, null, null, true);

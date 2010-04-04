@@ -20,8 +20,6 @@
 package org.ofbiz.workeffort.workeffort;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -70,18 +68,16 @@ public class WorkEffortKeywordIndex {
         addWeightedKeywordSourceString(workEffort, "currentStatusId", strings);
 
         if (!"0".equals(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffortNoteAndData.noteInfo", "1"))) {
-            Iterator workEffortNotes = UtilMisc.toIterator(delegator.findByAnd("WorkEffortNoteAndData", UtilMisc.toMap("workEffortId", workEffortId)));
-            while (workEffortNotes != null && workEffortNotes.hasNext()) {
-                GenericValue workEffortNote = (GenericValue) workEffortNotes.next();
+            List<GenericValue> workEffortNotes = delegator.findByAnd("WorkEffortNoteAndData", UtilMisc.toMap("workEffortId", workEffortId));
+        	for (GenericValue workEffortNote : workEffortNotes) {
                 addWeightedKeywordSourceString(workEffortNote, "noteInfo", strings);
                 }
         }
         //WorkEffortAttribute
         if (!"0".equals(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffortAttribute.attrName", "1")) ||
                 !"0".equals(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffortAttribute.attrValue", "1"))) {
-            Iterator workEffortAttributes = UtilMisc.toIterator(delegator.findByAnd("WorkEffortAttribute", UtilMisc.toMap("workEffortId", workEffortId)));
-            while (workEffortAttributes != null && workEffortAttributes.hasNext()) {
-                GenericValue workEffortAttribute = (GenericValue) workEffortAttributes.next();
+            List<GenericValue> workEffortAttributes = delegator.findByAnd("WorkEffortAttribute", UtilMisc.toMap("workEffortId", workEffortId));
+            for (GenericValue workEffortAttribute : workEffortAttributes) {
                 addWeightedKeywordSourceString(workEffortAttribute, "attrName", strings);
                 addWeightedKeywordSourceString(workEffortAttribute, "attrValue", strings);
             }

@@ -38,6 +38,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilMisc;
@@ -72,10 +73,9 @@ public class ICalWorker {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected static Map<String, Object> createConversionContext(HttpServletRequest request) {
         Map<String, Object> context = FastMap.newInstance();
-        Enumeration<String> attributeEnum = request.getAttributeNames();
+        Enumeration<String> attributeEnum = UtilGenerics.cast(request.getAttributeNames());
         while (attributeEnum.hasMoreElements()) {
             String attributeName = attributeEnum.nextElement();
             context.put(attributeName, request.getAttribute(attributeName));

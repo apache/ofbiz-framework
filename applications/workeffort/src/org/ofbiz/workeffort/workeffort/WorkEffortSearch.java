@@ -44,7 +44,6 @@ import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
@@ -483,7 +482,8 @@ public class WorkEffortSearch {
     // Search Constraint Classes
     // ======================================================================
 
-    public static abstract class WorkEffortSearchConstraint implements java.io.Serializable {
+    @SuppressWarnings("serial")
+	public static abstract class WorkEffortSearchConstraint implements java.io.Serializable {
         public WorkEffortSearchConstraint() { }
 
         public abstract void addConstraint(WorkEffortSearchContext workEffortSearchContext);
@@ -492,7 +492,8 @@ public class WorkEffortSearch {
     }
 
 
-    public static class WorkEffortAssocConstraint extends WorkEffortSearchConstraint {
+    @SuppressWarnings("serial")
+	public static class WorkEffortAssocConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "WorkEffortAssoc";
         protected String workEffortId;
         protected String workEffortAssocTypeId;
@@ -641,6 +642,8 @@ public class WorkEffortSearch {
             }
         }
     }
+    
+    @SuppressWarnings("serial")
     public static class WorkEffortReviewConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "WorkEffortReview";
         protected String reviewTextString;
@@ -694,6 +697,7 @@ public class WorkEffortSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class PartyAssignmentConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "PartyAssignment";
         protected String partyId;
@@ -804,7 +808,8 @@ public class WorkEffortSearch {
         }
     }
 
-    public static class ProductSetConstraint extends WorkEffortSearchConstraint {
+    @SuppressWarnings("serial")
+	public static class ProductSetConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "ProductSet";
         protected Set<String> productIdSet;
 
@@ -891,6 +896,7 @@ public class WorkEffortSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class KeywordConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "Keyword";
         protected String keywordsString;
@@ -1011,6 +1017,7 @@ public class WorkEffortSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class LastUpdatedRangeConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "LastUpdatedRange";
         protected Timestamp fromDate;
@@ -1099,6 +1106,7 @@ public class WorkEffortSearch {
     // Result Sort Classes
     // ======================================================================
 
+    @SuppressWarnings("serial")
     public static abstract class ResultSortOrder implements java.io.Serializable {
         public ResultSortOrder() {
         }
@@ -1109,6 +1117,7 @@ public class WorkEffortSearch {
         public abstract boolean isAscending();
     }
 
+    @SuppressWarnings("serial")
     public static class SortKeywordRelevancy extends ResultSortOrder {
         public SortKeywordRelevancy() {
         }
@@ -1138,6 +1147,7 @@ public class WorkEffortSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class SortWorkEffortField extends ResultSortOrder {
         protected String fieldName;
         protected boolean ascending;

@@ -108,7 +108,7 @@ public class WorkEffortServices {
         Delegator delegator = ctx.getDelegator();
         String roleTypeId = (String) context.get("roleTypeId");
 
-        List validWorkEfforts = null;
+        List<GenericValue> validWorkEfforts = null;
 
         try {
             List<EntityExpr> conditionList = FastList.newInstance();
@@ -300,7 +300,7 @@ public class WorkEffortServices {
         }
 
         Boolean canView = null;
-        Collection workEffortPartyAssignments = null;
+        List<GenericValue> workEffortPartyAssignments = null;
         Boolean tryEntity = null;
         GenericValue currentStatus = null;
 
@@ -318,7 +318,7 @@ public class WorkEffortServices {
                 }
             }
         } else {
-            // get a collection of workEffortPartyAssignments, if empty then this user CANNOT view the event, unless they have permission to view all
+            // get a list of workEffortPartyAssignments, if empty then this user CANNOT view the event, unless they have permission to view all
             if (userLogin != null && userLogin.get("partyId") != null && workEffortId != null) {
                 try {
                     workEffortPartyAssignments = delegator.findByAnd("WorkEffortPartyAssignment", UtilMisc.toMap("workEffortId", workEffortId, "partyId", userLogin.get("partyId")));
@@ -352,8 +352,8 @@ public class WorkEffortServices {
     }
 
     private static TreeMap<DateRange, List<Map<String, Object>>> groupCalendarEntriesByDateRange(DateRange inDateRange, List<Map<String, Object>> calendarEntries) {
-        TreeMap<DateRange, List<Map<String, Object>>> calendarEntriesByDateRange = new TreeMap();
-        TreeSet<Date> dateBoundaries = new TreeSet();
+        TreeMap<DateRange, List<Map<String, Object>>> calendarEntriesByDateRange = new TreeMap<DateRange, List<Map<String, Object>>>();
+        TreeSet<Date> dateBoundaries = new TreeSet<Date>();
         if (inDateRange != null) {
             dateBoundaries.add(inDateRange.start());
             dateBoundaries.add(inDateRange.end());
@@ -766,7 +766,7 @@ public class WorkEffortServices {
             findIncomingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_RUNNING"));
             findIncomingProductionRunsConds.add(EntityCondition.makeCondition(findIncomingProductionRunsStatusConds, EntityOperator.OR));
 
-            EntityConditionList findIncomingProductionRunsCondition = EntityCondition.makeCondition(findIncomingProductionRunsConds, EntityOperator.AND);
+            EntityConditionList<EntityCondition> findIncomingProductionRunsCondition = EntityCondition.makeCondition(findIncomingProductionRunsConds, EntityOperator.AND);
 
             List<GenericValue> incomingProductionRuns = delegator.findList("WorkEffortAndGoods", findIncomingProductionRunsCondition, null, UtilMisc.toList("-estimatedCompletionDate"), null, false);
             for (GenericValue incomingProductionRun: incomingProductionRuns) {
@@ -833,7 +833,7 @@ public class WorkEffortServices {
             findOutgoingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_RUNNING"));
             findOutgoingProductionRunsConds.add(EntityCondition.makeCondition(findOutgoingProductionRunsStatusConds, EntityOperator.OR));
 
-            EntityConditionList findOutgoingProductionRunsCondition = EntityCondition.makeCondition(findOutgoingProductionRunsConds, EntityOperator.AND);
+            EntityConditionList<EntityCondition> findOutgoingProductionRunsCondition = EntityCondition.makeCondition(findOutgoingProductionRunsConds, EntityOperator.AND);
             List<GenericValue> outgoingProductionRuns = delegator.findList("WorkEffortAndGoods", findOutgoingProductionRunsCondition, null, UtilMisc.toList("-estimatedStartDate"), null, false);
             for (GenericValue outgoingProductionRun: outgoingProductionRuns) {
                 String weFacilityId = outgoingProductionRun.getString("facilityId");
