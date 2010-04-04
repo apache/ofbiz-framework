@@ -705,11 +705,18 @@ under the License.
             </then>
         </if>
         <check-errors/>
-
         <call-object-method obj-field="parameters.cart" method-name="getCurrency" ret-field="createQuoteInMap.currencyUomId"/>
-        <call-object-method obj-field="parameters.cart" method-name="getProductStoreId" ret-field="createQuoteInMap.productStoreId"/>
         <call-object-method obj-field="parameters.cart" method-name="getChannelType" ret-field="createQuoteInMap.salesChannelEnumId"/>
-        <set value="PRODUCT_QUOTE" field="createQuoteInMap.quoteTypeId"/>
+        
+        <call-object-method obj-field="parameters.cart" method-name="getOrderType" ret-field="orderType"/>
+         <if-compare field="orderType" operator="equals" value="SALES_ORDER"> 
+            <call-object-method obj-field="parameters.cart" method-name="getProductStoreId" ret-field="createQuoteInMap.productStoreId"/>
+            <set field="createQuoteInMap.quoteTypeId" value="PRODUCT_QUOTE"/>     
+         </if-compare>
+         <if-compare field="orderType" operator="equals" value="PURCHASE_ORDER"> 
+             <set field="createQuoteInMap.quoteTypeId" value="PURCHASE_QUOTE" />                          
+         </if-compare>
+        
         <set value="QUO_CREATED" field="createQuoteInMap.statusId"/>
         <call-service service-name="createQuote" in-map-name="createQuoteInMap">
             <result-to-field result-name="quoteId" field="quoteId"/>
