@@ -6,9 +6,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
-/** This annotation is meanted to be used to describe how some variable
- * or method is protected by some other locking mechanism.  It's value
+/** This annotation is meant to be used to describe how some variable
+ * or method is protected by some other locking mechanism.  Its value
  * is free-form, and can contain anything.  It will generally contain
  * the name of an instance variable, including <code>this</code>.
  */
