@@ -46,7 +46,7 @@ public class ObjectType {
 
     public static final Object NULL = new NullObject();
 
-    protected static Map<String, Class<?>> classCache = FastMap.newInstance();
+    protected static FastMap<String, Class<?>> classCache = FastMap.newInstance();
 
     public static final String LANG_PACKAGE = "java.lang."; // We will test both the raw value and this + raw value
     public static final String SQL_PACKAGE = "java.sql.";   // We will test both the raw value and this + raw value
@@ -109,14 +109,10 @@ public class ObjectType {
         } catch (Exception e) {
             theClass = classCache.get(className);
             if (theClass == null) {
-                synchronized (ObjectType.class) {
-                    theClass = classCache.get(className);
-                    if (theClass == null) {
-                        theClass = Class.forName(className);
-                        if (theClass != null) {
-                            if (Debug.verboseOn()) Debug.logVerbose("Loaded Class: " + theClass.getName(), module);
-                            classCache.put(className, theClass);
-                        }
+                theClass = Class.forName(className);
+                if (theClass != null) {
+                    if (classCache.putIfAbsent(className, theClass) == null) {
+                        if (Debug.verboseOn()) Debug.logVerbose("Loaded Class: " + theClass.getName(), module);
                     }
                 }
             }
