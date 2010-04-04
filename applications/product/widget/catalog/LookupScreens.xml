@@ -30,7 +30,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupProduct}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="Product"/>
-                <set field="searchFields" value="[productId, brandName, internalName, productTypeId]"/>                 
+                <set field="searchFields" value="[productId, brandName, internalName]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -54,8 +54,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupProductVirtual}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="Product"/>
-                <set field="searchFields" value="[productId, brandName, internalName, productTypeId]"/>  
-                <set field="onlyVirtual" value="${groovy: context.andCondition = org.ofbiz.entity.condition.EntityCondition.makeCondition(&quot;isVirtual&quot;, &quot;Y&quot;)}"/>
+                <set field="searchFields" value="[productId, brandName, internalName]"/>
+                <set field="andCondition" value="${groovy: return org.ofbiz.entity.condition.EntityCondition.makeCondition(&quot;isVirtual&quot;, &quot;Y&quot;)}"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -105,8 +105,8 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="entityName" value="ProductAndPriceView"/>
-                <set field="searchFields" value="[productId, internalName, productTypeId]"/>     
-                <set field="displayFields" value="[productId, internalName, productTypeId, price, currencyUomId]"/>                           
+                <set field="searchFields" value="[productId, internalName]"/>
+                <set field="displayFields" value="[productId, internalName, price, currencyUomId]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -130,7 +130,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupProductCategory}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="ProductCategory"/>
-                <set field="searchFields" value="[productCategoryId, categoryName, description, productCategoryTypeId]"/>                 
+                <set field="searchFields" value="[productCategoryId, categoryName, description]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -154,7 +154,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupProductFeature}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="ProductFeature"/>
-                <set field="searchFields" value="[productFeatureId, description, productFeatureCategoryId, productFeatureTypeId]"/>                
+                <set field="searchFields" value="[productFeatureId, description, productFeatureCategoryId]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -181,7 +181,7 @@ under the License.
                 <set field="entityName" value="ProductStore"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="ProductStore"/>
-                <set field="searchFields" value="[productStoreId, companyName, storeName, primaryStoreGroupId]"/>                
+                <set field="searchFields" value="[productStoreId, companyName, storeName]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -207,7 +207,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupSupplierProduct} ${pnv.firstName} ${pnv.middleName} ${pnv.lastName} ${pnv.groupName} [${parameters.partyId}]"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="SupplierProductAndProduct"/>
-                <set field="searchFields" value="[productId, partyId, brandName, internalName, productTypeId]"/>                
+                <set field="searchFields" value="[productId, partyId, brandName, internalName]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

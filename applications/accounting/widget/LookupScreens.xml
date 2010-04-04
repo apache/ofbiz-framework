@@ -84,7 +84,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="entityName" value="FixedAsset"/>
-                <set field="searchFields" value="[fixedAssetId, fixedAssetName, fixedAssetTypeId]"/>
+                <set field="searchFields" value="[fixedAssetId, fixedAssetName]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -165,7 +165,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="entityName" value="Agreement"/>
-                <set field="searchFields" value="[agreementId, productId, description, agreementTypeId]"/>
+                <set field="searchFields" value="[agreementId, productId, description]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -191,8 +191,8 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
-                <set field="entityName" value="Agreement"/>
-                <set field="searchFields" value="[agreementItemSeqId, agreementId, agreementItemTypeId, currencyUomId]"/>
+                <set field="entityName" value="AgreementItem"/>
+                <set field="searchFields" value="[agreementItemSeqId, agreementId, currencyUomId]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -218,6 +218,8 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="entityName" value="PaymentGroupMember"/>
+                <set field="searchFields" value="[paymentGroupId, paymentId, sequenceNum]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

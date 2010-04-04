@@ -32,7 +32,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="entityName" value="WorkEffort"/>
-                <set field="searchFields" value="[workEffortId, workEffortName, workEffortTypeId]"/>                
+                <set field="searchFields" value="[workEffortId, workEffortName, description]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -59,7 +59,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="entityName" value="Timesheet"/>
-                <set field="searchFields" value="[timesheetId, partyId, clientPartyId, comments]"/>                
+                <set field="searchFields" value="[timesheetId, partyId, clientPartyId, comments]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -86,7 +86,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="entityName" value="WorkEffort"/>
-                <set field="searchFields" value="[workEffortId, workEffortName, workEffortTypeId]"/>                
+                <set field="searchFields" value="[workEffortId, workEffortName, description]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

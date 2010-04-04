@@ -70,6 +70,8 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="entityName" value="PartyNameContactMechView"/>
+                <set field="searchFields" value="[contactMechId, partyId, firstName, middleName, lastName, groupName]"/>  
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -94,6 +96,9 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="entityName" value="PartyRoleNameDetail"/>
+                <set field="searchFields" value="[partyId, firstName, middleName, lastName, groupName]"/>
+                <set field="andCondition" value="${groovy: return org.ofbiz.entity.condition.EntityCondition.makeCondition(&quot;roleTypeId&quot;, &quot;CUSTOMER&quot;)}"/>        
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -397,7 +402,7 @@ under the License.
                 <set field="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                 <set field="searchFields" value="[partyId, groupName, partyGroupComments]"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>      
-                <set field="updateStatCond" value="${groovy: context.andCondition = org.ofbiz.entity.condition.EntityCondition.makeCondition([context.andCondition, 
+                <set field="andCondition" value="${groovy: return org.ofbiz.entity.condition.EntityCondition.makeCondition([context.andCondition, 
                     org.ofbiz.entity.condition.EntityCondition.makeCondition(&quot;roleTypeId&quot;, &quot;INTERNAL_ORGANIZATIO&quot;)])}"/>
             </actions>
             <widgets>
