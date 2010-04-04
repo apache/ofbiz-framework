@@ -86,10 +86,8 @@ public class FlexibleMapAccessor<T> implements Serializable {
         }
         FlexibleMapAccessor fma = fmaCache.get(original);
         if (fma == null) {
-            synchronized (fmaCache) {
-                fmaCache.put(original, new FlexibleMapAccessor(original));
-                fma = fmaCache.get(original);
-            }
+            fmaCache.put(original, new FlexibleMapAccessor(original));
+            fma = fmaCache.get(original);
         }
         return fma;
     }

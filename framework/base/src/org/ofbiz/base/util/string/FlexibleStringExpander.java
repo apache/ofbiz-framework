@@ -184,10 +184,8 @@ public abstract class FlexibleStringExpander implements Serializable {
         Key key = chars.length == length ? new SimpleKey(chars) : new OffsetKey(chars, offset, length);
         FlexibleStringExpander fse = exprCache.get(key);
         if (fse == null) {
-            synchronized (exprCache) {
-                fse = parse(chars, offset, length);
-                exprCache.put(key, fse);
-            }
+            exprCache.put(key, parse(chars, offset, length));
+            fse = exprCache.get(key);
         }
         return fse;
     }
