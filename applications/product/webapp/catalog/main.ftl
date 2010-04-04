@@ -31,7 +31,7 @@ under the License.
   <br />
   <div class="label">${uiLabelMap.ProductEditCategoryWithCategoryId}:</div>
   <form method="post" action="<@ofbizUrl>EditCategory</@ofbizUrl>" style="margin: 0;" name="EditCategoryForm">
-    <@formrenderer.renderLookupField name="productCategoryId" id="productCategoryId" formName="EditCategoryForm" fieldFormName="LookupProductCategory"/>
+    <@htmlTemplate.lookupField name="productCategoryId" id="productCategoryId" formName="EditCategoryForm" fieldFormName="LookupProductCategory"/>
     <input type="submit" value="${uiLabelMap.ProductEditCategory}" class="smallSubmit"/>
   </form>
   <br />
@@ -39,7 +39,7 @@ under the License.
   <br />
   <div class="label">${uiLabelMap.ProductEditProductWithProductId}:</div>
   <form method="post" action="<@ofbizUrl>EditProduct</@ofbizUrl>" style="margin: 0;" name="EditProductForm">
-    <@formrenderer.renderLookupField name="productId" id="productId" formName="EditProductForm" fieldFormName="LookupProduct"/>
+    <@htmlTemplate.lookupField name="productId" id="productId" formName="EditProductForm" fieldFormName="LookupProduct"/>
     <input type="submit" value=" ${uiLabelMap.ProductEditProduct}" class="smallSubmit"/>
   </form>
   <br />
