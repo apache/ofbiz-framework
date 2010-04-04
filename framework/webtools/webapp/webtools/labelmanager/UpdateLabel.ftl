@@ -33,18 +33,18 @@ under the License.
                 <td>
                     <#if parameters.sourceKey?exists>
                         ${parameters.sourceKey}
-                        <input type="hidden" name="key" value="${parameters.sourceKey}">
-                        <input type="hidden" name="update_label" value="Y">
+                        <input type="hidden" name="key" value="${parameters.sourceKey}" />
+                        <input type="hidden" name="update_label" value="Y" />
                     <#else>
-                        <input type="text" name="key" size="70">
-                        <input type="hidden" name="update_label" value="N">
+                        <input type="text" name="key" size="70" />
+                        <input type="hidden" name="update_label" value="N" />
                     </#if>
                 </td>
             </tr>
             <tr>
                 <td class="label">${uiLabelMap.WebtoolsLabelManagerKeyComment}</td>
                 <td>
-                    <input type="text" name="keyComment" size="70" value="${parameters.sourceKeyComment?if_exists}">
+                    <input type="text" name="keyComment" size="70" value="${parameters.sourceKeyComment?if_exists}" />
                 </td>
             </tr>
             <tr>
@@ -52,7 +52,7 @@ under the License.
                 <td>
                     <#if parameters.sourceFileName?exists>
                         ${parameters.sourceFileName}
-                        <input type="hidden" name="fileName" value="${parameters.sourceFileName}">
+                        <input type="hidden" name="fileName" value="${parameters.sourceFileName}" />
                     <#else>
                         <select name="fileName">
                             <#list filesFound as fileInfo>
@@ -105,9 +105,9 @@ under the License.
                             <td class="label">${localeFound}</td>
                         </#if>
                         <td>
-                            <input type="hidden" name="localeNames" value="${localeFound}">
-                            <input type="text" name="localeValues" size="70" value="${labelValue?if_exists}">
-                            <input type="text" name="localeComments" size="70" value="${labelComment?if_exists}">
+                            <input type="hidden" name="localeNames" value="${localeFound}" />
+                            <input type="text" name="localeValues" size="70" value="${labelValue?if_exists}" />
+                            <input type="text" name="localeComments" size="70" value="${labelComment?if_exists}" />
                         </td>
                     </tr>
                 </#if>

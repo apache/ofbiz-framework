@@ -19,13 +19,13 @@ under the License.
 <div class="screenlet-body">
   <form action="<@ofbizUrl>SearchLabels</@ofbizUrl>" method="post">
     <table class="basic-table">
-      <tr>${uiLabelMap.WebtoolsLabelManagerTemporarySearchTitle}</tr>    
+      <tr><td colspan="4">${uiLabelMap.WebtoolsLabelManagerTemporarySearchTitle}</td></tr>    
       <tr>
         <td class="label">
           ${uiLabelMap.WebtoolsLabelManagerKey}
         </td>
         <td>
-          <input type="text" name="labelKey" size="30" maxlength="70" value="${parameters.labelKey?if_exists}">
+          <input type="text" name="labelKey" size="30" maxlength="70" value="${parameters.labelKey?if_exists}" />
         </td>
         <td class="label">
           ${uiLabelMap.WebtoolsLabelManagerComponentName}
@@ -77,13 +77,13 @@ under the License.
           ${uiLabelMap.WebtoolsLabelManagerOnlyNotUsedLabels}
         </td>
         <td>
-          <input type="checkbox" name="onlyNotUsedLabels" value="Y" <#if parameters.onlyNotUsedLabels?exists && parameters.onlyNotUsedLabels == "Y">checked</#if>>
+          <input type="checkbox" name="onlyNotUsedLabels" value="Y" <#if parameters.onlyNotUsedLabels?exists && parameters.onlyNotUsedLabels == "Y">checked="checked"</#if> />
         </td>
         <td class="label">
           ${uiLabelMap.WebtoolsLabelManagerOnlyMissingTranslations}
         </td>
         <td>
-          <input type="checkbox" name="onlyMissingTranslations" value="Y" <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y">checked</#if>>
+          <input type="checkbox" name="onlyMissingTranslations" value="Y" <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y">checked="checked"</#if> />
         </td>
       </tr>
       <tr>

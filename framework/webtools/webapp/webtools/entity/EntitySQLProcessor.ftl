@@ -33,7 +33,7 @@ under the License.
             <td>
                 <select name="group">
                     <#list groups as group>
-                        <option value="${group}" <#if selGroup?exists><#if group = selGroup>selected</#if></#if>>${group}</option>
+                        <option value="${group}" <#if selGroup?exists><#if group = selGroup>selected="selected"</#if></#if>>${group}</option>
                     </#list>
                 </select>
             </td>

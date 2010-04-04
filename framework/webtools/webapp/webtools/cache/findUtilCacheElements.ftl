@@ -57,7 +57,7 @@ under the License.
                         <td>${cacheElement.lineSize?if_exists}</td>
                         <td class="button-col">
                             <#if hasUtilCacheEdit>
-                                <a href="<@ofbizUrl>FindUtilCacheElementsRemoveElement?UTIL_CACHE_NAME=${cacheName?if_exists}&UTIL_CACHE_ELEMENT_NUMBER=${cacheElement.keyNum?if_exists}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
+                                <a href="<@ofbizUrl>FindUtilCacheElementsRemoveElement?UTIL_CACHE_NAME=${cacheName?if_exists}&amp;UTIL_CACHE_ELEMENT_NUMBER=${cacheElement.keyNum?if_exists}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
                             </#if>
                         </td>
                     </tr>

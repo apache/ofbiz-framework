@@ -40,7 +40,7 @@ under the License.
                 <#list entries as entry>
                   <tr <#if rowNum == "1">class="alternate-row"</#if>>
                     <td>${rowNumber}</td>
-                    <td><a href="<@ofbizUrl>ViewFile?fileName=${entry.getKey()}&sourceKey=${parameters.sourceKey?if_exists}</@ofbizUrl>">${entry.getKey()}</a></td>
+                    <td><a href="<@ofbizUrl>ViewFile?fileName=${entry.getKey()}&amp;sourceKey=${parameters.sourceKey?if_exists}</@ofbizUrl>">${entry.getKey()}</a></td>
                     <td>${entry.getValue()}</td>
                   </tr>
                   <#assign totalRefs = totalRefs + entry.getValue()/>
