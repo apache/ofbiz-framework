@@ -18,15 +18,7 @@ under the License.
 -->
         <#if (arraySize > 0)>
             <#assign commonUrl="FindGeneric?${curFindString}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default(\"false\")}&amp;"/>
-            <#assign firstUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexFirst}"/>
-            <#assign previousUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexPrevious}"/>
-            <#assign nextUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexNext}"/>
-            <#assign lastUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexLast}"/>
-            <#assign selectUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX="/>
-            <#assign selectSizeUrl=commonUrl+"VIEW_SIZE='+this.value+'&amp;VIEW_INDEX=0"/>
-            <#assign commonDisplaying="${uiLabelMap.CommonDisplaying} ${lowIndex} - ${highIndex} of ${arraySize}"/>        
-
-            <@formrenderer.renderNextPrev listSize=arraySize viewSize=viewSize viewIndex=viewIndex  highIndex=highIndex commonDisplaying=commonDisplaying firstUrl=firstUrl previousUrl=previousUrl nextUrl=nextUrl lastUrl=lastUrl selectUrl=selectUrl selectSizeUrl=selectSizeUrl/>
+            <@htmlTemplate.nextPrev commonUrl=commonUrl listSize=arraySize viewSize=viewSize viewIndex=viewIndex  highIndex=highIndex />
         </#if>
           <table class="basic-table hover-bar" cellspacing="0">
             <tr class="header-row-2">
@@ -60,5 +52,5 @@ under the License.
             </#if>
         </table>
         <#if (arraySize > 0)>
-            <@formrenderer.renderNextPrev listSize=arraySize viewSize=viewSize viewIndex=viewIndex  highIndex=highIndex commonDisplaying=commonDisplaying firstUrl=firstUrl previousUrl=previousUrl nextUrl=nextUrl lastUrl=lastUrl selectUrl=selectUrl selectSizeUrl=selectSizeUrl/>
+            <@htmlTemplate.nextPrev listSize=arraySize viewSize=viewSize viewIndex=viewIndex  highIndex=highIndex commonDisplaying=commonDisplaying firstUrl=firstUrl previousUrl=previousUrl nextUrl=nextUrl lastUrl=lastUrl selectUrl=selectUrl selectSizeUrl=selectSizeUrl/>
         </#if>

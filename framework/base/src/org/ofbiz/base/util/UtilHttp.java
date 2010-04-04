@@ -1350,4 +1350,19 @@ public class UtilHttp {
             }
         }
     }
+
+    /**
+     * Returns a unique Id for the current request
+     * @param request An HttpServletRequest to get the name info from
+     * @return String
+     */
+    public static String getNextUniqueId(HttpServletRequest request) {
+        Integer uniqueIdNumber= (Integer)request.getAttribute("UNIQUE_ID");
+        if (uniqueIdNumber == null) {
+            uniqueIdNumber = Integer.valueOf(1);
+        }
+
+        request.setAttribute("UNIQUE_ID", Integer.valueOf(uniqueIdNumber.intValue() + 1));
+        return "autoId_" + uniqueIdNumber;
+    }
 }
