@@ -1450,7 +1450,7 @@ public class GenericDelegator implements Delegator {
                         if (value.containsKey(fieldName)) {
                             Object fieldValue = value.get(fieldName);
                             Object oldValue = existing.get(fieldName);
-                            if ((fieldValue == null && oldValue != null) || (fieldValue != null && !fieldValue.equals(oldValue))) {
+                            if (UtilObject.equalsHelper(oldValue, fieldValue)) {
                                 toStore.put(fieldName, fieldValue);
                                 atLeastOneField = true;
                             }
