@@ -18,14 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.entityext.eca;
 
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
@@ -41,7 +40,7 @@ public class EntityEcaRule implements java.io.Serializable {
 
     public static final String module = EntityEcaRule.class.getName();
 
-    private static final Set<String> nameSet = HashSet<String>(2);
+    private static final Set<String> nameSet = new HashSet<String>(2);
     static {
         nameSet.add("set");
         nameSet.add("action");
