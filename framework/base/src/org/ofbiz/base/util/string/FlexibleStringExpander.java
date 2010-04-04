@@ -396,9 +396,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             buffer.append(obj);
         }
         if (buffer.length() > this.hint) {
-            synchronized(this) {
-                this.hint = buffer.length();
-            }
+            this.hint = buffer.length();
         }
         return buffer.toString();
     }
