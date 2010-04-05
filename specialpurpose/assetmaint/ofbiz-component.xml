@@ -53,7 +53,7 @@
         server="default-server"
         app-bar-display="false"
         location="webapp/ismgr"
-        base-permission="OFBTOOLS,ASSETMAINT"
+        base-permission="ASSETMAINT"
         mount-point="/ismgr"/>
 
 </ofbiz-component>

@@ -40,7 +40,7 @@ under the License.
         server="default-server"
         menu-name="secondary"
         location="webapp/oagis"
-        base-permission="OFBTOOLS,OAGIS"
+        base-permission="OAGIS"
         mount-point="/oagis"
         app-bar-display="true"/>
 </ofbiz-component>

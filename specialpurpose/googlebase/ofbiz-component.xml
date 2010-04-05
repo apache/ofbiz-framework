@@ -37,7 +37,7 @@ under the License.
         menu-name="secondary"
         server="default-server"
         location="webapp/googlebase"
-        base-permission="OFBTOOLS,GOOGLEBASE"
+        base-permission="GOOGLEBASE"
         mount-point="/googlebase"
         app-bar-display="true"/>
 </ofbiz-component>

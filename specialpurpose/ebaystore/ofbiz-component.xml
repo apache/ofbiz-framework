@@ -43,7 +43,7 @@ under the License.
         menu-name="secondary"
         server="default-server"
         location="webapp/ebaystore"
-        base-permission="OFBTOOLS,EBAYSTORE"
+        base-permission="EBAYSTORE"
         mount-point="/ebaystore"
         app-bar-display="true"/>
 </ofbiz-component>
