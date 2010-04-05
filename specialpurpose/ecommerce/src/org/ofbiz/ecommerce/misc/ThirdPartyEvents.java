@@ -51,7 +51,7 @@ public class ThirdPartyEvents {
      *@return String specifying the exit status of this event
      */
     public static String setAssociationId(HttpServletRequest request, HttpServletResponse response) {
-        Map requestParams = UtilHttp.getParameterMap(request);
+        Map<String, Object> requestParams = UtilHttp.getParameterMap(request);
 
         // check distributor
         String distriParam[] = { "distributor_id", "distributorid", "distributor" };
