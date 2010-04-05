@@ -123,6 +123,8 @@ under the License.
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_EMAIL_VERIFY" bodyScreenLocation="component://party/widget/partymgr/EmailPartyScreens.xml#VerifyEmailAddressNotification" subject="Email Address Verification" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
 
     <ProductStoreEmailSetting productStoreId="9000" emailType="CONT_NOTI_EMAIL" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactUsEmailNotification" subject="Contact-us Information Notification" fromAddress="ofbiztest@yahoo.com" />
+    
+    <ProductStoreEmailSetting productStoreId="9000" emailType="UNSUB_CONT_LIST_NOTI" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListUnsubscribeEmail" subject="Unsubscribe Contact List" fromAddress="ofbiztest@yahoo.com"/>
 
     <WebAnalyticsConfig productStoreId="9000" webAnalyticsTypeId="GOOGLE_ANALYTICS" webAnalyticsCode="123456" isEnabled="Y" description="This is code provided from google analytics" contentId="GOOGLE_ANA_CNT"/>
     <WebAnalyticsConfig productStoreId="9000" webAnalyticsTypeId="BING_ANALYTICS" webAnalyticsCode="123456" isEnabled="Y" description="This is code provided from bing analytics" contentId="BING_ANA_CNT"/>

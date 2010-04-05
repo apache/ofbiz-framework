@@ -144,6 +144,8 @@ under the License.
         <description>Update Party to ContactList Join</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>        
+        <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contactListId" type="String" mode="INOUT" optional="true"/>
         <attribute name="optInVerifyCode" type="String" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
@@ -180,6 +182,14 @@ under the License.
         <description>Uses the communication event infromation to locate the contact list party information and removes the contact from the list</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="contactListId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="sendContactListPartyUnSubscribeEmail" engine="simple"
+        location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="sendContactListPartyUnSubscribeEmail" auth="false">
+        <attribute name="productStoreId" mode="IN" type="String" optional="true"/>
+        <attribute name="partyId" mode="IN" type="String" optional="true"/>
+        <attribute name="contactListId" mode="IN" type="String" optional="true"/>
+        <attribute name="fromDate" mode="IN" type="String" optional="true"/>
+        <attribute name="statusId" mode="IN" type="String" optional="true"/>
     </service>
 
     <!--  ContactList Comm Status Services -->

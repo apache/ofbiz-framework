@@ -61,4 +61,16 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ContactListUnsubscribeEmail">
+        <section>
+            <actions>
+                <entity-one entity-name="ContactList" value-field="contactList"/>
+                <entity-one entity-name="PartyNameView" value-field="partyName"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListUnsubscribeEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>

@@ -27,6 +27,10 @@ under the License.
     <eca service="updatePartyEmailAddress" event="return">
         <action service="updatePartyEmailContactListParty" mode="sync"/>
     </eca>
+    <eca service="updateContactListParty" event="commit">
+        <condition field-name="statusId" operator="equals" value="CLPT_REJECTED"/>
+        <action service="sendContactListPartyUnSubscribeEmail" mode="sync" persist="true"/>
+    </eca>
     
     <!--  update contact list communication status -->
     <eca service="updateCommunicationEvent" event="commit">

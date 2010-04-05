@@ -152,6 +152,7 @@ under the License.
     <Enumeration description="Party Email Address Verification" enumCode="EMAIL_VERIFY" enumId="PRDS_EMAIL_VERIFY" sequenceId="03" enumTypeId="PARTY_EMAIL"/>
     <Enumeration description="Party Invitation" enumCode="INVITE_EMAIL" enumId="PRDS_PARTYINV_EMAIL" sequenceId="04" enumTypeId="PARTY_EMAIL"/>
     <Enumeration description="Contact-Us Notification" enumCode="CONT_EMAIL" enumId="CONT_NOTI_EMAIL" sequenceId="05" enumTypeId="PARTY_EMAIL"/>
+    <Enumeration description="Unsubscribe Contact List Notification" enumCode="UNSUB_CONT_EMAIL" enumId="UNSUB_CONT_LIST_NOTI" sequenceId="01" enumTypeId="PARTY_EMAIL"/>
 
     <!-- the groups which are the main roles on he party listing -->
     <RoleType description="Main Role" hasTable="N" parentTypeId="" roleTypeId="MAIN_ROLE"/>
