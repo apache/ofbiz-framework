@@ -39,7 +39,7 @@ under the License.
         menu-name="secondary"
         server="default-server"
         location="webapp/ebay"
-        base-permission="OFBTOOLS,EBAY"
+        base-permission="EBAY"
         mount-point="/ebay"
         app-bar-display="true"/>
 </ofbiz-component>

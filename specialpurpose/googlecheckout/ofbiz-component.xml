@@ -41,7 +41,7 @@
         menu-name="secondary"
         server="default-server"
         location="webapp/googlecheckout"
-        base-permission="OFBTOOLS,GCHECKOUT"
+        base-permission="GCHECKOUT"
         mount-point="/googlecheckout"/>
 
 </ofbiz-component>
