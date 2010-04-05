@@ -161,6 +161,10 @@ under the License.
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
+        <set field="productStoreId" from-field="parameters.productStoreId"/>
+        <field-to-result field="productStoreId" result-name="productStoreId" />
+        <set field="contactListId" from-field="parameters.contactListId"/>
+        <field-to-result field="contactListId" result-name="contactListId" />
     </simple-method>
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
         <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>
@@ -360,4 +364,31 @@ under the License.
             </iterate>
         </if-not-empty>                                       
     </simple-method>       
+    
+    <simple-method method-name="sendContactListPartyUnSubscribeEmail" short-description="Send contact list party unsubscribe email" login-required="true">
+        <set field="productStoreId" type="String" from-field="parameters.productStoreId"/>
+        <entity-one entity-name="ProductStoreEmailSetting" value-field="storeEmail" auto-field-map="false">
+            <field-map field-name="productStoreId" from-field="productStoreId"/>
+            <field-map field-name="emailType" value="UNSUB_CONT_LIST_NOTI"/>
+        </entity-one>
+        <entity-and entity-name="PartyContactMechPurpose" list="partyContactMechPurposes">
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
+            <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        </entity-and>
+        <first-from-list list="partyContactMechPurposes" entry="partyContactMechPurpose"/>
+        <entity-one entity-name="ContactMech" value-field="contactMech" auto-field-map="false">
+            <field-map field-name="contactMechId" from-field="partyContactMechPurpose.contactMechId"/>
+        </entity-one>
+        <if-not-empty field="storeEmail.bodyScreenLocation">
+            <set field="bodyParameters.contactListId" from-field="parameters.contactListId"/>
+            <set field="bodyParameters.partyId" from-field="userLogin.partyId"/>
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="emailParams.userLogin" from-field="userLogin"/>
+            <set field="emailParams.sendTo" from-field="contactMech.infoString"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.subject" from-field="storeEmail.subject"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>

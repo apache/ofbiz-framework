@@ -487,6 +487,8 @@ under the License.
           <#if (contactListParty.statusId?if_exists == "CLPT_ACCEPTED")>            
             <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistRejectForm${contactListParty_index}">
             <div>
+              <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
+              <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
               <input type="hidden" name="partyId" value="${party.partyId}"/>
               <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
               <input type="hidden" name="fromDate" value="${contactListParty.fromDate}"/>
