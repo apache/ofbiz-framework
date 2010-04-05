@@ -204,14 +204,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             }
         }
 
-        // get the data resource info
-        String templateDataResourceId = content.getString("templateDataResourceId");
-        String dataResourceId = content.getString("dataResourceId");
         String contentId = content.getString("contentId");
-        if (UtilValidate.isEmpty(dataResourceId)) {
-            Debug.logError("No dataResourceId found for contentId: " + content.getString("contentId"), module);
-            return;
-        }
 
         if (templateContext == null) {
             templateContext = FastMap.newInstance();
@@ -255,6 +248,14 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             templateContext.put("thisContent", decFacade); // decorator content
             ContentWorker.renderContentAsText(dispatcher, delegator, contentDecoratorId, out, templateContext, locale, mimeTypeId, null, null, cache);
         } else {
+            // get the data resource info
+            String templateDataResourceId = content.getString("templateDataResourceId");
+            String dataResourceId = content.getString("dataResourceId");
+            if (UtilValidate.isEmpty(dataResourceId)) {
+                Debug.logError("No dataResourceId found for contentId: " + content.getString("contentId"), module);
+                return;
+            }
+
             // set this content facade in the context
             templateContext.put("thisContent", facade);
             templateContext.put("contentId", contentId);
