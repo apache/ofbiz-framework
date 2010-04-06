@@ -2601,120 +2601,140 @@
     </property>
     <property key="InvoiceItemType.description.SRT_ADD_FEATURE_ADJ">
         <value xml:lang="en">Return Additional Feature</value>
+        <value xml:lang="fr">Retour Frais additionnels</value>
         <value xml:lang="hi_IN">रिटर्न अडिशनल फ़ीचर</value>
         <value xml:lang="it">Reso caratteristica aggiuntiva</value>
         <value xml:lang="zh">退货附加特性</value>
     </property>
     <property key="InvoiceItemType.description.SRT_DISCOUNT_ADJ">
         <value xml:lang="en">Return Discount</value>
+        <value xml:lang="fr">Retour Ajustement</value>
         <value xml:lang="hi_IN">रिटर्न डिस्काउंट</value>
         <value xml:lang="it">Sconto reso</value>
         <value xml:lang="zh">退货折扣</value>
     </property>
     <property key="InvoiceItemType.description.SRT_DPROD_ITEM">
         <value xml:lang="en">Return Digital Good Item</value>
+        <value xml:lang="fr">Retour Produit virtuel</value>
         <value xml:lang="hi_IN">रिटर्न डिजिटल सामग्री मद</value>
         <value xml:lang="it">Riga reso bene digitale</value>
         <value xml:lang="zh">数字商品退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FDPROD_ITEM">
         <value xml:lang="en">Return Finished/Digital Good Item</value>
+        <value xml:lang="fr">Retour Produit fini/virtuel</value>
         <value xml:lang="hi_IN">रिटर्न तैयार/डिजिटल सामग्री मद</value>
         <value xml:lang="it">Riga reso bene finito/digitale</value>
         <value xml:lang="zh">成品/数字商品退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FEE_ADJ">
         <value xml:lang="en">Return Fee</value>
+        <value xml:lang="fr">Retour Ajustement sur commission</value>
         <value xml:lang="hi_IN">लौटें शुल्क</value>
         <value xml:lang="it">Commissioni reso</value>
         <value xml:lang="zh">退货手续费</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FPROD_ITEM">
         <value xml:lang="en">Return Finished Good Item</value>
+        <value xml:lang="fr">Retour Produit</value>
         <value xml:lang="hi_IN">रिटर्न संपूर्ण सामग्री मद</value>
         <value xml:lang="it">Riga reso bene finito</value>
         <value xml:lang="zh">成品退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_MAN_ADJ">
         <value xml:lang="en">Return Manual Adjustment</value>
+        <value xml:lang="fr">Retour Ajustement manuel</value>
         <value xml:lang="hi_IN">रिटर्न मैनुअल समायोजन</value>
         <value xml:lang="it">Reso aggiustamento manuale</value>
         <value xml:lang="zh">人工调整退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_MISC_ADJ">
         <value xml:lang="en">Return Miscellaneous Charges</value>
+        <value xml:lang="fr">Retour Charges diverses</value>
         <value xml:lang="hi_IN">रिटर्न विविध व्यय</value>
         <value xml:lang="it">Reso ricarichi vari</value>
         <value xml:lang="zh">退货其它费用</value>
     </property>
     <property key="InvoiceItemType.description.SRT_MKTG_PKG_ADJ">
         <value xml:lang="en">Return Marketing Package Adjustment</value>
+        <value xml:lang="fr">Retour Ajustement paquet marketing</value>
         <value xml:lang="hi_IN">रिटर्न विपणन पैकेज समायोजन</value>
         <value xml:lang="it">Reso aggiustamento pacco di vendita</value>
         <value xml:lang="zh">调整市场促销包退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_PROD_FEATR_ITEM">
         <value xml:lang="en">Return Product-Feature Item</value>
+        <value xml:lang="fr">Retour Caractéristique produit</value>
         <value xml:lang="hi_IN">रिटर्न उत्पाद फ़ीचर मद</value>
         <value xml:lang="it">Riga reso prodotto-caratteristica</value>
         <value xml:lang="zh">特色产品退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_PROD_ITEM">
         <value xml:lang="en">Return Product Item</value>
+        <value xml:lang="fr">Retour Produit</value>
         <value xml:lang="hi_IN">रिटर्न उत्पाद मद</value>
         <value xml:lang="it">Riga reso prodotto</value>
         <value xml:lang="zh">产品退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_PROMOTION_ADJ">
         <value xml:lang="en">Return Promotion</value>
+        <value xml:lang="fr">Retour Promotion</value>
         <value xml:lang="hi_IN">रिटर्न संवर्धन</value>
         <value xml:lang="it">Promozione reso</value>
         <value xml:lang="zh">促销退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_REPLACE_ADJ">
         <value xml:lang="en">Return Replacement</value>
+        <value xml:lang="fr">Retour Remplacement</value>
         <value xml:lang="hi_IN">रिटर्न प्रतिस्थापन</value>
         <value xml:lang="it">Reso per sostituzione</value>
         <value xml:lang="zh">替代品退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_SALES_TAX_ADJ">
         <value xml:lang="en">Return Sales Tax</value>
+        <value xml:lang="fr">Retour Taxe de vente</value>
         <value xml:lang="hi_IN">रिटर्न बिक्री टैक्स</value>
         <value xml:lang="it">Reso tasse di vendita</value>
         <value xml:lang="zh">退营业税</value>
     </property>
     <property key="InvoiceItemType.description.SRT_SHIPPING_ADJ">
         <value xml:lang="en">Return Shipping and Handling</value>
+        <value xml:lang="fr">Retour Emballage et expédition</value>
         <value xml:lang="hi_IN">रिटर्न शिपिंग और हैंडलिंग</value>
         <value xml:lang="it">Reso spese di spedizione e gestione</value>
         <value xml:lang="zh">运输和安装退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_SPROD_ITEM">
         <value xml:lang="en">Return Service Product Item</value>
+        <value xml:lang="fr">Retour Service</value>
         <value xml:lang="hi_IN">रिटर्न सेवा उत्पाद मद</value>
         <value xml:lang="it">Riga reso prodotto servizio</value>
         <value xml:lang="zh">服务产品退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_SURCHARGE_ADJ">
         <value xml:lang="en">Return Surcharge</value>
+        <value xml:lang="fr">Retour Charge</value>
         <value xml:lang="hi_IN">रिटर्न अधिभार</value>
         <value xml:lang="it">Soprattassa reso</value>
         <value xml:lang="zh">退附加费</value>
     </property>
     <property key="InvoiceItemType.description.SRT_TE_ITEM">
         <value xml:lang="en">Return Time-Entry Item</value>
+        <value xml:lang="fr">Retour Honoraire</value>
         <value xml:lang="hi_IN">रिटर्न समय-प्रवेश मद</value>
         <value xml:lang="it">Riga reso timbratura</value>
         <value xml:lang="zh">退预约</value>
     </property>
     <property key="InvoiceItemType.description.SRT_WARRANTY_ADJ">
         <value xml:lang="en">Return Warranty</value>
+        <value xml:lang="fr">Retour garantie</value>
         <value xml:lang="hi_IN">रिटर्न वारंटी</value>
         <value xml:lang="it">Garanzia reso</value>
         <value xml:lang="zh">退保修</value>
     </property>
     <property key="InvoiceItemType.description.SRT_WE_ITEM">
         <value xml:lang="en">Return Work-Effort Item</value>
+        <value xml:lang="fr">Retour de tâche</value>
         <value xml:lang="hi_IN">रिटर्न कार्य-प्रयास मद</value>
         <value xml:lang="it">Riga reso impegno di lavoro</value>
         <value xml:lang="zh">退工时</value>
@@ -2754,6 +2774,7 @@
     </property>
     <property key="InvoiceType.description.PAYROL_INVOICE">
         <value xml:lang="en">Payrol</value>
+        <value xml:lang="fr">Salaire</value>
         <value xml:lang="hi_IN">वेतन</value>
         <value xml:lang="it">Paghe</value>
         <value xml:lang="zh">工资单</value>
@@ -2772,11 +2793,13 @@
     </property>
     <property key="InvoiceType.description.PURC_RTN_INVOICE">
         <value xml:lang="en">Purchase Return</value>
+        <value xml:lang="fr">Avoir fournisseur</value>
         <value xml:lang="it">Reso acquisto</value>
         <value xml:lang="zh">购物退货</value>
     </property>
     <property key="InvoiceType.description.PUR_INV_TEMPLATE">
         <value xml:lang="en">Purchase Invoice Template</value>
+        <value xml:lang="fr">Modèle de facture d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान खाका</value>
         <value xml:lang="it">Reso template fattura d'acquisto</value>
         <value xml:lang="zh">购物发票模板</value>
