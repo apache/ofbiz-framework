@@ -6511,6 +6511,7 @@
     <property key="AccountingNoRecordFound">
         <value xml:lang="de">Kein Datensatz gefunden</value>
         <value xml:lang="en">No Record Found.</value>
+        <value xml:lang="fr">Aucun résultat trouvé</value>
         <value xml:lang="hi_IN">कोई रिकॉर्ड नहीं मिला</value>
     </property>
     <property key="AccountingNotAdjustmentFinAccountTrans">
@@ -6520,6 +6521,7 @@
     <property key="AccountingNotAssigned">
         <value xml:lang="de">Nicht zugewiesen</value>
         <value xml:lang="en">Not Assigned</value>
+        <value xml:lang="fr">Non attribué</value>
         <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
     </property>
     <property key="AccountingNotDepositFinAccountTrans">
