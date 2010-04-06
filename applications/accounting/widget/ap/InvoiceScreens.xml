@@ -27,7 +27,7 @@ under the License.
                 <set field="titleProperty" value="AccountingArPageTitleListReports"/>
                 <set field="tabButtonItem" value="viewReports"/>
                 <set field="invoiceTypeId" value="PURCHASE_INVOICE"/>
-                <set field="organizationPartyId" from-field="organizationPartyId" default-value="${defaultOrganizationPartyId}"/>
+                <set field="organizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" default-value="${defaultOrganizationPartyId}"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
             </actions>
             <widgets>
