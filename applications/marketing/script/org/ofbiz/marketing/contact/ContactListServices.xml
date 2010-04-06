@@ -161,10 +161,8 @@ under the License.
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
-        <set field="productStoreId" from-field="parameters.productStoreId"/>
-        <field-to-result field="productStoreId" result-name="productStoreId" />
-        <set field="contactListId" from-field="parameters.contactListId"/>
-        <field-to-result field="contactListId" result-name="contactListId" />
+        <field-to-result field="parameters.productStoreId" result-name="productStoreId" />
+        <field-to-result field="parameters.contactListId" result-name="contactListId" />
     </simple-method>
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
         <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>
