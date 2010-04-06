@@ -1583,12 +1583,14 @@
     </property>
     <property key="InvoiceItemType.description.COMM_INV_ADJ">
         <value xml:lang="en">Commission Invoice Adjustment</value>
+        <value xml:lang="fr">Ajustement sur commission</value>
         <value xml:lang="hi_IN">दलाली चालान समायोजन</value>
         <value xml:lang="it">Aggiustamenti fattura provvigioni</value>
         <value xml:lang="zh">佣金发票调整</value>
     </property>
     <property key="InvoiceItemType.description.COMM_INV_ITEM">
         <value xml:lang="en">Commission Invoice Line Item</value>
+        <value xml:lang="fr">Ajustement sur ligne de commission</value>
         <value xml:lang="hi_IN">दलाली चालान लाइन आइटम</value>
         <value xml:lang="it">Riga fattura provvigioni</value>
         <value xml:lang="zh">佣金发票行明细</value>
@@ -1795,7 +1797,7 @@
     </property>
     <property key="InvoiceItemType.description.FEE">
         <value xml:lang="en">Invoice Fee</value>
-        <value xml:lang="fr">Commission de facturation</value>
+        <value xml:lang="fr">Frais de facturation</value>
         <value xml:lang="hi_IN">चालान शुल्क</value>
         <value xml:lang="it">Fattura Onorario</value>
         <value xml:lang="ro">Factura Onorariu</value>
@@ -2011,7 +2013,7 @@
     </property>
     <property key="InvoiceItemType.description.ITM_FEE">
         <value xml:lang="en">Invoice Item Fee</value>
-        <value xml:lang="fr">Commission sur ligne de facturation</value>
+        <value xml:lang="fr">Frais sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद शुल्क</value>
         <value xml:lang="it">Fattura Riga Onorario</value>
         <value xml:lang="ro">Factura Linea  Onorario</value>
@@ -2511,7 +2513,7 @@
     </property>
     <property key="InvoiceItemType.description.PITM_FEE">
         <value xml:lang="en">Invoice Item Fee</value>
-        <value xml:lang="fr">Commission sur ligne de facturation</value>
+        <value xml:lang="fr">Frais sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद शुल्क</value>
         <value xml:lang="it">Fattura Riga Onorario</value>
         <value xml:lang="ro">Facura Linie Onorariu</value>
@@ -2591,7 +2593,7 @@
     </property>
     <property key="InvoiceItemType.description.P_FEE">
         <value xml:lang="en">Invoice Fee</value>
-        <value xml:lang="fr">Commission sur facturation</value>
+        <value xml:lang="fr">Frais sur facturation</value>
         <value xml:lang="hi_IN">चालान शुल्क</value>
         <value xml:lang="it">Fattura Onorario</value>
         <value xml:lang="ro">Factura Onorariu</value>
@@ -2601,35 +2603,35 @@
     </property>
     <property key="InvoiceItemType.description.SRT_ADD_FEATURE_ADJ">
         <value xml:lang="en">Return Additional Feature</value>
-        <value xml:lang="fr">Retour Frais additionnels</value>
+        <value xml:lang="fr">Retour Option supplémentaire</value>
         <value xml:lang="hi_IN">रिटर्न अडिशनल फ़ीचर</value>
         <value xml:lang="it">Reso caratteristica aggiuntiva</value>
         <value xml:lang="zh">退货附加特性</value>
     </property>
     <property key="InvoiceItemType.description.SRT_DISCOUNT_ADJ">
         <value xml:lang="en">Return Discount</value>
-        <value xml:lang="fr">Retour Ajustement</value>
+        <value xml:lang="fr">Retour Remise</value>
         <value xml:lang="hi_IN">रिटर्न डिस्काउंट</value>
         <value xml:lang="it">Sconto reso</value>
         <value xml:lang="zh">退货折扣</value>
     </property>
     <property key="InvoiceItemType.description.SRT_DPROD_ITEM">
         <value xml:lang="en">Return Digital Good Item</value>
-        <value xml:lang="fr">Retour Produit virtuel</value>
+        <value xml:lang="fr">Retour Produit numérique</value>
         <value xml:lang="hi_IN">रिटर्न डिजिटल सामग्री मद</value>
         <value xml:lang="it">Riga reso bene digitale</value>
         <value xml:lang="zh">数字商品退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FDPROD_ITEM">
         <value xml:lang="en">Return Finished/Digital Good Item</value>
-        <value xml:lang="fr">Retour Produit fini/virtuel</value>
+        <value xml:lang="fr">Retour Produit/Marchandise numérique</value>
         <value xml:lang="hi_IN">रिटर्न तैयार/डिजिटल सामग्री मद</value>
         <value xml:lang="it">Riga reso bene finito/digitale</value>
         <value xml:lang="zh">成品/数字商品退货</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FEE_ADJ">
         <value xml:lang="en">Return Fee</value>
-        <value xml:lang="fr">Retour Ajustement sur commission</value>
+        <value xml:lang="fr">Retour Frais</value>
         <value xml:lang="hi_IN">लौटें शुल्क</value>
         <value xml:lang="it">Commissioni reso</value>
         <value xml:lang="zh">退货手续费</value>
@@ -2692,7 +2694,7 @@
     </property>
     <property key="InvoiceItemType.description.SRT_SALES_TAX_ADJ">
         <value xml:lang="en">Return Sales Tax</value>
-        <value xml:lang="fr">Retour Taxe de vente</value>
+        <value xml:lang="fr">Retour TVA</value>
         <value xml:lang="hi_IN">रिटर्न बिक्री टैक्स</value>
         <value xml:lang="it">Reso tasse di vendita</value>
         <value xml:lang="zh">退营业税</value>
@@ -2713,7 +2715,7 @@
     </property>
     <property key="InvoiceItemType.description.SRT_SURCHARGE_ADJ">
         <value xml:lang="en">Return Surcharge</value>
-        <value xml:lang="fr">Retour Charge</value>
+        <value xml:lang="fr">Retour Supplément</value>
         <value xml:lang="hi_IN">रिटर्न अधिभार</value>
         <value xml:lang="it">Soprattassa reso</value>
         <value xml:lang="zh">退附加费</value>
