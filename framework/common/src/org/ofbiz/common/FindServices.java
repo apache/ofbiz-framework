@@ -461,7 +461,7 @@ public class FindServices {
         Map<String, Object> prepareResult = null;
         try {
             prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy,
-                                               "inputFields", inputFields, "filterByDate", filterByDate,
+                                               "inputFields", inputFields, "filterByDate", filterByDate, "noConditionFind", noConditionFind,
                                                "filterByDateValue", filterByDateValue, "userLogin", userLogin,
                                                "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
