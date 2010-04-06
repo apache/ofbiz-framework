@@ -71,6 +71,7 @@ public class EbayOrderServices {
         Locale locale = (Locale) context.get("locale");
         orderImportSuccessMessageList.clear();
         orderImportFailureMessageList.clear();
+        getSellerTransactionsContainingOrderList.clear();
         orderList.clear();
         Map<String, Object> result = FastMap.newInstance();
         try {
