@@ -194,7 +194,7 @@ public class ProductsExportToEbay {
 
                 appendRequesterCredentials(itemRequestElem, itemDocument, token);
 
-                String title = encoder.encode(prod.getString("internalName"));
+                String title = prod.getString("internalName");
                 String qnt = (String)context.get("quantity");
                 if (UtilValidate.isEmpty(qnt)) {
                     qnt = "1";
