@@ -22,9 +22,11 @@ package org.ofbiz.content.content;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.website.WebSiteWorker;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -238,14 +240,37 @@ public class ContentMapFacade implements Map {
 
         } else if ("link".equalsIgnoreCase(name)) {
             // link to this content
-            // TODO: make more intelligent to use a link alias if exists
 
             RequestHandler rh = (RequestHandler) this.context.get("_REQUEST_HANDLER_");
             HttpServletRequest request = (HttpServletRequest) this.context.get("request");
             HttpServletResponse response = (HttpServletResponse) this.context.get("response");
 
             if (rh != null && request != null && response != null) {
-                String contextLink = rh.makeLink(request, response, this.contentId, true, false, true);
+                String webSiteId = WebSiteWorker.getWebSiteId(request);
+                Delegator delegator = (Delegator) request.getAttribute("delegator");
+                
+                String contentUri = this.contentId;
+                // Try and find a WebSitePathAlias record to use, it isn't very feasible to find an alias by (parent)contentId/mapKey
+                // so we're only looking for a direct alias using contentId
+                if (webSiteId != null && delegator != null) {
+                    EntityCondition condition = EntityCondition.makeCondition(
+                            UtilMisc.toMap(
+                                    "mapKey", null,
+                                    "webSiteId", webSiteId,
+                                    "contentId", this.contentId
+                            )
+                    );
+                    try {
+                        List<GenericValue> webSitePathAliases = delegator.findList("WebSitePathAlias", condition, null, null, null, true);
+                        GenericValue webSitePathAlias = EntityUtil.getFirst(webSitePathAliases);
+                        if (webSitePathAlias != null) {
+                            contentUri = webSitePathAlias.getString("pathAlias");
+                        }
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                    }
+                }
+                String contextLink = rh.makeLink(request, response, contentUri, true, false, true);
                 // Debug.logInfo("Made link to content with ID [" + this.contentId + "]: " + contextLink, module);
                 return contextLink;
             } else {
