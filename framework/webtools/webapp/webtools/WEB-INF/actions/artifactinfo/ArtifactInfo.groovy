@@ -49,15 +49,16 @@ if ("search".equals(parameters.findType)) {
 }
 
 if (artifactInfo) {
+    artifactInfoMap = [type : artifactInfo.getType(), uniqueId : artifactInfo.getUniqueId(), displayName : artifactInfo.getDisplayName()];
     // add to the recently viewed list
     recentArtifactInfoList = session.getAttribute("recentArtifactInfoList");
     if (!recentArtifactInfoList) {
         recentArtifactInfoList = FastList.newInstance();
         session.setAttribute("recentArtifactInfoList", recentArtifactInfoList);
     }
-    if (recentArtifactInfoList && recentArtifactInfoList.get(0).equals(artifactInfo)) {
+    if (recentArtifactInfoList && recentArtifactInfoList.get(0).equals(artifactInfoMap)) {
         // hmmm, I guess do nothing if it's already there
     } else {
-        recentArtifactInfoList.add(0, artifactInfo);
+        recentArtifactInfoList.add(0, artifactInfoMap);
     }
 }

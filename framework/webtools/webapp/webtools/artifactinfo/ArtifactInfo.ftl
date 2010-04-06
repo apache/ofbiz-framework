@@ -23,7 +23,7 @@ under the License.
     <#assign highRef = sessionAttributes.recentArtifactInfoList.size() - 1/>
     <#if (highRef > 19)><#assign highRef = 19/></#if>
     <#list sessionAttributes.recentArtifactInfoList[0..highRef] as recentArtifactInfo>
-        <div>${recentArtifactInfo_index + 1} - ${recentArtifactInfo.getDisplayType()}: <@displayArtifactInfoLink artifactInfo=recentArtifactInfo/></div>
+        <div>${recentArtifactInfo_index + 1} - ${recentArtifactInfo.type}: <@displayArtifactInfoLink type=recentArtifactInfo.type uniqueId=recentArtifactInfo.uniqueId displayName=recentArtifactInfo.displayName/></div>
     </#list>
   </div>
 </#if>
@@ -70,7 +70,7 @@ under the License.
     <div>
         <h4>Multiple Artifacts Found:</h4>
         <#list artifactInfoSet as curArtifactInfo>
-            <div>${curArtifactInfo.getDisplayType()}: <@displayArtifactInfoLink artifactInfo=curArtifactInfo/></div>
+            <div>${curArtifactInfo.getDisplayType()}: <@displayArtifactInfo artifactInfo=curArtifactInfo/></div>
         </#list>
     </div>
     </#if>
@@ -371,11 +371,11 @@ under the License.
 
 <#-- ==================== MACROS ===================== -->
 <#macro displayEntityArtifactInfo entityArtifactInfo>
-    <div>&nbsp;-&nbsp;<@displayArtifactInfoLink artifactInfo=entityArtifactInfo/></div>
+    <div>&nbsp;-&nbsp;<@displayArtifactInfo artifactInfo=entityArtifactInfo/></div>
 </#macro>
 
 <#macro displayServiceArtifactInfo serviceArtifactInfo>
-    <div>&nbsp;-&nbsp;<@displayArtifactInfoLink artifactInfo=serviceArtifactInfo/></div>
+    <div>&nbsp;-&nbsp;<@displayArtifactInfo artifactInfo=serviceArtifactInfo/></div>
 </#macro>
 
 <#macro displayServiceEcaArtifactInfo serviceEcaArtifactInfo>
@@ -415,21 +415,25 @@ under the License.
 </#macro>
 
 <#macro displayFormWidgetArtifactInfo formWidgetArtifactInfo>
-    <div>&nbsp;-&nbsp;<@displayArtifactInfoLink artifactInfo=formWidgetArtifactInfo/></div>
+    <div>&nbsp;-&nbsp;<@displayArtifactInfo artifactInfo=formWidgetArtifactInfo/></div>
 </#macro>
 
 <#macro displayScreenWidgetArtifactInfo screenWidgetArtifactInfo>
-    <div>&nbsp;-&nbsp;<@displayArtifactInfoLink artifactInfo=screenWidgetArtifactInfo/></div>
+    <div>&nbsp;-&nbsp;<@displayArtifactInfo artifactInfo=screenWidgetArtifactInfo/></div>
 </#macro>
 
 <#macro displayControllerRequestArtifactInfo controllerRequestArtifactInfo>
-    <div>&nbsp;-&nbsp;<@displayArtifactInfoLink artifactInfo=controllerRequestArtifactInfo/></div>
+    <div>&nbsp;-&nbsp;<@displayArtifactInfo artifactInfo=controllerRequestArtifactInfo/></div>
 </#macro>
 
 <#macro displayControllerViewArtifactInfo controllerViewArtifactInfo>
-    <div>&nbsp;-&nbsp;<@displayArtifactInfoLink artifactInfo=controllerViewArtifactInfo/></div>
+    <div>&nbsp;-&nbsp;<@displayArtifactInfo artifactInfo=controllerViewArtifactInfo/></div>
 </#macro>
 
-<#macro displayArtifactInfoLink artifactInfo>
-<a href="<@ofbizUrl>ArtifactInfo?type=${artifactInfo.getType()}&amp;uniqueId=${artifactInfo.getUniqueId()?url('ISO-8859-1')}</@ofbizUrl>">${artifactInfo.getDisplayName()}</a>
+<#macro displayArtifactInfo artifactInfo>
+    <@displayArtifactInfoLink type=artifactInfo.getType() uniqueId=artifactInfo.getUniqueId() displayName=artifactInfo.getDisplayName()/>
+</#macro>
+
+<#macro displayArtifactInfoLink type uniqueId displayName>
+<a href="<@ofbizUrl>ArtifactInfo?type=${type}&amp;uniqueId=${uniqueId?url('ISO-8859-1')}</@ofbizUrl>">${displayName}</a>
 </#macro>
