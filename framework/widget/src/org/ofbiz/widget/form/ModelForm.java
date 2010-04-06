@@ -799,7 +799,7 @@ public class ModelForm extends ModelWidget {
 
         //if pagination is disabled, update the defualt view size
         if (!getPaginate(context)) {
-            setDefaultViewSize(this.MAX_PAGE_SIZE);
+            setDefaultViewSize(ModelForm.MAX_PAGE_SIZE);
         }
 
         // Populate the viewSize and viewIndex so they are available for use during form actions
@@ -856,11 +856,11 @@ public class ModelForm extends ModelWidget {
 
         // Check to see if there is a field, same name and same use-when (could come from extended form)
         for (int j = 0; j < tempFieldList.size(); j++) {
-            ModelFormField modelFormField = (ModelFormField) tempFieldList.get(j);
+            ModelFormField modelFormField = tempFieldList.get(j);
             if (this.useWhenFields.contains(modelFormField.getName())) {
                 boolean shouldUse1 = modelFormField.shouldUse(context);
                 for (int i = j+1; i < tempFieldList.size(); i++) {
-                    ModelFormField curField = (ModelFormField) tempFieldList.get(i);
+                    ModelFormField curField = tempFieldList.get(i);
                     if (curField.getName() != null && curField.getName().equals(modelFormField.getName())) {
                         boolean shouldUse2 = curField.shouldUse(context);
                         if (shouldUse1 == shouldUse2) {
@@ -934,7 +934,7 @@ public class ModelForm extends ModelWidget {
                     // at least two loops left
                     lastFormField = currentFormField;
                     currentFormField = nextFormField;
-                    nextFormField = (ModelFormField) fieldIter.next();
+                    nextFormField = fieldIter.next();
                 } else if (nextFormField != null) {
                     // okay, just one loop left
                     lastFormField = currentFormField;
@@ -970,7 +970,7 @@ public class ModelForm extends ModelWidget {
                     }
                 }
 
-                if (currentFieldGroup != null && (lastFieldGroup == null || !lastFieldGroupName.equals(currentFieldGroupName))) {
+                if (lastFieldGroup == null || !lastFieldGroupName.equals(currentFieldGroupName)) {
                         currentFieldGroup.renderStartString(writer, context, formStringRenderer);
                         lastFieldGroup = currentFieldGroup;
                 }
@@ -1453,11 +1453,11 @@ public class ModelForm extends ModelWidget {
                 List<ModelFormField> tempFieldList = FastList.newInstance();
                 tempFieldList.addAll(this.fieldList);
                 for (int j = 0; j < tempFieldList.size(); j++) {
-                    ModelFormField modelFormField = (ModelFormField) tempFieldList.get(j);
+                    ModelFormField modelFormField = tempFieldList.get(j);
                     if (!modelFormField.isUseWhenEmpty()) {
                         boolean shouldUse1 = modelFormField.shouldUse(localContext);
                         for (int i = j+1; i < tempFieldList.size(); i++) {
-                            ModelFormField curField = (ModelFormField) tempFieldList.get(i);
+                            ModelFormField curField = tempFieldList.get(i);
                             if (curField.getName() != null && curField.getName().equals(modelFormField.getName())) {
                                 boolean shouldUse2 = curField.shouldUse(localContext);
                                 if (shouldUse1 == shouldUse2) {
