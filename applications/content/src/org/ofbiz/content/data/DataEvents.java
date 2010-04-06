@@ -67,7 +67,6 @@ public class DataEvents {
 
         Map<String, Object> httpParams = UtilHttp.getParameterMap(request);
         String contentId = (String) httpParams.get("contentId");
-        //String contentId = request.getParameter("contentId");
         if (UtilValidate.isEmpty(contentId)) {
             String errorMsg = "Required parameter contentId not found!";
             Debug.logError(errorMsg, module);
@@ -267,7 +266,6 @@ public class DataEvents {
             }
 
             String mimeType = DataResourceWorker.getMimeType(dataResource);
-            //if (Debug.infoOn()) Debug.logInfo("in serveImage, imageType:" + imageType, module);
 
             // hack for IE and mime types
             String userAgent = request.getHeader("User-Agent");
@@ -345,12 +343,6 @@ public class DataEvents {
             dataResourceId = (String)result.get("dataResourceId");
             dataResource.set("dataResourceId", dataResourceId);
         }
-
-
-        // Save the primary key so that it can be used in a "quick pick" list later
-        GenericPK pk = dataResource.getPrimaryKey();
-        HttpSession session = request.getSession();
-        //ContentManagementWorker.mruAdd(session, pk);
 
         String returnStr = "success";
         if (mode.equals("CREATE")) {
