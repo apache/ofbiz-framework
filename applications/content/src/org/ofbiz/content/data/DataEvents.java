@@ -65,7 +65,7 @@ public class DataEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String userAgent = request.getHeader("User-Agent");
 
-        Map httpParams = UtilHttp.getParameterMap(request);
+        Map<String, Object> httpParams = UtilHttp.getParameterMap(request);
         String contentId = (String) httpParams.get("contentId");
         //String contentId = request.getParameter("contentId");
         if (UtilValidate.isEmpty(contentId)) {
@@ -132,8 +132,8 @@ public class DataEvents {
         // not public check security
         if (!"Y".equalsIgnoreCase(isPublic)) {
             // do security check
-            Map permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "mainAction", "VIEW", "contentId", contentId);
-            Map permSvcResp;
+            Map<String, Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "mainAction", "VIEW", "contentId", contentId);
+            Map<String, Object> permSvcResp;
             try {
                 permSvcResp = dispatcher.runSync(permissionService, permSvcCtx);
             } catch (GenericServiceException e) {
@@ -181,7 +181,7 @@ public class DataEvents {
         }
 
         // get the data resource stream and conent length
-        Map resourceData;
+        Map<String, Object> resourceData;
         try {
             resourceData = DataResourceWorker.getDataResourceStream(dataResource, https, webSiteId, locale, contextRoot, false);
         } catch (IOException e) {
@@ -230,7 +230,7 @@ public class DataEvents {
         ServletContext application = session.getServletContext();
 
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        Map parameters = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameters = UtilHttp.getParameterMap(request);
 
         Debug.log("Img UserAgent - " + request.getHeader("User-Agent"), module);
 
@@ -256,7 +256,7 @@ public class DataEvents {
 
                 // make sure the logged in user can download this content; otherwise is a pretty big security hole for DataResource records...
                 // TODO: should we restrict the roleTypeId?
-                List contentAndRoleList = delegator.findByAnd("ContentAndRole",
+                List<GenericValue> contentAndRoleList = delegator.findByAnd("ContentAndRole",
                         UtilMisc.toMap("partyId", userLogin.get("partyId"), "dataResourceId", dataResourceId));
                 if (contentAndRoleList.size() == 0) {
                     String errorMsg = "You do not have permission to download the Data Resource with ID [" + dataResourceId + "], ie you are not associated with it.";
@@ -307,16 +307,16 @@ public class DataEvents {
      *  Needed to make permission criteria available to services.
      */
     public static String persistDataResource(HttpServletRequest request, HttpServletResponse response) {
-        Map result = null;
+        Map<String, Object> result = null;
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String dataResourceId = (String)paramMap.get("dataResourceId");
         GenericValue dataResource = delegator.makeValue("DataResource");
         dataResource.setPKFields(paramMap);
         dataResource.setNonPKFields(paramMap);
-        Map serviceInMap = UtilMisc.makeMapWritable(dataResource);
+        Map<String, Object> serviceInMap = UtilMisc.makeMapWritable(dataResource);
         serviceInMap.put("userLogin", userLogin);
         String mode = (String)paramMap.get("mode");
         Locale locale = UtilHttp.getLocale(request);
