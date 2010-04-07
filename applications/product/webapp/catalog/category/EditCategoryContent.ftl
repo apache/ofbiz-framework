@@ -24,7 +24,7 @@ under the License.
         <form action="<@ofbizUrl>updateCategoryContent</@ofbizUrl>" method="post" style="margin: 0;" name="categoryForm">
             <table cellspacing="0" class="basic-table">
                 <tr>
-                    <td width="26%" align="right" class="label"><input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">${uiLabelMap.ProductProductCategoryType}</td>
+                    <td width="26%" align="right" class="label"><input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />${uiLabelMap.ProductProductCategoryType}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
                         <select name="productCategoryTypeId" size="1">
@@ -58,14 +58,14 @@ under the License.
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductDetailScreen}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
-                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen?if_exists}"</#if> name="detailScreen" size="60" maxlength="250">
+                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen?if_exists}"</#if> name="detailScreen" size="60" maxlength="250" />
                         <br />
                         <span class="tooltip">${uiLabelMap.ProductDefaultsTo} &quot;categorydetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#categorydetail&quot;</span>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">&nbsp;</td>
-                    <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}"></td>
+                    <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}" /></td>
                     <td colspan="3">&nbsp;</td>
                 </tr>
             </table>

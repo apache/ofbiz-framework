@@ -31,7 +31,7 @@ under the License.
 <#assign selectedFeatureApplTypeId = selFeatureApplTypeId?if_exists>
 
     <#if productId?has_content>
-      <#assign productString = "&productId=" + productId>
+      <#assign productString = "&amp;productId=" + productId>
     </#if>
     <table cellspacing="0" class="basic-table">
         <tr>
@@ -39,11 +39,11 @@ under the License.
             <span>
             <b>
             <#if (viewIndex > 0)>
-            <a href="<@ofbizUrl>ApplyFeaturesFromCategory?productFeatureCategoryId=${productFeatureCategoryId?if_exists}&productFeatureApplTypeId=${selectedFeatureApplTypeId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}${productString?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonPrevious}]</a> |
+            <a href="<@ofbizUrl>ApplyFeaturesFromCategory?productFeatureCategoryId=${productFeatureCategoryId?if_exists}&amp;productFeatureApplTypeId=${selectedFeatureApplTypeId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}${productString?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonPrevious}]</a> |
             </#if>
             ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
             <#if (listSize > highIndex)>
-            | <a href="<@ofbizUrl>ApplyFeaturesFromCategory?productFeatureCategoryId=${productFeatureCategoryId?if_exists}&productFeatureApplTypeId=${selectedFeatureApplTypeId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}${productString?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNext}]</a>
+            | <a href="<@ofbizUrl>ApplyFeaturesFromCategory?productFeatureCategoryId=${productFeatureCategoryId?if_exists}&amp;productFeatureApplTypeId=${selectedFeatureApplTypeId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}${productString?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNext}]</a>
             </#if>
             </b>
             </span>
@@ -53,9 +53,9 @@ under the License.
 </#if>
 <table cellspacing="0" class="basic-table">
 <form method="post" action="<@ofbizUrl>ApplyFeaturesToProduct</@ofbizUrl>" name="selectAllForm">
-  <input type="hidden" name="_useRowSubmit" value="Y">
-  <input type="hidden" name="_checkGlobalScope" value="Y">
-  <input type="hidden" name="productId" value="${productId}">
+  <input type="hidden" name="_useRowSubmit" value="Y" />
+  <input type="hidden" name="_checkGlobalScope" value="Y" />
+  <input type="hidden" name="productId" value="${productId}" />
   <tr class="header-row">
     <td><b>${uiLabelMap.CommonId}</b></td>
     <td><b>${uiLabelMap.CommonDescription}</b></td>
@@ -65,7 +65,7 @@ under the License.
     <td><b>${uiLabelMap.CommonThruDate}</b></td>
     <td><b>${uiLabelMap.ProductAmount}</b></td>
     <td><b>${uiLabelMap.CommonSequence}</b></td>
-    <td><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');"></td>
+    <td><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');" /></td>
   </tr>
 <#assign rowCount = 0>
 <#assign rowClass = "2">
@@ -73,7 +73,7 @@ under the License.
 <#list productFeatures as productFeature>
   <#assign curProductFeatureType = productFeature.getRelatedOneCache("ProductFeatureType")>
     <tr id="productFeatureId_tableRow_${rowCount}"  valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-        <input type="hidden" name="productFeatureId_o_${rowCount}" value="${productFeature.productFeatureId}">
+        <input type="hidden" name="productFeatureId_o_${rowCount}" value="${productFeature.productFeatureId}" />
         <td><a href="<@ofbizUrl>EditFeature?productFeatureId=${productFeature.productFeatureId}</@ofbizUrl>" class="buttontext">${productFeature.productFeatureId}</a></td>
         <td>${productFeature.description}</td>
         <td><#if curProductFeatureType?exists>${curProductFeatureType.description}<#else> [${productFeature.productFeatureTypeId}]</#if></td>
@@ -84,12 +84,12 @@ under the License.
             </#list>
           </select>
         </td>
-        <td><input type="text" size="25" name="fromDate_o_${rowCount}"><a href="javascript:call_cal(document.selectAllForm.fromDate_o_${rowCount}, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a></td>
-        <td><input type="text" size="25" name="thruDate_o_${rowCount}"><a href="javascript:call_cal(document.selectAllForm.thruDate_o_${rowCount}, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a></td>
-        <td><input type="text" size="6" name="amount_o_${rowCount}" value="${productFeature.defaultAmount?if_exists}"></td>
-        <td><input type="text" size="5" name="sequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum?if_exists}"></td>
+        <td><input type="text" size="25" name="fromDate_o_${rowCount}" /><a href="javascript:call_cal(document.selectAllForm.fromDate_o_${rowCount}, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a></td>
+        <td><input type="text" size="25" name="thruDate_o_${rowCount}" /><a href="javascript:call_cal(document.selectAllForm.thruDate_o_${rowCount}, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a></td>
+        <td><input type="text" size="6" name="amount_o_${rowCount}" value="${productFeature.defaultAmount?if_exists}" /></td>
+        <td><input type="text" size="5" name="sequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum?if_exists}" /></td>
         <td align="right">
-            <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');">
+            <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');" />
         </td>
     </tr>
     <#assign rowCount = rowCount + 1>
@@ -100,7 +100,7 @@ under the License.
         <#assign rowClass = "2">
     </#if>
 </#list>
-<tr><td colspan="9" align="center"><input type="submit" value="${uiLabelMap.CommonApply}"></td></tr>
+<tr><td colspan="9" align="center"><input type="submit" value="${uiLabelMap.CommonApply}" /></td></tr>
 </#if>
 <input type="hidden" name="_rowCount" value="${rowCount?if_exists}"/>
 </form>

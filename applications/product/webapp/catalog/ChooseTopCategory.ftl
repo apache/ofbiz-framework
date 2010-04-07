@@ -24,7 +24,7 @@ under the License.
     <div class="screenlet-body">
         <#list noParentCategories as category>
             <div>
-                <a href="<@ofbizUrl>EditCategory?CATALOG_TOP_CATEGORY=${category.productCategoryId}&productCategoryId=${category.productCategoryId}</@ofbizUrl>" class="buttontext">
+                <a href="<@ofbizUrl>EditCategory?CATALOG_TOP_CATEGORY=${category.productCategoryId}&amp;productCategoryId=${category.productCategoryId}</@ofbizUrl>" class="buttontext">
                 ${category.description?if_exists} [${category.productCategoryId}]
                 </a>
             </div>

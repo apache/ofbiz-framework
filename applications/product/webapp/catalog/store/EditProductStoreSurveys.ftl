@@ -46,8 +46,8 @@ under the License.
                 <td>${storeSurvey.sequenceNum?if_exists}</td>
                 <td>
                   <form name="deleteProductStoreSurveyAppl_${storeSurvey_index}" method="post" action="<@ofbizUrl>deleteProductStoreSurveyAppl</@ofbizUrl>">
-                    <input type="hidden" name="productStoreId" value="${productStoreId}">
-                    <input type="hidden" name="productStoreSurveyId" value="${storeSurvey.productStoreSurveyId}">
+                    <input type="hidden" name="productStoreId" value="${productStoreId}" />
+                    <input type="hidden" name="productStoreSurveyId" value="${storeSurvey.productStoreSurveyId}" />
                     <a href="javascript:document.deleteProductStoreSurveyAppl_${storeSurvey_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                   </form>
                 </td> 
@@ -63,7 +63,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form name="addSurvey" action="<@ofbizUrl>createProductStoreSurveyAppl</@ofbizUrl>" method="post">
-            <input type="hidden" name="productStoreId" value="${productStoreId}">
+            <input type="hidden" name="productStoreId" value="${productStoreId}" />
             <table cellspacing="0" class="basic-table">
               <tr>
                 <td class="label">${uiLabelMap.CommonType}</td>
@@ -78,7 +78,7 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.CommonGroup} ${uiLabelMap.CommonName}</td>
                 <td>
-                  <input type="text" size="20" name="groupName">
+                  <input type="text" size="20" name="groupName" />
                 </td>
               </tr>
               <tr>
@@ -94,7 +94,7 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.ProductProductId}</td>
                 <td>
-                  <input type="text" size="20" name="productId">
+                  <input type="text" size="20" name="productId" />
                 </td>
               </tr>
               <tr>
@@ -107,38 +107,38 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.CommonFromDate}</td>
                 <td>
-                  <input type="text" size="25" name="fromDate">
-                  <a href="javascript:call_cal(document.addSurvey.fromDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                  <input type="text" size="25" name="fromDate" />
+                  <a href="javascript:call_cal(document.addSurvey.fromDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
                 </td>
               </tr>
               <tr>
                 <td class="label">${uiLabelMap.CommonThruDate}</td>
                 <td>
-                  <input type="text" size="25" name="thruDate">
-                  <a href="javascript:call_cal(document.addSurvey.thruDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                  <input type="text" size="25" name="thruDate" />
+                  <a href="javascript:call_cal(document.addSurvey.thruDate, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
                 </td>
               </tr>
               <tr>
                 <td class="label">${uiLabelMap.ProductStoreSurveyTemplatePath}</td>
                 <td>
-                  <input type="text" size="30" name="surveyTemplate">
+                  <input type="text" size="30" name="surveyTemplate" />
                 </td>
               </tr>
               <tr>
                 <td class="label">${uiLabelMap.ProductStoreSurveyResultTemplatePath}</td>
                 <td>
-                  <input type="text" size="30" name="resultTemplate">
+                  <input type="text" size="30" name="resultTemplate" />
                 </td>
               </tr>
               <tr>
                 <td class="label">${uiLabelMap.CommonSequenceNum}</td>
                 <td>
-                  <input type="text" size="5" name="sequenceNum">
+                  <input type="text" size="5" name="sequenceNum" />
                 </td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
-                <td><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"></td>
+                <td><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}" /></td>
               </tr>
             </table>
         </form>

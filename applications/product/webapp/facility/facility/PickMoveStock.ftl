@@ -22,7 +22,7 @@ under the License.
         
         var productId = productelement.value;
         var facilityId = facilityelement.value;
-        var request = "LookupProductInventoryLocation?productId=" + productId + "&facilityId=" + facilityId;
+        var request = "LookupProductInventoryLocation?productId=" + productId + "&amp;facilityId=" + facilityId;
         window[func](locationelement, request);
     }
 </script>
@@ -38,8 +38,8 @@ under the License.
     <div class="screenlet-body">
           <form method="post" action="<@ofbizUrl>processPhysicalStockMove</@ofbizUrl>" name='selectAllForm' style='margin: 0;'>
               <#-- general request fields -->
-              <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
-              <input type="hidden" name="_useRowSubmit" value="Y">
+              <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
+              <input type="hidden" name="_useRowSubmit" value="Y" />
               <#assign rowCount = 0>
               <table cellspacing="0" class="basic-table hover-bar">
                 <tr class="header-row">
@@ -56,7 +56,7 @@ under the License.
                     <td>${uiLabelMap.CommonConfirm}</td>
                     <td align="right">
                         ${uiLabelMap.ProductSelectAll}&nbsp;
-                        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'moveInfoId_tableRow_', 'selectAllForm');">
+                        <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'moveInfoId_tableRow_', 'selectAllForm');" />
                     </td>
                 </tr>
                 <#if moveByOisgirInfoList?has_content || moveByPflInfoList?has_content>
@@ -81,14 +81,14 @@ under the License.
                             <td>${targetProductFacilityLocation.minimumStock?if_exists}</td>
                             <td>${targetProductFacilityLocation.moveQuantity?if_exists}</td>
                             <td align="right">
-                                <input type="hidden" name="productId_o_${rowCount}" value="${product.productId?if_exists}">
-                                <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId?if_exists}">
-                                <input type="hidden" name="locationSeqId_o_${rowCount}" value="${facilityLocationFrom.locationSeqId?if_exists}">
-                                <input type="hidden" name="targetLocationSeqId_o_${rowCount}" value="${facilityLocationTo.locationSeqId?if_exists}">
-                                <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}">
+                                <input type="hidden" name="productId_o_${rowCount}" value="${product.productId?if_exists}" />
+                                <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId?if_exists}" />
+                                <input type="hidden" name="locationSeqId_o_${rowCount}" value="${facilityLocationFrom.locationSeqId?if_exists}" />
+                                <input type="hidden" name="targetLocationSeqId_o_${rowCount}" value="${facilityLocationTo.locationSeqId?if_exists}" />
+                                <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}" />
                             </td>
                             <td align="right">
-                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');">
+                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');" />
                             </td>
                         </tr>
                         <#assign rowCount = rowCount + 1>
@@ -115,14 +115,14 @@ under the License.
                             <td>${targetProductFacilityLocation.minimumStock?if_exists}</td>
                             <td>${targetProductFacilityLocation.moveQuantity?if_exists}</td>
                             <td align="right">
-                                <input type="hidden" name="productId_o_${rowCount}" value="${product.productId?if_exists}">
-                                <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId?if_exists}">
-                                <input type="hidden" name="locationSeqId_o_${rowCount}" value="${facilityLocationFrom.locationSeqId?if_exists}">
-                                <input type="hidden" name="targetLocationSeqId_o_${rowCount}" value="${facilityLocationTo.locationSeqId?if_exists}">
-                                <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}">
+                                <input type="hidden" name="productId_o_${rowCount}" value="${product.productId?if_exists}" />
+                                <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId?if_exists}" />
+                                <input type="hidden" name="locationSeqId_o_${rowCount}" value="${facilityLocationFrom.locationSeqId?if_exists}" />
+                                <input type="hidden" name="targetLocationSeqId_o_${rowCount}" value="${facilityLocationTo.locationSeqId?if_exists}" />
+                                <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}" />
                             </td>
                             <td align="right">
-                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');">
+                                <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');" />
                             </td>
                         </tr>
                         <#assign rowCount = rowCount + 1>
@@ -141,7 +141,7 @@ under the License.
                     <tr><td colspan="13"><h3>${messageCount}:${pflWarningMessage}.</h3></td></tr>
                 </#list>
             </table>
-            <input type="hidden" name="_rowCount" value="${rowCount}">
+            <input type="hidden" name="_rowCount" value="${rowCount}" />
         </form>
     </div>
     <div class="screenlet-title-bar">
@@ -152,33 +152,33 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>processQuickStockMove</@ofbizUrl>" name='quickStockMove'>
-            <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
+            <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
             <table cellspacing="0" class="basic-table hover-bar">
                 <tr class="header-row">
                     <td>${uiLabelMap.ProductProduct}</td>
                     <td>${uiLabelMap.ProductFromLocation}</td>
                     <td>${uiLabelMap.ProductToLocation}</td>
                     <td>${uiLabelMap.ProductMoveQuantity}</td>
-                    <td>&nbsp</td>
+                    <td>&nbsp;</td>
                 </tr>
                     <td>
-                        <input type="text" size="20" name="productId" maxlength="20">
+                        <input type="text" size="20" name="productId" maxlength="20" />
                         <a href="javascript:call_fieldlookup2(document.quickStockMove.productId,'LookupProduct');">
                             <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                         </a>
                     </td>
                     <td>
-                        <input type="text" size="20" name="locationSeqId" maxlength="20">
+                        <input type="text" size="20" name="locationSeqId" maxlength="20" />
                         <a href="javascript:quicklookup('call_fieldlookup2', document.quickStockMove.locationSeqId, document.quickStockMove.facilityId, document.quickStockMove.productId)">
                             <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                         </a>    
                     <td>
-                        <input type="text" size="20" name="targetLocationSeqId" maxlength="20">
-                        <a href="javascript:call_fieldlookup2(document.quickStockMove.targetLocationSeqId,'LookupFacilityLocation?facilityId=${facilityId}&locationTypeEnumId=FLT_PICKLOC');">
+                        <input type="text" size="20" name="targetLocationSeqId" maxlength="20" />
+                        <a href="javascript:call_fieldlookup2(document.quickStockMove.targetLocationSeqId,'LookupFacilityLocation?facilityId=${facilityId}&amp;locationTypeEnumId=FLT_PICKLOC');">
                             <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                         </a>
                     </td> 
-                    <td><input type="text" name="quantityMoved" size="6"></td>
+                    <td><input type="text" name="quantityMoved" size="6" /></td>
                 <tr>
                     <td colspan="13" align="right">
                         <a href="javascript:document.quickStockMove.submit();" class="buttontext">${uiLabelMap.ProductQuickStockMove}</a>

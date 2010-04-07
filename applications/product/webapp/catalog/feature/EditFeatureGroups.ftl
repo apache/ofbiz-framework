@@ -33,10 +33,10 @@ under the License.
           <#list productFeatureGroups as productFeatureGroup>
             <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
               <form method='POST' action='<@ofbizUrl>UpdateProductFeatureGroup</@ofbizUrl>'>
-                <input type='hidden' name="productFeatureGroupId" value="${productFeatureGroup.productFeatureGroupId}">
+                <input type='hidden' name="productFeatureGroupId" value="${productFeatureGroup.productFeatureGroupId}" />
                 <td><a href='<@ofbizUrl>EditFeatureGroupAppls?productFeatureGroupId=${productFeatureGroup.productFeatureGroupId}</@ofbizUrl>' class="buttontext">${productFeatureGroup.productFeatureGroupId}</a></td>
-                <td><input type='text' size='30' name="description" value="${productFeatureGroup.description?if_exists}"></td>
-                <td><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
+                <td><input type='text' size='30' name="description" value="${productFeatureGroup.description?if_exists}" /></td>
+                <td><input type="submit" value="${uiLabelMap.CommonUpdate}" /></td>
                 <td><a href='<@ofbizUrl>EditFeatureGroupAppls?productFeatureGroupId=${productFeatureGroup.productFeatureGroupId}</@ofbizUrl>' class="buttontext">${uiLabelMap.ProductFeatureGroupAppls}</a></td>
               </form>
             </tr>
@@ -61,10 +61,10 @@ under the License.
           <table cellspacing="0" class="basic-table">
             <tr>
               <td class="label">${uiLabelMap.CommonDescription}:</td>
-              <td><input type="text" size='30' name='description' value=''></td>
+              <td><input type="text" size='30' name='description' value='' /></td>
             </tr>
             <tr>
-              <td colspan='2'><input type="submit" value="${uiLabelMap.CommonCreate}"></td>
+              <td colspan='2'><input type="submit" value="${uiLabelMap.CommonCreate}" /></td>
             </tr>
           </table>
         </form>

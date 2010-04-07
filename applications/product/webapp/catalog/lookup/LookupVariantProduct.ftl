@@ -23,7 +23,7 @@ under the License.
 <#if searchFeatures?has_content>
     <table cellspacing="0" class="basic-table">
         <form method="post" action="<@ofbizUrl>LookupVariantProduct</@ofbizUrl>" name="selectAllForm">
-        <input type="hidden" name="productId" value="${product.productId}">
+        <input type="hidden" name="productId" value="${product.productId}" />
         <#list searchFeatures as searchFeature>
             <tr>
                 <td class="label"><b>${searchFeature.featureType}</b></td>
@@ -42,10 +42,10 @@ under the License.
             </tr>
         </#list>
         <tr>
-            <td><input type="submit" value="${uiLabelMap.CommonSearch}" class="smallSubmit"></td>
+            <td><input type="submit" value="${uiLabelMap.CommonSearch}" class="smallSubmit" /></td>
         </form>
         <form method="post" action="<@ofbizUrl>LookupProduct</@ofbizUrl>" name="">
-            <td><input type="submit" value="${uiLabelMap.CommonBack}" class="smallSubmit"></td>
+            <td><input type="submit" value="${uiLabelMap.CommonBack}" class="smallSubmit" /></td>
         </form>
     </tr>
     </table>
@@ -70,10 +70,10 @@ under the License.
 <#if productFeatureIds?exists>
     <table cellspacing="0" class="basic-table">
         <form method="post" action="<@ofbizUrl>LookupVariantProduct</@ofbizUrl>" name="createNewVariant">
-        <input type="hidden" name="productId" value="${product.productId}">
-        <input type="hidden" name="productFeatureIds" value="${productFeatureIds}">
-        <input type="text" name="productVariantId" value="${productVariantId}">
-        <input type="submit" value="${uiLabelMap.ProductQuickAddVariants}" class="smallSubmit">
+        <input type="hidden" name="productId" value="${product.productId}" />
+        <input type="hidden" name="productFeatureIds" value="${productFeatureIds}" />
+        <input type="text" name="productVariantId" value="${productVariantId}" />
+        <input type="submit" value="${uiLabelMap.ProductQuickAddVariants}" class="smallSubmit" />
         </form>
     </table>
 </#if>

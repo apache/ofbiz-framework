@@ -28,7 +28,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form name="createProductInCategoryCheckExistingForm" method="post" action="<@ofbizUrl>CreateProductInCategoryCheckExisting</@ofbizUrl>" style="margin: 0;">
-            <input type="hidden" name="productCategoryId" value="${productCategoryId}">
+            <input type="hidden" name="productCategoryId" value="${productCategoryId}" />
             <table cellspacing="0" class="basic-table">
             <#list productFeaturesByTypeMap.keySet() as productFeatureTypeId>
                 <#assign findPftMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("productFeatureTypeId", productFeatureTypeId)>

@@ -60,7 +60,7 @@ function insertImageName(size,nameValue) {
             <td>${productContent.fromDate?default("N/A")}</td>
             <td>${productContent.thruDate?default("N/A")}</td>
             <td><a href="<@ofbizUrl>removeContentFromProductConfigItem?configItemId=${productContent.configItemId}&amp;contentId=${productContent.contentId}&amp;confItemContentTypeId=${productContent.confItemContentTypeId}&amp;fromDate=${productContent.fromDate}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
-            <td><a href="/content/control/EditContent?contentId=${productContent.contentId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.ProductEditContent} ${entry.content.contentId}</td>
+            <td><a href="/content/control/EditContent?contentId=${productContent.contentId}&amp;externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.ProductEditContent} ${entry.content.contentId}</td>
          </tr>
          <#-- toggle the row color -->
          <#if rowClass == "2">
@@ -95,8 +95,8 @@ function insertImageName(size,nameValue) {
         </div>
         <div class="screenlet-body">
             <form action="<@ofbizUrl>updateProductConfigItemContent</@ofbizUrl>" method="post" style="margin: 0;" name="productForm">
+                <input type="hidden" name="configItemId" value="${configItemId?if_exists}" />
                 <table cellspacing="0" class="basic-table">
-                <input type="hidden" name="configItemId" value="${configItemId?if_exists}">
                 <tr>
                     <td width="20%" align="right" valign="top" class="label">${uiLabelMap.CommonDescription}</td>
                     <td>&nbsp;</td>
@@ -120,7 +120,7 @@ function insertImageName(size,nameValue) {
                     </td>
                     <td>&nbsp;</td>
                     <td width="80%" colspan="4" valign="top">
-                    <input type="text" name="imageUrl" value="${(configItem.imageUrl)?default(imageNameSmall + '.jpg')}" size="60" maxlength="255">
+                    <input type="text" name="imageUrl" value="${(configItem.imageUrl)?default(imageNameSmall + '.jpg')}" size="60" maxlength="255" />
                     <#if configItemId?has_content>
                         <div>
                         <span class="label">${uiLabelMap.ProductInsertDefaultImageUrl}: </span>
@@ -133,7 +133,7 @@ function insertImageName(size,nameValue) {
                 </tr>
                 <tr>
                     <td colspan="2">&nbsp;</td>
-                    <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}"></td>
+                    <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}" /></td>
                     <td colspan="3">&nbsp;</td>
                 </tr>
                 </table>
@@ -145,9 +145,9 @@ function insertImageName(size,nameValue) {
             <h3>${uiLabelMap.ProductUploadImage}</h3>
         </div>
         <div class="screenlet-body">
-            <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductConfigItemImage?configItemId=${configItemId}&upload_file_type=small</@ofbizUrl>" name="imageUploadForm">
-                <input type="file" size="50" name="fname">
-                <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}">
+            <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductConfigItemImage?configItemId=${configItemId}&amp;upload_file_type=small</@ofbizUrl>" name="imageUploadForm">
+                <input type="file" size="50" name="fname" />
+                <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}" />
             </form>
         </div>
     </div>

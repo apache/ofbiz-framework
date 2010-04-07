@@ -45,20 +45,20 @@ under the License.
                         <form method="post" action="<@ofbizUrl>updateProductFeatureCatGrpAppl</@ofbizUrl>" name="lineFormGrp${line}">
                             <#assign hasExpired = false>
                             <#if (productFeatureCatGrpAppl.getTimestamp("thruDate"))?exists && nowTimestamp.after(productFeatureCatGrpAppl.getTimestamp("thruDate"))> <#assign hasExpired = true></#if>
-                            <input type="hidden" name="productCategoryId" value="${(productFeatureCatGrpAppl.productCategoryId)?if_exists}">
-                            <input type="hidden" name="productFeatureGroupId" value="${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}">
-                            <input type="hidden" name="fromDate" value="${(productFeatureCatGrpAppl.fromDate)?if_exists}">
-                            <input type="text" size="25" name="thruDate" value="${(productFeatureCatGrpAppl.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if>>
+                            <input type="hidden" name="productCategoryId" value="${(productFeatureCatGrpAppl.productCategoryId)?if_exists}" />
+                            <input type="hidden" name="productFeatureGroupId" value="${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}" />
+                            <input type="hidden" name="fromDate" value="${(productFeatureCatGrpAppl.fromDate)?if_exists}" />
+                            <input type="text" size="25" name="thruDate" value="${(productFeatureCatGrpAppl.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if> />
                             <a href="javascript:call_cal(document.lineFormGrp${line}.thruDate, '${(productFeatureCatGrpAppl.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-                            <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
+                            <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;" />
                         </form>
                     </td>
                     <td align="center">
                         <a href="javascript:document.removeProductFeatureCatGrpApplForm_${productFeatureCatGrpAppl_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                         <form method="post" action="<@ofbizUrl>removeProductFeatureCatGrpAppl</@ofbizUrl>" name="removeProductFeatureCatGrpApplForm_${productFeatureCatGrpAppl_index}">
-                            <input type="hidden" name="productFeatureGroupId" value="${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}">
-                            <input type="hidden" name="productCategoryId" value="${(productFeatureCatGrpAppl.productCategoryId)?if_exists}">
-                            <input type="hidden" name="fromDate" value="${productFeatureCatGrpAppl.getString("fromDate")}">
+                            <input type="hidden" name="productFeatureGroupId" value="${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}" />
+                            <input type="hidden" name="productCategoryId" value="${(productFeatureCatGrpAppl.productCategoryId)?if_exists}" />
+                            <input type="hidden" name="fromDate" value="${productFeatureCatGrpAppl.getString("fromDate")}" />
                         </form>
                     </td>
                 </tr>
@@ -80,15 +80,15 @@ under the License.
             <table cellspacing="0" class="basic-table">
                 <tr><td>
                     <form method="post" action="<@ofbizUrl>createProductFeatureCatGrpAppl</@ofbizUrl>" style="margin: 0;" name="addNewGroupForm">
-                    <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
+                    <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
                     <select name="productFeatureGroupId">
                     <#list productFeatureGroups as productFeatureGroup>
                         <option value="${(productFeatureGroup.productFeatureGroupId)?if_exists}">${(productFeatureGroup.description)?if_exists} [${(productFeatureGroup.productFeatureGroupId)?if_exists}]</option>
                     </#list>
                     </select>
-                    <input type="text" size="25" name="fromDate">
+                    <input type="text" size="25" name="fromDate" />
                     <a href="javascript:call_cal(document.addNewGroupForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-                    <input type="submit" value="${uiLabelMap.CommonAdd}">
+                    <input type="submit" value="${uiLabelMap.CommonAdd}" />
                     </form>
                 </td></tr>
             </table>
@@ -121,20 +121,20 @@ under the License.
                         <form method="post" action="<@ofbizUrl>updateProductFeatureCategoryAppl</@ofbizUrl>" name="lineForm${line}">
                             <#assign hasExpired = false>
                             <#if (productFeatureCategoryAppl.getTimestamp("thruDate"))?exists && nowTimestamp.after(productFeatureCategoryAppl.getTimestamp("thruDate"))> <#assign hasExpired = true></#if>
-                            <input type="hidden" name="productCategoryId" value="${(productFeatureCategoryAppl.productCategoryId)?if_exists}">
-                            <input type="hidden" name="productFeatureCategoryId" value="${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}">
-                            <input type="hidden" name="fromDate" value="${(productFeatureCategoryAppl.fromDate)?if_exists}">
-                            <input type="text" size="25" name="thruDate" value="${(productFeatureCategoryAppl.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if>>
+                            <input type="hidden" name="productCategoryId" value="${(productFeatureCategoryAppl.productCategoryId)?if_exists}" />
+                            <input type="hidden" name="productFeatureCategoryId" value="${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}" />
+                            <input type="hidden" name="fromDate" value="${(productFeatureCategoryAppl.fromDate)?if_exists}" />
+                            <input type="text" size="25" name="thruDate" value="${(productFeatureCategoryAppl.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if> />
                             <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(productFeatureCategoryAppl.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-                            <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;">
+                            <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;" />
                         </form>
                     </td>
                     <td align="center">
                     <a href="javascript:document.removeProductFeatureCategoryApplForm_${productFeatureCategoryAppl_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     <form method="post" action="<@ofbizUrl>removeProductFeatureCategoryAppl</@ofbizUrl>" name="removeProductFeatureCategoryApplForm_${productFeatureCategoryAppl_index}">
-                        <input type="hidden" name="productFeatureCategoryId" value="${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}">
-                        <input type="hidden" name="productCategoryId" value="${(productFeatureCategoryAppl.productCategoryId)?if_exists}">
-                        <input type="hidden" name="fromDate" value="${productFeatureCategoryAppl.getString("fromDate")}">
+                        <input type="hidden" name="productFeatureCategoryId" value="${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}" />
+                        <input type="hidden" name="productCategoryId" value="${(productFeatureCategoryAppl.productCategoryId)?if_exists}" />
+                        <input type="hidden" name="fromDate" value="${productFeatureCategoryAppl.getString("fromDate")}" />
                     </form>
                     </td>
                 </tr>
@@ -156,15 +156,15 @@ under the License.
             <table cellspacing="0" class="basic-table">
                 <tr><td>
                     <form method="post" action="<@ofbizUrl>createProductFeatureCategoryAppl</@ofbizUrl>" style="margin: 0;" name="addNewCategoryForm">
-                        <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
+                        <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
                         <select name="productFeatureCategoryId">
                         <#list productFeatureCategories as productFeatureCategory>
                             <option value="${(productFeatureCategory.productFeatureCategoryId)?if_exists}">${(productFeatureCategory.description)?if_exists} [${(productFeatureCategory.productFeatureCategoryId)?if_exists}]</option>
                         </#list>
                         </select>
-                        <input type="text" size="25" name="fromDate">
+                        <input type="text" size="25" name="fromDate" />
                         <a href="javascript:call_cal(document.addNewCategoryForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-                        <input type="submit" value="${uiLabelMap.CommonAdd}">
+                        <input type="submit" value="${uiLabelMap.CommonAdd}" />
                     </form>
                 </td></tr>
             </table>

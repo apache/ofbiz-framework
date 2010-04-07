@@ -35,27 +35,27 @@ under the License.
             <td class="label"><b>${productPriceRule.productPriceRuleId}</b></td>
             <td>
                 <form method="post" action="<@ofbizUrl>updateProductPriceRule</@ofbizUrl>" name="updateProductPriceRule">
-                    <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
-                    <input type="text" size="15" name="ruleName" value="${productPriceRule.ruleName}">
-                    <input type="text" size="15" name="description" value="${productPriceRule.description?if_exists}">
-                    <input type="text" size="22" name="fromDate" value="${productPriceRule.fromDate?if_exists}"><a href="javascript:call_cal(document.updateProductPriceRule.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
-                    <input type="text" size="22" name="thruDate" value="${productPriceRule.thruDate?if_exists}"><a href="javascript:call_cal(document.updateProductPriceRule.thruDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
+                    <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}" />
+                    <input type="text" size="15" name="ruleName" value="${productPriceRule.ruleName}" />
+                    <input type="text" size="15" name="description" value="${productPriceRule.description?if_exists}" />
+                    <input type="text" size="22" name="fromDate" value="${productPriceRule.fromDate?if_exists}" /><a href="javascript:call_cal(document.updateProductPriceRule.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
+                    <input type="text" size="22" name="thruDate" value="${productPriceRule.thruDate?if_exists}" /><a href="javascript:call_cal(document.updateProductPriceRule.thruDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
                     &nbsp;&nbsp;
                     <#assign saleRule = productPriceRule.isSale?exists && productPriceRule.isSale == "Y">
                     <div>
                     <span class="label"><b>${uiLabelMap.ProductNotifySale}</b></span>&nbsp;
-                    <input type="radio" name="isSale" value="Y" <#if saleRule>CHECKED</#if>>${uiLabelMap.CommonYes}&nbsp;
-                    <input type="radio" name="isSale" value="N" <#if !saleRule>CHECKED</#if>>${uiLabelMap.CommonNo}
+                    <input type="radio" name="isSale" value="Y" <#if saleRule>checked="checked"</#if> />${uiLabelMap.CommonYes}&nbsp;
+                    <input type="radio" name="isSale" value="N" <#if !saleRule>checked="checked"</#if> />${uiLabelMap.CommonNo}
                     &nbsp;&nbsp;
-                    <input type="submit" value="${uiLabelMap.CommonUpdate}">
+                    <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                     </div>
                 </form>
             </td>
             <td align="center">&nbsp;
               <#if !productPriceConds?has_content && !productPriceActions?has_content>
                   <form method="post" action="<@ofbizUrl>deleteProductPriceRule</@ofbizUrl>" name="deleteProductPriceRule">
-                      <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
-                      <input type="submit" value="${uiLabelMap.CommonDelete}">
+                      <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}" />
+                      <input type="submit" value="${uiLabelMap.CommonDelete}" />
                   </form>
               </#if>
             </td>
@@ -105,14 +105,14 @@ under the License.
                                       <option value="${condOperEnum.enumId}">${condOperEnum.get("description",locale)}<#--[${condOperEnum.enumId}]--></option>
                                     </#list>
                                 </select>
-                                <input type="text" size="20" name="condValue" value="${productPriceCond.condValue?if_exists}">
-                                <input type="submit" value="${uiLabelMap.CommonUpdate}">
+                                <input type="text" size="20" name="condValue" value="${productPriceCond.condValue?if_exists}" />
+                                <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                             </form>
                         </td>
                         <td align="center">
                          <form name="deleteProductPriceCond_${productPriceCond_index}" method= "post" action= "<@ofbizUrl>deleteProductPriceCond</@ofbizUrl>">
-                           <input type="hidden" name="productPriceRuleId" value="${productPriceCond.productPriceRuleId}">
-                           <input type="hidden" name="productPriceCondSeqId" value="${productPriceCond.productPriceCondSeqId}">
+                           <input type="hidden" name="productPriceRuleId" value="${productPriceCond.productPriceRuleId}" />
+                           <input type="hidden" name="productPriceCondSeqId" value="${productPriceCond.productPriceCondSeqId}" />
                            <a href="javascript:document.deleteProductPriceCond_${productPriceCond_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                          </form>
                         </td>
@@ -127,7 +127,7 @@ under the License.
                   <tr>
                     <td colspan="3">
                         <form method="post" action="<@ofbizUrl>createProductPriceCond</@ofbizUrl>">
-                            <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
+                            <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}" />
                             <span class="label"><b>${uiLabelMap.CommonNew}</b>&nbsp;</span>
                             <select name="inputParamEnumId" size="1">
                                 <#list inputParamEnums as inputParamEnum>
@@ -139,8 +139,8 @@ under the License.
                                   <option value="${condOperEnum.enumId}">${condOperEnum.get("description",locale)}<#--[${condOperEnum.enumId}]--></option>
                                 </#list>
                             </select>
-                            <input type="text" size="20" name="condValue">
-                            <input type="submit" value="${uiLabelMap.CommonCreate}">
+                            <input type="text" size="20" name="condValue" />
+                            <input type="submit" value="${uiLabelMap.CommonCreate}" />
                         </form>
                     </td>
                   </tr>
@@ -162,8 +162,8 @@ under the License.
                         <td class="label"><b>${productPriceAction.productPriceActionSeqId}</b></td>
                         <td>
                             <form method="post" action="<@ofbizUrl>updateProductPriceAction</@ofbizUrl>">
-                                <input type="hidden" name="productPriceRuleId" value="${productPriceAction.productPriceRuleId}">
-                                <input type="hidden" name="productPriceActionSeqId" value="${productPriceAction.productPriceActionSeqId}">
+                                <input type="hidden" name="productPriceRuleId" value="${productPriceAction.productPriceRuleId}" />
+                                <input type="hidden" name="productPriceActionSeqId" value="${productPriceAction.productPriceActionSeqId}" />
                                 <select name="productPriceActionTypeId" size="1">
                                     <#if productPriceAction.productPriceActionTypeId?has_content>
                                       <#assign productPriceActionType = productPriceAction.getRelatedOneCache("ProductPriceActionType")>
@@ -176,14 +176,14 @@ under the License.
                                       <option value="${productPriceActionType.productPriceActionTypeId}">${productPriceActionType.get("description",locale)}<#--[${productPriceActionType.productPriceActionTypeId}]--></option>
                                     </#list>
                                 </select>
-                                <input type="text" size="8" name="amount" value="${productPriceAction.amount?if_exists}">
-                                <input type="submit" value="${uiLabelMap.CommonUpdate}">
+                                <input type="text" size="8" name="amount" value="${productPriceAction.amount?if_exists}" />
+                                <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                             </form>
                         </td>
                         <td align="center">
                           <form name="deleteProductPriceAction_${productPriceAction_index}" method="post" action="<@ofbizUrl>deleteProductPriceAction</@ofbizUrl>">
-                            <input type="hidden" name="productPriceRuleId" value="${productPriceAction.productPriceRuleId}">
-                            <input type="hidden" name="productPriceActionSeqId" value="${productPriceAction.productPriceActionSeqId}">
+                            <input type="hidden" name="productPriceRuleId" value="${productPriceAction.productPriceRuleId}" />
+                            <input type="hidden" name="productPriceActionSeqId" value="${productPriceAction.productPriceActionSeqId}" />
                             <a href="javascript:document.deleteProductPriceAction_${productPriceAction_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                           </form>
                         </td>
@@ -198,15 +198,15 @@ under the License.
                   <tr>
                     <td colspan="3">
                         <form method="post" action="<@ofbizUrl>createProductPriceAction</@ofbizUrl>">
-                            <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
+                            <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}" />
                             <span class="label"><b>${uiLabelMap.CommonNew}</b>&nbsp;</span>
                             <select name="productPriceActionTypeId" size="1">
                                 <#list productPriceActionTypes as productPriceActionType>
                                   <option value="${productPriceActionType.productPriceActionTypeId}">${productPriceActionType.get("description",locale)}<#--[${productPriceActionType.productPriceActionTypeId}]--></option>
                                 </#list>
                             </select>
-                            <input type="text" size="8" name="amount">
-                            <input type="submit" value="${uiLabelMap.CommonCreate}">
+                            <input type="text" size="8" name="amount" />
+                            <input type="submit" value="${uiLabelMap.CommonCreate}" />
                         </form>
                     </td>
                   </tr>

@@ -52,9 +52,9 @@ function clickAll(e) {
     <table cellspacing="0" class="basic-table">
         <#assign rowCount = 0>
         <form method="post" action="<@ofbizUrl>QuickAddChosenVariants</@ofbizUrl>" name="selectAllForm">
-            <input type="hidden" name="productId" value="${productId}">
-            <input type="hidden" name="_useRowSubmit" value="Y">
-            <input type="hidden" name="_checkGlobalScope" value="Y">
+            <input type="hidden" name="productId" value="${productId}" />
+            <input type="hidden" name="_useRowSubmit" value="Y" />
+            <input type="hidden" name="_checkGlobalScope" value="Y" />
         <tr class="header-row">
             <#list featureTypes as featureType>
                 <td><b>${featureType}</b></td>
@@ -62,7 +62,7 @@ function clickAll(e) {
             <td><b>${uiLabelMap.ProductNewProductCreate} !</b></td>
             <td><b>${uiLabelMap.ProductSequenceNum}</b></td>
             <td><b>${uiLabelMap.ProductExistingVariant} :</b></td>
-            <td align="right"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:clickAll(this);"></b></td>
+            <td align="right"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:clickAll(this);" /></b></td>
         </tr>
 
         <#assign defaultSequenceNum = 10>
@@ -94,7 +94,7 @@ function clickAll(e) {
                     </div>
                 </td>
                 <td align="right">
-                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:setProductVariantId(this, '${defaultVariantProductId}', 'productVariantId_o_${rowCount}');">
+                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:setProductVariantId(this, '${defaultVariantProductId}', 'productVariantId_o_${rowCount}');" />
                 </td>
             </tr>
             <#assign defaultSequenceNum = defaultSequenceNum + 10>
@@ -109,7 +109,7 @@ function clickAll(e) {
         <tr>
             <#assign columns = featureTypes.size() + 4>
             <td colspan="${columns}" align="center">
-                <input type="hidden" name="_rowCount" value="${rowCount}">
+                <input type="hidden" name="_rowCount" value="${rowCount}" />
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonCreate}"/>
             </td>
         </tr>

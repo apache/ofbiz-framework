@@ -21,22 +21,22 @@ under the License.
   <div class="button-bar">
     <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
     <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacilityLocation}</a>
-    <a href="<@ofbizUrl>EditInventoryItem?facilityId=${facilityId}&locationSeqId=${locationSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewInventoryItem}</a>
+    <a href="<@ofbizUrl>EditInventoryItem?facilityId=${facilityId}&amp;locationSeqId=${locationSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewInventoryItem}</a>
     <#assign latestGeoPoint= Static["org.ofbiz.common.geo.GeoWorker"].findLatestGeoPoint(delegator, "FacilityLocationAndGeoPoint", "facilityId", facilityId, "locationSeqId", locationSeqId)?if_exists/>
     <#if latestGeoPoint?has_content>
-      <a href="<@ofbizUrl>FacilityLocationGeoLocation?facilityId=${facilityId}&locationSeqId=${locationSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
+      <a href="<@ofbizUrl>FacilityLocationGeoLocation?facilityId=${facilityId}&amp;locationSeqId=${locationSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
     </#if>
   </div>
 </#if>
 
 <#if facilityId?exists && !(facilityLocation?exists)>
     <form action="<@ofbizUrl>CreateFacilityLocation</@ofbizUrl>" method="post">
-    <input type="hidden" name="facilityId" value="${facilityId}">
+    <input type="hidden" name="facilityId" value="${facilityId}" />
     <table class="basic-table" cellspacing="0">
 <#elseif facilityLocation?exists>
     <form action="<@ofbizUrl>UpdateFacilityLocation</@ofbizUrl>" method="post">
-    <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
-    <input type="hidden" name="locationSeqId" value="${locationSeqId}">
+    <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
+    <input type="hidden" name="locationSeqId" value="${locationSeqId}" />
     <table class="basic-table" cellspacing="0">
     <tr>
         <td class="label">${uiLabelMap.ProductFacilityId}</td>
@@ -68,30 +68,30 @@ under the License.
     </tr>
     <tr>
         <td class="label">${uiLabelMap.CommonArea}</td>
-        <td><input type="text" name="areaId" value="${(facilityLocation.areaId)?if_exists}" size="19" maxlength="20"></td>
+        <td><input type="text" name="areaId" value="${(facilityLocation.areaId)?if_exists}" size="19" maxlength="20" /></td>
     </tr>
     <tr>
         <td class="label">${uiLabelMap.ProductAisle}</td>
-        <td><input type="text" name="aisleId" value="${(facilityLocation.aisleId)?if_exists}" size="19" maxlength="20"></td>
+        <td><input type="text" name="aisleId" value="${(facilityLocation.aisleId)?if_exists}" size="19" maxlength="20" /></td>
     </tr>
     <tr>
         <td class="label">${uiLabelMap.ProductSection}</td>
-        <td><input type="text" name="sectionId" value="${(facilityLocation.sectionId)?if_exists}" size="19" maxlength="20"></td>
+        <td><input type="text" name="sectionId" value="${(facilityLocation.sectionId)?if_exists}" size="19" maxlength="20" /></td>
     </tr>
     <tr>
         <td class="label">${uiLabelMap.ProductLevel}</td>
-        <td><input type="text" name="levelId" value="${(facilityLocation.levelId)?if_exists}" size="19" maxlength="20"></td>
+        <td><input type="text" name="levelId" value="${(facilityLocation.levelId)?if_exists}" size="19" maxlength="20" /></td>
     </tr>
     <tr>
         <td class="label">${uiLabelMap.ProductPosition}</td>
-        <td><input type="text" name="positionId" value="${(facilityLocation.positionId)?if_exists}" size="19" maxlength="20"></td>
+        <td><input type="text" name="positionId" value="${(facilityLocation.positionId)?if_exists}" size="19" maxlength="20" /></td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <#if locationSeqId?exists>
-          <td><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
+          <td><input type="submit" value="${uiLabelMap.CommonUpdate}" /></td>
         <#else>
-          <td><input type="submit" value="${uiLabelMap.CommonSave}"></td>
+          <td><input type="submit" value="${uiLabelMap.CommonSave}" /></td>
         </#if>
     </tr>
   </table>
@@ -135,13 +135,13 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>createProductFacilityLocation</@ofbizUrl>" style="margin: 0;" name="createProductFacilityLocationForm">
-            <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
-            <input type="hidden" name="locationSeqId" value="${locationSeqId?if_exists}">
-            <input type="hidden" name="useValues" value="true">
-            <span class="label">${uiLabelMap.ProductProductId}</span><input type="text" size="10" name="productId">
-            <span class="label">${uiLabelMap.ProductMinimumStock}</span><input type="text" size="10" name="minimumStock">
-            <span class="label">${uiLabelMap.ProductMoveQuantity}</span><input type="text" size="10" name="moveQuantity">
-            <input type="submit" value="${uiLabelMap.CommonAdd}">
+            <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
+            <input type="hidden" name="locationSeqId" value="${locationSeqId?if_exists}" />
+            <input type="hidden" name="useValues" value="true" />
+            <span class="label">${uiLabelMap.ProductProductId}</span><input type="text" size="10" name="productId" />
+            <span class="label">${uiLabelMap.ProductMinimumStock}</span><input type="text" size="10" name="minimumStock" />
+            <span class="label">${uiLabelMap.ProductMoveQuantity}</span><input type="text" size="10" name="moveQuantity" />
+            <input type="submit" value="${uiLabelMap.CommonAdd}" />
         </form>
     </div>
   </div>
