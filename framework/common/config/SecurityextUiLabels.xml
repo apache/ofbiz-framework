@@ -25,7 +25,7 @@
         <value xml:lang="es">Error con password : ${errorMessage}.</value>
         <value xml:lang="fr">Erreur concernant le mot de passe: ${errorMessage}.</value>
         <value xml:lang="it">Errore accesso password:: ${errorMessage}.</value>
-        <value xml:lang="nl">Error accessing password: ${errorMessage}.</value>
+        <value xml:lang="nl">Fout bij toegang verkrijgen tot wachtwoord: ${errorMessage}.</value>
         <value xml:lang="ro">Eroare acces parola:${errorMessage}.</value>
         <value xml:lang="ru">Ошибка доступа к паролю: ${errorMessage}.</value>
         <value xml:lang="th">ผิดพลาดในการใช้รหัสผ่าน: ${errorMessage}.</value>
@@ -36,6 +36,7 @@
         <value xml:lang="en">Error accessing password change history: ${errorMessage}.</value>
         <value xml:lang="fr">Erreur lors de l'accès à l'historique des mots de passe : ${errorMessage}.</value>
         <value xml:lang="it">Errore di accesso alla storia dei cambi password: ${errorMessage}.</value>
+        <value xml:lang="nl">Fout bij toegang verkrijgen tot wachtwoord wijzigingsgeschiedenis: ${errorMessage}.</value>        
         <value xml:lang="th">ผิดพลาดในการใช้รหัสผ่านเปลี่ยนข้อมูล: ${errorMessage}.</value>
         <value xml:lang="zh">访问密码修改历史记录时出错：${errorMessage}。</value>
     </property>
@@ -45,7 +46,7 @@
         <value xml:lang="es">Error al grabar nuevo password: el email que recibirá no tendrá el password correcto; se seguirá usando el password anterior</value>
         <value xml:lang="fr">Erreur survenue pendant l'enregistrement du nouveau mot de passe, le courriel que vous allez recevoir ne comportera pas le mot de passe correct, votre ancien mot de passe est toujours valide: ${errorMessage}.</value>
         <value xml:lang="it">Errore nel salvataggio della nuova password, l'email che riceverai non ha una password corretta, la tua vecchia password è ancora valida: ${errorMessage}.</value>
-        <value xml:lang="nl">Error saving new password, the email that you receive will not have the correct password in it, your old password is still being used: ${errorMessage}.</value>
+        <value xml:lang="nl">Fout bij het opslaan van het nieuwe wachtwoord, de email die u zal ontvangen bevat niet het correcte wachtwoord, uw oude wachtwoord is nog geldig: ${errorMessage}.</value>
         <value xml:lang="ru">Ошибка сохранения нового пароля, полученное вами сообщение будет содержать неверный пароль, по прежнему используется ваш старый пароль: ${errorMessage}.</value>
         <value xml:lang="th">ผิดพลาดขณะกำลังบันทึกรหัสผ่านใหม่, อีเมลนั่นที่คุณได้รับจะไม่มีรหัสผ่านที่ถูกต้องในนั้น, รหัสผ่านเก่าของคุณยังคงใช้ได้อยู่: ${errorMessage}.</value>
         <value xml:lang="zh">保存新密码时出错，你收到的电子邮件中的密码不会是正确的，仍会使用你的旧密码：${errorMessage}。</value>
@@ -56,7 +57,7 @@
         <value xml:lang="es">Error: no se pudo enviar password por correo. Intente nuevamente o contacte el servicio a cliente</value>
         <value xml:lang="fr">Erreur : impossible d'envoyer le mot de passe par courriel. Merci de réessayer ultérieurement ou de contacter votre service commercial.</value>
         <value xml:lang="it">Errore: non è possibile mandare la password per e-mail. Riprovare più tardi o contattare il servizio clienti.</value>
-        <value xml:lang="nl">Error occurred: unable to email password.  Please try again later or contact customer service.</value>
+        <value xml:lang="nl">Fout: het nieuwe wachtwoord kan niet gemaild worden. Probeert u het later a.u.b. of neem contact op met de klantenservice.</value>
         <value xml:lang="ro">Eroare aparuta: nu este posibila trimiterea parolei e-mail.Va rugam  incercati mai tarziu sau contactati serviciul clienti. loginevents.error_saving_new_password_email_not_correct_password=Eroare la  salvarea noii parole, e-mail-ul la care tu vei primi mesate nu are o parola corecta, vechia parola este deja folosita: ${errorMessage}.</value>
         <value xml:lang="ru">Произошла ошибка: невозможно отправить пароль по эл. почте.  Повторите попытку позже или свяжитесь со службой поддержки.</value>
         <value xml:lang="th">สิ่งที่เกิดขึ้นผิดพลาด: ไม่สามารถถึงรหัสผ่านอีเมล.  กรุณาลองอีกครั้งหรือติดต่อบริการลูกค้า.</value>
@@ -68,7 +69,7 @@
         <value xml:lang="es">Error occurred: unable to email password.  Please try again later or contact customer service.</value>
         <value xml:lang="fr">Erreur : impossible d'envoyer le mot de passe par courriel. Merci de réessayer ultérieurement ou de contacter votre service commercial. (erreur: ${errorMessage}).</value>
         <value xml:lang="it">Errore: non è possibile mandare la password per e-mail. Riprovare più tardi o contattare il servizio clienti. (errore: ${errorMessage})</value>
-        <value xml:lang="nl">Error occurred: unable to email password.  Please try again later or contact customer service. (error was: ${errorMessage}).</value>
+        <value xml:lang="nl">Fout: het nieuwe wachtwoord kan niet gemaild worden. Probeert u het later a.u.b. of neem contact op met de klantenservice.(fout is ${errorMessage}).</value>
         <value xml:lang="ro">Eroare aparuta: nu este posibila trimiterea parolei e-mail.Va rugam  incercati mai tarziu sau contactati serviciul clienti.(eroarea era: ${errorMessage}).</value>
         <value xml:lang="ru">Произошла ошибка: невозможно отправить пароль по эл. почте.  Повторите попытку позже или свяжитесь со службой поддержки. (ошибка: ${errorMessage}).</value>
         <value xml:lang="th">สิ่งที่เกิดขึ้นผิดพลาด: ไม่สามารถถึงรหัสผ่านอีเมล.  กรุณาลองอีกครั้งหรือติดต่อบริการลูกค้า. (ผิดพลาดคือ: ${errorMessage}).</value>
@@ -92,7 +93,7 @@
         <value xml:lang="es">Un nuevo password ha sido creado y enviado. Por favor revise su e-mail</value>
         <value xml:lang="fr">Un nouveau mot de passe a été crée et envoyé. Merci de vérifier votre courriel.</value>
         <value xml:lang="it">Una nuova password è stata creata ed inviata. Controlla le email.</value>
-        <value xml:lang="nl">A new password has been created and sent to you. Please check your Email.</value>
+        <value xml:lang="nl">Er is een nieuw wachtwoord naar uw emailadres verzonden.</value>
         <value xml:lang="ro">Ti-a fost creata si trimisa  o noua parola. Te rugam sa controlezi posta ta Email.</value>
         <value xml:lang="ru">Новый пароль создан и выслан вам. Пожалуйста, проверьте свою эл. почту.</value>
         <value xml:lang="th">รหัสผ่านใหม่มีการสร้างและส่งถึงคุณ. กรุณาตรวจสอบอีเมลของคุณ.</value>
@@ -104,7 +105,7 @@
         <value xml:lang="es">Su password ha sido enviado. Revise su e-mail</value>
         <value xml:lang="fr">Votre nouveau mot de passe vous a été envoyé. Merci de vérifier votre courriel.</value>
         <value xml:lang="it">La tua password ti è stata inviata. Controlla le email.</value>
-        <value xml:lang="nl">Your password has been sent to you. Please check your Email.</value>
+        <value xml:lang="nl">Er is een nieuw wachtwoord naar uw emailadres verzonden.</value>
         <value xml:lang="ro">Parola ta a fost trimisa. Te rugam s controlezi posta Email.</value>
         <value xml:lang="ru">Ваш пароль был выслан в ваш адрес. Пожалуйста, проверьте свою эл. почту.</value>
         <value xml:lang="th">รหัสผ่านของคุณได้ส่งถึงคุณ. กรุณาตรวจสอบอีเมลของคุณ.</value>
@@ -116,7 +117,7 @@
         <value xml:lang="es">No se especificó una pista para el password.</value>
         <value xml:lang="fr">Aucune spécification de mot de passé n'a été spécifiée, essayez de le recevoir par courriel.</value>
         <value xml:lang="it">Nessun suggerimento password è stato specificato, provare a richiedere l'invio della password per e-mail.</value>
-        <value xml:lang="nl">No password hint was specified, try having the password emailed instead.</value>
+        <value xml:lang="nl">Er is geen wachtwoord hint opgegeven, u kunt proberen een nieuw wachtwoord via de email op te vragen.</value>
         <value xml:lang="ro">Nu a fost specificat nici-un sugeriment pentru parola, Va rugam contactati serviciul clienti.</value>
         <value xml:lang="ru">Подсказка пароля не указана, попробуйте отправку пароля эл. почтой.</value>
         <value xml:lang="th">ไม่ระบุรหัสผ่านที่ซ่อน, ตรวจสอบรหัสผ่านแทนที่จะอีเมล.</value>
@@ -128,7 +129,7 @@
         <value xml:lang="es">No se ha actualizado dirección e-mail.</value>
         <value xml:lang="fr">Pas d'adresse courriel créée, merci de contacter votre service commercial.</value>
         <value xml:lang="it">Indirizzo email primario non impostato, prego contattare il servizio clienti.</value>
-        <value xml:lang="nl">No Primary Email Address has been set, please contact customer service.</value>
+        <value xml:lang="nl">Er is geen primair emailadres ingesteld, neem a.u.b. contact op met de klantenservice.</value>
         <value xml:lang="ro">Nici-o Adresa Primara Email a fost inregistrata, Va rugam contactati serviciul clienti.</value>
         <value xml:lang="ru">Не установлен основной адрес эл. почты, пожалуйста связывайтесь со службой поддержки.</value>
         <value xml:lang="th">ไม่มีการตั้งค่าที่อยู่อีเมลในขั้นแรก, กรุณาติดต่อบริการลูกค้า</value>
@@ -140,7 +141,7 @@
         <value xml:lang="es">Su pista de password es:</value>
         <value xml:lang="fr">La description du mot de passe est: ${passwordHint}.</value>
         <value xml:lang="it">Il suggerimento password è: ${passwordHint}.</value>
-        <value xml:lang="nl">The Password Hint is: ${passwordHint}.</value>
+        <value xml:lang="nl">Uw wachtwoord hint is: ${passwordHint}.</value>
         <value xml:lang="ro">Sugerimentul Parolei este: ${passwordHint}.</value>
         <value xml:lang="ru">Подсказка пароля: ${passwordHint}.</value>
         <value xml:lang="th">รหัสผ่านที่ซ่อนคือ: ${passwordHint}.</value>
@@ -152,7 +153,7 @@
         <value xml:lang="es">El password no puede ser vacío</value>
         <value xml:lang="fr">Le mot de passe était vide, SVP recommencez.</value>
         <value xml:lang="it">La password è vuota, prego inserirla dinuovo.</value>
-        <value xml:lang="nl">Het wachtwoord is leeg, toets aub opnieuw in.</value>
+        <value xml:lang="nl">Het wachtwoord is leeg, toets a.u.b. opnieuw in.</value>
         <value xml:lang="ro">Parola este goala, va rugam re-introduceti.</value>
         <value xml:lang="ru">Пароль пустой, введите повторно.</value>
         <value xml:lang="th">กลับเข้าไปสู่รหัสผ่านที่ว่างเปล่า</value>
@@ -162,6 +163,7 @@
         <value xml:lang="en">Your password has been changed successfully</value>
         <value xml:lang="de">Ihr Passwort wurde erfolgreich geändert</value>
         <value xml:lang="fr">Votre mot de passe a été changé avec succès</value>
+        <value xml:lang="nl">Uw wachtwoord is aangepast</value>     
     </property>
     <property key="loginevents.problems_with_configuration_contact_customer_service">
         <value xml:lang="de">Fehler bei der Konfiguration; bitte wenden Sie sich an den Kundenservice.</value>
@@ -169,7 +171,7 @@
         <value xml:lang="es">Problemas con configuración. Contacte el servicio al cliente</value>
         <value xml:lang="fr">Problèmes avec la connexion, merci de contacter votre service commercial.</value>
         <value xml:lang="it">Problemi con la configurazione; per favore contattare il servizio clienti.</value>
-        <value xml:lang="nl">Problems with configuration; please contact customer service.</value>
+        <value xml:lang="nl">Er is een probleem opgetreden met de configuratie. Neem a.u.b. contact op met de klantenservice.</value>
         <value xml:lang="ro">Probleme la configurare; Va rugam contactati serviciul clienti.</value>
         <value xml:lang="ru">Проблемы с конфигурацией; свяжитесь со службой поддержки.</value>
         <value xml:lang="th">ปัญหาโครงร่างภายนอก; กรุณาติดต่อบริการลูกค้า</value>
@@ -181,7 +183,7 @@
         <value xml:lang="es">No puedo conectarse a esta aplicación (faltan permisos)</value>
         <value xml:lang="fr">Impossible de se connecter à cette application.</value>
         <value xml:lang="it">L'autenticazione per questa applicazione non è stata completata (permessi non sufficienti).</value>
-        <value xml:lang="nl">Login for this application couldn't be completed (required permissions missing).</value>
+        <value xml:lang="nl">Het inloggen kan niet voltooid worden (niet bevoegd)</value>
         <value xml:lang="ro">Autentificarea acestei aplicatii nu a fost completata (drepturi insuficiente).</value>
         <value xml:lang="ru">Регистрация для этого приложения не может быть завершена (отсутствуют требуемые права).</value>
         <value xml:lang="th">ไม่สามารถลอกอินเข้าสู่โปรแกรมประยุกต์นี้</value>
@@ -208,7 +210,7 @@
         <value xml:lang="es">El usuario "${userLoginId}" no fue encontrado, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur "${userLoginId}" est inconnu, entrez le de nouveau SVP.</value>
         <value xml:lang="it">L'utente "${userLoginId}" non è stato trovato, prego inserirlo dinuovo.</value>
-        <value xml:lang="nl">A user with the username "${userLoginId}" was not found, please re-enter.</value>
+        <value xml:lang="nl">Er is geen gebruiker gevonden met de gebruikersnaam "${userLoginId}", probeer het a.u.b. opnieuw.</value>
         <value xml:lang="ro">Utilizatorul cu nume "${userLoginId}" nu a fost gasit, va rog re-introduceti.</value>
         <value xml:lang="ru">Пользователь с именем "${userLoginId}" не найден, пожалуйста повторите ввод.</value>
         <value xml:lang="th">ผู้ใช้ที่ใช้ชื่อผู้เข้าใช้ "${userLoginId}" ไม่พบ, กรุณากรอกข้อมูลใหม่</value>
@@ -220,7 +222,7 @@
         <value xml:lang="es">El usuario "${userLoginId}" no fue encontrado, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur est inconnu, entrez le de nouveau, SVP.</value>
         <value xml:lang="it">L'utente non è stato trovato, prego inserirlo dinuovo.</value>
-        <value xml:lang="nl">De gebruikersnaam is niet gevonden,toets aub opnieuw in.</value>
+        <value xml:lang="nl">De gebruikersnaam is niet gevonden, toets a.u.b. opnieuw in.</value>
         <value xml:lang="ro">Nume Utilizator nu a fost gasit, va rugam reintroduceti.</value>
         <value xml:lang="ru">Это имя пользователя не найдено, введите повторно.</value>
         <value xml:lang="th">ไม่พบชื่อผู้เข้าใช้, กรุณากรอกข้อมูลอีกครั้ง</value>
@@ -232,7 +234,7 @@
         <value xml:lang="es">El usuario no puede ser vacío, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur est vide, taper le de nouveau SVP.</value>
         <value xml:lang="it">L'utente è vuoto, prego inserirlo dinuovo.</value>
-        <value xml:lang="nl">De gebruikersnaam is leeg, toets aub opnieuw in.</value>
+        <value xml:lang="nl">De gebruikersnaam is leeg, toets a.u.b. opnieuw in.</value>
         <value xml:lang="ro">Nume Utilizator este gol, va rugam reintroduceti.</value>
         <value xml:lang="ru">Имя пользователя пустое, введите повторно.</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ว่าง, กรุณากรอกข้อมูลอีกครั้ง</value>
@@ -244,7 +246,7 @@
         <value xml:lang="es">Falta nuevo password</value>
         <value xml:lang="fr">Le nouveau mot de passe manque</value>
         <value xml:lang="it">La nuova password è mancante.</value>
-        <value xml:lang="nl">Het nieuwe wachtwoord mist.</value>
+        <value xml:lang="nl">Het nieuwe wachtwoord is leeg</value>
         <value xml:lang="ro">Noua Parola lipseste.</value>
         <value xml:lang="ru">Отсутствует новый пароль.</value>
         <value xml:lang="th">ไม่พบรหัสผ่านใหม่</value>
@@ -256,7 +258,7 @@
         <value xml:lang="es">Falta verificación de nuevo password</value>
         <value xml:lang="fr">La vérification du nouveau mot de passe manque</value>
         <value xml:lang="it">La verifica della nuova password è mancante</value>
-        <value xml:lang="nl">New Password Verify is missing</value>
+        <value xml:lang="nl">Nieuw verificatie wachtwoord is leeg</value>
         <value xml:lang="ro">Lipseste Parola de verificare.</value>
         <value xml:lang="ru">Отсутствует новый проверочный пароль</value>
         <value xml:lang="th">ไม่พบการตรวจสอบรหัสผ่านใหม่</value>
@@ -268,7 +270,7 @@
         <value xml:lang="es">Falta antiguo password</value>
         <value xml:lang="fr">L'ancien mot de passe manque</value>
         <value xml:lang="it">La vecchia password è mancante.</value>
-        <value xml:lang="nl">Het oude wachtwoord mist.</value>
+        <value xml:lang="nl">Het oude wachtwoord is leeg</value>
         <value xml:lang="ro">Vechea Parola lipseste.</value>
         <value xml:lang="ru">Отсутствует пароль (старый).</value>
         <value xml:lang="th">ไม่พบรหัสผ่านเก่า</value>
@@ -280,7 +282,7 @@
         <value xml:lang="es">Los passwords no concuerdan</value>
         <value xml:lang="fr">Le nouveau mot de passe ne correspond pas à la vérification de ce nouveau mot de passe</value>
         <value xml:lang="it">La nuova password non è ugugale alla password di verifica</value>
-        <value xml:lang="nl">New Password does not equal Verfiy Password</value>
+        <value xml:lang="nl">Het nieuwe wachtwoord komt niet overeen met het verificatie wachtwoord</value>
         <value xml:lang="ro">Noua Parola nu este egala cu  Parola de Verificare</value>
         <value xml:lang="ru">Новый пароль не равен проверочному</value>
         <value xml:lang="th">รหัสผ่านใหม่ไม่ตรงกับรหัสผ่านที่ยืนยันความถูกต้อง</value>
@@ -304,7 +306,7 @@
         <value xml:lang="es">La cuenta  "${username}" ha sido deshabilitada</value>
         <value xml:lang="fr">Le compte de l'utilisateur "${username}" a été neutralisé.</value>
         <value xml:lang="it">L'utente "${username}" è stato disabilitato.</value>
-        <value xml:lang="nl">De gebruikersnaam: "${username}" is onbruikbaar gemaakt.</value>
+        <value xml:lang="nl">De gebruikersnaam: "${username}" is geblokkeerd.</value>
         <value xml:lang="ro">Utilizatorul "${username}" a fost dezactivat.</value>
         <value xml:lang="ru">Пользователь с именем "${username}" заблокирован.</value>
         <value xml:lang="th">บัญชีสำหรับรหัสการลอกอินเข้าสู่ระบบของผู้ใช้ "${username}" ไม่สามารถ.</value>
@@ -316,7 +318,7 @@
         <value xml:lang="es">No se pudo cambiar el password. Error de lectura ${errorMessage}.</value>
         <value xml:lang="fr">Impossible de changer le mot de passe (erreur de lecture) : ${errormessage}.</value>
         <value xml:lang="it">Non è possibile cambiare la password (lettura fallita): ${errorMessage}.</value>
-        <value xml:lang="nl">Could not change password (read failure): ${errorMessage}.</value>
+        <value xml:lang="nl">Het wachtwoord kan niet veranderd worden (leesfout): ${errorMessage}.</value>
         <value xml:lang="ro">Nu este posibila schimbiarea parolei (citare falita): ${errorMessage}.</value>
         <value xml:lang="ru">Невозможно изменить пароль (ошибка чтения): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนรหัสผ่าน (การอ่านล้มเหลว): ${errorMessage}.</value>
@@ -328,7 +330,7 @@
         <value xml:lang="es">No se pudo cambiar el password. El usuario con Id "${userLoginId}"  no existe</value>
         <value xml:lang="fr">Impossible de changer le mot de passe, l'identifiant de connexion "${userLoginId}" n'existe pas.</value>
         <value xml:lang="it">Non è possibile cambiare la password, l'utente "${userLoginId}" non esiste.</value>
-        <value xml:lang="nl">Could not change password, UserLogin with ID "${userLoginId}" does not exist.</value>
+        <value xml:lang="nl">Het wachtwoord kan niet veranderd worden. De gebruikersnaam met "${userLoginId}" bestaat niet.</value>
         <value xml:lang="ro">Nu este  posibila schimbarea parolei, Cod Utilizator "${userLoginId}" inexistent.</value>
         <value xml:lang="ru">Невозможно изменить пароль, Имя пользователя с кодом "${userLoginId}" не существует.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนรหัสผ่าน, การลอกอินเข้าสู่ระบบของผู้ใช้ด้วยรหัส "${userLoginId}"ไม่มีอยู่</value>
@@ -340,7 +342,7 @@
         <value xml:lang="es">No se puede cambiar password.${errorMessage}.</value>
         <value xml:lang="fr">Impossible de changer le mot de passe (erreur d'écriture) : ${errormessage}.\r\n</value>
         <value xml:lang="it">Non è possibile cambiare la password (scrittura fallita): ${errorMessage}.</value>
-        <value xml:lang="nl">Could not change password (write failure): ${errorMessage}.</value>
+        <value xml:lang="nl">Het wachtwoord kan niet veranderd worden. (schrijffout): ${errorMessage}.</value>
         <value xml:lang="ro">Nu este posibila schimbarea parolei (scriere falita): ${errorMessage}.</value>
         <value xml:lang="ru">Невозможно изменить пароль (ошибка записи): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนรหัสผ่าน (การเขียนล้มเหลว): ${errorMessage}.</value>
@@ -352,7 +354,7 @@
         <value xml:lang="es">No se pudo crear usuario. ${errorMessage}.</value>
         <value xml:lang="fr">Impossible de créer l'utilisateur (erreur de lecture) : ${errormessage}.</value>
         <value xml:lang="it">Non è possibile creare l'utente (lettura fallita): ${errorMessage}.</value>
-        <value xml:lang="nl">Could not create login user (read failure): ${errorMessage}.</value>
+        <value xml:lang="nl">De gebruikersnaam kan niet worden aangemaakt. (leesfout): ${errorMessage}.</value>
         <value xml:lang="ro">Nu este posibila crearea utilizatorului(citare falita): ${errorMessage}.</value>
         <value xml:lang="ru">Невозможно создать имя пользователя (ошибка чтения): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถสร้างการลอกอินเข้าสู่ระบบของผู้ใช้ (การอ่านล้มเหลว): ${errorMessage}.</value>
@@ -364,7 +366,7 @@
         <value xml:lang="es">El usuario "${userLoginId}" ya existe</value>
         <value xml:lang="fr">Impossible de créer l'utilisateur "${userLoginId}", il existe déjà.</value>
         <value xml:lang="it">Non è possibile creare l'utente "${userLoginId}", già esistente.</value>
-        <value xml:lang="nl">Could not create login user: user with ID "${userLoginId}" already exists.</value>
+        <value xml:lang="nl">De gebruikersnaam kan niet worden aangemaakt: de gebruikersnaam "${userLoginId}" bestaat al.</value>
         <value xml:lang="ro">Nu este posibila crearea utilizatorului: Cod cu "${userLoginId}" deja existent.</value>
         <value xml:lang="ru">Невозможно создать имя: пользователь с кодом "${userLoginId}" уже существует.</value>
         <value xml:lang="th">ไม่สามารถสร้างการลอกอินเข้าสู่ระบบของผู้ใช้: ผู้ใช้ด้วยรหัส "${userLoginId}" ยังคงมีอยู่แล้ว.</value>
@@ -376,7 +378,7 @@
         <value xml:lang="es">No se pudo crear usuario. Error de escritura ${errorMessage}.</value>
         <value xml:lang="fr">Impossible de créer l'utilisateur (erreur d'écriture) : ${errormessage}.</value>
         <value xml:lang="it">Non è possibile creare l'utente (scrittura fallita): ${errorMessage}.</value>
-        <value xml:lang="nl">Couldn't create login user (write failure): ${errorMessage}.</value>
+        <value xml:lang="nl">De gebruikersnaam kan niet worden aangemaakt (schrijffout): ${errorMessage}.</value>
         <value xml:lang="ro">Nu este posibila crearea utilizatorului (scriere falita): ${errorMessage}.</value>
         <value xml:lang="ru">Невозможно создать имя пользователяr (ошибка записи): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถสร้างการลอกอินเข้าสู่ระบบของผู้ใช้ (การเขียนล้มเหลว): ${errorMessage}.</value>
@@ -388,7 +390,7 @@
         <value xml:lang="es">No se pudo deshabilitar usuario.${errorMessage}.</value>
         <value xml:lang="fr">Impossible d'annuler l'ancien compte utilisateur (erreur d'écriture) : ${errorMessage}.</value>
         <value xml:lang="it">Non è possibile disabilitare l'utente (scrittura fallita): ${errorMessage}.</value>
-        <value xml:lang="nl">Couldn't disable old login user (write failure): ${errorMessage}.</value>
+        <value xml:lang="nl">De oude gebruikersnaam kan niet geblokkeerd worden (schrijffout): ${errorMessage}.</value>
         <value xml:lang="ro">Nu este posibila dezactivarea vechiului utilizator (scriere falita): ${errorMessage}.</value>
         <value xml:lang="ru">Невозможно заблокировать старое имя пользователя (ошибка записи): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถใช้การลอกอินเข้าสู่ระบบของผู้ใช้เก่า  (การเขียนช้มเหลว): ${errorMessage}. </value>
@@ -399,6 +401,7 @@
         <value xml:lang="en">LDAP authentication failed.</value>
         <value xml:lang="fr">L'authentification LDAP a échouée.</value>
         <value xml:lang="it">Autenticazione LDAP fallita.</value>
+        <value xml:lang="nl">LDAP authenticatie mislukt.</value>        
         <value xml:lang="zh">LDAP认证失败。</value>
     </property>
     <property key="loginservices.must_be_logged_in_and_permission_create_login_party_ID_exists">
@@ -407,7 +410,7 @@
         <value xml:lang="es">Debe estar conectado y contar con permisos para crear un usuario a un participante existente</value>
         <value xml:lang="fr">Vous devez être connecté et avoir l'autorisation de créer un compte utilisateur avec une réf. d'acteur d'un acteur qui existe déjà.</value>
         <value xml:lang="it">Devi autenticarti ed avere i permessi per creare un'utente con un codice soggetto già esistente.</value>
-        <value xml:lang="nl">You must be logged in and have permission to create a user login with a party ID for a party that already exists.</value>
+        <value xml:lang="nl">U moet ingelogd zijn en toegang hebben om een gebruikersnaam en relatie ID aan te maken voor een reeds bestaande relatie.</value>
         <value xml:lang="ro">Trebbie sa te autentifici si sa ai dreptul sa creezi un utilizator cu Cod subiect pentru un subiect deja existent.</value>
         <value xml:lang="ru">Вы должны войти в систему и у вас должны быть права на создание имени пользователя для существующего участника.</value>
         <value xml:lang="th">คุณต้องมีการลอกอินเข้าสู่ระบบและมีการอนุญาตถึงการสร้างการลอกอิยของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้สำหรับกลุ่มผู้ใช้ที่ยังคงมีอยู่แล้ว</value>
@@ -419,7 +422,7 @@
         <value xml:lang="es">Debe estar conectado y contar con permisos para crear un usuario a un participante existente</value>
         <value xml:lang="fr">Vous devez être connecté et avoir l'autorisation de créer un compte utilisateur avec une réf. d'acteur d'un acteur qui existe déjà.</value>
         <value xml:lang="it">Devi autenticarti ed avere i permessi per creare un'utente con un codice soggetto già esistente.</value>
-        <value xml:lang="nl">You must be logged in and have permission to create a user login with a party ID for a party that already exists.</value>
+        <value xml:lang="nl">U moet ingelogd zijn en toegang hebben om een gebruikersnaam en relatie ID aan te maken voor een reeds bestaande relatie.</value>
         <value xml:lang="ro">Trebuie sa te autentifici si sa ai dreptul de a crea un utilizator cu un Cod subiect pentru un subiect deja existent.</value>
         <value xml:lang="ru">Вы должны войти в систему и у вас должны быть права на создание имени пользователя для существующего участника.</value>
         <value xml:lang="th">คุณต้องมีการลอกอินเข้าสู่ระบบและมีการอนุญาตถึงการสร้างการลอกอิยของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้สำหรับกลุ่มผู้ใช้ที่ยังคงมีอยู่แล้ว</value>
@@ -430,6 +433,7 @@
         <value xml:lang="en">The new password must be different from the old one.</value>
         <value xml:lang="fr">Le nouveau mot de passe doit être différent de l'ancien.</value>
         <value xml:lang="it">La nuova password deve essere diversa dalla vecchia.</value>
+        <value xml:lang="nl">Uw nieuwe wachtwoord moet verschillen van het oude wachtwoord.</value>     
         <value xml:lang="th">รหัสผ่านใหม่ต้องแตกต่างจากอันเดิม</value>
         <value xml:lang="zh">新密码必须与旧的不同。</value>
     </property>
@@ -439,7 +443,7 @@
         <value xml:lang="es">No tiene permisos para modificar el password para este usuario</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de mettre à jour le mot de passe pour ce compte utilisateur.</value>
         <value xml:lang="it">Non sei autorizzato ad aggiornare la password per questo utente.</value>
-        <value xml:lang="nl">You do not have permission to update the password for this user login.</value>
+        <value xml:lang="nl">U heeft geen toegang tot het aanpassen van het wachtwoord van deze gebruikersnaam.</value>
         <value xml:lang="ro">Nu esti autorizat sa actualizezi parola pentru acest utilizator.</value>
         <value xml:lang="ru">У вас недостаточно прав для обновления пароля этого пользователя.</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการอัพเดทรหัสผ่านสำหรับการลอกอินของผู้ใช้</value>
@@ -451,7 +455,7 @@
         <value xml:lang="es">Usted no cuenta con permisos para actualizar la información de este usuario.</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de mettre à jour l'information de sécurité pour ce compte utilisateur.</value>
         <value xml:lang="it">Tu non sei autorizzato ad aggiornare le informazioni sulla sicurezza per questo utente.</value>
-        <value xml:lang="nl">You do not have permission to update the security info for this user login.</value>
+        <value xml:lang="nl">U heeft geen toegang tot het aanpassen van de veiligheidsinformatie van deze gebruikersnaam.</value>
         <value xml:lang="ro">Tu nu esti  autorizat sa actualizezi informatiile de siguranta ale acestui utilizator.</value>
         <value xml:lang="ru">У вас нет прав измениять информацию по безопасности для этого имени пользователя.</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการอัพเดทข้อมูลความปลอดภัยสำหรับการลอกอินของผู้ใช้นี้</value>
@@ -463,7 +467,7 @@
         <value xml:lang="es">No se ha programado para ser reactivado</value>
         <value xml:lang="fr">Le renouvellement n'est pas envisagé.</value>
         <value xml:lang="it">La riabilitazione non è stata programmata.</value>
-        <value xml:lang="nl">Het is niet geplanned om hem weer bruikbaar te maken.</value>
+        <value xml:lang="nl">Het is niet gepland om weer te activeren.</value>
         <value xml:lang="ro">Aceasta nu a fost planificata pentru  re-abilitare.</value>
         <value xml:lang="ru">Не запланирован для разблокирования.</value>
         <value xml:lang="th">ไม่สามารถใช้งานตารางเวลาได้อีกครั้ง</value>
@@ -475,7 +479,7 @@
         <value xml:lang="es">El password antiguo no es correcto, por favor ingreselo nuevamente</value>
         <value xml:lang="fr">L'ancien mot de passe n'est pas correct, réessayez SVP.</value>
         <value xml:lang="it">La vecchia password non è corretta, riprovare prego.</value>
-        <value xml:lang="nl">Het oude wachtwoord was niet juist, geef het opnieuw in.</value>
+        <value xml:lang="nl">Het oude wachtwoord is niet juist, geef het a.u.b. opnieuw in.</value>
         <value xml:lang="ro">Vecchia Patola nu este corecta, va rog re-introduceti.</value>
         <value xml:lang="ru">Старый пароль не корректный, пожалуйста введите правильный.</value>
         <value xml:lang="th">รหัสผ่านเดิมไม่ถูกต้อง, กรุณากรอกข้อมูลอีกครั้ง</value>
@@ -487,7 +491,7 @@
         <value xml:lang="es">El participante existe y usted no tiene permisos para crear usuarios a este participante</value>
         <value xml:lang="fr">L'acteur avec la réf. spécifiée existe et vous n'avez pas l'autorisation de créer un compte utilisateur avec cette réf. d'acteur.</value>
         <value xml:lang="it">Il soggetto con il codice specificato esiste già e non hai i permessi per creare un'utente con questo codice soggetto.</value>
-        <value xml:lang="nl">Party with specified party ID exists and you do not have permission to create a user login with this party ID.</value>
+        <value xml:lang="nl">De relatie met opgegeven relatie ID bestaat al en u heeft geen toegang tot het aanmaken van een gebruikersnaam met deze relatie ID.</value>
         <value xml:lang="ro">Subiectul cu Codul specificat exista deja si nu ai dreptul sa creezi un utilizator cu  acest Cod subiect.</value>
         <value xml:lang="ru">Участник с указанным кодом найден, но у вас недостаточно прав создавать имя пользователя для этого участника.</value>
         <value xml:lang="th">กลุ่มผู้ใช้ด้วยการระบุรหัสกลุ่มผู้ใช้ที่ยังคงมีอยู่และคุณไม่มีการอนุญาตถึงการสร้างการลอกอินของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้นี้.</value>
@@ -499,7 +503,7 @@
         <value xml:lang="es">Usted no tiene permiso para crear usuarios para este participante</value>
         <value xml:lang="fr">L'acteur avec la réf. spécifiée existe et vous n'avez pas l'autorisation de créer un compte utilisateur avec cette réf. d'acteur.</value>
         <value xml:lang="it">Il soggetto con il codice specificato esiste già e non hai i permessi per creare un'utente con questo codice soggetto.</value>
-        <value xml:lang="nl">Partij met de gespecificeerde ID bestaat reeds en U hebt niet de nodige rechten om een login Nr voor deze party aan te maken.</value>
+        <value xml:lang="nl">Relatie met de opgegeven ID bestaat al en u heeft geen toegang tot het aanmaken van een gebruikersnaam met deze relatie ID.</value>
         <value xml:lang="ro">Subiectul cu Codul specificat exista deja, Nu ai drept sa creezi un utilizator cu acest cod Subiect.</value>
         <value xml:lang="ru">Участник с указанным кодом найден, но у вас недостаточно прав создавать имя пользователя для этого участника.</value>
         <value xml:lang="th">กลุ่มผู้ใช้ด้วยการระบุรหัสกลุ่มผู้ใช้ที่ยังคงมีอยู่และคุณไม่มีการอนุญาตถึงการสร้างการลอกอินของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้นี้.</value>
@@ -535,7 +539,7 @@
         <value xml:lang="es">Password incorrecto</value>
         <value xml:lang="fr">Mot de passe incorrect.</value>
         <value xml:lang="it">Password non corretta.</value>
-        <value xml:lang="nl">Wachtwoord niet juist.</value>
+        <value xml:lang="nl">Wachtwoord is niet juist.</value>
         <value xml:lang="ro">Parola incorecta.</value>
         <value xml:lang="ru">Неверный пароль.</value>
         <value xml:lang="th">รหัสผ่านไม่ถูกต้อง</value>
@@ -559,7 +563,7 @@
         <value xml:lang="es">Falta password</value>
         <value xml:lang="fr">Le mot de passe manque</value>
         <value xml:lang="it">Password mancante.</value>
-        <value xml:lang="nl">Wachtwoord ontbreekt.</value>
+        <value xml:lang="nl">Wachtwoord is leeg.</value>
         <value xml:lang="ro">Lipseste Parola.</value>
         <value xml:lang="ru">Отсутствует пароль.</value>
         <value xml:lang="th">ไม่พบรหัสผ่าน</value>
@@ -570,6 +574,7 @@
         <value xml:lang="en">Password cannot be one of your last ${passwordChangeHistoryLimit} passwords.</value>
         <value xml:lang="fr">Le mot de passe ne peut être un de vos derniers ${passwordChangeHistoryLimit} mots de passe.</value>
         <value xml:lang="it">La password non può essere una delle tue ultime ${passwordChangeHistoryLimit} password.</value>
+        <value xml:lang="nl">Het wachtwoord mag niet overeenkomen met uw laatste ${passwordChangeHistoryLimit} wachtwoorden.</value>        
         <value xml:lang="th">รหัสผ่านไม่สามารถเป็นหนึ่งของสิ่งสุดท้ายของคุณ ${passwordChangeHistoryLimit} รหัสผ่าน.</value>
         <value xml:lang="zh">密码不能是你用过的最近的${passwordChangeHistoryLimit}个密码之一。</value>
     </property>
@@ -591,7 +596,7 @@
         <value xml:lang="es">Falta password o verificación de password</value>
         <value xml:lang="fr">Le mot de passe ou la vérification de mot de passe manque</value>
         <value xml:lang="it">La password o verifica password è mancante.</value>
-        <value xml:lang="nl">Wachtwoord of bevestig wachtwoord mist..</value>
+        <value xml:lang="nl">Wachtwoord of herhaal wachtwoord is leeg</value>
         <value xml:lang="ro">Parola sau verificarea parolei lipseste.</value>
         <value xml:lang="ru">Отсутствуют пароль или проверочный пароль.</value>
         <value xml:lang="th">รหัสผ่านหรือไม่พบการยืนยันรหัสผ่านที่ถูกต้อง.</value>
@@ -615,7 +620,7 @@
         <value xml:lang="es">Usuario no encontrado</value>
         <value xml:lang="fr">Utilisateur non trouvé.</value>
         <value xml:lang="it">Utente non trovato.</value>
-        <value xml:lang="nl">Gebruikersnaam niet gevonden</value>
+        <value xml:lang="nl">Gebruikersnaam niet gevonden.</value>
         <value xml:lang="ro">Nu gaseste Utilizatorul.</value>
         <value xml:lang="ru">Пользователь не найден.</value>
         <value xml:lang="th">ไม่พบผู้เข้าใช้</value>
@@ -627,7 +632,7 @@
         <value xml:lang="es">Falta usuario</value>
         <value xml:lang="fr">Le nom d'utilisateur manque.</value>
         <value xml:lang="it">Nome Utente mancante.</value>
-        <value xml:lang="nl">Gebruikersnaam mist.</value>
+        <value xml:lang="nl">Gebruikersnaam is leeg.</value>
         <value xml:lang="ro">Nume Utilizator lipseste.</value>
         <value xml:lang="ru">Отсутствует имя пользователя.</value>
         <value xml:lang="th">ไม่พบชื่อผู้เข้าใช้</value>
@@ -639,7 +644,7 @@
         <value xml:lang="es">Será reactivado en ${reEnableTime}.</value>
         <value xml:lang="fr">Il sera renouvellé : ${reEnableTime}.</value>
         <value xml:lang="it">Sarà riabilitata ${reEnableTime}.</value>
-        <value xml:lang="nl">Hij zal weer bruikbaar zijn op ${reEnableTime}.</value>
+        <value xml:lang="nl">Hij zal weer geactiveerd zijn op ${reEnableTime}.</value>
         <value xml:lang="ro">Aceasta a fost re-abilitata in ${reEnableTime}.</value>
         <value xml:lang="ru">Он будет разблокирован ${reEnableTime}.</value>
         <value xml:lang="th">มันจะไม่สามารถใช้ได้อีกครั้ง ${reEnableTime}.</value>

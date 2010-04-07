@@ -25,6 +25,7 @@
         <value xml:lang="fr">Des erreurs sont survenues lors de l'analyse</value>
         <value xml:lang="hi_IN">पार्सिंग के दौरान त्रुटियाँ हुई</value>
         <value xml:lang="it">Errore accaduti durante il parsing</value>
+        <value xml:lang="nl">Er zijn fouten opgetreden tijdens het parsen</value>       
         <value xml:lang="zh">解析时发生错误</value>
     </property>
     <property key="ImageTransform.error_occurs_during_reading">
@@ -33,6 +34,7 @@
         <value xml:lang="fr">Une erreur est survenue lors de la lecture</value>
         <value xml:lang="hi_IN">पढ़ने के दौरान एक त्रुटि हो रही है</value>
         <value xml:lang="it">E' successo un'errore durante la lettura</value>
+        <value xml:lang="nl">Er is een fout opgetreden tijdens het lezen</value>        
         <value xml:lang="zh">读取时发生了一个错误</value>
     </property>
     <property key="ImageTransform.final_scale_factor_is_null">
@@ -41,6 +43,7 @@
         <value xml:lang="fr">Le facteur final de redimensionnement est nul</value>
         <value xml:lang="hi_IN">अंतिम पैमाने पहलू null है</value>
         <value xml:lang="it">Fattore di scala finale è nullo</value>
+        <value xml:lang="nl">De definitieve schaalfactor is leeg</value>        
         <value xml:lang="zh">最终的缩放因子是null</value>
     </property>
     <property key="ImageTransform.height_scale_factor_is_null">
@@ -49,6 +52,7 @@
         <value xml:lang="fr">Le ratio 'hauteur' de redimensionnement est nul</value>
         <value xml:lang="hi_IN">ऊँचाई पैमाने पहलू null है</value>
         <value xml:lang="it">Fattore di scala altezza è nullo</value>
+        <value xml:lang="nl">Schaalfactor hoogte is leeg</value>        
         <value xml:lang="zh">高度缩放因子是null</value>
     </property>
     <property key="ImageTransform.input_is_null">
@@ -57,6 +61,7 @@
         <value xml:lang="fr">La valeur saisie est nulle</value>
         <value xml:lang="hi_IN">इनपुट null है</value>
         <value xml:lang="it">Input è nullo</value>
+        <value xml:lang="nl">De ingave is leeg</value>      
         <value xml:lang="zh">输入是null</value>
     </property>
     <property key="ImageTransform.error_prevents_the document_from_being_fully_parsed">
@@ -65,6 +70,7 @@
         <value xml:lang="fr">Une erreur empêche que le document soit entièrement analysé</value>
         <value xml:lang="hi_IN">त्रुटि दस्तावेज़ को पूरी तरह पार्स करने से रोक रही है</value>
         <value xml:lang="it">Errore previene il documento da essere completamente parsato</value>
+        <value xml:lang="nl">Een fout verhinderd het volledig parsen van het document</value>       
         <value xml:lang="zh">发生错误阻止了文档完全解析</value>
     </property>
     <property key="ImageTransform.one_default_dimension_is_null">
@@ -73,6 +79,7 @@
         <value xml:lang="fr">Une des dimensions par défaut est nulle</value>
         <value xml:lang="hi_IN">एक डिफ़ॉल्ट आयाम null है</value>
         <value xml:lang="it">Dimensione uno di default è nullo</value>
+        <value xml:lang="nl">Een standaad dimensie is leeg</value>      
         <value xml:lang="zh">一个缺省的纬度是null</value>
     </property>
     <property key="ImageTransform.root_element_has_not_been_set">
@@ -81,6 +88,7 @@
         <value xml:lang="fr">L'élement racine n'a pas pu être chargé</value>
         <value xml:lang="hi_IN">रूट तत्व निर्धारित नहीं किया गया है</value>
         <value xml:lang="it">Elemento root non è stato impostato</value>
+        <value xml:lang="nl">Root element is niet ingesteld</value>     
         <value xml:lang="zh">已经设置了根元素</value>
     </property>
     <property key="ImageTransform.unknown_buffered_image_type">
@@ -89,6 +97,7 @@
         <value xml:lang="fr">Le type d'image bufferisée est inconnu</value>
         <value xml:lang="hi_IN">buffered छवि का अज्ञात प्रकार</value>
         <value xml:lang="it">Tipo di immagine sconosciuta bufferizzata</value>
+        <value xml:lang="nl">Onbekend gebufferde afbeeldingsoort</value>        
         <value xml:lang="zh">未知的缓冲的图片类型</value>
     </property>
     <property key="ImageTransform.width_scale_factor_is_null">
@@ -97,6 +106,7 @@
         <value xml:lang="fr">Le ratio 'largeur' de redimensionnement est nul</value>
         <value xml:lang="hi_IN">चौड़ाई पैमाने कारक(Width scale factor) null है</value>
         <value xml:lang="it">Fattore di scala altezza è nullo</value>
+        <value xml:lang="nl">Schaalfactor breedte is leeg</value>       
         <value xml:lang="zh">宽度缩放因子是null</value>
     </property>
 </resource>

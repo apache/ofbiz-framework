@@ -25,6 +25,7 @@
         <value xml:lang="fr">Cpt. fourn.</value>
         <value xml:lang="hi_IN">लेखा देय</value>
         <value xml:lang="it">AP</value>
+        <value xml:lang="nl">Schulden</value>       
         <value xml:lang="zh">应付账户</value>
     </property>
     <property key="AR">
@@ -34,6 +35,7 @@
         <value xml:lang="fr">Cpt. clients</value>
         <value xml:lang="hi_IN">लेखा प्राप्य</value>
         <value xml:lang="it">AR</value>
+        <value xml:lang="nl">Vorderingen</value>        
         <value xml:lang="zh">应收账户</value>
     </property>
     <property key="Accounting">
@@ -59,6 +61,7 @@
         <value xml:lang="fr">Maintenance</value>
         <value xml:lang="hi_IN">संपत्ति का रखरखाव</value>
         <value xml:lang="it">Gestione cespiti</value>
+        <value xml:lang="nl">Vermogensbeheer</value>        
         <value xml:lang="th">การรักษาทรัพย์สิน</value>
         <value xml:lang="zh">资产维护</value>
     </property>
@@ -69,6 +72,7 @@
         <value xml:lang="fr">Informat. décis.</value>
         <value xml:lang="hi_IN">व्यापार बुद्धिमत्ता</value>
         <value xml:lang="it">Business intelligence</value>
+        <value xml:lang="nl">Business intelligence</value>      
         <value xml:lang="th">การเรียนรู้ทางธุรกิจ</value>
         <value xml:lang="zh">商业智能</value>
     </property>
@@ -122,7 +126,7 @@
         <value xml:lang="fr">Actif / Inactif</value>
         <value xml:lang="hi_IN">सक्रिय और निष्क्रिय</value>
         <value xml:lang="it">Attivo e inattivo</value>
-        <value xml:lang="nl">Aktief en Inaktief</value>
+        <value xml:lang="nl">Actief en Inactief</value>
         <value xml:lang="pt">Activo e Inactivo</value>
         <value xml:lang="ro">Activ si Pasiv</value>
         <value xml:lang="ru">Активные и неактивные</value>
@@ -138,7 +142,7 @@
         <value xml:lang="fr">Seulement actif</value>
         <value xml:lang="hi_IN">केवल सक्रिय</value>
         <value xml:lang="it">Solo attivi</value>
-        <value xml:lang="nl">Alleen Aktief</value>
+        <value xml:lang="nl">Alleen Actief</value>
         <value xml:lang="pt">Somente Activo</value>
         <value xml:lang="ro">Numai Activ</value>
         <value xml:lang="ru">Только активные</value>
@@ -153,7 +157,7 @@
         <value xml:lang="fr">Date de début réelle</value>
         <value xml:lang="hi_IN">वास्तविक प्रारम्भ दिनांक</value>
         <value xml:lang="it">Data inizio attuale</value>
-        <value xml:lang="nl">Actual Start Date</value>
+        <value xml:lang="nl">Werkelijke startdatum</value>
         <value xml:lang="ro">Data Initiere Actuala</value>
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
         <value xml:lang="zh">实际开始日期</value>
@@ -183,7 +187,7 @@
         <value xml:lang="fr">Ajouter un</value>
         <value xml:lang="hi_IN">एक जोड़ें</value>
         <value xml:lang="it">Aggiungi un</value>
-        <value xml:lang="nl">Voeg toe een</value>
+        <value xml:lang="nl">Toevoegen</value>
         <value xml:lang="pt">Adicionar um</value>
         <value xml:lang="ro">Adauga un</value>
         <value xml:lang="ru">Добавить </value>
@@ -196,6 +200,7 @@
         <value xml:lang="fr">Ajouter un portlet...</value>
         <value xml:lang="hi_IN">एक Portlet जोड़ें...</value>
         <value xml:lang="it">Aggiungi un portlet...</value>
+        <value xml:lang="nl">Toevoegen portlet...</value>       
         <value xml:lang="zh">添加一个Portlet...</value>
     </property>
     <property key="CommonAddColumn">
@@ -203,6 +208,7 @@
         <value xml:lang="fr">Ajouter une colonne</value>
         <value xml:lang="hi_IN">कॉलम जोड़ें</value>
         <value xml:lang="it">Aggiungi una colonna</value>
+        <value xml:lang="nl">Toevoegen column...</value>        
         <value xml:lang="zh">添加列</value>
     </property>
     <property key="CommonAddDefault">
@@ -214,7 +220,7 @@
         <value xml:lang="fr">Ajouter les valeurs par défaut</value>
         <value xml:lang="hi_IN">डिफ़ॉल्ट जोड़ें</value>
         <value xml:lang="it">Aggiungi default</value>
-        <value xml:lang="nl">Voeg default toe</value>
+        <value xml:lang="nl">Toevoegen standaard</value>
         <value xml:lang="pt">Adicionar Default</value>
         <value xml:lang="pt_PT">Adicionar Pré-definições</value>
         <value xml:lang="ro">Adauga Default</value>
@@ -231,7 +237,7 @@
         <value xml:lang="fr">Ajouter la référence</value>
         <value xml:lang="hi_IN">क्रमांक जोड़ें</value>
         <value xml:lang="it">Aggiungi codice</value>
-        <value xml:lang="nl">Voeg Nr toe</value>
+        <value xml:lang="nl">Toevoegen nummer</value>
         <value xml:lang="pt">Adicionar ID</value>
         <value xml:lang="ro">Adauga Cod</value>
         <value xml:lang="ru">Добавить ID</value>
@@ -247,7 +253,7 @@
         <value xml:lang="fr">Ajouter un nouveau</value>
         <value xml:lang="hi_IN">नया जोड़ें</value>
         <value xml:lang="it">Aggiungi nuovo</value>
-        <value xml:lang="nl">Voeg een nieuwe toe</value>
+        <value xml:lang="nl">Toevoegen nieuwe</value>
         <value xml:lang="pt">Adicionar Novo</value>
         <value xml:lang="ro">Adauga Nou</value>
         <value xml:lang="ru">Добавить новый</value>
@@ -263,7 +269,7 @@
         <value xml:lang="fr">Problème de création</value>
         <value xml:lang="hi_IN">समस्या जोड़ें</value>
         <value xml:lang="it">Aggiungi problema</value>
-        <value xml:lang="nl">Voeg een probleem toe</value>
+        <value xml:lang="nl">Toevoegen probleem</value>
         <value xml:lang="pt">Adicionar Problema</value>
         <value xml:lang="ro">Adauga Problema</value>
         <value xml:lang="ru">Добавить задачу</value>
@@ -311,7 +317,7 @@
         <value xml:lang="fr">Adresse</value>
         <value xml:lang="hi_IN">पता पंक्ति</value>
         <value xml:lang="it">Riga indirizzo</value>
-        <value xml:lang="nl">Adres Lijn</value>
+        <value xml:lang="nl">Adres lijn</value>
         <value xml:lang="pt">Linha de Endereço</value>
         <value xml:lang="ro">Linie Adresa</value>
         <value xml:lang="ru">Строка адреса</value>
@@ -349,6 +355,7 @@
         <value xml:lang="fr">Recherche avancée</value>
         <value xml:lang="hi_IN">उन्नत खोज</value>
         <value xml:lang="it">Ricerca avanzata</value>
+        <value xml:lang="nl">Uitgebreide zoek</value>       
         <value xml:lang="ro">Cautare Avansata</value>
         <value xml:lang="ru">Расширенный поиск</value>
         <value xml:lang="th">ค้นหาเพิ่มเติม</value>
@@ -3061,6 +3068,7 @@
         <value xml:lang="fr">aller à a la page</value>
         <value xml:lang="hi_IN">पृष्ठ पर जाऐं</value>
         <value xml:lang="it">Vai alla pagina</value>
+        <value xml:lang="nl">Pagina</value>     
         <value xml:lang="ro">Dute la Pagina</value>
         <value xml:lang="ru">Перейти на страницу</value>
         <value xml:lang="th">ไปยังหน้า</value>
@@ -4623,6 +4631,7 @@
         <value xml:lang="fr">Normal</value>
         <value xml:lang="hi_IN">सामान्य</value>
         <value xml:lang="it">Normale</value>
+        <value xml:lang="nl">Normaal</value>        
         <value xml:lang="zh">正常</value>
     </property>
     <property key="CommonNot">
@@ -4713,7 +4722,7 @@
         <value xml:lang="fr">Pas vous </value>
         <value xml:lang="hi_IN">आप नहीं</value>
         <value xml:lang="it">Non sei te</value>
-        <value xml:lang="nl">Niet U</value>
+        <value xml:lang="nl">Niet u</value>
         <value xml:lang="pt">Você Não</value>
         <value xml:lang="ro">Nu Esti Tu</value>
         <value xml:lang="ru">Не Вы</value>
@@ -9667,7 +9676,7 @@
         <value xml:lang="fr">Portugais (Brésil)</value>
         <value xml:lang="hi_IN">पुर्तगाली(ब्राज़िल)</value>
         <value xml:lang="it">Portoghese Braziliano</value>
-        <value xml:lang="nl">Portugese Brazil</value>
+        <value xml:lang="nl">Portugees (Brazilië)</value>
         <value xml:lang="pt">Portuguese Brazil</value>
         <value xml:lang="ro">Portugheza Braziliana</value>
         <value xml:lang="ru">Бразильский португальский</value>
@@ -9683,7 +9692,7 @@
         <value xml:lang="fr">Portugais (Portugal)</value>
         <value xml:lang="hi_IN">पुर्तगाली(पुर्तगाल)</value>
         <value xml:lang="it">Portoghese Portogallo</value>
-        <value xml:lang="nl">Portugese Portugal</value>
+        <value xml:lang="nl">Portugees (Portugal)</value>
         <value xml:lang="pt">Portuguese Portugal</value>
         <value xml:lang="ro">Portugheza Portugalia</value>
         <value xml:lang="ru">Португальский</value>

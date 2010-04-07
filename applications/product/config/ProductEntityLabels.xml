@@ -1671,6 +1671,7 @@
         <value xml:lang="es">Inventario</value>
         <value xml:lang="fr">Stock</value>
         <value xml:lang="it">Inventario</value>
+        <value xml:lang="nl">Voorraad</value>		
         <value xml:lang="th">สินค้าคงเหลือ</value>
         <value xml:lang="zh">库存</value>
     </property>

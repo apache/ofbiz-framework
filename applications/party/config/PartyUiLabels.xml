@@ -25,6 +25,7 @@
         <value xml:lang="fr">Revenu annuel</value>
         <value xml:lang="hi_IN">वार्षिक राजस्व</value>
         <value xml:lang="it">Revisione annuale</value>
+        <value xml:lang="nl">Jaaromzet</value>      
         <value xml:lang="pt_BR">Receita bruta anual</value>
         <value xml:lang="zh">年收入</value>
     </property>
@@ -48,7 +49,7 @@
         <value xml:lang="fr">Disposition de certificat</value>
         <value xml:lang="hi_IN">प्रमाणपत्र प्रावधान क्रमांक</value>
         <value xml:lang="it">Fornitore certificato</value>
-        <value xml:lang="nl">ID certificaat-uitgever</value>
+        <value xml:lang="nl">Uitgever van het certificaat</value>
         <value xml:lang="pt_BR">Identificação do certificado do fornecedor</value>
         <value xml:lang="ru">Код обеспечения CERT</value>
         <value xml:lang="th">รหัสการจัดเตรียม</value>
@@ -74,7 +75,7 @@
         <value xml:lang="fr">Ville localité</value>
         <value xml:lang="hi_IN">नगर का इलाका</value>
         <value xml:lang="it">Località  città</value>
-        <value xml:lang="nl">Stad localiteit?</value>
+        <value xml:lang="nl">Plaats lokaal</value>
         <value xml:lang="pt_BR">Localidade da cidade</value>
         <value xml:lang="ru">Местонахождение города</value>
         <value xml:lang="th">เมือง</value>
@@ -113,7 +114,7 @@
         <value xml:lang="fr">Evènement de communication</value>
         <value xml:lang="hi_IN">संचार घटना क्रमांक(communicationEventId)</value>
         <value xml:lang="it">Codice evento comunicazioni</value>
-        <value xml:lang="nl">Communication Event Id</value>
+        <value xml:lang="nl">Communicatie Event ID</value>
         <value xml:lang="pt_BR">Id do evento de comunicação</value>
         <value xml:lang="ro">Cod Eveniment Comunicatii i</value>
         <value xml:lang="ru">Код события связи</value>
@@ -127,7 +128,7 @@
         <value xml:lang="fr">Type de but d'évènement de communication</value>
         <value xml:lang="hi_IN">संचार घटना प्रयोजन प्रकार का क्रमांक(communicationEventPrpTypId)</value>
         <value xml:lang="it">Tipo Funzione Evento Comunicazione</value>
-        <value xml:lang="nl">Doelsoort communicatie-actie</value>
+        <value xml:lang="nl">Doel communicatie actie</value>
         <value xml:lang="pt_BR">Id do tipo de finalidade da comunicação</value>
         <value xml:lang="ro">Tip Functiune Eveniment Comunicatie</value>
         <value xml:lang="ru">Код типа назначения коммуникационного события</value>
@@ -141,7 +142,7 @@
         <value xml:lang="fr">Type d'évènement de communication</value>
         <value xml:lang="hi_IN">संचार घटना प्रकार का क्रमांक(communicationEventTypeId)</value>
         <value xml:lang="it">Tipo evento communicazioni</value>
-        <value xml:lang="nl">Soort communicatie-actie</value>
+        <value xml:lang="nl">Soort communicatie actie</value>
         <value xml:lang="pt_BR">Id do tipo de comunicação</value>
         <value xml:lang="ro">Tip Eveniment Comunicatii</value>
         <value xml:lang="ru">Код типа коммуникационного события</value>
@@ -152,6 +153,7 @@
         <value xml:lang="en">Communication Party Id</value>
         <value xml:lang="hi_IN">संचार पार्टी क्रमांक</value>
         <value xml:lang="it">Soggetto comuicazione</value>
+        <value xml:lang="nl">Communicatie Party ID</value>      
         <value xml:lang="pt_BR">Id do participante da comunicação</value>
         <value xml:lang="zh">沟通会员标识</value>
     </property>
@@ -269,6 +271,7 @@
         <value xml:lang="en">Deceased Date</value>
         <value xml:lang="fr">Date de décès</value>
         <value xml:lang="it">Data decesso</value>
+        <value xml:lang="nl">Datum overleden</value>        
         <value xml:lang="pt_BR">Data de falecimento</value>
     </property>
     <property key="FormFieldTitle_defaultRate">
@@ -296,6 +299,7 @@
         <value xml:lang="fr">Lieu de stockage de destination</value>
         <value xml:lang="hi_IN">गंतव्य सुविधा क्रमांक(destinationFacilityId)</value>
         <value xml:lang="it">Stabilimento destinazione</value>
+        <value xml:lang="nl">Bestemmingsmagazijn ID</value>     
         <value xml:lang="pt_BR">Id da instalação de destino</value>
         <value xml:lang="zh">目的地设备标识</value>
     </property>
@@ -333,6 +337,7 @@
         <value xml:lang="fr">Adresse courriel</value>
         <value xml:lang="hi_IN">ईमेल पता</value>
         <value xml:lang="it">Indirizzo Email</value>
+        <value xml:lang="nl">Emailadres</value>     
         <value xml:lang="pt_BR">Endereço de e-mail</value>
         <value xml:lang="th">ที่อยู่อีเมล์</value>
         <value xml:lang="zh">电子邮件地址</value>
@@ -399,7 +404,7 @@
         <value xml:lang="fr">Prénom local</value>
         <value xml:lang="hi_IN">स्थानीय प्रथम नाम</value>
         <value xml:lang="it">Nome Locale</value>
-        <value xml:lang="nl">Voornaam Local</value>
+        <value xml:lang="nl">Voornaam lokaal</value>
         <value xml:lang="pt_BR">Nome local</value>
         <value xml:lang="ro">PreNume Local</value>
         <value xml:lang="ru">Имя на местном языке</value>
@@ -413,6 +418,7 @@
         <value xml:lang="fr">Expéditeur</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक से</value>
         <value xml:lang="it">Dal Soggetto</value>
+        <value xml:lang="nl">Van relatie ID</value>     
         <value xml:lang="pt_BR">Id do participante remetente</value>
         <value xml:lang="ro">De la Subiect </value>
         <value xml:lang="ru">От участника</value>
@@ -972,7 +978,7 @@
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक</value>
         <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="nl">Relatie-ID</value>
+        <value xml:lang="nl">Relatie ID</value>
         <value xml:lang="pt_BR">Id do participante</value>
         <value xml:lang="ro">Cod Subiect</value>
         <value xml:lang="ru">Код участника</value>
@@ -3781,7 +3787,7 @@
         <value xml:lang="es">Comunicaciones con</value>
         <value xml:lang="fr">Communications avec</value>
         <value xml:lang="it">Comunicazioni con</value>
-        <value xml:lang="nl">Communicatie met</value>
+        <value xml:lang="nl">Communicaties met</value>
         <value xml:lang="pt_BR">Comunicações com</value>
         <value xml:lang="pt_PT">Comunicações com</value>
         <value xml:lang="ro">Comunicari cu</value>
@@ -3939,7 +3945,7 @@
         <value xml:lang="hi_IN">सम्पर्क सूचना आपका नही है, आप इसे बदल नही सकते</value>
         <value xml:lang="it">Le informazioni specificate non corrisponde a te, non puoi vederle o aggiornarle</value>
         <value xml:lang="ja">The contact information specified does not belong to you, you may not view or edit it</value>
-        <value xml:lang="nl">De kontakt informatie hoort niet bij U, U kan deze dus niet aanpassen of inzien</value>
+        <value xml:lang="nl">De contactinformatie hoort niet bij u, u kan deze niet aanpassen of inzien</value>
         <value xml:lang="pt_BR">Os dados de contato não lhe pertencem, você não pode acessá-los nem editá-los</value>
         <value xml:lang="pt_PT">A informação de contacto especificada não lhe pertence, não pode vê-la ou editá-la</value>
         <value xml:lang="ro">Informatiile din contact specificate nu iti corespund, tu nu poti sa-l vezi sau sa-l actualizezi</value>
@@ -3956,7 +3962,7 @@
         <value xml:lang="hi_IN">सम्पर्क सूचना</value>
         <value xml:lang="it">Informazioni contatto</value>
         <value xml:lang="ja">Contact Information</value>
-        <value xml:lang="nl">Kontakt Informatie</value>
+        <value xml:lang="nl">Contactinformatie</value>
         <value xml:lang="pt_BR">Dados de contato</value>
         <value xml:lang="pt_PT">Informação de Contacto</value>
         <value xml:lang="ro">Informatii Contact</value>
@@ -4016,7 +4022,7 @@
         <value xml:lang="fr">Erreur: coordonnées de l'acteur non trouvées, suppression impossible.</value>
         <value xml:lang="hi_IN">त्रुटि: संपर्क जानकारी को नष्ट नहीं कर सके(पार्टी संपर्क यांत्रिक नहीं मिला)</value>
         <value xml:lang="it">ERRORE: Non è possibile cancellare informazioni contatto (contatto Soggetto non trovato)</value>
-        <value xml:lang="nl">ERROR: Contactinfo kon niet verwijderd worden (contactmech niet gevonden)</value>
+        <value xml:lang="nl">Fout: Contactinformatie kon niet verwijderd worden (contactmech niet gevonden)</value>
         <value xml:lang="pt_BR">ERRO: Não foi possível apagar dados de contato (mecanismo de contato do participante não encontrado)</value>
         <value xml:lang="pt_PT">ERRO: Impossível eliminar informação de contacto (mecanismo de contacto de grupo não encontrado)</value>
         <value xml:lang="ro">EROARE: Nu este posibila stergerea informatiei contact (contact Subiect ne gasit)</value>
@@ -4099,7 +4105,7 @@
         <value xml:lang="fr">Numéro de portable</value>
         <value xml:lang="hi_IN">मोबाइल फोन नंबर</value>
         <value xml:lang="it">Numero di telefono cellullare</value>
-        <value xml:lang="nl">Mobielnummer</value>
+        <value xml:lang="nl">Mobiel nummer</value>
         <value xml:lang="pt_BR">Número de celular</value>
         <value xml:lang="ro">Numar de Telefon Celular</value>
         <value xml:lang="ru">Мобильный номер</value>
@@ -4115,7 +4121,7 @@
         <value xml:lang="hi_IN">सम्पर्क नम्बर</value>
         <value xml:lang="it">Contatto numero</value>
         <value xml:lang="ja">Contact Number</value>
-        <value xml:lang="nl">Kontaktnummer</value>
+        <value xml:lang="nl">Contactnummer</value>
         <value xml:lang="pt_BR">Telefone para contato</value>
         <value xml:lang="pt_PT">Número de Contacto</value>
         <value xml:lang="ro">Contatto Numar</value>
@@ -4132,7 +4138,7 @@
         <value xml:lang="hi_IN">सम्पर्क नम्बर नही है</value>
         <value xml:lang="it">N° Contatto mancante</value>
         <value xml:lang="ja">Contact Number is missing</value>
-        <value xml:lang="nl">Kontaktnummer mist</value>
+        <value xml:lang="nl">Contactnummer mist</value>
         <value xml:lang="pt_BR">Número para contato em branco</value>
         <value xml:lang="pt_PT">Número de Contacto em Falta</value>
         <value xml:lang="ro">Numar Contact lipseste</value>
@@ -4148,7 +4154,7 @@
         <value xml:lang="fr">But du contact</value>
         <value xml:lang="hi_IN">संपर्क प्रयोजन</value>
         <value xml:lang="it">Scopo contatto</value>
-        <value xml:lang="nl">Kontakt Doel</value>
+        <value xml:lang="nl">Contact doel</value>
         <value xml:lang="pt">Propóstio do Contacto</value>
         <value xml:lang="pt_BR">Assunto do contato</value>
         <value xml:lang="ro">Functie Contact</value>
@@ -4166,7 +4172,7 @@
         <value xml:lang="hi_IN">सम्पर्क विषय</value>
         <value xml:lang="it">Scopi contatto</value>
         <value xml:lang="ja">Contact Purposes</value>
-        <value xml:lang="nl">Kontaktredenen</value>
+        <value xml:lang="nl">Contactredenen</value>
         <value xml:lang="pt_BR">Assuntos do contato</value>
         <value xml:lang="pt_PT">Objectivos de Contacto</value>
         <value xml:lang="ro">Functii Contact </value>
@@ -4229,7 +4235,7 @@
         <value xml:lang="hi_IN">सम्पर्क प्रकार</value>
         <value xml:lang="it">Tipo contatto</value>
         <value xml:lang="ja">Contact Type</value>
-        <value xml:lang="nl">Kontakt type</value>
+        <value xml:lang="nl">Contact type</value>
         <value xml:lang="pt_BR">Tipo de contato</value>
         <value xml:lang="pt_PT">Tipo de Contacto</value>
         <value xml:lang="ro">Tip Contact</value>
@@ -4478,7 +4484,7 @@
         <value xml:lang="hi_IN">नया सम्पर्क जानकारी बताइये</value>
         <value xml:lang="it">Crea nuova informazione contatto</value>
         <value xml:lang="ja">Create New Contact Information</value>
-        <value xml:lang="nl">Aanmaken van nieuwe kontakt informatie</value>
+        <value xml:lang="nl">Aanmaken van nieuwe contactinformatie</value>
         <value xml:lang="pt_BR">Criar novos dados de contato</value>
         <value xml:lang="pt_PT">Criar Nova Informação de Contacto</value>
         <value xml:lang="ro">Creare o Noua Informatie Contact </value>
@@ -5044,7 +5050,7 @@
         <value xml:lang="hi_IN">सम्पर्क जानकारी बदलिये</value>
         <value xml:lang="it">Aggiornare informazioni contatto</value>
         <value xml:lang="ja">Edit Contact Information</value>
-        <value xml:lang="nl">Aanpassen van de kontaktinformatie</value>
+        <value xml:lang="nl">Aanpassen van de contactinformatie</value>
         <value xml:lang="pt_BR">Editar dados de contato</value>
         <value xml:lang="pt_PT">Editar Informação de Contacto</value>
         <value xml:lang="ro">Actualizare Informatii Contact</value>
@@ -5896,7 +5902,7 @@
         <value xml:lang="hi_IN">यह जानकारी आपकी नही है, आप इसे नही देख सकते</value>
         <value xml:lang="it">Questa informazione non corrisponde a te e non hai il permesso di aggiornarla</value>
         <value xml:lang="ja">This information does not belong to you and you do not have permission to view it</value>
-        <value xml:lang="nl">Deze informatie hoort niet bij U en dus kunt u het niet veranderen of inzien</value>
+        <value xml:lang="nl">Deze informatie hoort niet bij u en dus kunt u het niet veranderen of inzien</value>
         <value xml:lang="pt_BR">Estes dados não lhe pertencem e você não tem permissão para visualizá-los</value>
         <value xml:lang="pt_PT">Esta informação não lhe pertencee você não tem permissão para visualisá-la</value>
         <value xml:lang="ro">Aceasta informatie nu iti corespunde tie si nu  ai permisul sa o actualizezi</value>
@@ -6584,6 +6590,7 @@
         <value xml:lang="en">Main Role</value>
         <value xml:lang="fr">Rôle principal</value>
         <value xml:lang="it">Ruolo principale</value>
+        <value xml:lang="nl">Hoofdrol</value>       
         <value xml:lang="pt_BR">Pepel principal</value>
     </property>
     <property key="PartyManager">
@@ -6792,6 +6799,7 @@
         <value xml:lang="fr">Nombre maximum de visites</value>
         <value xml:lang="hi_IN">यात्राओं(visits) की अधिकतम संख्या</value>
         <value xml:lang="it">Massimo numero di visite</value>
+        <value xml:lang="nl">Maximaal aantal bezoeken</value>       
         <value xml:lang="pt_BR">Número máximo de visitas</value>
         <value xml:lang="zh">最大访问数量</value>
     </property>
@@ -6810,7 +6818,7 @@
         <value xml:lang="fr">Type de but non trouvé avec la réf</value>
         <value xml:lang="hi_IN">इस क्रमांक के साथ उद्देश्य प्रकार नहीं मिला</value>
         <value xml:lang="it">Tipo Funzione non trovata con Codice </value>
-        <value xml:lang="nl">Soor doelstelling niet gevonden</value>
+        <value xml:lang="nl">Soort doelstelling niet gevonden</value>
         <value xml:lang="pt_BR">Tipo de finalidade não encontrada com ID</value>
         <value xml:lang="pt_PT">Tipo de Propósito não encontrado com ID</value>
         <value xml:lang="ro">Tip Functie ne gasita cu Cod </value>
@@ -6840,7 +6848,7 @@
         <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("PARTYMGR_CREATE" ou "PARTYMGR_ADMIN" est nécessaire)</value>
         <value xml:lang="hi_IN">आपको इस पृष्ठ को देखने की अनुमति नहीं है|("PARTYMGR_CREATE" या "PARTYMGR_ADMIN" की आवश्यकता)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. ("PARTYMGR_CREATE" o "PARTYMGR_ADMIN" necessarie)</value>
-        <value xml:lang="nl">Permissies om deze pagina te bekijken ontbreken. ("PARTYMGR_CREATE" or "PARTYMGR_ADMIN" needed)</value>
+        <value xml:lang="nl">Permissies om deze pagina te bekijken ontbreken. ("PARTYMGR_CREATE" or "PARTYMGR_ADMIN" is nodig)</value>
         <value xml:lang="pt_BR">Você não tem permissão para acessar esta página. (é necessário "PARTYMGR_CREATE" ou "PARTYMGR_ADMIN")</value>
         <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (ai nevose de "PARTYMGR_CREATE" sau "PARTYMGR_ADMIN")</value>
         <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (необходимы "PARTYMGR_CREATE" или "PARTYMGR_ADMIN")</value>
@@ -6854,7 +6862,7 @@
         <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("PARTYMGR_VIEW" ou "PARTYMGR_ADMIN" est nécessaire)</value>
         <value xml:lang="hi_IN">आपको इस पृष्ठ को देखने की अनुमति नहीं है|("PARTYMGR_VIEW" या "PARTYMGR_ADMIN" की आवश्यकता)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina ("PARTYMGR_VIEW" o "PARTYMGR_ADMIN" necessarie)</value>
-        <value xml:lang="nl">Permissies om deze pagina te bekijken ontbreken. ("PARTYMGR_VIEW" or "PARTYMGR_ADMIN" needed)</value>
+        <value xml:lang="nl">Permissies om deze pagina te bekijken ontbreken. ("PARTYMGR_VIEW" or "PARTYMGR_ADMIN" is nodig)</value>
         <value xml:lang="pt_BR">Você não tem permissão para acessar esta página. (é necessário "PARTYMGR_VIEW" ou "PARTYMGR_ADMIN")</value>
         <value xml:lang="pt_PT">ErroPartyMgrViewPermission:Você não tem permissão para visualizar esta página. (necessita de "PARTYMGR_VIEW" ou "PARTYMGR_ADMIN")</value>
         <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina (ai nevoie de "PARTYMGR_VIEW" sau "PARTYMGR_ADMIN")</value>
@@ -6930,7 +6938,7 @@
         <value xml:lang="fr">Note : ces nouvelles coordonnées auront pour but</value>
         <value xml:lang="hi_IN">नोट: इस नयी संपर्क जानकारी का उद्देश्य होगा</value>
         <value xml:lang="it">Nota: quetso nuova informazione contatto avrà la funzione</value>
-        <value xml:lang="nl">Opm: this new contact information will have the purpose</value>
+        <value xml:lang="nl">Opm: deze nieuwe contactinformatie zal als doel hebben</value>
         <value xml:lang="pt_BR">Nota: estes novos dados de contato terão a finalidade de</value>
         <value xml:lang="pt_PT">Nota:este novo contacto servirá o propósito de</value>
         <value xml:lang="ro">Nota: aceasta noua informatie contact va avea functia</value>
@@ -6984,6 +6992,7 @@
         <value xml:lang="fr">Nom, téléphone et courriel</value>
         <value xml:lang="hi_IN">नाम, फोन और ईमेल</value>
         <value xml:lang="it">Nome, telefono ed Email</value>
+        <value xml:lang="nl">Naam, telefoon en email</value>        
         <value xml:lang="pt_BR">Nome, telefone e e-mail</value>
         <value xml:lang="ru">Телефон и эл.почта </value>
         <value xml:lang="th">ชื่อ เบอร์โทรศัพท์ และอีเมล์</value>
@@ -7102,7 +7111,7 @@
         <value xml:lang="hi_IN">नोट: इस नई संपर्क जानकारी को इस्तेमाल किया जाएगा</value>
         <value xml:lang="it">Nota: questa nuova informazione contatto sarà usata come</value>
         <value xml:lang="ja">Note: this new contact information will have the purpose</value>
-        <value xml:lang="nl">Opm: deze nieuw kontakt informatie heeft de reden dat</value>
+        <value xml:lang="nl">Opm: deze nieuw contactinformatie heeft als doel</value>
         <value xml:lang="pt_BR">Nota: estes novos dados de contato terão a finalidade de</value>
         <value xml:lang="pt_PT">Nota: esta nova informação de contacto servirá para</value>
         <value xml:lang="ro">Nota: aceasta noua informatie contact va avea scopul</value>
@@ -7117,7 +7126,7 @@
         <value xml:lang="fr">Nouveau courriel</value>
         <value xml:lang="hi_IN">नया ईमेल</value>
         <value xml:lang="it">Nuova email</value>
-        <value xml:lang="nl">Nieuwe e-mail</value>
+        <value xml:lang="nl">Nieuwe email</value>
         <value xml:lang="pt_BR">Novo e-mail</value>
         <value xml:lang="zh">新建电子邮件</value>
     </property>
@@ -8942,6 +8951,7 @@
     <property key="PartyRelatedCompany">
         <value xml:lang="en">Related Company</value>
         <value xml:lang="it">Azienda relativa</value>
+        <value xml:lang="nl">Gerelateerd bedrijf</value>        
         <value xml:lang="pt_BR">Empresa relacionada</value>
     </property>
     <property key="PartyRelationSecurity">
@@ -10459,7 +10469,7 @@
         <value xml:lang="fr">Identifiant de connexion</value>
         <value xml:lang="hi_IN">प्रयोक्ता लॉगिन</value>
         <value xml:lang="it">Utente Login</value>
-        <value xml:lang="nl">User Login</value>
+        <value xml:lang="nl">Gebruikersnaam</value>
         <value xml:lang="pt_BR">Nome de usuário</value>
         <value xml:lang="pt_PT">Início de Secção </value>
         <value xml:lang="ro">Utilizator Login</value>
@@ -10575,6 +10585,7 @@
         <value xml:lang="en">Username in use, please choose another.</value>
         <value xml:lang="fr">Identifiant de connexion déjà utilisé, choisissez en un autre SVP.</value>
         <value xml:lang="it">Nome utente è già in uso, perfavore scegliere un'altro.</value>
+        <value xml:lang="nl">Deze gebruikersnaam bestaat al. Kiest u alstublieft een andere.</value>        
     </property>
     <property key="PartyUserNameMissing">
         <value xml:lang="de">Benutzername fehlt</value>
