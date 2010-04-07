@@ -50,6 +50,8 @@ import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
 import com.ebay.sdk.call.AddItemCall;
+import com.ebay.sdk.call.GetSellingManagerInventoryCall;
+import com.ebay.sdk.call.ReviseSellingManagerProductCall;
 import com.ebay.sdk.call.VerifyAddItemCall;
 import org.apache.axis.types.URI;
 import com.ebay.soap.eBLBaseComponents.AmountType;
@@ -57,11 +59,17 @@ import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
 import com.ebay.soap.eBLBaseComponents.CategoryType;
 import com.ebay.soap.eBLBaseComponents.CountryCodeType;
 import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
+import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryRequestType;
+import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryResponseType;
 import com.ebay.soap.eBLBaseComponents.ItemSpecificsEnabledCodeType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.PictureDetailsType;
 import com.ebay.soap.eBLBaseComponents.ReturnPolicyType;
+import com.ebay.soap.eBLBaseComponents.ReviseSellingManagerProductRequestType;
+import com.ebay.soap.eBLBaseComponents.ReviseSellingManagerProductResponseType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerProductDetailsType;
+import com.ebay.soap.eBLBaseComponents.SellingManagerProductType;
 import com.ebay.soap.eBLBaseComponents.ShippingServiceDetailsType;
 import com.ebay.soap.eBLBaseComponents.ShippingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
@@ -745,7 +753,6 @@ public class EbayEvents {
                         attributeMapList.put("ShippingServiceCostCurrency", "USD");
                         attributeMapList.put("ShippingServicePriority", "1");
                         attributeMapList.put("ShippingType", "Flat");
-                        
 
                         EbayStoreHelper.mappedShippingLocations(requestParams, item, apiContext, request, attributeMapList);
 
@@ -933,7 +940,6 @@ public class EbayEvents {
             }
             request.setAttribute("itemFee", feesummary);
             request.setAttribute("productStoreId", requestParams.get("productStoreId"));
-            
         } catch (Exception e) {
             Debug.logError(e.getMessage(), module);
             return "error";
@@ -982,6 +988,8 @@ public class EbayEvents {
         Map<String,Object> requestParams = UtilHttp.getParameterMap(request);
         Locale locale = UtilHttp.getLocale(request);
         String productStoreId = (String) requestParams.get("productStoreId");
+        HttpSession session = request.getSession(true);
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
@@ -992,6 +1000,7 @@ public class EbayEvents {
                 listAddItem = FastList.newInstance();
             }
             for (Map<String,Object> itemObj : listAddItem) {
+                updateQuantityInventoryProduct(itemObj, productStoreId, locale, delegator, dispatcher, userLogin);
                 dispatcher.runSync("exportProductEachItem", UtilMisc.toMap("itemObject", itemObj));
             }
         } catch (Exception e) {
@@ -999,5 +1008,48 @@ public class EbayEvents {
             return "error";
         }
         return "success";
+    }
+
+    private static void updateQuantityInventoryProduct(Map<String, Object> itemObj, String productStoreId, Locale locale, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
+        try {
+            AddItemCall addItemCall = (AddItemCall) itemObj.get("addItemCall");
+            ItemType item = addItemCall.getItem();
+            String productId = item.getSKU();
+            if (UtilValidate.isNotEmpty(itemObj.get("requireEbayInventory")) && (itemObj.get("requireEbayInventory").equals("Y"))) {
+                GetSellingManagerInventoryRequestType req = new GetSellingManagerInventoryRequestType();
+                GetSellingManagerInventoryResponseType resp =  null;
+                SellingManagerProductType[] returnedSellingManagerProductType = null;
+                GetSellingManagerInventoryCall call = new GetSellingManagerInventoryCall(EbayStoreHelper.getApiContext(productStoreId, locale, delegator));
+                resp = (GetSellingManagerInventoryResponseType)call.execute(req);
+                if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
+                    returnedSellingManagerProductType  = resp.getSellingManagerProduct();
+                    for (int i = 0; i < returnedSellingManagerProductType.length; i++) {
+                        SellingManagerProductDetailsType prodDetailType = returnedSellingManagerProductType[i].getSellingManagerProductDetails();
+                        String productIdInv = Long.toString(prodDetailType.getProductID());
+                        if (productId.equals(productIdInv)) {
+                            int qty = prodDetailType.getQuantityAvailable();
+                            if (qty > 0) {
+                                int newQty = qty - 1;
+                                prodDetailType.setQuantityAvailable(newQty);
+                                ReviseSellingManagerProductCall revProdCall = new ReviseSellingManagerProductCall(EbayStoreHelper.getApiContext(productStoreId, locale, delegator));
+                                ReviseSellingManagerProductRequestType revReq = new ReviseSellingManagerProductRequestType();
+                                ReviseSellingManagerProductResponseType revResp = null;
+                                revReq.setSellingManagerProductDetails(prodDetailType);
+                                revResp = (ReviseSellingManagerProductResponseType) revProdCall.execute(revReq);
+                                if (revResp != null && "SUCCESS".equals(revResp.getAck().toString())) {
+                                    Debug.log("  Already update quantity on eBay inventory with product id ::"+revResp.getSellingManagerProductDetails().getProductID());
+                                } else {
+                                    EbayStoreHelper.createErrorLogMessage(userLogin, dispatcher, productStoreId, revResp.getAck().toString(), "ReviseSellingManagerProductCall : updateQuantityInventoryProduct", revResp.getErrors(0).getLongMessage());
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    EbayStoreHelper.createErrorLogMessage(userLogin, dispatcher, productStoreId, resp.getAck().toString(), "GetSellingManagerInventoryCall : updateQuantityInventoryProduct", resp.getErrors(0).getLongMessage());
+                }
+            }
+        } catch (Exception e) {
+            Debug.logError(e.getMessage(), module);
+        }
     }
 }
