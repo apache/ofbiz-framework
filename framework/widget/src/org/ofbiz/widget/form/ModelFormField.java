@@ -1003,7 +1003,7 @@ public class ModelFormField {
             Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
             if (uiLabelMap != null) {
                 String titleFieldName = "FormFieldTitle_" + this.name;
-                String localizedName = (String) uiLabelMap.get(titleFieldName);
+                String localizedName = uiLabelMap.get(titleFieldName);
                 if (!localizedName.equals(titleFieldName)) {
                     return localizedName;
                 }
@@ -3786,25 +3786,22 @@ public class ModelFormField {
 
         public ContainerField() {
             super();
-            // TODO Auto-generated constructor stub
         }
 
         public ContainerField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
-            // TODO Auto-generated constructor stub
             this.setId(modelFormField.getIdName());
         }
 
         public ContainerField(int fieldSource, int fieldType,
                 ModelFormField modelFormField) {
             super(fieldSource, fieldType, modelFormField);
-            // TODO Auto-generated constructor stub
         }
 
+        @Override
         public void renderFieldString(Appendable writer,
                 Map<String, Object> context,
                 FormStringRenderer formStringRenderer) throws IOException {
-            // TODO Auto-generated method stub
             formStringRenderer.renderContainerFindField(writer, context, this);
         }
 
