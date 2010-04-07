@@ -21,7 +21,7 @@ under the License.
   <form id="costCenters" method="post" action="<@ofbizUrl>createUpdateCostCenter</@ofbizUrl>">
     <div id="errorMessage" class="errorMessage" style="display : none">${uiLabelMap.AccountingTotalAmountPercentageIsNotEqualOneHundred}</div>
     <div id="eventMessage" class="eventMessage" style="display : none">${uiLabelMap.AccountingTotalCostCenterAmount}.</div>
-    <input type="hidden" name="_useRowSubmit" value="Y">
+    <input type="hidden" name="_useRowSubmit" value="Y" />
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
         <th>${uiLabelMap.FormFieldTitle_glAccountId}</th>

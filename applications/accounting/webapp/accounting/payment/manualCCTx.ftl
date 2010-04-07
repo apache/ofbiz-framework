@@ -27,7 +27,7 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.AccountingReferenceNumber}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="30" maxlength="60" name="referenceNum">
+          <input type="text" size="30" maxlength="60" name="referenceNum" />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>
@@ -35,7 +35,7 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.FormFieldTitle_orderPaymentPreferenceId}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="20" maxlength="20" name="orderPaymentPreferenceId">
+          <input type="text" size="20" maxlength="20" name="orderPaymentPreferenceId" />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>
@@ -69,7 +69,7 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.PartyFirstName}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="30" maxlength="60" name="firstName" value="${(person.firstName)?if_exists}">
+          <input type="text" size="30" maxlength="60" name="firstName" value="${(person.firstName)?if_exists}" />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>
@@ -77,7 +77,7 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.PartyLastName}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="30" maxlength="60" name="lastName" value="${(person.lastName)?if_exists}">
+          <input type="text" size="30" maxlength="60" name="lastName" value="${(person.lastName)?if_exists}" />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>
@@ -85,7 +85,7 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.PartyEmailAddress}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="30" maxlength="60" name="infoString" value="">
+          <input type="text" size="30" maxlength="60" name="infoString" value="" />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>
@@ -98,7 +98,7 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.PartyFirstName}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="30" maxlength="30" name="firstName" value="${(person.firstName)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+          <input type="text" size="30" maxlength="30" name="firstName" value="${(person.firstName)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if> />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>
@@ -106,7 +106,7 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.PartyLastName}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="30" maxlength="30" name="lastName" value="${(person.lastName)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+          <input type="text" size="30" maxlength="30" name="lastName" value="${(person.lastName)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if> />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>
@@ -115,7 +115,7 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.AccountingBillToAddress1}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="30" maxlength="30" name="address1" value="${(postalFields.address1)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+          <input type="text" size="30" maxlength="30" name="address1" value="${(postalFields.address1)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if> />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>
@@ -123,14 +123,14 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.AccountingBillToAddress2}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="30" maxlength="30" name="address2" value="${(postalFields.address2)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+          <input type="text" size="30" maxlength="30" name="address2" value="${(postalFields.address2)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if> />
         </td>
       </tr>
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.CommonCity}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="30" maxlength="30" name="city" value="${(postalFields.city)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+          <input type="text" size="30" maxlength="30" name="city" value="${(postalFields.city)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if> />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>
@@ -153,7 +153,7 @@ under the License.
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.CommonZipPostalCode}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
-          <input type="text" size="12" maxlength="10" name="postalCode" value="${(postalFields.postalCode)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
+          <input type="text" size="12" maxlength="10" name="postalCode" value="${(postalFields.postalCode)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if> />
           <span class="tooltip">${uiLabelMap.CommonRequired}</span>
         </td>
       </tr>

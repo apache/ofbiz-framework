@@ -71,14 +71,14 @@ function getPaymentRunningTotal() {
     <div class="screenlet-body">
         <form id="depositWithdrawPaymentsForm" name="depositWithdrawPaymentsForm" method="post" action="<@ofbizUrl>depositWithdrawPayments</@ofbizUrl>">
             <#if paymentList?has_content>
-                <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}">
-                <input type="hidden" name='finAccountId' value="${finAccountId?if_exists}">
-                <input type="hidden" name='paymentMethodTypeId' value="${paymentMethodTypeId?if_exists}">
-                <input type="hidden" name='cardType' value="${cardType?if_exists}">
-                <input type="hidden" name='partyIdFrom' value="${partyIdFrom?if_exists}">
-                <input type="hidden" name='fromDate' value="${fromDate?if_exists}">
-                <input type="hidden" name='thruDate' value="${thruDate?if_exists}">
-                <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT">
+                <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}" />
+                <input type="hidden" name='finAccountId' value="${finAccountId?if_exists}" />
+                <input type="hidden" name='paymentMethodTypeId' value="${paymentMethodTypeId?if_exists}" />
+                <input type="hidden" name='cardType' value="${cardType?if_exists}" />
+                <input type="hidden" name='partyIdFrom' value="${partyIdFrom?if_exists}" />
+                <input type="hidden" name='fromDate' value="${fromDate?if_exists}" />
+                <input type="hidden" name='thruDate' value="${thruDate?if_exists}" />
+                <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT" />
                 <div>
                     <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
                     <span class="label" id="showPaymentRunningTotal"></span>
@@ -108,10 +108,10 @@ function getPaymentRunningTotal() {
                     </#list>
                     <div align="right">
                         <span class="label">${uiLabelMap.AccountingPayment} ${uiLabelMap.PartyPartyGroupName}</span>
-                        <input type="text" size='25' id="paymentGroupName" name='paymentGroupName'>
+                        <input type="text" size='25' id="paymentGroupName" name='paymentGroupName' />
                         <span class="label">${uiLabelMap.AccountingGroupInOneTransaction}</span>
-                        <input type="checkbox" name="groupInOneTransaction" value="Y" checked/>
-                        <input id="submitButton" type="button"  onclick="javascript:document.depositWithdrawPaymentsForm.submit();" value="${uiLabelMap.AccountingDepositWithdraw}" disabled/>
+                        <input type="checkbox" name="groupInOneTransaction" value="Y" checked="checked" />
+                        <input id="submitButton" type="button"  onclick="javascript:document.depositWithdrawPaymentsForm.submit();" value="${uiLabelMap.AccountingDepositWithdraw}" disabled="disabled"/>
                     </div>
                 </table>
             <#else>
