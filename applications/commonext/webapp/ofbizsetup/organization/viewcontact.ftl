@@ -104,7 +104,7 @@ under the License.
                 <#elseif "EMAIL_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
                     ${contactMech.infoString?if_exists}
-                    <#--a href="<@ofbizUrl>EditCommunicationEvent?partyIdFrom=${userLogin.partyId}&partyIdTo=${partyId}&communicationEventTypeId=EMAIL_COMMUNICATION&contactMechIdTo=${contactMech.contactMechId}&contactMechTypeId=EMAIL_ADDRESS<#if thisUserPrimaryEmail?has_content>&contactMechIdFrom=${thisUserPrimaryEmail.contactMechId}</#if></@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSendEmail}</a-->
+                    <#--a href="<@ofbizUrl>EditCommunicationEvent?partyIdFrom=${userLogin.partyId}&amp;partyIdTo=${partyId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;contactMechIdTo=${contactMech.contactMechId}&amp;contactMechTypeId=EMAIL_ADDRESS<#if thisUserPrimaryEmail?has_content>&amp;contactMechIdFrom=${thisUserPrimaryEmail.contactMechId}</#if></@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSendEmail}</a-->
                   </div>
                 <#elseif "WEB_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
@@ -136,7 +136,7 @@ under the License.
               <td valign="top"><b>(${partyContactMech.allowSolicitation?if_exists})</b></td>
               <td class="button-col">
                 <#--if security.hasEntityPermission("PARTYMGR", "_UPDATE", session) || userLogin.partyId == partyId>
-                  <a href="<@ofbizUrl>editcontactmech?partyId=${partyId}&contactMechId=${contactMech.contactMechId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                  <a href="<@ofbizUrl>editcontactmech?partyId=${partyId}&amp;contactMechId=${contactMech.contactMechId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                 </#if>
                 <#if security.hasEntityPermission("PARTYMGR", "_DELETE", session) || userLogin.partyId == partyId>
                   <form name="partyDeleteContact" method="post" action="<@ofbizUrl>deleteContactMech</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
