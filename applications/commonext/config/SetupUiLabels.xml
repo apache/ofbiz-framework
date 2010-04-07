@@ -110,6 +110,7 @@
     <property key="SetupEditProductStore">
         <value xml:lang="en">Edit Product Store</value>
         <value xml:lang="it">Aggiorna negozio prodotti</value>
+        <value xml:lang="nl">Wijzigen winkel</value>		
     </property>
     <property key="SetupCreateNewOrganization">
         <value xml:lang="en">Create New Organization</value>

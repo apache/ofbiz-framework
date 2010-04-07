@@ -6148,6 +6148,7 @@
         <value xml:lang="es">Aceptado</value>
         <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettato</value>
+        <value xml:lang="nl">Geaccepteerd</value>       
         <value xml:lang="pt">Aceite</value>
         <value xml:lang="ro">Acceptat</value>
         <value xml:lang="ru">Принята</value>
@@ -6160,6 +6161,7 @@
         <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="nl">Gannuleerd</value>     
         <value xml:lang="pt">Cancelado</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменен</value>
@@ -6172,6 +6174,7 @@
         <value xml:lang="es">Completado</value>
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
+        <value xml:lang="nl">Gereed</value>     
         <value xml:lang="pt">Completa</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Завершена</value>
@@ -6184,6 +6187,7 @@
         <value xml:lang="es">Confirmado</value>
         <value xml:lang="fr">Confirmé</value>
         <value xml:lang="it">Confermato</value>
+        <value xml:lang="nl">Bevestigd</value>      
         <value xml:lang="pt">Confirmado</value>
         <value xml:lang="ro">Confirmat</value>
         <value xml:lang="ru">Подтвержденное</value>
@@ -6196,6 +6200,7 @@
         <value xml:lang="es">Rechazado</value>
         <value xml:lang="fr">Refusé</value>
         <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="nl">Afgewezen</value>      
         <value xml:lang="pt">Declinado</value>
         <value xml:lang="ro">Refuzat</value>
         <value xml:lang="ru">Отклонен</value>
@@ -6208,6 +6213,7 @@
         <value xml:lang="es">Delegado</value>
         <value xml:lang="fr">Délégué</value>
         <value xml:lang="it">Delegato</value>
+        <value xml:lang="nl">Gedelegeerd</value>        
         <value xml:lang="pt">Delegado</value>
         <value xml:lang="ro">Delegat</value>
         <value xml:lang="ru">Делегирован</value>
@@ -6218,6 +6224,7 @@
         <value xml:lang="en">In Planning</value>
         <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">In pianificazione</value>
+        <value xml:lang="nl">Wordt gepland</value>      
         <value xml:lang="zh">计划中</value>
     </property>
     <property key="StatusItem.description.CAL_NEEDS_ACTION">
@@ -6226,6 +6233,7 @@
         <value xml:lang="es">Requiere acción</value>
         <value xml:lang="fr">Nécessité d'action</value>
         <value xml:lang="it">Azione necessaria</value>
+        <value xml:lang="nl">Actie nodig</value>        
         <value xml:lang="pt">Necessita Acção</value>
         <value xml:lang="ro">Actiune Necesara</value>
         <value xml:lang="ru">Требуется действие</value>
@@ -6236,6 +6244,7 @@
         <value xml:lang="en">Planned</value>
         <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">Pianificato</value>
+        <value xml:lang="nl">Gepland</value>        
         <value xml:lang="zh">已计划</value>
     </property>
     <property key="StatusItem.description.CAL_SENT">
@@ -6244,6 +6253,7 @@
         <value xml:lang="es">Enviado</value>
         <value xml:lang="fr">Envoyé</value>
         <value xml:lang="it">Invia</value>
+        <value xml:lang="nl">Verzonden</value>      
         <value xml:lang="pt">Enviado</value>
         <value xml:lang="ro">Trimite</value>
         <value xml:lang="ru">Отослан</value>
@@ -6256,6 +6266,7 @@
         <value xml:lang="es">Tentativo</value>
         <value xml:lang="fr">Provisoire</value>
         <value xml:lang="it">Tentativo</value>
+        <value xml:lang="nl">Voorlopig</value>      
         <value xml:lang="pt">Tentativa</value>
         <value xml:lang="ro">Tentativa</value>
         <value xml:lang="ru">Предварительное</value>
@@ -7100,6 +7111,7 @@
         <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
+        <value xml:lang="nl">Goedgekeurd</value>        
         <value xml:lang="pt">Aprovado</value>
         <value xml:lang="ro">Aprobata</value>
         <value xml:lang="ru">Утверждена</value>
@@ -7112,6 +7124,7 @@
         <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="nl">Gannuleerd</value>     
         <value xml:lang="pt">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменена</value>
@@ -7124,6 +7137,7 @@
         <value xml:lang="es">Completado</value>
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
+        <value xml:lang="nl">Gereed</value>     
         <value xml:lang="pt">Completo</value>
         <value xml:lang="ro">Completata</value>
         <value xml:lang="ru">Завершена</value>
@@ -7136,6 +7150,7 @@
         <value xml:lang="es">Creado</value>
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
+        <value xml:lang="nl">Aangemaakt</value>     
         <value xml:lang="pt">Criado</value>
         <value xml:lang="ro">Creata</value>
         <value xml:lang="ru">Создана</value>
@@ -7148,6 +7163,7 @@
         <value xml:lang="es">Rechazado</value>
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="nl">Afgewezen</value>      
         <value xml:lang="pt">Rejeitado</value>
         <value xml:lang="ro">Refuzata</value>
         <value xml:lang="ru">Отклонена</value>
@@ -7443,6 +7459,7 @@
         <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
+        <value xml:lang="nl">Goedgekeurd</value>        
         <value xml:lang="pt">Aprovada</value>
         <value xml:lang="ro">Aprobata</value>
         <value xml:lang="ru">Утвержден</value>
@@ -7455,6 +7472,7 @@
         <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="nl">Gannuleerd</value>     
         <value xml:lang="pt">Cancelada</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменен</value>
@@ -7467,6 +7485,7 @@
         <value xml:lang="es">Terminado</value>
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
+        <value xml:lang="nl">Gereed</value>     
         <value xml:lang="pt">Completa</value>
         <value xml:lang="ro">Completata</value>
         <value xml:lang="ru">Завершен</value>
@@ -7479,6 +7498,7 @@
         <value xml:lang="es">Creado</value>
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
+        <value xml:lang="nl">Aangemaakt</value>     
         <value xml:lang="pt">Criada</value>
         <value xml:lang="ro">Creata</value>
         <value xml:lang="ru">Создан</value>
@@ -7491,6 +7511,7 @@
         <value xml:lang="es">Retenido</value>
         <value xml:lang="fr">Bloquée</value>
         <value xml:lang="it">Congelato</value>
+        <value xml:lang="nl">Geblokkeerd</value>        
         <value xml:lang="ru">В ожидании</value>
         <value xml:lang="th">การควบคุม</value>
         <value xml:lang="zh">已保留</value>
@@ -7501,6 +7522,7 @@
         <value xml:lang="es">Procesando</value>
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In esecuzione</value>
+        <value xml:lang="nl">Onder handen</value>       
         <value xml:lang="pt">A Processar</value>
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="ru">Обрабатывается</value>
@@ -7513,6 +7535,7 @@
         <value xml:lang="es">Rechazado</value>
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="nl">Afgewezen</value>      
         <value xml:lang="pt">Rejeitada</value>
         <value xml:lang="ro">Refuzata</value>
         <value xml:lang="ru">Отклонен</value>
@@ -7525,6 +7548,7 @@
         <value xml:lang="es">Enviado</value>
         <value xml:lang="fr">Envoyé</value>
         <value xml:lang="it">Inviato</value>
+        <value xml:lang="nl">Verzonden</value>      
         <value xml:lang="pt">Enviada</value>
         <value xml:lang="ro">Transmisa</value>
         <value xml:lang="ru">Отослан</value>
@@ -7595,6 +7619,7 @@
         <value xml:lang="es">Autorizado</value>
         <value xml:lang="fr">Autorisé</value>
         <value xml:lang="it">Autorizzato</value>
+        <value xml:lang="nl">Geautoriseerd</value>      
         <value xml:lang="pt">Autorizado</value>
         <value xml:lang="ro">Autorizat</value>
         <value xml:lang="ru">Авторизирован</value>
@@ -7607,6 +7632,7 @@
         <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
+        <value xml:lang="nl">Gannuleerd</value>     
         <value xml:lang="pt">Cancelado</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменен</value>
@@ -7619,6 +7645,7 @@
         <value xml:lang="es">Rechazado</value>
         <value xml:lang="fr">Refusé</value>
         <value xml:lang="it">Declinato</value>
+        <value xml:lang="nl">Afgewezen</value>      
         <value xml:lang="pt">Não Aceite</value>
         <value xml:lang="ro">Declinat</value>
         <value xml:lang="ru">Занижен</value>
@@ -7631,6 +7658,7 @@
         <value xml:lang="es">No autorizado</value>
         <value xml:lang="fr">Non autorisé</value>
         <value xml:lang="it">Non autorizzato</value>
+        <value xml:lang="nl">Niet geautoriseerd</value>     
         <value xml:lang="pt">Não Autorizado</value>
         <value xml:lang="ro">Ne-Autorizat</value>
         <value xml:lang="ru">Не авторизирован</value>
@@ -7643,6 +7671,7 @@
         <value xml:lang="es">No recibido</value>
         <value xml:lang="fr">Non reçu</value>
         <value xml:lang="it">Non ricevuto</value>
+        <value xml:lang="nl">Niet ontvangen</value>     
         <value xml:lang="pt">Não Recebido</value>
         <value xml:lang="ro">Ne-Primit</value>
         <value xml:lang="ru">Не получен</value>
@@ -7655,6 +7684,7 @@
         <value xml:lang="es">Recibido</value>
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevuto</value>
+        <value xml:lang="nl">Ontvangen</value>      
         <value xml:lang="pt">Recebido</value>
         <value xml:lang="ro">Primit</value>
         <value xml:lang="ru">Получен</value>
@@ -7665,6 +7695,7 @@
         <value xml:lang="en">Refunded</value>
         <value xml:lang="fr">Remboursé</value>
         <value xml:lang="it">Rimborsato</value>
+        <value xml:lang="nl">Terug betaald</value>      
         <value xml:lang="zh">已退款</value>
     </property>
     <property key="StatusItem.description.PAYMENT_SETTLED">
@@ -7673,6 +7704,7 @@
         <value xml:lang="es">Arreglado</value>
         <value xml:lang="fr">Réglé</value>
         <value xml:lang="it">Depositato</value>
+        <value xml:lang="nl">Verrekend</value>      
         <value xml:lang="pt">Acordado</value>
         <value xml:lang="ro">Depozitat</value>
         <value xml:lang="ru">Постоянный</value>
@@ -8524,6 +8556,7 @@
         <value xml:lang="en">Approved</value>
         <value xml:lang="fr">Approuvée</value>
         <value xml:lang="it">Approvato</value>
+        <value xml:lang="nl">Goedgekeurd</value>        
         <value xml:lang="zh">已批准</value>
     </property>
     <property key="StatusItem.description.TIMESHEET_COMPLETED">
@@ -8536,6 +8569,7 @@
         <value xml:lang="en">In-Process</value>
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In attesa</value>
+        <value xml:lang="nl">Onder handen</value>       
         <value xml:lang="zh">处理中</value>
     </property>
     <property key="StatusItem.description.WEFA_AVAILABLE">
@@ -8800,7 +8834,7 @@
         <value xml:lang="es">No aplicable</value>
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
-        <value xml:lang="nl">Niet van Toepassing</value>
+        <value xml:lang="nl">Niet van toepassing</value>
         <value xml:lang="pt">Não Aplicável</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
@@ -8812,6 +8846,7 @@
         <value xml:lang="en">Calendar</value>
         <value xml:lang="fr">Calendrier</value>
         <value xml:lang="it">Calendario</value>
+        <value xml:lang="nl">Kalender</value>       
         <value xml:lang="pt">Calendário</value>
         <value xml:lang="ro">Calendar</value>
         <value xml:lang="ru">Календарь</value>
@@ -8920,6 +8955,7 @@
         <value xml:lang="es">Estado de factura</value>
         <value xml:lang="fr">Statut de facture</value>
         <value xml:lang="it">Stato fattura</value>
+        <value xml:lang="nl">Status factuur</value>     
         <value xml:lang="pt">Estado da Factura</value>
         <value xml:lang="ro">Stare Factura</value>
         <value xml:lang="ru">Статус накладной</value>
@@ -8966,6 +9002,7 @@
         <value xml:lang="es">Planificación de entrega</value>
         <value xml:lang="fr">planification d'expédition</value>
         <value xml:lang="it">Schedulazione consegne ordini</value>
+        <value xml:lang="nl">Bestelling verzendschema</value>       
         <value xml:lang="pt">Prazo de Entrega de Encomendas</value>
         <value xml:lang="ro">Planificare Livrari Comenzi</value>
         <value xml:lang="ru">Планирование доставки заказа</value>
@@ -8978,6 +9015,7 @@
         <value xml:lang="es">Ítem de pedido</value>
         <value xml:lang="fr">Ligne de commande</value>
         <value xml:lang="it">Riga ordine</value>
+        <value xml:lang="nl">Bestelling regel</value>       
         <value xml:lang="pt">Item Encomenda</value>
         <value xml:lang="ro">Linie Comanda</value>
         <value xml:lang="ru">Позиция заказа</value>
@@ -8989,6 +9027,7 @@
         <value xml:lang="es">Estado de devolución</value>
         <value xml:lang="fr">Statut de retour de commande</value>
         <value xml:lang="it">Stato reso ordine</value>
+        <value xml:lang="nl">Bestelling retour status</value>       
         <value xml:lang="pt">Estado da Devolução de Encomendas</value>
         <value xml:lang="ro">Stadiul Comanda Returnata</value>
         <value xml:lang="ru">Статус заказа возврата</value>
@@ -9001,6 +9040,7 @@
         <value xml:lang="es">Pedido</value>
         <value xml:lang="fr">Commande</value>
         <value xml:lang="it">Ordine</value>
+        <value xml:lang="nl">Bestelling</value>     
         <value xml:lang="pt">Encomenda</value>
         <value xml:lang="ro">Comanda</value>
         <value xml:lang="ru">Заказ</value>
@@ -9013,6 +9053,7 @@
         <value xml:lang="es">Preferencias de pago</value>
         <value xml:lang="fr">Préférence de paiement</value>
         <value xml:lang="it">Preferenze pagamento</value>
+        <value xml:lang="nl">Betalingsvoorkeuren</value>        
         <value xml:lang="pt">Preferência de Pagamento</value>
         <value xml:lang="ro">Preferinte Plata</value>
         <value xml:lang="ru">Предпочтения платежа</value>
@@ -9923,6 +9964,7 @@
         <value xml:lang="es">Marcar como preparado</value>
         <value xml:lang="fr">Marquer comme prêt</value>
         <value xml:lang="it">Marcata come pronta</value>
+        <value xml:lang="nl">Als 'Gereed' aanmerken</value>     
         <value xml:lang="pt">Marcar Pronto</value>
         <value xml:lang="ro">Marcatura Promta</value>
         <value xml:lang="ru">Пометить как готовую</value>
@@ -9935,6 +9977,7 @@
         <value xml:lang="es">Enviar</value>
         <value xml:lang="fr">Envoyer</value>
         <value xml:lang="it">Inviata</value>
+        <value xml:lang="nl">Verzenden</value>      
         <value xml:lang="pt">Enviar</value>
         <value xml:lang="ro">Trimisa</value>
         <value xml:lang="ru">Отослать</value>
@@ -9947,6 +9990,7 @@
         <value xml:lang="es">Aprobar</value>
         <value xml:lang="fr">Approuver</value>
         <value xml:lang="it">Approvata</value>
+        <value xml:lang="nl">Goedkeuren</value>     
         <value xml:lang="pt">Aprovar</value>
         <value xml:lang="ro">Aprobata</value>
         <value xml:lang="ru">Утвердить</value>
@@ -9959,6 +10003,7 @@
         <value xml:lang="es">Cancelar</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellata</value>
+        <value xml:lang="nl">Annuleren</value>      
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменить</value>
@@ -9971,6 +10016,7 @@
         <value xml:lang="es">Marcar como preparado</value>
         <value xml:lang="fr">Marquer comme prêt</value>
         <value xml:lang="it">Marcata come pronta</value>
+        <value xml:lang="nl">Als 'Gereed' aanmerken</value>     
         <value xml:lang="pt">Marcar Pronto</value>
         <value xml:lang="ro">Marcatura Promta</value>
         <value xml:lang="ru">Пометить как готовую</value>
@@ -9983,6 +10029,7 @@
         <value xml:lang="es">Recibido</value>
         <value xml:lang="fr">Recevoir</value>
         <value xml:lang="it">Ricevuta</value>
+        <value xml:lang="nl">Ontvangen</value>      
         <value xml:lang="pt">Receber</value>
         <value xml:lang="ro">Primita</value>
         <value xml:lang="ru">Получить</value>
@@ -9995,6 +10042,7 @@
         <value xml:lang="es">Enviado</value>
         <value xml:lang="fr">Envoyer</value>
         <value xml:lang="it">Inviata</value>
+        <value xml:lang="nl">Verzonden</value>      
         <value xml:lang="pt">Enviar</value>
         <value xml:lang="ro">Trimisa</value>
         <value xml:lang="ru">Отослать</value>
@@ -10007,6 +10055,7 @@
         <value xml:lang="es">Pagado</value>
         <value xml:lang="fr">Payer</value>
         <value xml:lang="it">Pagata</value>
+        <value xml:lang="nl">Betaald</value>        
         <value xml:lang="pt">Pagar</value>
         <value xml:lang="ro">Platita</value>
         <value xml:lang="ru">Оплатить</value>
@@ -10019,6 +10068,7 @@
         <value xml:lang="es">Descontado</value>
         <value xml:lang="fr">Passer par pertes et profits</value>
         <value xml:lang="it">Distrutta</value>
+        <value xml:lang="nl">Afschrijven</value>        
         <value xml:lang="pt">Write Off</value>
         <value xml:lang="ro">Distrusa</value>
         <value xml:lang="ru">Аннулировать</value>
@@ -10031,6 +10081,7 @@
         <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuver</value>
         <value xml:lang="it">Approvata</value>
+        <value xml:lang="nl">Goedkeuren</value>     
         <value xml:lang="pt">Aprovar</value>
         <value xml:lang="ro">Aprobata</value>
         <value xml:lang="ru">Утвердить</value>
@@ -10043,6 +10094,7 @@
         <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellata</value>
+        <value xml:lang="nl">Annuleren</value>      
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Cancellata</value>
         <value xml:lang="ru">Отменить</value>
@@ -10055,6 +10107,7 @@
         <value xml:lang="es">Habilitar actualización de factura de compra</value>
         <value xml:lang="fr">Permettre la mise à jour de la facture d'achat</value>
         <value xml:lang="it">Abilita aggiornamento fattura di acquisto</value>
+        <value xml:lang="nl">Activeren inkoopfactuur aanpassen</value>      
         <value xml:lang="pt">Activar actualização de factura.compras</value>
         <value xml:lang="ro">Abiliteaza actualizare factura  Comparare</value>
         <value xml:lang="ru">Возможно обновление приходной накладной</value>
@@ -10067,6 +10120,7 @@
         <value xml:lang="es">Poner como preparado</value>
         <value xml:lang="fr">Marquer comme reçu</value>
         <value xml:lang="it">Marcata ricevuta</value>
+        <value xml:lang="nl">Als 'Ontvangen' aanmerken</value>      
         <value xml:lang="pt">Marcar Receber</value>
         <value xml:lang="ro">Marcatura Primita</value>
         <value xml:lang="ru">Пометить как полученную</value>
@@ -10079,6 +10133,7 @@
         <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellata</value>
+        <value xml:lang="nl">Annuleren</value>      
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменить</value>
@@ -10091,6 +10146,7 @@
         <value xml:lang="es">Habilitar actualización de factura de venta</value>
         <value xml:lang="fr">Permettre la mise à jour de la facture de vente</value>
         <value xml:lang="it">Abilita aggiornamento fattura di vendita</value>
+        <value xml:lang="nl">Activeren verkoopfactuur aanpassen</value>     
         <value xml:lang="pt">Activar actualização de factura de vendas</value>
         <value xml:lang="ro">Abiliteaza actualizare factura Vanzare</value>
         <value xml:lang="ru">Возможно обновление расходной накладной</value>
@@ -10103,6 +10159,7 @@
         <value xml:lang="es">Poner como listo</value>
         <value xml:lang="fr">Marquer comme prêt</value>
         <value xml:lang="it">Marcata come pronta</value>
+        <value xml:lang="nl">Als 'Gereed' aanmerken</value>     
         <value xml:lang="pt">Marcar Pronto</value>
         <value xml:lang="ro">Marcatura Promta</value>
         <value xml:lang="ru">Пометить как готовую</value>
@@ -10115,6 +10172,7 @@
         <value xml:lang="es">Recibido</value>
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevuta</value>
+        <value xml:lang="nl">Ontvangen</value>      
         <value xml:lang="pt">Receber</value>
         <value xml:lang="ro">Primita</value>
         <value xml:lang="ru">Получить</value>
@@ -10127,6 +10185,7 @@
         <value xml:lang="es">Transferido</value>
         <value xml:lang="fr">En cours de transfert</value>
         <value xml:lang="it">In trasferimento</value>
+        <value xml:lang="nl">Wordt getransfereerd</value>       
         <value xml:lang="pt">Sendo Transferida</value>
         <value xml:lang="ro">In Transferiment</value>
         <value xml:lang="ru">Перемещается</value>
@@ -10139,6 +10198,7 @@
         <value xml:lang="es">Poner como defectuoso</value>
         <value xml:lang="fr">Marquer comme défectueux</value>
         <value xml:lang="it">Marcato come difettoso</value>
+        <value xml:lang="nl">Als defect aanmerken</value>       
         <value xml:lang="pt">Marcar Como Defeituoso</value>
         <value xml:lang="ro">Marcat Defectuos</value>
         <value xml:lang="ru">Пометить дефектным</value>
@@ -10151,6 +10211,7 @@
         <value xml:lang="es">Reservado</value>
         <value xml:lang="fr">Réserver</value>
         <value xml:lang="it">Promesso</value>
+        <value xml:lang="nl">Reserveren</value>     
         <value xml:lang="pt">Prometer</value>
         <value xml:lang="ro">Promitere</value>
         <value xml:lang="ru">Обещать</value>
@@ -10163,6 +10224,7 @@
         <value xml:lang="es">Transferencia finalizada</value>
         <value xml:lang="fr">Transfert complet</value>
         <value xml:lang="it">Trasferimento completato</value>
+        <value xml:lang="nl">Gereedmaken transfer</value>       
         <value xml:lang="pt">Transferência Completa</value>
         <value xml:lang="ro">Transferiment Completat</value>
         <value xml:lang="ru">Перемещение завершено</value>
@@ -10175,6 +10237,7 @@
         <value xml:lang="es">Transferencia finalizada (reservada)</value>
         <value xml:lang="fr">Transfert complet (réservé)</value>
         <value xml:lang="it">Trasferimento completato (Promesso)</value>
+        <value xml:lang="nl">Gereedmaken transfer (gereserveerd)</value>        
         <value xml:lang="pt">Transferência Completa (Prometido)</value>
         <value xml:lang="ro">Transferiment Completat (Promis)</value>
         <value xml:lang="ru">Перемещение завершено (обещано)</value>
@@ -10187,6 +10250,7 @@
         <value xml:lang="es">Devolución disponible</value>
         <value xml:lang="fr">Retour disponible</value>
         <value xml:lang="it">Reso disponibile</value>
+        <value xml:lang="nl">Retour beschikbaar</value>     
         <value xml:lang="pt">Devolução Disponível</value>
         <value xml:lang="ro">Returnare Disponibila</value>
         <value xml:lang="ru">Возврат доступен</value>
@@ -10199,6 +10263,7 @@
         <value xml:lang="es">Estado de devolución pendiente</value>
         <value xml:lang="fr">Statut de retour en suspens</value>
         <value xml:lang="it">Stato reso sospeso</value>
+        <value xml:lang="nl">Retourstatus wachtend</value>      
         <value xml:lang="pt">Estado de Devolução Pendente</value>
         <value xml:lang="ro">Stadiu Returnare Suspendata</value>
         <value xml:lang="ru">Ожидание статуса возврата</value>
@@ -10211,6 +10276,7 @@
         <value xml:lang="es">Pedido recibido</value>
         <value xml:lang="fr">Commande arrivée</value>
         <value xml:lang="it">Ordine arrivato</value>
+        <value xml:lang="nl">Bestelling aangekomen</value>      
         <value xml:lang="pt">Chegou Encomenda</value>
         <value xml:lang="ro">Comanda Parvenita</value>
         <value xml:lang="ru">Заказ прибыл</value>
@@ -10223,6 +10289,7 @@
         <value xml:lang="es">Cancelar reserva</value>
         <value xml:lang="fr">Annuler la réservation</value>
         <value xml:lang="it">Promessa cancellata</value>
+        <value xml:lang="nl">Annuleren reservering</value>      
         <value xml:lang="pt">Cancelar Promessa</value>
         <value xml:lang="ro">Promitere Stearsa</value>
         <value xml:lang="ru">Отменить обещание</value>
@@ -10235,6 +10302,7 @@
         <value xml:lang="es">Siendo transferido (reservado)</value>
         <value xml:lang="fr">En cours de transft (réservé)</value>
         <value xml:lang="it">In trasferimento (Promesso)</value>
+        <value xml:lang="nl">Onder handen (gereserveerd)</value>        
         <value xml:lang="pt">Sendo Transferido (Prometido)</value>
         <value xml:lang="ro">In Transferiment (Promis)</value>
         <value xml:lang="ru">Перемещается (обещано)</value>
@@ -10247,6 +10315,7 @@
         <value xml:lang="es">Poner como defectuoso</value>
         <value xml:lang="fr">Marquer comme défectueux</value>
         <value xml:lang="it">Marcato come difettoso</value>
+        <value xml:lang="nl">Als defect aanmerken</value>       
         <value xml:lang="pt">Marcar Como Defeituoso</value>
         <value xml:lang="ro">Marcat Defectuos</value>
         <value xml:lang="ru">Пометить дефектным</value>
@@ -10259,6 +10328,7 @@
         <value xml:lang="es">Entregar</value>
         <value xml:lang="fr">Livrer</value>
         <value xml:lang="it">Consegnato</value>
+        <value xml:lang="nl">Leveren</value>        
         <value xml:lang="pt">Entregar</value>
         <value xml:lang="ro">Livrata</value>
         <value xml:lang="ru">Доставить</value>
@@ -10271,6 +10341,7 @@
         <value xml:lang="es">Hacer devolución disponible</value>
         <value xml:lang="fr">Rendre le retour disponible</value>
         <value xml:lang="it">Marcato reso disponibile</value>
+        <value xml:lang="nl">Retourzending beschikbaar stellen</value>      
         <value xml:lang="pt">Fazer Devolução Disponível</value>
         <value xml:lang="ro">Marcat Returnare Disponibila</value>
         <value xml:lang="ru">Пометить возврат доступным</value>
@@ -10283,6 +10354,7 @@
         <value xml:lang="es">Poner como devolución defectuosa</value>
         <value xml:lang="fr">Marquer le retour défectueux</value>
         <value xml:lang="it">Marcato reso difettoso</value>
+        <value xml:lang="nl">Retourzending als defect aanmerken</value>     
         <value xml:lang="pt">Marcar Devolução Defeituosa</value>
         <value xml:lang="ro">Marcat Returnare Defectuoasa</value>
         <value xml:lang="ru">Пометить возврат дефектным</value>
@@ -10295,6 +10367,7 @@
         <value xml:lang="es">Cancelar ítem</value>
         <value xml:lang="fr">Annuler l'article</value>
         <value xml:lang="it">Cancella riga</value>
+        <value xml:lang="nl">Annuleren regel</value>        
         <value xml:lang="pt">Cancelar Item</value>
         <value xml:lang="ro">Sterge Linie</value>
         <value xml:lang="ru">Отменить позицию</value>
@@ -10307,6 +10380,7 @@
         <value xml:lang="es">Completar ítem</value>
         <value xml:lang="fr">Compléter l'article</value>
         <value xml:lang="it">Completa riga</value>
+        <value xml:lang="nl">Gereedmaken regel</value>      
         <value xml:lang="pt">Item Completo</value>
         <value xml:lang="ro">Completeaza Linie</value>
         <value xml:lang="ru">Завершить позицию</value>
@@ -10319,6 +10393,7 @@
         <value xml:lang="es">Aprobar ítem</value>
         <value xml:lang="fr">Approuver l'article</value>
         <value xml:lang="it">Approva riga</value>
+        <value xml:lang="nl">Goedkeuren regel</value>       
         <value xml:lang="pt">Aprovar Item</value>
         <value xml:lang="ro">Aproba Linie</value>
         <value xml:lang="ru">Утвердить позицию</value>
@@ -10331,6 +10406,7 @@
         <value xml:lang="es">Cancelar ítem</value>
         <value xml:lang="fr">Annuler l'article</value>
         <value xml:lang="it">Cancella riga</value>
+        <value xml:lang="nl">Annuleren regel</value>        
         <value xml:lang="pt">Cancelar Item</value>
         <value xml:lang="ro">Sterge Linie</value>
         <value xml:lang="ru">Отменить позицию</value>
@@ -10343,6 +10419,7 @@
         <value xml:lang="es">Rechazar ítem</value>
         <value xml:lang="fr">Rejeter l'article</value>
         <value xml:lang="it">Rifiuta riga</value>
+        <value xml:lang="nl">Afwijzen regel</value>     
         <value xml:lang="pt">Rejeitar Item</value>
         <value xml:lang="ro">Refuza Linie</value>
         <value xml:lang="ru">Отклонить позицию</value>
@@ -10600,6 +10677,7 @@
         <value xml:lang="es">Cancelar pedido</value>
         <value xml:lang="fr">Annuler la commande</value>
         <value xml:lang="it">Cancella ordine</value>
+        <value xml:lang="nl">Annuleren bestelling</value>       
         <value xml:lang="pt">Cancelar Encomenda</value>
         <value xml:lang="ro">Sterge Comanda</value>
         <value xml:lang="ru">Отменить заказ</value>
@@ -10612,6 +10690,7 @@
         <value xml:lang="es">Pedido terminado</value>
         <value xml:lang="fr">Compléter la commande</value>
         <value xml:lang="it">Completa ordine</value>
+        <value xml:lang="nl">Gereedmaken bestelling</value>     
         <value xml:lang="pt">Completar Encomenda</value>
         <value xml:lang="ro">Completeaza Comanda</value>
         <value xml:lang="ru">Завершить заказ</value>
@@ -10624,6 +10703,7 @@
         <value xml:lang="es">Poner pedido en espera</value>
         <value xml:lang="fr">Prendre la commande</value>
         <value xml:lang="it">Congela ordine</value>
+        <value xml:lang="nl">In de wacht zetten bestelling</value>      
         <value xml:lang="pt">Colocar Encomenda em Espera</value>
         <value xml:lang="ru">Заказ на ожидание</value>
         <value xml:lang="th">การควบคุมรายการสั่งซื้อ</value>
@@ -10635,6 +10715,7 @@
         <value xml:lang="es">Pedido en trámite</value>
         <value xml:lang="fr">Traiter la commande</value>
         <value xml:lang="it">Processa ordine</value>
+        <value xml:lang="nl">Verwerken bestelling</value>       
         <value xml:lang="pt">Hold Order</value>
         <value xml:lang="ro">Congeleaza comanda</value>
         <value xml:lang="ru">Заказ на ожидание</value>
@@ -10647,6 +10728,7 @@
         <value xml:lang="es">Enviar pedido</value>
         <value xml:lang="fr">Envoyer la commande</value>
         <value xml:lang="it">Invia ordine</value>
+        <value xml:lang="nl">Verzenden bestelling</value>       
         <value xml:lang="pt">Enviar Encomenda</value>
         <value xml:lang="ro">Trimite Comanda</value>
         <value xml:lang="ru">Отослать заказ</value>
@@ -10659,6 +10741,7 @@
         <value xml:lang="es">Aprobar pedido</value>
         <value xml:lang="fr">Approuver la commande</value>
         <value xml:lang="it">Approva ordine</value>
+        <value xml:lang="nl">Goedkeuren bestelling</value>      
         <value xml:lang="pt">Aprovar Encomenda</value>
         <value xml:lang="ro">Aproba Comanda</value>
         <value xml:lang="ru">Утвердить заказ</value>
@@ -10671,6 +10754,7 @@
         <value xml:lang="es">Cancelar pedido</value>
         <value xml:lang="fr">Annuler la commande</value>
         <value xml:lang="it">Cancella ordine</value>
+        <value xml:lang="nl">Annuleren bestelling</value>       
         <value xml:lang="pt">Cancelar Encomenda</value>
         <value xml:lang="ro">Sterge Comanda</value>
         <value xml:lang="ru">Отменить заказ</value>
@@ -10683,6 +10767,7 @@
         <value xml:lang="es">Pedido en trámite</value>
         <value xml:lang="fr">Traiter la commande</value>
         <value xml:lang="it">Esegui ordine</value>
+        <value xml:lang="nl">Verwerken bestelling</value>       
         <value xml:lang="pt">Processar Encomenda</value>
         <value xml:lang="ro">Executa Comanda</value>
         <value xml:lang="ru">Обработать заказ</value>
@@ -10695,6 +10780,7 @@
         <value xml:lang="es">Rechazar pedido</value>
         <value xml:lang="fr">Rejeter la commande</value>
         <value xml:lang="it">Rifiuta ordine</value>
+        <value xml:lang="nl">Afwijzen bestelling</value>        
         <value xml:lang="pt">Rejeitar Encomenda</value>
         <value xml:lang="ro">Refuza Comanda</value>
         <value xml:lang="ru">Отклонить заказ</value>
@@ -10707,6 +10793,7 @@
         <value xml:lang="es">Aprobar pedido</value>
         <value xml:lang="fr">Approuver la commande</value>
         <value xml:lang="it">Approva ordine</value>
+        <value xml:lang="nl">Bestelling goedkeuren</value>      
         <value xml:lang="pt">Aprovar Encomenda</value>
         <value xml:lang="ru">Утвердить заказ</value>
         <value xml:lang="th">เห็นด้วยกับรายการสั่งซื้อ</value>
@@ -10718,6 +10805,7 @@
         <value xml:lang="es">Cancelar pedido</value>
         <value xml:lang="fr">Annuler la commande</value>
         <value xml:lang="it">Cancella ordine</value>
+        <value xml:lang="nl">Annuleren bestelling</value>       
         <value xml:lang="pt">Cancelar Encomenda</value>
         <value xml:lang="ru">Отменить заказ</value>
         <value xml:lang="th">ยกเลิกรายการสั่งซื้อ</value>
@@ -10729,6 +10817,7 @@
         <value xml:lang="es">Aprobar pedido</value>
         <value xml:lang="fr">Approuver la commande</value>
         <value xml:lang="it">Approva ordine</value>
+        <value xml:lang="nl">Goedkeuren bestelling</value>      
         <value xml:lang="pt">Aprovar Encomenda</value>
         <value xml:lang="ro">Aproba Comanda</value>
         <value xml:lang="ru">Утвердить заказ</value>
@@ -10741,6 +10830,7 @@
         <value xml:lang="es">Cancelar pedido</value>
         <value xml:lang="fr">Annuler la commande</value>
         <value xml:lang="it">Cancella ordine</value>
+        <value xml:lang="nl">Annuleren bestelling</value>       
         <value xml:lang="pt">Cancelar Encomenda</value>
         <value xml:lang="ro">Sterge Comanda</value>
         <value xml:lang="ru">Отменить заказ</value>
@@ -10753,6 +10843,7 @@
         <value xml:lang="es">Rechazar pedido</value>
         <value xml:lang="fr">Rejeter la commande</value>
         <value xml:lang="it">Rifiuta ordine</value>
+        <value xml:lang="nl">Afwijzen bestelling</value>        
         <value xml:lang="pt">Rejeitar Encomenda</value>
         <value xml:lang="ro">Refuza Comanda</value>
         <value xml:lang="ru">Отклонить заказ</value>
@@ -10765,6 +10856,7 @@
         <value xml:lang="es">Pedido cancelado</value>
         <value xml:lang="fr">Commande annulée</value>
         <value xml:lang="it">Ordine cancellato</value>
+        <value xml:lang="nl">Bestelling geannuleerd</value>     
         <value xml:lang="pt">Encomenda Cancelada</value>
         <value xml:lang="ro">Comanda Stearsa</value>
         <value xml:lang="ru">Заказ отменен</value>
@@ -10777,6 +10869,7 @@
         <value xml:lang="es">Pedido finalizado</value>
         <value xml:lang="fr">Commande terminée</value>
         <value xml:lang="it">Ordine completato</value>
+        <value xml:lang="nl">Bestelling gereed</value>      
         <value xml:lang="pt">Encomenda Completa</value>
         <value xml:lang="ro">Comanda Completata</value>
         <value xml:lang="ru">Заказ завершен</value>
@@ -10789,6 +10882,7 @@
         <value xml:lang="es">Deshabilitado</value>
         <value xml:lang="fr">Invalide</value>
         <value xml:lang="it">Disabilita</value>
+        <value xml:lang="nl">Deactiveren</value>        
         <value xml:lang="pt">Desactivar</value>
         <value xml:lang="ro">Disable</value>
         <value xml:lang="ru">Блокировать</value>
@@ -10801,6 +10895,7 @@
         <value xml:lang="es">Pago cancelado</value>
         <value xml:lang="fr">Paiement annulé</value>
         <value xml:lang="it">Pagamento cancellato</value>
+        <value xml:lang="nl">Betaling geannuleerd</value>       
         <value xml:lang="pt">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
@@ -10813,6 +10908,7 @@
         <value xml:lang="es">Pago resuelto</value>
         <value xml:lang="fr">Paiement réglé</value>
         <value xml:lang="it">Pagamento saldato</value>
+        <value xml:lang="nl">Betaling verrekend</value>     
         <value xml:lang="pt">Pagamento Acordado</value>
         <value xml:lang="ro">Plata Achitata</value>
         <value xml:lang="ru">Платеж устойчивый</value>
@@ -10825,6 +10921,7 @@
         <value xml:lang="es">Pago autorizado</value>
         <value xml:lang="fr">Paiement autorisé</value>
         <value xml:lang="it">Pagamento autorizzato</value>
+        <value xml:lang="nl">Betaling geautoriseerd</value>     
         <value xml:lang="pt">Pagamento Autorizado</value>
         <value xml:lang="ro">Plata Autorizata</value>
         <value xml:lang="ru">Платеж авторизирован</value>
@@ -10837,6 +10934,7 @@
         <value xml:lang="es">Pago cancelado</value>
         <value xml:lang="fr">Paiement annulé</value>
         <value xml:lang="it">Pagamento cancellato</value>
+        <value xml:lang="nl">Betaling geannuleerd</value>       
         <value xml:lang="pt">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
@@ -10849,6 +10947,7 @@
         <value xml:lang="es">Pago cancelado</value>
         <value xml:lang="fr">Paiement annulé</value>
         <value xml:lang="it">Pagamento cancellato</value>
+        <value xml:lang="nl">Betaling geannuleerd</value>       
         <value xml:lang="pt">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
@@ -10861,6 +10960,7 @@
         <value xml:lang="es">Pago recibido</value>
         <value xml:lang="fr">Paiement reçu</value>
         <value xml:lang="it">Pagamento ricevuto</value>
+        <value xml:lang="nl">Betaling ontvangen</value>     
         <value xml:lang="pt">Pagamento Recebido</value>
         <value xml:lang="ro">Plata Primita</value>
         <value xml:lang="ru">Платеж получен</value>
@@ -10953,6 +11053,7 @@
         <value xml:lang="es">Pago cancelado</value>
         <value xml:lang="fr">Paiement annulé</value>
         <value xml:lang="it">Pagamento cancellato</value>
+        <value xml:lang="nl">Betaling geannuleerd</value>       
         <value xml:lang="pt">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
@@ -10965,6 +11066,7 @@
         <value xml:lang="es">Pago recibido</value>
         <value xml:lang="fr">Paiement reçu</value>
         <value xml:lang="it">Pagamento ricevuto</value>
+        <value xml:lang="nl">Betaling ontvangen</value>     
         <value xml:lang="pt">Pagamento Recebido</value>
         <value xml:lang="ro">Plata Primita</value>
         <value xml:lang="ru">Платеж получен</value>
@@ -10977,6 +11079,7 @@
         <value xml:lang="es">Enviar pago</value>
         <value xml:lang="fr">Paiement envoyé</value>
         <value xml:lang="it">Pagamento inviato</value>
+        <value xml:lang="nl">Betaling verstuurd</value>     
         <value xml:lang="pt">Pagamento Enviado</value>
         <value xml:lang="ro">Plata Trimisa</value>
         <value xml:lang="ru">Платеж отослан</value>
@@ -10989,6 +11092,7 @@
         <value xml:lang="es">Pago confirmado</value>
         <value xml:lang="fr">Paiement confirmé</value>
         <value xml:lang="it">Pagamento confermato</value>
+        <value xml:lang="nl">Betaling bevestigd</value>     
         <value xml:lang="pt">Pagamento Confirmado</value>
         <value xml:lang="ro">Plata Confirmata</value>
         <value xml:lang="ru">Платеж подтвержден</value>
@@ -11001,6 +11105,7 @@
         <value xml:lang="es">Pago confirmado</value>
         <value xml:lang="fr">Paiement confirmé</value>
         <value xml:lang="it">Pagamento confermato</value>
+        <value xml:lang="nl">Betaling bevestigd</value>     
         <value xml:lang="pt">Pagamento Confirmado</value>
         <value xml:lang="ro">Plata Confirmata</value>
         <value xml:lang="ru">Платеж подтвержден</value>
@@ -11181,6 +11286,7 @@
         <value xml:lang="es">Devolución aceptada cancelada</value>
         <value xml:lang="fr">Retour accepté et annulé</value>
         <value xml:lang="it">Accettata reso cancellato</value>
+        <value xml:lang="nl">Geaccepteerde retourzending geannuleerd</value>        
         <value xml:lang="pt">Devolução Cancelada Aceite</value>
         <value xml:lang="ro">Acceptare Returnare Stearsa</value>
         <value xml:lang="ru">Подтвержденный возврат отменен</value>
@@ -11193,6 +11299,7 @@
         <value xml:lang="es">Devolución aceptada recibida</value>
         <value xml:lang="fr">Retour reçu et accepté</value>
         <value xml:lang="it">Accettata reso ricevuto</value>
+        <value xml:lang="nl">Geaccepteerde retourzending ontvangen</value>      
         <value xml:lang="pt">Devolução Recebida Aceite</value>
         <value xml:lang="ro">Acceptatre Rturnare Primita</value>
         <value xml:lang="ru">Подтвержденный возврат получен</value>
@@ -11205,6 +11312,7 @@
         <value xml:lang="es">Devolución recibida cancelada</value>
         <value xml:lang="fr">Retour reçu et annulé</value>
         <value xml:lang="it">Ricevuto reso cancellato</value>
+        <value xml:lang="nl">Ontvangen retourzending geannuleerd</value>            
         <value xml:lang="pt">Devolução Recebida Cancelada</value>
         <value xml:lang="ro">Primit Returnare Stearsa</value>
         <value xml:lang="ru">Полученный возврат отменен</value>
@@ -11217,6 +11325,7 @@
         <value xml:lang="es">Devolución recibida finalizada</value>
         <value xml:lang="fr">Retour reçu et terminé</value>
         <value xml:lang="it">Ricevuto reso completato</value>
+        <value xml:lang="nl">Ontvangen retourzending gereed</value>         
         <value xml:lang="pt">Devolução Recebida Completa</value>
         <value xml:lang="ro">Primit Returnare Completa</value>
         <value xml:lang="ru">Полученный возврат завершен</value>
@@ -11229,6 +11338,7 @@
         <value xml:lang="es">Devolución solicitada aceptada</value>
         <value xml:lang="fr">Retour demandé et accepté</value>
         <value xml:lang="it">Richiesta reso accettata</value>
+        <value xml:lang="nl">Aangevraagde retourzending geaccpeteerd</value>            
         <value xml:lang="pt">Devolução Pedida Aceite</value>
         <value xml:lang="ro">Cerere Returnari Acceptata</value>
         <value xml:lang="ru">Запрос на возврат подтвержден</value>
@@ -11241,6 +11351,7 @@
         <value xml:lang="es">Devolución solicitada cancelada</value>
         <value xml:lang="fr">Retour demandé, annulé</value>
         <value xml:lang="it">Richiesta reso cancellata</value>
+        <value xml:lang="nl">Aangevraagde retourzending geannuleerd</value>     
         <value xml:lang="pt">Devolução Pedida Cancelada</value>
         <value xml:lang="ro">Cerere Returnari Stearsa</value>
         <value xml:lang="ru">Запрос на возврат отменен</value>
@@ -11253,6 +11364,7 @@
         <value xml:lang="es">Cancelar</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellare</value>
+        <value xml:lang="nl">Geannuleerd</value>        
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Stergere</value>
         <value xml:lang="ru">Отмена</value>
@@ -11265,6 +11377,7 @@
         <value xml:lang="es">Empaquetar</value>
         <value xml:lang="fr">Emballer</value>
         <value xml:lang="it">Imballa</value>
+        <value xml:lang="nl">Verpakken</value>      
         <value xml:lang="pt">Empacotar</value>
         <value xml:lang="ro">Ambaleaza</value>
         <value xml:lang="ru">Упаковка</value>
@@ -11277,6 +11390,7 @@
         <value xml:lang="es">Recoger</value>
         <value xml:lang="fr">Prélever</value>
         <value xml:lang="it">Preleva</value>
+        <value xml:lang="nl">Picken</value>     
         <value xml:lang="pt">Recolher</value>
         <value xml:lang="ro">Preia</value>
         <value xml:lang="ru">Сортировка</value>
@@ -11289,6 +11403,7 @@
         <value xml:lang="es">Planificar</value>
         <value xml:lang="fr">Programmer</value>
         <value xml:lang="it">Schedula</value>
+        <value xml:lang="nl">Ingepland</value>      
         <value xml:lang="pt">Agendar</value>
         <value xml:lang="ro">Pagina</value>
         <value xml:lang="ru">Запланирована</value>
@@ -11301,6 +11416,7 @@
         <value xml:lang="es">Cancelar</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellare</value>
+        <value xml:lang="nl">Annuleren</value>      
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Stergere</value>
         <value xml:lang="ru">Отмена</value>
@@ -11313,6 +11429,7 @@
         <value xml:lang="es">Enviar</value>
         <value xml:lang="fr">Transporter</value>
         <value xml:lang="it">Spedire</value>
+        <value xml:lang="nl">Verzenden</value>      
         <value xml:lang="pt">Recolher</value>
         <value xml:lang="ro">Expedire</value>
         <value xml:lang="ru">Поставка</value>
@@ -11325,6 +11442,7 @@
         <value xml:lang="es">Cancelar</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellare</value>
+        <value xml:lang="nl">Annuleren</value>      
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Stergere</value>
         <value xml:lang="ru">Отмена</value>
@@ -11337,6 +11455,7 @@
         <value xml:lang="es">Empaquetar</value>
         <value xml:lang="fr">Emballer</value>
         <value xml:lang="it">Imballa</value>
+        <value xml:lang="nl">Verpakken</value>      
         <value xml:lang="pt">Empacotar</value>
         <value xml:lang="ro">Ambaleaza</value>
         <value xml:lang="ru">Упаковка</value>
@@ -11349,6 +11468,7 @@
         <value xml:lang="es">Cancelar</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellare</value>
+        <value xml:lang="nl">Geannuleerd</value>        
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Stergere</value>
         <value xml:lang="ru">Отмена</value>
@@ -11361,6 +11481,7 @@
         <value xml:lang="es">Empaquetar</value>
         <value xml:lang="fr">Emballer</value>
         <value xml:lang="it">Imballa</value>
+        <value xml:lang="nl">Verpakken</value>      
         <value xml:lang="pt">Recolher</value>
         <value xml:lang="ro">Ambaleaza</value>
         <value xml:lang="ru">Упаковка</value>
@@ -11373,6 +11494,7 @@
         <value xml:lang="es">Recoger</value>
         <value xml:lang="fr">Prélever</value>
         <value xml:lang="it">Preleva</value>
+        <value xml:lang="nl">Picken</value>     
         <value xml:lang="pt">Recolher</value>
         <value xml:lang="ro">Preia</value>
         <value xml:lang="ru">Сортировка</value>
@@ -11385,6 +11507,7 @@
         <value xml:lang="es">Entregar</value>
         <value xml:lang="fr">Livrer</value>
         <value xml:lang="it">Consegna</value>
+        <value xml:lang="nl">Geleverd</value>       
         <value xml:lang="pt">Entregar</value>
         <value xml:lang="ro">Consegna</value>
         <value xml:lang="ru">Доставка</value>
@@ -11396,6 +11519,7 @@
         <value xml:lang="es">Anulado</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Annullare</value>
+        <value xml:lang="nl">Annuleren</value>      
         <value xml:lang="pt">Anular</value>
         <value xml:lang="ro">Gol</value>
         <value xml:lang="ru">Пустой</value>
@@ -11408,6 +11532,7 @@
         <value xml:lang="es">Aceptar</value>
         <value xml:lang="fr">Accepter</value>
         <value xml:lang="it">Accettato</value>
+        <value xml:lang="nl">Accepteren</value>     
         <value xml:lang="pt">Aceitar</value>
         <value xml:lang="ro">Acceptat</value>
         <value xml:lang="ru">Принять</value>
@@ -11419,6 +11544,7 @@
         <value xml:lang="es">Anular</value>
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Annullare</value>
+        <value xml:lang="nl">Annuleren</value>      
         <value xml:lang="pt">Anular</value>
         <value xml:lang="ro">Gol</value>
         <value xml:lang="ru">Пустой</value>
@@ -11431,6 +11557,7 @@
         <value xml:lang="es">Confirmar</value>
         <value xml:lang="fr">Confirmer</value>
         <value xml:lang="it">Confermato</value>
+        <value xml:lang="nl">Bevestigen</value>     
         <value xml:lang="pt">Confirmar</value>
         <value xml:lang="ro">Confirmat</value>
         <value xml:lang="ru">Подтвердить</value>
@@ -11443,6 +11570,7 @@
         <value xml:lang="es">Comienzo</value>
         <value xml:lang="fr">Commencer</value>
         <value xml:lang="it">Iniziato</value>
+        <value xml:lang="nl">Starten</value>        
         <value xml:lang="pt">Iníciar</value>
         <value xml:lang="ro">Initiat</value>
         <value xml:lang="ru">Начать</value>
@@ -11455,6 +11583,7 @@
         <value xml:lang="es">Interrumpir</value>
         <value xml:lang="fr">Interrompre</value>
         <value xml:lang="it">Abortire</value>
+        <value xml:lang="nl">Afbreken</value>       
         <value xml:lang="pt">Abortar</value>
         <value xml:lang="ro">Abandonare</value>
         <value xml:lang="ru">Прервать</value>
@@ -11467,6 +11596,7 @@
         <value xml:lang="es">Finalizar</value>
         <value xml:lang="fr">Compléter</value>
         <value xml:lang="it">Completato</value>
+        <value xml:lang="nl">Afsluiten</value>      
         <value xml:lang="pt">Completa</value>
         <value xml:lang="ro">Completat</value>
         <value xml:lang="ru">Завершить</value>
@@ -11479,6 +11609,7 @@
         <value xml:lang="es">Suspender</value>
         <value xml:lang="fr">Suspendre</value>
         <value xml:lang="it">Sospeso</value>
+        <value xml:lang="nl">Opschorten</value>     
         <value xml:lang="pt">Suspender</value>
         <value xml:lang="ro">Suspendat</value>
         <value xml:lang="ru">Приостановить</value>
@@ -11491,6 +11622,7 @@
         <value xml:lang="es">Terminar</value>
         <value xml:lang="fr">Terminer</value>
         <value xml:lang="it">Terminato</value>
+        <value xml:lang="nl">Beëindigen</value>     
         <value xml:lang="pt">Terminar</value>
         <value xml:lang="ro">Terminat</value>
         <value xml:lang="ru">Прекратить</value>
@@ -11503,6 +11635,7 @@
         <value xml:lang="es">Revocar suspensión</value>
         <value xml:lang="fr">Reprendre</value>
         <value xml:lang="it">Riabilita</value>
+        <value xml:lang="nl">Hervatten</value>      
         <value xml:lang="pt">Revogar Suspensão</value>
         <value xml:lang="ro">Reabilitat</value>
         <value xml:lang="ru">Продолжить</value>
@@ -11603,6 +11736,7 @@
         <value xml:lang="es">Acre</value>
         <value xml:lang="fr">Demi-hectare (surface 5 000 m²)</value>
         <value xml:lang="it">Acro</value>
+        <value xml:lang="nl">Acre (oppervlakte 5 000 m²)</value>        
         <value xml:lang="pt">Acre</value>
         <value xml:lang="ro">Acru</value>
         <value xml:lang="ru">Акр</value>
@@ -11615,6 +11749,7 @@
         <value xml:lang="es">Área (100m2)</value>
         <value xml:lang="fr">Are (10m x 10m = 100m²)</value>
         <value xml:lang="it">Are</value>
+        <value xml:lang="nl">Are (10m x 10m = 100m²)</value>        
         <value xml:lang="pt">Are</value>
         <value xml:lang="ro">Ar</value>
         <value xml:lang="ru">Ар</value>
@@ -11627,6 +11762,7 @@
         <value xml:lang="es">Centímetro cuadrado</value>
         <value xml:lang="fr">Centimètre carré (cm²)</value>
         <value xml:lang="it">Centimetro quadrato</value>
+        <value xml:lang="nl">Vierkante centimeter (cm²)</value>     
         <value xml:lang="pt">Centímetro Quadrado</value>
         <value xml:lang="ro">Centimetru Patrat</value>
         <value xml:lang="ru">Кв. сантиметр</value>
@@ -11639,6 +11775,7 @@
         <value xml:lang="es">Pie cuadrado</value>
         <value xml:lang="fr">Pied carré (30,48 cm²)</value>
         <value xml:lang="it">Piede quadrato</value>
+        <value xml:lang="nl">Vierkante voet (30,48 cm²)</value>      
         <value xml:lang="pt">Pé Quadrado</value>
         <value xml:lang="ro">Picior Patrat</value>
         <value xml:lang="ru">Кв. фут</value>
@@ -11651,6 +11788,7 @@
         <value xml:lang="es">Hectárea</value>
         <value xml:lang="fr">Hectare (100 m x 100 m = 10 000 m²)</value>
         <value xml:lang="it">Ettaro</value>
+        <value xml:lang="nl">Hectare</value>        
         <value xml:lang="pt">Hectare</value>
         <value xml:lang="ro">Hectar</value>
         <value xml:lang="ru">Гектар</value>
@@ -11663,6 +11801,7 @@
         <value xml:lang="es">Pulgada cuadrada</value>
         <value xml:lang="fr">Pouce carré (6.5 cm²)</value>
         <value xml:lang="it">Pollice quadrato</value>
+        <value xml:lang="nl">Vierkante inch (6.5 cm²)</value>       
         <value xml:lang="pt">Polegada Quadrada</value>
         <value xml:lang="ro">Inch Patrat</value>
         <value xml:lang="ru">Кв. дюйм</value>
@@ -11675,6 +11814,7 @@
         <value xml:lang="es">Kilómetro cuadrado</value>
         <value xml:lang="fr">Kilomètre carré (km² = 100 hectares (ha) = 10000 ares (a) = 1 000 000 mètres carré (m²))</value>
         <value xml:lang="it">Chilometro quadrato</value>
+        <value xml:lang="nl">Vierkante kilometer (km²)</value>      
         <value xml:lang="pt">Kilómetro Quadrado</value>
         <value xml:lang="ro">Kilometru Patrat</value>
         <value xml:lang="ru">Кв. километр</value>
@@ -11687,6 +11827,7 @@
         <value xml:lang="es">Metro cuadrado</value>
         <value xml:lang="fr">Mètre carré (m²)</value>
         <value xml:lang="it">Metroquadro</value>
+        <value xml:lang="nl">Vierkante meter (m²)</value>       
         <value xml:lang="pt">Metro Quadrado</value>
         <value xml:lang="ro">Metru Patrat</value>
         <value xml:lang="ru">Кв. метр</value>
@@ -11699,6 +11840,7 @@
         <value xml:lang="es">Milla cuadrada</value>
         <value xml:lang="fr">Mille carré (2,59 km²)</value>
         <value xml:lang="it">Miglia quadrato</value>
+        <value xml:lang="nl">Vierkante mijl (2,59 km²)</value>      
         <value xml:lang="pt">Milha Quadrada</value>
         <value xml:lang="ro">Mila Patrata</value>
         <value xml:lang="ru">Кв. миля</value>
@@ -11711,6 +11853,7 @@
         <value xml:lang="es">Milímetro cuadrado</value>
         <value xml:lang="fr">Millimètre carré (mm²)</value>
         <value xml:lang="it">Millimetro quadrato</value>
+        <value xml:lang="nl">Vierkante millimeter (mm²)</value>     
         <value xml:lang="pt">Milímetro Quadrado</value>
         <value xml:lang="ro">Milimetru Patrat</value>
         <value xml:lang="ru">Кв. миллиметр</value>
@@ -11722,6 +11865,7 @@
         <value xml:lang="es">Rod cuadrado</value>
         <value xml:lang="fr">Rod carré (1/160 acre = 25,29285 m²)</value>
         <value xml:lang="it">Rod quadrato</value>
+        <value xml:lang="nl">Vierkante rod (1/160 hectare = 25,29285 m²)</value>        
         <value xml:lang="pt">Rod Quadrado</value>
         <value xml:lang="ro">Rod Patrat</value>
         <value xml:lang="ru">Кв. род</value>
@@ -11733,6 +11877,7 @@
         <value xml:lang="en">Square Yard</value>
         <value xml:lang="fr">Yard carré (0,9144 m²)</value>
         <value xml:lang="it">Iarda quadrato</value>
+        <value xml:lang="nl">Vierkante yard (0,9144 m²)</value>     
         <value xml:lang="pt">Jarda Quadrada</value>
         <value xml:lang="ro">Iard Patrat</value>
         <value xml:lang="ru">Кв. ярд</value>
@@ -12098,6 +12243,7 @@
         <value xml:lang="es">Gigabits por segundo</value>
         <value xml:lang="fr">Gigabit de données par seconde</value>
         <value xml:lang="it">Gigabit-per-secondo di Dati</value>
+        <value xml:lang="nl">Data gigabits per seconde</value>      
         <value xml:lang="pt">Gigabit-por-secundo de Dados</value>
         <value xml:lang="ro">Gigabit-pe-secunda de Date</value>
         <value xml:lang="ru">Гигабит/сек.</value>
@@ -12110,6 +12256,7 @@
         <value xml:lang="es">Kilbits por segundo</value>
         <value xml:lang="fr">Kilobit de données par seconde</value>
         <value xml:lang="it">Kilobit-per-secondo di Dati</value>
+        <value xml:lang="nl">Data kilobits per seconde</value>      
         <value xml:lang="pt">Kilobit-por-secundo de Dados</value>
         <value xml:lang="ro">Kilobit-pe-secunda de Date</value>
         <value xml:lang="ru">Килобит/сек.</value>
@@ -12122,6 +12269,7 @@
         <value xml:lang="es">Megabits por segundo</value>
         <value xml:lang="fr">Mégabit de données par seconde</value>
         <value xml:lang="it">Megabit-per-secondo di Dati</value>
+        <value xml:lang="nl">Data megabits per seconde</value>      
         <value xml:lang="pt">Megabit-por-secundo de Dados</value>
         <value xml:lang="ro">Megabit-pe-secunda de Date</value>
         <value xml:lang="ru">Мегабит/сек.</value>
@@ -12134,6 +12282,7 @@
         <value xml:lang="es">Terabits por segundo</value>
         <value xml:lang="fr">Térabit de données par seconde</value>
         <value xml:lang="it">Terabit-per-secondo di Dati</value>
+        <value xml:lang="nl">Data terrabits per seconde</value>     
         <value xml:lang="pt">Terabit-por-secundo de Dados</value>
         <value xml:lang="ro">Terabit-pe-secunda de Date</value>
         <value xml:lang="ru">Терабит/сек.</value>
@@ -12146,6 +12295,7 @@
         <value xml:lang="es">Bits por segundo</value>
         <value xml:lang="fr">Bit de données par seconde</value>
         <value xml:lang="it">Bit-per-secondo di Dati</value>
+        <value xml:lang="nl">Data bits per seconde</value>      
         <value xml:lang="pt">Bit-por-secundo de Dados</value>
         <value xml:lang="ro">Bit-pe-secunda de Date</value>
         <value xml:lang="ru">Бит/сек.</value>
@@ -12158,6 +12308,7 @@
         <value xml:lang="es">Byte de datos</value>
         <value xml:lang="fr">Octet de données</value>
         <value xml:lang="it">Byte di Dati</value>
+        <value xml:lang="nl">Data bytes</value>     
         <value xml:lang="pt">Byte de Data</value>
         <value xml:lang="ro">Byte di Date</value>
         <value xml:lang="ru">Байт</value>
@@ -12170,6 +12321,7 @@
         <value xml:lang="es">Gigabyte de datos</value>
         <value xml:lang="fr">Gigaoctet de données</value>
         <value xml:lang="it">Gigabyte di Dati</value>
+        <value xml:lang="nl">Data gigabytes</value>     
         <value xml:lang="pt">Gigabyte de Dados</value>
         <value xml:lang="ro">Gigabyte di Date</value>
         <value xml:lang="ru">Гигабайт</value>
@@ -12182,6 +12334,7 @@
         <value xml:lang="es">Gigabit de datos</value>
         <value xml:lang="fr">Gigabit de données</value>
         <value xml:lang="it">Gigabit di Dati</value>
+        <value xml:lang="nl">Data gigabits</value>      
         <value xml:lang="pt">Gigabit de Dados</value>
         <value xml:lang="ro">Gigabit di Date</value>
         <value xml:lang="ru">Гигабит</value>
@@ -12194,6 +12347,7 @@
         <value xml:lang="es">Kilobyte de datos</value>
         <value xml:lang="fr">Kilobit de données</value>
         <value xml:lang="it">Kilobyte di Dati</value>
+        <value xml:lang="nl">Data kilobytes</value>     
         <value xml:lang="pt">Kilobyte de Dados</value>
         <value xml:lang="ro">Kilobyte di Date</value>
         <value xml:lang="ru">Килобайт</value>
@@ -12206,6 +12360,7 @@
         <value xml:lang="es">Kilobit de datos</value>
         <value xml:lang="fr">Kilobit de données</value>
         <value xml:lang="it">Kilobit di Dati</value>
+        <value xml:lang="nl">Data kilobits</value>      
         <value xml:lang="pt">Kilobit de Dados</value>
         <value xml:lang="ro">Kilobit de Date</value>
         <value xml:lang="ru">Килобит</value>
@@ -12218,6 +12373,7 @@
         <value xml:lang="es">Megabyte de datos</value>
         <value xml:lang="fr">Mégaoctet de données</value>
         <value xml:lang="it">Megabyte di Dati</value>
+        <value xml:lang="nl">Data Megabits</value>      
         <value xml:lang="pt">Megabyte de Dados</value>
         <value xml:lang="ro">Megabyte di Date</value>
         <value xml:lang="ru">Мегабайт</value>
@@ -12230,6 +12386,7 @@
         <value xml:lang="es">Megabit de datos</value>
         <value xml:lang="fr">Mégabit de données</value>
         <value xml:lang="it">Megabit di Dati</value>
+        <value xml:lang="nl">Data Megabits</value>      
         <value xml:lang="pt">Megabit de Dados</value>
         <value xml:lang="ro">Megabit di Date</value>
         <value xml:lang="ru">Мегабит</value>
@@ -12242,6 +12399,7 @@
         <value xml:lang="es">Petabyte de datos</value>
         <value xml:lang="fr">Pétaoctet de données</value>
         <value xml:lang="it">Petabyte di Dati</value>
+        <value xml:lang="nl">Data Petabytes</value>     
         <value xml:lang="pt">Petabyte de Dados</value>
         <value xml:lang="ro">Petabyte di Date</value>
         <value xml:lang="ru">Петабайт</value>
@@ -12254,6 +12412,7 @@
         <value xml:lang="es">Terabyte de datos</value>
         <value xml:lang="fr">Téraoctet de données</value>
         <value xml:lang="it">Terabyte di Dati</value>
+        <value xml:lang="nl">Data terrabytes</value>        
         <value xml:lang="pt">Terabyte de Dados</value>
         <value xml:lang="ro">Terabyte di Date</value>
         <value xml:lang="ru">Терабайт</value>
@@ -12266,6 +12425,7 @@
         <value xml:lang="es">Terabit de datos</value>
         <value xml:lang="fr">Térabit de données</value>
         <value xml:lang="it">Terabit di Dati</value>
+        <value xml:lang="nl">Data terrabits</value>     
         <value xml:lang="pt">Terabit de Dados</value>
         <value xml:lang="ro">Terabit di Date</value>
         <value xml:lang="ru">Терабит</value>
@@ -12278,6 +12438,7 @@
         <value xml:lang="es">Bit de datos</value>
         <value xml:lang="fr">Bit de données</value>
         <value xml:lang="it">Bit di Dati</value>
+        <value xml:lang="nl">Data bits</value>      
         <value xml:lang="pt">Bit de Dados</value>
         <value xml:lang="ro">Bit de Date</value>
         <value xml:lang="ru">Бит</value>
@@ -12411,6 +12572,7 @@
         <value xml:lang="es">Caballo de vapor (mecánico)</value>
         <value xml:lang="fr">Puissances en chevaux (mécanique)</value>
         <value xml:lang="it">Cavalli (meccanici)</value>
+        <value xml:lang="nl">Paardenkracht (mechanisch)</value>     
         <value xml:lang="pt">Cavalos (mecânico)</value>
         <value xml:lang="ro">Cai (meccanici)</value>
         <value xml:lang="ru">Лошадиная сила</value>
@@ -12423,6 +12585,7 @@
         <value xml:lang="es">Julio (absoluto)</value>
         <value xml:lang="fr">Joule (absolu)</value>
         <value xml:lang="it">Joule (assoluti)</value>
+        <value xml:lang="nl">Joule (absoluut)</value>       
         <value xml:lang="pt">Joule (absoluto)</value>
         <value xml:lang="ro">Joule (absoluti)</value>
         <value xml:lang="ru">Джоуль (абсолютный)</value>
@@ -12435,6 +12598,7 @@
         <value xml:lang="es">Kilovatio</value>
         <value xml:lang="fr">Kilowatt</value>
         <value xml:lang="it">Kilowatt</value>
+        <value xml:lang="nl">Kilowatt</value>       
         <value xml:lang="pt">Kilowatt</value>
         <value xml:lang="ro">Kilowat</value>
         <value xml:lang="ru">Киловатт</value>
@@ -12447,6 +12611,7 @@
         <value xml:lang="es">Caloría (@15.5c)</value>
         <value xml:lang="fr">Calorie (à 15.5°c)</value>
         <value xml:lang="it">Calorie (@15.5c)</value>
+        <value xml:lang="nl">Calorie (@15.5c)</value>       
         <value xml:lang="pt">Caloria (@15.5c)</value>
         <value xml:lang="ro">Calorie (@15.5c)</value>
         <value xml:lang="ru">Калория</value>
@@ -12459,6 +12624,7 @@
         <value xml:lang="es">Vatio</value>
         <value xml:lang="fr">Watt</value>
         <value xml:lang="it">Watt</value>
+        <value xml:lang="nl">Watt</value>       
         <value xml:lang="pt">Watt</value>
         <value xml:lang="ro">Wat</value>
         <value xml:lang="ru">Ват</value>
@@ -12494,6 +12660,7 @@
         <value xml:lang="es">Euro</value>
         <value xml:lang="fr">Euro</value>
         <value xml:lang="it">Euro</value>
+        <value xml:lang="nl">Euro</value>       
         <value xml:lang="pt">Euro</value>
         <value xml:lang="ro">Euro</value>
         <value xml:lang="ru">Евро</value>
@@ -12956,6 +13123,7 @@
         <value xml:lang="es">Angstrom</value>
         <value xml:lang="fr">Angstrom</value>
         <value xml:lang="it">Angstrom</value>
+        <value xml:lang="nl">Angström</value>       
         <value xml:lang="pt">Angstrom</value>
         <value xml:lang="ro">Angstrom</value>
         <value xml:lang="ru">Ангстрем</value>
@@ -12967,6 +13135,7 @@
         <value xml:lang="es">Cable</value>
         <value xml:lang="fr">Câble</value>
         <value xml:lang="it">Cablo</value>
+        <value xml:lang="nl">Cable</value>      
         <value xml:lang="pt">Cable</value>
         <value xml:lang="ro">Cablu</value>
         <value xml:lang="ru">Кабель</value>
@@ -12978,6 +13147,7 @@
         <value xml:lang="es">Chain (de Gunter/Inspector)</value>
         <value xml:lang="fr">Chaîne (de Gunter/Inspecteur = 20,1168 m)</value>
         <value xml:lang="it">Chain (Gunter's/surveyor's)</value>
+        <value xml:lang="nl">Chain (Gunter's/Inspecteur = 20,1168 m)</value>        
         <value xml:lang="pt">Chain (Gunter's/surveyor's)</value>
         <value xml:lang="ro">Chain (Gunter's/surveyor's)</value>
         <value xml:lang="ru">Цепь (мерная Гунтера/зарядная)</value>
@@ -12989,6 +13159,7 @@
         <value xml:lang="es">Chain (de Ramden/Ingeniero)</value>
         <value xml:lang="fr">Chaîne (de Ramden/Ingénieur = 30,48 m)</value>
         <value xml:lang="it">Chain (Ramden's/engineer's)</value>
+        <value xml:lang="nl">Chain (Ramden's/Ingenieur = 30,48 m)</value>       
         <value xml:lang="pt">Chain (Ramden's/engineer's)</value>
         <value xml:lang="ro">Chain (Ramden's/engineer's)</value>
         <value xml:lang="ru">Цепь (Рамдена/инженерная)</value>
@@ -13001,6 +13172,7 @@
         <value xml:lang="es">Centímetro</value>
         <value xml:lang="fr">Centimètre</value>
         <value xml:lang="it">Centimetro</value>
+        <value xml:lang="nl">Centimeter</value>     
         <value xml:lang="pt">Centimetro</value>
         <value xml:lang="ro">Centimetru</value>
         <value xml:lang="ru">Сантиметр</value>
@@ -13013,6 +13185,7 @@
         <value xml:lang="es">Decámetro</value>
         <value xml:lang="fr">Décamètre</value>
         <value xml:lang="it">Dekameter</value>
+        <value xml:lang="nl">Dekameter</value>      
         <value xml:lang="pt">Decâmetro</value>
         <value xml:lang="ro">Dekameter</value>
         <value xml:lang="ru">Декаметр</value>
@@ -13025,6 +13198,7 @@
         <value xml:lang="es">Decímetro</value>
         <value xml:lang="fr">Décimètre</value>
         <value xml:lang="it">Decimetro</value>
+        <value xml:lang="nl">Decimeter</value>      
         <value xml:lang="pt">Decimetro</value>
         <value xml:lang="ro">Decimetru</value>
         <value xml:lang="ru">Дециметр</value>
@@ -13037,6 +13211,7 @@
         <value xml:lang="es">Fathom</value>
         <value xml:lang="fr">Brasse (1,8288 m)</value>
         <value xml:lang="it">Fathom</value>
+        <value xml:lang="nl">Fathom (1,8288 m)</value>      
         <value xml:lang="pt">Fathom</value>
         <value xml:lang="ro">Fathom</value>
         <value xml:lang="ru">Мор. сажень</value>
@@ -13049,6 +13224,7 @@
         <value xml:lang="es">Pie</value>
         <value xml:lang="fr">Pied (30,48 cm)</value>
         <value xml:lang="it">Piede</value>
+        <value xml:lang="nl">Voet (30,48 cm)</value>        
         <value xml:lang="pt">Pé</value>
         <value xml:lang="ro">Piede</value>
         <value xml:lang="ru">Фут</value>
@@ -13061,6 +13237,7 @@
         <value xml:lang="es">Furlong</value>
         <value xml:lang="fr">Furlong (201,168 m)</value>
         <value xml:lang="it">Furlong</value>
+        <value xml:lang="nl">Furlong (201,168 m)</value>        
         <value xml:lang="pt">Furlong</value>
         <value xml:lang="ro">Furlong</value>
         <value xml:lang="ru">Фурлонг</value>
@@ -13072,6 +13249,7 @@
         <value xml:lang="es">Mano (altura de caballo)</value>
         <value xml:lang="fr">Main (10,16 cm)</value>
         <value xml:lang="it">Mano (altezza cavallo)</value>
+        <value xml:lang="nl">Hand (paardhoogte)</value>     
         <value xml:lang="pt">Hand (horse's height)</value>
         <value xml:lang="ro">Mano (Inaltime cal)</value>
         <value xml:lang="ru">Рука (высота лошади)</value>
@@ -13084,6 +13262,7 @@
         <value xml:lang="es">Pulgada</value>
         <value xml:lang="fr">Pouce (2,54 cm)</value>
         <value xml:lang="it">Pollice</value>
+        <value xml:lang="nl">Inch</value>       
         <value xml:lang="pt">Polegada</value>
         <value xml:lang="ro">Inch</value>
         <value xml:lang="ru">Дюйм</value>
@@ -13096,6 +13275,7 @@
         <value xml:lang="es">Kilómetro</value>
         <value xml:lang="fr">Kilomètre</value>
         <value xml:lang="it">Chilometro</value>
+        <value xml:lang="nl">Kilometer</value>      
         <value xml:lang="pt">Kilómetro</value>
         <value xml:lang="ro">Kilometru</value>
         <value xml:lang="ru">Километр</value>
@@ -13108,6 +13288,7 @@
         <value xml:lang="es">Milla (League)</value>
         <value xml:lang="fr">Lieue (4,8 km si terrestre ou 5,6 km si nautique)</value>
         <value xml:lang="it">Lega</value>
+        <value xml:lang="nl">Mijl (League)</value>      
         <value xml:lang="pt">Légua</value>
         <value xml:lang="ro">Lega</value>
         <value xml:lang="ru">Лига</value>
@@ -13119,6 +13300,7 @@
         <value xml:lang="es">Link (de Gunter)</value>
         <value xml:lang="fr">Lien (de Gunter =  0,201168 m)</value>
         <value xml:lang="it">Link (Gunter's)</value>
+        <value xml:lang="nl">Lien (Gunter's =  0,201168 m)</value>      
         <value xml:lang="pt">Link (Gunter's)</value>
         <value xml:lang="ro">Link (Gunter's)</value>
         <value xml:lang="ru">Звено (Гунтера)</value>
@@ -13130,6 +13312,7 @@
         <value xml:lang="es">Link (de Ramden)</value>
         <value xml:lang="fr">Lien (de Randem = 0,3048 m)</value>
         <value xml:lang="it">Link (Ramden's)</value>
+        <value xml:lang="nl">Link (Ramden's = 0,3048 m)</value>     
         <value xml:lang="pt">Link (Ramden's)</value>
         <value xml:lang="ro">Link (Ramden's)</value>
         <value xml:lang="ru">Звено (Рамдена)</value>
@@ -13142,6 +13325,7 @@
         <value xml:lang="es">Metro</value>
         <value xml:lang="fr">Mètre</value>
         <value xml:lang="it">Metro</value>
+        <value xml:lang="nl">Meter</value>      
         <value xml:lang="pt">Metro</value>
         <value xml:lang="ro">Metru</value>
         <value xml:lang="ru">Метр</value>
@@ -13154,6 +13338,7 @@
         <value xml:lang="es">Milla terrestre</value>
         <value xml:lang="fr">Mille (terrestre = 1,609 km)</value>
         <value xml:lang="it">Miglio (terra)</value>
+        <value xml:lang="nl">Mijl (land = 1,609 km)</value>     
         <value xml:lang="pt">Milha (statute/land)</value>
         <value xml:lang="ro">Mila (Pamant)</value>
         <value xml:lang="ru">Миля</value>
@@ -13166,6 +13351,7 @@
         <value xml:lang="es">Mil (Milipulgada)</value>
         <value xml:lang="fr">Mil (Milli-pouce)</value>
         <value xml:lang="it">Mil (Milli-pollice)</value>
+        <value xml:lang="nl">Mil (Milli-inch)</value>       
         <value xml:lang="pt">Mil (Milli-inch)</value>
         <value xml:lang="ro">Mil (Milli-Inch)</value>
         <value xml:lang="ru">Мил (миллидюйм)</value>
@@ -13178,6 +13364,7 @@
         <value xml:lang="es">Milímetro</value>
         <value xml:lang="fr">Millimètre</value>
         <value xml:lang="it">Millimetro</value>
+        <value xml:lang="nl">Millimeter</value>     
         <value xml:lang="pt">Milímetro</value>
         <value xml:lang="ro">Milimetru</value>
         <value xml:lang="ru">Миллиметр</value>
@@ -13190,6 +13377,7 @@
         <value xml:lang="es">Milla náutica</value>
         <value xml:lang="fr">Mille (nautique = 1,852 km)</value>
         <value xml:lang="it">Miglio (nautico)</value>
+        <value xml:lang="nl">Mijl (nautisch = 1,852 km)</value>     
         <value xml:lang="pt">Milha (nautical/sea)</value>
         <value xml:lang="ro">Miglio (nautica)</value>
         <value xml:lang="ru">Миля (морская)</value>
@@ -13202,6 +13390,7 @@
         <value xml:lang="es">Pica (tamaño de fuente)</value>
         <value xml:lang="fr">Pica (4,23333333 mm)</value>
         <value xml:lang="it">Pica (tipo misura)</value>
+        <value xml:lang="nl">Pica (4,23333333 mm)</value>       
         <value xml:lang="pt">Pica (type size)</value>
         <value xml:lang="ro">Pica (tip masura)</value>
         <value xml:lang="ru">Цицеро</value>
@@ -13214,6 +13403,7 @@
         <value xml:lang="es">Punto (tamaño de fuente)</value>
         <value xml:lang="fr">Point (1/12 pica)</value>
         <value xml:lang="it">Punto (tipo misura)</value>
+        <value xml:lang="nl">Punt (1/12 pica)</value>       
         <value xml:lang="pt">Ponto (type size)</value>
         <value xml:lang="ro">Punct (tip masura)</value>
         <value xml:lang="ru">Очко</value>
@@ -13225,6 +13415,7 @@
         <value xml:lang="es">Rod</value>
         <value xml:lang="fr">Rod (5,0292 m)</value>
         <value xml:lang="it">Rod</value>
+        <value xml:lang="nl">Rod (5,0292 m)</value>     
         <value xml:lang="pt">Rod</value>
         <value xml:lang="ro">Rod</value>
         <value xml:lang="ru">Род</value>
@@ -13237,6 +13428,7 @@
         <value xml:lang="es">Micrómetro</value>
         <value xml:lang="fr">Micromètre (Micron)</value>
         <value xml:lang="it">Micrometro (Micron)</value>
+        <value xml:lang="nl">Micrometer (Micron)</value>        
         <value xml:lang="pt">Micrómetro (Micron)</value>
         <value xml:lang="ro">Micrometru (Micron)</value>
         <value xml:lang="ru">Микрометр (Микрон)</value>
@@ -13249,6 +13441,7 @@
         <value xml:lang="es">Yarda</value>
         <value xml:lang="fr">Yard (0,9144 m)</value>
         <value xml:lang="it">Iarda</value>
+        <value xml:lang="nl">Yard (0,9144 m)</value>        
         <value xml:lang="pt">Jarda</value>
         <value xml:lang="ro">Iard</value>
         <value xml:lang="ru">Ярд</value>
@@ -14932,6 +15125,7 @@
         <value xml:lang="es">Área</value>
         <value xml:lang="fr">Aire</value>
         <value xml:lang="it">Area</value>
+        <value xml:lang="nl">Gebied</value>     
         <value xml:lang="pt">Área</value>
         <value xml:lang="ro">Aria</value>
         <value xml:lang="ru">Площадь</value>
@@ -14944,6 +15138,7 @@
         <value xml:lang="es">Moneda</value>
         <value xml:lang="fr">Monnaie</value>
         <value xml:lang="it">Valuta</value>
+        <value xml:lang="nl">Valuta</value>     
         <value xml:lang="pt">Moeda</value>
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
@@ -14956,6 +15151,7 @@
         <value xml:lang="es">Velocidad de datos</value>
         <value xml:lang="fr">Débit (informatique)</value>
         <value xml:lang="it">Velocità Dati</value>
+        <value xml:lang="nl">Data snelheid</value>      
         <value xml:lang="pt">Velocidade dos Dados</value>
         <value xml:lang="ro">Rapiditate Date</value>
         <value xml:lang="ru">Скорость перед. данных</value>
@@ -14968,6 +15164,7 @@
         <value xml:lang="es">Tamaño de datos</value>
         <value xml:lang="fr">Taille de données</value>
         <value xml:lang="it">Ampiezza Dati</value>
+        <value xml:lang="nl">Data omvang</value>        
         <value xml:lang="pt">Tamanho dos Dados</value>
         <value xml:lang="ro">Marime Data</value>
         <value xml:lang="ru">Размер данных</value>
@@ -14980,6 +15177,7 @@
         <value xml:lang="es">Energía</value>
         <value xml:lang="fr">Energie</value>
         <value xml:lang="it">Energia</value>
+        <value xml:lang="nl">Energie</value>        
         <value xml:lang="pt">Energia</value>
         <value xml:lang="ro">Energie</value>
         <value xml:lang="ru">Энергия</value>
@@ -14992,6 +15190,7 @@
         <value xml:lang="es">Longitud</value>
         <value xml:lang="fr">Longueur</value>
         <value xml:lang="it">Lunghezza</value>
+        <value xml:lang="nl">Lengte</value>         
         <value xml:lang="pt">Largura</value>
         <value xml:lang="ro">Lungime</value>
         <value xml:lang="ru">Длина</value>
@@ -15004,6 +15203,7 @@
         <value xml:lang="es">Otro</value>
         <value xml:lang="fr">Autre</value>
         <value xml:lang="it">Altro</value>
+        <value xml:lang="nl">Andere</value>         
         <value xml:lang="pt">Outro</value>
         <value xml:lang="ro">Altceva</value>
         <value xml:lang="ru">Другое</value>
@@ -15016,6 +15216,7 @@
         <value xml:lang="es">Temperatura</value>
         <value xml:lang="fr">Température</value>
         <value xml:lang="it">Temperatura</value>
+        <value xml:lang="nl">Temperatuur</value>            
         <value xml:lang="pt">Temperatura</value>
         <value xml:lang="ro">Temperatura</value>
         <value xml:lang="ru">Температура</value>
@@ -15028,6 +15229,7 @@
         <value xml:lang="es">Tiempo/frecuencia</value>
         <value xml:lang="fr">Fréquence/Temps</value>
         <value xml:lang="it">Tempo/Frequenza</value>
+        <value xml:lang="nl">Tijd/Frequentie</value>            
         <value xml:lang="pt">Tempo/Frequência</value>
         <value xml:lang="ro">Timp/Frecventa</value>
         <value xml:lang="ru">Время/частота</value>
@@ -15040,6 +15242,7 @@
         <value xml:lang="es">Volumen seco</value>
         <value xml:lang="fr">Volume sec</value>
         <value xml:lang="it">Volume Secco</value>
+        <value xml:lang="nl">Volume (niet vloeibaar)</value>            
         <value xml:lang="pt">Volute Neto</value>
         <value xml:lang="ro">Volum Uscat</value>
         <value xml:lang="ru">Объем тв. веществ</value>
@@ -15052,6 +15255,7 @@
         <value xml:lang="es">Volumen líquido</value>
         <value xml:lang="fr">Volume liquide</value>
         <value xml:lang="it">Volume Liquido</value>
+        <value xml:lang="nl">Volume (vloeibaar)</value>     
         <value xml:lang="pt">Volume Líquido</value>
         <value xml:lang="ro">Volum Liqhid</value>
         <value xml:lang="ru">Объем жидкости</value>
@@ -15064,6 +15268,7 @@
         <value xml:lang="es">Peso</value>
         <value xml:lang="fr">Poids</value>
         <value xml:lang="it">Altezza</value>
+        <value xml:lang="nl">Gewicht</value>        
         <value xml:lang="pt">Peso</value>
         <value xml:lang="ro">Inaltime</value>
         <value xml:lang="ru">Вес</value>

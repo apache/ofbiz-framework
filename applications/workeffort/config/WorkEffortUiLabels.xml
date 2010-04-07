@@ -2164,7 +2164,7 @@
         <value xml:lang="es">Aplicación de administración de tareas</value>
         <value xml:lang="fr">Application de gestion de tâches</value>
         <value xml:lang="it">Gestione impegni di lavoro</value>
-        <value xml:lang="nl">WorkEffort Manager Application</value>
+        <value xml:lang="nl">Activiteiten Manager</value>
         <value xml:lang="ro">Aplicatie Gestiune Sarcini de Lucru</value>
         <value xml:lang="ru">WorkEffort: Управление приложением</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
@@ -2175,7 +2175,7 @@
         <value xml:lang="es">Aplicación de administración de tareas</value>
         <value xml:lang="fr">Application de gestion de tâches</value>
         <value xml:lang="it">Applicazione gestione impegni di lavoro</value>
-        <value xml:lang="nl">WorkEffort Manager Application</value>
+        <value xml:lang="nl">Activiteiten Manager Application</value>
         <value xml:lang="ro">Aplicatie Gestiune Sarcini de Lucru</value>
         <value xml:lang="ru">WorkEffort: Управление приложением</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
@@ -2186,7 +2186,7 @@
         <value xml:lang="es">Monto máximo</value>
         <value xml:lang="fr">Quantité maximum</value>
         <value xml:lang="it">Importo Massimo</value>
-        <value xml:lang="nl">Max Amount</value>
+        <value xml:lang="nl">Maximale hoeveelheid</value>
         <value xml:lang="ro">Valoare Maxima</value>
         <value xml:lang="ru">Макс. количество</value>
         <value xml:lang="th">จำนวนมาก</value>
@@ -3599,7 +3599,7 @@
         <value xml:lang="es">Código de esfuerzo de trabajo</value>
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Numero Impegno di Lavoro</value>
-        <value xml:lang="nl">WorkEffort Id</value>
+        <value xml:lang="nl">Taak ID</value>
         <value xml:lang="ro">Numar Sarcina de Lucru</value>
         <value xml:lang="th">รหัสงาน</value>
         <value xml:lang="zh">人工服务标识</value>
@@ -3609,7 +3609,7 @@
         <value xml:lang="es">El código del esfuerzo de trabajo está vacío</value>
         <value xml:lang="fr">La réf. de tâche est vide</value>
         <value xml:lang="it">Numero Impegno di Lavoro è vuoto</value>
-        <value xml:lang="nl">WorkEffort Id is empty</value>
+        <value xml:lang="nl">Taak ID is empty</value>
         <value xml:lang="ro">Numar Sarcina de lucru este gol</value>
         <value xml:lang="th">รหัสงานว่าง</value>
         <value xml:lang="zh">人工服务标识为空</value>
