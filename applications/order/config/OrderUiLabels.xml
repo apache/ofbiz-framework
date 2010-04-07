@@ -1951,6 +1951,9 @@
         <value xml:lang="zh">取消全部明细</value>
         <value xml:lang="zh_CN">取消所有项目</value>
     </property>
+    <property key="OrderCancelledItemToOrder">
+        <value xml:lang="en">Cancelled item to order: </value>
+    </property>
     <property key="OrderCancelOrder">
         <value xml:lang="de">Auftrag annullieren</value>
         <value xml:lang="en">Cancel Order</value>

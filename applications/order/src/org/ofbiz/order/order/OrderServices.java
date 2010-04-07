@@ -1963,6 +1963,16 @@ public class OrderServices {
                             return ServiceUtil.returnError((String)resp.get(ModelService.ERROR_MESSAGE));
                         }
                     }
+                    
+                    // log an order note
+                    try {
+                        BigDecimal quantity = thisCancelQty.setScale(1, orderRounding);
+                        String cancelledItemToOrder = UtilProperties.getMessage(resource, "OrderCancelledItemToOrder", locale);
+                        dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", cancelledItemToOrder +
+                                orderItem.getString("productId") + " (" + quantity + ")", "internalNote", "Y", "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                    }
 
                     if (thisCancelQty.compareTo(itemQuantity) >= 0) {
                         // all items are cancelled -- mark the item as cancelled
