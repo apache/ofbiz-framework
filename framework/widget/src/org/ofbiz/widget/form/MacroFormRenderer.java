@@ -39,6 +39,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
@@ -2988,15 +2989,15 @@ public class MacroFormRenderer implements FormStringRenderer {
     public void renderContainerFindField(Appendable writer,
             Map<String, Object> context, ContainerField containerField)
             throws IOException {
-        // TODO Auto-generated method stub
-        String id = "";
-        if (UtilValidate.isNotEmpty(containerField.getId())) {
-            id = containerField.getId();
-        }
+        String id = containerField.getId();
+        String className = UtilFormatOut.checkNull(containerField.getModelFormField().getWidgetStyle());
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderContainerField ");
         sr.append("id=\"");
         sr.append(id);
+        sr.append("\" class=\"");
+        sr.append(className);
         sr.append("\" />");
         executeMacro(sr.toString());
     }
