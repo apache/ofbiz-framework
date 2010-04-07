@@ -20,6 +20,7 @@
 package org.ofbiz.ebaystore;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -40,10 +41,12 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -719,5 +722,22 @@ public class EbayStoreHelper {
                 Debug.log("Error from create error log messages : "+ex.getMessage());
             }
         }
-     }
+    }
+
+    public static boolean isReserveInventory(GenericDelegator delegator, String productId, String productStoreId) {
+        boolean isReserve = false;
+        try {
+            GenericValue ebayProductStore = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("EbayProductStoreInventory", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId))));
+            if (UtilValidate.isNotEmpty(ebayProductStore)) {
+                BigDecimal atp = ebayProductStore.getBigDecimal("availableToPromiseListing");
+                int intAtp = atp.intValue();
+                if (intAtp > 0) {
+                    isReserve = true;
+                }
+            }
+        } catch (Exception ex) {
+            Debug.log("Error from get eBay Inventory data : "+ ex.getMessage());
+        }
+        return isReserve;
+    }
 }
