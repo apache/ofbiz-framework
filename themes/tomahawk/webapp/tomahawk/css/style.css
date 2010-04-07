@@ -941,7 +941,7 @@ font-weight: bold;
 /* ==================================== */
 /* ===== Masthead (Header) Styles ===== */
 /* ==================================== */
-.logo-area a div{
+#logo-area {
 background: url(../images/ofbiz_logo.png) no-repeat;
 width:385px;
 height:50px;

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign externalKeyParam = "&externalLoginKey=" + requestAttributes.externalLoginKey?if_exists>
+<#assign externalKeyParam = "&amp;externalLoginKey=" + requestAttributes.externalLoginKey?if_exists>
 
 <#if (requestAttributes.person)?exists><#assign person = requestAttributes.person></#if>
 <#if (requestAttributes.partyGroup)?exists><#assign partyGroup = requestAttributes.partyGroup></#if>
@@ -105,7 +105,7 @@ under the License.
             <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL.get(0)>
           </#if>
           <#if headerImageUrl?exists>
-            <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings.companyName}"><div>&nbsp;</div></a></li>
+            <li id="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings.companyName}"><span>&nbsp;</span></a></li>
           </#if>
           <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
             <li class="last-system-msg">

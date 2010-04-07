@@ -77,7 +77,7 @@ under the License.
             ${extraHead}
         </#list>
     </#if>
-    <#if lastParameters?exists><#assign parametersURL = "&" + lastParameters></#if>
+    <#if lastParameters?exists><#assign parametersURL = "&amp;" + lastParameters></#if>
 </head>
 <#if layoutSettings.headerImageLinkUrl?exists>
   <#assign logoLinkURL = "${layoutSettings.headerImageLinkUrl}">
@@ -138,7 +138,7 @@ under the License.
         </#if>
         <li/>
         <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
-          <li class=h4>
+          <li class="h4">
           <div class="divHidden">
           <center>${layoutSettings.middleTopHeader?if_exists}</center>
           <a href="${layoutSettings.middleTopLink1?if_exists}">${layoutSettings.middleTopMessage1?if_exists}</a><br/>
