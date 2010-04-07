@@ -24,7 +24,7 @@ under the License.
   ${setRequestAttribute("validTx", "false")}
   <form name="manualTxForm" method="post" action="<@ofbizUrl>manualETx</@ofbizUrl>">
     <#if requestParameters.paymentMethodId?exists>
-      <input type="hidden" name="paymentMethodId" value="${requestParameters.paymentMethodId}">
+      <input type="hidden" name="paymentMethodId" value="${requestParameters.paymentMethodId}" />
     </#if>
 
     <table border='0' cellpadding='2' cellspacing='0'>
@@ -34,7 +34,7 @@ under the License.
         <td width='74%'>
           <#if paymentMethodType?has_content>
             <div>${paymentMethodType.get("description",locale)}</div>
-            <input type="hidden" name="paymentMethodTypeId" value="${paymentMethodType.paymentMethodTypeId}">
+            <input type="hidden" name="paymentMethodTypeId" value="${paymentMethodType.paymentMethodTypeId}" />
           <#else>
             <select name="paymentMethodTypeId">
               <option value="CREDIT_CARD">${uiLabelMap.AccountingCreditCard}</option>
@@ -48,7 +48,7 @@ under the License.
         <td width='74%'>
           <#if currentStore?has_content>
             <div><#if currentStore.storeName?exists>${currentStore.storeName}<#else>${currentStore.productStoreId}</#if></div>
-            <input type="hidden" name="productStoreId" value="${currentStore.productStoreId}">
+            <input type="hidden" name="productStoreId" value="${currentStore.productStoreId}" />
           <#else>
             <select name="productStoreId">
               <#list productStores as productStore>
@@ -64,7 +64,7 @@ under the License.
         <td width='74%'>
           <#if currentTx?has_content>
             <div>${currentTx.get("description",locale)}</div>
-            <input type="hidden" name="transactionType" value="${currentTx.enumId}">
+            <input type="hidden" name="transactionType" value="${currentTx.enumId}" />
           <#else>
             <select name="transactionType" onchange="javascript:document.manualTxForm.submit();">
             <#-- the select one option is so the list will fire on any seletion -->
@@ -91,7 +91,7 @@ under the License.
           <td width="26%" align="right" valign="middle"><b>${uiLabelMap.CommonAmount}</b></td>
           <td width="5">&nbsp;</td>
           <td width="74%">
-            <input type="text" size="20" maxlength="30" name="amount">
+            <input type="text" size="20" maxlength="30" name="amount" />
             <span class="tooltip">${uiLabelMap.CommonRequired}</span>
           </td>
         </tr>
@@ -100,7 +100,7 @@ under the License.
           <td width="26%" align="right" valign=middle>&nbsp;</td>
           <td width="5">&nbsp;</td>
           <td width="74%">
-            <input type="submit" value="${uiLabelMap.CommonSubmit}">
+            <input type="submit" value="${uiLabelMap.CommonSubmit}" />
           </td>
         </tr>
       <#elseif txType?has_content>

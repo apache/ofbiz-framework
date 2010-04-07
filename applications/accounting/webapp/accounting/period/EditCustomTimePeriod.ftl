@@ -28,10 +28,10 @@ under the License.
          <br class="clear"/>
      </div>
      <form method="post" action="<@ofbizUrl>EditCustomTimePeriod</@ofbizUrl>" name="setOrganizationPartyIdForm">
-         <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
+         <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}" />
          <span class="label">${uiLabelMap.AccountingShowOnlyPeriodsWithOrganization}</span>
-         <input type="text" size="20" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}">
-         <input type="submit" value='${uiLabelMap.CommonUpdate}'>
+         <input type="text" size="20" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}" />
+         <input type="submit" value='${uiLabelMap.CommonUpdate}' />
      </form>
    </div>
 
@@ -60,8 +60,8 @@ under the License.
           <td>&nbsp;</td>
         </tr>
         <form method="post" action="<@ofbizUrl>updateCustomTimePeriod</@ofbizUrl>" name="updateCustomTimePeriodForm">
-          <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}">
-          <input type="hidden" name="customTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
+          <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}" />
+          <input type="hidden" name="customTimePeriodId" value="${currentCustomTimePeriodId?if_exists}" />
           <tr>
             <td>${currentCustomTimePeriod.customTimePeriodId}</td>
             <td>
@@ -84,11 +84,11 @@ under the License.
                 </#list>
               </select>
               <#if (currentCustomTimePeriod.parentPeriodId)?exists>
-                <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${currentCustomTimePeriod.parentPeriodId}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
+                <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${currentCustomTimePeriod.parentPeriodId}&amp;findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
                 ${uiLabelMap.CommonSetAsCurrent}</a>
               </#if>
             </td>
-            <td><input type="text" size='12' name="currentCustomTimePeriod" value="${currentCustomTimePeriod.organizationPartyId?if_exists}"></td>
+            <td><input type="text" size='12' name="currentCustomTimePeriod" value="${currentCustomTimePeriod.organizationPartyId?if_exists}" /></td>
             <td>
               <select name="periodTypeId">
                 <#list periodTypes as periodType>
@@ -104,15 +104,15 @@ under the License.
                 </#list>
               </select>
             </td>
-            <td><input type="text" size='4' name="periodNum" value="${currentCustomTimePeriod.periodNum?if_exists}"></td>
-            <td><input type="text" size='10' name="periodName" value="${currentCustomTimePeriod.periodName?if_exists}"></td>
+            <td><input type="text" size='4' name="periodNum" value="${currentCustomTimePeriod.periodNum?if_exists}" /></td>
+            <td><input type="text" size='10' name="periodName" value="${currentCustomTimePeriod.periodName?if_exists}" /></td>
             <td>
               <#assign hasntStarted = false>
               <#assign compareDate = currentCustomTimePeriod.getDate("fromDate")>
               <#if compareDate?has_content>
                 <#if nowTimestamp.before(compareDate)><#assign hasntStarted = true></#if>
               </#if>
-              <input type="text" size='13' name="fromDate" value="${currentCustomTimePeriod.fromDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if>>
+              <input type="text" size='13' name="fromDate" value="${currentCustomTimePeriod.fromDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if> />
             </td>
             <td>
               <#assign hasExpired = false>
@@ -120,10 +120,10 @@ under the License.
               <#if compareDate?has_content>
                 <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
               </#if>
-              <input type="text" size='13' name="thruDate" value="${currentCustomTimePeriod.thruDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if>>
+              <input type="text" size='13' name="thruDate" value="${currentCustomTimePeriod.thruDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if> />
             </td>
             <td class="button-col">
-              <input type="submit" value='${uiLabelMap.CommonUpdate}'>
+              <input type="submit" value='${uiLabelMap.CommonUpdate}'/>
               <a href='<@ofbizUrl>deleteCustomTimePeriod?customTimePeriodId=${currentCustomTimePeriod.customTimePeriodId}</@ofbizUrl>'>
               ${uiLabelMap.CommonDelete}</a>
             </td>
@@ -160,9 +160,9 @@ under the License.
           <#assign periodType = customTimePeriod.getRelatedOneCache("PeriodType")>
           <tr>
             <form method="post" action='<@ofbizUrl>updateCustomTimePeriod</@ofbizUrl>' name='lineForm${line}'>
-              <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}">
-              <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
-              <input type="hidden" name="customTimePeriodId" value="${customTimePeriodId?if_exists}">
+              <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}" />
+              <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}" />
+              <input type="hidden" name="customTimePeriodId" value="${customTimePeriodId?if_exists}" />
             <td>${customTimePeriod.customTimePeriodId}</td>
             <td>
               <select name="parentPeriodId">
@@ -184,7 +184,7 @@ under the License.
                 </#list>
               </select>
             </td>
-            <td><input type="text" size='12' name="organizationPartyId" value="${customTimePeriod.organizationPartyId?if_exists}"></td>
+            <td><input type="text" size='12' name="organizationPartyId" value="${customTimePeriod.organizationPartyId?if_exists}" /></td>
             <td>
               <select name="periodTypeId">
                 <#list periodTypes as periodType>
@@ -198,15 +198,15 @@ under the License.
                 </#list>
               </select>
             </td>
-            <td><input type="text" size='4' name="periodNum" value="${customTimePeriod.periodNum?if_exists}"></td>
-            <td><input type="text" size='10' name="periodName" value="${customTimePeriod.periodName?if_exists}"></td>
+            <td><input type="text" size='4' name="periodNum" value="${customTimePeriod.periodNum?if_exists}" /></td>
+            <td><input type="text" size='10' name="periodName" value="${customTimePeriod.periodName?if_exists}" /></td>
             <td>
               <#assign hasntStarted = false>
               <#assign compareDate = customTimePeriod.getDate("fromDate")>
               <#if compareDate?has_content>
                 <#if nowTimestamp.before(compareDate)><#assign hasntStarted = true></#if>
               </#if>
-              <input type="text" size='13' name="fromDate" value="${customTimePeriod.fromDate?if_exists}"<#if hasntStarted> class="alert"</#if>>
+              <input type="text" size='13' name="fromDate" value="${customTimePeriod.fromDate?if_exists}"<#if hasntStarted> class="alert"</#if> />
             </td>
             <td>
               <#assign hasExpired = false>
@@ -214,13 +214,13 @@ under the License.
               <#if compareDate?has_content>
                 <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
               </#if>
-              <input type="text" size='13' name="thruDate" value="${customTimePeriod.thruDate?if_exists}"<#if hasExpired> class="alert"</#if>>
+              <input type="text" size='13' name="thruDate" value="${customTimePeriod.thruDate?if_exists}"<#if hasExpired> class="alert"</#if> />
              </td>
              <td class="button-col">
-              <input type="submit" value='${uiLabelMap.CommonUpdate}'>
-              <a href='<@ofbizUrl>deleteCustomTimePeriod?customTimePeriodId=${customTimePeriod.customTimePeriodId?if_exists}&currentCustomTimePeriodId=${currentCustomTimePeriodId?if_exists}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
+              <input type="submit" value='${uiLabelMap.CommonUpdate}'/>
+              <a href='<@ofbizUrl>deleteCustomTimePeriod?customTimePeriodId=${customTimePeriod.customTimePeriodId?if_exists}&amp;currentCustomTimePeriodId=${currentCustomTimePeriodId?if_exists}&amp;findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
               ${uiLabelMap.CommonDelete}</a>
-              <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${customTimePeriod.customTimePeriodId?if_exists}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
+              <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${customTimePeriod.customTimePeriodId?if_exists}&amp;findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
               ${uiLabelMap.CommonSetAsCurrent}</a>
             </td>
             </form>
@@ -240,9 +240,9 @@ under the License.
     </div>
     <div class="screenlet-body">
       <form method="post" action="<@ofbizUrl>createCustomTimePeriod</@ofbizUrl>" name="createCustomTimePeriodForm">
-        <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}">
-        <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
-        <input type="hidden" name="useValues" value="true">
+        <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}" />
+        <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}" />
+        <input type="hidden" name="useValues" value="true" />
         <div>
           <span class="label">${uiLabelMap.CommonParent}</span>
           <select name="parentPeriodId">
@@ -267,7 +267,7 @@ under the License.
         </div>
         <div>
           <span class="label">${uiLabelMap.AccountingOrgPartyId}</span>
-          <input type="text" size='20' name='organizationPartyId'>
+          <input type="text" size='20' name='organizationPartyId' />
           <span class="label">${uiLabelMap.AccountingPeriodType}</span>
           <select name="periodTypeId">
             <#list periodTypes as periodType>
@@ -281,16 +281,16 @@ under the License.
             </#list>
           </select>
           <span class="label">${uiLabelMap.AccountingPeriodNumber}</span>
-          <input type="text" size='4' name='periodNum'>
+          <input type="text" size='4' name='periodNum' />
           <span class="label">${uiLabelMap.AccountingPeriodName}</span>
-          <input type="text" size='10' name='periodName'>
+          <input type="text" size='10' name='periodName' />
         </div>
         <div>
           <span class="label">${uiLabelMap.CommonFromDate}</span>
-          <input type="text" size='14' name='fromDate'>
+          <input type="text" size='14' name='fromDate' />
           <span class="label">${uiLabelMap.CommonThruDate}</span>
-          <input type="text" size='14' name='thruDate'>
-          <input type="submit" value="${uiLabelMap.CommonAdd}">
+          <input type="text" size='14' name='thruDate' />
+          <input type="submit" value="${uiLabelMap.CommonAdd}" />
         </div>
       </form>
     </div>

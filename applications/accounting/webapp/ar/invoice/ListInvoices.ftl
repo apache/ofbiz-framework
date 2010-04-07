@@ -100,7 +100,7 @@ under the License.
         <option value="massInvoicesToWriteoff">${uiLabelMap.AccountingInvoiceStatusToWriteoff}</option>
         <option value="massInvoicesToCancel">${uiLabelMap.AccountingInvoiceStatusToCancelled}</option>
       </select>
-      <input id="submitButton" type="button"  onclick="javascript:$('listInvoices').submit();" value="${uiLabelMap.CommonRun}" disabled/>
+      <input id="submitButton" type="button"  onclick="javascript:$('listInvoices').submit();" value="${uiLabelMap.CommonRun}" disabled="disabled" />
       <input type="hidden" name="organizationPartyId" value="${defaultOrganizationPartyId}"/>
       <input type="hidden" name="partyIdFrom" value="${parameters.partyIdFrom?if_exists}"/>
       <input type="hidden" name="statusId" id="statusId" value="${parameters.statusId?if_exists}"/>

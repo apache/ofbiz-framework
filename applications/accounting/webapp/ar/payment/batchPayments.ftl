@@ -190,7 +190,7 @@ function setServiceName(selection) {
                   </tbody>
                 </table>
             <#else>
-                <h2>${uiLabelMap.AccountingNoRecordFound}</h3>
+                <h3>${uiLabelMap.AccountingNoRecordFound}</h3>
             </#if>
         </form>
     </div>

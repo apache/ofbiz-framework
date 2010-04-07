@@ -38,10 +38,10 @@ under the License.
     <td width="74%">
       <select name="titleOnCard">
         <option value="">${uiLabelMap.CommonSelectOne}</option>
-        <option<#if ((creditCard.titleOnCard)?default("") == "${uiLabelMap.CommonTitleMr}")> selected</#if>>${uiLabelMap.CommonTitleMr}</option>
-        <option<#if ((creditCard.titleOnCard)?default("") == "Mrs.")> selected</#if>>${uiLabelMap.CommonTitleMrs}</option>
-        <option<#if ((creditCard.titleOnCard)?default("") == "Ms.")> selected</#if>>${uiLabelMap.CommonTitleMs}</option>
-        <option<#if ((creditCard.titleOnCard)?default("") == "Dr.")> selected</#if>>${uiLabelMap.CommonTitleDr}</option>
+        <option<#if ((creditCard.titleOnCard)?default("") == "${uiLabelMap.CommonTitleMr}")> selected="selected"</#if>>${uiLabelMap.CommonTitleMr}</option>
+        <option<#if ((creditCard.titleOnCard)?default("") == "Mrs.")> selected="selected"</#if>>${uiLabelMap.CommonTitleMrs}</option>
+        <option<#if ((creditCard.titleOnCard)?default("") == "Ms.")> selected="selected"</#if>>${uiLabelMap.CommonTitleMs}</option>
+        <option<#if ((creditCard.titleOnCard)?default("") == "Dr.")> selected="selected"</#if>>${uiLabelMap.CommonTitleDr}</option>
       </select>
     </td>
   </tr>
@@ -72,13 +72,13 @@ under the License.
     <td width="74%">
       <select name="suffixOnCard">
         <option value="">${uiLabelMap.CommonSelectOne}</option>
-        <option<#if ((creditCard.suffixOnCard)?default("") == "Jr.")> selected</#if>>Jr.</option>
-        <option<#if ((creditCard.suffixOnCard)?default("") == "Sr.")> selected</#if>>Sr.</option>
-        <option<#if ((creditCard.suffixOnCard)?default("") == "I")> selected</#if>>I</option>
-        <option<#if ((creditCard.suffixOnCard)?default("") == "II")> selected</#if>>II</option>
-        <option<#if ((creditCard.suffixOnCard)?default("") == "III")> selected</#if>>III</option>
-        <option<#if ((creditCard.suffixOnCard)?default("") == "IV")> selected</#if>>IV</option>
-        <option<#if ((creditCard.suffixOnCard)?default("") == "V")> selected</#if>>V</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "Jr.")> selected="selected"</#if>>Jr.</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "Sr.")> selected="selected"</#if>>Sr.</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "I")> selected="selected"</#if>>I</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "II")> selected="selected"</#if>>II</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "III")> selected="selected"</#if>>III</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "IV")> selected="selected"</#if>>IV</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "V")> selected="selected"</#if>>V</option>
       </select>
     </td>
   </tr>
@@ -117,7 +117,7 @@ under the License.
                         <#assign cardNumberDisplay = cardNumber>
                     </#if>
                 </#if>
-                <input type="text" class="required" size="20" maxlength="30" name="cardNumber" onfocus="javascript:this.value = '';" value="${cardNumberDisplay?if_exists}">
+                <input type="text" class="required" size="20" maxlength="30" name="cardNumber" onfocus="javascript:this.value = '';" value="${cardNumberDisplay?if_exists}" />
             <#else>
                 <input type="text" size="20" maxlength="30" name="cardNumber" value="${creditCard.cardNumber?if_exists}"/>
             </#if>
@@ -130,7 +130,7 @@ under the License.
     <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingCardSecurityCode}</td>
     <td width="5">&nbsp;</td>
     <td width="74%">
-        <input type="text" size="5" maxlength="10" name="cardSecurityCode" value="${creditCard.cardSecurityCode?if_exists}">
+        <input type="text" size="5" maxlength="10" name="cardSecurityCode" value="${creditCard.cardSecurityCode?if_exists}" />
     </td>
   </tr>-->
   <tr>

@@ -29,9 +29,9 @@ under the License.
         <input type="hidden" name="agreementId" value="${agreementId}"/>
         <div>
             <span class="label">${uiLabelMap.AccountingCopyAgreement}</span>
-            ${uiLabelMap.AccountingAgreementTerms}&nbsp;<input type="checkbox" name="copyAgreementTerms" value="Y" checked/>
-            ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" name="copyAgreementProducts" value="Y" checked/>
-            ${uiLabelMap.Party}&nbsp;<input type="checkbox" name="copyAgreementParties" value="Y" checked/>
+            ${uiLabelMap.AccountingAgreementTerms}&nbsp;<input type="checkbox" name="copyAgreementTerms" value="Y" checked="checked" />
+            ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" name="copyAgreementProducts" value="Y" checked="checked" />
+            ${uiLabelMap.Party}&nbsp;<input type="checkbox" name="copyAgreementParties" value="Y" checked="checked" />
         </div>
         <div class="button-bar">
             <input type="submit" value="${uiLabelMap.CommonCopy}"/>

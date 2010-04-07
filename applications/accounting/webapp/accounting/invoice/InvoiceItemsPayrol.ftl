@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <form method="post" action="createInvoiceItemPayrol">
-<input type="hidden" name="invoiceId" value="${invoice.invoiceId}">
+<input type="hidden" name="invoiceId" value="${invoice.invoiceId}" />
 <table class="basic-table hover-bar" cellspacing="0">
 
 <#if PayrolGroup?has_content>
@@ -65,7 +65,7 @@ under the License.
 </tr>
 <tr >
     <td align="right"><b>Add all values : </b></td>
-    <td align="center" ><input type="submit" value="Add"></td>
+    <td align="center" ><input type="submit" value="Add" /></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>

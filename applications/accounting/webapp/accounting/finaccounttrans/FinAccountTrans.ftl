@@ -106,12 +106,12 @@ function getFinAccountTransRunningTotalAndBalances() {
                   <option value="${glReconciliation.glReconciliationId}">${glReconciliation.glReconciliationName?if_exists}[[${glReconciliation.glReconciliationId}] [${glReconciliation.reconciledDate?if_exists}] [${glReconciliation.reconciledBalance?if_exists}]]</option>
                 </#list>
               </select>
-              <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingAssignToReconciliation}" disabled/>
+              <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingAssignToReconciliation}" disabled="disabled" />
             <#else>
               <span class="tooltip">${uiLabelMap.AccountingNoGlReconciliationExists} <a href="<@ofbizUrl>EditFinAccountReconciliations?finAccountId=${parameters.finAccountId?if_exists}</@ofbizUrl>">${uiLabelMap.CommonClickHere}</a></span>
             </#if>
           <#else>
-            <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingReconcile}" disabled/>
+            <input id="submitButton" type="submit" onclick="javascript:document.selectAllForm.submit();" value="${uiLabelMap.AccountingReconcile}" disabled="disabled" />
           </#if>
         </div>
       </#if>
@@ -231,7 +231,7 @@ function getFinAccountTransRunningTotalAndBalances() {
             </td>
             <td>${finAccountTransType.description?if_exists}</td>
             <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="/partymgr/control/viewprofile?partyId=${partyName.partyId}">[${(partyName.partyId)!}]</a></#if></td>
-            <td><#if glReconciliation?has_content>${glReconciliation.glReconciliationName?if_exists}<a href="ViewGlReconciliationWithTransaction?glReconciliationId=${glReconciliation.glReconciliationId?if_exists}&finAccountId=${parameters.finAccountId?if_exists}">[${glReconciliation.glReconciliationId?if_exists}]</a></#if></td>
+            <td><#if glReconciliation?has_content>${glReconciliation.glReconciliationName?if_exists}<a href="ViewGlReconciliationWithTransaction?glReconciliationId=${glReconciliation.glReconciliationId?if_exists}&amp;finAccountId=${parameters.finAccountId?if_exists}">[${glReconciliation.glReconciliationId?if_exists}]</a></#if></td>
             <td>${finAccountTrans.transactionDate?if_exists}</td>
             <td>${finAccountTrans.entryDate?if_exists}</td>
             <td>${finAccountTrans.amount?if_exists}</td>
