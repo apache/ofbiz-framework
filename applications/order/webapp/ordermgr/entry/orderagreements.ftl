@@ -35,7 +35,7 @@ under the License.
       <input type='hidden' name='hasAgreements' value='Y'/>
       <tr>
         <td>&nbsp;</td>
-        <td align='right' valign='top' nowrap>
+        <td align='right' valign='top' nowrap="nowrap">
           <div class='tableheadtext'>
             ${uiLabelMap.OrderSelectAgreement}
           </div>
@@ -57,7 +57,7 @@ under the License.
       <#if agreementRoles?exists>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='top' nowrap>
+          <td align='right' valign='top' nowrap="nowrap">
             <div class='tableheadtext'>
               ${uiLabelMap.OrderSelectAgreementRoles}
             </div>
@@ -91,7 +91,7 @@ under the License.
 
       <tr>
         <td>&nbsp;</td>
-        <td align='right' valign='middle' class='tableheadtext' nowrap>
+        <td align='right' valign='middle' class='tableheadtext' nowrap="nowrap">
            ${uiLabelMap.OrderOrderName}
         </td>
         <td>&nbsp;</td>
@@ -103,19 +103,19 @@ under the License.
       <#if cart.getOrderType() != "PURCHASE_ORDER">
       <tr>
         <td>&nbsp;</td>
-        <td align='right' valign='middle' class='tableheadtext' nowrap>
+        <td align='right' valign='middle' class='tableheadtext' nowrap="nowrap">
           ${uiLabelMap.OrderPONumber}
         </td>
         <td>&nbsp;</td>
         <td align='left'>
-          <input type="text" class='inputBox' name="correspondingPoId" size="15">
+          <input type="text" class='inputBox' name="correspondingPoId" size="15" />
         </td>
       </tr>
       </#if>
 
       <tr>
         <td>&nbsp;</td>
-        <td align='right' valign='middle' nowrap>
+        <td align='right' valign='middle' nowrap="nowrap">
           <div class='tableheadtext'>
             <#if agreements?exists>${uiLabelMap.OrderSelectCurrencyOr}
             <#else>${uiLabelMap.OrderSelectCurrency}
@@ -165,7 +165,7 @@ under the License.
 
       <tr>
         <td>&nbsp;</td>
-        <td align='right' valign='top' nowrap>
+        <td align='right' valign='top' nowrap="nowrap">
           <div class='tableheadtext'>
             ${uiLabelMap.OrderShipAfterDateDefault}
           </div>
@@ -180,7 +180,7 @@ under the License.
 
       <tr>
         <td>&nbsp;</td>
-        <td align='right' valign='top' nowrap>
+        <td align='right' valign='top' nowrap="nowrap">
           <div class='tableheadtext'>
             ${uiLabelMap.OrderShipBeforeDateDefault}
           </div>

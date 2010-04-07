@@ -187,7 +187,7 @@ under the License.
     <div class="screenlet-title-bar">
        <ul>
          <li class="h3">&nbsp;${uiLabelMap.OrderShipmentInformation} - ${shipGroup.shipGroupSeqId}</li>
-         <li class="expanded"><a onclick="javascript:toggleScreenlet(this, 'ShipGroupScreenletBody_${shipGroup.shipGroupSeqId}', 'true', '${uiLabelMap.CommonExpand}', '${uiLabelMap.CommonCollapse}');" title="Collapse">&nbsp</a></li>
+         <li class="expanded"><a onclick="javascript:toggleScreenlet(this, 'ShipGroupScreenletBody_${shipGroup.shipGroupSeqId}', 'true', '${uiLabelMap.CommonExpand}', '${uiLabelMap.CommonCollapse}');" title="Collapse">&nbsp;</a></li>
          <li><a href="<@ofbizUrl>shipGroups.pdf?orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}</@ofbizUrl>">${uiLabelMap.OrderShipGroup} PDF</a></li>
        </ul>
        <br class="clear"/>
@@ -290,19 +290,19 @@ under the License.
           <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
           <div class="form-row">
             <label for="address1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-address1" style="display: none" class="custom-advice">(required)</span></label>
-            <div class="form-field"><input type="text" class="required" name="shipToAddress1" id="address1" value="" size="30" maxlength="30"></div>
+            <div class="form-field"><input type="text" class="required" name="shipToAddress1" id="address1" value="" size="30" maxlength="30" /></div>
           </div>
           <div class="form-row">
             <label for="address2">${uiLabelMap.PartyAddressLine2}</label>
-            <div class="form-field"><input type="text" name="shipToAddress2" value="" size="30" maxlength="30"></div>
+            <div class="form-field"><input type="text" name="shipToAddress2" value="" size="30" maxlength="30" /></div>
           </div>
           <div class="form-row">
             <label for="city">${uiLabelMap.PartyCity}* <span id="advice-required-city" style="display: none" class="custom-advice">(required)</span></label>
-            <div class="form-field"><input type="text" class="required" name="shipToCity" id="city" value="" size="30" maxlength="30"></div>
+            <div class="form-field"><input type="text" class="required" name="shipToCity" id="city" value="" size="30" maxlength="30" /></div>
           </div>
           <div class="form-row">
             <label for="postalCode">${uiLabelMap.PartyZipCode}* <span id="advice-required-postalCode" style="display: none" class="custom-advice">(required)</span></label>
-            <div class="form-field"><input type="text" class="required" name="shipToPostalCode" id="postalCode" value="" size="30" maxlength="10"></div>
+            <div class="form-field"><input type="text" class="required" name="shipToPostalCode" id="postalCode" value="" size="30" maxlength="10" /></div>
           </div>
           <div class="form-row">
             <label for="country">${uiLabelMap.PartyCountry}* <span id="advice-required-countryGeoId" style="display: none" class="custom-advice">(required)</span></label>
@@ -371,7 +371,7 @@ under the License.
                       <tr>
                         <td>
                           <#assign shipmentMethodAndAmount = shippingRate.shipmentMethodTypeId + "@" + "UPS" + "*" + shippingRate.rate>
-                          <input type='radio' name='shipmentMethodAndAmount' value='${shipmentMethodAndAmount?if_exists}'>
+                          <input type='radio' name='shipmentMethodAndAmount' value='${shipmentMethodAndAmount?if_exists}' />
                           UPS&nbsp;${shippingRate.shipmentMethodDescription?if_exists}
                           <#if (shippingRate.rate > -1)>
                             <@ofbizCurrency amount=shippingRate.rate isoCode=orderReadHelper.getCurrency()/>
@@ -567,7 +567,7 @@ under the License.
                           <form name="upsEmailReturnLabel${shipment_index}" method="post" action="<@ofbizUrl>upsEmailReturnLabelOrder</@ofbizUrl>">
                             <input type="hidden" name="orderId" value="${orderId}"/>
                             <input type="hidden" name="shipmentId" value="${shipment.shipmentId}"/>
-                            <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRouteSegment.shipmentRouteSegmentId}>
+                            <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}" />
                           </form>
                         </#if>
                       </#if>
@@ -595,8 +595,8 @@ under the License.
                  <form name="createShipment_${shipGroup.shipGroupSeqId}" method="post" action="/facility/control/createShipment">
                    <input type="hidden" name="primaryOrderId" value="${orderId}"/>
                    <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
-                   <input type="hidden" name="statusId" value="SHIPMENT_INPUT">
-                   <input type="hidden" name="facilityId" value=${storeFacilityId?if_exists}>
+                   <input type="hidden" name="statusId" value="SHIPMENT_INPUT" />
+                   <input type="hidden" name="facilityId" value="${storeFacilityId?if_exists}" />
                    <input type="hidden" name="estimatedShipDate" value="${shipGroup.shipByDate?if_exists}"/>
                  </form>
                </#if>
@@ -626,14 +626,14 @@ under the License.
                    <form name="quickDropShipOrder_${shipGroup_index}" method="post" action="<@ofbizUrl>quickDropShipOrder</@ofbizUrl>">
                         <input type="hidden" name="orderId" value="${orderId}"/>
                         <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
-                        <input type="hidden" name="externalLoginKey" value="${externalLoginKey}">
+                        <input type="hidden" name="externalLoginKey" value="${externalLoginKey}" />
                     </form>
                     <form name="createShipment3_${shipGroup.shipGroupSeqId}" method="post" action="/facility/control/createShipment">
                         <input type="hidden" name="primaryOrderId" value="${orderId}"/>
                         <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
-                        <input type="hidden" name="shipmentTypeId" value="DROP_SHIPMENT">
-                        <input type="hidden" name="statusId" value="PURCH_SHIP_CREATED">
-                        <input type="hidden" name="externalLoginKey" value="${externalLoginKey}">
+                        <input type="hidden" name="shipmentTypeId" value="DROP_SHIPMENT" />
+                        <input type="hidden" name="statusId" value="PURCH_SHIP_CREATED" />
+                        <input type="hidden" name="externalLoginKey" value="${externalLoginKey}" />
                     </form>
                </#if>
              </#if>

@@ -30,11 +30,11 @@ function submitForm(form, mode, value) {
         form.submit();
     } else if (mode == "NA") {
         // new address
-        form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?preContactMechTypeId=POSTAL_ADDRESS&contactMechPurposeTypeId=SHIPPING_LOCATION&DONE_PAGE=checkoutshippingaddress</@ofbizUrl>";
+        form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?preContactMechTypeId=POSTAL_ADDRESS&amp;contactMechPurposeTypeId=SHIPPING_LOCATION&amp;DONE_PAGE=checkoutshippingaddress</@ofbizUrl>";
         form.submit();
     } else if (mode == "EA") {
         // edit address
-        form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=checkoutshippingaddress&contactMechId="+value+"</@ofbizUrl>";
+        form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=checkoutshippingaddress&amp;contactMechId="+value+"</@ofbizUrl>";
         form.submit();
     }
 }
@@ -77,10 +77,10 @@ function toggleBillingAccount(box) {
                    <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                    <#assign checkThisAddress = (shippingContactMech_index == 0 && !cart.getShippingContactMechId()?has_content) || (cart.getShippingContactMechId()?default("") == shippingAddress.contactMechId)/>
                    <tr>
-                     <td valign="top" width="1%" nowrap>
-                       <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}"<#if checkThisAddress> checked</#if>>
+                     <td valign="top" width="1%" nowrap="nowrap">
+                       <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}"<#if checkThisAddress> checked="checked"</#if> />
                      </td>
-                     <td valign="top" width="99%" nowrap>
+                     <td valign="top" width="99%" nowrap="nowrap">
                        <div>
                          <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                          <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
@@ -104,7 +104,7 @@ function toggleBillingAccount(box) {
                    <#if agreements.size()!=1>
                      <tr>
                        <td>&nbsp;</td>
-                       <td align='left' valign='top' nowrap>
+                       <td align='left' valign='top' nowrap="nowrap">
                          <div class='tableheadtext'>
                            ${uiLabelMap.OrderSelectAgreement}
                          </div>
@@ -122,7 +122,7 @@ function toggleBillingAccount(box) {
                      </tr>
                    <#else>
                      <#list agreements as agreement>
-                        <input type="radio" name="agreementId" value="${agreement.agreementId?if_exists}"<#if checkThisAddress> checked</#if>>${agreement.description?if_exists} will be used for this order.
+                        <input type="radio" name="agreementId" value="${agreement.agreementId?if_exists}"<#if checkThisAddress> checked="checked"</#if> />${agreement.description?if_exists} will be used for this order.
                      </#list>
                    </#if>
                  </#if>

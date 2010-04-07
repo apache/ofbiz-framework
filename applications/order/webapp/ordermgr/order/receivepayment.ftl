@@ -31,7 +31,7 @@ under the License.
 
       <form method="post" action="<@ofbizUrl>receiveOfflinePayments/${donePage}</@ofbizUrl>" name="paysetupform">
         <#if requestParameters.workEffortId?exists>
-            <input type="hidden" name="workEffortId" value="${requestParameters.workEffortId}">
+            <input type="hidden" name="workEffortId" value="${requestParameters.workEffortId}" />
         </#if>
         <table class="basic-table" cellspacing='0'>
           <tr class="header-row">
@@ -45,9 +45,9 @@ under the License.
           <tr>
             <td width="30%" align="right">${payType.get("description",locale)?default(payType.paymentMethodTypeId)}</td>
             <td width="1">&nbsp;&nbsp;&nbsp;</td>
-            <td width="1"><input type="text" size="7" name="${payType.paymentMethodTypeId}_amount"></td>
+            <td width="1"><input type="text" size="7" name="${payType.paymentMethodTypeId}_amount" /></td>
             <td width="1">&nbsp;&nbsp;&nbsp;</td>
-            <td width="70%"><input type="text" size="15" name="${payType.paymentMethodTypeId}_reference"></td>
+            <td width="70%"><input type="text" size="15" name="${payType.paymentMethodTypeId}_reference" /></td>
           </tr>
           </#list>
         </table>

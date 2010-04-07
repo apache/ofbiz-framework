@@ -40,12 +40,12 @@ under the License.
          <tr>
         <td>
           <#if state.hasPrevious()>
-            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() - 1}&viewSize=${state.getViewSize()}&filterDate=${filterDate?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
+            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() - 1}&amp;viewSize=${state.getViewSize()}&amp;filterDate=${filterDate?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a>
           </#if>
         </td>
         <td align="right">
           <#if state.hasNext()>
-            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() + 1}&viewSize=${state.getViewSize()}&filterDate=${filterDate?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
+            <a href="<@ofbizUrl>orderlist?viewIndex=${state.getViewIndex() + 1}&amp;viewSize=${state.getViewSize()}&amp;filterDate=${filterDate?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
           </#if>
         </td>
       </tr>
@@ -62,12 +62,12 @@ under the License.
     </div>
     <div class="screenlet-body">
       <form method="post" name="findorder" action="<@ofbizUrl>orderlist</@ofbizUrl>">
-        <input type="hidden" name="changeStatusAndTypeState" value="Y">
+        <input type="hidden" name="changeStatusAndTypeState" value="Y" />
         <table class="basic-table" cellspacing='0'>
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonStatus}</td>
             <td>&nbsp;&nbsp;</td>
-            <td nowrap>
+            <td nowrap="nowrap">
                 <div>
                     <input type="checkbox" name="viewall" value="Y" onclick="javascript:setCheckboxes()" <#if state.hasAllStatus()>checked="checked"</#if> />${uiLabelMap.CommonAll}
                     <input type="checkbox" name="viewcreated" value="Y" <#if state.hasStatus('viewcreated')>checked="checked"</#if> />${uiLabelMap.CommonCreated}
@@ -84,7 +84,7 @@ under the License.
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonType}</td>
             <td>&nbsp;&nbsp;</td>
-            <td nowrap>
+            <td nowrap="nowrap">
                 <div>
                     <input type="checkbox" name="view_SALES_ORDER" value="Y" <#if state.hasType('view_SALES_ORDER')>checked="checked"</#if>/>
                     ${descr_SALES_ORDER}
@@ -96,7 +96,7 @@ under the License.
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonFilter}</td>
             <td>&nbsp;&nbsp;</td>
-            <td nowrap>
+            <td nowrap="nowrap">
                 <div>
                     <input type="checkbox" name="filterInventoryProblems" value="Y"
                         <#if state.hasFilter('filterInventoryProblems')>checked="checked"</#if>/>
@@ -110,7 +110,7 @@ under the License.
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonFilter} (${uiLabelMap.OrderFilterPOs})</td>
             <td>&nbsp;&nbsp;</td>
-            <td nowrap>
+            <td nowrap="nowrap">
                 <div>
                     <input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
                         <#if state.hasFilter('filterPartiallyReceivedPOs')>checked="checked"</#if>/>
@@ -196,7 +196,7 @@ under the License.
                 <#assign trackingCodes = orderHeader.getRelated("TrackingCodeOrder")>
                 <#list trackingCodes as trackingCode>
                     <#if trackingCode?has_content>
-                        <a href="/marketing/control/FindTrackingCodeOrders?trackingCodeId=${trackingCode.trackingCodeId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${trackingCode.trackingCodeId}</a><br />
+                        <a href="/marketing/control/FindTrackingCodeOrders?trackingCodeId=${trackingCode.trackingCodeId}&amp;externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${trackingCode.trackingCodeId}</a><br />
                     </#if>
                 </#list>
               </td>

@@ -72,7 +72,7 @@ under the License.
       <#if returnHeader.destinationFacilityId?has_content && returnHeader.statusId == "RETURN_ACCEPTED" && returnHeader.returnHeaderTypeId == "CUSTOMER_RETURN">
         <#list returnShipmentIds as returnShipmentId>
           <a href="/facility/control/ViewShipment?shipmentId=${returnShipmentId.shipmentId}${externalKeyParam}" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
-          <a href="/facility/control/ReceiveReturn?facilityId=${returnHeader.destinationFacilityId}&returnId=${returnHeader.returnId?if_exists}&shipmentId=${returnShipmentId.shipmentId}${externalKeyParam}" class="buttontext">${uiLabelMap.OrderReceiveReturn}</a>
+          <a href="/facility/control/ReceiveReturn?facilityId=${returnHeader.destinationFacilityId}&amp;returnId=${returnHeader.returnId?if_exists}&amp;shipmentId=${returnShipmentId.shipmentId}${externalKeyParam}" class="buttontext">${uiLabelMap.OrderReceiveReturn}</a>
         </#list>
       <#elseif returnHeader.statusId == "SUP_RETURN_ACCEPTED" && returnHeader.returnHeaderTypeId == "VENDOR_RETURN">
          <#if returnShipmentIds?has_content>
@@ -80,7 +80,7 @@ under the License.
              <a href="/facility/control/ViewShipment?shipmentId=${returnShipmentId.shipmentId}${externalKeyParam}" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
            </#list>
          <#else>
-           <a href="/facility/control/EditShipment?primaryReturnId=${returnHeader.returnId}&partyIdTo=${toPartyId}&statusId=SHIPMENT_INPUT&shipmentTypeId=PURCHASE_RETURN" class="buttontext">${uiLabelMap.OrderCreateReturnShipment}</a>
+           <a href="/facility/control/EditShipment?primaryReturnId=${returnHeader.returnId}&amp;partyIdTo=${toPartyId}&amp;statusId=SHIPMENT_INPUT&amp;shipmentTypeId=PURCHASE_RETURN" class="buttontext">${uiLabelMap.OrderCreateReturnShipment}</a>
          </#if>
       </#if>
     </#if>
@@ -142,7 +142,7 @@ under the License.
           <#assign rowCount = 0>
           <#assign rowCountForAdjRemove = 0>
           <form method="post" action="<@ofbizUrl>updateReturnItems</@ofbizUrl>">
-          <input type="hidden" name="_useRowSubmit" value="Y">
+          <input type="hidden" name="_useRowSubmit" value="Y" />
           <#if returnItems?has_content>
             <#assign alt_row = false>
             <#list returnItems as item>
@@ -160,10 +160,10 @@ under the License.
               </#if>
               <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <td><a href="<@ofbizUrl>orderview?orderId=${item.orderId}</@ofbizUrl>" class="buttontext">${item.orderId}</a> - ${item.orderItemSeqId?default("N/A")}</td>
-                  <input name="orderId_o_${rowCount}" value="${item.orderId}" type="hidden">
-                  <input name="returnId_o_${rowCount}" value="${item.returnId}" type="hidden">
-                  <input name="returnItemTypeId_o_${rowCount}" value="${item.returnItemTypeId}" type="hidden">
-                  <input name="returnItemSeqId_o_${rowCount}" value="${item.returnItemSeqId}" type="hidden">
+                  <input name="orderId_o_${rowCount}" value="${item.orderId}" type="hidden" />
+                  <input name="returnId_o_${rowCount}" value="${item.returnId}" type="hidden" />
+                  <input name="returnItemTypeId_o_${rowCount}" value="${item.returnItemTypeId}" type="hidden" />
+                  <input name="returnItemSeqId_o_${rowCount}" value="${item.returnItemSeqId}" type="hidden" />
                   <input type="hidden" name="_rowSubmit_o_${rowCount}" value="Y" />
                 <td><div>
                     <#if item.get("productId")?exists>
@@ -175,14 +175,14 @@ under the License.
                     <#if readOnly>
                         ${item.description?default("N/A")}
                     <#else>
-                        <input name="description_o_${rowCount}" value="${item.description?if_exists}" type="text" size="15">
+                        <input name="description_o_${rowCount}" value="${item.description?if_exists}" type="text" size="15" />
                     </#if>
                     </div></td>
                 <td><div>
                     <#if readOnly>
                         ${item.returnQuantity?string.number}
                     <#else>
-                        <input name="returnQuantity_o_${rowCount}" value="${item.returnQuantity}" type="text" size="8" align="right">
+                        <input name="returnQuantity_o_${rowCount}" value="${item.returnQuantity}" type="text" size="8" align="right" />
                     </#if>
                     <#if item.receivedQuantity?exists>
                     <br />${uiLabelMap.OrderTotalQuantityReceive}: ${item.receivedQuantity}
@@ -195,7 +195,7 @@ under the License.
                     <#if readOnly>
                         <@ofbizCurrency amount=item.returnPrice isoCode=orderHeader.currencyUom/>
                     <#else>
-                        <input name="returnPrice_o_${rowCount}" value="${item.returnPrice}" type="text" size="8" align="right">
+                        <input name="returnPrice_o_${rowCount}" value="${item.returnPrice}" type="text" size="8" align="right" />
                     </#if>
                     </div></td>
                 <td>
@@ -307,9 +307,9 @@ under the License.
             </tr>
             <#if (!readOnly) && (rowCount > 0)>
                <tr>
-                  <input name="returnId" value="${returnHeader.returnId}" type="hidden">
-                  <input name="_rowCount" value="${rowCount}" type="hidden">
-                  <td colspan="6" align="right"><input type="submit" class="bottontext" value="${uiLabelMap.CommonUpdate}"></td>
+                  <input name="returnId" value="${returnHeader.returnId}" type="hidden" />
+                  <input name="_rowCount" value="${rowCount}" type="hidden" />
+                  <td colspan="6" align="right"><input type="submit" class="bottontext" value="${uiLabelMap.CommonUpdate}" /></td>
               </tr>
            </#if>
            <tr><td colspan="10"><hr></td></tr>
@@ -340,21 +340,21 @@ under the License.
           <#else>
             <#assign statusId = "SUP_RETURN_ACCEPTED">
           </#if>
-          <input type="hidden" name="returnId" value="${returnId}">
-          <input type="hidden" name="statusId" value="${statusId}">
-          <div align="right"><input type="submit" value="${uiLabelMap.OrderReturnAccept}"></div>
+          <input type="hidden" name="returnId" value="${returnId}" />
+          <input type="hidden" name="statusId" value="${statusId}" />
+          <div align="right"><input type="submit" value="${uiLabelMap.OrderReturnAccept}" /></div>
         </form>
         </#if>
 
         <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
         <br />
         <form name="returnItems" method="post" action="<@ofbizUrl>returnItems</@ofbizUrl>">
-          <input type="hidden" name="returnId" value="${returnId}">
+          <input type="hidden" name="returnId" value="${returnId}" />
           <table border='0' cellpadding='2' cellspacing='0'>
             <tr><td colspan="4"><h3>${uiLabelMap.OrderReturnItems}</h3></td></tr>
             <#if partyOrders?has_content>
               <tr>
-                <td width='25%' align='right' nowrap class="label">${uiLabelMap.OrderOrderId}</td>
+                <td width='25%' align='right' nowrap="nowrap" class="label">${uiLabelMap.OrderOrderId}</td>
                 <td>&nbsp;</td>
                 <td width='25%'>
                   <select name="orderId">
@@ -367,13 +367,13 @@ under the License.
               </tr>
             <#else>
               <tr>
-                <td colspan="4" nowrap><div>${uiLabelMap.OrderNoOrderFoundForParty}: <a href="${customerDetailLink}${partyId?default('_NA_')}" class="buttontext">${partyId?default('[null]')}</a></div></td>
+                <td colspan="4" nowrap="nowrap"><div>${uiLabelMap.OrderNoOrderFoundForParty}: <a href="${customerDetailLink}${partyId?default('_NA_')}" class="buttontext">${partyId?default('[null]')}</a></div></td>
               </tr>
               <tr>
-                <td width='25%' align='right' nowrap><div>${uiLabelMap.OrderOrderId}</div></td>
+                <td width='25%' align='right' nowrap="nowrap"><div>${uiLabelMap.OrderOrderId}</div></td>
                 <td>&nbsp;</td>
                 <td width='25%'>
-                  <input type='text' name='orderId' size='20' maxlength='20'>
+                  <input type='text' name='orderId' size='20' maxlength='20' />
                 </td>
                 <td><div class="tooltip">${uiLabelMap.OrderReturnLoadItems}</div></td>
               </tr>
@@ -391,8 +391,8 @@ under the License.
 <#else>
         <#assign selectAllFormName = "returnItems"/>
         <form name="returnItems" method="post" action="<@ofbizUrl>createReturnItems</@ofbizUrl>">
-          <input type="hidden" name="returnId" value="${returnId}">
-          <input type="hidden" name="_useRowSubmit" value="Y">
+          <input type="hidden" name="returnId" value="${returnId}" />
+          <input type="hidden" name="_useRowSubmit" value="Y" />
           <#include "returnItemInc.ftl"/>
         </form>
 </#if>

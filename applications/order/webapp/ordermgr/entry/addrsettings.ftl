@@ -47,10 +47,10 @@ under the License.
 
             <#if shippingAddress.toName?exists>
               <tr>
-                <td valign="top" nowrap>
-                  <input type="radio" name="shipping_contact_mech_id" value="${partyContactMechPurpose.contactMechId}">
+                <td valign="top" nowrap="nowrap">
+                  <input type="radio" name="shipping_contact_mech_id" value="${partyContactMechPurpose.contactMechId}" />
                 </td>
-                <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td width="100%">
                   <div>
                     <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonToName}:</b>&nbsp;${shippingAddress.toName}<br /></#if>

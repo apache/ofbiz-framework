@@ -38,7 +38,7 @@ under the License.
               <option value="${productPromo.productPromoId}">${productPromo.promoName?if_exists}</option>
             </#list>
           </select>
-          <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderDoPromotions}">
+          <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderDoPromotions}" />
         </form>
       </div>
     </div>

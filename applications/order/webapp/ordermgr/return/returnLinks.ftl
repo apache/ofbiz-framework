@@ -34,7 +34,7 @@ under the License.
         <#if returnItems?has_content>
           <#assign orderId = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
           <#assign partyId = "${(returnHeader.fromPartyId)?if_exists}"/>
-          <a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId?if_exists}&originOrderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId?if_exists}</a>
+          <a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId?if_exists}&amp;originOrderId=${orderId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId?if_exists}</a>
         </#if>
         <#if "RETURN_ACCEPTED" == returnHeader.statusId>
           <#assign returnItems = delegator.findByAnd("ReturnItem", {"returnId" : returnId})/>
@@ -52,7 +52,7 @@ under the License.
                     <form name="upsEmailReturnLabel" method="post" action="<@ofbizUrl>upsEmailReturnLabelReturn</@ofbizUrl>">
                       <input type="hidden" name="returnId" value="${returnId}"/>
                       <input type="hidden" name="shipmentId" value="${shipGroupShipment.shipmentId}"/>
-                      <input type="hidden" name="shipmentRouteSegmentId" value=${shipmentRouteSegment.shipmentRouteSegmentId}>
+                      <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}" />
                     </form>
                   </#if>
                 </#if>

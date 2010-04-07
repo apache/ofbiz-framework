@@ -21,11 +21,11 @@ under the License.
 <h1>${uiLabelMap.ProductAdvancedSearchInCategory}</h1>
 <br />
 <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
-  <input type="hidden" name="VIEW_SIZE" value="10">
+  <input type="hidden" name="VIEW_SIZE" value="10" />
   <table border="0" wdith="100%">
-    <input type="hidden" name="SEARCH_CATALOG_ID" value="${currentCatalogId}">
+    <input type="hidden" name="SEARCH_CATALOG_ID" value="${currentCatalogId}" />
     <#if searchCategory?has_content>
-        <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}">
+        <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}" />
         <tr>
           <td align="right" valign="middle">
             <div>${uiLabelMap.ProductCategory}:</div>
@@ -33,8 +33,8 @@ under the License.
           <td valign="middle">
             <div>
               <b>"${(searchCategory.description)?if_exists}"</b>${uiLabelMap.ProductIncludeSubCategories}
-              ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked>
-              ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="N">
+              ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked="checked" />
+              ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="N" />
             </div>
           </td>
         </tr>
@@ -45,9 +45,9 @@ under the License.
       </td>
       <td valign="middle">
         <div>
-          <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}">&nbsp;
-          ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked</#if>>
-          ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked</#if>>
+          <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}" />&nbsp;
+          ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if> />
+          ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if> />
         </div>
       </td>
     </tr>
@@ -103,8 +103,8 @@ under the License.
             <option value="SortProductPrice:DEFAULT_PRICE">${uiLabelMap.ProductDefaultPrice}</option>
             <option value="SortProductPrice:AVERAGE_COST">${uiLabelMap.ProductAverageCost}</option>
           </select>
-          ${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked>
-          ${uiLabelMap.ProductHighToLow}<input type="radio" name="sortAscending" value="N">
+          ${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked="checked" />
+          ${uiLabelMap.ProductHighToLow}<input type="radio" name="sortAscending" value="N" />
         </div>
       </td>
     </tr>
@@ -119,8 +119,8 @@ under the License.
             </#list>
             <div>${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
             <div>
-              ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked>
-              ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N">
+              ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked" />
+              ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N" />
             </div>
         </td>
       </tr>
@@ -147,7 +147,7 @@ under the License.
     <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
         <div>
           <b>${uiLabelMap.CommonSearch} #${searchOptions_index + 1}</b>
-          <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSearch}</a>
+          <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&amp;clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSearch}</a>
           <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine}</a>
         </div>
         <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator, locale)>

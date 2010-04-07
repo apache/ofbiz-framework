@@ -20,9 +20,9 @@ under the License.
 <script language="JavaScript" type="text/javascript">
 function shipBillAddr() {
     if (document.checkoutsetupform.useShipAddr.checked) {
-        window.location = "<@ofbizUrl>setBilling?createNew=Y&finalizeMode=payment&paymentMethodType=${paymentMethodType?if_exists}&useShipAddr=Y</@ofbizUrl>";
+        window.location = "<@ofbizUrl>setBilling?createNew=Y&amp;finalizeMode=payment&amp;paymentMethodType=${paymentMethodType?if_exists}&amp;useShipAddr=Y</@ofbizUrl>";
     } else {
-        window.location = "<@ofbizUrl>setBilling?createNew=Y&finalizeMode=payment&paymentMethodType=${paymentMethodType?if_exists}</@ofbizUrl>";
+        window.location = "<@ofbizUrl>setBilling?createNew=Y&amp;finalizeMode=payment&amp;paymentMethodType=${paymentMethodType?if_exists}</@ofbizUrl>";
     }
 }
 
@@ -126,7 +126,7 @@ function makeExpDate() {
                           <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                         </label>
                       </td>
-                      <td align="right"><a href="/partymgr/control/editeftaccount?party_id=${orderParty.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
+                      <td align="right"><a href="/partymgr/control/editeftaccount?party_id=${orderParty.partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
                     </tr>
                     <tr><td colspan="2"><hr /></td></tr>
                   </#if>
@@ -508,24 +508,24 @@ function makeExpDate() {
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <#if !requestParameters.createNew?exists>
               <tr>
-                <td width='1%' nowrap><input type="radio" name="paymentMethodTypeAndId" value="EXT_OFFLINE" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_OFFLINE">checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/></td>
-                <td width='50%'nowrap><div>${uiLabelMap.OrderPaymentOfflineCheckMoney}</div></td>
+                <td width='1%' nowrap="nowrap"><input type="radio" name="paymentMethodTypeAndId" value="EXT_OFFLINE" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_OFFLINE">checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/></td>
+                <td width='50%' nowrap="nowrap"><div>${uiLabelMap.OrderPaymentOfflineCheckMoney}</div></td>
               </tr>
               <tr><td colspan="2"><hr /></td></tr>
               <tr>
-                <td width="1%" nowrap><input type="radio" name="paymentMethodTypeAndId" value="EXT_COD" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_COD">checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/></td>
-                <td width="50%"nowrap><div>${uiLabelMap.OrderCOD}</div></td>
+                <td width="1%" nowrap="nowrap"><input type="radio" name="paymentMethodTypeAndId" value="EXT_COD" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_COD">checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/></td>
+                <td width="50%" nowrap="nowrap"><div>${uiLabelMap.OrderCOD}</div></td>
               </tr>
               <tr><td colspan="2"><hr /></td></tr>
               </#if>
               <tr>
-                <td width='1%' nowrap><input type="radio" name="paymentMethodTypeAndId" value="CC" onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/>
-                <td width='50%' nowrap><div>${uiLabelMap.AccountingVisaMastercardAmexDiscover}</div></td>
+                <td width='1%' nowrap="nowrap"><input type="radio" name="paymentMethodTypeAndId" value="CC" onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/>
+                <td width='50%' nowrap="nowrap"><div>${uiLabelMap.AccountingVisaMastercardAmexDiscover}</div></td>
               </tr>
               <tr><td colspan="2"><hr /></td></tr>
               <tr>
-                <td width='1%' nowrap><input type="radio" name="paymentMethodTypeAndId" value="EFT" onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/>
-                <td width='50%' nowrap><div>${uiLabelMap.AccountingAHCElectronicCheck}</div></td>
+                <td width='1%' nowrap="nowrap"><input type="radio" name="paymentMethodTypeAndId" value="EFT" onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/>
+                <td width='50%' nowrap="nowrap"><div>${uiLabelMap.AccountingAHCElectronicCheck}</div></td>
               </tr>
             </table>
           </form>

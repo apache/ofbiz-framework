@@ -214,7 +214,7 @@ under the License.
     </tr>
     <tr>
       <td>
-        <input type="text" size="30" name="description_o_${rowCount}">
+        <input type="text" size="30" name="description_o_${rowCount}" />
       </td>
       <td>
         <input type="text" size="8" name="amount_o_${rowCount}" value="${0.00?string("##0.00")}"/>

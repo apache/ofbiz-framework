@@ -18,9 +18,9 @@ under the License.
 -->
 
 <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session)>
-<TABLE border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
-  <TR>
-    <TD width='100%'>
+<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
           <td valign="middle" align="center">
@@ -28,10 +28,10 @@ under the License.
           </td>
         </tr>
       </table>
-    </TD>
-  </TR>
-  <TR>
-    <TD width='100%'>
+    </td>
+  </tr>
+  <tr>
+    <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td align="center">
@@ -41,7 +41,7 @@ under the License.
                               <div class='tabletext'><a href="${customerDetailLink}${partyId}" class="buttontext">${partyGroup.groupName?if_exists}</a></div>
             </#if>
             <form method="post" action="<@ofbizUrl>orderentry</@ofbizUrl>" name="setpartyform">
-              <div><input type="text" name="partyId" size='10' value="${partyId?if_exists}"></div>
+              <div><input type="text" name="partyId" size='10' value="${partyId?if_exists}" /></div>
               <div>
                 <a href="javascript:document.setpartyform.submit();" class="buttontext">${uiLabelMap.CommonSet}</a>&nbsp;|&nbsp;<a href="/partymgr/control/findparty" class="buttontext">${uiLabelMap.CommonFind}</a><#if partyId?default("_NA_") != "_NA_" && partyId?default("_NA_") != "">&nbsp;|&nbsp;<a href="${customerDetailLink}${partyId}" class="buttontext">${uiLabelMap.CommonView}</a></#if>
               </div>
@@ -49,9 +49,9 @@ under the License.
           </td>
         </tr>
       </table>
-    </TD>
-  </TR>
-</TABLE>
+    </td>
+  </tr>
+</table>
 <#else>
   <h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>

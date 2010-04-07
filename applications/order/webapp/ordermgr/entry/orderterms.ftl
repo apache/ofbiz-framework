@@ -43,7 +43,7 @@ under the License.
                                         <td align="center">${orderTerm.termDays?if_exists}</td>
                                         <td nowrap="nowrap">${orderTerm.textValue?if_exists}</td>
                                         <td align="right">
-                                            <a href="<@ofbizUrl>setOrderTerm?termIndex=${orderTerm_index}&createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
+                                            <a href="<@ofbizUrl>setOrderTerm?termIndex=${orderTerm_index}&amp;createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                                             <a href="<@ofbizUrl>removeCartOrderTerm?termIndex=${orderTerm_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
                                         </td>
                                     </tr>

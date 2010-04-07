@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if showAll = "false">
-    <a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequestId}&custRequestItemSeqId=${custRequestItemSeqId}&showAll=true</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderShowAllNotes}</a>
+    <a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}&amp;showAll=true</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderShowAllNotes}</a>
 <#else>
-    <a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequestId}&custRequestItemSeqId=${custRequestItemSeqId}&showAll=false</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderShowThisItemsNotes}</a>
+    <a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}&amp;showAll=false</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderShowThisItemsNotes}</a>
 </#if>

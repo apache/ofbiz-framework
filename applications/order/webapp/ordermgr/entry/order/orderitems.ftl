@@ -56,20 +56,20 @@ under the License.
 
                 </td>
                 <td align="right" valign="top">
-                  <div nowrap>${orderItem.quantity?string.number}</div>
+                  <div nowrap="nowrap">${orderItem.quantity?string.number}</div>
                 </td>
                 <td align="right" valign="top">
-                  <div nowrap><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/></div>
+                  <div nowrap="nowrap"><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/></div>
                 </td>
                 <td align="right" valign="top">
-                  <div nowrap><@ofbizCurrency amount=localOrderReadHelper.getOrderItemAdjustmentsTotal(orderItem) isoCode=currencyUomId/></div>
+                  <div nowrap="nowrap"><@ofbizCurrency amount=localOrderReadHelper.getOrderItemAdjustmentsTotal(orderItem) isoCode=currencyUomId/></div>
                 </td>
-                <td align="right" valign="top" nowrap>
+                <td align="right" valign="top" nowrap="nowrap">
                   <div><@ofbizCurrency amount=localOrderReadHelper.getOrderItemSubTotal(orderItem) isoCode=currencyUomId/></div>
                 </td>
                 <#if maySelectItems?default(false)>
                   <td>
-                    <input name="item_id" value="${orderItem.orderItemSeqId}" type="checkbox">
+                    <input name="item_id" value="${orderItem.orderItemSeqId}" type="checkbox" />
                   </td>
                 </#if>
               </#if>
@@ -130,27 +130,27 @@ under the License.
           <tr><td colspan="8"><hr /></td></tr>
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.OrderSubTotal}</b></div></td>
-            <td align="right" nowrap><div>&nbsp;<#if orderSubTotal?exists><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></#if></div></td>
+            <td align="right" nowrap="nowrap"><div>&nbsp;<#if orderSubTotal?exists><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></#if></div></td>
           </tr>
           <#list headerAdjustmentsToShow?if_exists as orderHeaderAdjustment>
             <tr>
               <td align="right" colspan="4"><div><b>${localOrderReadHelper.getAdjustmentType(orderHeaderAdjustment)}</b></div></td>
-              <td align="right" nowrap><div><@ofbizCurrency amount=localOrderReadHelper.getOrderAdjustmentTotal(orderHeaderAdjustment) isoCode=currencyUomId/></div></td>
+              <td align="right" nowrap="nowrap"><div><@ofbizCurrency amount=localOrderReadHelper.getOrderAdjustmentTotal(orderHeaderAdjustment) isoCode=currencyUomId/></div></td>
             </tr>
           </#list>
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.FacilityShippingAndHandling}</b></div></td>
-            <td align="right" nowrap><div><#if orderShippingTotal?exists><@ofbizCurrency amount=orderShippingTotal isoCode=currencyUomId/></#if></div></td>
+            <td align="right" nowrap="nowrap"><div><#if orderShippingTotal?exists><@ofbizCurrency amount=orderShippingTotal isoCode=currencyUomId/></#if></div></td>
           </tr>
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.OrderSalesTax}</b></div></td>
-            <td align="right" nowrap><div><#if orderTaxTotal?exists><@ofbizCurrency amount=orderTaxTotal isoCode=currencyUomId/></#if></div></td>
+            <td align="right" nowrap="nowrap"><div><#if orderTaxTotal?exists><@ofbizCurrency amount=orderTaxTotal isoCode=currencyUomId/></#if></div></td>
           </tr>
 
           <tr><td colspan=2></td><td colspan="8"><hr /></td></tr>
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.OrderGrandTotal}</b></div></td>
-            <td align="right" nowrap>
+            <td align="right" nowrap="nowrap">
               <div><#if orderGrandTotal?exists><@ofbizCurrency amount=orderGrandTotal isoCode=currencyUomId/></#if></div>
             </td>
           </tr>

@@ -58,7 +58,7 @@ under the License.
                   </#if>
                 </select>
               <#else>
-                <input type='text' size='20' name='paymentMethodId'>
+                <input type='text' size='20' name='paymentMethodId' />
               </#if>
               <#if (party.partyId)?has_content>
                 <a href="/partymgr/control/editcreditcard?partyId=${party.partyId}${externalKeyParam}" target="partymgr" class="smallSubmit">${uiLabelMap.AccountingCreateNewCreditCard}</a>
@@ -77,10 +77,10 @@ under the License.
                   <#list shippingContactMechList as shippingContactMech>
                     <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                     <tr>
-                      <td align="right" width="1%" valign="top" nowrap>
-                        <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"  <#if (shippingContactMechList?size == 1)>checked</#if>>
+                      <td align="right" width="1%" valign="top" nowrap="nowrap">
+                        <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"  <#if (shippingContactMechList?size == 1)>checked</#if> />
                       </td>
-                      <td width="99%" valign="top" nowrap>
+                      <td width="99%" valign="top" nowrap="nowrap">
                         <div>
                           <#if shippingAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${shippingAddress.toName}<br /></#if>
                           <#if shippingAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span></b>&nbsp;${shippingAddress.attnName}<br /></#if>
@@ -90,7 +90,7 @@ under the License.
                           <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
                           <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
                           <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
-                          <#--<a href="<@ofbizUrl>editcontactmech?DONE_PAGE=checkoutoptions&contactMechId=${shippingAddress.contactMechId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonUpdate}]</a>-->
+                          <#--<a href="<@ofbizUrl>editcontactmech?DONE_PAGE=checkoutoptions&amp;contactMechId=${shippingAddress.contactMechId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonUpdate}]</a>-->
                         </div>
                       </td>
                     </tr>

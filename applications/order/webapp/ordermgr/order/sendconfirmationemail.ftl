@@ -33,7 +33,7 @@ under the License.
         <#if ! productStoreEmailSetting?exists>
             <#assign productStoreEmailSetting = {} />
         </#if>
-        <input type="hidden" name="partyId" value="${partyId?if_exists}">
+        <input type="hidden" name="partyId" value="${partyId?if_exists}" />
         <input type="hidden" name="contentType" value="${productStoreEmailSetting.contentType?default("")}" />
         <table class="basic-table" cellspacing='0'>
             <tr>

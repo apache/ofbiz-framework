@@ -45,14 +45,14 @@ under the License.
           <td>
             <table width="100%" cellpadding="2" cellspacing="2" border="0">
               <tr class="header-row">
-                <td nowrap><div>WebSite</div></td>
-                <td nowrap><div>PayMethod Type</div></td>
-                <td nowrap><div>Auth Service</div></td>
-                <td nowrap><div>Re-Auth Service</td>
-                <td nowrap><div>Capture Service</div></td>
-                <td nowrap><div>Refund Service</td>
-                <td nowrap><div>Payment Config</div></td>
-                <td nowrap><div>&nbsp;</div></td>
+                <td nowrap="nowrap"><div>WebSite</div></td>
+                <td nowrap="nowrap"><div>PayMethod Type</div></td>
+                <td nowrap="nowrap"><div>Auth Service</div></td>
+                <td nowrap="nowrap"><div>Re-Auth Service</td>
+                <td nowrap="nowrap"><div>Capture Service</div></td>
+                <td nowrap="nowrap"><div>Refund Service</td>
+                <td nowrap="nowrap"><div>Payment Config</div></td>
+                <td nowrap="nowrap"><div>&nbsp;</div></td>
               </tr>
               <#if paymentSetups?has_content>
                 <#list paymentSetups as paymentSetting>
@@ -69,13 +69,13 @@ under the License.
                     <td><div>${paymentSetting.paymentCaptureService?if_exists}</div></td>
                     <td><div>${paymentSetting.paymentRefundService?if_exists}</div></td>
                     <td><div>${paymentSetting.paymentConfiguration?if_exists}</div></td>
-                    <td nowrap>
+                    <td nowrap="nowrap">
                       <div>&nbsp;
                         <#if security.hasEntityPermission("PAYPROC", "_UPDATE", session)>
-                        <a href="<@ofbizUrl>paysetup?webSiteId=${paymentSetting.webSiteId?if_exists}&paymentMethodTypeId=${paymentSetting.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">Edit</a>&nbsp;
+                        <a href="<@ofbizUrl>paysetup?webSiteId=${paymentSetting.webSiteId?if_exists}&amp;paymentMethodTypeId=${paymentSetting.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">Edit</a>&nbsp;
                         </#if>
                         <#if security.hasEntityPermission("PAYPROC", "_DELETE", session)>
-                        <a href="<@ofbizUrl>removeWebSitePaymentSetting?webSiteId=${paymentSetting.webSiteId?if_exists}&paymentMethodTypeId=${paymentSetting.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">Remove</a>&nbsp;
+                        <a href="<@ofbizUrl>removeWebSitePaymentSetting?webSiteId=${paymentSetting.webSiteId?if_exists}&amp;paymentMethodTypeId=${paymentSetting.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">Remove</a>&nbsp;
                         </#if>
                       </div>
                     </td>
@@ -133,7 +133,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td width="74%">
                   <#if webSitePayment?has_content>
-                    <input type='hidden' name='webSiteId' value='${webSitePayment.webSiteId}'>
+                    <input type='hidden' name='webSiteId' value='${webSitePayment.webSiteId}' />
                     <div>
                       <b>${webSitePayment.siteName}</b> (This cannot be changed without re-creating the setting.)
                     </div>
@@ -151,7 +151,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td width="74%">
                   <#if webSitePayment?has_content>
-                    <input type='hidden' name='paymentMethodTypeId' value='${webSitePayment.paymentMethodTypeId}'>
+                    <input type='hidden' name='paymentMethodTypeId' value='${webSitePayment.paymentMethodTypeId}' />
                     <div>
                       <b>${webSitePayment.description}</b> (This cannot be changed without re-creating the setting.)
                     </div>
@@ -168,31 +168,31 @@ under the License.
               <tr>
                 <td width="26%" align="right"><div>Processor Auth Service</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" name="paymentAuthService" value="${payInfo.paymentAuthService?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentAuthService" value="${payInfo.paymentAuthService?if_exists}" size="30" maxlength="60" /></td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>Processor Re-Auth Service</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" name="paymentReAuthService" value="${payInfo.paymentReAuthService?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentReAuthService" value="${payInfo.paymentReAuthService?if_exists}" size="30" maxlength="60" /></td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>Processor Capture Service</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" name="paymentCaptureService" value="${payInfo.paymentCaptureService?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentCaptureService" value="${payInfo.paymentCaptureService?if_exists}" size="30" maxlength="60" /></td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>Processor Refund Service</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" name="paymentRefundService" value="${payInfo.paymentRefundService?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentRefundService" value="${payInfo.paymentRefundService?if_exists}" size="30" maxlength="60" /></td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>Processor Properties URL</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" name="paymentConfiguration" value="${payInfo.paymentConfiguration?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentConfiguration" value="${payInfo.paymentConfiguration?if_exists}" size="30" maxlength="60" /></td>
               </tr>
               <tr>
                 <td colspan='2'>&nbsp;</td>
-                <td colspan='1'><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
+                <td colspan='1'><input type="submit" value="${uiLabelMap.CommonUpdate}" /></td>
               </tr>
             </table>
             </form>

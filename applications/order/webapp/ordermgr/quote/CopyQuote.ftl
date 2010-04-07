@@ -21,11 +21,11 @@ under the License.
     <input type="hidden" name="quoteId" value="${quoteId}"/>
     <div>
         <span class="label">${uiLabelMap.OrderCopyQuote}</span>
-        ${uiLabelMap.OrderOrderQuoteItems}&nbsp;<input type="checkbox" name="copyQuoteItems" value="Y" checked/>
-        ${uiLabelMap.OrderOrderQuoteAdjustments}&nbsp;<input type="checkbox" name="copyQuoteAdjustments" value="Y" checked/>
-        ${uiLabelMap.OrderOrderQuoteRoles}&nbsp;<input type="checkbox" name="copyQuoteRoles" value="Y" checked/>
-        ${uiLabelMap.OrderOrderQuoteAttributes}&nbsp;<input type="checkbox" name="copyQuoteAttributes" value="Y" checked/>
-        ${uiLabelMap.OrderOrderQuoteCoefficients}&nbsp;<input type="checkbox" name="copyQuoteCoefficients" value="Y" checked/>
+        ${uiLabelMap.OrderOrderQuoteItems}&nbsp;<input type="checkbox" name="copyQuoteItems" value="Y" checked="checked" />
+        ${uiLabelMap.OrderOrderQuoteAdjustments}&nbsp;<input type="checkbox" name="copyQuoteAdjustments" value="Y" checked="checked" />
+        ${uiLabelMap.OrderOrderQuoteRoles}&nbsp;<input type="checkbox" name="copyQuoteRoles" value="Y" checked="checked" />
+        ${uiLabelMap.OrderOrderQuoteAttributes}&nbsp;<input type="checkbox" name="copyQuoteAttributes" value="Y" checked="checked" />
+        ${uiLabelMap.OrderOrderQuoteCoefficients}&nbsp;<input type="checkbox" name="copyQuoteCoefficients" value="Y" checked="checked" />
     </div>
     <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonCopy}"/>
 </form>
