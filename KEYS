@@ -1,47 +1,22 @@
-pub   1024D/C7F72E71 2006-09-09
-uid                  David E. Jones <jonesde@undersunconsulting.com>
-sig 3        C7F72E71 2006-09-09  David E. Jones <jonesde@undersunconsulting.com>
-sub   2048g/208053F3 2006-09-09
-sig          C7F72E71 2006-09-09  David E. Jones <jonesde@undersunconsulting.com>
+This file contains the PGP keys of various developers.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-Version: GnuPG v1.4.5 (Darwin)
+Users: pgp < KEYS
+       gpg --import KEYS
+Developers:
+        pgp -kxa <your name> and append it to this file.
+        (pgpk -ll <your name> && pgpk -xa <your name>) >> this file.
+        (gpg --list-sigs <your name> && gpg --armor --export <your name>) >> this file.
 
-mQGiBEUCbukRBACumNnppxR3PjJ/D1LsFSOIEWUXli+m++zIOjLtLv6a9N8ZK59Q
-qZ6R1b55yGBFngRVW3+8/JtVl9IyGuRRwc6IanQSSnmxYtT8ld+WVdkCuw9s1iYT
-fO70Ct45isJ8N+PPEefh5Ve4UTD4XBGcp+5xXjmmjzyZskIZrhmI2pF0IwCg75wj
-P2ucYSZ2MBucrUGnivhEWNEEAI68eiLH3yujT692xX2+tTkPcuXB1DDPytw0Iajq
-JwCbWpYT/SwoVKOdoDUbFzR3xxCLX8WPHAiSjhhwKnpWqE7Y2tzVEbWTOgd5isfl
-jhAt1hq7NBhjUXAhPWtA+YcCH0YW1ZSLCIVpfo0XvDWVJVg4I7p7HXxcGXeBgcJO
-fw0mA/41jloCxr246sA5zRGV9DktMDSoCehE7GoILm7sFV/cWdLZ8U92vLpsxAHc
-02b60WwGaTqATDO7gjJ4pHdDlehTYdEHFFeiaedZHyqPsXKidz5m8EJ89G/zg23E
-nsOhMCKhqYOsEqHw6rjCyToSPyRUEQPbQqJeJjRjCZk46fWy8rQvRGF2aWQgRS4g
-Sm9uZXMgPGpvbmVzZGVAdW5kZXJzdW5jb25zdWx0aW5nLmNvbT6IYAQTEQIAIAUC
-RQJu6QIbAwYLCQgHAwIEFQIIAwQWAgMBAh4BAheAAAoJEBu+kHTH9y5xGW4AniYH
-ffDulaU3xJNux8uJlHev3Yq8AKCE1jfPoiJgFABJVpZmfEm43GLFabkCDQRFAm8d
-EAgA2rf3uCW+QXZ/67j3rdox3o8MHBpXHRyrEQP7e4H6PCmSdZVK+NabGxkGropx
-GMeXjmY9bvFxFnJZzQ6XebKZaNx9Yl+fk71+ZL2+54gY3KGsaKfgdc00P6tPuyo5
-re5673vwfqtOQ5wJn9M9akIUdQSGrD0I2lJZpKEYW6AhzKKA9axwqx5z/1cK41l4
-ph0vgrp6/AE7OzEzOS/wpOc/MFyDLQ9Qrb+xMnyRpddD0vnwVdmNSCKF+nu8WqJw
-yuvb9fHAyavz4efnuTi9Gd7Uv7NEsgHiQ4uF4uJpM8sr3JWOS7l43uLpwam0PjLQ
-ho03ADvXlPiLa3URRqJi6fgHJwADBwf+KuFufoVQPRK/kAZCeQqyI/weert7+KOQ
-Ae5T0amJmITvmzkSzeCBGyBlYfucQe+bKIRL3E6Ikk29TYDCyj5WoD2dEF6U8Ctc
-mM1I6o7GNEAcONa8CZrt4XIWnTR4LzPBXeS5cV4VoMRglUdqOycJ1Mqsea9QsJG6
-wOvLgsKhiucLccdcwYd/SioCHYDUROjlKtINy18NnPGBayfYnwfgUQzmbk+Gya1R
-SQ9zMTJjWX0ld3JMjjLl8B4+78Xk/mYLpCiUamycJP0SgDvrcrvUF8vx1DkiVOIn
-shKQdeMJA8wQcOrMgZQBj1UikPcrjGBdT4rATEMs4tpZFSmxGu57d4hJBBgRAgAJ
-BQJFAm8dAhsMAAoJEBu+kHTH9y5xFesAnipauhCOUI5Rq5z/tiHoIijt2jNtAKDa
-w0ENt5HEKUrAZkbUJ9KEex8s6w==
-=nCtq
------END PGP PUBLIC KEY BLOCK-----
-
+---------------------------------
 pub   4096R/847AF9E0 2010-04-05
 uid                  Jacopo Cappellato (CODE SIGNING KEY) <jacopoc@apache.org>
 sig 3        847AF9E0 2010-04-05  Jacopo Cappellato (CODE SIGNING KEY) <jacopoc@apache.org>
+sig          DFEAC4B9 2010-04-06  [User ID not found]
 sub   4096R/384F8B0B 2010-04-05
 sig          847AF9E0 2010-04-05  Jacopo Cappellato (CODE SIGNING KEY) <jacopoc@apache.org>
+
 -----BEGIN PGP PUBLIC KEY BLOCK-----
-Version: GnuPG v2.0.14 (FreeBSD)
+Version: GnuPG/MacGPG2 v2.0.14 (Darwin)
 
 mQINBEu5pE4BEADBQcje1AzY0uk+6Nm54KIcQtPTUD+Qu9zqbUSEGtrj4J/EB2a/
 yfBnoezEQp/LTp47PT9iIPIGdeWzmBP0w2Xwam4rqd8n47U/cQHQPC0DMltC665f
@@ -67,28 +42,29 @@ ZmuWTlti8CXjazoHYrfYXH5uW9/wN0pAWSgUIQxmVPUN44qdJsNy5MeZA9B/dDTG
 gzgt+wfNOR/HfMx9l7x40IKvLDkkUwcr9oGfCzt/mUZwgQnjg4D6MYCyzquffQPe
 s2bad0iLtCDkjq6j3COa0mHLqQuoDRZKyoqvpdx/4nPQLwELscsS6xl0SQ9Oz6OX
 D56C/kWga4Fq/xKTutcJDX9nk6tz/sCKHQpNhbrJPCj0vw7vbBPJ53ie38tO7kJJ
-H1tvFl06uQINBEu5pE4BEAC/wL2BUkISdOvSwph50lZz8m3lYWOrCcOKKE0xac2d
-MUJfXel/+4qUIeaLTmbOA8rNuc0Xsk9OcXo/h64aaHcTAV4RFvt9SQDZA09ZxygZ
-8oZ98fSZ3ZvB6c7IncU5F0lPaKtfCaZ3pISLB8vKjylvlWz7/M+ivof4JLV/QKaF
-zARZSbtRjdKFPCeDglpq+vrlAvKFuDIMOIuiEcbXqMmVTQRKWiAon6ErITDAwsqF
-eF883T5oXuLtHD2tAhOaXv+T0NjEvQAcQNP8SV1hWMEB/sEGg+dKfanuctrBetoR
-Zh/ncoQsohzAnH7JK85UU/3m1cGTAJEX+yKDWkXE6pLEO5ut3msFsoTokjAfaHMA
-1JHRTAIAcxeIffdRxwNJB3GfMhAlJsSDNcbI8UVl1hgsqxdrckt64tWTXg5h8tSO
-sns0qxUoy9i9DAdMjaNGkjMoQL+d9o0fqLAOCM8Li0RXhKwwU/U6iiwzvvn6Xg0a
-Kmi11peY+RtStdtLX+qNVicdH7Qlqi3K4D8PZjYzt3/GmAq41mQ94AFG+Rm+I9q1
-v0SfqxaPFL/AMuR2sDAouk2UbqC1h0VHfw/QhBdST+XKNvogRH1zJgRkjGh2cVC7
-/2PvMoN2mh9HJ2xrhgQdY1v0ZidmYlD1cVObDxFLF9wqZFpGcn0p7Aqczq0KtBu6
-EwARAQABiQIfBBgBAgAJBQJLuaROAhsMAAoJEHpYCQiEevnghscP/0RGTpz2UwcG
-Ga38ZqtARDiiHIk0IkkjRMaoa59TaY/gfBvIfhFo++xgxlqb8dFvVmXVbiAHX002
-UxFRkjXEaYZnMz4miNZPwMttrIJIPt3glRtc88Pdv9vGctlWZcnLnohc96NvexQb
-M4Pjsk13Kxon9PyVcC5AoReb6Gfs/sk4jTqxiFwLcxYqNGQsSby3z7qYsjV1JLwE
-ni2Ey/8hOaujics33Nr8sQjzzvyg3JFapwpTU2ZIUd4j9QsTKt2BzE0Zuga1jVZd
-PFzof16APPj8M4eihgmEEoyv9Holn8OHl9gQ6HnTj6iAA3BmXrzxk26KBTDqsG2p
-VhbzkPc8ASifGDPDDEHJpDj9Mj5riCofm7ngNcG2vjth++zsWl09mYekkq8tyFM9
-PN2sgXo5U9GX24JHpzavPmOMZzkt6CTUOD9Wmls+ddavasfniWxnfVNQAGksFbhw
-GGhsTLM+/cmr5/3TWjWJhkLmSPjcoNbdnahvLV70h/WeRjU1HnP3o/ZtIpN/gXLm
-eSuDre2KsLDVhyyPPjGDCbbtKTRqPO4ByiiVVdTNI6c2U7bL+EvE8YX1kFJuRmfN
-wh7vuTSOJELjOutXUO8a6s08y6g23AuBI4V4nMYiF4eymee0shT386Cq7LsMu/F6
-zXcKEOxgElCTCrVGlUZY5UOeaZDyXGj0
-=O4Te
+H1tvFl06iEYEEBECAAYFAku7RR0ACgkQAVLWA9/qxLkdUgCgm0/f6xAKdzhfz0lA
+1CWDrfbRgPgAni5pRd7uvcKBU9Klv5ige59ar3TUuQINBEu5pE4BEAC/wL2BUkIS
+dOvSwph50lZz8m3lYWOrCcOKKE0xac2dMUJfXel/+4qUIeaLTmbOA8rNuc0Xsk9O
+cXo/h64aaHcTAV4RFvt9SQDZA09ZxygZ8oZ98fSZ3ZvB6c7IncU5F0lPaKtfCaZ3
+pISLB8vKjylvlWz7/M+ivof4JLV/QKaFzARZSbtRjdKFPCeDglpq+vrlAvKFuDIM
+OIuiEcbXqMmVTQRKWiAon6ErITDAwsqFeF883T5oXuLtHD2tAhOaXv+T0NjEvQAc
+QNP8SV1hWMEB/sEGg+dKfanuctrBetoRZh/ncoQsohzAnH7JK85UU/3m1cGTAJEX
++yKDWkXE6pLEO5ut3msFsoTokjAfaHMA1JHRTAIAcxeIffdRxwNJB3GfMhAlJsSD
+NcbI8UVl1hgsqxdrckt64tWTXg5h8tSOsns0qxUoy9i9DAdMjaNGkjMoQL+d9o0f
+qLAOCM8Li0RXhKwwU/U6iiwzvvn6Xg0aKmi11peY+RtStdtLX+qNVicdH7Qlqi3K
+4D8PZjYzt3/GmAq41mQ94AFG+Rm+I9q1v0SfqxaPFL/AMuR2sDAouk2UbqC1h0VH
+fw/QhBdST+XKNvogRH1zJgRkjGh2cVC7/2PvMoN2mh9HJ2xrhgQdY1v0ZidmYlD1
+cVObDxFLF9wqZFpGcn0p7Aqczq0KtBu6EwARAQABiQIfBBgBAgAJBQJLuaROAhsM
+AAoJEHpYCQiEevnghscP/0RGTpz2UwcGGa38ZqtARDiiHIk0IkkjRMaoa59TaY/g
+fBvIfhFo++xgxlqb8dFvVmXVbiAHX002UxFRkjXEaYZnMz4miNZPwMttrIJIPt3g
+lRtc88Pdv9vGctlWZcnLnohc96NvexQbM4Pjsk13Kxon9PyVcC5AoReb6Gfs/sk4
+jTqxiFwLcxYqNGQsSby3z7qYsjV1JLwEni2Ey/8hOaujics33Nr8sQjzzvyg3JFa
+pwpTU2ZIUd4j9QsTKt2BzE0Zuga1jVZdPFzof16APPj8M4eihgmEEoyv9Holn8OH
+l9gQ6HnTj6iAA3BmXrzxk26KBTDqsG2pVhbzkPc8ASifGDPDDEHJpDj9Mj5riCof
+m7ngNcG2vjth++zsWl09mYekkq8tyFM9PN2sgXo5U9GX24JHpzavPmOMZzkt6CTU
+OD9Wmls+ddavasfniWxnfVNQAGksFbhwGGhsTLM+/cmr5/3TWjWJhkLmSPjcoNbd
+nahvLV70h/WeRjU1HnP3o/ZtIpN/gXLmeSuDre2KsLDVhyyPPjGDCbbtKTRqPO4B
+yiiVVdTNI6c2U7bL+EvE8YX1kFJuRmfNwh7vuTSOJELjOutXUO8a6s08y6g23AuB
+I4V4nMYiF4eymee0shT386Cq7LsMu/F6zXcKEOxgElCTCrVGlUZY5UOeaZDyXGj0
+=6iBe
 -----END PGP PUBLIC KEY BLOCK-----
