@@ -621,6 +621,7 @@ height:16px;
     text-decoration: none;
     font-size: 14px;
     color: #000 !important;
+    background: none;
 }
 
 .calendar_date_select .cds_header a.prev {
@@ -647,6 +648,8 @@ height:16px;
 .calendar_date_select .cds_buttons a {
     color: #ccc;
     font-size: 11px;
+    background: none;
+    display: inline !important;
 }
 
 .calendar_date_select td {
