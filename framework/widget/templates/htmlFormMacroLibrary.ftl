@@ -502,7 +502,7 @@ ${item.description}</div>
 </tr> </table>
 </#macro>
 
-<#macro renderContainerField id><div id="${id?if_exists}"/></#macro>
+<#macro renderContainerField id className><div id="${id}" class="${className}"/></#macro>
 
 <#macro renderFieldGroupOpen style id title collapsed collapsibleAreaId collapsible expandToolTip collapseToolTip>
 <#if style?has_content || id?has_content || title?has_content><div class="fieldgroup<#if style?has_content> ${style}</#if>"<#if id?has_content> id="${id}"</#if>>

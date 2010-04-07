@@ -2914,7 +2914,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (UtilValidate.isNotEmpty(id)) {
             writer.append("id=\"");
             writer.append(id);
-            writer.append("\"");
+            writer.append("\" ");
+        }
+        String className = containerField.getModelFormField().getWidgetStyle();
+        if (UtilValidate.isNotEmpty(className)) {
+            writer.append("class=\"");
+            writer.append(className);
+            writer.append("\" ");
         }
         writer.append("/>");
     }
