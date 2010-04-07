@@ -3501,7 +3501,6 @@ public class ModelFormField {
         protected FlexibleStringExpander formName;
         protected String descriptionFieldName;
         protected String targetParameter;
-        protected SubHyperlink subHyperlink;
         protected String lookupPresentation;
         protected String lookupWidth;
         protected String lookupHeight;
