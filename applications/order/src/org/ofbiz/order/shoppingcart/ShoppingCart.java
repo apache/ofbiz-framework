@@ -89,7 +89,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private String quoteId = null;
     private String workEffortId = null;
     private long nextItemSeq = 1;
-    private String productStoreShipMethId = null;
 
     private String defaultItemDeliveryDate = null;
     private String defaultItemComment = null;
@@ -2362,12 +2361,22 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return this.getCarrierPartyId(0);
     }
 
+    public String getProductStoreShipMethId(int idx) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        return csi.productStoreShipMethId;
+    }
+
     public String getProductStoreShipMethId() {
-        return productStoreShipMethId;
+        return this.getProductStoreShipMethId(0);
+    }
+
+    public void setProductStoreShipMethId(int idx, String productStoreShipMethId) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        csi.productStoreShipMethId = productStoreShipMethId;
     }
 
     public void setProductStoreShipMethId(String productStoreShipMethId) {
-        this.productStoreShipMethId = productStoreShipMethId;
+        this.setProductStoreShipMethId(0, productStoreShipMethId);
     }
 
     public void setShipGroupFacilityId(int idx, String facilityId) {
@@ -4326,6 +4335,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public Timestamp shipAfterDate = null;
         private String shipGroupSeqId = null;
         public String vendorPartyId = null;
+        public String productStoreShipMethId = null;
         public Map<String, Object> attributes = FastMap.newInstance();
 
         public void setAttribute(String name, Object value) {

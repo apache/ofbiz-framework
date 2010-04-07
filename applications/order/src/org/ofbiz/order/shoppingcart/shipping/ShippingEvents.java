@@ -100,7 +100,7 @@ public class ShippingEvents {
 
         String shipmentMethodTypeId = cart.getShipmentMethodTypeId(groupNo);
         String carrierPartyId = cart.getCarrierPartyId(groupNo);
-        String productStoreShipMethId = cart.getProductStoreShipMethId();
+        String productStoreShipMethId = cart.getProductStoreShipMethId(groupNo);
 
         return getShipGroupEstimate(dispatcher, delegator, cart.getOrderType(), shipmentMethodTypeId, carrierPartyId, null,
                 cart.getShippingContactMechId(groupNo), cart.getProductStoreId(), cart.getSupplierPartyId(groupNo), cart.getShippableItemInfo(groupNo),
