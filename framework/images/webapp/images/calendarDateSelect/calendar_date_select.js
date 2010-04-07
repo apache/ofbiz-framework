@@ -116,10 +116,10 @@ CalendarDateSelect.prototype = {
     var above = false;
     var c_pos = this.calendar_div.cumulativeOffset(), c_left = c_pos[0], c_top = c_pos[1], c_dim = this.calendar_div.getDimensions(), c_height = c_dim.height, c_width = c_dim.width;
     var w_top = window.f_scrollTop(), w_height = window.f_height();
-    var e_dim = $(this.options.get("popup_by")).cumulativeOffset(), e_top = e_dim[1], e_left = e_dim[0], e_height = $(this.options.get("popup_by")).getDimensions().height, e_bottom = e_top + e_height;
+    var e_dim = $(this.options.get("popup_by")).positionedOffset(), e_top = e_dim[1], e_left = e_dim[0], e_height = $(this.options.get("popup_by")).getDimensions().height, e_bottom = e_top + e_height;
 
     if ( (( e_bottom + c_height ) > (w_top + w_height)) && ( e_bottom - c_height > w_top )) above = true;
-    var left_px = e_left.toString() + "px", top_px = (above ? (e_top - c_height ) : ( e_top + e_height )).toString() + "px";
+    var left_px = e_left.toString() + "px", top_px = (above ? (e_top - c_height ) : ( e_bottom )).toString() + "px";
 
     this.calendar_div.style.left = left_px;  this.calendar_div.style.top = top_px;
 
@@ -136,7 +136,7 @@ CalendarDateSelect.prototype = {
       var parent = document.body
       var style = { position:"absolute", visibility: "hidden", left:0, top:0 }
     }
-    this.calendar_div = $(parent).build('div', {className: "calendar_date_select"}, style);
+    this.calendar_div = this.target_element.up().build('div', {className: "calendar_date_select"}, style);
 
     var that = this;
     // create the divs

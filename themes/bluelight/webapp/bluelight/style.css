@@ -1991,6 +1991,7 @@ iframe.ie6_blocker {
     text-decoration: none;
     font-size: 14px;
     color: #000 !important;
+    background: none;
 }
 
 .calendar_date_select .cds_header a.prev {
@@ -2017,6 +2018,8 @@ iframe.ie6_blocker {
 .calendar_date_select .cds_buttons a {
     color: #fff;
     font-size: 9px;
+    background: none;
+    display: inline !important;
 }
 
 .calendar_date_select td {
