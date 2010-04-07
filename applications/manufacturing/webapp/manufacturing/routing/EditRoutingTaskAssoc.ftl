@@ -43,14 +43,14 @@ function addRoutingTask() {
             </th>
             <td>
                 <input type="text" name="workEffortIdTo" size="20"/>
-                <a href="javascript:call_fieldlookup(document.addtaskassocform.workEffortIdTo,'<@ofbizUrl>LookupRoutingTask</@ofbizUrl>', 'vide',540,450);"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"></a>
+                <a href="javascript:call_fieldlookup(document.addtaskassocform.workEffortIdTo,'<@ofbizUrl>LookupRoutingTask</@ofbizUrl>', 'vide',540,450);"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
             </td>
             <th align="right">
                 ${uiLabelMap.CommonFromDate}
             </th>
             <td>
                 <input type="text" name="fromDate" size="25"/>
-                <a href="javascript:call_cal(document.addtaskassocform.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar"></a>
+                <a href="javascript:call_cal(document.addtaskassocform.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar" /></a>
             </td>
             <td align="center" width="40%">&nbsp;</td>
         </tr>
@@ -66,7 +66,7 @@ function addRoutingTask() {
             </th>
             <td>
                 <input type="text" name="thruDate" size="25"/>
-                <a href="javascript:call_cal(document.addtaskassocform.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar"></a>
+                <a href="javascript:call_cal(document.addtaskassocform.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar" /></a>
             </td>
             <td>&nbsp;</td>
         </tr>

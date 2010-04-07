@@ -66,10 +66,10 @@ function lookupInventory() {
                         <input type='text' size='25' name='productId' value='${requestParameters.productId?if_exists}'/>
                         <span>
                           <a href="javascript:call_fieldlookup2(document.lookupinventory.productId,'LookupProduct');">
-                            <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+                            <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                           </a>
                         </span>
-                        <input type='text' size='25' readonly name='productId_description' value=''/>${uiLabelMap.CommonDescription}
+                        <input type='text' size='25' readonly="readonly" name='productId_description' value=''/>${uiLabelMap.CommonDescription}
                      </td>
                   </tr>
                   <tr>
@@ -83,8 +83,8 @@ function lookupInventory() {
                     </td>
                   </tr>
                   <tr>
-                    <td width="25%" align="center" valign="top">
-                    <td width="5">&nbsp;</td>
+                    <td width="20%" align="center" valign="top">&nbsp;</td>
+                    <td width="5%">&nbsp;</td>
                     <td width="75%"> <a href="javascript:lookupInventory();" class="smallSubmit">&nbsp; ${uiLabelMap.CommonFind} &nbsp;</a></td>
                   </tr>
                 </table>
@@ -120,7 +120,7 @@ document.lookupinventory.productId.focus();
              <div class="boxhead" align="right">
 
                 <#if 0 < viewIndex>
-                  <a href="<@ofbizUrl>FindInventoryEventPlan?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a>
+                  <a href="<@ofbizUrl>FindInventoryEventPlan?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a>
                 <#else>
                   <span class="submenutextdisabled">${uiLabelMap.CommonPrevious}</span>
                 </#if>
@@ -128,7 +128,7 @@ document.lookupinventory.productId.focus();
                   <span class="submenutextinfo">${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
                 </#if>
                 <#if highIndex < listSize>
-                  <a href="<@ofbizUrl>FindInventoryEventPlan?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
+                  <a href="<@ofbizUrl>FindInventoryEventPlan?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
                 <#else>
                   <span class="submenutextrightdisabled">${uiLabelMap.CommonNext}</span>
                 </#if>
@@ -142,10 +142,10 @@ document.lookupinventory.productId.focus();
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
           <td>${uiLabelMap.CommonType}</td>
-          <td align="center">&nbsp</td>
+          <td align="center">&nbsp;</td>
           <td>${uiLabelMap.CommonDescription}</td>
           <td>${uiLabelMap.CommonDate}</td>
-          <td align="center">&nbsp</td>
+          <td align="center">&nbsp;</td>
           <td align="right">${uiLabelMap.CommonQuantity}</td>
           <td align="right">${uiLabelMap.ManufacturingTotalQuantity}</td>
         </tr>
@@ -218,10 +218,10 @@ document.lookupinventory.productId.focus();
             <#assign MrpEventType = inven.getRelatedOne("MrpEventType")>
             <tr class="${rowClass}">
               <td>${MrpEventType.get("description",locale)}</td>
-              <td>&nbsp</td>
+              <td>&nbsp;</td>
               <td>${inven.eventName?if_exists}</td>
               <td><font <#if inven.isLate?default("N") == "Y">color='red'</#if>>${inven.getString("eventDate")}</font></td>
-              <td>&nbsp</td>
+              <td>&nbsp;</td>
               <td align="right">${inven.getString("quantity")}</td>
               <td align="right">${quantityAvailableAtDate?if_exists}</td>
             </tr>
