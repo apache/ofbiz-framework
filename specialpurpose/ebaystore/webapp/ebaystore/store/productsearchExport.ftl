@@ -194,7 +194,9 @@ under the License.
   <ul>
     <li class="h3">Items to export</li>
     <li><a href="<@ofbizUrl>clearExpListing</@ofbizUrl>?productStoreId=${productStoreId?if_exists}">Clear Listing</a></li>
+    <#if isExportValid?exists && isExportValid == "true">
     <li><a href="<@ofbizUrl>exportListingToEbay</@ofbizUrl>?productStoreId=${productStoreId?if_exists}">Export Products Listing</a></li>
+    </#if>
   </ul><br class="clear"/></div>
   <div class="screenlet-body">
 <form id="ProductsExportToEbay" method="post" action="<@ofbizUrl>exportProductsFromEbayStore</@ofbizUrl>" name="ProductsExportToEbay">

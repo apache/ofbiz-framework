@@ -55,6 +55,7 @@
  contents = [];
  if (addItemObj) {
      site = (SiteCodeType)apiContext.getSite();
+     isExportValid = "false";
      context.site = site;
      context.siteCode = apiContext.getSite().value();
      context.siteCode_Ebay_Motors = SiteCodeType.E_BAY_MOTORS.value();
@@ -69,7 +70,14 @@
          content.productContentWrapper = contentWrapper;
          content.product = product;
          contents.add(content);
+
+         if (addItemMap.isVerify == "Y") {
+             isExportValid = "true";
+         } else {
+             isExportValid = "false";
+         }
      }
+     context.isExportValid = isExportValid;
 
      request.setAttribute("productStoreId", productStoreId);
      categories = EbayEvents.getChildCategories(request);
