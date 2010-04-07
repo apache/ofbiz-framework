@@ -2909,11 +2909,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     }
     
     public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
-        String id = "";
-        if (UtilValidate.isNotEmpty(containerField.getId())) {
-            id = containerField.getId();
+        writer.append("<div ");
+        String id = containerField.getId();
+        if (UtilValidate.isNotEmpty(id)) {
+            writer.append("id=\"");
+            writer.append(id);
+            writer.append("\"");
         }
-        writer.append("<div id=\"" + id + "\"/>");
+        writer.append("/>");
     }
 
     /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
