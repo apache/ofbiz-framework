@@ -18,6 +18,7 @@
  */
 package org.ofbiz.ebaystore;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -783,7 +784,33 @@ public class EbayEvents {
                             storeFront.setStoreCategory2ID(new Long(requestParams.get("ebayStore2Category").toString()));
                             attributeMapList.put("StoreCategory2ID", requestParams.get("ebayStore2Category").toString());
                         }
-                        item.setStorefront(storeFront);
+                        if (UtilValidate.isNotEmpty(requestParams.get("ebayStore1Category")) || UtilValidate.isNotEmpty(requestParams.get("ebayStore2Category"))) {
+                            item.setStorefront(storeFront);
+                        }
+                        if (UtilValidate.isNotEmpty(requestParams.get("requireEbayInventory")) && "Y".equals(requestParams.get("requireEbayInventory").toString())) {
+                            GenericValue ebayProductStore = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("EbayProductStoreInventory", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId))));
+                            if (UtilValidate.isNotEmpty(ebayProductStore)) {
+                                String facilityId = ebayProductStore.getString("facilityId");
+                                BigDecimal atp = ebayProductStore.getBigDecimal("availableToPromiseListing");
+                                int intAtp = atp.intValue();
+                                if ((facilityId != "")  && (intAtp != 0)) {
+                                    int newAtp = intAtp - 1;
+                                    Map<String,Object> inMap = FastMap.newInstance();
+                                    inMap.put("productStoreId", productStoreId);
+                                    inMap.put("facilityId", facilityId);
+                                    inMap.put("productId", productId);
+                                    inMap.put("availableToPromiseListing", new BigDecimal(newAtp));
+                                    inMap.put("userLogin", userLogin);
+                                    try {
+                                        dispatcher.runSync("updateEbayProductStoreInventory", inMap);
+                                    } catch (GenericServiceException ex) {
+                                        Debug.logError(ex.getMessage(), module);
+                                        return "error";
+                                    }
+                                    itemObj.put("requireEbayInventory", "Y");
+                                }
+                            }
+                        }
                         addItemCall.setItem(item);
 
                         // create/update EbayProductListing entity

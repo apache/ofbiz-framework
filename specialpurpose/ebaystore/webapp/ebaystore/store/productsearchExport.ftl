@@ -225,6 +225,7 @@ under the License.
                  <#assign addItem = addItemObj.addItemCall?if_exists>
                  <#assign isSaved = addItemObj.isSaved?if_exists>
                  <#assign isAutoRelist = addItemObj.isAutoRelist?if_exists>
+                 <#assign requireEbayInventory = addItemObj.requireEbayInventory?if_exists>
                  <#assign item = addItem.getItem()?if_exists>
                  <#assign primaryCate = item.getPrimaryCategory()?if_exists>
                  <#if isProductId == item.getSKU()?if_exists>
@@ -409,6 +410,12 @@ under the License.
                                             <td class="label"><b>Enable auto-relist item</b></td>
                                             <td><input type="checkbox" name="isAutoRelist" value="Y" <#if isAutoRelist == "Y">checked="checked"</#if>/></td>
                                         </tr>
+                                        <#if isReserve?exists && isReserve == true>
+                                        <tr>
+                                            <td class="label"><b>Require eBay Inventory</b></td>
+                                            <td><input type="checkbox" name="requireEbayInventory" value="Y" <#if requireEbayInventory == "Y">checked="checked"</#if>/></td>
+                                        </tr>
+                                        </#if>
                                         <tr>
                                             <td class="label"></td>
                                             <td><br /></td>

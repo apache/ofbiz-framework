@@ -27,6 +27,7 @@
  import org.ofbiz.product.product.ProductWorker;
  import org.ofbiz.product.product.ProductContentWrapper;
  import org.ofbiz.product.catalog.*;
+ import org.ofbiz.ebaystore.EbayStoreHelper;
  import com.ebay.sdk.ApiContext;
  import com.ebay.sdk.call.AddItemCall;
  import com.ebay.soap.eBLBaseComponents.ItemType;
@@ -73,6 +74,8 @@
      request.setAttribute("productStoreId", productStoreId);
      categories = EbayEvents.getChildCategories(request);
      context.categories = categories;
+     
+     
      // point product tab id 
      productId = null;
      if (request.getAttribute("isProductId") || parameters.isProductId) {
@@ -87,6 +90,9 @@
          if (productPrices) {
              context.productPrices = productPrices;
          }
+         //Is it reserve on eBayInventory
+         isReserve = EbayStoreHelper.isReserveInventory(delegator, productStoreId, productId);
+         context.isReserve = isReserve;
          // get category detail 
          pkCateId = null;
          stCate1ID = null;
