@@ -624,6 +624,7 @@ public class EbayStoreHelper {
     public static Map<String, Object> uploadTrackingInfoBackToEbay(DispatchContext dctx, Map<String, Object> context) {
     Delegator delegator = dctx.getDelegator();
     Locale locale = (Locale) context.get("locale");
+    GenericValue userLogin = (GenericValue) context.get("userLogin");
     String productStoreId = (String) context.get("productStoreId");
     String orderId = (String) context.get("orderId");
     GetOrdersRequestType req = new GetOrdersRequestType();
@@ -693,12 +694,12 @@ public class EbayStoreHelper {
                             if (addResp != null && "SUCCESS".equals(addResp.getAck().toString())) {
                                 Debug.log("Upload tracking code to eBay success...");
                             } else {
-                                createErrorLogMessage(dctx.getDispatcher(), productStoreId, addResp.getAck().toString(), "Update order : uploadTrackingInfoBackToEbay", addResp.getMessage());
+                                createErrorLogMessage(userLogin, dctx.getDispatcher(), productStoreId, addResp.getAck().toString(), "Update order : uploadTrackingInfoBackToEbay", addResp.getErrors(0).getLongMessage());
                             }
                         }
                     }
                 } else {
-                    createErrorLogMessage(dctx.getDispatcher(), productStoreId, resp.getAck().toString(), "Get order : uploadTrackingInfoBackToEbay", resp.getMessage());
+                    createErrorLogMessage(userLogin, dctx.getDispatcher(), productStoreId, resp.getAck().toString(), "Get order : uploadTrackingInfoBackToEbay", resp.getErrors(0).getLongMessage());
                 }
             }
         }
@@ -708,7 +709,7 @@ public class EbayStoreHelper {
     return ServiceUtil.returnSuccess();
     }
 
-    public static void createErrorLogMessage(LocalDispatcher dispatcher, String productStoreId, String ack, String fuction, String errorMessage) {
+    public static void createErrorLogMessage(GenericValue userLogin, LocalDispatcher dispatcher, String productStoreId, String ack, String fuction, String errorMessage) {
         if (!"".equals(productStoreId) && (!"".equals(errorMessage))) {
             try {
                 Map<String, Object> newMap = FastMap.newInstance();
@@ -717,6 +718,7 @@ public class EbayStoreHelper {
                 newMap.put("functionName", fuction);
                 newMap.put("logMessage", errorMessage);
                 newMap.put("createDatetime", UtilDateTime.nowTimestamp());
+                newMap.put("userLogin", userLogin);
                 dispatcher.runSync("insertErrorMessagesFromEbay", newMap);
             } catch (Exception ex) {
                 Debug.log("Error from create error log messages : "+ex.getMessage());

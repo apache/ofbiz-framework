@@ -872,7 +872,7 @@ public class EbayStoreAutoPreferences {
                                             String orderId = resp.getOrderID();
                                             Debug.log(":: new order id is = " + orderId);
                                         } else {
-                                            EbayStoreHelper.createErrorLogMessage(dispatcher, productStoreId, resp.getAck().toString(), "Add order : runCombineOrders", resp.getMessage());
+                                            EbayStoreHelper.createErrorLogMessage(userLogin, dispatcher, productStoreId, resp.getAck().toString(), "Add order : runCombineOrders", resp.getErrors(0).getLongMessage());
                                         }
                                     }
                                 }
@@ -1048,6 +1048,7 @@ public class EbayStoreAutoPreferences {
 
     public static Map<String,Object> autoBlockItemsOutOfStock(DispatchContext dctx, Map<String,Object> context) {
         Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Delegator delegator = dctx.getDelegator();
         Map<String,Object> result = FastMap.newInstance();
         GetSellingManagerInventoryRequestType req = new GetSellingManagerInventoryRequestType();
@@ -1085,7 +1086,7 @@ public class EbayStoreAutoPreferences {
                                    if (tresp != null && "SUCCESS".equals(tresp.getAck().toString())) {
                                       result = ServiceUtil.returnSuccess();
                                    } else {
-                                       EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), tresp.getAck().toString(), "Delete selling manager template : autoBlockItemsOutOfStock", tresp.getMessage());
+                                       EbayStoreHelper.createErrorLogMessage(userLogin, dctx.getDispatcher(), context.get("productStoreId").toString(), tresp.getAck().toString(), "Delete selling manager template : autoBlockItemsOutOfStock", tresp.getErrors(0).getLongMessage());
                                    }
                                }
                            }
@@ -1093,7 +1094,7 @@ public class EbayStoreAutoPreferences {
                     }
                     result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
                 } else {
-                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get selling manager inventory : autoBlockItemsOutOfStock", resp.getMessage());
+                    EbayStoreHelper.createErrorLogMessage(userLogin, dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get selling manager inventory : autoBlockItemsOutOfStock", resp.getErrors(0).getLongMessage());
                 }
                 result = ServiceUtil.returnSuccess();
             } catch (ApiException e) {

@@ -633,6 +633,7 @@ public class EbayStore {
     /* Get store output */
     public static Map<String,Object> getEbayStoreOutput(DispatchContext dctx, Map<String,Object> context) {
         Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Delegator delegator = dctx.getDelegator();
         Map<String,Object> result = FastMap.newInstance();
         StoreType returnedStoreType = null;
@@ -647,10 +648,10 @@ public class EbayStore {
                 List<GenericValue> productStoreRoles = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", context.get("productStoreId").toString(),"roleTypeId","EBAY_ACCOUNT"));
                 if (productStoreRoles.size() != 0) {
                     partyId=  (String)productStoreRoles.get(0).get("partyId");
-                    List<GenericValue> userLogin = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
-                    if (userLogin.size() != 0) {
-                        userLoginId = (String)userLogin.get(0).get("userLoginId");
-                        password = (String)userLogin.get(0).get("currentPassword");
+                    List<GenericValue> userLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
+                    if (userLogins.size() != 0) {
+                        userLoginId = (String)userLogins.get(0).get("userLoginId");
+                        password = (String)userLogins.get(0).get("currentPassword");
                     }
                     
                 }
@@ -854,7 +855,7 @@ public class EbayStore {
 
                     result.put("ebayStore", ebayResp);
                 } else {
-                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store : getEbayStoreOutput", resp.getMessage());
+                    EbayStoreHelper.createErrorLogMessage(userLogin, dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store : getEbayStoreOutput", resp.getErrors(0).getLongMessage());
                     result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
                     result.put(ModelService.ERROR_MESSAGE, resp.getAck().toString() +":"+ resp.getMessage());
                 }
@@ -890,7 +891,7 @@ public class EbayStore {
     }
 
     public static Map<String,Object> retrieveThemeColorSchemeByThemeId(DispatchContext dctx, Map<String,Object> context) {
-
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         Map<String,Object> result = FastMap.newInstance();
@@ -941,7 +942,7 @@ public class EbayStore {
                     }
                     result.put("storeFontScheme", storeColorSchemeMap);
                 } else {
-                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveThemeColorSchemeByThemeId", resp.getMessage());
+                    EbayStoreHelper.createErrorLogMessage(userLogin, dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveThemeColorSchemeByThemeId", resp.getErrors(0).getLongMessage());
                 }
             }
         } catch (ApiException e) {
@@ -955,6 +956,7 @@ public class EbayStore {
     }
 
     public static Map<String,Object> retrievePredesignedLogoOption(DispatchContext dctx, Map<String,Object> context) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Map<String,Object> result = FastMap.newInstance();
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
@@ -985,7 +987,7 @@ public class EbayStore {
                     result = ServiceUtil.returnSuccess("load store logo data success..");
                     result.put("storeLogoOptList", logoList);
                 } else {
-                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrievePredesignedLogoOption", resp.getMessage());
+                    EbayStoreHelper.createErrorLogMessage(userLogin, dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrievePredesignedLogoOption", resp.getErrors(0).getLongMessage());
                 }
             }
         } catch (ApiException e) {
@@ -1000,6 +1002,7 @@ public class EbayStore {
 
     public static Map<String,Object> retrieveBasicThemeArray(DispatchContext dctx, Map<String,Object> context) {
         Map<String,Object> result = FastMap.newInstance();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         GetStoreOptionsRequestType req = null;
@@ -1036,7 +1039,7 @@ public class EbayStore {
                     result = ServiceUtil.returnSuccess("load store Basic Theme option data success..");
                     result.put("storeThemeList", themeList);
                 } else {
-                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveBasicThemeArray", resp.getMessage());
+                    EbayStoreHelper.createErrorLogMessage(userLogin, dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveBasicThemeArray", resp.getErrors(0).getLongMessage());
                 }
             }
         } catch (ApiException e) {
@@ -1051,6 +1054,7 @@ public class EbayStore {
 
     public static Map<String,Object> retrieveAdvancedThemeArray(DispatchContext dctx, Map<String,Object> context) {
         Map<String,Object> result = FastMap.newInstance();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         GetStoreOptionsRequestType req = null;
@@ -1092,7 +1096,7 @@ public class EbayStore {
                     }
                     result.put("storeAdvancedThemeColorOptList", themeColorList);
                 } else {
-                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveAdvancedThemeArray", resp.getMessage());
+                    EbayStoreHelper.createErrorLogMessage(userLogin, dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveAdvancedThemeArray", resp.getErrors(0).getLongMessage());
                 }
                 //this.returnedSubscriptionArray = resp.getSubscriptionArray();
             }
@@ -1108,6 +1112,7 @@ public class EbayStore {
 
     public static Map<String,Object> retrieveStoreFontTheme(DispatchContext dctx, Map<String,Object> context) {
         Map<String,Object> result = FastMap.newInstance();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         GetStoreOptionsRequestType req = null;
@@ -1217,7 +1222,7 @@ public class EbayStore {
                     result = ServiceUtil.returnSuccess("load store Basic Theme option data success..");
                     result.put("advanceFontTheme", advanceFontTheme);
                 } else {
-                    EbayStoreHelper.createErrorLogMessage(dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveStoreFontTheme", resp.getMessage());
+                    EbayStoreHelper.createErrorLogMessage(userLogin, dctx.getDispatcher(), context.get("productStoreId").toString(), resp.getAck().toString(), "Get store option : retrieveStoreFontTheme", resp.getErrors(0).getLongMessage());
                 }
             }
         } catch (ApiException e) {

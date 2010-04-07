@@ -891,6 +891,8 @@ public class EbayEvents {
         Map<String,Object> requestParams = UtilHttp.getParameterMap(request);
         Locale locale = UtilHttp.getLocale(request);
         String productStoreId = (String) requestParams.get("productStoreId");
+        HttpSession session = request.getSession(true);
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
@@ -924,7 +926,7 @@ public class EbayEvents {
                                 feesummary = feesummary + dfee;
                             }
                         } else {
-                            EbayStoreHelper.createErrorLogMessage(dispatcher, productStoreId, resp.getAck().toString(), "Verify Item : verifyItemBeforeAdd", resp.getMessage());
+                            EbayStoreHelper.createErrorLogMessage(userLogin, dispatcher, productStoreId, resp.getAck().toString(), "Verify Item : verifyItemBeforeAdd", resp.getErrors(0).getLongMessage());
                         }
                     }
                 }
