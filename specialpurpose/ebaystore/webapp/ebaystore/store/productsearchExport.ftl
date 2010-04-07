@@ -402,7 +402,13 @@ under the License.
                                         </tr-->
                                         <tr>
                                             <td class="label">${uiLabelMap.CommonCountry}</td>
-                                            <td><input type="text" readOnly name="country" size="20" value="${item.getCountry().value()?if_exists}"/></td>
+                                             <#if item.getCountry().value()?exists>
+                                                <#assign country = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("Geo", {"geoCode": item.getCountry().value()}))/>
+                                                <#if country?has_content>
+                                                    <#assign countryname = country.geoName/>
+                                                </#if>
+                                            </#if>
+                                            <td><input type="text" readOnly name="country" size="20" value="${countryname?if_exists?default(item.getCountry().value()?if_exists)}"/></td>
                                         </tr>
                                         <tr>
                                             <td class="label">${uiLabelMap.FormFieldTitle_location}</td>
