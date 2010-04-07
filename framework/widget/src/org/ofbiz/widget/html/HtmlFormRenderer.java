@@ -550,16 +550,16 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (shortDateInput) {
             size = maxlength = 10;
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDate");
+                localizedInputTitle = uiLabelMap.get("CommonFormatDate");
             }
         } else if ("time".equals(dateTimeField.getType())) {
             size = maxlength = 8;
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatTime");
+                localizedInputTitle = uiLabelMap.get("CommonFormatTime");
             }
         } else {
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDateTime");
+                localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
             }
         }
         writer.append(" title=\"");
@@ -595,7 +595,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         // search for a localized label for the icon
         if (uiLabelMap != null) {
-            localizedIconTitle = (String) uiLabelMap.get("CommonViewCalendar");
+            localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
         }
 
         // add calendar pop-up button and seed data IF this is not a "time" type date-time
@@ -2018,16 +2018,16 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if ("date".equals(dateFindField.getType())) {
             size = maxlength = 10;
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDate");
+                localizedInputTitle = uiLabelMap.get("CommonFormatDate");
             }
         } else if ("time".equals(dateFindField.getType())) {
             size = maxlength = 8;
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatTime");
+                localizedInputTitle = uiLabelMap.get("CommonFormatTime");
             }
         } else {
             if (uiLabelMap != null) {
-                localizedInputTitle = (String) uiLabelMap.get("CommonFormatDateTime");
+                localizedInputTitle = uiLabelMap.get("CommonFormatDateTime");
             }
         }
         writer.append(" title=\"");
@@ -2056,7 +2056,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         // search for a localized label for the icon
         if (uiLabelMap != null) {
-            localizedIconTitle = (String) uiLabelMap.get("CommonViewCalendar");
+            localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
         }
 
         // add calendar pop-up button and seed data IF this is not a "time" type date-find
@@ -2334,7 +2334,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
-            pageLabel = (String) uiLabelMap.get("CommonPage");
+            pageLabel = uiLabelMap.get("CommonPage");
             Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", Integer.valueOf(lowIndex + 1), "highCount", Integer.valueOf(lowIndex + actualPageSize), "total", Integer.valueOf(listSize));
             commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
         }
