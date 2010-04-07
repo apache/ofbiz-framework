@@ -250,7 +250,7 @@ public class ShipmentServices {
         if (UtilValidate.isNotEmpty(productStoreShipMethId)) {
             // if the productStoreShipMethId field is passed, then also get estimates that have the field set
             List<EntityCondition> condList = UtilMisc.toList(EntityCondition.makeCondition("productStoreShipMethId", EntityOperator.EQUALS, productStoreShipMethId), estFieldsCond);
-            estFieldsCond = EntityCondition.makeCondition(condList, EntityOperator.OR);
+            estFieldsCond = EntityCondition.makeCondition(condList, EntityOperator.AND);
         }
 
         Collection<GenericValue> estimates = null;
