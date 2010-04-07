@@ -140,11 +140,11 @@ height: 1.6em; /* force ctrl to scale with text */
 
 select {
 background-color: #fffcea;
-
 border: #999999 solid 0.1em;
 font-size: 1.1em;
-height: 1.6em; /* force ctrl to scale with text */
-margin: 0.1em;
+height: 2.1em; /* force ctrl to scale with text */
+margin: 0.2em;
+padding: 0.1em;
 }
 
 select[multiple="multiple"] {
