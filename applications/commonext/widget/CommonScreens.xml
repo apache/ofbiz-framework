@@ -42,11 +42,11 @@ under the License.
                 <set field="linkStart" value="/myportal/control/showPortletMainDecorator?portalPortletId="/>
                 <set field="layoutSettings.middleTopHeader" value="---------- ${uiLabelMap.CommonLastSytemNotes} ----------"/>
                 <set field="layoutSettings.middleTopMessage1" value="${groovy:resultNote.lastSystemInfoNote1!=null?resultNote.lastSystemInfoNote1.noteDateTime.toString().substring(0,16) + &quot; &quot; + resultNote.lastSystemInfoNote1.noteInfo:&quot;&quot;}"/>
-                <set field="layoutSettings.middleTopLink1" value="${linkStart}${resultNote.lastSystemInfoNote1.moreInfoPortletId}&amp;id=${resultNote.lastSystemInfoNote1.moreInfoItemId}"/>
+                <set field="layoutSettings.middleTopLink1" value="${linkStart}${resultNote.lastSystemInfoNote1.moreInfoPortletId}&amp;amp;id=${resultNote.lastSystemInfoNote1.moreInfoItemId}"/>
                 <set field="layoutSettings.middleTopMessage2" value="${groovy:resultNote.lastSystemInfoNote2!=null?resultNote.lastSystemInfoNote2.noteDateTime.toString().substring(0,16) + &quot; &quot; + resultNote.lastSystemInfoNote2.noteInfo:&quot;&quot;}"/>
-                <set field="layoutSettings.middleTopLink2" value="${linkStart}${resultNote.lastSystemInfoNote2.moreInfoPortletId}&amp;id=${resultNote.lastSystemInfoNote2.moreInfoItemId}"/>
+                <set field="layoutSettings.middleTopLink2" value="${linkStart}${resultNote.lastSystemInfoNote2.moreInfoPortletId}&amp;amp;id=${resultNote.lastSystemInfoNote2.moreInfoItemId}"/>
                 <set field="layoutSettings.middleTopMessage3" value="${groovy:resultNote.lastSystemInfoNote3!=null?resultNote.lastSystemInfoNote3.noteDateTime.toString().substring(0,16) + &quot; &quot; + resultNote.lastSystemInfoNote3.noteInfo:&quot;&quot;}"/>
-                <set field="layoutSettings.middleTopLink3" value="${linkStart}${resultNote.lastSystemInfoNote3.moreInfoPortletId}&amp;id=${resultNote.lastSystemInfoNote3.moreInfoItemId}"/>
+                <set field="layoutSettings.middleTopLink3" value="${linkStart}${resultNote.lastSystemInfoNote3.moreInfoPortletId}&amp;amp;id=${resultNote.lastSystemInfoNote3.moreInfoItemId}"/>
             </actions>
             <widgets>
                 <section>
