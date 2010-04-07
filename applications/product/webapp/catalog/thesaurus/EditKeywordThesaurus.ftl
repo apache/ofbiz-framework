@@ -41,6 +41,7 @@ under the License.
         </div>
         <br />
         <#assign lastkeyword = "">
+        <#if keywordThesauruses?has_content>
         <table cellspacing="0" class="basic-table">
             <#assign rowClass = "2">
             <#list keywordThesauruses as keyword>
@@ -59,17 +60,17 @@ under the License.
                         <a href="<@ofbizUrl>deleteKeywordThesaurus?enteredKeyword=${keyword.enteredKeyword}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDeleteAll}</a>
                       </div>
                       <div>
-                        <input type="hidden" name="enteredKeyword" value=${keyword.enteredKeyword}>
-                        <span class="label">${uiLabelMap.ProductAlternate}</span><input type="text" name="alternateKeyword" size="10">
+                        <input type="hidden" name="enteredKeyword" value="${keyword.enteredKeyword}" />
+                        <span class="label">${uiLabelMap.ProductAlternate}</span><input type="text" name="alternateKeyword" size="10" />
                         <span class="label">${uiLabelMap.ProductRelationship}</span><select name="relationshipEnumId"><#list relationshipEnums as relationshipEnum><option value="${relationshipEnum.enumId}">${relationshipEnum.get("description",locale)}</option></#list></select>
-                        <input type="submit" value="${uiLabelMap.CommonAdd}">
+                        <input type="submit" value="${uiLabelMap.CommonAdd}" />
                       </div>
                     </form>
                   </td>
                   <td>
               </#if>
               <div>
-                <a href="<@ofbizUrl>deleteKeywordThesaurus?enteredKeyword=${keyword.enteredKeyword}&alternateKeyword=${keyword.alternateKeyword}</@ofbizUrl>" class="buttontext">X</a>
+                <a href="<@ofbizUrl>deleteKeywordThesaurus?enteredKeyword=${keyword.enteredKeyword}&amp;alternateKeyword=${keyword.alternateKeyword}</@ofbizUrl>" class="buttontext">X</a>
                 ${keyword.alternateKeyword}&nbsp;(${uiLabelMap.ProductRelationship}:${(relationship.get("description",locale))?default(keyword.relationshipEnumId?if_exists)})
               </div>
               <#-- toggle the row color -->
@@ -82,5 +83,6 @@ under the License.
               </td>
             </tr>
         </table>
+        </#if>
     </div>
 </div>

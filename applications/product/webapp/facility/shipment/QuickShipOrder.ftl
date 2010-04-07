@@ -58,7 +58,7 @@ function setWeight(weight) {
                 <tr>
                   <td width="20%" align="right"><span class="label">${uiLabelMap.ProductCarrier}</span></td>
                   <td>&nbsp;</td>
-                  <td width="1%" nowrap>
+                  <td width="1%" nowrap="nowrap">
                     <select name="carrierPartyId">
                       <#if shipmentRoute.carrierPartyId?has_content>
                         <option value="${shipmentRoute.carrierPartyId}">${(carrierPerson.firstName)?if_exists} ${(carrierPerson.middleName)?if_exists} ${(carrierPerson.lastName)?if_exists} ${(carrierPartyGroup.groupName)?if_exists} [${shipmentRoute.carrierPartyId}]</option>
@@ -79,7 +79,7 @@ function setWeight(weight) {
                 <tr>
                   <td width="20%" align="right"><span class="label">${uiLabelMap.ProductShipMethod}</span></td>
                   <td>&nbsp;</td>
-                  <td width="1%" nowrap>
+                  <td width="1%" nowrap="nowrap">
                     <select name="shipmentMethodTypeId">
                       <#if shipmentMethodType?has_content>
                         <option value="${shipmentMethodType.shipmentMethodTypeId}">${shipmentMethodType.get("description",locale)}</option>
@@ -94,18 +94,18 @@ function setWeight(weight) {
                   </td>
                   <td>&nbsp;</td>
                   <td width="80%">
-                    <a href="<@ofbizUrl>quickShipOrder?facilityId=${facilityId}&shipmentId=${shipmentId}&reweigh=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductReWeighPackage}</a>
+                    <a href="<@ofbizUrl>quickShipOrder?facilityId=${facilityId}&amp;shipmentId=${shipmentId}&amp;reweigh=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductReWeighPackage}</a>
                   </td>
                 </tr>
                 <tr>
                   <td width="20%" align="right">&nbsp;</td>
                   <td>&nbsp;</td>
-                  <td width="1%" nowrap>
+                  <td width="1%" nowrap="nowrap">
                     &nbsp;
                   </td>
                   <td>&nbsp;</td>
                   <td width="80%">
-                    <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.routeForm.submit();">
+                    <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.routeForm.submit();" />
                   </td>
                 </tr>
               </table>
@@ -117,8 +117,8 @@ function setWeight(weight) {
             <#-- display the links for label/packing slip -->
             <#assign allDone = "yes">
             <center>
-              <a href="<@ofbizUrl>viewShipmentPackageRouteSegLabelImage?shipmentId=${requestParameters.shipmentId}&shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}&shipmentPackageSeqId=00001</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductShippingLabel}</a><br />
-              <a href="<@ofbizUrl>ShipmentManifest.pdf?shipmentId=${requestParameters.shipmentId}&shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
+              <a href="<@ofbizUrl>viewShipmentPackageRouteSegLabelImage?shipmentId=${requestParameters.shipmentId}&amp;shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}&amp;shipmentPackageSeqId=00001</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductShippingLabel}</a><br />
+              <a href="<@ofbizUrl>ShipmentManifest.pdf?shipmentId=${requestParameters.shipmentId}&amp;shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
             </center>
           </#if>
         <#else>
@@ -132,7 +132,7 @@ function setWeight(weight) {
                 <td width="20%" align="right"><span class="label">${uiLabelMap.ProductPackage}</span> ${shipmentPackage.shipmentPackageSeqId} ${uiLabelMap.ProductWeight}</td>
                 <td>&nbsp;</td>
                 <td width="80%">
-                  <input type="text" name="weight">&nbsp;
+                  <input type="text" name="weight" />&nbsp;
                   <select name="weightUomId">
                     <#if weightUom?has_content>
                       <option value="${weightUom.uomId}">${weightUom.get("description",locale)}</option>
@@ -176,22 +176,22 @@ function setWeight(weight) {
     </#if>
   <#else>
     <form name="selectOrderForm" method="post" action="<@ofbizUrl>createQuickShipment</@ofbizUrl>">
-      <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
-      <input type="hidden" name="originFacilityId" value="${facilityId?if_exists}">
-      <input type="hidden" name="setPackedOnly" value="Y">
+      <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
+      <input type="hidden" name="originFacilityId" value="${facilityId?if_exists}" />
+      <input type="hidden" name="setPackedOnly" value="Y" />
       <table border='0' cellpadding='2' cellspacing='0'>
         <tr>
           <td width="25%" align='right'><span class="label">${uiLabelMap.ProductOrderNumber}</span></td>
           <td width="1">&nbsp;</td>
           <td width="25%">
-            <input type="text" name="orderId" size="20" maxlength="20" value="${requestParameters.orderId?if_exists}">
+            <input type="text" name="orderId" size="20" maxlength="20" value="${requestParameters.orderId?if_exists}" />
           </td>
           <td>&nbsp;</td>
         </tr>
         <tr>
           <td colspan="2">&nbsp;</td>
           <td colspan="2">
-            <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.selectOrderForm.submit();">
+            <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.selectOrderForm.submit();" />
             <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductShipOrder}</a>
           </td>
         </tr>

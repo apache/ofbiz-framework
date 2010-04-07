@@ -98,7 +98,7 @@ under the License.
             <form action="<@ofbizUrl>issueOrderItemToShipmentAndReceiveAgainstPO?clearAll=Y</@ofbizUrl>" method="post" name="selectAllForm">
                 <input type="hidden" name="facilityId" value="${facilityId}"/>
                 <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
-                <input type="hidden" name="shipmentId" value="${shipmentId}">
+                <input type="hidden" name="shipmentId" value="${shipmentId}" />
                 <input type="hidden" name="_useRowSubmit" value="Y"/>
                 <table cellspacing="0" class="basic-table">
                     <tr class="header-row">
@@ -116,7 +116,7 @@ under the License.
                             <td>${uiLabelMap.CommonReceive}</td>
                             <td>${uiLabelMap.ProductInventoryItemType}</td>
                             <td colspan="2" align="right">
-                                <div>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');"></div>
+                                <div>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'orderItemData_tableRow_', 'selectAllForm');" /></div>
                             </td>
                         </#if>
                     </tr>
@@ -193,10 +193,10 @@ under the License.
                                     </select>
                                 </td>
                                 <td align="right">
-                                    <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&purchaseOrderId=${orderId}&productId=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a>
+                                    <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&amp;purchaseOrderId=${orderId}&amp;productId=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a>
                                 </td>
                                 <td align="right">
-                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');">
+                                  <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');" />
                                 </td>
                                 <#assign rowCount = rowCount + 1>
                             </#if>
@@ -207,7 +207,7 @@ under the License.
                     <#if itemsAvailableToReceive>
                         <tr>
                             <td colspan="11" align="right">
-                                <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&purchaseOrderId=${orderId}&clearAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
+                                <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&amp;purchaseOrderId=${orderId}&amp;clearAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClearAll}</a>
                             </td>
                             <td align="right">
                                 <a class="smallSubmit" href="javascript:populateQuantities(${rowCount - 1});document.selectAllForm.submit();">${uiLabelMap.ProductReceiveItem}</a>
@@ -215,12 +215,12 @@ under the License.
                         </tr>
                         <tr>
                             <td colspan="12" align="right">
-                                <a class="smallSubmit" href="<@ofbizUrl>completePurchaseOrder?orderId=${orderId}&facilityId=${facilityId}&shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.OrderForceCompletePurchaseOrder}</a>
+                                <a class="smallSubmit" href="<@ofbizUrl>completePurchaseOrder?orderId=${orderId}&amp;facilityId=${facilityId}&amp;shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.OrderForceCompletePurchaseOrder}</a>
                             </td>
                         </tr>
                     </#if>
                 </table>
-                <input type="hidden" name="_rowCount" value="${rowCount}">
+                <input type="hidden" name="_rowCount" value="${rowCount}" />
             </form>
             <script language="JavaScript" type="text/javascript">selectAll('selectAllForm');</script>
         </#if>

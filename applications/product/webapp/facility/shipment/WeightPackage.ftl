@@ -38,8 +38,8 @@ under the License.
               <ul>
                 <#list invoiceIds as invoiceId>
                   <li>
-                    #<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}&externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">${invoiceId}</a>
-                    (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}&externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">PDF</a>)
+                    #<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}&amp;externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">${invoiceId}</a>
+                    (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}&amp;externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">PDF</a>)
                   </li>
                 </#list>
               </ul>
@@ -64,7 +64,7 @@ under the License.
         <br />
         <#if !(orderId?has_content)>
           <form name="selectOrderForm" method="post" action="<@ofbizUrl>WeightPackageOnly</@ofbizUrl>">
-            <input type="hidden" name="facilityId" value="${(facility.facilityId)?if_exists}">
+            <input type="hidden" name="facilityId" value="${(facility.facilityId)?if_exists}" />
             <table cellspacing="0" class="basic-table">
               <tr>
                 <td width="25%" align="right"><span class="label">${uiLabelMap.ProductOrderId}</span></td>
@@ -88,7 +88,7 @@ under the License.
           <br />
           <!-- select picklist bin form -->
           <form name="selectPicklistBinForm" method="post" action="<@ofbizUrl>WeightPackageOnly</@ofbizUrl>" style="margin: 0;">
-            <input type="hidden" name="facilityId" value="${(facility.facilityId)?if_exists}">
+            <input type="hidden" name="facilityId" value="${(facility.facilityId)?if_exists}" />
             <table cellspacing="0" class="basic-table">
               <tr>
                 <td width="25%" align='right'><span class="label">${uiLabelMap.FormFieldTitle_picklistBinId}</span></td>
@@ -132,7 +132,7 @@ under the License.
                       <td>
                         <span class="label">
                           ${uiLabelMap.ProductPackage} ${packedLine.getWeightPackageSeqId()}
-                          <input type="text" size="7" name="packageWeight" value="${(packedLine.getPackageWeight())?if_exists}">
+                          <input type="text" size="7" name="packageWeight" value="${(packedLine.getPackageWeight())?if_exists}" />
                         </span>
                       </td>
                       <td>
@@ -243,7 +243,7 @@ under the License.
                     <td>
                       <span class="label">
                         ${uiLabelMap.ProductPackage} ${(shipmentPackage_index + 1)}
-                        <input type="text" size="7" readonly name="packageWeight" value="${(shipmentPackage.weight)?if_exists}">
+                        <input type="text" size="7" readonly name="packageWeight" value="${(shipmentPackage.weight)?if_exists}" />
                       </span>
                     </td>
                     <td>
@@ -278,7 +278,7 @@ under the License.
       </div>
       <div class="screenlet-body">
         <div>
-          <h3>${uiLabelMap.FacilityWarningMessageThereIsMuchDifferenceInShippingCharges}&nbsp[${uiLabelMap.FacilityEstimatedShippingCharges} = <@ofbizCurrency amount=estimatedShippingCost?if_exists isoCode=shipment.currencyUomId?if_exists/>, ${uiLabelMap.FacilityActualShippingCharges} = <@ofbizCurrency amount=newEstimatedShippingCost?if_exists isoCode=shipment.currencyUomId?if_exists/>]</h3>
+          <h3>${uiLabelMap.FacilityWarningMessageThereIsMuchDifferenceInShippingCharges}&nbsp;[${uiLabelMap.FacilityEstimatedShippingCharges} = <@ofbizCurrency amount=estimatedShippingCost?if_exists isoCode=shipment.currencyUomId?if_exists/>, ${uiLabelMap.FacilityActualShippingCharges} = <@ofbizCurrency amount=newEstimatedShippingCost?if_exists isoCode=shipment.currencyUomId?if_exists/>]</h3>
         </div>
         <form name="shipNowForm" method="post" action="<@ofbizUrl>shipNow</@ofbizUrl>">
           <input type="hidden" name="orderId" value="${orderId?if_exists}"/>

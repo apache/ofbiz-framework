@@ -21,7 +21,7 @@ under the License.
         <h3>${uiLabelMap.PageTitleEditProductStoreWebSites}</h3>
     </div>
     <div class="screenlet-body">
-      <a href="/content/control/EditWebSite?productStoreId=${productStoreId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${uiLabelMap.ProductCreateNewProductStoreWebSite}</a>
+      <a href="/content/control/EditWebSite?productStoreId=${productStoreId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${uiLabelMap.ProductCreateNewProductStoreWebSite}</a>
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
               <td>${uiLabelMap.ProductWebSiteId}</td>
@@ -33,7 +33,7 @@ under the License.
               <#assign rowClass = "2">
               <#list storeWebSites as webSite>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                  <td><a href="/content/control/EditWebSite?webSiteId=${webSite.webSiteId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${webSite.siteName?if_exists} [${webSite.webSiteId}]</a></td>
+                  <td><a href="/content/control/EditWebSite?webSiteId=${webSite.webSiteId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${webSite.siteName?if_exists} [${webSite.webSiteId}]</a></td>
                   <td>${webSite.httpHost?default('&nbsp;')}</td>
                   <td>${webSite.httpPort?default('&nbsp;')}</td>
                   <td align="center">
@@ -62,14 +62,14 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form name="addWebSite" action="<@ofbizUrl>storeUpdateWebSite</@ofbizUrl>" method="post">
-            <input type="hidden" name="viewProductStoreId" value="${productStoreId}">
-            <input type="hidden" name="productStoreId" value="${productStoreId}">
+            <input type="hidden" name="viewProductStoreId" value="${productStoreId}" />
+            <input type="hidden" name="productStoreId" value="${productStoreId}" />
             <select name="webSiteId">
               <#list webSites as webSite>
                 <option value="${webSite.webSiteId}">${webSite.siteName?if_exists} [${webSite.webSiteId}]</option>
               </#list>
             </select>
-            <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}">
+            <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}" />
         </form>
     </div>
 </div>

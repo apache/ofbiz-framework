@@ -44,7 +44,7 @@ under the License.
             <#list orderShipments as orderShipment>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
-                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${orderShipment.orderId?if_exists}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${orderShipment.orderId?if_exists}</a>${orderShipment.orderItemSeqId?if_exists}</td>
+                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${orderShipment.orderId?if_exists}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${orderShipment.orderId?if_exists}</a>${orderShipment.orderItemSeqId?if_exists}</td>
                     <td>&nbsp;</td>
                     <td>${orderShipment.quantity?if_exists}</td>
                     <td>&nbsp;</td>
@@ -54,7 +54,7 @@ under the License.
             <#list itemIssuances as itemIssuance>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
-                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${itemIssuance.orderId?if_exists}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${itemIssuance.orderId?if_exists}</a>${itemIssuance.orderItemSeqId?if_exists}</td>
+                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${itemIssuance.orderId?if_exists}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${itemIssuance.orderId?if_exists}</a>${itemIssuance.orderItemSeqId?if_exists}</td>
                     <td><span class="label">${uiLabelMap.ProductInventory}</span> <a href="<@ofbizUrl>EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId?if_exists}</@ofbizUrl>" class="buttontext">${itemIssuance.inventoryItemId?if_exists}</a></td>
                     <td>${itemIssuance.quantity?if_exists}</td>
                     <td>${itemIssuance.issuedDateTime?if_exists}</td>

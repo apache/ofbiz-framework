@@ -24,7 +24,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <form name="idsearchform" method="post" action="<@ofbizUrl>FindProductById</@ofbizUrl>" style="margin: 0;">
-          <span class="label">${uiLabelMap.CommonId} ${uiLabelMap.CommonValue}:</span> <input type="text" name="idValue" size="20" maxlength="50" value="${idValue?if_exists}">&nbsp;<a href="javascript:document.idsearchform.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
+          <span class="label">${uiLabelMap.CommonId} ${uiLabelMap.CommonValue}:</span> <input type="text" name="idValue" size="20" maxlength="50" value="${idValue?if_exists}" />&nbsp;<a href="javascript:document.idsearchform.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
         </form>
         <br />
         <h1>${uiLabelMap.ProductSearchResultsWithIdValue}: ${idValue?if_exists}</h1>

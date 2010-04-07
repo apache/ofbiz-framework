@@ -19,7 +19,7 @@ under the License.
 
 <#if facility?exists && facilityId?has_content>
   <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" name="EditFacilityForm" method="post">
-  <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
+  <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
   <table class="basic-table" cellspacing='0'>
   <tr>
     <td class="label">${uiLabelMap.ProductFacilityId}</td>
@@ -38,7 +38,7 @@ under the License.
     <td class="label">${uiLabelMap.ProductFacilityTypeId}</td>
     <td>
       <select name="facilityTypeId">
-        <option selected value='${facilityType.facilityTypeId?if_exists}'>${facilityType.get("description",locale)?if_exists}</option>
+        <option selected="selected" value='${facilityType.facilityTypeId?if_exists}'>${facilityType.get("description",locale)?if_exists}</option>
         <option value='${facilityType.facilityTypeId?if_exists}'>----</option>
         <#list facilityTypes as nextFacilityType>
           <option value='${nextFacilityType.facilityTypeId?if_exists}'>${nextFacilityType.get("description",locale)?if_exists}</option>
@@ -73,7 +73,8 @@ under the License.
           <#list weightUomList as uom>
             <option value='${uom.uomId}'
                <#if (facility.defaultWeightUomId?has_content) && (uom.uomId == facility.defaultWeightUomId)>
-               SELECTED
+               
+               
                </#if>
              >${uom.get("description",locale)?default(uom.uomId)}</option>
           </#list>
@@ -97,11 +98,11 @@ under the License.
 
   <tr>
     <td class="label">${uiLabelMap.ProductName}</td>
-    <td><input type="text" name="facilityName" value="${facility.facilityName?if_exists}" size="30" maxlength="60"></td>
+    <td><input type="text" name="facilityName" value="${facility.facilityName?if_exists}" size="30" maxlength="60" /></td>
   </tr>
   <tr>
     <td class="label">${uiLabelMap.ProductFacilitySize}</td>
-    <td><input type="text" name="facilitySize" value="${facility.facilitySize?if_exists}" size="10" maxlength="20"></td>
+    <td><input type="text" name="facilitySize" value="${facility.facilitySize?if_exists}" size="10" maxlength="20" /></td>
   </tr>
   <tr>
    <td class="label">${uiLabelMap.ProductFacilityDefaultAreaUnit}</td>
@@ -120,19 +121,19 @@ under the License.
   </tr>  
   <tr>
     <td class="label">${uiLabelMap.ProductProductDescription}</td>
-    <td ><input type="text" name="description" value="${facility.description?if_exists}" size="60" maxlength="250"></td>
+    <td ><input type="text" name="description" value="${facility.description?if_exists}" size="60" maxlength="250" /></td>
   </tr>
   <tr>
     <td class="label">${uiLabelMap.ProductDefaultDaysToShip}</td>
-    <td><input type="text" name="defaultDaysToShip" value="${facility.defaultDaysToShip?if_exists}" size="10" maxlength="20"></td>
+    <td><input type="text" name="defaultDaysToShip" value="${facility.defaultDaysToShip?if_exists}" size="10" maxlength="20" /></td>
   </tr>
 
   <tr>
     <td>&nbsp;</td>
     <#if facilityId?has_content>
-      <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}"></td>
+      <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}" /></td>
     <#else>
-      <td><input type="submit" name="Update" value="${uiLabelMap.CommonSave}"></td>
+      <td><input type="submit" name="Update" value="${uiLabelMap.CommonSave}" /></td>
     </#if>
   </tr>
 </table>

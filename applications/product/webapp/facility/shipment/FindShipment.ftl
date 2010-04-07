@@ -43,12 +43,12 @@ function lookupShipments() {
     </div>
     <div class="screenlet-body">
         <form method="post" name="lookupShipmentForm" action="<@ofbizUrl>FindShipment</@ofbizUrl>">
-            <input type="hidden" name="lookupFlag" value="Y">
+            <input type="hidden" name="lookupFlag" value="Y" />
             <table cellspacing="0" cellpadding="2" class="basic-table">
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductShipmentId}</td>
                 <td width="5%">&nbsp;</td>
-                <td><input type="text" name="shipmentId" value="${shipmentId?if_exists}"></td>
+                <td><input type="text" name="shipmentId" value="${shipmentId?if_exists}" /></td>
               </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductShipmentType}</td>
@@ -126,15 +126,15 @@ function lookupShipments() {
                   <table cellspacing="0" class="basic-table">
                     <tr>
                       <td>
-                        <input type="text" size="25" name="minDate" value="${requestParameters.minDate?if_exists}">
-                        <a href="javascript:call_cal(document.lookupShipmentForm.minDate, '${fromDateStr}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                        <input type="text" size="25" name="minDate" value="${requestParameters.minDate?if_exists}" />
+                        <a href="javascript:call_cal(document.lookupShipmentForm.minDate, '${fromDateStr}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                         <span class="label">${uiLabelMap.CommonFrom}</span>
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <input type="text" size="25" name="maxDate" value="${requestParameters.maxDate?if_exists}">
-                        <a href="javascript:call_cal(document.lookupShipmentForm.maxDate, '${thruDateStr}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                        <input type="text" size="25" name="maxDate" value="${requestParameters.maxDate?if_exists}" />
+                        <a href="javascript:call_cal(document.lookupShipmentForm.maxDate, '${thruDateStr}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                         <span class="label">${uiLabelMap.CommonThru}</span>
                       </td>
                     </tr>

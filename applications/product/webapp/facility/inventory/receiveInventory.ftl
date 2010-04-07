@@ -86,7 +86,7 @@ under the License.
               <input type="hidden" name="orderItemSeqId" value="${firstOrderItem.orderItemSeqId}"/>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductPurchaseOrder}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductPurchaseOrder}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <b>${purchaseOrder.orderId}</b>&nbsp;/&nbsp;<b>${firstOrderItem.orderItemSeqId}</b>
@@ -100,7 +100,7 @@ under the License.
               </#if>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductProductId}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductProductId}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <b>${requestParameters.productId?if_exists}</b>
@@ -108,7 +108,7 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductProductName}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductProductName}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam?if_exists}" target="catalog" class="buttontext">${product.internalName?if_exists}</a>
@@ -116,7 +116,7 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductProductDescription}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductProductDescription}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   ${product.description?if_exists}
@@ -124,7 +124,7 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductItemDescription}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductItemDescription}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="itemDescription" size="30" maxlength="60"/>
@@ -132,7 +132,7 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductInventoryItemType}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductInventoryItemType}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <select name="inventoryItemTypeId" size="1">
@@ -151,19 +151,19 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductFacilityOwner}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductFacilityOwner}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
-                    <input type="text" name="ownerPartyId" value="" size="20" maxlength="20">
+                    <input type="text" name="ownerPartyId" value="" size="20" maxlength="20" />
                     <a href="javascript:call_fieldlookup2(document.selectAllForm.ownerPartyId, 'LookupPartyName');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
                 </td>
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductDateReceived}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductDateReceived}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="datetimeReceived" size="24" value="${nowTimestamp}">
+                  <input type="text" name="datetimeReceived" size="24" value="${nowTimestamp}" />
                   <#-- <a href="#" onclick="setNow("datetimeReceived")" class="buttontext">[Now]</a> -->
                 </td>
               </tr>
@@ -172,7 +172,7 @@ under the License.
               <#assign facilityLocations = (product.getRelatedByAnd("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId)))?if_exists/>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductFacilityLocation}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductFacilityLocation}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <#if facilityLocations?has_content>
@@ -195,7 +195,7 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductRejectedReason}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductRejectedReason}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <select name="rejectionId" size="1">
@@ -208,7 +208,7 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductQuantityRejected}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductQuantityRejected}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="quantityRejected" size="5" value="0" />
@@ -216,7 +216,7 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductQuantityAccepted}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductQuantityAccepted}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="quantityAccepted" size="5" value="${defaultQuantity?default(1)?string.number}"/>
@@ -224,7 +224,7 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
-                <td width="6%" align="right" nowrap class="label">${uiLabelMap.ProductPerUnitPrice}</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductPerUnitPrice}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                   <#-- get the default unit cost -->
@@ -234,7 +234,7 @@ under the License.
               </tr>
               <tr>
                 <td colspan="2">&nbsp;</td>
-                <td colspan="2"><input type="submit" value="${uiLabelMap.CommonReceive}"></td>
+                <td colspan="2"><input type="submit" value="${uiLabelMap.CommonReceive}" /></td>
               </tr>
             </table>
             <script language="JavaScript">
@@ -265,8 +265,8 @@ under the License.
                   <td>
                     <table class="basic-table" cellspacing="0">
                       <tr>
-                        <td width="5%" nowrap><input type="radio" name="shipmentId" value="${shipment.shipmentId}"></td>
-                        <td width="5%" nowrap>${shipment.shipmentId}</td>
+                        <td width="5%" nowrap="nowrap"><input type="radio" name="shipmentId" value="${shipment.shipmentId}" /></td>
+                        <td width="5%" nowrap="nowrap">${shipment.shipmentId}</td>
                         <td>${shipmentType.get("description",locale)?default(shipmentType.shipmentTypeId?default(""))}</td>
                         <td>${statusItem.get("description",locale)?default(statusItem.statusId?default("N/A"))}</td>
                         <td>${(originFacility.facilityName)?if_exists} [${shipment.originFacilityId?if_exists}]</td>
@@ -284,8 +284,8 @@ under the License.
                 <td>
                   <table class="basic-table" cellspacing="0">
                     <tr>
-                      <td width="5%" nowrap><input type="radio" name="shipmentId" value="_NA_"></td>
-                      <td width="5%" nowrap>${uiLabelMap.ProductNoSpecificShipment}</td>
+                      <td width="5%" nowrap="nowrap"><input type="radio" name="shipmentId" value="_NA_" /></td>
+                      <td width="5%" nowrap="nowrap">${uiLabelMap.ProductNoSpecificShipment}</td>
                       <td colspan="5"></td>
                     </tr>
                   </table>
@@ -431,7 +431,7 @@ under the License.
                           <tr>
                             <td colspan="4" align="right">${uiLabelMap.OrderQtyOrdered} :</td>
                             <td align="right">
-                              <input type="text" class="inputBox" name="quantityOrdered" value="${orderItem.quantity}" size="6" maxlength="20" disabled/>
+                              <input type="text" class="inputBox" name="quantityOrdered" value="${orderItem.quantity}" size="6" maxlength="20" disabled="disabled" />
                             </td>
                           </tr>
                         </tr>
@@ -507,7 +507,7 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.ProductPurchaseOrderNumber}</td>
                 <td>
-                  <input type="text" name="purchaseOrderId" size="20" maxlength="20" value="${requestParameters.purchaseOrderId?if_exists}">
+                  <input type="text" name="purchaseOrderId" size="20" maxlength="20" value="${requestParameters.purchaseOrderId?if_exists}" />
                     <a href="javascript:call_fieldlookup2(document.selectAllForm.purchaseOrderId,'LookupPurchaseOrderHeaderAndShipInfo');">
                       <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                     </a>
