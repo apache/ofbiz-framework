@@ -308,17 +308,17 @@ function getConfigDetails(event) {
                 </select>
               </div>
             </#list>
-            <input type='hidden' name="product_id" value='${product.productId}'>
-            <input type='hidden' name="add_product_id" value='NULL'>
+            <input type='hidden' name="product_id" value='${product.productId}' />
+            <input type='hidden' name="add_product_id" value='NULL' />
           <#else>
-            <input type='hidden' name="product_id" value='${product.productId}'>
-            <input type='hidden' name="add_product_id" value='NULL'>
+            <input type='hidden' name="product_id" value='${product.productId}' />
+            <input type='hidden' name="add_product_id" value='NULL' />
             <div class='tabletext'><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
             <#assign inStock = false>
           </#if>
         <#else>
-          <input type='hidden' name="product_id" value='${product.productId}'>
-          <input type='hidden' name="add_product_id" value='${product.productId}'>
+          <input type='hidden' name="product_id" value='${product.productId}' />
+          <input type='hidden' name="add_product_id" value='${product.productId}' />
           <#if productNotAvailable?exists>
             <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
             <#if isStoreInventoryRequired>
@@ -349,18 +349,18 @@ function getConfigDetails(event) {
             </#if>
             <div id="add_amount" class="${hiddenStyle}">
               <span style="white-space: nowrap;"><b>Amount:</b></span>&nbsp;
-              <input type="text" size="5" name="add_amount" value="">
+              <input type="text" size="5" name="add_amount" value="" />
             </div>
             <#if !configwrapper.isCompleted()>
               <div>[${uiLabelMap.EcommerceProductNotConfigured}]&nbsp;
-              <input type="text" size="5" name="quantity" value="0" disabled></div>
+              <input type="text" size="5" name="quantity" value="0" disabled="disabled" /></div>
             <#else>
               <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
-              <input type="text" size="5" name="quantity" value="1" >
+              <input type="text" size="5" name="quantity" value="1" />
             </#if>
           </#if>
           <#if requestParameters.category_id?exists>
-            <input type='hidden' name='category_id' value='${requestParameters.category_id}'>
+            <input type='hidden' name='category_id' value='${requestParameters.category_id}' />
           </#if>
         </#if>
       </form>
@@ -368,9 +368,9 @@ function getConfigDetails(event) {
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
         <hr />
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
-          <input type="hidden" name="productId" value="${product.productId}">
-          <input type="hidden" name="product_id" value="${product.productId}">
-          <input type="hidden" name="configId" value="${configId?if_exists}">
+          <input type="hidden" name="productId" value="${product.productId}" />
+          <input type="hidden" name="product_id" value="${product.productId}" />
+          <input type="hidden" name="configId" value="${configId?if_exists}" />
           <select name="shoppingListId">
             <#if shoppingLists?has_content>
               <#list shoppingLists as shoppingList>
@@ -381,7 +381,7 @@ function getConfigDetails(event) {
             <option value="">${uiLabelMap.OrderNewShoppingList}</option>
           </select>
           &nbsp;&nbsp;
-          <input type="text" size="5" name="quantity" value="1">
+          <input type="text" size="5" name="quantity" value="1" />
           <a href="javascript:document.addToShoppingList.submit();" class="buttontext">[${uiLabelMap.OrderAddToShoppingList}]</a>
         </form>
       <#else> <br />
@@ -446,11 +446,11 @@ function getConfigDetails(event) {
   <tr>
     <td colspan="2">
       <form name="configform" id="configFormId" method="post" action="<@ofbizUrl>product<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
-        <input type='hidden' name='add_product_id' value='${product.productId}'>
-        <input type='hidden' name='add_category_id' value=''>
-        <input type='hidden' name='quantity' value='1'>
+        <input type='hidden' name='add_product_id' value='${product.productId}' />
+        <input type='hidden' name='add_category_id' value='' />
+        <input type='hidden' name='quantity' value='1' />
 
-        <input type='hidden' name='product_id' value='${product.productId}'>
+        <input type='hidden' name='product_id' value='${product.productId}' />
         <table >
           <tr>
             <td>
@@ -490,7 +490,7 @@ function getConfigDetails(event) {
               <#assign optionCounter = 0>
               <#list options as option>
                 <div>${option.description} <#if !option.isAvailable()> (*)</#if></div>
-                <div>${uiLabelMap.CommonComments}: <input type='text' name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}' ></div>
+                <div>${uiLabelMap.CommonComments}: <input type='text' name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}' /></div>
                 <#assign optionCounter = optionCounter + 1>
               </#list>
             <#else>
@@ -506,7 +506,7 @@ function getConfigDetails(event) {
                 <#if renderSingleChoiceWithRadioButtons?exists && "Y" == renderSingleChoiceWithRadioButtons>
                 <#-- This is the radio button implementation -->
                 <#if !question.isMandatory()>
-                  <div><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked</#if>'> No option</div>
+                  <div><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked</#if>' /> No option</div>
                 </#if>
                 <#assign optionComment = "">
                 <#assign optionCounter = 0>
@@ -523,7 +523,7 @@ function getConfigDetails(event) {
                     <#-- Render virtual compoennts -->
                     <#if option.hasVirtualComponent()>
                       <div >
-                        <input type='radio' name='${counter}' id="${counter}_${optionCounter}" value='${optionCounter}' onclick="javascript:checkOptionVariants('${counter}_${optionCounter}');">
+                        <input type='radio' name='${counter}' id="${counter}_${optionCounter}" value='${optionCounter}' onclick="javascript:checkOptionVariants('${counter}_${optionCounter}');" />
                         ${option.description} <#if !option.isAvailable()> (*)</#if>
                         <#assign components = option.getComponents()>
                         <#list components as component>
@@ -538,7 +538,7 @@ function getConfigDetails(event) {
                       </div>
                     <#else>
                       <div>
-                        <input type="radio" name='${counter}' value='${optionCounter}' <#if option.isSelected() || (!question.isSelected() && optionCounter == 0 && question.isMandatory())>checked</#if>>
+                        <input type="radio" name='${counter}' value='${optionCounter}' <#if option.isSelected() || (!question.isSelected() && optionCounter == 0 && question.isMandatory())>checked="checked"</#if> />
                         ${option.description}&nbsp;
                         <#if (shownPrice > 0)>+<@ofbizCurrency amount=shownPrice isoCode=price.currencyUsed/>&nbsp;</#if>
                         <#if (shownPrice < 0)>-<@ofbizCurrency amount=(-1*shownPrice) isoCode=price.currencyUsed/>&nbsp;</#if>
@@ -587,7 +587,7 @@ function getConfigDetails(event) {
                     <#-- Render virtual compoennts -->
                     <#if option.hasVirtualComponent()>
                       <div >
-                        <input type='CHECKBOX' name='${counter}' id="${counter}_${optionCounter}" value='${optionCounter}' onclick="javascript:checkOptionVariants('${counter}_${optionCounter}');">
+                        <input type='CHECKBOX' name='${counter}' id="${counter}_${optionCounter}" value='${optionCounter}' onclick="javascript:checkOptionVariants('${counter}_${optionCounter}');" />
                         ${option.description} <#if !option.isAvailable()> (*)</#if>
                         <#assign components = option.getComponents()>
                         <#list components as component>
@@ -602,11 +602,11 @@ function getConfigDetails(event) {
                       </div>
                     <#else>
                     <div>
-                      <input type='CHECKBOX' name='${counter}' value='${optionCounter}' <#if option.isSelected()>checked</#if>>
+                      <input type='CHECKBOX' name='${counter}' value='${optionCounter}' <#if option.isSelected()>checked="checked"</#if> />
                       ${option.description} +<@ofbizCurrency amount=option.price isoCode=price.currencyUsed/><#if !option.isAvailable()> (*)</#if>
                     </div>
                     </#if>
-                    <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}'></div>
+                    <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}' /></div>
                   <#assign optionCounter = optionCounter + 1>
                 </#list>
               </#if>

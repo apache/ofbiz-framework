@@ -61,7 +61,7 @@ under the License.
                   <form name="searchOtherOrders" method="post" action="<@ofbizUrl>searchorders</@ofbizUrl>">
                     <input type="hidden" name="lookupFlag" value="Y"/>
                     <input type="hidden" name="hideFields" value="Y"/>
-                    <input type="hidden" name="partyId" value="${partyId}">
+                    <input type="hidden" name="partyId" value="${partyId}" />
                     <input type="hidden" name="viewIndex" value="1"/>
                     <input type="hidden" name="viewSize" value="20"/>
                   </form>

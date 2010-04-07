@@ -23,7 +23,7 @@ under the License.
       <li class="h3">${uiLabelMap.OrderOrderReceivedOn} ${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(filterDate)}</li>
       <#assign listSize = state.getSize()>
       <#if (listSize > 10)>
-        <li><a href="/ordermgr/control/orderlist?viewIndex=${state.getViewIndex() + 1}&viewSize=${state.getViewSize()}&filterDate=${filterDate?if_exists}">${uiLabelMap.CommonMore}</a></li>
+        <li><a href="/ordermgr/control/orderlist?viewIndex=${state.getViewIndex() + 1}&amp;viewSize=${state.getViewSize()}&amp;filterDate=${filterDate?if_exists}">${uiLabelMap.CommonMore}</a></li>
       </#if>
       <#if orderHeaderList?has_content> 
         <li>1-${orderHeaderList.size()} ${uiLabelMap.CommonOf} ${state.getSize()}</li>
@@ -62,7 +62,7 @@ under the License.
               <#assign trackingCodes = orderHeader.getRelated("TrackingCodeOrder")>
               <#list trackingCodes as trackingCode>
                 <#if trackingCode?has_content>
-                  <a href="/marketing/control/FindTrackingCodeOrders?trackingCodeId=${trackingCode.trackingCodeId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${trackingCode.trackingCodeId}</a><br />
+                  <a href="/marketing/control/FindTrackingCodeOrders?trackingCodeId=${trackingCode.trackingCodeId}&amp;externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${trackingCode.trackingCodeId}</a><br />
                 </#if>
               </#list>
             </td>

@@ -91,7 +91,7 @@ function gwAll(e) {
 function quicklookup_popup(element) {
     target = element;  // note: global var target comes from fieldlookup.js
     var searchTerm = element.value;
-    var obj_lookupwindow = window.open('LookupProduct?productId_op=like&productId_ic=Y&productId=' + searchTerm,'FieldLookup', 'width=700,height=550,scrollbars=yes,status=no,resizable=yes,top='+my+',left='+mx+',dependent=yes,alwaysRaised=yes');
+    var obj_lookupwindow = window.open('LookupProduct?productId_op=like&amp;productId_ic=Y&amp;productId=' + searchTerm,'FieldLookup', 'width=700,height=550,scrollbars=yes,status=no,resizable=yes,top='+my+',left='+mx+',dependent=yes,alwaysRaised=yes');
     obj_lookupwindow.opener = window;
     obj_lookupwindow.focus();
 }

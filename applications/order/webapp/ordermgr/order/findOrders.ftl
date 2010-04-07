@@ -365,14 +365,14 @@ function toggleOrderIdList() {
                 <td align='left'>
                   <table class="basic-table" cellspacing='0'>
                     <tr>
-                      <td nowrap>
+                      <td nowrap="nowrap">
                         <input type='text' size='25' name='minDate' value='${requestParameters.minDate?if_exists}'/>
                         <a href="javascript:call_cal(document.lookuporder.minDate,'${fromDateStr}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
                         <span class='label'>${uiLabelMap.CommonFrom}</span>
                       </td>
                     </tr>
                     <tr>
-                      <td nowrap>
+                      <td nowrap="nowrap">
                         <input type='text' size='25' name='maxDate' value='${requestParameters.maxDate?if_exists}'/>
                         <a href="javascript:call_cal(document.lookuporder.maxDate,'${thruDateStr}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
                         <span class='label'>${uiLabelMap.CommonThru}</span>
@@ -387,7 +387,7 @@ function toggleOrderIdList() {
                 <td align='left'>
                   <table class="basic-table" cellspacing='0'>
                     <tr>
-                      <td nowrap>
+                      <td nowrap="nowrap">
                         <input type="checkbox" name="filterInventoryProblems" value="Y"
                             <#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if> />
                       </td>
@@ -401,7 +401,7 @@ function toggleOrderIdList() {
                 <td align='left'>
                   <table class="basic-table" cellspacing='0'>
                     <tr>
-                      <td nowrap>
+                      <td nowrap="nowrap">
                         <input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
                             <#if requestParameters.filterPartiallyReceivedPOs?default("N") == "Y">checked="checked"</#if> />
                       </td>
@@ -415,7 +415,7 @@ function toggleOrderIdList() {
                 <td align='left'>
                   <table class="basic-table" cellspacing='0'>
                     <tr>
-                      <td nowrap>
+                      <td nowrap="nowrap">
                         <input type="checkbox" name="filterPOsOpenPastTheirETA" value="Y"
                             <#if requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y">checked="checked"</#if> />
                       </td>
@@ -429,7 +429,7 @@ function toggleOrderIdList() {
                 <td align='left'>
                   <table class="basic-table" cellspacing='0'>
                     <tr>
-                      <td nowrap>
+                      <td nowrap="nowrap">
                         <input type="checkbox" name="filterPOsWithRejectedItems" value="Y"
                             <#if requestParameters.filterPOsWithRejectedItems?default("N") == "Y">checked="checked"</#if> />
                       </td>
@@ -467,17 +467,17 @@ function toggleOrderIdList() {
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
                     <input type="hidden" name="showAll" value="Y"/>
-                    <input type='submit' value='${uiLabelMap.CommonFind}' onsubmit="javascript:lookupOrders(true);"/>
+                    <input type='submit' value='${uiLabelMap.CommonFind}'/>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
       </table>
-      </#if>
     </div>
+      </#if>
 </div>
-<input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:lookupOrders(true);"/>
+<input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:lookupOrders(true);"/>
 </form>
 <#if requestParameters.hideFields?default("N") != "Y">
 <script language="JavaScript" type="text/javascript">

@@ -60,11 +60,11 @@ under the License.
                   <#if shippingContactMech.postalAddress?exists>
                   <#assign shippingAddress = shippingContactMech.postalAddress>
                   <tr>
-                    <td valign="top" nowrap>
+                    <td valign="top" nowrap="nowrap">
                       <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" <#if i == 0>checked</#if> />
                     </td>
-                    <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td valign="top" width="100%" nowrap>
+                    <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td valign="top" width="100%" nowrap="nowrap">
                       <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
@@ -170,10 +170,10 @@ under the License.
                       </#if>
                   </#if>
                   <tr>
-                    <td valign="top" width="1%" nowrap>
+                    <td valign="top" width="1%" nowrap="nowrap">
                       <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" ${checkedValue} />
                     </td>
-                    <td valign="top" width="99%" nowrap>
+                    <td valign="top" width="99%" nowrap="nowrap">
                       <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
@@ -202,10 +202,10 @@ under the License.
                 <#list shipToPartyShippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                   <tr>
-                    <td valign="top" width="1%" nowrap>
+                    <td valign="top" width="1%" nowrap="nowrap">
                       <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}"/>
                     </td>
-                    <td valign="top" width="99%" nowrap>
+                    <td valign="top" width="99%" nowrap="nowrap">
                       <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
@@ -251,14 +251,14 @@ under the License.
             <tr><td colspan="4">&nbsp;</td></tr>
             <tr>
               <td>&nbsp;</td>
-              <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartyPartyId}</div></td>
+              <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.PartyPartyId}</div></td>
               <td>&nbsp;</td>
               <td valign='middle'>
                 <div class='tabletext'>
                   <input type='text' class='inputBox' name='shipToPartyId' value='${thisPartyId?if_exists}'/>
                   <a href="javascript:call_fieldlookup2(document.partyshipform.shipToPartyId,'LookupPartyName');">
                   <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
-                  <input type="submit" class="smallSubmit" value="Continue">
+                  <input type="submit" class="smallSubmit" value="Continue" />
                 </div>
               </td>
             </tr>

@@ -143,8 +143,8 @@ under the License.
                   <td align="right"><div>${uiLabelMap.CommonComment} :</div></td>
                   <td>
                     <div>
-                      <input type="text" size="25" name="itemComment" value="${defaultComment?if_exists}">
-                      <input type="checkbox" name="useAsDefaultComment" value="true" <#if useAsDefaultComment?exists>checked</#if>>
+                      <input type="text" size="25" name="itemComment" value="${defaultComment?if_exists}" />
+                      <input type="checkbox" name="useAsDefaultComment" value="true" <#if useAsDefaultComment?exists>checked</#if> />
                       ${uiLabelMap.OrderUseDefaultComment}
                     </div>
                   </td>

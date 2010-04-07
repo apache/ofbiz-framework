@@ -21,8 +21,8 @@ under the License.
   <div class="screenlet-body">
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <form name="checkoutsetupform" method="post" action="<@ofbizUrl>createCustomer</@ofbizUrl>">
-        <input type="hidden" name="finalizeMode" value="cust">
-        <input type="hidden" name="finalizeReqNewShipAddress" value="true">
+        <input type="hidden" name="finalizeMode" value="cust" />
+        <input type="hidden" name="finalizeReqNewShipAddress" value="true" />
         <tr>
           <td>
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
@@ -107,7 +107,7 @@ under the License.
                 <td width="26%" align="right"><div>${uiLabelMap.PartyEmailAddress}<BR>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="emailAddress" value="" size="60" maxlength="255">
+                  <input type="text" name="emailAddress" value="" size="60" maxlength="255" />
                   <BR>
                   <select name="emailSol">
                     <#if (((requestParameters.emailSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>

@@ -50,10 +50,10 @@ under the License.
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <tr>
           <td >&nbsp;</td>
-          <td width=300 align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.ProductProductStore}</div></td>
+          <td width="300" align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.ProductProductStore}</div></td>
           <td >&nbsp;</td>
           <td valign='middle'>
-            <div class='tabletext' valign='top'>
+            <div class='tabletext'>
               <select name="productStoreId"<#if sessionAttributes.orderMode?exists> disabled</#if>>
                 <#assign currentStore = shoppingCartProductStore>
                 <#if defaultProductStore?has_content>
@@ -71,10 +71,10 @@ under the License.
         <tr><td colspan="4">&nbsp;</td></tr>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.OrderSalesChannel}</div></td>
+          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.OrderSalesChannel}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
-            <div class='tabletext' valign='top'>
+            <div class='tabletext'>
               <select name="salesChannelEnumId">
                 <#assign currentChannel = shoppingCartChannelType>
                 <#if defaultSalesChannel?has_content>
@@ -97,10 +97,10 @@ under the License.
         </#if>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartyUserLoginId}</div></td>
+          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.PartyUserLoginId}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
-            <div class='tabletext' valign='top'>
+            <div class='tabletext'>
               <input type="text" name="userLoginId" value="${parameters.userLogin.userLoginId}"/>
               <a href="javascript:call_fieldlookup2(document.salesentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
                 <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
@@ -110,10 +110,10 @@ under the License.
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.OrderCustomer}</div></td>
+          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.OrderCustomer}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
-            <div class='tabletext' valign='top'>
+            <div class='tabletext'>
               <input type='text' class='inputBox' name='partyId' value='${thisPartyId?if_exists}'/>
               <a href="javascript:call_fieldlookup2(document.salesentryform.partyId,'LookupCustomerName');">
                 <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
@@ -152,10 +152,10 @@ under the License.
         </#if>
         <tr>
           <td>&nbsp;</td>
-          <td width=300 align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.OrderOrderEntryInternalOrganization}</div></td>
+          <td width="300" align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.OrderOrderEntryInternalOrganization}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
-            <div class='tabletext' valign='top'>
+            <div class='tabletext'>
               <select name="billToCustomerPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
                 <#list organizations as organization>
                   <#assign organizationName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(organization, true)/>
@@ -170,10 +170,10 @@ under the License.
         <tr><td colspan="4">&nbsp;</td></tr>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartyUserLoginId}</div></td>
+          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.PartyUserLoginId}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
-            <div class='tabletext' valign='top'>
+            <div class='tabletext'>
               <input type='text' class='inputBox' name='userLoginId' value='${parameters.userLogin.userLoginId}'/>
               <a href="javascript:call_fieldlookup2(document.poentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
                 <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
@@ -183,10 +183,10 @@ under the License.
         </tr>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.PartySupplier}</div></td>
+          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.PartySupplier}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
-            <div class='tabletext' valign='top'>
+            <div class='tabletext'>
               <select name="supplierPartyId"<#if sessionAttributes.orderMode?default("") == "SALES_ORDER"> disabled</#if>>
                 <option value="">${uiLabelMap.OrderSelectSupplier}</option>
                 <#list suppliers as supplier>
