@@ -7,7 +7,7 @@ Developers:
         (pgpk -ll <your name> && pgpk -xa <your name>) >> this file.
         (gpg --list-sigs <your name> && gpg --armor --export <your name>) >> this file.
 
------END PGP PUBLIC KEY BLOCK-----
+---------------------------------
 pub   4096R/847AF9E0 2010-04-05
 uid                  Jacopo Cappellato (CODE SIGNING KEY) <jacopoc@apache.org>
 sig 3        847AF9E0 2010-04-05  Jacopo Cappellato (CODE SIGNING KEY) <jacopoc@apache.org>
