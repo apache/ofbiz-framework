@@ -789,7 +789,28 @@ public class ProductPromoWorker {
         if (Debug.verboseOn()) Debug.logVerbose("Checking promotion condition: " + productPromoCond, module);
         Integer compareBase = null;
 
-        if ("PPIP_PRODUCT_AMOUNT".equals(inputParamEnumId)) {
+        if ("PPIP_SERVICE".equals(inputParamEnumId)) {
+            Map<String, Object> serviceCtx = UtilMisc.<String, Object>toMap("productPromoCond", productPromoCond, "shoppingCart", cart, "nowTimestamp", nowTimestamp);
+            Map<String, Object> condResult;
+            try {
+                condResult = dispatcher.runSync(condValue, serviceCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Fatal error calling promo condition check service [" + condValue + "]", module);
+                return false;
+            }
+            if (ServiceUtil.isError(condResult)) {
+                Debug.logError("Error calling calling promo condition check service [" + condValue + "]", module);
+                return false;
+            }
+            Boolean directResult = (Boolean) condResult.get("directResult");
+            if (directResult != null) {
+                return directResult.booleanValue();
+            }
+            compareBase = (Integer) condResult.get("compareBase");
+            if (condResult.containsKey("operatorEnumId")) {
+                operatorEnumId = (String) condResult.get("operatorEnumId");
+            }
+        } else if ("PPIP_PRODUCT_AMOUNT".equals(inputParamEnumId)) {
             // for this type of promo force the operatorEnumId = PPC_EQ, effectively ignore that setting because the comparison is implied in the code
             operatorEnumId = "PPC_EQ";
 
@@ -1208,7 +1229,25 @@ public class ProductPromoWorker {
 
         String productPromoActionEnumId = productPromoAction.getString("productPromoActionEnumId");
 
-        if ("PROMO_GWP".equals(productPromoActionEnumId)) {
+        if ("PROMO_SERVICE".equals(productPromoActionEnumId)) {
+            Map<String, Object> serviceCtx = UtilMisc.<String, Object>toMap("productPromoAction", productPromoAction, "shoppingCart", cart, "nowTimestamp", nowTimestamp, "actionResultInfo", actionResultInfo);
+            String serviceName = productPromoAction.getString("serviceName");
+            Map<String, Object> actionResult;
+            try {
+                actionResult = dispatcher.runSync(serviceName, serviceCtx);
+            } catch (GenericServiceException e) {
+                Debug.logError("Error calling promo action service [" + serviceName + "]", module);
+                throw new CartItemModifyException("Error calling promo action service [" + serviceName + "]");
+            }
+            if (ServiceUtil.isError(actionResult)) {
+                Debug.logError("Error calling promo action service [" + serviceName + "], result is: " + actionResult, module);
+                throw new CartItemModifyException((String) actionResult.get(ModelService.ERROR_MESSAGE));
+            }
+            CartItemModifyException cartItemModifyException = (CartItemModifyException) actionResult.get("cartItemModifyException");
+            if (cartItemModifyException != null) {
+                throw cartItemModifyException;
+            }
+        } else if ("PROMO_GWP".equals(productPromoActionEnumId)) {
             String productStoreId = cart.getProductStoreId();
 
             // the code was in there for this, so even though I don't think we want to restrict this, just adding this flag to make it easy to change; could make option dynamic, but now implied by the use limit

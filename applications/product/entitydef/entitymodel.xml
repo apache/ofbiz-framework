@@ -3385,6 +3385,7 @@ under the License.
       <field name="productPromoActionSeqId" type="id-ne"></field>
       <field name="productPromoActionEnumId" type="id-ne"></field>
       <field name="orderAdjustmentTypeId" type="id"></field>
+      <field name="serviceName" type="long-varchar"></field>
       <field name="quantity" type="fixed-point"></field>
       <field name="amount" type="fixed-point"></field>
       <field name="productId" type="id"></field>

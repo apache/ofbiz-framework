@@ -279,6 +279,7 @@ under the License.
                                         ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount" value="${(productPromoAction.amount)?if_exists}" />
                                         ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId" value="${(productPromoAction.productId)?if_exists}" />
                                         ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" value="${(productPromoAction.partyId)?if_exists}" />
+                                        ${uiLabelMap.ServiceName}:&nbsp;<input type="text" size="20" name="serviceName" value="${(productPromoAction.serviceName)?if_exists}" />
                                         <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                                     </form>
                                     </div>
@@ -392,6 +393,7 @@ under the License.
                                         ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount" />
                                         ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId" />
                                         ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" />
+                                        ${uiLabelMap.ServiceName}:&nbsp;<input type="text" size="20" name="serviceName" />
                                         <input type="submit" value="${uiLabelMap.CommonCreate}" />
                                     </form>
                                     </div>
