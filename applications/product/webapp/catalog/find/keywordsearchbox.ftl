@@ -41,7 +41,7 @@ under the License.
     </div>
     <div>
       <label for="keywordSearchCategoryId">${uiLabelMap.ProductCategoryId}:</label>
-      <input type="text" name="SEARCH_CATEGORY_ID" id="keywordSearchCategoryId" size="15" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/><a href="javascript:call_fieldlookup2($('keywordSearchCategoryId'),'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
+      <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="keywordsearchform" name="SEARCH_CATEGORY_ID" id="keywordSearchCategoryId" fieldFormName="LookupProductCategory"/>
     </div>
     <div>
       <label for="keywordSearchCointains">${uiLabelMap.CommonNoContains}</label>
@@ -60,8 +60,7 @@ under the License.
   <fieldset>
     <div>
       <label for="searchCategoryId">${uiLabelMap.ProductCategoryId}:</label>
-      <input type="text" name="SEARCH_CATEGORY_ID" id="searchCategoryId" size="15" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"/>
-      <a href="javascript:call_fieldlookup2($('searchCategoryId'),'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
+      <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="advancedsearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
     </div>
     <div>
     <a href="javascript:$('advancedSearchForm').submit()" class="buttontext">${uiLabelMap.ProductAdvancedSearch}</a>
@@ -70,10 +69,9 @@ under the License.
 </form>
 <form name="productjumpform" id="productJumpForm" method="post" action="<@ofbizUrl>EditProduct</@ofbizUrl>">
   <fieldset>
-    <input type="text" name="productId" id="productJumpFormProductId" size="10" maxlength="20" value="${requestParameters.productId?if_exists}" />
     <input type="hidden" name="viewSize" value="20" />
     <input type="hidden" name="viewIndex" value="1" />
-    <a href="javascript:call_fieldlookup2($('productJumpFormProductId'),'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
+    <@htmlTemplate.lookupField value="${requestParameters.productId?if_exists}" formName="productjumpform" name="productId" id="productJumpFormProductId" fieldFormName="LookupProductCategory"/>
     <select name="DUMMYPAGE" id="dummyPage" onchange="submitProductJump()">
         <option value="<@ofbizUrl>EditProduct</@ofbizUrl>">-${uiLabelMap.ProductProductJump}-</option>
         <option value="<@ofbizUrl>EditProductQuickAdmin</@ofbizUrl>">${uiLabelMap.ProductQuickAdmin}</option>

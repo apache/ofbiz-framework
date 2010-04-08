@@ -201,10 +201,7 @@ function toggleOrderIdList() {
                 <td width='25%' align='right' class='label'>${uiLabelMap.PartyPartyId}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
-                  <input type='text' name='partyId' value='${requestParameters.partyId?if_exists}'/>
-                  <a href="javascript:call_fieldlookup2(document.lookuporder.partyId,'LookupPartyName');">
-                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-                  </a>
+                  <@htmlTemplate.lookupField value='${requestParameters.partyId?if_exists}' formName="lookuporder" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
                 </td>
               </tr>
               <tr>

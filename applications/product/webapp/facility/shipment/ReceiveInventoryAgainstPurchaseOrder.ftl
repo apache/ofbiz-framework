@@ -76,11 +76,9 @@ under the License.
     <input type="hidden" name="clearAll" value="Y"/>
     <div>
         <span class="label">${uiLabelMap.ProductShipmentId}</span>&nbsp;<input type="text" size="20" name="shipmentId" value="${shipmentId?if_exists}"/>
-        <span class="label">${uiLabelMap.ProductOrderId}</span>&nbsp;<input type="text" size="20" name="purchaseOrderId" value="${orderId?if_exists}"/>
+        <span class="label">${uiLabelMap.ProductOrderId}</span>&nbsp;
         <span>
-            <a href="javascript:call_fieldlookup2(document.ReceiveInventoryAgainstPurchaseOrder.purchaseOrderId,'LookupOrderHeaderAndShipInfo');">
-                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}">
-            </a>
+            <@htmlTemplate.lookupField value="${orderId?if_exists}" formName="ReceiveInventoryAgainstPurchaseOrder" name="purchaseOrderId" id="purchaseOrderId" fieldFormName="LookupOrderHeaderAndShipInfo"/>
         </span>
         <span class="label">${uiLabelMap.ProductOrderShipGroupId}</span>&nbsp;<input type="text" size="20" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}"/>
         <input type="submit" value="${uiLabelMap.CommonSelect}" class="smallSubmit"/>

@@ -46,8 +46,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.FormFieldTitle_workEffortId}</td>
           <td valign="middle">
             <div>
-              <input type="text" name="SEARCH_WORK_EFFORT_ID" size="40" value="${requestParameters.SEARCH_WORK_EFFORT_ID?if_exists}"/>&nbsp;
-              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.SEARCH_WORK_EFFORT_ID,'LookupWorkEffort');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+              <@htmlTemplate.lookupField value="${requestParameters.SEARCH_WORK_EFFORT_ID?if_exists}" formName="advToKeyWordSearchForm" name="SEARCH_WORK_EFFORT_ID" id="SEARCH_WORK_EFFORT_ID" fieldFormName="LookupWorkEffort"/>
             </div>
           </td>
         </tr>
@@ -71,8 +70,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.PartyPartyId}</td>
           <td valign="middle">
             <div>
-              <input type="text" name="partyId" size="40" value="${requestParameters.partyId?if_exists}"/>&nbsp;
-              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.partyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+              <@htmlTemplate.lookupField value="${requestParameters.partyId?if_exists}" formName="advToKeyWordSearchForm" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
             </div>
           </td>
         </tr>
@@ -93,8 +91,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.WorkEffortProductId1}</td>
           <td valign="middle">
             <div>
-              <input type="text" name="productId_1" size="40" value="${requestParameters.productId_1?if_exists}"/>&nbsp;
-              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.productId_1,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+              <@htmlTemplate.lookupField value="${requestParameters.productId_1?if_exists}" formName="advToKeyWordSearchForm" name="productId_1" id="productId_1" fieldFormName="LookupProduct"/>
             </div>
           </td>
         </tr>
@@ -102,8 +99,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.WorkEffortProductId2}</td>
           <td valign="middle">
             <div>
-              <input type="text" name="productId_2" size="40" value="${requestParameters.productId_2?if_exists}"/>&nbsp;
-              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.productId_2,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+              <@htmlTemplate.lookupField value="${requestParameters.productId_2?if_exists}" formName="advToKeyWordSearchForm" name="productId_2" id="productId_2" fieldFormName="LookupProduct"/>
             </div>
           </td>
         </tr>

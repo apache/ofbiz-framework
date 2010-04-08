@@ -92,8 +92,7 @@ under the License.
                       </#list>
                     </select>
                   <#else>
-                    <input type="text" id="searchCategoryId" name="SEARCH_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" />
-                    <a href="javascript:call_fieldlookup2($('searchCategoryId'),'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
+                    <@htmlTemplate.lookupField ="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="productSearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
                   </#if>
                 </div>
               </td>

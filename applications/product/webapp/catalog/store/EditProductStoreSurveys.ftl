@@ -100,8 +100,7 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.ProductCategoryId}</td>
                 <td>
-                  <input type="text" name="productCategoryId" size="20" maxlength="20"/>
-                  <a href="javascript:call_fieldlookup2(document.addSurvey.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+                  <@htmlTemplate.lookupField formName="addSurvey" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
                 </td>
               </tr>
               <tr>

@@ -29,11 +29,8 @@ under the License.
             <input type="hidden" name="shipmentId" value="${shipmentId}"/>
             <div>
                 <span class="label">${uiLabelMap.ProductOrderId}</span>
-                <input type="text" size="20" name="orderId" value="${orderId?if_exists}"/>
                 <span>
-                    <a href="javascript:call_fieldlookup2(document.additemsfromorder.orderId,'LookupOrderHeaderAndShipInfo');">
-                        <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}">
-                    </a>
+                  <@htmlTemplate.lookupField value="${orderId?if_exists}" formName="additemsfromorder" name="orderId" id="orderId" fieldFormName="LookupOrderHeaderAndShipInfo"/>
                 </span>
                 <span class="label">${uiLabelMap.ProductOrderShipGroupId}</span>
                 <input type="text" size="20" name="shipGroupSeqId" value="${shipGroupSeqId?if_exists}"/>

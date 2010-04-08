@@ -137,8 +137,7 @@ under the License.
                       </#list>
                     </select>
                   <#else>
-                    <input type="text" id="searchCategoryId" name="SEARCH_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" />
-                    <a href="javascript:call_fieldlookup2($('searchCategoryId'),'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
+                    <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="advToKeywordSearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
                   </#if>
                   ${uiLabelMap.ProductIncludeSubCategories}?
                   ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked="checked" />
@@ -332,8 +331,7 @@ under the License.
               ${uiLabelMap.ProductPrioritizeProductsInCategory}:
             </td>
             <td valign="middle">
-              <input type="text" id="PRIORITIZE_CATEGORY_ID" name="PRIORITIZE_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.PRIORITIZE_CATEGORY_ID?if_exists}" />
-              <a href="javascript:call_fieldlookup2($('PRIORITIZE_CATEGORY_ID'),'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
+              <@htmlTemplate.lookupField value="${requestParameters.PRIORITIZE_CATEGORY_ID?if_exists}" formName="advToKeywordSearchform" name="PRIORITIZE_CATEGORY_ID" id="PRIORITIZE_CATEGORY_ID" fieldFormName="LookupProductCategory"/>
             </td>
           </tr>
           <tr>

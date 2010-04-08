@@ -140,10 +140,8 @@ ${menuWrapper.renderMenuString()}
                     </#list>
                     <tr>
                       <td valign="middle">
-                        <div class="boxhead"><input type="text" name="fieldValue0_o_${rowCount}" value=""/>
-                          <a href="javascript:call_fieldlookup3('<@ofbizUrl>LookupFeature</@ofbizUrl>')">
-                            <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}">
-                          </a>
+                        <div class="boxhead">
+                          <@htmlTemplate.lookupField3 formName="updatefeatures" name="fieldValue0_o_${rowCount}" id="fieldValue0_o_${rowCount}" fieldFormName="LookupFeature"/>
                         </div>
                       </td>
                           <input type="hidden" name="fieldName0_o_${rowCount}" value="productFeatureId"/>

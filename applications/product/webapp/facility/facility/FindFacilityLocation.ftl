@@ -35,10 +35,7 @@ under the License.
         <tr>
             <td class="label">${uiLabelMap.ProductLocationSeqId}</td>
             <td>
-                <input type="text" name="locationSeqId" value="" size="19" maxlength="20">
-                <a href="javascript:call_fieldlookup2(document.findFacilityLocation.locationSeqId,'LookupFacilityLocation<#if (facilityId?exists)>?facilityId=${facilityId}</#if>');">
-                    <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-                </a>
+                <@htmlTemplate.lookupField formName="findFacilityLocation" name="locationSeqId" id="locationSeqId" fieldFormName="LookupFacilityLocation<#if (facilityId?exists)>?facilityId=${facilityId}</#if>"/>
             </td>
         </tr>
         <tr>

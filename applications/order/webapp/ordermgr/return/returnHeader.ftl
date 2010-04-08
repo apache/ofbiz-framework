@@ -86,10 +86,7 @@ under the License.
             <td width='6%' align='right' nowrap="nowrap" class="label">${uiLabelMap.OrderReturnFromParty}</td>
             <td width='6%'>&nbsp;</td>
             <td width='74%'>
-              <input type='text' size='20' name='fromPartyId' value='${returnInfo.fromPartyId?if_exists}' />
-              <a href="javascript:call_fieldlookup2(document.returnhead.fromPartyId,'LookupPartyName');">
-                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-              </a>
+              <@htmlTemplate.lookupField value='${returnInfo.fromPartyId?if_exists}' formName="returnhead" name="fromPartyId" id="fromPartyId" fieldFormName="LookupPartyName"/>
             </td>
           </tr>
           <tr>

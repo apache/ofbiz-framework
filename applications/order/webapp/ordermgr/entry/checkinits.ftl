@@ -101,10 +101,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>
-              <input type="text" name="userLoginId" value="${parameters.userLogin.userLoginId}"/>
-              <a href="javascript:call_fieldlookup2(document.salesentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
-                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-              </a>
+              <@htmlTemplate.lookupField value="${parameters.userLogin.userLoginId}" formName="salesentryform" name="userLoginId" id="userLoginId" fieldFormName="LookupUserLoginAndPartyDetails"/>
             </div>
           </td>
         </tr>
@@ -114,10 +111,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>
-              <input type='text' class='inputBox' name='partyId' value='${thisPartyId?if_exists}'/>
-              <a href="javascript:call_fieldlookup2(document.salesentryform.partyId,'LookupCustomerName');">
-                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-              </a>
+              <@htmlTemplate.lookupField value='${thisPartyId?if_exists}' formName="salesentryform" name="partyId" id="partyId" fieldFormName="LookupCustomerName"/>
             </div>
           </td>
         </tr>
@@ -174,10 +168,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>
-              <input type='text' class='inputBox' name='userLoginId' value='${parameters.userLogin.userLoginId}'/>
-              <a href="javascript:call_fieldlookup2(document.poentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
-                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-              </a>
+              <@htmlTemplate.lookupField value='${parameters.userLogin.userLoginId}'formName="poentryform" name="userLoginId" id="userLoginId" fieldFormName="LookupUserLoginAndPartyDetails"/>
             </div>
           </td>
         </tr>

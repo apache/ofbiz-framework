@@ -161,10 +161,7 @@ under the License.
                 <td width="6%" align="right" nowrap="nowrap"><span class="label">${uiLabelMap.ProductToLocation}</span></td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
-                    <input type="text" size="20" name="locationSeqIdTo" value="${(inventoryTransfer.locationSeqIdTo)?if_exists}" maxlength="20" />
-                    <a href="javascript:call_fieldlookup2(document.transferform.locationSeqIdTo,'LookupFacilityLocation');">
-                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-                    </a>
+                  <@htmlTemplate.lookupField value="${(inventoryTransfer.locationSeqIdTo)?if_exists}" formName="transferform" name="locationSeqIdTo" id="locationSeqIdTo" fieldFormName="LookupFacilityLocation"/>
                 </td>
             </tr>
             <tr>
@@ -212,10 +209,7 @@ under the License.
                 <td width="6%" align="right" nowrap="nowrap"><span class="label">${uiLabelMap.ProductToLocation}</span></td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
-                <input type="text" size="20" name="locationSeqIdTo" value="${(inventoryTransfer.locationSeqIdTo)?if_exists}" maxlength="20" />
-                    <a href="javascript:call_fieldlookup2(document.transferform.locationSeqIdTo,'LookupFacilityLocation?facilityId=${inventoryTransfer.facilityIdTo}');">
-                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-                    </a>
+                  <@htmlTemplate.lookupField value="${(inventoryTransfer.locationSeqIdTo)?if_exists}" formName="transferform" name="locationSeqIdTo" id="locationSeqIdTo" fieldFormName="LookupFacilityLocation?facilityId=${inventoryTransfer.facilityIdTo}"/>
                 </td>
             </tr>
             <tr>

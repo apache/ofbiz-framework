@@ -54,10 +54,9 @@ under the License.
                     </td>
                 </tr>
                 <tr><td class='label'>${uiLabelMap.PartyPartyId}</td>
-                    <td><input type='text' name='partyId' value='${requestParameters.partyId?if_exists}'/>
-                    <a href="javascript:call_fieldlookup2(document.lookupparty.partyId,'LookupPerson');">
-                        <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-                    </a></td>
+                    <td>
+                      <@htmlTemplate.lookupField value='${requestParameters.partyId?if_exists}' formName="lookupparty" name="partyId" id="partyId" fieldFormName="LookupPerson"/>
+                    </td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.PartyUserLogin}</td>
                     <td><input type="text" name="userLoginId" value="${parameters.userLoginId?if_exists}"/></td>

@@ -58,8 +58,8 @@ under the License.
         </tr>
         <tr>
           <td class="label" >${uiLabelMap.ProjectMgrQuickAssignPartyId}</td>
-          <td><input type="text" name="quickAssignPartyId" value=""/>
-            <a href="javascript:call_fieldlookup2(document.addTaskAndAssocForm.quickAssignPartyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a></td>
+          <td>
+            <@htmlTemplate.lookupField formName="addTaskAndAssocForm" name="quickAssignPartyId" id="quickAssignPartyId" fieldFormName="LookupPartyName"/>
           </td>
         </tr>
         <tr>
