@@ -492,8 +492,7 @@ public class ServiceDispatcher {
                     try {
                         modelService.validate(result, ModelService.OUT_PARAM, locale);
                     } catch (ServiceValidationException e) {
-                        Debug.logError(e, "Outgoing result (in runSync : " + modelService.name + ") does not match expected requirements", module);
-                        throw e;
+                        throw new GenericServiceException("Outgoing result (in runSync : " + modelService.name + ") does not match expected requirements", e);
                     }
                 }
 
@@ -516,7 +515,6 @@ public class ServiceDispatcher {
                     UtilTimer.closeTimer(localName + " / " + modelService.name, "Sync service failed...", module);
                 }
                 String errMsg = "Service [" + modelService.name + "] threw an unexpected exception/error";
-                Debug.logError(t, errMsg, module);
                 if (serviceDebugMode) {
                     modelService.invoker.sendCallbacks(engine, context, null, t, GenericEngine.SYNC_MODE);
                 } else {
