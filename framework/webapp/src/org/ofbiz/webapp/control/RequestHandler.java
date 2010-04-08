@@ -518,7 +518,7 @@ public class RequestHandler {
         if (nextRequestResponse.saveCurrentView) { saveName = "SAVED"; }
         if (nextRequestResponse.saveHomeView) { saveName = "HOME"; }
 
-        if (nextRequestResponse != null && "request".equals(nextRequestResponse.type)) {
+        if ("request".equals(nextRequestResponse.type)) {
             // chained request
             Debug.logInfo("[RequestHandler.doRequest]: Response is a chained request." + " sessionId=" + UtilHttp.getSessionId(request), module);
             doRequest(request, response, nextRequestResponse.value, userLogin, delegator);
