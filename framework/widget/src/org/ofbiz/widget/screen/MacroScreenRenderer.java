@@ -70,9 +70,14 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     private String rendererName;
     private int elementId = 999;
 
-    public MacroScreenRenderer(String name, String macroLibraryPath, Appendable writer) throws TemplateException, IOException {
+    public MacroScreenRenderer(String name, String macroLibraryPath) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         rendererName = name;
+    }
+
+    @Deprecated
+    public MacroScreenRenderer(String name, String macroLibraryPath, Appendable writer) throws TemplateException, IOException {
+        this(name, macroLibraryPath);
     }
 
     private String getNextElementId() {

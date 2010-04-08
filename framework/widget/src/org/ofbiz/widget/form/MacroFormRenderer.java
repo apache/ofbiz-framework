@@ -98,7 +98,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     protected boolean javaScriptEnabled = false;
     protected boolean renderPagination = true;
 
-    public MacroFormRenderer(String macroLibraryPath, Appendable writer, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
+    public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         this.request = request;
         this.response = response;
@@ -106,6 +106,11 @@ public class MacroFormRenderer implements FormStringRenderer {
         this.rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         internalEncoder = StringUtil.getEncoder("string");
+    }
+
+    @Deprecated
+    public MacroFormRenderer(String macroLibraryPath, Appendable writer, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
+        this(macroLibraryPath, request, response);
     }
 
     public boolean getRenderPagination() {
