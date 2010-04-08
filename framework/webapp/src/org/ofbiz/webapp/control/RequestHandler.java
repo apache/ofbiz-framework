@@ -725,7 +725,6 @@ public class RequestHandler {
     }
     private void renderView(String view, boolean allowExtView, HttpServletRequest req, HttpServletResponse resp, String saveName) throws RequestHandlerException {
         GenericValue userLogin = (GenericValue) req.getSession().getAttribute("userLogin");
-        Delegator delegator = (Delegator) req.getAttribute("delegator");
         // workaraound if we are in the root webapp
         String cname = UtilHttp.getApplicationName(req);
         String oldView = view;
