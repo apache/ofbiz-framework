@@ -35,7 +35,11 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.screen">
         <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="transaction-timeout" use="optional"/>
+        <xs:attribute type="xs:string" name="transaction-timeout" use="optional">
+            <xs:annotation>
+                <xs:documentation>Transaction timeout in seconds</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="use-cache" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
