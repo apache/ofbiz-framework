@@ -112,8 +112,6 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         String matchValue = null;
         if (parentCategoryId != null) {
             matchValue = parentCategoryId;
-        } else {
-            matchValue = null;
         }
         List<GenericValue> categoryValues = delegator.findByAndCache("DataCategory", UtilMisc.toMap("parentCategoryId", matchValue));
         categoryNode.put("count", Integer.valueOf(categoryValues.size()));
