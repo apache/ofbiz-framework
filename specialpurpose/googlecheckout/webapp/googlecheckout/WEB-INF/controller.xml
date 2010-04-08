@@ -106,6 +106,6 @@
     <!-- Lookup view mappings -->
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
 
-    <view-map name="showHelp" type="screen" page="component://commonext/widget/HelpScreens.xml#ShowHelp"/>
-    <view-map name="ShowDocument" type="screen" page="component://commonext/widget/HelpScreens.xml#showDocument"/>
+    <view-map name="showHelp" type="screen" page="component://common/widget/HelpScreens.xml#ShowHelp"/>
+    <view-map name="ShowDocument" type="screen" page="component://common/widget/HelpScreens.xml#showDocument"/>
 </site-conf>

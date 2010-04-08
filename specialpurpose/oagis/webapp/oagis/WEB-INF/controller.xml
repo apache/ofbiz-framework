@@ -212,7 +212,7 @@
     <view-map name="EditMessageInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#EditMessageInfo"/>
     <view-map name="FindMessageErrorInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#FindMessageErrorInfo"/>
     <view-map name="EditMessageErrorInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#EditMessageErrorInfo"/>
-    <view-map name="showHelp" type="screen" page="component://commonext/widget/HelpScreens.xml#ShowHelp"/>
-    <view-map name="ShowDocument" type="screen" page="component://commonext/widget/HelpScreens.xml#showDocument"/>
+    <view-map name="showHelp" type="screen" page="component://common/widget/HelpScreens.xml#ShowHelp"/>
+    <view-map name="ShowDocument" type="screen" page="component://common/widget/HelpScreens.xml#showDocument"/>
     <!-- end of view mappings -->
 </site-conf>
