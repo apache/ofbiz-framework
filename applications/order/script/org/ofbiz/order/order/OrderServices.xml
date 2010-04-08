@@ -1158,6 +1158,7 @@ under the License.
             <!-- call update Credit Card -->
             <entity-and entity-name="PaymentMethod" list="paymentMethodList" filter-by-date="true">
                 <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="paymentMethodTypeId" value="CREDIT_CARD"/>
                 <order-by field-name="-fromDate"/>
             </entity-and>
             <first-from-list list="paymentMethodList" entry="paymentMethod"/>
