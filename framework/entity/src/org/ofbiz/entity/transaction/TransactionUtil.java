@@ -307,7 +307,7 @@ public class TransactionUtil implements Status {
      */
     public static void rollback(boolean beganTransaction, String causeMessage, Throwable causeThrowable) throws GenericTransactionException {
         if (beganTransaction) {
-            TransactionUtil.rollback();
+            TransactionUtil.rollback(causeThrowable);
         } else {
             TransactionUtil.setRollbackOnly(causeMessage, causeThrowable);
         }
@@ -315,6 +315,11 @@ public class TransactionUtil implements Status {
 
     /** Rolls back transaction in the current thread IF transactions are available */
     public static void rollback() throws GenericTransactionException {
+        rollback(null);
+    }
+
+    /** Rolls back transaction in the current thread IF transactions are available */
+    public static void rollback(Throwable causeThrowable) throws GenericTransactionException {
         UserTransaction ut = TransactionFactory.getUserTransaction();
 
         if (ut != null) {
@@ -324,7 +329,7 @@ public class TransactionUtil implements Status {
 
                 if (status != STATUS_NO_TRANSACTION) {
                     //if (Debug.infoOn()) Thread.dumpStack();
-                    if (Debug.infoOn()) {
+                    if (causeThrowable == null && Debug.infoOn()) {
                         Exception newE = new Exception("Stack Trace");
                         Debug.logError(newE, "[TransactionUtil.rollback]", module);
                     }
