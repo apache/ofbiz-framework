@@ -311,7 +311,7 @@
 
     <!-- simply use createContent and the accoc will be created too" -->
         <!--service name="createContentAndAssoc" default-entity-name="Content" engine="simple"
-            location="org/ofbiz/content/content/ContentServices.xml" invoke="createContentAndAssoc" auth="true">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentAndAssoc" auth="true">
         <description>Create a Content with a ContentAssoc</description>
         <auto-attributes entity-name="Content" include="all" mode="IN" optional="true">
             <exclude field-name="contentId"/>
@@ -498,7 +498,7 @@
 
     <service name="persistCompDocContent" engine="simple"
         transaction-timeout="7200"
-            location="org/ofbiz/content/compdoc/CompDocServices.xml" invoke="persistCompDocContent" auth="true">
+            location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml" invoke="persistCompDocContent" auth="true">
         <description>Persist a CompDoc DataResource and data</description>
         <implements service="persistDataResourceAndData"/>
         <attribute name="contentRevisionSeqId" type="String" mode="OUT" optional="false"/>
@@ -507,7 +507,7 @@
 
     <service name="persistCompDocPdf2Survey" engine="simple"
         transaction-timeout="7200"
-            location="org/ofbiz/content/compdoc/CompDocServices.xml" invoke="persistCompDocPdf2Survey" auth="true">
+            location="component://content/script/org/ofbiz/content/compdoc/CompDocServices.xml" invoke="persistCompDocPdf2Survey" auth="true">
         <description>Upload/save PDF, create Survey, populate Content</description>
         <implements service="persistCompDocContent"/>
         <attribute name="pdfName" type="String" mode="IN" optional="true"/>
@@ -601,7 +601,7 @@
     </service>
     <service name="createTopic"
         auth="true" engine="simple" invoke="createTopic"
-        location="org/ofbiz/content/content/ContentServices.xml" >
+        location="component://content/script/org/ofbiz/content/content/ContentServices.xml" >
         <description>Create a TOPIC type Content </description>
         <attribute mode="IN" name="newTopicId" optional="false" type="String"/>
         <attribute mode="IN" name="newTopicDescription" optional="true" type="String"/>
