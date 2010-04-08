@@ -70,7 +70,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.widget.html.HtmlScreenRenderer;
+import org.ofbiz.widget.screen.MacroScreenRenderer;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;
 import org.ofbiz.widget.screen.ScreenRenderer;
@@ -690,7 +690,9 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                     // get the screen renderer; or create a new one
                     ScreenRenderer screens = (ScreenRenderer) context.get("screens");
                     if (screens == null) {
-                        screens = new ScreenRenderer(out, context, new HtmlScreenRenderer());
+                     // TODO: replace "screen" to support dynamic rendering of different output
+                        ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", "screen.name"), UtilProperties.getPropertyValue("widget", "screen.screenrenderer"), out);
+                        screens = new ScreenRenderer(out, context, screenStringRenderer);
                         screens.getContext().put("screens", screens);
                     }
                     // render the screen
@@ -716,6 +718,8 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                     throw new GeneralException("Error rendering Screen template", e);
                 } catch (ParserConfigurationException e) {
                     throw new GeneralException("Error rendering Screen template", e);
+                } catch (TemplateException e) {
+                    throw new GeneralException("Error creating Screen renderer", e);
                 }
             } else {
                 throw new GeneralException("The dataTemplateTypeId [" + dataTemplateTypeId + "] is not yet supported");
