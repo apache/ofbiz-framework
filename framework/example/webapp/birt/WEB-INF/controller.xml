@@ -75,7 +75,6 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
-    <view-map name="Viewer" type="screen" page="component://example/widget/example/BirtScreens.xml#Viewer"/>
     <view-map name="Report" type="screen" page="component://example/widget/example/BirtScreens.xml#Report"/>
     <view-map name="Mail" type="screen" page="component://example/widget/example/BirtScreens.xml#EditMail"/>
     
