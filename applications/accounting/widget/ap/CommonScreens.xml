@@ -141,7 +141,7 @@ under the License.
         </section>
     </screen>
     
-    <screen name="CommonApInvoiceDecorator">
+    <screen name="CommonInvoiceDecorator">
         <section>
             <actions>
                 <set field="headerItem" value="invoices"/>

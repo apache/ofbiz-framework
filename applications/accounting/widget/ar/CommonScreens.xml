@@ -170,7 +170,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CommonArInvoiceDecorator">
+    <screen name="CommonInvoiceDecorator">
         <section>
             <actions>
                 <set field="headerItem" value="invoices"/>
