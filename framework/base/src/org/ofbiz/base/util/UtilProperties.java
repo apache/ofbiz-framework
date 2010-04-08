@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Enumeration;
@@ -58,7 +59,7 @@ import org.w3c.dom.Element;
  * method).</p>
  */
 @SuppressWarnings("serial")
-public class UtilProperties implements java.io.Serializable {
+public class UtilProperties implements Serializable {
 
     public static final String module = UtilProperties.class.getName();
 
