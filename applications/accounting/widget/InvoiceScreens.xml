@@ -73,6 +73,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="invoices"/>
+                <set field="tabButtonItem" value="find"/>
                 <set field="titleProperty" value="PageTitleFindInvoice"/>
             </actions>
             <widgets>
