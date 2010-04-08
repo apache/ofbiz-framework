@@ -280,7 +280,7 @@ public class CmsEvents {
                         writer = response.getWriter();
                     }
                     // TODO: replace "screen" to support dynamic rendering of different output
-                    FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", "screen.formrenderer"), writer, request, response);
+                    FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", "screen.formrenderer"), request, response);
                     templateMap.put("formStringRenderer", formStringRenderer);
                     // render
                     if (UtilValidate.isEmpty(mapKey)) {
