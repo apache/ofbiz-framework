@@ -71,7 +71,7 @@ under the License.
                 <set field="invoices" from-field="result.listIt"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonArInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
