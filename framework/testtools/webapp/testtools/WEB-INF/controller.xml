@@ -72,5 +72,4 @@
     <!--  selenium Test Case -->
     <view-map name="selenium" type="screen" page="component://testtools/widget/CommonScreens.xml#selenium"/>
     <view-map name="runSelenium" type="screen" page="component://testtools/widget/CommonScreens.xml#runSelenium"/>
-    <view-map name="test" type="screen" page="component://testtools/widget/CommonScreens.xml#runSelenium"/>
 </site-conf>
