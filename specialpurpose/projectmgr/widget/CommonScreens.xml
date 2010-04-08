@@ -40,7 +40,7 @@ under the License.
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
-
+                <set field="layoutSettings.styleSheets[]" value="/projectmgr/static/projectmgr.css" global="true"/>
                 <set field="activeApp" value="projectmgr" global="true"/>
                 <set field="applicationMenuName" value="ProjectMgrAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://projectmgr/widget/ProjectMenus.xml" global="true"/>
