@@ -274,7 +274,6 @@ under the License.
 
     <!-- Birt example View Mappings -->
     <view-map name="BirtMain" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
-    <view-map name="Viewer" type="screen" page="component://example/widget/example/BirtScreens.xml#Viewer"/>
     <view-map name="Report" type="screen" page="component://example/widget/example/BirtScreens.xml#Report"/>
     <view-map name="Mail" type="screen" page="component://example/widget/example/BirtScreens.xml#EditMail"/>
     <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/product.rptdesign" content-type="application/pdf"/>
