@@ -150,8 +150,7 @@ under the License.
                                             <input type="hidden" name="productPromoRuleId" value="${productPromoCond.productPromoRuleId}" />
                                             <input type="hidden" name="productPromoActionSeqId" value="_NA_" />
                                             <input type="hidden" name="productPromoCondSeqId" value="${productPromoCond.productPromoCondSeqId}" />
-                                            <input type="text" name="productCategoryId" size="20" maxlength="20"/>
-                                            <a href="javascript:call_fieldlookup2(document.createProductPromoCategoryConditions.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+                                            <@htmlTemplate.lookupField formName="createProductPromoCategoryConditions" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
                                             <select name="productPromoApplEnumId">
                                                 <#list productPromoApplEnums as productPromoApplEnum>
                                                     <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
@@ -311,8 +310,7 @@ under the License.
                                             <input type="hidden" name="productPromoRuleId" value="${productPromoAction.productPromoRuleId}" />
                                             <input type="hidden" name="productPromoActionSeqId" value="${productPromoAction.productPromoActionSeqId}" />
                                             <input type="hidden" name="productPromoCondSeqId" value="_NA_" />
-                                            <input type="text" name="productCategoryId" size="20" maxlength="20"/>
-                                            <a href="javascript:call_fieldlookup2(document.createProductPromoCategoryActions.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+                                            <@htmlTemplate.lookupField formName="createProductPromoCategoryActions" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
                                             <select name="productPromoApplEnumId">
                                                 <#list productPromoApplEnums as productPromoApplEnum>
                                                     <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
@@ -459,8 +457,7 @@ under the License.
                     <input type="hidden" name="productPromoRuleId" value="_NA_" />
                     <input type="hidden" name="productPromoActionSeqId" value="_NA_" />
                     <input type="hidden" name="productPromoCondSeqId" value="_NA_" />
-                    <input type="text" name="productCategoryId" size="20" maxlength="20"/>
-                    <a href="javascript:call_fieldlookup2(document.createProductPromoCategoryPromotions.productCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+                    <@htmlTemplate.lookupField formName="createProductPromoCategoryPromotions" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
                     <select name="productPromoApplEnumId">
                         <#list productPromoApplEnums as productPromoApplEnum>
                             <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
@@ -504,7 +501,7 @@ under the License.
                     <input type="hidden" name="productPromoRuleId" value="_NA_" />
                     <input type="hidden" name="productPromoActionSeqId" value="_NA_" />
                     <input type="hidden" name="productPromoCondSeqId" value="_NA_" />
-                    <span class="label">${uiLabelMap.ProductProductId}</span><input type="text" size="20" maxlength="20" name="productId" value=""/>*<a href="javascript:call_fieldlookup2(document.createpromoproductform.productId,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+                    <span class="label">${uiLabelMap.ProductProductId}</span>*<@htmlTemplate.lookupField formName="createpromoproductform" name="productId" id="productId" fieldFormName="LookupProduct"/>
                     <select name="productPromoApplEnumId">
                         <#list productPromoApplEnums as productPromoApplEnum>
                             <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>

@@ -72,12 +72,10 @@ under the License.
   <h2>${uiLabelMap.ProductAssociatePartyToProduct}:</h2>
   <br />
   <form method="post" action="<@ofbizUrl>addPartyToProduct</@ofbizUrl>" name="addNewForm">
-    <input type="hidden" name="productId" value="${productId}" />
-    <input type="text" size="20" maxlength="20" name="partyId" value="" />
+    <input type="hidden" name="productId" value="${productId}">
     <#-- TODO: Add PartyId lookup screen
-    <a href="javascript:call_fieldlookup2(document.addNewForm.partyId,'LookupCustomerName');">
-      <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
-    </a> -->
+    <@htmlTemplate.lookupField formName="addNewForm" name="partyId" id="partyId" fieldFormName="LookupCustomerName"/>
+    -->
     <select name="roleTypeId" size="1">
     <#list roleTypes as roleType>
         <option value="${(roleType.roleTypeId)?if_exists}" <#if roleType.roleTypeId.equals("_NA_")> ${uiLabelMap.ProductSelected}</#if>>${(roleType.get("description",locale))?if_exists}</option>

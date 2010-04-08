@@ -182,8 +182,7 @@ function insertImageName(type,nameValue) {
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductPrimaryParentCategory}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
-                        <input type="text" name="primaryParentCategoryId" size="20" maxlength="20" value="${(productCategory.primaryParentCategoryId)?default('')}"/>
-                        <a href="javascript:call_fieldlookup2(document.productCategoryForm.primaryParentCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+                        <@htmlTemplate.lookupField value="${(productCategory.primaryParentCategoryId)?default('')}" formName="productCategoryForm" name="primaryParentCategoryId" id="primaryParentCategoryId" fieldFormName="LookupProductCategory"/>
                     </td>
                 </tr>
                 <tr>

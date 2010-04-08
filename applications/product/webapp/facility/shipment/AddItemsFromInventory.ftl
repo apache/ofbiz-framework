@@ -58,10 +58,7 @@ under the License.
                   <input type="hidden" name="shipmentItemSeqId" value="${item.shipmentItemSeqId}"/>
                   <input type="hidden" name="totalIssuedQty" value="${item.totalQtyIssued}"/>
                   <span>
-                    <input type="text" size="5" name="inventoryItemId"/>
-                    <a href="javascript:call_fieldlookup2(document.issueInventoryItemToShipment_${item_index}.inventoryItemId,'LookupInventoryItem?orderId=${item.orderId}&amp;partyId=${item.partyId}&amp;productId=${item.productId}');">
-                      <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}">
-                    </a>
+                    <@htmlTemplate.lookupField formName="issueInventoryItemToShipment_${item_index}" name="inventoryItemId" id="inventoryItemId" fieldFormName="LookupInventoryItem?orderId=${item.orderId}&amp;partyId=${item.partyId}&amp;productId=${item.productId}"/>
                   </span>
                   <input type="text" size="5" name="quantity"/>
                   <input type="submit" value="${uiLabelMap.CommonSubmit}" class="smallSubmit"/>

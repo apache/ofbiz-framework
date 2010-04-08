@@ -49,19 +49,13 @@ under the License.
   <tr>
     <td class="label">${uiLabelMap.FormFieldTitle_parentFacilityId}</td>
     <td>
-      <input type="text" name="parentFacilityId" value="${facility.parentFacilityId?if_exists}"/>
-      <a href="javascript:call_fieldlookup2(document.EditFacilityForm.parentFacilityId,'LookupFacility');" title="${uiLabelMap.CommonFieldLookup}">
-        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonFieldLookup}"/>
-      </a>
+      <@htmlTemplate.lookupField value="${facility.parentFacilityId?if_exists}" formName="EditFacilityForm" name="parentFacilityId" id="parentFacilityId" fieldFormName="LookupFacility"/>
     </td>
   </tr>
   <tr>
     <td class="label">${uiLabelMap.ProductFacilityOwner}</td>
     <td>
-      <input type="text" class="required" name="ownerPartyId" value="${facility.ownerPartyId?if_exists}"/>
-      <a href="javascript:call_fieldlookup2(document.EditFacilityForm.ownerPartyId,'LookupPartyName');" title="${uiLabelMap.CommonFieldLookup}">
-        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonFieldLookup}"/>
-      </a>
+      <@htmlTemplate.lookupField value="${facility.ownerPartyId?if_exists}" formName="EditFacilityForm" name="ownerPartyId" id="ownerPartyId" fieldFormName="LookupPartyName"/>
       <span class="tooltip">${uiLabelMap.CommonRequired}</span>
     </td>
   </tr>

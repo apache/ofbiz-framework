@@ -63,13 +63,10 @@ function lookupInventory() {
                     <td width='20%' align='right' class="label">${uiLabelMap.ManufacturingProductId}</td>
                     <td width='5%'>&nbsp;</td>
                     <td>
-                        <input type='text' size='25' name='productId' value='${requestParameters.productId?if_exists}'/>
-                        <span>
-                          <a href="javascript:call_fieldlookup2(document.lookupinventory.productId,'LookupProduct');">
-                            <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-                          </a>
-                        </span>
-                        <input type='text' size='25' readonly="readonly" name='productId_description' value=''/>${uiLabelMap.CommonDescription}
+                      <span>
+                        <@htmlTemplate.lookupField value='${requestParameters.productId?if_exists}' formName="lookupinventory" name="productId" id="productId" fieldFormName="LookupProduct"/>
+                      </span>
+                      <input type='text' size='25' readonly name='productId_description' value=''/>${uiLabelMap.CommonDescription}
                      </td>
                   </tr>
                   <tr>

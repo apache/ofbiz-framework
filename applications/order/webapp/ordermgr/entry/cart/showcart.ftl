@@ -84,6 +84,17 @@ under the License.
                       <a href="javascript:call_fieldlookup2(document.quickaddform.add_product_id,'<@ofbizUrl><#if orderType=="PURCHASE_ORDER">LookupSupplierProduct?partyId=${partyId?if_exists}<#else>LookupProduct</#if></@ofbizUrl>');">
                         <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                       </a>
+                      <#-- FIXME Problem here: the input field is shared -->
+                      <#--if orderType=="PURCHASE_ORDER">                        
+                        <#if partyId?has_content>                                               
+                          <#assign fieldFormName="LookupSupplierProduct?partyId=${partyId}">
+                        <#else>
+                          <#assign fieldFormName="LookupSupplierProduct">
+                        </#if>
+                      <#else>
+                        <#assign fieldFormName="LookupProduct">
+                      </#if>
+                      <@htmlTemplate.lookupField formName="quickaddform" name="add_product_id" id="add_product_id" fieldFormName="${fieldFormName}"/-->
                       <a href="javascript:quicklookupGiftCertificate()" class="buttontext">${uiLabelMap.OrderAddGiftCertificate}</a>
                       <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
                         <a href="javascript:showQohAtp()" class="buttontext">${uiLabelMap.ProductAtpQoh}</a>
@@ -164,8 +175,8 @@ under the License.
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="bulkworkaddform" style="margin: 0;">
                 <div>
                     ${uiLabelMap.OrderOrderItemType}:&nbsp;<select name="add_item_type"><option value="BULK_ORDER_ITEM">${uiLabelMap.ProductBulkItem}</option><option value="WORK_ORDER_ITEM">${uiLabelMap.ProductWorkItem}</option></select>
-                    <br>${uiLabelMap.ProductProductCategory}:&nbsp;<input type="text" name="add_category_id" size="20" maxlength="20" value="${requestParameters.add_category_id?if_exists}"/>
-                    <a href="javascript:call_fieldlookup2(document.bulkworkaddform.add_category_id,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+                    <br>${uiLabelMap.ProductProductCategory}:&nbsp;
+                    <@htmlTemplate.lookupField formName="bulkworkaddform" value="${requestParameters.add_category_id?if_exists}" name="add_category_id" id="add_category_id" fieldFormName="LookupProductCategory"/>
                 </div>
                 <div>
                     ${uiLabelMap.CommonDescription}:&nbsp;<input type="text" size="25" name="add_item_description" value=""/>

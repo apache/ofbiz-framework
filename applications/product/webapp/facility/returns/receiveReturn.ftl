@@ -149,11 +149,8 @@ under the License.
                                 <option value="">${uiLabelMap.ProductNoLocation}</option>
                               </select>
                             <#else>
-                              <input type="text" name="locationSeqId_o_${rowCount}" size="12"/>
                               <span>
-                                  <a href="javascript:call_fieldlookup2(document.selectAllForm.locationSeqId_o_${rowCount},'LookupFacilityLocation<#if parameters.facilityId?exists>?facilityId=${facilityId}</#if>');">
-                                      <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-                                  </a>
+                                <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId_o_${rowCount}" id="locationSeqId_o_${rowCount}" fieldFormName="LookupFacilityLocation<#if parameters.facilityId?exists>?facilityId=${facilityId}</#if>"/>
                               </span>
                             </#if>
                           </td>

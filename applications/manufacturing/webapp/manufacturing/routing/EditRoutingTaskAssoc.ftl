@@ -42,8 +42,7 @@ function addRoutingTask() {
                 ${uiLabelMap.ManufacturingRoutingTaskId}
             </th>
             <td>
-                <input type="text" name="workEffortIdTo" size="20"/>
-                <a href="javascript:call_fieldlookup(document.addtaskassocform.workEffortIdTo,'<@ofbizUrl>LookupRoutingTask</@ofbizUrl>', 'vide',540,450);"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}" /></a>
+                <@htmlTemplate.lookupField formName="addtaskassocform" name="workEffortIdTo" id="workEffortIdTo" fieldFormName="LookupRoutingTask"/>
             </td>
             <th align="right">
                 ${uiLabelMap.CommonFromDate}

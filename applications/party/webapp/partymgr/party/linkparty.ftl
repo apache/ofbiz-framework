@@ -71,13 +71,10 @@ under the License.
           <form name="linkpartycnf" method="post" action="<@ofbizUrl>linkparty</@ofbizUrl>">
             <div>
               <span class="label">${uiLabelMap.PartyLink}</span>
-              <input type="text" name="partyId" value="${partyId?if_exists}"/>
-              <a href="javascript:call_fieldlookup2(document.linkpartycnf.partyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
+              <@htmlTemplate.lookupField value="${partyId?if_exists}" formName="linkpartycnf" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
               &nbsp;
               <span class="label">${uiLabelMap.CommonTo}</span>
-              <input type="text" name="partyIdTo" value="${partyIdTo?if_exists}"/>
-              <a href="javascript:call_fieldlookup2(document.linkpartycnf.partyIdTo,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
-              <a href="javascript:document.linkpartycnf.submit()" class="smallSubmit">${uiLabelMap.CommonLink}</a>
+              <@htmlTemplate.lookupField value="${partyIdTo?if_exists}" formName="linkpartycnf" name="partyIdTo" id="partyIdTo" fieldFormName="LookupPartyName"/>
             </div>
           </form>
         </#if>

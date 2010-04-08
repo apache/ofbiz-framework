@@ -178,11 +178,8 @@ under the License.
     <form method="post" action="<@ofbizUrl>ApplyFeatureToProduct</@ofbizUrl>" name="addFeatureById">
       <input type="hidden" name="productId" value="${productId}"/>
       <span class="label">${uiLabelMap.CommonId}: </span>
-      <input type="text" size="10" name="productFeatureId" value=""/>
       <span class='label'>
-        <a href="javascript:call_fieldlookup2(document.addFeatureById.productFeatureId,'LookupProductFeature');">
-          <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-        </a>
+        <@htmlTemplate.lookupField formName="addFeatureById" name="productFeatureId" id="productFeatureId" fieldFormName="LookupProductFeature"/>
       </span>
       <span class="label">${uiLabelMap.ProductFeatureApplicationType}: </span>
       <select name="productFeatureApplTypeId" size="1">
