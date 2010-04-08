@@ -285,7 +285,7 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonApInvoiceDecorator"><!-- used for invoice commission runs -->
+    <screen name="CommonInvoiceDecorator"><!-- used for invoice commission runs -->
         <section>
             <widgets>
                 <include-screen name="CommonInvoiceDecorator" location="component://accounting/widget/InvoiceScreens.xml"/>
