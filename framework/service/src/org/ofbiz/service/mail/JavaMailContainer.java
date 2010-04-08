@@ -96,8 +96,8 @@ public class JavaMailContainer implements Container {
 
         this.delegator = DelegatorFactory.getDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
-        this.timerDelay = (long) ContainerConfig.getPropertyValue(cfg, "poll-delay", 300000);
-        this.maxSize = (long) ContainerConfig.getPropertyValue(cfg, "maxSize", 1000000); // maximum size in bytes
+        this.timerDelay = ContainerConfig.getPropertyValue(cfg, "poll-delay", 300000);
+        this.maxSize = ContainerConfig.getPropertyValue(cfg, "maxSize", 1000000); // maximum size in bytes
 
         // load the userLogin object
         String runAsUser = ContainerConfig.getPropertyValue(cfg, "run-as-user", "system");
