@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -58,7 +57,7 @@ public class WidgetWorker {
 
         if ("intra-app".equals(targetType)) {
             if (request != null && response != null) {
-                ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
+                ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
                 externalWriter.append(rh.makeLink(request, response, "/" + localRequestName, fullPath, secure, encode));
             } else if (prefix != null) {
@@ -363,7 +362,7 @@ public class WidgetWorker {
         if ("auto".equals(linkType)) {
             if ("intra-app".equals(targetType)) {
                 String requestUri = (target.indexOf('?') > -1) ? target.substring(0, target.indexOf('?')) : target;
-                ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
+                ServletContext servletContext = request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
                 ConfigXMLReader.RequestMap requestMap = rh.getControllerConfig().getRequestMapMap().get(requestUri);
                 if (requestMap != null && requestMap.event != null) {
