@@ -99,6 +99,7 @@ public class BirtContainer implements Container {
         delegator = DelegatorFactory.getDelegator(delegatorName);
 
         // get the dispatcher
+        dispatcherName = ContainerConfig.getPropertyValue(cc, "dispatcher-name", "JavaMailDispatcher");
         dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
 
         context.put("delegator", delegator);
