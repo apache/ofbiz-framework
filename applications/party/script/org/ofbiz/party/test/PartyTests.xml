@@ -22,17 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="testFindPartyWithSearchParameters" short-description="Test findparty service on certain search parameters" login-required="false">
-        <!-- Precondition:
-             1. Go to Party Manager
-             2. Enter search options (In this particular case, partyId and roleTypeId are being passed)
-             3. Click Lookup Party
-        -->
-        <!-- Process tested by test case:
-             1. This test the process for find party on basis of given search parameters
-        -->
-        <!-- Post condition:
-             1. Selected party and information should be displayed in search result
-        -->
         <set field="searchParams.partyId" value="DemoCustomer"/>
         <set field="searchParams.roleTypeId" value="CUSTOMER"/>
         <map-to-map map="searchParams" to-map="serviceCtx"/>
@@ -51,16 +40,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="testFindPartyWithNoSearchParameters" short-description="Test findparty service when no search parameters are passed" login-required="false">
-        <!-- Precondition:
-             1. Go to Party Manager
-             2. Click on Show all records
-        -->
-        <!-- Process tested by test case:
-             1. This test the process for find party if no search parameters are passed
-        -->
-        <!-- Post condition:
-             1. All existing parties should be displayed in search result.
-        -->
         <set field="serviceCtx.lookupFlag" value="Y"/>
         <call-service service-name="findParty" in-map-name="serviceCtx">
             <result-to-field result-name="partyList"/>
@@ -71,18 +50,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="testUpdatePartyCreditCard" short-description="Test updateCreditCard service" login-required="false">
-        <!-- Precondition:
-             1. Go to the Party Manager
-             2. Click on Lookup Party
-             3. Select any Party (DemoCustomer in this case)
-             4. Edit Payment Method, click Save
-        -->
-        <!-- Process tested by test case:
-             1. This test the process of update credit card
-        -->
-        <!-- Post condition:
-             1. If credit card information is changed than a new PaymentMethod, CreditCard record is created else no change.
-        -->
         <set field="serviceCtx.partyId" value="DemoCustomer"/>
         <find-by-and entity-name="PaymentMethodAndCreditCard" map="serviceCtx" list="paymentMethodAndCreditCards"/>
         <filter-list-by-date list="paymentMethodAndCreditCards"/>
@@ -131,18 +98,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="testUpdateUserPassword" short-description="Test updatePassword service" login-required="false">
-        <!-- Precondition:
-             1. Go to the Party Manager
-             2. Click on Lookup Party
-             3. Select any party (DemoCustomer in this case)
-             4. Edit User Login
-        -->
-        <!-- Process tested by test case:
-             1. This test the process of update password
-        -->
-        <!-- Post condition:
-             1. Old password should be replaced by new password successfully
-        -->
         <set field="partyId" value="DemoCustomer"/>
         <set field="userLoginId" value="DemoCustomer"/>
         <call-class-method method-name="findPartyLatestUserLogin" class-name="org.ofbiz.party.party.PartyWorker" ret-field="partyUserLogin">

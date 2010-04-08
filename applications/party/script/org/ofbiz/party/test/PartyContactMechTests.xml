@@ -22,18 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="testUpdatePartyEmailAddress" short-description="Test updatePartyEmailAddress service" login-required="false">
-        <!-- Precondition:
-             1. Go to Party Manager
-             2. Click on Lookup Party
-             3. Select one party (DemoCustomer in this case)
-             4. Update email address
-        -->
-        <!-- Process tested by test case:
-             1. This test the process of update email address
-        -->
-        <!-- Post condition:
-             1. If email address is changed, a new record is created in ContactMech entity else there is no change.
-        -->
         <set field="partyId" value="DemoCustomer"/>
         <set field="contactMechTypeId" value="EMAIL_ADDRESS"/>
         <!-- first try with just updating without changing the email address -->
@@ -74,18 +62,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="testUpdatePartyTelecomNumber" short-description="Test updatePartyTelecomNumber service" login-required="false">
-        <!-- Precondition:
-             1. Go to the Party Manager
-             2. Click on Lookup Party
-             3. Select any party (DemoCustomer in this case)
-             4. update telecom number fields
-        -->
-        <!-- Process tested by test case:
-             1. This test the process of update telecom number.
-        -->
-        <!-- Post condition:
-             1. If telecom number is changed then a new record is created in ContactMech and TelecomNumber entity else no change.
-        -->
         <set field="partyId" value="DemoCustomer"/>
         <set field="serviceCtx.partyId" from-field="partyId"/>
         <set field="serviceCtx.contactMechId" value="9025"/>
@@ -139,18 +115,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="testUpdatePartyPostalAddress" short-description="Test updatePartyPostalAddress service" login-required="false">
-        <!-- Precondition:
-             1. Go to the Party Manager
-             2. Click on Lookup Party
-             3. Select any party (DemoCustomer in this case)
-             4. Edit address fields, click Save
-        -->
-        <!-- Process tested by test case:
-             1. This test the process of update postal address
-        -->
-        <!-- Post condition:
-             1. If postal address is changed then a new record is created in ContactMech and PostalAddress entity else no change.
-        -->
         <set field="partyId" value="DemoCustomer"/>
         <call-class-method method-name="findPartyLatestPostalAddress" class-name="org.ofbiz.party.party.PartyWorker" ret-field="postalAddress">
             <field field="partyId" type="java.lang.String"/>
