@@ -154,7 +154,7 @@ public class UtilProperties implements java.io.Serializable {
         try {
             value = properties.getProperty(name);
         } catch (Exception e) {
-            Debug.log(e.getMessage(), module);
+            Debug.log(e, module);
         }
         return value == null ? "" : value.trim();
     }
@@ -178,7 +178,7 @@ public class UtilProperties implements java.io.Serializable {
                 properties = getProperties(url);
                 resourceCache.put(cacheKey, properties);
             } catch (MissingResourceException e) {
-                Debug.log(e.getMessage(), module);
+                Debug.log(e, module);
             }
         }
         if (properties == null) {
@@ -203,7 +203,7 @@ public class UtilProperties implements java.io.Serializable {
                 properties.load(url.openStream());
                 urlCache.put(url.toString(), properties);
             } catch (Exception e) {
-                Debug.log(e.getMessage(), module);
+                Debug.log(e, module);
             }
         }
         if (properties == null) {
@@ -294,7 +294,7 @@ public class UtilProperties implements java.io.Serializable {
         try {
             value = properties.getProperty(name);
         } catch (Exception e) {
-            Debug.log(e.getMessage(), module);
+            Debug.log(e, module);
         }
         return value == null ? "" : value.trim();
     }
@@ -331,7 +331,7 @@ public class UtilProperties implements java.io.Serializable {
                 curIdx++;
             }
         } catch (Exception e) {
-            Debug.log(e.getMessage(), module);
+            Debug.log(e, module);
         }
         return value == null ? "" : value.trim();
     }
@@ -449,7 +449,7 @@ public class UtilProperties implements java.io.Serializable {
         try {
             value = (String) bundle.getString(name);
         } catch (Exception e) {
-            //Debug.log(e.getMessage(), module);
+            //Debug.log(e, module);
         }
         return value == null ? name : value.trim();
     }
