@@ -105,7 +105,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         // work backwards. As "depth" is incremented, that is the effect.
         // The convention for the topmost type is "ROOT".
         if (depth >= 0 && (sz - depth) > 0) {
-            currentDataCategoryId = (String) categoryTypeIds.get(sz - depth - 1);
+            currentDataCategoryId = categoryTypeIds.get(sz - depth - 1);
         }
 
         // Find all the categoryTypes that are children of the categoryNode.
@@ -119,7 +119,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         categoryNode.put("count", Integer.valueOf(categoryValues.size()));
         List<Map<String, Object>> subCategoryIds = FastList.newInstance();
         for (int i = 0; i < categoryValues.size(); i++) {
-            GenericValue category = (GenericValue) categoryValues.get(i);
+            GenericValue category = categoryValues.get(i);
             String id = (String) category.get("dataCategoryId");
             String categoryName = (String) category.get("categoryName");
             Map<String, Object> newNode = FastMap.newInstance();
@@ -219,7 +219,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         passedParams.put("userLogin", userLogin);
         byte[] imageBytes = null;
         for (int i = 0; i < lst.size(); i++) {
-            fi = (FileItem) lst.get(i);
+            fi = lst.get(i);
             //String fn = fi.getName();
             String fieldName = fi.getFieldName();
             if (fi.isFormField()) {
@@ -527,7 +527,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         // first item in map is the most current directory
         File latestDir = null;
         if (UtilValidate.isNotEmpty(dirMap)) {
-            latestDir = (File) dirMap.values().iterator().next();
+            latestDir = dirMap.values().iterator().next();
             if (latestDir != null) {
                 File[] dirList = latestDir.listFiles();
                 if (dirList.length >= maxFiles) {
