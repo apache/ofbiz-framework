@@ -39,6 +39,7 @@ import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.content.content.ContentWorker;
@@ -49,8 +50,11 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.website.WebSiteWorker;
-import org.ofbiz.widget.html.HtmlFormRenderer;
+import org.ofbiz.widget.form.FormStringRenderer;
+import org.ofbiz.widget.form.MacroFormRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
+
+import freemarker.template.TemplateException;
 
 
 /**
@@ -249,7 +253,6 @@ public class CmsEvents {
                 // create the template map
                 MapStack<String> templateMap = MapStack.create();
                 ScreenRenderer.populateContextForRequest(templateMap, null, request, response, servletContext);
-                templateMap.put("formStringRenderer", new HtmlFormRenderer(request, response));
                 templateMap.put("statusCode", statusCode);
 
                 // make the link prefix
@@ -276,7 +279,9 @@ public class CmsEvents {
                     } else {
                         writer = response.getWriter();
                     }
-
+                    // TODO: replace "screen" to support dynamic rendering of different output
+                    FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", "screen.formrenderer"), writer, request, response);
+                    templateMap.put("formStringRenderer", formStringRenderer);
                     // render
                     if (UtilValidate.isEmpty(mapKey)) {
                         ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", null, null, true);
@@ -284,6 +289,8 @@ public class CmsEvents {
                         ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);
                     }
 
+                } catch (TemplateException e) {
+                    throw new GeneralRuntimeException("Error creating form renderer", e);
                 } catch (IOException e) {
                     throw new GeneralRuntimeException("Error in the response writer/output stream: " + e.toString(), e);
                 } catch (GeneralException e) {
