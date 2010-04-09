@@ -1883,7 +1883,7 @@ float: left;
 }
 
 .view-calendar ul li a{
-background: url(/images/cal.gif) no-repeat;
+background: url(/images/cal.gif) no-repeat !important;
 display: block;
 margin: 3px 10px 0px 4px;
 width:22px;
@@ -1980,7 +1980,7 @@ height: 20px;
 text-decoration: none;
 font-size: 14px;
 color: #000 !important;
-background: none;
+background: none !important;
 }
 
 .calendar_date_select .cds_header a.prev {
@@ -2007,7 +2007,7 @@ width: 61px;
 .calendar_date_select .cds_buttons a {
 color: #fff;
 font-size: 9px;
-background: none;
+background: none !important;
 display: inline !important;
 }
 
@@ -2225,13 +2225,13 @@ Lookups
      padding: 2px 3px 2px 3px;
      margin: 0;
      cursor: pointer;
-
+     background: url(/images/fieldlookup.gif) no-repeat;
  }
 
  #fieldLookupContent td a{
      display: inherit;
      cursor: pointer;
-     background-image: none;
+     background: url(/images/fieldlookup.gif) no-repeat;
  }
 
 /* overwrite*/

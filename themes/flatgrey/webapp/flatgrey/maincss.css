@@ -1941,7 +1941,7 @@ float: left;
 }
 
 .view-calendar ul li a{
-background: url(/images/cal.gif) no-repeat;
+background: url(/images/cal.gif) no-repeat !important;
 display: block;
 margin: 3px 10px 0px 4px;
 width:16px;
@@ -2026,7 +2026,7 @@ iframe.ie6_blocker {
   text-decoration: none;
   font-size:14px;
   color: #000 !important;
-  background: none;
+  background: none !important;
 }
 
 .calendar_date_select .cds_header a.prev {
@@ -2038,6 +2038,10 @@ iframe.ie6_blocker {
 .calendar_date_select .cds_header a.close {
   float:right;
   display:none;
+}
+
+.calendar_date_select .cds_buttons a {
+  background: none !important; 
 }
 
 .calendar_date_select .cds_header select.month {
@@ -2270,15 +2274,15 @@ Lookups
      display: inherit;
      padding: 2px 3px 2px 3px;
      cursor: pointer;
-     height: auto;
-     width: auto;
-     background-image: none;
+     height: 16;
+     width: 16;
+     background: url(/images/fieldlookup.gif) no-repeat;
  }
 
  #fieldLookupContent a{
      display: inherit;
      cursor: pointer;
-     background-image: none;
+     background: url(/images/fieldlookup.gif) no-repeat;
  }
 
 /* overwrite*/
