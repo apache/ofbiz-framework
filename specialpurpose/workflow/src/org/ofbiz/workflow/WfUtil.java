@@ -27,7 +27,7 @@ import org.ofbiz.base.util.UtilMisc;
  */
 public final class WfUtil {
 
-    private static final Map typeMap = UtilMisc.toMap("WDT_BOOLEAN", "java.lang.Boolean",
+    private static final Map<String, String> typeMap = UtilMisc.toMap("WDT_BOOLEAN", "java.lang.Boolean",
         "WDT_STRING", "java.lang.String", "WDT_INTEGER", "java.lang.Long",
         "WDT_FLOAT", "java.lang.Double", "WDT_DATETIME", "java.sql.Timestamp");
 

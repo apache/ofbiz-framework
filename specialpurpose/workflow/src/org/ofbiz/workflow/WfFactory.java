@@ -41,8 +41,8 @@ public class WfFactory {
 
     public static final String module = WfFactory.class.getName();
 
-    protected static UtilCache wfProcessMgrCache = UtilCache.createUtilCache("workflow.processmgr");
-    protected static UtilCache wfClientCache = UtilCache.createUtilCache("workflow.client");
+    protected static UtilCache<String, WfProcessMgrImpl> wfProcessMgrCache = UtilCache.createUtilCache("workflow.processmgr");
+    protected static UtilCache<DispatchContext, WorkflowClient> wfClientCache = UtilCache.createUtilCache("workflow.client");
 
     /**
      * Creates a new {@link WfActivity} instance.

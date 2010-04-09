@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.workflow;
 
+import java.util.Map;
+
 /**
  * WfAssignment - Workflow Assignment Interface
  */
@@ -63,7 +65,7 @@ public interface WfAssignment {
      * @param Map The results of the assignement.
      * @throws WfException
      */
-    public void setResult(java.util.Map results) throws WfException;
+    public void setResult(Map<String, Object> results) throws WfException;
 
     /**
      * Mark this assignment as complete.

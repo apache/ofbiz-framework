@@ -29,12 +29,12 @@ public interface WfDataEventAudit {
      * @throws WfException
      * @return
      */
-    public Map oldData() throws WfException;
+    public Map<String, Object> oldData() throws WfException;
 
     /**
      * @throws WfException
      * @return
      */
-    public Map newData() throws WfException;
+    public Map<String, Object> newData() throws WfException;
 
 } // interface WfDataEventAuditOperations

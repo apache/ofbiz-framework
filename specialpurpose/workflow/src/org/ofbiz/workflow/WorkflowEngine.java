@@ -56,7 +56,7 @@ public class WorkflowEngine extends AbstractEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         GenericResultWaiter waiter = new GenericResultWaiter();
         runAsync(localName, modelService, context, waiter, false);
         return waiter.waitForResult();
@@ -65,21 +65,21 @@ public class WorkflowEngine extends AbstractEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         runAsync(localName, modelService, context, null, false);
     }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, boolean)
      */
-    public void runAsync(String localName, ModelService modelService, Map context, boolean persist) throws GenericServiceException {
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, boolean persist) throws GenericServiceException {
         runAsync(localName, modelService, context, null, persist);
     }
 
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */
-    public void runAsync(String localName, ModelService modelService, Map context, GenericRequester requester, boolean persist) throws GenericServiceException {
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
         Transaction parentTrans = null;
         boolean beganTransaction = false;
         try {
@@ -172,7 +172,7 @@ public class WorkflowEngine extends AbstractEngine {
             if (context.containsKey("userLogin")) {
                 userLogin = (GenericValue) context.remove("userLogin");
                 try {
-                    Map fields = UtilMisc.toMap("partyId", userLogin.getString("partyId"),
+                    Map<String, Object> fields = UtilMisc.toMap("partyId", userLogin.getString("partyId"),
                             "roleTypeId", "WF_OWNER", "workEffortId", process.runtimeKey(),
                             "fromDate", UtilDateTime.nowTimestamp());
 
@@ -209,7 +209,7 @@ public class WorkflowEngine extends AbstractEngine {
             try {
                 req.registerProcess(process, context, requester);
                 if (userLogin != null) {
-                    Map pContext = process.processContext();
+                    Map<String, Object> pContext = process.processContext();
                     pContext.put("workflowOwnerId", userLogin.getString("userLoginId"));
                     process.setProcessContext(pContext);
                 }
@@ -225,7 +225,7 @@ public class WorkflowEngine extends AbstractEngine {
             // Set the initial locale - (in context)
             if (locale != null) {
                 try {
-                    Map pContext = process.processContext();
+                    Map<String, Object> pContext = process.processContext();
                     pContext.put("initialLocale", locale);
                     process.setProcessContext(pContext);
                 } catch (WfException wfe) {
@@ -277,12 +277,13 @@ public class WorkflowEngine extends AbstractEngine {
             if (position == 1)
                 return null;
         }
-        List splitList = StringUtil.split(splitString, "::");
-        return (String) splitList.get(position);
+        List<String> splitList = StringUtil.split(splitString, "::");
+        return splitList.get(position);
     }
 }
 
 /** Workflow Runner class runs inside its own thread using the Scheduler API */
+@SuppressWarnings("serial")
 class WorkflowRunner extends AbstractJob {
 
     GenericRequester requester;

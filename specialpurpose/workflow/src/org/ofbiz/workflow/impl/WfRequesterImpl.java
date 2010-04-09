@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Locale;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericRequester;
@@ -46,19 +47,19 @@ public class WfRequesterImpl implements WfRequester {
 
     public static final String module = WfRequesterImpl.class.getName();
 
-    protected Map performers = null;
+    protected Map<WfProcess, GenericRequester> performers = null;
 
     /**
      * Method WfRequesterImpl.
      */
     public WfRequesterImpl() {
-        this.performers = new HashMap();
+        this.performers = new HashMap<WfProcess, GenericRequester>();
     }
 
     /**
      * @see org.ofbiz.workflow.WfRequester#registerProcess(org.ofbiz.workflow.WfProcess, java.util.Map, org.ofbiz.service.GenericRequester)
      */
-    public void registerProcess(WfProcess process, Map context, GenericRequester requester) throws WfException {
+    public void registerProcess(WfProcess process, Map<String, Object> context, GenericRequester requester) throws WfException {
         if (process == null)
             throw new WfException("Process cannot be null");
         if (context == null)
@@ -70,13 +71,14 @@ public class WfRequesterImpl implements WfRequester {
         // Validate the process context w/ what was passed.
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Validating w/ signature: " + mgr.contextSignature(), module);
-            ModelService.validate(mgr.contextSignature(), context, true, null, ModelService.IN_PARAM, Locale.getDefault());
+            Map<String, String> contextSignature = UtilGenerics.cast(mgr.contextSignature());
+            ModelService.validate(contextSignature, context, true, null, ModelService.IN_PARAM, Locale.getDefault());
         } catch (GenericServiceException e) {
             throw new WfException("Context passed does not validate against defined signature: ", e);
         }
 
         // Set the context w/ the process
-        Map localContext = new HashMap(context);
+        Map<String, Object> localContext = new HashMap<String, Object>(context);
         localContext.putAll(mgr.getInitialContext());
         process.setProcessContext(localContext);
 
@@ -107,17 +109,17 @@ public class WfRequesterImpl implements WfRequester {
     /**
      * @see org.ofbiz.workflow.WfRequester#getIteratorPerformer()
      */
-    public Iterator getIteratorPerformer() throws WfException {
+    public Iterator<WfProcess> getIteratorPerformer() throws WfException {
         return performers.keySet().iterator();
     }
 
     /**
      * @see org.ofbiz.workflow.WfRequester#getSequencePerformer(int)
      */
-    public List getSequencePerformer(int maxNumber) throws WfException {
+    public List<WfProcess> getSequencePerformer(int maxNumber) throws WfException {
         if (maxNumber > 0)
-            return new ArrayList(performers.keySet()).subList(0, (maxNumber - 1));
-        return new ArrayList(performers.keySet());
+            return new ArrayList<WfProcess>(performers.keySet()).subList(0, (maxNumber - 1));
+        return new ArrayList<WfProcess>(performers.keySet());
     }
 
     /**

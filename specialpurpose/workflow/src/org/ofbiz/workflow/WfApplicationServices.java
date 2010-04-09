@@ -20,11 +20,8 @@ package org.ofbiz.workflow;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -67,9 +65,9 @@ public class WfApplicationServices {
      * @throws GenericServiceException
      * @return Empty result
      */
-    public static Map activateApplication(DispatchContext ctx, Map context) {
+    public static Map<String, Object> activateApplication(DispatchContext ctx, Map<String, Object> context) {
         final String workEffortId = (String) context.get("workEffortId");
-        final Map result = new HashMap();
+        final Map<String, Object> result = new HashMap<String, Object>();
 
         try {
             final GenericValue weAssigment = getWorkEffortPartyAssigment(ctx.getDelegator(), workEffortId);
@@ -89,9 +87,9 @@ public class WfApplicationServices {
         return result;
     }
 
-    public static Map getApplicationContext(DispatchContext ctx, Map context) throws GenericServiceException {
+    public static Map<String, Object> getApplicationContext(DispatchContext ctx, Map<String, Object> context) throws GenericServiceException {
         final Delegator delegator = ctx.getDelegator();
-        final Map result = new HashMap();
+        final Map<String, Object> result = new HashMap<String, Object>();
         try {
             result.put("applicationContext",
                     getRunTimeContext(delegator, getRuntimeData(delegator, (String) context.get("applicationId"))));
@@ -104,34 +102,35 @@ public class WfApplicationServices {
         return result;
     }
 
-    public static Map completeApplication(DispatchContext ctx, Map context) throws GenericServiceException {
+    public static Map<String, Object> completeApplication(DispatchContext ctx, Map<String, Object> context) throws GenericServiceException {
         final Delegator delegator = ctx.getDelegator();
         final String applicationId = (String) context.get("applicationId");
-        final Map result = new HashMap();
+        final Map<String, Object> result = new HashMap<String, Object>();
 
         GenericValue application = getApplicationSandbox(delegator, applicationId);
         GenericValue runTimeData = getRuntimeData(delegator, applicationId);
-        Map runTimeContext = getRunTimeContext(delegator, runTimeData);
-        Map contextSignature = new HashMap();
-        Map resultSignature = new HashMap();
-        Map resultContext = new HashMap();
-        Map runContext = new HashMap(context);
+        Map<String, Object> runTimeContext = getRunTimeContext(delegator, runTimeData);
+        Map<String, Object> contextSignature = new HashMap<String, Object>();
+        Map<String, Object> resultSignature = new HashMap<String, Object>();
+        Map<String, Object> resultContext = new HashMap<String, Object>();
+        Map<String, Object> runContext = new HashMap<String, Object>(context);
 
         try {
             // copy all OUT & INOUT formal parameters
             getApplicationSignatures(delegator, application, contextSignature, resultSignature);
-            for (Iterator names = resultSignature.keySet().iterator(); names.hasNext();) {
-                String name = (String) names.next();
+            for (String name : resultSignature.keySet()) {
                 Object value = null;
                 if (runTimeContext.containsKey(name)
                     && contextSignature.containsKey(name)
                     && resultSignature.containsKey(name))
                     value = runTimeContext.get(name);
-                if (((Map) context.get("result")).containsKey(name))
-                    value = ((Map) context.get("result")).get(name);
-                if (value != null)
+                if (UtilGenerics.checkMap(context.get("result")).containsKey(name)) {
+                    value = UtilGenerics.checkMap(context.get("result")).get(name);
+                }
+                if (value != null) {
                     resultContext.put(name,
                             ObjectType.simpleTypeConvert(value, (String) resultSignature.get(name), null, null));
+                }
             }
             runTimeContext.putAll(resultContext);
             // fin de agregar
@@ -143,7 +142,6 @@ public class WfApplicationServices {
             }
 
             setRunTimeContext(runTimeData, runTimeContext);
-            // agregado por Oswin Ondarza
 
             runContext.remove("applicationId");
 
@@ -176,7 +174,7 @@ public class WfApplicationServices {
     }
 
     private static String insertAppSandbox(Delegator delegator, String workEffortId, String partyId,
-            String roleTypeId, Timestamp fromDate, Map context) throws GenericServiceException {
+            String roleTypeId, Timestamp fromDate, Map<String, Object> context) throws GenericServiceException {
         String dataId = null;
         String applicationId = Long.toString((new Date().getTime()));
 
@@ -192,7 +190,7 @@ public class WfApplicationServices {
         } catch (IOException ioe) {
             throw new GenericServiceException(ioe.getMessage(), ioe);
         }
-        Map aFields = UtilMisc.toMap("applicationId", applicationId, "workEffortId", workEffortId,
+        Map<String, Object> aFields = UtilMisc.toMap("applicationId", applicationId, "workEffortId", workEffortId,
                 "partyId", partyId, "roleTypeId", roleTypeId, "fromDate", fromDate, "runtimeDataId", dataId);
 
         GenericValue appV = null;
@@ -216,10 +214,10 @@ public class WfApplicationServices {
         }
     }
 
-    private static Map getRunTimeContext(Delegator delegator, GenericValue runTimeData)
+    private static Map<String, Object> getRunTimeContext(Delegator delegator, GenericValue runTimeData)
             throws GenericServiceException {
         try {
-            return (Map) XmlSerializer.deserialize((String) runTimeData.get("runtimeInfo"), delegator);
+            return UtilGenerics.checkMap(XmlSerializer.deserialize((String) runTimeData.get("runtimeInfo"), delegator));
         } catch (SerializeException se) {
             throw new GenericServiceException(se.getMessage(), se);
         } catch (ParserConfigurationException pe) {
@@ -231,7 +229,7 @@ public class WfApplicationServices {
         }
     }
 
-    private static void setRunTimeContext(GenericValue runTimeData, Map context) throws GenericServiceException {
+    private static void setRunTimeContext(GenericValue runTimeData, Map<String, Object> context) throws GenericServiceException {
         try {
             runTimeData.set("runtimeInfo", XmlSerializer.serialize(context));
             runTimeData.store();
@@ -256,8 +254,8 @@ public class WfApplicationServices {
     }
 
     private static void getApplicationSignatures(Delegator delegator, GenericValue application,
-            Map contextSignature, Map resultSignature) throws GenericEntityException {
-        Map expresions = null;
+            Map<String, Object> contextSignature, Map<String, Object> resultSignature) throws GenericEntityException {
+        Map<String, Object> expresions = null;
         // look for the 1st application.
         final GenericValue workEffort =
             delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", application.get("workEffortId")));
@@ -267,14 +265,14 @@ public class WfApplicationServices {
         String processVersion = (String) workEffort.get("workflowProcessVersion");
         String activityId = (String) workEffort.get("workflowActivityId");
 
-        expresions = new HashMap();
+        expresions = new HashMap<String, Object>();
         expresions.putAll(UtilMisc.toMap("packageId", packageId));
         expresions.putAll(UtilMisc.toMap("packageVersion", packageVersion));
         expresions.putAll(UtilMisc.toMap("processId", processId));
         expresions.putAll(UtilMisc.toMap("processVersion", processVersion));
         expresions.putAll(UtilMisc.toMap("activityId", activityId));
 
-        final Collection wfActivityTools = delegator.findByAnd("WorkflowActivityTool", expresions);
+        final List<GenericValue> wfActivityTools = delegator.findByAnd("WorkflowActivityTool", expresions);
         final GenericValue wfActivityTool = (GenericValue) wfActivityTools.toArray()[0];
 
         packageId = (String) wfActivityTool.get("packageId");
@@ -283,18 +281,16 @@ public class WfApplicationServices {
         processVersion = (String) wfActivityTool.get("processVersion");
         final String applicationId = (String) wfActivityTool.get("toolId");
 
-        expresions = new HashMap();
+        expresions = new HashMap<String, Object>();
         expresions.putAll(UtilMisc.toMap("packageId", packageId));
         expresions.putAll(UtilMisc.toMap("packageVersion", packageVersion));
         expresions.putAll(UtilMisc.toMap("processId", processId));
         expresions.putAll(UtilMisc.toMap("processVersion", processVersion));
         expresions.putAll(UtilMisc.toMap("applicationId", applicationId));
 
-        final Collection params = delegator.findByAnd("WorkflowFormalParam", expresions);
+        final List<GenericValue> params = delegator.findByAnd("WorkflowFormalParam", expresions);
 
-        Iterator i = params.iterator();
-        while (i.hasNext()) {
-            GenericValue param = (GenericValue) i.next();
+        for (GenericValue param : params) {
             String name = param.getString("formalParamId");
             String mode = param.getString("modeEnumId");
             String type = param.getString("dataTypeEnumId");
@@ -307,14 +303,13 @@ public class WfApplicationServices {
 
     private static GenericValue getWorkEffortPartyAssigment(Delegator delegator, String workEffortId)
             throws GenericServiceException {
-        Map expresions = new HashMap();
+        Map<String, Object> expresions = new HashMap<String, Object>();
         expresions.putAll(UtilMisc.toMap("workEffortId", workEffortId));
         expresions.putAll(UtilMisc.toMap("statusId", "CAL_ACCEPTED"));
-        List orderBy = new ArrayList();
-        orderBy.add("-fromDate");
+        List<String> orderBy = UtilMisc.toList("-fromDate");
 
         try {
-            final Collection assigments = delegator.findByAnd("WorkEffortPartyAssignment", expresions, orderBy);
+            final List<GenericValue> assigments = delegator.findByAnd("WorkEffortPartyAssignment", expresions, orderBy);
             if (assigments.isEmpty()) {
                 Debug.logError("No accepted activities found for the workEffortId=" + workEffortId, module);
                 throw new GenericServiceException("Can not find WorkEffortPartyAssignment for the Workflow service. WorkEffortId=" + workEffortId);

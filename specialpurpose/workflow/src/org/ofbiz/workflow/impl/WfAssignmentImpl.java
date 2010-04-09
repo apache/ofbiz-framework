@@ -75,7 +75,7 @@ public class WfAssignmentImpl implements WfAssignment {
             throw new WfException("From date cannot be null");
 
         GenericValue value = null;
-        Map fields = new HashMap();
+        Map<String, Object> fields = new HashMap<String, Object>();
 
         fields.put("workEffortId", workEffortId);
         fields.put("partyId", partyId);
@@ -122,7 +122,7 @@ public class WfAssignmentImpl implements WfAssignment {
             // check for existing accepted assignment
             if (!activity.state().equals("open.not_running.not_started")) {
                 // activity already running all assignments must be delegated in order to accept
-                Iterator ai = activity.getIteratorAssignment();
+                Iterator<WfAssignment> ai = activity.getIteratorAssignment();
 
                 while (ai.hasNext() && allDelegated) {
                     WfAssignment a = (WfAssignment) ai.next();
@@ -137,7 +137,7 @@ public class WfAssignmentImpl implements WfAssignment {
             } else {
                 // activity not running, auto change all assignments to delegated status
                 Debug.logVerbose("[WfAssignment.accept] : setting other assignments to delegated status.", module);
-                Iterator ai = activity.getIteratorAssignment();
+                Iterator<WfAssignment> ai = activity.getIteratorAssignment();
 
                 while (ai.hasNext()) {
                     WfAssignment a = (WfAssignment) ai.next();
@@ -152,7 +152,7 @@ public class WfAssignmentImpl implements WfAssignment {
     /**
      * @see org.ofbiz.workflow.WfAssignment#setResult(java.util.Map)
      */
-    public void setResult(Map results) throws WfException {
+    public void setResult(Map<String, Object> results) throws WfException {
         activity.setResult(results);
     }
 
@@ -258,7 +258,7 @@ public class WfAssignmentImpl implements WfAssignment {
 
     private GenericValue valueObject() throws WfException {
         GenericValue value = null;
-        Map fields = new HashMap();
+        Map<String, Object> fields = new HashMap<String, Object>();
 
         fields.put("workEffortId", activity.runtimeKey());
         fields.put("partyId", resource.resourcePartyId());

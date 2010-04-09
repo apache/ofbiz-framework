@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * Transition Evaluation Workflow Exception
  */
+@SuppressWarnings("serial")
 public class EvaluationException extends WfException {
 
     public EvaluationException() {

@@ -29,6 +29,7 @@ import org.ofbiz.workflow.WfActivity;
 /**
  * Workflow Client API - Start Activity Async-Job
  */
+@SuppressWarnings("serial")
 public class StartActivityJob extends AbstractJob {
 
     public static final String module = StartActivityJob.class.getName();
@@ -61,7 +62,7 @@ public class StartActivityJob extends AbstractJob {
             Debug.logVerbose("Executing job now : " + activity, module);
             activity.activate();
             if (requester != null)
-                requester.receiveResult(new HashMap());
+                requester.receiveResult(new HashMap<String, Object>());
         } catch (Exception e) {
             Debug.logError(e, "Start Activity [" + activity + "] Failed", module);
             if (requester != null)

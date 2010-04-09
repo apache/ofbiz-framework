@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * CannotComplete Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class CannotComplete extends WfException {
 
     public CannotComplete() {}

@@ -38,7 +38,7 @@ public abstract class WfActivityAbstractImplementation {
     public static final String module = WfActivityAbstractImplementation.class.getName();
 
     private WfActivityImpl wfActivity = null;
-    private Map resultContext = new HashMap();
+    private Map<String, Object> resultContext = new HashMap<String, Object>();
     private boolean complete = false;
 
     public WfActivityAbstractImplementation(WfActivityImpl wfActivity) {
@@ -69,11 +69,11 @@ public abstract class WfActivityAbstractImplementation {
 
     protected GenericResultWaiter runService(ModelService service, String params, String extend) throws WfException {
         LocalDispatcher dispatcher = getActivity().getDispatcher();
-        List paramNames = service.getParameterNames(ModelService.IN_PARAM, true);
+        List<String> paramNames = service.getParameterNames(ModelService.IN_PARAM, true);
         if (paramNames != null && paramNames.size() == 0)
             paramNames =  null;
 
-        Map ctx = getActivity().actualContext(params, extend, paramNames, false);
+        Map<String, Object> ctx = getActivity().actualContext(params, extend, paramNames, false);
 
         GenericResultWaiter waiter = new GenericResultWaiter();
         Debug.logVerbose("[WfActivityAbstractImplementation.runService] : Invoking the service.", module);
@@ -86,7 +86,7 @@ public abstract class WfActivityAbstractImplementation {
         return waiter;
     }
 
-    protected void setResult(Map result) {
+    protected void setResult(Map<String, Object> result) {
         this.resultContext.putAll(result);
     }
 
@@ -100,7 +100,7 @@ public abstract class WfActivityAbstractImplementation {
      * Returns the result context.
      * @return Map
      */
-    public Map getResult() {
+    public Map<String, Object> getResult() {
         return resultContext;
     }
 

@@ -19,14 +19,15 @@
 package org.ofbiz.workflow.client;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -57,8 +58,8 @@ public class WorkflowServices {
     // -------------------------------------------------------------------
 
     /** Cancel Workflow */
-    public static Map cancelWorkflow(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> cancelWorkflow(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
@@ -105,8 +106,8 @@ public class WorkflowServices {
     }
 
     /** Suspend activity */
-    public static Map suspendActivity(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> suspendActivity(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
 
@@ -130,8 +131,8 @@ public class WorkflowServices {
     }
 
     /** Resume activity */
-    public static Map resumeActivity(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> resumeActivity(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
 
@@ -155,8 +156,8 @@ public class WorkflowServices {
     }
 
     /** Change the state of an activity */
-    public static Map changeActivityState(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> changeActivityState(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
         String newState = (String) context.get("newState");
@@ -181,8 +182,8 @@ public class WorkflowServices {
     }
 
     /** Check the state of an activity */
-    public static Map checkActivityState(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> checkActivityState(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         String workEffortId = (String) context.get("workEffortId");
 
         try {
@@ -198,8 +199,8 @@ public class WorkflowServices {
     }
 
     /** Get the current activity context */
-    public static Map getActivityContext(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> getActivityContext(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         String workEffortId = (String) context.get("workEffortId");
 
         try {
@@ -215,11 +216,11 @@ public class WorkflowServices {
     }
 
     /** Appends data to the activity context */
-    public static Map appendActivityContext(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> appendActivityContext(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
-        Map appendContext = (Map) context.get("currentContext");
+        Map<String, Object> appendContext = UtilGenerics.checkMap(context.get("currentContext"));
 
         if (UtilValidate.isEmpty(appendContext)) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
@@ -246,8 +247,8 @@ public class WorkflowServices {
     }
 
     /** Assign activity to a new or additional party */
-    public static Map assignActivity(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> assignActivity(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
         String partyId = (String) context.get("partyId");
@@ -278,8 +279,8 @@ public class WorkflowServices {
     }
 
     /** Accept an assignment and attempt to start the activity */
-    public static Map acceptAssignment(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> acceptAssignment(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         String workEffortId = (String) context.get("workEffortId");
         String partyId = (String) context.get("partyId");
         String roleType = (String) context.get("roleTypeId");
@@ -299,8 +300,8 @@ public class WorkflowServices {
     }
 
     /** Delegate an assignment */
-    public static Map delegateAssignment(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> delegateAssignment(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         String workEffortId = (String) context.get("workEffortId");
         String fromParty = (String) context.get("fromPartyId");
         String fromRole = (String) context.get("fromRoleTypeId");
@@ -326,8 +327,8 @@ public class WorkflowServices {
     }
 
     /** Delegate, accept an assignment */
-    public static Map delegateAcceptAssignment(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> delegateAcceptAssignment(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         String workEffortId = (String) context.get("workEffortId");
         String fromParty = (String) context.get("fromPartyId");
         String fromRole = (String) context.get("fromRoleTypeId");
@@ -359,8 +360,8 @@ public class WorkflowServices {
     }
 
     /** Accept a role assignment and attempt to start the activity */
-    public static Map acceptRoleAssignment(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> acceptRoleAssignment(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         String workEffortId = (String) context.get("workEffortId");
         String partyId = (String) context.get("partyId");
         String roleType = (String) context.get("roleTypeId");
@@ -379,14 +380,14 @@ public class WorkflowServices {
     }
 
     /** Complete an assignment */
-    public static Map completeAssignment(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> completeAssignment(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
         String partyId = (String) context.get("partyId");
         String roleType = (String) context.get("roleTypeId");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
-        Map actResults = (Map) context.get("result");
+        Map<String, Object> actResults = UtilGenerics.checkMap(context.get("result"));
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -408,12 +409,12 @@ public class WorkflowServices {
         return result;
     }
 
-    public static Map limitInvoker(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> limitInvoker(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         String workEffortId = (String) context.get("workEffortId");
         String limitService = (String) context.get("serviceName");
-        Map limitContext = (Map) context.get("serviceContext");
+        Map<String, Object> limitContext = UtilGenerics.checkMap(context.get("serviceContext"));
 
         try {
             WorkflowClient client = WfFactory.getClient(ctx);
@@ -458,16 +459,16 @@ public class WorkflowServices {
                         EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, workEffortId),
                         EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()));
 
-            Collection c = null;
+            List<GenericValue> workEffortList = null;
 
             try {
-                c = userLogin.getDelegator().findList("WorkEffortAndPartyAssign", ecl, null, null, null, false);
+                workEffortList = userLogin.getDelegator().findList("WorkEffortAndPartyAssign", ecl, null, null, null, false);
                 //Debug.logInfo("Found " + c.size() + " records.", module);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return false;
             }
-            if (c.size() == 0) {
+            if (workEffortList.size() == 0) {
                 ecl = EntityCondition.makeCondition(
                         EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
@@ -477,7 +478,7 @@ public class WorkflowServices {
                         EntityCondition.makeCondition("workEffortParentId", EntityOperator.EQUALS, workEffortId),
                         EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()));
                 try {
-                    c = userLogin.getDelegator().findList("WorkEffortAndPartyAssign", ecl, null, null, null, false);
+                    workEffortList = userLogin.getDelegator().findList("WorkEffortAndPartyAssign", ecl, null, null, null, false);
                     //Debug.logInfo("Found " + c.size() + " records.", module);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
@@ -485,7 +486,7 @@ public class WorkflowServices {
                 }
             }
 
-            if (c.size() > 0) {
+            if (workEffortList.size() > 0) {
                 return true;
             }
         }
@@ -500,10 +501,13 @@ public class WorkflowServices {
             GenericValue we = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
 
             if (we != null && we.getString("workEffortParentId") == null) {
-                Collection c = delegator.findByAnd("WorkEffortPartyAssignment",
+                List<GenericValue> workEffortList = delegator.findByAnd("WorkEffortPartyAssignment",
                         UtilMisc.toMap("workEffortId", workEffortId, "roleTypeId", "WF_OWNER"));
 
-                return (GenericValue) c.iterator().next();
+                if (UtilValidate.isEmpty(workEffortList)) {
+                    return null;
+                }
+                return workEffortList.get(0);
             } else {
                 return getOwner(delegator, we.getString("workEffortParentId"));
             }

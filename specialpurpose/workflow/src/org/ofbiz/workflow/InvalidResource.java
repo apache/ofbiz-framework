@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * InvalidResource Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class InvalidResource extends WfException {
 
     public InvalidResource() {}

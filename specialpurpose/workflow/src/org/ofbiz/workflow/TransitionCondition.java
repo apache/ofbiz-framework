@@ -36,6 +36,6 @@ public interface TransitionCondition {
      * @return The result of the evaluation
      * @throws EvaluationException
      */
-    public Boolean evaluateCondition(Map context, Map attrs, String expression, DispatchContext dctx) throws EvaluationException;
+    public Boolean evaluateCondition(Map<String, Object> context, Map<String, String> attrs, String expression, DispatchContext dctx) throws EvaluationException;
 
 }

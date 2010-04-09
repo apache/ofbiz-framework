@@ -41,7 +41,7 @@ public class ServiceCondition implements TransitionCondition {
     /**
      * @see org.ofbiz.workflow.TransitionCondition#evaluateCondition(java.util.Map, java.util.Map, java.lang.String, org.ofbiz.service.DispatchContext)
      */
-    public Boolean evaluateCondition(Map context, Map attrs, String expression, DispatchContext dctx) throws EvaluationException {
+    public Boolean evaluateCondition(Map<String, Object> context, Map<String, String> attrs, String expression, DispatchContext dctx) throws EvaluationException {
         // get the service to call
         String serviceName = (String) attrs.get("serviceName");
         if (UtilValidate.isEmpty(serviceName))
@@ -53,11 +53,11 @@ public class ServiceCondition implements TransitionCondition {
             throw new EvaluationException("Bad LocalDispatcher found in the DispatchContext");
 
         // create a map of all context and extended attributes, attributes will overwrite context values
-        Map newContext = new HashMap(context);
+        Map<String, Object> newContext = new HashMap<String, Object>(context);
         newContext.putAll(attrs);
 
         // build the context for the service
-        Map serviceContext = null;
+        Map<String, Object> serviceContext = null;
         ModelService model = null;
         try {
             model = dctx.getModelService(serviceName);
@@ -67,7 +67,7 @@ public class ServiceCondition implements TransitionCondition {
         }
 
         // invoke the service
-        Map serviceResult = null;
+        Map<String, Object> serviceResult = null;
         try {
             serviceResult = dispatcher.runSync(serviceName, serviceContext);
         } catch (GenericServiceException e) {

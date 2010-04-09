@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * InvalidState Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class InvalidState extends WfException {
 
     public InvalidState() {}

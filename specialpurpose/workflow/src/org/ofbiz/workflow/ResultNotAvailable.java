@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * ResultNotAvailable Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class ResultNotAvailable extends WfException {
 
     public ResultNotAvailable() {}
