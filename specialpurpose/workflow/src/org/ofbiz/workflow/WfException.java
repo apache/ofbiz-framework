@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * WfException - Generic Workflow Exception
  */
+@SuppressWarnings("serial")
 public class WfException extends org.ofbiz.base.util.GeneralException {
 
     /**

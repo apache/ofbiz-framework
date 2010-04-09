@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * CannotChangeRequester Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class CannotChangeRequester extends WfException {
 
     public CannotChangeRequester() {}

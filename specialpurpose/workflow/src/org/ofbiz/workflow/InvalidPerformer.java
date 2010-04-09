@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * InvalidPerformer Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class InvalidPerformer extends WfException {
 
     public InvalidPerformer() {}

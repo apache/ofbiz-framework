@@ -37,14 +37,14 @@ public interface WfProcessMgr {
      * @throws WfException
      * @return
      */
-    public Iterator getIteratorProcess() throws WfException;
+    public Iterator<WfProcess> getIteratorProcess() throws WfException;
 
     /**
      * @param maxNumber
      * @throws WfException
      * @return List of WfProcess objects.
      */
-    public List getSequenceProcess(int maxNumber) throws WfException;
+    public List<WfProcess> getSequenceProcess(int maxNumber) throws WfException;
 
     /**
      * @param member
@@ -57,7 +57,7 @@ public interface WfProcessMgr {
      * @throws WfException
      * @return
      */
-    public List processMgrStateType() throws WfException;
+    public List<String> processMgrStateType() throws WfException;
 
     /**
      * @param newState
@@ -94,19 +94,19 @@ public interface WfProcessMgr {
      * @throws WfException
      * @return
      */
-    public Map contextSignature() throws WfException;
+    public Map<String, Object> contextSignature() throws WfException;
 
     /**
      * @throws WfException
      * @return
      */
-    public Map resultSignature() throws WfException;
+    public Map<String, Object> resultSignature() throws WfException;
 
     /**
     * @throws WfException
     * @return initial context based on DataFields
     */
-    public Map getInitialContext() throws WfException;
+    public Map<String, Object> getInitialContext() throws WfException;
 
     /**
      * Create a WfProcess object

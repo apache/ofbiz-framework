@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * HistoryNotAvailable Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class HistoryNotAvailable extends WfException {
 
     public HistoryNotAvailable() {}

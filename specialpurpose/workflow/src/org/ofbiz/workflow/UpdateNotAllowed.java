@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * UpdateNotAllowed Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class UpdateNotAllowed extends WfException {
 
     public UpdateNotAllowed() {}

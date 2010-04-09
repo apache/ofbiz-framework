@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * CannotResume Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class CannotResume extends WfException {
 
     public CannotResume() {}

@@ -21,6 +21,7 @@ package org.ofbiz.workflow;
 /**
  * SourceNotAvailable Workflow Exception
  */
+@SuppressWarnings("serial")
 public final class SourceNotAvailable extends WfException {
 
     public SourceNotAvailable() {}

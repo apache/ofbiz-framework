@@ -21,6 +21,7 @@ package org.ofbiz.workflow.definition;
 /**
  * Workflow Definition Parser Exception
  */
+@SuppressWarnings("serial")
 public final class DefinitionParserException extends org.ofbiz.base.util.GeneralException {
 
     public DefinitionParserException() {

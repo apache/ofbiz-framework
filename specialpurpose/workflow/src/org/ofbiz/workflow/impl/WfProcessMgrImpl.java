@@ -20,7 +20,6 @@ package org.ofbiz.workflow.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -56,11 +55,11 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     protected GenericValue processDef;
 
     protected String state; // will probably move to a runtime entity for the manager
-    protected List processList; // will probably be a related entity to the runtime entity
+    protected List<WfProcess> processList; // will probably be a related entity to the runtime entity
 
-    protected Map contextSignature = null;
-    protected Map resultSignature = null;
-    protected Map initialContext = null;
+    protected Map<String, Object> contextSignature = null;
+    protected Map<String, Object> resultSignature = null;
+    protected Map<String, Object> initialContext = null;
 
     /**
      * Method WfProcessMgrImpl.
@@ -73,13 +72,13 @@ public class WfProcessMgrImpl implements WfProcessMgr {
      */
     public WfProcessMgrImpl(Delegator delegator, String packageId, String packageVersion,
             String processId, String processVersion) throws WfException {
-        Map finder = UtilMisc.toMap("packageId", packageId, "processId", processId);
-        List order = UtilMisc.toList("-packageVersion", "-processVersion");
+        Map<String, Object> finder = UtilMisc.toMap("packageId", (Object) packageId, "processId", processId);
+        List<String> order = UtilMisc.toList("-packageVersion", "-processVersion");
 
         if (packageVersion != null) finder.put("packageVersion", packageVersion);
         if (processVersion != null) finder.put("processVersion", processVersion);
         try {
-            List processes = delegator.findByAnd("WorkflowProcess", finder, order);
+            List<GenericValue> processes = delegator.findByAnd("WorkflowProcess", finder, order);
             if (processes.size() == 0)
                 throw new WfException("No process definition found for the specified processId");
             else
@@ -90,7 +89,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
 
         buildSignatures();
         buildInitialContext();
-        processList = new ArrayList();
+        processList = new ArrayList<WfProcess>();
         state = "enabled";
         if (Debug.infoOn()) Debug.logInfo("[WfProcessMgr.init] : Create process manager (" +
                 packageId + "[" + packageVersion + "]" + " / " + processId + "[" + processVersion + "]" + ")", module);
@@ -108,9 +107,9 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#getSequenceProcess(int)
      */
-    public List getSequenceProcess(int maxNumber) throws WfException {
+    public List<WfProcess> getSequenceProcess(int maxNumber) throws WfException {
         if (maxNumber > 0)
-            return new ArrayList(processList.subList(0, maxNumber - 1));
+            return new ArrayList<WfProcess>(processList.subList(0, maxNumber - 1));
         return processList;
     }
 
@@ -141,7 +140,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#contextSignature()
      */
-    public Map contextSignature() throws WfException {
+    public Map<String, Object> contextSignature() throws WfException {
         return this.contextSignature;
     }
 
@@ -155,7 +154,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#processMgrStateType()
      */
-    public List processMgrStateType() throws WfException {
+    public List<String> processMgrStateType() throws WfException {
         String[] list = {"enabled", "disabled"};
         return Arrays.asList(list);
     }
@@ -191,7 +190,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#resultSignature()
      */
-    public Map resultSignature() throws WfException {
+    public Map<String, Object> resultSignature() throws WfException {
         return this.resultSignature;
     }
 
@@ -199,7 +198,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
      * Method getInitialContext.
      * @return Map
      */
-    public Map getInitialContext() {
+    public Map<String, Object> getInitialContext() {
         return initialContext;
     }
 
@@ -213,18 +212,18 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#getIteratorProcess()
      */
-    public Iterator getIteratorProcess() throws WfException {
+    public Iterator<WfProcess> getIteratorProcess() throws WfException {
         return processList.iterator();
     }
 
     // Constructs the context/result signatures from the formalParameters
     private void buildSignatures() throws WfException {
-        contextSignature = new HashMap();
-        resultSignature = new HashMap();
-        Collection params = null;
-
+        contextSignature = new HashMap<String, Object>();
+        resultSignature = new HashMap<String, Object>();
+        
+        List<GenericValue> params = null;
         try {
-            Map fields = new HashMap();
+            Map<String, Object> fields = new HashMap<String, Object>();
 
             fields.put("packageId", processDef.getString("packageId"));
             fields.put("packageVersion", processDef.getString("packageVersion"));
@@ -236,54 +235,52 @@ public class WfProcessMgrImpl implements WfProcessMgr {
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
-        if (params == null)
+        if (params == null) {
             return;
+        }
 
-        Iterator i = params.iterator();
-        while (i.hasNext()) {
-            GenericValue param = (GenericValue) i.next();
+        for (GenericValue param : params) {
             String name = param.getString("formalParamId");
             String mode = param.getString("modeEnumId");
             String type = param.getString("dataTypeEnumId");
 
-            if (mode.equals("WPM_IN") || mode.equals("WPM_INOUT"))
+            if (mode.equals("WPM_IN") || mode.equals("WPM_INOUT")) {
                 contextSignature.put(name, WfUtil.getJavaType(type));
-            else if (mode.equals("WPM_OUT") || mode.equals("WPM_INOUT"))
+            } else if (mode.equals("WPM_OUT") || mode.equals("WPM_INOUT")) {
                 resultSignature.put(name, WfUtil.getJavaType(type));
+            }
         }
     }
 
     private void buildInitialContext() throws WfException {
         Delegator delegator = processDef.getDelegator();
-        this.initialContext = new HashMap();
-        List dataFields = new ArrayList();
+        this.initialContext = new HashMap<String, Object>();
+        List<GenericValue> dataFields = new ArrayList<GenericValue>();
         try {
             // make fields
-            Map fields = new HashMap();
+            Map<String, Object> fields = new HashMap<String, Object>();
             fields.put("packageId", processDef.get("packageId"));
             fields.put("packageVersion", processDef.get("packageVersion"));
 
             // first get all package fields
             fields.put("processId", "_NA_");
             fields.put("processVersion", "_NA_");
-            List data1 = delegator.findByAnd("WorkflowDataField", fields);
+            List<GenericValue> data1 = delegator.findByAnd("WorkflowDataField", fields);
             dataFields.addAll(data1);
 
             // now get all process fields
             fields.put("processId", processDef.get("processId"));
             fields.put("processVersion", processDef.get("processVersion"));
-            List data2 = delegator.findByAnd("WorkflowDataField", fields);
+            List<GenericValue> data2 = delegator.findByAnd("WorkflowDataField", fields);
             dataFields.addAll(data2);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
-        if (dataFields == null)
+        if (dataFields == null) {
             return;
+        }
 
-        Iterator i = dataFields.iterator();
-
-        while (i.hasNext()) {
-            GenericValue dataField = (GenericValue) i.next();
+        for (GenericValue dataField : dataFields) {
             String name = dataField.getString("dataFieldName");
             String type = dataField.getString("dataTypeEnumId");
             String value = dataField.getString("initialValue");

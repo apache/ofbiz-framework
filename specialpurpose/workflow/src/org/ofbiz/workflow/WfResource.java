@@ -38,7 +38,7 @@ public interface WfResource {
      * @throws WfException
      * @return Iterator of work items
      */
-    public Iterator getIteratorWorkItem() throws WfException;
+    public Iterator<WfActivity> getIteratorWorkItem() throws WfException;
 
     /**
      * Gets the work items
@@ -46,7 +46,7 @@ public interface WfResource {
      * @throws WfException
      * @return List of WfAssignment objects.
      */
-    public List getSequenceWorkItem(int maxNumber) throws WfException;
+    public List<WfActivity> getSequenceWorkItem(int maxNumber) throws WfException;
 
     /**
      * Checks if an assignment object is associated with this resource

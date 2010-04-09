@@ -68,7 +68,7 @@ public class WfActivitySubFlowImplementation extends WfActivityAbstractImplement
         String actualParameters = subFlow.getString("actualParameters");
         GenericResultWaiter waiter = runService(service, actualParameters, null);
         if (type.equals("WSE_SYNCHR")) {
-            Map subResult = waiter.waitForResult();
+            Map<String, Object> subResult = waiter.waitForResult();
             this.setResult(subResult);
         }
         setComplete(true);
