@@ -2188,7 +2188,7 @@ width: 61px;
 }
 
 .calendar_date_select .cds_buttons a {
-color: #fff;
+color: white !important;
 font-size: 9px;
 background: none !important;
 display: inline !important;
