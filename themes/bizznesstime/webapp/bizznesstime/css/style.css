@@ -1500,15 +1500,16 @@ Lookups
      padding: 2px 3px 2px 3px;
      margin: 0;
      cursor: pointer;
-     height: auto;
-     width: auto;
-     background-image: none;
+     height: 16;
+     width: 16;
+     background: url(/images/fieldlookup.gif) no-repeat;     
  }
 
 /* overwrite*/
  #fieldLookupContent a{
      display: inherit;
      cursor: pointer;
+     background: url(/images/fieldlookup.gif) no-repeat;     
  }
 
 /* overwrite*/
@@ -1525,3 +1526,36 @@ Lookups
      left: 0px;
      top: 0px;
  }
+
+ 
+ /* ========================================================= */
+/* ===== Fix for lookup and calendar in layered lookups ===== */
+/* ========================================================== */
+.view-calendar ul{
+height: 22px;
+}
+
+.view-calendar ul li{
+float: left;
+}
+
+.view-calendar ul li a{
+background: url(/images/cal.gif) no-repeat!important;
+display: block;
+margin: 3px 10px 0px 4px;
+width:16px;
+height:16px;
+}
+
+.calendar_date_select .cds_header a {
+  width:22px;
+  height:20px;
+  text-decoration: none;
+  font-size:14px;
+  color: #000 !important;
+  background: none !important;
+}
+
+.calendar_date_select .cds_buttons a {
+  background: none !important; 
+}
