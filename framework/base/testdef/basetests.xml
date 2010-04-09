@@ -20,7 +20,7 @@
 <test-suite suite-name="basetests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
-    <test-case case-name="basetests">
+    <test-group case-name="basetests">
         <junit-test-suite class-name="org.ofbiz.base.lang.test.ComparableRangeTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.IndentingWriterTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.ObjectTypeTests"/>
@@ -34,5 +34,5 @@
         <junit-test-suite class-name="org.ofbiz.base.concurrent.test.DepedencyPoolTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.UtilIOTests"/>
         <junit-test-suite class-name="org.ofbiz.base.test.BaseUnitTests"/>
-    </test-case>
+    </test-group>
 </test-suite>
