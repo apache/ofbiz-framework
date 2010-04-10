@@ -44,7 +44,7 @@ under the License.
           <td><div>${version?default("??")}</div></td>
           <td align="center"><div><#if open>Y<#else>N</#if></div>
           <td align="center"><a href="<@ofbizUrl>repository?delete=${package}</@ofbizUrl>" class="buttontext">Remove</a>
-          <td align="center"><a href="<@ofbizUrl>repository?<#if open>close=${packageId}&version=${version}<#else>open=${package}</#if></@ofbizUrl>" class="buttontext"><#if open>Close<#else>Open</#if></a>
+          <td align="center"><a href="<@ofbizUrl>repository?<#if open>close=${packageId}&amp;version=${version}<#else>open=${package}</#if></@ofbizUrl>" class="buttontext"><#if open>Close<#else>Open</#if></a>
         </tr>
       </#if>
     </#list>
@@ -57,7 +57,7 @@ under the License.
 <h2>Upload XPDL</h2>
 <div>&nbsp;</div>
 <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>repository?upload=xpdl</@ofbizUrl>" name="xpdlUploadForm">
-  <input type="file" size="50" name="fname">
+  <input type="file" size="50" name="fname" />
   <div><hr></div>
-  <input type="submit" class="smallSubmit" value="Upload">
+  <input type="submit" class="smallSubmit" value="Upload" />
 </form>
