@@ -180,6 +180,8 @@ textarea {
 background-color: #ffffff;
 border: #999999 solid 0.1em;
 font-size: 1.1em;
+margin: 0.2em;
+padding: 0.1em;
 }
 
 th,th a {
