@@ -43,16 +43,16 @@ under the License.
       </#if>
       <tr>
         <form method="post" action="<@ofbizUrl>worklist</@ofbizUrl>" name="assignmentChange${formNumber}" style='margin: 0;'>
-          <input type="hidden" name="process" value="${assignm.activity().container().key()}">
-          <input type="hidden" name="activity" value="${assignm.activity().key()}">
-          <input type="hidden" name="resource" value="${assignm.assignee().resource_key()}">
-          <input type="hidden" name="mode" value="accept">
+          <input type="hidden" name="process" value="${assignm.activity().container().key()}" />
+          <input type="hidden" name="activity" value="${assignm.activity().key()}" />
+          <input type="hidden" name="resource" value="${assignm.assignee().resource_key()}" />
+          <input type="hidden" name="mode" value="accept" />
 
           <td><div>${assignm.assignee().resource_key()}</div></td>
           <td><div>${assignm.activity().name()}</div></td>
           <td><div>${assignm.activity().key()}</div></td>
           <td align="center">
-            <input type="checkbox" name="accept" onclick="javascript:document.assignmentChange${formNumber}.submit();" value="Y" <#if assignm.get_accepted_status()>checked</#if>>
+            <input type="checkbox" name="accept" onclick="javascript:document.assignmentChange${formNumber}.submit();" value="Y" <#if assignm.get_accepted_status()>checked="checked"</#if> />
           </td>
           <td align="center"><div>${assignm.activity().priority()}</div></td>
           <td><div>${assignm.activity().state()}</div></td>
@@ -62,7 +62,7 @@ under the License.
             <td align="center"><div>N/A</div></td>
           </#if>
           <#if assignm.activity().state() == "open.running">
-            <td align="center"><a href="<@ofbizUrl>worklist?mode=complete&resource=${assignm.assignee().resource_key()}&process=${assignm.activity().container().key()}&activity=${assignm.activity().key()}</@ofbizUrl>" class="buttontext">Complete</a></td>
+            <td align="center"><a href="<@ofbizUrl>worklist?mode=complete&amp;resource=${assignm.assignee().resource_key()}&amp;process=${assignm.activity().container().key()}&amp;activity=${assignm.activity().key()}</@ofbizUrl>" class="buttontext">Complete</a></td>
           <#else>
             <td>&nbsp;</td>
           </#if>
