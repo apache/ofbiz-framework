@@ -55,7 +55,7 @@
                 <sub-hyperlink target="MyTasks" description="[${uiLabelMap.CommonChange}]"/>
             </display-entity>
         </field>
-        <field name="workEffortParentId" use-when="myTask!=void&amp;&amp;parameters.get(&quot;workEffortParentId&quot;)==null" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}" event="onChange" action="javascript:document.EditTask.submit();">
+        <field name="workEffortParentId" use-when="myTask!=void&amp;&amp;parameters.get(&quot;workEffortParentId&quot;)==null" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}" event="onchange" action="javascript:document.EditTask.submit();">
                 <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
@@ -303,7 +303,7 @@
             <display-entity entity-name="WorkEffort" description="${workEffortName}[${workEffortId}]">
                 <sub-hyperlink target="MyTasks" description="[${uiLabelMap.CommonChange}]"/>
             </display-entity></field>
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" event="onChange" action="javascript:document.assignTaskToMe.submit();" use-when="parameters.get(&quot;workEffortId&quot;)==null">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" event="onchange" action="javascript:document.assignTaskToMe.submit();" use-when="parameters.get(&quot;workEffortId&quot;)==null">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}" key-field-name="workEffortId" filter-by-date="true">
                     <entity-constraint name="projectStatusId" operator="not-equals" value="PRJ_CLOSED"/>

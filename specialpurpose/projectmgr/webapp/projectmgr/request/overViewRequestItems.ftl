@@ -46,7 +46,7 @@ under the License.
         </tr>
         <tr>
             <td>
-              <a href="<@ofbizUrl>requestitem?custRequestId=${custRequestItemList.custRequestId}&custRequestItemSeqId=${custRequestItemList.custRequestItemSeqId}</@ofbizUrl>" class="linktext">${custRequestItemList.custRequestItemSeqId}</a>
+              <a href="<@ofbizUrl>requestitem?custRequestId=${custRequestItemList.custRequestId}&amp;custRequestItemSeqId=${custRequestItemList.custRequestItemSeqId}</@ofbizUrl>" class="linktext">${custRequestItemList.custRequestItemSeqId}</a>
             </td>
             <td colspan="2">
               <#if custRequestItemList.story?has_content>
@@ -102,7 +102,7 @@ under the License.
                         </#list>
                     </table>
                 </#if>
-                <a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequestItemList.custRequestId}&custRequestItemSeqId=${custRequestItemList.custRequestItemSeqId}</@ofbizUrl>" class="linktext">${uiLabelMap.OrderAddNote}</a>
+                <a href="<@ofbizUrl>requestitemnotes?custRequestId=${custRequestItemList.custRequestId}&amp;custRequestItemSeqId=${custRequestItemList.custRequestItemSeqId}</@ofbizUrl>" class="linktext">${uiLabelMap.OrderAddNote}</a>
             </td>
         </tr>
     </#if>
