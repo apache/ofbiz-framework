@@ -46,19 +46,19 @@ under the License.
     <tr><td colspan="2">&nbsp;</td></tr>
   </#if>
   <form method="post" action="<@ofbizUrl>querygcbalance</@ofbizUrl>">
-    <input type="hidden" name="currency" value="USD">
-    <input type="hidden" name="paymentConfig" value="${paymentProperties?default("payment.properties")}">
+    <input type="hidden" name="currency" value="USD" />
+    <input type="hidden" name="paymentConfig" value="${paymentProperties?default("payment.properties")}" />
     <tr>
       <td><div class="tableheadtext">${uiLabelMap.AccountingCardNumber}</div></td>
-      <td><input type="text" class="inputBox" name="cardNumber" size="20" value="${(requestParameters.cardNumber)?if_exists}"></td>
+      <td><input type="text" class="inputBox" name="cardNumber" size="20" value="${(requestParameters.cardNumber)?if_exists}" /></td>
     </tr>
     <tr>
       <td><div class="tableheadtext">${uiLabelMap.AccountingPINNumber}</div></td>
-      <td><input type="text" class="inputBox" name="pin" size="15" value="${(requestParameters.pin)?if_exists}"></td>
+      <td><input type="text" class="inputBox" name="pin" size="15" value="${(requestParameters.pin)?if_exists}" /></td>
     </tr>
     <tr><td colspan="2">&nbsp;</td></tr>
     <tr>
-      <td colspan="2" align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceCheckBalance}"></td>
+      <td colspan="2" align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceCheckBalance}" /></td>
     </tr>
   </form>
 </table>

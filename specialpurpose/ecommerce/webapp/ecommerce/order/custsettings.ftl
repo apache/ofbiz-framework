@@ -39,19 +39,19 @@ under the License.
     </span>
     <span>
       <lable for="firstName">${uiLabelMap.PartyFirstName}</label>
-      <input type="text" name="firstName" value="${parameters.firstName?if_exists}"> *
+      <input type="text" name="firstName" value="${parameters.firstName?if_exists}" /> *
     </span>
     <span>
       <lable for="middleName">${uiLabelMap.PartyMiddleInitial}</label>
-      <input type="text" name="middleName" value="${parameters.middleName?if_exists}">
+      <input type="text" name="middleName" value="${parameters.middleName?if_exists}" />
     </span>
     <span>
       <lable for="lastName">${uiLabelMap.PartyLastName}</label>
-      <input type="text" name="lastName" value="${parameters.lastName?if_exists}"> *
+      <input type="text" name="lastName" value="${parameters.lastName?if_exists}" /> *
     </span>
     <span>
       <lable for="suffix">${uiLabelMap.PartySuffix}</label>
-      <input type="text" class='inputBox' name="suffix" value="${parameters.suffix?if_exists}">
+      <input type="text" class='inputBox' name="suffix" value="${parameters.suffix?if_exists}" />
     </span>
     </div>
   </fieldset>
@@ -69,10 +69,10 @@ under the License.
     <tr>
     <th scope="row">${uiLabelMap.PartyHomePhone}</th>
     <input type="hidden" name="homePhoneContactMechId" value="${parameters.homePhoneContactMechId?if_exists}"/>
-    <td><input type="text" name="homeCountryCode" value="${parameters.homeCountryCode?if_exists}"></td>
-    <td><input type="text" name="homeAreaCode" value="${parameters.homeAreaCode?if_exists}"></td>
-    <td><input type="text" name="homeContactNumber" value="${parameters.homeContactNumber?if_exists}"></td>
-    <td><input type="text" name="homeExt" value="${parameters.homeExt?if_exists}"></td>
+    <td><input type="text" name="homeCountryCode" value="${parameters.homeCountryCode?if_exists}" /></td>
+    <td><input type="text" name="homeAreaCode" value="${parameters.homeAreaCode?if_exists}" /></td>
+    <td><input type="text" name="homeContactNumber" value="${parameters.homeContactNumber?if_exists}" /></td>
+    <td><input type="text" name="homeExt" value="${parameters.homeExt?if_exists}" /></td>
     <td>
       <select name="homeSol">
         <#if (((parameters.homeSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
@@ -86,10 +86,10 @@ under the License.
   <tr>
     <th scope="row">${uiLabelMap.PartyBusinessPhone}</th>
     <input type="hidden" name="workPhoneContactMechId" value="${parameters.workPhoneContactMechId?if_exists}"/>
-    <td><input type="text" name="workCountryCode" value="${parameters.workCountryCode?if_exists}"></td>
-    <td><input type="text" name="workAreaCode" value="${parameters.workAreaCode?if_exists}"></td>
-    <td><input type="text" name="workContactNumber" value="${parameters.workContactNumber?if_exists}"></td>
-    <td><input type="text" name="workExt" value="${parameters.workExt?if_exists}"></td>
+    <td><input type="text" name="workCountryCode" value="${parameters.workCountryCode?if_exists}" /></td>
+    <td><input type="text" name="workAreaCode" value="${parameters.workAreaCode?if_exists}" /></td>
+    <td><input type="text" name="workContactNumber" value="${parameters.workContactNumber?if_exists}" /></td>
+    <td><input type="text" name="workExt" value="${parameters.workExt?if_exists}" /></td>
     <td>
       <select name="workSol">
         <#if (((parameters.workSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>

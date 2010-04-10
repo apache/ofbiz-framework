@@ -129,26 +129,26 @@ function getPaymentInformation() {
                    <select name="paymentMethodTypeOptionList" class="selectBox"  onChange="javascript:getPaymentInformation();">
                        <option value="none">Select One</option>
                      <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
-                       <option value="CREDIT_CARD" <#if (parameters.paymentMethodTypeId?default("") == "CREDIT_CARD")> selected</#if>>${uiLabelMap.AccountingVisaMastercardAmexDiscover}</option>
+                       <option value="CREDIT_CARD" <#if (parameters.paymentMethodTypeId?default("") == "CREDIT_CARD")> selected="selected"</#if>>${uiLabelMap.AccountingVisaMastercardAmexDiscover}</option>
                      </#if>
                      <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
-                       <option value="EFT_ACCOUNT" <#if (parameters.paymentMethodTypeId?default("") == "EFT_ACCOUNT")> selected</#if>>${uiLabelMap.AccountingAHCElectronicCheck}</option>
+                       <option value="EFT_ACCOUNT" <#if (parameters.paymentMethodTypeId?default("") == "EFT_ACCOUNT")> selected="selected"</#if>>${uiLabelMap.AccountingAHCElectronicCheck}</option>
                      </#if>
                      <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE?exists>
-                       <option value="EXT_OFFLINE" <#if (parameters.paymentMethodTypeId?default("") == "EXT_OFFLINE")> selected</#if>>${uiLabelMap.OrderPaymentOfflineCheckMoney}</option>
+                       <option value="EXT_OFFLINE" <#if (parameters.paymentMethodTypeId?default("") == "EXT_OFFLINE")> selected="selected"</#if>>${uiLabelMap.OrderPaymentOfflineCheckMoney}</option>
                      </#if>
                    </select>
                  </td>
               </tr>
-              <tr><td nowrap colspan="3"><div id="paymentInfoSection"></div></td></tr>
+              <tr><td nowrap="nowrap" colspan="3"><div id="paymentInfoSection"></div></td></tr>
               <tr><td colspan="3"><hr /></td></tr>
               <#-- gift card fields -->
               <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
               <tr>
-                <td width='26%' nowrap align="right">
+                <td width='26%' nowrap="nowrap" align="right">
                   <input type="checkbox" id="addGiftCard" name="addGiftCard" value="Y" onClick="javascript:getGCInfo();"/>
                 </td>
-                <td colspan="2" nowrap><div class="tabletext">${uiLabelMap.AccountingCheckGiftCard}</div></td>
+                <td colspan="2" nowrap="nowrap"><div class="tabletext">${uiLabelMap.AccountingCheckGiftCard}</div></td>
               </tr>
               <tr><td colspan="3"><div id="giftCardSection"></div></td></tr>
               </#if>

@@ -24,9 +24,9 @@ under the License.
 <body class="ecbody">
     <form name="tellafriend" action="<@ofbizUrl>emailFriend</@ofbizUrl>" method="post">
       <#if requestParameters.productId?exists>
-        <input type="hidden" name="pageUrl" value="<@ofbizUrl fullPath="true" encode="false" secure="false">/product?product_id=${requestParameters.productId}</@ofbizUrl>">
+        <input type="hidden" name="pageUrl" value="<@ofbizUrl fullPath="true" encode="false" secure="false">/product?product_id=${requestParameters.productId}</@ofbizUrl>" />
       <#elseif requestParameters.categoryId?exists>
-        <input type="hidden" name="pageUrl" value="<@ofbizUrl fullPath="true" encode="false" secure="false">/category?category_id=${requestParameters.categoryId}</@ofbizUrl>">
+        <input type="hidden" name="pageUrl" value="<@ofbizUrl fullPath="true" encode="false" secure="false">/category?category_id=${requestParameters.categoryId}</@ofbizUrl>" />
       <#else>
         <#assign cancel = "Y">
       </#if>
@@ -34,11 +34,11 @@ under the License.
         <table>
           <tr>
             <td>${uiLabelMap.CommonYouremail}:</td>
-            <td><input type="text" name="sendFrom" size="30"></td>
+            <td><input type="text" name="sendFrom" size="30" /></td>
           </tr>
           <tr>
             <td>${uiLabelMap.CommonEmailTo}:</td>
-            <td><input type="text" name="sendTo" size="30"></td>
+            <td><input type="text" name="sendTo" size="30" /></td>
           </tr>
           <tr>
             <td colspan="2" align="center">${uiLabelMap.CommonMessage}</td>
@@ -50,7 +50,7 @@ under the License.
           </tr>
           <tr>
             <td colspan="2" align="center">
-              <input type="submit" value="${uiLabelMap.CommonSend}">
+              <input type="submit" value="${uiLabelMap.CommonSend}" />
             </td>
           </tr>
         </table>

@@ -27,7 +27,7 @@ under the License.
     <#else>
       <h1>${uiLabelMap.PageTitleEditEFTAccount}</h1>
       <form method="post" action="<@ofbizUrl>updateEftAccount?DONE_PAGE=${donePage}</@ofbizUrl>" name="editeftaccountform" style="margin: 0;">
-        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}">
+        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}" />
     </#if>
     &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancelDone}</a>
     &nbsp;<a href="javascript:document.editeftaccountform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
@@ -37,28 +37,28 @@ under the License.
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingNameOnAccount}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-        <input type="text" class="inputBox" size="30" maxlength="60" name="nameOnAccount" value="${eftAccountData.nameOnAccount?if_exists}">
+        <input type="text" class="inputBox" size="30" maxlength="60" name="nameOnAccount" value="${eftAccountData.nameOnAccount?if_exists}" />
       *</td>
     </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingCompanyNameOnAccount}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-        <input type="text" class="inputBox" size="30" maxlength="60" name="companyNameOnAccount" value="${eftAccountData.companyNameOnAccount?if_exists}">
+        <input type="text" class="inputBox" size="30" maxlength="60" name="companyNameOnAccount" value="${eftAccountData.companyNameOnAccount?if_exists}" />
       </td>
     </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingBankName}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-        <input type="text" class="inputBox" size="30" maxlength="60" name="bankName" value="${eftAccountData.bankName?if_exists}">
+        <input type="text" class="inputBox" size="30" maxlength="60" name="bankName" value="${eftAccountData.bankName?if_exists}" />
       *</td>
     </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingRoutingNumber}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-        <input type="text" class="inputBox" size="10" maxlength="30" name="routingNumber" value="${eftAccountData.routingNumber?if_exists}">
+        <input type="text" class="inputBox" size="10" maxlength="30" name="routingNumber" value="${eftAccountData.routingNumber?if_exists}" />
       *</td>
     </tr>
     <tr>
@@ -77,14 +77,14 @@ under the License.
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingAccountNumber}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-        <input type="text" class="inputBox" size="20" maxlength="40" name="accountNumber" value="${eftAccountData.accountNumber?if_exists}">
+        <input type="text" class="inputBox" size="20" maxlength="40" name="accountNumber" value="${eftAccountData.accountNumber?if_exists}" />
       *</td>
     </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonDescription}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-        <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}">
+        <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}" />
       </td>
     </tr>
 
@@ -100,7 +100,7 @@ under the License.
         <#if curPostalAddress?exists>
           <tr>
             <td align="right" valign="top" width="1%">
-              <input type="radio" name="contactMechId" value="${curContactMechId}" checked>
+              <input type="radio" name="contactMechId" value="${curContactMechId}" checked="checked" />
             </td>
             <td valign="top" width="80%">
               <div class="tabletext"><b>${uiLabelMap.PartyUseCurrentAddress}:</b></div>
@@ -146,7 +146,7 @@ under the License.
             <#assign partyContactMech = postalAddressInfo.partyContactMech>
             <tr>
               <td align="right" valign="top" width="1%">
-                <input type="radio" name="contactMechId" value="${contactMech.contactMechId}">
+                <input type="radio" name="contactMechId" value="${contactMech.contactMechId}" />
               </td>
               <td valign="top" width="80%">
                 <#list partyContactMechPurposes as partyContactMechPurpose>

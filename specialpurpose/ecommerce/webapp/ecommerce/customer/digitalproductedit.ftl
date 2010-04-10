@@ -31,14 +31,14 @@ under the License.
     <#if !supplierProduct?exists>
       <h1>${uiLabelMap.EcommerceAddNewDigitalProduct}</h1>
       <form method="post" action="<@ofbizUrl>createCustomerDigitalDownloadProduct</@ofbizUrl>" name="editdigitaluploadform" style="margin: 0;">
-        <input type="hidden" name="productStoreId" value="${productStore.productStoreId}">
+        <input type="hidden" name="productStoreId" value="${productStore.productStoreId}" />
     <#else>
       <h1>${uiLabelMap.EcommerceUpdateDigitalProduct}</h1>
       <form method="post" action="<@ofbizUrl>updateCustomerDigitalDownloadProduct</@ofbizUrl>" name="editdigitaluploadform" style="margin: 0;">
-        <input type="hidden" name="productId" value="${parameters.productId}">
-        <input type="hidden" name="currencyUomId" value="${parameters.currencyUomId}">
-        <input type="hidden" name="minimumOrderQuantity" value="${parameters.minimumOrderQuantity}">
-        <input type="hidden" name="availableFromDate" value="${parameters.availableFromDate}">
+        <input type="hidden" name="productId" value="${parameters.productId}" />
+        <input type="hidden" name="currencyUomId" value="${parameters.currencyUomId}" />
+        <input type="hidden" name="minimumOrderQuantity" value="${parameters.minimumOrderQuantity}" />
+        <input type="hidden" name="availableFromDate" value="${parameters.availableFromDate}" />
     </#if>
     &nbsp;<a href="<@ofbizUrl>digitalproductlist</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonBackToList}</a>
 
@@ -86,10 +86,10 @@ under the License.
         <div class="tableheadtext">${uiLabelMap.EcommerceDigitalAddFromMyFiles}</div>
         <div>
         <form method="post" action="<@ofbizUrl>addCustomerDigitalDownloadProductFile</@ofbizUrl>" name="adddigitaluploadfile" style="margin: 0;">
-          <input type="hidden" name="productId" value="${parameters.productId}">
-          <input type="hidden" name="currencyUomId" value="${parameters.currencyUomId}">
-          <input type="hidden" name="minimumOrderQuantity" value="${parameters.minimumOrderQuantity}">
-          <input type="hidden" name="availableFromDate" value="${parameters.availableFromDate}">
+          <input type="hidden" name="productId" value="${parameters.productId}" />
+          <input type="hidden" name="currencyUomId" value="${parameters.currencyUomId}" />
+          <input type="hidden" name="minimumOrderQuantity" value="${parameters.minimumOrderQuantity}" />
+          <input type="hidden" name="availableFromDate" value="${parameters.availableFromDate}" />
           <select name="contentId" class="selectBox">
             <#list ownerContentAndRoleList as ownerContentAndRole>
               <option value="${ownerContentAndRole.contentId}">${ownerContentAndRole.contentName}</option>
