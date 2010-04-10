@@ -21,8 +21,8 @@ under the License.
         <title>${uiLabelMap.WebtoolsEntityReferenceChart}</title>
     </head>
     <frameset cols="30%,70%">
-        <frame src="${encodeUrlList}" name="entityListFrame">
-        <frame src="${encodeUrlMain}" name="entityFrame">
+        <frame src="${encodeUrlList}" name="entityListFrame"/>
+        <frame src="${encodeUrlMain}" name="entityFrame"/>
     </frameset>
     <noframes>
         <h2>${uiLabelMap.CommonFrameAlert1}</h2>

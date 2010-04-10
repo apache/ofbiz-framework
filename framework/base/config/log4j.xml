@@ -61,7 +61,7 @@
         <param name="File" value="runtime/logs/ofbiz.html"/>
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="&lt;div class=%p&gt;%d (%t) [%24F:%-3L:%-5p]%x %m &lt;/div&gt;%n"/>
+            <param name="ConversionPattern" value="&lt;div class=&quot;%p&quot;&gt;%d (%t) [%24F:%-3L:%-5p]%x %m &lt;/div&gt;%n"/>
         </layout>
     </appender>
 

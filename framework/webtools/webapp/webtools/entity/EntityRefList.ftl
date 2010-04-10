@@ -24,7 +24,7 @@ under the License.
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>${uiLabelMap.WebtoolsEntityReference}</title>
-        <style>
+        <style type="text/css">
            body, textarea, input, select {font-family: Helvetica, sans-serif; background-color: #ffffff; text-decoration: none;}
           .section-header {font-size: 10pt; font-weight: bold; color: #000000; padding-bottom: 10;}
           .listtext {font-size: 10pt; font-weight: bold; color: blue;}
@@ -35,19 +35,19 @@ under the License.
     <body>
         <div class='listtext'>
             <#if !forstatic>
-                <a href="<@ofbizUrl>main</@ofbizUrl>" target='main'>${uiLabelMap.WebtoolsPopupWebToolsMain}</A><BR>
-                <a href="<@ofbizUrl>view/entityref_main</@ofbizUrl>" target="entityFrame">${uiLabelMap.WebtoolsEntityReferenceMainPage}</A><BR>
-                <a href="<@ofbizUrl>view/checkdb</@ofbizUrl>" target="entityFrame">${uiLabelMap.WebtoolsCheckUpdateDatabase}</A>
+                <a href="<@ofbizUrl>main</@ofbizUrl>" target='main'>${uiLabelMap.WebtoolsPopupWebToolsMain}</a><br/>
+                <a href="<@ofbizUrl>view/entityref_main</@ofbizUrl>" target="entityFrame">${uiLabelMap.WebtoolsEntityReferenceMainPage}</a><br/>
+                <a href="<@ofbizUrl>view/checkdb</@ofbizUrl>" target="entityFrame">${uiLabelMap.WebtoolsCheckUpdateDatabase}</a>
                 <hr />
                 <#-- want to leave these out because they are only working so-so, and cause people more problems that they solve, IMHO
-                <a href="<@ofbizUrl>ModelWriter</@ofbizUrl>" target='_blank'>Generate Entity Model XML (all in one)</A><BR>
-                <a href="<@ofbizUrl>ModelWriter?savetofile=true</@ofbizUrl>" target='_blank'>Save Entity Model XML to Files</A><BR>
+                <a href="<@ofbizUrl>ModelWriter</@ofbizUrl>" target='_blank'>Generate Entity Model XML (all in one)</a><br/>
+                <a href="<@ofbizUrl>ModelWriter?savetofile=true</@ofbizUrl>" target='_blank'>Save Entity Model XML to Files</a><br/>
                 -->
                 <#-- this is not working now anyway...
-                <a href="<@ofbizUrl>ModelGroupWriter</@ofbizUrl>" target='_blank'>Generate Entity Group XML</A><BR>
-                <a href="<@ofbizUrl>ModelGroupWriter?savetofile=true</@ofbizUrl>" target='_blank'>Save Entity Group XML to File</A><BR>
+                <a href="<@ofbizUrl>ModelGroupWriter</@ofbizUrl>" target='_blank'>Generate Entity Group XML</a><br/>
+                <a href="<@ofbizUrl>ModelGroupWriter?savetofile=true</@ofbizUrl>" target='_blank'>Save Entity Group XML to File</a><br/>
                 -->
-                <a href="<@ofbizUrl>view/ModelInduceFromDb</@ofbizUrl>" target='_blank'>${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}</A><BR>
+                <a href="<@ofbizUrl>view/ModelInduceFromDb</@ofbizUrl>" target='_blank'>${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}</a><br/>
             </#if>
             <#if packageNames?has_content>
                 <hr />

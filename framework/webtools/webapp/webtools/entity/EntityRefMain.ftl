@@ -28,7 +28,7 @@ under the License.
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>${uiLabelMap.WebtoolsEntityReference}</title>
-        <style>
+        <style type="text/css">
            body, textarea, input, select {font-family: Helvetica, sans-serif; background-color: #ffffff;}
           .packagetext {font-size: 18pt; font-weight: bold; text-align: center}
           .toptext {font-size: 16pt; font-weight: bold; text-align: center}
@@ -173,6 +173,6 @@ under the License.
         <div align="center">
             <br /><br />
               ${uiLabelMap.WebtoolsEntityDisplayed}: ${numberShowed}
-          <div>
+        </div>
     </body>
 </html>
