@@ -22,7 +22,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EbayStoreList" type="single" list-name="ebayStoreList"  target="getStoreDetail"
+    <form name="EbayStoreList" type="single" list-name="ebayStoreList"  target="ebayAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productStoreId" title="${uiLabelMap.ProductProductStore}" >
             <drop-down current="selected" >
@@ -31,7 +31,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         </field>
         <field name="submitButton" ><submit button-type="button"/></field>
     </form>
-    <form name="EbayAccountSelection" type="single" list-name="ebayAccountList"  target="getStoreDetail"
+    <form name="EbayAccountSelection" type="single" list-name="ebayAccountList"  target="ebayAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/StoreAccount.groovy"/>
@@ -42,7 +42,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
             </drop-down>
         </field>
     </form>
-    <form name="EbayAccountList" type="single" list-name="ebayAccountList"  target="getStoreDetail"
+    <form name="EbayAccountList" type="single" list-name="ebayAccountList"  target="ebayAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/StoreAccount.groovy"/>
