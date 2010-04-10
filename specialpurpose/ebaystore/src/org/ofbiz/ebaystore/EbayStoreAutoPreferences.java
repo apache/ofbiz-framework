@@ -41,7 +41,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -209,7 +208,6 @@ public class EbayStoreAutoPreferences {
     public static String autoPrefLeaveFeedbackOptions(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
         Map paramMap = UtilHttp.getCombinedMap(request);
@@ -232,7 +230,7 @@ public class EbayStoreAutoPreferences {
             GenericValue ebayProductStorePref = null;
             String comments = null;
             String autoPrefJobId = null;
-
+            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
             if ("Y".equals(isAutoPositiveFeedback)) {
                 if ("PAYMENT_RECEIVED".equals(feedbackEventCode)) {
                     condition = AutomatedLeaveFeedbackEventCodeType.PAYMENT_RECEIVED.toString();
@@ -291,7 +289,7 @@ public class EbayStoreAutoPreferences {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
         if (UtilValidate.isEmpty(context.get("productStoreId")) && UtilValidate.isEmpty(context.get("jobId"))) {
             return ServiceUtil.returnFailure("Required productStoreId for get api context to connect with ebay site.");
         }
@@ -734,11 +732,11 @@ public class EbayStoreAutoPreferences {
     public static Map<String, Object> runCombineOrders(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String productStoreId = (String) context.get("productStoreId");
         try {
+            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             GetSellingManagerSoldListingsCall sellingManagerSoldListings = new GetSellingManagerSoldListingsCall(apiContext);
             SellingManagerSoldOrderType[] sellingManagerSoldOrders = sellingManagerSoldListings.getSellingManagerSoldListings();
@@ -920,11 +918,11 @@ public class EbayStoreAutoPreferences {
     public static Map<String, Object> autoSendWinningBuyerNotification(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String productStoreId = (String) context.get("productStoreId");
         try {
+            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
             Map<String, Object> resultSold =  dispatcher.runSync("getEbaySoldItems", UtilMisc.toMap("productStoreId", productStoreId, "userLogin", userLogin));
             List soldItems = (List) resultSold.get("soldItems");
             if (soldItems.size() != 0) {
@@ -990,12 +988,13 @@ public class EbayStoreAutoPreferences {
     public static Map<String, Object> autoSendItemDispatchedNotification(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String productStoreId = (String) context.get("productStoreId");
 
         try {
+            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
+            context.put("userLogin", userLogin);
             Map<String, Object> resultSold =  dispatcher.runSync("getEbaySoldItems", context);
             List soldItems = (List) resultSold.get("soldItems");
             if (soldItems.size() != 0) {
