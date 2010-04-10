@@ -51,7 +51,7 @@ under the License.
                           <span>Username&nbsp;</span>
                         </td>
                         <td>
-                          <input type="text" name="USERNAME" value="${username}" size="20">
+                          <input type="text" name="USERNAME" value="${username}" size="20" />
                         </td>
                       </tr>
                       <tr>
@@ -59,13 +59,13 @@ under the License.
                           <span>Password&nbsp;</span>
                         </td>
                         <td>
-                          <input type="password" name="PASSWORD" value="" size="20">
+                          <input type="password" name="PASSWORD" value="" size="20" />
                         </td>
                       </tr>
                       <tr>
                         <td colspan="2" align="center">
                           <!--<a href="javascript:document.loginform.submit()" class="buttontext">[Login]</a>-->
-                          <input type="submit" value="Login" class="loginButton">
+                          <input type="submit" value="Login" class="loginButton" />
                         </td>
                       </tr>
                     </table>
