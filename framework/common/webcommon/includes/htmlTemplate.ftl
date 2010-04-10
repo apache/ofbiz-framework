@@ -31,7 +31,7 @@ under the License.
     </#if>
     <#if (!ajaxUrl?has_content)>
         <#local ajaxUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, fieldFormName)/>
-        <#local ajaxUrl = id + "," + ajaxUrl + ",ajaxLookup=Y&searchValueField=" + name />
+        <#local ajaxUrl = id + "," + ajaxUrl + ",ajaxLookup=Y&amp;searchValueField=" + name />
     </#if>
     <@renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName fieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText />
 </#macro>

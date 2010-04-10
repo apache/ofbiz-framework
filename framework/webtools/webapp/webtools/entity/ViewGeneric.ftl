@@ -132,10 +132,10 @@ function ShowTab(lname) {
                         <td>
                           <#if field.fieldType == 'DateTime'>
                             DateTime(YYYY-MM-DD HH:mm:SS.sss):<input type="text" name="${field.name}" size="24" value="${field.value}" />
-                            <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'></a>
+                            <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' /></a>
                           <#elseif field.fieldType == 'Date'>
                             Date(YYYY-MM-DD):<input type="text" name="${field.name}" size="11" value="${field.value}" />
-                            <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'></a>
+                            <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' /></a>
                           <#elseif field.fieldType == 'Time'>
                             Time(HH:mm:SS.sss):<input type="text" size="6" maxlength="10" name="${field.name}" value="${field.value}" />
                           <#elseif field.fieldType == 'Integer'>
@@ -174,10 +174,10 @@ function ShowTab(lname) {
                       <td>
                         <#if field.fieldType == 'DateTime'>
                           DateTime(YYYY-MM-DD HH:mm:SS.sss):<input type="text" name="${field.name}" size="24" value="${field.value}" />
-                          <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'></a>
+                          <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' /></a>
                         <#elseif field.fieldType == 'Date'>
                           Date(YYYY-MM-DD):<input type="text" name="${field.name}" size="11" value="${field.value}" />
-                          <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'></a>
+                          <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' /></a>
                         <#elseif field.fieldType == 'Time'>
                           Time(HH:mm:SS.sss):<input type="text" size="6" maxlength="10" name="${field.name}" value="${field.value}" />
                         <#elseif field.fieldType == 'Integer'>

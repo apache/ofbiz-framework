@@ -93,7 +93,7 @@ under the License.
             <b>${uiLabelMap.WebtoolsLabelManagerWarningMessage} (${duplicatedLocalesLabels})</b>
             <br />
             <#list duplicatedLocalesLabelsList as duplicatedLocalesLabel>
-                <br>${duplicatedLocalesLabel.labelKey}
+                <br/>${duplicatedLocalesLabel.labelKey}
             </#list>
             <br /><br />${uiLabelMap.WebtoolsLabelManagerClearCacheAfterFixingDuplicateLabels}
           <#else>
