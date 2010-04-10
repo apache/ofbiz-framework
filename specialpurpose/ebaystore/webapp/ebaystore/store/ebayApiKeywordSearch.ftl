@@ -48,7 +48,7 @@ under the License.
   </div>
   <div class="screenlet-body">
     <form id="productSearchform" method="post" action="<@ofbizUrl>productsearch</@ofbizUrl>" style="margin: 0;">
-    <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}">
+    <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}" />
       <fieldset>
         <input type="hidden" name="VIEW_SIZE" value="25"/>
         <input type="hidden" name="PAGING" value="Y"/>

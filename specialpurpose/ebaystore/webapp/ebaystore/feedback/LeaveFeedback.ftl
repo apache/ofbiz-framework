@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if results.itemsAwaitingFeedback?has_content>
-<script>
+<script type="text/javascript">
     var active = "";
     function overStar(obj){
         if(obj.src.match("starActive")){
@@ -84,7 +84,7 @@ under the License.
                     <tr class="${row}" style="border:#eeeeee solid thin">
                         <td valign="top">
                         ${leaveFeedback.itemID} - ${leaveFeedback.title}
-                        <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&transId=${leaveFeedback.transactionID}&ssPageName=STRK:MESOX:VPS&itemid=${leaveFeedback.itemID}">order details</a>
+                        <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&amp;transId=${leaveFeedback.transactionID}&amp;ssPageName=STRK:MESOX:VPS&amp;itemid=${leaveFeedback.itemID}">order details</a>
                         </td>
                         <td>
                             <input type="radio" name="commentType${feedbackCounter}" value="positive" 
@@ -115,7 +115,7 @@ under the License.
                     <tr class="${row}"  style="border:#eeeeee solid thin">
                         <td valign="top">
                         ${leaveFeedback.itemID} - ${leaveFeedback.title}
-                        <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&transId=${leaveFeedback.transactionID}&ssPageName=STRK:MESOX:VPS&itemid=${leaveFeedback.itemID}">order details</a>
+                        <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&amp;transId=${leaveFeedback.transactionID}&amp;ssPageName=STRK:MESOX:VPS&amp;itemid=${leaveFeedback.itemID}">order details</a>
                         </td>
                         <td>
                         <input type="radio" name="commentType${feedbackCounter}" value="positive" 
@@ -150,27 +150,27 @@ under the License.
                                         <table class="answers" width="100%" border="0" cellpadding="0" cellspacing="0">
                                             <tbody>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio">
+                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio" />
                                                     </td><td>Item was not received</td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio"></td>
+                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio" /></td>
                                                     <td>Quality did not match item description</td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio"></td>
+                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio" /></td>
                                                     <td>Item was damaged</td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio"></td>
+                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio" /></td>
                                                     <td>Item was a counterfeit, replica, or an unauthorized copy</td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio"></td>
+                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio" /></td>
                                                     <td>Wrong item</td>
                                                 </tr>
                                                 <tr>
-                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked"></td>
+                                                    <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked" /></td>
                                                     <td>Other</td>
                                                 </tr>
                                             </tbody>
@@ -241,7 +241,7 @@ under the License.
                 <tr class="${row}" style="border:#eeeeee solid thin">
                     <td valign="top">
                     ${leaveFeedback.itemID}]${leaveFeedback.title}
-                    <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&transId=${leaveFeedback.transactionID}&ssPageName=STRK:MESOX:VPS&itemid=${leaveFeedback.itemID}">order details</a>
+                    <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&amp;transId=${leaveFeedback.transactionID}&amp;ssPageName=STRK:MESOX:VPS&amp;itemid=${leaveFeedback.itemID}">order details</a>
                     </td>
                     <td>
                         <input type="radio" name="commentType${feedbackCounter}" value="positive" 
@@ -274,7 +274,7 @@ under the License.
                 <tr class="${row}"  style="border:#eeeeee solid thin">
                     <td valign="top">
                     ${leaveFeedback.itemID} - ${leaveFeedback.title}
-                    <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&transId=${leaveFeedback.transactionID}&ssPageName=STRK:MESOX:VPS&itemid=${leaveFeedback.itemID}">order details</a>
+                    <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&amp;transId=${leaveFeedback.transactionID}&amp;ssPageName=STRK:MESOX:VPS&amp;itemid=${leaveFeedback.itemID}">order details</a>
                     </td>
                     <td>
                     <input type="radio" name="commentType${feedbackCounter}" value="positive" 
@@ -309,27 +309,27 @@ under the License.
                                     <table class="answers" width="100%" border="0" cellpadding="0" cellspacing="0">
                                         <tbody>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio">
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio" />
                                                 </td><td>Item was not received</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio"></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio" /></td>
                                                 <td>Quality did not match item description</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio"></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio" /></td>
                                                 <td>Item was damaged</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio"></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio" /></td>
                                                 <td>Item was a counterfeit, replica, or an unauthorized copy</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio"></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio" /></td>
                                                 <td>Wrong item</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked"></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked" /></td>
                                                 <td>Other</td>
                                             </tr>
                                         </tbody>
@@ -398,7 +398,7 @@ under the License.
             <tr class="${row}">
                 <td>
                 ${leaveFeedback.itemID} - ${leaveFeedback.title}
-                <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&transId=${leaveFeedback.transactionID}&ssPageName=STRK:MESOX:VPS&itemid=${leaveFeedback.itemID}">order details</a>
+                <a target="_blank" href="http://payments.sandbox.ebay.com/ws/eBayISAPI.dll?ViewPaymentStatus&amp;transId=${leaveFeedback.transactionID}&amp;ssPageName=STRK:MESOX:VPS&amp;itemid=${leaveFeedback.itemID}">order details</a>
                 </td>
                 <td>
                 <#if leaveFeedback.role == "seller">
@@ -441,27 +441,27 @@ under the License.
                                     <table class="answers" width="100%" border="0" cellpadding="0" cellspacing="0">
                                         <tbody>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio">
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="5" type="radio" />
                                                 </td><td>Item was not received</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio"></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="6" type="radio" /></td>
                                                 <td>Quality did not match item description</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio"></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="2" type="radio" /></td>
                                                 <td>Item was damaged</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio"></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="1" type="radio" /></td>
                                                 <td>Item was a counterfeit, replica, or an unauthorized copy</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio"/></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="3" type="radio" /></td>
                                                 <td>Wrong item</td>
                                             </tr>
                                             <tr>
-                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio"  checked="checked"></td>
+                                                <td width="25"><input name="AqItemAsDescribedId${feedbackCounter}" value="4" type="radio" checked="checked" /></td>
                                                 <td>Other</td>
                                             </tr>
                                         </tbody>

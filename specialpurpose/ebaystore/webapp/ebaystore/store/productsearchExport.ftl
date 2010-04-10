@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 
 -->
-<style>
+<style type="text/css">
     #tabs{
         margin-left: 4px;
         padding: 0;
@@ -71,7 +71,7 @@ under the License.
         if (cateId.indexOf(':')!= -1) {
             cateId = cateId.substring(0,cateId.indexOf(':'));
         }
-        var pars = 'ebayCategoryId='+cateId+'&productStoreId='+productStoreId; 
+        var pars = 'ebayCategoryId='+cateId+'&amp;productStoreId='+productStoreId; 
         var myAjax = new Ajax.Request( url, {
         method: 'get', 
         parameters: pars,
@@ -99,7 +99,7 @@ under the License.
     }
 
      function retrieveTemplateByTemGroupId(templateGroupId,productStoreId,pkCategoryId){
-        var pars = 'templateGroupId='+templateGroupId+'&productStoreId='+productStoreId+'&pkCategoryId='+pkCategoryId; 
+        var pars = 'templateGroupId='+templateGroupId+'&amp;productStoreId='+productStoreId+'&amp;pkCategoryId='+pkCategoryId; 
         var url = '<@ofbizUrl>ebayAdItemTemplate</@ofbizUrl>';
         var myAjax = new Ajax.Request( url, {
         method: 'get', 
@@ -480,7 +480,7 @@ under the License.
                                                 <table align="left" width="60%"  height="100%" cellspacing="0">
                                                     <tr>
                                                         <td></td>
-                                                        <td><input type="checkbox" value="Y" onClick="javascript:enabledItemTemplate(this.value);" id="enabledTheme" name="enabledTheme"><b>Add a theme</b></checkbox></td>
+                                                        <td><input type="checkbox" value="Y" onClick="javascript:enabledItemTemplate(this.value);" id="enabledTheme" name="enabledTheme" /><b>Add a theme</b></checkbox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="label">Select Theme</td>
@@ -559,10 +559,10 @@ under the License.
                                                         <td>
                                                             <#if listingType.type?if_exists.equals("Chinese")>
                                                                 <input type="radio" name="listype" value="auction"/><b>${tabName?if_exists}</b>
-                                                                <#--<input type="checkbox" value="Y" name="enabledAuction_${id}"><b>${tabName?if_exists}</b></checkbox-->
+                                                                <#--<input type="checkbox" value="Y" name="enabledAuction_${id}" /><b>${tabName?if_exists}</b></checkbox-->
                                                             <#elseif listingType.type?if_exists == "FixedPriceItem">
                                                                 <input type="radio" name="listype" value="fixedprice"/><b>${tabName?if_exists}</b>
-                                                                <#--input type="checkbox" value="Y" name="enabledFixedPrice_${id}"><b>${tabName?if_exists}</b></checkbox-->
+                                                                <#--input type="checkbox" value="Y" name="enabledFixedPrice_${id}" /><b>${tabName?if_exists}</b></checkbox-->
                                                             </#if>
                                                         </td>
                                                         <td class="label">Duration</td>
@@ -615,13 +615,13 @@ under the License.
                                                             <td class="label">Start Price</td>
                                                             <td><input type="text" size="6" name="startPrice_${id}" value="${min?if_exists}" />${currencyUomId?if_exists}</td>
                                                             <td class="label">BIN Price</td>
-                                                            <td><input type="text"  size="6" name="buyItNowPrice_${id}" value="${max?if_exists}" <#if listingType.type?if_exists.equals("FixedPriceItem") >disabled</#if> />${currencyUomId?if_exists}</td>
+                                                            <td><input type="text"  size="6" name="buyItNowPrice_${id}" value="${max?if_exists}" <#if listingType.type?if_exists.equals("FixedPriceItem") >disabled="disabled"</#if> />${currencyUomId?if_exists}</td>
                                                         </#if>
                                                     </tr>
                                                     <#if !listingType.type?if_exists.equals("FixedPriceItem") >
                                                     <tr>
                                                         <td class="label">Reserve Price</td>
-                                                        <td><input type="text" size="6" name="reservePrice_${id}" <#if listingType.type?if_exists.equals("FixedPriceItem") >disabled</#if> />${currencyUomId?if_exists}</td>
+                                                        <td><input type="text" size="6" name="reservePrice_${id}" <#if listingType.type?if_exists.equals("FixedPriceItem") >disabled="disabled"</#if> />${currencyUomId?if_exists}</td>
                                                         <td class="label"></td>
                                                         <td></td>
                                                     </tr>
@@ -677,7 +677,7 @@ under the License.
                                                                         <#if paymentMethod.compareTo(buyerPayMethCode_PAY_PAL?if_exists) == 0 >
                                                                                 <#assign is_payPal = true>
                                                                         </#if>
-                                                                        <td valign="top"><input type="checkbox" value="true" name="Payments_${paymentMethod.value()?if_exists}"></td>
+                                                                        <td valign="top"><input type="checkbox" value="true" name="Payments_${paymentMethod.value()?if_exists}" /></td>
                                                                         <td align="left"><b>${paymentMethod.value()?if_exists}</b></td>
                                                                         <#if j == 3>
                                                                              </tr>
@@ -752,7 +752,7 @@ under the License.
                                                     <#list shippingLocationDetails as shippingLocationDetail>
                                                         <#assign shippingLocation = shippingLocationDetail.getShippingLocation()?if_exists>
                                                         <#if j==0><tr></#if>
-                                                          <td vAlign="top"><input type="checkbox" value="true" name="Shipping_${shippingLocation?if_exists}"></td>
+                                                          <td valign="top"><input type="checkbox" value="true" name="Shipping_${shippingLocation?if_exists}" /></td>
                                                           <td align="left"><b>${shippingLocationDetail.getDescription()?if_exists}</b></td>
                                                         <#if j==3></tr><#assign j=0><#else><#assign j=j+1></#if>
                                                     </#list>

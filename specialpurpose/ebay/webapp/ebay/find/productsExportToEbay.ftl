@@ -40,7 +40,7 @@ under the License.
 </script>
 <div>
     <form id="ProductsExportToEbay" method="post" action="<@ofbizUrl>PostProductsToEbay</@ofbizUrl>" name="ProductsExportToEbay">
-        <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}">
+        <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
         <table border="0" cellpadding="2" cellspacing="0">
              <tr>
                 <td align="right" class="label">${uiLabelMap.FormFieldTitle_ebayCategory}</td>
@@ -184,7 +184,7 @@ under the License.
             <tr>
                 <td colspan=2>&nbsp;</td>
                 <td>
-                    <input type="submit" value="${uiLabelMap.EbayExportToEbay}" name="submitButton" class="smallSubmit">
+                    <input type="submit" value="${uiLabelMap.EbayExportToEbay}" name="submitButton" class="smallSubmit" />
                 </td>
             </tr>
             </#if>

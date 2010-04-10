@@ -26,7 +26,7 @@ under the License.
         }
     }
     function retrieveThemeColorSchemeByThemeId(url,themeId,productStoreId){
-    var pars = 'themeId='+themeId+'&productStoreId='+productStoreId; 
+    var pars = 'themeId='+themeId+'&amp;productStoreId='+productStoreId; 
     var myAjax = new Ajax.Request( url, {
         method: 'get', 
         parameters: pars, 
@@ -136,7 +136,7 @@ under the License.
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreName} :</td>
               <td valign="middle">
                     <input type="text" name="storeName" value="${ebayStore.storeName?if_exists}" onKeyDown="countAreaChars(document.StoreSettingForm.storeName,35,document.getElementById('charsleft1'));"
-                    onKeyUp="countAreaChars(document.StoreSettingForm.storeName,35,document.getElementById('charsleft1'));">
+                    onKeyUp="countAreaChars(document.StoreSettingForm.storeName,35,document.getElementById('charsleft1'));" />
                     <div id="charsleft1"></div>
               </td>
             </tr>
@@ -165,8 +165,8 @@ under the License.
               <td class="label" align="right" valign="middle"></td>
               <td valign="middle">
                    <div onClick="javascript:switchTheme();">
-                   <input type="radio" name="storeThemeType" <#if themeType?if_exists == "Basic">checked</#if> value="Basic" default> Basic Theme
-                   <input type="radio"  name="storeThemeType" <#if themeType?if_exists == "Advanced">checked</#if> value="Advanced"> Advanced Theme
+                   <input type="radio" name="storeThemeType" <#if themeType?if_exists == "Basic">checked="checked"</#if> value="Basic" default="default" /> Basic Theme
+                   <input type="radio"  name="storeThemeType" <#if themeType?if_exists == "Advanced">checked="checked"</#if> value="Advanced" /> Advanced Theme
                    </div>
               </td>
             </tr>
@@ -443,7 +443,7 @@ under the License.
             <tr>
               <td class="label" align="right" valign="middle"></td>
               <td valign="middle">
-                    <input type="submit" value="${uiLabelMap.CommonSubmit}" name="submitButton" class="smallSubmit">
+                    <input type="submit" value="${uiLabelMap.CommonSubmit}" name="submitButton" class="smallSubmit" />
               </td>
             </tr>
        </table>
