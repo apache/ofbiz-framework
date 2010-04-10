@@ -172,7 +172,7 @@
         <value xml:lang="en">Marketing Campaign</value>
         <value xml:lang="es">Campañas</value>
         <value xml:lang="fr">Campagne marketing</value>
-        <value xml:lang="it">Campagna Vendita</value>
+        <value xml:lang="it">Campagna di vendita</value>
         <value xml:lang="nl">Marketing campagne</value>
         <value xml:lang="pt_BR">Campanha de Marketing</value>
         <value xml:lang="ro">Campania Vanzare</value>
@@ -242,7 +242,7 @@
         <value xml:lang="en">Create Marketing Campaign Role</value>
         <value xml:lang="es">Crear rol de campaña de marketing</value>
         <value xml:lang="fr">Créer le rôle de la campagne marketing</value>
-        <value xml:lang="it">Creare Ruolo Campagna Vendita</value>
+        <value xml:lang="it">Nuovo ruolo campagna di vendita</value>
         <value xml:lang="nl">Nieuwe Campagne Rol</value>
         <value xml:lang="pt_BR">Criar papel de campanha de marketig</value>
         <value xml:lang="ro">Creare Rol Campanie Vanzare</value>
@@ -1515,7 +1515,7 @@
         <value xml:lang="en">Edit Marketing Campaign</value>
         <value xml:lang="es">Editar campaña de marketing</value>
         <value xml:lang="fr">Modifier la campagne marketing</value>
-        <value xml:lang="it">Aggiorna Campagna Vendita</value>
+        <value xml:lang="it">Aggiorna campagna di vendita</value>
         <value xml:lang="pt_BR">Editar Campanha de Marketing</value>
         <value xml:lang="ro">Editeaza Campania Vanzare</value>
         <value xml:lang="th">แก้ไขแผนการตลาด</value>
@@ -1764,7 +1764,7 @@
         <value xml:lang="en">List Marketing Campaign Role</value>
         <value xml:lang="es">Mostrar roles de campaña</value>
         <value xml:lang="fr">Liste des rôles de la campagne marketing</value>
-        <value xml:lang="it">Lista Ruoli Campagne Vendita</value>
+        <value xml:lang="it">Lista ruoli campagna di vendita</value>
         <value xml:lang="pt_BR">Listar papéis de Campanha de Marketing</value>
         <value xml:lang="ro">Lista Rol Campanie Vanzare</value>
         <value xml:lang="th">รายการสถานะแผนการตลาด</value>
