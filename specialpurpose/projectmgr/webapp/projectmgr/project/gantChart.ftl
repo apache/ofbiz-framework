@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<#-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
 <#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -19,7 +19,7 @@ under the License.
 -->
 
 <div style="position:relative" class="gantt" id="GanttChartDIV"></div>
-<script language="javascript">
+<script type="text/javascript" language="javascript">
 var g = new JSGantt.GanttChart('g',document.getElementById('GanttChartDIV'), 'day');
 
 g.setShowRes(1); // Show/Hide Responsible (0/1)

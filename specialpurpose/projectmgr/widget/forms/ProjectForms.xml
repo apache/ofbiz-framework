@@ -610,12 +610,12 @@
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="partyId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- project level -->
+        <field name="partyId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" event="onchange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- project level -->
             <drop-down  allow-empty="true" current="selected">
                 <list-options list-name="projectResources" key-name="partyId" description="${lastName} ${firstName} ${middleName} ${groupName}"/>
             </drop-down>
         </field>
-        <field name="partyId" use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- task level -->
+        <field name="partyId" use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" event="onchange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- task level -->
             <drop-down  allow-empty="true" current="selected">
                 <list-options list-name="taskResources" key-name="partyId" description="${lastName} ${firstName} ${middleName} ${groupName}"/>
             </drop-down>

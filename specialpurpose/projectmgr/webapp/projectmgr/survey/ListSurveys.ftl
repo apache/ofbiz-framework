@@ -44,15 +44,15 @@ under the License.
                   <td><a href="/content/control/EditSurvey?surveyId=${workEffortSurveyAppl.surveyId?if_exists}" class="buttontext">${workEffortSurveyAppl.surveyId?if_exists} - ${survey.surveyName?if_exists}</a></td>
                   <td>${workEffortSurveyAppl.fromDate?if_exists}</td>
                   <td>
-                    <input type="text" size="20" name="thruDate" value="${(workEffortSurveyAppl.thruDate)?if_exists}" <#if isReadable?exists> readonly="readonly"</#if>>
-                    <a href="javascript:call_cal(document.editWorkEffortSurveyAppl_${workEffortSurveyAppl_index}.thruDate, '${nowTimeStampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                    <input type="text" size="20" name="thruDate" value="${(workEffortSurveyAppl.thruDate)?if_exists}" <#if isReadable?exists> readonly="readonly"</#if> />
+                    <a href="javascript:call_cal(document.editWorkEffortSurveyAppl_${workEffortSurveyAppl_index}.thruDate, '${nowTimeStampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                     </td>
-                  <td><a href="<@ofbizUrl>testWorkEffortSurvey?productStoreSurveyId=${productStoreSurveyAppl.productStoreSurveyId?if_exists}&workEffortId=${workEffortSurveyAppl.workEffortId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceTakeSurvey}</a></td>
+                  <td><a href="<@ofbizUrl>testWorkEffortSurvey?productStoreSurveyId=${productStoreSurveyAppl.productStoreSurveyId?if_exists}&amp;workEffortId=${workEffortSurveyAppl.workEffortId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceTakeSurvey}</a></td>
                   <#if !isReadable?exists>
                     <input type="hidden" name="surveyId" value="${workEffortSurveyAppl.surveyId?if_exists}"/>
                     <input type="hidden" name="workEffortId" value="${workEffortSurveyAppl.workEffortId?if_exists}"/>
                     <input type="hidden" name="fromDate" value="${workEffortSurveyAppl.fromDate?if_exists}"/>
-                    <td><input type="submit" name="submitBtn" value='${uiLabelMap.CommonUpdate}'> </td>
+                    <td><input type="submit" name="submitBtn" value='${uiLabelMap.CommonUpdate}' /> </td>
                   </form>
                     <td>
                       <form id="deleteWorkEffortSurveyAppl_${workEffortSurveyAppl_index}" method="post" action="<@ofbizUrl>deleteWorkEffortSurveyAppl</@ofbizUrl>">
