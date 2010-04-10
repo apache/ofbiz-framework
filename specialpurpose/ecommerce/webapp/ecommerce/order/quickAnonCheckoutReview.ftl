@@ -52,7 +52,7 @@ under the License.
   ${screens.render("component://ecommerce/widget/OrderScreens.xml#quickAnonOrderHeader")}
   <br />
   <div id="orderItemsSection">${screens.render("component://ecommerce/widget/OrderScreens.xml#orderitems")}</div>
-<form type="POST" action="<@ofbizUrl>processorder</@ofbizUrl>" name="${parameters.formNameValue}">
+<form type="post" action="<@ofbizUrl>processorder</@ofbizUrl>" name="${parameters.formNameValue}">
   <table border="0" cellpadding="1" width="100%">
    <tr>
       <td colspan="4">
@@ -60,9 +60,9 @@ under the License.
       </td>
       <td align="right">
           <#if (requestParameters.checkoutpage)?has_content>
-            <input type="hidden" name="checkoutpage" value="${requestParameters.checkoutpage}">
+            <input type="hidden" name="checkoutpage" value="${requestParameters.checkoutpage}" />
           </#if>
-          <input type="button" id="submitOrderReview" name="processButton" value="${uiLabelMap.OrderSubmitOrder}" onClick="processOrder();" class="mediumSubmit">
+          <input type="button" id="submitOrderReview" name="processButton" value="${uiLabelMap.OrderSubmitOrder}" onClick="processOrder();" class="mediumSubmit" />
         <#-- doesn't work with Safari, seems to work with IE, Mozilla <a href="#" onclick="processOrder();" class="buttontextbig">[${uiLabelMap.OrderSubmitOrder}]&nbsp;</a> -->
       </td>
     </tr>

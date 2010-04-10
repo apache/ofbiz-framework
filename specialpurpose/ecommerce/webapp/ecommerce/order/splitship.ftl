@@ -29,7 +29,7 @@ function submitForm(form, mode, value) {
         form.submit();
     } else if (mode == "NA") {
         // new address
-        form.action="<@ofbizUrl>updateShippingOptions/editcontactmech?DONE_PAGE=splitship&preContactMechTypeId=POSTAL_ADDRESS&contactMechPurposeTypeId=SHIPPING_LOCATION</@ofbizUrl>";
+        form.action="<@ofbizUrl>updateShippingOptions/editcontactmech?DONE_PAGE=splitship&amp;preContactMechTypeId=POSTAL_ADDRESS&amp;contactMechPurposeTypeId=SHIPPING_LOCATION</@ofbizUrl>";
         form.submit();
     } else if (mode == "SV") {
         // save option; return to current screen

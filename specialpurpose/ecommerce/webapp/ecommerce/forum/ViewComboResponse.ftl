@@ -44,7 +44,7 @@ under the License.
 
         <#if dataResourceId?exists>
             <br />
-            <img src="<@ofbizUrl>img?imgId=${dataResourceId}</@ofbizUrl>" />
+            <img src="<@ofbizUrl>img?imgId=${dataResourceId}</@ofbizUrl>" alt=""/>
         </#if>
         <br />
     </#if>

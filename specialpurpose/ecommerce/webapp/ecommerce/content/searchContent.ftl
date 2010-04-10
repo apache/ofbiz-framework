@@ -42,8 +42,8 @@ under the License.
       </td>
       <td align="right" valign="middle">
         <div class="tabletext">
-          ${uiLabelMap.CommonAll} <input type="radio" name="any_or_all" value="all" checked>
-          ${uiLabelMap.CommonAny} <input type="radio" name="any_or_all" value="any">
+          ${uiLabelMap.CommonAll} <input type="radio" name="any_or_all" value="all" checked="checked" />
+          ${uiLabelMap.CommonAny} <input type="radio" name="any_or_all" value="any" />
         </div>
       </td>
     </tr>
@@ -78,8 +78,8 @@ under the License.
             </#list>
             <div class="tabletext">${uiLabelMap.ProductSortedBy}: ${searchSortOrderString}</div>
             <div class="tabletext">
-              ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked>
-              ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N">
+              ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked="checked" />
+              ${uiLabelMap.CommonRefineSearch}<input type="radio" name="clearSearch" value="N" />
             </div>
         </td>
       </tr>

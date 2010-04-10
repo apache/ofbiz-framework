@@ -75,11 +75,11 @@ under the License.
         <#if content?has_content>${content.description?if_exists}</#if>
     </td>
     <td width="40px" valign="bottom">
-<a class="tabButton" href="<@ofbizUrl>showforumarticle?contentId=${thisSubContentId}&nodeTrailCsv=${thisNodeTrailCsv?if_exists}&forumId=${contentIdx?if_exists}</@ofbizUrl>" >${uiLabelMap.CommonView}</a>
+<a class="tabButton" href="<@ofbizUrl>showforumarticle?contentId=${thisSubContentId}&amp;nodeTrailCsv=${thisNodeTrailCsv?if_exists}&amp;forumId=${contentIdx?if_exists}</@ofbizUrl>" >${uiLabelMap.CommonView}</a>
     </td>
 <@checkPermission mode="equals" entityOperation="_UPDATE" subContentId=content.contentId targetOperation="CONTENT_UPDATE" contentPurposeList="ARTICLE">
     <td width="40px" valign="bottom">
-<a class="tabButton" style="height:14pt;" href="<@ofbizUrl>editforumarticle?contentIdTo=${content.contentId}&nodeTrailCsv=${contentIdx?if_exists},${content.contentId}</@ofbizUrl>" >${uiLabelMap.CommonEdit}</a>
+<a class="tabButton" style="height:14pt;" href="<@ofbizUrl>editforumarticle?contentIdTo=${content.contentId}&amp;nodeTrailCsv=${contentIdx?if_exists},${content.contentId}</@ofbizUrl>" >${uiLabelMap.CommonEdit}</a>
     </td>
 </@checkPermission>
   </tr>
@@ -102,7 +102,7 @@ under the License.
 </#if>
 <@checkPermission mode="equals" entityOperation="_CREATE" subContentId=contentDept statusId="CTNT_PUBLISHED" targetOperation=targOp contentPurposeList="ARTICLE" quickCheckContentId=contentIdx>
 <tr><td align="right">
-<a class="tabButton" style="height:14pt;" href="<@ofbizUrl>createforumarticle?forumId=${contentIdx?if_exists}&nodeTrailCsv=${contentIdx?if_exists}</@ofbizUrl>" >${uiLabelMap.ProductNewArticle}</a>
+<a class="tabButton" style="height:14pt;" href="<@ofbizUrl>createforumarticle?forumId=${contentIdx?if_exists}&amp;nodeTrailCsv=${contentIdx?if_exists}</@ofbizUrl>" >${uiLabelMap.ProductNewArticle}</a>
 </td></tr>
 </@checkPermission>
 <@checkPermission mode="not-equals" entityOperation="_CREATE" subContentId=contentDept statusId="CTNT_PUBLISHED" targetOperation=targOp contentPurposeList="ARTICLE" quickCheckContentId=contentIdx>
@@ -136,9 +136,9 @@ ${uiLabelMap.EcommerceLoggedToPost}
          <td >
             ${indent}
             <#if content.contentTypeId == "WEB_SITE_PUB_PT" >
-              <a class="tabButton" href="<@ofbizUrl>showforum?forumId=${content.contentId?if_exists}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}</a> &nbsp;${content.contentName?if_exists}
+              <a class="tabButton" href="<@ofbizUrl>showforum?forumId=${content.contentId?if_exists}&amp;nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}</a> &nbsp;${content.contentName?if_exists}
             <#else>
-              <a class="tabButton" href="<@ofbizUrl>showforumarticle?contentId=${content.contentId?if_exists}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}to</a> &nbsp;${content.contentName?if_exists}
+              <a class="tabButton" href="<@ofbizUrl>showforumarticle?contentId=${content.contentId?if_exists}&amp;nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}to</a> &nbsp;${content.contentName?if_exists}
             </#if>
             <#local indent = indent + "&nbsp;&nbsp;&nbsp;&nbsp;">
             [${content.contentId?if_exists}]</td>
@@ -177,7 +177,7 @@ ${uiLabelMap.EcommerceLoggedToPost}
 <tr><td>
              <#if 0 < listSz?number>
                 <#if 0 < viewIdx?number>
-                  <a href="${requestURL}?${queryString}&viewSz=${viewSz}&viewIdx=${viewIdx?number-1}" class="submenutext">${uiLabelMap.CommonPrevious}</a>
+                  <a href="${requestURL}?${queryString}&amp;viewSz=${viewSz}&amp;viewIdx=${viewIdx?number-1}" class="submenutext">${uiLabelMap.CommonPrevious}</a>
                 <#else>
                   <span class="submenutextdisabled">${uiLabelMap.CommonPrevious}</span>
                 </#if>
@@ -185,7 +185,7 @@ ${uiLabelMap.EcommerceLoggedToPost}
                   <span class="submenutextinfo">${lowIdxShow} - ${highIdx?if_exists} ${uiLabelMap.CommonOf} ${listSz?if_exists}</span>
                 </#if>
                 <#if highIdx?if_exists?number < listSz?if_exists?number>
-                  <a href="${requestURL}?${queryString?if_exists}&viewSz=${viewSz?if_exists}&viewIdx=${viewIdx?if_exists?number+1}" class="submenutextright">${uiLabelMap.CommonNext}</a>
+                  <a href="${requestURL}?${queryString?if_exists}&amp;viewSz=${viewSz?if_exists}&amp;viewIdx=${viewIdx?if_exists?number+1}" class="submenutextright">${uiLabelMap.CommonNext}</a>
                 <#else>
                   <span class="submenutextrightdisabled">${uiLabelMap.CommonNext}</span>
                 </#if>

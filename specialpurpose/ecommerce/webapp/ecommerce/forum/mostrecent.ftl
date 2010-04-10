@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<SCRIPT language="javascript">
+<script type="text/javascript" language="javascript">
     function submitRows(rowCount) {
         var rowCountElement = document.createElement("input");
         rowCountElement.setAttribute("name", "_rowCount");
@@ -30,7 +30,7 @@ under the License.
 
 <table width="100%" border="0" >
 
- <form name="mostrecent" mode="POST" action="<@ofbizUrl>publishResponse</@ofbizUrl>"/>
+ <form name="mostrecent" mode="post" action="<@ofbizUrl>publishResponse</@ofbizUrl>"/>
   <#assign row=0/>
   <#list entityList as content>
     <@checkPermission entityOperation="_ADMIN" targetOperation="CONTENT_PUBLISH" subContentId=forumId >
@@ -43,7 +43,7 @@ under the License.
           </td>
           <td class="tabletext">
           ${uiLabelMap.CommonSubmitted}:
-          <input type="radio" name="statusId_o_${row}" value="CTNT_IN_PROGRESS" checked/>
+          <input type="radio" name="statusId_o_${row}" value="CTNT_IN_PROGRESS" checked="checked" />
           </td>
           <td class="tabletext">
           ${uiLabelMap.CommonPublish}:

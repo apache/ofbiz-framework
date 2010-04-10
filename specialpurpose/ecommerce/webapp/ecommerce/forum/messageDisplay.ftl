@@ -28,7 +28,7 @@ under the License.
         </#if>
             <div class="tableheadtext">
                 ${uiLabelMap.CommonTitle}: ${forumMessage.contentName?if_exists} ${uiLabelMap.CommonBy}:${forumMessage.createdByUserLogin?if_exists} ${uiLabelMap.CommonAt}: ${forumMessage.createdDate?if_exists.toString().substring(0,16)}
-                <a href="ViewForumMessage?forumId=${parameters.forumId}&responseContentId=${forumMessage.contentId}&threadContentId=${threadContentId?if_exists}" class="buttontext">${uiLabelMap.CommonView}</a>
+                <a href="ViewForumMessage?forumId=${parameters.forumId}&amp;responseContentId=${forumMessage.contentId}&amp;threadContentId=${threadContentId?if_exists}" class="buttontext">${uiLabelMap.CommonView}</a>
             </div>
             <div class="tableheadtext">
             ${forumMessage.description?if_exists}
@@ -39,7 +39,7 @@ under the License.
           <#if (result.resultData)?exists>
             <div class="tableheadtext">
                 ${uiLabelMap.CommonTitle}: ${result.resultData.content.description?if_exists} ${uiLabelMap.CommonBy}:${result.resultData.content.createdByUserLogin} ${uiLabelMap.CommonAt}: ${result.resultData.content.createdDate.toString().substring(0,16)}
-                <a href="addForumMessage?forumId=${parameters.forumId}&forumMessageIdTo=${result.resultData.content.contentId}&threadView=${parameters.threadView?if_exists}" class="buttontext">${uiLabelMap.PartyReply}</a>
+                <a href="addForumMessage?forumId=${parameters.forumId}&amp;forumMessageIdTo=${result.resultData.content.contentId}&amp;threadView=${parameters.threadView?if_exists}" class="buttontext">${uiLabelMap.PartyReply}</a>
             </div>
             <div class="tabletext">
                 <#if result.resultData.electronicText?exists>
