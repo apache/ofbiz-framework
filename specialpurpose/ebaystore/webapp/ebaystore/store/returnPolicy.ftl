@@ -27,7 +27,7 @@ under the License.
 
 <form name="APIForm" id="APIForm" method="post" action="ReturnPolicyServlet" >
   <table align="center"  border="0">
-    <tr><td><img src="ebay.gif"></td></tr>
+    <tr><td><img src="ebay.gif" alt="" /></td></tr>
     <tr><td>${title?if_exists}</td></tr>
     <tr>
          <td>&nbsp;</td>
@@ -138,7 +138,7 @@ under the License.
         </tr>
         <tr>
             <td>
-                <font size="2" face="Verdana,Geneva,Arial,Helvetica" color="#666666" style="font-size:11px">- Specify a return policy. <A target=_new HREF="http://pages.ebay.com/help/sell/contextual/return-policy.html" onClick="if(window.openContextualHelpWindow){return openContextualHelpWindow(this.href)}" target="helpwin">Learn More</A>.</font>
+                <font size="2" face="Verdana,Geneva,Arial,Helvetica" color="#666666" style="font-size:11px">- Specify a return policy. <a target=_new HREF="http://pages.ebay.com/help/sell/contextual/return-policy.html" onClick="if(window.openContextualHelpWindow){return openContextualHelpWindow(this.href)}" target="helpwin">Learn More</a>.</font>
             </td>
         </tr>
     </#if>
