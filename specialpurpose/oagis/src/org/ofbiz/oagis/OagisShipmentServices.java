@@ -444,7 +444,7 @@ public class OagisShipmentServices {
 
                                     if (UtilValidate.isNotEmpty(serialNumberList)) {
                                         for (int i = 0; i < quantityToUse; i++) {
-                                            String serialNumber = serialNumberList.get(0);
+                                            String serialNumber = serialNumberList.get(i);
 
                                             if (OagisServices.requireSerialNumberExist != null) {
                                                 // according to requireSerialNumberExist make sure serialNumber does or does not exist in database, add an error message as needed
