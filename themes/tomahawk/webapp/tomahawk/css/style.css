@@ -1956,6 +1956,8 @@ height:21px;
 background-color: #ACABA9;
 margin-left:10px;
 border:none;
+height: auto;
+margin-top: 0;
 }
 
 .nav-pager ul {
