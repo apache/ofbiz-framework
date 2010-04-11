@@ -154,7 +154,7 @@ var FieldLookupCounter = Class.create({
     },
     
     setReference: function (key, ref) {
-        //if key doesn't exsist in the array and
+        //if key doesn't exist in the array and
         var bool = true;
         for (item in this.refArr) {
             if (item == key) {
@@ -172,7 +172,7 @@ var FieldLookupCounter = Class.create({
     },
     
     getReference: function (key) {
-        //wenn key nicht existiert gib null zur?ck?
+        // when key does not exist return null?
         return this.refArr[key] != null ? this.refArr[key] : null;
     },
     
