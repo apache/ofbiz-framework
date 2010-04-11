@@ -959,6 +959,10 @@ public class ModelForm extends ModelWidget {
                 if (lastFieldGroup != null) {
                     lastFieldGroupName = lastFieldGroup.getId();
                     if (!lastFieldGroupName.equals(currentFieldGroupName)) {
+                        if (haveRenderedOpenFieldRow) {
+                            formStringRenderer.renderFormatFieldRowClose(writer, context, this);
+                            haveRenderedOpenFieldRow = false;
+                        }
                         lastFieldGroup.renderEndString(writer, context, formStringRenderer);
 
                         List<FieldGroupBase> inbetweenList = getInbetweenList(lastFieldGroup, currentFieldGroup);
@@ -1031,6 +1035,14 @@ public class ModelForm extends ModelWidget {
                 haveRenderedOpenFieldRow = true;
             }
 
+            //
+            // It must be a row open before rendering a field. If not, open it
+            //
+            if (!haveRenderedOpenFieldRow) {
+                formStringRenderer.renderFormatFieldRowOpen(writer, context, this);
+                haveRenderedOpenFieldRow = true;
+            }
+
             // render title formatting open
             formStringRenderer.renderFormatFieldRowTitleCellOpen(writer, context, currentFormField);
 
@@ -1057,8 +1069,10 @@ public class ModelForm extends ModelWidget {
             formStringRenderer.renderFormatFieldRowWidgetCellClose(writer, context, currentFormField, positions, positionSpan, nextPositionInRow);
 
         }
-        // always render row formatting close after the end
-        formStringRenderer.renderFormatFieldRowClose(writer, context, this);
+        // render row formatting close after the end if needed
+        if (haveRenderedOpenFieldRow) {
+            formStringRenderer.renderFormatFieldRowClose(writer, context, this);
+        }
 
         if (lastFieldGroup != null) {
             lastFieldGroup.renderEndString(writer, context, formStringRenderer);
@@ -1625,6 +1639,7 @@ public class ModelForm extends ModelWidget {
         // do the first part of display and hyperlink fields
         Iterator<ModelFormField> innerDisplayHyperlinkFieldIter = innerDisplayHyperlinkFieldsBegin.iterator();
         while (innerDisplayHyperlinkFieldIter.hasNext()) {
+            boolean cellOpen = false;
             ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
             // span columns only if this is the last column in the row (not just in this first list)
             if( fieldCount.get(modelFormField.getName()) < 2 ){
@@ -1633,6 +1648,7 @@ public class ModelForm extends ModelWidget {
                 } else {
                     formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
                 }
+                cellOpen = true;
             }
             if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) { 
                     if(( fieldCount.get(modelFormField.getName()) > 1 )){
@@ -1641,10 +1657,13 @@ public class ModelForm extends ModelWidget {
                         } else {
                             formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
                         }
+                        cellOpen = true;
                     }
                 modelFormField.renderFieldString(writer, localContext, formStringRenderer);
             }
-            formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
+            if (cellOpen) {
+                formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
+            }
         }
 
         // The form cell is rendered only if there is at least an input field
