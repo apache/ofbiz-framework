@@ -38,6 +38,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -80,7 +81,10 @@ public class ProductsExportToGoogle {
             if (!ServiceUtil.isFailure(result) && UtilValidate.isNotEmpty(googleBaseConfigResult)) {
                 String token = authenticate(googleBaseConfigResult.get("authenticationUrl").toString(), googleBaseConfigResult.get("accountEmail").toString(), googleBaseConfigResult.get("accountPassword").toString());
                 if (token != null) {
-                    result = postItem(token, googleBaseConfigResult.get("postItemsUrl").toString(), googleBaseConfigResult.get("developerKey").toString(), dataItemsXml, locale, (String)context.get("testMode"), (List)result.get("newProductsInGoogle"), (List)result.get("productsRemovedFromGoogle"), dispatcher, delegator);
+                    List<String> newProductsInGoogle = UtilGenerics.checkList(result.get("newProductsInGoogle"), String.class);
+                    List<String> productsRemovedFromGoogle = UtilGenerics.checkList(result.get("productsRemovedFromGoogle"), String.class);
+                    result = postItem(token, googleBaseConfigResult.get("postItemsUrl").toString(), googleBaseConfigResult.get("developerKey").toString(), dataItemsXml,
+                            locale, (String)context.get("testMode"), newProductsInGoogle, productsRemovedFromGoogle, dispatcher, delegator);
                 } else {
                     Debug.logError("Error during authentication to Google Account", module);
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.errorDuringAuthenticationToGoogle", locale));
@@ -108,19 +112,15 @@ public class ProductsExportToGoogle {
 
         try {
             if (UtilValidate.isNotEmpty(productCategoryId)) {
-                List productsList = FastList.newInstance();
+                List<String> productsList = FastList.newInstance();
                 Map<String, Object> result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
 
                 if (result.get("categoryMembers") != null) {
-                    List productCategoryMembers = (List)result.get("categoryMembers");
+                    List<GenericValue> productCategoryMembers = UtilGenerics.checkList(result.get("categoryMembers"), GenericValue.class);
                     if (productCategoryMembers != null) {
-                        Iterator i = productCategoryMembers.iterator();
-                        while (i.hasNext()) {
-                            GenericValue prodCatMemb = (GenericValue) i.next();
-
+                        for (GenericValue prodCatMemb : productCategoryMembers) {
                             if (prodCatMemb != null) {
                                 String productId = prodCatMemb.getString("productId");
-
                                 if (productId != null) {
                                     GenericValue prod = prodCatMemb.getRelatedOne("Product");
                                     Timestamp salesDiscontinuationDate = prod.getTimestamp("salesDiscontinuationDate");
@@ -244,8 +244,9 @@ public class ProductsExportToGoogle {
         return outputBuilder.toString();
     }
 
-    private static Map postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems,
-                                Locale locale, String testMode, List newProductsInGoogle, List productsRemovedFromGoogle, LocalDispatcher dispatcher, Delegator delegator) throws IOException {
+    private static Map<String, Object> postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems,
+                                Locale locale, String testMode, List<String> newProductsInGoogle, List<String> productsRemovedFromGoogle,
+                                LocalDispatcher dispatcher, Delegator delegator) throws IOException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Request To Google Base :\n" + dataItems.toString(), module);
         }
@@ -279,7 +280,7 @@ public class ProductsExportToGoogle {
                 result = readResponseFromGoogle(response, newProductsInGoogle, productsRemovedFromGoogle, dispatcher, delegator, locale);
                 //String msg = ServiceUtil.getErrorMessage(result);
                 if (ServiceUtil.isError(result)) {
-                    result = ServiceUtil.returnFailure((List)result.get(ModelService.ERROR_MESSAGE_LIST));
+                    result = ServiceUtil.returnFailure(UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST)));
                 } else {
                     result = ServiceUtil.returnSuccess();
                 }
@@ -298,14 +299,13 @@ public class ProductsExportToGoogle {
 
     private static Map<String, Object> buildDataItemsXml(DispatchContext dctx, Map<String, Object> context, StringBuffer dataItemsXml) {
         Locale locale = (Locale)context.get("locale");
-        List<Object> newProductsInGoogle = FastList.newInstance();
-        List<Object> productsRemovedFromGoogle = FastList.newInstance();
+        List<String> newProductsInGoogle = FastList.newInstance();
+        List<String> productsRemovedFromGoogle = FastList.newInstance();
         try {
             Delegator delegator = dctx.getDelegator();
             LocalDispatcher dispatcher = dctx.getDispatcher();
-            List selectResult = (List)context.get("selectResult");
+            List<String> selectResult = UtilGenerics.checkList(context.get("selectResult"), String.class);
             String webSiteUrl = (String)context.get("webSiteUrl");
-            String imageUrl = (String)context.get("imageUrl");
             String actionType = (String)context.get("actionType");
             String statusId = (String)context.get("statusId");
             String trackingCodeId = (String)context.get("trackingCodeId");
@@ -524,7 +524,6 @@ public class ProductsExportToGoogle {
         try {
             map = dispatcher.runSync("calculateProductPrice", UtilMisc.toMap("product", product));
             boolean validPriceFound = ((Boolean)map.get("validPriceFound")).booleanValue();
-            boolean isSale = ((Boolean)map.get("isSale")).booleanValue();
             if (validPriceFound) {
                 priceString = map.get("price").toString();
             }
@@ -534,8 +533,9 @@ public class ProductsExportToGoogle {
         return priceString;
     }
 
-    private static Map<String, Object> readResponseFromGoogle(String msg, List<Object> newProductsInGoogle, List<Object> productsRemovedFromGoogle, LocalDispatcher dispatcher, Delegator delegator, Locale locale) {
-        List message = FastList.newInstance();
+    private static Map<String, Object> readResponseFromGoogle(String msg, List<String> newProductsInGoogle, List<String> productsRemovedFromGoogle,
+            LocalDispatcher dispatcher, Delegator delegator, Locale locale) {
+        List<String> message = FastList.newInstance();
         // Debug.log("====get xml response from google: " + msg);
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
@@ -561,7 +561,7 @@ public class ProductsExportToGoogle {
                 if (UtilValidate.isNotEmpty(id) && productsRemovedFromGoogle.get(index) != null) {
                     String productId = (String)productsRemovedFromGoogle.get(index);
                     try {
-                        int count = delegator.removeByAnd("GoodIdentification", UtilMisc.toMap("goodIdentificationTypeId", "GOOGLE_ID", "productId", productId));
+                        delegator.removeByAnd("GoodIdentification", UtilMisc.toMap("goodIdentificationTypeId", "GOOGLE_ID", "productId", productId));
                     } catch (GenericEntityException gee) {
                         Debug.logError("Unable to remove Google id for product [" + productId + "]: " + gee.getMessage(), module);
                     }
