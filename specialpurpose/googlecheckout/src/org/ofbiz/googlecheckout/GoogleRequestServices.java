@@ -66,7 +66,6 @@ public class GoogleRequestServices {
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
-    @SuppressWarnings("unchecked")
     public static Map<String, Object> sendShoppingCartRequest(DispatchContext dctx, Map<String, ? extends Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         String productStoreId = cart.getProductStoreId();

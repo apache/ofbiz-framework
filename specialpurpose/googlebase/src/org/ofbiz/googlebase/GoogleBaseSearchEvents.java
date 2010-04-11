@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.googlebase;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -26,8 +25,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -54,7 +56,7 @@ public class GoogleBaseSearchEvents {
         Locale locale = UtilHttp.getLocale(request);
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String selectResult = (String) request.getParameter("selectResult");
-        List productExportList = new ArrayList();
+        List<String> productExportList = FastList.newInstance();
         String errMsg = null;
 
         try {
@@ -107,7 +109,7 @@ public class GoogleBaseSearchEvents {
                     inMap.put("productStoreId", productStoreId);
                     Map<String, Object> exportResult = dispatcher.runSync("exportToGoogle", inMap);
                     if (ServiceUtil.isError(exportResult)) {
-                        List errorMessages = (List) exportResult.get(ModelService.ERROR_MESSAGE_LIST);
+                        List<String> errorMessages = UtilGenerics.checkList(exportResult.get(ModelService.ERROR_MESSAGE_LIST), String.class);
                         if (UtilValidate.isNotEmpty(errorMessages)) {
                             request.setAttribute("_ERROR_MESSAGE_LIST_", errorMessages);
                         } else {
@@ -115,7 +117,7 @@ public class GoogleBaseSearchEvents {
                         }
                         return "error";
                     } else if (ServiceUtil.isFailure(exportResult)) {
-                        List eventMessages = (List) exportResult.get(ModelService.ERROR_MESSAGE_LIST);
+                        List<String> eventMessages = UtilGenerics.checkList(exportResult.get(ModelService.ERROR_MESSAGE_LIST), String.class);
                         if (UtilValidate.isNotEmpty(eventMessages)) {
                             request.setAttribute("_EVENT_MESSAGE_LIST_", eventMessages);
                         } else {

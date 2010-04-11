@@ -29,6 +29,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -230,7 +231,6 @@ public class GoogleCheckoutHelper {
         return; // the notification will be accepted
     }
 
-    @SuppressWarnings("unchecked")
     public void createOrder(NewOrderNotification info, String productStoreId, Locale locale) throws GeneralException {
         // get the google order number
         String externalId = info.getGoogleOrderNumber();
@@ -300,7 +300,7 @@ public class GoogleCheckoutHelper {
         }
 
         // set the order items
-        Collection<Item> items = info.getShoppingCart().getItems();
+        Collection<Item> items = UtilGenerics.checkCollection(info.getShoppingCart().getItems());
         for (Item item : items) {
             try {
                 addItem(cart, item, prodCatalogId, 0);
@@ -327,13 +327,13 @@ public class GoogleCheckoutHelper {
 
         // validate the payment methods
         CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
-        Map validateResp = coh.validatePaymentMethods();
+        Map<String, Object> validateResp = coh.validatePaymentMethods();
         if (ServiceUtil.isError(validateResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(validateResp));
         }
 
         // create the order & process payments
-        Map createResp = coh.createOrder(system);
+        Map<String, Object> createResp = coh.createOrder(system);
         String orderId = cart.getOrderId();
         if (ServiceUtil.isError(createResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(createResp));
@@ -376,7 +376,6 @@ public class GoogleCheckoutHelper {
         cart.setItemShipGroupQty(cartItem, qty, groupIdx);
     }
 
-    @SuppressWarnings("unchecked")
     protected void addAdjustments(ShoppingCart cart, OrderAdjustment adjustment) {
         // handle shipping
         Shipping shipping = adjustment.getShipping();
@@ -394,7 +393,7 @@ public class GoogleCheckoutHelper {
         cart.addAdjustment(taxAdj);
 
         // handle promotions
-        Collection<MerchantCodes> merchantCodes = adjustment.getMerchantCodes();
+        Collection<MerchantCodes> merchantCodes = UtilGenerics.checkCollection(adjustment.getMerchantCodes());
         for (MerchantCodes codes : merchantCodes) {
             GenericValue promoAdj = delegator.makeValue("OrderAdjustment", FastMap.newInstance());
             promoAdj.set("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT");
