@@ -19,7 +19,7 @@ under the License.
 
 <#include "component://widget/templates/htmlFormMacroLibrary.ftl"/>
 
-<#macro lookupField className="" alert="" name="" value="" size="20" maxlength="20" id="" event="" action="" disabled="" autocomplete="" descriptionFieldName="" formName="" fieldFormName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled="" presentation="" width="20" height="20" position="20" fadeBackground="" clearText="" showDescription="">
+<#macro lookupField className="" alert="" name="" value="" size="20" maxlength="20" id="" event="" action="" disabled="" autocomplete="" descriptionFieldName="" formName="" fieldFormName="" targetParameterIter="" imgSrc="" ajaxUrl="" ajaxEnabled="" presentation="" width="20" height="20" position="" fadeBackground="" clearText="" showDescription="">
     <#if (!ajaxEnabled?has_content)>
         <#assign javascriptEnabled = Static["org.ofbiz.base.util.UtilHttp"].isJavaScriptEnabled(request) />
         <#if (javascriptEnabled)>
