@@ -28,11 +28,11 @@ under the License.
         <field name="groupName"><text/></field>
         <field name="title"><text/></field>
         <field name="numEmployees" title="${uiLabelMap.MarketingNoOfEmployees}"><text size="30"/></field>
-        <field name="officeSiteName" title="${uiLabelMap.FormFieldTitle_officeSiteName}"><text size="30" maxlength="60"/></field>
+        <field name="officeSiteName"><text size="30" maxlength="60"/></field>
         <field name="postalAddressTitle" title="${uiLabelMap.PartyGeneralCorrespondenceAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="address1" title="${uiLabelMap.CommonAddress1}"><text size="50" maxlength="60"/></field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="50" maxlength="60"/></field>
-        <field name="city" title="${uiLabelMap.CommonCity}"><text size="30" maxlength="60"/></field>
+        <field name="city"><text size="30" maxlength="60"/></field>
         <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId} - ${geoName}">
@@ -42,7 +42,7 @@ under the License.
             </drop-down>
         </field>
         <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}"><text size="10" maxlength="30"/></field>
-        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}">
+        <field name="countryGeoId" title="${uiLabelMap.FormFieldTitle_country}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
@@ -151,7 +151,7 @@ under the License.
         <field name="dataSourceId" title="${uiLabelMap.SfaLeadSource}">
             <display-entity entity-name="DataSource"/>
         </field>
-        <field name="fromDate"><display></display> </field>
+        <field name="fromDate"><display/></field>
         
     </form>
     
