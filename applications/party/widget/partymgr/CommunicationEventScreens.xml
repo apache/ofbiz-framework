@@ -375,8 +375,7 @@ under the License.
                     <section>
                         <actions>
                             <set field="entityName" value="CustRequestAndCommEvent"/>
-                            <set field="requestParameters.communicationEventId"
-                                from-field="parameters.communicationEventId"/>
+                            <set field="requestParameters.communicationEventId" from-field="parameters.communicationEventId"/>
                         </actions>
                         <widgets>
                             <screenlet title="${uiLabelMap.OrderRequestList}">
@@ -460,13 +459,10 @@ under the License.
                 <set field="my" from-field="parameters.my"/>
             </actions>
             <widgets>
-                <decorator-screen name="Common${my}CommunicationEventDecorator"
-                    location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="Common${my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet  title="${uiLabelMap.PartyEditCustomerRequest}">
-                            <include-form
-                                location="component://party/widget/partymgr/CommunicationEventForms.xml"
-                                name="EditRequestFromCommEvent"/>
+                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="EditRequestFromCommEvent"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -487,22 +483,16 @@ under the License.
                 <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer"
-                    default-value="20"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator"
-                    location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                            <include-form
-                                location="component://party/widget/partymgr/CommunicationEventForms.xml"
-                                name="ListCommRoles"/>
+                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommRoles"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                            <include-form
-                                location="component://party/widget/partymgr/CommunicationEventForms.xml"
-                                name="AddEventRole"/>
+                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="AddEventRole"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
