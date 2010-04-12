@@ -26,6 +26,9 @@ under the License.
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName" title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <sort-order>
+            <sort-field name="all"/>
+            <sort-field name="groupName"/>
+            <sort-field name="noConditionFind"/>
             <sort-field name="partyId"/>
             <sort-field name="firstName"/>
             <sort-field name="lastName"/>
