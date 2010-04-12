@@ -2540,7 +2540,7 @@
     </property>
     <property key="AccountingCurrentAsset">
         <value xml:lang="en">Current Asset</value>
-        <value xml:lang="en">Actif circulant</value>
+        <value xml:lang="fr">Actif circulant</value>
         <value xml:lang="hi_IN">à¤šà¤¾à¤²à¥‚ à¤¸à¤®à¥à¤ªà¤¤à¥à¤¤à¤¿</value>
     </property>
     <property key="AccountingCurrentBalance">
@@ -2793,7 +2793,7 @@
     </property>
     <property key="AccountingDepositWithdraw">
         <value xml:lang="en">Deposit/Withdraw</value>
-        <value xml:lang="en">Dépôt/Retrait</value>
+        <value xml:lang="fr">Dépôt/Retrait</value>
         <value xml:lang="hi_IN">जमा/वापस</value>
     </property>
     <property key="AccountingDepositOrWithdrawPayments">
@@ -6305,7 +6305,7 @@
     <property key="AccountingNoChangesMadeNotUpdatingEftAccount">
         <value xml:lang="de">Keine Änderungen, EFT Account wurde nicht aktualisiert</value>
         <value xml:lang="en">No changes made, not updating EFT Account</value>
-        <value xml:lang="en">Aucun changement effectué, pas de mise à jour du compte de virement électronique</value>
+        <value xml:lang="fr">Aucun changement effectué, pas de mise à jour du compte de virement électronique</value>
     </property>
     <property key="AccountingNoChildPeriodsFound">
         <value xml:lang="de">Keine untergeordneten Zeiträume gefunden</value>
