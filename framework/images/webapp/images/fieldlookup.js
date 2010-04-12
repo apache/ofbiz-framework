@@ -156,12 +156,12 @@ var FieldLookupCounter = Class.create({
     setReference: function (key, ref) {
         //if key doesn't exist in the array and
         var bool = true;
-        for (item in this.refArr) {
-            if (item == key) {
+        for (itm in this.refArr) {
+            if (itm == key) {
                 bool = false;
                 break;
             }
-        };
+        }
 
         if (bool) {
             this.refArr[key] = ref;
@@ -177,19 +177,14 @@ var FieldLookupCounter = Class.create({
     },
     
     createNextKey: function () {
-        var count = 0;
-        for (item in this.refArr) {
-            count++;
-        };
-        
         return this.countFields() + "_lookupId";
     },
     
     countFields: function () {
         var count = 0;
-        for (item in this.refArr) {
+        for (itm in this.refArr) {
             count++;
-        };
+        }
         
         return count;
     },
@@ -257,6 +252,12 @@ var FieldLookupPopup = Class.create({
         }
         // removes the layer after fading
         window.setTimeout('' + this.removeLayer() + '', 400);
+        
+        //identify the next lookup
+        lastLookup = GLOBAL_LOOKUP_REF.getReference((GLOBAL_LOOKUP_REF.countFields() - 1) + "_lookupId");
+        if (lastLookup != null) {
+            identifyLookup(lastLookup.globalRef);
+        }
     },
 
     createElement: function () {
