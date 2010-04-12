@@ -95,6 +95,16 @@ under the License.
         <field name="estimatedCompletionDate"><date-time input-method="time-dropdown" default-value="${nowTimestamp}"/></field>
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_toPartyId}"><lookup target-form-name="LookupPartyName" default-value="${userLogin.partyId}"/></field>
         <sort-order>
+            <sort-field name="workEffortId"/>
+            <sort-field name="partyId"/>
+            <sort-field name="fixedAssetId"/>
+            <sort-field name="roleTypeId"/>
+            <sort-field name="statusId"/>
+            <sort-field name="workEffortTypeId"/>
+            <sort-field name="currentStatusId"/>
+            <sort-field name="scopeEnumId"/>
+            <sort-field name="actualStartDate"/>
+            <sort-field name="actualCompletionDate"/>
             <sort-field name="workEffortName"/>
             <sort-field name="description"/>
             <sort-field name="priority"/>
