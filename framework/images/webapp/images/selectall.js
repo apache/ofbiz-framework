@@ -329,19 +329,42 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
   * @param areaCsvString The area CSV string. The CSV string is a flat array in the
   * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
-function ajaxAutoCompleter(areaCsvString) {
+function ajaxAutoCompleter(areaCsvString, showDescription) {
     var areaArray = areaCsvString.replace('&amp;','&').split(",");
     var numAreas = parseInt(areaArray.length / 3);
     for (var i = 0; i < numAreas * 3; i = i + 3) {
         var optionsDivId = areaArray[i] + "_autoCompleterOptions";
         var indicatorId = areaArray[i] + "_indicator";
         $(areaArray[i]).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
-        new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2], indicator: indicatorId, afterUpdateElement : getSelectionId});
+        new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2], indicator: indicatorId, afterUpdateElement : setSelection});
+        if (showDescription) {
+            new lookupDescriptionLoaded(areaArray[i], areaArray[i + 1], areaArray[i + 2]);
+        }
     }
 }
 
-function getSelectionId(text, li) {
+function setSelection(text, li) {
     text.value = li.id;
+    var delay = function() { text.fire("lookup:changed"); };
+    setTimeout(delay, 100);
+}
+
+function setLookDescription(textFieldId, description) {
+    if (description) {
+        var start = description.lastIndexOf(' [');
+        if (start != -1) {
+            description = description.substring(0, start);
+        }
+    }
+    var ulElement = $(textFieldId).up('ul');
+    if (ulElement) {
+        var tooltipElement = $(textFieldId + '_lookupDescription');
+        if (!tooltipElement) {
+            tooltipElement = new Element('li', {id : textFieldId + '_lookupDescription', class : 'tooltip'});     	
+        }
+        tooltipElement.update(description);
+        ulElement.appendChild(tooltipElement);
+    }
 }
 
 /** Enable auto-completion for drop-down elements.

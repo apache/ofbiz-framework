@@ -2010,6 +2010,8 @@ public class MacroFormRenderer implements FormStringRenderer {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         }
 
+        boolean showDescription = "Y".equals(UtilProperties.getPropertyValue("widget", "widget.lookup.showDescription", "N"));
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
         sr.append(" className=\"");
@@ -2063,8 +2065,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(lookupPosition);
         sr.append("\" fadeBackground=\"");
         sr.append(fadeBackground);
-        sr.append("\" clearText=\"");
+        sr.append("\" clearText=\"");        
         sr.append(clearText);
+        sr.append("\" showDescription=\"");
+        sr.append(Boolean.toString(showDescription));
         sr.append("\" />");
         executeMacro(writer, sr.toString());
 

@@ -32,10 +32,8 @@ searchFields = context.searchFields;
 displayFields = context.displayFields ?: searchFields;
 searchValueFieldName = parameters.searchValueField;
 fieldValue = parameters.get(searchValueFieldName);
-searchTypeStartWith = context.searchTypeStartWith;
-if( searchTypeStartWith == null){
-    searchTypeStartWith = "N";
-}
+searchType = context.searchType;
+
 if (searchFields && fieldValue) {
     searchFieldsList = StringUtil.toList(searchFields);
     displayFieldsSet = StringUtil.toSet(displayFields);
@@ -43,13 +41,19 @@ if (searchFields && fieldValue) {
     displayFieldsSet.add(returnField); //add it to select fields, in case it is missing
     context.returnField = returnField;
     context.displayFieldsSet = displayFieldsSet;
-    if ("Y".equals(searchTypeStartWith.toUpperCase())) {
+    if ("STARTS_WITH".equals(searchType)) {
         searchValue = fieldValue.toUpperCase() + "%";
-    } else {
+    } else if ("EQUALS".equals(searchType)) {
+        searchValue = fieldValue;
+    } else {//default is CONTAINS
         searchValue = "%" + fieldValue.toUpperCase() + "%";
     }
     searchFieldsList.each { fieldName ->
-        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
+        if ("EQUALS".equals(searchType)) {
+            andExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fieldName), EntityOperator.EQUALS, searchValue));    
+        } else {
+            andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
+        }        
     }
 }
 
