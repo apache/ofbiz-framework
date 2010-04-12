@@ -8950,6 +8950,7 @@
     </property>
     <property key="PartyRelatedCompany">
         <value xml:lang="en">Related Company</value>
+        <value xml:lang="fr">Société associée</value>
         <value xml:lang="it">Azienda relativa</value>
         <value xml:lang="nl">Gerelateerd bedrijf</value>        
         <value xml:lang="pt_BR">Empresa relacionada</value>
