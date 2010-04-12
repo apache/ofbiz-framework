@@ -35,7 +35,7 @@ under the License.
             <text size="50" maxlength="60"/>
         </field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="50" maxlength="60"/></field>
-        <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="city" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <text size="30" maxlength="60"/>
         </field>
         <field name="state" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
@@ -49,7 +49,7 @@ under the License.
         <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <text size="10" maxlength="30"/>
         </field>
-        <field name="country" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="country" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
@@ -147,10 +147,10 @@ under the License.
             </hyperlink>
         </field>
         <field name="emailAddress" title="${uiLabelMap.FormFieldTitle_emailAddress}"><display description="${emailAddresses[0].infoString}"/></field>
-        <field name="telecomNumber">
-            <display description="${telecomNumber.tnContryCode} ${telecomNumber.tnAreaCode} ${telecomNumber.tnContactNumber} ${telecomNumber.tnAskForName}"/>
+        <field name="telecomNumber" title="${uiLabelMap.PartyPhoneNumber}">
+            <display description="${telecomNumber.tnCountryCode} ${telecomNumber.tnAreaCode} ${telecomNumber.tnContactNumber} ${telecomNumber.tnAskForName}"/>
         </field>
-        <field name="city" title="${uiLabelMap.FormFieldTitle_city}"><display description="${postalAddress.paCity}"/></field>
+        <field name="city"><display description="${postalAddress.paCity}"/></field>
         <field name="countryGeoId" title="${uiLabelMap.FormFieldTitle_country}">
             <display-entity entity-name="Geo" description="${geoName}" key-field-name="geoId"/>
         </field>
@@ -159,7 +159,7 @@ under the License.
                 <parameter param-name="partyId" from-field="relatedCompanyPartyId"/>
             </hyperlink>
         </field>
-        <field name="relatedCompany" use-when="relatedCompanyPartyId==null"><display/></field>
+        <field name="relatedCompany" use-when="relatedCompanyPartyId==null" title="${uiLabelMap.PartyRelatedCompany}"><display/></field>
     </form>
     <form name="ListAccounts" extends="listAccounts">
         <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
@@ -211,7 +211,7 @@ under the License.
         <field name="paAttnName" title="${uiLabelMap.PartyAddrAttnName}"><text-find/></field>
         <field name="paAddress1" title="${uiLabelMap.FormFieldTitle_paAddress1}"><text-find/></field>
         <field name="paAddress2" title="${uiLabelMap.FormFieldTitle_paAddress2}"><text-find/></field>
-        <field name="paCity" title="${uiLabelMap.PartyCity}"><text-find/></field>
+        <field name="paCity" title="${uiLabelMap.FormFieldTitle_city}"><text-find/></field>
         <field name="paStateProvinceGeoId" title="${uiLabelMap.FormFieldTitle_stateProvince}">
             <drop-down allow-empty="true">
                 <list-options key-name="geoId" description="${geoName}" list-name="states"/>
