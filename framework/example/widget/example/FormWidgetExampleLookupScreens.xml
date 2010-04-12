@@ -43,7 +43,7 @@ under the License.
 
                 <!--  when set Y the auto-completer will search value using "fieldValue%"(statrWith operation)-->
                 <!--  the default behavior is "%fieldValue%" (contains operation) -->
-                <set field="searchTypeStartWith" value="Y"/>
+                <set field="searchType" value="STARTS_WITH"/>
 
                 <!-- optional: fields to display in the given order, default is searchFields -->
                 <set field="displayFields" value="[firstName, lastName, groupName]"/>

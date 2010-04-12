@@ -733,13 +733,14 @@ function write_value (value, target) {
     
     setSourceColor(target);
     target.value = value;
-    
+    target.fire("lookup:changed");
     if (target.onchange != null) {     
         target.onchange();                    
     }
 }
 function set_multivalues(value) {
     obj_caller.target.value = value;
+    obj_caller.target.fire("lookup:changed");
     var thisForm = obj_caller.target.form;
     var evalString = "";
     
@@ -762,3 +763,39 @@ function closeLookup() {
         obj.closeLookup();
     }
 }
+
+//load description for lookup fields 
+var lookupDescriptionLoaded = Class.create({
+    initialize: function(fieldId, url, params) {
+        this.fieldId = fieldId;
+        this.url = url;
+        this.params = params;
+        this.updateLookup();
+        $(fieldId).observe('change', this.updateLookup.bind(this));
+        $(fieldId).observe('lookup:changed', this.updateLookup.bind(this));
+    },
+
+    updateLookup: function() {
+        var tooltipElement = $(this.fieldId + '_lookupDescription');
+        if (tooltipElement) {//first remove current description
+            tooltipElement.remove();
+        }
+        if (!$F(this.fieldId)) {
+            return;
+        }
+        //actual server call
+        var allParams = this.params + '&' + $(this.fieldId).serialize() + '&' + 'searchType=EQUALS'
+        new Ajax.Request(this.url,{parameters: allParams, onSuccess: this.updateFunction.bind(this)});
+    }, 
+    
+    updateFunction: function(transport) {
+        var wrapperElement = new Element('div').insert(transport.responseText);
+        if('UL'!= wrapperElement.firstDescendant().tagName || (wrapperElement.firstDescendant().childElements().length != 1)) {    
+            //alert(transport.responseText); response is error or more than one entries are found
+            return;
+        }
+        Element.cleanWhitespace(wrapperElement);
+        Element.cleanWhitespace(wrapperElement.down());
+        setLookDescription(this.fieldId, wrapperElement.firstDescendant().firstDescendant().textContent);
+    }            
+});
