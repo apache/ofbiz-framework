@@ -592,11 +592,13 @@
     </property>
     <property key="MarketingFindContacts">
         <value xml:lang="en">Find SFA Contacts</value>
+        <value xml:lang="fr">Rechercher des contacts</value>
         <value xml:lang="pt_BR">Encontrar contatos da equipe de vendas</value>
         <value xml:lang="th">ค้นหา Contact</value>
     </property>
     <property key="MarketingFindLeads">
         <value xml:lang="en">Find SFA Leads</value>
+        <value xml:lang="fr">Rechercher des prospects</value>
         <value xml:lang="pt_BR">Buscar Leads da equipe de vendas</value>
         <value xml:lang="th">ค้นหา Lead</value>
     </property>
@@ -1966,29 +1968,34 @@
     <property key="SfaAllAccounts">
         <value xml:lang="de">Alle Konten</value>
         <value xml:lang="en">All Accounts</value>
+        <value xml:lang="fr">Tous les comptes</value>
         <value xml:lang="pt_BR">Todas contas</value>
         <value xml:lang="th">Account ทั้งหมด</value>
     </property>
     <property key="SfaAllContacts">
         <value xml:lang="de">Alle Kontakte</value>
         <value xml:lang="en">All Contacts</value>
+        <value xml:lang="fr">Tous les contacts</value>
         <value xml:lang="pt_BR">Todos contatos</value>
         <value xml:lang="th">Contact ทั้งหมด</value>
     </property>
     <property key="SfaAllLeads">
         <value xml:lang="en">All Leads</value>
+        <value xml:lang="fr">Tous les prospects</value>
         <value xml:lang="pt_BR">Todos Leads</value>
         <value xml:lang="th">Lead ทั้งหมด</value>
     </property>
     <property key="SfaAssignToMe">
         <value xml:lang="de">Zugewiesen an mich</value>
         <value xml:lang="en">Assign To Me</value>
+        <value xml:lang="fr">Me l'assigner</value>
         <value xml:lang="pt_BR">Designar para mim</value>
         <value xml:lang="th">กำหนดให้ฉัน</value>
     </property>
     <property key="SfaAssignedBy">
         <value xml:lang="de">Zugewiesen von</value>
         <value xml:lang="en">Assigned by</value>
+        <value xml:lang="fr">Assigné par</value>
         <value xml:lang="pt_BR">Designada por</value>
         <value xml:lang="th">กำหนดโดย</value>
     </property>
@@ -2325,17 +2332,20 @@
     <property key="SfaMyAccounts">
         <value xml:lang="de">Meine Konten</value>
         <value xml:lang="en">My Accounts</value>
+        <value xml:lang="fr">Mes comptes</value>
         <value xml:lang="pt_BR">Minhas contas</value>
         <value xml:lang="th">Account ของฉัน</value>
     </property>
     <property key="SfaMyContacts">
         <value xml:lang="de">Meine Kontakte</value>
         <value xml:lang="en">My Contacts</value>
+        <value xml:lang="fr">Mes contacts</value>
         <value xml:lang="pt_BR">Meus contatos</value>
         <value xml:lang="th">Contact ของฉัน</value>
     </property>
     <property key="SfaMyLeads">
         <value xml:lang="en">My Leads</value>
+        <value xml:lang="fr">Mes prospects</value>
         <value xml:lang="pt_BR">Meus Leads</value>
         <value xml:lang="th">Lead ของฉัน</value>
     </property>
@@ -2454,12 +2464,14 @@
     <property key="SfaTaskAssignedByMe">
         <value xml:lang="de">Öffne Aufgaben die ich zugeteilt habe.</value>
         <value xml:lang="en">Open Tasks Assigned by me.</value>
+        <value xml:lang="fr">Tâches ouvertes assignées par moi</value>
         <value xml:lang="pt_BR">Tarefas em aberto designadas para mim.</value>
         <value xml:lang="th">งานที่ฉันมอบหมาย</value>
     </property>
     <property key="SfaTaskAssignedToMe">
         <value xml:lang="de">Öffne Aufgaben die mir zugeteilt sind.</value>
         <value xml:lang="en">Open Tasks Assigned to me.</value>
+        <value xml:lang="fr">Tâches ouvertes qui me sont assignées</value>
         <value xml:lang="pt_BR">Tarefas em aberto designadas para mim.</value>
         <value xml:lang="th">งานที่มอบหมายให้ฉัน</value>
     </property>
