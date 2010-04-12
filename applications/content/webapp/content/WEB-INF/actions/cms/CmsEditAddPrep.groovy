@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,10 +38,10 @@ if (contentAssocPK.isPrimaryKey()) {
 }
 
 if (contentAssoc) {
-    SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault());
+    SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault());
 } else {
     contentAssocPK.setAllFields(context, false, "ca", null); //set all field, pk and non
-    SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssocPK, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault());
+    SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssocPK, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault());
 }
 Debug.logInfo("in cmseditaddprep, contentAssocDataResourceViewFrom:" + contentAssocDataResourceViewFrom,"");
 
@@ -68,11 +68,11 @@ if (!dataResourceId) {
 }
 if (dataResourceId) {
     dataResource = delegator.findOne("DataResource", [dataResourceId : dataResourceId], true);
-    SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault());
+    SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault());
     templateRoot = [:];
     FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response);
-    txt = DataResourceWorker.getDataResourceText(dataResource, "text/html", Locale.getDefault(), templateRoot, delegator, true);
-
+    txt = DataResourceWorker.getDataResourceTextCache(dataResource, "text/html", Locale.getDefault(), templateRoot, delegator);
+    
     if (txt) {
         textData = UtilFormatOut.encodeXmlValue(txt);
     }
