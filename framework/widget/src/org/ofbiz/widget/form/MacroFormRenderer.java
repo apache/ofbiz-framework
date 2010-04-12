@@ -3002,7 +3002,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("<@renderContainerField ");
         sr.append("id=\"");
         sr.append(id);
-        sr.append("\" class=\"");
+        sr.append("\" className=\"");
         sr.append(className);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
