@@ -317,6 +317,8 @@ var FieldLookupPopup = Class.create({
 
         //make the window resiable
         this.makeResizeable(lookupDiv);
+        
+        identifyLookup(this.globalRef);
     },
 
     close_on_click: function (evt) {
