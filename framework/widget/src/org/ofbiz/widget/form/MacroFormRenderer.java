@@ -348,6 +348,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 this.request, this.response, context);
 
         this.appendTooltip(writer, context, modelFormField);
+        this.request.removeAttribute("image");
     }
 
     public void renderTextField(Appendable writer, Map<String, Object> context, TextField textField) throws IOException {
