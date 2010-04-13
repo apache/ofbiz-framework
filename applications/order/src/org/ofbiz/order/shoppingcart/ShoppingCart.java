@@ -2470,7 +2470,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             // set as the default shipping location the first from the list of available shipping locations
             if (this.getPartyId() != null && !this.getPartyId().equals("_NA_")) {
                 try {
-                    GenericValue orderParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", this.getPartyId()));
+                    GenericValue orderParty = this.getDelegator().findByPrimaryKey("Party", UtilMisc.toMap("partyId", this.getPartyId()));
                     Collection shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
                     if (UtilValidate.isNotEmpty(shippingContactMechList)) {
                         GenericValue shippingContactMech = (GenericValue)(shippingContactMechList.iterator()).next();
@@ -2498,7 +2498,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 // the facilityId should be set prior to triggering default options, otherwise we do not set up facility information
                 String defaultFacilityId = getFacilityId();
                 if (defaultFacilityId != null) {
-                    GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION"));
+                    GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(this.getDelegator(), facilityId, UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION"));
                     if (facilityContactMech != null) {
                         this.setShippingContactMechId(0, facilityContactMech.getString("contactMechId"));
                     }
@@ -2714,7 +2714,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /** Add an orderTerm to the order */
     public int addOrderTerm(String termTypeId, BigDecimal termValue, Long termDays, String textValue) {
-        GenericValue orderTerm = GenericValue.create(delegator.getModelEntity("OrderTerm"));
+        GenericValue orderTerm = this.getDelegator().makeValue("OrderTerm");
         orderTerm.put("termTypeId", termTypeId);
         orderTerm.put("termValue", termValue);
         orderTerm.put("termDays", termDays);
@@ -3311,6 +3311,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 return newProductId;
             }
 
+            Delegator delegator = this.getDelegator();
+
             //create new product and associate it
             GenericValue product = item.getProduct();
             String productName = product.getString("productName");
@@ -3350,7 +3352,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             //create a new WorkEffortGoodStandard based on existing one of AGGREGATED product .
             //Another approach could be to get WorkEffortGoodStandard of the AGGREGATED product while creating production run.
-            List productionRunTemplates = getDelegator().findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("productId", item.getProductId(), "workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE", "statusId", "WEGS_CREATED"));
+            List productionRunTemplates = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("productId", item.getProductId(), "workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE", "statusId", "WEGS_CREATED"));
             GenericValue productionRunTemplate = EntityUtil.getFirst(EntityUtil.filterByDate(productionRunTemplates));
             if (productionRunTemplate != null) {
                 serviceContext.clear();
@@ -3660,6 +3662,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /** make a list of all OrderPaymentPreferences and Billing info including all payment methods and types */
     public List makeAllOrderPaymentInfos(LocalDispatcher dispatcher) {
+        Delegator delegator = this.getDelegator();
         List allOpPrefs = new LinkedList();
         BigDecimal remainingAmount = this.getGrandTotal().subtract(this.getPaymentTotal());
         remainingAmount = remainingAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -3694,7 +3697,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 inf.amount = remainingAmount;
                 remainingAmount = BigDecimal.ZERO;
             }
-            allOpPrefs.addAll(inf.makeOrderPaymentInfos(this.getDelegator(), this));
+            allOpPrefs.addAll(inf.makeOrderPaymentInfos(delegator, this));
         }
         return allOpPrefs;
     }
@@ -4058,7 +4061,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         String facilityId = null;
         if (UtilValidate.isNotEmpty(this.getProductStoreId())) {
             try {
-                GenericValue productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", this.getProductStoreId()));
+                GenericValue productStore = this.getDelegator().findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", this.getProductStoreId()));
                 facilityId = productStore.getString("inventoryFacilityId");
             } catch (Exception e) {
                 Debug.logError(UtilProperties.getMessage(resource_error,"OrderProblemGettingProductStoreRecords", locale) + e.getMessage(), module);
