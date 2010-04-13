@@ -42,8 +42,10 @@ under the License.
  <patternset id="src.exc.set"/>
 
  <path id="groovy.class.path">
-  <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting/" includes="*.jar"/>
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-apache-bsf-1.7.1.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/commons/commons-cli-1.0.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/antlr-2.7.6.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/asm-3.2.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/groovy-1.7-rc-2.jar"/>
  </path>
  <path id="ant.lib.class.path">
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
@@ -75,6 +77,17 @@ under the License.
            Windowtitle="Open for Business - ${desc}">
    <link href="http://java.sun.com/javase/6/docs/api/" offline="true" packagelistLoc="${ofbiz.home.dir}/tools/api-java16"/>
   </javadoc>
+ </presetdef>
+
+ <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" classpathref="groovy.class.path"/>
+
+ <presetdef name="default-groovyc">
+  <groovyc destdir="${build.dir}/classes" srcdir="${src.dir}">
+   <classpath>
+    <path refid="local.class.path"/>
+    <pathelement path="${build.dir}/classes"/>
+   </classpath>
+  </groovyc>
  </presetdef>
 
  <taskdef name="javacc" classname="org.apache.tools.ant.taskdefs.optional.javacc.JavaCC" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
