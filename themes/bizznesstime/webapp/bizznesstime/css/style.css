@@ -1495,22 +1495,25 @@ Lookups
  }
 
 /* overwrite */
- #fieldLookupContent ul li a{
-     display: inherit;
-     padding: 2px 3px 2px 3px;
-     margin: 0;
-     cursor: pointer;
-     height: 16;
-     width: 16;
-     background: url(/images/fieldlookup.gif) no-repeat;     
+ #fieldLookupContent ul li a {
+    display: inherit;
+    cursor: pointer;
  }
 
-/* overwrite*/
- #fieldLookupContent a{
-     display: inherit;
-     cursor: pointer;
-     background: url(/images/fieldlookup.gif) no-repeat;     
+ #fieldLookupContent td {
+    padding-top: 5px;
+    padding-bottom: 5px;
  }
+
+ #fieldLookupContent td ul li a {
+    background: url(/images/fieldlookup.gif) no-repeat;
+ }
+
+ #fieldLookupContent td a {
+    cursor: pointer;
+    padding: 0.4em 0.6em;
+    display: inline;
+    }
 
 /* overwrite*/
  #findScreenlet{
