@@ -2270,21 +2270,25 @@ Lookups
  }
 
 /* overwrite */
- #fieldLookupContent ul li a{
-     display: inherit;
-     padding: 2px 3px 2px 3px;
+ #fieldLookupContent ul li a {
+    display: inherit;
      cursor: pointer;
-     height: 16;
-     width: 16;
-     background: url(/images/fieldlookup.gif) no-repeat;
  }
 
- #fieldLookupContent a{
-     display: inherit;
-     cursor: pointer;
-     background: url(/images/fieldlookup.gif) no-repeat;
+ #fieldLookupContent td {
+    padding-top: 5px;
+    padding-bottom: 5px;
  }
 
+ #fieldLookupContent td ul li a {
+    background: url(/images/fieldlookup.gif) no-repeat;
+ }
+
+ #fieldLookupContent td a {
+    background: none;
+    cursor: pointer;
+    display: inline;
+ }
 /* overwrite*/
  #findScreenlet{
      margin-top: 0;
