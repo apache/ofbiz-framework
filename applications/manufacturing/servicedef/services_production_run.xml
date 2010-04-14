@@ -56,6 +56,7 @@ under the License.
         <description>Explodes a product id and creates all the needed production runs; if an order id is also provided, it links the production runs to the sales order.</description>
         <attribute mode="IN" name="orderId" optional="false" type="String"/>
         <attribute mode="IN" name="orderItemSeqId" optional="true" type="String"/>
+        <attribute mode="IN" name="shipGroupSeqId" optional="true" type="String"/>
         <attribute mode="IN" name="quantity" optional="true" type="BigDecimal"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="shipmentId" optional="true" type="String"/>

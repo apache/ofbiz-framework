@@ -149,12 +149,12 @@ public class BOMHelper {
             GenericValue shipmentPlan = (GenericValue)shipmentPlansIt.next();
             GenericValue orderItem = shipmentPlan.getRelatedOne("OrderItem");
 
-            List productionRuns = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId")));
+            List productionRuns = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId")));
             if (UtilValidate.isNotEmpty(productionRuns)) {
                 Debug.logError("Production Run for order item (" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + ") not created.", module);
                 continue;
             }
-            Map result = dispatcher.runSync("createProductionRunsForOrder", UtilMisc.<String, Object>toMap("quantity", shipmentPlan.getBigDecimal("quantity"), "orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipmentId", shipmentId, "userLogin", userLogin));
+            Map result = dispatcher.runSync("createProductionRunsForOrder", UtilMisc.<String, Object>toMap("quantity", shipmentPlan.getBigDecimal("quantity"), "orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId"), "shipmentId", shipmentId, "userLogin", userLogin));
         }
         } catch (Exception e) {
             // if there is an exception for either, the other probably wont work

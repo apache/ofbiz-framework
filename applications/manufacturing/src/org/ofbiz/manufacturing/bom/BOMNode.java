@@ -504,7 +504,7 @@ public class BOMNode {
         }
     }
 
-    public Map createManufacturingOrder(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipmentId, boolean useSubstitute, boolean ignoreSupplierProducts) throws GenericEntityException {
+    public Map createManufacturingOrder(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipGroupSeqId, String shipmentId, boolean useSubstitute, boolean ignoreSupplierProducts) throws GenericEntityException {
         String productionRunId = null;
         Timestamp endDate = null;
         if (isManufactured(ignoreSupplierProducts)) {
@@ -514,7 +514,7 @@ public class BOMNode {
             for (int i = 0; i < childrenNodes.size(); i++) {
                 oneChildNode = (BOMNode)childrenNodes.get(i);
                 if (oneChildNode != null) {
-                    Map tmpResult = oneChildNode.createManufacturingOrder(facilityId, date, null, null, null, null, null, shipmentId, false, false);
+                    Map tmpResult = oneChildNode.createManufacturingOrder(facilityId, date, null, null, null, null, null, shipGroupSeqId, shipmentId, false, false);
                     String childProductionRunId = (String)tmpResult.get("productionRunId");
                     Timestamp childEndDate = (Timestamp)tmpResult.get("endDate");
                     if (maxEndDate == null) {
@@ -573,7 +573,7 @@ public class BOMNode {
             try {
                 if (productionRunId != null) {
                     if (orderId != null && orderItemSeqId != null) {
-                        delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                        delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId));
                     }
                     for (int i = 0; i < childProductionRuns.size(); i++) {
                         delegator.create("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", (String)childProductionRuns.get(i), "workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY", "fromDate", startDate));
