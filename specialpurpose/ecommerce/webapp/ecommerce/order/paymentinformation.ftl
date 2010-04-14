@@ -84,7 +84,7 @@ function shipBillAddr() {
             <#if cart.getShippingContactMechId()?exists && paymentMethodTypeId?if_exists != "GIFT_CARD">
               <tr>
                 <td width="26%" align="right" valign="top">
-                  <input type="checkbox" name="useShipAddr" value="Y" onClick="javascript:shipBillAddr();" <#if useShipAddr?exists>checked</#if>/>
+                  <input type="checkbox" name="useShipAddr" value="Y" onclick="javascript:shipBillAddr();" <#if useShipAddr?exists>checked</#if>/>
                 </td>
                 <td colspan="2" valign="middle">
                   <div class="tabletext">${uiLabelMap.FacilityBillingAddressSameShipping}</div>

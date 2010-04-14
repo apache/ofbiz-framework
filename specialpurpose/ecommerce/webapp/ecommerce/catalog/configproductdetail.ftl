@@ -557,7 +557,7 @@ function getConfigDetails(event) {
                   <#if option.isSelected()>
                     <#assign optionCounter = optionCounter + 1>
                   </#if>
-                  <option value='${optionCounter}' <#if option.isSelected()>selected</#if>>
+                  <option value='${optionCounter}' <#if option.isSelected()>selected="selected"</#if>>
                     ${option.description}&nbsp;
                     <#if (shownPrice > 0)>+<@ofbizCurrency amount=shownPrice isoCode=price.currencyUsed/>&nbsp;</#if>
                     <#if (shownPrice < 0)>-<@ofbizCurrency amount=(-1*shownPrice) isoCode=price.currencyUsed/>&nbsp;</#if>
