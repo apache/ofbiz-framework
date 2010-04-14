@@ -58,6 +58,6 @@ under the License.
 <div>&nbsp;</div>
 <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>repository?upload=xpdl</@ofbizUrl>" name="xpdlUploadForm">
   <input type="file" size="50" name="fname" />
-  <div><hr></div>
+  <div><hr/></div>
   <input type="submit" class="smallSubmit" value="Upload" />
 </form>
