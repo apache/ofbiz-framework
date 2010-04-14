@@ -86,7 +86,7 @@ under the License.
     </form>
     <form name="FindTrainingApprovals" target="FindTrainingApprovals" title="" type="single" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="PersonTraining" default-field-type="find"/>
-        <field name="partyId" title="${uiLabelMap.WebPosEmployee} ${uiLabelMap.CommonId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="trainingClassTypeId" entity-name="TrainingClassType">
