@@ -242,11 +242,11 @@ under the License.
                           <table cellspacing="0" width="70%">
                             <tr>
                                 <td class="label">ItemID</td>
-                                <td><input type="text" readOnly name="item" value="${item.getItemID()?if_exists}"/></td>
+                                <td><input type="text" readonly="readonly" name="item" value="${item.getItemID()?if_exists}"/></td>
                                 <td class="label">Item Fee</td>
                                 <td>
                                     <div>
-                                        <input type="text" readOnly name="itemFee" value="${request.getAttribute("itemFee")?if_exists}"/>
+                                        <input type="text" readonly="readonly" name="itemFee" value="${request.getAttribute("itemFee")?if_exists}"/>
                                         <!-- itemlisting buttons bar -->
                                         <a href="#" onclick="javascript:document.ProductsExportToEbay.action='<@ofbizUrl>updateProductExportDetail</@ofbizUrl>';document.ProductsExportToEbay.submit();" class="buttontext">${uiLabelMap.CommonSave}</a>
                                     <#-- request.setAttribute("isSaved")-->
@@ -272,7 +272,7 @@ under the License.
                                             <td class="label">SiteId</td>
                                             <td>
                                                 <#assign site = item.getSite().value()?if_exists>
-                                                <input type="text" readOnly name="site" value="${item.getSite().name()?if_exists} [${item.getSite()?if_exists}]"/>
+                                                <input type="text" readonly="readonly" name="site" value="${item.getSite().name()?if_exists} [${item.getSite()?if_exists}]"/>
                                             </td>
                                         </tr>
                                         <!-- set ebay category -->
@@ -291,7 +291,7 @@ under the License.
                                                                     <#assign  leafCate  = "true">
                                                                 </#if>
                                                                 <#assign  primaryCateId  = primaryCate.getCategoryID()?if_exists>
-                                                                 <option selected value="${primaryCate.getCategoryID()?if_exists}:${leafCate?if_exists}" >${primaryCate.getCategoryName()?if_exists}</option>
+                                                                 <option selected="selected" value="${primaryCate.getCategoryID()?if_exists}:${leafCate?if_exists}" >${primaryCate.getCategoryName()?if_exists}</option>
                                                             <#else>
                                                                 <#list categories as csCate>
                                                                     <#if !csCate.isLeafCategory()?has_content> 
@@ -327,7 +327,7 @@ under the License.
                                                                     <#assign  leafCate  = "true">
                                                                 </#if>
                                                                 <#assign storeCate1Id  = storeFront.getStoreCategoryID()?if_exists>
-                                                                 <option selected value="${storeFront.getStoreCategoryID()?if_exists}" >${storeFront.getStoreCategoryID()?if_exists}</option>
+                                                                 <option selected="selected" value="${storeFront.getStoreCategoryID()?if_exists}" >${storeFront.getStoreCategoryID()?if_exists}</option>
                                                             <#else>
                                                                 <#list storeCategories as csCate>
                                                                     <#if !csCate.IsLeafCategory?has_content> 
@@ -360,7 +360,7 @@ under the License.
                                                                     <#assign  leafCate  = "true">
                                                                 </#if>
                                                                 <#assign storeCate1Id  = storeFront.getStoreCategoryID()?if_exists>
-                                                                 <option selected value="${storeFront.getStoreCategoryID()?if_exists}" >${storeFront.getStoreCategoryID()?if_exists}</option>
+                                                                 <option selected="selected" value="${storeFront.getStoreCategoryID()?if_exists}" >${storeFront.getStoreCategoryID()?if_exists}</option>
                                                             <#else>
                                                                 <#list storeCategories as csCate>
                                                                     <#if !csCate.IsLeafCategory?has_content> 
@@ -384,7 +384,7 @@ under the License.
                                         </tr>
                                         <tr>
                                             <td class="label">SKU</td>
-                                            <td><input type="text" readOnly name="sku" value="${item.getSKU()?if_exists}"/></td>
+                                            <td><input type="text" readonly="readonly" name="sku" value="${item.getSKU()?if_exists}"/></td>
                                         </tr>
                                         <tr>
                                             <td class="label">PictureURL</td>
@@ -408,7 +408,7 @@ under the License.
                                                     <#assign countryname = country.geoName/>
                                                 </#if>
                                             </#if>
-                                            <td><input type="text" readOnly name="country" size="20" value="${countryname?if_exists?default(item.getCountry().value()?if_exists)}"/></td>
+                                            <td><input type="text" readonly="readonly" name="country" size="20" value="${countryname?if_exists?default(item.getCountry().value()?if_exists)}"/></td>
                                         </tr>
                                         <tr>
                                             <td class="label">${uiLabelMap.FormFieldTitle_location}</td>
@@ -480,13 +480,13 @@ under the License.
                                                 <table align="left" width="60%"  height="100%" cellspacing="0">
                                                     <tr>
                                                         <td></td>
-                                                        <td><input type="checkbox" value="Y" onClick="javascript:enabledItemTemplate(this.value);" id="enabledTheme" name="enabledTheme" /><b>Add a theme</b></checkbox></td>
+                                                        <td><input type="checkbox" value="Y" onclick="javascript:enabledItemTemplate(this.value);" id="enabledTheme" name="enabledTheme" /><b>Add a theme</b></checkbox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="label">Select Theme</td>
                                                         <td>
                                                              <#if adItemTemplates?has_content>
-                                                                <select id="themeGroup" disabled onChange="javascript:retrieveTemplateByTemGroupId(this.value,'${productStoreId?if_exists}','${primaryCate.getCategoryID()?if_exists}');" name="themeGroup">
+                                                                <select id="themeGroup" disabled onchange="javascript:retrieveTemplateByTemGroupId(this.value,'${productStoreId?if_exists}','${primaryCate.getCategoryID()?if_exists}');" name="themeGroup">
                                                                 <#list adItemTemplates as adItemTemplate>
                                                                     <option value="${adItemTemplate.TemplateGroupId?if_exists}">${adItemTemplate.TemplateGroupName?if_exists}</option>
                                                                 </#list>
@@ -498,7 +498,7 @@ under the License.
                                                         <td class="label">Select Design</td>
                                                         <td>
                                                              <#if adItemTemplates?has_content>
-                                                                <select id="theme" disabled onChange="javascript:previewPic(this.value);" name="theme">
+                                                                <select id="theme" disabled onchange="javascript:previewPic(this.value);" name="theme">
                                                                     <option value="">-</option>
                                                                 </select>
                                                             </#if>
@@ -539,7 +539,7 @@ under the License.
                                                <#if listingType.type?if_exists.equals("Chinese") || listingType.type?if_exists == "FixedPriceItem">
                                                     <#if listingType.type?if_exists.equals("Chinese") > <#assign tabName = "Auction"></#if>
                                                     <#if listingType.type?if_exists.equals("FixedPriceItem") > <#assign tabName = "Fixed Price"></#if>
-                                                    <li  <#if id==1 > style="margin-left: 1px" id="tabHeaderActive_"<#else> id="tabHeader_${id}" </#if>><a href="javascript:void(0)" onClick="toggleTab(${id},2)"><span>${tabName?if_exists}</span></a></li>
+                                                    <li  <#if id==1 > style="margin-left: 1px" id="tabHeaderActive_"<#else> id="tabHeader_${id}" </#if>><a href="javascript:void(0)" onclick="toggleTab(${id},2)"><span>${tabName?if_exists}</span></a></li>
                                                     <#assign id = id + 1>
                                                </#if>
                                             </#list>

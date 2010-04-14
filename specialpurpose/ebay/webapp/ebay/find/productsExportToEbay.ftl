@@ -51,7 +51,7 @@ under the License.
                         <option value=""> </option>
                         <#if categories?exists>
                             <#list categories as category>
-                                <option value="${category.CategoryCode}" <#if categoryCode?exists && categoryCode == category.CategoryCode>selected</#if>>${category.CategoryName}</option>
+                                <option value="${category.CategoryCode}" <#if categoryCode?exists && categoryCode == category.CategoryCode>selected="selected"</#if>>${category.CategoryName}</option>
                             </#list>
                         </#if>
                     </select>
@@ -65,7 +65,7 @@ under the License.
                     <select name="country">
                         <#if countries?exists>
                             <#list countries as country>
-                                <option value="${country.geoCode}" <#if countryCode?exists && countryCode == country.geoCode>selected</#if>>${country.get("geoName",locale)}</option>
+                                <option value="${country.geoCode}" <#if countryCode?exists && countryCode == country.geoCode>selected="selected"</#if>>${country.get("geoName",locale)}</option>
                             </#list>
                         </#if>
                     </select>
