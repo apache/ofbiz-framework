@@ -27,8 +27,8 @@ under the License.
         <field name="approvalStatus"><hidden value="TRAINING_APPLIED"/></field>
         <field name="workEffortTypeId"><hidden/></field>
         <field name="workEffortId"><display/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date-time"></display></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date-time"></display></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date-time"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
     </form>
     <form name="editTrainingCalendar" type="single" target="createTrainingCalendar" default-map-name="workEffort">
@@ -59,7 +59,7 @@ under the License.
         <field name="trainingClassTypeId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="approvalStatus"><hidden value="TRAINING_ASSIGNED"/></field>
-        <field name="partyId" position="1"><lookup target-form-name="LookupPartyName" size="10"></lookup></field>
+        <field name="partyId" position="1"><lookup target-form-name="LookupPartyName" size="10"/></field>
         <field name="roleTypeId"> <hidden value="CAL_ATTENDEE"/></field>
         <field name="add"><submit/></field>
     </form>
@@ -81,7 +81,7 @@ under the License.
             </display-entity>
         </field>
         <field name="approvalStatus"><display/></field>
-        <field name="trainingRequestId" widget-style="buttontext"></field>
+        <field name="trainingRequestId" widget-style="buttontext"/>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"><display/></field>
     </form>
     <form name="FindTrainingApprovals" target="FindTrainingApprovals" title="" type="single" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
@@ -123,8 +123,8 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"></field>
-        <field name="trainingRequestId" widget-style="buttontext"></field>
+        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
+        <field name="trainingRequestId" widget-style="buttontext"/>
         <field name="UpdateStatus" title="${uiLabelMap.CommonUpdate}"><display description="Update"/></field>
         <field name="UpdateStatus" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" use-when="(&quot;${approvalStatus}&quot;.equals(&quot;TRAINING_APPLIED&quot;))||(&quot;${approvalStatus}&quot;.equals(&quot;TRAINING_APPROVED&quot;))">
             <hyperlink description="${uiLabelMap.CommonUpdate}" target="EditTrainingApprovals">
@@ -136,8 +136,8 @@ under the License.
     </form>
     <form name="EditTrainingApprovals" type="single" target="updateTrainingStatus" default-map-name="personTraining">
         <auto-fields-service service-name="updateTrainingStatus" default-field-type="display"/>
-        <field name="partyId" title="${uiLabelMap.WebPosEmployee} ${uiLabelMap.CommonId}"></field>
-        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"></field>
+        <field name="partyId" title="${uiLabelMap.WebPosEmployee} ${uiLabelMap.CommonId}"/>
+        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
         <field name="approvalStatus">
             <drop-down allow-empty="false">
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
@@ -191,7 +191,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="trainingRequestId" widget-style="buttontext"></field>
-        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"></field>
+        <field name="trainingRequestId" widget-style="buttontext"/>
+        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
     </form>
 </forms>
