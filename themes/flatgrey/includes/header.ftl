@@ -96,7 +96,7 @@ under the License.
       <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
         <li class="logo-area">
           <#if shortcutIcon?has_content>
-            <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>"/></a>
+            <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" alt=""/></a>
           </#if>
         </li>
         <#if layoutSettings.topLines?has_content>
@@ -118,7 +118,7 @@ under the License.
           <p class="collapsed">
             <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
               <a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;&nbsp;</a>
-              <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
+              <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)">
                 <input name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES" type="hidden"/>
                 <input name="userPrefTypeId" value="COMPACT_HEADER" type="hidden"/>
                 <input name="userPrefValue" value="N" type="hidden"/>
