@@ -4626,6 +4626,12 @@
         <value xml:lang="zh">无</value>
         <value xml:lang="zh_CN">无</value>
     </property>
+    <property key="CommonNoRecordFound">
+        <value xml:lang="de">Kein Datensatz gefunden</value>
+        <value xml:lang="en">No Record Found.</value>
+        <value xml:lang="fr">Aucun résultat trouvé</value>
+        <value xml:lang="hi_IN">कोई रिकॉर्ड नहीं मिला</value>
+    </property>
     <property key="CommonNormal">
         <value xml:lang="en">Normal</value>
         <value xml:lang="fr">Normal</value>
@@ -4650,6 +4656,12 @@
         <value xml:lang="th">ไม่</value>
         <value xml:lang="zh">不是</value>
         <value xml:lang="zh_CN">不是</value>
+    </property>
+    <property key="CommonNotAssigned">
+        <value xml:lang="de">Nicht zugewiesen</value>
+        <value xml:lang="en">Not Assigned</value>
+        <value xml:lang="fr">Non attribué</value>
+        <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
     </property>
     <property key="CommonNotModifRecreat">
         <value xml:lang="de">kann nur mit Neuanlage geändert werden</value>

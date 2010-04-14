@@ -326,6 +326,6 @@ function getFinAccountTransRunningTotalAndBalances() {
       </table>
     </#if>
   <#else>
-    <h2>${uiLabelMap.AccountingNoRecordFound}</h2>  
+    <h2>${uiLabelMap.CommonNoRecordFound}</h2>  
   </#if>
 </div>

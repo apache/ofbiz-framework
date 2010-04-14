@@ -87,6 +87,6 @@ under the License.
             </form>
         </div>
     <#else>
-        ${uiLabelMap.AccountingNoRecordFound}
+        ${uiLabelMap.CommonNoRecordFound}
     </#if>
 </div>

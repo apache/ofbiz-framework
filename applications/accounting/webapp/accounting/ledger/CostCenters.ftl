@@ -56,5 +56,5 @@ under the License.
     <div align="right"><input type="button" id="costCentersSubmit" value="${uiLabelMap.CommonSubmit}"/></div>
   </form>
 <#else>
-  <label>${uiLabelMap.AccountingNoRecordFound}</label>
+  <label>${uiLabelMap.CommonNoRecordFound}</label>
 </#if>

@@ -132,6 +132,6 @@ under the License.
             </fo:table-body>
         </fo:table>
     <#else>
-        ${uiLabelMap.AccountingNoRecordFound}
+        ${uiLabelMap.CommonNoRecordFound}
     </#if>
 </#escape>

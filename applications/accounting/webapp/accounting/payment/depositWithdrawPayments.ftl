@@ -115,7 +115,7 @@ function getPaymentRunningTotal() {
                     </div>
                 </table>
             <#else>
-                <span class="label">${uiLabelMap.AccountingNoRecordFound}</span>
+                <span class="label">${uiLabelMap.CommonNoRecordFound}</span>
             </#if>
         </form>
     </div>
