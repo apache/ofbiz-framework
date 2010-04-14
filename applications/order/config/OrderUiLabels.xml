@@ -6462,7 +6462,7 @@
     <property key="OrderOrderReceivedOn">
         <value xml:lang="en">Order Received On</value>
         <value xml:lang="fr">Commandes reçues le</value>
-        <value xml:lang="it">Ordine ricevuto il</value>
+        <value xml:lang="it">Ordini ricevuti il</value>
         <value xml:lang="nl">Bestellingen ontvangen op</value>
         <value xml:lang="pt_BR">Pedido recebido em</value>
     </property>

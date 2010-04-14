@@ -130,7 +130,7 @@
     <property key="MyPortalNewRegistration">
         <value xml:lang="en">New Registration </value>
         <value xml:lang="fr">Nouvel enregistrement</value>
-        <value xml:lang="it">Nuova utente</value>
+        <value xml:lang="it">Nuovo utente</value>
         <value xml:lang="th">ลงทะเบียน </value>
         <value xml:lang="zh">新注册</value>
     </property>
