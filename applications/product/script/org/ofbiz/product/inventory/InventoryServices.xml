@@ -1310,21 +1310,28 @@ under the License.
         </else>
         </if-empty>
     </simple-method>
-    <simple-method method-name="setLastInventoryCount" short-description="Schedule service that updates stock availability of products hourly">
-        <entity-condition entity-name="ProductFacility" list="productFacilities" use-cache="true">
-            <use-iterator/>
-        </entity-condition>
-        <iterate list="productFacilities" entry="productFacility">
-            <set field="serviceInMap.productId" from-field="productFacility.productId"/>
-            <call-service service-name="getProductInventoryAvailable" in-map-name="serviceInMap">
-                <result-to-field result-name="availableToPromiseTotal"/>
-            </call-service>
-            <set field="productFacility.lastInventoryCount" from-field="availableToPromiseTotal"/>
-            <set-service-fields service-name="updateProductFacility" map="productFacility" to-map="productFacilityCtx"/>
-            <call-service service-name="updateProductFacility" in-map-name="productFacilityCtx"/>
-            <clear-field field="productFacility"/>
-            <clear-field field="productFacilityCtx"/>
-        </iterate>
+    <simple-method method-name="setLastInventoryCount" short-description="Service that updates stock availability of products">
+        <entity-one value-field="inventoryItem" entity-name="InventoryItem"  auto-field-map="false">
+            <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
+        </entity-one>
+        <entity-and list="productFacilities" entity-name="ProductFacility">
+            <field-map field-name="productId" from-field="inventoryItem.productId" />
+        </entity-and>
+        <if-not-empty field="productFacilities">
+            <iterate list="productFacilities" entry="productFacility">
+                <set field="serviceInMap.productId" from-field="productFacility.productId"/>
+                <set field="serviceInMap.facilityId" from-field="productFacility.facilityId"/>
+                <call-service service-name="getInventoryAvailableByFacility" in-map-name="serviceInMap">
+                    <result-to-field result-name="availableToPromiseTotal"/>
+                </call-service>
+                <clear-field field="serviceInMap"/>
+                <set field="productFacility.lastInventoryCount" from-field="availableToPromiseTotal"/>
+                <set-service-fields service-name="updateProductFacility" map="productFacility" to-map="serviceInMap"/>
+                <call-service service-name="updateProductFacility" in-map-name="serviceInMap"/>
+                <clear-field field="productFacility"/>
+                <clear-field field="serviceInMap"/>
+            </iterate>
+        </if-not-empty>
     </simple-method>
     <simple-method method-name="createUpdateFacilityGeoPoint" short-description="Create or update GeoPoint assigned to facility">
         <if-empty field="parameters.geoPointId">
