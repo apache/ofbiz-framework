@@ -2509,10 +2509,10 @@ public class ProductionRunServices {
 
         String shipmentId = (String) context.get("shipmentId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
+        String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         String fromDateStr = (String) context.get("fromDate");
 
-        BigDecimal amount = null;
         Date fromDate = null;
         if (UtilValidate.isNotEmpty(fromDateStr)) {
             try {
@@ -2528,7 +2528,12 @@ public class ProductionRunServices {
 
         if (orderItemSeqId != null) {
             try {
-                GenericValue orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                GenericValue orderItem = null;
+                if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
+                    orderItem = delegator.findByPrimaryKey("OrderItemShipGroupAssoc", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId));
+                } else {
+                    orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                }
                 if (orderItem == null) {
                     return ServiceUtil.returnError("OrderItem [" + orderItemSeqId + "] not found.");
                 }
@@ -2551,23 +2556,23 @@ public class ProductionRunServices {
         }
         ArrayList productionRuns = new ArrayList();
         for (int i = 0; i < orderItems.size(); i++) {
-            GenericValue orderItem = (GenericValue)orderItems.get(i);
-            if (orderItem.get("productId") == null) {
-                continue;
-            }
-            if (orderItem.get("quantity") != null) {
-                quantity = orderItem.getBigDecimal("quantity");
-            } else {
-                continue;
-            }
-            try {
-                List existingProductionRuns = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")));
-                if (UtilValidate.isNotEmpty(existingProductionRuns)) {
-                    Debug.logWarning("Production Run for order item [" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + "] already exists.", module);
-                    continue;
+            GenericValue orderItemOrShipGroupAssoc = (GenericValue)orderItems.get(i);
+            String productId = null;
+            BigDecimal amount = null;
+            GenericValue orderItem = null;
+            if ("OrderItemShipGroupAssoc".equals(orderItemOrShipGroupAssoc.getEntityName())) {
+                try {
+                    orderItem = orderItemOrShipGroupAssoc.getRelatedOne("OrderItem");
+                } catch(GenericEntityException gee) {
+                    Debug.logInfo("Unable to find order item for " + orderItemOrShipGroupAssoc, module);
                 }
-            } catch (GenericEntityException gee) {
-                return ServiceUtil.returnError("Error reading the WorkOrderItemFulfillment: " + gee.getMessage());
+            } else {
+                orderItem = orderItemOrShipGroupAssoc;
+            }
+            if (orderItem == null || orderItem.get("productId") == null) {
+                continue;
+            } else {
+                productId = orderItem.getString("productId");
             }
             if (orderItem.get("selectedAmount") != null) {
                 amount = orderItem.getBigDecimal("selectedAmount");
@@ -2575,13 +2580,32 @@ public class ProductionRunServices {
             if (amount == null) {
                 amount = BigDecimal.ZERO;
             }
+            if (orderItemOrShipGroupAssoc.get("quantity") != null) {
+                quantity = orderItemOrShipGroupAssoc.getBigDecimal("quantity");
+            } else {
+                continue;
+            }
+            try {
+                List existingProductionRuns = null;
+                if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
+                    existingProductionRuns = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderItemOrShipGroupAssoc.getString("orderId"), "orderItemSeqId", orderItemOrShipGroupAssoc.getString("orderItemSeqId"), "shipGroupSeqId", shipGroupSeqId));
+                } else {
+                    existingProductionRuns = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderItemOrShipGroupAssoc.getString("orderId"), "orderItemSeqId", orderItemOrShipGroupAssoc.getString("orderItemSeqId")));
+                }
+                if (UtilValidate.isNotEmpty(existingProductionRuns)) {
+                    Debug.logWarning("Production Run for order item [" + orderItemOrShipGroupAssoc.getString("orderId") + "/" + orderItemOrShipGroupAssoc.getString("orderItemSeqId") + "] and ship group [" + shipGroupSeqId + "] already exists.", module);
+                    continue;
+                }
+            } catch (GenericEntityException gee) {
+                return ServiceUtil.returnError("Error reading the WorkOrderItemFulfillment: " + gee.getMessage());
+            }
             try {
                 ArrayList components = new ArrayList();
-                BOMTree tree = new BOMTree(orderItem.getString("productId"), "MANUF_COMPONENT", fromDate, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
+                BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", fromDate, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
                 tree.setRootQuantity(quantity);
                 tree.setRootAmount(amount);
                 tree.print(components);
-                productionRuns.add(tree.createManufacturingOrders(null, fromDate, null, null, null, orderId, orderItem.getString("orderItemSeqId"), shipmentId, userLogin));
+                productionRuns.add(tree.createManufacturingOrders(null, fromDate, null, null, null, orderId, orderItem.getString("orderItemSeqId"), shipGroupSeqId, shipmentId, userLogin));
             } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
             }
@@ -2613,7 +2637,7 @@ public class ProductionRunServices {
             tree.setRootQuantity(quantity);
             tree.setRootAmount(BigDecimal.ZERO);
             tree.print(components);
-            workEffortId = tree.createManufacturingOrders(facilityId, startDate, workEffortName, description, routingId, null, null, null, userLogin);
+            workEffortId = tree.createManufacturingOrders(facilityId, startDate, workEffortName, description, routingId, null, null, null, null, userLogin);
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
         }

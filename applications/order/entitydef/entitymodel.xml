@@ -1325,6 +1325,7 @@ under the License.
       <field name="workEffortId" type="id-ne"></field>
       <field name="orderId" type="id-ne"></field>
       <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="shipGroupSeqId" type="id"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="orderId"/>
       <prim-key field="orderItemSeqId"/>
@@ -1337,6 +1338,11 @@ under the License.
       </relation>
       <relation type="one" fk-name="WORDER_ITFMT_WEFRT" rel-entity-name="WorkEffort">
         <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OrderItemShipGroupAssoc">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+        <key-map field-name="shipGroupSeqId"/>
       </relation>
     </entity>
 
