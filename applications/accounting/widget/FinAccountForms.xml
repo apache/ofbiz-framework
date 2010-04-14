@@ -334,7 +334,7 @@ under the License.
         </field>
         <field name="glReconciliationId" position="2">
             <drop-down allow-empty="true">
-                <option key="_NA_" description="${uiLabelMap.AccountingNotAssigned}"/>
+                <option key="_NA_" description="${uiLabelMap.CommonNotAssigned}"/>
                 <list-options list-name="glReconciliations" key-name="glReconciliationId" 
                     description="${glReconciliationName}[[${glReconciliationId}] [${reconciledDate}] [${reconciledBalance}]]"/>
             </drop-down>

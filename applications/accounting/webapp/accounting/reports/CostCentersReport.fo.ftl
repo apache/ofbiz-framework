@@ -65,6 +65,6 @@ under the License.
             </fo:table-body>
         </fo:table>
     <#else>
-        <fo:block text-align="center">${uiLabelMap.AccountingNoRecordFound}</fo:block>
+        <fo:block text-align="center">${uiLabelMap.CommonNoRecordFound}</fo:block>
     </#if>
 </#escape>

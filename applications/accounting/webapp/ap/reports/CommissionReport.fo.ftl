@@ -84,7 +84,7 @@ under the License.
         <fo:table-row height="14px">
           <fo:table-cell number-columns-spanned="5">
             <fo:block space-after="10pt"/>
-            <fo:block text-align="center">${uiLabelMap.AccountingNoRecordFound}</fo:block>
+            <fo:block text-align="center">${uiLabelMap.CommonNoRecordFound}</fo:block>
           </fo:table-cell>
         </fo:table-row>
       </#if>

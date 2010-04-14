@@ -74,5 +74,5 @@ under the License.
     </ul>
   </div>
 <#else>
-  <td colspan='4'><h3>${uiLabelMap.AccountingNoRecordFound}</h3></td>
+  <td colspan='4'><h3>${uiLabelMap.CommonNoRecordFound}</h3></td>
 </#if>
