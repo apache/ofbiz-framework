@@ -37,10 +37,10 @@ under the License.
         <!-- Navigation Level 0 -->
         <div class="nav0">
           <ul>
-            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=it</@ofbizUrl>"><img src="/multiflex/flag_it.gif" /></a></li>
-            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=en</@ofbizUrl>"><img src="/multiflex/flag_en.gif" /></a></li>
-            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=de</@ofbizUrl>"><img src="/multiflex/flag_de.gif" /></a></li>
-            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=fr</@ofbizUrl>"><img src="/multiflex/flag_fr.gif" /></a></li>
+            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=it</@ofbizUrl>"><img src="/multiflex/flag_it.gif" alt="" /></a></li>
+            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=en</@ofbizUrl>"><img src="/multiflex/flag_en.gif" alt="" /></a></li>
+            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=de</@ofbizUrl>"><img src="/multiflex/flag_de.gif" alt="" /></a></li>
+            <li><a href="<@ofbizUrl>setSessionLocale?newLocale=fr</@ofbizUrl>"><img src="/multiflex/flag_fr.gif" alt="" /></a></li>
           </ul>
         </div>
 
