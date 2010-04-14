@@ -814,19 +814,19 @@
     </property>
     <property key="HumanResEditApprovalStatus">
         <value xml:lang="en">Edit Approval Status</value>
-        <value xml:lang="fr">Editer un status d'approbation</value>
+        <value xml:lang="fr">Modifier un status d'approbation</value>
         <value xml:lang="pt_BR">Editar estado de aprovação</value>
     </property>
     <property key="HumanResEditEmplLeave">
         <value xml:lang="en">Edit Empl Leave</value>
-        <value xml:lang="fr">Editer une demande de congé</value>
+        <value xml:lang="fr">Modifier une demande de congé</value>
         <value xml:lang="it">Aggiorna licenziamento impiegato</value>
         <value xml:lang="pt_BR">Alterar licença de empregado</value>
         <value xml:lang="zh">编辑雇员请假</value>
     </property>
     <property key="HumanResEditEmplLeaveType">
         <value xml:lang="en">Edit Empl Leave Type</value>
-        <value xml:lang="fr">Editer un type de congé</value>
+        <value xml:lang="fr">Modifier un type de congé</value>
         <value xml:lang="it">Aggiorna tipo licenziamento impiegato</value>
         <value xml:lang="pt_BR">Alterar tipo de licença de empregado</value>
         <value xml:lang="zh">编辑雇员请假类型</value>
@@ -2085,7 +2085,7 @@
     </property>
     <property key="LookupJobInterview">
         <value xml:lang="en">LookUp Job Interview</value>
-        <value xml:lang="fr">Recherche un entretien d'embauche</value>
+        <value xml:lang="fr">Rechercher un entretien d'embauche</value>
         <value xml:lang="pt_BR">Procurar por entrevista de emprego</value>
     </property>
     <property key="LookupJobReq">
@@ -2095,7 +2095,7 @@
     </property>
     <property key="PageTitleEditApprovalStatus">
         <value xml:lang="en">Edit Approval Status</value>
-        <value xml:lang="fr">Editer les approbations</value>
+        <value xml:lang="fr">Modifier les approbations</value>
         <value xml:lang="pt_BR">Editar estado de aprovação</value>
     </property>
     <property key="PageTitleEditEmplPosition">
@@ -2108,22 +2108,22 @@
     </property>
     <property key="PageTitleEditInternalJobPosting">
         <value xml:lang="en">Edit Internal JobPosting</value>
-        <value xml:lang="fr">Editer une offre de travail interne</value>
+        <value xml:lang="fr">Modifier une offre de travail interne</value>
         <value xml:lang="pt_BR">Editar oferta interna de emprego</value>
     </property>
     <property key="PageTitleEditJobInterview">
         <value xml:lang="en">Edit Interview</value>
-        <value xml:lang="fr">Editer un entretien</value>
+        <value xml:lang="fr">Modifier un entretien</value>
         <value xml:lang="pt_BR">Editar entrevista</value>
     </property>
     <property key="PageTitleEditJobInterviewType">
         <value xml:lang="en">Edit Job Interview Type</value>
-        <value xml:lang="fr">Editer les types d'entretiens</value>
+        <value xml:lang="fr">Modifier les types d'entretiens</value>
         <value xml:lang="pt_BR">Editar tipo de entrevista de emprego</value>
     </property>
     <property key="PageTitleEditJobRequisition">
         <value xml:lang="en">Edit JobRequisition</value>
-        <value xml:lang="fr">Editer une demande de poste</value>
+        <value xml:lang="fr">Modifier une demande de poste</value>
         <value xml:lang="pt_BR">Editar petição de emprego</value>
     </property>
     <property key="PageTitleEditPartyReview">
