@@ -163,7 +163,7 @@ under the License.
                 </td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine1}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyAddressLine1}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToAddress1"/>
@@ -171,14 +171,14 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine2}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyAddressLine2}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <input type="text" class="inputBox" size="30" maxlength="30" id="shipToAddress2" name="shipToAddress2" value="${parameters.shipToAddress2?if_exists}" />
                  </td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyCity}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyCity}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToCity"/>
@@ -186,7 +186,7 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyState}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyState}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToStateProvinceGeoId"/>
@@ -202,7 +202,7 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyZipCode}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyZipCode}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToPostalCode"/>
@@ -210,7 +210,7 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToCountryGeoId"/>
@@ -258,7 +258,7 @@ under the License.
                 </td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine1}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyAddressLine1}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToAddress1"/>
@@ -266,14 +266,14 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyAddressLine2}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyAddressLine2}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <input type="text" class="inputBox" id="billToAddress2" size="30" maxlength="30" name="billToAddress2" value="${parameters.billToAddress2?if_exists}" />
                  </td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyCity}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyCity}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToCity"/>
@@ -281,7 +281,7 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyState}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyState}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToStateProvinceGeoId"/>
@@ -297,7 +297,7 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyZipCode}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyZipCode}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToPostalCode"/>
@@ -305,7 +305,7 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign=middle><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToCountryGeoId"/>

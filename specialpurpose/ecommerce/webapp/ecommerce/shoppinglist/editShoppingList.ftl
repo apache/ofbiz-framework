@@ -179,19 +179,19 @@ under the License.
                   </#if>
                   <select name="intervalNumber" class="selectBox">
                     <option value="">${uiLabelMap.EcommerceSelectInterval}</option>
-                    <option value="1" <#if (recurrenceRule.intervalNumber)?default(0) == 1>selected</#if>>${uiLabelMap.EcommerceEveryDay}</option>
-                    <option value="2" <#if (recurrenceRule.intervalNumber)?default(0) == 2>selected</#if>>${uiLabelMap.EcommerceEveryOther}</option>
-                    <option value="3" <#if (recurrenceRule.intervalNumber)?default(0) == 3>selected</#if>>${uiLabelMap.EcommerceEvery3rd}</option>
-                    <option value="6" <#if (recurrenceRule.intervalNumber)?default(0) == 6>selected</#if>>${uiLabelMap.EcommerceEvery6th}</option>
-                    <option value="9" <#if (recurrenceRule.intervalNumber)?default(0) == 9>selected</#if>>${uiLabelMap.EcommerceEvery9th}</option>
+                    <option value="1" <#if (recurrenceRule.intervalNumber)?default(0) == 1>selected="selected"</#if>>${uiLabelMap.EcommerceEveryDay}</option>
+                    <option value="2" <#if (recurrenceRule.intervalNumber)?default(0) == 2>selected="selected"</#if>>${uiLabelMap.EcommerceEveryOther}</option>
+                    <option value="3" <#if (recurrenceRule.intervalNumber)?default(0) == 3>selected="selected"</#if>>${uiLabelMap.EcommerceEvery3rd}</option>
+                    <option value="6" <#if (recurrenceRule.intervalNumber)?default(0) == 6>selected="selected"</#if>>${uiLabelMap.EcommerceEvery6th}</option>
+                    <option value="9" <#if (recurrenceRule.intervalNumber)?default(0) == 9>selected="selected"</#if>>${uiLabelMap.EcommerceEvery9th}</option>
                   </select>
                   &nbsp;
                   <select name="frequency" class="selectBox">
                     <option value="">${uiLabelMap.EcommerceSelectFrequency}</option>
-                    <option value="4" <#if (recurrenceRule.frequency)?default("") == "DAILY">selected</#if>>${uiLabelMap.CommonDay}</option>
-                    <option value="5" <#if (recurrenceRule.frequency)?default("") == "WEEKLY">selected</#if>>${uiLabelMap.CommonWeek}</option>
-                    <option value="6" <#if (recurrenceRule.frequency)?default("") == "MONTHLY">selected</#if>>${uiLabelMap.CommonMonth}</option>
-                    <option value="7" <#if (recurrenceRule.frequency)?default("") == "YEARLY">selected</#if>>${uiLabelMap.CommonYear}</option>
+                    <option value="4" <#if (recurrenceRule.frequency)?default("") == "DAILY">selected="selected"</#if>>${uiLabelMap.CommonDay}</option>
+                    <option value="5" <#if (recurrenceRule.frequency)?default("") == "WEEKLY">selected="selected"</#if>>${uiLabelMap.CommonWeek}</option>
+                    <option value="6" <#if (recurrenceRule.frequency)?default("") == "MONTHLY">selected="selected"</#if>>${uiLabelMap.CommonMonth}</option>
+                    <option value="7" <#if (recurrenceRule.frequency)?default("") == "YEARLY">selected="selected"</#if>>${uiLabelMap.CommonYear}</option>
                   </select>
                 </td>
                 <td>&nbsp;</td>
@@ -217,7 +217,7 @@ under the License.
                     <#if shippingContactMechList?has_content>
                       <#list shippingContactMechList as shippingContactMech>
                         <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
-                        <option value="${shippingContactMech.contactMechId}"<#if (shoppingList.contactMechId)?default("") == shippingAddress.contactMechId> selected</#if>>${shippingAddress.address1}</option>
+                        <option value="${shippingContactMech.contactMechId}"<#if (shoppingList.contactMechId)?default("") == shippingAddress.contactMechId> selected="selected"</#if>>${shippingAddress.address1}</option>
                       </#list>
                     <#else>
                       <option value="">${uiLabelMap.OrderNoAddressesAvailable}</option>
@@ -233,7 +233,7 @@ under the License.
                       <#list carrierShipMethods as shipMeth>
                         <#assign shippingEst = shippingEstWpr.getShippingEstimate(shipMeth)?default(-1)>
                         <#assign shippingMethod = shipMeth.shipmentMethodTypeId + "@" + shipMeth.partyId>
-                        <option value="${shippingMethod}"<#if shippingMethod == chosenShippingMethod> selected</#if>>
+                        <option value="${shippingMethod}"<#if shippingMethod == chosenShippingMethod> selected="selected"</#if>>
                           <#if shipMeth.partyId != "_NA_">
                             ${shipMeth.partyId?if_exists}&nbsp;
                           </#if>
@@ -261,7 +261,7 @@ under the License.
                     <#list paymentMethodList as paymentMethod>
                       <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
                         <#assign creditCard = paymentMethod.getRelatedOne("CreditCard")>
-                        <option value="${paymentMethod.paymentMethodId}" <#if (shoppingList.paymentMethodId)?default("") == paymentMethod.paymentMethodId>selected</#if>>CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</option>
+                        <option value="${paymentMethod.paymentMethodId}" <#if (shoppingList.paymentMethodId)?default("") == paymentMethod.paymentMethodId>selected="selected"</#if>>CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</option>
                       <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
                         <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount")>
                         <option value="${paymentMethod.paymentMethodId}">EFT:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</option>
