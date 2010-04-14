@@ -32,7 +32,7 @@ under the License.
                 <option key="IT" description="${uiLabelMap.GoogleBaseExportCountryCodeIT}"/>
             </drop-down>
         </field>
-        <field name="webSiteId" event="onChange" action="javascript:$('productsExportToGoogle').action='${persistAction}';$('productsExportToGoogle').submit();">
+        <field name="webSiteId" event="onchange" action="javascript:$('productsExportToGoogle').action='${persistAction}';$('productsExportToGoogle').submit();">
             <drop-down current="selected">
                 <list-options list-name="webSiteList" key-name="webSiteId" description="${siteName}[${webSiteId}]"/>
             </drop-down>
