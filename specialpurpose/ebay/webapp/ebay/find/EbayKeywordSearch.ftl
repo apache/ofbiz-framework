@@ -74,7 +74,7 @@ under the License.
         </div>
       </#macro>
       <@paginationPanel />
-      <form method="post" name="products">
+      <form method="post" name="products" action="">
         <fieldset>
           <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}" />
           <input type="hidden" name="SEARCH_CATEGORY_ID" value="${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}" />

@@ -138,7 +138,7 @@ under the License.
         </tr>
         <tr>
             <td>
-                <font size="2" face="Verdana,Geneva,Arial,Helvetica" color="#666666" style="font-size:11px">- Specify a return policy. <a target=_new HREF="http://pages.ebay.com/help/sell/contextual/return-policy.html" onClick="if(window.openContextualHelpWindow){return openContextualHelpWindow(this.href)}" target="helpwin">Learn More</a>.</font>
+                <font size="2" face="Verdana,Geneva,Arial,Helvetica" color="#666666" style="font-size:11px">- Specify a return policy. <a target=_new HREF="http://pages.ebay.com/help/sell/contextual/return-policy.html" onclick="if(window.openContextualHelpWindow){return openContextualHelpWindow(this.href)}" target="helpwin">Learn More</a>.</font>
             </td>
         </tr>
     </#if>
