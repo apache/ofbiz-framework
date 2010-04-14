@@ -41,7 +41,6 @@ under the License.
     </patternset>
 
     <filelist id="test.classes" dir="${src.dir}">
-    	<!--
         <file name="org/ofbiz/base/lang/test/ComparableRangeTests.java"/>
         <file name="org/ofbiz/base/util/test/IndentingWriterTests.java"/>
         <file name="org/ofbiz/base/util/test/ObjectTypeTests.java"/>
@@ -60,7 +59,6 @@ under the License.
         <file name="org/ofbiz/base/concurrent/test/SyncTTLObjectTest.java"/>
         <file name="org/ofbiz/base/concurrent/test/AsyncTTLObjectTest.java"/>
         <file name="org/ofbiz/base/concurrent/test/TTLCachedObjectTest.java"/>
-        -->
     </filelist>
 
     <target name="init">
