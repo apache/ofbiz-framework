@@ -22,7 +22,7 @@
     <property key="FormFieldTitle_actualCost">
         <value xml:lang="en">Actual Cost</value>
         <value xml:lang="fr">Coût réel</value>
-        <value xml:lang="it">Costo Attuale</value>
+        <value xml:lang="it">Costo attuale</value>
         <value xml:lang="nl">Werkelijke kosten</value>
         <value xml:lang="pt_BR">Custo real</value>
         <value xml:lang="ro">Cost Actual</value>
@@ -39,7 +39,7 @@
     <property key="FormFieldTitle_budgetedCost">
         <value xml:lang="en">Budgeted Cost</value>
         <value xml:lang="fr">Coût budgetisé</value>
-        <value xml:lang="it">Costo A Budget</value>
+        <value xml:lang="it">Costo a budget</value>
         <value xml:lang="pt_BR">Custo previsto no orçamento</value>
         <value xml:lang="ro">Cost la Buget</value>
         <value xml:lang="th">งบประมาณ</value>
@@ -68,7 +68,7 @@
     <property key="FormFieldTitle_custReqestId">
         <value xml:lang="en">Cust Reqest Id</value>
         <value xml:lang="fr">Réf. de requête de client</value>
-        <value xml:lang="it">Numero Richiesta Soggetto</value>
+        <value xml:lang="it">Numero richiesta cliente</value>
         <value xml:lang="pt_BR">Id de requisição de cliente</value>
         <value xml:lang="ro">Numar Cerere Subiect</value>
         <value xml:lang="th">รหัสคำร้องของลูกค้า</value>
@@ -77,21 +77,21 @@
     <property key="FormFieldTitle_expectedResponsePercent">
         <value xml:lang="en">Expected Response Percent</value>
         <value xml:lang="fr">Pourcentage de réponse estimé</value>
-        <value xml:lang="it">Percentuale risposta aspettata</value>
+        <value xml:lang="it">Percentuale di risposta stimata</value>
         <value xml:lang="pt_BR">Porcentagem esperada de respostas</value>
         <value xml:lang="zh">期望响应百分比</value>
     </property>
     <property key="FormFieldTitle_expectedRevenue">
         <value xml:lang="en">Expected Revenue</value>
         <value xml:lang="fr">Revenu estimé</value>
-        <value xml:lang="it">Entrate aspettata</value>
+        <value xml:lang="it">Ricavo stimato</value>
         <value xml:lang="pt_BR">Renda esperada</value>
         <value xml:lang="zh">期望收入</value>
     </property>
     <property key="FormFieldTitle_forecastAmount">
         <value xml:lang="en">Forecast Amount</value>
         <value xml:lang="fr">Montant estimé</value>
-        <value xml:lang="it">Importo previsione di vendita</value>
+        <value xml:lang="it">Importo previsto</value>
         <value xml:lang="pt_BR">Montante previsto</value>
         <value xml:lang="zh">预测金额</value>
     </property>
@@ -105,7 +105,7 @@
     <property key="FormFieldTitle_numSent">
         <value xml:lang="en">Num Sent</value>
         <value xml:lang="fr">N° envoyé</value>
-        <value xml:lang="it">Num. Invio</value>
+        <value xml:lang="it">Num. invio</value>
         <value xml:lang="pt_BR">Número de envio</value>
         <value xml:lang="zh">已发送数量</value>
     </property>
@@ -140,7 +140,7 @@
     <property key="FormFieldTitle_prodCatalogId">
         <value xml:lang="en">Product Catalog Id</value>
         <value xml:lang="fr">Réf. de catalogue</value>
-        <value xml:lang="it">Catalogo Prodotti</value>
+        <value xml:lang="it">Catalogo prodotti</value>
         <value xml:lang="pt_BR">ID de Catálogo do Produto</value>
         <value xml:lang="ro">Catalog Produse</value>
         <value xml:lang="th">รหัสหมวดหมู่สินค้า</value>
@@ -196,7 +196,7 @@
         <value xml:lang="en">Marketing Campaign Id</value>
         <value xml:lang="es">Campaña</value>
         <value xml:lang="fr">Réf. de campagne marketing</value>
-        <value xml:lang="it">Codice campagna vendita</value>
+        <value xml:lang="it">Codice campagna di vendita</value>
         <value xml:lang="nl">ID Campagne</value>
         <value xml:lang="pt_BR">ID de Campanha de Marketing</value>
         <value xml:lang="ro">Cod Campanie Vanzare</value>
@@ -218,7 +218,7 @@
         <value xml:lang="en">Campaign Name</value>
         <value xml:lang="es">Nombre de la campaña</value>
         <value xml:lang="fr">Nom de la campagne</value>
-        <value xml:lang="it">Nome Campagna</value>
+        <value xml:lang="it">Nome campagna</value>
         <value xml:lang="nl">Naam Campagne</value>
         <value xml:lang="pt_BR">Nome de campanha</value>
         <value xml:lang="ro">Nume Campanie</value>
@@ -254,7 +254,7 @@
         <value xml:lang="en">Campaign Summary</value>
         <value xml:lang="es">Descripción de la campaña</value>
         <value xml:lang="fr">Résumé de la campagne</value>
-        <value xml:lang="it">Sommario Campagna</value>
+        <value xml:lang="it">Sommario della campagna</value>
         <value xml:lang="nl">Samenvatting Campagne</value>
         <value xml:lang="pt_BR">Descrição da campanha</value>
         <value xml:lang="ro">Sumar Campanie</value>
@@ -279,7 +279,7 @@
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
-        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de código livre</value>
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
@@ -316,7 +316,7 @@
         <value xml:lang="en">Communication Event Id</value>
         <value xml:lang="es">Código de evento</value>
         <value xml:lang="fr">Réf. d'évènement de communication</value>
-        <value xml:lang="it">Codice Evento Comunicazione</value>
+        <value xml:lang="it">Codice evento comunicazione</value>
         <value xml:lang="nl">ID Comm Event</value>
         <value xml:lang="pt_BR">ID de evento de comunicação</value>
         <value xml:lang="ro">Cod Eveniment Comunicatie</value>
@@ -327,7 +327,7 @@
         <value xml:lang="en">Communication Event Type Id</value>
         <value xml:lang="es">Tipo de evento</value>
         <value xml:lang="fr">Réf. du type d'événement de communication</value>
-        <value xml:lang="it">Tipo Evento Comunicazione</value>
+        <value xml:lang="it">Tipo evento comunicazione</value>
         <value xml:lang="pt_BR">ID de tipo de evento de comunicação</value>
         <value xml:lang="ro">Tip Eveniment Comunicatie</value>
         <value xml:lang="th">รหัสประเภทผลการติดต่อ</value>
@@ -1390,7 +1390,7 @@
         <value xml:lang="en">Add Contact List</value>
         <value xml:lang="es">Nueva lista de contactos</value>
         <value xml:lang="fr">Ajouter une liste de contact</value>
-        <value xml:lang="it">Aggiungi Lista Contatto</value>
+        <value xml:lang="it">Aggiungi lista contatti</value>
         <value xml:lang="pt_BR">Adicionar lista de contatos</value>
         <value xml:lang="ro">Adauga Lista Contact</value>
         <value xml:lang="th">เพิ่มรายการติดต่อ</value>
@@ -1679,7 +1679,7 @@
         <value xml:lang="en">Find Segment Group</value>
         <value xml:lang="es">Buscar segmento</value>
         <value xml:lang="fr">Rechercher le groupe de segment</value>
-        <value xml:lang="it">Ricerca Gruppo Segmento</value>
+        <value xml:lang="it">Ricerca gruppo segmento</value>
         <value xml:lang="pt_BR">Buscar Grupo de Segmento</value>
         <value xml:lang="ro">Cauta Grup Segment</value>
         <value xml:lang="th">ค้นหาส่วนของกลุ่ม</value>
