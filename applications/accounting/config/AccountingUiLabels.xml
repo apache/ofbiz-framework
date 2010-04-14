@@ -2987,22 +2987,22 @@
     </property>
     <property key="AccountingEditPaymentGroup">
         <value xml:lang="en">Edit Payment Group</value>
-        <value xml:lang="fr">Editer groupe de paiement</value>
+        <value xml:lang="fr">Modifier un groupe de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह सम्पादित करें</value>
     </property>
     <property key="AccountingEditPaymentGroupFor">
         <value xml:lang="en">Edit Payment Group For ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="fr">Editer groupe de paiement pour ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="fr">Modifier un groupe de paiement pour ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">भुगतान समूह ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करें</value>
     </property>
     <property key="AccountingEditPaymentGroupMember">
         <value xml:lang="en">Edit Payment Group Member</value>
-        <value xml:lang="fr">Editer membre du grp. de paiement</value>
+        <value xml:lang="fr">Modifier un membre du grp. de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह सदस्य को सम्पादित करें</value>
     </property>
     <property key="AccountingEditPaymentGroupMemberFor">
         <value xml:lang="en">Edit Payment Group Member For ${finAccount.finAccountName} [${finAccountId}]</value>
-        <value xml:lang="fr">Editer membre du grp. de paiement pour ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="fr">Modifier un membre du grp. de paiement pour ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="hi_IN">भुगतान समूह सदस्य  को ${finAccount.finAccountName} [${finAccountId}] के लिए सम्पादित करें</value>
     </property>
     <property key="AccountingEditTaxAuthorityGlAccounts">

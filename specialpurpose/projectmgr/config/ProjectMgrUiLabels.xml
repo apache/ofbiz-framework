@@ -393,7 +393,7 @@
     <property key="PageTitleEditProjectOrder">
         <value xml:lang="de">Projektbestellung editieren</value>
         <value xml:lang="en">Edit Project Order</value>
-        <value xml:lang="fr">Editer les commandes associées au projet</value>
+        <value xml:lang="fr">Modifier les commandes associées au projet</value>
         <value xml:lang="it">Aggiorna progetto ordine</value>
         <value xml:lang="nl">Order wijzigen</value>
         <value xml:lang="zh">编辑项目角色</value>
