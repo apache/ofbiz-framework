@@ -927,8 +927,8 @@ under the License.
     </service>
     <service name="setLastInventoryCount" engine="simple"
                 location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="setLastInventoryCount">
-        <description>Schedule service that updates lastInventoryCount hourly for products available in facility</description>
-        <attribute name="recurrenceInfoId" mode="IN" type="String" optional="false"/>
+        <description>Service which run as EECA (on InventoryItemDetail entity) and updates lastInventoryCount for products available in facility in ProductFacility entity</description>
+        <attribute name="inventoryItemId" mode="IN" type="String" optional="false"/>
     </service>
     <service name="createUpdateFacilityGeoPoint" engine="simple" default-entity-name="GeoPoint"
                 location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createUpdateFacilityGeoPoint">

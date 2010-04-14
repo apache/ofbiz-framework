@@ -21,26 +21,6 @@ under the License.
 <entity-engine-xml>
     <JobSandbox jobId="8100" jobName="Purge Old Store Auto-Entered Promos" runTime="2000-01-01 00:00:00.000" serviceName="purgeOldStoreAutoPromos" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
 
-    <RecurrenceRule recurrenceRuleId="500" untilDateTime="" frequency="HOURLY" intervalNumber="1" countNumber="-1"/>
-    <RecurrenceInfo recurrenceInfoId="500" startDateTime="2008-05-14 22:00:00.000" recurrenceRuleId="500" recurrenceCount="0"/>
-    <RuntimeData runtimeDataId="8801">
-        <runtimeInfo><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-            <ofbiz-ser>
-                <map-HashMap>
-                    <map-Entry>
-                        <map-Key>
-                            <std-String value="recurrenceInfoId"/>
-                        </map-Key>
-                        <map-Value>
-                            <std-String value="500"/>
-                        </map-Value>
-                    </map-Entry>
-                </map-HashMap>
-            </ofbiz-ser>
-        ]]></runtimeInfo>
-    </RuntimeData>
-    <JobSandbox jobId="8801" jobName="Set Last Inventory Count on ProductFacility" runTime="2000-01-01 00:00:00.000" serviceName="setLastInventoryCount" runtimeDataId="8801" poolId="pool" runAsUser="system" recurrenceInfoId="500"/>
-
     <!--Data for scheduling the service productImportFromSpreadsheet -->
     <!--RecurrenceRule recurrenceRuleId="500" untilDateTime="" frequency="MINUTELY" intervalNumber="5" countNumber="-1"/>
     <RecurrenceInfo recurrenceInfoId="500" startDateTime="2006-06-06 01:10:00.000" recurrenceRuleId="500" recurrenceCount="0"/>
