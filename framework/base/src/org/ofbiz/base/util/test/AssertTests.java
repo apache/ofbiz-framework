@@ -35,7 +35,7 @@ public class AssertTests extends TestCase {
 
         //-----------------------------------------------------------------------
         try {
-            Assert.argumentNotNull("foo", new Object());
+            Assert.argumentNotNull("foo", testObject);
         } catch (Exception e) {
             fail("argumentNotNull threw an exception - " + e);
         }
