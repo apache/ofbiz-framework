@@ -79,6 +79,15 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">应聘申请人</value>
     </property>
+    <property key="FormFieldTitle_approvalStatus">
+        <value xml:lang="en">Approver Status</value>
+        <value xml:lang="fr">Etat d'approbation</value>
+    </property>
+    <property key="FormFieldTitle_approverId">
+        <value xml:lang="en">Approver Party</value>
+        <value xml:lang="fr">Approbateur</value>
+        <value xml:lang="pt_BR">Participante responsável</value>
+    </property>
     <property key="FormFieldTitle_approverPartyId">
         <value xml:lang="en">Approver Party</value>
         <value xml:lang="fr">Approbateur</value>
@@ -229,6 +238,10 @@
         <value xml:lang="th">ถึงประมาณวันที่</value>
         <value xml:lang="zh">预计结束日期</value>
     </property>
+    <property key="FormFieldTitle_examTypeEnumId">
+        <value xml:lang="en">Exam Type Enum Id</value>
+        <value xml:lang="fr">Type d'examen</value>
+    </property>
     <property key="FormFieldTitle_exemptFlag">
         <value xml:lang="en">Exempt Flag</value>
         <value xml:lang="fr">Balise d'exemption</value>
@@ -236,6 +249,14 @@
         <value xml:lang="pt_BR">Sinal de isenção</value>
         <value xml:lang="th">Exempt Flag</value>
         <value xml:lang="zh">是否免付加班费</value>
+    </property>
+    <property key="FormFieldTitle_experienceMonths">
+        <value xml:lang="en">Experience in months</value>
+        <value xml:lang="fr">Expérience en mois</value>
+    </property>
+    <property key="FormFieldTitle_experienceYears">
+        <value xml:lang="en">Experience in years</value>
+        <value xml:lang="fr">Expérience en années</value>
     </property>
     <property key="FormFieldTitle_flatAmount">
         <value xml:lang="en">Flat Amount</value>
@@ -252,6 +273,18 @@
         <value xml:lang="pt_BR">Sinal de período integral</value>
         <value xml:lang="th">เครื่องหมายเต็มเวลา</value>
         <value xml:lang="zh">是否为全职</value>
+    </property>
+    <property key="FormFieldTitle_jobLocation">
+        <value xml:lang="en">Job Location</value>
+        <value xml:lang="fr">Lieu de travail</value>
+    </property>
+    <property key="FormFieldTitle_jobPostingEnumId">
+        <value xml:lang="en">Job Posting Enum Id</value>
+        <value xml:lang="fr">Référence d'offre d'emploi</value>
+    </property>
+    <property key="FormFieldTitle_jobPostingTypeEnumId">
+        <value xml:lang="en">Job Posting Type</value>
+        <value xml:lang="fr">Type d'offre d'emploi</value>
     </property>
     <property key="FormFieldTitle_jobRequisitionId">
         <value xml:lang="en">Job Requisition Id</value>
@@ -521,12 +554,20 @@
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
         <value xml:lang="zh">雇佣关系终止类型编号</value>
     </property>
+    <property key="FormFieldTitle_title">
+        <value xml:lang="en">Title</value>
+        <value xml:lang="fr">Titre</value>
+    </property>
     <property key="FormFieldTitle_trainingClassTypeId">
         <value xml:lang="en">Training Class Type Id</value>
         <value xml:lang="fr">Type de formation</value>
         <value xml:lang="it">Tipo classe corso</value>
         <value xml:lang="pt_BR">Id de tipo de classe de treinamento</value>
         <value xml:lang="zh">培训课程类型编号</value>
+    </property>
+    <property key="FormFieldTitle_trainingRequestId">
+        <value xml:lang="en">Training Request Id</value>
+        <value xml:lang="fr">Approbation</value>
     </property>
     <property key="FormFieldTitle_unemploymentClaimDate">
         <value xml:lang="en">Unemployment Claim Date</value>
@@ -835,6 +876,7 @@
     </property>
     <property key="HumanResEditJobRequisition">
         <value xml:lang="en">Edit Job Requisition</value>
+        <value xml:lang="en">Editer une demande de poste</value>
         <value xml:lang="pt_BR">Editar requisição de emprego</value>
     </property>
     <property key="HumanResEditLeaveApprovalStatus">
@@ -2010,22 +2052,27 @@
     </property>
     <property key="HumanResTrainingApprovals">
         <value xml:lang="en">Training Approvals</value>
+        <value xml:lang="fr">Accords de formation</value>
         <value xml:lang="pt_BR">Aprovações de treinamento</value>
     </property>
     <property key="HumanResTrainingClassType">
         <value xml:lang="en">Training Class Type</value>
+        <value xml:lang="fr">Catégorie de formation</value>
         <value xml:lang="pt_BR">Tipo de aula de treinamento</value>
     </property>
     <property key="HumanResTrainingStatus">
         <value xml:lang="en">Training Status</value>
+        <value xml:lang="fr">Etat de la formation</value>
         <value xml:lang="pt_BR">Estado do treinamento</value>
     </property>
     <property key="HumanResTrainingTypes">
         <value xml:lang="en">Training Types</value>
+        <value xml:lang="fr">Types de formation</value>
         <value xml:lang="pt_BR">Tipos de treinamento</value>
     </property>
     <property key="HumanResTrainings">
         <value xml:lang="en">Training</value>
+        <value xml:lang="fr">Formation</value>
         <value xml:lang="pt_BR">Treinamento</value>
     </property>
     <property key="HumanResViewPermissionError">
@@ -2038,14 +2085,17 @@
     </property>
     <property key="LookupJobInterview">
         <value xml:lang="en">LookUp Job Interview</value>
+        <value xml:lang="fr">Recherche un entretien d'embauche</value>
         <value xml:lang="pt_BR">Procurar por entrevista de emprego</value>
     </property>
     <property key="LookupJobReq">
         <value xml:lang="en">LookUp Job Requisition</value>
+        <value xml:lang="en">Rechercher une demande d'emploi</value>
         <value xml:lang="pt_BR">Procurar pro petição de emrpego</value>
     </property>
     <property key="PageTitleEditApprovalStatus">
         <value xml:lang="en">Edit Approval Status</value>
+        <value xml:lang="fr">Editer les approbations</value>
         <value xml:lang="pt_BR">Editar estado de aprovação</value>
     </property>
     <property key="PageTitleEditEmplPosition">
@@ -2058,18 +2108,22 @@
     </property>
     <property key="PageTitleEditInternalJobPosting">
         <value xml:lang="en">Edit Internal JobPosting</value>
+        <value xml:lang="fr">Editer une offre de travail interne</value>
         <value xml:lang="pt_BR">Editar oferta interna de emprego</value>
     </property>
     <property key="PageTitleEditJobInterview">
         <value xml:lang="en">Edit Interview</value>
+        <value xml:lang="fr">Editer un entretien</value>
         <value xml:lang="pt_BR">Editar entrevista</value>
     </property>
     <property key="PageTitleEditJobInterviewType">
         <value xml:lang="en">Edit Job Interview Type</value>
+        <value xml:lang="fr">Editer les types d'entretiens</value>
         <value xml:lang="pt_BR">Editar tipo de entrevista de emprego</value>
     </property>
     <property key="PageTitleEditJobRequisition">
         <value xml:lang="en">Edit JobRequisition</value>
+        <value xml:lang="fr">Editer une demande de poste</value>
         <value xml:lang="pt_BR">Editar petição de emprego</value>
     </property>
     <property key="PageTitleEditPartyReview">
@@ -2132,6 +2186,7 @@
     </property>
     <property key="PageTitleFindJobRequisition">
         <value xml:lang="en">Find Job Requisition</value>
+        <value xml:lang="fr">Rechercher une demande de poste</value>
         <value xml:lang="pt_BR">Procurar petição de emprego</value>
     </property>
     <property key="PageTitleFindRelocationDetails">
@@ -2147,10 +2202,12 @@
     </property>
     <property key="PageTitleFindTrainingApprovals">
         <value xml:lang="en">Find Training Approvals</value>
+        <value xml:lang="fr">Rechercher des accords de formation</value>
         <value xml:lang="pt_BR">Procurar aprovações de treinamento</value>
     </property>
     <property key="PageTitleFindTrainingStatus">
         <value xml:lang="en">Find Training Status</value>
+        <value xml:lang="fr">Rechercher les états de formation</value>
         <value xml:lang="pt_BR">Procurar estados de treinamento</value>
     </property>
     <property key="PageTitleListEmplPosition">
@@ -2237,9 +2294,5 @@
         <value xml:lang="it">Mostra corsi persona</value>
         <value xml:lang="pt_BR">Visualizar treinamento de pessoa</value>
         <value xml:lang="zh">查看个人培训</value>
-    </property>
-    <property key="PartyApproverId">
-        <value xml:lang="en">Approver Party Id</value>
-        <value xml:lang="pt_BR">Id do participante responsável pela aprovação</value>
     </property>
 </resource>
