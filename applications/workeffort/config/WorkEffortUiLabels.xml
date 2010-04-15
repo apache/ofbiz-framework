@@ -2862,16 +2862,19 @@
         <value xml:lang="zh">阶段任务</value>
     </property>
     <property key="WorkEffortPopularityByOrders">
+        <value xml:lang="de">Beliebtheit nach Aufträgen</value>
         <value xml:lang="en">Popularity By Orders</value>
         <value xml:lang="it">Popularità per ordini</value>
         <value xml:lang="zh">按订单的受欢迎程度</value>
     </property>
     <property key="WorkEffortPopularityByViews">
+        <value xml:lang="de">Beliebtheit nach Anzeigen</value>
         <value xml:lang="en">Popularity By Views</value>
         <value xml:lang="it">Popularità per visti</value>
         <value xml:lang="zh">按浏览的受欢迎程度</value>
     </property>
     <property key="WorkEffortPreviousDay">
+        <value xml:lang="de">Vorheriger Tag</value>
         <value xml:lang="en">Previous Day</value>
         <value xml:lang="es">Día anterior</value>
         <value xml:lang="fr">Jour précédent</value>
