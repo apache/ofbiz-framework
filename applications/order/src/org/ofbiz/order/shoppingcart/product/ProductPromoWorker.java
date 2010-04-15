@@ -1226,6 +1226,11 @@ public class ProductPromoWorker {
     /** returns true if the cart was changed and rules need to be re-evaluted */
     protected static ActionResultInfo performAction(GenericValue productPromoAction, ShoppingCart cart, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException, CartItemModifyException {
         ActionResultInfo actionResultInfo = new ActionResultInfo();
+        performAction(actionResultInfo, productPromoAction, cart, delegator, dispatcher, nowTimestamp);
+        return actionResultInfo;
+    }
+
+    public static void performAction(ActionResultInfo actionResultInfo, GenericValue productPromoAction, ShoppingCart cart, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException, CartItemModifyException {
 
         String productPromoActionEnumId = productPromoAction.getString("productPromoActionEnumId");
 
@@ -1373,7 +1378,7 @@ public class ProductPromoWorker {
 
                 if (product == null) {
                     // no product found to add as GWP, just return
-                    return actionResultInfo;
+                    return;
                 }
 
                 // pass null for cartLocation to add to end of cart, pass false for doPromotions to avoid infinite recursion
@@ -1613,8 +1618,6 @@ public class ProductPromoWorker {
         } else {
             cart.resetPromoRuleUse(productPromoAction.getString("productPromoId"), productPromoAction.getString("productPromoRuleId"));
         }
-
-        return actionResultInfo;
     }
 
     protected static List getCartItemsUsed(ShoppingCart cart, GenericValue productPromoAction) {
