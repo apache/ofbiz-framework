@@ -98,7 +98,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
 
         // compute elapsed months
-        long monthMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_MONTH);
+        long monthMillis = 86400000 * (calStart.getMaximum(Calendar.DAY_OF_MONTH) / 2);
         units = deltaMillis / monthMillis;
         this.months = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.MONTH);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
