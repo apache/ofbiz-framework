@@ -747,7 +747,7 @@ public class ProductPromoWorker {
                                 cartChanged = true;
                             }
                         } catch (CartItemModifyException e) {
-                            Debug.logError("Error modifying the cart while performing promotion action [" + productPromoAction.getPrimaryKey() + "]: " + e.toString(), module);
+                            Debug.logError(e, "Error modifying the cart while performing promotion action [" + productPromoAction.getPrimaryKey() + "]", module);
                         }
                     }
                 }
