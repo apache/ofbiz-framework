@@ -755,9 +755,9 @@ public class ShoppingCartHelper {
                                             oldPrice = item.getBasePrice();
 
 
-                                            GenericValue productSupplier = this.cart.getSupplierProduct(item.getProductId(), quantity, this.dispatcher);
+                                            GenericValue supplierProduct = this.cart.getSupplierProduct(item.getProductId(), quantity, this.dispatcher);
 
-                                            if (productSupplier == null) {
+                                            if (supplierProduct == null) {
                                                 if ("_NA_".equals(cart.getPartyId())) {
                                                     // no supplier does not require the supplier product
                                                     item.setQuantity(quantity, dispatcher, this.cart);
@@ -770,8 +770,8 @@ public class ShoppingCartHelper {
                                                 }
                                             } else {
                                                 item.setQuantity(quantity, dispatcher, this.cart);
-                                                item.setBasePrice(productSupplier.getBigDecimal("lastPrice"));
-                                                item.setName(ShoppingCartItem.getPurchaseOrderItemDescription(item.getProduct(), productSupplier, cart.getLocale()));
+                                                item.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
+                                                item.setName(ShoppingCartItem.getPurchaseOrderItemDescription(item.getProduct(), supplierProduct, cart.getLocale()));
                                             }
                                         }
                                     } else {
