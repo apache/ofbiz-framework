@@ -755,7 +755,7 @@ public class ShoppingCartHelper {
                                             oldPrice = item.getBasePrice();
 
 
-                                            GenericValue productSupplier = this.getProductSupplier(item.getProductId(), quantity, cart.getCurrency());
+                                            GenericValue productSupplier = this.cart.getSupplierProduct(item.getProductId(), quantity, this.dispatcher);
 
                                             if (productSupplier == null) {
                                                 if ("_NA_".equals(cart.getPartyId())) {
