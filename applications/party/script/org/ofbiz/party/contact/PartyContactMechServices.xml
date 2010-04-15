@@ -107,10 +107,9 @@ under the License.
         <now-timestamp field="newPartyContactMech.fromDate"/>
         <now-timestamp field="partyContactMech.thruDate"/>
 
-        <store-value value-field="partyContactMech"/>
-        <create-value value-field="newPartyContactMech"/>
-
         <if-compare-field to-field="newPartyContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
+            <store-value value-field="partyContactMech"/>
+            <create-value value-field="newPartyContactMech"/>
             <get-related value-field="partyContactMech" relation-name="PartyContactMechPurpose" list="partyContactMechPurposes"/>
             <filter-list-by-date list="partyContactMechPurposes"/>
             <iterate entry="partyContactMechPurposeOld" list="partyContactMechPurposes">
