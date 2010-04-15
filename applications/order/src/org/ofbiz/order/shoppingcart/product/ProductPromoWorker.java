@@ -1237,7 +1237,7 @@ public class ProductPromoWorker {
                 actionResult = dispatcher.runSync(serviceName, serviceCtx);
             } catch (GenericServiceException e) {
                 Debug.logError("Error calling promo action service [" + serviceName + "]", module);
-                throw new CartItemModifyException("Error calling promo action service [" + serviceName + "]");
+                throw new CartItemModifyException("Error calling promo action service [" + serviceName + "]", e);
             }
             if (ServiceUtil.isError(actionResult)) {
                 Debug.logError("Error calling promo action service [" + serviceName + "], result is: " + actionResult, module);
