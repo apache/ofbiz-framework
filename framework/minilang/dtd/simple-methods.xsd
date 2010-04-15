@@ -835,6 +835,34 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="script" substitutionGroup="CallOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Runs an external script (minilang, bsh, groovy) from the expanded location provided.               
+                Error messages go on the error list and are handled with the check-errors tag.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:attributeGroup ref="attlist.script"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.script">
+        <xs:attribute type="xs:string" name="location">
+            <xs:annotation>
+                <xs:documentation>
+                    Script location (component://...)
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
+            <xs:annotation>
+                <xs:documentation>
+                    The name of the list in the method environment to check for error messages.
+                    Defaults to "error_list".
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:attributeGroup>
     <xs:element name="call-bsh" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>

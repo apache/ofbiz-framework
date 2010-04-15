@@ -19,6 +19,7 @@ org.ofbiz.minilang.method.callops.AddError$AddErrorFactory
 org.ofbiz.minilang.method.callops.CallBsh$CallBshFactory
 org.ofbiz.minilang.method.callops.CallClassMethod$CallClassMethodFactory
 org.ofbiz.minilang.method.callops.CallObjectMethod$CallObjectMethodFactory
+org.ofbiz.minilang.method.callops.CallScript$CallScriptFactory
 org.ofbiz.minilang.method.callops.CallService$CallServiceFactory
 org.ofbiz.minilang.method.callops.CallServiceAsynch$CallServiceAsynchFactory
 org.ofbiz.minilang.method.callops.CallSimpleMapProcessor$CallSimpleMapProcessorFactory
