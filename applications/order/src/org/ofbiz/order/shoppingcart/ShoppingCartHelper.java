@@ -1036,7 +1036,13 @@ public class ShoppingCartHelper {
         return result;
     }
 
-    /** Get the first SupplierProduct record for productId with matching quantity and currency */
+    /**
+     * Get the first SupplierProduct record for productId with matching quantity and currency
+     *
+     * @deprecated replaced by {@link ShoppingCart#getSupplierProduct(String, java.math.BigDecimal, org.ofbiz.service.LocalDispatcher)}
+     *
+     * */
+    @Deprecated
     public GenericValue getProductSupplier(String productId, BigDecimal quantity, String currencyUomId) {
         GenericValue productSupplier = null;
         Map params = UtilMisc.toMap("productId", productId, "partyId", cart.getPartyId(), "currencyUomId", currencyUomId, "quantity", quantity);
