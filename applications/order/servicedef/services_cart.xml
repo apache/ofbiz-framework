@@ -36,7 +36,7 @@ under the License.
         <attribute name="productPromoAction" type="org.ofbiz.entity.GenericValue" mode="IN"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
         <attribute name="nowTimestamp" type="Timestamp" mode="IN"/>
-        <attribute name="actionResultInfo" type="org.ofbiz.order.shoppingcart.product.ProductPromoWorker.ActionResultInfo" mode="IN"/>
+        <attribute name="actionResultInfo" type="org.ofbiz.order.shoppingcart.product.ProductPromoWorker$ActionResultInfo" mode="IN"/>
         <attribute name="cartItemModifyException" type="org.ofbiz.order.shoppingcart.CartItemModifyException" mode="OUT" optional="false"/>
     </service>
     <service name="assignItemShipGroup" engine="java" auth="false"
