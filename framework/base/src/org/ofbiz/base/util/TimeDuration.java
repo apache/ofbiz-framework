@@ -92,7 +92,7 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         }
 
         // compute elapsed years
-        long yearMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_YEAR);
+        long yearMillis = 86400000 * calStart.getLeastMaximum(Calendar.DAY_OF_YEAR);
         float units = deltaMillis / yearMillis;
         this.years = factor * advanceCalendar(calStart, calEnd, (int) units, Calendar.YEAR);
         deltaMillis = computeDeltaMillis(calStart.getTimeInMillis(), targetMillis);
