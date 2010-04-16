@@ -23,7 +23,7 @@ under the License.
             <ul>
                 <li class="h3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
             </ul>
-            <br class="clear"/>
+            <br class="clear" />
         </div>
         <div class="screenlet-body">
             <table class="order-items basic-table" cellspacing='0'>
@@ -59,7 +59,7 @@ under the License.
                                         <#if productId?exists>
                                             ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
                                             <#if (product.salesDiscontinuationDate)?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
-                                                <br/>
+                                                <br />
                                                 <span style="color: red;">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
                                             </#if>
                                         <#elseif orderItemType?exists>
@@ -587,7 +587,7 @@ under the License.
                                                class="buttontext">${itemIssuance.inventoryItemId}</a>
                                             <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${itemIssuance.shipGroupSeqId?if_exists}
                                             <#if (inventoryItem.serialNumber?has_content)>
-                                                <br>
+                                                <br />
                                                 <span class="label">${uiLabelMap.ProductSerialNumber}</span>&nbsp;${inventoryItem.serialNumber}&nbsp;
                                             </#if>
                                         </#if>
@@ -630,7 +630,7 @@ under the License.
                         </#if>
                     </#list>
                 </#if>
-                <tr><td colspan="7"><hr/></td></tr>
+                <tr><td colspan="7"><hr /></td></tr>
                 <#list orderHeaderAdjustments as orderHeaderAdjustment>
                     <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
                     <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
@@ -650,7 +650,7 @@ under the License.
                 <#-- subtotal -->
                 <tr>
                     <td colspan="1"></td>
-                    <td colspan="6"><hr/></td>
+                    <td colspan="6"><hr /></td>
                 </tr>
                 <tr>
                     <td align="right" colspan="5">
