@@ -2502,21 +2502,19 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
     }
+
     public static String getPurchaseOrderItemDescription(GenericValue product, GenericValue supplierProduct, Locale locale) {
-          String itemDescription = "";
-          String supplierProductId = supplierProduct.getString("supplierProductId");
-          if (supplierProductId == null) {
-               supplierProductId = "";
-          } else {
-               supplierProductId += " ";
-          }
-          String supplierProductName = supplierProduct.getString("supplierProductName");
-          if (supplierProductName == null) {
-            if (supplierProductName == null) {
-                supplierProductName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null);
-             }
-           }
-          itemDescription = supplierProductId + supplierProductName;
-          return itemDescription;
+
+        String itemDescription = null;
+
+        if (supplierProduct != null) {
+            itemDescription = supplierProduct.getString("supplierProductName");
+        }
+
+        if (UtilValidate.isEmpty(itemDescription)) {
+            itemDescription = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null);
+        }
+
+        return itemDescription;
     }
 }
