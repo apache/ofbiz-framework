@@ -276,7 +276,7 @@
         <value xml:lang="de">Arbeitsplan-Nr.</value>
         <value xml:lang="en">routingId</value>
         <value xml:lang="es">Fecha de comienzo del requisito</value>
-        <value xml:lang="fr">Réf. de gamme</value>
+        <value xml:lang="fr">Gamme</value>
         <value xml:lang="it">Id Ciclo</value>
         <value xml:lang="ro">Id Ciclu</value>
         <value xml:lang="th">รหัส routing</value>
@@ -2984,7 +2984,7 @@
         <value xml:lang="de">Ausschuß-Faktor in %</value>
         <value xml:lang="en">Scrap Factor %</value>
         <value xml:lang="es">Factor de merma %</value>
-        <value xml:lang="fr">% de taux de rebut</value>
+        <value xml:lang="fr">% rebut</value>
         <value xml:lang="it">Fattore Di Scarto %</value>
         <value xml:lang="ro">Factor De Rebuturi%</value>
         <value xml:lang="th">ชิ้นส่วนประกอบ %</value>
@@ -3648,7 +3648,7 @@
         <value xml:lang="de">Arbeitsgang-Zuordnung suchen</value>
         <value xml:lang="en">List Routing Task Assoc</value>
         <value xml:lang="es">Listar asociaciones de tareas</value>
-        <value xml:lang="fr">Liste d'association des opérations de gamme</value>
+        <value xml:lang="fr">Opérations de la gamme</value>
         <value xml:lang="it">Lista Associazioni Operazioni</value>
         <value xml:lang="th">รายการกลลุ่มของงาน</value>
         <value xml:lang="zh">规程任务关联列表</value>
