@@ -3664,7 +3664,7 @@
         <value xml:lang="de">Altmaterial Faktor</value>
         <value xml:lang="en">Scrap Factor</value>
         <value xml:lang="es">Factor de merma</value>
-        <value xml:lang="fr">Facteur de fragmentation</value>
+        <value xml:lang="fr">% rebut</value>
         <value xml:lang="it">Fattore Di Scarto</value>
         <value xml:lang="ro">Factor De Rebutare</value>
         <value xml:lang="ru">Норма отходов</value>
