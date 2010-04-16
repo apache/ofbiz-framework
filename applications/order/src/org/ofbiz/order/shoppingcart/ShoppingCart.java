@@ -508,6 +508,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 if (getOrderType().equals("PURCHASE_ORDER")) {
                     supplierProduct = getSupplierProduct(productId, newQuantity, dispatcher);
                     if (supplierProduct != null && supplierProduct.getBigDecimal("lastPrice") != null) {
+                        sci.setSupplierProductId(supplierProduct.getString("supplierProductId"));
                         sci.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
                         sci.setName(ShoppingCartItem.getPurchaseOrderItemDescription(sci.getProduct(), supplierProduct, this.getLocale()));
                     } else {
@@ -3478,6 +3479,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 orderItem.set("orderItemTypeId", item.getItemType());
                 if (item.getItemGroup() != null) orderItem.set("orderItemGroupSeqId", item.getItemGroup().getGroupNumber());
                 orderItem.set("productId", UtilValidate.isNotEmpty(aggregatedInstanceId) ? aggregatedInstanceId : item.getProductId());
+                orderItem.set("supplierProductId", item.getSupplierProductId());
                 orderItem.set("prodCatalogId", item.getProdCatalogId());
                 orderItem.set("productCategoryId", item.getProductCategoryId());
                 orderItem.set("quantity", item.getQuantity());

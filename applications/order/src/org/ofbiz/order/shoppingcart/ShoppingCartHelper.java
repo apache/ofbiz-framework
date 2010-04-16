@@ -769,6 +769,7 @@ public class ShoppingCartHelper {
                                                     errorMsgs.add(errMsg);
                                                 }
                                             } else {
+                                                item.setSupplierProductId(supplierProduct.getString("supplierProductId"));
                                                 item.setQuantity(quantity, dispatcher, this.cart);
                                                 item.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
                                                 item.setName(ShoppingCartItem.getPurchaseOrderItemDescription(item.getProduct(), supplierProduct, cart.getLocale()));

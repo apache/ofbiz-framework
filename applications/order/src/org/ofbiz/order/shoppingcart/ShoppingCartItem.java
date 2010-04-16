@@ -253,6 +253,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         // specific for purchase orders - description is set to supplierProductId + supplierProductName, price set to lastPrice of SupplierProduct
         // if supplierProduct has no supplierProductName, use the regular supplierProductId
         if (supplierProduct != null) {
+            newItem.setSupplierProductId(supplierProduct.getString("supplierProductId"));
             newItem.setName(getPurchaseOrderItemDescription(product, supplierProduct, cart.getLocale()));
             newItem.setBasePrice(supplierProduct.getBigDecimal("lastPrice"));
         } else {
