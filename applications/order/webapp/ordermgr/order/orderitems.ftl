@@ -56,7 +56,9 @@ under the License.
                             <#else>
                                 <td colspan="7">
                                     <div class="order-item-description">
-                                        <#if productId?exists>
+                                        <#if orderItem.supplierProductId?has_content>
+                                            ${orderItem.supplierProductId} - ${orderItem.itemDescription?if_exists}
+                                        <#elseif productId?exists>
                                             ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
                                             <#if (product.salesDiscontinuationDate)?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
                                                 <br />
