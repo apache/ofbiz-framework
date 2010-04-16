@@ -48,7 +48,9 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block>
-                                <#if productId?exists>
+                                <#if orderItem.supplierProductId?has_content>
+                                    ${orderItem.supplierProductId} - ${orderItem.itemDescription?if_exists}
+                                <#elseif productId?exists>
                                     ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
                                 <#elseif orderItemType?exists>
                                     ${orderItemType.get("description",locale)} - ${orderItem.itemDescription?if_exists}
