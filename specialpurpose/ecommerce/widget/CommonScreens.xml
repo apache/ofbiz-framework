@@ -62,28 +62,38 @@ under the License.
                 <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://ecommerce/webapp/ecommerce/includes/footer.ftl"/>
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/includes/headerHead.ftl"/></html></platform-specific>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/openhtmlbody.ftl"/></html></platform-specific>
-                <!-- render header -->
-                <container id="header"><platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific></container>
+               <section>
+                  <condition>
+                     <not><if-empty field="globalContext.productStore"/></not>
+                  </condition>
+                  <widgets>
+                     <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/includes/headerHead.ftl"/></html></platform-specific>
+                     <platform-specific><html><html-template location="component://common/webcommon/includes/openhtmlbody.ftl"/></html></platform-specific>
+                     <!-- render header -->
+                     <container id="header"><platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific></container>
 
-                <container id="ecom-mainarea">
-                    <!-- by default will render left-bar only if left/rightbarScreenName value not empty -->
-                    <container id="div1" style="left"><include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/></container>
-                    <container id="div2" style="right"><include-screen name="${rightbarScreenName}" location="${rightbarScreenLocation}"/></container>
+                     <container id="ecom-mainarea">
+                        <!-- by default will render left-bar only if left/rightbarScreenName value not empty -->
+                        <container id="div1" style="left"><include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/></container>
+                        <container id="div2" style="right"><include-screen name="${rightbarScreenName}" location="${rightbarScreenLocation}"/></container>
 
-                    <container id="div3" style="${MainColumnStyle}">
-                        <!-- render messages -->
-                        <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
-                        <decorator-section-include name="body"/>
+                        <container id="div3" style="${MainColumnStyle}">
+                           <!-- render messages -->
+                           <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                           <decorator-section-include name="body"/>
+                        </container>
+
+                        <container id="div4" style="endcolumns"/>
                     </container>
 
-                    <container id="div4" style="endcolumns"/>
-                </container>
-
-                <!-- render footer -->
-                <container id="footer"><platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific></container>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/closehtmlbody.ftl"/></html></platform-specific>
+                    <!-- render footer -->
+                    <container id="footer"><platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific></container>
+                    <platform-specific><html><html-template location="component://common/webcommon/includes/closehtmlbody.ftl"/></html></platform-specific>
+                  </widgets>
+                  <fail-widgets>
+                     <label text="A Product Store has not been defined for this ecommerce site.  A Product Store can be created using the ofbizsetup wizard."/>
+                  </fail-widgets>
+               </section>
             </widgets>
         </section>
     </screen>
