@@ -637,16 +637,17 @@ under the License.
                     <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType")>
                     <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
                     <#if adjustmentAmount != 0>
-                    <tr>
-                        <td align="right" colspan="5">
-                            <span class="label">${adjustmentType.get("description",locale)}</span>&nbsp;${orderHeaderAdjustment.comments?if_exists}
-                            ${orderHeaderAdjustment.get("description")?if_exists} :
-                        </td>
-                        <td align="right" nowrap="nowrap">
-                            <@ofbizCurrency amount=adjustmentAmount isoCode=currencyUomId/>
-                        </td>
-                        <td>&nbsp;</td>
-                    </tr>
+                        <tr>
+                            <td align="right" colspan="5">
+                                <#if orderHeaderAdjustment.comments?has_content>${orderHeaderAdjustment.comments} - </#if>
+                                <#if orderHeaderAdjustment.description?has_content>${orderHeaderAdjustment.description} - </#if>
+                                <span class="label">${adjustmentType.get("description", locale)}</span>
+                            </td>
+                            <td align="right" nowrap="nowrap">
+                                <@ofbizCurrency amount=adjustmentAmount isoCode=currencyUomId/>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
                     </#if>
                 </#list>
                 <#-- subtotal -->
