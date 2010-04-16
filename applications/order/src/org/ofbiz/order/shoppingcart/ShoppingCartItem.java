@@ -88,6 +88,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     private String delegatorName = null;
     private String prodCatalogId = null;
     private String productId = null;
+    private String supplierProductId = null;
     private String parentProductId = null;
     private String externalId = null;
     /** ends up in orderItemTypeId */
@@ -1662,6 +1663,17 @@ public class ShoppingCartItem implements java.io.Serializable {
     public String getProductId() {
         return productId;
     }
+
+    /** Returns the item's supplierProductId. */
+    public String getSupplierProductId() {
+        return supplierProductId;
+    }
+
+    /** Set the item's supplierProductId. */
+    public void setSupplierProductId(String supplierProductId) {
+        this.supplierProductId = supplierProductId;
+    }
+
     /** Set the item's description. */
     public void setName(String itemName) {
         this.itemDescription = itemName;
