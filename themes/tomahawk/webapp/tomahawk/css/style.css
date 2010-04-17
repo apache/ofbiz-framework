@@ -99,6 +99,7 @@ margin: 0.5em 0 0.5em 0;
 input[type="radio"],input[type="checkbox"] {
 font-size: 1.1em;
 margin: 0.2em;
+vertical-align:middle;
 }
 
 input[type="text"],input[type="password"] {
@@ -107,6 +108,7 @@ border:0.1em solid #999999;
 font-size: 1.1em;
 margin: 0.2em;
 padding:0.4em 0;
+vertical-align:middle;
 }
 
 input[type="submit"],input[type="button"],input[type="reset"] {
@@ -119,6 +121,7 @@ color: #262626;
 background-image: url(../images/button_whitegray.jpg);
 font-size: 1em;
 font-weight: bold;
+margin: 0.3em;
 padding:0.4em 0.5em;
 }
 
@@ -134,8 +137,12 @@ background-image: url(../images/button_medgray_in.jpg);
 }
 
 input[type="file"] {
+border:0.1em solid #999999;
 font-size: 1.1em;
-height: 1.6em; /* force ctrl to scale with text */
+height: 2.1em; /* force ctrl to scale with text */
+margin: 0.2em;
+padding:0.4em 0;
+vertical-align:middle;
 }
 
 select {
@@ -145,6 +152,7 @@ font-size: 1.1em;
 height: 2.1em; /* force ctrl to scale with text */
 margin: 0.2em;
 padding: 0.1em;
+vertical-align:middle;
 }
 
 select[multiple="multiple"] {
@@ -1859,10 +1867,6 @@ color: #0000ff;
 /* ======================== */
 /* ===== Form Styles ===== */
 /* ======================== */
-.basic-form {
-margin-bottom: 1em;
-}
-
 .basic-form table {
 width: 100%;
 }
