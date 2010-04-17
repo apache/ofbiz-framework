@@ -28,7 +28,7 @@ under the License.
         <img src="${imageLocation}"><#lt/>
     <#else>
         <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true">
-            <span <#if idName?has_content>id="${idName}"</#if> <@renderClass class alert />><#t/>
+            <span <#if idName?has_content>id="cc_${idName}"</#if> <@renderClass class alert />><#t/>
         </#if>
         
         <#if description?has_content>
@@ -41,7 +41,7 @@ under the License.
         </#if>
         <#if inPlaceEditorUrl?has_content && idName?has_content>
             <script language="JavaScript" type="text/javascript"><#lt/>
-            ajaxInPlaceEditDisplayField('${idName}', '${inPlaceEditorUrl}', ${inPlaceEditorParams});<#lt/>
+            ajaxInPlaceEditDisplayField('cc_${idName}', '${inPlaceEditorUrl}', ${inPlaceEditorParams});<#lt/>
             </script><#lt/>
         </#if>
     </#if>
@@ -70,7 +70,7 @@ under the License.
     <#if cols?has_content> cols="${cols}"</#if><#rt/>
     <#if rows?has_content> rows="${rows}"</#if><#rt/>
     <#if id?has_content> id="${id}"</#if><#rt/>
-    <#if readonly?has_content> ${readonly}</#if><#rt/>
+    <#if readonly?has_content && readonly=='readonly'> readonly="readonly"</#if><#rt/>
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
     ><#t/>
     <#if value?has_content>${value}</#if><#t/>
@@ -98,9 +98,9 @@ under the License.
           <#else>
              <a href="javascript:call_cal(document.<#rt/>
           </#if>
-          ${formName}.
-          <#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if>
-          <#if defaultDateTimeString?has_content>,'${defaultDateTimeString}'</#if>);" 
+          ${formName}.<#t/>
+          <#if timeDropdownParamName?has_content>${timeDropdownParamName}</#if><#t/>
+          <#if defaultDateTimeString?has_content>,'${defaultDateTimeString}'</#if>);"<#lt/>
           title="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>"><#rt/>
           </a><#rt/>
         </li>
