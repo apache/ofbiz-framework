@@ -35,6 +35,7 @@ import java.util.Set;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -626,7 +627,6 @@ public class ShoppingCartHelper {
         if (locale == null) {
             locale = this.cart.getLocale();
         }
-        NumberFormat nf = NumberFormat.getNumberInstance(locale);
 
         ArrayList deleteList = new ArrayList();
         ArrayList errorMsgs = new ArrayList();
@@ -688,12 +688,12 @@ public class ShoppingCartHelper {
                         }
                     } else if (parameterName.startsWith("reservLength")) {
                         if (item != null) {
-                            BigDecimal reservLength = new BigDecimal(nf.parse(quantString).doubleValue());
+                            BigDecimal reservLength = (BigDecimal) ObjectType.simpleTypeConvert(quantString, "BigDecimal", null, locale);
                             item.setReservLength(reservLength);
                         }
                     } else if (parameterName.startsWith("reservPersons")) {
                         if (item != null) {
-                            BigDecimal reservPersons = new BigDecimal(nf.parse(quantString).doubleValue());
+                            BigDecimal reservPersons = (BigDecimal) ObjectType.simpleTypeConvert(quantString, "BigDecimal", null, locale);
                             item.setReservPersons(reservPersons);
                         }
                     } else if (parameterName.startsWith("shipBeforeDate")) {
@@ -726,7 +726,7 @@ public class ShoppingCartHelper {
                             item.setItemType(quantString);
                         }
                     } else {
-                        quantity = new BigDecimal(nf.parse(quantString).doubleValue());
+                        quantity = (BigDecimal) ObjectType.simpleTypeConvert(quantString, "BigDecimal", null, locale);
                         if (quantity.compareTo(BigDecimal.ZERO) < 0) {
                             String errMsg = UtilProperties.getMessage(resource_error, "cart.quantity_not_positive_number", this.cart.getLocale());
                             errorMsgs.add(errMsg);
@@ -816,8 +816,6 @@ public class ShoppingCartHelper {
                     }
                 } catch (NumberFormatException nfe) {
                     Debug.logWarning(nfe, UtilProperties.getMessage(resource_error, "OrderCaughtNumberFormatExceptionOnCartUpdate", cart.getLocale()));
-                } catch (ParseException pe) {
-                    Debug.logWarning(pe, UtilProperties.getMessage(resource_error, "OrderCaughtParseExceptionOnCartUpdate", cart.getLocale()));
                 } catch (Exception e) {
                     Debug.logWarning(e, UtilProperties.getMessage(resource_error, "OrderCaughtExceptionOnCartUpdate", cart.getLocale()));
                 }
