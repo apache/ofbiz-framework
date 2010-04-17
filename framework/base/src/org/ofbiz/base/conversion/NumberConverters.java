@@ -23,15 +23,10 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.TimeZone;
 
 import org.ofbiz.base.util.StringUtil;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 /** Number Converter classes. */
 public class NumberConverters implements ConverterLoader {
@@ -145,6 +140,7 @@ public class NumberConverters implements ConverterLoader {
             super(BigDecimal.class);
         }
 
+        @Override
         protected String format(BigDecimal obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.doubleValue());
         }
@@ -165,6 +161,7 @@ public class NumberConverters implements ConverterLoader {
             super(BigInteger.class);
         }
 
+        @Override
         protected String format(BigInteger obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.doubleValue());
         }
@@ -175,6 +172,7 @@ public class NumberConverters implements ConverterLoader {
             super(Byte.class);
         }
 
+        @Override
         protected String format(Byte obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.floatValue());
         }
@@ -189,6 +187,7 @@ public class NumberConverters implements ConverterLoader {
             return new BigInteger(obj);
         }
 
+        @Override
         protected BigInteger convert(Number number) throws ConversionException {
             return BigInteger.valueOf(number.longValue());
         }
@@ -199,6 +198,7 @@ public class NumberConverters implements ConverterLoader {
             super(Double.class);
         }
 
+        @Override
         protected String format(Double obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.doubleValue());
         }
@@ -219,6 +219,7 @@ public class NumberConverters implements ConverterLoader {
             super(Float.class);
         }
 
+        @Override
         protected String format(Float obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.floatValue());
         }
@@ -249,6 +250,7 @@ public class NumberConverters implements ConverterLoader {
             super(Integer.class);
         }
 
+        @Override
         protected String format(Integer obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.intValue());
         }
@@ -279,6 +281,7 @@ public class NumberConverters implements ConverterLoader {
             super(Long.class);
         }
 
+        @Override
         protected String format(Long obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.longValue());
         }
@@ -289,6 +292,7 @@ public class NumberConverters implements ConverterLoader {
             super(Short.class);
         }
 
+        @Override
         protected String format(Short obj, NumberFormat nf) throws ConversionException {
             return nf.format(obj.floatValue());
         }
@@ -303,6 +307,7 @@ public class NumberConverters implements ConverterLoader {
             return new BigDecimal(obj);
         }
 
+        @Override
         protected BigDecimal convert(Number number) throws ConversionException {
             if (number instanceof BigDecimal) {
                 return (BigDecimal) number;
@@ -330,6 +335,7 @@ public class NumberConverters implements ConverterLoader {
             return Double.valueOf(obj);
         }
 
+        @Override
         protected Double convert(Number number) throws ConversionException {
             return number.doubleValue();
         }
@@ -344,6 +350,7 @@ public class NumberConverters implements ConverterLoader {
             return Float.valueOf(obj);
         }
 
+        @Override
         protected Float convert(Number number) throws ConversionException {
             return number.floatValue();
         }
@@ -358,6 +365,7 @@ public class NumberConverters implements ConverterLoader {
             return Integer.valueOf(obj);
         }
 
+        @Override
         protected Integer convert(Number number) throws ConversionException {
             return number.intValue();
         }
@@ -372,6 +380,7 @@ public class NumberConverters implements ConverterLoader {
             return Long.valueOf(obj);
         }
 
+        @Override
         protected Long convert(Number number) throws ConversionException {
             return number.longValue();
         }
