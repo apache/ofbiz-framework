@@ -371,7 +371,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
-        String id = modelFormField.getIdName();
+        String id = modelFormField.getCurrentContainerId(context);
         String clientAutocomplete = "false";
 
         List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
@@ -432,7 +432,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String name = modelFormField.getParameterName(context);
         String cols = Integer.toString(textareaField.getCols());
         String rows = Integer.toString(textareaField.getRows());
-        String id = modelFormField.getIdName();
+        String id = modelFormField.getCurrentContainerId(context);
         String className = "";
         String alert = "false";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
@@ -537,7 +537,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 value = value.substring(0, maxlength);
             }
         }
-        String id = modelFormField.getIdName();
+        String id = modelFormField.getCurrentContainerId(context);
         String formName = modelFormField.getModelForm().getCurrentFormName(context);
         String timeDropdown = dateTimeField.getInputMethod();
         String timeDropdownParamName = "";
@@ -680,7 +680,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String className = "";
         String alert = "false";
         String name = modelFormField.getParameterName(context);
-        String id = modelFormField.getIdName();
+        String id = modelFormField.getCurrentContainerId(context);
         String multiple = dropDownField.isAllowMultiple()? "multiple": "";
         String otherFieldName = "";
         String formName = modelForm.getName();
@@ -1117,7 +1117,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String name = modelFormField.getParameterName(context);
         String action = modelFormField.getAction(context);
         String event = modelFormField.getEvent();
-        String id = modelFormField.getIdName();
+        String id = modelFormField.getCurrentContainerId(context);
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderHiddenField ");
@@ -1926,7 +1926,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         String size = Integer.toString(lookupField.getSize());
         Integer maxlength = lookupField.getMaxlength();
-        String id = modelFormField.getIdName();
+        String id = modelFormField.getCurrentContainerId(context);
 
         List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
 
@@ -1938,7 +1938,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             } else {
                 autoCompleterTarget = lookupFieldFormName + "&amp;amp;";
             }
-            autoCompleterTarget = autoCompleterTarget + "ajaxLookup=Y&amp;searchValueField=" + lookupField.getModelFormField().getParameterName(context);
+            autoCompleterTarget = autoCompleterTarget + "ajaxLookup=Y&amp;amp;searchValueField=" + lookupField.getModelFormField().getParameterName(context);
             updateAreas = FastList.newInstance();
             updateAreas.add(new ModelForm.UpdateArea("change", id, autoCompleterTarget));
         }
@@ -2158,6 +2158,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         String prepLinkText = UtilHttp.getQueryStringFromTarget(targetService);
         String prepLinkSizeText;
 
+        if (UtilValidate.isNotEmpty(queryString)) {
+            queryString = UtilHttp.encodeAmpersands(queryString);
+        }
+        
         if (prepLinkText == null) {
             prepLinkText = "";
         }
@@ -2391,7 +2395,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String name = modelFormField.getParameterName(context);
         String size = Integer.toString(passwordField.getSize());
         String maxlength = "";
-        String id = modelFormField.getIdName();
+        String id = modelFormField.getCurrentContainerId(context);
         String autocomplete = "";
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
             className = modelFormField.getWidgetStyle();

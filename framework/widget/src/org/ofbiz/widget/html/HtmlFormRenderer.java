@@ -161,14 +161,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      */
     public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) throws IOException {
         ModelFormField modelFormField = displayField.getModelFormField();
-        ModelForm modelForm = modelFormField.getModelForm();
 
         StringBuilder str = new StringBuilder();
 
-        String idName = modelFormField.getIdName();
-        if (UtilValidate.isNotEmpty(idName) && ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType()))) {
-            idName += "_" + modelForm.getRowCount();
-        }
+        String idName = modelFormField.getCurrentContainerId(context);
 
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle()) || modelFormField.shouldBeRed(context)) {
             str.append("<span class=\"");
@@ -180,7 +176,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             str.append('"');
             if (UtilValidate.isNotEmpty(idName)) {
                 str.append(" id=\"");
-                str.append(idName);
+                str.append(idName+"_sp");
                 str.append('"');
             }
             str.append('>');
@@ -401,7 +397,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append('"');
         }
 
-        String idName = modelFormField.getIdName();
+        String idName = modelFormField.getCurrentContainerId(context);
         if (UtilValidate.isNotEmpty(idName)) {
             writer.append(" id=\"");
             writer.append(idName);
@@ -465,7 +461,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(Integer.toString(textareaField.getRows()));
         writer.append('"');
 
-        String idName = modelFormField.getIdName();
+        String idName = modelFormField.getCurrentContainerId(context);
         if (UtilValidate.isNotEmpty(idName)) {
             writer.append(" id=\"");
             writer.append(idName);
@@ -584,7 +580,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(Integer.toString(maxlength));
         writer.append('"');
 
-        String idName = modelFormField.getIdName();
+        String idName = modelFormField.getCurrentContainerId(context);
         if (UtilValidate.isNotEmpty(idName)) {
             writer.append(" id=\"");
             writer.append(idName);
@@ -742,7 +738,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(" name=\"");
         writer.append(modelFormField.getParameterName(context));
 
-        String idName = modelFormField.getIdName();
+        String idName = modelFormField.getCurrentContainerId(context);
 
         if (ajaxEnabled) {
             writer.append("_description\"");
@@ -1337,7 +1333,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("\"");
         }
 
-        String containerId =  modelForm.getContainerId();
+        String containerId =  modelForm.getCurrentContainerId(context);
         if (UtilValidate.isNotEmpty(containerId)) {
             writer.append(" id=\"");
             writer.append(containerId);
@@ -2216,7 +2212,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append('"');
         }
 
-        String idName = modelFormField.getIdName();
+        String idName = modelFormField.getCurrentContainerId(context);
         if (UtilValidate.isNotEmpty(idName)) {
             writer.append(" id=\"");
             writer.append(idName);
@@ -2665,7 +2661,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append('"');
         }
 
-        String idName = modelFormField.getIdName();
+        String idName = modelFormField.getCurrentContainerId(context);
         if (UtilValidate.isNotEmpty(idName)) {
             writer.append(" id=\"");
             writer.append(idName);
