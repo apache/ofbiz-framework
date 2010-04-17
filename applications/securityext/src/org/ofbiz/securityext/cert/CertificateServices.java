@@ -19,19 +19,18 @@
 
 package org.ofbiz.securityext.cert;
 
-import org.ofbiz.base.util.KeyStoreUtil;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
-
 import java.io.IOException;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
+
+import org.ofbiz.base.util.KeyStoreUtil;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * CertificateServices
