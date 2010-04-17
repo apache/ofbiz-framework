@@ -91,13 +91,13 @@ public class ShipmentServices {
         estimate.set("featurePercent", context.get("featurePercent"));
         estimate.set("featurePrice", context.get("featurePrice"));
         estimate.set("weightBreakId", context.get("weightBreakId"));
-        estimate.set("weightUnitPrice", (BigDecimal)context.get("wprice"));
+        estimate.set("weightUnitPrice", context.get("wprice"));
         estimate.set("weightUomId", context.get("wuom"));
         estimate.set("quantityBreakId", context.get("quantityBreakId"));
-        estimate.set("quantityUnitPrice", (BigDecimal)context.get("qprice"));
+        estimate.set("quantityUnitPrice", context.get("qprice"));
         estimate.set("quantityUomId", context.get("quom"));
         estimate.set("priceBreakId", context.get("priceBreakId"));
-        estimate.set("priceUnitPrice", (BigDecimal)context.get("pprice"));
+        estimate.set("priceUnitPrice", context.get("pprice"));
         estimate.set("priceUomId", context.get("puom"));
         storeAll.add(estimate);
 
@@ -165,7 +165,7 @@ public class ShipmentServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static boolean applyQuantityBreak(Map context, Map<String, Object> result, List<GenericValue> storeAll, Delegator delegator,
+    private static boolean applyQuantityBreak(Map<String, ? extends Object> context, Map<String, Object> result, List<GenericValue> storeAll, Delegator delegator,
                                               GenericValue estimate, String prefix, String breakType, String breakTypeString) {
         BigDecimal min = (BigDecimal) context.get(prefix + "min");
         BigDecimal max = (BigDecimal) context.get(prefix + "max");
@@ -180,9 +180,9 @@ public class ShipmentServices {
                         weightBreak.set("fromQuantity", min);
                         weightBreak.set("thruQuantity", max);
                         estimate.set(breakType + "BreakId", newSeqId);
-                        estimate.set(breakType + "UnitPrice", (BigDecimal) context.get(prefix + "price"));
+                        estimate.set(breakType + "UnitPrice", context.get(prefix + "price"));
                         if (context.containsKey(prefix + "uom")) {
-                            estimate.set(breakType + "UomId", (String) context.get(prefix + "uom"));
+                            estimate.set(breakType + "UomId", context.get(prefix + "uom"));
                         }
                         storeAll.add(0, weightBreak);
                     }
@@ -411,7 +411,7 @@ public class ShipmentServices {
                 Set<String> featureSet = UtilGenerics.checkSet(itemMap.get("featureSet"));
                 if (UtilValidate.isNotEmpty(featureSet)) {
                     for (String featureId: featureSet) {
-                        BigDecimal featureQuantity = (BigDecimal) shippableFeatureMap.get(featureId);
+                        BigDecimal featureQuantity = shippableFeatureMap.get(featureId);
                         if (featureQuantity == null) {
                             featureQuantity = BigDecimal.ZERO;
                         }
