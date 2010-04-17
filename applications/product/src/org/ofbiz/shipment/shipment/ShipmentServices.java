@@ -1142,7 +1142,7 @@ public class ShipmentServices {
         if (locale == null) {
             locale = Locale.getDefault();
         }
-        ResourceBundleMapWrapper uiLabelMap = (ResourceBundleMapWrapper) UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
+        ResourceBundleMapWrapper uiLabelMap = UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
         uiLabelMap.addBottomResourceBundle("OrderUiLabels");
         uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
