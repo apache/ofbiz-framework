@@ -30,7 +30,7 @@ under the License.
           <#if question.surveyQuestionTypeId == "SEPERATOR_TEXT">
             <td colspan="5" class="label">${question.question?if_exists}</td>
           <#elseif question.surveyQuestionTypeId == "SEPERATOR_LINE">
-            <td colspan="5"><hr></td>
+            <td colspan="5"><hr/></td>
           <#else>
 
             <#-- standard questions -->

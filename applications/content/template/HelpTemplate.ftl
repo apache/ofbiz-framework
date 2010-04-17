@@ -69,11 +69,11 @@ under the License.
 </#macro>
 
 <#macro orderedlist node>
-  <ol class=numbers><@listItems node=node/></ol>
+  <ol class="numbers"><@listItems node=node/></ol>
 </#macro>
 
 <#macro itemizedlist node>
-  <ul class=dots><@listItems node=node/></ul>
+  <ul class="dots"><@listItems node=node/></ul>
 </#macro>
 
 <#macro mediaobject node>

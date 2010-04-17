@@ -17,7 +17,7 @@
   under the License.
   -->
 <table cellspacing="0" width="100%">
-    <tr colspan="3">
+    <tr>
       <td align="left">
                     <#if (viewIndex > 0)>
                         <#assign url='/views/'+tabButtonItem+'?'+curFindString+'&amp;VIEW_SIZE='+viewSize+'&amp;VIEW_INDEX='+viewIndexFirst>
