@@ -51,7 +51,6 @@ import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.html.HtmlFormRenderer;
 import org.ofbiz.widget.html.HtmlMenuRenderer;
-import org.ofbiz.widget.html.HtmlTreeRenderer;
 import org.ofbiz.widget.menu.MenuFactory;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenu;
@@ -66,7 +65,7 @@ import org.xml.sax.SAXException;
  * Widget Library - Screen model class
  */
 @SuppressWarnings("serial")
-public abstract class ModelScreenWidget extends ModelWidget implements Serializable {
+public abstract class ModelScreenWidget extends ModelWidget {
     public static final String module = ModelScreenWidget.class.getName();
 
     protected ModelScreen modelScreen;
@@ -991,11 +990,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             ModelScreenWidget subWidget = null;
-            subWidget = (ModelScreenWidget)subWidgets.get(screenStringRenderer.getRendererName());
+            subWidget = subWidgets.get(screenStringRenderer.getRendererName());
             if (subWidget == null) {
                 // This is here for backward compatibility
                 Debug.logWarning("In platform-dependent could not find template for " + screenStringRenderer.getRendererName() + ", using the one for html.", module);
-                subWidget = (ModelScreenWidget)subWidgets.get("html");
+                subWidget = subWidgets.get("html");
             }
             if (subWidget != null) {
                 subWidget.renderWidgetString(writer, context, screenStringRenderer);
