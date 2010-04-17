@@ -22,6 +22,9 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="orderentry"/>
+
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
+
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.groovy"/>
             </actions>
             <widgets>
