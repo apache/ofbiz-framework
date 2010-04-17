@@ -178,31 +178,31 @@ under the License.
   <div class="screenlet-body">
       <#if security.hasPermission("SEND_CONTROL_APPLET", session)>
         <table class="basic-table" cellspacing="0">
-          <form name="pushPage" method="get" action="<@ofbizUrl>pushPage</@ofbizUrl>">
             <tr>
               <th>${uiLabelMap.PartyPushURL}</th>
               <td>
-                <input type="hidden" name="followerSid" value="${visit.sessionId}" />
-                <input type="hidden" name="visitId" value="${visit.visitId}" />
-                <input type="text" name="pageUrl" />
+                <form name="pushPage" method="get" action="<@ofbizUrl>pushPage</@ofbizUrl>">
+                  <input type="hidden" name="followerSid" value="${visit.sessionId}" />
+                  <input type="hidden" name="visitId" value="${visit.visitId}" />
+                  <input type="text" name="pageUrl" />
+                  <input type="submit" value="${uiLabelMap.CommonSubmit}" />
+                </form>
               </td>
-              <td><input type="submit" value="${uiLabelMap.CommonSubmit}" /></td>
             </tr>
             <tr>
               <td colspan="3"><hr /></td>
             </tr>
-          </form>
-          <form name="setFollower" method="get" action="<@ofbizUrl>setAppletFollower</@ofbizUrl>">
             <tr>
               <th>${uiLabelMap.PartyFollowSession}</th>
               <td>
-                <input type="hidden" name="followerSid" value="${visit.sessionId}" />
-                <input type="hidden" name="visitId" value="${visit.visitId}" />
-                <input type="text" name="followSid" />
+                <form name="setFollower" method="get" action="<@ofbizUrl>setAppletFollower</@ofbizUrl>">
+                  <input type="hidden" name="followerSid" value="${visit.sessionId}" />
+                  <input type="hidden" name="visitId" value="${visit.visitId}" />
+                  <input type="text" name="followSid" />
+                  <input type="submit" value="${uiLabelMap.CommonSubmit}" />
+                </form>
               </td>
-              <td><input type="submit" value="${uiLabelMap.CommonSubmit}" /></td>
             </tr>
-          </form>
         </table>
       </#if>
   </div>

@@ -44,7 +44,7 @@ under the License.
               </td>
             </tr>
             <#if noteRef_has_next>
-              <tr><td colspan="2"><hr></td></tr>
+              <tr><td colspan="2"><hr/></td></tr>
             </#if>
           </#list>
         </table>

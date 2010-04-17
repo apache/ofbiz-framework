@@ -169,10 +169,10 @@ under the License.
         <select name="countryGeoId">
           <#if (mechMap.postalAddress?exists) && (mechMap.postalAddress.countryGeoId?exists)>
             <#assign defaultCountryGeoId = (mechMap.postalAddress.countryGeoId)>
-            <option selected value="${defaultCountryGeoId}">
+            <option selected="selected" value="${defaultCountryGeoId}">
           <#else>
            <#assign defaultCountryGeoId = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "country.geo.id.default")>
-           <option selected value="${defaultCountryGeoId}">
+           <option selected="selected" value="${defaultCountryGeoId}">
           </#if>
           <#assign countryGeo = delegator.findByPrimaryKey("Geo",Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId))>
           ${countryGeo.get("geoName",locale)}

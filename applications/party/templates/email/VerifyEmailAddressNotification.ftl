@@ -25,7 +25,7 @@ under the License.
     <body>
         <h1>${title?if_exists}</h1>
         <p>Thank you for registering. Please click the link below to complete your registration.</p>
-        <br><br>
+        <br/><br/>
         <a href="${baseUrl}/cmssite/cms/verifyEmailAddress?verifyHash=${parameters.verifyHash}">www.cmssite.com/cms/registration.html</a>
     </body>
 </html>
