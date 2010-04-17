@@ -119,9 +119,9 @@ under the License.
                           ${(transactionCode.get("description",locale))?default("Unknown")}:
                           ${gatewayResponse.transactionDate.toString()}
                           <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br />
-                          (<span class"label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum?if_exists}
-                          <span class"label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
-                          <span class"label">${uiLabelMap.OrderScore}</span>&nbsp;${gatewayResponse.gatewayScoreResult?default("N/A")})
+                          (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum?if_exists}
+                          <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
+                          <span class="label">${uiLabelMap.OrderScore}</span>&nbsp;${gatewayResponse.gatewayScoreResult?default("N/A")})
                           <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.CommonDetails}</a>
                           <#if gatewayResponse_has_next><hr /></#if>
                         </#list>
@@ -148,7 +148,7 @@ under the License.
             <#else>
               <tr>
                 <td align="right" valign="top" width="29%">
-                  <div>&nbsp;<span class"label">${paymentMethodType.get("description",locale)?if_exists}</span>&nbsp;
+                  <div>&nbsp;<span class="label">${paymentMethodType.get("description",locale)?if_exists}</span>&nbsp;
                   <#if orderPaymentPreference.maxAmount?has_content>
                   <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>

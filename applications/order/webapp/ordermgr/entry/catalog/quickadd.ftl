@@ -40,12 +40,12 @@ under the License.
       </td>
     </tr>
     <#if productCategory.categoryImageUrl?exists || productCategory.longDescription?exists>
-      <tr><td colspan='2'><hr class='sepbar'></td></tr>
+      <tr><td colspan='2'><hr class='sepbar'/></td></tr>
       <tr>
         <td valign="top" width="0" colspan='2'>
           <div>
             <#if productCategory.categoryImageUrl?exists>
-              <img src="<@ofbizContentUrl>${productCategory.categoryImageUrl}</@ofbizContentUrl>" vspace="5" hspace="5" border="1" height='100'>
+              <img src="<@ofbizContentUrl>${productCategory.categoryImageUrl}</@ofbizContentUrl>" vspace="5" hspace="5" border="1" height='100' />
             </#if>
             ${productCategory.longDescription?if_exists}
           </div>
@@ -79,7 +79,7 @@ under the License.
   </center>
 <#else>
   <table border="0" cellpadding="2">
-    <tr><td colspan="2"><hr class='sepbar'></td></tr>
+    <tr><td colspan="2"><hr class='sepbar'/></td></tr>
     <tr>
       <td>
         <div class='tabletext'>${uiLabelMap.ProductNoProductsInThisCategory}.</div>

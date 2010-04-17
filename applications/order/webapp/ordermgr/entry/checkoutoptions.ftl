@@ -93,7 +93,7 @@ function submitForm(form, mode, value) {
                   <tr>
                     <td colspan="2">
                       <span>${uiLabelMap.OrderShipToParty}:</span>
-                      <select name="shipToCustomerPartyId" onChange="javascript:submitForm(document.checkoutInfoForm, 'SC', null);">
+                      <select name="shipToCustomerPartyId" onchange="javascript:submitForm(document.checkoutInfoForm, 'SC', null);">
                           <#list cartParties as cartParty>
                           <option value="${cartParty}">${cartParty}</option>
                           </#list>
@@ -455,7 +455,7 @@ function submitForm(form, mode, value) {
                             <#list billingAccountList as billingAccount>
                               <#assign availableAmount = billingAccount.accountBalance?double>
                               <#assign accountLimit = billingAccount.accountLimit?double>
-                              <option value="${billingAccount.billingAccountId}" <#if billingAccount.billingAccountId == selectedBillingAccountId?default("")>selected</#if>>${billingAccount.description?default("")} [${billingAccount.billingAccountId}] Available: <@ofbizCurrency amount=availableAmount isoCode=billingAccount.accountCurrencyUomId/> Limit: <@ofbizCurrency amount=accountLimit isoCode=billingAccount.accountCurrencyUomId/></option>
+                              <option value="${billingAccount.billingAccountId}" <#if billingAccount.billingAccountId == selectedBillingAccountId?default("")>selected="selected"</#if>>${billingAccount.description?default("")} [${billingAccount.billingAccountId}] Available: <@ofbizCurrency amount=availableAmount isoCode=billingAccount.accountCurrencyUomId/> Limit: <@ofbizCurrency amount=accountLimit isoCode=billingAccount.accountCurrencyUomId/></option>
                             </#list>
                         </select>
                       </td>

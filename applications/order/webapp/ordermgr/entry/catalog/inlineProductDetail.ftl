@@ -264,7 +264,7 @@ ${virtualJavaScript?if_exists}
       </#if>
       <#if productLargeImageUrl?string?has_content>
         <input type="hidden" name="detailImage${inlineCounter}" value="${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}"/>
-        <a href="javascript:popupDetailInline('${inlineCounter}');"><img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>' name='mainImage${inlineCounter}' vspace='5' hspace='5' border='0' width='100' align='left'></a>
+        <a href="javascript:popupDetailInline('${inlineCounter}');"><img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>' name='mainImage${inlineCounter}' vspace='5' hspace='5' border='0' width='100' align='left' /></a>
       </#if>
     </td>
     <td align="right" valign="top" width="100%">
@@ -275,7 +275,7 @@ ${virtualJavaScript?if_exists}
             <#list featureLists as featureList>
                 <#list featureList as feature>
                     <#if feature_index == 0>
-                        <div>${feature.description}: <select id="FT${inlineCounter}${feature.productFeatureTypeId}" name="FT${inlineCounter}${feature.productFeatureTypeId}" onChange="javascript:checkRadioButtoninline${inlineCounter}('${inlineCounter}', '${product.productId}');">
+                        <div>${feature.description}: <select id="FT${inlineCounter}${feature.productFeatureTypeId}" name="FT${inlineCounter}${feature.productFeatureTypeId}" onchange="javascript:checkRadioButtoninline${inlineCounter}('${inlineCounter}', '${product.productId}');">
                         <option value="select" selected="selected"> select option </option>
                     <#else>
                         <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option>
@@ -373,7 +373,7 @@ ${virtualJavaScript?if_exists}
                   <#assign imageUrl = "/images/defaultImage.jpg">
                 </#if>
                 <td align="center" valign="bottom">
-                  <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60"></a>
+                  <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60" /></a>
                   <br />
                   <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);" class="linktext">${key}</a>
                 </td>

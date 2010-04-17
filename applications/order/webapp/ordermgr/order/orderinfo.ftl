@@ -26,15 +26,16 @@ under the License.
             <#assign orderType = orderHeader.getRelatedOne("OrderType")/>
             <li class="h3">&nbsp;${orderType?if_exists.get("description", locale)?default(uiLabelMap.OrderOrder)}&nbsp;#<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder?if_exists} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
             <#if currentStatus.statusId == "ORDER_APPROVED" && orderHeader.orderTypeId == "SALES_ORDER">
-              <li class="h3"><a href="javascript:document.PrintOrderPickSheet.submit()">${uiLabelMap.FormFieldTitle_printPickSheet}</a></li>
+              <li class="h3"><a href="javascript:document.PrintOrderPickSheet.submit()">${uiLabelMap.FormFieldTitle_printPickSheet}</a>
               <form name="PrintOrderPickSheet" method="post" action="<@ofbizUrl>orderPickSheet.pdf</@ofbizUrl>">
                 <input type="hidden" name="facilityId" value="${storeFacilityId?if_exists}"/>
                 <input type="hidden" name="orderId" value="${orderHeader.orderId?if_exists}"/>
                 <input type="hidden" name="maxNumberOfOrdersToPrint" value="1"/>
               </form>
+              </li>
             </#if>
             <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
-              <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a></li>
+              <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a>
               <form name="OrderApproveOrder" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="statusId" value="ORDER_APPROVED"/>
                 <input type="hidden" name="setItemStatus" value="Y"/>
@@ -44,8 +45,9 @@ under the License.
                 <input type="hidden" name="roleTypeId" value="${assignRoleTypeId?if_exists}"/>
                 <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
               </form>
+              </li>
             <#elseif currentStatus.statusId == "ORDER_APPROVED">
-              <li><a href="javascript:document.OrderHold.submit()">${uiLabelMap.OrderHold}</a></li>
+              <li><a href="javascript:document.OrderHold.submit()">${uiLabelMap.OrderHold}</a>
               <form name="OrderHold" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="statusId" value="ORDER_HOLD"/>
                 <input type="hidden" name="workEffortId" value="${workEffortId?if_exists}"/>
@@ -54,8 +56,9 @@ under the License.
                 <input type="hidden" name="roleTypeId" value="${assignRoleTypeId?if_exists}"/>
                 <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
               </form>
+              </li>
             <#elseif currentStatus.statusId == "ORDER_HOLD">
-              <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a></li>
+              <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a>
               <form name="OrderApproveOrder" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="statusId" value="ORDER_APPROVED"/>
                 <input type="hidden" name="setItemStatus" value="Y"/>
@@ -65,9 +68,10 @@ under the License.
                 <input type="hidden" name="roleTypeId" value="${assignRoleTypeId?if_exists}"/>
                 <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
               </form>
+              </li>
             </#if>
             <#if currentStatus.statusId != "ORDER_COMPLETED" && currentStatus.statusId != "ORDER_CANCELLED">
-              <li><a href="javascript:document.OrderCancel.submit()">${uiLabelMap.OrderCancelOrder}</a></li>
+              <li><a href="javascript:document.OrderCancel.submit()">${uiLabelMap.OrderCancelOrder}</a>
               <form name="OrderCancel" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="statusId" value="ORDER_CANCELLED"/>
                 <input type="hidden" name="setItemStatus" value="Y"/>
@@ -77,13 +81,15 @@ under the License.
                 <input type="hidden" name="roleTypeId" value="${assignRoleTypeId?if_exists}"/>
                 <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
               </form>
+              </li>
             </#if>             
             <#if setOrderCompleteOption>
-              <li><a href="javascript:document.OrderCompleteOrder.submit()">${uiLabelMap.OrderCompleteOrder}</a></li>
+              <li><a href="javascript:document.OrderCompleteOrder.submit()">${uiLabelMap.OrderCompleteOrder}</a>
               <form name="OrderCompleteOrder" method="post" action="<@ofbizUrl>changeOrderStatus</@ofbizUrl>">
                 <input type="hidden" name="statusId" value="ORDER_COMPLETED"/>
                 <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
               </form>
+              </li>
             </#if>
         </ul>
         <br class="clear"/>
@@ -229,23 +235,23 @@ under the License.
             </tr>
             </#if>
             <#if "SALES_ORDER" == orderHeader.orderTypeId>
-              <form action="setOrderReservationPriority" method="post" name="setOrderReservationPriority">
-                <input type = "hidden" name="orderId" value="${orderId}"/>
-                <tr><td colspan="3"><hr /></td></tr>
+            <tr><td colspan="3"><hr /></td></tr>
                 <tr>
                   <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.FormFieldTitle_priority}</td>
                   <td width="5%">&nbsp;</td>
                   <td valign="top" width="80%">
+              	     <form action="setOrderReservationPriority" method="post" name="setOrderReservationPriority">
+                     <input type = "hidden" name="orderId" value="${orderId}"/>
                     <select name="priority">
                       <option value="1" <#if (orderHeader.priority)?if_exists == "1">selected="selected" </#if>>${uiLabelMap.CommonHigh}</option>
                       <option value="2" <#if (orderHeader.priority)?if_exists == "2">selected="selected" <#elseif !(orderHeader.priority)?has_content>selected="selected"</#if>>${uiLabelMap.CommonNormal}</option>
                       <option value="3" <#if (orderHeader.priority)?if_exists == "3">selected="selected" </#if>>${uiLabelMap.CommonLow}</option>
                     </select>
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.FormFieldTitle_reserveInventory}"/>
+                    </form>
                   </td>
                 </tr>
-                <tr><td colspan="3"><hr /></td></tr>
-              </form>
+            <tr><td colspan="3"><hr /></td></tr>
             </#if>
             <#if orderHeader.isViewed?has_content && orderHeader.isViewed == "Y">
             <tr>
@@ -260,7 +266,7 @@ under the License.
               <td class="label">${uiLabelMap.OrderMarkViewed}</td>
               <td width="5%"></td>
               <td valign="top" width="80%">
-                <form id="orderViewed">
+                <form id="orderViewed" action="">
                   <input type="checkbox" name="checkViewed" onclick="javascript:markOrderViewed();"/>
                   <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
                   <input type="hidden" name="isViewed" value="Y"/>

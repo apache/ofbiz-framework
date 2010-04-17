@@ -211,6 +211,7 @@ float: right;
                               <input type="text" name="iddm_${orderItem.orderItemSeqId}" value="${orderItem.estimatedDeliveryDate?if_exists}" size="25" maxlength="30"/>
                               <a href="javascript:call_cal(document.updateItemInfo.iddm_${orderItem.orderItemSeqId},'${todayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
                             </#if>
+                            </td>
                         </tr>
                       </#if>
                       <#-- now show adjustment details per line item -->

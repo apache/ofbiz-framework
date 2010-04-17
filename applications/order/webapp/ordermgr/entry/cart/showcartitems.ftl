@@ -70,7 +70,7 @@ under the License.
         <#list shoppingCart.items() as cartLine>
           <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
           <#assign lineOptionalFeatures = cartLine.getOptionalProductFeatures()>
-          <tr><td colspan="8"><hr></td></tr>
+          <tr><td colspan="8"><hr/></td></tr>
           <tr valign="top">
             <td>&nbsp;</td>
             <td>

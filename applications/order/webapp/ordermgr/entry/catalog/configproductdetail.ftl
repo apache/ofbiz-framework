@@ -200,7 +200,7 @@ function getConfigDetails(event) {
     </tr>
   </#if>
 
-  <tr><td colspan="2"><hr class='sepbar'></td></tr>
+  <tr><td colspan="2"><hr class='sepbar'/></td></tr>
 
   <#-- Product image/name/price -->
   <tr>
@@ -211,7 +211,7 @@ function getConfigDetails(event) {
         <#assign productLargeImageUrl = firstLargeImage>
       </#if>
       <#if productLargeImageUrl?string?has_content>
-        <a href="javascript:popupDetail();"><img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>' name='mainImage' vspace='5' hspace='5' border='0' width='200' align='left'></a>
+        <a href="javascript:popupDetail();"><img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>' name='mainImage' vspace='5' hspace='5' border='0' width='200' align='left' /></a>
       </#if>
     </td>
     <td align="right" valign="top">
@@ -414,7 +414,7 @@ function getConfigDetails(event) {
                   <#assign imageUrl = "/images/defaultImage.jpg">
                 </#if>
                 <td align="center" valign="bottom">
-                  <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60"></a>
+                  <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60" /></a>
                   <br />
                   <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);" class="buttontext">${key}</a>
                 </td>
@@ -430,7 +430,7 @@ function getConfigDetails(event) {
     </td>
   </tr>
 
-  <tr><td colspan="2"><hr class='sepbar'></td></tr>
+  <tr><td colspan="2"><hr class='sepbar'/></td></tr>
 
   <#-- Long description of product -->
   <tr>
@@ -439,7 +439,7 @@ function getConfigDetails(event) {
     </td>
   </tr>
 
-  <tr><td colspan="2"><hr class='sepbar'></td></tr>
+  <tr><td colspan="2"><hr class='sepbar'/></td></tr>
 
   <#-- Any attributes/etc may go here -->
   <#-- Product Configurator -->
@@ -475,7 +475,7 @@ function getConfigDetails(event) {
                 </#if>
                 <#assign image = question.content.get("IMAGE_URL")?if_exists>
                 <#if image?has_content>
-                  <img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${image?if_exists}</@ofbizContentUrl>' vspace='5' hspace='5' border='0' width='200' align='left'>
+                  <img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${image?if_exists}</@ofbizContentUrl>' vspace='5' hspace='5' border='0' width='200' align='left' />
                 </#if>
               <#else>
                 <div><a href='#${question.getConfigItem().getString("configItemId")}' class="buttontext">Details</a></div>
@@ -567,7 +567,7 @@ function getConfigDetails(event) {
                     <#assign optionComment = option.getComments()>
                     <#assign optionCounter = optionCounter + 1>
                   </#if>
-                  <option value='${optionCounter}' <#if option.isSelected()>selected</#if>>
+                  <option value='${optionCounter}' <#if option.isSelected()>selected="selected"</#if>>
                     ${option.description}&nbsp;
                     <#if (shownPrice > 0)>+<@ofbizCurrency amount=shownPrice isoCode=price.currencyUsed/>&nbsp;</#if>
                     <#if (shownPrice < 0)>-<@ofbizCurrency amount=(-1*shownPrice) isoCode=price.currencyUsed/>&nbsp;</#if>
@@ -622,7 +622,7 @@ function getConfigDetails(event) {
       </form>
     </td>
   </tr>
-  <tr><td colspan="2"><hr class='sepbar'></td></tr>
+  <tr><td colspan="2"><hr class='sepbar'/></td></tr>
 
 <#-- Upgrades/Up-Sell/Cross-Sell -->
   <#macro associated assocProducts beforeName showName afterName formNamePrefix targetRequestName>

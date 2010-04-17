@@ -21,6 +21,7 @@ under the License.
         <div class="h3">${uiLabelMap.OrderOrderQuoteRoles}</div>
     </div>
     <div class="screenlet-body">
+      <#if quoteRoles?has_content>
         <table cellspacing="0" class="basic-table">
             <#assign row = 1>
             <#list quoteRoles as quoteRole>
@@ -42,5 +43,8 @@ under the License.
             <#assign row = row + 1>
             </#list>
         </table>
+      <#else>
+        &nbsp;
+      </#if>
     </div>
 </div>
