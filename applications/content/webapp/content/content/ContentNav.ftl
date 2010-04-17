@@ -216,7 +216,7 @@
     }
 </script>
 
-<style>
+<style type="text/css">
 .dojoContextMenu {
     background-color: #ccc;
     font-size: 10px;

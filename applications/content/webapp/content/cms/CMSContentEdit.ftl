@@ -72,7 +72,7 @@ ${menuWrapper.renderMenuString()}
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
-            <form mode="POST" name="publishsite" action="<@ofbizUrl>linkContentToPubPt</@ofbizUrl>">
+            <form mode="post" name="publishsite" action="<@ofbizUrl>linkContentToPubPt</@ofbizUrl>">
               <input type="hidden" name="contentId" value="${contentId}"/>
               <table width="100%" border="0" cellpadding="1">
                     <#assign rowCount = 0 />
@@ -114,7 +114,7 @@ ${menuWrapper.renderMenuString()}
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
-            <form mode="POST" name="updatefeatures" action="<@ofbizUrl>updateFeatures</@ofbizUrl>">
+            <form mode="post" name="updatefeatures" action="<@ofbizUrl>updateFeatures</@ofbizUrl>">
               <input type="hidden" name="contentId" value="${contentId}"/>
               <table width="100%" border="0" cellpadding="1">
                        <tr>
