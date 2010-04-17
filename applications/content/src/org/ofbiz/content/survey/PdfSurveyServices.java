@@ -227,7 +227,7 @@ public class PdfSurveyServices {
             return ServiceUtil.returnError(errMsg);
         } catch (GeneralException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         } catch (Exception e) {
             String errMsg = "Error generating PDF: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -304,7 +304,7 @@ public class PdfSurveyServices {
             return ServiceUtil.returnError(errMsg);
         } catch (GeneralException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         } catch (Exception e) {
             String errMsg = "Error generating PDF: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -346,13 +346,13 @@ public class PdfSurveyServices {
 
         } catch (DocumentException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         } catch (GeneralException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
-            ServiceUtil.returnError(ioe.getMessage());
+            return ServiceUtil.returnError(ioe.getMessage());
         }
 
     Map results = ServiceUtil.returnSuccess();
@@ -410,19 +410,19 @@ public class PdfSurveyServices {
             results.put("outByteBuffer", outByteBuffer);
         } catch (DocumentException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         } catch (GeneralException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
-            ServiceUtil.returnError(ioe.getMessage());
+            results = ServiceUtil.returnError(ioe.getMessage());
         } catch (Exception ioe) {
             System.err.println(ioe.getMessage());
-            ServiceUtil.returnError(ioe.getMessage());
+            results = ServiceUtil.returnError(ioe.getMessage());
         }
 
     return results;
@@ -492,10 +492,10 @@ public class PdfSurveyServices {
             results.put("outByteBuffer", outByteBuffer);
         } catch (GenericEntityException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         } catch (DocumentException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         }
 
         return results;
@@ -533,7 +533,7 @@ public class PdfSurveyServices {
             results.put("questionsAndAnswers", qAndA);
         } catch (GenericEntityException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         }
 
         return results;
@@ -597,7 +597,7 @@ public class PdfSurveyServices {
             }
         } catch (GenericEntityException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         }
 
         try {
@@ -609,7 +609,7 @@ public class PdfSurveyServices {
             if (ServiceUtil.isError(map)) {
                 String errMsg = ServiceUtil.makeErrorMessage(map, null, null, null, null);
                 System.err.println(errMsg);
-                ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(errMsg);
             }
             String pdfFileNameOut = (String) context.get("pdfFileNameOut");
             ByteBuffer outByteBuffer = (ByteBuffer) map.get("outByteBuffer");
@@ -621,13 +621,13 @@ public class PdfSurveyServices {
             }
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         } catch (IOException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         } catch (GenericServiceException e) {
             System.err.println(e.getMessage());
-            ServiceUtil.returnError(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         }
 
     return results;

@@ -67,7 +67,7 @@ public class RoutingServices {
         try {
             task = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", taskId));
         } catch (GenericEntityException gee) {
-            ServiceUtil.returnError("Error finding routing task with id: " + taskId);
+            return ServiceUtil.returnError("Error finding routing task with id: " + taskId);
         }
         // FIXME: the ProductionRun.getEstimatedTaskTime(...) method will be removed and
         // its logic will be implemented inside this method.

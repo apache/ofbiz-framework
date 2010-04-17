@@ -699,7 +699,7 @@ public class GiftCertificateServices {
             giftCertSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get Product Store FinAccount settings for " + FinAccountHelper.giftCertFinAccountTypeId, module);
-            ServiceUtil.returnError("Unable to get Product Store FinAccount settings for " + FinAccountHelper.giftCertFinAccountTypeId + ": " + e.getMessage());
+            return ServiceUtil.returnError("Unable to get Product Store FinAccount settings for " + FinAccountHelper.giftCertFinAccountTypeId + ": " + e.getMessage());
         }
 
         // survey information

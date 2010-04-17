@@ -203,7 +203,7 @@ public class EntityPermissionChecker {
                 results.put("permissionStatus", "rejected");
             }
         } catch (GenericEntityException e) {
-            ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         }
         return results;
     }

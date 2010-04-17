@@ -980,7 +980,7 @@ public class ProductServices {
                 fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", (String) context.get("_uploadedFile_contentType")));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
 
             GenericValue extension = EntityUtil.getFirst(fileExtension);
@@ -1040,7 +1040,7 @@ public class ProductServices {
                         content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
-                        ServiceUtil.returnError(e.getMessage());
+                        return ServiceUtil.returnError(e.getMessage());
                     }
 
                     if (content != null) {
@@ -1049,7 +1049,7 @@ public class ProductServices {
                             dataResource = content.getRelatedOne("DataResource");
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
-                            ServiceUtil.returnError(e.getMessage());
+                            return ServiceUtil.returnError(e.getMessage());
                         }
 
                         if (dataResource != null) {
@@ -1058,7 +1058,7 @@ public class ProductServices {
                                 dispatcher.runSync("updateDataResource", dataResourceCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
-                                ServiceUtil.returnError(e.getMessage());
+                                return ServiceUtil.returnError(e.getMessage());
                             }
                         } else {
                             dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
@@ -1068,7 +1068,7 @@ public class ProductServices {
                                 dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
-                                ServiceUtil.returnError(e.getMessage());
+                                return ServiceUtil.returnError(e.getMessage());
                             }
 
                             Map<String, Object> contentCtx = FastMap.newInstance();
@@ -1079,7 +1079,7 @@ public class ProductServices {
                                 dispatcher.runSync("updateContent", contentCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
-                                ServiceUtil.returnError(e.getMessage());
+                                return ServiceUtil.returnError(e.getMessage());
                             }
                         }
 
@@ -1088,7 +1088,7 @@ public class ProductServices {
                             dispatcher.runSync("updateProductContent", productContentCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
-                            ServiceUtil.returnError(e.getMessage());
+                            return ServiceUtil.returnError(e.getMessage());
                         }
                     }
                 } else {
@@ -1099,7 +1099,7 @@ public class ProductServices {
                         dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
-                        ServiceUtil.returnError(e.getMessage());
+                        return ServiceUtil.returnError(e.getMessage());
                     }
 
                     Map<String, Object> contentCtx = FastMap.newInstance();
@@ -1111,7 +1111,7 @@ public class ProductServices {
                         contentResult = dispatcher.runSync("createContent", contentCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
-                        ServiceUtil.returnError(e.getMessage());
+                        return ServiceUtil.returnError(e.getMessage());
                     }
 
                     productContentCtx.put("contentId", contentResult.get("contentId"));
@@ -1119,7 +1119,7 @@ public class ProductServices {
                         dispatcher.runSync("createProductContent", productContentCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
-                        ServiceUtil.returnError(e.getMessage());
+                        return ServiceUtil.returnError(e.getMessage());
                     }
                 }
             }
@@ -1150,7 +1150,7 @@ public class ProductServices {
             productsFound = ProductWorker.findProductsById(delegator, idToFind, goodIdentificationTypeId, searchProductFirst, searchAllId);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         }
 
         if (UtilValidate.isNotEmpty(productsFound)) {
@@ -1197,7 +1197,7 @@ public class ProductServices {
                 fileExtension = delegator.findList("FileExtension", EntityCondition.makeCondition("mimeTypeId", EntityOperator.EQUALS, (String) context.get("_uploadedFile_contentType")), null, null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
 
             GenericValue extension = EntityUtil.getFirst(fileExtension);
@@ -1245,7 +1245,7 @@ public class ProductServices {
                         content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
-                        ServiceUtil.returnError(e.getMessage());
+                        return ServiceUtil.returnError(e.getMessage());
                     }
 
                     if (UtilValidate.isNotEmpty(content)) {
@@ -1254,7 +1254,7 @@ public class ProductServices {
                             dataResource = content.getRelatedOne("DataResource");
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
-                            ServiceUtil.returnError(e.getMessage());
+                            return ServiceUtil.returnError(e.getMessage());
                         }
 
                         if (UtilValidate.isNotEmpty(dataResource)) {
@@ -1263,7 +1263,7 @@ public class ProductServices {
                                 dispatcher.runSync("updateDataResource", dataResourceCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
-                                ServiceUtil.returnError(e.getMessage());
+                                return ServiceUtil.returnError(e.getMessage());
                             }
                         } else {
                             dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
@@ -1273,7 +1273,7 @@ public class ProductServices {
                                 dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
-                                ServiceUtil.returnError(e.getMessage());
+                                return ServiceUtil.returnError(e.getMessage());
                             }
 
                             Map<String, Object> contentCtx = FastMap.newInstance();
@@ -1284,7 +1284,7 @@ public class ProductServices {
                                 dispatcher.runSync("updateContent", contentCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
-                                ServiceUtil.returnError(e.getMessage());
+                                return ServiceUtil.returnError(e.getMessage());
                             }
                         }
 
@@ -1293,7 +1293,7 @@ public class ProductServices {
                             dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
-                            ServiceUtil.returnError(e.getMessage());
+                            return ServiceUtil.returnError(e.getMessage());
                         }
                     }
                 } else {
@@ -1304,7 +1304,7 @@ public class ProductServices {
                         dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
-                        ServiceUtil.returnError(e.getMessage());
+                        return ServiceUtil.returnError(e.getMessage());
                     }
 
                     Map<String, Object> contentCtx = FastMap.newInstance();
@@ -1316,7 +1316,7 @@ public class ProductServices {
                         contentResult = dispatcher.runSync("createContent", contentCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
-                        ServiceUtil.returnError(e.getMessage());
+                        return ServiceUtil.returnError(e.getMessage());
                     }
 
                     productPromoContentCtx.put("contentId", contentResult.get("contentId"));
@@ -1324,7 +1324,7 @@ public class ProductServices {
                         dispatcher.runSync("createProductPromoContent", productPromoContentCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
-                        ServiceUtil.returnError(e.getMessage());
+                        return ServiceUtil.returnError(e.getMessage());
                     }
                 }
             }
@@ -1340,7 +1340,7 @@ public class ProductServices {
                 dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
         }
         return ServiceUtil.returnSuccess();

@@ -124,7 +124,7 @@ public class ContentPermissionServices {
                         partyId = userLogin.getString("partyId");
                     }
                 } catch (GenericEntityException e) {
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
             }
         }
@@ -216,7 +216,7 @@ public class ContentPermissionServices {
                     results.put("permissionStatus", "rejected");
                 }
             } catch (GenericEntityException e) {
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
             permissionStatus = (String)results.get("permissionStatus");
             errBuf.append("\n    permissionStatus:");

@@ -1760,7 +1760,7 @@ public class PartyServices {
             partiesFound = PartyWorker.findPartiesById(delegator, idToFind, partyIdentificationTypeId, searchPartyFirst, searchAllId);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         }
 
         if (UtilValidate.isNotEmpty(partiesFound)) {

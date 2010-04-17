@@ -4578,7 +4578,7 @@ public class OrderServices {
                                     sci.setOrderItemAssocTypeId("DROP_SHIPMENT");
                                     // TODO: we should consider also the ship group in the association between sales and purchase orders
                                 } catch (Exception e) {
-                                    ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + e.getMessage());
+                                    return ServiceUtil.returnError("The following error occurred creating drop shipments for order [" + orderId + "]: " + e.getMessage());
                                 }
                             }
                         }

@@ -1524,7 +1524,7 @@ public class UspsServices {
             Debug.logError(e, module);
         }
         if (originAddress == null || originTelecomNumber == null) {
-            ServiceUtil.returnError("Unable to request a USPS Priority Mail International Label: ShipmentRouteSegment is missing origin phone or address details");
+            return ServiceUtil.returnError("Unable to request a USPS Priority Mail International Label: ShipmentRouteSegment is missing origin phone or address details");
         }
 
         // Origin Info
