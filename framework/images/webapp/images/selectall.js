@@ -360,7 +360,7 @@ function setLookDescription(textFieldId, description) {
     if (ulElement) {
         var tooltipElement = $(textFieldId + '_lookupDescription');
         if (!tooltipElement) {
-            tooltipElement = new Element('li', {id : textFieldId + '_lookupDescription', class : 'tooltip'});     	
+            tooltipElement = new Element('li', {id : textFieldId + '_lookupDescription', 'class' : 'tooltip'});
         }
         tooltipElement.update(description);
         ulElement.appendChild(tooltipElement);
