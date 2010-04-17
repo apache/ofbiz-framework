@@ -4620,7 +4620,7 @@ public class OrderServices {
 
         String orderPaymentPreferenceId = (String) context.get("orderPaymentPreferenceId");
         String checkOutPaymentId = (String) context.get("checkOutPaymentId");
-        boolean cancelThis = ("true".equals((String) context.get("cancelThis")));
+        String statusId = (String) context.get("statusId");
         try {
             GenericValue opp = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
             String paymentMethodId = null;
@@ -4645,7 +4645,7 @@ public class OrderServices {
             }
 
             Map results = ServiceUtil.returnSuccess();
-            if (cancelThis) {
+            if (UtilValidate.isNotEmpty(statusId) && statusId.equalsIgnoreCase("PAYMENT_CANCELLED")) {
                 opp.set("statusId", "PAYMENT_CANCELLED");
                 opp.store();
                 results.put("orderPaymentPreferenceId", opp.get("orderPaymentPreferenceId"));
