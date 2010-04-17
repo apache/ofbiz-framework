@@ -69,9 +69,10 @@ under the License.
           <option value="${calendarWeek.calendarWeekId}" <#if calendarData?has_content && calendarData.calendarWeekId?default("") == calendarWeek.calendarWeekId>SELECTED</#if>>${(calendarWeek.get("description",locale))?if_exists}</option>
           </#list>
         </select>
+      </td>
     </tr>
     <tr>
-      <td width="26%" align="right" valign="top">
+      <td width="26%" align="right" valign="top"></td>
       <td width="5">&nbsp;</td>
       <td width="74%"><input type="submit" value="${uiLabelMap.CommonUpdate}" /></td>
     </tr>
