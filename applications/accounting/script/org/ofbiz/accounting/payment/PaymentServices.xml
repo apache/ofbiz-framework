@@ -221,7 +221,7 @@ under the License.
                         <get-related-one value-field="payment" relation-name="OrderPaymentPreference" to-value-field="orderPaymentPreference"/>
                         <if-not-empty field="orderPaymentPreference">
                             <set field="updateOrderPaymentPreferenceMap.orderPaymentPreferenceId" from-field="orderPaymentPreference.orderPaymentPreferenceId"/>
-                            <set field="updateOrderPaymentPreferenceMap.cancelThis" value="true"/>
+                            <set field="updateOrderPaymentPreferenceMap.statusId" value="PAYMENT_CANCELLED"/>
                             <call-service service-name="updateOrderPaymentPreference" in-map-name="updateOrderPaymentPreferenceMap"/>
                         </if-not-empty>
                     </if-compare>

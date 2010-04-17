@@ -366,7 +366,6 @@ under the License.
         <auto-attributes mode="INOUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="checkOutPaymentId" type="String" mode="IN" optional="true"/>
-        <attribute name="cancelThis" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="checkOrderItemStatus" engine="java"
