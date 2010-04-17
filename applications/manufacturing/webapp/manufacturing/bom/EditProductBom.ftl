@@ -107,7 +107,7 @@ function lookupBom() {
             <td align="right">${uiLabelMap.ProductProductId}</td>
             <td>&nbsp;</td>
             <td>
-                <@htmlTemplate.lookupField value="${productId?if_exists}" formName="editProductAssocForm" name="productId" id="productId" fieldFormName="LookupProduct"/>
+                <@htmlTemplate.lookupField value="${productId?if_exists}" formName="editProductAssocForm" name="productId" id="productId2" fieldFormName="LookupProduct"/>
             </td>
           </tr>
           <tr>
