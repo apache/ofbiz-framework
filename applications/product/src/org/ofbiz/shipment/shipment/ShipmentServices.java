@@ -1120,12 +1120,8 @@ public class ShipmentServices {
         }
         // the override screenUri
         if (UtilValidate.isEmpty(screenUri)) {
-            if (productStoreEmail != null) {
-                String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
-                sendMap.put("bodyScreenUri", bodyScreenLocation);
-            } else {
-                sendMap.put("bodyScreenUri", "component://ecommerce/widget/EmailOrderScreens.xml#ShipmentCompleteNotice");
-            }
+            String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
+            sendMap.put("bodyScreenUri", bodyScreenLocation);
         } else {
             sendMap.put("bodyScreenUri", screenUri);
         }
@@ -1154,16 +1150,12 @@ public class ShipmentServices {
         sendMap.put("bodyParameters", bodyParameters);
         sendMap.put("userLogin",userLogin);
 
-        if (productStoreEmail != null) {
-            sendMap.put("subject", productStoreEmail.getString("subject"));
-            sendMap.put("contentType", productStoreEmail.get("contentType"));
-            sendMap.put("sendFrom", productStoreEmail.get("fromAddress"));
-            sendMap.put("sendCc", productStoreEmail.get("ccAddress"));
-            sendMap.put("sendBcc", productStoreEmail.get("bccAddress"));
-        } else {
-            sendMap.put("subject", "Shipment Complete Notification");
-            sendMap.put("contentType", "text/html");
-        }
+        sendMap.put("subject", productStoreEmail.getString("subject"));
+        sendMap.put("contentType", productStoreEmail.get("contentType"));
+        sendMap.put("sendFrom", productStoreEmail.get("fromAddress"));
+        sendMap.put("sendCc", productStoreEmail.get("ccAddress"));
+        sendMap.put("sendBcc", productStoreEmail.get("bccAddress"));
+
         if ((sendTo != null) && UtilValidate.isEmail(sendTo)) {
             sendMap.put("sendTo", sendTo);
         } else {
