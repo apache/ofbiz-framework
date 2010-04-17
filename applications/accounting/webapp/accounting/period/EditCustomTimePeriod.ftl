@@ -47,6 +47,9 @@ under the License.
       </#if>
     </div>
     <#if currentCustomTimePeriod?has_content>
+        <form method="post" action="<@ofbizUrl>updateCustomTimePeriod</@ofbizUrl>" name="updateCustomTimePeriodForm">
+          <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}" />
+          <input type="hidden" name="customTimePeriodId" value="${currentCustomTimePeriodId?if_exists}" />
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
           <td>${uiLabelMap.CommonId}</td>
@@ -59,9 +62,6 @@ under the License.
           <td>${uiLabelMap.CommonThruDate}</td>
           <td>&nbsp;</td>
         </tr>
-        <form method="post" action="<@ofbizUrl>updateCustomTimePeriod</@ofbizUrl>" name="updateCustomTimePeriodForm">
-          <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}" />
-          <input type="hidden" name="customTimePeriodId" value="${currentCustomTimePeriodId?if_exists}" />
           <tr>
             <td>${currentCustomTimePeriod.customTimePeriodId}</td>
             <td>
@@ -128,8 +128,8 @@ under the License.
               ${uiLabelMap.CommonDelete}</a>
             </td>
           </tr>
-        </form>
       </table>
+        </form>
     <#else>
       <div class="screenlet-body">${uiLabelMap.AccountingNoCurrentCustomTimePeriodSelected}</div>
     </#if>
