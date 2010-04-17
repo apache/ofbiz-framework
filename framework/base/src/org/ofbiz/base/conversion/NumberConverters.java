@@ -20,6 +20,7 @@ package org.ofbiz.base.conversion;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
@@ -37,6 +38,9 @@ public class NumberConverters implements ConverterLoader {
 
     protected static Number fromString(String str, Locale locale) throws ConversionException {
         NumberFormat nf = NumberFormat.getNumberInstance(locale);
+        if (nf instanceof DecimalFormat) {
+            ((DecimalFormat) nf).setParseBigDecimal(true);
+        }
         try {
             return nf.parse(str);
         } catch (ParseException e) {
@@ -296,10 +300,13 @@ public class NumberConverters implements ConverterLoader {
         }
 
         public BigDecimal convert(String obj) throws ConversionException {
-            return BigDecimal.valueOf(Double.valueOf(obj));
+            return new BigDecimal(obj);
         }
 
         protected BigDecimal convert(Number number) throws ConversionException {
+            if (number instanceof BigDecimal) {
+                return (BigDecimal) number;
+            }
             return BigDecimal.valueOf(number.doubleValue());
         }
     }
