@@ -42,6 +42,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
 
+@SuppressWarnings("serial")
 public class MimeMessageWrapper implements java.io.Serializable {
 
     public static final String module = MimeMessageWrapper.class.getName();
