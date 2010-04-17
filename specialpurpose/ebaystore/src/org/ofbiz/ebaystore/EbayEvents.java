@@ -212,7 +212,7 @@ public class EbayEvents {
                     item.setSKU(product.getString("productId"));
                     item.setApplicationData(product.getString("productId"));
                     item.setCountry(CountryCodeType.US);
-                    item.setQuantity(new Integer(1));
+                    item.setQuantity(1);
                     String smallImage = product.getString("smallImageUrl");
                     String mediumImage = product.getString("mediumImageUrl");
                     String largeImage = product.getString("largeImageUrl");

@@ -337,7 +337,7 @@ public class ImportOrdersFromEbay {
             while (paginationElemIter.hasNext()) {
                 Element paginationElement = (Element) paginationElemIter.next();
                 String totalNumberOfEntries = UtilXml.childElementValue(paginationElement, "TotalNumberOfEntries", "0");
-                totalOrders = new Integer(totalNumberOfEntries).intValue();
+                totalOrders = Integer.valueOf(totalNumberOfEntries);
             }
 
             if (ack != null && "Success".equals(ack)) {

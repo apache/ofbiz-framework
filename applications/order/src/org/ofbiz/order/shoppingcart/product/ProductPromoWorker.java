@@ -1170,7 +1170,7 @@ public class ProductPromoWorker {
             if (UtilValidate.isNotEmpty(condValue)) {
                 BigDecimal orderTotalShipping = cart.getTotalShipping();
                 if (Debug.verboseOn()) { Debug.logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping, module); }
-                compareBase = new Integer(orderTotalShipping.compareTo(new BigDecimal(condValue)));
+                compareBase = orderTotalShipping.compareTo(new BigDecimal(condValue));
             }
         } else {
             Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondInputParameterLhs", UtilMisc.toMap("inputParamEnumId",productPromoCond.getString("inputParamEnumId")), cart.getLocale()), module);

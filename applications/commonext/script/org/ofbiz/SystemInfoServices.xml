@@ -145,7 +145,7 @@ under the License.
         <if-compare field="parameters.entityName" value="PublicMessage" operator="equals">
             <if-has-permission permission="COMMONEXT_PUBLMSG">
                 <!-- get all recent visitors logged on the last 3 weeks -->
-                <set field="lastDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.addDaysToTimestamp(org.ofbiz.base.util.UtilDateTime.nowTimestamp(), new Integer(&quot;-21&quot;))}" type="Timestamp"/>
+                <set field="lastDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.addDaysToTimestamp(org.ofbiz.base.util.UtilDateTime.nowTimestamp(), -21)}" type="Timestamp"/>
                 <entity-condition list="parties" entity-name="PartyNameVisitView" distinct="true">
                     <condition-expr field-name="fromDate" operator="greater" from-field="lastDate"/>
                     <select-field field-name="partyId"/>

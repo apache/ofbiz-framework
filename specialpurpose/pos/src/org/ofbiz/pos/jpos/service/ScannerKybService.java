@@ -185,29 +185,29 @@ public class ScannerKybService extends BaseService implements jpos.services.Scan
                 if (codeType.startsWith("CodeType:")) {
                     String codeValue = entry.getProp(codeType).getValueAsString();
                     if ("CodeType:CODE11".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_OTHER));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_OTHER);
                     } else if ("CodeType:CODE39".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_Code39));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_Code39);
                     } else if ("CodeType:CODE93".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_Code93));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_Code93);
                     } else if ("CodeType:CODE128".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_Code128));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_Code128);
                     } else if ("CodeType:CODABAR".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_Codabar));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_Codabar);
                     } else if ("CodeType:I2OF5".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_OTHER));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_OTHER);
                     } else if ("CodeType:ID2OF5".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_OTHER));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_OTHER);
                     } else if ("CodeType:MSI".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_OTHER));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_OTHER);
                     } else if ("CodeType:UPCA".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_UPCA));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_UPCA);
                     } else if ("CodeType:UPCE".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_UPCE));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_UPCE);
                     } else if ("CodeType:EAN13".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_EAN13));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_EAN13);
                     } else if ("CodeType:EAN8".equals(codeType)) {
-                        barcodeIdMap.put(codeValue.toUpperCase(), new Integer(ScannerConst.SCAN_SDT_EAN8));
+                        barcodeIdMap.put(codeValue.toUpperCase(), ScannerConst.SCAN_SDT_EAN8);
                     }
                 }
             }

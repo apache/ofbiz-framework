@@ -309,7 +309,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTestSingleMulti("Integer->Double", intg, new String[] {"Double", "java.lang.Double"}, new Double("781"));
         simpleTypeConvertTestSingleMulti("Integer->Float", intg, new String[] {"Float", "java.lang.Float"}, new Float("781"));
         simpleTypeConvertTestSingleMulti("Integer->Long", intg, new String[] {"Long", "java.lang.Long"}, lng);
-        simpleTypeConvertTestSingleMulti("Integer->Integer", intg, new String[] {"Integer", "java.lang.Integer"}, new Integer("781"));
+        simpleTypeConvertTestSingleMulti("Integer->Integer", intg, new String[] {"Integer", "java.lang.Integer"}, Integer.valueOf("781"));
         simpleTypeConvertTestSingleMulti("Integer->List", intg, new String[] {"List", "List<java.lang.Integer>", "java.util.List"}, list(intg));
         simpleTypeConvertTestSingleMulti("Integer->Set", intg, new String[] {"Set", "Set<java.lang.Integer>", "java.util.Set"}, set(intg));
         simpleTypeConvertTestSingleMulti("Integer->TimeDuration", Integer.valueOf("3661001"), new String[] {"TimeDuration", "org.ofbiz.base.util.TimeDuration"}, duration);
