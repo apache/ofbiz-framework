@@ -85,7 +85,7 @@ under the License.
       </#if>
 
      <#if requestAttributes.validTx?default("false") == "true">
-        <tr><td colspan="3"><hr></td></tr>
+        <tr><td colspan="3"><hr/></td></tr>
         <#-- amount field -->
         <tr>
           <td width="26%" align="right" valign="middle"><b>${uiLabelMap.CommonAmount}</b></td>
@@ -97,7 +97,7 @@ under the License.
         </tr>
         <#-- submit button -->
         <tr>
-          <td width="26%" align="right" valign=middle>&nbsp;</td>
+          <td width="26%" align="right" valign="middle">&nbsp;</td>
           <td width="5">&nbsp;</td>
           <td width="74%">
             <input type="submit" value="${uiLabelMap.CommonSubmit}" />
