@@ -137,7 +137,7 @@ under the License.
                       <select name="${shipGroupIndex?default("0")}_supplierPartyId">
                         <option value=""></option>
                         <#list suppliers as supplier>
-                          <option value="${supplier.partyId}"<#if supplierPartyId?exists><#if supplier.partyId == supplierPartyId> selected</#if></#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
+                          <option value="${supplier.partyId}"<#if supplierPartyId?exists><#if supplier.partyId == supplierPartyId> selected="selected"</#if></#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
                         </#list>
                       </select>
                       ${uiLabelMap.ProductReserveInventoryFromFacility}:
@@ -145,7 +145,7 @@ under the License.
                         <option value=""></option>
                         <#list productStoreFacilities as productStoreFacility>
                           <#assign facility = productStoreFacility.getRelatedOne("Facility")>
-                          <option value="${productStoreFacility.facilityId}"<#if facilityId?exists><#if productStoreFacility.facilityId == facilityId> selected</#if></#if>>${facility.facilityName?if_exists} </option>
+                          <option value="${productStoreFacility.facilityId}"<#if facilityId?exists><#if productStoreFacility.facilityId == facilityId> selected="selected"</#if></#if>>${facility.facilityName?if_exists} </option>
                         </#list>
                       </select>
                     </div>

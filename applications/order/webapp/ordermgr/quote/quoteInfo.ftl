@@ -37,7 +37,7 @@ under the License.
             <#-- quote Channel information -->
             <tr>
                 <td align="right" valign="top" width="15%" class="label">
-                    &nbsp;${uiLabelMap.OrderSalesChannel}</div>
+                    &nbsp;${uiLabelMap.OrderSalesChannel}
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">

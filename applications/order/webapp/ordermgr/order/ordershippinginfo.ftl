@@ -59,10 +59,11 @@ under the License.
         <#if security.hasEntityPermission("FACILITY", "_CREATE", session) && ((orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
           <#-- Special shipment options -->
           <#if orderHeader.orderTypeId == "SALES_ORDER">
+            <li>
             <form name="quickShipOrder" method="post" action="<@ofbizUrl>quickShipOrder</@ofbizUrl>">
               <input type="hidden" name="orderId" value="${orderId}"/>
             </form>
-            <li><a href="javascript:document.quickShipOrder.submit()" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a></li>
+            <a href="javascript:document.quickShipOrder.submit()" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a></li>
           <#else> <#-- PURCHASE_ORDER -->
             <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
             <#if ownedFacilities?has_content>
@@ -232,7 +233,7 @@ under the License.
                 <#if orderHeader.orderTypeId == "SALES_ORDER" && shipGroup.shipmentMethodTypeId?has_content>
                   <tr>
                     <td align="right" valign="top" width="15%">
-                        <span class="label">&nbsp;<b>${uiLabelMap.CommonMethod}</span>
+                        <span class="label">&nbsp;<b>${uiLabelMap.CommonMethod}</b></span>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td valign="top" width="80%">
@@ -294,7 +295,7 @@ under the License.
           </div>
           <div class="form-row">
             <label for="address2">${uiLabelMap.PartyAddressLine2}</label>
-            <div class="form-field"><input type="text" name="shipToAddress2" value="" size="30" maxlength="30" /></div>
+            <div class="form-field"><input type="text" name="shipToAddress2" id="address2" value="" size="30" maxlength="30" /></div>
           </div>
           <div class="form-row">
             <label for="city">${uiLabelMap.PartyCity}* <span id="advice-required-city" style="display: none" class="custom-advice">(required)</span></label>
@@ -307,7 +308,7 @@ under the License.
           <div class="form-row">
             <label for="country">${uiLabelMap.PartyCountry}* <span id="advice-required-countryGeoId" style="display: none" class="custom-advice">(required)</span></label>
             <div class="form-field">
-              <select name="shipToCountryGeoId" id="countryGeoId" class="required" style="width: 70%">
+              <select name="shipToCountryGeoId" id="country" class="required" style="width: 70%">
                 <#if countryGeoId?exists>
                   <option value="${countryGeoId}">${countryGeoId}</option>
                 </#if>
@@ -315,10 +316,10 @@ under the License.
               </select>
             </div>
           </div>
-          <div id="states" class="form-row">
+          <div class="form-row">
             <label for="state">${uiLabelMap.PartyState}* <span id="advice-required-stateProvinceGeoId" style="display: none" class="custom-advice">(required)</span></label>
             <div class="form-field">
-              <select name="shipToStateProvinceGeoId" id="stateProvinceGeoId" style="width: 70%">
+              <select name="shipToStateProvinceGeoId" id="state" style="width: 70%">
                 <#if stateProvinceGeoId?has_content>
                   <option value="${stateProvinceGeoId}">${stateProvinceGeoId}</option>
                 <#else>
@@ -457,7 +458,7 @@ under the License.
           </tr>
         </#if>
 
-        <tr><td colspan="7"><hr class="sepbar"></td></tr>
+        <tr><td colspan="7"><hr class="sepbar"/></td></tr>
         <tr>
           <td align="right" valign="top" width="15%">
             <span class="label">&nbsp;${uiLabelMap.OrderInstructions}</span>
@@ -483,7 +484,7 @@ under the License.
                   <a href="javascript:addInstruction();" class="buttontext" id="addInstruction">${uiLabelMap.CommonAdd}</a>
                 </#if>
                 <a href="javascript:saveInstruction();" class="buttontext" id="saveInstruction" style="display:none">${uiLabelMap.CommonSave}</a>
-                <textarea name="shippingInstructions" id="shippingInstructions" style="display:none">${shipGroup.shippingInstructions?if_exists}</textarea>
+                <textarea name="shippingInstructions" id="shippingInstructions" style="display:none" rows="0" cols="0">${shipGroup.shippingInstructions?if_exists}</textarea>
               </form>
             <#else>
               <#if shipGroup.shippingInstructions?has_content>
@@ -496,60 +497,54 @@ under the License.
         </tr>
 
         <#if shipGroup.isGift?has_content && noShipment?default("false") != "true">
-          <form name="setGiftMessageForm" method="post" action="<@ofbizUrl>setGiftMessage</@ofbizUrl>">
-            <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
-            <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
-            <tr><td colspan="3"><hr /></td></tr>
-            <td align="right" valign="top" width="15%">
-              <span class="label">&nbsp;${uiLabelMap.OrderGiftMessage}</span>
-            </td>
-            <#if shipGroup.giftMessage?has_content>
-              <td>&nbsp;</td>
-              <td id="message" colspan="3" >
+        <tr><td colspan="3"><hr /></td></tr>
+        <tr>
+          <td align="right" valign="top" width="15%">
+            <span class="label">&nbsp;${uiLabelMap.OrderGiftMessage}</span>
+          </td>
+          <td width="5">&nbsp;</td>
+          <td>
+            <form name="setGiftMessageForm" method="post" action="<@ofbizUrl>setGiftMessage</@ofbizUrl>">
+              <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
+              <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+              <#if shipGroup.giftMessage?has_content>
                 <label>${shipGroup.giftMessage}</label>
                 <a href="javascript:editGiftMessage();" class="buttontext" id="editGiftMessage">${uiLabelMap.CommonEdit}</a>
-              </td>
-            <#else>
-              <td align="right"><a href="javascript:addGiftMessage();" class="buttontext" id="addGiftMessage">${uiLabelMap.CommonAdd}</a></td>
-            </#if>
-            <td>
-              <textarea name="giftMessage" id="giftMessage" style="display:none">${shipGroup.giftMessage?if_exists}</textarea>
+              <#else>
+                <a href="javascript:addGiftMessage();" class="buttontext" id="addGiftMessage">${uiLabelMap.CommonAdd}</a>
+              </#if>
+              <textarea name="giftMessage" id="giftMessage" style="display:none" rows="0" cols="0">${shipGroup.giftMessage?if_exists}</textarea>
               <a href="javascript:saveGiftMessage();" class="buttontext" id="saveGiftMessage" style="display:none">${uiLabelMap.CommonSave}</a>
-            </td>
-          </form>
+            </form>
+          </td>
+        </tr>
         </#if>
-        <form name="setShipGroupDates_${shipGroup.shipGroupSeqId}" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">
-        <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
-        <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
          <tr><td colspan="3"><hr /></td></tr>
          <tr>
             <td align="right" valign="top" width="15%">
-              <span class="label">&nbsp;${uiLabelMap.OrderShipAfterDate}<span>
+              <span class="label">&nbsp;${uiLabelMap.OrderShipAfterDate}</span><br/>
+              <span class="label">&nbsp;${uiLabelMap.OrderShipBeforeDate}</span>
             </td>
             <td width="5">&nbsp;</td>
             <td valign="top" width="80%">
-              <input type="text" size="23" name="shipAfterDate" value="${shipGroup.shipAfterDate?if_exists}"/>
-              <a href="javascript:call_cal(document.setShipGroupDates_${shipGroup.shipGroupSeqId}.shipAfterDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+              <form name="setShipGroupDates_${shipGroup.shipGroupSeqId}" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">
+                <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
+                <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+                <input type="text" size="23" name="shipAfterDate" value="${shipGroup.shipAfterDate?if_exists}"/>
+                <a href="javascript:call_cal(document.setShipGroupDates_${shipGroup.shipGroupSeqId}.shipAfterDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                <br/>
+                <input type="text" size="23" name="shipByDate" value="${shipGroup.shipByDate?if_exists}"/>
+                <a href="javascript:call_cal(document.setShipGroupDates_${shipGroup.shipGroupSeqId}.shipByDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
+                </form>
             </td>
          </tr>
-         <tr>
-            <td align="right" valign="top" width="15%">
-              <span class="label">&nbsp;${uiLabelMap.OrderShipBeforeDate}<span>
-            </td>
-            <td width="5">&nbsp;</td>
-            <td valign="top" width="80%">
-              <input type="text" size="23" name="shipByDate" value="${shipGroup.shipByDate?if_exists}"/>
-              <a href="javascript:call_cal(document.setShipGroupDates_${shipGroup.shipGroupSeqId}.shipByDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
-              <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
-            </td>
-         </tr>
-        </form>
        <#assign shipGroupShipments = shipGroup.getRelated("PrimaryShipment")>
        <#if shipGroupShipments?has_content>
           <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
-              <span class="label">&nbsp;${uiLabelMap.FacilityShipments}<span>
+              <span class="label">&nbsp;${uiLabelMap.FacilityShipments}</span>
             </td>
             <td width="5">&nbsp;</td>
             <td valign="top" width="80%">

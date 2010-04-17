@@ -79,7 +79,7 @@ under the License.
               <td>
                 <select name="returnTypeId_o_${rowCount}">
                   <#list returnTypes as type>
-                  <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+                  <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
                   </#list>
                 </select>
               </td>
@@ -134,7 +134,7 @@ under the License.
               <td>
                 <select name="returnTypeId_o_${rowCount}">
                   <#list returnTypes as type>
-                  <option value="${type.returnTypeId}" <#if type.returnTypeId=="RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+                  <option value="${type.returnTypeId}" <#if type.returnTypeId=="RTN_REFUND">selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
                   </#list>
                 </select>
               </td>
@@ -156,7 +156,7 @@ under the License.
         <#-- toggle the row color -->
         <#assign alt_row = !alt_row>
       </#list>
-    <tr><td colspan="9"><hr></td></tr>
+    <tr><td colspan="9"><hr/></td></tr>
     <tr>
       <td colspan="9"><h3>${uiLabelMap.OrderReturnAdjustments} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td>
     </tr>
@@ -189,7 +189,7 @@ under the License.
           <td>
             <select name="returnTypeId_o_${rowCount}">
               <#list returnTypes as type>
-              <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+              <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
               </#list>
             </select>
           </td>
@@ -206,7 +206,7 @@ under the License.
     <#assign manualAdjRowNum = rowCount/>
     <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="RET_MAN_ADJ"/>
     <input type="hidden" name="returnItemSeqId_o_${rowCount}" value="_NA_"/>
-    <tr><td colspan="9"><hr></td></tr>
+    <tr><td colspan="9"><hr/></td></tr>
     <tr>
       <td colspan="9">
         <h3>${uiLabelMap.OrderReturnManualAdjustment} #<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td></div>
@@ -222,7 +222,7 @@ under the License.
       <td>
         <select name="returnTypeId_o_${rowCount}">
           <#list returnTypes as type>
-          <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+          <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
           </#list>
         </select>
       </td>

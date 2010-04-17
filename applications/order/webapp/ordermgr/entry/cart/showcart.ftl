@@ -175,7 +175,7 @@ under the License.
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="bulkworkaddform" style="margin: 0;">
                 <div>
                     ${uiLabelMap.OrderOrderItemType}:&nbsp;<select name="add_item_type"><option value="BULK_ORDER_ITEM">${uiLabelMap.ProductBulkItem}</option><option value="WORK_ORDER_ITEM">${uiLabelMap.ProductWorkItem}</option></select>
-                    <br>${uiLabelMap.ProductProductCategory}:&nbsp;
+                    <br/>${uiLabelMap.ProductProductCategory}:&nbsp;
                     <@htmlTemplate.lookupField formName="bulkworkaddform" value="${requestParameters.add_category_id?if_exists}" name="add_category_id" id="add_category_id" fieldFormName="LookupProductCategory"/>
                 </div>
                 <div>

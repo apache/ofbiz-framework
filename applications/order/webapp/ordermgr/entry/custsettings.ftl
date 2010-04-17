@@ -65,14 +65,14 @@ under the License.
                 <td colspan="3">&nbsp;</td>
               </tr>
               <tr>
-                <td width="26%" align="right"><div>${uiLabelMap.PartyHomePhone}<BR>${uiLabelMap.OrderAllowSolicitation}</div></td>
+                <td width="26%" align="right"><div>${uiLabelMap.PartyHomePhone}<br/>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="homeCountryCode" value="${requestParameters.homeCountryCode?if_exists}" size="4" maxlength="10"/>
                   -&nbsp;<input type="text" name="homeAreaCode" value="${requestParameters.homeAreaCode?if_exists}" size="4" maxlength="10"/>*
                   -&nbsp;<input type="text" name="homeContactNumber" value="${requestParameters.homeContactNumber?if_exists}" size="15" maxlength="15"/>*
                   &nbsp;ext&nbsp;<input type="text" name="homeExt" value="${requestParameters.homeExt?if_exists}" size="6" maxlength="10"/>
-                  <BR>
+                  <br/>
                   <select name="homeSol">
                     <#if (((requestParameters.homeSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.homeSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
@@ -83,14 +83,14 @@ under the License.
                 </td>
               </tr>
               <tr>
-                <td width="26%" align="right"><div>${uiLabelMap.PartyBusinessPhone}<BR>${uiLabelMap.OrderAllowSolicitation}</div></td>
+                <td width="26%" align="right"><div>${uiLabelMap.PartyBusinessPhone}<br/>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="workCountryCode" value="${requestParameters.CUSTOMER_WORK_COUNTRY?if_exists}" size="4" maxlength="10"/>
                   -&nbsp;<input type="text" name="workAreaCode" value="${requestParameters.CUSTOMER_WORK_AREA?if_exists}" size="4" maxlength="10"/>
                   -&nbsp;<input type="text" name="workContactNumber" value="${requestParameters.CUSTOMER_WORK_CONTACT?if_exists}" size="15" maxlength="15"/>
                   &nbsp;ext&nbsp;<input type="text" name="workExt" value="${requestParameters.CUSTOMER_WORK_EXT?if_exists}" size="6" maxlength="10"/>
-                  <BR>
+                  <br/>
                   <select name="workSol">
                     <#if (((requestParameters.workSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.workSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
@@ -104,11 +104,11 @@ under the License.
                 <td colspan="3">&nbsp;</td>
               </tr>
               <tr>
-                <td width="26%" align="right"><div>${uiLabelMap.PartyEmailAddress}<BR>${uiLabelMap.OrderAllowSolicitation}</div></td>
+                <td width="26%" align="right"><div>${uiLabelMap.PartyEmailAddress}<br/>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <input type="text" name="emailAddress" value="" size="60" maxlength="255" />
-                  <BR>
+                  <br/>
                   <select name="emailSol">
                     <#if (((requestParameters.emailSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
                     <#if (((requestParameters.emailSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>

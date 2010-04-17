@@ -29,10 +29,10 @@ under the License.
   </div>
   <div class="screenlet-body">
     <table>
-      <tr><td colspan="4">&nbsp;</td></tr>
 
       <#if agreements?exists>
-      <input type='hidden' name='hasAgreements' value='Y'/>
+      <tr><td colspan="4">&nbsp;<input type='hidden' name='hasAgreements' value='Y'/></td></tr>
+      
       <tr>
         <td>&nbsp;</td>
         <td align='right' valign='top' nowrap="nowrap">
@@ -52,7 +52,8 @@ under the License.
           </div>
         </td>
       </tr>
-      <#else><input type='hidden' name='hasAgreements' value='N'/>
+      <#else>
+      <tr><td colspan="4">&nbsp;<input type='hidden' name='hasAgreements' value='N'/></td></tr>
       </#if>
       <#if agreementRoles?exists>
         <tr>
@@ -64,7 +65,7 @@ under the License.
           </td>
           <td>&nbsp;</td>
           <td valign='middle'>
-            <div class='tabletext' valign='top'>
+            <div class='tabletext'>
               <select name="agreementId">
               <option value="">${uiLabelMap.CommonNone}</option>
               <#list agreementRoles as agreementRole>
@@ -124,7 +125,7 @@ under the License.
         </td>
         <td>&nbsp;</td>
         <td valign='middle'>
-          <div class='tabletext' valign='top'>
+          <div class='tabletext'>
             <select name="currencyUomId">
               <option value=""></option>
               <#list currencies as currency>

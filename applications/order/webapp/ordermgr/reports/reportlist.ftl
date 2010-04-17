@@ -30,7 +30,7 @@ these reports and helping to improve them.</div>
 <td><div>From Date:</div></td>
 <td><input type="text" name="fromDate" tabindex="10"  size="22" maxlength="25" align="middle">
  <a tabindex="10" target="_self" href="javascript:call_cal(document.orderreportform.fromDate, '${fromStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
-  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'>
+  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' />
  </a>
 </td>
 </tr>
@@ -38,7 +38,7 @@ these reports and helping to improve them.</div>
 <td><div>To Date:</div></td>
 <td><input type="text" name="toDate" tabindex="12"  size="22" maxlength="25" align="middle">
  <a tabindex="12" target="_self" href="javascript:call_cal(document.orderreportform.toDate, '${toStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
-  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'>
+  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' />
  </a>
 </td>
 </tr>
@@ -68,7 +68,7 @@ these reports and helping to improve them.</div>
 <td><div>From Date:</div></td>
 <td><input type="text" name="fromDate" tabindex="10"  size="22" maxlength="25" align="middle">
  <a tabindex="10" target="_self" href="javascript:call_cal(document.itemreportform.fromDate, '${fromStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
-  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'>
+  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' />
  </a>
 </td>
 </tr>
@@ -76,7 +76,7 @@ these reports and helping to improve them.</div>
 <td><div>To Date:</div></td>
 <td><input type="text" name="toDate" tabindex="12"  size="22" maxlength="25" align="middle">
  <a tabindex="12" target="_self" href="javascript:call_cal(document.itemreportform.toDate, '${toStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
-  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'>
+  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' />
  </a>
 </td>
 </tr>

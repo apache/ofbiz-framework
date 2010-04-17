@@ -78,7 +78,7 @@ under the License.
                 <#assign entryDate = returnInfo.get("entryDate").toString()>
               </#if>
               <input type='text' size='25' name='entryDate' value='${entryDate?if_exists}' />
-              <a href="javascript:call_cal(document.returnhead.entryDate, '');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
+              <a href="javascript:call_cal(document.returnhead.entryDate, '');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar' /></a>
             </td>
           </tr>
           <tr>
@@ -101,7 +101,7 @@ under the License.
                 </#if>
                 <option value="">${uiLabelMap.FacilityNoFacility}</option>
                 <#list facilityList as facility>
-                  <option value="${facility.facilityId}" <#if (facilityList?size == 1)>selected</#if>>${facility.facilityName?default(facility.facilityId)}</option>
+                  <option value="${facility.facilityId}" <#if (facilityList?size == 1)>selected="selected"</#if>>${facility.facilityName?default(facility.facilityId)}</option>
                 </#list>
             </td>
           </tr>
