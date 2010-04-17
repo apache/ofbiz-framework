@@ -27,7 +27,7 @@
     <PartyRole partyId="DemoEbayAccount" roleTypeId="OWNER"/>
     <UserLogin userLoginId="esandbox10543" partyId="DemoEbayAccount" currentPassword="{SHA}bbf272ce445e1c48d94096afdba6a7888c1df1fe"/>
     <ProductStore productStoreId="90100" storeName="OFBiz Ebay Store-USA" companyName="Apache Ofbiz" title="Test esandbox10543 store"
-        subtitle="Part of the Open For Business Family of Open Source Software" payTopartyId="DemoEbayAccount" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
+        subtitle="Part of the Open For Business Family of Open Source Software" payToPartyId="DemoEbayAccount" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
         inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="Y" checkInventory="Y" reserveInventory="Y" balanceResOnOrderCreation="Y" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
         defaultLocaleString="en_US" defaultCurrencyUomId="USD" defaultSalesChannelEnumId="EBAY_SALES_CHANNEL" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="Y" reqReturnInventoryReceive="N"
         headerApprovedStatus="ORDER_APPROVED" itemApprovedStatus="ITEM_APPROVED" digitalItemApprovedStatus="ITEM_APPROVED" headerDeclinedStatus="ORDER_REJECTED"
