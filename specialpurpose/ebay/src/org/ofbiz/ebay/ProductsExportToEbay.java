@@ -516,7 +516,7 @@ public class ProductsExportToEbay {
                 } else {
                     categoryParent = params[1];
                     levelLimit = params[2];
-                    Integer level = new Integer(levelLimit);
+                    Integer level = Integer.valueOf(levelLimit);
                     levelLimit = (level.intValue() + 1) + "";
                 }
             }

@@ -69,7 +69,7 @@ public class KeyboardService extends BaseService implements jpos.services.POSKey
                 propName = propName.substring(4);
 
                 PosKey key = new PosKey(propName, propValue);
-                keyMapping.put(new Integer(key.hashCode()), key);
+                keyMapping.put(key.hashCode(), key);
             }
         }
     }
@@ -138,7 +138,7 @@ public class KeyboardService extends BaseService implements jpos.services.POSKey
         if (lastEvent != null) {
             KeyEvent thisEvent = lastEvent;
             PosKey thisKey = new PosKey(thisEvent);
-            PosKey mappedKey = (PosKey) keyMapping.get(new Integer(thisKey.hashCode()));
+            PosKey mappedKey = (PosKey) keyMapping.get(thisKey.hashCode());
             if (mappedKey != null && mappedKey.checkModifiers(thisEvent.getModifiersEx())) {
                 this.received = true;
                 this.keyData = mappedKey.getMappedCode();

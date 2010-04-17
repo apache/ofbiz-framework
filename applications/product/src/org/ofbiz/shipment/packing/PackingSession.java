@@ -969,7 +969,7 @@ public class PackingSession implements java.io.Serializable {
     public BigDecimal getPackageWeight(int packageSeqId) {
         if (this.packageWeights == null) return null;
         BigDecimal packageWeight = null;
-        Object p = packageWeights.get(new Integer(packageSeqId));
+        Object p = packageWeights.get(packageSeqId);
         if (p != null) {
             packageWeight = (BigDecimal) p;
         }

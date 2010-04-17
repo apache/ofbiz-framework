@@ -124,15 +124,15 @@ public class LabelReferences {
         Map<String, Integer> reference = references.get(labelKey);
         if (UtilValidate.isEmpty(reference)) {
             reference = new TreeMap<String, Integer>();
-            reference.put(filePath, new Integer(1));
+            reference.put(filePath, 1);
             references.put(labelKey, reference);
         } else {
             Integer labelsInFile = reference.get(filePath);
 
             if (UtilValidate.isEmpty(labelsInFile)) {
-                labelsInFile = new Integer(1);
+                labelsInFile = 1;
             } else {
-                labelsInFile = new Integer(labelsInFile.intValue() + 1);
+                labelsInFile = labelsInFile + 1;
             }
             reference.put(filePath, labelsInFile);
         }

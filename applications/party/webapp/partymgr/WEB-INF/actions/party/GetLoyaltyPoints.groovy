@@ -25,7 +25,7 @@ if (partyId) {
     // get the system user
     system = delegator.findByPrimaryKey("UserLogin", [userLoginId : "system"]);
 
-    monthsToInclude = new Integer(12);
+    monthsToInclude = 12;
 
     Map serviceIn = UtilMisc.toMap("partyId", partyId, "roleTypeId", "PLACING_CUSTOMER", "orderTypeId", "SALES_ORDER",
             "statusId", "ORDER_COMPLETED", "monthsToInclude", monthsToInclude, "userLogin", system);

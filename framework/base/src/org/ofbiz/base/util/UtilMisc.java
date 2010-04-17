@@ -627,7 +627,7 @@ public class UtilMisc {
             return (Integer) obj;
         }
         if (obj instanceof Number) {
-            return new Integer(((Number)obj).intValue());
+            return ((Number)obj).intValue();
         }
         Integer result = null;
         try {

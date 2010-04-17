@@ -599,7 +599,7 @@ public class PosTransaction implements Serializable {
                 item.removeAdjustment(itemAdj.intValue());
             }
                int idx = item.addAdjustment(adjustment);
-            skuDiscounts.put(productId, new Integer(idx));
+            skuDiscounts.put(productId, idx);
         } else {
             trace("add sale adjustment");
             if (cartDiscount > -1) {
@@ -1469,7 +1469,7 @@ public class PosTransaction implements Serializable {
 
         String selectedCartItems[] = new String[cart.size()];
         for(int i = 0; i < cart.size(); i++) {
-            Integer integer = new Integer(i);
+            Integer integer = i;
             selectedCartItems[i] = integer.toString();
         }
 

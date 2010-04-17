@@ -114,7 +114,7 @@ if (allProductionRuns) {
                 if (productArea > 0) panelQty = productMapQty / productArea;
                 panelQtyInt = panelQty;
                 if (panelQtyInt < panelQty) panelQtyInt++;
-                productMap.panelQuantity = new Integer(panelQtyInt);
+                productMap.panelQuantity = panelQtyInt;
             }
         }
         feature.productList = productsMap.values();

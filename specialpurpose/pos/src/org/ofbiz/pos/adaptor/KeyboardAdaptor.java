@@ -65,7 +65,7 @@ public class KeyboardAdaptor {
         }
 
         if (receiver != null && dataType > -1) {
-            receivers.put(receiver, new Integer(dataType));
+            receivers.put(receiver, dataType);
         }
         return adaptor;
     }
@@ -147,7 +147,7 @@ public class KeyboardAdaptor {
         }
 
         protected synchronized void receiveCode(int keycode) {
-            keyCodeData.add(new Integer(keycode));
+            keyCodeData.add(keycode);
         }
 
         protected synchronized void receiveChar(char keychar) {

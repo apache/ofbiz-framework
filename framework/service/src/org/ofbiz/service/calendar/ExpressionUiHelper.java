@@ -59,7 +59,7 @@ public class ExpressionUiHelper {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", locale);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(7);
         for (int i = 0; i < 7; i++) {
-            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", new Integer(tempCal.get(Calendar.DAY_OF_WEEK))));
+            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", tempCal.get(Calendar.DAY_OF_WEEK)));
             tempCal.roll(Calendar.DAY_OF_WEEK, 1);
         }
         return result;
@@ -96,7 +96,7 @@ public class ExpressionUiHelper {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", locale);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(13);
         for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
-            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", new Integer(i)));
+            result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", i));
             tempCal.roll(Calendar.MONTH, 1);
         }
         return result;
@@ -109,12 +109,12 @@ public class ExpressionUiHelper {
      */
     public static List<Map<String, Object>> getFrequencyValueList(Map<String, Object> uiLabelMap) {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(6);
-        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonSecond"), "value", new Integer(Calendar.SECOND)));
-        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonMinute"), "value", new Integer(Calendar.MINUTE)));
-        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonHour"), "value", new Integer(Calendar.HOUR_OF_DAY)));
-        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonDay"), "value", new Integer(Calendar.DAY_OF_MONTH)));
-        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonMonth"), "value", new Integer(Calendar.MONTH)));
-        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonYear"), "value", new Integer(Calendar.YEAR)));
+        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonSecond"), "value", Calendar.SECOND));
+        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonMinute"), "value", Calendar.MINUTE));
+        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonHour"), "value", Calendar.HOUR_OF_DAY));
+        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonDay"), "value", Calendar.DAY_OF_MONTH));
+        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonMonth"), "value", Calendar.MONTH));
+        result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonYear"), "value", Calendar.YEAR));
         return result;
     }
 
