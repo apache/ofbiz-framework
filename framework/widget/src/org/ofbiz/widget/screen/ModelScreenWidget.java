@@ -19,7 +19,6 @@
 package org.ofbiz.widget.screen;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
