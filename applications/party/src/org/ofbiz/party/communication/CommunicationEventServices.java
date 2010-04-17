@@ -641,7 +641,6 @@ public class CommunicationEventServices {
      * @param context
      * @return
      */
-    @SuppressWarnings("unchecked")
     public static Map<String, Object> storeIncomingEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         Delegator delegator = dctx.getDelegator();
@@ -850,7 +849,7 @@ public class CommunicationEventServices {
 
             // Populate the CommunicationEvent.headerString field with the email headers
             StringBuilder headerString = new StringBuilder();
-            Enumeration headerLines = wrapper.getMessage().getAllHeaderLines();
+            Enumeration<?> headerLines = wrapper.getMessage().getAllHeaderLines();
             while (headerLines.hasMoreElements()) {
                 headerString.append(System.getProperty("line.separator"));
                 headerString.append(headerLines.nextElement());

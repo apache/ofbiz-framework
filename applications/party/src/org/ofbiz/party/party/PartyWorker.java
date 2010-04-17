@@ -25,7 +25,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.jsp.PageContext;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -40,6 +39,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
@@ -313,7 +313,6 @@ public class PartyWorker {
             if (UtilValidate.isNotEmpty(validFound)) {
                 for (GenericValue partyAndAddr: validFound) {
                     String partyId = partyAndAddr.getString("partyId");
-                    String cmId = partyAndAddr.getString("contactMechId");
                     if (UtilValidate.isNotEmpty(partyId)) {
                         GenericValue p = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
                         if (p != null) {
@@ -325,11 +324,9 @@ public class PartyWorker {
                                     if (mName != null && middleName != null) {
                                         if (mName.toUpperCase().equals(middleName.toUpperCase())) {
                                             returnList.add(partyAndAddr);
-                                            //return new String[] { partyId, cmId };
                                         }
                                     } else if (middleName == null) {
                                         returnList.add(partyAndAddr);
-                                        //return new String[] { partyId, cmId };
                                     }
                                 }
                             }
@@ -372,7 +369,7 @@ public class PartyWorker {
         List<GenericValue> partyList = FastList.newInstance();
         List<String> partyIds = null;
         try {
-            EntityConditionList baseExprs = EntityCondition.makeCondition(UtilMisc.toList(
+            EntityConditionList<EntityExpr> baseExprs = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("partyIdFrom", partyIdFrom),
                     EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)), EntityOperator.AND);
             List<GenericValue> associatedParties = delegator.findList("PartyRelationship", baseExprs, null, null, null, true);
@@ -380,7 +377,7 @@ public class PartyWorker {
             while (UtilValidate.isNotEmpty(associatedParties)) {
                 List<GenericValue> currentAssociatedParties = FastList.newInstance();
                 for (GenericValue associatedParty : associatedParties) {
-                    EntityConditionList innerExprs = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityConditionList<EntityExpr> innerExprs = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("partyIdFrom", associatedParty.get("partyIdTo")),
                             EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)), EntityOperator.AND);
                     List<GenericValue> associatedPartiesChilds = delegator.findList("PartyRelationship", innerExprs, null, null, null, true);
