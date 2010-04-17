@@ -37,6 +37,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
@@ -337,7 +338,7 @@ public class ShoppingCartEvents {
                 reservLengthStr = (String) paramMap.remove("reservLength");
                 // parse the reservation Length
                 try {
-                    reservLength = new BigDecimal(nf.parse(reservLengthStr).doubleValue());
+                    reservLength = (BigDecimal) ObjectType.simpleTypeConvert(reservLengthStr, "BigDecimal", null, locale);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing reservation length string: "
                             + reservLengthStr, module);
@@ -351,7 +352,7 @@ public class ShoppingCartEvents {
                 reservPersonsStr = (String) paramMap.remove("reservPersons");
                 // parse the number of persons
                 try {
-                    reservPersons = new BigDecimal(nf.parse(reservPersonsStr).doubleValue());
+                    reservPersons = (BigDecimal) ObjectType.simpleTypeConvert(reservPersonsStr, "BigDecimal", null, locale);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing reservation number of persons string: " + reservPersonsStr, module);
                     reservPersons = BigDecimal.ONE;
@@ -386,7 +387,7 @@ public class ShoppingCartEvents {
 
         // parse the price
         try {
-            price = new BigDecimal(nf.parse(priceStr).doubleValue());
+            price = (BigDecimal) ObjectType.simpleTypeConvert(priceStr, "BigDecimal", null, locale);
         } catch (Exception e) {
             Debug.logWarning(e, "Problems parsing price string: " + priceStr, module);
             price = null;
@@ -394,7 +395,7 @@ public class ShoppingCartEvents {
 
         // parse the quantity
         try {
-            quantity = new BigDecimal(nf.parse(quantityStr).doubleValue());
+            quantity = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
         } catch (Exception e) {
             Debug.logWarning(e, "Problems parsing quantity string: " + quantityStr, module);
             quantity = BigDecimal.ONE;
@@ -412,7 +413,7 @@ public class ShoppingCartEvents {
         BigDecimal amount = null;
         if (UtilValidate.isNotEmpty(selectedAmountStr)) {
             try {
-                amount = new BigDecimal(nf.parse(selectedAmountStr).doubleValue());
+                amount = (BigDecimal) ObjectType.simpleTypeConvert(selectedAmountStr, "BigDecimal", null, locale);
             } catch (Exception e) {
                 Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
                 amount = null;

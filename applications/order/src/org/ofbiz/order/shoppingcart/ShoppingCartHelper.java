@@ -21,7 +21,6 @@ package org.ofbiz.order.shoppingcart;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,6 +34,7 @@ import java.util.Set;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
@@ -484,8 +484,8 @@ public class ShoppingCartHelper {
                 if (UtilValidate.isNotEmpty(quantStr)) {
                     BigDecimal quantity = BigDecimal.ZERO;
                     try {
-                        quantity = new BigDecimal(nf.parse(quantStr).doubleValue());
-                    } catch (ParseException nfe) {
+                        quantity = (BigDecimal) ObjectType.simpleTypeConvert(quantStr, "BigDecimal", null, cart.getLocale());
+                    } catch (GeneralException ge) {
                         quantity = BigDecimal.ZERO;
                     }
                     if (quantity.compareTo(BigDecimal.ZERO) > 0) {
