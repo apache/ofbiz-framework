@@ -790,7 +790,7 @@ public class FedexServices {
                     if (! packageWeightUomId.equals(weightUomId)) {
                         Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", packageWeightUomId, "uomIdTo", weightUomId, "originalValue", packageWeight));
                         if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
-                            ServiceUtil.returnError("Unable to convert weight for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId);
+                            return ServiceUtil.returnError("Unable to convert weight for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId);
                         } else {
                             packageWeight = (BigDecimal) results.get("convertedValue");
                         }
@@ -798,7 +798,7 @@ public class FedexServices {
                 }
                 BigDecimal weight = hasBillingWeight ? billingWeight : packageWeight;
                 if (weight == null || weight.compareTo(BigDecimal.ZERO) < 0) {
-                    ServiceUtil.returnError("Unable to determine weight for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId);
+                    return ServiceUtil.returnError("Unable to determine weight for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId);
                 }
 
                 // Populate the Freemarker context with package-related information

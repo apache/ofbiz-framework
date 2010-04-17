@@ -1138,7 +1138,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         try {
             thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
             if (thisContent == null)
-                ServiceUtil.returnError("No entity found for id=" + contentId);
+                return ServiceUtil.returnError("No entity found for id=" + contentId);
             thisContent.set("contentTypeId", contentTypeId);
             thisContent.store();
             List kids = ContentWorker.getAssociatedContent(thisContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
@@ -1178,7 +1178,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         try {
             thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
             if (thisContent == null)
-                ServiceUtil.returnError("No entity found for id=" + contentId);
+                return ServiceUtil.returnError("No entity found for id=" + contentId);
             thisContent.set("contentTypeId", "OUTLINE_NODE");
             thisContent.store();
             List kids = ContentWorker.getAssociatedContent(thisContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);

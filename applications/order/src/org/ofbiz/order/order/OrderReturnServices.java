@@ -1102,7 +1102,7 @@ public class OrderReturnServices {
             orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("-maxAmount"));
         } catch (GenericEntityException e) {
             Debug.logError("Problem looking up order information for orderId #" + orderId, module);
-            ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderCannotGetOrderHeader", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderCannotGetOrderHeader", locale));
         }
 
         // Check for replacement order
@@ -1112,7 +1112,7 @@ public class OrderReturnServices {
                 returnItemResponses = orderHeader.getRelated("ReplacementReturnItemResponse");
             } catch (GenericEntityException e) {
                 Debug.logError("Problem getting ReturnItemResponses", module);
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
 
             for (GenericValue returnItemResponse : returnItemResponses) {
@@ -1123,7 +1123,7 @@ public class OrderReturnServices {
                     returnHeader = returnItem.getRelatedOne("ReturnHeader");
                 } catch (GenericEntityException e) {
                     Debug.logError("Problem getting ReturnItem", module);
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
 
                 if ("RETURN_RECEIVED".equals(returnHeader.getString("statusId"))) {

@@ -440,7 +440,7 @@ public class PayflowPro {
             addCartDetails(data, cart);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            ServiceUtil.returnError("An error occurred while retreiving cart details");
+            return ServiceUtil.returnError("An error occurred while retreiving cart details");
         }
 
         PayflowAPI pfp = init(delegator, paymentGatewayConfigId, null, context);
