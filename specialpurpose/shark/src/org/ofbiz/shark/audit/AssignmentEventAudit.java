@@ -93,7 +93,7 @@ public class AssignmentEventAudit extends EventAudit implements AssignmentEventA
     }
 
     public void setIsAccepted(boolean acc) {
-        assignmentEventAudit.set("isAccepted", new Boolean(acc));
+        assignmentEventAudit.set("isAccepted", acc);
     }
 
     public boolean getIsAccepted() {

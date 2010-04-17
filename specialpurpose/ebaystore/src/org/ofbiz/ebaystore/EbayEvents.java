@@ -727,7 +727,7 @@ public class EbayEvents {
                             amtBIN.setValue(Double.parseDouble(startPrice));
                             item.setStartPrice(amtBIN);
                             if (UtilValidate.isNotEmpty(requestParams.get("enableBestOffer".concat(id)))) {
-                                item.setBestOfferEnabled(new Boolean(requestParams.get("enableBestOffer".concat(id)).toString()));
+                                item.setBestOfferEnabled(Boolean.valueOf(requestParams.get("enableBestOffer".concat(id)).toString()));
                             }
                         }
                         attributeMapList.put("ListingType", item.getListingType().value());

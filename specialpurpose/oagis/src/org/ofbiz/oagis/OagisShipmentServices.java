@@ -753,7 +753,7 @@ public class OagisShipmentServices {
             Map<String, Object> authServiceContext = FastMap.newInstance();
             authServiceContext.put("orderId", orderId);
             authServiceContext.put("userLogin", userLogin);
-            authServiceContext.put("reAuth", new Boolean("true"));
+            authServiceContext.put("reAuth", true);
             Map<String, Object> authResult = dispatcher.runSync("authOrderPayments", authServiceContext);
             if (!authResult.get("processResult").equals("APPROVED")) {
                 return ServiceUtil.returnError("No authorized payment available, not sending Process Shipment");
