@@ -121,7 +121,7 @@ public class EntityParticipantMap implements ParticipantMap {
     }
 
     public void setIsGroupUser(boolean isGroupUser) {
-        participant.set(org.ofbiz.shark.SharkConstants.isGroupUser, new Boolean(isGroupUser));
+        participant.set(org.ofbiz.shark.SharkConstants.isGroupUser, isGroupUser);
     }
 
     public void store() throws RootException {

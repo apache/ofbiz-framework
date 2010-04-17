@@ -183,7 +183,7 @@ public abstract class BaseEntityCondExprBldr implements ExpressionBuilder, Seria
         Iterator vli = this.viewLinks.iterator();
         while (vli.hasNext()) {
             ViewLink vl = (ViewLink) vli.next();
-            view.addViewLink(vl.entityAlias, vl.relEntityAlias, new Boolean(vl.relOptional), vl.keyMaps);
+            view.addViewLink(vl.entityAlias, vl.relEntityAlias, vl.relOptional, vl.keyMaps);
         }
 
         return view;

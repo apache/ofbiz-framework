@@ -233,7 +233,7 @@ public class WebPosSession {
 
     public boolean isManagerLoggedIn() {
         if (UtilValidate.isEmpty(mgrLoggedIn)) {
-            mgrLoggedIn = new Boolean(hasRole(getUserLogin(), "MANAGER"));
+            mgrLoggedIn = hasRole(getUserLogin(), "MANAGER");
         }
         return mgrLoggedIn.booleanValue();
     }
