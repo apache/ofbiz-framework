@@ -25,7 +25,7 @@ under the License.
       <#assign numColumns = 8>
       <#if maySelectItems?default("N") == "Y" && roleTypeId?if_exists == "PLACING_CUSTOMER">
           <#assign numColumns = 11>
-          <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.OrderAddAllToCart}</a><a href="javascript:document.addCommonToCartForm.add_all.value='false';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.OrderAddCheckedToCart}</a><a href="<@ofbizUrl>createShoppingListFromOrder?orderId=${orderHeader.orderId}&amp;frequency=6&amp;intervalNumber=1&amp;shoppingListTypeId=SLT_AUTO_REODR</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderSendMeThisEveryMonth}</a>
+          <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.OrderAddAllToCart}</a><a href="javascript:document.addCommonToCartForm.add_all.value='false';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.OrderAddCheckedToCart}</a><a href="<@ofbizUrl fullPath="true">createShoppingListFromOrder?orderId=${orderHeader.orderId}&amp;frequency=6&amp;intervalNumber=1&amp;shoppingListTypeId=SLT_AUTO_REODR</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderSendMeThisEveryMonth}</a>
       </#if>
       ${uiLabelMap.OrderOrderItems}
   </h3>
@@ -122,7 +122,7 @@ under the License.
         <#else>
           <#assign product = orderItem.getRelatedOneCache("Product")?if_exists/> <#-- should always exist because of FK constraint, but just in case -->
           <td >
-            <a href="<@ofbizUrl>product?product_id=${orderItem.productId}</@ofbizUrl>" class="linktext">${orderItem.productId} - ${orderItem.itemDescription?default("")}</a>
+            <a href="<@ofbizUrl fullPath="true">product?product_id=${orderItem.productId}</@ofbizUrl>" class="linktext">${orderItem.productId} - ${orderItem.itemDescription?default("")}</a>
             <#if product?has_content>
               <#if product.piecesIncluded?exists && product.piecesIncluded?long != 0>
                   [${uiLabelMap.OrderPieces}: ${product.piecesIncluded}]
@@ -222,7 +222,7 @@ under the License.
             ${uiLabelMap.CommonComments}
             <input class="inputBox" type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/>
           </td>
-          <td colspan="4"><a href="javascript:document.addCommonToCartForm.action='<@ofbizUrl>cancelOrderItem</@ofbizUrl>';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
+          <td colspan="4"><a href="javascript:document.addCommonToCartForm.action='<@ofbizUrl fullPath="true">cancelOrderItem</@ofbizUrl>';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
             <input type="hidden" name="orderItemSeqId" value="${orderItem.orderItemSeqId}"/>
           </td>
         </tr>

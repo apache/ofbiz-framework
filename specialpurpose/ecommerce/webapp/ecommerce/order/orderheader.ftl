@@ -30,15 +30,15 @@ under the License.
 <div class="screenlet">
   <h3>
     <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)?if_exists == "ORDER_COMPLETED" && roleTypeId?if_exists == "PLACING_CUSTOMER">
-      <a href="<@ofbizUrl>makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
+      <a href="<@ofbizUrl fullPath="true">makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
     </#if>
     ${uiLabelMap.OrderOrder}
     <#if orderHeader?has_content>
-      ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>
+      ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl fullPath="true">orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>
     </#if>
     ${uiLabelMap.CommonInformation}
     <#if (orderHeader.orderId)?exists>
-      ${externalOrder?if_exists} [ <a href="<@ofbizUrl>order.pdf?orderId=${(orderHeader.orderId)?if_exists}</@ofbizUrl>" class="lightbuttontext">PDF</a> ]
+      ${externalOrder?if_exists} [ <a href="<@ofbizUrl fullPath="true">order.pdf?orderId=${(orderHeader.orderId)?if_exists}</@ofbizUrl>" class="lightbuttontext">PDF</a> ]
     </#if>
   </h3>
   <#-- placing customer information -->
