@@ -26,6 +26,7 @@ under the License.
     <property name="dtd.dir" value="dtd"/>
     <property name="lib.dir" value="lib"/>
     <property name="build.dir" value="build"/>
+    <taskdef name="if" classname="org.ofbiz.tools.ant.IfTask" classpath="${ofbiz.home.dir}/tools/build/classes"/>
 
     <path id="test.class.path">
         <path refid="local.class.path"/>
@@ -48,7 +49,6 @@ under the License.
     <target name="prepare" depends="init">
         <mkdir dir="${build.dir}/classes"/>
         <mkdir dir="${build.dir}/lib"/>
-        <taskdef name="if" classname="org.ofbiz.tools.ant.IfTask" classpath="${ofbiz.home.dir}/tools/build/classes"/>
     </target>
 
     <target name="prepare-docs" depends="init">
