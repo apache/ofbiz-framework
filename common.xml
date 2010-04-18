@@ -57,23 +57,26 @@ under the License.
 
     <target name="init"/>
 
-    <available property="_src-available" file="${src.dir}"/>
-    <fileset id="_src-extra-set" dir="." excludes="**"/>
-
-    <target name="_src-available" if="_src-available">
-        <fileset id="_src-extra-set" dir="${src.dir}">
-            <include name="**/*.properties"/>
-            <include name="**/*.groovy"/>
-            <include name="**/*.xml"/>
-            <include name="**/*.bsh"/>
-            <include name="**/*.logic"/>
-            <include name="**/*.js"/>
-            <include name="**/*.js"/>
-            <include name="**/*.jacl"/>
-            <include name="**/*.py"/>
-            <include name="META-INF/**"/>
-        </fileset>
-    </target>
+    <if>
+        <available file="${src.dir}"/>
+        <commands>
+            <fileset id="_src-extra-set" dir="${src.dir}">
+                <include name="**/*.properties"/>
+                <include name="**/*.groovy"/>
+                <include name="**/*.xml"/>
+                <include name="**/*.bsh"/>
+                <include name="**/*.logic"/>
+                <include name="**/*.js"/>
+                <include name="**/*.js"/>
+                <include name="**/*.jacl"/>
+                <include name="**/*.py"/>
+                <include name="META-INF/**"/>
+            </fileset>
+        </commands>
+        <else>
+            <fileset id="_src-extra-set" dir="." excludes="**"/>
+        </else>
+    </if>
 
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
@@ -83,7 +86,7 @@ under the License.
         <javac16/>
     </target>
 
-    <target name="jar" depends="classes,_src-available">
+    <target name="jar" depends="classes">
         <jar jarfile="${build.dir}/lib/${name}.jar">
             <fileset dir="${build.dir}/classes"/>
             <fileset refid="_src-extra-set"/>
