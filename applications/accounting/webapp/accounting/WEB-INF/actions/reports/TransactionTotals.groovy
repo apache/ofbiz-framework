@@ -76,7 +76,7 @@ if (postedTransactionTotals) {
                         timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId));
                         timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, postedTransactionTotal.glAccountId));
                         timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
-                        lastTimePeriodHistory = EntityUtil.getFirst(delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false));
+                        lastTimePeriodHistory = delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false).first();
                         if (lastTimePeriodHistory) {
                             accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "openingD", lastTimePeriodHistory.getBigDecimal("postedDebits"), "openingC", lastTimePeriodHistory.getBigDecimal("postedCredits"), "D", BigDecimal.ZERO, "C", BigDecimal.ZERO);
                         }
@@ -121,7 +121,7 @@ andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LES
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
 List postedDebitTransactionTotals = delegator.findList("AcctgTransEntrySums", andCond, UtilMisc.toSet("amount"), null, null, false);
 if (postedDebitTransactionTotals) {
-    postedDebitTransactionTotal = EntityUtil.getFirst(postedDebitTransactionTotals);
+    postedDebitTransactionTotal = postedDebitTransactionTotals.first();
     if (postedDebitTransactionTotal && postedDebitTransactionTotal.amount) {
         postedTotalDebit = postedDebitTransactionTotal.amount;
     }
@@ -137,7 +137,7 @@ andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LES
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
 List postedCreditTransactionTotals = delegator.findList("AcctgTransEntrySums", andCond, UtilMisc.toSet("amount"), null, null, false);
 if (postedCreditTransactionTotals) {
-    postedCreditTransactionTotal = EntityUtil.getFirst(postedCreditTransactionTotals);
+    postedCreditTransactionTotal = postedCreditTransactionTotals.first();
     if (postedCreditTransactionTotal && postedCreditTransactionTotal.amount) {
         postedTotalCredit = postedCreditTransactionTotal.amount;
     }
@@ -173,7 +173,7 @@ if (unpostedTransactionTotals) {
                         timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId));
                         timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, unpostedTransactionTotal.glAccountId));
                         timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
-                        lastTimePeriodHistory = EntityUtil.getFirst(delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false));
+                        lastTimePeriodHistory = delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false).first();
                         if (lastTimePeriodHistory) {
                             accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "openingD", lastTimePeriodHistory.getBigDecimal("postedDebits"), "openingC", lastTimePeriodHistory.getBigDecimal("postedCredits"), "D", BigDecimal.ZERO, "C", BigDecimal.ZERO);
                         }
@@ -218,7 +218,7 @@ andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LES
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
 List unpostedDebitTransactionTotals = delegator.findList("AcctgTransEntrySums", andCond, UtilMisc.toSet("amount"), null, null, false);
 if (unpostedDebitTransactionTotals) {
-    unpostedDebitTransactionTotal = EntityUtil.getFirst(unpostedDebitTransactionTotals);
+    unpostedDebitTransactionTotal = unpostedDebitTransactionTotals.first();
     if (unpostedDebitTransactionTotal && unpostedDebitTransactionTotal.amount) {
         unpostedTotalDebit = unpostedDebitTransactionTotal.amount;
     }
@@ -234,7 +234,7 @@ andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LES
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
 List unpostedCreditTransactionTotals = delegator.findList("AcctgTransEntrySums", andCond, UtilMisc.toSet("amount"), null, null, false);
 if (unpostedCreditTransactionTotals) {
-    unpostedCreditTransactionTotal = EntityUtil.getFirst(unpostedCreditTransactionTotals);
+    unpostedCreditTransactionTotal = unpostedCreditTransactionTotals.first();
     if (unpostedCreditTransactionTotal && unpostedCreditTransactionTotal.amount) {
         unpostedTotalCredit = unpostedCreditTransactionTotal.amount;
     }
@@ -269,7 +269,7 @@ if (allTransactionTotals) {
                         timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId));
                         timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, allTransactionTotal.glAccountId));
                         timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
-                        lastTimePeriodHistory = EntityUtil.getFirst(delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false));
+                        lastTimePeriodHistory = delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false).first();
                         if (lastTimePeriodHistory) {
                             accountMap = UtilMisc.toMap("glAccountId", lastTimePeriodHistory.glAccountId, "accountCode", lastTimePeriodHistory.accountCode, "accountName", lastTimePeriodHistory.accountName, "balance", lastTimePeriodHistory.getBigDecimal("endingBalance"), "openingD", lastTimePeriodHistory.getBigDecimal("postedDebits"), "openingC", lastTimePeriodHistory.getBigDecimal("postedCredits"), "D", BigDecimal.ZERO, "C", BigDecimal.ZERO);
                         }
@@ -313,7 +313,7 @@ andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LES
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
 List allDebitTransactionTotals = delegator.findList("AcctgTransEntrySums", andCond, UtilMisc.toSet("amount"), null, null, false);
 if (allDebitTransactionTotals) {
-    allDebitTransactionTotal = EntityUtil.getFirst(allDebitTransactionTotals);
+    allDebitTransactionTotal = allDebitTransactionTotals.first();
     if (allDebitTransactionTotal && allDebitTransactionTotal.amount) {
         allTotalDebit = allDebitTransactionTotal.amount;
     }
@@ -328,7 +328,7 @@ andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LES
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
 List allCreditTransactionTotals = delegator.findList("AcctgTransEntrySums", andCond, UtilMisc.toSet("amount"), null, null, false);
 if (allCreditTransactionTotals) {
-    allCreditTransactionTotal = EntityUtil.getFirst(allCreditTransactionTotals);
+    allCreditTransactionTotal = allCreditTransactionTotals.first();
     if (allCreditTransactionTotal && allCreditTransactionTotal.amount) {
         allTotalCredit = allCreditTransactionTotal.amount;
     }

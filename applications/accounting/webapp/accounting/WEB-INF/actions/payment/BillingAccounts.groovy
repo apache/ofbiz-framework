@@ -25,7 +25,7 @@ currencyUomId = null;
 billingAccounts = [];
 if (partyId) {
     billingAccountAndRoles = delegator.findByAnd("BillingAccountAndRole", [partyId : partyId]);
-    if (billingAccountAndRoles) currencyUomId = EntityUtil.getFirst(billingAccountAndRoles).accountCurrencyUomId;
+    if (billingAccountAndRoles) currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId;
     if (currencyUomId) billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher);
 }
 context.billingAccounts = billingAccounts;
