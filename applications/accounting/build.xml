@@ -63,4 +63,9 @@ under the License.
             <exclude name="org/ofbiz/accounting/thirdparty/orbital/**"/>
         </patternset>
     </target>
+
+    <target name="jar" depends="classes">
+        <main-jar/>
+        <test-jar/>
+    </target>
 </project>

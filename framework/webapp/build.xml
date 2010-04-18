@@ -59,4 +59,9 @@ under the License.
         <exclude name="org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java"/>
         <exclude name="org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java"/>
     </patternset>
+
+    <target name="jar" depends="classes">
+        <main-jar/>
+        <test-jar/>
+    </target>
 </project>

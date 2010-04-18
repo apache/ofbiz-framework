@@ -54,4 +54,14 @@ under the License.
             <exclude name="org/ofbiz/securityext/thirdparty/truition/**"/>
         </patternset>
     </target>
+
+    <target name="jar" depends="classes">
+        <main-jar/>
+        <test-jar>
+            <test-selector>
+                <filename name="META-INF/services"/>
+                <filename name="META-INF/services/*"/>
+            </test-selector>
+        </test-jar>
+    </target>
 </project>
