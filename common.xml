@@ -61,16 +61,18 @@ under the License.
         <available file="${src.dir}"/>
         <commands>
             <fileset id="_src-extra-set" dir="${src.dir}">
-                <include name="**/*.properties"/>
-                <include name="**/*.groovy"/>
-                <include name="**/*.xml"/>
-                <include name="**/*.bsh"/>
-                <include name="**/*.logic"/>
-                <include name="**/*.js"/>
-                <include name="**/*.js"/>
-                <include name="**/*.jacl"/>
-                <include name="**/*.py"/>
-                <include name="META-INF/**"/>
+                <or id="src-extra-set">
+                    <filename name="**/*.properties"/>
+                    <filename name="**/*.groovy"/>
+                    <filename name="**/*.xml"/>
+                    <filename name="**/*.bsh"/>
+                    <filename name="**/*.logic"/>
+                    <filename name="**/*.js"/>
+                    <filename name="**/*.js"/>
+                    <filename name="**/*.jacl"/>
+                    <filename name="**/*.py"/>
+                    <filename name="META-INF/**"/>
+                </or>
             </fileset>
         </commands>
         <else>
