@@ -1013,7 +1013,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         // list out all options according to the option list
         for (ModelFormField.OptionValue optionValue: allOptionValues) {
 
-            writer.append("<div");
+            writer.append("<span");
 
             appendClassNames(writer, context, modelFormField);
 
@@ -1044,7 +1044,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("/>");
 
             writer.append(encode(optionValue.getDescription(), modelFormField, context));
-            writer.append("</div>");
+            writer.append("</span>");
         }
 
         this.appendTooltip(writer, context, modelFormField);
