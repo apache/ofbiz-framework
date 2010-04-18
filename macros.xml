@@ -86,14 +86,52 @@ under the License.
   <sequential>
    <jar jarfile="@{jarfile}">
     <fileset dir="${build.dir}/classes">
+     <exclude name="**/test"/>
+     <exclude name="**/test/*"/>
      <main-pattern/>
     </fileset>
     <fileset dir="${src.extra.dir}">
-     <selector refid="src-extra-set"/>
+     <and>
+      <not>
+       <or>
+        <filename name="**/test"/>
+        <filename name="**/test/*"/>
+       </or>
+      </not>
+      <selector refid="src-extra-set"/>
+     </and>
     </fileset>
     <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
     <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
     <main-elements/>
+   </jar>
+  </sequential>
+ </macrodef>
+
+ <macrodef name="test-jar">
+  <attribute name="jarfile" default="${build.dir}/lib/${name}-test.jar"/>
+  <element name="test-selector" optional="true"/>
+  <element name="test-elements" optional="true"/>
+  <sequential>
+   <jar jarfile="@{jarfile}">
+    <fileset dir="${build.dir}/classes">
+     <or>
+      <filename name="**/test"/>
+      <filename name="**/test/*"/>
+      <test-selector/>
+     </or>
+    </fileset>
+    <fileset dir="${src.dir}">
+     <and>
+      <filename name="**/test/*"/>
+      <or>
+       <test-selector/>
+       <selector refid="src-extra-set"/>
+      </or>
+     </and>
+    </fileset>
+    <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
+    <test-elements/>
    </jar>
   </sequential>
  </macrodef>

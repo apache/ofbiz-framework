@@ -51,6 +51,7 @@ under the License.
 
     <target name="main-jar" depends="stubs">
         <main-jar/>
+        <test-jar/>
     </target>
 
     <target name="rmi-jar" depends="stubs">

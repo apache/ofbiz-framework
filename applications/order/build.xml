@@ -61,4 +61,9 @@ under the License.
             <exclude name="org/ofbiz/order/thirdparty/taxware/**"/>
         </javac16>
     </target>
+
+    <target name="jar" depends="classes">
+        <main-jar/>
+        <test-jar/>
+    </target>
 </project>

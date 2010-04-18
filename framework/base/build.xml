@@ -93,7 +93,24 @@ under the License.
             <main-elements>
                 <!-- also put the DTDs in the jar file... -->
                 <fileset dir="${dtd.dir}" includes="*.dtd"/>
+                <service type="org.ofbiz.base.conversion.ConverterLoader">
+                    <provider classname="org.ofbiz.base.conversion.BooleanConverters"/>
+                    <provider classname="org.ofbiz.base.conversion.CollectionConverters"/>
+                    <provider classname="org.ofbiz.base.conversion.DateTimeConverters"/>
+                    <provider classname="org.ofbiz.base.conversion.JSONConverters"/>
+                    <provider classname="org.ofbiz.base.conversion.MiscConverters"/>
+                    <provider classname="org.ofbiz.base.conversion.NetConverters"/>
+                    <provider classname="org.ofbiz.base.conversion.NumberConverters"/>
+                </service>
             </main-elements>
         </main-jar>
+        <test-jar>
+            <test-elements>
+                <service type="org.ofbiz.base.util.test.UtilObjectTests$TestFactoryIntf">
+                    <provider classname="org.ofbiz.base.util.test.UtilObjectTests$FirstTestFactory"/>
+                    <provider classname="org.ofbiz.base.util.test.UtilObjectTests$SecondTestFactory"/>
+                </service>
+            </test-elements>
+        </test-jar>
     </target>
 </project>

@@ -64,4 +64,9 @@ under the License.
             <exclude name="${noapplet}"/>
         </patternset>
     </target>
+
+    <target name="jar" depends="classes">
+        <main-jar/>
+        <test-jar/>
+    </target>
 </project>
