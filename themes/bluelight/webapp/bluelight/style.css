@@ -1894,30 +1894,22 @@ background: url(/bluelight/images/resultset_last_disabled.png) no-repeat;
 padding: 0 30px 0 30px;
 }
 
-.view-calendar ul{
-height: 25px;
-}
-
-.view-calendar ul li{
-float: left;
-}
-
-.view-calendar ul li a{
+.view-calendar a {
 background: url(/images/cal.gif) no-repeat;
-display: block;
-margin: 3px 10px 0px 4px;
+display: inline-block;
+/* margin: 3px 10px 0px 4px; */
+vertical-align:top;
+margin-top:2px;
 width:22px;
 height:22px;
 }
 
-.field-lookup ul li {
-float: left;
-}
-
-.field-lookup ul li a{
+.field-lookup a {
 background: url(/bluelight/images/application_view_list.png) no-repeat 0 0;
-display: block;
-margin: 3px 10px 0px 4px;
+display: inline-block;
+/* margin: 3px 10px 0px 4px; */
+vertical-align:top;
+margin-top:3px;
 width:16px;
 height:16px;
 }

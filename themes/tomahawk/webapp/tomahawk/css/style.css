@@ -2044,30 +2044,22 @@ height:23px;
 padding: 0 30px 0 30px;
 }
 
-.view-calendar ul{
-height: 30px;
-}
-
-.view-calendar ul li{
-float: left;
-}
-
-.view-calendar ul li a{
+.view-calendar a {
 background: url(../images/cal.png) no-repeat !important;
-display: block;
-margin: 3px 10px 0px 4px;
+display: inline-block;
+/* margin: 3px 10px 0px 4px; */
+vertical-align:top;
+margin-top:3px;
 width:22px;
 height:22px;
 }
 
-.field-lookup ul li {
-float: left;
-}
-
-.field-lookup ul li a{
+.field-lookup a{
 background: url(../images/fieldlookup.png) no-repeat 0 0;
-display: block;
-margin: 3px 10px 0px 4px;
+display: inline-block;
+/* margin: 3px 10px 0px 4px; */
+vertical-align:top;
+margin-top:3px;
 width:35px;
 height:22px;
 }

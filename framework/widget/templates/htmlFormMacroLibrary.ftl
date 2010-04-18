@@ -82,17 +82,14 @@ under the License.
 </#macro>
 
 <#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName>
-  <div class="view-calendar">
-    <ul>
-      <li><input type="text" name="${name}" <@renderClass className alert /><#rt/>
+  <span class="view-calendar">
+      <input type="text" name="${name}" <@renderClass className alert /><#rt/>
         <#if title?has_content> title="${title}"</#if>
         <#if value?has_content> value="${value}"</#if>
         <#if size?has_content> size="${size}"</#if><#rt/>
         <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
         <#if id?has_content> id="${id}"</#if>/><#rt/>
-      </li>
       <#if dateType!="time" >
-        <li>
           <#if shortDateInput?exists && shortDateInput>
              <a href="javascript:call_cal_notime(document.<#rt/>
           <#else>
@@ -103,10 +100,8 @@ under the License.
           <#if defaultDateTimeString?has_content>,'${defaultDateTimeString}'</#if>);"<#lt/>
           title="<#if localizedIconTitle?has_content>${localizedIconTitle}</#if>"><#rt/>
           </a><#rt/>
-        </li>
       </#if>
       <#if timeDropdown?has_content && timeDropdown=="time-dropdown">
-        <li>
           <select name="${timeHourName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
           <#if isTwelveHour>
             <#assign x=11>
@@ -125,19 +120,17 @@ under the License.
               <option value="${i}"<#if minutes?has_content><#if i=minutes> selected="selected"</#if></#if>>${i}</option><#rt/>
             </#list>
           </select>
-        </li><#rt/>
+        <#rt/>
         <#if isTwelveHour>
-          <li>
             <select name="${ampmName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
               <option value="AM" <#if amSelected == "selected">selected="selected"</#if> >AM</option><#rt/>
               <option value="PM" <#if pmSelected == "selected">selected="selected"</#if>>PM</option><#rt/>
             </select>
-          </li><#rt/>
+          <#rt/>
         </#if>
       </#if>
-    </ul>
     <input type="hidden" name="${compositeType}" value="Timestamp"/>
-  </div>
+  </span>
 </#macro>
 
 <#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch>
@@ -184,11 +177,12 @@ if(disa && document.styleSheets)
 ${item.description?default("")}
 </#list>
 </#macro>
+
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action>
 <#list items as item>
-<div <@renderClass className alert />><#rt/>
+<span <@renderClass className alert />><#rt/>
 <input type="radio"<#if currentValue?has_content><#if currentValue==item.key> checked="checked"</#if><#elseif noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> checked="checked"</#if> name="${name?default("")?html}" value="${item.key?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
-${item.description}</div>
+${item.description}</span>
 </#list>
 </#macro>
 
@@ -355,10 +349,9 @@ ${item.description}</div>
 </#macro>
 
 <#macro renderDateFindField className alert name localizedInputTitle value size maxlength dateType formName defaultDateTimeString imgSrc localizedIconTitle titleStyle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty>
-<div class="view-calendar"><ul>
-<li><input type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/></li><#rt/>
+<span class="view-calendar">
+<input type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
 <#if dateType != "time">
-<li>
 <#if dateType == "date">
 <a href="javascript:call_cal_notime(document.<#rt/>
 <#else>
@@ -366,9 +359,7 @@ ${item.description}</div>
 </#if>
 <#if formName?has_content>${formName}.</#if><#if name?has_content>${name}_fld0_value,</#if>'<#if defaultDateTimeString?has_content>${defaultDateTimeString}</#if>');" title="${localizedIconTitle}"><#rt/>
 </a><#rt/>
-</li>
 </#if>
-<li>
 <#if titleStyle?has_content>
 <span class="${titleStyle}"><#rt/>
 </#if>
@@ -381,11 +372,9 @@ ${item.description}</div>
 <#if titleStyle?has_content>
  </span><#rt/>
 </#if>
-</li></ul>
-<ul><#rt/>
-<li><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle?exists> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/></li><#rt/>
+<#rt/>
+<input type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle?exists> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
 <#if dateType != "time">
-<li>
 <#if dateType == "date">
 <a href="javascript:call_cal_notime(document.<#rt/>
 <#else>
@@ -394,8 +383,6 @@ ${item.description}</div>
 <#if formName?has_content>${formName}.</#if><#if name?has_content>${name}_fld1_value,'</#if><#if defaultDateTimeString?has_content>${defaultDateTimeString}</#if>');" title="${localizedIconTitle}"><#rt/>
 </a><#rt/>
 </#if>
-</li>
-<li>
 <#if titleStyle?has_content>
  <span class="${titleStyle}"><#rt/>
 </#if>
@@ -408,7 +395,7 @@ ${item.description}</div>
 <#if titleStyle?has_content>
 </span>
 </#if>
-</li></ul></div>
+</span>
 </#macro>
 
 <#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals value2 defaultOptionThru>
@@ -439,9 +426,9 @@ ${item.description}</div>
 </#macro>
 
 <#macro renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName fieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText showDescription>
-<div class="field-lookup"><ul>
-<#if size?has_content && size=="0"><li><input type="hidden" <#if name?has_content> name="${name}"/></#if></li><#else><li><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/><#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></li></#if>
-<li><#if presentation?has_content && descriptionFieldName?has_content && presentation == "layer">
+<span class="field-lookup">
+<#if size?has_content && size=="0"><input type="hidden" <#if name?has_content> name="${name}"/></#if><#else><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/><#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></#if>
+<#if presentation?has_content && descriptionFieldName?has_content && presentation == "layer">
  <a href="javascript:call_fieldlookupLayer3(document.${formName?html}.${name?html}, document.${formName?html}.${descriptionFieldName},'${fieldFormName}','${width}','${height}','${position}', '${fadeBackground}'<#rt/>
 <#elseif presentation?has_content && presentation == "layer">
  <a href="javascript:call_fieldlookupLayer(document.${formName?html}.${name?html},'${fieldFormName}','${width}','${height}','${position}', '${fadeBackground}'<#rt/>
@@ -457,9 +444,9 @@ ${item.description}</div>
 </#if>
 );">
 <#if ajaxEnabled?has_content && ajaxEnabled><span id="${id}_indicator" style="display: none" class="indicator"><img src="" alt=""/></span></#if>
-</a></li><#rt>
-<#if disabled?has_content && disabled><li><a id="${id}_clear" style="background:none;margin-left:-6px;margin-right:15px;" class="clearField" href="javascript:void();" onclick="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></li></#if>
-</ul></div>
+</a><#rt>
+<#if disabled?has_content && disabled><a id="${id}_clear" style="background:none;margin-left:-6px;margin-right:15px;" class="clearField" href="javascript:void();" onclick="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></#if>
+</span>
 <#if ajaxEnabled?has_content && ajaxEnabled>
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', ${showDescription});</script><#t/>
 </#if>

@@ -486,35 +486,22 @@ form .basic-table,
 /***********************************************
 Calendar
 ***********************************************/
-.field-lookup ul {
-margin:0;
-}
-.field-lookup ul li {
-float: left;
-margin:0;
-}
-
-.field-lookup ul li a{
+.field-lookup a {
 background: url(/images/fieldlookup.gif) no-repeat 0 0;
-display: block;
-margin: 3px 10px 0px 4px;
+display: inline-block;
+/* margin: 3px 10px 0px 4px; */
+vertical-align:top;
+margin-top:6px;
 width:16px;
 height:16px;
 }
 
-.view-calendar ul{
-height: 22px;
-}
-
-.view-calendar ul li{
-float: left;
-margin: 0px;
-}
-
-.view-calendar ul li a{
+.view-calendar a {
 background: url(/images/cal.gif) no-repeat;
-display: block;
-margin: 3px 10px 0px 4px;
+display: inline-block;
+/* margin: 3px 10px 0px 4px; */
+vertical-align:top;
+margin-top:5px;
 width:16px;
 height:16px;
 }
