@@ -78,7 +78,7 @@ if (invoice) {
         taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct");
         if (taxRate && "VAT_TAX".equals(taxRate.taxAuthorityRateTypeId)) {
             taxInfos = EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", [partyId : billingParty.partyId, taxAuthGeoId : taxRate.taxAuthGeoId, taxAuthPartyId : taxRate.taxAuthPartyId]), invoice.invoiceDate);
-            taxInfo = taxInfos.first();
+            taxInfo = EntityUtil.getFirst(taxInfos);
             if (taxInfo) {
                 context.billingPartyTaxId = taxInfo.partyTaxId;
             }

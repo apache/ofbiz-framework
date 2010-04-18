@@ -27,7 +27,7 @@ if (billingAccountId) {
     if (orderList) {
         orderList.each { orderHeader ->
             orderId = orderHeader.orderId;
-            orderBillingAcc = delegator.findByAnd("OrderHeaderAndPaymentPref", [orderId : orderId]).first();
+            orderBillingAcc = EntityUtil.getFirst(delegator.findByAnd("OrderHeaderAndPaymentPref", [orderId : orderId]));
             orderBillingAccMap = FastMap.newInstance();
             if (orderBillingAcc.paymentMethodTypeId.equals("EXT_BILLACT") && orderBillingAcc.paymentStatusId.equals("PAYMENT_NOT_RECEIVED")) {
                 orderBillingAccMap.putAll(orderBillingAcc);
