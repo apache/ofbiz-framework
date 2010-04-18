@@ -79,6 +79,25 @@ under the License.
   </javadoc>
  </presetdef>
 
+ <macrodef name="main-jar">
+  <attribute name="jarfile" default="${build.dir}/lib/${name}.jar"/>
+  <element name="main-pattern" optional="true"/>
+  <element name="main-elements" optional="true"/>
+  <sequential>
+   <jar jarfile="@{jarfile}">
+    <fileset dir="${build.dir}/classes">
+     <main-pattern/>
+    </fileset>
+    <fileset dir="${src.extra.dir}">
+     <selector refid="src-extra-set"/>
+    </fileset>
+    <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
+    <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
+    <main-elements/>
+   </jar>
+  </sequential>
+ </macrodef>
+
  <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" classpathref="groovy.class.path"/>
 
  <presetdef name="default-groovyc">

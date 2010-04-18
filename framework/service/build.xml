@@ -50,15 +50,7 @@ under the License.
     </target>
 
     <target name="main-jar" depends="stubs">
-        <jar jarfile="${build.dir}/lib/${name}.jar">
-            <fileset dir="${build.dir}/classes"/>
-            <fileset dir="${src.dir}">
-                <include name="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
-                <include name="META-INF/**"/>
-            </fileset>
-            <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
-            <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
-        </jar>
+        <main-jar/>
     </target>
 
     <target name="rmi-jar" depends="stubs">

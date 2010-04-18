@@ -93,14 +93,7 @@ under the License.
     </target>
 
     <target name="jar" depends="classes">
-        <jar jarfile="${build.dir}/lib/${name}.jar">
-            <fileset dir="${build.dir}/classes"/>
-            <fileset dir="${src.extra.dir}">
-                <selector refid="src-extra-set"/>
-            </fileset>
-            <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
-            <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
-        </jar>
+        <main-jar/>
     </target>
 
     <!-- ================================================================== -->

@@ -38,15 +38,16 @@ under the License.
     </target>
 
     <target name="jar" depends="classes">
-        <jar jarfile="${build.dir}/lib/ofbiz.jar" manifest="${src.dir}/org/ofbiz/base/start/Start.mf">
-            <fileset dir="${build.dir}/classes"/>
-            <fileset dir="${src.dir}">
-                <include name="**/*.properties"/>
-                <include name="META-INF/**"/>
-            </fileset>
-            <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
-            <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
-        </jar>
+        <main-jar>
+            <main-elements>
+                <manifest>
+                    <attribute name="Manifest-Version" value="1.0"/>
+                    <attribute name="Implementation-Title" value="Apache OFBiz Startup"/>
+                    <attribute name="Implementation-Vendor" value="The Apache Open for Business Project"/>
+                    <attribute name="Main-Class" value="org.ofbiz.base.start.Start"/>
+                </manifest>
+            </main-elements>
+        </main-jar>
         <!-- copy the ofbiz.jar file -->
         <copy todir="${basedir}/../..">
             <fileset dir="${build.dir}/lib" includes="ofbiz.jar"/>
