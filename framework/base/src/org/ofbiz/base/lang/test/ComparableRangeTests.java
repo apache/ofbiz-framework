@@ -76,6 +76,7 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         assertEquals(label + ":a-b equals b-a", first, new ComparableRange<T>(b, a));
         assertEquals(label + ":a-b.compareTo(new b-a)", 0, first.compareTo(new ComparableRange<T>(b, a)));
         assertNotEquals(label + ":a-b not-equal other", first, ComparableRangeTests.class);
+        assertFalse(label + ":a-d equals null", all.equals(null));
         ClassCastException caught = null;
         try {
             ((Comparable) first).compareTo(ComparableRangeTests.class);
