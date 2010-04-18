@@ -20,6 +20,11 @@ under the License.
 <h1>${title}</h1>
 <#if temporalExpression?has_content>
   <#-- Edit existing expression -->
+  <#if !"INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
+    <form name="updateExpression" method="post" action="<@ofbizUrl>updateTemporalExpression</@ofbizUrl>">
+      <input type="hidden" name="tempExprId" value="${temporalExpression.tempExprId}"/>
+      <input type="hidden" name="tempExprTypeId" value="${temporalExpression.tempExprTypeId}"/>
+  </#if>
   <table class="basic-table" cellspacing="0">
     <tr>
       <td class="label">${uiLabelMap.TemporalExpressionId}</td>
@@ -29,11 +34,6 @@ under the License.
       <td class="label">${uiLabelMap.TemporalExpressionType}</td>
       <td>${uiLabelMap.get("TemporalExpression_" + temporalExpression.tempExprTypeId)}</td>
     </tr>
-    <#if !"INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
-      <form name="updateExpression" method="post" action="<@ofbizUrl>updateTemporalExpression</@ofbizUrl>">
-        <input type="hidden" name="tempExprId" value="${temporalExpression.tempExprId}"/>
-        <input type="hidden" name="tempExprTypeId" value="${temporalExpression.tempExprTypeId}"/>
-    </#if>
     <#if temporalExpression.tempExprTypeId == "DATE_RANGE">
       <@DateRange formName="updateExpression" fromDate=temporalExpression.date1 toDate=temporalExpression.date2/>
     <#elseif temporalExpression.tempExprTypeId == "DAY_IN_MONTH">
@@ -99,9 +99,11 @@ under the License.
           <td>&nbsp;</td>
           <td><input type="submit" name="submitBtn" value="${uiLabelMap.CommonSave}"/></td>
         </tr>
+      </table>
       </form>
+    <#else>
+      </table>    
     </#if>
-  </table>
 <#else>
   <#-- Create new expression -->
   <@CreateForm "DATE_RANGE" CreateDateRange/>

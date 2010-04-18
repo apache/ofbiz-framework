@@ -26,7 +26,7 @@ ${StringUtil.wrapString(topLine.textBegin?if_exists)}
       <input type="hidden" name="${field.name}" value="${field.value}"/>
     </#list>
   </#if>
-  <select name="${topLine.selectionName?if_exists}" onChange="javascript:document.${topLine.action}.submit();">
+  <select name="${topLine.selectionName?if_exists}" onchange="javascript:document.${topLine.action}.submit();">
     <#list topLine.dropDownList as option>
       <option <#if option.key == topLine.selectedKey >selected="selected"</#if> value="${option.key?if_exists}">${option.value?if_exists}</option>
     </#list>
