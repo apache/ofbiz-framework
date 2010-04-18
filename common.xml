@@ -60,8 +60,8 @@ under the License.
     <if>
         <available file="${src.dir}"/>
         <commands>
-            <fileset id="src-extra-files" dir="${src.dir}">
-                <or id="src-extra-set">
+            <selector id="src-extra-set">
+                <or>
                     <filename name="**/*.properties"/>
                     <filename name="**/*.groovy"/>
                     <filename name="**/*.xml"/>
@@ -73,10 +73,14 @@ under the License.
                     <filename name="**/*.py"/>
                     <filename name="META-INF/**"/>
                 </or>
-            </fileset>
+            </selector>
+            <property name="src.extra.dir" value="${src.dir}"/>
         </commands>
         <else>
-            <fileset id="src-extra-files" dir="." excludes="**"/>
+            <selector id="src-extra-set">
+                <filename name="**" negate="true"/>
+            </selector>
+            <property name="src.extra.dir" value="."/>
         </else>
     </if>
 
@@ -91,7 +95,9 @@ under the License.
     <target name="jar" depends="classes">
         <jar jarfile="${build.dir}/lib/${name}.jar">
             <fileset dir="${build.dir}/classes"/>
-            <fileset refid="src-extra-files"/>
+            <fileset dir="${src.extra.dir}">
+                <selector refid="src-extra-set"/>
+            </fileset>
             <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
             <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
         </jar>
