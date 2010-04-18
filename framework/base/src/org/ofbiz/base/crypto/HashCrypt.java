@@ -48,7 +48,10 @@ public class HashCrypt {
             byte[] digestBytes = messagedigest.digest();
             char[] digestChars = Hex.encodeHex(digestBytes);
 
-            return "{" + hashType + "}" + new String(digestChars, 0, digestChars.length);
+            StringBuilder sb = new StringBuilder();
+            sb.append("{").append(hashType).append("}");
+            sb.append(digestChars, 0, digestChars.length);
+            return sb.toString();
         } catch (Exception e) {
             throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
         }
@@ -66,7 +69,10 @@ public class HashCrypt {
             messagedigest.update(codeBytes);
             byte digestBytes[] = messagedigest.digest();
             char[] digestChars = Hex.encodeHex(digestBytes);;
-            return "{" + hashType + "}" + new String(digestChars, 0, digestChars.length);
+            StringBuilder sb = new StringBuilder();
+            sb.append("{").append(hashType).append("}");
+            sb.append(digestChars, 0, digestChars.length);
+            return sb.toString();
         } catch (Exception e) {
             throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
         }
