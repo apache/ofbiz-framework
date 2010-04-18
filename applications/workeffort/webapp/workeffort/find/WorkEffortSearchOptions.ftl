@@ -159,8 +159,8 @@ under the License.
             </div>
           </td>
         </tr>
-        <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.advToKeyWordSearchForm.submit();"/>
       </table>
+        <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.advToKeyWordSearchForm.submit();"/>
     </form>
   </div>
 </div>
