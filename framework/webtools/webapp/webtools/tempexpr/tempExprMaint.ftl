@@ -34,6 +34,17 @@ under the License.
       <td class="label">${uiLabelMap.TemporalExpressionType}</td>
       <td>${uiLabelMap.get("TemporalExpression_" + temporalExpression.tempExprTypeId)}</td>
     </tr>
+  <#if !"INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
+    <tr>
+      <td class="label">${uiLabelMap.CommonDescription}</td>
+      <td><input type="text" name="description" value="${temporalExpression.description?if_exists}" maxlength="60" size="20"/></td>
+    </tr>
+  <#else>
+    <tr>
+      <td class="label">${uiLabelMap.CommonDescription}</td>
+      <td>${temporalExpression.get("description",locale)?if_exists}</td>
+    </tr>
+  </#if>
     <#if temporalExpression.tempExprTypeId == "DATE_RANGE">
       <@DateRange formName="updateExpression" fromDate=temporalExpression.date1 toDate=temporalExpression.date2/>
     <#elseif temporalExpression.tempExprTypeId == "DAY_IN_MONTH">
@@ -143,6 +154,10 @@ under the License.
       <tr>
         <td class="label">${uiLabelMap.TemporalExpressionId}</td>
         <td><input name="tempExprId" type="text" maxlength="20" size="20"/><span class="tooltip">${uiLabelMap.CommonAutoAssignedId}</span></td>
+      </tr>
+      <tr>
+        <td class="label">${uiLabelMap.CommonDescription}</td>
+        <td><input name="description" type="text" maxlength="60" size="20"/></td>
       </tr>
       <@formContents/>
       <tr>

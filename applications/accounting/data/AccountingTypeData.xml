@@ -190,7 +190,7 @@ under the License.
 
     <!-- The following three elements set up a regularly scheduled job that will automatically create
         fixed asset maintenances from ProductMaint time intervals. -->
-    <TemporalExpression tempExprId="FAM_AUTO_CREATE" tempExprTypeId="FREQUENCY" integer1="12" integer2="60"/>
+    <TemporalExpression tempExprId="FAM_AUTO_CREATE" tempExprTypeId="FREQUENCY" description="Every Hour" integer1="12" integer2="60"/>
     <JobSandbox jobId="FAM_AUTO_CREATE" jobName="Auto-create Fixed Asset Maintenances" runTime="2000-01-01 00:00:00.000" serviceName="createMaintsFromTimeInterval" poolId="pool" runAsUser="system" tempExprId="FAM_AUTO_CREATE" maxRecurrenceCount="-1"/>
 
     <!-- Fixed Asset Maintenance party roles -->
