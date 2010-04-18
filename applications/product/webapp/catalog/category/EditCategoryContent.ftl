@@ -30,7 +30,7 @@ under the License.
                         <select name="productCategoryTypeId" size="1">
                         <option value="">&nbsp;</option>
                         <#list productCategoryTypes as productCategoryTypeData>
-                            <option <#if productCategory?has_content><#if productCategory.productCategoryTypeId==productCategoryTypeData.productCategoryTypeId> selected</#if></#if> value="${productCategoryTypeData.productCategoryTypeId}">${productCategoryTypeData.get("description",locale)}</option>
+                            <option <#if productCategory?has_content><#if productCategory.productCategoryTypeId==productCategoryTypeData.productCategoryTypeId> selected="selected"</#if></#if> value="${productCategoryTypeData.productCategoryTypeId}">${productCategoryTypeData.get("description",locale)}</option>
                         </#list>
                         </select>
                     </td>

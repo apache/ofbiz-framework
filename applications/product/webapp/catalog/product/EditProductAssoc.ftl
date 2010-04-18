@@ -23,12 +23,12 @@ under the License.
     <div class="screenlet-body">
         <form action="<@ofbizUrl>UpdateProductAssoc</@ofbizUrl>" method="post" style="margin: 0;" name="editProductAssocForm">
         <input type="hidden" name="productId" value="${productId?if_exists}" />
-        <table cellspacing="0" class="basic-table">
 
         <#if !(productAssoc?exists)>
             <#if productId?exists && productIdTo?exists && productAssocTypeId?exists && fromDate?exists>
                 <div><b><#assign uiLabelWithVar=uiLabelMap.ProductAssociationNotFound?interpret><@uiLabelWithVar/></b></div>
                 <input type="hidden" name="UPDATE_MODE" value="CREATE" />
+                <table cellspacing="0" class="basic-table">
                 <tr>
                 <td align="right" class="label">${uiLabelMap.ProductProductId}</td>
                 <td>&nbsp;</td>
@@ -47,7 +47,7 @@ under the License.
                     <#if productAssocTypeId?has_content>
                         <#assign curAssocType = delegator.findByPrimaryKey("ProductAssocType", Static["org.ofbiz.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId))>
                         <#if curAssocType?exists>
-                            <option selected value="${(curAssocType.productAssocTypeId)?if_exists}">${(curAssocType.get("description",locale))?if_exists}</option>
+                            <option selected="selected" value="${(curAssocType.productAssocTypeId)?if_exists}">${(curAssocType.get("description",locale))?if_exists}</option>
                             <option value="${(curAssocType.productAssocTypeId)?if_exists}"></option>
                         </#if>
                     </#if>
@@ -63,13 +63,14 @@ under the License.
                 <td>
                     <div>
                         <input type="text" name="FROM_DATE" size="25" maxlength="40" value="${fromDate?if_exists}" />
-                        <a href="javascript:call_cal(document.editProductAssocForm.FROM_DATE, '${fromDate?default(nowTimestampString)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                        <a href="javascript:call_cal(document.editProductAssocForm.FROM_DATE, '${fromDate?default(nowTimestampString)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                         ${uiLabelMap.CommonSetNowEmpty}
                     </div>
                 </td>
                 </tr>
             <#else>
                 <input type="hidden" name="UPDATE_MODE" value="CREATE" />
+                <table cellspacing="0" class="basic-table">
                 <tr>
                 <td align="right" class="label">${uiLabelMap.ProductProductId}</td>
                 <td>&nbsp;</td>
@@ -87,7 +88,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td>
                     <select name="PRODUCT_ASSOC_TYPE_ID" size="1">
-                    <-- <option value="">&nbsp;</option> -->
+                    <!-- <option value="">&nbsp;</option> -->
                     <#list assocTypes as assocType>
                         <option value="${(assocType.productAssocTypeId)?if_exists}">${(assocType.get("description",locale))?if_exists}</option>
                     </#list>
@@ -100,7 +101,7 @@ under the License.
                 <td>
                     <div>
                         <input type="text" name="FROM_DATE" size="25" maxlength="40" value="" />
-                        <a href="javascript:call_cal(document.editProductAssocForm.FROM_DATE, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                        <a href="javascript:call_cal(document.editProductAssocForm.FROM_DATE, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                         ${uiLabelMap.CommonSetNowEmpty}
                     </div>
                 </td>
@@ -114,6 +115,7 @@ under the License.
             <input type="hidden" name="PRODUCT_ID_TO" value="${productIdTo?if_exists}" />
             <input type="hidden" name="PRODUCT_ASSOC_TYPE_ID" value="${productAssocTypeId?if_exists}" />
             <input type="hidden" name="FROM_DATE" value="${fromDate?if_exists}" />
+            <table cellspacing="0" class="basic-table">
             <tr>
                 <td align="right" class="label">${uiLabelMap.ProductProductId}</td>
                 <td>&nbsp;</td>
@@ -141,7 +143,7 @@ under the License.
             <td width="74%">
             <div>
                 <input type="text" name="THRU_DATE" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("THRU_DATE"))?if_exists}"</#if> size="30" maxlength="30" />
-                <a href="javascript:call_cal(document.editProductAssocForm.THRU_DATE, <#if useValues>'${productAssoc.thruDate?if_exists}'<#elseif (request.getParameter("THRU_DATE"))?exists>'${request.getParameter("THRU_DATE")}'<#else>'${nowTimestampString}'</#if>);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                <a href="javascript:call_cal(document.editProductAssocForm.THRU_DATE, <#if useValues>'${productAssoc.thruDate?if_exists}'<#elseif (request.getParameter("THRU_DATE"))?exists>'${request.getParameter("THRU_DATE")}'<#else>'${nowTimestampString}'</#if>);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
             </div>
             </td>
         </tr>

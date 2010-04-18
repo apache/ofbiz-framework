@@ -150,7 +150,7 @@ under the License.
                                             <input type="hidden" name="productPromoRuleId" value="${productPromoCond.productPromoRuleId}" />
                                             <input type="hidden" name="productPromoActionSeqId" value="_NA_" />
                                             <input type="hidden" name="productPromoCondSeqId" value="${productPromoCond.productPromoCondSeqId}" />
-                                            <@htmlTemplate.lookupField formName="createProductPromoCategoryConditions" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
+                                            <@htmlTemplate.lookupField formName="createProductPromoCategoryConditions" name="productCategoryId" id="productCategoryId_cond" fieldFormName="LookupProductCategory"/>
                                             <select name="productPromoApplEnumId">
                                                 <#list productPromoApplEnums as productPromoApplEnum>
                                                     <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
@@ -311,7 +311,7 @@ under the License.
                                             <input type="hidden" name="productPromoRuleId" value="${productPromoAction.productPromoRuleId}" />
                                             <input type="hidden" name="productPromoActionSeqId" value="${productPromoAction.productPromoActionSeqId}" />
                                             <input type="hidden" name="productPromoCondSeqId" value="_NA_" />
-                                            <@htmlTemplate.lookupField formName="createProductPromoCategoryActions" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
+                                            <@htmlTemplate.lookupField formName="createProductPromoCategoryActions" name="productCategoryId" id="productCategoryId_act" fieldFormName="LookupProductCategory"/>
                                             <select name="productPromoApplEnumId">
                                                 <#list productPromoApplEnums as productPromoApplEnum>
                                                     <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
@@ -459,7 +459,7 @@ under the License.
                     <input type="hidden" name="productPromoRuleId" value="_NA_" />
                     <input type="hidden" name="productPromoActionSeqId" value="_NA_" />
                     <input type="hidden" name="productPromoCondSeqId" value="_NA_" />
-                    <@htmlTemplate.lookupField formName="createProductPromoCategoryPromotions" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
+                    <@htmlTemplate.lookupField formName="createProductPromoCategoryPromotions" name="productCategoryId" id="productCategoryId_03" fieldFormName="LookupProductCategory"/>
                     <select name="productPromoApplEnumId">
                         <#list productPromoApplEnums as productPromoApplEnum>
                             <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>

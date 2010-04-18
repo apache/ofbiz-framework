@@ -90,7 +90,7 @@ under the License.
         <field name="lotId" title="${uiLabelMap.ProductLotId}"><text/></field>
         <!-- the content of the softIdentifier field is converted from hex to int if it starts with "0x";
              this is a nice example of using JavaScript in a form widget definition -->
-        <field name="submitButton" title="${uiLabelMap.CommonFind}" event="onClick" action="javascript:var field=document.SearchInventoryItemsParams.softIdentifier;var tmp=field.value;if (tmp.substring(0, 2) == '0x') {tmp=parseInt(tmp, 16)};if (!isNaN(tmp)) {field.value=tmp};return true;">
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" event="onclick" action="javascript:var field=document.SearchInventoryItemsParams.softIdentifier;var tmp=field.value;if (tmp.substring(0, 2) == '0x') {tmp=parseInt(tmp, 16)};if (!isNaN(tmp)) {field.value=tmp};return true;">
             <submit button-type="button"/>
         </field>
     </form>
@@ -212,7 +212,7 @@ under the License.
                 <option key="BY_DATE" description="${uiLabelMap.ProductByDate}"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}" event="onClick" action="javascript:var field=document.SearchInventoryItemsParams.softIdentifier;var tmp=field.value;if (tmp.substring(0, 2) == '0x') {tmp=parseInt(tmp, 16)};if (!isNaN(tmp)) {field.value=tmp};return true;">
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" event="onclick" action="javascript:var field=document.SearchInventoryItemsParams.softIdentifier;var tmp=field.value;if (tmp.substring(0, 2) == '0x') {tmp=parseInt(tmp, 16)};if (!isNaN(tmp)) {field.value=tmp};return true;">
             <submit button-type="button"/>
         </field>
     </form>
@@ -590,8 +590,8 @@ under the License.
                 <entity-options entity-name="VarianceReason" description="${description}"/>
             </drop-down>
         </field>
-        <field name="availableToPromiseVar" title="${uiLabelMap.ProductProductATPVar}" event="onChange" action="document.ListPhysicalInventory._rowSubmit_o_${itemIndex}.checked = true"><text size="6"/></field>
-        <field name="quantityOnHandVar" title="${uiLabelMap.ProductProductQOHVar}" event="onChange" action="document.ListPhysicalInventory._rowSubmit_o_${itemIndex}.checked = true"><text size="6"/></field>
+        <field name="availableToPromiseVar" title="${uiLabelMap.ProductProductATPVar}" event="onchange" action="document.ListPhysicalInventory._rowSubmit_o_${itemIndex}.checked = true"><text size="6"/></field>
+        <field name="quantityOnHandVar" title="${uiLabelMap.ProductProductQOHVar}" event="onchange" action="document.ListPhysicalInventory._rowSubmit_o_${itemIndex}.checked = true"><text size="6"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit/>

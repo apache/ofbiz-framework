@@ -51,7 +51,7 @@ under the License.
                     <input type="hidden" name="roleTypeId" value="${(productCategoryRole.roleTypeId)?if_exists}" />
                     <input type="hidden" name="fromDate" value="${(productCategoryRole.getTimestamp("fromDate"))?if_exists}" />
                     <input type="text" size="25" name="thruDate" value="${(productCategoryRole. getTimestamp("thruDate"))?if_exists}" <#if hasExpired> style="color: red;"</#if> />
-                    <a href="javascript:call_cal(document.lineForm_update${line}.thruDate, '${(productCategoryRole.getTimestamp("thruDate"))?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                    <a href="javascript:call_cal(document.lineForm_update${line}.thruDate, '${(productCategoryRole.getTimestamp("thruDate"))?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                     <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;" />
                 </form>
             </td>
@@ -89,11 +89,11 @@ under the License.
                             <input type="text" size="20" maxlength="20" name="partyId" value="" />
                             <select name="roleTypeId" size="1">
                             <#list roleTypes as roleType>
-                                <option value="${(roleType.roleTypeId)?if_exists}" <#if roleType.roleTypeId.equals("_NA_")> ${uiLabelMap.ProductSelected}</#if>>${(roleType.get("description",locale))?if_exists}</option>
+                                <option value="${(roleType.roleTypeId)?if_exists}" <#if roleType.roleTypeId.equals("_NA_")> selected="selected"</#if>>${(roleType.get("description",locale))?if_exists}</option>
                             </#list>
                             </select>
                             <input type="text" size="25" name="fromDate" />
-                            <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                            <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                             <input type="submit" value="${uiLabelMap.CommonAdd}" />
                         </form>
                     </td>

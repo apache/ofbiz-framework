@@ -34,7 +34,7 @@ under the License.
 -->
 
 
-<script>
+<script type="text/javascript">
 <!--
   function markAsAccepted() {
     document.Labels.action = "<@ofbizUrl>BatchUpdateShipmentRouteSegments?facilityId=${parameters.facilityId}</@ofbizUrl>";
@@ -43,4 +43,4 @@ under the License.
 //-->
 </script>
 
-<input type="submit" class="smallSubmit" value="${uiLabelMap.ProductMarkAsAccepted}" onClick="javascript:markAsAccepted()"/>
+<input type="submit" class="smallSubmit" value="${uiLabelMap.ProductMarkAsAccepted}" onclick="javascript:markAsAccepted()"/>

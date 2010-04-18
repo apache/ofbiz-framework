@@ -50,7 +50,7 @@ under the License.
                             <input type="hidden" name="parentProductCategoryId${suffix}" value="${productCategoryRollup.parentProductCategoryId}" />
                             <input type="hidden" name="fromDate${suffix}" value="${productCategoryRollup.fromDate}" />
                             <input type="text" size="25" name="thruDate${suffix}" value="${productCategoryRollup.thruDate?if_exists}" <#if hasExpired>style="color: red"</#if> />
-                            <a href="javascript:call_cal(document.updateProductCategoryForm.thruDate${suffix}, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                            <a href="javascript:call_cal(document.updateProductCategoryForm.thruDate${suffix}, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                             <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}" />
                         </td>
                         <td>
@@ -100,7 +100,7 @@ under the License.
                     <input type="hidden" name="showProductCategoryId" value="${productCategoryId}" />
                     <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="addParentForm" name="parentProductCategoryId" id="parentProductCategoryId" fieldFormName="LookupProductCategory"/>
                     <input type="text" size="25" name="fromDate" />
-                    <a href="javascript:call_cal(document.addParentForm.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                    <a href="javascript:call_cal(document.addParentForm.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                     <input type="submit" value="${uiLabelMap.CommonAdd}" />
                 </form>
             </td></tr>
@@ -140,7 +140,7 @@ under the License.
                                 <input type="hidden" name="parentProductCategoryId${suffix}" value="${productCategoryRollup.parentProductCategoryId}" />
                                 <input type="hidden" name="fromDate${suffix}" value="${productCategoryRollup.fromDate}" />
                                 <input type="text" size="25" name="thruDate${suffix}" value="${productCategoryRollup.thruDate?if_exists}" <#if hasExpired>style="color: red;"</#if> />
-                                <a href="javascript:call_cal(document.updateProductCategoryToCategoryChild.thruDate${suffix}, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                                <a href="javascript:call_cal(document.updateProductCategoryToCategoryChild.thruDate${suffix}, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                                 <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}" />
                             </td>
                             <td>
@@ -190,7 +190,7 @@ under the License.
                     <input type="hidden" name="parentProductCategoryId" value="${productCategoryId}" />
                     <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="addChildForm" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
                     <input type="text" size="25" name="fromDate" />
-                    <a href="javascript:call_cal(document.addChildForm.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+                    <a href="javascript:call_cal(document.addChildForm.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
                     <input type="submit" value="${uiLabelMap.CommonAdd}" />
                 </form>
             </td></tr>
