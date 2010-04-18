@@ -89,16 +89,11 @@ under the License.
     </target>
 
     <target name="jar" depends="classes">
-        <jar jarfile="${build.dir}/lib/${name}.jar">
-            <fileset dir="${build.dir}/classes"/>
-            <fileset dir="${src.dir}">
-                <include name="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
-                <include name="META-INF/**"/>
-            </fileset>
-            <!-- also put the DTDs in the jar file... -->
-            <fileset dir="${dtd.dir}" includes="*.dtd"/>
-            <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
-            <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
-        </jar>
+        <main-jar>
+            <main-elements>
+                <!-- also put the DTDs in the jar file... -->
+                <fileset dir="${dtd.dir}" includes="*.dtd"/>
+            </main-elements>
+        </main-jar>
     </target>
 </project>
