@@ -27,6 +27,7 @@ under the License.
             <set field="expressionTypeList" value="${bsh:org.ofbiz.service.calendar.ExpressionUiHelper.getExpressionTypeList(uiLabelMap);}" type="List"/>
         </actions>
         <field name="tempExprId" title="${uiLabelMap.TemporalExpressionId}"><text-find/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
 <!--        <field name="tempExprTypeId" title="${uiLabelMap.TemporalExpressionType}">
             <drop-down allow-empty="true">
                 <list-options list-name="expressionTypeList" key-name="value" description="description"/>
@@ -44,6 +45,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="tempExprTypeId" title="${uiLabelMap.TemporalExpressionType}"><display/></field>
+        <field name="description"><display/></field>
         <field name="date1"><display/></field>
         <field name="date2"><display/></field>
         <field name="integer1"><display/></field>

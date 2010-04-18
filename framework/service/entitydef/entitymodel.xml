@@ -142,6 +142,7 @@ under the License.
             title="Temporal Expression">
       <field name="tempExprId" type="id-ne"></field>
       <field name="tempExprTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
       <field name="date1" type="date-time"></field>
       <field name="date2" type="date-time"></field>
       <field name="integer1" type="numeric"></field>

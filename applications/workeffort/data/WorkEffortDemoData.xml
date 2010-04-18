@@ -19,7 +19,7 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- Recurring calendar event demo - set up a staff meeting on the first Monday of each month -->
-    <TemporalExpression tempExprId="STAFF_MTG" tempExprTypeId="INTERSECTION"/>
+    <TemporalExpression tempExprId="STAFF_MTG" tempExprTypeId="INTERSECTION" description="First Monday of Each Month"/>
     <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="1ST_MONDAY_IN_MONTH"/>
     <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="MINUTE_00"/>
     <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="HOUR_10"/>
