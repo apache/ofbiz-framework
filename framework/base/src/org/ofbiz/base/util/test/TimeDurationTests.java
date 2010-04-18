@@ -142,6 +142,7 @@ public class TimeDurationTests extends GenericTestCaseBase {
     public void testDuration() throws Exception {
         Calendar now = Calendar.getInstance();
         TimeDuration zeroDuration = TimeDuration.ZeroTimeDuration;
+        assertFalse("zero equals null", zeroDuration.equals(null));
         Calendar newTime = (Calendar) now.clone();
         zeroDuration.addToCalendar(newTime);
         assertEquals("zero same calendar", now, newTime);
