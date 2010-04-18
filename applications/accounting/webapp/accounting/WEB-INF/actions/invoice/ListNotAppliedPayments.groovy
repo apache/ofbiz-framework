@@ -25,6 +25,7 @@ import org.ofbiz.accounting.invoice.*;
 import org.ofbiz.accounting.payment.*;
 import org.ofbiz.accounting.util.UtilAccounting;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionBuilder;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -36,20 +37,20 @@ invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
-exprList = [EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, invoice.partyIdFrom),
-            EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, invoice.partyId)];
-partyCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
+exprBldr = new EntityConditionBuilder();
+preCurrencyCond = exprBldr.AND() {
+    EQUALS(partyIdTo: invoice.partyIdFrom)
+    EQUALS(partyIdFrom: invoice.partyIdTo)
+    IN(statusId: ["PMNT_NOT_PAID", "PMNT_RECEIVED", "PMNT_SENT"])
+}
 
-exprList1 = [EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_NOT_PAID"),
-                  EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
-                  EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")];
-statusCond = EntityCondition.makeCondition(exprList1, EntityOperator.OR);
+topCond = exprBldr.AND(preCurrencyCond) {
+    EQUALS(currencyUomId: invoice.currencyUomId)
+}
 
-currCond = EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, invoice.currencyUomId);
-actualCurrCond = EntityCondition.makeCondition("actualCurrencyUomId", EntityOperator.EQUALS, invoice.currencyUomId);
-
-topCond = EntityCondition.makeCondition([partyCond, statusCond, currCond], EntityOperator.AND);
-topCondActual = EntityCondition.makeCondition([partyCond, statusCond, actualCurrCond], EntityOperator.AND);
+topCondActual = exprBuilder.AND(preCurrencyCond) {
+    EQUALS(actualCurrencyUomId: invoice.currencyUomId)
+}
 
 payments = delegator.findList("Payment", topCond, null, ["effectiveDate"], null, false);
 context.payments = getPayments(payments, false);
