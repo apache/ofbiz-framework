@@ -96,7 +96,7 @@ public class VCard {
                     serviceCtx.put("firstName", pid.getFirstname());
                     serviceCtx.put("lastName", pid.getLastname());
                 }
-                for (Iterator iter = contact.getAddresses(); iter.hasNext();) {
+                for (Iterator<?> iter = contact.getAddresses(); iter.hasNext();) {
                     Address address = (AddressImpl) iter.next();
                     if (contact.isPreferredAddress(address)) {
                         workAddress = address;
@@ -137,7 +137,7 @@ public class VCard {
                 if (!isGroup) {
                     Communications communications = contact.getCommunications();
                     if (UtilValidate.isNotEmpty(communications)) {
-                        for (Iterator iter = communications.getEmailAddresses(); iter.hasNext();) {
+                        for (Iterator<?> iter = communications.getEmailAddresses(); iter.hasNext();) {
                             EmailAddress emailAddress = (EmailAddressImpl) iter.next();
                             if (communications.isPreferredEmailAddress(emailAddress)) {
                                 email = emailAddress.getAddress();
@@ -150,7 +150,7 @@ public class VCard {
                         if (UtilValidate.isNotEmpty(email)) {
                             serviceCtx.put("emailAddress", email);
                         }
-                        for (Iterator iter = communications.getPhoneNumbers(); iter.hasNext();) {
+                        for (Iterator<?> iter = communications.getPhoneNumbers(); iter.hasNext();) {
                             PhoneNumber phoneNumber = (PhoneNumberImpl) iter.next();
                             if (phoneNumber.isPreferred()) {
                                 phone = phoneNumber.getNumber();
