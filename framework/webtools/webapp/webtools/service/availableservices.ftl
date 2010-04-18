@@ -263,7 +263,7 @@ under the License.
                 </td>
               </#if>
             </tr>
-            <tr><td colspan='5'><hr></td></tr>
+            <tr><td colspan='5'><hr/></td></tr>
           </#list>
         </table>
       </div>

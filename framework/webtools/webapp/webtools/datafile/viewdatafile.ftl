@@ -43,7 +43,7 @@ under the License.
                   <option value=""></option>
                   <#list definitionNames as oneDefinitionName>
                     boolean isSelected = definitionName != null && definitionName.equals(oneDefinitionName);
-                    <option value="${oneDefinitionName}" <#if parameters.DEFINITION_NAME?exists && parameters.DEFINITION_NAME == oneDefinitionName> selected </#if>>${oneDefinitionName}</option>
+                    <option value="${oneDefinitionName}" <#if parameters.DEFINITION_NAME?exists && parameters.DEFINITION_NAME == oneDefinitionName> selected="selected" </#if>>${oneDefinitionName}</option>
                   </#list>
                 </select>
               <#else>

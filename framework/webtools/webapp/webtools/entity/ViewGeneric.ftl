@@ -18,16 +18,22 @@ under the License.
 -->
 
 <#assign enableEdit = parameters.enableEdit?default("false")>
-
-<style>
-  .topcontainerhidden { POSITION: absolute; VISIBILITY: hidden; }
-</style>
-
 <script language="JavaScript" type="text/javascript">
 var numTabs=${(entity.getRelationsSize()+1)};
 function ShowTab(lname) {
   for(inc=1; inc <= numTabs; inc++) {
-    document.getElementById('area' + inc).className = (lname == 'tab' + inc) ? 'screenlet' : 'topcontainerhidden';
+    // document.getElementById('area' + inc).className = (lname == 'tab' + inc) ? 'screenlet' : 'topcontainerhidden';
+    // style of topcontainerhidden 
+    // .topcontainerhidden { POSITION: absolute; VISIBILITY: hidden; }
+    var elem = document.getElementById('area' + inc);
+    if (lname == 'tab' + inc){
+      elem.className = 'screenlet';
+    }
+    else {
+      elem.className = 'topcontainerhidden';
+      elem.style.position = 'absolute';
+      elem.style.visibility = 'hidden';
+    }
   }
 }
 </script>
@@ -48,7 +54,7 @@ function ShowTab(lname) {
       <#if enableEdit = "false">
         <#if hasCreatePermission>
           <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}&amp;enableEdit=true</@ofbizUrl>' class="smallSubmit">${uiLabelMap.CommonCreateNew}</a>
-          <a href=<@ofbizUrl>ViewGeneric?${curFindString}&amp;enableEdit=true</@ofbizUrl> class="smallSubmit">${uiLabelMap.CommonEdit}</a>
+          <a href="<@ofbizUrl>ViewGeneric?${curFindString}&amp;enableEdit=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonEdit}</a>
         </#if>
         <#if value?has_content>
           <#if hasDeletePermission>
@@ -210,7 +216,7 @@ function ShowTab(lname) {
                     <td>&nbsp;</td>
                     <td>
                       <input type="submit" name="Update" value="${button}" />
-                      <a href=<@ofbizUrl>ViewGeneric?${curFindString}</@ofbizUrl> class="smallSubmit">${uiLabelMap.CommonCancel}</a>
+                      <a href="<@ofbizUrl>ViewGeneric?${curFindString}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancel}</a>
                     </td>
                   </tr>
                 </#if>

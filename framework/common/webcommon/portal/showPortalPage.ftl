@@ -35,7 +35,7 @@ under the License.
             ${screens.setRenderFormUniqueSeq(portlet_index)}
             </div>
             <#-- DragNDrop is only activated, when the portal Page isn't the Default page -->
-            <#if portalPage.originalPortalPageId?has_content><script>setMousePointer("${portlet_index}")</script></#if>
+            <#if portalPage.originalPortalPageId?has_content><script type="text/javascript">setMousePointer("${portlet_index}")</script></#if>
             <#if portalPage.originalPortalPageId?has_content><script type="text/javascript">makeDragable("${portlet_index}");</script></#if>
             <#if portalPage.originalPortalPageId?has_content><script type="text/javascript">makeDroppable("${portlet_index}");</script></#if>
             <form method="post" action="<@ofbizUrl>updatePortalPagePortletAjax</@ofbizUrl>" name="freeMove_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="mode" value="RIGHT" type="hidden"/></form>

@@ -16,14 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
+<!--
 <style type="text/css">
 .screenlet {
 margin: 1em;
 }
 </style>
-
-<div class="screenlet">
+-->
+<div class="screenlet" style="margin: 1em;">
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.CommonVisualThemes}</li>
@@ -53,7 +53,7 @@ margin: 1em;
           <td>
             <#if screenshots?has_content>
               <#list screenshots as screenshot>
-                <a href="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>" width="150"/></a>
+                <a href="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>" width="150" alt=""/></a>
               </#list>
            <#else>
               ${uiLabelMap.CommonVisualThemeNoScreenshots}

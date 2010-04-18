@@ -23,18 +23,18 @@ under the License.
       <td class="manage-portal-column-toolbar" style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
         <hr />
         <ul>
-          <li id="delete-column"><form method="post" action="<@ofbizUrl>deletePortalPageColumn</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="delPortalPageId_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.delPortalPageId_${portalPageColumn_index}.submit()">${uiLabelMap.CommonRemove}</a></li>
-          <li id="add-portlet"><form method="post" action="<@ofbizUrl>AddPortlet</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="addPortlet_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.addPortlet_${portalPageColumn_index}.submit()">${uiLabelMap.CommonAddAPortlet}</a></li>
+          <li id="delete-column"><form method="post" action="<@ofbizUrl>deletePortalPageColumn</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="delPortalPageId_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.delPortalPageId_${portalPageColumn_index}.submit()">${uiLabelMap.CommonRemove}</a></li>
+          <li id="add-portlet"><form method="post" action="<@ofbizUrl>AddPortlet</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="addPortlet_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.addPortlet_${portalPageColumn_index}.submit()">${uiLabelMap.CommonAddAPortlet}</a></li>
           <li id="column-width">
-           <form method="post" action="<@ofbizUrl>updatePortalPageColumn</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="updatePortalPageColum_${portalPageColumn_index}">
+           <form method="post" action="<@ofbizUrl>updatePortalPageColumn</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="updatePortalPageColum_${portalPageColumn_index}">
             <input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/>
             <input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/>
             <input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/>
             <select name="columnWidthPercentage" onchange="javascript:document.updatePortalPageColum_${portalPageColumn_index}.submit()">
               <option value="">${uiLabelMap.CommonSetColumnWidth}</option>
-              <option <#if portalPageColumn.columnWidthPercentage?default(0) == 10> selected</#if> value="25">25%</option>
-              <option <#if portalPageColumn.columnWidthPercentage?default(0) == 20> selected</#if> value="50">50%</option>
-              <option <#if portalPageColumn.columnWidthPercentage?default(0) == 30> selected</#if> value="75">75%</option>
+              <option <#if portalPageColumn.columnWidthPercentage?default(0) == 10> selected="selected"</#if> value="25">25%</option>
+              <option <#if portalPageColumn.columnWidthPercentage?default(0) == 20> selected="selected"</#if> value="50">50%</option>
+              <option <#if portalPageColumn.columnWidthPercentage?default(0) == 30> selected="selected"</#if> value="75">75%</option>
             </select>
            </form>
           </li>
@@ -47,14 +47,17 @@ under the License.
   </tr>
   <tr>
     <#list portalPageColumnList?if_exists as portalPageColumn>
-      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>" id="${portalPageColumn.columnSeqId}" name="portalColumn">
+      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>" id="portalColumn_${portalPageColumn.columnSeqId}">
       <#assign firstInColumn = true/>
       <#list portalPagePortletViewList as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
           <#if portlet.screenName?has_content>
               <#assign portletFields = '<input name="portalPageId" value="' + portlet.portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
-              <div class="portlet-config" id="${portlet_index}" name="portalPortlet" onMouseOver="javascript:this.style.cursor='move';">
+              <div class="portlet-config" id="portalPortlet_${portlet_index}" onmouseover="javascript:this.style.cursor='move';">
               <div class="portlet-config-title-bar">
+                  <script type="text/javascript">makeDragable("${portlet_index}");</script>
+                  <script type="text/javascript">makeDroppable("${portlet_index}");</script>
+                  <form method="post" action="<@ofbizUrl>updatePortalPagePortletAjax</@ofbizUrl>" name="freeMove_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumnList[portalPageColumn_index].columnSeqId}" type="hidden"/><input name="mode" value="RIGHT" type="hidden"/></form>
                 <#list portalPages as portalPageList>
                   <#if portalPage.portalPageId != portalPageList.portalPageId>
                     <form method="post" action="<@ofbizUrl>movePortletToPortalPage</@ofbizUrl>" name="movePP_${portlet_index}_${portalPageList_index}">
@@ -64,9 +67,6 @@ under the License.
                   </#if>
                 </#list>
                 <ul>
-                  <script type="text/javascript">makeDragable("${portlet_index}");</script>
-                  <script type="text/javascript">makeDroppable("${portlet_index}");</script>
-                  <form method="post" action="<@ofbizUrl>updatePortalPagePortletAjax</@ofbizUrl>" name="freeMove_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumnList[portalPageColumn_index].columnSeqId}" type="hidden"/><input name="mode" value="RIGHT" type="hidden"/></form>
                   <li class="title">Portlet : ${portlet.portletName?if_exists} [${portlet.portalPortletId}]</li>
                   <li class="remove"><form method="post" action="<@ofbizUrl>deletePortalPagePortlet</@ofbizUrl>" name="removePP_${portlet_index}">${portletFields}</form><a href="javascript:document.removePP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
 
@@ -124,6 +124,7 @@ under the License.
       <#if portalPageColumn_has_next>
         <td>&nbsp;</td>
       </#if>
+      </td>
     </#list>
   </tr>
 </table>

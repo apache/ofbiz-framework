@@ -26,7 +26,7 @@ under the License.
 </div>
 <#if security.hasPermission("SERVER_STATS_VIEW", session)>
 
-  <div id="stats-bins-history" class="screenlet">
+  <div id="stats-bins-history2" class="screenlet">
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.WebtoolsStatsRequestStats}</h3>
     </div>
