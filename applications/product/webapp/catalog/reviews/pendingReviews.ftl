@@ -30,14 +30,14 @@ under the License.
         <#if !pendingReviews?has_content>
             <h3>${uiLabelMap.ProductReviewsNoPendingApproval}</h3>
         <#else>
-            <form method='POST' action='<@ofbizUrl>updateProductReview</@ofbizUrl>' name="selectAllForm">
+            <form method='post' action='<@ofbizUrl>updateProductReview</@ofbizUrl>' name="selectAllForm">
                 <input type="hidden" name="_useRowSubmit" value="Y" />
                 <input type="hidden" name="_checkGlobalScope" value="Y" />
                 <input type="hidden" name="statusId" value="" />
                 <div align="right">
-                    <input type="button" value="${uiLabelMap.CommonUpdate}" onClick="javascript:changeReviewStatus('PRR_PENDING')" />
-                    <input type="button" value="${uiLabelMap.ProductPendingReviewUpdateAndApprove}" onClick="javascript:changeReviewStatus('PRR_APPROVED')" />
-                    <input type="button" value="${uiLabelMap.CommonDelete}" onClick="javascript:changeReviewStatus('PRR_DELETED')" />
+                    <input type="button" value="${uiLabelMap.CommonUpdate}" onclick="javascript:changeReviewStatus('PRR_PENDING')" />
+                    <input type="button" value="${uiLabelMap.ProductPendingReviewUpdateAndApprove}" onclick="javascript:changeReviewStatus('PRR_APPROVED')" />
+                    <input type="button" value="${uiLabelMap.CommonDelete}" onclick="javascript:changeReviewStatus('PRR_DELETED')" />
                 </div>
                 <table cellspacing="0" class="basic-table">
                   <tr class="header-row">

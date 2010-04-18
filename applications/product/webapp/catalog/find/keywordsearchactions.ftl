@@ -42,7 +42,7 @@ under the License.
         <form method="post" action="<@ofbizUrl>searchExpireFromCategory</@ofbizUrl>" name="searchExpireFromCategory">
           <span class="label">${uiLabelMap.ProductExpireResultsFrom} ${uiLabelMap.ProductCategory}:</span>
           <@htmlTemplate.lookupField formName="searchExpireFromCategory" name="SE_SEARCH_CATEGORY_ID" id="SE_SEARCH_CATEGORY_ID" fieldFormName="LookupProductCategory"/>
-          <span class="label">${uiLabelMap.CommonThru}</span><input type="text" size="25" name="thruDate" /><a href="javascript:call_cal(document.searchExpireFromCategory.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+          <span class="label">${uiLabelMap.CommonThru}</span><input type="text" size="25" name="thruDate" /><a href="javascript:call_cal(document.searchExpireFromCategory.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
           <input type="hidden" name="clearSearch" value="N" />
           <input type="submit" value="${uiLabelMap.CommonExpire}" class="smallSubmit" />
           <br />
@@ -55,7 +55,7 @@ under the License.
         <form method="post" action="<@ofbizUrl>searchAddToCategory</@ofbizUrl>" name="searchAddToCategory">
           <span class="label">${uiLabelMap.ProductAddResultsTo} ${uiLabelMap.ProductCategory}:</span>
           <@htmlTemplate.lookupField formName="searchAddToCategory" name="SE_SEARCH_CATEGORY_ID" id="SE_SEARCH_CATEGORY_ID" fieldFormName="LookupProductCategory"/>
-          <span class="label">${uiLabelMap.CommonFrom}</span><input type="text" size="25" name="fromDate" /><a href="javascript:call_cal(document.searchAddToCategory.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+          <span class="label">${uiLabelMap.CommonFrom}</span><input type="text" size="25" name="fromDate" /><a href="javascript:call_cal(document.searchAddToCategory.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
           <input type="hidden" name="clearSearch" value="N" />
           <input type="submit" value="${uiLabelMap.ProductAddToCategory}" class="smallSubmit" />
           <br />
@@ -68,8 +68,8 @@ under the License.
         <form method="post" action="<@ofbizUrl>searchAddFeature</@ofbizUrl>" name="searchAddFeature">
           <span class="label">${uiLabelMap.ProductAddFeatureToResults}:</span><br />
           <span class="label">${uiLabelMap.ProductFeatureId}</span><input type="text" size="10" name="productFeatureId" value="" />
-          <span class="label">${uiLabelMap.CommonFrom}</span><input type="tex"t size="25" name="fromDate" /><a href="javascript:call_cal(document.searchAddFeature.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
-          <span class="label">${uiLabelMap.CommonThru}</span><input type="text" size="25" name="thruDate" /><a href="javascript:call_cal(document.searchAddFeature.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
+          <span class="label">${uiLabelMap.CommonFrom}</span><input type="tex"t size="25" name="fromDate" /><a href="javascript:call_cal(document.searchAddFeature.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+          <span class="label">${uiLabelMap.CommonThru}</span><input type="text" size="25" name="thruDate" /><a href="javascript:call_cal(document.searchAddFeature.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
           <br />
           <span class="label">${uiLabelMap.CommonAmount}</span><input type="text" size="5" name="amount" value="" />
           <span class="label">${uiLabelMap.CommonSequence}</span><input type="text" size="5" name="sequenceNum" value="" />

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script>
+<script type="text/javascript">
 function setProductVariantId(e, value, fieldname) {
     var cform = document.selectAllForm;
     var len = cform.elements.length;
@@ -49,12 +49,12 @@ function clickAll(e) {
     <h2>${uiLabelMap.ProductWarningProductNotVirtual}</h2>
 </#if>
 <#if featureTypes?has_content && (featureTypes.size() > 0)>
-    <table cellspacing="0" class="basic-table">
-        <#assign rowCount = 0>
         <form method="post" action="<@ofbizUrl>QuickAddChosenVariants</@ofbizUrl>" name="selectAllForm">
             <input type="hidden" name="productId" value="${productId}" />
             <input type="hidden" name="_useRowSubmit" value="Y" />
             <input type="hidden" name="_checkGlobalScope" value="Y" />
+        <table cellspacing="0" class="basic-table">
+        <#assign rowCount = 0>
         <tr class="header-row">
             <#list featureTypes as featureType>
                 <td><b>${featureType}</b></td>
@@ -79,12 +79,12 @@ function clickAll(e) {
                     <#assign productFeatureIds = productFeatureIds + "|" + productFeatureAndAppl.productFeatureId>
                 </td>
                 </#list>
-                <input type="hidden" name="productFeatureIds_o_${rowCount}" value="${productFeatureIds}"/>
                 <td>
+                    <input type="hidden" name="productFeatureIds_o_${rowCount}" value="${productFeatureIds}"/>
                     <input type="text" size="20" maxlength="20" name="productVariantId_o_${rowCount}" value=""/>
                 </td>
                 <td>
-                    <input type"text" size="5" maxlength="10" name="sequenceNum_o_${rowCount}" value="${defaultSequenceNum}"/>
+                    <input type="text" size="5" maxlength="10" name="sequenceNum_o_${rowCount}" value="${defaultSequenceNum}"/>
                 </td>
                 <td>
                     <div>
@@ -113,13 +113,13 @@ function clickAll(e) {
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonCreate}"/>
             </td>
         </tr>
-        </form>
-    </table>
+        </table>
+    </form>
 <#else>
     <b>${uiLabelMap.ProductNoSelectableFeaturesFound}</b>
 </#if>
-<table cellspacing="0" class="basic-table">
-    <form action="<@ofbizUrl>addVariantsToVirtual</@ofbizUrl>" method="post" name="addVariantsToVirtual">
+<form action="<@ofbizUrl>addVariantsToVirtual</@ofbizUrl>" method="post" name="addVariantsToVirtual">
+    <table cellspacing="0" class="basic-table">
         <tr class="header-row">
             <td><b>${uiLabelMap.ProductVariantAdd}:</b></td>
         </tr>
@@ -132,5 +132,5 @@ function clickAll(e) {
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductVariantAdd}"/>
             </td>
         </tr>
-    </form>
-</table>
+    </table>
+</form>

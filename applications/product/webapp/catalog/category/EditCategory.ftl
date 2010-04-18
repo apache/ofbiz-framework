@@ -114,7 +114,7 @@ function insertImageName(type,nameValue) {
                     <td width="20%" align="right" valign="top" class="label">
                         ${uiLabelMap.ProductCategoryImageUrl}
                         <#if (productCategory.categoryImageUrl)?exists>
-                            <a href="<@ofbizContentUrl>${(productCategory.categoryImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Category Image" src="<@ofbizContentUrl>${(productCategory.categoryImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40"></a>
+                            <a href="<@ofbizContentUrl>${(productCategory.categoryImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Category Image" src="<@ofbizContentUrl>${(productCategory.categoryImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40" /></a>
                         </#if>
                     </td>
                     <td>&nbsp;</td>
@@ -134,7 +134,7 @@ function insertImageName(type,nameValue) {
                     <td width="20%" align="right" valign="top" class="label">
                         ${uiLabelMap.ProductLinkOneImageUrl}
                         <#if (productCategory.linkOneImageUrl)?exists>
-                            <a href="<@ofbizContentUrl>${(productCategory.linkOneImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Link One Image" src="<@ofbizContentUrl>${(productCategory.linkOneImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40"></a>
+                            <a href="<@ofbizContentUrl>${(productCategory.linkOneImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Link One Image" src="<@ofbizContentUrl>${(productCategory.linkOneImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40" /></a>
                         </#if>
                     </td>
                     <td>&nbsp;</td>
@@ -154,7 +154,7 @@ function insertImageName(type,nameValue) {
                     <td width="20%" align="right" valign="top" class="label">
                         ${uiLabelMap.ProductLinkTwoImageUrl}
                         <#if (productCategory.linkTwoImageUrl)?exists>
-                            <a href="<@ofbizContentUrl>${(productCategory.linkTwoImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Link One Image" src="<@ofbizContentUrl>${(productCategory.linkTwoImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40"></a>
+                            <a href="<@ofbizContentUrl>${(productCategory.linkTwoImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Link One Image" src="<@ofbizContentUrl>${(productCategory.linkTwoImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40" /></a>
                         </#if>
                     </td>
                     <td>&nbsp;</td>
@@ -230,9 +230,9 @@ function insertImageName(type,nameValue) {
                 <table cellspacing="0" class="basic-table">
                     <tr><td>
                         ${uiLabelMap.ProductDuplicateProductCategorySelected}:
-                        <input type=hidden name="oldProductCategoryId" value="${productCategoryId}"/>
+                        <input type="hidden" name="oldProductCategoryId" value="${productCategoryId}"/>
                         <div>
-                            <input type="text" size="20" maxlength="20" name="productCategoryId"/>&nbsp;<input type=submit class="smallSubmit" value="${uiLabelMap.CommonGo}"/>
+                            <input type="text" size="20" maxlength="20" name="productCategoryId"/>&nbsp;<input type="submit" class="smallSubmit" value="${uiLabelMap.CommonGo}"/>
                         </div>
                         <div>
                             <b>${uiLabelMap.CommonDuplicate}:</b>

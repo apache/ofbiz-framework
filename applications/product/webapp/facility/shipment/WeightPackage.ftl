@@ -185,7 +185,7 @@ under the License.
                 <input type="hidden" name = "orderId" value = "${orderId?if_exists}"/>
                 <#assign packedLines = weightPackageSession.getPackedLines(orderId)/>
                 <#if packedLines?has_content>
-                  <hr>
+                  <hr/>
                 </#if>
                 <tr>
                   <td>
@@ -243,19 +243,19 @@ under the License.
                     <td>
                       <span class="label">
                         ${uiLabelMap.ProductPackage} ${(shipmentPackage_index + 1)}
-                        <input type="text" size="7" readonly name="packageWeight" value="${(shipmentPackage.weight)?if_exists}" />
+                        <input type="text" size="7" readonly="readonly" name="packageWeight" value="${(shipmentPackage.weight)?if_exists}" />
                       </span>
                     </td>
                     <td>
-                      <span class="label">${uiLabelMap.CommonLength}<input type="text" readonly name="packageLength" value="${(shipmentPackage.boxLength)?if_exists}" size="5"/></span>
-                      <span class="label">${uiLabelMap.ProductWidth}<input type="text" readonly name="packageWidth" value="${(shipmentPackage.boxWidth)?if_exists}" size="5"/></span>
-                      <span class="label">${uiLabelMap.PartyHeight}<input type="text" readonly name="packageHeight" value="${(shipmentPackage.boxHeight)?if_exists}" size="5"/></span>
+                      <span class="label">${uiLabelMap.CommonLength}<input type="text" readonly="readonly" name="packageLength" value="${(shipmentPackage.boxLength)?if_exists}" size="5"/></span>
+                      <span class="label">${uiLabelMap.ProductWidth}<input type="text" readonly="readonly" name="packageWidth" value="${(shipmentPackage.boxWidth)?if_exists}" size="5"/></span>
+                      <span class="label">${uiLabelMap.PartyHeight}<input type="text" readonly="readonly" name="packageHeight" value="${(shipmentPackage.boxHeight)?if_exists}" size="5"/></span>
                     </td>
                     <td>
                       <#if (shipmentPackage.shipmentBoxTypeId)?has_content>
                         <#assign shipmentBoxType = delegator.findOne("ShipmentBoxType", Static["org.ofbiz.base.util.UtilMisc"].toMap("shipmentBoxTypeId", shipmentPackage.shipmentBoxTypeId), true)>
                       </#if>
-                      <input type="text" readonly name="shipmentBoxTypeId" value="${(shipmentBoxType.description)?if_exists}" size="50"/>
+                      <input type="text" readonly="readonly" name="shipmentBoxTypeId" value="${(shipmentBoxType.description)?if_exists}" size="50"/>
                     </td>
                   </tr>
                 </#list>

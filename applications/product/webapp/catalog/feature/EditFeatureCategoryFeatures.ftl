@@ -24,7 +24,7 @@ under the License.
         <div class="button-bar">
           <a href="<@ofbizUrl>CreateFeature?productFeatureCategoryId=${productFeatureCategoryId?if_exists}</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductCreateNewFeature}</a>
         </div>
-        <br>
+        <br/>
         <form action="<@ofbizUrl>QuickAddProductFeatures</@ofbizUrl>" method="post">
           <div>
             ${uiLabelMap.CommonAdd}
@@ -65,11 +65,11 @@ under the License.
             </table>
         </#if>
         <br />
+        <form method='post' action='<@ofbizUrl>UpdateProductFeatureInCategory</@ofbizUrl>' name="selectAllForm">
+        <input type="hidden" name="_useRowSubmit" value="Y" />
+        <input type="hidden" name="_checkGlobalScope" value="N" />
+        <input type="hidden" name="productFeatureCategoryId" value="${productFeatureCategoryId}" />
         <table cellspacing="0" class="basic-table">
-            <form method='POST' action='<@ofbizUrl>UpdateProductFeatureInCategory</@ofbizUrl>' name="selectAllForm">
-            <input type="hidden" name="_useRowSubmit" value="Y" />
-            <input type="hidden" name="_checkGlobalScope" value="N" />
-            <input type="hidden" name="productFeatureCategoryId" value="${productFeatureCategoryId}" />
               <tr class="header-row">
                 <td><b>${uiLabelMap.CommonId}</b></td>
                 <td><b>${uiLabelMap.CommonDescription}</b></td>
@@ -81,7 +81,7 @@ under the License.
                 <td><b>${uiLabelMap.ProductIdSeqNum}</b></td>
                 <td><b>${uiLabelMap.ProductIdCode}</b></td>
                 <td><b>${uiLabelMap.ProductAbbrev}</b></td>
-                <td align="right"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');" /></td>
+                <td align="right"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:toggleAll(this, 'selectAllForm');highlightAllRows(this, 'productFeatureId_tableRow_', 'selectAllForm');" /></b></td>
              </tr>
         <#if (listSize > 0)>
             <#assign rowCount = 0>
@@ -89,8 +89,8 @@ under the License.
             <#list productFeatures as productFeature>
             <#assign curProductFeatureType = productFeature.getRelatedOneCache("ProductFeatureType")>
             <tr id="productFeatureId_tableRow_${rowCount}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-              <input type="hidden" name="productFeatureId_o_${rowCount}" value="${productFeature.productFeatureId}" />
-              <td><a href="<@ofbizUrl>EditFeature?productFeatureId=${productFeature.productFeatureId}</@ofbizUrl>" class="buttontext">${productFeature.productFeatureId}</a></td>
+              <td><input type="hidden" name="productFeatureId_o_${rowCount}" value="${productFeature.productFeatureId}" />
+              <a href="<@ofbizUrl>EditFeature?productFeatureId=${productFeature.productFeatureId}</@ofbizUrl>" class="buttontext">${productFeature.productFeatureId}</a></td>
               <td><input type="text" size='15' name="description_o_${rowCount}" value="${productFeature.description}" /></td>
               <td><select name='productFeatureTypeId_o_${rowCount}' size="1">
                 <#if productFeature.productFeatureTypeId?has_content>
@@ -127,10 +127,11 @@ under the License.
               <#assign rowClass = "2">
             </#if>
             </#list>
+            <tr><td colspan="11" align="center">
             <input type="hidden" name="_rowCount" value="${rowCount}" />
-            <tr><td colspan="11" align="center"><input type="submit" value='${uiLabelMap.CommonUpdate}'/></td></tr>
-            </form>
+            <input type="submit" value='${uiLabelMap.CommonUpdate}'/></td></tr>
         </#if>
         </table>
+        </form>
     </div>
 </div>

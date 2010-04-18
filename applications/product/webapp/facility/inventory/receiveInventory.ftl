@@ -442,7 +442,7 @@ under the License.
                             <td>${uiLabelMap.ProductPerUnitPriceFacility}:</td>
                             <td>
                               <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId?if_exists}" />
-                              <input type="text" id="unitCost_${rowCount}" name="unitCost_o_${rowCount}" value="${itemCost}" readonly size="6" maxlength="20" />
+                              <input type="text" id="unitCost_${rowCount}" name="unitCost_o_${rowCount}" value="${itemCost}" readonly="readonly" size="6" maxlength="20" />
                               ${currencyUomId?if_exists}
                             </td>
                           <#else>

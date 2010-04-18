@@ -69,7 +69,7 @@ function doPublish() {
             </#if>
             <table cellspacing="0" class="basic-table">
                 <tr>
-                    <td><h2>${productId?if_exists}<h2></td>
+                    <td><h2>${productId?if_exists}</h2></td>
                     <td><input type="text" name="productName" size="40" maxlength="40" value="${product.productName?if_exists}"/></td>
                     <td><input type="submit" value="${uiLabelMap.ProductUpdateName}"/></td>
                 </tr>
@@ -121,9 +121,10 @@ function doPublish() {
         <#assign rowClass = "2">
         <#list productAssocs as productAssoc>
             <#assign assocProduct = productAssoc.getRelatedOne("AssocProduct")/>
-            <input type="hidden" name="productId${idx}" value="${assocProduct.productId?if_exists}"/>
             <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                <td nowrap="nowrap"><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${assocProduct.productId?if_exists}</a></td>
+                <td nowrap="nowrap">
+                <input type="hidden" name="productId${idx}" value="${assocProduct.productId?if_exists}"/>
+                <a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${assocProduct.productId?if_exists}</a></td>
                 <td width="100%"><a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${assocProduct.internalName?if_exists}</a></td>
                 <td colspan="2">
                     <input type="text" name="description${idx}" size="70" maxlength="100" value="${selFeatureDesc[assocProduct.productId]?if_exists}"/>
@@ -252,7 +253,7 @@ function doPublish() {
                 </#if>
             </#list>
                 <tr>
-                    <td colspan=10 align="right"><input name="applyToAll" type="submit" value="${uiLabelMap.ProductApplyToAll}"/>
+                    <td colspan="10" align="right"><input name="applyToAll" type="submit" value="${uiLabelMap.ProductApplyToAll}"/>
                     &nbsp;&nbsp;<input name="updateShipping" type="submit" value="${uiLabelMap.ProductUpdateShipping}"/></td>
                 </tr>
         <#else>
@@ -270,7 +271,7 @@ function doPublish() {
                     <td><a class="buttontext" href="<@ofbizUrl>EditProductAssoc?productId=${product.productId}</@ofbizUrl>">${StringUtil.wrapString(thrudate?if_exists)}</a></td>
                 </tr>
                 <tr>
-                    <td colspan=10 align="right"><input type="submit" value="${uiLabelMap.ProductUpdateShipping}" /></td>
+                    <td colspan="10" align="right"><input type="submit" value="${uiLabelMap.ProductUpdateShipping}" /></td>
                 </tr>
         </#if>
 
@@ -285,10 +286,11 @@ function doPublish() {
     </div>
     <div class="screenlet-body">
         <!--  **************************************************** Standard Features section -->
+        <#if addedFeatureTypeIds?has_content || standardFeatureAppls?has_content>
         <table cellspacing="0" class="basic-table">
         <tr>
         <td>
-            <#if addedFeatureTypeIds.size() &gt; 0>
+            <#if addedFeatureTypeIds?has_content>
             <form method="post" action="<@ofbizUrl>quickAdminApplyFeatureToProduct</@ofbizUrl>" name="addFeatureById">
             <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
             <input type="hidden" name="productFeatureApplTypeId" value="STANDARD_FEATURE"/>
@@ -321,6 +323,7 @@ function doPublish() {
         </td>
         <td width="20">&nbsp;</td>
         <td valign="top">
+            <#if standardFeatureAppls?has_content>
             <table cellspacing="0" class="basic-table">
                 <#assign rowClass = "2">
                 <#list standardFeatureAppls as standardFeatureAppl>
@@ -338,10 +341,12 @@ function doPublish() {
                     </#if>
                 </#list>
             </table>
+            </#if>
         </td>
         </tr>
         </table>
         <br />
+        </#if>
         <form action="<@ofbizUrl>EditProductQuickAdmin</@ofbizUrl>">
         <input type="hidden" name="productFeatureTypeId" value="${(productFeatureTypeId)?if_exists}"/>
         <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
@@ -385,6 +390,7 @@ function doPublish() {
                         </td>
                     </tr>
                 </table>
+            </td>
             <td valign="top">
                 <table cellspacing="0" class="basic-table">
                     <#assign rowClass = "2">
@@ -429,7 +435,7 @@ function doPublish() {
                     <a href="javascript:call_cal(document.publish.fromDate,'${nowTimestampString}');">
                         <img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/>
                     </a>
-                    <input type=button value="${uiLabelMap.ProductPublishAndView}" onClick="doPublish();"/>
+                    <input type="button" value="${uiLabelMap.ProductPublishAndView}" onclick="doPublish();"/>
                 </td>
             </tr>
         </table>

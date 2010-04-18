@@ -97,7 +97,7 @@ under the License.
 
                   <#assign unitCost = Static["org.ofbiz.order.order.OrderReturnServices"].getReturnItemInitialCost(delegator, returnItem.returnId, returnItem.returnItemSeqId)/>
                   <tr>
-                    <td colspan="2"><hr></td>
+                    <td colspan="2"><hr/></td>
                   </tr>
                   <tr>
                     <td>
@@ -208,7 +208,7 @@ under the License.
                 </#list>
                 <tr>
                   <td colspan="2">
-                    <hr>
+                    <hr/>
                   </td>
                 </tr>
                 <#if rowCount == 0>

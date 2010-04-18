@@ -110,7 +110,7 @@ under the License.
                                 <select name="picklistId">
                                     <#list picklistActiveList as picklistActive>
                                         <#assign picklistActiveStatusItem = picklistActive.getRelatedOneCache("StatusItem")>
-                                        <option value="${picklistActive.picklistId}"<#if picklistActive.picklistId == picklist.picklistId> selected</#if>>${picklistActive.picklistId} [${uiLabelMap.CommonDate}:${picklistActive.picklistDate},${uiLabelMap.CommonStatus}:${picklistActiveStatusItem.get("description",locale)}]</option>
+                                        <option value="${picklistActive.picklistId}"<#if picklistActive.picklistId == picklist.picklistId> selected="selected"</#if>>${picklistActive.picklistId} [${uiLabelMap.CommonDate}:${picklistActive.picklistDate},${uiLabelMap.CommonStatus}:${picklistActiveStatusItem.get("description",locale)}]</option>
                                     </#list>
                                 </select>
                                 <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>

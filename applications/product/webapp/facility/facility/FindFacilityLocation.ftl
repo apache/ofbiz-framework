@@ -22,7 +22,7 @@ under the License.
       <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacilityLocation}</a>
     </div>
 
-    <form action="<@ofbizUrl>FindFacilityLocation</@ofbizUrl>" method="GET" name="findFacilityLocation">
+    <form action="<@ofbizUrl>FindFacilityLocation</@ofbizUrl>" method="get" name="findFacilityLocation">
         <table class="basic-table" cellspacing="0">
         <#if !(facilityId?exists)>
             <tr>
