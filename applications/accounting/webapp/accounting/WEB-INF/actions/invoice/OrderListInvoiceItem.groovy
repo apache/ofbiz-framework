@@ -32,7 +32,7 @@ if (invoiceItemList) {
     invoiceItemList.each { invoiceItem ->
         invoiceItemSeqId = invoiceItem.invoiceItemSeqId;
         invoiceId = invoiceItem.invoiceId;
-        orderItemBilling = EntityUtil.getFirst(delegator.findByAnd("OrderItemBilling", [invoiceId : invoiceId, invoiceItemSeqId : invoiceItemSeqId]));
+        orderItemBilling = delegator.findByAnd("OrderItemBilling", [invoiceId : invoiceId, invoiceItemSeqId : invoiceItemSeqId]).first();
         Map invoiceItemMap = FastMap.newInstance();
         invoiceItemMap.putAll((Map) invoiceItem);
         if (orderItemBilling) {

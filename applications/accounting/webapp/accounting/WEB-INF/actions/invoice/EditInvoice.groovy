@@ -77,7 +77,8 @@ if (invoice) {
         // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
         taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct");
         if (taxRate && "VAT_TAX".equals(taxRate.taxAuthorityRateTypeId)) {
-            taxInfo = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", UtilMisc.toMap("partyId", billingParty.partyId, "taxAuthGeoId", taxRate.taxAuthGeoId, "taxAuthPartyId", taxRate.taxAuthPartyId)), invoice.invoiceDate));
+            taxInfos = EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", [partyId : billingParty.partyId, taxAuthGeoId : taxRate.taxAuthGeoId, taxAuthPartyId : taxRate.taxAuthPartyId]), invoice.invoiceDate);
+            taxInfo = taxInfos.first();
             if (taxInfo) {
                 context.billingPartyTaxId = taxInfo.partyTaxId;
             }
