@@ -26,7 +26,7 @@ under the License.
     <!-- ================================================================== -->
 
     <property name="desc" value="Start API"/>
-    <property name="name" value="ofbiz-base"/>
+    <property name="name" value="ofbiz"/>
 
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
