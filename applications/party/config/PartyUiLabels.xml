@@ -5538,7 +5538,7 @@
     <property key="PartyFirstNameMissing">
         <value xml:lang="cs">Chybí jméno</value>
         <value xml:lang="de">Vorname fehlt</value>
-        <value xml:lang="en">Firstname is Missing</value>
+        <value xml:lang="en">First Name is Missing</value>
         <value xml:lang="en_GB">Forename is Missing</value>
         <value xml:lang="es">Falta el Nombre</value>
         <value xml:lang="fr">Prénom absent</value>
@@ -6212,13 +6212,13 @@
     <property key="PartyLastNameMissingError">
         <value xml:lang="cs">Chybí příjmení</value>
         <value xml:lang="de">Nachname fehlt</value>
-        <value xml:lang="en">Lastname is Missing</value>
+        <value xml:lang="en">Last Name is Missing</value>
         <value xml:lang="en_GB">Surname is missing</value>
         <value xml:lang="es">Faltan los Apellidos</value>
         <value xml:lang="fr">Nom absent</value>
         <value xml:lang="hi_IN">अन्त नाम नही है</value>
         <value xml:lang="it">Cognome mancante</value>
-        <value xml:lang="ja">Lastname is Missing</value>
+        <value xml:lang="ja">Last Name is Missing</value>
         <value xml:lang="nl">Familienaam mist</value>
         <value xml:lang="pt_BR">Segundo nome está em branco</value>
         <value xml:lang="pt_PT">Apelido em Falta</value>
