@@ -110,65 +110,65 @@ under the License.
     <TemporalExpression tempExprId="HOUR_23" tempExprTypeId="HOUR_RANGE" description="Hour 23" integer1="23" integer2="23"/>
 
     <!-- Pre-define all days of the week (Sunday -> Saturday) -->
-    <TemporalExpression tempExprId="DAYOFWEEK_01" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Day of Week Range 1" integer1="1" integer2="1"/>
-    <TemporalExpression tempExprId="DAYOFWEEK_02" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Day of Week Range 2" integer1="2" integer2="2"/>
-    <TemporalExpression tempExprId="DAYOFWEEK_03" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Day of Week Range 3" integer1="3" integer2="3"/>
-    <TemporalExpression tempExprId="DAYOFWEEK_04" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Day of Week Range 4" integer1="4" integer2="4"/>
-    <TemporalExpression tempExprId="DAYOFWEEK_05" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Day of Week Range 5" integer1="5" integer2="5"/>
-    <TemporalExpression tempExprId="DAYOFWEEK_06" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Day of Week Range 6" integer1="6" integer2="6"/>
-    <TemporalExpression tempExprId="DAYOFWEEK_07" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Day of Week Range 7" integer1="7" integer2="7"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_01" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Sunday" integer1="1" integer2="1"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_02" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Monday" integer1="2" integer2="2"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_03" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Tuesday" integer1="3" integer2="3"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_04" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Wednesday" integer1="4" integer2="4"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_05" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Thursday" integer1="5" integer2="5"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_06" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Friday" integer1="6" integer2="6"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_07" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Saturday" integer1="7" integer2="7"/>
 
     <!-- Pre-define some day of the week ranges -->
     <TemporalExpression tempExprId="MON_TO_FRI" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Monday to Friday" integer1="2" integer2="6"/>
     <TemporalExpression tempExprId="SAT_TO_SUN" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Saturday to Sunday" integer1="7" integer2="1"/>
 
     <!-- Pre-define all 13 months (January -> Undecimber) -->
-    <TemporalExpression tempExprId="MONTH_RANGE_01" tempExprTypeId="MONTH_RANGE" description="Month Range 0" integer1="0" integer2="0"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_02" tempExprTypeId="MONTH_RANGE" description="Month Range 1" integer1="1" integer2="1"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_03" tempExprTypeId="MONTH_RANGE" description="Month Range 2" integer1="2" integer2="2"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_04" tempExprTypeId="MONTH_RANGE" description="Month Range 3" integer1="3" integer2="3"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_05" tempExprTypeId="MONTH_RANGE" description="Month Range 4" integer1="4" integer2="4"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_06" tempExprTypeId="MONTH_RANGE" description="Month Range 5" integer1="5" integer2="5"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_07" tempExprTypeId="MONTH_RANGE" description="Month Range 6" integer1="6" integer2="6"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_08" tempExprTypeId="MONTH_RANGE" description="Month Range 7" integer1="7" integer2="7"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_09" tempExprTypeId="MONTH_RANGE" description="Month Range 8" integer1="8" integer2="8"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_10" tempExprTypeId="MONTH_RANGE" description="Month Range 9" integer1="9" integer2="9"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_11" tempExprTypeId="MONTH_RANGE" description="Month Range 10" integer1="10" integer2="10"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_12" tempExprTypeId="MONTH_RANGE" description="Month Range 11" integer1="11" integer2="11"/>
-    <TemporalExpression tempExprId="MONTH_RANGE_13" tempExprTypeId="MONTH_RANGE" description="Month Range 12" integer1="12" integer2="12"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_01" tempExprTypeId="MONTH_RANGE" description="January" integer1="0" integer2="0"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_02" tempExprTypeId="MONTH_RANGE" description="February" integer1="1" integer2="1"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_03" tempExprTypeId="MONTH_RANGE" description="March" integer1="2" integer2="2"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_04" tempExprTypeId="MONTH_RANGE" description="April" integer1="3" integer2="3"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_05" tempExprTypeId="MONTH_RANGE" description="May" integer1="4" integer2="4"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_06" tempExprTypeId="MONTH_RANGE" description="June" integer1="5" integer2="5"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_07" tempExprTypeId="MONTH_RANGE" description="July" integer1="6" integer2="6"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_08" tempExprTypeId="MONTH_RANGE" description="August" integer1="7" integer2="7"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_09" tempExprTypeId="MONTH_RANGE" description="September" integer1="8" integer2="8"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_10" tempExprTypeId="MONTH_RANGE" description="October" integer1="9" integer2="9"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_11" tempExprTypeId="MONTH_RANGE" description="November" integer1="10" integer2="10"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_12" tempExprTypeId="MONTH_RANGE" description="December" integer1="11" integer2="11"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_13" tempExprTypeId="MONTH_RANGE" description="Undecimber" integer1="12" integer2="12"/>
 
     <!-- Pre-define all 31 days of the month -->
-    <TemporalExpression tempExprId="DAYOFMONTH_01" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 1" integer1="1" integer2="1"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_02" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 2" integer1="2" integer2="2"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_03" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 3" integer1="3" integer2="3"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_04" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 4" integer1="4" integer2="4"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_05" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 5" integer1="5" integer2="5"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_06" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 6" integer1="6" integer2="6"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_07" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 7" integer1="7" integer2="7"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_08" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 8" integer1="8" integer2="8"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_09" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 9" integer1="9" integer2="9"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_10" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 10" integer1="10" integer2="10"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_11" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 11" integer1="11" integer2="11"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_12" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 12" integer1="12" integer2="12"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_13" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 13" integer1="13" integer2="13"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_14" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 14" integer1="14" integer2="14"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_15" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 15" integer1="15" integer2="15"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_16" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 16" integer1="16" integer2="16"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_17" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 17" integer1="17" integer2="17"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_18" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 18" integer1="18" integer2="18"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_19" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 19" integer1="19" integer2="19"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_20" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 20" integer1="20" integer2="20"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_21" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 21" integer1="21" integer2="21"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_22" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 22" integer1="22" integer2="22"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_23" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 23" integer1="23" integer2="23"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_24" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 24" integer1="24" integer2="24"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_25" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 25" integer1="25" integer2="25"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_26" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 26" integer1="26" integer2="26"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_27" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 27" integer1="27" integer2="27"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_28" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 28" integer1="28" integer2="28"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_29" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 29" integer1="29" integer2="29"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_30" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 30" integer1="30" integer2="30"/>
-    <TemporalExpression tempExprId="DAYOFMONTH_31" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day of Month 31" integer1="31" integer2="31"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_01" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 1 of Month" integer1="1" integer2="1"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_02" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 2 of Month" integer1="2" integer2="2"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_03" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 3 of Month" integer1="3" integer2="3"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_04" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 4 of Month" integer1="4" integer2="4"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_05" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 5 of Month" integer1="5" integer2="5"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_06" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 6 of Month" integer1="6" integer2="6"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_07" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 7 of Month" integer1="7" integer2="7"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_08" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 8 of Month" integer1="8" integer2="8"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_09" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 9 of Month" integer1="9" integer2="9"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_10" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 10 of Month" integer1="10" integer2="10"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_11" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 11 of Month" integer1="11" integer2="11"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_12" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 12 of Month" integer1="12" integer2="12"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_13" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 13 of Month" integer1="13" integer2="13"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_14" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 14 of Month" integer1="14" integer2="14"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_15" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 15 of Month" integer1="15" integer2="15"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_16" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 16 of Month" integer1="16" integer2="16"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_17" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 17 of Month" integer1="17" integer2="17"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_18" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 18 of Month" integer1="18" integer2="18"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_19" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 19 of Month" integer1="19" integer2="19"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_20" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 20 of Month" integer1="20" integer2="20"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_21" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 21 of Month" integer1="21" integer2="21"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_22" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 22 of Month" integer1="22" integer2="22"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_23" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 23 of Month" integer1="23" integer2="23"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_24" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 24 of Month" integer1="24" integer2="24"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_25" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 25 of Month" integer1="25" integer2="25"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_26" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 26 of Month" integer1="26" integer2="26"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_27" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 27 of Month" integer1="27" integer2="27"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_28" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 28 of Month" integer1="28" integer2="28"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_29" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 29 of Month" integer1="29" integer2="29"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_30" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 30 of Month" integer1="30" integer2="30"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_31" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 31 of Month" integer1="31" integer2="31"/>
 
     <!-- Pre-define nth Monday of the month - many US observances occur on a Monday -->
     <TemporalExpression tempExprId="1ST_MONDAY_IN_MONTH" tempExprTypeId="DAY_IN_MONTH" description="First Monday in Month" integer1="2" integer2="1"/>
