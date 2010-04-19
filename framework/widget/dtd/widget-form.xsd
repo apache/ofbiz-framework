@@ -1150,6 +1150,10 @@ under the License.
                     <xs:enumeration value="contains"/>
                     <xs:enumeration value="empty"/>
                     <xs:enumeration value="notEqual"/>
+                    <xs:enumeration value="lessThan"/>
+                    <xs:enumeration value="lessThanEqualTo"/>
+                    <xs:enumeration value="greaterThan"/>
+                    <xs:enumeration value="greaterThanEqualTo"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
