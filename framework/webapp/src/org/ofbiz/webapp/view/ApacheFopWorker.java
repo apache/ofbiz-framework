@@ -78,12 +78,12 @@ public class ApacheFopWorker {
                 fopFactory.setStrictValidation(false);
 
                 try {
-                    String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path", "framework/webapp/config");
+                    String ofbizHome = System.getProperty("ofbiz.home");
+                    String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path", ofbizHome + "/framework/webapp/config");
                     File userConfigFile = FileUtil.getFile(fopPath + "/fop.xconf");
                     fopFactory.setUserConfig(userConfigFile);
                     String fopFontBaseUrl = fopFactory.getFontBaseURL();
                     if (fopFontBaseUrl == null) {
-                        String ofbizHome = System.getProperty("ofbiz.home");
                         fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url", "file:///" + ofbizHome + "/framework/webapp/config/");
                         fopFactory.setFontBaseURL(fopFontBaseUrl);
                     }
