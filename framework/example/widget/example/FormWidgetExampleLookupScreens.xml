@@ -52,7 +52,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="LookupLayerPopupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
                         <include-form name="lookupPartyName" location="component://example/widget/example/FormWidgetExampleLookupForms.xml"/>
                     </decorator-section>
@@ -92,7 +92,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="LookupLayerPopupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
                         <include-form name="lookupPartyNameByName" location="component://example/widget/example/FormWidgetExampleLookupForms.xml"/>
                     </decorator-section>

@@ -343,6 +343,7 @@ var FieldLookupPopup = Class.create({
         });
 
         new Ajax.Request(this.viewName, {
+            parameters: { presentation : "layer" },
             onSuccess: function (transport) {
                 var lookupContent = transport.responseText;
                 lookupDiv.appendChild(lookupCont);
@@ -678,6 +679,7 @@ function lookupPaginationAjaxRequest(navAction, form, type, lookupDiv) {
     if (type == 'link') {
         navAction = navAction.substring(0, navAction.length - 1);
     }
+    navAction = navAction + "&presentation=layer";
     new Ajax.Request(navAction, {
         method: 'get',
         requestHeaders: {
@@ -686,7 +688,7 @@ function lookupPaginationAjaxRequest(navAction, form, type, lookupDiv) {
         onSuccess: function (transport) {
             var formRequest = transport.responseText;
             $('fieldLookupContent').remove();
-            $('fieldLookup').insert({
+            lookupDiv.insert({
                 bottom: "<div id='fieldLookupContent'>" + formRequest + "</div>"
             });
             modifySubmitButton(lookupDiv);
