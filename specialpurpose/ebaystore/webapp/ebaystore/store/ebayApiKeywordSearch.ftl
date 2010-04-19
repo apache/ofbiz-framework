@@ -92,7 +92,7 @@ under the License.
                       </#list>
                     </select>
                   <#else>
-                    <@htmlTemplate.lookupField ="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="productSearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
+                    <@htmlTemplate.lookupField="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="productSearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
                   </#if>
                 </div>
               </td>
