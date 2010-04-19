@@ -356,14 +356,14 @@ function setLookDescription(textFieldId, description) {
             description = description.substring(0, start);
         }
     }
-    var ulElement = $(textFieldId).up('ul');
-    if (ulElement) {
+    var lookupWrapperEl = $(textFieldId).up('.field-lookup');
+    if (lookupWrapperEl) {
         var tooltipElement = $(textFieldId + '_lookupDescription');
         if (!tooltipElement) {
-            tooltipElement = new Element('li', {id : textFieldId + '_lookupDescription', 'class' : 'tooltip'});
+            tooltipElement = new Element('span', {id : textFieldId + '_lookupDescription', 'class' : 'tooltip'});
         }
         tooltipElement.update(description);
-        ulElement.appendChild(tooltipElement);
+        lookupWrapperEl.appendChild(tooltipElement);
     }
 }
 
