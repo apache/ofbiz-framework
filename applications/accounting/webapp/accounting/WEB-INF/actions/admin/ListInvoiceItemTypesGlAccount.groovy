@@ -29,7 +29,7 @@ invItemTypePrefix = context.invItemTypePrefix ?: "INV";
 invItemTypePrefix += "_%";
 
 organizationPartyId = parameters.organizationPartyId;
-exprBldr = new EntityExpressionBuilder();
+exprBldr = new EntityConditionBuilder();
 invoiceItemTypes = delegator.findList("InvoiceItemType", exprBldr.LIKE(invoiceItemTypeId: invItemTypePrefix), null, null, null, false);
 allTypes = [];
 invoiceItemTypes.each { invoiceItemType ->
