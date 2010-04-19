@@ -90,7 +90,6 @@ public class UpsServices {
     public static final String dateFormatString = "yyyyMMdd";
 
     public static Map<String, Object> upsShipmentConfirm(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -430,7 +429,7 @@ public class UpsServices {
             UtilXml.addChildElementValue(serviceElement, "Code", carrierServiceCode, shipmentConfirmRequestDoc);
 
             // Child of Shipment: ShipmentServiceOptions
-            List internationalServiceCodes = UtilMisc.toList("07", "08", "54", "65");
+            List<String> internationalServiceCodes = UtilMisc.toList("07", "08", "54", "65");
             if (internationalServiceCodes.contains(carrierServiceCode)) {
                 Element shipmentServiceOptionsElement = UtilXml.addChildElement(shipmentElement, "ShipmentServiceOptions", shipmentConfirmRequestDoc);
                 Element internationalFormsElement = UtilXml.addChildElement(shipmentServiceOptionsElement, "InternationalForms", shipmentConfirmRequestDoc);
@@ -1507,7 +1506,8 @@ public class UpsServices {
         }
     }
 
-    public static Map<String, Object> handleUpsTrackShipmentResponse(Document trackResponseDocument, GenericValue shipmentRouteSegment, List shipmentPackageRouteSegs) throws GenericEntityException {
+    public static Map<String, Object> handleUpsTrackShipmentResponse(Document trackResponseDocument, GenericValue shipmentRouteSegment,
+            List<GenericValue> shipmentPackageRouteSegs) throws GenericEntityException {
         // process TrackResponse, update data as needed
         Element trackResponseElement = trackResponseDocument.getDocumentElement();
 
@@ -1524,7 +1524,7 @@ public class UpsServices {
 
         if ("1".equals(responseStatusCode)) {
             // TODO: handle other response elements
-            Element shipmentElement = UtilXml.firstChildElement(trackResponseElement, "Shipment");
+            //Element shipmentElement = UtilXml.firstChildElement(trackResponseElement, "Shipment");
 
             //Element shipperElement = UtilXml.firstChildElement(shipmentElement, "Shipper");
             //String shipperNumber = UtilXml.childElementValue(shipperElement, "ShipperNumber");
@@ -1535,9 +1535,11 @@ public class UpsServices {
 
             //String shipmentIdentificationNumber = UtilXml.childElementValue(shipmentElement, "ShipmentIdentificationNumber");
 
+            /*
             List<? extends Element> packageElements = UtilXml.childElementList(shipmentElement, "Package");
             for (Element packageElement: packageElements) {
             }
+            */
 /*
         <Package>
             <TrackingNumber>1Z12345E1512345676</TrackingNumber>
@@ -2680,9 +2682,8 @@ public class UpsServices {
                     Debug.log(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
             }
-            String shipmentAcceptResponseString = null;
             try {
-                shipmentAcceptResponseString = sendUpsRequest("ShipAccept", acceptXmlString.toString());
+                sendUpsRequest("ShipAccept", acceptXmlString.toString());
             } catch (UpsConnectException e) {
                 String uceErrMsg = "Error sending UPS request for UPS Service ShipAccept: " + e.toString();
                 Debug.logError(e, uceErrMsg, module);
@@ -2812,8 +2813,8 @@ public class UpsServices {
 
             // shipment info
             Element shipmentElement = UtilXml.addChildElement(rateRequestElement, "Shipment", rateRequestDoc);
-            Element rateInformationElement = UtilXml.addChildElement(shipmentElement, "RateInformation", rateRequestDoc);
-            Element negotiatedRatesIndicatorElement = UtilXml.addChildElement(rateInformationElement, "NegotiatedRatesIndicator", rateRequestDoc);
+            //Element rateInformationElement = UtilXml.addChildElement(shipmentElement, "RateInformation", rateRequestDoc);
+            //Element negotiatedRatesIndicatorElement = UtilXml.addChildElement(rateInformationElement, "NegotiatedRatesIndicator", rateRequestDoc);
 
             Element shipperElement = UtilXml.addChildElement(shipmentElement, "Shipper", rateRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ? originPostalAddress.getString("toName") : "", rateRequestDoc);
@@ -3078,6 +3079,7 @@ public class UpsServices {
 
 }
 
+@SuppressWarnings("serial")
 class UpsConnectException extends GeneralException {
     UpsConnectException() {
         super();

@@ -94,7 +94,6 @@ public class ShipmentEvents {
 
         String shipmentId = request.getParameter("shipmentIdReceived");
         String forceShipmentReceived = request.getParameter("forceShipmentReceived");
-        String orderId = request.getParameter("orderId");
         if (UtilValidate.isNotEmpty(shipmentId) && "Y".equals(forceShipmentReceived)) {
             try {
                 Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_RECEIVED");

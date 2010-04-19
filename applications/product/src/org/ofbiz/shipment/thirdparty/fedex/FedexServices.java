@@ -950,6 +950,7 @@ public class FedexServices {
 
 }
 
+@SuppressWarnings("serial")
 class FedexConnectException extends GeneralException {
     FedexConnectException() {
         super();

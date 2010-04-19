@@ -1060,7 +1060,7 @@ public class ProductEvents {
         List<GenericValue> compareList = null;
         if (compareListObj == null) {
             compareList = FastList.newInstance();
-        } else if (!(compareListObj instanceof List)) {
+        } else if (!(compareListObj instanceof List<?>)) {
             Debug.logWarning("Session attribute productCompareList contains something other than the expected product list, overwriting.", module);
             compareList = FastList.newInstance();
         } else {

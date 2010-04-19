@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -139,7 +140,7 @@ public class ProductConfigWorker {
                                         if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod((Delegator)request.getAttribute("delegator"), selectedProductId))) {
                                             // get the selected features
                                             List<String> selectedFeatures = FastList.newInstance();
-                                            Enumeration paramNames = request.getParameterNames();
+                                            Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
                                             while (paramNames.hasMoreElements()) {
                                                 String paramName = (String)paramNames.nextElement();
                                                 if (paramName.startsWith("FT" + k + "_" + cnt + "_" + variantIndex)) {

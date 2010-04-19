@@ -42,6 +42,7 @@ import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
+@SuppressWarnings("serial")
 public class WeightPackageSession implements Serializable {
 
     public static final String module = WeightPackageSession.class.getName();

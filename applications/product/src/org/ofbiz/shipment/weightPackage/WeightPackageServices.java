@@ -126,7 +126,6 @@ public class WeightPackageServices {
     }
 
     public static Map<String, Object> completePackage(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Delegator delegator = dctx.getDelegator();
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
         Locale locale = (Locale) context.get("locale");
 

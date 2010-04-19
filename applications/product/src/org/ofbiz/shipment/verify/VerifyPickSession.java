@@ -41,6 +41,7 @@ import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
+@SuppressWarnings("serial")
 public class VerifyPickSession implements Serializable {
 
     public static final String module = VerifyPickSession.class.getName();
@@ -298,8 +299,6 @@ public class VerifyPickSession implements Serializable {
     }
 
     public String complete(String orderId, Locale locale) throws GeneralException {
-        String invoiceId = null;
-        String invoiceItemSeqId = null;
         this.checkVerifiedQty(orderId, locale);
         // check reserved quantity, it should be equal to verified quantity
         this.checkReservedQty(orderId, locale);

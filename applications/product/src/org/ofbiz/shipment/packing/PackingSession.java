@@ -46,6 +46,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
+@SuppressWarnings("serial")
 public class PackingSession implements java.io.Serializable {
 
     public static final String module = PackingSession.class.getName();
@@ -983,7 +984,7 @@ public class PackingSession implements java.io.Serializable {
         setPackageWeight(packageSeqId, newPackageWeight);
     }
 
-    class ItemDisplay extends AbstractMap {
+    class ItemDisplay extends AbstractMap<Object, Object> {
 
         public GenericValue orderItem;
         public BigDecimal quantity;
@@ -1016,7 +1017,7 @@ public class PackingSession implements java.io.Serializable {
         }
 
         @Override
-        public Set entrySet() {
+        public Set<Entry<Object, Object>> entrySet() {
             return null;
         }
 

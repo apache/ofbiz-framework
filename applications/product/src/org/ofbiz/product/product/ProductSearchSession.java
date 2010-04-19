@@ -75,6 +75,7 @@ public class ProductSearchSession {
 
     public static final String module = ProductSearchSession.class.getName();
 
+    @SuppressWarnings("serial")
     public static class ProductSearchOptions implements java.io.Serializable {
         protected List<ProductSearchConstraint> constraintList = null;
         protected String topProductCategoryId = null;
@@ -848,7 +849,7 @@ public class ProductSearchSession {
         productSearchOptions.setPaging((String) parameters.get("PAGING"));
     }
 
-    public static Map getProductSearchResult(HttpServletRequest request, Delegator delegator, String prodCatalogId) {
+    public static Map<String, Object> getProductSearchResult(HttpServletRequest request, Delegator delegator, String prodCatalogId) {
 
         // ========== Create View Indexes
         int viewIndex = 0;

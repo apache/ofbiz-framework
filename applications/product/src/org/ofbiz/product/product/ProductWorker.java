@@ -694,7 +694,7 @@ public class ProductWorker {
      * @deprecated use getCurrentProductCategories(GenericValue) instead
      */
     @Deprecated
-    public static List<GenericValue> getCurrentProductCategories(@SuppressWarnings("unused") Delegator delegator, GenericValue product) {
+    public static List<GenericValue> getCurrentProductCategories(Delegator delegator, GenericValue product) {
         return getCurrentProductCategories(product);
     }
 

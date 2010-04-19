@@ -44,7 +44,7 @@ import org.ofbiz.service.LocalDispatcher;
 /**
  * Product Config Wrapper: gets product config to display
  */
-
+@SuppressWarnings("serial")
 public class ProductConfigWrapper implements Serializable {
 
     public static final String module = ProductConfigWrapper.class.getName();

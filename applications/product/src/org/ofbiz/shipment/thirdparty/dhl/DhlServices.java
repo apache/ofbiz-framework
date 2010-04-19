@@ -21,10 +21,6 @@ package org.ofbiz.shipment.thirdparty.dhl;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -41,20 +37,19 @@ import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.service.ModelService;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -156,14 +151,9 @@ public class DhlServices {
         Locale locale = (Locale) context.get("locale");
 
         // some of these can be refactored
-        String upsRateInquireMode = (String) context.get("upsRateInquireMode");
-        String carrierRoleTypeId = (String) context.get("carrierRoleTypeId");
         String carrierPartyId = (String) context.get("carrierPartyId");
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
         String shippingContactMechId = (String) context.get("shippingContactMechId");
-        List shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
-        BigDecimal shippableTotal = (BigDecimal) context.get("shippableTotal");
-        BigDecimal shippableQuantity = (BigDecimal) context.get("shippableQuantity");
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
 
         if (shipmentMethodTypeId.equals("NO_SHIPPING")) {
@@ -311,21 +301,19 @@ public class DhlServices {
             return ServiceUtil.returnError(errorList);
         }
         // handle Response element info
-        Element responseElement = UtilXml.firstChildElement(
-                rateResponseElement, "Shipment");
-        Element responseResultElement = UtilXml.firstChildElement(
-                responseElement, "Result");
-        Element responseEstimateDetailElement = UtilXml.firstChildElement(
-                responseElement, "EstimateDetail");
+        Element responseElement = UtilXml.firstChildElement(rateResponseElement, "Shipment");
+        //Element responseResultElement = UtilXml.firstChildElement(responseElement, "Result");
+        Element responseEstimateDetailElement = UtilXml.firstChildElement(responseElement, "EstimateDetail");
 
         DhlServices.handleErrors(responseElement, errorList);
         if (UtilValidate.isNotEmpty(errorList)) {
             return ServiceUtil.returnError(errorList);
         }
-        String responseStatusCode = UtilXml.childElementValue(
-                responseResultElement, "Code");
-        String responseStatusDescription = UtilXml.childElementValue(
-                responseResultElement, "Desc");
+        
+        /*
+        String responseStatusCode = UtilXml.childElementValue(responseResultElement, "Code");
+        String responseStatusDescription = UtilXml.childElementValue(responseResultElement, "Desc");
+        */
 
         String dateGenerated = UtilXml.childElementValue(
                 responseEstimateDetailElement, "DateGenerated");
@@ -459,35 +447,27 @@ public class DhlServices {
     /*
      * Parse response from DHL registration request to get shipping key
      */
-    public static Map<String, Object> handleDhlRegisterResponse(
-            Document registerResponseDocument) {
+    public static Map<String, Object> handleDhlRegisterResponse(Document registerResponseDocument) {
         List<Object> errorList = FastList.newInstance();
         // process RegisterResponse
-        Element registerResponseElement = registerResponseDocument
-            .getDocumentElement();
+        Element registerResponseElement = registerResponseDocument.getDocumentElement();
         DhlServices.handleErrors(registerResponseElement, errorList);
         if (UtilValidate.isNotEmpty(errorList)) {
             return ServiceUtil.returnError(errorList);
         }
         // handle Response element info
-        Element responseElement = UtilXml.firstChildElement(
-                registerResponseElement, "Register");
-        Element responseResultElement = UtilXml.firstChildElement(
-                responseElement, "Result");
+        Element responseElement = UtilXml.firstChildElement(registerResponseElement, "Register");
+        //Element responseResultElement = UtilXml.firstChildElement(responseElement, "Result");
 
         DhlServices.handleErrors(responseElement, errorList);
         if (UtilValidate.isNotEmpty(errorList)) {
             return ServiceUtil.returnError(errorList);
         }
-        String responseStatusCode = UtilXml.childElementValue(
-                responseResultElement, "Code");
-        String responseStatusDescription = UtilXml.childElementValue(
-                responseResultElement, "Desc");
+        //String responseStatusCode = UtilXml.childElementValue(responseResultElement, "Code");
+        //String responseStatusDescription = UtilXml.childElementValue(responseResultElement, "Desc");
 
-        String responseShippingKey = UtilXml.childElementValue(responseElement,
-                "ShippingKey");
-        String responsePostalCode = UtilXml.childElementValue(responseElement,
-                "PostalCode");
+        String responseShippingKey = UtilXml.childElementValue(responseElement,"ShippingKey");
+        //String responsePostalCode = UtilXml.childElementValue(responseElement,"PostalCode");
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shippingKey", responseShippingKey);
@@ -506,7 +486,6 @@ public class DhlServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
-        Map<String, Object> result = FastMap.newInstance();
         String shipmentConfirmResponseString = null;
         try {
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
@@ -611,25 +590,26 @@ public class DhlServices {
             }
 
             // loop through Shipment segments (NOTE: only one supported, loop is here for future refactoring reference)
-            String length = null;
-            String width = null;
-            String height = null;
             BigDecimal packageWeight = null;
             for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegs) {
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
+                /*
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "DHL"), null);
                 GenericValue carrierShipmentBoxType = null;
                 if (carrierShipmentBoxTypes.size() > 0) {
                     carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
                 }
+                */
 
                 // TODO: determine what default UoM is (assuming inches) - there should be a defaultDimensionUomId in Facility
                 if (shipmentBoxType != null) {
+                    /*
                     GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom");
-                    length = shipmentBoxType.get("boxLength").toString();
-                    width = shipmentBoxType.get("boxWidth").toString();
-                    height = shipmentBoxType.get("boxHeight").toString();
+                    String length = shipmentBoxType.get("boxLength").toString();
+                    String width = shipmentBoxType.get("boxWidth").toString();
+                    String height = shipmentBoxType.get("boxHeight").toString();
+                     */
                 }
 
                 // next step is weight determination, so skip if we have a billing weight
@@ -778,7 +758,6 @@ public class DhlServices {
     // NOTE: Must VOID shipments on errors
     public static Map<String, Object> handleDhlShipmentConfirmResponse(String rateResponseString, GenericValue shipmentRouteSegment,
             List<GenericValue> shipmentPackageRouteSegs) throws GenericEntityException {
-        Map<String, Object> result = FastMap.newInstance();
         GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegs.get(0);
 
         // TODO: figure out how to handle validation on return XML, which can be mangled
@@ -843,6 +822,7 @@ public class DhlServices {
         return ServiceUtil.returnSuccess("DHL Shipment Confirmed.");
     }
 
+    /*
     private static BigDecimal getWeight(List<Map<String, Object>> shippableItemInfo) {
         BigDecimal totalWeight = BigDecimal.ZERO;
         if (shippableItemInfo != null) {
@@ -853,6 +833,7 @@ public class DhlServices {
         }
         return totalWeight;
     }
+    */
 
     public static Document createAccessRequestDocument() {
         return createAccessRequestDocument(shipmentPropertiesFile);
@@ -919,6 +900,7 @@ public class DhlServices {
 }
 
 
+@SuppressWarnings("serial")
 class DhlConnectException extends GeneralException {
     DhlConnectException() {
         super();
