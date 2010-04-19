@@ -128,6 +128,7 @@ if (purchaseOrder) {
     } else {
         purchaseOrderItems = purchaseOrder.getRelated("OrderItem");
     }
+    purchaseOrderItems = EntityUtil.filterByAnd(purchaseOrderItems, [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED")]);
 }
 // convert the unit prices to that of the facility owner's currency
 orderCurrencyUnitPriceMap = [:];
