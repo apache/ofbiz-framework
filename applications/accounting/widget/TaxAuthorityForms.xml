@@ -190,7 +190,7 @@ under the License.
         <field name="taxAuthGeoId"><hidden/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccount}">
             <display-entity entity-name="GlAccount" description="${accountName}">
-                <sub-hyperlink description="${glAccountId}" target="EditGlAccount" link-style="buttontext">
+                <sub-hyperlink description="${glAccountId}" target="EditGlobalGlAccount" link-style="buttontext">
                     <parameter param-name="glAccountId"/>
                 </sub-hyperlink>
             </display-entity>
