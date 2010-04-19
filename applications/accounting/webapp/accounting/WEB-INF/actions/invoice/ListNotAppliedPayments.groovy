@@ -48,7 +48,7 @@ topCond = exprBldr.AND(preCurrencyCond) {
     EQUALS(currencyUomId: invoice.currencyUomId)
 }
 
-topCondActual = exprBuilder.AND(preCurrencyCond) {
+topCondActual = exprBldr.AND(preCurrencyCond) {
     EQUALS(actualCurrencyUomId: invoice.currencyUomId)
 }
 
