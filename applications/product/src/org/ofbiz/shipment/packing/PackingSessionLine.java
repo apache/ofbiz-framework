@@ -31,6 +31,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
+@SuppressWarnings("serial")
 public class PackingSessionLine implements java.io.Serializable {
 
     public final String module = PackingSessionLine.class.getName();

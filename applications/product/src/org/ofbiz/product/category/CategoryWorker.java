@@ -25,7 +25,6 @@ import java.util.Map;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 
 import javolution.util.FastList;
 

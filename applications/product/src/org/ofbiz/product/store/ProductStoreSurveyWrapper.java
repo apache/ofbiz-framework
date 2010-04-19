@@ -39,7 +39,7 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
 
     protected ProductStoreSurveyWrapper() {}
 
-    public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map passThru, Map defaultValues) {
+    public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map<String, Object> passThru, Map<String, Object> defaultValues) {
         this.productStoreSurveyAppl = productStoreSurveyAppl;
 
         if (this.productStoreSurveyAppl != null) {
@@ -61,7 +61,7 @@ public class ProductStoreSurveyWrapper extends SurveyWrapper {
         this.checkParameters();
     }
 
-    public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map passThru) {
+    public ProductStoreSurveyWrapper(GenericValue productStoreSurveyAppl, String partyId, Map<String, Object> passThru) {
         this(productStoreSurveyAppl, partyId, passThru, null);
     }
 

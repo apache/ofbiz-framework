@@ -20,7 +20,6 @@ package org.ofbiz.shipment.weightPackage;
 
 import java.math.BigDecimal;
 import java.util.Map;
-import java.io.Serializable;
 
 import javolution.util.FastMap;
 
@@ -30,6 +29,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
+@SuppressWarnings("serial")
 public class WeightPackageSessionLine implements java.io.Serializable {
 
     protected String orderId = null;

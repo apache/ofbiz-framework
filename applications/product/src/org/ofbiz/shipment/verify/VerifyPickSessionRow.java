@@ -33,6 +33,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
+@SuppressWarnings("serial")
 public class VerifyPickSessionRow implements Serializable {
 
     protected String orderId = null;

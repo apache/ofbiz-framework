@@ -70,7 +70,7 @@ public class ProductSearch {
     public static final String resource = "ProductUiLabels";
     public static final String resourceCommon = "CommonUiLabels";
 
-    public static ArrayList parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static ArrayList<String> parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         Set<String> featureIdSet = FastSet.newInstance();
         if (featureIdByType != null) {
             featureIdSet.addAll(featureIdByType.values());
@@ -79,7 +79,7 @@ public class ProductSearch {
         return parametricKeywordSearch(featureIdSet, keywordsString, delegator, productCategoryId, true, visitId, anyPrefix, anySuffix, isAnd);
     }
 
-    public static ArrayList parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static ArrayList<String> parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         List<ProductSearchConstraint> productSearchConstraintList = FastList.newInstance();
 
         if (UtilValidate.isNotEmpty(productCategoryId)) {
@@ -161,7 +161,7 @@ public class ProductSearch {
 
         public Set<String> includeCategoryIds = FastSet.newInstance();
         public Set<String> excludeCategoryIds = FastSet.newInstance();
-        public Set alwaysIncludeCategoryIds = FastSet.newInstance();
+        public Set<String> alwaysIncludeCategoryIds = FastSet.newInstance();
 
         public List<Set<String>> includeCategoryIdOrSetAndList = FastList.newInstance();
         public List<Set<String>> alwaysIncludeCategoryIdOrSetAndList = FastList.newInstance();
@@ -821,6 +821,7 @@ public class ProductSearch {
     }
 
 
+    @SuppressWarnings("serial")
     public static class CatalogConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Catalog";
         protected String prodCatalogId;
@@ -894,6 +895,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class CategoryConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Category";
         protected String productCategoryId;
@@ -989,6 +991,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class FeatureConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Feature";
         protected String productFeatureId;
@@ -1071,6 +1074,7 @@ public class ProductSearch {
     }
 
 
+    @SuppressWarnings("serial")
     public static class FeatureCategoryConstraint extends ProductSearchConstraint {
         public static final String constraintName = "FeatureCategory";
         protected String productFeatureCategoryId;
@@ -1151,6 +1155,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class FeatureGroupConstraint extends ProductSearchConstraint {
         public static final String constraintName = "FeatureGroup";
         protected String productFeatureGroupId;
@@ -1231,6 +1236,7 @@ public class ProductSearch {
     }
 
 
+    @SuppressWarnings("serial")
     public static class FeatureSetConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Feature Set";
         protected Set<String> productFeatureIdSet;
@@ -1324,6 +1330,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class KeywordConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Keyword";
         protected String keywordsString;
@@ -1444,6 +1451,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class LastUpdatedRangeConstraint extends ProductSearchConstraint {
         public static final String constraintName = "LastUpdatedRange";
         protected Timestamp fromDate;
@@ -1496,6 +1504,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class StoreGroupPriceConstraint extends ProductSearchConstraint {
         public static final String constraintName = "StoreGroupPrice";
         protected String productStoreGroupId;
@@ -1555,6 +1564,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class ListPriceRangeConstraint extends ProductSearchConstraint {
         public static final String constraintName = "ListPriceRange";
         protected BigDecimal lowPrice;
@@ -1661,6 +1671,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class SupplierConstraint extends ProductSearchConstraint {
         public static final String constraintName = "Supplier";
         protected String supplierPartyId;
@@ -1711,6 +1722,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class ExcludeVariantsConstraint extends ProductSearchConstraint {
         public static final String constraintName = "ExcludeVariants";
 
@@ -1742,6 +1754,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class AvailabilityDateConstraint extends ProductSearchConstraint {
         public static final String constraintName = "AvailabilityDate";
 
@@ -1773,6 +1786,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class GoodIdentificationConstraint extends ProductSearchConstraint {
         public static final String constraintName = "GoodIdentification";
         protected String goodIdentificationTypeId;
@@ -1797,7 +1811,7 @@ public class ProductSearch {
                 productSearchContext.index++;
 
 
-                EntityComparisonOperator operator = EntityOperator.EQUALS;
+                EntityComparisonOperator<?,?> operator = EntityOperator.EQUALS;
 
                 if (UtilValidate.isNotEmpty(include) && include == Boolean.FALSE) {
                     operator = EntityOperator.NOT_EQUAL;
@@ -1866,6 +1880,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class ProductFieldConstraint extends ProductSearchConstraint {
         public static final String constraintName = "ProductField";
         protected String keyword;
@@ -1913,6 +1928,7 @@ public class ProductSearch {
     // Result Sort Classes
     // ======================================================================
 
+    @SuppressWarnings("serial")
     public static abstract class ResultSortOrder implements java.io.Serializable {
         public ResultSortOrder() {
         }
@@ -1923,6 +1939,7 @@ public class ProductSearch {
         public abstract boolean isAscending();
     }
 
+    @SuppressWarnings("serial")
     public static class SortKeywordRelevancy extends ResultSortOrder {
         public SortKeywordRelevancy() {
         }
@@ -1952,6 +1969,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class SortProductField extends ResultSortOrder {
         protected String fieldName;
         protected boolean ascending;
@@ -2008,6 +2026,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class SortProductPrice extends ResultSortOrder {
         protected String productPriceTypeId;
         protected String currencyUomId;
@@ -2094,6 +2113,7 @@ public class ProductSearch {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class SortProductFeature extends ResultSortOrder {
         protected String productFeatureTypeId;
         protected boolean ascending;

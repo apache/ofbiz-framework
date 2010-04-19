@@ -18,25 +18,23 @@
  *******************************************************************************/
 package org.ofbiz.shipment.picklist;
 
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.ServiceUtil;
 
 public class PickListServices {
 

@@ -32,7 +32,6 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
@@ -202,7 +201,6 @@ public class ProductFeatureServices {
 
             // loop through each feature type
             for (Map.Entry<String, List<GenericValue>> entry: features.entrySet()) {
-                String currentFeatureType = entry.getKey();
                 List<GenericValue> currentFeatures = entry.getValue();
 
                 List<Map<String, Object>> newCombinations = FastList.newInstance();
@@ -303,7 +301,7 @@ public class ProductFeatureServices {
         String productCategoryId = (String) context.get("productCategoryId");
 
         // get all the product members of the product category
-        Map result;
+        Map<String, Object> result;
         try {
             result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
         } catch (GenericServiceException ex) {

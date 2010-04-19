@@ -1565,7 +1565,7 @@ public class UspsServices {
 
         for (GenericValue shipmentPackageRouteSeg : shipmentPackageRouteSegs) {
             Document packageDocument = (Document) requestDocument.cloneNode(true);
-            Element packageRootElement = requestDocument.getDocumentElement();
+            //Element packageRootElement = requestDocument.getDocumentElement();
             // This is our reference and can be whatever we want.  For lack of a better alternative we'll use shipmentId:shipmentPackageSeqId:shipmentRouteSegmentId
             String fromCustomsReference = shipmentRouteSegment.getString("shipmentId") + ":" + shipmentRouteSegment.getString("shipmentRouteSegmentId");
             fromCustomsReference = StringUtils.join(
@@ -1787,6 +1787,7 @@ public class UspsServices {
     }
 }
 
+@SuppressWarnings("serial")
 class UspsRequestException extends GeneralException {
     UspsRequestException() {
         super();

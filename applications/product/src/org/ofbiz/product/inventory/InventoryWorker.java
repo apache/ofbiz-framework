@@ -119,7 +119,7 @@ public class InventoryWorker {
         condList.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
         condList.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
         condList.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
-        EntityConditionList conditions = EntityCondition.makeCondition(condList, EntityOperator.AND);
+        EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(condList, EntityOperator.AND);
 
         Map<String, BigDecimal> results = FastMap.newInstance();
         try {

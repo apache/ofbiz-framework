@@ -44,6 +44,7 @@ import org.xml.sax.SAXException;
 /**
  * USPS Webtools API Mock API Servlet
  */
+@SuppressWarnings("serial")
 public class UspsMockApiServlet extends HttpServlet {
 
     public static final String module = UspsMockApiServlet.class.getName();

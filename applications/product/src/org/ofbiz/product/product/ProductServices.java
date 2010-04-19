@@ -25,14 +25,19 @@ import java.io.RandomAccessFile;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.jdom.JDOMException;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -44,13 +49,12 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.product.image.ScaleImage;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.category.CategoryWorker;
+import org.ofbiz.product.image.ScaleImage;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -83,7 +87,7 @@ public class ProductServices {
         // * Map selectedFeatures  -- Selected features
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        Map selectedFeatures = UtilGenerics.checkMap(context.get("selectedFeatures"));
+        Map<String, String> selectedFeatures = UtilGenerics.checkMap(context.get("selectedFeatures"));
         List<GenericValue> products = FastList.newInstance();
         // All the variants for this products are retrieved
         Map<String, Object> resVariants = prodFindAllVariants(dctx, context);
@@ -135,10 +139,6 @@ public class ProductServices {
     public static Map<String, Object> prodFindDistinctVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
         // * String productId      -- Parent (virtual) product ID
         // * String feature        -- Distinct feature name
-        Delegator delegator = dctx.getDelegator();
-        String productId = (String) context.get("productId");
-        String feature = (String) context.get("feature");
-
         return ServiceUtil.returnError("This service has not yet been implemented.");
     }
 
