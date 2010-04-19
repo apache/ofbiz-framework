@@ -60,10 +60,10 @@ under the License.
                 <set field="tabButtonItem" value="ContactList"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.PageTitleListContactList}"/>
                 <set field="title" value="${uiLabelMap.PageTitleListContactList}"/>
-
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
                 <set field="entityName" value="ContactList"/>
+                <set field="searchFields" value="[contactListId, contactListName, description]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
