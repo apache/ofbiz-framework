@@ -345,6 +345,7 @@ public class ProductionRunServices {
                 }
                 String productionRunTaskId = (String) resultService.get("workEffortId");
                 if (Debug.infoOn()) Debug.logInfo("ProductionRunTaskId created: " + productionRunTaskId, module);
+
                 // The newly created production run task is associated to the routing task
                 // to keep track of the template used to generate it.
                 serviceContext.clear();
@@ -357,34 +358,11 @@ public class ProductionRunServices {
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem calling the createWorkEffortAssoc service", module);
                 }
-                // copy date valid WorkEffortPartyAssignments from the routing task to the run task
-                List workEffortPartyAssignments = null;
-                try {
-                    workEffortPartyAssignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment",
-                            UtilMisc.toMap("workEffortId", routingTaskAssoc.getString("workEffortIdTo"))));
-                } catch (GenericEntityException e) {
-                    Debug.logError(e.getMessage(),  module);
-                }
-                if (workEffortPartyAssignments != null) {
-                    Iterator i = workEffortPartyAssignments.iterator();
-                    while (i.hasNext()) {
-                        GenericValue workEffortPartyAssignment = (GenericValue) i.next();
-                        Map partyToWorkEffort = UtilMisc.toMap(
-                                "workEffortId",  productionRunTaskId,
-                                "partyId",  workEffortPartyAssignment.getString("partyId"),
-                                "roleTypeId",  workEffortPartyAssignment.getString("roleTypeId"),
-                                "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
-                                "statusId",  workEffortPartyAssignment.getString("statusId"),
-                                "userLogin", userLogin
-                       );
-                        try {
-                            resultService = dispatcher.runSync("assignPartyToWorkEffort", partyToWorkEffort);
-                        } catch (GenericServiceException e) {
-                            Debug.logError(e, "Problem calling the assignPartyToWorkEffort service", module);
-                        }
-                        if (Debug.infoOn()) Debug.logInfo("ProductionRunPartyassigment for party: " + workEffortPartyAssignment.get("partyId") + " created", module);
-                    }
-                }
+                
+                // clone associated objects from the routing task to the run task
+                String routingTaskId = routingTaskAssoc.getString("workEffortIdTo");
+                cloneWorkEffortPartyAssignments(ctx, userLogin, routingTaskId, productionRunTaskId);
+                cloneWorkEffortCostCalcs(ctx, userLogin, routingTaskId, productionRunTaskId);
 
                 // Now we iterate thru the components returned by the getManufacturingComponents service
                 // TODO: if in the BOM a routingWorkEffortId is specified, but the task is not in the routing
@@ -439,6 +417,74 @@ public class ProductionRunServices {
         result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "ManufacturingProductionRunCreated",UtilMisc.toMap("productionRunId", productionRunId), locale));
         return result;
     }
+
+    /**
+     * Make a copy of the party assignments that were defined on the template routing task to the new production run task.
+     */
+    private static void cloneWorkEffortPartyAssignments(DispatchContext dctx, GenericValue userLogin, String routingTaskId, String productionRunTaskId) {
+        List workEffortPartyAssignments = null;
+        try {
+            workEffortPartyAssignments = EntityUtil.filterByDate(
+                    dctx.getDelegator().findByAnd("WorkEffortPartyAssignment", UtilMisc.toMap("workEffortId", routingTaskId)));
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(),  module);
+        }
+
+        if (workEffortPartyAssignments != null) {
+            Iterator i = workEffortPartyAssignments.iterator();
+            while (i.hasNext()) {
+                GenericValue workEffortPartyAssignment = (GenericValue) i.next();
+                Map partyToWorkEffort = UtilMisc.toMap(
+                        "workEffortId",  productionRunTaskId,
+                        "partyId",  workEffortPartyAssignment.getString("partyId"),
+                        "roleTypeId",  workEffortPartyAssignment.getString("roleTypeId"),
+                        "fromDate",  workEffortPartyAssignment.getTimestamp("fromDate"),
+                        "statusId",  workEffortPartyAssignment.getString("statusId"),
+                        "userLogin", userLogin
+               );
+                try {
+                    dctx.getDispatcher().runSync("assignPartyToWorkEffort", partyToWorkEffort);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Problem calling the assignPartyToWorkEffort service", module);
+                }
+                if (Debug.infoOn()) Debug.logInfo("ProductionRunPartyassigment for party: " + workEffortPartyAssignment.get("partyId") + " created", module);
+            }
+        }
+    }
+    
+    /**
+     * Make a copy of the cost calc entities that were defined on the template routing task to the new production run task.
+     */
+    private static void cloneWorkEffortCostCalcs(DispatchContext dctx, GenericValue userLogin, String routingTaskId, String productionRunTaskId) {
+        List<GenericValue> workEffortCostCalcs = null;
+        try {
+            workEffortCostCalcs = EntityUtil.filterByDate(
+                    dctx.getDelegator().findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", routingTaskId)));
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(),  module);
+        }
+        
+        if (workEffortCostCalcs != null) {
+            for (GenericValue costCalc : workEffortCostCalcs) {
+                Map<String, Object> createCostCalc = UtilMisc.toMap(
+                        "workEffortId", productionRunTaskId,
+                        "costComponentTypeId", costCalc.getString("costComponentTypeId"),
+                        "costComponentCalcId", costCalc.getString("costComponentCalcId"),
+                        "fromDate", costCalc.get("fromDate"),
+                        "thruDate", costCalc.get("thruDate"),
+                        "userLogin", userLogin
+                );
+
+                try {
+                    dctx.getDispatcher().runSync("createWorkEffortCostCalc", createCostCalc);
+                } catch (GenericServiceException gse) {
+                    Debug.logError(gse, "Problem calling the createWorkEffortCostCalc service", module);
+                }
+                if (Debug.infoOn()) Debug.logInfo("ProductionRun CostCalc for cost calc: " + costCalc.getString("costComponentCalcId") + " created", module);
+            }
+        }
+    }
+    
     /**
      * Update a Production Run.
      *  <li> update field and after recalculate the entire ProductionRun data (routingTask and productComponent)
@@ -1034,15 +1080,11 @@ public class ProductionRunServices {
             if (UtilValidate.isNotEmpty(routingTaskAssoc)) {
                 routingTask = routingTaskAssoc.getRelatedOne("FromWorkEffort");
             }
-            List workEffortCostCalcs = null;
-            if (UtilValidate.isEmpty(routingTask)) {
-                // there is no template, try to get the cost entries for the actual production run task, if any
-                workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", productionRunTaskId));
-            } else {
-                workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", routingTask.getString("workEffortId")));
-            }
+            
             // Get all the valid CostComponentCalc entries
+            List workEffortCostCalcs = workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", productionRunTaskId)); 
             workEffortCostCalcs = EntityUtil.filterByDate(workEffortCostCalcs);
+
             Iterator workEffortCostCalcsIt = workEffortCostCalcs.iterator();
             while (workEffortCostCalcsIt.hasNext()) {
                 GenericValue workEffortCostCalc = (GenericValue)workEffortCostCalcsIt.next();
@@ -1082,6 +1124,7 @@ public class ProductionRunServices {
                     dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
                 }
             }
+            
             // Now get the cost information associated to the fixed asset and compute the costs
             GenericValue fixedAsset = workEffort.getRelatedOne("FixedAsset");
             if (UtilValidate.isEmpty(fixedAsset) && UtilValidate.isNotEmpty(routingTask)) {

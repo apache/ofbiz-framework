@@ -93,6 +93,19 @@ under the License.
             <if-compare field="productionRunTask.estimatedMilliSeconds" operator="equals" value="300000.00" type="BigDecimal"/>
         </assert>
 
+        <!-- Verify that the cost calcs were copied from the routing task to the production run task -->
+        <entity-and list="costCalcs" entity-name="WorkEffortCostCalc">
+            <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId" />
+        </entity-and>
+        <first-from-list entry="costCalc" list="costCalcs"/>
+        
+        <assert>
+            <not><if-empty field="costCalc" /></not>
+            <if-compare field="costCalc.costComponentTypeId" operator="equals" value="OTHER_COST" />
+            <if-compare field="costCalc.costComponentCalcId" operator="equals" value="TASK_COST_CALC" />
+        </assert>
+
+        <!-- Verify that the BOM was properly copied to the production run task -->
         <entity-and list="productionRunMaterials" entity-name="WorkEffortGoodStandard">
             <field-map field-name="workEffortId" from-field="productionRunTask.workEffortId"/>
             <field-map field-name="productId" value="MAT_A_COST"/>
