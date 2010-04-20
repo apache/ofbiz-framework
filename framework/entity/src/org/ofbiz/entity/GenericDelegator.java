@@ -3255,6 +3255,7 @@ public class GenericDelegator implements Delegator {
      */
     public GenericDelegator makeTestDelegator(String delegatorName) {
         GenericDelegator testDelegator = this.cloneDelegator(delegatorName);
+        testDelegator.entityEcaHandler = null;
         testDelegator.initEntityEcaHandler();
         testDelegator.setTestMode(true);
         return testDelegator;
