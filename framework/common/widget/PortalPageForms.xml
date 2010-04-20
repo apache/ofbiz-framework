@@ -115,7 +115,7 @@ under the License.
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
-    
+
     <form name="PortletList" type="list" separate-columns="true" list-name="portlets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -128,5 +128,17 @@ under the License.
         </field>
         <field name="description"><display/></field>
     </form>
-    
+
+    <form name="FindGenericEntity" type="single" target="list${entity}" title="" focus-field-name="idName">
+        <field name="hideSearch"><hidden value="Y"/></field>  
+        <field name="idName" title="${uiLabelMap.FormFieldTitle_${pkIdName}"><text size="16"/></field>
+        <field name="idName_op" ><hidden value="contains"/></field>
+        <field name="idName_ic" ><hidden value="Y"/></field>
+        <field name="description" ><text size="16"/></field>
+        <field name="description_op" ><hidden value="contains"/></field>
+        <field name="description_ic" ><hidden value="Y"/></field>
+        <field name="submitButton" title=" " widget-style="smallSubmit">
+            <hyperlink target="javascript:ajaxUpdateArea('List${entity}Area', 'list${entity}', $(FindGenericEntity).serialize());" target-type="plain"  description="${uiLabelMap.CommonSearch}"/>
+        </field>
+    </form>
 </forms>

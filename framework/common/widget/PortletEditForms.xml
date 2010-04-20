@@ -33,5 +33,41 @@ under the License.
         <field name="portalPortletId"><hidden value="${parameters.portalPortletId}"/></field>
         <field name="portletSeqId"><hidden value="${parameters.portletSeqId}"/></field>
     </form>
+    <form name="GenericPortalPageParam" extends="CommonPortletEdit">
+        <field name="pageId" required-field="true"><text/></field>
+        <field name="submit" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="FindGenericEntityParam" extends="CommonPortletEdit">
+        <field name="titleLabel" required-field="true"><text/></field>
+        <field name="entity" required-field="true"><text/></field>
+        <field name="pkIdName" required-field="true"><text/></field>
+        <field name="divIdRefresh"><text/></field>
+        <field name="submit" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="GenericScreenletParam" extends="CommonPortletEdit">
+        <field name="titleLabel" required-field="true"><text/></field>
+        <field name="divIdRefresh"><text/></field>
+        <field name="formName" required-field="true"><text/></field>
+        <field name="formLocation" required-field="true"><text/></field>
+        <field name="submit" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="GenericScreenletAjaxParam" extends="CommonPortletEdit">
+        <field name="titleLabel" required-field="true"><text/></field>
+        <field name="divIdRefresh"><text/></field>
+        <field name="divIdArea" required-field="true"><text/></field>
+        <field name="screenName" required-field="true"><text/></field>
+        <field name="screenLocation" required-field="true"><text/></field>
+        <field name="submit" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="GenericScreenletAjaxWithMenuParam" extends="CommonPortletEdit">
+        <field name="titleLabel" required-field="true"><text/></field>
+        <field name="divIdRefresh"><text/></field>
+        <field name="divIdArea" required-field="true"><text/></field>
+        <field name="screenName" required-field="true"><text/></field>
+        <field name="screenLocation" required-field="true"><text/></field>
+        <field name="menuName" required-field="true"><text/></field>
+        <field name="menuLocation" required-field="true"><text/></field>
+        <field name="submit" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 
 </forms>

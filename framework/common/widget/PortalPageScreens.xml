@@ -44,6 +44,17 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="showPortletUiLabelDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="uiLabelDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="showPortlet"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="showPortletMainDecorator">
         <section>
             <widgets>
@@ -176,6 +187,71 @@ under the License.
                         <platform-specific><html><html-template location="component://common/webcommon/portal/listPortalPortlets.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="GenericPortalPage">
+        <section>
+            <actions>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+                <set field="portalPageId" value="${pageId}"/>
+            </actions>
+            <widgets>
+                <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindGenericEntity">
+        <section>
+            <actions>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.${titleLabel}}">
+                    <include-form name="FindGenericEntity" location="component://common/widget/PortalPageForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="GenericScreenlet">
+        <section>
+            <actions>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.${titleLabel}}">
+                    <include-form name="${formName}" location="${formLocation}"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="GenericScreenletAjax">
+        <section>
+            <actions>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.${titleLabel}}">
+                    <container id="${divIdArea}">
+                        <include-screen name="${screenName}" location="${screenLocation}"/>
+                    </container>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="GenericScreenletAjaxWithMenu">
+        <section>
+            <actions>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.${titleLabel}}" navigation-menu-name="${menuName}">
+                    <include-menu name="${menuName}" location="${menuLocation}"/>
+                    <container id="${divIdArea}">
+                        <include-screen name="${screenName}" location="${screenLocation}"/>
+                    </container>
+                </screenlet>
             </widgets>
         </section>
     </screen>
