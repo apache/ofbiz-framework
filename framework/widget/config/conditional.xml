@@ -23,7 +23,7 @@
         <value xml:lang="de">Beginnt mit</value>
         <value xml:lang="en">Begins With</value>
         <value xml:lang="es">Inicia con</value>
-        <value xml:lang="fr">commence par</value>
+        <value xml:lang="fr">débute</value>
         <value xml:lang="it">Inizia con</value>
         <value xml:lang="nl">Begint met</value>
         <value xml:lang="ro">Incepe Cu</value>
@@ -101,7 +101,7 @@
         <value xml:lang="de">Groß-Kleinschreibung ignorieren</value>
         <value xml:lang="en">Ignore Case</value>
         <value xml:lang="es">Ignorar mayusculas</value>
-        <value xml:lang="fr">Ignorer la casse (maj/min)</value>
+        <value xml:lang="fr">(Maj/min)</value>
         <value xml:lang="it">Ignora maiuscole/minuscole</value>
         <value xml:lang="nl">negeer gr/kl letters</value>
         <value xml:lang="ro">Ignora Majuscule/Minuscule</value>
@@ -150,7 +150,7 @@
     </property>
     <property key="not_equal">
         <value xml:lang="en">Not Equal</value>
-        <value xml:lang="fr">Différent</value>
+        <value xml:lang="fr">Diff.</value>
         <value xml:lang="it">Diverso da</value>
         <value xml:lang="th">ไม่เท่ากับ</value>
         <value xml:lang="zh">不等于</value>
