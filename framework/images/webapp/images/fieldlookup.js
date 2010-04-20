@@ -302,7 +302,7 @@ var FieldLookupPopup = Class.create({
         lookupDiv.appendChild(headerDiv);
         
         //get the lookup from an anjax request
-        this.loadContent(lookupDiv);
+        this.contentRef = this.loadContent(lookupDiv);
         
         lookupDiv.style.display = "none";
         //creates the div as child of the form element (parent --> input field; parentNode --> form)
@@ -352,9 +352,11 @@ var FieldLookupPopup = Class.create({
                 });
 
                 //modify the submit button
-                modifySubmitButton(lookupDiv, lookupCont);
+                modifySubmitButton(lookupDiv);
             }
         });
+        
+        return lookupCont
     },
 
     createFadedBackground: function (){
@@ -552,8 +554,8 @@ function hideLookup() {
     obj.closeLookup();
 }
 
-function modifySubmitButton (lookupDiv, lookupContent) {
-    /* changes form/submit behavior for Lookup Layer */
+function modifySubmitButton (lookupDiv) {
+	/* changes form/submit behavior for Lookup Layer */
     if (lookupDiv) {
         //find the lookup form
         var forms = lookupDiv.getElementsByTagName('form');
@@ -578,7 +580,7 @@ function modifySubmitButton (lookupDiv, lookupContent) {
                     id: 'lookupSubmitButton'
                 });
                 submit.onclick = function () {
-                    lookupFormAjaxRequest(formAction, lookupForm.getAttribute('id'), lookupDiv, lookupContent);
+                    lookupFormAjaxRequest(formAction, lookupForm.getAttribute('id'));
                     return false;
                 };
                 submit.setAttribute("class", "smallSubmit");
@@ -590,7 +592,7 @@ function modifySubmitButton (lookupDiv, lookupContent) {
                 ele.parentNode.appendChild(submit);
                 Event.observe(document, "keypress", function (evt) {
                     if (Event.KEY_RETURN == evt.keyCode) {
-                        lookupFormAjaxRequest(formAction, lookupForm.getAttribute('id'), lookupDiv, lookupContent);
+                        lookupFormAjaxRequest(formAction, lookupForm.getAttribute('id'));
                     }
                 });
                 ele.parentNode.removeChild(ele);
@@ -605,7 +607,7 @@ function modifySubmitButton (lookupDiv, lookupContent) {
                             var select = eleChild[k].getElementsByTagName("SELECT");
 
                             if (link.length > 0) {
-                                link[0].href = "javascript:lookupPaginationAjaxRequest('" + link[0].href + "', '" + lookupForm.getAttribute('id') + "', 'link', '" + lookupDiv + "')";
+                            	link[0].href = "javascript:lookupPaginationAjaxRequest('" + link[0].href + "', '" + lookupForm.getAttribute('id') + "', 'link')";
                             } else if (select.length > 0) {
                                 try {
                                     var oc = select[0].getAttribute("onchange");
@@ -619,7 +621,7 @@ function modifySubmitButton (lookupDiv, lookupContent) {
                                             var viewSize = select[0].value;
                                             var spl = ocSub.split(searchPattern);
                                             select[0].onchange = function () {
-                                                lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], lookupForm.getAttribute('id'), 'select', lookupDiv);
+                                                lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], lookupForm.getAttribute('id'), 'select');
                                             };
                                         } else if (searchPattern2.test(ocSub)) {
                                             ocSub = ocSub.replace(searchPattern2, "");
@@ -627,12 +629,12 @@ function modifySubmitButton (lookupDiv, lookupContent) {
                                                 ocSub.replace(searchPattern, viewSize);
                                             }
                                             select[0].onchange = function () {
-                                                lookupPaginationAjaxRequest(ocSub + this.value, lookupForm.getAttribute('id'), 'select', lookupDiv);
+                                                lookupPaginationAjaxRequest(ocSub + this.value, lookupForm.getAttribute('id'), 'select');
                                             };
                                         }
                                     } else {
                                         var ocSub = oc.substring((oc.indexOf('=') + 1),(oc.length - 1));
-                                        select[0].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ", '" + lookupForm.getAttribute('id') +"', '" + lookupDiv + "')");
+                                        select[0].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ", '" + lookupForm.getAttribute('id') +"')");
                                     }
                                 }
                                 catch (ex) {
@@ -653,8 +655,11 @@ function modifySubmitButton (lookupDiv, lookupContent) {
 * @param form - formId
 * @return
 */
-function lookupFormAjaxRequest(formAction, form, lookupDiv, lookupContent) {
-    new Ajax.Request(formAction, {
+function lookupFormAjaxRequest(formAction, form) {
+	lookupDiv = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).divRef);
+	lookupContent = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef);
+	
+	new Ajax.Request(formAction, {
         method: 'post',
         parameters: $(form).serialize(), requestHeaders: {
             Accept: 'application/json'
@@ -670,13 +675,17 @@ function lookupFormAjaxRequest(formAction, form, lookupDiv, lookupContent) {
             lookupCont.insert({
                 bottom: "" + formRequest + ""
             });
-            modifySubmitButton(lookupDiv, lookupCont);
+            GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef = lookupCont;
+            modifySubmitButton(lookupDiv);
         }
     });
 }
 
-function lookupPaginationAjaxRequest(navAction, form, type, lookupDiv) {
-    if (type == 'link') {
+function lookupPaginationAjaxRequest(navAction, form, type) {
+	lookupDiv = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).divRef);
+	lookupContent = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef);
+
+	if (type == 'link') {
         navAction = navAction.substring(0, navAction.length - 1);
     }
     navAction = navAction + "&presentation=layer";
@@ -687,10 +696,16 @@ function lookupPaginationAjaxRequest(navAction, form, type, lookupDiv) {
         },
         onSuccess: function (transport) {
             var formRequest = transport.responseText;
-            $('fieldLookupContent').remove();
-            lookupDiv.insert({
-                bottom: "<div id='fieldLookupContent'>" + formRequest + "</div>"
+            lookupContent.remove();
+            var lookupCont = new Element('DIV', {
+                id: "fieldLookupContent"
             });
+            lookupDiv.appendChild(lookupCont);
+
+            lookupCont.insert({
+                bottom: "" + formRequest + ""
+            });
+            GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef = lookupCont;
             modifySubmitButton(lookupDiv);
         }
     });
