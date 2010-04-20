@@ -2210,7 +2210,8 @@ Lookups
 /* overwrite */
  #fieldLookupContent ul li a {
     display: inherit;
-     cursor: pointer;
+    cursor: pointer;
+    background: none;
  }
 
  #fieldLookupContent td {
@@ -2218,8 +2219,9 @@ Lookups
     padding-bottom: 5px;
  }
 
- #fieldLookupContent td ul li a {
+ #fieldLookupContent td span a {
     background: url(/images/fieldlookup.gif) no-repeat;
+    display: inline-block;
  }
 
  #fieldLookupContent td a {
