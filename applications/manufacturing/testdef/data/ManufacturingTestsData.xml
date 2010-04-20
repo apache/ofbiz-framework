@@ -29,6 +29,7 @@ under the License.
     <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCTG_ATX_CREATE"/>
     <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCTG_ATX_UPDATE"/>
     <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCTG_PREF_VIEW"/>
+    <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCOUNTING_CREATE"/>
     <SecurityGroupPermission groupId="MANUFADMIN" permissionId="ACCOUNTING_UPDATE"/>
     <SecurityGroupPermission groupId="MANUFADMIN" permissionId="FACILITY_CREATE"/>
     <Party partyId="TestManufAdmin" partyTypeId="PERSON"/>
@@ -39,6 +40,7 @@ under the License.
     <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="MANUFACTURING_VIEW"/>
     <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
     <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="WORKEFFORTMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="SUPPLYADMIN" permissionId="ACCOUNTING_CREATE"/>
     <Party partyId="TestSupplyAdmin" partyTypeId="PERSON"/>
     <Person partyId="TestSupplyAdmin" firstName="Supply" lastName="Admin"/>
     <UserLogin partyId="TestSupplyAdmin" userLoginId="TestSupplyAdmin"/>
