@@ -52,5 +52,5 @@ under the License.
             </#if>
         </table>
         <#if (arraySize > 0)>
-            <@htmlTemplate.nextPrev listSize=arraySize viewSize=viewSize viewIndex=viewIndex  highIndex=highIndex commonDisplaying=commonDisplaying firstUrl=firstUrl previousUrl=previousUrl nextUrl=nextUrl lastUrl=lastUrl selectUrl=selectUrl selectSizeUrl=selectSizeUrl/>
+            <@htmlTemplate.nextPrev commonUrl=commonUrl listSize=arraySize viewSize=viewSize viewIndex=viewIndex  highIndex=highIndex />
         </#if>
