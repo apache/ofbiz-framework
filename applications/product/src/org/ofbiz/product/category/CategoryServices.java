@@ -78,6 +78,7 @@ public class CategoryServices {
         boolean activeOnly = (context.get("activeOnly") != null ? ((Boolean) context.get("activeOnly")).booleanValue() : true);
         Integer index = (Integer) context.get("index");
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
+        Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
 
         if (index == null && productId == null) {
             return ServiceUtil.returnError("Both Index and ProductID cannot be null.");
@@ -85,7 +86,7 @@ public class CategoryServices {
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
         if (orderByFields == null) orderByFields = FastList.newInstance();
-        String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit);
+        String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit, releaseDateLimit);
 
         GenericValue productCategory;
         List<GenericValue> productCategoryMembers;
@@ -100,9 +101,17 @@ public class CategoryServices {
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
         }
+        List<EntityCondition> filterConditions = FastList.newInstance();
         if (introductionDateLimit != null) {
             EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
-            productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, condition);
+            filterConditions.add(condition);
+        }
+        if (releaseDateLimit != null) {
+            EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
+            filterConditions.add(condition);
+        }
+        if (!filterConditions.isEmpty()) {
+            productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
         }
 
         if (productId != null && index == null) {
@@ -142,9 +151,9 @@ public class CategoryServices {
         return result;
     }
 
-    private static String getCategoryFindEntityName(Delegator delegator, List<String> orderByFields, Timestamp introductionDateLimit) {
+    private static String getCategoryFindEntityName(Delegator delegator, List<String> orderByFields, Timestamp introductionDateLimit, Timestamp releaseDateLimit) {
         // allow orderByFields to contain fields from the Product entity, if there are such fields
-        String entityName = introductionDateLimit == null ? "ProductCategoryMember" : "ProductAndCategoryMember";
+        String entityName = introductionDateLimit == null || releaseDateLimit != null ? "ProductCategoryMember" : "ProductAndCategoryMember";
         if (orderByFields == null) {
             return entityName;
         }
@@ -194,10 +203,11 @@ public class CategoryServices {
         boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
         int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
+        Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
         if (orderByFields == null) orderByFields = FastList.newInstance();
-        String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit);
+        String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit, releaseDateLimit);
 
         String prodCatalogId = (String) context.get("prodCatalogId");
 
@@ -258,9 +268,17 @@ public class CategoryServices {
                     if (activeOnly) {
                         productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
                     }
+                    List<EntityCondition> filterConditions = FastList.newInstance();
                     if (introductionDateLimit != null) {
                         EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
-                        productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, condition);
+                        filterConditions.add(condition);
+                    }
+                    if (releaseDateLimit != null) {
+                        EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
+                        filterConditions.add(condition);
+                    }
+                    if (!filterConditions.isEmpty()) {
+                        productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
                     }
 
                     // filter out the view allow before getting the sublist
@@ -293,6 +311,9 @@ public class CategoryServices {
                     }
                     if (introductionDateLimit != null) {
                         mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit)));
+                    }
+                    if (releaseDateLimit != null) {
+                        mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit)));
                     }
                     EntityCondition mainCond = EntityCondition.makeCondition(mainCondList, EntityOperator.AND);
 
