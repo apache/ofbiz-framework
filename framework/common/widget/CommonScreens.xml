@@ -522,11 +522,14 @@ under the License.
     <screen name="PortalPageScreen">
         <section>
             <actions>
-                <entity-one entity-name="PortalPage" value-field="portalPage"/>
-                <get-related value-field="portalPage" relation-name="PortalPageColumn" list="portalPageColumns"/>
-                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
+                <entity-one entity-name="PortalPage" value-field="portalPage" use-cache="true"/>
+                <get-related value-field="portalPage" relation-name="PortalPageColumn" 
+                             order-by-list="columnSeqId" list="portalPageColumns" use-cache="true"/>
+                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets" use-cache="true">
                     <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
-                </entity-and>            
+                    <order-by field-name="columnSeqId"/>
+                    <order-by field-name="sequenceNum"/>
+                </entity-and>
             </actions>
             <widgets>
                 <platform-specific>
