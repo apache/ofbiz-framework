@@ -876,7 +876,7 @@
     </property>
     <property key="HumanResEditJobRequisition">
         <value xml:lang="en">Edit Job Requisition</value>
-        <value xml:lang="en">Editer une demande de poste</value>
+        <value xml:lang="fr">Editer une demande de poste</value>
         <value xml:lang="pt_BR">Editar requisição de emprego</value>
     </property>
     <property key="HumanResEditLeaveApprovalStatus">
@@ -2090,7 +2090,7 @@
     </property>
     <property key="LookupJobReq">
         <value xml:lang="en">LookUp Job Requisition</value>
-        <value xml:lang="en">Rechercher une demande d'emploi</value>
+        <value xml:lang="fr">Rechercher une demande d'emploi</value>
         <value xml:lang="pt_BR">Procurar pro petição de emrpego</value>
     </property>
     <property key="PageTitleEditApprovalStatus">
