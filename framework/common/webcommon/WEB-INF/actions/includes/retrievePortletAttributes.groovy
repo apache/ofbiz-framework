@@ -25,6 +25,16 @@ portalPortletId = request.getAttribute("portalPortletId");
 portletSeqId = request.getAttribute("portletSeqId");
 
 portletAttributes = delegator.findList("PortletAttribute",
+                                        EntityCondition.makeCondition([portalPageId : "_NA_", portalPortletId: portalPortletId, portletSeqId: "00000"]),
+                                        null, null, null, false);
+iter = portletAttributes.iterator();
+
+while (iter) {
+  attribute = iter.next();
+  context.put(attribute.attrName, attribute.attrValue);
+}
+
+portletAttributes = delegator.findList("PortletAttribute",
                                         EntityCondition.makeCondition([portalPageId : portalPageId, portalPortletId: portalPortletId, portletSeqId: portletSeqId]),
                                         null, null, null, false);
 

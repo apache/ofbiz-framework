@@ -28,11 +28,18 @@ under the License.
             <#assign portletFields = '<input name="portalPageId" value="' + portlet.portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
             <form method="post" action="<@ofbizUrl>movePortletToPortalPage</@ofbizUrl>" name="movePP_${portlet_index}">${portletFields}<input name="newPortalPageId" value="${portlet.portalPageId}" type="hidden"/></form>
             <div id="portalPortlet_${portlet_index}" class="noClass">
-            ${setRequestAttribute("portalPageId", portalPage.portalPageId)}
-            ${setRequestAttribute("portalPortletId", portlet.portalPortletId)}
-            ${setRequestAttribute("portletSeqId", portlet.portletSeqId)}
-            ${screens.render(portlet.screenLocation, portlet.screenName)}
-            ${screens.setRenderFormUniqueSeq(portlet_index)}
+              <#assign idRefreshAttr = delegator.findOne("PortletAttribute", {"portalPageId":portlet.portalPageId, "portalPortletId":portlet.portalPortletId, "portletSeqId": portlet.portletSeqId, "attrName": "divIdRefresh"},true)?if_exists />
+              <#if idRefreshAttr?has_content>
+                <div id="${idRefreshAttr.attrValue}">
+              <#else>
+                <div id="${portlet.portalPortletId}_refresh">
+              </#if>
+              ${setRequestAttribute("portalPageId", portalPage.portalPageId)}
+              ${setRequestAttribute("portalPortletId", portlet.portalPortletId)}
+              ${setRequestAttribute("portletSeqId", portlet.portletSeqId)}
+              ${screens.render(portlet.screenLocation, portlet.screenName)}
+              ${screens.setRenderFormUniqueSeq(portlet_index)}
+              </div>
             </div>
             <#-- DragNDrop is only activated, when the portal Page isn't the Default page -->
             <#if portalPage.originalPortalPageId?has_content><script type="text/javascript">setMousePointer("${portlet_index}")</script></#if>
