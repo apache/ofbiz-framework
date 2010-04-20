@@ -18274,7 +18274,7 @@
     </property>
     <property key="ProductSalesThruDate">
         <value xml:lang="de">Verkauf bis zum Datum</value>
-        <value xml:lang="en">Sales discontinuation Thru Date</value>
+        <value xml:lang="en">Sales Discontinuation Thru Date</value>
         <value xml:lang="es">Fecha final de venta</value>
         <value xml:lang="fr">Jusqu'à la date</value>
         <value xml:lang="it">Vendite Sospese Alla Data</value>
