@@ -2418,6 +2418,7 @@ height:95%;
 #fieldLookupContent ul li a {
 display: inherit;
 cursor: pointer;
+background: none;
 }
 
 #fieldLookupContent td {
@@ -2425,8 +2426,9 @@ padding-top: 5px;
 padding-bottom: 5px;
 }
 
-#fieldLookupContent td ul li a {
+#fieldLookupContent td span a {
 background: url(../images/fieldlookup.png) no-repeat;
+display: inline-block;
 }
 
 #fieldLookupContent td a {
