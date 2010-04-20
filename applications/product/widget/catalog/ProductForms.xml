@@ -73,8 +73,9 @@ under the License.
         <field name="comments" title="${uiLabelMap.CommonComments}"><text size="60" maxlength="250"/></field>
 
         <field position="1" name="introductionDate" title="${uiLabelMap.CommonIntroductionDate}" red-when="after-now"><date-time/></field>
-        <field position="2" name="salesDiscontinuationDate" title="${uiLabelMap.ProductSalesThruDate}" red-when="before-now"><date-time/></field>
-        <field position="3" name="supportDiscontinuationDate" title="${uiLabelMap.ProductSupportThruDate}" red-when="before-now"><date-time/></field>
+        <field position="2" name="releaseDate" title="${uiLabelMap.CommonReleaseDate}" red-when="after-now"><date-time/></field>
+        <field position="3" name="salesDiscontinuationDate" title="${uiLabelMap.ProductSalesThruDate}" red-when="before-now"><date-time/></field>
+        <field position="4" name="supportDiscontinuationDate" title="${uiLabelMap.ProductSupportThruDate}" red-when="before-now"><date-time/></field>
 
         <field name="salesDiscWhenNotAvail" title="${uiLabelMap.ProductSalesDiscontinuationNotAvailable}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
@@ -248,6 +249,7 @@ under the License.
             </field-group>
             <field-group title="${uiLabelMap.CommonDates}" collapsible="true" initially-collapsed="true">
                 <sort-field name="introductionDate"/>
+                <sort-field name="releaseDate"/>
                 <sort-field name="salesDiscontinuationDate"/>
                 <sort-field name="supportDiscontinuationDate"/>
             </field-group>

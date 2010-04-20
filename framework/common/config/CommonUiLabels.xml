@@ -3420,6 +3420,9 @@
         <value xml:lang="zh">推介日期</value>
         <value xml:lang="zh_CN">引入日期</value>
     </property>
+    <property key="CommonReleaseDate">
+        <value xml:lang="en">Release Date</value>
+    </property>
     <property key="CommonInventory">
         <value xml:lang="en">Inventory</value>
         <value xml:lang="fr">Stockage</value>

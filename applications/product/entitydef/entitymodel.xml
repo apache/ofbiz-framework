@@ -2640,6 +2640,7 @@ under the License.
       <field name="manufacturerPartyId" type="id"></field>
       <field name="facilityId" type="id"></field>
       <field name="introductionDate" type="date-time"></field>
+      <field name="releaseDate" type="date-time"></field>
       <field name="supportDiscontinuationDate" type="date-time"></field>
       <field name="salesDiscontinuationDate" type="date-time"></field>
       <field name="salesDiscWhenNotAvail" type="indicator"></field>
