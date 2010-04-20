@@ -3236,6 +3236,7 @@ public class GenericDelegator implements Delegator {
         newDelegator.crypto = this.crypto;
         // In case this delegator is in testMode give it a reference to
         // the rollback list
+        newDelegator.testMode = this.testMode;
         testOperationsUpdater.set(newDelegator, this.testOperations);
         // not setting the sequencer so that we have unique sequences.
 
