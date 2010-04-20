@@ -21,6 +21,7 @@ under the License.
 <table width="100%">
   <tr><td>
     <div>
+      ${setRequestAttribute("portalPortletId", portlet.portalPortletId)}
       ${screens.render(portlet.screenLocation, portlet.screenName)}
     </div>
   </td></tr>
