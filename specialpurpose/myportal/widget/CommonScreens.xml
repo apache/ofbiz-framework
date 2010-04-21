@@ -50,6 +50,26 @@ under the License.
         </section>
     </screen>
 
+    <screen name="uiLabelDecorator">
+        <section>
+            <actions>
+                <property-map resource="MyPortalUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                   <decorator-section-include name="body"/>
+            </widgets>
+        </section>
+    </screen>
+
    <screen name="CommonPartyDecorator">
         <section>
             <actions>
