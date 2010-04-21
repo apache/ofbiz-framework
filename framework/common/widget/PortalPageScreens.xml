@@ -220,7 +220,7 @@ under the License.
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.${titleLabel}}">
+                <screenlet title="${uiLabelMap.${titleLabel}}" collapsible="true" id="scrlt_${formName}">
                     <include-form name="${formName}" location="${formLocation}"/>
                 </screenlet>
             </widgets>
