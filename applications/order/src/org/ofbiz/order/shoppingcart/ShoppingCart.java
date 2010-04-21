@@ -140,6 +140,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private String delegatorName = null;
 
     protected String productStoreId = null;
+    protected boolean doPromotions = true;
     protected String transactionId = null;
     protected String facilityId = null;
     protected String webSiteId = null;
@@ -177,6 +178,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.delegator = cart.getDelegator();
         this.delegatorName = delegator.getDelegatorName();
         this.productStoreId = cart.getProductStoreId();
+        this.doPromotions = cart.getDoPromotions();
         this.poNumber = cart.getPoNumber();
         this.orderId = cart.getOrderId();
         this.orderName = "Copy of " + cart.getOrderName();
@@ -285,6 +287,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public String getProductStoreId() {
         return this.productStoreId;
+    }
+
+    public boolean getDoPromotions() {
+        return this.doPromotions;
+    }
+
+    public void setDoPromotions(boolean doPromotions) {
+        this.doPromotions = doPromotions;
     }
 
     /**

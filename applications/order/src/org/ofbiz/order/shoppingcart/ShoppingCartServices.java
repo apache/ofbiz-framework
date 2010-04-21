@@ -190,6 +190,7 @@ public class ShoppingCartServices {
 
         // create the cart
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, website, locale, currency);
+        cart.setDoPromotions(!includePromoItems);
         cart.setOrderType(orderTypeId);
         cart.setChannelType(orderHeader.getString("salesChannelEnumId"));
         cart.setInternalCode(orderHeader.getString("internalCode"));
