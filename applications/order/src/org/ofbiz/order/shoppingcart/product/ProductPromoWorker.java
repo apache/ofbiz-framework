@@ -258,6 +258,9 @@ public class ProductPromoWorker {
         // limits sub total for promos to not use gift cards (products with a don't use in promo indicator), also exclude gift cards from all other promotion considerations including subTotals for discounts, etc
         // TODO: (not done, delay, still considering...) add code to check ProductPromoUse limits per promo (customer, promo), and per code (customer, code) to avoid use of promos or codes getting through due to multiple carts getting promos applied at the same time, possibly on totally different servers
 
+        if (!cart.getDoPromotions()) {
+            return;
+        }
         Delegator delegator = cart.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
