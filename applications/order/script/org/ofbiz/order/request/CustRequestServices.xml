@@ -424,7 +424,7 @@ under the License.
 
     <simple-method method-name="createCustRequestStatus" short-description="Create Customer Request Status">
         <make-value value-field="newEntity" entity-name="CustRequestStatus"/>
-        <make-next-seq-id value-field="newEntity" seq-field-name="custRequestStatusId"/>
+        <sequenced-id sequence-name="CustRequestStatus" field="newEntity.custRequestStatusId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.statusDatetime">
             <now-timestamp field="nowTimestamp"/>
