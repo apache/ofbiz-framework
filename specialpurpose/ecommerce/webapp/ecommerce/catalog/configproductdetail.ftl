@@ -357,6 +357,9 @@ function getConfigDetails(event) {
             <#else>
               <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
               <input type="text" size="5" name="quantity" value="1" />
+                <#if minimumQuantity?exists &&  minimumQuantity &gt; 0 >
+                  Minimum order quantity is ${minimumQuantity}.
+               </#if>
             </#if>
           </#if>
           <#if requestParameters.category_id?exists>

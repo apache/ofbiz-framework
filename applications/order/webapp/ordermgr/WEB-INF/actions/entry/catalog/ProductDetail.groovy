@@ -38,6 +38,7 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
+import org.ofbiz.order.shoppingcart.ShoppingCart;
 
 String buildNext(Map map, List order, String current, String prefix, Map featureTypes) {
     def ct = 0;
@@ -363,6 +364,7 @@ if (product) {
                     // make a list of variant sku with requireAmount
                     variantsRes = dispatcher.runSync("getAssociatedProducts", [productId : productId, type : "PRODUCT_VARIANT", checkViewAllow : true, prodCatalogId : currentCatalogId]);
                     variants = variantsRes.assocProducts;
+                    variantPriceList = [];
                     if (variants) {
                         amt = new StringBuffer();
                         amt.append("function checkAmtReq(sku) { ");
@@ -384,6 +386,30 @@ if (product) {
                             if (cart.isSalesOrder()) {
                                 // sales order: run the "calculateProductPrice" service
                                 variantPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+                                BigDecimal calculatedPrice = (BigDecimal)variantPriceMap.get("price");
+                                //Get the minimum quantity for varients if MINIMUM_ORDER_PRICE is set for varients.
+                                variantPriceMap.put("minimumQuantity", ShoppingCart.getMinimumOrderQuantity(delegator, calculatedPrice, variant.get("productId")));
+                                Iterator treeMapIter = variantTree.entrySet().iterator();
+                                while (treeMapIter.hasNext()) {
+                                    Map.Entry entry = treeMapIter.next();
+                                    if (entry.getValue() instanceof  Map) {
+                                        Iterator entryIter = entry.getValue().entrySet().iterator();
+                                        while (entryIter.hasNext()) {
+                                            Map.Entry innerentry = entryIter.next();
+                                            if (variant.get("productId").equals(innerentry.getValue().get(0))) {
+                                                variantPriceMap.put("variantName", innerentry.getKey());
+                                                variantPriceMap.put("secondVariantName", entry.getKey());
+                                                break;
+                                            }
+                                        }
+                                    } else if (UtilValidate.isNotEmpty(entry.getValue())) { 
+                                        if (variant.get("productId").equals(entry.getValue().get(0))) {
+                                            variantPriceMap.put("variantName", entry.getKey());
+                                            break;
+                                        }
+                                    }
+                                }
+                                variantPriceList.add(variantPriceMap);
                             } else {
                                 variantPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
                             }
@@ -395,6 +421,7 @@ if (product) {
                         amt.append(" } ");
                         variantPriceJS.append(" } ");
                     }
+                    context.variantPriceList = variantPriceList;
                     jsBuf.append(amt.toString());
                     jsBuf.append(variantPriceJS.toString());
                     jsBuf.append("</script>");
@@ -403,7 +430,9 @@ if (product) {
                 }
             }
         }
-    }
+    } else {
+        context.minimumQuantity= ShoppingCart.getMinimumOrderQuantity(delegator, priceMap.price, productId);
+    } 
 
     //get last inventory count from product facility for the product
     facilities = delegator.findList("ProductFacility", EntityCondition.makeCondition([productId : product.productId]), null, null, null, false);

@@ -22,11 +22,13 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -491,6 +493,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             if (sci.equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, features, attributes, prodCatalogId,selectedAmount, configWrapper, itemType, itemGroup, false)) {
                 BigDecimal newQuantity = sci.getQuantity().add(quantity);
+                try {
+                    BigDecimal minQuantity = getMinimumOrderQuantity(delegator,sci.getBasePrice(), productId);
+                    if(newQuantity.compareTo(minQuantity) < 0) {
+                        newQuantity = minQuantity;
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
                 if (sci.getItemType().equals("RENTAL_ORDER_ITEM")) {
                     // check to see if the related fixed asset is available for the new quantity
                     String isAvailable = ShoppingCartItem.checkAvailability(productId, newQuantity, reservStart, reservLength, this);
@@ -528,6 +538,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 throw new CartItemModifyException("SupplierProduct not found");
             }
         } else {
+            try {
+                BigDecimal minQuantity = getMinimumOrderQuantity(delegator,null, productId);
+                if(quantity.compareTo(minQuantity) < 0) {
+                    quantity = minQuantity;
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
             return this.addItem(0, ShoppingCartItem.makeItem(Integer.valueOf(0), productId, selectedAmount, quantity, null,
                     reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate,
                     features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher,
@@ -4921,5 +4939,44 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public void setOrderStatusString(String orderStatusString) {
         this.orderStatusString = orderStatusString;
+    }
+    public static BigDecimal getMinimumOrderQuantity (Delegator delegator, BigDecimal itemBasePrice, String itemProductId) 
+    throws GenericEntityException {
+        BigDecimal minQuantity = BigDecimal.ZERO;
+        BigDecimal minimumOrderPrice = BigDecimal.ZERO; 
+        
+        List<EntityExpr> exprs = FastList.newInstance();
+        exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, itemProductId));
+        exprs.add(EntityCondition.makeCondition("productPriceTypeId", EntityOperator.EQUALS, "MINIMUM_ORDER_PRICE"));
+        
+        List<GenericValue> minimumOrderPriceList =  delegator.findList("ProductPrice", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, false);
+        if(minimumOrderPriceList != null) {
+            minimumOrderPriceList = EntityUtil.filterByDate(minimumOrderPriceList);
+        }
+        if (itemBasePrice == null) {
+            List<GenericValue> productPriceList = EntityUtil.filterByDate(delegator.findList("ProductPrice", EntityCondition.makeCondition("productId", itemProductId), null, null, null, false));
+            Iterator it = productPriceList.iterator();
+            Map productPriceMap = FastMap.newInstance();
+            while (it.hasNext()) {
+                GenericValue productPrice = (GenericValue) it.next();
+                productPriceMap.put(productPrice.getString("productPriceTypeId"), productPrice.getBigDecimal("price"));
+            }
+            if (UtilValidate.isNotEmpty(productPriceMap.get("SPECIAL_PROMO_PRICE"))) {
+                itemBasePrice= (BigDecimal) productPriceMap.get("SPECIAL_PROMO_PRICE");
+            } else if (UtilValidate.isNotEmpty(productPriceMap.get("PROMO_PRICE"))) {
+                itemBasePrice= (BigDecimal) productPriceMap.get("PROMO_PRICE");
+            } else if (UtilValidate.isNotEmpty(productPriceMap.get("DEFAULT_PRICE"))) {
+                itemBasePrice= (BigDecimal) productPriceMap.get("DEFAULT_PRICE");
+            } else if (UtilValidate.isNotEmpty(productPriceMap.get("LIST_PRICE"))) {
+                itemBasePrice= (BigDecimal) productPriceMap.get("LIST_PRICE");
+            }
+        }
+        if(UtilValidate.isNotEmpty(minimumOrderPriceList)) {
+            minimumOrderPrice = EntityUtil.getFirst(minimumOrderPriceList).getBigDecimal("price");
+        }
+        if(minimumOrderPrice.compareTo(itemBasePrice) > 0) {
+            minQuantity = minimumOrderPrice.divide(itemBasePrice, 0, BigDecimal.ROUND_UP);
+        }
+        return minQuantity;
     }
 }

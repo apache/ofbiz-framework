@@ -776,6 +776,10 @@ public class ShoppingCartHelper {
                                             }
                                         }
                                     } else {
+                                        BigDecimal minQuantity = ShoppingCart.getMinimumOrderQuantity(delegator, item.getBasePrice(), item.getProductId());
+                                        if(quantity.compareTo(minQuantity) < 0) {
+                                            quantity = minQuantity;
+                                        }
                                         item.setQuantity(quantity, dispatcher, this.cart, true, false);
                                         cart.setItemShipGroupQty(item, quantity, 0);
                                     }
