@@ -2574,6 +2574,7 @@ public class OrderServices {
         Map result = new HashMap();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
+        String statusId = (String) context.get("statusId");
         String paymentMethodTypeId = (String) context.get("paymentMethodTypeId");
         String paymentMethodId = (String) context.get("paymentMethodId");
         BigDecimal maxAmount = (BigDecimal) context.get("maxAmount");
@@ -2590,6 +2591,10 @@ public class OrderServices {
 
         Map fields = UtilMisc.toMap("orderPaymentPreferenceId", prefId, "orderId", orderId, "paymentMethodTypeId",
                 paymentMethodTypeId, "paymentMethodId", paymentMethodId, "maxAmount", maxAmount);
+
+        if (statusId != null) {
+            fields.put("statusId", statusId);
+        }
 
         try {
             GenericValue v = delegator.makeValue("OrderPaymentPreference", fields);

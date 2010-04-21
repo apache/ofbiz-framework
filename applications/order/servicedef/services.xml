@@ -432,6 +432,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN"/>
         <attribute name="paymentMethodTypeId" type="String" mode="IN"/>
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="maxAmount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="orderPaymentPreferenceId" type="String" mode="OUT"/>
     </service>
