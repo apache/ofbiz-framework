@@ -844,7 +844,7 @@
         <value xml:lang="de">Kalender-Nr.</value>
         <value xml:lang="en">Calendar ID</value>
         <value xml:lang="es">Calendario</value>
-        <value xml:lang="fr">Réf. de calendrier</value>
+        <value xml:lang="fr">Calendrier</value>
         <value xml:lang="it">Codice Calendario</value>
         <value xml:lang="pt_BR">Id de calendário</value>
         <value xml:lang="ro">Cod Calendar</value>
@@ -910,7 +910,7 @@
         <value xml:lang="de">Kalenderwochen-Nr.</value>
         <value xml:lang="en">Calendar Week ID</value>
         <value xml:lang="es">Semana asociada</value>
-        <value xml:lang="fr">Réf. de semaine</value>
+        <value xml:lang="fr">Semaine</value>
         <value xml:lang="it">Codice Calendario Settimanale</value>
         <value xml:lang="pt_BR">Id de semana do calendário</value>
         <value xml:lang="ro">Cod Calendar Saptamana</value>
@@ -3217,7 +3217,7 @@
         <value xml:lang="de">Arbeitsgang-Nr.</value>
         <value xml:lang="en">Routing Task Id</value>
         <value xml:lang="es">Código de tarea</value>
-        <value xml:lang="fr">Réf. d'opération</value>
+        <value xml:lang="fr">Opération</value>
         <value xml:lang="it">Codice Operazione</value>
         <value xml:lang="pt_BR">Id de tarefa de rota</value>
         <value xml:lang="ro">Cod Operatie</value>
@@ -3226,18 +3226,21 @@
     </property>
     <property key="ManufacturingRoutingTaskIdMissing">
         <value xml:lang="en">Routing Task Id Missing</value>
+        <value xml:lang="fr">Code d'opération manquant</value>
         <value xml:lang="it">Codice operazione mancante</value>
         <value xml:lang="pt_BR">Id de tarefa de rota está faltando</value>
         <value xml:lang="zh">缺少规程任务标识</value>
     </property>
     <property key="ManufacturingRoutingTaskNotExists">
         <value xml:lang="en">Routing Task Not Exists</value>
+        <value xml:lang="fr">Cette opération n'existe pas</value>
         <value xml:lang="it">Codice operazione non esiste</value>
         <value xml:lang="pt_BR">Tarefa de rota não existe</value>
         <value xml:lang="zh">规程任务不存在</value>
     </property>
     <property key="ManufacturingRoutingTaskSeqIdAlreadyExist">
         <value xml:lang="en">Routing Task Seq Id Already Exists</value>
+        <value xml:lang="fr">Cette opération existe déjà</value>
         <value xml:lang="it">Codice operazione sequenza già esistente</value>
         <value xml:lang="pt_BR">Sequência de tarefa de rota já existe</value>
         <value xml:lang="zh">规程任务序列号已存在</value>
