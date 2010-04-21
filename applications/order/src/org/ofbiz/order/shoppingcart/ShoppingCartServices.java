@@ -471,6 +471,7 @@ public class ShoppingCartServices {
 
                 // flag the item w/ the orderItemSeqId so we can reference it
                 ShoppingCartItem cartItem = cart.findCartItem(itemIndex);
+                cartItem.setIsPromo(item.get("isPromo") != null && "Y".equals(item.getString("isPromo")));
                 cartItem.setOrderItemSeqId(item.getString("orderItemSeqId"));
 
                 try {
