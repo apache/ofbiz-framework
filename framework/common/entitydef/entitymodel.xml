@@ -668,7 +668,8 @@ under the License.
         <key-map field-name="portletCategoryId"/>
       </relation>
     </entity>
-    <entity entity-name="PortalPage" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
+    <entity entity-name="PortalPage" package-name="org.ofbiz.common.portal" title="Defines a Portal Page"
+        default-resource-name="CommonPortalEntityLabels">
         <field name="portalPageId" type="id-ne"></field>
         <field name="portalPageName" type="name"></field>
         <field name="description" type="description"></field>
