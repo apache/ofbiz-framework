@@ -50,7 +50,8 @@ if (searchFields && fieldValue) {
     }
     searchFieldsList.each { fieldName ->
         if ("EQUALS".equals(searchType)) {
-            andExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(fieldName), EntityOperator.EQUALS, searchValue));    
+            andExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(returnField), EntityOperator.EQUALS, searchValue));    
+            return;//in case of EQUALS, we search only a match for the returned field
         } else {
             andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
         }        
