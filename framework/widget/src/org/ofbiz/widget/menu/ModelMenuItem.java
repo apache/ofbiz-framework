@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -275,6 +276,7 @@ public class ModelMenuItem {
                 passed = false;
             }
         }
+        Locale locale = (Locale) context.get("locale");
            //Debug.logInfo("in ModelMenu, name:" + this.getName(), module);
         if (passed) {
             ModelMenuAction.runSubActions(this.actions, context);
@@ -285,7 +287,7 @@ public class ModelMenuItem {
                     if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
                         ModelMenuItem localItem = new ModelMenuItem(this.getModelMenu());
                         localItem.name =  portalPage.getString("portalPageId");
-                        localItem.setTitle(portalPage.getString("portalPageName"));
+                        localItem.setTitle((String) portalPage.get("portalPageName", locale));
                         localItem.link = new Link(this);
                         List<WidgetWorker.Parameter> linkParams = localItem.link.getParameterList();
                         linkParams.add(new WidgetWorker.Parameter("portalPageId", portalPage.getString("portalPageId"), false));
@@ -296,7 +298,7 @@ public class ModelMenuItem {
                         } else {
                             localItem.link.setTarget("showPortalPage");
                         }
-                        localItem.link.setText(portalPage.getString("portalPageName"));
+                        localItem.link.setText((String)portalPage.get("portalPageName", locale));
                         menuStringRenderer.renderMenuItem(writer, context, localItem);
                     }
                 }
