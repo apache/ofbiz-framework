@@ -104,43 +104,73 @@ under the License.
                 </call-service>
                 <field-to-request field="portalPageId" request-name="portalPageId"/>
 
-                <!-- copy portlets -->
-                <entity-and entity-name="PortalPagePortlet" list="portalPagePortlets">
-                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
-                </entity-and>
-                <iterate entry="portalPagePortlet" list="portalPagePortlets">
-                    <set-service-fields service-name="createPortalPagePortlet" map="portalPagePortlet" to-map="createPortLet"/>
-                    <set field="createPortLet.portalPageId" from-field="portalPageId"/>
-                    <call-service service-name="createPortalPagePortlet" in-map-name="createPortLet"/>
-                    <!-- copy the attributes -->
-                    <entity-and entity-name="PortletAttribute" list="portletAttributes">
-                        <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
-                        <field-map field-name="portalPortletId" from-field="portalPagePortlet.portalPortletId"/>
-                        <field-map field-name="portletSeqId" from-field="portalPagePortlet.portletSeqId"/>
-                    </entity-and>
-                    <iterate entry="portletAttribute" list="portletAttributes">
-                        <set field="portletAttribute.portalPageId" from-field="portalPageId"/>
-                        <create-value value-field="portletAttribute"/>
-                    </iterate>
-                </iterate>
-
-                <!-- delete the columns -->
-                <set field="delMap.portalPageId" from-field="portalPageId"/>
-                <remove-by-and entity-name="PortalPageColumn" map="delMap"/>
-
-                <!-- copy columns -->
-                <entity-and entity-name="PortalPageColumn" use-cache="true" list="portalPageColumns">
-                    <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
-                </entity-and>
-                <set field="first" value="true" type="Boolean"/>
-                <iterate entry="portalPageColumn" list="portalPageColumns">
-                    <set-service-fields service-name="addPortalPageColumn" map="portalPageColumn" to-map="addColumnMap"/>
-                    <clear-field field="addColumnMap.columnSeqId"/>
-                    <set field="addColumnMap.portalPageId" from-field="portalPageId"/>
-                    <call-service service-name="addPortalPageColumn" in-map-name="addColumnMap"/>
-                </iterate>
+                <call-simple-method method-name="duplicatePortalPageDetails"/>
 
             </if-empty>
         </if-compare>
+    </simple-method>
+
+    <!--Duplicate content of portalPage, portalPageColumn, portalPagePortlet, portletAttribute,
+         this method should be call with portalpageId and portalPage in context-->
+    <simple-method method-name="duplicatePortalPageDetails" short-description="Duplicate content of portalPage, portalPageColumn, portalPagePortlet, portletAttribute">
+        <log level="info" message="duplicate portalPage detail from portalPageId  ${parameters.portalPageId} to new protalPageId=${portalPageId}"/>
+
+        <if-not-empty field="portalPageId">
+          <!-- delete the columns -->
+          <set field="delMap.portalPageId" from-field="portalPageId" />
+          <!--        <remove-by-and entity-name="PortalPageColumn" map="delMap"/>-->
+
+          <!-- copy columns -->
+          <entity-and entity-name="PortalPageColumn" use-cache="true" list="portalPageColumns">
+            <field-map field-name="portalPageId" from-field="parameters.portalPageId" />
+          </entity-and>
+          <set field="first" value="true" type="Boolean" />
+          <iterate entry="portalPageColumn" list="portalPageColumns">
+            <set-service-fields service-name="addPortalPageColumn" map="portalPageColumn" to-map="addColumnMap" />
+            <clear-field field="addColumnMap.columnSeqId" />
+            <set field="addColumnMap.portalPageId" from-field="portalPageId" />
+            <call-service service-name="addPortalPageColumn" in-map-name="addColumnMap" />
+          </iterate>
+
+          <!-- copy portlets, and portletAttribute -->
+          <entity-and entity-name="PortalPagePortlet" list="portalPagePortlets">
+            <field-map field-name="portalPageId" from-field="parameters.portalPageId" />
+          </entity-and>
+          <iterate entry="portalPagePortlet" list="portalPagePortlets">
+            <set-service-fields service-name="createPortalPagePortlet" map="portalPagePortlet" to-map="createPortLet" />
+            <set field="createPortLet.portalPageId" from-field="portalPageId" />
+            <call-service service-name="createPortalPagePortlet" in-map-name="createPortLet" />
+            <!-- copy the attributes -->
+            <entity-and entity-name="PortletAttribute" list="portletAttributes">
+              <field-map field-name="portalPageId" from-field="parameters.portalPageId" />
+              <field-map field-name="portalPortletId" from-field="portalPagePortlet.portalPortletId" />
+              <field-map field-name="portletSeqId" from-field="portalPagePortlet.portletSeqId" />
+            </entity-and>
+            <iterate entry="portletAttribute" list="portletAttributes">
+              <set field="portletAttribute.portalPageId" from-field="portalPageId" />
+              <create-value value-field="portletAttribute" />
+            </iterate>
+          </iterate>
+        </if-not-empty>
+    </simple-method>
+
+    <!--Duplicate simple-method of copyOriginalPage-->
+    <simple-method method-name="duplicatePortalPage" short-description="Only duplicate a portal page, user should put correct owner and securityGroup">
+        <entity-one entity-name="PortalPage" value-field="portalPage"/>
+
+        <!-- copy the portal page -->
+        <set-service-fields service-name="createPortalPage" map="portalPage" to-map="createPage"/>
+        <clear-field field="createPage.portalPageId"/>
+        <if-empty field="createPage.originalPortalPageId">
+            <set field="createPage.originalPortalPageId" from-field="parameters.portalPageId"/>
+        </if-empty>
+        <call-service service-name="createPortalPage" in-map-name="createPage">
+            <result-to-field result-name="portalPageId"/>
+        </call-service>
+        <field-to-request field="portalPageId" request-name="portalPageId"/>
+        <log level="info" message="new protalPageId=${portalPageId}"/>
+
+        <call-simple-method method-name="duplicatePortalPageDetails"/>
+
     </simple-method>
 </simple-methods>
