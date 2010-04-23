@@ -26,7 +26,7 @@ under the License.
       <div>
         <label for="address1">${uiLabelMap.PartyAddressLine1}*</label>
         <input id="address1" name="address1" class="required" type="text" value="${address1?if_exists}"/>
-        <span id="advice-required-address1" class="custom-advice errorMessage" style="display:none"> (required)</span>
+        <span id="advice-required-address1" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="address2">${uiLabelMap.PartyAddressLine2}</label>
@@ -35,12 +35,12 @@ under the License.
       <div>
         <label for="city">${uiLabelMap.CommonCity}*</label>
         <input id="city" name="city" class="required" type="text" value="${city?if_exists}"/>
-        <span id="advice-required-city" class="custom-advice errorMessage" style="display:none"> (required)</span>
+        <span id="advice-required-city" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="postalCode">${uiLabelMap.PartyZipCode}*</label>
         <input id="postalCode" name="postalCode" class="required" type="text" value="${postalCode?if_exists}" size="12" maxlength="10"/>
-        <span id="advice-required-postalCode" class="custom-advice errorMessage" style="display:none"> (required)</span>
+        <span id="advice-required-postalCode" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="countryGeoId">${uiLabelMap.PartyCountry}*</label>
@@ -50,7 +50,7 @@ under the License.
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
-        <span id="advice-required-countryGeoId" style="display:none" class="errorMessage"> (required)</span>
+        <span id="advice-required-countryGeoId" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="state">${uiLabelMap.CommonState}*</label>
@@ -62,7 +62,7 @@ under the License.
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#states")}
         </select>
-        <span id="advice-required-stateProvinceGeoId" style="display:none" class="errorMessage">(required)</span>
+        <span id="advice-required-stateProvinceGeoId" style="display:none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div class="buttons">
         <input type="submit" class="smallsubmit" value="${uiLabelMap.CommonContinue}"/>

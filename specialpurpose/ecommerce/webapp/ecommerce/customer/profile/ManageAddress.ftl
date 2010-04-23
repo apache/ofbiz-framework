@@ -34,7 +34,7 @@ under the License.
           <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
           <div>
             <label for="address1">${uiLabelMap.PartyAddressLine1}*
-               <span id="advice-required-address1" style="display: none" class="errorMessage">(required)</span>
+               <span id="advice-required-address1" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             </label>
             <input type="text" class="required" name="address1" id="address1" value="" maxlength="30" />
           </div>
@@ -44,19 +44,19 @@ under the License.
           </div>
           <div>
             <label for="city">${uiLabelMap.PartyCity}*
-              <span id="advice-required-city" style="display: none" class="errorMessage">(required)</span>
+              <span id="advice-required-city" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             </label>
             <input type="text" class="required" name="city" id="city" value="" maxlength="30" />
           </div>
           <div>
             <label for="postalCode">${uiLabelMap.PartyZipCode}*
-              <span id="advice-required-postalCode" style="display: none" class="errorMessage">(required)</span>
+              <span id="advice-required-postalCode" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             </label>
             <input type="text" class="required" name="postalCode" id="postalCode" value="" maxlength="10" />
           </div>
           <div>
             <label for="countryGeoId">${uiLabelMap.PartyCountry}*
-              <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(required)</span>
+              <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             </label>
              <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">
                <#if countryGeoId??>
@@ -67,7 +67,7 @@ under the License.
           </div>
           <div id="states">
             <label for="stateProvinceGeoId">${uiLabelMap.PartyState}*
-              <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
+              <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             </label>  
               <select name="stateProvinceGeoId" id="stateProvinceGeoId" style="width: 70%">
               <#if stateProvinceGeoId?has_content>
