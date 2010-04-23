@@ -4984,7 +4984,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if(UtilValidate.isNotEmpty(minimumOrderPriceList)) {
             minimumOrderPrice = EntityUtil.getFirst(minimumOrderPriceList).getBigDecimal("price");
         }
-        if(minimumOrderPrice.compareTo(itemBasePrice) > 0) {
+        if(itemBasePrice != null && minimumOrderPrice.compareTo(itemBasePrice) > 0) {
             minQuantity = minimumOrderPrice.divide(itemBasePrice, 0, BigDecimal.ROUND_UP);
         }
         return minQuantity;
