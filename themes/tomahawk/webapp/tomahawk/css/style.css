@@ -2419,6 +2419,9 @@ height:95%;
 display: inherit;
 cursor: pointer;
 background: none;
+height: auto;
+width: auto;
+margin-top: 0px;
 }
 
 #fieldLookupContent td {
