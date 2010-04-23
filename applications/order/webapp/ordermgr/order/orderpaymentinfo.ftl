@@ -419,7 +419,7 @@ under the License.
             <td valign="top" width="60%">
               <#list invoices as invoice>
                 <div>${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${invoice}</a>
-                (<a href="/accounting/control/invoice.pdf?invoiceId=${invoice}" class="buttontext">PDF</a>)</div>
+                (<a href="/accounting/control/invoice.pdf?invoiceId=${invoice}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">PDF</a>)</div>
               </#list>
             </td>
             <td width="10%">&nbsp;</td>
