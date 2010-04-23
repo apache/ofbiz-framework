@@ -28,7 +28,7 @@ under the License.
       <div>
         <label for="address1_${contactMech.contactMechId}">${uiLabelMap.PartyAddressLine1}*</label>
         <input type="text" class="required" name="address1" id="address1_${contactMech.contactMechId}" value="${postalAddress.address1?if_exists}" maxlength="30" />
-        <span id="advice-required-address1_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
+        <span id="advice-required-address1_${contactMech.contactMechId}" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="additionalAddress2_${contactMech.contactMechId}">${uiLabelMap.PartyAddressLine2}</label>
@@ -37,12 +37,12 @@ under the License.
       <div>
         <label for="city_${contactMech.contactMechId}">${uiLabelMap.PartyCity}*</label>
         <input type="text" class="required" name="city" id="city_${contactMech.contactMechId}" value="${postalAddress.city?if_exists}" maxlength="30" />
-        <span id="advice-required-city_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
+        <span id="advice-required-city_${contactMech.contactMechId}" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="postalCode_${contactMech.contactMechId}">${uiLabelMap.PartyZipCode}*</label>
         <input type="text" class="required" name="postalCode" id="postalCode_${contactMech.contactMechId}" value="${postalAddress.postalCode?if_exists}" maxlength="10" />
-        <span id="advice-required-postalCode_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
+        <span id="advice-required-postalCode_${contactMech.contactMechId}" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="countryGeoId_${contactMech.contactMechId}">${uiLabelMap.PartyCountry}*</label>
@@ -53,7 +53,7 @@ under the License.
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
-        <span id="advice-required-countryGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
+        <span id="advice-required-countryGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div id="states_${contactMech.contactMechId}">
         <label for="stateProvinceGeoId_${contactMech.contactMechId}">${uiLabelMap.PartyState}*</label>
@@ -65,7 +65,7 @@ under the License.
             <option value="_NA_">${uiLabelMap.PartyNoState}</option>
           </#if>
         </select>
-        <span id="advice-required-stateProvinceGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
+        <span id="advice-required-stateProvinceGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div class="inline">
         <label for="setBillingPurposeForPostalAddress">${uiLabelMap.EcommerceMyDefaultBillingAddress}</label>

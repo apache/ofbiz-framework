@@ -27,7 +27,7 @@ under the License.
     <div>
       <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}*</label>
       <input type="text" class="required" name="address1" id="shipToAddress1" value="${shipToAddress1?if_exists}" maxlength="30" />
-      <span id="advice-required-shipToAddress1" style="display: none" class="errorMessage">(required)</span>
+      <span id="advice-required-shipToAddress1" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
     </div>
     <div>
       <label for="shipToAddress2">${uiLabelMap.PartyAddressLine2}</label>
@@ -36,12 +36,12 @@ under the License.
     <div>
       <label for="shipToCity">${uiLabelMap.PartyCity}*</label>
       <input type="text" class="required" name="city" id="shipToCity" value="${shipToCity?if_exists}" maxlength="30" />
-      <span id="advice-required-shipToCity" style="display: none" class="errorMessage">(required)</span>
+      <span id="advice-required-shipToCity" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
     </div>
     <div>
       <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}*</label>
       <input type="text" class="required" name="postalCode" id="shipToPostalCode" value="${shipToPostalCode?if_exists}" maxlength="10" />
-      <span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(required)</span>
+      <span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
     </div>
     <div>
       <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}*</label>
@@ -51,10 +51,10 @@ under the License.
         </#if>
         ${screens.render("component://common/widget/CommonScreens.xml#countries")}
       </select>
-      <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(required)</span>
+      <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
     </div>
     <div id="shipToStates">
-      <label for="shipToStateProvinceGeoId">${uiLabelMap.PartyState}*<span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label>
+      <label for="shipToStateProvinceGeoId">${uiLabelMap.PartyState}*<span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
       <select name="stateProvinceGeoId" id="shipToStateProvinceGeoId">
         <#if shipToStateProvinceGeoId?has_content>
           <option value='${shipToStateProvinceGeoId!}'>${shipToStateProvinceGeo!(shipToStateProvinceGeoId!)}</option>
@@ -69,7 +69,7 @@ under the License.
         <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"></span>
         <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"></span>
         <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"></span>
-        <span id="shipToPhoneRequired" style="display: none;" class="errorMessage">(required)</span>
+        <span id="shipToPhoneRequired" style="display: none;" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
         <input type="hidden" name="phoneContactMechId" value="${shipToTelecomNumber.contactMechId?if_exists}" />
         <input type="text" name="countryCode" id="shipToCountryCode" class="required" value="${shipToTelecomNumber.countryCode?if_exists}" size="3" maxlength="3" />
         - <input type="text" name="areaCode" id="shipToAreaCode" class="required" value="${shipToTelecomNumber.areaCode?if_exists}" size="3" maxlength="3" />

@@ -160,7 +160,7 @@ under the License.
                             <#else>
                               <input type="hidden" name="cartLineProductId" id="cartLineProductId_${cartLine_index}" value="${cartLine.getProductId()}" />
                               <input type="text" name="update${cartLine_index}" id="qty_${cartLine_index}" value="${cartLine.getQuantity()?string.number}" class="required validate-number" />
-                              <span id="advice-required-qty_${cartLine_index}" style="display:none;" class="errorMessage"> (required)</span>
+                              <span id="advice-required-qty_${cartLine_index}" style="display:none;" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                               <span id="advice-validate-number-qty_${cartLine_index}" style="display:none;" class="errorMessage"> (${uiLabelMap.CommonPleaseEnterValidNumberInThisField}) </span>
                             </#if>
                           </td>
@@ -241,13 +241,13 @@ under the License.
                   <div>
                       <span>
                         <label for="firstName">${uiLabelMap.PartyFirstName}*
-                          <span id="advice-required-firstName" style="display: none" class="errorMessage"> (required)</span>
+                          <span id="advice-required-firstName" style="display: none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                         </label>
                         <input id="firstName" name="firstName" class="required" type="text" value="${firstName?if_exists}" />
                       </span>
                       <span>
                         <label for="lastName">${uiLabelMap.PartyLastName}*
-                          <span id="advice-required-lastName" style="display:none" class="errorMessage"> (required)</span>
+                          <span id="advice-required-lastName" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                         </label>
                         <input id="lastName" name="lastName" class="required" type="text" value="${lastName?if_exists}" />
                       </span>
@@ -256,19 +256,19 @@ under the License.
                   <#if shipToTelecomNumber?has_content>
                       <span>
                           <label for="shipToCountryCode">${uiLabelMap.PartyCountry}*
-                              <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"> (required)</span>
+                              <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>    
                           <input type="text" name="countryCode" class="required" id="shipToCountryCode" value="${shipToTelecomNumber.countryCode?if_exists}" size="5" maxlength="3" /> -
                       </span>
                       <span>
                           <label for="shipToAreaCode">${uiLabelMap.PartyAreaCode}*
-                              <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"> (required)</span>
+                              <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
                           <input type="text" name="areaCode" class="required" id="shipToAreaCode" value="${shipToTelecomNumber.areaCode?if_exists}" size="5" maxlength="3" /> -
                       </span>
                       <span>
                           <label for="shipToContactNumber">${uiLabelMap.PartyContactNumber}*
-                              <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"> (required)</span>
+                              <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
                           <input type="text" name="contactNumber" class="required" id="shipToContactNumber" value="${shipToTelecomNumber.contactNumber?if_exists}" size="10" maxlength="7" /> -
                       </span>
@@ -279,19 +279,19 @@ under the License.
                   <#else>
                       <span>
                           <label for="shipToCountryCode">${uiLabelMap.PartyCountry}*
-                              <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"> (required)</span>
+                              <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
                           <input type="text" name="countryCode" class="required" id="shipToCountryCode" value="${parameters.countryCode?if_exists}" size="5" maxlength="3" /> -
                       </span>
                       <span>
                           <label for="shipToAreaCode">${uiLabelMap.PartyAreaCode}*
-                              <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"> (required)</span>
+                              <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
                           <input type="text" name="areaCode" class="required" id="shipToAreaCode" value="${parameters.areaCode?if_exists}" size="5" maxlength="3" /> -
                       </span>
                       <span>
                           <label for="shipToContactNumber">${uiLabelMap.PartyContactNumber}*
-                              <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"> (required)</span>
+                              <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
                           <input type="text" name="contactNumber" class="required" id="shipToContactNumber" value="${parameters.contactNumber?if_exists}" size="10" maxlength="7" /> -
                       </span>
@@ -304,7 +304,7 @@ under the License.
                   <div>
                       <span>
                           <label for="emailAddress">${uiLabelMap.PartyEmailAddress}*
-                            <span id="advice-required-emailAddress" style="display:none" class="errorMessage"> (required)</span>
+                            <span id="advice-required-emailAddress" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
                           <input id="emailAddress" name="emailAddress" class="required validate-email" maxlength="255" size="40" type="text" value="${emailAddress?if_exists}" />
                       </span>
@@ -312,7 +312,7 @@ under the License.
                     <div>
                         <span>
                             <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}*
-                                <span id="advice-required-shipToAddress1" class="custom-advice errorMessage" style="display:none"> (required)</span>
+                                <span id="advice-required-shipToAddress1" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
                             </label>
                             <input id="shipToAddress1" name="shipToAddress1" class="required" type="text" value="${shipToAddress1?if_exists}" maxlength="255" size="40" />
                         </span>
@@ -326,7 +326,7 @@ under the License.
                     <div>
                         <span>
                             <label for="shipToCity">${uiLabelMap.CommonCity}*
-                                <span id="advice-required-shipToCity" class="custom-advice errorMessage" style="display:none"> (required)</span>
+                                <span id="advice-required-shipToCity" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
                             </label>
                             <input id="shipToCity" name="shipToCity" class="required" type="text" value="${shipToCity?if_exists}" maxlength="255" size="40" />
                         </span>
@@ -334,7 +334,7 @@ under the License.
                     <div>
                         <span>
                             <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}*
-                                <span id="advice-required-shipToPostalCode" class="custom-advice errorMessage" style="display:none"> (required)</span>
+                                <span id="advice-required-shipToPostalCode" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
                             </label>
                             <input id="shipToPostalCode" name="shipToPostalCode" class="required" type="text" value="${shipToPostalCode?if_exists}" size="12" maxlength="10" />
                         </span>
@@ -342,7 +342,7 @@ under the License.
                     <div>
                         <span>
                             <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}*
-                                <span id="advice-required-shipToCountryGeo" style="display:none" class="errorMessage"> (required)</span>
+                                <span id="advice-required-shipToCountryGeo" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                             </label>
                             <select name="shipToCountryGeoId" id="shipToCountryGeoId">
                               <#if shipToCountryGeoId?exists>
@@ -355,7 +355,7 @@ under the License.
                     <div id="shipToStates">
                         <span>
                             <label for="shipToStateProvinceGeoId">${uiLabelMap.CommonState}*
-                                <span id="advice-required-shipToStateProvinceGeoId" style="display:none" class="errorMessage">(required)</span>
+                                <span id="advice-required-shipToStateProvinceGeoId" style="display:none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
                             </label>
                             <select id="shipToStateProvinceGeoId" name="shipToStateProvinceGeoId">
                               <#if shipToStateProvinceGeoId?has_content>
@@ -396,7 +396,7 @@ under the License.
                   <div id="shippingOptionFormServerError" class="errorMessage"></div>
                   <div>
                       <label for="shipMethod">${uiLabelMap.OrderSelectShippingMethod}*
-                          <span id="advice-required-shipping_method" class="custom-advice" style="display:none"> (required)</span>
+                          <span id="advice-required-shipping_method" class="custom-advice" style="display:none"> (${uiLabelMap.CommonRequired})</span>
                       </label>
                       <select id="shipMethod" name="shipMethod" class="required">
                           <option value=""></option>
@@ -464,13 +464,13 @@ under the License.
                         <div>
                             <span>
                                 <label for="firstNameOnCard">${uiLabelMap.PartyFirstName}*
-                                    <span id="advice-required-firstNameOnCard" style="display: none;" class="errorMessage"> (required)</span>
+                                    <span id="advice-required-firstNameOnCard" style="display: none;" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input id="firstNameOnCard" name="firstNameOnCard" class="required" type="text" value="${firstNameOnCard?if_exists}" />
                             </span>
                             <span>
                                 <label for="lastNameOnCard">${uiLabelMap.PartyLastName}*
-                                    <span id="advice-required-lastNameOnCard" style="display: none;" class="errorMessage"> (required)</span>
+                                    <span id="advice-required-lastNameOnCard" style="display: none;" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input id="lastNameOnCard" name="lastNameOnCard" class="required" type="text" value="${lastNameOnCard?if_exists}" />
                             </span>
@@ -479,19 +479,19 @@ under the License.
                           <#if billToTelecomNumber?has_content>
                             <span>
                                 <label for="billToCountryCode">${uiLabelMap.PartyCountry}*
-                                    <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"> (required)</span>
+                                    <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input type="text" name="countryCode" class="required" id="billToCountryCode" value="${billToTelecomNumber.countryCode?if_exists}" size="5" maxlength="3" /> -
                             </span>
                             <span>
                                 <label for="billToAreaCode">${uiLabelMap.PartyAreaCode}*
-                                    <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"> (required)</span>
+                                    <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input type="text" name="areaCode" class="required" id="billToAreaCode" value="${billToTelecomNumber.areaCode?if_exists}" size="5" maxlength="3" /> -
                             </span>
                             <span>
                                 <label for="billToContactNumber">${uiLabelMap.PartyContactNumber}*
-                                    <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"> (required)</span>
+                                    <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input type="text" name="contactNumber" class="required" id="billToContactNumber" value="${billToTelecomNumber.contactNumber?if_exists}" size="10" maxlength="7" /> -
                             </span>
@@ -502,19 +502,19 @@ under the License.
                           <#else>
                             <span>
                                 <label for="billToCountryCode">${uiLabelMap.PartyCountry}*
-                                    <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"> (required)</span>
+                                    <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input type="text" name="countryCode" class="required" id="billToCountryCode" value="${parameters.countryCode?if_exists}" size="5" maxlength="3" /> -
                             </span>
                             <span>
                                 <label for="billToAreaCode">${uiLabelMap.PartyAreaCode}*
-                                    <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"> (required)</span>
+                                    <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input type="text" name="areaCode" class="required" id="billToAreaCode" value="${parameters.areaCode?if_exists}" size="5" maxlength="3" /> -
                             </span>
                             <span>
                                 <label for="billToContactNumber">${uiLabelMap.PartyContactNumber}*
-                                    <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"> (required)</span>
+                                    <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input type="text" name="contactNumber" class="required" id="billToContactNumber" value="${parameters.contactNumber?if_exists}" size="10" maxlength="7" /> -
                             </span>
@@ -526,7 +526,7 @@ under the License.
                         </div>
                         <div>
                           <span>
-                                <label for="cardType">${uiLabelMap.AccountingCardType}*<span id="advice-required-cardType" style="display: none;" class="errorMessage"> (required)</span></label>
+                                <label for="cardType">${uiLabelMap.AccountingCardType}*<span id="advice-required-cardType" style="display: none;" class="errorMessage"> (${uiLabelMap.CommonRequired})</span></label>
                                 <select name="cardType" id="cardType">
                                   <#if cardType?has_content>
                                     <option label="${cardType?if_exists}" value="${cardType?if_exists}">${cardType?if_exists}</option>
@@ -538,7 +538,7 @@ under the License.
                         <div>
                             <span>
                                 <label for="cardNumber">${uiLabelMap.AccountingCardNumber}*
-                                    <span id="advice-required-cardNumber" style="display: none;" class="errorMessage"> (required)</span>
+                                    <span id="advice-required-cardNumber" style="display: none;" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input id="cardNumber" name="cardNumber" class="required" type="text" value="${cardNumber?if_exists}" size="30" maxlength="16" />
                             </span>
@@ -550,7 +550,7 @@ under the License.
                         <div>
                           <span>
                             <label for="expMonth">${uiLabelMap.CommonMonth}:*
-                                <span id="advice-required-expMonth" style="display:none" class="errorMessage"> (required)</span>
+                                <span id="advice-required-expMonth" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                             </label>
                             <select id="expMonth" name="expMonth" class="required">
                               <#if expMonth?has_content>
@@ -561,7 +561,7 @@ under the License.
                           </span>
                           <span>
                             <label for="expYear">${uiLabelMap.CommonYear}:*
-                                <span id="advice-required-expYear" style="display:none" class="errorMessage"> (required)</span>
+                                <span id="advice-required-expYear" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                             </label>
                             <select id="expYear" name="expYear" class="required">
                               <#if expYear?has_content>
@@ -579,7 +579,7 @@ under the License.
                         <div id="billingAddress" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
                           <div>
                               <label for="billToAddress1">${uiLabelMap.PartyAddressLine1}*
-                                <span id="advice-required-billToAddress1" style="display:none" class="errorMessage"> (required)</span>
+                                <span id="advice-required-billToAddress1" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                               </label>
                               <input id="billToAddress1" name="billToAddress1" class="required" size="30" type="text" value="${billToAddress1?if_exists}" />
                           </div>
@@ -589,19 +589,19 @@ under the License.
                           </div>
                           <div>
                               <label for="billToCity">${uiLabelMap.CommonCity}*
-                                <span id="advice-required-billToCity" style="display:none" class="errorMessage"> (required)</span>
+                                <span id="advice-required-billToCity" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                               </label>
                               <input id="billToCity" name="billToCity" class="required" type="text" value="${billToCity?if_exists}" />
                           </div>
                           <div>
                               <label for="billToPostalCode">${uiLabelMap.PartyZipCode}*
-                                <span id="advice-required-billToPostalCode" style="display:none" class="errorMessage"> (required)</span>
+                                <span id="advice-required-billToPostalCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                               </label>
                               <input id="billToPostalCode" name="billToPostalCode" class="required" type="text" value="${billToPostalCode?if_exists}" size="12" maxlength="10" />
                           </div>
                           <div>
                               <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*
-                                <span id="advice-required-billToCountryGeoId" style="display:none" class="errorMessage"> (required)</span>
+                                <span id="advice-required-billToCountryGeoId" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                               </label>
                               <select name="billToCountryGeoId" id="billToCountryGeoId">
                                 <#if billToCountryGeoId?exists>
@@ -612,7 +612,7 @@ under the License.
                           </div>
                           <div>
                               <label for="billToStateProvinceGeoId">${uiLabelMap.CommonState}*
-                                <span id="advice-required-billToStateProvinceGeoId" style="display:none" class="errorMessage"> (required)</span>
+                                <span id="advice-required-billToStateProvinceGeoId" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                               </label>
                               <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId">
                                 <#if billToStateProvinceGeoId?has_content>

@@ -25,16 +25,16 @@ under the License.
       <input type="hidden" name="emailContactMechId" value="${emailContactMechId?if_exists}" />
         <h3>${uiLabelMap.PartyContactInformation}</h3>
         <div>
-          <label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label>
+          <label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
           <input type="text" name="firstName" id="firstName" class="required" value="${firstName?if_exists}" maxlength="30" />
         </div>
         <div>
-          <label for="lastName">${uiLabelMap.PartyLastName}*<span id="advice-required-lastName" style="display: none" class="errorMessage">(required)</span></label>
+          <label for="lastName">${uiLabelMap.PartyLastName}*<span id="advice-required-lastName" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
           <input type="text" name="lastName" id="lastName" class="required" value="${lastName?if_exists}" maxlength="30" />
         </div>
         <div>
           <label for="emailAddress">${uiLabelMap.CommonEmail}*
-            <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(required)</span>
+            <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
           </label>
           <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress?if_exists}" maxlength="255" />
