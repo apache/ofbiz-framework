@@ -19,6 +19,34 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="FormFieldTitle_originalPortalPageId">
+        <value xml:lang="en">original page</value>
+        <value xml:lang="fr">Page d'orig.</value>
+    </property>
+    <property key="FormFieldTitle_ownerUserLoginId">
+        <value xml:lang="en">Owner</value>
+        <value xml:lang="fr">Propri.</value>
+    </property>
+    <property key="FormFieldTitle_parentPortalPageId">
+        <value xml:lang="en">Parent page</value>
+        <value xml:lang="fr">Page père</value>
+    </property>
+    <property key="FormFieldTitle_portalPageName">
+        <value xml:lang="en">Portal page name</value>
+        <value xml:lang="fr">Nom de page</value>
+    </property>
+    <property key="FormFieldTitle_sequenceNum">
+        <value xml:lang="en">Seq.</value>
+        <value xml:lang="fr">Seq.</value>
+    </property>
+    <property key="MyPortalAddPortletToPage">
+        <value xml:lang="en">Add a portlet to portal page</value>
+        <value xml:lang="fr">Ajouter une portlet à la page</value>
+    </property>
+    <property key="MyPropalAdminPortalPage">
+        <value xml:lang="en">Portal page Admin.</value>
+        <value xml:lang="fr">Admin. Page portail</value>
+    </property>
     <property key="MyPortalAppBar">
         <value xml:lang="en">My Page App Bar</value>
         <value xml:lang="fr">Menu des applications</value>
@@ -216,6 +244,10 @@
         <value xml:lang="th">ลงทะเบียนสำหรับลูกค้า</value>
         <value xml:lang="zh">客户注册</value>
     </property>
+    <property key="MyPortalRefresh">
+        <value xml:lang="en">Reload page</value>
+        <value xml:lang="fr">Rafraîchir</value>
+    </property>
     <property key="MyPortalReloadImage">
         <value xml:lang="en">reload image</value>
         <value xml:lang="it">Ricarica immagine</value>
@@ -298,6 +330,10 @@
         <value xml:lang="it">Verifica codice captcha</value>
         <value xml:lang="th">ใส่รหัสตามรูป</value>
         <value xml:lang="zh">验证验证码</value>
+    </property>
+    <property key="PageTitleFindPortalPage">
+        <value xml:lang="en">Find Portal page</value>
+        <value xml:lang="fr">Rech. page portail</value>
     </property>
     <property key="PageTitleMyPortal">
         <value xml:lang="en">My Portal for : </value>

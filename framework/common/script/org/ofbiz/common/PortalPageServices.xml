@@ -174,11 +174,21 @@ under the License.
                 </add-error>
             </if-empty>
             <check-errors/>
-            <if-compare field="portalPage.ownerUserLoginId" operator="not-equals" value="${parameters.userLogin.userLoginId}">
+            <if> <!-- only page owner or user with MYPORTALBASE_ADMIN can modify the page detail -->
+              <condition>
+                <and>
+                  <if-compare field="portalPage.ownerUserLoginId" operator="not-equals" value="${parameters.userLogin.userLoginId}"/>
+                  <not>
+                       <if-has-permission permission="MYPORTALBASE" action="_ADMIN"/>
+                  </not>
+                </and>
+              </condition>
+              <then>
                 <add-error>
                     <fail-property resource="CommonUiLabels" property="PortalPageNotOwned"/>
                 </add-error>
-            </if-compare>
+              </then>
+            </if>
             <check-errors/>
         </if-not-empty>
     </simple-method>

@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="CommonPortletEdit" type="single" target="setPortalPortletAttributes" title="" default-map-name="attributeMap">
+    <form name="CommonPortletEdit" type="single" target="setPortalPortletAttributes${Adm}" title="" default-map-name="attributeMap">
         <actions>
             <service service-name="getPortletAttributes">
                 <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>

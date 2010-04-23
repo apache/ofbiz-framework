@@ -102,10 +102,10 @@ under the License.
         <field name="createButton"><submit button-type="button"/></field>
     </form>
 
-    <form name="PortletCategoryAndPortlet" type="list" list-name="portletCat" paginate-target="AddPortlet" separate-columns="true"
+    <form name="PortletCategoryAndPortlet" type="list" list-name="portletCat" paginate-target="AddPortlet${Adm}" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="portletCategoryId" title="Category">
-            <hyperlink description="${portletCategoryId}" target="AddPortlet">
+            <hyperlink description="${portletCategoryId}" target="AddPortlet${Adm}">
                 <parameter param-name="portletCategoryId"/>
                 <parameter param-name="portalPortletId"/>
                 <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>

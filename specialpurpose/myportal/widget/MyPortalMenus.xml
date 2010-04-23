@@ -28,6 +28,25 @@ under the License.
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </link>
         </menu-item>
+        <menu-item name="PortalPageAdminItem" title="${uiLabelMap.MyPropalAdminPortalPage}" align-style="opposed">
+            <condition><if-has-permission permission="MYPORTALBASE" action="_ADMIN"/> </condition>
+            <link target="FindPortalPage"/>
+        </menu-item>
     </menu>
 
+    <menu name="CopyNewPortalPage">
+        <menu-item name="duplicate" title="${uiLabelMap.CommonDuplicate}">
+            <link target="DuplicatePortalPage">
+               <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+            </link>
+        </menu-item>
+        <menu-item name="new" title="${uiLabelMap.CommonNew}">
+            <link target="NewPortalPage"/>
+        </menu-item>
+        <menu-item name="refresh" title="${uiLabelMap.MyPortalRefresh}">
+            <link target="EditPortalPage">
+               <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+            </link>
+        </menu-item>
+    </menu>
 </menus>
