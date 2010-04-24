@@ -218,12 +218,8 @@ public class FindServices {
                                   // If it is an "op" field, it will be "equals", "greaterThan", etc.
         EntityExpr cond = null;
         List<EntityCondition> tmpList = FastList.newInstance();
-        EntityExpr nullCond = null;
-        EntityCondition orCond = null;
-        List<EntityCondition> tmpOrList = null;
         String opString = null;
-        String ignoreCase = null;
-        int count = 0;
+        boolean ignoreCase = false;
         List<ModelField> fields = modelEntity.getFieldsUnmodifiable();
         for (ModelField modelField: fields) {
             String fieldName = modelField.getName();
@@ -234,7 +230,7 @@ public class FindServices {
 
             subMap2 = subMap.get("fld0");
             opString = (String) subMap2.get("op");
-            ignoreCase = (String) subMap2.get("ic");
+            ignoreCase = "Y".equals(subMap2.get("ic"));
 
             if (opString != null) {
                 if (opString.equals("contains")) {
@@ -265,7 +261,7 @@ public class FindServices {
                 } else if (opString.equals("empty")) {
                     fieldOp = EntityOperator.EQUALS;
                     fieldValue = null;
-                    ignoreCase = null;
+                    ignoreCase = false;
                 } else if (opString.equals("like")) {
                     fieldOp = EntityOperator.LIKE;
                     fieldValue = fieldValue + "%";
@@ -275,12 +271,12 @@ public class FindServices {
                 } else if (opString.equals("greaterThanFromDayStart")) {
                     fieldValue = dayStart((String) fieldValue, 0);
                     fieldOp = EntityOperator.GREATER_THAN;
-                    ignoreCase = null;
+                    ignoreCase = false;
                 } else if (opString.equals("sameDay")) {
                     String timeStampString = (String) fieldValue;
                     fieldValue = dayStart(timeStampString, 0);
                     fieldOp = EntityOperator.GREATER_THAN_EQUAL_TO;
-                    ignoreCase = null;
+                    ignoreCase = false;
                     // Set up so next part finds ending conditions for same day
                     subMap2 = subMap.get("fld1");
                     if (subMap2 == null) {
@@ -298,13 +294,13 @@ public class FindServices {
             }
 
             Object fieldObject = null;
-            if (fieldOp != EntityOperator.IN || ! (fieldValue instanceof Collection)) {
+            if (fieldOp != EntityOperator.IN || ! (fieldValue instanceof Collection<?>)) {
                 fieldObject = modelEntity.convertFieldValue(modelField, fieldValue, delegator, context);
             } else {
                 fieldObject = fieldValue;
             }
 
-            if (ignoreCase != null && ignoreCase.equals("Y") && "java.lang.String".equals(fieldObject.getClass().getName())) {
+            if (ignoreCase && fieldObject instanceof String) {
                 cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
             } else {
                 if (fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {
@@ -314,16 +310,10 @@ public class FindServices {
             }
 
             if (EntityOperator.NOT_EQUAL.equals(fieldOp) && fieldObject != null) {
-                tmpOrList = FastList.newInstance();
-                tmpOrList.add(cond);
-                nullCond = EntityCondition.makeCondition(fieldName, null);
-                tmpOrList.add(nullCond);
-                orCond = EntityCondition.makeCondition(tmpOrList, EntityOperator.OR);
-                tmpList.add(orCond);
+                tmpList.add(EntityCondition.makeCondition(UtilMisc.toList(cond, EntityCondition.makeCondition(fieldName, null)), EntityOperator.OR));
             } else {
                 tmpList.add(cond);
             }
-            count++;
 
             // Repeat above operations if there is a "range" - second value
             subMap2 = subMap.get("fld1");
