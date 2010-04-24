@@ -42,28 +42,34 @@ under the License.
     </#if>
     <#-- manual credit card information -->
     <#if txType?default("") == "PRDS_PAY_RELEASE">
+      <tr><td>
       ${setRequestAttribute("validTx", "true")}
       <script language="JavaScript" type="text/javascript">
       <!-- //
         document.manualTxForm.action = "<@ofbizUrl>processReleaseTransaction</@ofbizUrl>";
       // -->
       </script>
+      </td></tr>
     </#if>
     <#if txType?default("") == "PRDS_PAY_REFUND">
+      <tr><td>
       ${setRequestAttribute("validTx", "true")}
       <script language="JavaScript" type="text/javascript">
       <!-- //
         document.manualTxForm.action = "<@ofbizUrl>processRefundTransaction</@ofbizUrl>";
       // -->
       </script>
+      </td></tr>
     </#if>
     <#if txType?default("") == "PRDS_PAY_CREDIT" || txType?default("") == "PRDS_PAY_AUTH">
+      <tr><td>
       ${setRequestAttribute("validTx", "true")}
       <script language="JavaScript" type="text/javascript">
       <!-- //
         document.manualTxForm.action = "<@ofbizUrl>processManualCcTx</@ofbizUrl>";
       // -->
       </script>
+      </td></tr>
       <tr><td colspan="3"><hr/></td></tr>
       <tr>
         <td width="26%" align="right" valign="middle"><b>${uiLabelMap.PartyFirstName}</b></td>

@@ -145,9 +145,6 @@ under the License.
           </tr>
           <#assign alt_row = false/>
           <#list finAccountTransList as finAccountTrans>
-            <input name="finAccountTransId_o_${finAccountTrans_index}" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
-            <input name="organizationPartyId_o_${finAccountTrans_index}" type="hidden" value="${defaultOrganizationPartyId}"/>
-            <input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="hidden" value="Y"/>
             <#assign payment = "">
             <#assign payments = "">
             <#assign status = "">
@@ -171,7 +168,11 @@ under the License.
               <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : finAccountTrans.partyId}, true))>
             </#if>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-              <td>${finAccountTrans.finAccountTransId?if_exists}</td>
+              <td>
+                  <input name="finAccountTransId_o_${finAccountTrans_index}" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
+                  <input name="organizationPartyId_o_${finAccountTrans_index}" type="hidden" value="${defaultOrganizationPartyId}"/>
+                  <input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="hidden" value="Y"/>
+                  ${finAccountTrans.finAccountTransId?if_exists}</td>
               <td>${finAccountTransType.description?if_exists}</td>
               <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="/partymgr/control/viewprofile?partyId=${partyName.partyId}">[${(partyName.partyId)!}]</a></#if></td>
               <td>${finAccountTrans.transactionDate?if_exists}</td>
@@ -198,8 +199,6 @@ under the License.
                   <script type="text/javascript">
                     new Popup('displayGlTransactions_${finAccountTrans.finAccountTransId}','toggleGlTransactions_${finAccountTrans.finAccountTransId}', {modal: true, position: 'none', trigger: 'click', cursor_margin:0})
                   </script>
-                </td>   
-              <#else>
                 </td>
               </#if>
             </tr>
