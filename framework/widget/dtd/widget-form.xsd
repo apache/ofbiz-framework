@@ -917,8 +917,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="presentation" default="window">
-            <xs:annotation><xs:documentation>Shows the lookup as moveable and resizable layer or window. For layer lookups use the 'LookupLayerPopupDecorator'</xs:documentation></xs:annotation>
+        <xs:attribute name="presentation" default="layer">
+            <xs:annotation><xs:documentation>Shows the lookup as moveable and resizable layer or window. Default to layer which uses the 'LookupLayerPopupDecorator'</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="layer"/>
@@ -932,8 +932,8 @@ under the License.
         <xs:attribute type="xs:string" name="width">
             <xs:annotation><xs:documentation>Only layer width. I.e. 250px, 12%</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute name="position" default="normal">
-            <xs:annotation><xs:documentation>Only layer position. Normal sets the layer under the target field.</xs:documentation></xs:annotation>
+        <xs:attribute name="position" default="topleft">
+            <xs:annotation><xs:documentation>Only for layer position. Default to topleft, normal sets the layer just under the target field, like for the calendar.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="normal"/>
@@ -947,7 +947,7 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="fade-background" default="true">
-            <xs:annotation><xs:documentation>True = The window Background will be faded.</xs:documentation></xs:annotation>
+            <xs:annotation><xs:documentation>If true the window background will be faded, default to true.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="true"/>

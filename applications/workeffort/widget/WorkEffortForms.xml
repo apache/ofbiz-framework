@@ -136,11 +136,11 @@ under the License.
             </drop-down>
         </field>
 
-        <field name="estimatedMilliSeconds" position="1"><lookup target-form-name="LookupTimeDuration"/></field>
-        <field name="estimatedSetupMillis" position="2"><lookup target-form-name="LookupTimeDuration"/></field>
-        <field name="actualMilliSeconds" position="1"><lookup target-form-name="LookupTimeDuration"/></field>
-        <field name="actualSetupMillis" position="2"><lookup target-form-name="LookupTimeDuration"/></field>
-        <field name="totalMilliSecondsAllowed" position="1"><lookup target-form-name="LookupTimeDuration"/></field>
+        <field name="estimatedMilliSeconds" position="1"><lookup target-form-name="LookupTimeDuration" presentation="window"/></field>
+        <field name="estimatedSetupMillis" position="2"><lookup target-form-name="LookupTimeDuration" presentation="window"/></field>
+        <field name="actualMilliSeconds" position="1"><lookup target-form-name="LookupTimeDuration" presentation="window"/></field>
+        <field name="actualSetupMillis" position="2"><lookup target-form-name="LookupTimeDuration" presentation="window"/></field>
+        <field name="totalMilliSecondsAllowed" position="1"><lookup target-form-name="LookupTimeDuration" presentation="window"/></field>
         <field name="totalMoneyAllowed" position="2"/>
 
         <field name="quantityToProduce" position="1"/>
@@ -1325,7 +1325,7 @@ under the License.
         <field name="reminderDateTime"><date-time/></field>
         <field name="repeatCount"><text/></field>
         <field name="repeatInterval"><text/></field>
-        <field name="reminderOffset"><lookup target-form-name="LookupTimeDuration"/></field>
+        <field name="reminderOffset"><lookup target-form-name="LookupTimeDuration" presentation="window"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortEventReminder">
@@ -1346,7 +1346,7 @@ under the License.
         <field name="reminderDateTime"><date-time/></field>
         <field name="repeatCount"><text/></field>
         <field name="repeatInterval"><text/></field>
-        <field name="reminderOffset"><lookup target-form-name="LookupTimeDuration"/></field>
+        <field name="reminderOffset"><lookup target-form-name="LookupTimeDuration" presentation="window"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
