@@ -29,6 +29,7 @@ import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -46,7 +47,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
@@ -199,6 +199,82 @@ public class FindServices {
             origList.add(origValues);
         }
         return normalizedFields;
+    }
+
+    /**
+     * Parses input parameters and returns an <code>EntityCondition</code> list.
+     *
+     * @param parameters
+     * @param fieldList
+     * @param queryStringMap
+     * @param delegator
+     * @param context
+     * @return
+     */
+    public static List<EntityCondition> createConditionList(Map<String, ? extends Object> parameters, List<ModelField> fieldList, Map<String, Object> queryStringMap, Delegator delegator, Map<String, ?> context) {
+        Set<String> processed = FastSet.newInstance();
+        Set<String> keys = FastSet.newInstance();
+        Map<String, ModelField> fieldMap = FastMap.newInstance();
+        for (ModelField modelField : fieldList) {
+            fieldMap.put(modelField.getName(), modelField);
+        }
+        List<EntityCondition> result = FastList.newInstance();
+        for (Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
+            String parameterName = entry.getKey();
+            if (processed.contains(parameterName)) {
+                continue;
+            }
+            keys.clear();
+            String fieldName = parameterName;
+            Object fieldValue = null;
+            String operation = null;
+            boolean ignoreCase = false;
+            if (parameterName.endsWith("_ic") || parameterName.endsWith("_op")) {
+                fieldName = parameterName.substring(0, parameterName.length() - 3);
+            } else if (parameterName.endsWith("_value")) {
+                fieldName = parameterName.substring(0, parameterName.length() - 6);
+            }
+            String key = fieldName.concat("_ic");
+            if (parameters.containsKey(key)) {
+                keys.add(key);
+                ignoreCase = "Y".equals(parameters.get(key));
+            }
+            key = fieldName.concat("_op");
+            if (parameters.containsKey(key)) {
+                keys.add(key);
+                operation = (String) parameters.get(key);
+            }
+            key = fieldName.concat("_value");
+            if (parameters.containsKey(key)) {
+                keys.add(key);
+                fieldValue = parameters.get(key);
+            }
+            if (fieldName.endsWith("_fld0") || fieldName.endsWith("_fld1")) {
+                if (parameters.containsKey(fieldName)) {
+                    keys.add(fieldName);
+                }
+                fieldName = fieldName.substring(0, fieldName.length() - 5);
+            }
+            if (parameters.containsKey(fieldName)) {
+                keys.add(fieldName);
+            }
+            processed.addAll(keys);
+            ModelField modelField = fieldMap.get(fieldName);
+            if (modelField == null) {
+                continue;
+            }
+            if (fieldValue == null) {
+                fieldValue = parameters.get(fieldName);
+            }
+            if (ObjectType.isEmpty(fieldValue)) {
+                continue;
+            }
+            result.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
+            for (String mapKey : keys) {
+                queryStringMap.put(mapKey, parameters.get(mapKey));
+            }
+        }
+        return result;
     }
 
     /**
