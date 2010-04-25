@@ -538,30 +538,23 @@ public class FindServices {
         }
         Timestamp filterByDateValue = (Timestamp) context.get("filterByDateValue");
 
-        // parameters run thru UtilHttp.getParameterMap
         Map<String, Object> queryStringMap = FastMap.newInstance();
-        Map<String, List<Object[]>> origValueMap = FastMap.newInstance();
-        Map<String, Map<String, Map<String, Object>>> normalizedFields = prepareField(inputFields, queryStringMap, origValueMap);
-
-        // Now use only the values that correspond to entity fields to build
-        //   an EntityConditionList
         Delegator delegator = dctx.getDelegator();
-
-        GenericValue entityValue = delegator.makeValue(entityName, FastMap.newInstance());
-
-        ModelEntity modelEntity = entityValue.getModelEntity();
-        List<EntityCondition> tmpList = createCondition(modelEntity, normalizedFields, queryStringMap, origValueMap, delegator, context);
+        ModelEntity modelEntity = delegator.getModelEntity(entityName);
+        List<EntityCondition> tmpList = createConditionList(inputFields, modelEntity.getFieldsUnmodifiable(), queryStringMap, delegator, context);
 
         /* the filter by date condition should only be added when there are other conditions or when
          * the user has specified a noConditionFind.  Otherwise, specifying filterByDate will become
          * its own condition.
          */
-        if ((tmpList.size() > 0) || ((noConditionFind != null) && (noConditionFind.equals("Y")))) {
-            if (!UtilValidate.isEmpty(filterByDate) && "Y".equals(filterByDate)) {
+        if (tmpList.size() > 0 || "Y".equals(noConditionFind)) {
+            if ("Y".equals(filterByDate)) {
+                queryStringMap.put("filterByDate", filterByDate);
                 if (UtilValidate.isEmpty(filterByDateValue)) {
                     EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
                     tmpList.add(filterByDateCondition);
                 } else {
+                    queryStringMap.put("filterByDateValue", filterByDateValue);
                     EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr(filterByDateValue);
                     tmpList.add(filterByDateCondition);
                 }
@@ -579,14 +572,10 @@ public class FindServices {
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
-        Map<String, Object> reducedQueryStringMap = buildReducedQueryString(inputFields, entityName, delegator);
-        reducedQueryStringMap.put("noConditionFind", noConditionFind);
-        reducedQueryStringMap.put("filterByDate", filterByDate);
-        reducedQueryStringMap.put("filterByDateValue", filterByDateValue);
-        String queryString = UtilHttp.urlEncodeArgs(reducedQueryStringMap);
+        queryStringMap.put("noConditionFind", noConditionFind);
+        String queryString = UtilHttp.urlEncodeArgs(queryStringMap);
         results.put("queryString", queryString);
-        results.put("queryStringMap", reducedQueryStringMap);
-
+        results.put("queryStringMap", queryStringMap);
         results.put("orderByList", orderByList);
         results.put("entityConditionList", exprList);
         return results;
