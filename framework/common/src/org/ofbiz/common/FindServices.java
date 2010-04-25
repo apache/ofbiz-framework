@@ -202,6 +202,71 @@ public class FindServices {
     }
 
     /**
+     * Creates a single <code>EntityCondition</code> based on a set of parameters.
+     * 
+     * @param modelField
+     * @param operation
+     * @param fieldValue
+     * @param ignoreCase
+     * @param delegator
+     * @param context
+     * @return
+     */
+    public static EntityCondition createSingleCondition(ModelField modelField, String operation, Object fieldValue, boolean ignoreCase, Delegator delegator, Map<String, ?> context) {
+        EntityCondition cond = null;
+        String fieldName = modelField.getName();
+        EntityComparisonOperator<?, ?> fieldOp = null;
+        if (operation != null) {
+            if (operation.equals("contains")) {
+                fieldOp = EntityOperator.LIKE;
+                fieldValue = "%" + fieldValue + "%";
+            } else if ("not-contains".equals(operation) || "notContains".equals(operation)) {
+                fieldOp = EntityOperator.NOT_LIKE;
+                fieldValue = "%" + fieldValue + "%";
+            } else if (operation.equals("empty")) {
+                return EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, null);
+            } else if (operation.equals("like")) {
+                fieldOp = EntityOperator.LIKE;
+                fieldValue = fieldValue + "%";
+            } else if ("not-like".equals(operation) || "notLike".equals(operation)) {
+                fieldOp = EntityOperator.NOT_LIKE;
+                fieldValue = fieldValue + "%";
+            } else if (operation.equals("greaterThanFromDayStart")) {
+                String timeStampString = (String) fieldValue;
+                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0), delegator, context);
+                return EntityCondition.makeCondition(fieldName, EntityOperator.GREATER_THAN_EQUAL_TO, startValue);
+            } else if (operation.equals("sameDay")) {
+                String timeStampString = (String) fieldValue;
+                Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0), delegator, context);
+                EntityCondition startCond = EntityCondition.makeCondition(fieldName, EntityOperator.GREATER_THAN_EQUAL_TO, startValue);
+                Object endValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 1), delegator, context);
+                EntityCondition endCond = EntityCondition.makeCondition(fieldName, EntityOperator.LESS_THAN, endValue);
+                return EntityCondition.makeCondition(startCond, endCond);
+            } else {
+                fieldOp = entityOperators.get(operation);
+            }
+        } else {
+            fieldOp = EntityOperator.EQUALS;
+        }
+        Object fieldObject = fieldValue;
+        if (fieldOp != EntityOperator.IN || !(fieldValue instanceof Collection<?>)) {
+            fieldObject = modelField.getModelEntity().convertFieldValue(modelField, fieldValue, delegator, context);
+        }
+        if (ignoreCase && fieldObject instanceof String) {
+            cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
+        } else {
+            if (fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {
+                fieldObject = null;
+            }
+            cond = EntityCondition.makeCondition(fieldName, fieldOp, fieldObject);
+        }
+        if (EntityOperator.NOT_EQUAL.equals(fieldOp) && fieldObject != null) {
+            cond = EntityCondition.makeCondition(UtilMisc.toList(cond, EntityCondition.makeCondition(fieldName, null)), EntityOperator.OR);
+        }
+        return cond;
+    }
+
+    /**
      * createCondition, comparing the normalizedFields with the list of keys, .
      *
      * This is use to the generic method that expects entity data affixed with special suffixes
@@ -216,7 +281,7 @@ public class FindServices {
         EntityComparisonOperator<?, ?> fieldOp = null;
         Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                   // If it is an "op" field, it will be "equals", "greaterThan", etc.
-        EntityExpr cond = null;
+        EntityCondition cond = null;
         List<EntityCondition> tmpList = FastList.newInstance();
         String opString = null;
         boolean ignoreCase = false;
@@ -227,138 +292,27 @@ public class FindServices {
             if (subMap == null) {
                 continue;
             }
-
             subMap2 = subMap.get("fld0");
-            opString = (String) subMap2.get("op");
-            ignoreCase = "Y".equals(subMap2.get("ic"));
-
-            if (opString != null) {
-                if (opString.equals("contains")) {
-                    fieldOp = EntityOperator.LIKE;
-                } else if (opString.equals("not-contains")) {
-                    fieldOp = EntityOperator.NOT_LIKE;
-                } else if (opString.equals("empty")) {
-                    fieldOp = EntityOperator.EQUALS;
-                } else {
-                    fieldOp = entityOperators.get(opString);
-                }
-            } else {
-                fieldOp = EntityOperator.EQUALS;
-            }
-
             fieldValue = subMap2.get("value");
             if (fieldValue == null) {
                 continue;
             }
-            
-            if (opString != null) {
-                if (opString.equals("contains")) {
-                    fieldOp = EntityOperator.LIKE;
-                    fieldValue = "%" + fieldValue + "%";
-                } else if ("not-contains".equals(opString) || "notContains".equals(opString)) {
-                    fieldOp = EntityOperator.NOT_LIKE;
-                    fieldValue = "%" + fieldValue + "%";
-                } else if (opString.equals("empty")) {
-                    fieldOp = EntityOperator.EQUALS;
-                    fieldValue = null;
-                    ignoreCase = false;
-                } else if (opString.equals("like")) {
-                    fieldOp = EntityOperator.LIKE;
-                    fieldValue = fieldValue + "%";
-                } else if ("not-like".equals(opString) || "notLike".equals(opString)) {
-                    fieldOp = EntityOperator.NOT_LIKE;
-                    fieldValue = fieldValue + "%";
-                } else if (opString.equals("greaterThanFromDayStart")) {
-                    fieldValue = dayStart((String) fieldValue, 0);
-                    fieldOp = EntityOperator.GREATER_THAN;
-                    ignoreCase = false;
-                } else if (opString.equals("sameDay")) {
-                    String timeStampString = (String) fieldValue;
-                    fieldValue = dayStart(timeStampString, 0);
-                    fieldOp = EntityOperator.GREATER_THAN_EQUAL_TO;
-                    ignoreCase = false;
-                    // Set up so next part finds ending conditions for same day
-                    subMap2 = subMap.get("fld1");
-                    if (subMap2 == null) {
-                        subMap2 = FastMap.newInstance();
-                        subMap.put("fld1", subMap2);
-                    }
-                    String endOfDay = dayStart(timeStampString, 1);
-                    subMap2.put("value", endOfDay);
-                    subMap2.put("op", "lessThan");
-                } else {
-                    fieldOp = entityOperators.get(opString);
-                }
-            } else {
-                fieldOp = EntityOperator.EQUALS;
-            }
-
-            Object fieldObject = null;
-            if (fieldOp != EntityOperator.IN || ! (fieldValue instanceof Collection<?>)) {
-                fieldObject = modelEntity.convertFieldValue(modelField, fieldValue, delegator, context);
-            } else {
-                fieldObject = fieldValue;
-            }
-
-            if (ignoreCase && fieldObject instanceof String) {
-                cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
-            } else {
-                if (fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {
-                    fieldObject = null;
-                }
-                cond = EntityCondition.makeCondition(fieldName, fieldOp, fieldObject);
-            }
-
-            if (EntityOperator.NOT_EQUAL.equals(fieldOp) && fieldObject != null) {
-                tmpList.add(EntityCondition.makeCondition(UtilMisc.toList(cond, EntityCondition.makeCondition(fieldName, null)), EntityOperator.OR));
-            } else {
-                tmpList.add(cond);
-            }
-
-            // Repeat above operations if there is a "range" - second value
+            opString = (String) subMap2.get("op");
+            ignoreCase = "Y".equals(subMap2.get("ic"));
+            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context); 
+            tmpList.add(cond);
             subMap2 = subMap.get("fld1");
             if (subMap2 == null) {
                 continue;
             }
-            opString = (String) subMap2.get("op");
-
-            if (opString != null) {
-                if (opString.equals("contains")) {
-                    fieldOp = EntityOperator.LIKE;
-                } else if ("not-contains".equals(opString) || "notContains".equals(opString)) {
-                    fieldOp = EntityOperator.LIKE;
-                } else if (opString.equals("empty")) {
-                    fieldOp = EntityOperator.EQUALS;
-                } else {
-                    fieldOp = entityOperators.get(opString);
-                }
-            } else {
-                fieldOp = EntityOperator.EQUALS;
-            }
-
-            fieldValue = (String) subMap2.get("value");
+            fieldValue = subMap2.get("value");
             if (fieldValue == null) {
                 continue;
             }
-            if ("like".equals(opString) || "not-like".equals(opString) || "notLike".equals(opString)) {
-                fieldValue = fieldValue + "%";
-            } else if ("contains".equals(opString) || "not-contains".equals(opString) || "notContains".equals(opString)) {
-                fieldValue = fieldValue + "%" + fieldValue + "%";
-            } else if (opString.equals("empty")) {
-                fieldOp = EntityOperator.EQUALS;
-                fieldValue = null;
-            } else if (opString.equals("upToDay")) {
-                fieldValue = dayStart((String) fieldValue, 0);
-                fieldOp = EntityOperator.LESS_THAN;
-            } else if (opString.equals("upThruDay")) {
-                fieldValue = dayStart((String) fieldValue, 1);
-                fieldOp = EntityOperator.LESS_THAN;
-            }
-            // String rhs = fieldValue.toString();
-            fieldObject = modelEntity.convertFieldValue(modelField, fieldValue, delegator, context);
-            cond = EntityCondition.makeCondition(fieldName, fieldOp, fieldObject);
+            opString = (String) subMap2.get("op");
+            ignoreCase = "Y".equals(subMap2.get("ic"));
+            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context); 
             tmpList.add(cond);
-
             // add to queryStringMap
             List<Object[]> origList = origValueMap.get(fieldName);
             if (UtilValidate.isNotEmpty(origList)) {
