@@ -2056,7 +2056,7 @@
     </property>
     <property key="WebtoolsMainPage">
         <value xml:lang="de">WebTools Startseite</value>
-        <value xml:lang="en">WebTools Main Page</value>
+        <value xml:lang="en">Web Tools Main Page</value>
         <value xml:lang="fr">Page principale des outils web</value>
         <value xml:lang="it">Pagina principale</value>
         <value xml:lang="ro">Pagina Principala</value>
@@ -2520,7 +2520,7 @@
     </property>
     <property key="WebtoolsPermissionError">
         <value xml:lang="de">WebTools Autorisierungsfehler</value>
-        <value xml:lang="en">Webtools Permission Error</value>
+        <value xml:lang="en">Web Tools Permission Error</value>
         <value xml:lang="fr">Erreur d'autorisation sur les outils web</value>
         <value xml:lang="it">Errore di autorizzazione sugli strumenti del Framework</value>
         <value xml:lang="ro">Eroare Permisa Intrumente Web</value>
@@ -2572,7 +2572,7 @@
     </property>
     <property key="WebtoolsPopupWebToolsMain">
         <value xml:lang="de">Pop-Up WebTools Hauptseite</value>
-        <value xml:lang="en">Pop up WebTools Main</value>
+        <value xml:lang="en">Pop up Web Tools Main</value>
         <value xml:lang="fr">Page d'accueil des outils web</value>
         <value xml:lang="it">Pop up pagina principale strumenti del Framework</value>
         <value xml:lang="th">Pop up หน้าหลักเครื่องมือพัฒนาเว็บ</value>
