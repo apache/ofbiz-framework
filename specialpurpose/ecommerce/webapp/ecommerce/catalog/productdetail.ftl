@@ -572,11 +572,11 @@ ${virtualJavaScript?if_exists}
             <#assign secondVariantName = vpricing.get("secondVariantName")?if_exists>
             <#assign minimumQuantity = vpricing.get("minimumQuantity")>
             <#if minimumQuantity &gt; 0>
-              <div>minimum order quantity for ${secondVariantName!} ${variantName!} is ${minimumQuantity!}.</div>
+              <div>minimum order quantity for ${secondVariantName!} ${variantName!} is ${minimumQuantity!}</div>
             </#if>
           </#list>
         <#elseif minimumQuantity?exists && minimumQuantity?has_content && minimumQuantity &gt; 0>
-           <div>minimum order quantity for ${productContentWrapper.get("PRODUCT_NAME")?if_exists} is ${minimumQuantity!}.</div>
+           <div>minimum order quantity for ${productContentWrapper.get("PRODUCT_NAME")?if_exists} is ${minimumQuantity!}</div>
         </#if>
         </fieldset>
       </form>
