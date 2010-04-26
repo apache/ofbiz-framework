@@ -2131,6 +2131,20 @@ public class ModelFormField {
                 retVal = retVal.substring(0,10);
             } else if ("date-time".equals(this.type) && retVal.length() > 16) {
                 retVal = retVal.substring(0,16);
+            } else if ("accounting-number".equals(this.type)) {
+                Locale locale = (Locale) context.get("locale");
+                if (locale == null) {
+                    locale = Locale.getDefault();
+                }
+                try {
+                    Double parsedRetVal = (Double) ObjectType.simpleTypeConvert(retVal, "Double", null, locale, false);
+                    String template = UtilProperties.getPropertyValue("arithmetic", "accounting-number.format", "#,##0.00;(#,##0.00)");
+                    retVal = UtilFormatOut.formatDecimalNumber(parsedRetVal.doubleValue(), template, locale);
+                } catch (GeneralException e) {
+                    String errMsg = "Error formatting number [" + retVal + "]: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    throw new IllegalArgumentException(errMsg);
+                }
             }
             return retVal;
         }

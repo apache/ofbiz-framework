@@ -109,6 +109,21 @@ public class UtilFormatOut {
         return formatCurrency(price.doubleValue(), isoCode, locale, maximumFractionDigits);
     }
 
+    /** Format a decimal number to the pattern given
+     * @param number The price double to be formatted
+     * @param pattern pattern apply to format number
+     * @param locale The Locale used to format the number
+     * @return A String with the formatted price
+     */
+    public static String formatDecimalNumber(double number, String pattern, Locale locale) {
+        com.ibm.icu.text.NumberFormat nf = com.ibm.icu.text.NumberFormat.getNumberInstance(locale);
+        String nbParsing = "";
+        ((com.ibm.icu.text.DecimalFormat)nf).applyPattern( pattern );
+        ((com.ibm.icu.text.DecimalFormat)nf).toPattern();
+        nbParsing = nf.format(number);
+        return nbParsing;
+    }
+
     /** Formats a double into a properly formatted currency string based on isoCode and Locale
      * @param price The price double to be formatted
      * @param isoCode the currency ISO code

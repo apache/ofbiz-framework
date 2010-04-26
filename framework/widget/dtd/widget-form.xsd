@@ -667,6 +667,9 @@ under the License.
                     <xs:enumeration value="image">
                         <xs:annotation><xs:documentation>Display the image specified in image-location</xs:documentation></xs:annotation>
                     </xs:enumeration>
+                    <xs:enumeration value="accounting-number">
+                        <xs:annotation><xs:documentation>Display negatives in parentheses</xs:documentation></xs:annotation>
+                    </xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
