@@ -4331,7 +4331,7 @@ under the License.
         <field name="useTimeUomId" type="id"></field>
         <field name="useRoleTypeId" type="id"></field>
       <field name="automaticExtend" type="indicator"><description>If this subscription is automatically extended with the same period as the initial period.</description></field>
-      <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruedate) after which the automatic extension of the subscription will be executed.</description></field>
+      <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruDate) after which the automatic extension of the subscription will be executed.</description></field>
       <field name="canclAutmExtTimeUomId" type="id"><description>If this flag is set to 'Y' the subscription will be extended at the end of the subscription period with a new order.</description></field>
       <prim-key field="productId"/>
         <prim-key field="subscriptionResourceId"/>
@@ -4392,7 +4392,7 @@ under the License.
         <field name="useTime" type="numeric"></field>
         <field name="useTimeUomId" type="id"></field>
       <field name="automaticExtend" type="indicator"><description>If this subscription is automatically extended with the same period as the initial period.</description></field>
-      <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruedate) after which the automatic extension of the subscription will be executed.</description></field>
+      <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruDate) after which the automatic extension of the subscription will be executed.</description></field>
       <field name="canclAutmExtTimeUomId" type="id"><description>If this flag is set to 'Y' the subscription will be extended at the end of the subscription period with a new order.</description></field>
       <prim-key field="subscriptionId"/>
         <relation type="one" fk-name="SUBSC_SRESRC" rel-entity-name="SubscriptionResource">
