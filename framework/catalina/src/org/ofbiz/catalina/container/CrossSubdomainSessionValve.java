@@ -114,7 +114,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
                     if (value.indexOf(cookie.getName()) >= 0) {
                         StringBuffer buffer = new StringBuffer();
                         ServerCookie.appendCookieValue(buffer, newCookie.getVersion(), newCookie.getName(), newCookie.getValue(), newCookie.getPath(),
-                                newCookie.getDomain(), newCookie.getComment(), newCookie.getMaxAge(), newCookie.getSecure());
+                                newCookie.getDomain(), newCookie.getComment(), newCookie.getMaxAge(), newCookie.getSecure(), true);
                         Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(), module);
                         Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + buffer, module);
                         value.setString(buffer.toString());
