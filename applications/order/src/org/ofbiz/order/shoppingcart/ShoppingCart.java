@@ -4950,17 +4950,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public void setOrderStatusString(String orderStatusString) {
         this.orderStatusString = orderStatusString;
     }
-    public static BigDecimal getMinimumOrderQuantity (Delegator delegator, BigDecimal itemBasePrice, String itemProductId) 
-    throws GenericEntityException {
+
+    public static BigDecimal getMinimumOrderQuantity(Delegator delegator, BigDecimal itemBasePrice, String itemProductId) throws GenericEntityException {
         BigDecimal minQuantity = BigDecimal.ZERO;
         BigDecimal minimumOrderPrice = BigDecimal.ZERO; 
-        
+
         List<EntityExpr> exprs = FastList.newInstance();
         exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, itemProductId));
         exprs.add(EntityCondition.makeCondition("productPriceTypeId", EntityOperator.EQUALS, "MINIMUM_ORDER_PRICE"));
-        
+
         List<GenericValue> minimumOrderPriceList =  delegator.findList("ProductPrice", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, false);
-        if(minimumOrderPriceList != null) {
+        if (minimumOrderPriceList != null) {
             minimumOrderPriceList = EntityUtil.filterByDate(minimumOrderPriceList);
         }
         if (itemBasePrice == null) {
@@ -4981,10 +4981,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 itemBasePrice= (BigDecimal) productPriceMap.get("LIST_PRICE");
             }
         }
-        if(UtilValidate.isNotEmpty(minimumOrderPriceList)) {
+        if (UtilValidate.isNotEmpty(minimumOrderPriceList)) {
             minimumOrderPrice = EntityUtil.getFirst(minimumOrderPriceList).getBigDecimal("price");
         }
-        if(itemBasePrice != null && minimumOrderPrice.compareTo(itemBasePrice) > 0) {
+        if (itemBasePrice != null && minimumOrderPrice.compareTo(itemBasePrice) > 0) {
             minQuantity = minimumOrderPrice.divide(itemBasePrice, 0, BigDecimal.ROUND_UP);
         }
         return minQuantity;

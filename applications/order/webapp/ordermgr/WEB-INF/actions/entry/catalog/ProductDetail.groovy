@@ -387,7 +387,7 @@ if (product) {
                                 // sales order: run the "calculateProductPrice" service
                                 variantPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
                                 BigDecimal calculatedPrice = (BigDecimal)variantPriceMap.get("price");
-                                //Get the minimum quantity for varients if MINIMUM_ORDER_PRICE is set for varients.
+                                // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                                 variantPriceMap.put("minimumQuantity", ShoppingCart.getMinimumOrderQuantity(delegator, calculatedPrice, variant.get("productId")));
                                 Iterator treeMapIter = variantTree.entrySet().iterator();
                                 while (treeMapIter.hasNext()) {
