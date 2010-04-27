@@ -90,7 +90,7 @@ under the License.
                     <DataType>
                         <BasicType Type="STRING"/>
                     </DataType>
-                    <InitialValue>ofbiztest@yahoo.com</InitialValue>
+                    <InitialValue>ofbiztesting@gmail.com</InitialValue>
                 </DataField>
             </DataFields>
 
