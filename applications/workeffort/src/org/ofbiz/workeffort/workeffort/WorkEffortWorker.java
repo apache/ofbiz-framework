@@ -19,12 +19,8 @@
 
 package org.ofbiz.workeffort.workeffort;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
-import javax.servlet.jsp.PageContext;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
@@ -40,10 +36,6 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.security.Security;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
 
 
 /** WorkEffortWorker - Work Effort worker class. */
