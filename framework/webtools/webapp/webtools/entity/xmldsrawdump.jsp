@@ -58,9 +58,9 @@ under the License.
                     ModelEntity me = reader.getModelEntity(curEntityName);
                     EntityListIterator values = null;
                     if (me.getNoAutoStamp() == true) {
-                        values = delegator.findListIteratorByCondition(curEntityName, null, null, null);
+                        values = delegator.find(curEntityName, null, null, null, null, null);
                     } else {
-                        values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null);
+                        values = delegator.find(curEntityName, entityDateCond, null, null, null, null);
                     }
 
                     GenericValue value = null;

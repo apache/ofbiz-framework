@@ -214,7 +214,7 @@ under the License.
         boolean beganTransaction = TransactionUtil.begin(3600);
         try {
             String curEntityName = (String)i.next();
-            EntityListIterator values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null, UtilMisc.toList("-createdTxStamp"), efo);
+            EntityListIterator values = delegator.find(curEntityName, entityDateCond, null, null, UtilMisc.toList("-createdTxStamp"), efo);
 
             GenericValue value = null;
             long curNumberWritten = 0;
@@ -268,7 +268,7 @@ under the License.
                     results.add("["+fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
                     continue;
                 }
-                values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null, me.getPkFieldNames(), efo);
+                values = delegator.find(curEntityName, entityDateCond, null, null, me.getPkFieldNames(), efo);
                 boolean isFirst = true;
                 PrintWriter writer = null;
                 int fileSplitNumber = 1;
