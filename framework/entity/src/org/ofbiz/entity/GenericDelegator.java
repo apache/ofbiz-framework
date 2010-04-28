@@ -1841,39 +1841,6 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findCountByAnd(java.lang.String)
-     */
-    @Deprecated
-    public long findCountByAnd(String entityName) throws GenericEntityException {
-        return findCountByCondition(entityName, null, null, null);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findCountByAnd(java.lang.String, java.lang.Object)
-     */
-    @Deprecated
-    public long findCountByAnd(String entityName, Object... fields) throws GenericEntityException {
-        return findCountByCondition(entityName, EntityCondition.makeCondition(UtilMisc.<String, Object>toMap(fields), EntityOperator.AND), null, null);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findCountByAnd(java.lang.String, java.util.Map)
-     */
-    @Deprecated
-    public long findCountByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        return findCountByCondition(entityName, EntityCondition.makeCondition(fields, EntityOperator.AND), null, null);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.ofbiz.entity.condition.EntityCondition, org.ofbiz.entity.condition.EntityCondition)
-     */
-    @Deprecated
-    public long findCountByCondition(String entityName, EntityCondition whereEntityCondition,
-            EntityCondition havingEntityCondition) throws GenericEntityException {
-        return findCountByCondition(entityName, whereEntityCondition, havingEntityCondition, null);
-    }
-
-    /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.ofbiz.entity.condition.EntityCondition, org.ofbiz.entity.condition.EntityCondition, org.ofbiz.entity.util.EntityFindOptions)
      */
     public long findCountByCondition(String entityName, EntityCondition whereEntityCondition,
@@ -1958,38 +1925,6 @@ public class GenericDelegator implements Delegator {
             // only commit the transaction if we started one... this will throw an exception if it fails
             TransactionUtil.commit(beganTransaction);
         }
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#getMultiRelation(org.ofbiz.entity.GenericValue, java.lang.String, java.lang.String)
-     */
-    @Deprecated
-    public List<GenericValue> getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo) throws GenericEntityException {
-        return getMultiRelation(value, relationNameOne, relationNameTwo, null);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#getRelated(java.lang.String, org.ofbiz.entity.GenericValue)
-     */
-    @Deprecated
-    public List<GenericValue> getRelated(String relationName, GenericValue value) throws GenericEntityException {
-        return getRelated(relationName, null, null, value);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#getRelatedByAnd(java.lang.String, java.util.Map, org.ofbiz.entity.GenericValue)
-     */
-    @Deprecated
-    public List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> byAndFields, GenericValue value) throws GenericEntityException {
-        return this.getRelated(relationName, byAndFields, null, value);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#getRelatedOrderBy(java.lang.String, java.util.List, org.ofbiz.entity.GenericValue)
-     */
-    @Deprecated
-    public List<GenericValue> getRelatedOrderBy(String relationName, List<String> orderBy, GenericValue value) throws GenericEntityException {
-        return this.getRelated(relationName, null, orderBy, value);
     }
 
     /* (non-Javadoc)
