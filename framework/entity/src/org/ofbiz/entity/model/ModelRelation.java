@@ -144,13 +144,6 @@ public class ModelRelation extends ModelChild {
         this.fkName = fkName;
     }
 
-    /** @deprecated
-      * the main entity of this relation */
-    @Deprecated
-    public ModelEntity getMainEntity() {
-        return getModelEntity();
-    }
-
     /** @deprecated */
     @Deprecated
     public void setMainEntity(ModelEntity mainEntity) {
