@@ -48,6 +48,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.ModelWidget;
@@ -1202,11 +1203,23 @@ public class MacroFormRenderer implements FormStringRenderer {
                     style = requiredStyle;
                 }
             }
+            Delegator delegator = (Delegator)request.getAttribute("delegator");
+            Locale locale = (Locale)context.get("locale");
+            String entityName = modelFormField.getEntityName();
+            String fieldName = modelFormField.getFieldName();
+            String helpText = UtilHelpText.getHelp(entityName, fieldName, delegator, locale);
+            
+            String displayHelpText = UtilProperties.getPropertyValue("widget.properties", "widget.form.displayhelpText");
+            
             StringWriter sr = new StringWriter();
             sr.append("<@renderFieldTitle ");
             sr.append(" style=\"");
             sr.append(style);
-            sr.append("\" title=\"");
+            if ("Y".equals(displayHelpText)) {
+                sr.append("\" fieldHelpText=\"");
+                sr.append(FreeMarkerWorker.encodeDoubleQuotes(helpText));
+            }
+            sr.append("\" fieldTitle=\"");
             sr.append(sb.toString());
             sr.append("\" />");
             executeMacro(writer, sr.toString());
