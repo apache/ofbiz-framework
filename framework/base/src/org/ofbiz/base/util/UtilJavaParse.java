@@ -182,9 +182,7 @@ public class UtilJavaParse {
         entityMethodNames.add("removeAll");
         entityMethodNames.add("findOne");
         entityMethodNames.add("findByPrimaryKey");
-        entityMethodNames.add("findByPrimaryKeySingle");
         entityMethodNames.add("findByPrimaryKeyCache");
-        entityMethodNames.add("findByPrimaryKeyCacheSingle");
         entityMethodNames.add("findAll");
         entityMethodNames.add("findAllCache");
         entityMethodNames.add("findByAnd");
