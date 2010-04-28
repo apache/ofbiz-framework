@@ -1954,6 +1954,7 @@ under the License.
       <field name="accountName" type="name"></field>
       <field name="description" type="description"></field>
       <field name="productId" type="id"></field>
+      <field name="externalId" type="id"><description>id of the account in an external system where the accounts are imported/exported</description></field>
       <field name="postedBalance" type="currency-amount"></field>
       <prim-key field="glAccountId"/>
       <relation type="one" fk-name="GLACCT_TYPE" rel-entity-name="GlAccountType">
