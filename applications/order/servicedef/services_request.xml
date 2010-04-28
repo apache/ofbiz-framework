@@ -174,6 +174,7 @@ under the License.
         <description>Set the Customer Request  Status</description>
         <attribute name="custRequestId" type="String" mode="INOUT" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="reason" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- for notification services -->
         <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
