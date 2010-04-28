@@ -90,6 +90,10 @@
         <value xml:lang="th">รหัสตัวอย่างประเภท ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
         <value xml:lang="zh">一个唯一的样例类型序号。如果你没有指定一个标识，那么会自动生成一个</value>
     </property>
+    <property key="FieldDescription.Example.exampleTypeId">
+        <value xml:lang="en">The type of Example.</value>
+        <value xml:lang="fr">Le type de l'exemple.</value>
+    </property>
     <property key="FieldDescription.amount">
         <value xml:lang="de">Betrag</value>
         <value xml:lang="en">Amount</value>
