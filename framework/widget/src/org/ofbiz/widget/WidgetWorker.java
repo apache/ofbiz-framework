@@ -50,7 +50,7 @@ public class WidgetWorker {
 
     public WidgetWorker () {}
 
-    public static void buildHyperlinkUrl(Appendable externalWriter, String target, String targetType, List<WidgetWorker.Parameter> parameterList,
+    public static void buildHyperlinkUrl(Appendable externalWriter, String target, String targetType, Map<String, String> parameterMap,
             String prefix, boolean fullPath, boolean secure, boolean encode, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String localRequestName = UtilHttp.encodeAmpersands(target);
         Appendable localWriter = new StringWriter();
@@ -87,7 +87,7 @@ public class WidgetWorker {
             localWriter.append(localRequestName);
         }
 
-        if (UtilValidate.isNotEmpty(parameterList)) {
+        if (UtilValidate.isNotEmpty(parameterMap)) {
             String localUrl = localWriter.toString();
             externalWriter.append(localUrl);
             boolean needsAmp = true;
@@ -96,19 +96,19 @@ public class WidgetWorker {
                 needsAmp = false;
             }
 
-            for (WidgetWorker.Parameter parameter: parameterList) {
+            for (Map.Entry<String, String> parameter: parameterMap.entrySet()) {
                 if (needsAmp) {
                     externalWriter.append("&amp;");
                 } else {
                     needsAmp = true;
                 }
-                externalWriter.append(parameter.getName());
+                externalWriter.append(parameter.getKey());
                 externalWriter.append('=');
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
-                    externalWriter.append(simpleEncoder.encode(parameter.getValue(context)));
+                    externalWriter.append(simpleEncoder.encode(parameter.getValue()));
                 } else {
-                    externalWriter.append(parameter.getValue(context));
+                    externalWriter.append(parameter.getValue());
                 }
             }
         } else {
@@ -123,7 +123,7 @@ public class WidgetWorker {
         writer.append(location);
     }
     public static void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target,
-            List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
+            Map<String, String> parameterMap, String description, String targetWindow, String confirmation, ModelFormField modelFormField,
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
         if ("hidden-form".equals(realLinkType)) {
@@ -137,17 +137,17 @@ public class WidgetWorker {
                     postMultiFormWriter = new StringWriter();
                     wholeFormContext.put("postMultiFormWriter", postMultiFormWriter);
                 }
-                WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, target, targetType, targetWindow, parameterList, modelFormField, request, response, context);
+                WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, target, targetType, targetWindow, parameterMap, modelFormField, request, response, context);
             } else {
-                WidgetWorker.makeHiddenFormLinkForm(writer, target, targetType, targetWindow, parameterList, modelFormField, request, response, context);
+                WidgetWorker.makeHiddenFormLinkForm(writer, target, targetType, targetWindow, parameterMap, modelFormField, request, response, context);
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, description, confirmation, modelFormField, request, response, context);
             }
         } else {
-            WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, parameterList, description, confirmation, modelFormField, request, response, context, targetWindow);
+            WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, description, confirmation, modelFormField, request, response, context, targetWindow);
         }
 
     }
-    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, List<WidgetWorker.Parameter> parameterList,
+    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, Map<String, String> parameterMap,
             String description, String confirmation, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow)
             throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
@@ -161,7 +161,7 @@ public class WidgetWorker {
 
             writer.append(" href=\"");
 
-            buildHyperlinkUrl(writer, target, targetType, parameterList, null, false, false, true, request, response, context);
+            buildHyperlinkUrl(writer, target, targetType, parameterMap, null, false, false, true, request, response, context);
 
             writer.append("\"");
 
@@ -237,7 +237,7 @@ public class WidgetWorker {
         }
     }
 
-    public static void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, List<WidgetWorker.Parameter> parameterList, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+    public static void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, Map<String, String> parameterMap, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         writer.append("<form method=\"post\"");
         writer.append(" action=\"");
         // note that this passes null for the parameterList on purpose so they won't be put into the URL
@@ -256,11 +256,11 @@ public class WidgetWorker {
         writer.append(makeLinkHiddenFormName(context, modelFormField));
         writer.append("\">");
 
-        for (WidgetWorker.Parameter parameter: parameterList) {
+        for (Map.Entry<String, String> parameter: parameterMap.entrySet()) {
             writer.append("<input name=\"");
-            writer.append(parameter.getName());
+            writer.append(parameter.getKey());
             writer.append("\" value=\"");
-            writer.append(parameter.getValue(context));
+            writer.append(parameter.getValue());
             writer.append("\" type=\"hidden\"/>");
         }
 

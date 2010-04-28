@@ -267,7 +267,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         
         if (UtilValidate.isNotEmpty(target)) {
-            WidgetWorker.buildHyperlinkUrl(linkUrl, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
+            WidgetWorker.buildHyperlinkUrl(linkUrl, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
                     link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);            
         }        
         

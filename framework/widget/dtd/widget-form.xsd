@@ -856,6 +856,9 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="confirmation-message" type="xs:string"><xs:annotation><xs:documentation>The message displayed in confirmation box</xs:documentation></xs:annotation></xs:attribute>
+        <xs:attribute name="parameters-map" type="xs:string">
+            <xs:annotation><xs:documentation>A Map in the context that will be used as additional name/value pairs.</xs:documentation></xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="parameter">
         <xs:complexType>

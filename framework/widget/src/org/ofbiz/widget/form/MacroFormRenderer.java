@@ -344,7 +344,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("alternate", encodedAlternate);
         this.request.setAttribute("imageTitle", encodedImageTitle);
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context),
-                hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), hyperlinkField.getConfirmation(context), modelFormField,
+                hyperlinkField.getParameterMap(context), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), hyperlinkField.getConfirmation(context), modelFormField,
                 this.request, this.response, context);
 
         this.appendTooltip(writer, context, modelFormField);
@@ -2813,7 +2813,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (subHyperlink.shouldUse(context)) {
             writer.append(' ');
             makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context),
-                    subHyperlink.getParameterList(), subHyperlink.getDescription(context), subHyperlink.getTargetWindow(context), subHyperlink.getConfirmation(context), subHyperlink.getModelFormField(),
+                    subHyperlink.getParameterMap(context), subHyperlink.getDescription(context), subHyperlink.getTargetWindow(context), subHyperlink.getConfirmation(context), subHyperlink.getModelFormField(),
                     this.request, this.response, context);
         }
     }
@@ -2841,7 +2841,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target,
-            List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, String confirmation , ModelFormField modelFormField,
+            Map<String, String> parameterMap, String description, String targetWindow, String confirmation , ModelFormField modelFormField,
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
 
@@ -2858,24 +2858,24 @@ public class MacroFormRenderer implements FormStringRenderer {
                     postMultiFormWriter = new StringWriter();
                     wholeFormContext.put("postMultiFormWriter", postMultiFormWriter);
                 }
-                WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, target, targetType, targetWindow, parameterList, modelFormField, request, response, context);
+                WidgetWorker.makeHiddenFormLinkForm(postMultiFormWriter, target, targetType, targetWindow, parameterMap, modelFormField, request, response, context);
             } else {
-                WidgetWorker.makeHiddenFormLinkForm(writer, target, targetType, targetWindow, parameterList, modelFormField, request, response, context);
+                WidgetWorker.makeHiddenFormLinkForm(writer, target, targetType, targetWindow, parameterMap, modelFormField, request, response, context);
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, encodedDescription, confirmation , modelFormField, request, response, context);
             }
         } else {
-            makeHyperlinkString(writer, linkStyle, targetType, target, parameterList, encodedDescription, confirmation , modelFormField, request, response, context, targetWindow);
+            makeHyperlinkString(writer, linkStyle, targetType, target, parameterMap, encodedDescription, confirmation , modelFormField, request, response, context, targetWindow);
         }
 
     }
 
-    public void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, List<WidgetWorker.Parameter> parameterList,
+    public void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, Map<String, String> parameterMap,
             String description, String confirmation , ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow)
             throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             StringBuilder linkUrl = new StringBuilder();
 
-            WidgetWorker.buildHyperlinkUrl(linkUrl, target, targetType, parameterList, null, false, false, true, request, response, context);
+            WidgetWorker.buildHyperlinkUrl(linkUrl, target, targetType, parameterMap, null, false, false, true, request, response, context);
 
             String event = "";
             String action = "";

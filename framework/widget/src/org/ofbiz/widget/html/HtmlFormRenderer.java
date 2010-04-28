@@ -333,7 +333,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String description = encode(hyperlinkField.getDescription(context), modelFormField, context);
         String confirmation = encode(hyperlinkField.getConfirmation(context), modelFormField, context);
         WidgetWorker.makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context),
-                hyperlinkField.getParameterList(), description, hyperlinkField.getTargetWindow(context), confirmation, modelFormField,
+                hyperlinkField.getParameterMap(context), description, hyperlinkField.getTargetWindow(context), confirmation, modelFormField,
                 this.request, this.response, context);               
         this.appendTooltip(writer, context, modelFormField);
         //appendWhitespace(writer);
@@ -347,7 +347,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(' ');
             String description = encode(subHyperlink.getDescription(context), subHyperlink.getModelFormField(), context);
             WidgetWorker.makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context),
-                    subHyperlink.getParameterList(), description, subHyperlink.getTargetWindow(context), subHyperlink.getConfirmation(context), subHyperlink.getModelFormField(),
+                    subHyperlink.getParameterMap(context), description, subHyperlink.getTargetWindow(context), subHyperlink.getConfirmation(context), subHyperlink.getModelFormField(),
                     this.request, this.response, context);            
         }
     }

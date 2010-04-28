@@ -223,15 +223,15 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
             actionUrl = sb.toString();
             parameters.append("[");
-            for (WidgetWorker.Parameter parameter: link.getParameterList()) {
+            for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
                 if (parameters.length() >1) {
                     parameters.append(",");
                 }
                 parameters.append("{'name':'");
-                parameters.append(parameter.getName());
+                parameters.append(parameter.getKey());
                 parameters.append("'");
                 parameters.append(",'value':'");
-                parameters.append(parameter.getValue(context));
+                parameters.append(parameter.getValue());
                 parameters.append("'}");
             }
             parameters.append("]");
@@ -244,7 +244,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (UtilValidate.isNotEmpty(target)) {
             if (!"hidden-form".equals(linkType)) {
                 StringBuilder sb = new StringBuilder();
-                WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
+                WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
                 linkUrl = sb.toString();
             }

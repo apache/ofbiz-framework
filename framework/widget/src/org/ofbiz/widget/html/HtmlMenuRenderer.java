@@ -418,14 +418,14 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append("\">");
 
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
-                for (WidgetWorker.Parameter parameter: link.getParameterList()) {
+                for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
                     writer.append("<input name=\"");
-                    writer.append(parameter.getName());
+                    writer.append(parameter.getKey());
                     writer.append("\" value=\"");
                     if (simpleEncoder != null) {
-                        writer.append(simpleEncoder.encode(parameter.getValue(context)));
+                        writer.append(simpleEncoder.encode(parameter.getValue()));
                     } else {
-                        writer.append(parameter.getValue(context));
+                        writer.append(parameter.getValue());
                     }
                     writer.append("\" type=\"hidden\"/>");
                 }
@@ -478,11 +478,11 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                     writer.append("javascript:confirmActionLink('");
                     writer.append(confirmationMsg);
                     writer.append("', '");
-                    WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
+                    WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
                             link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
                     writer.append("')");
                 } else {
-                WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
+                WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
                 }
             }
