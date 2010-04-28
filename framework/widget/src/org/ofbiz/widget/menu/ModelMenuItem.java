@@ -28,6 +28,7 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -289,12 +290,12 @@ public class ModelMenuItem {
                         localItem.name =  portalPage.getString("portalPageId");
                         localItem.setTitle((String) portalPage.get("portalPageName", locale));
                         localItem.link = new Link(this);
-                        List<WidgetWorker.Parameter> linkParams = localItem.link.getParameterList();
-                        linkParams.add(new WidgetWorker.Parameter("portalPageId", portalPage.getString("portalPageId"), false));
-                        linkParams.add(new WidgetWorker.Parameter("parentPortalPageId", parentPortalPageId, false));
+                        Map<String, String> linkParams = localItem.link.getParameterMap(context);
+                        linkParams.put("portalPageId", portalPage.getString("portalPageId"));
+                        linkParams.put("parentPortalPageId", parentPortalPageId);
                         if (link != null) {
                             localItem.link.setTarget(link.targetExdr.getOriginal());
-                            linkParams.addAll(link.parameterList);
+                            linkParams.putAll(link.getParameterMap(context));
                         } else {
                             localItem.link.setTarget("showPortalPage");
                         }
@@ -741,8 +742,21 @@ public class ModelMenuItem {
             return this.linkType;
         }
 
-        public List<WidgetWorker.Parameter> getParameterList() {
-            return this.parameterList;
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            Map<String, String> fullParameterMap = FastMap.newInstance();
+
+            /* leaving this here... may want to add it at some point like the hyperlink element:
+            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
+            if (addlParamMap != null) {
+                fullParameterMap.putAll(addlParamMap);
+            }
+            */
+            
+            for (WidgetWorker.Parameter parameter: this.parameterList) {
+                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
+            }
+            
+            return fullParameterMap;
         }
 
         public String getConfirmation(Map<String, Object> context) {

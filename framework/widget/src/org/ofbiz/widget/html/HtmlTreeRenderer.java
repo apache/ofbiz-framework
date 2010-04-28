@@ -221,7 +221,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             HttpServletRequest req = (HttpServletRequest) context.get("request");
             if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
                 if (req != null && res != null) {
-                    WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
+                    WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), req, res, context);
                 } else if (prefix != null) {
                     writer.append(prefix).append(target);

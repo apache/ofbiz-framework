@@ -930,8 +930,21 @@ public class ModelTree extends ModelWidget {
                 return this.linkType;
             }
 
-            public List<WidgetWorker.Parameter> getParameterList() {
-                return this.parameterList;
+            public Map<String, String> getParameterMap(Map<String, Object> context) {
+                Map<String, String> fullParameterMap = FastMap.newInstance();
+
+                /* leaving this here... may want to add it at some point like the hyperlink element:
+                Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
+                if (addlParamMap != null) {
+                    fullParameterMap.putAll(addlParamMap);
+                }
+                */
+                
+                for (WidgetWorker.Parameter parameter: this.parameterList) {
+                    fullParameterMap.put(parameter.getName(), parameter.getValue(context));
+                }
+                
+                return fullParameterMap;
             }
 
             public void setText(String val) {

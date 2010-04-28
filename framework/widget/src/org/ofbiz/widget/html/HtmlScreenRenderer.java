@@ -495,11 +495,11 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             writer.append(uniqueItemName);
             writer.append("\">");
 
-            for (WidgetWorker.Parameter parameter: link.getParameterList()) {
+            for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
                 writer.append("<input name=\"");
-                writer.append(parameter.getName());
+                writer.append(parameter.getKey());
                 writer.append("\" value=\"");
-                writer.append(parameter.getValue(context));
+                writer.append(parameter.getValue());
                 writer.append("\" type=\"hidden\"/>");
             }
 
@@ -537,7 +537,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 writer.append(uniqueItemName);
                 writer.append(".submit()");
             } else {
-                WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
+                WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
             }
             writer.append("\"");

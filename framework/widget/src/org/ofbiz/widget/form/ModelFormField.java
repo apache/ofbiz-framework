@@ -2281,6 +2281,7 @@ public class ModelFormField {
         protected FlexibleStringExpander alternate;
         protected FlexibleStringExpander imageTitle;
         protected FlexibleStringExpander targetWindowExdr;
+        protected FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
 
         protected boolean requestConfirmation = false;
@@ -2308,6 +2309,7 @@ public class ModelFormField {
             this.linkType = element.getAttribute("link-type");
             this.targetType = element.getAttribute("target-type");
             this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
+            this.parametersMapAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("parameters-map"));
             this.image = element.getAttribute("image-location");
             this.setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
             this.setConfirmationMsg(element.getAttribute("confirmation-message"));
@@ -2380,8 +2382,19 @@ public class ModelFormField {
             return this.target.expandString(context);
         }
 
-        public List<WidgetWorker.Parameter> getParameterList() {
-            return this.parameterList;
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            Map<String, String> fullParameterMap = FastMap.newInstance();
+            
+            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
+            if (addlParamMap != null) {
+                fullParameterMap.putAll(addlParamMap);
+            }
+            
+            for (WidgetWorker.Parameter parameter: this.parameterList) {
+                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
+            }
+            
+            return fullParameterMap;
         }
 
         public String getImage() {
@@ -2507,8 +2520,21 @@ public class ModelFormField {
             return this.linkType;
         }
 
-        public List<WidgetWorker.Parameter> getParameterList() {
-            return this.parameterList;
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            Map<String, String> fullParameterMap = FastMap.newInstance();
+
+            /* leaving this here... may want to add it at some point like the hyperlink element:
+            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
+            if (addlParamMap != null) {
+                fullParameterMap.putAll(addlParamMap);
+            }
+            */
+            
+            for (WidgetWorker.Parameter parameter: this.parameterList) {
+                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
+            }
+            
+            return fullParameterMap;
         }
 
         public String getUseWhen(Map<String, Object> context) {
