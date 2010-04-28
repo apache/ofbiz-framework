@@ -1615,42 +1615,10 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByPrimaryKey(org.ofbiz.entity.GenericPK)
-     */
-    @Deprecated
-    public GenericValue findByPrimaryKey(GenericPK primaryKey) throws GenericEntityException {
-        return findOne(primaryKey.getEntityName(), primaryKey, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByPrimaryKeyCache(org.ofbiz.entity.GenericPK)
-     */
-    @Deprecated
-    public GenericValue findByPrimaryKeyCache(GenericPK primaryKey) throws GenericEntityException {
-        return findOne(primaryKey.getEntityName(), primaryKey, true);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByPrimaryKey(java.lang.String, java.lang.Object)
-     */
-    @Deprecated
-    public GenericValue findByPrimaryKey(String entityName, Object... fields) throws GenericEntityException {
-        return findByPrimaryKey(entityName, UtilMisc.<String, Object>toMap(fields));
-    }
-
-    /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findByPrimaryKey(java.lang.String, java.util.Map)
      */
     public GenericValue findByPrimaryKey(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return findOne(entityName, fields, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByPrimaryKeySingle(java.lang.String, java.lang.Object)
-     */
-    @Deprecated
-    public GenericValue findByPrimaryKeySingle(String entityName, Object singlePkValue) throws GenericEntityException {
-        return findOne(entityName, makePKSingle(entityName, singlePkValue), false);
     }
 
     /* (non-Javadoc)
@@ -1665,22 +1633,6 @@ public class GenericDelegator implements Delegator {
      */
     public GenericValue findByPrimaryKeyCache(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return findOne(entityName, fields, true);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByPrimaryKeyCacheSingle(java.lang.String, java.lang.Object)
-     */
-    @Deprecated
-    public GenericValue findByPrimaryKeyCacheSingle(String entityName, Object singlePkValue) throws GenericEntityException {
-        return findOne(entityName, makePKSingle(entityName, singlePkValue), true);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByPrimaryKeyPartial(org.ofbiz.entity.GenericPK, java.lang.String)
-     */
-    @Deprecated
-    public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, String... keys) throws GenericEntityException {
-        return findByPrimaryKeyPartial(primaryKey, UtilMisc.makeSetWritable(Arrays.asList(keys)));
     }
 
     /* (non-Javadoc)
@@ -1714,130 +1666,6 @@ public class GenericDelegator implements Delegator {
             return value;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in findByPrimaryKeyPartial operation for entity [" + primaryKey.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
-            Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
-        }
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findAllByPrimaryKeys(java.util.Collection)
-     */
-    @Deprecated
-    public List<GenericValue> findAllByPrimaryKeys(Collection<GenericPK> primaryKeys) throws GenericEntityException {
-        boolean beganTransaction = false;
-        try {
-            if (alwaysUseTransaction) {
-                beganTransaction = TransactionUtil.begin();
-            }
-
-            //TODO: add eca eval calls
-            //TODO: maybe this should use the internal findBy methods
-            if (primaryKeys == null) return null;
-            List<GenericValue> results = FastList.newInstance();
-
-            // from the delegator level this is complicated because different GenericPK
-            // objects in the list may correspond to different helpers
-            Map<String, List<GenericPK>> pksPerGroup = FastMap.newInstance();
-            for (GenericPK curPK: primaryKeys) {
-                String groupName = this.getEntityGroupName(curPK.getEntityName());
-                List<GenericPK> pks = pksPerGroup.get(groupName);
-
-                if (pks == null) {
-                    pks = FastList.newInstance();
-                    pksPerGroup.put(groupName, pks);
-                }
-                pks.add(curPK);
-            }
-
-            for (Map.Entry<String, List<GenericPK>> curEntry: pksPerGroup.entrySet()) {
-                String groupName = curEntry.getKey();
-                GenericHelper helper = GenericHelperFactory.getHelper(this.getGroupHelperInfo(groupName));
-                List<GenericValue> values = helper.findAllByPrimaryKeys(curEntry.getValue());
-
-                results.addAll(values);
-            }
-
-            this.decryptFields(results);
-            return results;
-        } catch (GenericEntityException e) {
-            String errMsg = "Failure in findAllByPrimaryKeys operation, rolling back transaction";
-            Debug.logError(e, errMsg, module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw e;
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            TransactionUtil.commit(beganTransaction);
-        }
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findAllByPrimaryKeysCache(java.util.Collection)
-     */
-    @Deprecated
-    public List<GenericValue> findAllByPrimaryKeysCache(Collection<GenericPK> primaryKeys) throws GenericEntityException {
-        boolean beganTransaction = false;
-        try {
-            if (alwaysUseTransaction) {
-                beganTransaction = TransactionUtil.begin();
-            }
-
-            //TODO: add eca eval calls
-            //TODO: maybe this should use the internal findBy methods
-            if (primaryKeys == null)
-                return null;
-            List<GenericValue> results = FastList.newInstance();
-
-            // from the delegator level this is complicated because different GenericPK
-            // objects in the list may correspond to different helpers
-            Map<String, List<GenericPK>> pksPerGroup = FastMap.newInstance();
-            for (GenericPK curPK: primaryKeys) {
-                GenericValue value = this.getFromPrimaryKeyCache(curPK);
-
-                if (value != null) {
-                    // it is in the cache, so just put the cached value in the results
-                    results.add(value);
-                } else {
-                    // is not in the cache, so put in a list for a call to the helper
-                    String groupName = this.getEntityGroupName(curPK.getEntityName());
-                    List<GenericPK> pks = pksPerGroup.get(groupName);
-
-                    if (pks == null) {
-                        pks = FastList.newInstance();
-                        pksPerGroup.put(groupName, pks);
-                    }
-                    pks.add(curPK);
-                }
-            }
-
-            for (Map.Entry<String, List<GenericPK>> curEntry: pksPerGroup.entrySet()) {
-                String groupName = curEntry.getKey();
-                GenericHelper helper = GenericHelperFactory.getHelper(this.getGroupHelperInfo(groupName));
-                List<GenericValue> values = helper.findAllByPrimaryKeys(curEntry.getValue());
-
-                this.putAllInPrimaryKeyCache(values);
-                results.addAll(values);
-            }
-
-            this.decryptFields(results);
-            return results;
-        } catch (GenericEntityException e) {
-            String errMsg = "Failure in findAllByPrimaryKeysCache operation, rolling back transaction";
             Debug.logError(e, errMsg, module);
             try {
                 // only rollback the transaction if we started one...
