@@ -469,6 +469,9 @@ under the License.
         <check-errors/>
 
         <set field="custRequest.statusId" from-field="parameters.statusId"/>
+        <if-not-empty field="parameters.reason"><!-- update reason if provided -->
+            <set field="custRequest.reason" from-field="parameters.reason"/>
+        </if-not-empty>
         <store-value value-field="custRequest"/>
         <call-simple-method method-name="createCustRequestStatus"/>
     </simple-method>
