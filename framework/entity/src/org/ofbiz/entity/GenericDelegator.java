@@ -1682,54 +1682,6 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findAll(java.lang.String)
-     */
-    @Deprecated
-    public List<GenericValue> findAll(String entityName) throws GenericEntityException {
-        return this.findList(entityName, null, null, null, null, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findAll(java.lang.String, java.lang.String)
-     */
-    @Deprecated
-    public List<GenericValue> findAll(String entityName, String... orderBy) throws GenericEntityException {
-        return findList(entityName, null, null, Arrays.asList(orderBy), null, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findAll(java.lang.String, java.util.List)
-     */
-    @Deprecated
-    public List<GenericValue> findAll(String entityName, List<String> orderBy) throws GenericEntityException {
-        return this.findList(entityName, null, null, orderBy, null, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findAllCache(java.lang.String)
-     */
-    @Deprecated
-    public List<GenericValue> findAllCache(String entityName) throws GenericEntityException {
-        return this.findList(entityName, null, null, null, null, true);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findAllCache(java.lang.String, java.lang.String)
-     */
-    @Deprecated
-    public List<GenericValue> findAllCache(String entityName, String... orderBy) throws GenericEntityException {
-        return findList(entityName, null, null, Arrays.asList(orderBy), null, true);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findAllCache(java.lang.String, java.util.List)
-     */
-    @Deprecated
-    public List<GenericValue> findAllCache(String entityName, List<String> orderBy) throws GenericEntityException {
-        return this.findList(entityName, null, null, orderBy, null, true);
-    }
-
-    /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findByAnd(java.lang.String, java.lang.Object)
      */
     public List<GenericValue> findByAnd(String entityName, Object... fields) throws GenericEntityException {
@@ -1799,59 +1751,6 @@ public class GenericDelegator implements Delegator {
      */
     public List<GenericValue> findByAndCache(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException {
         return this.findList(entityName, EntityCondition.makeCondition(fields), null, orderBy, null, true);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByAnd(java.lang.String, T)
-     */
-    @Deprecated
-    public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, T... expressions) throws GenericEntityException {
-        EntityConditionList<T> ecl = EntityCondition.makeCondition(EntityOperator.AND, expressions);
-        return this.findList(entityName, ecl, null, null, null, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByAnd(java.lang.String, java.util.List)
-     */
-    @Deprecated
-    public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, List<T> expressions) throws GenericEntityException {
-        EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.AND);
-        return this.findList(entityName, ecl, null, null, null, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByAnd(java.lang.String, java.util.List, java.util.List)
-     */
-    @Deprecated
-    public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, List<T> expressions, List<String> orderBy) throws GenericEntityException {
-        EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.AND);
-        return this.findList(entityName, ecl, null, orderBy, null, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByOr(java.lang.String, T)
-     */
-    @Deprecated
-    public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, T... expressions) throws GenericEntityException {
-        return this.findList(entityName, EntityCondition.makeCondition(EntityOperator.AND, expressions), null, null, null, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByOr(java.lang.String, java.util.List)
-     */
-    @Deprecated
-    public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, List<T> expressions) throws GenericEntityException {
-        EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.OR);
-        return this.findList(entityName, ecl, null, null, null, false);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#findByOr(java.lang.String, java.util.List, java.util.List)
-     */
-    @Deprecated
-    public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, List<T> expressions, List<String> orderBy) throws GenericEntityException {
-        EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.OR);
-        return this.findList(entityName, ecl, null, orderBy, null, false);
     }
 
     /* (non-Javadoc)
