@@ -492,16 +492,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.pks.iterator();
     }
 
-    /**
-     * @deprecated Use getPkFieldsUnmodifiable instead.
-     */
-    @Deprecated
-    public List<ModelField> getPksCopy() {
-        List<ModelField> newList = FastList.newInstance();
-        newList.addAll(this.pks);
-        return newList;
-    }
-
     public List<ModelField> getPkFieldsUnmodifiable() {
         return Collections.unmodifiableList(this.pks);
     }
@@ -535,16 +525,6 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     public Iterator<ModelField> getFieldsIterator() {
         return this.fields.iterator();
-    }
-
-    /**
-     * @deprecated Use getFieldsUnmodifiable instead.
-     */
-    @Deprecated
-    public List<ModelField> getFieldsCopy() {
-        List<ModelField> newList = FastList.newInstance();
-        newList.addAll(this.fields);
-        return newList;
     }
 
     public List<ModelField> getFieldsUnmodifiable() {
