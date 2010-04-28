@@ -2839,6 +2839,7 @@ under the License.
       <field name="roleTypeId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
+      <field name="sequenceNum" type="numeric"><description>a product may have several parties associated to it with the same role; this field can be used to define the order of parties associated to the product in that role</description></field>
       <field name="comments" type="comment"></field>
       <prim-key field="productId"/>
       <prim-key field="partyId"/>
