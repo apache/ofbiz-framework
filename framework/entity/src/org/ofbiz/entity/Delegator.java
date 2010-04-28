@@ -644,26 +644,6 @@ public interface Delegator {
     /**
      * Get the named Related Entity for the GenericValue from the persistent
      * store across another Relation. Helps to get related Values in a
-     * multi-to-multi relationship. NOTE 20080502: 0 references
-     *
-     * @param relationNameOne
-     *            String containing the relation name which is the combination
-     *            of relation.title and relation.rel-entity-name as specified in
-     *            the entity XML definition file, for first relation
-     * @param relationNameTwo
-     *            String containing the relation name for second relation
-     * @param value
-     *            GenericValue instance containing the entity
-     * @return List of GenericValue instances as specified in the relation
-     *         definition
-     * @deprecated Use getMultiRelation() instead
-     */
-    @Deprecated
-    public List<GenericValue> getMultiRelation(GenericValue value, String relationNameOne, String relationNameTwo) throws GenericEntityException;
-
-    /**
-     * Get the named Related Entity for the GenericValue from the persistent
-     * store across another Relation. Helps to get related Values in a
      * multi-to-multi relationship. NOTE 20080502: 3 references
      *
      * @param relationNameOne
