@@ -247,7 +247,7 @@ module = "OrderByReferrer.rptdesign";]]></method>
             <property name="dataSource">OFBIZ</property>
             <method name="open"><![CDATA[salesOrderItemFacts = null;
 try {
-    salesOrderItemFacts = delegator.findAll("SalesOrderItemFact");
+    salesOrderItemFacts = delegator.findList("SalesOrderItemFact", null, null, null, null, false);
 } catch (e) {
     Debug.logError(e, module);
 }

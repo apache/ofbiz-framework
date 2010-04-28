@@ -21,7 +21,7 @@ import org.ofbiz.base.util.*;
 
 //partyAcctgPrefAndGroupList
 partyAcctgPrefAndGroupList = [];
-partyAcctgPrefAndGroup = delegator.findAll("PartyAcctgPrefAndGroup");
+partyAcctgPrefAndGroup = delegator.findList("PartyAcctgPrefAndGroup", null, null, null, null, false);
 iter = partyAcctgPrefAndGroup.iterator();
 while (iter.hasNext()) {
    group = iter.next()

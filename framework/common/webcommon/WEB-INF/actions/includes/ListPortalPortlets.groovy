@@ -45,5 +45,5 @@ portalPortlets = [];
     }
 }
 
-context.portletCat = delegator.findAll("PortletCategory");
+context.portletCat = delegator.findList("PortletCategory", null, null, null, null, false);
 context.portalPortlets = portalPortlets;

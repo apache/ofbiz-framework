@@ -83,7 +83,7 @@ module = "product.rptdesign";]]></method>
             <property name="dataSource">OFBiz</property>
             <method name="open"><![CDATA[products = null;
 try {
-    products = delegator.findAll("Product");
+    products = delegator.findList("Product", null, null, null, null, false);
 } catch (e) {
     Debug.logError(e, module);
 }

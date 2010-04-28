@@ -138,7 +138,7 @@ module = "CouponSalesReport.rptdesign";]]></method>
             <property name="dataSource">OFBIZ</property>
             <method name="open"><![CDATA[couponSalesOrders = null
 try {
-    couponSalesOrders = delegator.findAll("ProductPromo");
+    couponSalesOrders = delegator.findList("ProductPromo", null, null, null, null, false);
 } catch (e) {
     Debug.logError(e, module);
 }

@@ -257,7 +257,7 @@ try {
     if(params["saleChannel"] != "null"){
         salesOrderItemFacts = delegator.findByAnd("SalesOrderItemFact", UtilMisc.toMap("saleChannel", params["saleChannel"]));
     }else{
-        salesOrderItemFacts = delegator.findAll("SalesOrderItemFact");
+        salesOrderItemFacts = delegator.findList("SalesOrderItemFact", null, null, null, null, false);
     }
 } catch (e) {
     Debug.logError(e, module);
