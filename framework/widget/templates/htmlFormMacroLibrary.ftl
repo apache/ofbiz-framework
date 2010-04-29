@@ -205,14 +205,14 @@ ${item.description}</span>
 
 <#macro renderIgnoredField></#macro>
 
-<#macro renderFieldTitle style fieldTitle fieldHelpText="">
+<#macro renderFieldTitle style title fieldHelpText="">
     <#if fieldHelpText?has_content>
         <span title="${fieldHelpText}"><#t/>
     </#if>
     <#if style?has_content>
         <span class="${style}"><#t/>
     </#if>
-    ${fieldTitle}<#t/>
+    ${title}<#t/>
     <#if style?has_content>
         </span><#t/>
     </#if>

@@ -1220,7 +1220,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 sr.append("\" fieldHelpText=\"");
                 sr.append(FreeMarkerWorker.encodeDoubleQuotes(helpText));
             }
-            sr.append("\" fieldTitle=\"");
+            sr.append("\" title=\"");
             sr.append(sb.toString());
             sr.append("\" />");
             executeMacro(writer, sr.toString());
