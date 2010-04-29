@@ -365,7 +365,7 @@ under the License.
         <field name="quoteId"><hidden/></field>
         <field name="isPromo"><hidden/></field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}"><display/></field>
-        <field name="productId"><lookup presentation="window" target-form-name="LookupProduct"/></field>
+        <field name="productId"><lookup presentation="window" target-form-name="LookupProduct" presentation="window"/></field>
         <field name="productFeatureId"><lookup presentation="window" target-form-name="LookupProductFeature"/></field>
         <field name="deliverableTypeId" title="${uiLabelMap.OrderOrderQuoteDeliverableTypeId}">
             <drop-down allow-empty="true">
@@ -466,7 +466,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId">
-            <lookup presentation="window" target-form-name="LookupProduct"/>
+            <lookup presentation="window" target-form-name="LookupProduct" presentation="window"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="requirementStartDate" title="${uiLabelMap.OrderRequirementStartDate}"><date-find type="date"/></field>

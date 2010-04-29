@@ -1012,7 +1012,7 @@ under the License.
         <auto-fields-service service-name="createWorkEffortGoodStandard"/>
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="productId">
-            <lookup target-form-name="LookupProduct"/>
+            <lookup target-form-name="LookupProduct" presentation="window"/>
         </field>
         <field name="workEffortGoodStdTypeId">
             <drop-down no-current-selected-key="">
