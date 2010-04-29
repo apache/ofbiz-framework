@@ -1203,19 +1203,20 @@ public class MacroFormRenderer implements FormStringRenderer {
                     style = requiredStyle;
                 }
             }
-            Delegator delegator = (Delegator)request.getAttribute("delegator");
-            Locale locale = (Locale)context.get("locale");
-            String entityName = modelFormField.getEntityName();
-            String fieldName = modelFormField.getFieldName();
-            String helpText = UtilHelpText.getHelp(entityName, fieldName, delegator, locale);
-            
-            String displayHelpText = UtilProperties.getPropertyValue("widget.properties", "widget.form.displayhelpText");
             
             StringWriter sr = new StringWriter();
             sr.append("<@renderFieldTitle ");
             sr.append(" style=\"");
             sr.append(style);
+
+            String displayHelpText = UtilProperties.getPropertyValue("widget.properties", "widget.form.displayhelpText");
             if ("Y".equals(displayHelpText)) {
+                Delegator delegator = modelFormField.getModelForm().getDelegator(context);
+                Locale locale = (Locale)context.get("locale");
+                String entityName = modelFormField.getEntityName();
+                String fieldName = modelFormField.getFieldName();
+                String helpText = UtilHelpText.getEntityFieldDescription(entityName, fieldName, delegator, locale);
+                
                 sr.append("\" fieldHelpText=\"");
                 sr.append(FreeMarkerWorker.encodeDoubleQuotes(helpText));
             }

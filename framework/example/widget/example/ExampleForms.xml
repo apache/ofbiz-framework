@@ -93,7 +93,7 @@ under the License.
         <on-event-update-area event-type="paginate" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
     </form>
 
-    <form name="EditExample" type="single" target="updateExample" title="" default-map-name="example">
+    <form name="EditExample" type="single" target="updateExample" title="" default-map-name="example" default-entity-name="Example">
         <actions>
             <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" from-field="example.statusId"/>
@@ -101,7 +101,7 @@ under the License.
         </actions>
         <alt-target use-when="example==null" target="createExample"/>
         <auto-fields-service service-name="updateExample"/>
-        <field use-when="example!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" entity-name="Example"><display/></field>
+        <field use-when="example!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="example==null @and exampleId==null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><ignored/></field>
         <field use-when="example==null @and exampleId!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleId}]" also-hidden="false"/></field>
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId">
@@ -112,12 +112,12 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}" entity-name="Example">
+        <field name="statusId"  use-when="example==null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ExampleStatusItem" description="${description}"/>
             </drop-down>
         </field>
-        <field name="statusId" use-when="example!=null" title="${uiLabelMap.CommonStatus}" entity-name="Example">
+        <field name="statusId" use-when="example!=null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" env-name="example.statusId"/>
