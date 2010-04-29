@@ -786,8 +786,8 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <set field="parameters.minimumOrderQuantity" type="BigDecimal"/>
-                <set field="parameters.availableFromDate" type="Timestamp"/>
+                <set field="parameters.minimumOrderQuantity" type="BigDecimal" from-field="parameters.minimumOrderQuantity"/>
+                <set field="parameters.availableFromDate" type="Timestamp" from-field="parameters.availableFromDate"/>
                 <set field="orderBy" from-field="parameters.orderBy" default-value="partyId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="SupplierProduct" list="productSuppliers">
