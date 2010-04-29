@@ -26,7 +26,7 @@ public class UtilHelpText {
      * @param locale the locale
      * @return the help text, or the resource propertyName if no help text exists
      */
-    public static String getHelp(final String entityName, final String fieldName, final Delegator delegator, final Locale locale) {
+    public static String getEntityFieldDescription(final String entityName, final String fieldName, final Delegator delegator, final Locale locale) {
 
         if (UtilValidate.isEmpty(entityName)) {
             Debug.logWarning("entityName [" + entityName + "] is empty", module);
