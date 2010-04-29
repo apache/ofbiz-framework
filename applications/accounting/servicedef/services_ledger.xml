@@ -410,7 +410,7 @@ under the License.
                 location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForPhysicalInventoryVariance">
         <description>Create an AcctgEntry for Physical Inventory variance</description>
         <attribute name="physicalInventoryId" type="String" mode="IN" optional="false"/>
-        <attribute name="acctgTransId" type="String" mode="OUT" optional="false"/>
+        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="createAcctgTransForWorkEffortInventoryProduced" engine="simple" auth="true"
