@@ -4331,10 +4331,10 @@ under the License.
         <field name="useTime" type="numeric"><description>The length of time this subscription can be used</description></field>
         <field name="useTimeUomId" type="id"></field>
         <field name="useRoleTypeId" type="id"></field>
-      <field name="automaticExtend" type="indicator"><description>If this subscription is automatically extended with the same period as the initial period.</description></field>
-      <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruDate) after which the automatic extension of the subscription will be executed.</description></field>
-      <field name="canclAutmExtTimeUomId" type="id"><description>If this flag is set to 'Y' the subscription will be extended at the end of the subscription period with a new order.</description></field>
-      <prim-key field="productId"/>
+        <field name="automaticExtend" type="indicator"><description>If this subscription is automatically extended with the same period as the initial period.</description></field>
+        <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruDate) after which the automatic extension of the subscription will be executed.</description></field>
+        <field name="canclAutmExtTimeUomId" type="id"><description>If this flag is set to 'Y' the subscription will be extended at the end of the subscription period with a new order.</description></field>
+        <prim-key field="productId"/>
         <prim-key field="subscriptionResourceId"/>
         <prim-key field="fromDate"/>
         <relation type="one" fk-name="PROD_SBRS_PROD" rel-entity-name="Product">
@@ -4349,9 +4349,9 @@ under the License.
         <relation type="one" fk-name="PROD_SBRS_UTU" title="UseTime" rel-entity-name="Uom">
             <key-map field-name="useTimeUomId" rel-field-name="uomId"/>
         </relation>
-      <relation type="one" fk-name="PROD_SBRS_CTU" title="CancelTime" rel-entity-name="Uom">
-        <key-map field-name="canclAutmExtTimeUomId" rel-field-name="uomId"/>
-      </relation>
+        <relation type="one" fk-name="PROD_SBRS_CTU" title="CancelTime" rel-entity-name="Uom">
+            <key-map field-name="canclAutmExtTimeUomId" rel-field-name="uomId"/>
+        </relation>
         <relation type="one" fk-name="PROD_SBRS_ATU" title="AvailableTime" rel-entity-name="Uom">
             <key-map field-name="availableTimeUomId" rel-field-name="uomId"/>
         </relation>
@@ -4365,7 +4365,7 @@ under the License.
         <field name="subscriptionId" type="id-ne"></field>
         <field name="description" type="description"></field>
         <field name="subscriptionResourceId" type="id"></field>
-      <field name="communicationEventId" type="id"><description>now replaced by entity: SubscriptionCommEvent</description></field>
+        <field name="communicationEventId" type="id"><description>now replaced by entity: SubscriptionCommEvent</description></field>
         <field name="contactMechId" type="id"></field>
         <field name="originatedFromPartyId" type="id"></field>
         <field name="originatedFromRoleTypeId" type="id"></field>
@@ -4392,10 +4392,10 @@ under the License.
         <field name="useCountLimit" type="numeric"></field>
         <field name="useTime" type="numeric"></field>
         <field name="useTimeUomId" type="id"></field>
-      <field name="automaticExtend" type="indicator"><description>If this subscription is automatically extended with the same period as the initial period.</description></field>
-      <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruDate) after which the automatic extension of the subscription will be executed.</description></field>
-      <field name="canclAutmExtTimeUomId" type="id"><description>If this flag is set to 'Y' the subscription will be extended at the end of the subscription period with a new order.</description></field>
-      <prim-key field="subscriptionId"/>
+        <field name="automaticExtend" type="indicator"><description>If this subscription is automatically extended with the same period as the initial period.</description></field>
+        <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruDate) after which the automatic extension of the subscription will be executed.</description></field>
+        <field name="canclAutmExtTimeUomId" type="id"><description>If this flag is set to 'Y' the subscription will be extended at the end of the subscription period with a new order.</description></field>
+        <prim-key field="subscriptionId"/>
         <relation type="one" fk-name="SUBSC_SRESRC" rel-entity-name="SubscriptionResource">
             <key-map field-name="subscriptionResourceId"/>
         </relation>
@@ -4405,13 +4405,13 @@ under the License.
         <relation type="one" fk-name="SUBSC_PARTY" rel-entity-name="Party">
             <key-map field-name="partyId"/>
         </relation>
-      <relation type="one" fk-name="SUBSC_UTU" title="UseTime" rel-entity-name="Uom">
-        <key-map field-name="useTimeUomId" rel-field-name="uomId"/>
-      </relation>
-      <relation type="one" fk-name="SUBSC_CTU" title="CancelTime" rel-entity-name="Uom">
-        <key-map field-name="canclAutmExtTimeUomId" rel-field-name="uomId"/>
-      </relation>
-      <relation type="one" fk-name="SUBSC_ATU" title="AvailableTime" rel-entity-name="Uom">
+        <relation type="one" fk-name="SUBSC_UTU" title="UseTime" rel-entity-name="Uom">
+            <key-map field-name="useTimeUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_CTU" title="CancelTime" rel-entity-name="Uom">
+            <key-map field-name="canclAutmExtTimeUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="SUBSC_ATU" title="AvailableTime" rel-entity-name="Uom">
             <key-map field-name="availableTimeUomId" rel-field-name="uomId"/>
         </relation>
         <relation type="one" fk-name="SUBSC_MTU" title="MaxLifeTime" rel-entity-name="Uom">
