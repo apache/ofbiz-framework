@@ -71,7 +71,7 @@ under the License.
 <#macro renderHiddenField name value id event action></#macro>
 <#macro renderIgnoredField></#macro>
 
-<#macro renderFieldTitle style title>${title?default("")}</#macro>
+<#macro renderFieldTitle style title fieldHelpText="">${title?default("")}</#macro>
 <#macro renderSingleFormFieldTitle title>${title?default("")}</#macro>
     
 <#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name useRowSubmit></#macro>
