@@ -162,7 +162,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productStoreId"><display description="${parameters.productStoreId}"></display></field>
         <field name="facilityId"><display description="${parameters.facilityId}"></display></field>
-        <field name="productId"><lookup target-form-name="LookupProduct"></lookup></field>
+        <field name="productId"><lookup target-form-name="LookupProduct" presentation="window"></lookup></field>
         <field name="quantity"><text></text></field>
         <field name="submitButton" ><submit button-type="button"/></field>
     </form>

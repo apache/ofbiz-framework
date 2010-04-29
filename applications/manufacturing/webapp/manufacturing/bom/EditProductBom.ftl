@@ -63,7 +63,7 @@ function lookupBom() {
             <td align="right">${uiLabelMap.ProductProductId}</td>
             <td>&nbsp;</td>
             <td>
-                <@htmlTemplate.lookupField value="${productId?if_exists}" formName="searchform" name="productId" id="productId" fieldFormName="LookupProduct"/>
+                <@htmlTemplate.lookupField value="${productId?if_exists}" formName="searchform" name="productId" id="productId" fieldFormName="LookupProduct" presentation="window"/>
                 <span><a href="javascript:document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingShowBOMAssocs}</a></span>
             </td>
         </tr>
@@ -74,7 +74,7 @@ function lookupBom() {
             <td align="right">${uiLabelMap.ManufacturingCopyToProductId}</td>
             <td>&nbsp;</td>
             <td>
-                <@htmlTemplate.lookupField formName="searchform" name="copyToProductId" id="copyToProductId" fieldFormName="LookupProduct"/>
+                <@htmlTemplate.lookupField formName="searchform" name="copyToProductId" id="copyToProductId" fieldFormName="LookupProduct" presentation="window"/>
                 <span><a href="javascript:document.searchform.UPDATE_MODE.value='COPY';document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingCopyBOMAssocs}</a></span>
             </td>
         </tr>
@@ -107,14 +107,14 @@ function lookupBom() {
             <td align="right">${uiLabelMap.ProductProductId}</td>
             <td>&nbsp;</td>
             <td>
-                <@htmlTemplate.lookupField value="${productId?if_exists}" formName="editProductAssocForm" name="productId" id="productId2" fieldFormName="LookupProduct"/>
+                <@htmlTemplate.lookupField value="${productId?if_exists}" formName="editProductAssocForm" name="productId" id="productId2" fieldFormName="LookupProduct" presentation="window"/>
             </td>
           </tr>
           <tr>
             <td align="right">${uiLabelMap.ManufacturingProductIdTo}</td>
             <td>&nbsp;</td>
             <td>
-                <@htmlTemplate.lookupField value="${productIdTo?if_exists}" formName="editProductAssocForm" name="productIdTo" id="productIdTo" fieldFormName="LookupProduct"/>
+                <@htmlTemplate.lookupField value="${productIdTo?if_exists}" formName="editProductAssocForm" name="productIdTo" id="productIdTo" fieldFormName="LookupProduct" presentation="window"/>
             </td>
           </tr>
           <tr>

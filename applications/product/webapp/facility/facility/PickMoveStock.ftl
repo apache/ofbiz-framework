@@ -162,7 +162,7 @@ under the License.
                     <td>&nbsp;</td>
                 </tr>
                   <td>
-                    <@htmlTemplate.lookupField formName="quickStockMove" name="productId" id="productId" fieldFormName="LookupProduct"/>
+                    <@htmlTemplate.lookupField formName="quickStockMove" name="productId" id="productId" fieldFormName="LookupProduct" presentation="window"/>
                   </td>
                   <td>
                     <input type="text" size="20" name="locationSeqId" maxlength="20">

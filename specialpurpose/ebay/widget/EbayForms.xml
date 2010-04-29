@@ -50,7 +50,7 @@ under the License.
         <field name="createdDate"><display/></field>
         <!--
         <field name="productId" use-when="!${allowProductIdChange}"><display/></field>
-        <field name="productId" use-when="${allowProductIdChange}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" use-when="${allowProductIdChange}"><lookup target-form-name="LookupProduct" presentation="window"/></field>
         -->
         <field name="productId"><display/></field>
         <field name="productName" entry-name="productId"><display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/></field>

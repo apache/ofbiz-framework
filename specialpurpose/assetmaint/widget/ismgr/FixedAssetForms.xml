@@ -30,7 +30,7 @@ under the License.
         <field use-when="fixedAsset==null&amp;&amp;fixedAssetId!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${fixedAssetId}]"><text size="20" maxlength="20"/></field>
 
         <field name="fixedAssetTypeId"><hidden value="COMPUTER_HARDWARE"/></field>
-        <field name="instanceOfProductId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="instanceOfProductId"><lookup target-form-name="LookupProduct" presentation="window"/></field>
         <field name="classEnumId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
@@ -71,7 +71,7 @@ under the License.
         <field use-when="fixedAsset==null&amp;&amp;fixedAssetId!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${fixedAssetId}]"><text size="20" maxlength="20"/></field>
 
         <field name="fixedAssetTypeId"><hidden value="COMPUTER_SOFTWARE"/></field>
-        <field name="instanceOfProductId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="instanceOfProductId"><lookup target-form-name="LookupProduct" presentation="window"/></field>
         <field name="classEnumId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
