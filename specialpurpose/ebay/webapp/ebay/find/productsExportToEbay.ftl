@@ -136,33 +136,33 @@ under the License.
                     <table class="basic-table" cellspacing="0">
                         <tr>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentPayPal}</td>
-                            <td width="2%"><input type="checkbox" name="paymentPayPal" <#if parameters.paymentPayPal?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentPayPal" <#if parameters.paymentPayPal?exists>checked="checked"</#if> /></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentVisaMC}</td>
-                            <td width="2%"><input type="checkbox" name="paymentVisaMC" <#if parameters.paymentVisaMC?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentVisaMC" <#if parameters.paymentVisaMC?exists>checked="checked"</#if> /></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentAmEx}</td>
-                            <td width="2%"><input type="checkbox" name="paymentAmEx" <#if parameters.paymentAmEx?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentAmEx" <#if parameters.paymentAmEx?exists>checked="checked"</#if> /></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentDiscover}</td>
-                            <td width="2%"><input type="checkbox" name="paymentDiscover" <#if parameters.paymentDiscover?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentDiscover" <#if parameters.paymentDiscover?exists>checked="checked"</#if> /></td>
                         </tr>
                         <tr>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentMOCC}</td>
-                            <td width="2%"><input type="checkbox" name="paymentMOCC" <#if parameters.paymentMOCC?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentMOCC" <#if parameters.paymentMOCC?exists>checked="checked"</#if> /></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentPersonalCheck}</td>
-                            <td width="2%"><input type="checkbox" name="paymentPersonalCheck" <#if parameters.paymentPersonalCheck?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentPersonalCheck" <#if parameters.paymentPersonalCheck?exists>checked="checked"</#if> /></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCCAccepted}</td>
-                            <td width="2%"><input type="checkbox" name="paymentCCAccepted" <#if parameters.paymentCCAccepted?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentCCAccepted" <#if parameters.paymentCCAccepted?exists>checked="checked"</#if> /></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCashInPerson}</td>
-                            <td width="2%"><input type="checkbox" name="paymentCashInPerson" <#if parameters.paymentCashInPerson?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentCashInPerson" <#if parameters.paymentCashInPerson?exists>checked="checked"</#if> /></td>
                         </tr>
                         <tr>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCashOnPickup}</td>
-                            <td width="2%"><input type="checkbox" name="paymentCashOnPickup" <#if parameters.paymentCashOnPickup?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentCashOnPickup" <#if parameters.paymentCashOnPickup?exists>checked="checked"</#if> /></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCOD}</td>
-                            <td width="2%"><input type="checkbox" name="paymentCOD" <#if parameters.paymentCOD?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentCOD" <#if parameters.paymentCOD?exists>checked="checked"</#if> /></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentCODPrePayDelivery}</td>
-                            <td width="2%"><input type="checkbox" name="paymentCODPrePayDelivery" <#if parameters.paymentCODPrePayDelivery?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentCODPrePayDelivery" <#if parameters.paymentCODPrePayDelivery?exists>checked="checked"</#if> /></td>
                             <td align="right" width="23%" class="label">${uiLabelMap.FormFieldTitle_paymentMoneyXferAccepted}</td>
-                            <td width="2%"><input type="checkbox" name="paymentMoneyXferAccepted" <#if parameters.paymentMoneyXferAccepted?exists>checked</#if> /></td>
+                            <td width="2%"><input type="checkbox" name="paymentMoneyXferAccepted" <#if parameters.paymentMoneyXferAccepted?exists>checked="checked"</#if> /></td>
                         </tr>
                     </table>
                 </td>
