@@ -235,7 +235,7 @@ under the License.
                     <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>
                 </div>
             </form>
-            <script language="javascript">
+            <script language="javascript" type="text/javascript">
                 document.getElementById('productId').focus();
             </script>
         </#if>

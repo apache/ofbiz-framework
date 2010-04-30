@@ -97,7 +97,7 @@ under the License.
                 <form action="<@ofbizUrl>deleteContactMech/ViewContactMechs</@ofbizUrl>" name="deleteContactForm_${contactMechMap_index}" method="post">
                   <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
                   <input type="hidden" name="contactMechId" value="${contactMech.contactMechId?if_exists}"/>
-                </form
+                </form>
                 <a href="javascript:document.deleteContactForm_${contactMechMap_index}.submit()">${uiLabelMap.CommonExpire}</a>
               </#if>
             </td>

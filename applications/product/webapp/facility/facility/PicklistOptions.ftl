@@ -29,13 +29,13 @@ under the License.
     <table class="basic-table" cellspacing='0'>
       <tr>
         <td class='label'>${uiLabelMap.FacilityGroupByShippingMethod}</td>
-        <td><input type="checkbox" name="groupByShippingMethod" value="Y" <#if "${requestParameters.groupByShippingMethod?if_exists}" == "Y">checked</#if>/></td>
+        <td><input type="checkbox" name="groupByShippingMethod" value="Y" <#if "${requestParameters.groupByShippingMethod?if_exists}" == "Y">checked="checked"</#if>/></td>
         <td class='label'>${uiLabelMap.FacilityGroupByWarehouseArea}</td>
-        <td><input type="checkbox" name="groupByWarehouseArea" value="Y" <#if "${requestParameters.groupByWarehouseArea?if_exists}" == "Y">checked</#if>/></td>
+        <td><input type="checkbox" name="groupByWarehouseArea" value="Y" <#if "${requestParameters.groupByWarehouseArea?if_exists}" == "Y">checked="checked"</#if>/></td>
         <td class='label'>${uiLabelMap.FacilityGroupByNoOfOrderItems}</td>
-        <td><input type="checkbox" name="groupByNoOfOrderItems" value="Y" <#if "${requestParameters.groupByNoOfOrderItems?if_exists}" == "Y">checked</#if>/></td>
+        <td><input type="checkbox" name="groupByNoOfOrderItems" value="Y" <#if "${requestParameters.groupByNoOfOrderItems?if_exists}" == "Y">checked="checked"</#if>/></td>
       </tr>
-      <tr>&nbsp;</tr>
+      <tr><td>&nbsp;</td></tr>
     </table>
     <div align ='right'>
       <input type="submit" value="Submit" class="buttontext" align='right'/>
@@ -49,7 +49,7 @@ under the License.
   </div>
   <div class="screenlet-body">
     <div align ='right'>
-      <a class="buttontext" align='right' href="<@ofbizUrl>ReviewOrdersNotPickedOrPacked?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.FormFieldTitle_reviewOrdersNotPickedOrPacked}</a>
+      <a class="buttontext" href="<@ofbizUrl>ReviewOrdersNotPickedOrPacked?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.FormFieldTitle_reviewOrdersNotPickedOrPacked}</a>
     </div>
     <table cellspacing="0" class="basic-table">
       <#if pickMoveInfoList?has_content || rushOrderInfo?has_content>

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script language="JavaScript">
+<script language="JavaScript" type="text/javascript">
     function setNow(field) { eval('document.selectAllForm.' + field + '.value="${nowTimestamp}"'); }
 </script>
 <h1>${title}</h1>
@@ -233,7 +233,7 @@ under the License.
                 <td colspan="2"><input type="submit" value="${uiLabelMap.CommonReceive}" /></td>
               </tr>
             </table>
-            <script language="JavaScript">
+            <script language="JavaScript" type="text/javascript">
               document.selectAllForm.quantityAccepted.focus();
             </script>
           </form>

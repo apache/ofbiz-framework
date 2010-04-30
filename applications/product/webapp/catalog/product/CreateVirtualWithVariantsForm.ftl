@@ -16,8 +16,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<form action="<@ofbizUrl>quickCreateVirtualWithVariants</@ofbizUrl>" method="post" name="quickCreateVirtualWithVariants">
 <table cellspacing="0" class="basic-table">
-    <form action="<@ofbizUrl>quickCreateVirtualWithVariants</@ofbizUrl>" method="post" name="quickCreateVirtualWithVariants">
     <tr class="header-row">
         <td><b>${uiLabelMap.ProductQuickCreateVirtualFromVariants}</b></td>
     </tr>
@@ -36,5 +36,5 @@ under the License.
             <input type="submit" value="${uiLabelMap.ProductCreateVirtualProduct}"/>
         </td>
     </tr>
-    </form>
 </table>
+</form>

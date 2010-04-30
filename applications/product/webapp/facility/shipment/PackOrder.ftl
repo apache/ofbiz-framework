@@ -505,16 +505,14 @@ under the License.
   </#if>
 
   <#if orderId?has_content>
-    <script language="javascript">
+    <script language="javascript" type="text/javascript">
       document.singlePackForm.productId.focus();
     </script>
   <#else>
-    <script language="javascript">
+    <script language="javascript" type="text/javascript">
       document.selectOrderForm.orderId.focus();
     </script>
   </#if>
-  </div>
-  </div>
 <#else>
   <h3>${uiLabelMap.ProductFacilityViewPermissionError}</h3>
 </#if>

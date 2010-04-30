@@ -23,14 +23,15 @@ under the License.
     </div>
 
     <form action="<@ofbizUrl>FindFacilityLocation</@ofbizUrl>" method="get" name="findFacilityLocation">
+        <#if (facilityId?exists)>
+            <input type="hidden" name="facilityId" value="${facilityId}" />
+        </#if>        
         <table class="basic-table" cellspacing="0">
         <#if !(facilityId?exists)>
             <tr>
                 <td class="label">${uiLabelMap.ProductFacility}</td>
-                <td><input type="text" value="" size="19" maxlength="20"></td>
+                <td><input type="text" value="" size="19" maxlength="20" /></td>
             </tr>
-        <#else>
-            <input type="hidden" name="facilityId" value="${facilityId}">
         </#if>
         <tr>
             <td class="label">${uiLabelMap.ProductLocationSeqId}</td>
@@ -39,29 +40,28 @@ under the License.
             </td>
         </tr>
         <tr>
-        <tr>
             <td class="label">${uiLabelMap.CommonArea}</td>
-            <td><input type="text" name="areaId" value="" size="19" maxlength="20"></td>
+            <td><input type="text" name="areaId" value="" size="19" maxlength="20" /></td>
         </tr>
         <tr>
             <td class="label">${uiLabelMap.ProductAisle}</td>
-            <td><input type="text" name="aisleId" value="" size="19" maxlength="20"></td>
+            <td><input type="text" name="aisleId" value="" size="19" maxlength="20" /></td>
         </tr>
         <tr>
             <td class="label">${uiLabelMap.ProductSection}</td>
-            <td><input type="text" name="sectionId" value="" size="19" maxlength="20"></td>
+            <td><input type="text" name="sectionId" value="" size="19" maxlength="20" /></td>
         </tr>
         <tr>
             <td class="label">${uiLabelMap.ProductLevel}</td>
-            <td><input type="text" name="levelId" value="" size="19" maxlength="20"></td>
+            <td><input type="text" name="levelId" value="" size="19" maxlength="20" /></td>
         </tr>
         <tr>
             <td class="label">${uiLabelMap.ProductPosition}</td>
-            <td><input type="text" name="positionId" value="" size="19" maxlength="20"></td>
+            <td><input type="text" name="positionId" value="" size="19" maxlength="20" /></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><input type="submit" name="look_up" value="${uiLabelMap.CommonFind}"></td>
+            <td><input type="submit" name="look_up" value="${uiLabelMap.CommonFind}" /></td>
         </tr>
         </table>
     </form>
