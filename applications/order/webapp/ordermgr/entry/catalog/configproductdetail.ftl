@@ -506,7 +506,7 @@ function getConfigDetails(event) {
                 <#if renderSingleChoiceWithRadioButtons?exists && "Y" == renderSingleChoiceWithRadioButtons>
                 <#-- This is the radio button implementation -->
                 <#if !question.isMandatory()>
-                  <div><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked</#if>' /> No option</div>
+                  <div><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked="checked"</#if>' /> No option</div>
                 </#if>
                 <#assign optionComment = "">
                 <#assign optionCounter = 0>

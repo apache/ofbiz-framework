@@ -143,12 +143,16 @@ under the License.
         </td>
         <td>&nbsp;</td>
         <td>
+           <#if catalogCol?has_content>
            <select name='CURRENT_CATALOG_ID'>
             <#list catalogCol?if_exists as catalogId>
               <#assign thisCatalogName = Static["org.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
               <option value="${catalogId}" <#if currentCatalogId?default('') == catalogId>selected="selected"</#if> >${thisCatalogName}</option>
             </#list>
           </select>
+          <#else>
+             <input type="hidden" name='CURRENT_CATALOG_ID' value=""/> 
+          </#if>
         </td>
       </tr>
 
