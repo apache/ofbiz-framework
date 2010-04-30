@@ -137,6 +137,9 @@ under the License.
                 <td class="button-col">
                   &nbsp;
                 <#-- </td> -->
+              <#else>
+                <td class="button-col">
+                  &nbsp;
               </#if>
               <#if security.hasEntityPermission("PAY_INFO", "_DELETE", session)>
                 <a href="<@ofbizUrl>deletePaymentMethod/viewprofile?partyId=${partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonExpire}</a>

@@ -28,7 +28,7 @@ under the License.
       <br class="clear" />
     </div>
     <div class="screenlet-body">
-      <#if userLogins?exists>
+      <#if userLogins?has_content>
         <table class="basic-table" cellspacing="0">
           <#list userLogins as userUserLogin>
             <tr>
