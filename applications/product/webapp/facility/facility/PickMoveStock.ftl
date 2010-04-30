@@ -161,18 +161,21 @@ under the License.
                     <td>${uiLabelMap.ProductMoveQuantity}</td>
                     <td>&nbsp;</td>
                 </tr>
+                <tr>
                   <td>
                     <@htmlTemplate.lookupField formName="quickStockMove" name="productId" id="productId" fieldFormName="LookupProduct" presentation="window"/>
                   </td>
                   <td>
-                    <input type="text" size="20" name="locationSeqId" maxlength="20">
+                    <input type="text" size="20" name="locationSeqId" maxlength="20" />
                     <a href="javascript:quicklookup('call_fieldlookup2', document.quickStockMove.locationSeqId, document.quickStockMove.facilityId, document.quickStockMove.productId)">
                       <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-                    </a>    
+                    </a>
+                  </td>
                   <td>
-                    <@htmlTemplate.lookupField formName="quickStockMove" name="targetLocationSeqId" id="targetLocationSeqId" fieldFormName="LookupFacilityLocation?facilityId=${facilityId}&locationTypeEnumId=FLT_PICKLOC"/>
+                    <@htmlTemplate.lookupField formName="quickStockMove" name="targetLocationSeqId" id="targetLocationSeqId" fieldFormName="LookupFacilityLocation?facilityId=${facilityId}&amp;locationTypeEnumId=FLT_PICKLOC"/>
                   </td> 
-                  <td><input type="text" name="quantityMoved" size="6"></td>
+                  <td><input type="text" name="quantityMoved" size="6" /></td>
+                </tr>
                 <tr>
                   <td colspan="13" align="right">
                     <a href="javascript:document.quickStockMove.submit();" class="buttontext">${uiLabelMap.ProductQuickStockMove}</a>

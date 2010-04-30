@@ -25,9 +25,11 @@ under the License.
       <input type="hidden" name="VIEW_SIZE" value="25"/>
       <input type="hidden" name="PAGING" value="Y"/>
       <input type="hidden" name="noConditionFind" value="Y"/>
+      <#if searchCategory?has_content>
+          <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
+      </#if>
       <table cellspacing="0" class="basic-table">
         <#if searchCategory?has_content>
-            <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
             <tr>
               <td class="label" align="right" valign="middle">
                 ${uiLabelMap.ProductCategory}:
@@ -104,8 +106,8 @@ under the License.
           <td valign="middle">
             <div>
               <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}"/>&nbsp;
-              ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked</#if>/>
-              ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked</#if>/>
+              ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/>
+              ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/>
             </div>
           </td>
         </tr>
@@ -250,7 +252,7 @@ under the License.
                 <option value="SortProductPrice:MINIMUM_PRICE">${uiLabelMap.ProductMinimumPrice}</option>
                 <option value="SortProductPrice:MAXIMUM_PRICE">${uiLabelMap.ProductMaximumPrice}</option>
               </select>
-              ${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked/>
+              ${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked="checked" />
               ${uiLabelMap.ProductHighToLow}<input type="radio" name="sortAscending" value="N"/>
             </div>
           </td>

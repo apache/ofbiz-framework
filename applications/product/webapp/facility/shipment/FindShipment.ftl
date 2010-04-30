@@ -146,7 +146,7 @@ function lookupShipments() {
     </div>
 </div>
 <#if shipmentList?exists>
-<div id="findOrders" class="screenlet">
+<div id="findOrders_2" class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
             <li class="h3">${uiLabelMap.ProductShipmentsFound}</li>

@@ -132,7 +132,7 @@ function doPublish() {
                 <#assign checked=""/>
                 <#if ((assocProduct.smallImageUrl?if_exists != "") && (assocProduct.smallImageUrl?if_exists == product.smallImageUrl?if_exists) &&
                         (assocProduct.smallImageUrl?if_exists != "") && (assocProduct.smallImageUrl?if_exists == product.smallImageUrl?if_exists)) >
-                    <#assign checked = "checked"/>
+                    <#assign checked = "checked='checked'"/>
                 </#if>
                 <td><input type="radio" ${checked} name="useImages" value="${assocProduct.productId}"/></td>
                 <#assign fromDate = Static["org.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(productAssoc.getTimestamp("fromDate").toString())/>
