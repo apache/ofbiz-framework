@@ -473,12 +473,14 @@ under the License.
                 <set field="titleProperty" value="ManufacturingWorkWithShipmentPlans"/>
                 <set field="headerItem" value="ShipmentPlans"/>
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
+                <set field="sortField" from-field="parameters.sortField" default-value="estimatedShipDate"/>
                 <entity-one entity-name="Shipment" value-field="shipment"/>
                 <entity-condition entity-name="Shipment" list="shipmentPlans">
                     <condition-list>
                         <condition-expr field-name="shipmentTypeId" value="SALES_SHIPMENT"/>
                         <condition-expr field-name="statusId" value="SHIPMENT_SCHEDULED"/>
                     </condition-list>
+                    <order-by field-name="${sortField}"/>
                 </entity-condition>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/WorkWithShipmentPlans.groovy"/>
             </actions>
