@@ -80,7 +80,7 @@ function onClickShippingMethod(e) {
                 <td>
                     <div class="tabletext">
                          <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
-                         <input type="radio" onclick="return onClickShippingMethod(event)" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked</#if>/>
+                         <input type="radio" onclick="return onClickShippingMethod(event)" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
                          <#if shoppingCart.getShippingContactMechId()?exists>
                              <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
                          </#if>
@@ -125,8 +125,8 @@ function onClickShippingMethod(e) {
               <td colspan="2">
                 <div>
                   <h2>${uiLabelMap.OrderIsThisGift}</h2>
-                  <input type='radio' <#if shoppingCart.getIsGift()?default("Y") == "Y">checked</#if> name='is_gift' value='true'/><span class='tabletext'>${uiLabelMap.CommonYes}</span>
-                  <input type='radio' <#if shoppingCart.getIsGift()?default("N") == "N">checked</#if> name='is_gift' value='false'/><span class='tabletext'>${uiLabelMap.CommonNo}</span>
+                  <input type='radio' <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name='is_gift' value='true'/><span class='tabletext'>${uiLabelMap.CommonYes}</span>
+                  <input type='radio' <#if shoppingCart.getIsGift()?default("N") == "N">checked="checked"</#if> name='is_gift' value='false'/><span class='tabletext'>${uiLabelMap.CommonNo}</span>
                 </div>
               </td>
             </tr>
@@ -150,7 +150,7 @@ function onClickShippingMethod(e) {
     <tr>
         <td valign="top" colspan="2">
             <div>
-                <input type='radio' <#if shoppingCart.getMaySplit()?default("N") == "N">checked</#if> name='may_split' value='false'/>
+                <input type='radio' <#if shoppingCart.getMaySplit()?default("N") == "N">checked="checked"</#if> name='may_split' value='false'/>
                 <span class="tabletext">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</span>
             </div>
         </td>
@@ -158,7 +158,7 @@ function onClickShippingMethod(e) {
     <tr>
         <td valign="top"  colspan="2">
             <div>
-                <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked</#if> type='radio' name='may_split' value='true'/>
+                <input <#if shoppingCart.getMaySplit()?default("N") == "Y">checked="checked"</#if> type='radio' name='may_split' value='true'/>
                 <span class="tabletext">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</span>
             </div>
         </td>
