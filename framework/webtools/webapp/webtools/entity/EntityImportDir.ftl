@@ -30,7 +30,7 @@ under the License.
     <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
     <input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
     <input type="checkbox" name="deleteFiles" <#if (deleteFiles?exists)>checked="checked"</#if>/>${uiLabelMap.WebtoolsDeleteFiles}<br />
-    <input type="checkbox" name="checkDataOnly" <#if checkDataOnly?exists>"checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}<br />
+    <input type="checkbox" name="checkDataOnly" <#if checkDataOnly?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}<br />
     ${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/><br />
     ${uiLabelMap.WebtoolsPause}:<input type="text" size="6" value="${filePauseStr?default("0")}" name="filePause"/><br />
     <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>

@@ -25,7 +25,7 @@ under the License.
         <#assign defaultUrl = "https." + request.getServerName()>
         <#assign defaultGogleMapKey = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", defaultUrl)>
         <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${defaultGogleMapKey}" type="text/javascript"></script>
-        <script type="text/javascript">
+        <script type="text/javascript"><!--
           if (GBrowserIsCompatible()) {
             var map = new GMap2(document.getElementById("<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>"));
             <#if geoChart.center?has_content>
@@ -65,7 +65,7 @@ under the License.
                 </#list>
             </#if>
           }
-        </script>
+       --></script>
       <#elseif  geoChart.dataSourceId == "GEOPT_YAHOO">
       <#elseif  geoChart.dataSourceId == "GEOPT_MICROSOFT">
       <#elseif  geoChart.dataSourceId == "GEOPT_MAPTP">
@@ -76,7 +76,7 @@ under the License.
         <#assign defaultUrl = "https." + request.getServerName()>
         <#assign defaultGogleMapKey = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", defaultUrl)>
         <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${defaultGogleMapKey}" type="text/javascript"></script>
-        <script type="text/javascript">
+        <script type="text/javascript"><!--
           if (GBrowserIsCompatible()) {
             var geocoder = new GClientGeocoder();
             var map = new GMap2(document.getElementById("<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>"));
@@ -87,7 +87,7 @@ under the License.
               map.addOverlay(new GMarker(point));
             });
           }
-        </script>
+        --></script>
       </#if>
     </#if>
 <#else>

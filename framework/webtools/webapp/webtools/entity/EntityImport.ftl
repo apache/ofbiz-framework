@@ -29,11 +29,11 @@ under the License.
     <input type="text" size="60" name="filename" value="${filename?if_exists}"/><br />
     ${uiLabelMap.WebtoolsAbsoluteFTLFilename}:<br />
     <input type="text" size="40" name="fmfilename" value="${fmfilename?if_exists}"/><br />
-    <input type="checkbox" name="isUrl" <#if isUrl?exists>"checked"</#if>/>${uiLabelMap.WebtoolsIsURL}<br />
-    <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}<br />
-    <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>"checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
-    <input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>"checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
-    <input type="checkbox" name="checkDataOnly" <#if checkDataOnly?exists>"checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}<br />
+    <input type="checkbox" name="isUrl" <#if isUrl?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsIsURL}<br />
+    <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}<br />
+    <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
+    <input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
+    <input type="checkbox" name="checkDataOnly" <#if checkDataOnly?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}<br />
     ${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/><br />
     <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
   </form>
