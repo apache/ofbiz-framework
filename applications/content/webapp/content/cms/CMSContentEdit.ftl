@@ -124,7 +124,7 @@ ${menuWrapper.renderMenuString()}
                     <#list featureList as feature>
                        <#assign checked=""/>
                        <#if feature.action?has_content && feature.action == "Y">
-                           <#assign checked="checked"/>
+                           <#assign checked="checked='checked'"/>
                        </#if>
                        <tr>
                           <td class="">[${feature.productFeatureId}] - ${feature.description}</td>
@@ -316,7 +316,7 @@ ${menuWrapper.renderMenuString()}
     <#local isPublished = "" />
     <#assign contentAssocViewFrom=Static["org.ofbiz.content.content.ContentWorker"].getContentAssocViewFrom(delegator, subContentId, contentId, "PUBLISH_LINK", null, null)?if_exists />
     <#if contentAssocViewFrom?has_content>
-        <#local isPublished = "checked" />
+        <#local isPublished = "checked='checked'" />
     </#if>
        <tr>
          <td >
