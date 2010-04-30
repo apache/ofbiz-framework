@@ -25,7 +25,7 @@ under the License.
 <table cellspacing="0" class="basic-table calendar">
   <tr class="header-row">
     <td>${uiLabelMap.CommonTime}</td>
-    <td colspan=${maxConcurrentEntries}>${uiLabelMap.WorkEffortCalendarEntries}</td>
+    <td colspan="${maxConcurrentEntries}">${uiLabelMap.WorkEffortCalendarEntries}</td>
   </tr>
   <#list periods as period>
     <#assign currentPeriod = false/>

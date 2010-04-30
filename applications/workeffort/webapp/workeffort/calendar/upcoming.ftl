@@ -46,4 +46,3 @@ under the License.
   <#else>
     <div class="screenlet-body">${uiLabelMap.WorkEffortNoEventsFound}.</div>
   </#if>
-</div>

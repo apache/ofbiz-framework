@@ -16,18 +16,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<style type="text/css">
-.calendar tr td {
-height: 8em;
-width: 10em;
-vertical-align: top;
-padding: 0.5em;
-}
-.calendar .header-row td {
-height: auto;
-}
-</style>
 
+<#assign styleTd = "style='height: 8em; width: 10em; vertical-align: top; padding: 0.5em;'">
+  
 <#if periods?has_content>
 <table cellspacing="0" class="basic-table calendar">
   <tr class="header-row">
@@ -43,11 +34,11 @@ height: auto;
     <#assign indexMod7 = period_index % 7>
     <#if indexMod7 = 0>
       <tr>
-        <td class="label">
+        <td class="label" ${styleTd}>
           <a href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=week&amp;start=${period.start.time?string("#")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonWeek} ${period.start?date?string("w")}</a>
         </td>
     </#if>
-    <td<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
+    <td ${styleTd} <#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
       <span class="h1"><a href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${period.start.time?string("#")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${period.start?date?string("d")?cap_first}</a></span>
       <a class="add-new" href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=month&amp;form=edit&amp;start=${parameters.start?if_exists}&amp;parentTypeId=${parentTypeId?if_exists}&amp;currentStatusId=CAL_TENTATIVE&amp;estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&amp;estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
       <br class="clear"/>
