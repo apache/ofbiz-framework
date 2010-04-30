@@ -26,10 +26,10 @@ under the License.
   <form method="post" action="<@ofbizUrl>entityImportReaders</@ofbizUrl>">
     Enter Readers (comma separated, no spaces; from entityengine.xml and ofbiz-component.xml files; common ones include seed,ext,demo):<br />
     <input type="text" size="60" name="readers" value="${readers?default("seed")}"/><br />
-    <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>"checked"</#if> value="true"/>${uiLabelMap.WebtoolsMostlyInserts}<br />
-    <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>"checked"</#if> value="true"/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
-    <input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>"checked"</#if> value="true"/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
-    <input type="checkbox" name="checkDataOnly" <#if checkDataOnly?exists>"checked"</#if> value="true"/>${uiLabelMap.WebtoolsCheckDataOnly}<br />
+    <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>checked="checked"</#if> value="true"/>${uiLabelMap.WebtoolsMostlyInserts}<br />
+    <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>checked="checked"</#if> value="true"/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
+    <input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>checked="checked"</#if> value="true"/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
+    <input type="checkbox" name="checkDataOnly" <#if checkDataOnly?exists>checked="checked"</#if> value="true"/>${uiLabelMap.WebtoolsCheckDataOnly}<br />
     ${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/><br />
     <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImport}"/></div>
   </form>
