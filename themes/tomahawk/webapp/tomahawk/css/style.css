@@ -2418,9 +2418,6 @@ height:95%;
 #fieldLookupContent ul li a {
 display: inherit;
 cursor: pointer;
-background: none;
-height: auto;
-width: auto;
 margin-top: 0px;
 }
 
