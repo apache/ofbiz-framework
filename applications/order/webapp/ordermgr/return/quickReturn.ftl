@@ -78,7 +78,7 @@ under the License.
                     <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                     <tr>
                       <td align="right" width="1%" valign="top" nowrap="nowrap">
-                        <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"  <#if (shippingContactMechList?size == 1)>checked</#if> />
+                        <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"  <#if (shippingContactMechList?size == 1)>checked="checked"</#if> />
                       </td>
                       <td width="99%" valign="top" nowrap="nowrap">
                         <div>
