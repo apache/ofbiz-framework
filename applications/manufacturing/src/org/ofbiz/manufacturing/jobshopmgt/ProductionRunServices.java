@@ -667,6 +667,7 @@ public class ProductionRunServices {
                     GenericValue mandatoryWorkEffortAssoc = (GenericValue)mandatoryWorkEfforts.get(i);
                     GenericValue mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort");
                     if (!(mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_COMPLETED") ||
+                         mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_RUNNING") ||
                          mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_CLOSED"))) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChangedMandatoryProductionRunNotCompleted", locale));
                     }
