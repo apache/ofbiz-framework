@@ -773,8 +773,8 @@ under the License.
     </form>
 
     <form name="listShipmentPlans" type="list" target="" title="" list-name="shipmentPlans"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="shipmentId" widget-style="buttontext">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <field name="shipmentId" widget-style="buttontext" sort-field="true">
             <hyperlink target="/facility/control/ViewShipment" target-type="inter-app" description="${shipmentId}">
                 <parameter param-name="shipmentId" from-field="shipmentId"/>
             </hyperlink>
@@ -782,7 +782,7 @@ under the License.
         <field name="statusId">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
-        <field name="estimatedShipDate"><display/></field>
+        <field name="estimatedShipDate" sort-field="true"><display/></field>
         <field name="viewShipmentPlanLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="WorkWithShipmentPlans" description="${uiLabelMap.CommonView}" also-hidden="false">
                 <parameter param-name="shipmentId"/>
