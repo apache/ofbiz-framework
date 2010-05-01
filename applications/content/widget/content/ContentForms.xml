@@ -518,7 +518,7 @@ under the License.
         <auto-fields-service service-name="createWorkEffortContent"/>
         <field name="contentId"><hidden value="${parameters.contentId}"/></field>
         <field name="workEffortId">
-            <lookup target-form-name="LookupWorkEffort"/>
+            <lookup presentation="window" target-form-name="LookupWorkEffort"/>
         </field>
         <field name="workEffortContentTypeId">
             <drop-down no-current-selected-key="">
