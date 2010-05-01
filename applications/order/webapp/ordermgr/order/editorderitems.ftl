@@ -20,16 +20,6 @@ under the License.
 
 <#if orderHeader?has_content>
 
-<#-- Order Items changes to basic-table style  -->
-<style type="text/css">
-.order-items .header-row td {
-border-bottom: none;
-}
-.order-items tr .button-col {
-float: right;
-}
-</style>
-
 <#-- price change rules -->
 <#assign allowPriceChange = false/>
 <#if (orderHeader.orderTypeId == 'PURCHASE_ORDER' || security.hasEntityPermission("ORDERMGR", "_SALES_PRICEMOD", session))>
@@ -64,14 +54,14 @@ float: right;
             </#if>
             <table class="basic-table order-items" cellspacing="0">
                 <tr class="header-row">
-                    <td width="30%">${uiLabelMap.ProductProduct}</td>
-                    <td width="30%">${uiLabelMap.CommonStatus}</td>
-                    <td width="5%" class="align-text">${uiLabelMap.OrderQuantity}</td>
-                    <td width="10%" class="align-text">${uiLabelMap.OrderUnitPrice}</td>
-                    <td width="10%" class="align-text">${uiLabelMap.OrderAdjustments}</td>
-                    <td width="10%" class="align-text">${uiLabelMap.OrderSubTotal}</td>
-                    <td width="2%">&nbsp;</td>
-                    <td width="3%">&nbsp;</td>
+                    <td width="30%" style="border-bottom:none;">${uiLabelMap.ProductProduct}</td>
+                    <td width="30%" style="border-bottom:none;">${uiLabelMap.CommonStatus}</td>
+                    <td width="5%" style="border-bottom:none;" class="align-text">${uiLabelMap.OrderQuantity}</td>
+                    <td width="10%" style="border-bottom:none;" class="align-text">${uiLabelMap.OrderUnitPrice}</td>
+                    <td width="10%" style="border-bottom:none;" class="align-text">${uiLabelMap.OrderAdjustments}</td>
+                    <td width="10%" style="border-bottom:none;" class="align-text">${uiLabelMap.OrderSubTotal}</td>
+                    <td width="2%" style="border-bottom:none;">&nbsp;</td>
+                    <td width="3%" style="border-bottom:none;">&nbsp;</td>
                 </tr>
                 <#list orderItemList as orderItem>
                     <#if orderItem.productId?exists> <#-- a null product may come from a quote -->
@@ -130,7 +120,8 @@ float: right;
                                   <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                                   <#list orderItemStatuses as orderItemStatus>
                                   <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem")>
-                                  ${orderItemStatus.statusDatetime.toString()}&nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}<br />
+                                  <#if orderItemStatus.statusDatetime?has_content>${orderItemStatus.statusDatetime.toString()}</#if>
+                                  &nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}<br />
                                   </#list>
                                   <#assign returns = orderItem.getRelated("ReturnItem")?if_exists>
                                   <#if returns?has_content>
