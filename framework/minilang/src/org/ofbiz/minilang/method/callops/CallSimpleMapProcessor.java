@@ -100,9 +100,7 @@ public class CallSimpleMapProcessor extends MethodOperation {
 
         // run inlined map processor last so it can override the external map processor
         if (inlineMapProcessor != null) {
-            inlineMapProcessor.exec(inMap, outMap, messages,
-                (methodContext.getRequest() != null ? methodContext.getRequest().getLocale() : null),
-                methodContext.getLoader());
+            inlineMapProcessor.exec(inMap, outMap, messages, methodContext.getLocale(), methodContext.getLoader());
         }
 
         return true;
