@@ -21,17 +21,17 @@ under the License.
   <table border='0'  cellpadding='3' cellspacing='0'>
     <tr>
       <td>
-        <h2>${productCategory.description?if_exists}</h2>
+        <h2>${productCategory.categoryName?if_exists}</h2>
       </td>
       <td align="right">
         <form name="choosequickaddform" method="post" action="<@ofbizUrl>quickadd</@ofbizUrl>" style='margin: 0;'>
           <select name='category_id'>
-            <option value='${productCategory.productCategoryId}'>${productCategory.description?if_exists}</option>
+            <option value='${productCategory.productCategoryId}'>${productCategory.categoryName?if_exists}</option>
             <option value='${productCategory.productCategoryId}'>--</option>
             <#list quickAddCats as quickAddCatalogId>
               <#assign loopCategory = delegator.findByPrimaryKeyCache("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", quickAddCatalogId))>
               <#if loopCategory?has_content>
-                <option value='${quickAddCatalogId}'>${loopCategory.description?if_exists}</option>
+                <option value='${quickAddCatalogId}'>${loopCategory.categoryName?if_exists}</option>
               </#if>
             </#list>
           </select>
