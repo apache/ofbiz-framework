@@ -29,7 +29,7 @@ public class UtilHelpText {
     public static String getEntityFieldDescription(final String entityName, final String fieldName, final Delegator delegator, final Locale locale) {
 
         if (UtilValidate.isEmpty(entityName)) {
-            Debug.logWarning("entityName [" + entityName + "] is empty", module);
+            // Debug.logWarning("entityName [" + entityName + "] is empty", module);
             return "";
         }
         if (UtilValidate.isEmpty(fieldName)) {
