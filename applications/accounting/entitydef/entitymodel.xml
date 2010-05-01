@@ -1942,8 +1942,8 @@ under the License.
     </entity>
     <entity entity-name="GlAccount"
             package-name="org.ofbiz.accounting.ledger"
-            default-resource-name="ChartOfAccountsEntityLabels"
             title="General Ledger Account Entity">
+      <!-- default-resource-name="ChartOfAccountsEntityLabels"   <= this does not exist yet and his blocking LookupGlAccount   -->
       <field name="glAccountId" type="id-ne"></field>
       <field name="glAccountTypeId" type="id"></field>
       <field name="glAccountClassId" type="id"></field>
