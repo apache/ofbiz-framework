@@ -571,7 +571,7 @@ under the License.
             </drop-down>
         </field>
         <field name="workEffortId">
-            <lookup target-form-name="LookupWorkEffort"/>
+            <lookup presentation="window" target-form-name="LookupWorkEffort"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
