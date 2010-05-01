@@ -19,18 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="PortalPage.portalPageName.10000">
-        <value xml:lang="en">My Tasks</value>
-        <value xml:lang="fr">Mes tâches</value>
-    </property>
-    <property key="PortalPage.portalPageName.10010">
-        <value xml:lang="en">My Comms</value>
-        <value xml:lang="fr">Mes communications</value>
-    </property>
-    <property key="PortalPage.portalPageName.10011">
-        <value xml:lang="en">Other Party Comms</value>
-        <value xml:lang="fr">Autres communications</value>
-    </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE">
         <value xml:lang="en">Main</value>
         <value xml:lang="fr">Accueil</value>
