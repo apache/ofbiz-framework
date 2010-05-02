@@ -60,7 +60,7 @@ under the License.
     <form name="lookupPartyNameByName" target="LookupPartyExampleByName" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="LayerFromLayer" title="${uiLabelMap.ExampleLayerFromLayer}">
-            <lookup  presentation="layer" target-form-name="LookupPartyExample"/>
+            <lookup  presentation="layer" target-form-name="LookupPartyExample" position="center"/>
         </field>
         <field name="CalendarFromLayer" title="${uiLabelMap.ExampleCalendarFromLayer}"><date-time/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
