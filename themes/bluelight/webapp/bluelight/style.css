@@ -2234,7 +2234,6 @@ Lookups
  #fieldLookupContent ul li a {
     display: inherit;
     cursor: pointer;
-    background: none;
  }
 
  #fieldLookupContent td {
@@ -2245,6 +2244,9 @@ Lookups
  #fieldLookupContent td span a {
     background: url(/bluelight/images/application_view_list.png) no-repeat;
     display: inline-block;
+ }
+ #fieldLookupContent td span div a {
+     background: none;
  }
 
  #fieldLookupContent td a {

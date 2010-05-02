@@ -285,12 +285,12 @@ under the License.
         <!-- Lookup (in a popup windows, old style) -->
         <!-- Using separated labels is not recommended (it's better using sentences than words for translation) but here we use only Common labels to avoid dependencies from application to framework -->
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
-            <lookup target-form-name="LookupPartyExamplePopup" presentation="window"/>
+            <lookup target-form-name="LookupPartyExample" presentation="window"/>
         </field>
         <!-- Standard Lookup in a layer (new style)-->
         <!-- passes the name in one and the id in another field, the layer is centered -->
         <field name="partyName" title="${uiLabelMap.CommonName}">
-            <lookup target-form-name="LookupPartyExamplePopupByName" description-field-name="partyIdTo" presentation="layer"/>
+            <lookup target-form-name="LookupPartyExampleByName" description-field-name="partyIdTo" presentation="layer"/>
         </field>
         <!-- This field may be hidden and the name rendered in partyName using default-value if partyIdTo exists-->
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><text/></field><!-- the text field is only used for rendering  -->

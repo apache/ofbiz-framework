@@ -58,7 +58,11 @@
         <value xml:lang="ru">OFBiz: Пример</value>
         <value xml:lang="th">OFBiz: ตัวอย่าง</value>
         <value xml:lang="zh">OFBiz: 样例</value>
-    </property>
+    </property>    
+    <property key="ExampleCalendarFromLayer">
+        <value xml:lang="en">Calendar field (only test purp.)</value>
+        <value xml:lang="fr">Calendrier (only test)</value>
+    </property>    
     <property key="ExampleCompanySubtitle">
         <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
@@ -437,6 +441,10 @@
         <value xml:lang="en">Long Description</value>
         <value xml:lang="it">Descrizione lunga</value>
         <value xml:lang="zh">详细描述</value>
+    </property>
+    <property key="ExampleLayerFromLayer">
+        <value xml:lang="en">Layered lookup field (only test purp.)</value>
+        <value xml:lang="fr">Lookup de type layer (only test)</value>
     </property>
     <property key="ExampleLookupFields">
         <value xml:lang="en">Examples Lookup Fields (first of type popup, second layered)</value>

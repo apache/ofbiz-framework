@@ -193,8 +193,8 @@ under the License.
     <request-map uri="FormWidgetExamples"><security https="true" auth="true"/><response name="success" type="view" value="FormWidgetExamples"/></request-map>
 
     <request-map uri="LookupExampleFeature"><security https="true" auth="true"/><response name="success" type="view" value="LookupExampleFeature"/></request-map>
-    <request-map uri="LookupPartyExamplePopup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyExamplePopup"/></request-map>
-    <request-map uri="LookupPartyExamplePopupByName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyExamplePopupByName"/></request-map>
+    <request-map uri="LookupPartyExample"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyExample"/></request-map>
+    <request-map uri="LookupPartyExampleByName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyExampleByName"/></request-map>
 
     <request-map uri="ListExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="ListExampleFormOnly"/></request-map>
     <request-map uri="CreateExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="CreateExampleFormOnly"/></request-map>
@@ -257,8 +257,8 @@ under the License.
     <view-map name="FormWidgetExamples" type="screen" page="component://example/widget/example/FormWidgetExampleScreens.xml#FormWidgetExamples"/>
 
     <view-map name="LookupExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#LookupExampleFeature"/>
-    <view-map name="LookupPartyExamplePopup" type="screen" page="component://example/widget/example/FormWidgetExampleLookupScreens.xml#LookupParty"/>
-    <view-map name="LookupPartyExamplePopupByName" type="screen" page="component://example/widget/example/FormWidgetExampleLookupScreens.xml#LookupPartyByName"/>
+    <view-map name="LookupPartyExample" type="screen" page="component://example/widget/example/FormWidgetExampleLookupScreens.xml#LookupParty"/>
+    <view-map name="LookupPartyExampleByName" type="screen" page="component://example/widget/example/FormWidgetExampleLookupScreens.xml#LookupPartyByName"/>
 
     <!-- ajax view mappings -->
     <view-map name="findExampleAjax" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#AjaxExample"/>
