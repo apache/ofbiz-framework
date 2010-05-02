@@ -2211,7 +2211,6 @@ Lookups
  #fieldLookupContent ul li a {
     display: inherit;
     cursor: pointer;
-    background: none;
  }
 
  #fieldLookupContent td {

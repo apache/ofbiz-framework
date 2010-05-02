@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="lookupPartyName" target="LookupPartyExamplePopup" type="single"
+    <form name="lookupPartyName" target="LookupPartyExample" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
@@ -36,7 +36,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupPartyName" type="list" list-name="listIt" paginate-target="LookupPartyExamplePopup"
+    <form name="listLookupPartyName" type="list" list-name="listIt" paginate-target="LookupPartyExample"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="inputFields" from-field="parameters"/>
@@ -57,12 +57,12 @@ under the License.
     </form>
 
     <!-- Lookup By Name -->
-    <form name="lookupPartyNameByName" target="LookupPartyExamplePopupByName" type="single"
+    <form name="lookupPartyNameByName" target="LookupPartyExampleByName" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="find"/>-->
-        <field name="secLayFrom" title="Layer Layer Field">
-            <lookup target-form-name="LookupPartyExamplePopup" presentation="layer" position="center" fade-background="false"/>
+        <field name="LayerFromLayer" title="${uiLabelMap.ExampleLayerFromLayer}">
+            <lookup  presentation="layer" target-form-name="LookupPartyExample"/>
         </field>
+        <field name="CalendarFromLayer" title="${uiLabelMap.ExampleCalendarFromLayer}"><date-time/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <drop-down allow-empty="true">
@@ -75,7 +75,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    <form name="listLookupPartyNameByName" type="list" list-name="listIt" paginate-target="LookupPartyExamplePopupByName"
+    <form name="listLookupPartyNameByName" type="list" list-name="listIt" paginate-target="LookupPartyExampleByName"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="inputFields" from-field="parameters"/>
