@@ -335,6 +335,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription) {
     for (var i = 0; i < numAreas * 3; i = i + 3) {
         var optionsDivId = areaArray[i] + "_autoCompleterOptions";
         var indicatorId = areaArray[i] + "_indicator";
+        $(areaArray[i]).next().insert('<span class="indicator" style="display: none"' + 'id=' + indicatorId + '><img src="/images/ajax-loader.gif" alt=""/></span>');
         $(areaArray[i]).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
         new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2], indicator: indicatorId, afterUpdateElement : setSelection});
         if (showDescription) {

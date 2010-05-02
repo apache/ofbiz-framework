@@ -448,9 +448,7 @@ ${item.description}</span>
   ,document.${formName}.${item}.value<#rt>
  </#list>
 </#if>
-);">
-<#if ajaxEnabled?has_content && ajaxEnabled><span id="${id}_indicator" style="display: none" class="indicator"><img src="/images/ajax-loader.gif" alt=""/></span></#if>
-</a><#rt>
+);"></a><#rt>
 <#if disabled?has_content && disabled><a id="${id}_clear" style="background:none;margin-left:5px;margin-right:15px;" class="clearField" href="javascript:void();" onclick="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></#if>
 </span>
 <#if ajaxEnabled?has_content && ajaxEnabled>
