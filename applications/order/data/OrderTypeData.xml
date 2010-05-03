@@ -283,7 +283,7 @@ under the License.
 
     <!-- Return Header Types -->
     <ReturnHeaderType description="Return from Customer" returnHeaderTypeId="CUSTOMER_RETURN"/>
-    <ReturnHeaderType description="Return to Vendor" returnHeaderTypeId="VENDOR_RETURN"/>  <!-- not supported yet -->
+    <ReturnHeaderType description="Return to Vendor" returnHeaderTypeId="VENDOR_RETURN"/>
 
     <!-- return item types for returns -->
     <ReturnItemType description="Return Non-Product Item" returnItemTypeId="RET_NPROD_ITEM" parentTypeId=""/>
