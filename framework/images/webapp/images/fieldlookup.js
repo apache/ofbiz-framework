@@ -739,7 +739,7 @@ function set_value (value) {
 }
 // function passing selected value to calling window
 function set_values (value, value2) {
-    /*obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);*/
+    obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);
     var target = obj_caller.target;
     var target2 = obj_caller.target2;
     write_value(value, target);
