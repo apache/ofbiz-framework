@@ -665,7 +665,7 @@ under the License.
             <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
         </relation>
-        <relation type="one-nofk" fk-name="FIXEDAST_ORDHDR" title="Acquire" rel-entity-name="OrderHeader">
+        <relation type="one" fk-name="FIXEDAST_ORDHDR" title="Acquire" rel-entity-name="OrderHeader">
             <key-map field-name="acquireOrderId" rel-field-name="orderId"/>
         </relation>
         <relation type="one" fk-name="FIXEDAST_ORDITM" title="Acquire" rel-entity-name="OrderItem">
