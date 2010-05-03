@@ -363,7 +363,7 @@ under the License.
                 <option key="1"/>
             </drop-down>
         </field>
-        <field name="productId"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

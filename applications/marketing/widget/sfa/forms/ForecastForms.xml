@@ -98,7 +98,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}">
             <lookup target-form-name="LookupProductCategory"/>
@@ -124,7 +124,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}">
             <lookup target-form-name="LookupProductCategory"/>

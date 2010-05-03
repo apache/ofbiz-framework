@@ -105,7 +105,7 @@ under the License.
         <field name="configOptionId"><hidden value="${configOptionId}"/></field>
         <field use-when="productConfigProduct!=null" name="productId"><display/></field>
         <field use-when="productConfigProduct==null" name="productId">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field use-when="productConfigProduct!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>

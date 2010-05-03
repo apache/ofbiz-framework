@@ -507,7 +507,7 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.ProductProductId}</td>
                 <td>
-                  <@htmlTemplate.lookupField value="${requestParameters.productId?if_exists}" formName="selectAllForm" name="productId" id="productId" fieldFormName="LookupProduct" presentation="window"/>
+                  <@htmlTemplate.lookupField value="${requestParameters.productId?if_exists}" formName="selectAllForm" name="productId" id="productId" fieldFormName="LookupProduct"/>
                   <span class="tooltip">${uiLabelMap.ProductLeaveEntirePoReceiving}</span>
                 </td>
               </tr>

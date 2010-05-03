@@ -148,7 +148,7 @@ under the License.
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}" />
                     <div>
                         <span class="label">${uiLabelMap.ProductProductId}</span>
-                        <@htmlTemplate.lookupField formName="addProductCategoryMemberForm" name="productId" id="productId" fieldFormName="LookupProduct" presentation="window"/>
+                        <@htmlTemplate.lookupField formName="addProductCategoryMemberForm" name="productId" id="productId" fieldFormName="LookupProduct"/>
                         <br/>
                         <span class="label">${uiLabelMap.CommonFromDate}</span> <input type="text" size="22" name="fromDate" />
                         <a href="javascript:call_cal(document.addProductCategoryMemberForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>

@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="CreateProductionRun" target="createProductionRun" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" presentation="window" size="16"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" size="16"/></field>
         <field name="quantity" title="${uiLabelMap.ManufacturingQuantity}"><text size="6"/></field>
         <field name="startDate" title="${uiLabelMap.ManufacturingStartDate}"><date-time/></field>
         <field name="facilityId">
@@ -50,7 +50,7 @@ under the License.
                 </entity-options>
              </drop-down>
         </field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><text-find/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-find/></field>
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
@@ -519,7 +519,7 @@ under the License.
                 <list-options list-name="delivProducts" key-name="productId" description="${productId}"/>
             </drop-down>
         </field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${groovy:delivProducts.size()==0}"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${groovy:delivProducts.size()==0}"><lookup target-form-name="LookupProduct"/></field>
         <field name="quantity" title="${uiLabelMap.ManufacturingAddQuantityProduced}">
             <text/>
         </field>
@@ -882,7 +882,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -945,7 +945,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="reasonEnumId">
             <drop-down allow-empty="true">

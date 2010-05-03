@@ -60,7 +60,7 @@ under the License.
                   <td class="label">${uiLabelMap.ProductProductId}</td>
                   <td>
                       <#-- FIXME Problem here: the input field is shared -->
-                      <@htmlTemplate.lookupField formName="appendItemForm" name="productId" id="productId" fieldFormName="LookupProduct" presentation="window"/>
+                      <@htmlTemplate.lookupField formName="appendItemForm" name="productId" id="productId" fieldFormName="LookupProduct"/>
                       <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
                           <a href="javascript:quicklookup(document.appendItemForm.orderId)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
                       </#if>

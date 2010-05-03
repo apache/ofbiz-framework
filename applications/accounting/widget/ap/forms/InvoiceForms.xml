@@ -120,7 +120,7 @@ under the License.
 
     <form name="CommissionReport" type="single" target="FindCommissions">
         <field name="isSearch"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="productId" position="1"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId" position="1"><lookup target-form-name="LookupProduct"/></field>
         <field name="partyId" position="2" title="${uiLabelMap.PartyPartyId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${middleName} ${lastName} ${groupName}(${partyId})">

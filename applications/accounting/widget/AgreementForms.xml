@@ -24,7 +24,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Agreement" default-field-type="find"/>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}">
             <drop-down allow-empty="true">
@@ -104,7 +104,7 @@ under the License.
         <field name="agreementId" use-when="agreementId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="agreementId" use-when="agreement==null&amp;&amp;agreementId==null"><ignored/></field>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}">
             <drop-down allow-empty="true">
@@ -380,7 +380,7 @@ under the License.
         <field name="agreementId"><hidden/></field>
         <field name="agreementItemSeqId"><hidden/></field>
         <field name="productId" use-when="agreementProductAppl==null">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productId" use-when="agreementProductAppl!=null"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
@@ -409,7 +409,7 @@ under the License.
             <display/>
         </field>
         <field name="productId" use-when="agreementProductAppl==null">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productId" use-when="agreementProductAppl!=null"><display/></field>
         <field name="supplierPrefOrderId">

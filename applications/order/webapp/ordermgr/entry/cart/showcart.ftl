@@ -92,7 +92,7 @@ under the License.
                           <#assign fieldFormName="LookupSupplierProduct">
                         </#if>
                       <#else>
-                        <#assign fieldFormName="LookupProduct" presentation="window">
+                        <#assign fieldFormName="LookupProduct">
                       </#if>
                       <@htmlTemplate.lookupField formName="quickaddform" name="add_product_id" id="add_product_id" fieldFormName="${fieldFormName}"/-->
                       <a href="javascript:quicklookupGiftCertificate()" class="buttontext">${uiLabelMap.OrderAddGiftCertificate}</a>

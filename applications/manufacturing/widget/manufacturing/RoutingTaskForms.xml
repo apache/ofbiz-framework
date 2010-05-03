@@ -275,7 +275,7 @@ under the License.
         <field name="workEffortGoodStdTypeId"><hidden value="ROU_PROD_TEMPLATE"/></field>
         <field name="productId" use-when="routingProductLink!=null" ><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="routingProductLink==null" >
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" use-when="routingProductLink!=null"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>
@@ -350,7 +350,7 @@ under the License.
         <field name="workEffortGoodStdTypeId"><hidden value="PRUNT_PROD_DELIV"/></field>
         <field name="productId" use-when="routingProductLink!=null" ><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="routingProductLink==null" >
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" use-when="routingProductLink!=null"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>

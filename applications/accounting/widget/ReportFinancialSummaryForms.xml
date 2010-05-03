@@ -497,7 +497,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="productId"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="thruDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="organizationPartyId"><hidden/></field>
         <field name="showSearchResults"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>

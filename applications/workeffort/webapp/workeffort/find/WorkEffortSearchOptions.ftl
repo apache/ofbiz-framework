@@ -91,7 +91,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.WorkEffortProductId1}</td>
           <td valign="middle">
             <div>
-              <@htmlTemplate.lookupField value="${requestParameters.productId_1?if_exists}" formName="advToKeyWordSearchForm" name="productId_1" id="productId_1" fieldFormName="LookupProduct" presentation="window"/>
+              <@htmlTemplate.lookupField value="${requestParameters.productId_1?if_exists}" formName="advToKeyWordSearchForm" name="productId_1" id="productId_1" fieldFormName="LookupProduct"/>
             </div>
           </td>
         </tr>
@@ -99,7 +99,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.WorkEffortProductId2}</td>
           <td valign="middle">
             <div>
-              <@htmlTemplate.lookupField value="${requestParameters.productId_2?if_exists}" formName="advToKeyWordSearchForm" name="productId_2" id="productId_2" fieldFormName="LookupProduct" presentation="window"/>
+              <@htmlTemplate.lookupField value="${requestParameters.productId_2?if_exists}" formName="advToKeyWordSearchForm" name="productId_2" id="productId_2" fieldFormName="LookupProduct"/>
             </div>
           </td>
         </tr>

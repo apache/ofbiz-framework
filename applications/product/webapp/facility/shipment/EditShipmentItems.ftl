@@ -132,7 +132,7 @@ under the License.
                 <input type="hidden" name="shipmentId" value="${shipmentId}"/>
                 <td><span class="label">${uiLabelMap.ProductNewItem}</span></td>
                 <td colspan="2"><span class="label">${uiLabelMap.ProductProductId}</span> 
-                  <@htmlTemplate.lookupField formName="createShipmentItemForm" name="productId" id="productId" fieldFormName="LookupProduct" presentation="window"/>
+                  <@htmlTemplate.lookupField formName="createShipmentItemForm" name="productId" id="productId" fieldFormName="LookupProduct"/>
                 </td>
                 <td><input type="text" name="quantity" size="5" value="0"/></td>
                 <td colspan="2"><span class="label">${uiLabelMap.ProductProductDescription}</span> <input name="shipmentContentDescription" size="30" maxlength="255"/></td>
