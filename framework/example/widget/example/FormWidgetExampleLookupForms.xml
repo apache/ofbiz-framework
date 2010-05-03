@@ -85,7 +85,7 @@ under the License.
         </actions>
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="display"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
-            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_values('${firstName} ${lastName}','${partyId}')"/>
+            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_values('${firstName} ${lastName} ${groupName}','${partyId}')"/>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
