@@ -2223,6 +2223,10 @@ Lookups
     display: inline-block;
  }
 
+ #fieldLookupContent td span div a {
+     padding: 0px;
+ }
+
  #fieldLookupContent td a {
     background: none;
     cursor: pointer;

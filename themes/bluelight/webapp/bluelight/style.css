@@ -2242,15 +2242,15 @@ Lookups
  }
 
  #fieldLookupContent td span a {
-    background: url(/bluelight/images/application_view_list.png) no-repeat;
     display: inline-block;
  }
+
  #fieldLookupContent td span div a {
      background: none;
+     padding: 0px;
  }
 
  #fieldLookupContent td a {
-    background: none;
     cursor: pointer;
     padding: 0.4em 0.6em;
     display: inline;
