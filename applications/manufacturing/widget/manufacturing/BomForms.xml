@@ -24,7 +24,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="lookupFlag"><hidden value="Y"/></field>
         <field name="productId">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="bomType" title="${uiLabelMap.ManufacturingBomType}">
             <drop-down allow-empty="false" no-current-selected-key="MANUF_COMPONENT">
@@ -103,16 +103,16 @@ under the License.
         <auto-fields-service service-name="updateProductManufacturingRule" map-name="manufacturingRule"/>
         <field name="ruleId"><display/></field>
         <field name="productId">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productIdFor">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productIdIn">
             <lookup target-form-name="LookupVirtualProduct"/>
         </field>
         <field name="productIdInSubst">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productFeature">
             <lookup target-form-name="LookupProductFeature"/>
@@ -128,8 +128,8 @@ under the License.
         </field>
     </form>
     <form name="findBom" type="single" target="FindBom" title="">
-        <field name="productId"><lookup target-form-name="LookupProduct" presentation="window"/></field>
-        <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}"><lookup target-form-name="LookupProduct"/></field>
         <field name="productAssocTypeId"  title="${uiLabelMap.ManufacturingBomType}">
             <drop-down allow-empty="true">
                 <option key="MANUF_COMPONENT" description="${uiLabelMap.ManufacturingBillOfMaterials}"/>
@@ -154,8 +154,8 @@ under the License.
     </form>
     <form name="CreateProductBom" target="createProductBom" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" presentation="window" size="16"/></field>
-        <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}"><lookup target-form-name="LookupProduct" presentation="window" size="16"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" size="16"/></field>
+        <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}"><lookup target-form-name="LookupProduct" size="16"/></field>
         <field name="productAssocTypeId" title="${uiLabelMap.ManufacturingBomType}">
             <drop-down>
                 <option key="MANUF_COMPONENT" description="${uiLabelMap.ManufacturingBillOfMaterials}"/>

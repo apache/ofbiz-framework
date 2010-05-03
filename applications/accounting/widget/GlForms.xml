@@ -57,7 +57,7 @@ under the License.
         </field>
         <field name="invoiceId" position="2"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId" position="1"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="productId" position="2"><lookup target-form-name="LookupProduct" presentation="window" size="20" maxlength="20"/></field>
+        <field name="productId" position="2"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="workEffortId" position="1"><lookup presentation="window" target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="shipmentId" position="2"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="fromDate" position="1"><date-time/></field>
@@ -235,7 +235,7 @@ under the License.
         </field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="produtId"><lookup target-form-name="LookupProduct" presentation="window" size="20" maxlength="20"/></field>
+        <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="workEffortId"><lookup presentation="window" target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="fromDate"><date-time/></field>
@@ -452,7 +452,7 @@ under the License.
         </field>
         <field name="invoiceId" position="1"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId" position="2"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="produtId" position="1"><lookup target-form-name="LookupProduct" presentation="window" size="20" maxlength="20"/></field>
+        <field name="produtId" position="1"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="workEffortId" position="2"><lookup presentation="window" target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="shipmentId" position="1"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="fixedAssetId" position="2">
@@ -540,7 +540,7 @@ under the License.
                 <sub-hyperlink target="paymentOverview?paymentId=${acctgTrans.paymentId}" description="${acctgTrans.paymentId}"/>
             </lookup>
         </field>
-        <field name="produtId"><lookup target-form-name="LookupProduct" presentation="window" size="20" maxlength="20"/></field>
+        <field name="produtId"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="inventoryItemId"><text/></field>
         <field name="groupStatusId" title="${uiLabelMap.FormFieldTitle_groupStatus}">
@@ -653,7 +653,7 @@ under the License.
             <lookup target-form-name="LookupPartyName" size="20" maxlength="20"/>
         </field>
         <field name="productId">
-            <lookup target-form-name="LookupProduct" presentation="window" size="20" maxlength="20"/>
+            <lookup target-form-name="LookupProduct" size="20" maxlength="20"/>
         </field>
         <field name="reconcileStatusId" title="${uiLabelMap.FormFieldTitle_reconcileStatus}">
             <drop-down allow-empty="true">
@@ -743,7 +743,7 @@ under the License.
         <field name="physicalInventoryId" position="2"></field>
         <field name="invoiceId" position="1"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId" position="2"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
-        <field name="productId" position="1"><lookup target-form-name="LookupProduct" presentation="window" size="20" maxlength="20"/></field>
+        <field name="productId" position="1"><lookup target-form-name="LookupProduct" size="20" maxlength="20"/></field>
         <field name="workEffortId" position="2"><lookup presentation="window" target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="shipmentId" position="1"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="fixedAssetId" position="2">

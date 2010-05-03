@@ -366,7 +366,7 @@ under the License.
                <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${description}"/>
            </drop-down>
        </field>
-       <field name="productId"><lookup target-form-name="LookupProduct" presentation="window" size="20"/></field>
+       <field name="productId"><lookup target-form-name="LookupProduct" size="20"/></field>
        <field name="description"><text size="30"/></field>
        <field name="overrideGlAccountId">
            <drop-down allow-empty="true">
@@ -402,7 +402,7 @@ under the License.
         </field>
         <field position="2" name="inventoryItemId"><text/></field>
         <field position="1" name="productId">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field position="2" name="productFeatureId">
             <lookup target-form-name="LookupProductFeature"/>

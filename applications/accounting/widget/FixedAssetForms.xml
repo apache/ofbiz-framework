@@ -83,7 +83,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="instanceOfProductId"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="instanceOfProductId"><lookup target-form-name="LookupProduct"/></field>
         <field name="classEnumId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
@@ -146,7 +146,7 @@ under the License.
         <auto-fields-service service-name="addFixedAssetProduct" map-name="fixedAssetProduct"/>
 
         <field name="fixedAssetId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductTypeId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="FixedAssetProductType" description="${description}">

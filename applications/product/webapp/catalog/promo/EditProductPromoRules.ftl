@@ -503,7 +503,7 @@ under the License.
                     <input type="hidden" name="productPromoRuleId" value="_NA_" />
                     <input type="hidden" name="productPromoActionSeqId" value="_NA_" />
                     <input type="hidden" name="productPromoCondSeqId" value="_NA_" />
-                    <span class="label">${uiLabelMap.ProductProductId}</span>*<@htmlTemplate.lookupField formName="createpromoproductform" name="productId" id="productId" fieldFormName="LookupProduct" presentation="window"/>
+                    <span class="label">${uiLabelMap.ProductProductId}</span>*<@htmlTemplate.lookupField formName="createpromoproductform" name="productId" id="productId" fieldFormName="LookupProduct"/>
                     <select name="productPromoApplEnumId">
                         <#list productPromoApplEnums as productPromoApplEnum>
                             <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>

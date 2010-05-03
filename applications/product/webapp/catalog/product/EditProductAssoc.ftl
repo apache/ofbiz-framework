@@ -80,7 +80,7 @@ under the License.
                 <td align="right" class="label">${uiLabelMap.ProductProductIdTo}</td>
                 <td>&nbsp;</td>
                 <td>
-                  <@htmlTemplate.lookupField formName="editProductAssocForm" name="PRODUCT_ID_TO" id="PRODUCT_ID_TO" fieldFormName="LookupProduct" presentation="window"/>
+                  <@htmlTemplate.lookupField formName="editProductAssocForm" name="PRODUCT_ID_TO" id="PRODUCT_ID_TO" fieldFormName="LookupProduct"/>
                 </td>
                 </tr>
                 <tr>

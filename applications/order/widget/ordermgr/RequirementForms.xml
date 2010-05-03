@@ -44,7 +44,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="description"><text-find/></field>
         <field name="requirementStartDate" title="${uiLabelMap.OrderRequirementStartDate}"><date-find type="date"/></field>
@@ -129,7 +129,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="productId"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="facilityId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Facility" description="${description} [${facilityId}]"/>
@@ -226,7 +226,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="requirementStartDate"><date-find type="date"/></field>
@@ -282,7 +282,7 @@ under the License.
                 <entity-options entity-name="Facility" description="${facilityId}"/>
             </drop-down>
         </field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="requirementByDate"><date-find type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

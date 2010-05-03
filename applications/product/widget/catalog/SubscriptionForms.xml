@@ -60,7 +60,7 @@ under the License.
         </field>
 
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
-        <field name="productId"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
 
         <field name="roleTypeId"><ignored/></field>
@@ -254,7 +254,7 @@ under the License.
             </lookup>
         </field>
         <field name="productId">
-            <lookup target-form-name="LookupProduct" presentation="window">
+            <lookup target-form-name="LookupProduct">
                 <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${subscription.productId}" link-style="buttontext">
                 <parameter param-name="productId" from-field="subscription.productId"/>
             </sub-hyperlink>
@@ -391,7 +391,7 @@ under the License.
         <auto-fields-service service-name="createProductSubscriptionResource"/>
 
         <field name="subscriptionResourceId"><hidden/></field>
-        <field name="productId"><lookup target-form-name="LookupProduct" presentation="window"/></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="useTimeUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description} (${abbreviation})" key-field-name="uomId">

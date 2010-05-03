@@ -731,7 +731,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
-            <lookup target-form-name="LookupProduct" presentation="window"/>
+            <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
