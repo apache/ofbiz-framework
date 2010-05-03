@@ -147,12 +147,6 @@
     <property key="TemporalExpression_SUBSTITUTION">
         <value xml:lang="en">Substitution</value>
     </property>
-    <property key="TemporalExpression_TIME_OF_DAY_RANGE">
-        <value xml:lang="en">Time Of Day Range (deprecated)</value>
-        <value xml:lang="fr">Intervalle entre 2 heures d'un jour</value>
-        <value xml:lang="it">Ora nel giorno dell'intervallo</value>
-        <value xml:lang="zh">日中时间的范围</value>
-    </property>
     <property key="TemporalExpression_UNION">
         <value xml:lang="en">Union</value>
         <value xml:lang="fr">Union</value>
