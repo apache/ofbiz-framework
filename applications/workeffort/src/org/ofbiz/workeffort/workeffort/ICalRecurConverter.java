@@ -286,25 +286,6 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         this.state.addRecur(recur);
     }
 
-    @SuppressWarnings({ "unchecked", "deprecation" })
-    @Override
-    public void visit(TimeOfDayRange expr) {
-        int startHr = expr.getStartHours();
-        int endHr = expr.getEndHours();
-        NumberList hourList = new NumberList();
-        hourList.add(startHr);
-        while (startHr != endHr) {
-            startHr++;
-            if (startHr == 24) {
-                startHr = 0;
-            }
-            hourList.add(startHr);
-        }
-        Recur recur = new Recur(Recur.HOURLY, 0);
-        recur.getHourList().addAll(hourList);
-        this.state.addRecur(recur);
-    }
-
     @Override
     public void visit(Union expr) {
         for (TemporalExpression childExpr : expr.getExpressionSet()) {

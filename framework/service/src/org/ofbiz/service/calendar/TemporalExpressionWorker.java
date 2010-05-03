@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.service.calendar;
 
-import com.ibm.icu.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -48,10 +47,9 @@ public class TemporalExpressionWorker {
     public final static String MinuteRange = "MINUTE_RANGE";
     public final static String MonthRange = "MONTH_RANGE";
     public final static String Substitution = "SUBSTITUTION";
-    public final static String TimeOfDayRange = "TIME_OF_DAY_RANGE";
     public final static String Union = "UNION";
     public final static String ExpressionTypeList[] = {DateRange, DayInMonth, DayOfMonthRange, DayOfWeekRange,
-        Difference, Frequency, HourRange, Intersection, MinuteRange, MonthRange, TimeOfDayRange, Substitution, Union};
+        Difference, Frequency, HourRange, Intersection, MinuteRange, MonthRange, Substitution, Union};
 
     /** Get a <code>TemporalExpression</code> from persistent storage.
      * @param delegator
@@ -83,7 +81,6 @@ public class TemporalExpressionWorker {
      * @return A <code>TemporalExpression</code> instance based on <code>exprValue</code>
      * @throws GenericEntityException
      */
-    @SuppressWarnings("deprecation")
     public static TemporalExpression makeTemporalExpression(Delegator delegator, GenericValue exprValue) throws GenericEntityException {
         String tempExprId = exprValue.getString("tempExprId");
         String tempExprTypeId = exprValue.getString("tempExprTypeId");
@@ -136,19 +133,6 @@ public class TemporalExpressionWorker {
             if (inclAssoc != null && exclAssoc != null && substAssoc != null) {
                 return setExpressionId(exprValue, new TemporalExpressions.Substitution(getTemporalExpression(delegator, inclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, exclAssoc.getString("toTempExprId")), getTemporalExpression(delegator, substAssoc.getString("toTempExprId"))));
             }
-        } else if (TimeOfDayRange.equals(tempExprTypeId)) {
-            Debug.logWarning(TimeOfDayRange + " has been deprecated. Use " + HourRange + " and/or " + MinuteRange, module);
-            int interval = Calendar.HOUR_OF_DAY;
-            int count = 1;
-            Long longObj = exprValue.getLong("integer1");
-            if (longObj != null) {
-                interval = longObj.intValue();
-            }
-            longObj = exprValue.getLong("integer2");
-            if (longObj != null) {
-                count = longObj.intValue();
-            }
-            return setExpressionId(exprValue, new TemporalExpressions.TimeOfDayRange(exprValue.getString("string1"), exprValue.getString("string2"), interval, count));
         } else if (Union.equals(tempExprTypeId)) {
             return setExpressionId(exprValue, new TemporalExpressions.Union(getChildExpressions(delegator, tempExprId)));
         }

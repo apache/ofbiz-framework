@@ -32,7 +32,5 @@ public interface TemporalExpressionVisitor {
     void visit(TemporalExpressions.MonthRange expr);
     void visit(TemporalExpressions.Null expr);
     void visit(TemporalExpressions.Substitution expr);
-    @SuppressWarnings("deprecation")
-    void visit(TemporalExpressions.TimeOfDayRange expr);
     void visit(TemporalExpressions.Union expr);
 }

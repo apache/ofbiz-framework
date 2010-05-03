@@ -257,28 +257,24 @@ under the License.
 
         tempExprTypeId        integer1       integer2        date1  date2  string1    string2
         ====================  ============== =============== ====== ====== ========== ========
-        HOUR_RANGE            start[11]      end[11]
+        HOUR_RANGE            start[8]       end[8]
         DATE_RANGE                                           start  end
-        TIME_OF_DAY_RANGE[10] interval [9]   count [7]                     start [1]  end [1]
-        DAY_OF_WEEK_RANGE     start [2]      end [2]
-        MINUTE_RANGE          start [12]     end [12]
-        MONTH_RANGE           start [3]      end [3]
-        DAY_OF_MONTH_RANGE    start [4]      end [4]
-        DAY_IN_MONTH          day [2]        occurrence [5]
-        FREQUENCY             freq type [6]  freq count [7]  start[8]
+        DAY_OF_WEEK_RANGE     start [1]      end [1]
+        MINUTE_RANGE          start [9]      end [9]
+        MONTH_RANGE           start [2]      end [2]
+        DAY_OF_MONTH_RANGE    start [3]      end [3]
+        DAY_IN_MONTH          day [1]        occurrence [4]
+        FREQUENCY             freq type [5]  freq count [6]  start[7]
 
-        [1] hh:mm:ss
-        [2] Day of week: 1 = Sunday, 7 = Saturday
-        [3] Month: January = 0, Undecimber = 12
-        [4] Day of month: 1 to 31
-        [5] Integer: -5 to +5, zero excluded
-        [6] Second = 13, Minute = 12, Hour = 11, Day = 5, Month = 2, Year = 1
-        [7] Positive integer, zero excluded
-        [8] If null, defaults to system date when the expression was retrieved from storage.
-        [9] Second = 13, Minute = 12, Hour = 11 (default)
-        [10] Deprecated - do not use
-        [11] Integer: 0 to 23, midnight = 0
-        [12] Integer: 0 to 59
+        [1] Day of week: 1 = Sunday, 7 = Saturday
+        [2] Month: January = 0, Undecimber = 12
+        [3] Day of month: 1 to 31
+        [4] Integer: -5 to +5, zero excluded
+        [5] Second = 13, Minute = 12, Hour = 11, Day = 5, Month = 2, Year = 1
+        [6] Positive integer, zero excluded
+        [7] If null, defaults to system date when the expression was retrieved from storage.
+        [8] Integer: 0 to 23, midnight = 0
+        [9] Integer: 0 to 59
     -->
 
 </entity-engine-xml>

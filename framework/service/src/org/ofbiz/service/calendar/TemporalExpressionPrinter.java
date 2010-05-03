@@ -18,23 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.service.calendar;
 
-import org.ofbiz.service.calendar.TemporalExpressions.DateRange;
-import org.ofbiz.service.calendar.TemporalExpressions.DayInMonth;
-import org.ofbiz.service.calendar.TemporalExpressions.DayOfMonthRange;
-import org.ofbiz.service.calendar.TemporalExpressions.DayOfWeekRange;
-import org.ofbiz.service.calendar.TemporalExpressions.Difference;
-import org.ofbiz.service.calendar.TemporalExpressions.Frequency;
-import org.ofbiz.service.calendar.TemporalExpressions.HourRange;
-import org.ofbiz.service.calendar.TemporalExpressions.Intersection;
-import org.ofbiz.service.calendar.TemporalExpressions.MinuteRange;
-import org.ofbiz.service.calendar.TemporalExpressions.MonthRange;
-import org.ofbiz.service.calendar.TemporalExpressions.Null;
-import org.ofbiz.service.calendar.TemporalExpressions.Substitution;
-import org.ofbiz.service.calendar.TemporalExpressions.TimeOfDayRange;
-import org.ofbiz.service.calendar.TemporalExpressions.Union;
-
 /** Temporal expression pretty printer. */
-@SuppressWarnings("deprecation")
 public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
     protected final TemporalExpression expression;
     protected final StringBuilder sb = new StringBuilder();
@@ -79,27 +63,27 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
     }
 
     @Override
-    public void visit(DateRange expr) {
+    public void visit(TemporalExpressions.DateRange expr) {
         appendExpression(expr);
     }
 
     @Override
-    public void visit(DayInMonth expr) {
+    public void visit(TemporalExpressions.DayInMonth expr) {
         appendExpression(expr);
     }
 
     @Override
-    public void visit(DayOfMonthRange expr) {
+    public void visit(TemporalExpressions.DayOfMonthRange expr) {
         appendExpression(expr);
     }
 
     @Override
-    public void visit(DayOfWeekRange expr) {
+    public void visit(TemporalExpressions.DayOfWeekRange expr) {
         appendExpression(expr);
     }
 
     @Override
-    public void visit(Difference expr) {
+    public void visit(TemporalExpressions.Difference expr) {
         appendIndent();
         this.sb.append("Difference [");
         this.sb.append(expr.getId());
@@ -119,17 +103,17 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
     }
 
     @Override
-    public void visit(Frequency expr) {
+    public void visit(TemporalExpressions.Frequency expr) {
         appendExpression(expr);
     }
 
     @Override
-    public void visit(HourRange expr) {
+    public void visit(TemporalExpressions.HourRange expr) {
         appendExpression(expr);
     }
 
     @Override
-    public void visit(Intersection expr) {
+    public void visit(TemporalExpressions.Intersection expr) {
         appendIndent();
         this.sb.append("Intersection [");
         this.sb.append(expr.getId());
@@ -142,22 +126,22 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
     }
 
     @Override
-    public void visit(MinuteRange expr) {
+    public void visit(TemporalExpressions.MinuteRange expr) {
         appendExpression(expr);
     }
 
     @Override
-    public void visit(MonthRange expr) {
+    public void visit(TemporalExpressions.MonthRange expr) {
         appendExpression(expr);
     }
 
     @Override
-    public void visit(Null expr) {
+    public void visit(TemporalExpressions.Null expr) {
         appendExpression(expr);
     }
 
     @Override
-    public void visit(Substitution expr) {
+    public void visit(TemporalExpressions.Substitution expr) {
         appendIndent();
         this.sb.append("Substitution [");
         this.sb.append(expr.getId());
@@ -182,12 +166,7 @@ public class TemporalExpressionPrinter implements TemporalExpressionVisitor {
     }
 
     @Override
-    public void visit(TimeOfDayRange expr) {
-        appendExpression(expr);
-    }
-
-    @Override
-    public void visit(Union expr) {
+    public void visit(TemporalExpressions.Union expr) {
         appendIndent();
         this.sb.append("Union [");
         this.sb.append(expr.getId());
