@@ -49,6 +49,7 @@ under the License.
     <eca service="updateShipment" event="commit" run-on-failure="false" run-on-error="false">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_SHIPPED"/>
+        <condition field-name="shipmentTypeId" operator="not-equals" value="PURCHASE_RETURN"/>
         <action service="sendGoogleShipRequest" mode="sync"/>
     </eca>
     
