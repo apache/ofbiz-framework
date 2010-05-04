@@ -290,12 +290,12 @@ public class ModelMenuItem {
                         localItem.name =  portalPage.getString("portalPageId");
                         localItem.setTitle((String) portalPage.get("portalPageName", locale));
                         localItem.link = new Link(this);
-                        Map<String, String> linkParams = localItem.link.getParameterMap(context);
-                        linkParams.put("portalPageId", portalPage.getString("portalPageId"));
-                        linkParams.put("parentPortalPageId", parentPortalPageId);
+                        List<WidgetWorker.Parameter> linkParams = localItem.link.getParameterList();
+                        linkParams.add(new WidgetWorker.Parameter("portalPageId", portalPage.getString("portalPageId"), false));
+                        linkParams.add(new WidgetWorker.Parameter("parentPortalPageId", parentPortalPageId, false));
                         if (link != null) {
                             localItem.link.setTarget(link.targetExdr.getOriginal());
-                            linkParams.putAll(link.getParameterMap(context));
+                            linkParams.addAll(link.parameterList);
                         } else {
                             localItem.link.setTarget("showPortalPage");
                         }
@@ -742,6 +742,9 @@ public class ModelMenuItem {
             return this.linkType;
         }
 
+        public List<WidgetWorker.Parameter> getParameterList() {
+            return this.parameterList;
+        }
         public Map<String, String> getParameterMap(Map<String, Object> context) {
             Map<String, String> fullParameterMap = FastMap.newInstance();
 
