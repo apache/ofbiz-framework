@@ -50,7 +50,7 @@ under the License.
             <if-not-empty field="emailTemplateSetting.fromAddress">
                 <set field="emailParams.sendFrom" from-field="emailTemplateSetting.fromAddress"/>
                 <else>
-                    <property-to-field resource="general" property="defaultFromEmailAddress" field="emailParams.sendFrom" default="ofbiztesting@gmail.com"/>                    
+                    <property-to-field resource="general" property="defaultFromEmailAddress" field="emailParams.sendFrom" default="ofbiztest@yahoo.com"/>                    
                 </else>
             </if-not-empty>
             <set field="emailParams.sendCc" from-field="emailTemplateSetting.ccAddress"/>

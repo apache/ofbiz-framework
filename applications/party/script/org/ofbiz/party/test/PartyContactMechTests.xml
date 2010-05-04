@@ -26,7 +26,7 @@ under the License.
         <set field="contactMechTypeId" value="EMAIL_ADDRESS"/>
         <!-- first try with just updating without changing the email address -->
         <set field="serviceCtx.partyId" from-field="partyId"/>
-        <set field="serviceCtx.emailAddress" value="ofbiztesting@gmail.com"/>
+        <set field="serviceCtx.emailAddress" value="ofbiztest@yahoo.com"/>
         <set field="serviceCtx.contactMechId" value="9026"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>

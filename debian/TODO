@@ -19,7 +19,7 @@
 * debian/copyright
 - Prompt for:
   - ofbiz admin password(s)
-  - default email(ofbiztesting@gmail.com)
+  - default email(ofbiztest@yahoo.com)
   - install of demo or just seed data
 * Auto-generate admin key/port
 * Move demo data into separate package?

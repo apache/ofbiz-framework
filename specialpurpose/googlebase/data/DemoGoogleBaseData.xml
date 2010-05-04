@@ -20,5 +20,5 @@ under the License.
 
 <entity-engine-xml>
     <WebSite webSiteId="GOOGLEBASE" standardContentPrefix="http://demo.ofbiz.org" productStoreId="9000" />
-    <GoogleBaseConfig productStoreId="9000" developerKey="HKLh9khgVieditoO0b4JR2fnBT2yXp_ZAY8_yft3CFXhHIE1NvwkxQ1pZ4qyVEGh_FtRe5KtJPTKDorNP" authenticationUrl="https://www.google.com/accounts/ClientLogin" accountEmail="ofbiztesting@gmail.com" accountPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" postItemsUrl="http://www.google.com/base/feeds/items/batch" webSiteId="GOOGLEBASE"/>       
+    <GoogleBaseConfig productStoreId="9000" developerKey="HKLh9khgVieditoO0b4JR2fnBT2yXp_ZAY8_yft3CFXhHIE1NvwkxQ1pZ4qyVEGh_FtRe5KtJPTKDorNP" authenticationUrl="https://www.google.com/accounts/ClientLogin" accountEmail="ofbiztest@yahoo.com" accountPassword="47ca69ebb4bdc9ae0adec130880165d2cc05db1a" postItemsUrl="http://www.google.com/base/feeds/items/batch" webSiteId="GOOGLEBASE"/>       
 </entity-engine-xml>
