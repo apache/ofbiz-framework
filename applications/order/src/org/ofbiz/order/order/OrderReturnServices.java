@@ -492,6 +492,7 @@ public class OrderReturnServices {
                     }
                     // items not issued/shipped are considered as returnable only if they are
                     // not physical items
+                    if ("SALES_ORDER".equals(orderHeader.getString("orderTypeId"))) {
                     BigDecimal quantityIssued = orderItemQuantityIssued.getBigDecimal("quantityIssued");
                     if (UtilValidate.isEmpty(quantityIssued) || quantityIssued.compareTo(BigDecimal.ZERO) == 0) {
                         try {
@@ -504,6 +505,7 @@ public class OrderReturnServices {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetTheItemReturnableProduct", locale));
                         }
 
+                    }
                     }
                     Map serviceResult = null;
                     try {
