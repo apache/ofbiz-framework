@@ -39,7 +39,7 @@ under the License.
   <br />
   <div class="label">${uiLabelMap.ProductEditProductWithProductId}:</div>
   <form method="post" action="<@ofbizUrl>EditProduct</@ofbizUrl>" style="margin: 0;" name="EditProductForm">
-    <@htmlTemplate.lookupField name="productId" id="productId" formName="EditProductForm" fieldFormName="LookupProduct" presentation="window"/>
+    <@htmlTemplate.lookupField name="productId" id="productId" formName="EditProductForm" fieldFormName="LookupProduct"/>
     <input type="submit" value=" ${uiLabelMap.ProductEditProduct}" class="smallSubmit"/>
   </form>
   <br />
