@@ -6676,6 +6676,9 @@
         <value xml:lang="zh">扣留的订单</value>
         <value xml:lang="zh_CN">未完成订单</value>
     </property>
+    <property key="OrderOrderShipEstimate">
+        <value xml:lang="en">Shipping estimate amount</value>
+    </property>
     <property key="OrderOrdersTotals">
         <value xml:lang="de">Aufträge Total</value>
         <value xml:lang="en">Orders Totals</value>

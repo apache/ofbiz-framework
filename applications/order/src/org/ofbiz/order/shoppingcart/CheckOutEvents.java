@@ -677,6 +677,7 @@ public class CheckOutEvents {
         Boolean offlinePayments;
         String shippingContactMechId = null;
         String shippingMethod = null;
+        BigDecimal shipEstimate = null; 
         String shippingInstructions = null;
         String maySplit = null;
         String giftMessage = null;
@@ -807,8 +808,15 @@ public class CheckOutEvents {
                     shipAfterDate = request.getParameter("sgi" + shipGroupIndex + "_shipAfterDate");
                     internalOrderNotes = request.getParameter("internal_order_notes");
                     shippingNotes = request.getParameter("shippingNotes");
-
-                    callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, internalOrderNotes, shippingNotes);
+                    if (request.getParameter(shipGroupIndex + "_ship_estimate") != null) {
+                        shipEstimate = new BigDecimal(request.getParameter(shipGroupIndex + "_ship_estimate"));
+                    }
+                    
+                    if (shipEstimate == null) {  // allow ship estimate to be set manually if a purchase order
+                        callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, internalOrderNotes, shippingNotes);
+                    } else {
+                        callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, internalOrderNotes, shippingNotes, shipEstimate);
+                    }
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
             }
