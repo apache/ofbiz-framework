@@ -165,7 +165,7 @@ under the License.
         <description>
             Create an invoice from a return
             returnId = The returnId to associate the invoice with
-            shipmentReceiptsToBill = List of ShipmentReceipts to use for creating the invoice
+            billItems = List of ShipmentReceipts (for sales return) or ItemIssuance (for purchase return) to use for creating the invoice
         </description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="billItems" type="List" mode="IN" optional="false"/>
