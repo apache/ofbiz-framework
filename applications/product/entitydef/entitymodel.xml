@@ -3392,6 +3392,7 @@ under the License.
       <field name="amount" type="fixed-point"></field>
       <field name="productId" type="id"></field>
       <field name="partyId" type="id"></field>
+      <field name="useCartQuantity" type="indicator"></field>
       <prim-key field="productPromoId"/>
       <prim-key field="productPromoRuleId"/>
       <prim-key field="productPromoActionSeqId"/>
