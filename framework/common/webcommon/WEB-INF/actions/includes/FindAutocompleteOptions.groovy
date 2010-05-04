@@ -31,7 +31,7 @@ entityName = context.entityName;
 searchFields = context.searchFields;
 displayFields = context.displayFields ?: searchFields;
 searchValueFieldName = parameters.searchValueField;
-fieldValue = parameters.get(searchValueFieldName);
+if (searchValueFieldName) fieldValue = parameters.get(searchValueFieldName);
 searchType = context.searchType;
 
 if (searchFields && fieldValue) {
