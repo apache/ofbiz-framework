@@ -1266,7 +1266,24 @@ public class ProductPromoWorker {
                 if (Debug.verboseOn()) Debug.logVerbose("Not adding promo item, already there; action: " + productPromoAction, module);
                 actionResultInfo.ranAction = false;
             } else {
-                BigDecimal quantity = productPromoAction.get("quantity") == null ? BigDecimal.ZERO : productPromoAction.getBigDecimal("quantity");
+                BigDecimal quantity;
+                if (productPromoAction.get("quantity") != null) {
+                    quantity = productPromoAction.getBigDecimal("quantity");
+                } else {
+                    if ("Y".equals(productPromoAction.get("useCartQuantity"))) {
+                        quantity = BigDecimal.ZERO;
+                        List used = getCartItemsUsed(cart, productPromoAction);
+                        Iterator usedIt = used.iterator();
+                        while (usedIt.hasNext()) {
+                            ShoppingCartItem item = (ShoppingCartItem) usedIt.next();
+                            BigDecimal available = item.getPromoQuantityAvailable();
+                            quantity = quantity.add(available).add(item.getPromoQuantityCandidateUseActionAndAllConds(productPromoAction));
+                            item.addPromoQuantityCandidateUse(available, productPromoAction, false);
+                        }
+                    } else {
+                        quantity = BigDecimal.ZERO;
+                    }
+                }
 
                 List optionProductIds = FastList.newInstance();
                 String productId = productPromoAction.getString("productId");

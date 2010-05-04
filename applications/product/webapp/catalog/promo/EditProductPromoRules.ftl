@@ -280,6 +280,18 @@ under the License.
                                         ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId" value="${(productPromoAction.productId)?if_exists}" />
                                         ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" value="${(productPromoAction.partyId)?if_exists}" />
                                         ${uiLabelMap.ServiceName}:&nbsp;<input type="text" size="20" name="serviceName" value="${(productPromoAction.serviceName)?if_exists}" />
+                                        ${uiLabelMap.UseCartQuantity}:&nbsp;
+                                        <select name="useCartQuantity">
+                                        <#if (productPromoAction.useCartQuantity)?exists>
+                                            <#assign productPromoActionCurEnum = productPromoAction.getRelatedOneCache("ActionEnumeration")>
+                                            <option value="${(productPromoAction.useCartQuantity)?if_exists}"><#if (productPromoAction.useCartQuantity.equal("Y"))>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if></option>
+                                            <option value="${(productPromoAction.useCartQuantity)?if_exists}">&nbsp;</option>
+                                        <#else>
+                                            <option value="">&nbsp;</option>
+                                        </#if>
+                                            <option value="N">${uiLabelMap.CommonN}</option>
+                                            <option value="Y">${uiLabelMap.CommonY}</option>
+                                        </select>
                                         <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                                     </form>
                                     </div>
@@ -394,6 +406,11 @@ under the License.
                                         ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId" />
                                         ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" />
                                         ${uiLabelMap.ServiceName}:&nbsp;<input type="text" size="20" name="serviceName" />
+                                        ${uiLabelMap.UseCartQuantity}:&nbsp;
+                                        <select name="useCartQuantity">
+                                            <option value="N">${uiLabelMap.CommonN}</option>
+                                            <option value="Y">${uiLabelMap.CommonY}</option>
+                                        </select>
                                         <input type="submit" value="${uiLabelMap.CommonCreate}" />
                                     </form>
                                     </div>
