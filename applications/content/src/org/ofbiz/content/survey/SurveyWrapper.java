@@ -242,7 +242,7 @@ public class SurveyWrapper {
     public GenericValue getSurvey() {
         GenericValue survey = null;
         try {
-            survey = delegator.findByPrimaryKey("Survey", UtilMisc.toMap("surveyId", surveyId));
+            survey = delegator.findByPrimaryKeyCache("Survey", UtilMisc.toMap("surveyId", surveyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get Survey : " + surveyId, module);
         }
@@ -290,7 +290,7 @@ public class SurveyWrapper {
         try {
             Map fields = UtilMisc.toMap("surveyId", surveyId);
             List order = UtilMisc.toList("sequenceNum", "surveyMultiRespColId");
-            questions = delegator.findByAnd("SurveyQuestionAndAppl", fields, order);
+            questions = delegator.findByAndCache("SurveyQuestionAndAppl", fields, order);
             if (questions != null) {
                 questions = EntityUtil.filterByDate(questions);
             }

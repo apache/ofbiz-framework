@@ -511,7 +511,7 @@ public class ProductStoreWorker {
                 } else if (surveyAppl.get("productCategoryId") != null) {
                     List<GenericValue> categoryMembers = null;
                     try {
-                        categoryMembers = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", surveyAppl.get("productCategoryId")));
+                        categoryMembers = delegator.findByAndCache("ProductCategoryMember", UtilMisc.toMap("productCategoryId", surveyAppl.get("productCategoryId")));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to get ProductCategoryMember records for survey application : " + surveyAppl, module);
                     }
