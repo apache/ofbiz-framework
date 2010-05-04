@@ -233,7 +233,7 @@ function confirmActionFormLink(msg, formName) {
   * @param targetParams The URL parameters
 */
 function ajaxUpdateArea(areaId, target, targetParams) {
-    new Ajax.Updater(areaId, target, {parameters: targetParams});
+    new Ajax.Updater(areaId, target, {parameters: targetParams, evalScripts: true});
 }
 
 /** Update multiple areas (HTML container elements).
