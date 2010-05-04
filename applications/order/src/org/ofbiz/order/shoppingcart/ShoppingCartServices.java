@@ -581,6 +581,15 @@ public class ShoppingCartServices {
             }
         }
 
+        if (includePromoItems) {
+            for (String productPromoCode: orh.getProductPromoCodesEntered()) {
+                cart.addProductPromoCode(productPromoCode, dispatcher);
+            }
+            for (GenericValue productPromoUse: orh.getProductPromoUse()) {
+                cart.addProductPromoUse(productPromoUse.getString("productPromoId"), productPromoUse.getString("productPromoCodeId"), productPromoUse.getBigDecimal("totalDiscountAmount"), productPromoUse.getBigDecimal("quantityLeftInActions"));
+            }
+        }
+
         List adjustments = orh.getOrderHeaderAdjustments();
         // If applyQuoteAdjustments is set to false then standard cart adjustments are used.
         if (!adjustments.isEmpty()) {

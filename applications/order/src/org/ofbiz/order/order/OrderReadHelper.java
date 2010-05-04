@@ -2198,6 +2198,29 @@ public class OrderReadHelper {
         return EntityUtil.filterByCondition(getOrderItems(), entityCondition);
     }
 
+    public Set<String> getProductPromoCodesEntered() {
+        Delegator delegator = orderHeader.getDelegator();
+        Set<String> productPromoCodesEntered = FastSet.newInstance();
+        try {
+            for (GenericValue orderProductPromoCode: delegator.findByAndCache("OrderProductPromoCode", UtilMisc.toMap("orderId", orderHeader.get("orderId")))) {
+                productPromoCodesEntered.add(orderProductPromoCode.getString("productPromoCodeId"));
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return productPromoCodesEntered;
+    }
+
+    public List<GenericValue> getProductPromoUse() {
+        Delegator delegator = orderHeader.getDelegator();
+        try {
+            return delegator.findByAndCache("ProductPromoUse", UtilMisc.toMap("orderId", orderHeader.get("orderId")));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return FastList.newInstance();
+    }
+
     /**
      * Checks to see if this user has read permission on this order
      * @param userLogin The UserLogin value object to check
