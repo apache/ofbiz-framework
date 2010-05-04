@@ -96,7 +96,7 @@ under the License.
                 <set field="userLoginExistsMap.userLoginId"  from-field="userLoginContext.userLoginId"/>
                 <find-by-primary-key entity-name="UserLogin" map="userLoginExistsMap" value-field="existingUserLogin"/>
                 <if-not-empty field="existingUserLogin">
-                    <set field="tempErrorMessage" value="${uiLabelMap.PartyUserNameInUse}"/>
+                    <property-to-field field="tempErrorMessage" property="PartyUserNameInUse" resource="PartyUiLabels"/>
                     <field-to-list field="tempErrorMessage" list="error_list"/>
                 </if-not-empty>
             </if-not-empty>
