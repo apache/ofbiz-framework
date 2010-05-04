@@ -78,7 +78,7 @@ under the License.
     <TelecomNumber contactMechId="9020" areaCode="801" contactNumber="555-5555"/>
     <PartyContactMech partyId="DemoCustCompany" contactMechId="9020" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9020" contactMechPurposeTypeId="PHONE_WORK" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="9021" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="9021" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="DemoCustCompany" contactMechId="9021" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9021" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -104,7 +104,7 @@ under the License.
     <TelecomNumber contactMechId="9022" areaCode="801" contactNumber="555-5555"/>
     <PartyContactMech partyId="DemoCustAgent" contactMechId="9022" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9022" contactMechPurposeTypeId="PHONE_WORK" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="9023" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="9023" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="DemoCustAgent" contactMechId="9023" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9023" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -139,7 +139,7 @@ under the License.
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9025" contactMechPurposeTypeId="PHONE_HOME" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9025" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9027" contactMechPurposeTypeId="PHONE_BILLING" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="9026" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="9026" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="DemoCustomer" contactMechId="9026" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9026" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -165,7 +165,7 @@ under the License.
     <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
-    <ContactMech contactMechId="EURO01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="EURO01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="EuroCustomer" contactMechId="EURO01" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EURO01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -191,7 +191,7 @@ under the License.
     <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
     <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
     <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2009-01-09 00:00:00.000"/>
-    <ContactMech contactMechId="FRA01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="FRA01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="FrenchCustomer" contactMechId="FRA01" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRA01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2009-01-09 00:00:00.000"/>
 

@@ -47,19 +47,19 @@ under the License.
     <PartyRole partyId="BLOG_EDITOR" roleTypeId="CONTENT_PUBLISHER"/>
     <PartyRole partyId="BLOG_EDITOR" roleTypeId="_NA_"/>
 
-    <ContactMech contactMechId="ADMIN_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="ADMIN_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="BLOG_ADMIN" contactMechId="ADMIN_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
     <PartyContactMechPurpose partyId="BLOG_ADMIN" contactMechId="ADMIN_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
 
-    <ContactMech contactMechId="AUTHOR_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="AUTHOR_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="BLOG_AUTHOR" contactMechId="AUTHOR_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
     <PartyContactMechPurpose partyId="BLOG_AUTHOR" contactMechId="AUTHOR_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
 
-    <ContactMech contactMechId="EDITOR_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="EDITOR_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="BLOG_EDITOR" contactMechId="EDITOR_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
     <PartyContactMechPurpose partyId="BLOG_EDITOR" contactMechId="EDITOR_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
 
-    <ContactMech contactMechId="GUEST_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="GUEST_CONTACT" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="BLOG_GUEST" contactMechId="GUEST_CONTACT" fromDate="2001-05-13 12:00:00.0"/>
     <PartyContactMechPurpose partyId="BLOG_GUEST" contactMechId="GUEST_CONTACT" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 12:00:00.0"/>
 </entity-engine-xml>

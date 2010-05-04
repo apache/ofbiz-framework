@@ -108,13 +108,13 @@ under the License.
 
  <xsl:template mode="data" match="
   ProductStoreEmailSetting[
-   @bccAddress='ofbiztesting@gmail.com' or
-   @fromAddress='ofbiztesting@gmail.com']|ContactList[
-   @verifyEmailFrom='ofbiztesting@gmail.com'
+   @bccAddress='ofbiztest@yahoo.com' or
+   @fromAddress='ofbiztest@yahoo.com']|ContactList[
+   @verifyEmailFrom='ofbiztest@yahoo.com'
   ]|ContactMech[
-   @infoString='ofbiztesting@gmail.com'
+   @infoString='ofbiztest@yahoo.com'
   ]|WorkflowDataField[
-   @initialValue='ofbiztesting@gmail.com'
+   @initialValue='ofbiztest@yahoo.com'
   ]|UserLogin[
    @currentPassword='47ca69ebb4bdc9ae0adec130880165d2cc05db1a'
   ]">
@@ -126,7 +126,7 @@ under the License.
  <xsl:template mode="match" match="ProductStoreEmailSetting/@bccAddress|ProductStoreEmailSetting/@fromAddress|ProductStoreEmailSetting/@verifyEmailFrom|ContactMech/@infoString|ContactList/@verifyEmailFrom|WorkflowDataField/@initialValue">
   <xsl:attribute name="{name()}">
    <xsl:choose>
-    <xsl:when test=". = 'ofbiztesting@gmail.com'"><xsl:value-of select="$fromemail"/></xsl:when>
+    <xsl:when test=". = 'ofbiztest@yahoo.com'"><xsl:value-of select="$fromemail"/></xsl:when>
     <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
    </xsl:choose>
   </xsl:attribute>

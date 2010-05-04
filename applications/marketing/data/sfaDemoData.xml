@@ -26,7 +26,7 @@
     <PartyRole partyId="sfa100" roleTypeId="ACCOUNT"/>
     <ContactMech contactMechId="sfa100" contactMechTypeId="POSTAL_ADDRESS"/>
     <ContactMech contactMechId="sfa101" contactMechTypeId="TELECOM_NUMBER"/>
-    <ContactMech contactMechId="sfa102" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztesting@gmail.com"/>
+    <ContactMech contactMechId="sfa102" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PostalAddress contactMechId="sfa100" address1="151 Madison street." city="Edison" postalCode="32451" lastUpdatedStamp="2008-05-23 11:57:40.936" lastUpdatedTxStamp="2008-05-23 11:57:39.476" createdStamp="2008-05-23 11:57:40.936" createdTxStamp="2008-05-23 11:57:39.476"/>
     <TelecomNumber contactMechId="sfa101" countryCode="1" areaCode="33" contactNumber="12456" lastUpdatedStamp="2008-05-23 11:57:41.179" lastUpdatedTxStamp="2008-05-23 11:57:39.476" createdStamp="2008-05-23 11:57:41.179" createdTxStamp="2008-05-23 11:57:39.476"/>
     <PartyContactMech partyId="sfa100" contactMechId="sfa100" fromDate="2000-01-01 00:00:00.000"/>
