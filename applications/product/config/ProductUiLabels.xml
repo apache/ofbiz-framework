@@ -3167,7 +3167,7 @@
         <value xml:lang="de">Produkt Laden ID</value>
         <value xml:lang="en">Product Store Id</value>
         <value xml:lang="es">Código de tienda</value>
-        <value xml:lang="fr">Réf. de centre de profit</value>
+        <value xml:lang="fr">Centre de profit</value>
         <value xml:lang="it">Negozio</value>
         <value xml:lang="nl">Produkt Winkel Id</value>
         <value xml:lang="ro">Magazin</value>
@@ -3766,6 +3766,7 @@
     </property>
     <property key="FormFieldTitle_shipBeforeDate">
         <value xml:lang="en">Ship Before Date</value>
+        <value xml:lang="fr">Expédier avant</value>
         <value xml:lang="it">Spedire prima della data</value>
         <value xml:lang="zh">装运不迟于</value>
     </property>
@@ -5035,7 +5036,7 @@
     </property>
     <property key="PageTitleEditFeatureInterAction">
         <value xml:lang="en">Edit Feature InterAction</value>
-        <value xml:lang="fr">Modifier l'interactions entre caractéristiques</value>
+        <value xml:lang="fr">Modifier l'interaction entre caractéristiques</value>
         <value xml:lang="it">Aggiorna interazione tra caratteristiche</value>
         <value xml:lang="zh">编辑特征交互</value>
     </property>
