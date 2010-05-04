@@ -65,7 +65,6 @@ under the License.
                     <h1><b>${uiLabelMap.OrderShipGroup} ${uiLabelMap.CommonNbr} ${currIndex}</b><#if supplier?has_content> - ${supplier.groupName?default(supplier.partyId)}</#if></h1>
                 </td>
               </tr>
-
                <#if cart.getOrderType() != "PURCHASE_ORDER">
                 <tr>
                   <td colspan="2">
@@ -109,7 +108,17 @@ under the License.
                 </tr>
                 </#if>
                <#else>
-                   <input type='hidden' name='${shipGroupIndex?default("0")}_shipping_method' value="NO_SHIPPING@_NA_" />
+                   <tr>
+                     <td>
+                       <h2>${uiLabelMap.OrderOrderShipEstimate}</h2>
+                     </td>
+                   </tr>
+                   <tr>
+                     <input type='hidden' name='${shipGroupIndex?default("0")}_shipping_method' value="STANDARD@_NA_" />
+                     <td>
+                       <input type='text' name='${shipGroupIndex?default("0")}_ship_estimate'/>
+                     </td>
+                   </tr>
                </#if>
                 <tr>
                   <td colspan='2'>
