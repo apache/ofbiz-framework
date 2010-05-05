@@ -50,6 +50,18 @@ import freemarker.template.TransformControl;
  * stuff to be used at the FM level. It can be used to add "function bars"
  * to pages.
  *
+ * Accepts the following arguments (all of which can alternatively be present in the template context):
+ * - List<Map<String, ? extends Object>> globalNodeTrail
+ * - String contentAssocPredicateId
+ * - String nullThruDatesOnly
+ * - String subDataResourceTypeId
+ * - String renderOnStart
+ * - String renderOnClose
+ * - String menuDefFile
+ * - String menuName
+ * - String menuWrapperClassName
+ * - String associatedContentId
+ *
  * This is an interactive FreeMarker transform that allows the user to modify the contents that are placed within it.
  */
 public class MenuWrapTransform implements TemplateTransformModel {
