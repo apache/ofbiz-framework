@@ -233,4 +233,11 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
     </service>
+
+    <service name="createPaymentFromOrder" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentFromOrder" auth="true">
+        <description>create Payment from Order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
+    </service>
 </services>
