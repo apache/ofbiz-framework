@@ -102,12 +102,12 @@ under the License.
         </actions>
         <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" position="1">
             <drop-down allow-empty="false">
-               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${lead.partyId}&quot;, false)} [${lead.partyId}]"/>
+               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;partyId&quot;, false)} ${lead.partyId}"/>
             </drop-down>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" position="2">
             <drop-down allow-empty="false">
-               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${lead.partyId}&quot;, false)} [${lead.partyId}]"/>
+               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;partyId&quot;, false)} ${lead.partyId}"/>
             </drop-down>
         </field>
         <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeLeads}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
