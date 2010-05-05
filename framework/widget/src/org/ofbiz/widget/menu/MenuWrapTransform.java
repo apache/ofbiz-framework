@@ -46,9 +46,11 @@ import freemarker.template.TransformControl;
 
 //import com.clarkware.profiler.Profiler;
 /**
- * MenuWrapTransform - Freemarker Transform for URLs (links)
+ * MenuWrapTransform -  a FreeMarker transform that allow the ModelMenu
+ * stuff to be used at the FM level. It can be used to add "function bars"
+ * to pages.
  *
- * This is an interactive FreeMarker tranform that allows the user to modify the contents that are placed within it.
+ * This is an interactive FreeMarker transform that allows the user to modify the contents that are placed within it.
  */
 public class MenuWrapTransform implements TemplateTransformModel {
 
