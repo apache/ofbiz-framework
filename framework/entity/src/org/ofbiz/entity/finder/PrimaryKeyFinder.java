@@ -79,6 +79,10 @@ public class PrimaryKeyFinder extends Finder {
         boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
 
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
+        if (modelEntity == null) {
+            throw new IllegalArgumentException("No entity definition found for entity name [" + entityName + "]");
+        }
+        
         GenericValue valueOut = runFind(modelEntity, context, delegator, useCacheBool, autoFieldMapBool, this.fieldMap, this.selectFieldExpanderList);
 
         //Debug.logInfo("PrimaryKeyFinder: valueOut=" + valueOut, module);
