@@ -113,7 +113,6 @@
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.26-tomcat-coyote.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.26-tomcat-dbcp.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.26-tomcat-juli.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-tomcat-juli-adapters.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.3-20091113-r835956.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/ofbiz-minerva.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-2.1.1.jar"/>
