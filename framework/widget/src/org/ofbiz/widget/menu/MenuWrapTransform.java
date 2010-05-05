@@ -60,22 +60,25 @@ public class MenuWrapTransform implements TemplateTransformModel {
 
     @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
-        Map<String, Object> checkedArgs = UtilGenerics.checkMap(args);
-        final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
-        final Map<String, Object> templateCtx = UtilGenerics.checkMap(FreeMarkerWorker.getWrappedObject("context", env));
         final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
         final HttpSession session = (HttpSession) FreeMarkerWorker.getWrappedObject("session", env);
+
+        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
+        final Map<String, Object> templateCtx = UtilGenerics.checkMap(FreeMarkerWorker.getWrappedObject("context", env));
+
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
+
         final Map<String, Object> savedValuesUp = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateCtx, upSaveKeyNames, savedValuesUp);
+
+        Map<String, Object> checkedArgs = UtilGenerics.checkMap(args);
         FreeMarkerWorker.overrideWithArgs(templateCtx, checkedArgs);
         //final String menuDefFile = (String)templateCtx.get("menuDefFile");
         //final String menuName = (String)templateCtx.get("menuName");
         //final String associatedContentId = (String)templateCtx.get("associatedContentId");
-        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
         List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
@@ -125,6 +128,8 @@ public class MenuWrapTransform implements TemplateTransformModel {
         templateCtx.put("subDataResourceTypeId", subDataResourceTypeId);
         final Map<String, Object> savedValues = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
+
+        final StringBuilder buf = new StringBuilder();
 
         return new LoopWriter(out) {
 
