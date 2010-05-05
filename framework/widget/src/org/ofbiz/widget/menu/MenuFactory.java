@@ -83,13 +83,13 @@ public class MenuFactory {
         return modelMenu;
     }
 
-    public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, Delegator delegator, LocalDispatcher dispatcher, String menuLocation) {
+    public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, String menuLocation) {
         Map<String, ModelMenu> modelMenuMap = new HashMap<String, ModelMenu>();
         if (menuFileDoc != null) {
             // read document and construct ModelMenu for each menu element
             Element rootElement = menuFileDoc.getDocumentElement();
             for (Element menuElement: UtilXml.childElementList(rootElement, "menu")){
-                ModelMenu modelMenu = new ModelMenu(menuElement, delegator, dispatcher);
+                ModelMenu modelMenu = new ModelMenu(menuElement);
                 modelMenu.setMenuLocation(menuLocation);
                 modelMenuMap.put(modelMenu.getName(), modelMenu);
             }
@@ -97,8 +97,12 @@ public class MenuFactory {
         return modelMenuMap;
     }
 
-    public static ModelMenu getMenuFromLocation(String resourceName, String menuName, Delegator delegator, LocalDispatcher dispatcher)
-            throws IOException, SAXException, ParserConfigurationException {
+    @Deprecated
+    public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, Delegator delegator, LocalDispatcher dispatcher, String menuLocation) {
+        return readMenuDocument(menuFileDoc, menuLocation);
+    }
+
+    public static ModelMenu getMenuFromLocation(String resourceName, String menuName) throws IOException, SAXException, ParserConfigurationException {
         Map<String, ModelMenu> modelMenuMap = menuLocationCache.get(resourceName);
         if (modelMenuMap == null) {
             synchronized (MenuFactory.class) {
@@ -112,7 +116,7 @@ public class MenuFactory {
                     URL menuFileUrl = null;
                     menuFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
                     Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true);
-                    modelMenuMap = readMenuDocument(menuFileDoc, delegator, dispatcher, resourceName);
+                    modelMenuMap = readMenuDocument(menuFileDoc, resourceName);
                     menuLocationCache.put(resourceName, modelMenuMap);
                 }
             }
@@ -127,6 +131,12 @@ public class MenuFactory {
             throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in location [" + resourceName + "]");
         }
         return modelMenu;
+    }
+
+    @Deprecated
+    public static ModelMenu getMenuFromLocation(String resourceName, String menuName, Delegator delegator, LocalDispatcher dispatcher)
+            throws IOException, SAXException, ParserConfigurationException {
+        return getMenuFromLocation(resourceName, menuName);
     }
 
 }

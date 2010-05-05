@@ -46,9 +46,6 @@ public class ModelMenu extends ModelWidget {
 
     public static final String module = ModelMenu.class.getName();
 
-    protected Delegator delegator;
-    protected LocalDispatcher dispatcher;
-
     protected String menuLocation;
     protected String type;
     protected String target;
@@ -102,10 +99,8 @@ public class ModelMenu extends ModelWidget {
     public ModelMenu() {}
 
     /** XML Constructor */
-    public ModelMenu(Element menuElement, Delegator delegator, LocalDispatcher dispatcher) {
+    public ModelMenu(Element menuElement) {
         super(menuElement);
-        this.delegator = delegator;
-        this.dispatcher = dispatcher;
 
         // check if there is a parent menu to inherit from
         String parentResource = menuElement.getAttribute("extends-resource");
@@ -115,7 +110,7 @@ public class ModelMenu extends ModelWidget {
             // check if we have a resource name (part of the string before the ?)
             if (UtilValidate.isNotEmpty(parentResource)) {
                 try {
-                    parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu, delegator, dispatcher);
+                    parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu);
                 } catch (Exception e) {
                     Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource + "'", module);
                 }
@@ -127,7 +122,7 @@ public class ModelMenu extends ModelWidget {
                 //menuElements.addAll(UtilXml.childElementList(rootElement, "abstract-menu"));
                 for (Element menuElementEntry : menuElements) {
                     if (menuElementEntry.getAttribute("name").equals(parentMenu)) {
-                        parent = new ModelMenu(menuElementEntry, delegator, dispatcher);
+                        parent = new ModelMenu(menuElementEntry);
                         break;
                     }
                 }
@@ -250,6 +245,11 @@ public class ModelMenu extends ModelWidget {
             modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
         }
     }
+
+    @Deprecated
+    public ModelMenu(Element menuElement, Delegator delegator, LocalDispatcher dispatcher) {
+        this(menuElement);
+    }
     /**
      * add/override modelMenuItem using the menuItemList and menuItemMap
      *
@@ -357,13 +357,20 @@ public class ModelMenu extends ModelWidget {
         menuStringRenderer.renderMenuClose(writer, context, this);
     }
 
-
+    /**
+     * @deprecated Use getDispatcher(Map<String, Object>) instead, this method will throw an {@link UnsupportedOperationException} if used
+     */
+    @Deprecated
     public LocalDispatcher getDispacher() {
-        return this.dispatcher;
+        throw new UnsupportedOperationException("This method is no longer supported, use getDispatcher(Map<String, Object>) instead.");
     }
 
+    /**
+     * @deprecated Use getDelegator(Map<String, Object>) instead, this method will throw an {@link UnsupportedOperationException} if used
+     */
+    @Deprecated
     public Delegator getDelegator() {
-        return this.delegator;
+        throw new UnsupportedOperationException("This method is no longer supported, use getDelegator(Map<String, Object>) instead.");
     }
 
     public String getDefaultEntityName() {
