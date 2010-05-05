@@ -54,19 +54,16 @@ public class MenuFactory {
         String webappName = UtilHttp.getApplicationName(request);
         String cacheKey = webappName + "::" + resourceName;
 
-
         Map<String, ModelMenu> modelMenuMap = menuWebappCache.get(cacheKey);
         if (modelMenuMap == null) {
             synchronized (MenuFactory.class) {
                 modelMenuMap = menuWebappCache.get(cacheKey);
                 if (modelMenuMap == null) {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
-                    Delegator delegator = (Delegator) request.getAttribute("delegator");
-                    LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
                     URL menuFileUrl = servletContext.getResource(resourceName);
                     Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true);
-                    modelMenuMap = readMenuDocument(menuFileDoc, delegator, dispatcher, cacheKey);
+                    modelMenuMap = readMenuDocument(menuFileDoc, cacheKey);
                     menuWebappCache.put(cacheKey, modelMenuMap);
                 }
             }
@@ -76,7 +73,7 @@ public class MenuFactory {
             throw new IllegalArgumentException("Could not find menu file in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }
 
-        ModelMenu modelMenu = (ModelMenu) modelMenuMap.get(menuName);
+        ModelMenu modelMenu = modelMenuMap.get(menuName);
         if (modelMenu == null) {
             throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }
@@ -126,7 +123,7 @@ public class MenuFactory {
             throw new IllegalArgumentException("Could not find menu file in location [" + resourceName + "]");
         }
 
-        ModelMenu modelMenu = (ModelMenu) modelMenuMap.get(menuName);
+        ModelMenu modelMenu = modelMenuMap.get(menuName);
         if (modelMenu == null) {
             throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in location [" + resourceName + "]");
         }
