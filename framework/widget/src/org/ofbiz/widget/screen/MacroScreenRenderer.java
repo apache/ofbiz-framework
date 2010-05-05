@@ -94,9 +94,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             templateReader.close();
             environment.include(template);
         } catch (TemplateException e) {
-            Debug.logError(e, "Error rendering screen thru ftl", module);
+            Debug.logError(e, "Error rendering screen macro [" + macro + "] thru ftl", module);
         } catch (IOException e) {
-            Debug.logError(e, "Error rendering screen thru ftl", module);
+            Debug.logError(e, "Error rendering screen macro [" + macro + "] thru ftl", module);
         }
     }
 
