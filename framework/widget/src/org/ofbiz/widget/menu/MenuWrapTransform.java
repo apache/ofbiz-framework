@@ -56,21 +56,6 @@ public class MenuWrapTransform implements TemplateTransformModel {
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
 
-    /**
-     * A wrapper for the FreeMarkerWorker version.
-     */
-    public static Object getWrappedObject(String varName, Environment env) {
-        return FreeMarkerWorker.getWrappedObject(varName, env);
-    }
-
-    public static String getArg(Map<String, Object> args, String key, Environment env) {
-        return FreeMarkerWorker.getArg(args, key, env);
-    }
-
-    public static String getArg(Map<String, Object> args, String key, Map<String, Object> ctx) {
-        return FreeMarkerWorker.getArg(args, key, ctx);
-    }
-
     @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         Map<String, Object> checkedArgs = UtilGenerics.checkMap(args);
