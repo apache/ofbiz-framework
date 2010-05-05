@@ -1342,7 +1342,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             String location = this.getLocation(context);
             ModelMenu modelMenu = null;
             try {
-                modelMenu = MenuFactory.getMenuFromLocation(location, name, this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
+                modelMenu = MenuFactory.getMenuFromLocation(location, name);
             } catch (Exception e) {
                 String errMsg = "Error rendering included menu named [" + name + "] at location [" + location + "]: ";
                 Debug.logError(e, errMsg, module);

@@ -148,7 +148,7 @@ public class ModelMenuItem {
             String subMenuLocation = subMenuElement.getAttribute("location");
             String subMenuName = subMenuElement.getAttribute("name");
             try {
-                this.subMenu = MenuFactory.getMenuFromLocation(subMenuLocation, subMenuName, modelMenu.getDelegator(), modelMenu.getDispacher());
+                this.subMenu = MenuFactory.getMenuFromLocation(subMenuLocation, subMenuName);
             } catch (IOException e) {
                 String errMsg = "Error getting subMenu in menu named [" + this.modelMenu.getName() + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -406,7 +406,7 @@ public class ModelMenuItem {
         List<GenericValue> portalPages = null;
         String parentPortalPageId = this.getParentPortalPageId(context);
         if (UtilValidate.isNotEmpty(parentPortalPageId)) {
-            Delegator delegator = modelMenu.getDelegator();
+            Delegator delegator = modelMenu.getDelegator(context);
             try {
                 // first get public pages
                 EntityCondition cond =

@@ -404,7 +404,7 @@ public abstract class ModelMenuAction {
             try {
                 Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
-                    serviceContext = this.modelMenu.getDispacher().getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
+                    serviceContext = this.modelMenu.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                 } else {
                     serviceContext = FastMap.newInstance();
                 }
@@ -417,7 +417,7 @@ public abstract class ModelMenuAction {
                     }
                 }
 
-                Map<String, Object> result = this.modelMenu.getDispacher().runSync(serviceNameExpanded, serviceContext);
+                Map<String, Object> result = this.modelMenu.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
 
                 if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
@@ -443,7 +443,7 @@ public abstract class ModelMenuAction {
         @Override
         public void runAction(Map<String, Object> context) {
             try {
-                finder.runFind(context, this.modelMenu.getDelegator());
+                finder.runFind(context, this.modelMenu.getDelegator(context));
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -463,7 +463,7 @@ public abstract class ModelMenuAction {
         @Override
         public void runAction(Map<String, Object> context) {
             try {
-                finder.runFind(context, this.modelMenu.getDelegator());
+                finder.runFind(context, this.modelMenu.getDelegator(context));
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -483,7 +483,7 @@ public abstract class ModelMenuAction {
         @Override
         public void runAction(Map<String, Object> context) {
             try {
-                finder.runFind(context, this.modelMenu.getDelegator());
+                finder.runFind(context, this.modelMenu.getDelegator(context));
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
                 Debug.logError(e, errMsg, module);

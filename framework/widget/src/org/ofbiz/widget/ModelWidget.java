@@ -24,6 +24,8 @@ import org.w3c.dom.Element;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.service.LocalDispatcher;
 
 /**
  * Widget Library - Widget model class. ModelWidget is a base class that is
@@ -140,5 +142,16 @@ public class ModelWidget implements Serializable {
             }
         }
     }
+
+    public LocalDispatcher getDispatcher(Map<String, Object> context) {
+        LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
+        return dispatcher;
+    }
+
+    public Delegator getDelegator(Map<String, Object> context) {
+        Delegator delegator = (Delegator) context.get("delegator");
+        return delegator;
+    }
+
 
 }
