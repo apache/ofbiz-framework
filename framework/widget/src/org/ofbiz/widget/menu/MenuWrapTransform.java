@@ -182,13 +182,15 @@ public class MenuWrapTransform implements TemplateTransformModel {
                 String menuName = (String)templateCtx.get("menuName");
                 String menuWrapperClassName = (String)templateCtx.get("menuWrapperClassName");
                 HtmlMenuWrapper menuWrapper = HtmlMenuWrapper.getMenuWrapper(request, response, session, menuDefFile, menuName, menuWrapperClassName);
-                String associatedContentId = (String)templateCtx.get("associatedContentId");
-                menuWrapper.putInContext("defaultAssociatedContentId", associatedContentId);
-                menuWrapper.putInContext("currentValue", view);
 
                 if (menuWrapper == null) {
                     throw new IOException("HtmlMenuWrapper with def file:" + menuDefFile + " menuName:" + menuName + " and HtmlMenuWrapper class:" + menuWrapperClassName + " could not be instantiated.");
                 }
+
+                String associatedContentId = (String)templateCtx.get("associatedContentId");
+                menuWrapper.putInContext("defaultAssociatedContentId", associatedContentId);
+                menuWrapper.putInContext("currentValue", view);
+
                 String menuStr = menuWrapper.renderMenuString();
                 out.write(menuStr);
             }
