@@ -51,6 +51,10 @@ public class UtilHelpText {
         String entityResourceName = entity.getDefaultResourceName();
         String messageId = "FieldDescription." + entityName + "." + fieldName;
         String fieldDescription = UtilProperties.getMessage(entityResourceName, messageId, locale);
+        if (fieldDescription.equals(messageId) && Debug.infoOn()) {
+            Debug.logInfo("No help text found in [" + entityResourceName + "] with key [" + messageId + "]", module);
+            return "";
+        }
         return fieldDescription;
     }
 }
