@@ -93,6 +93,12 @@ under the License.
         <action service="resetGrandTotal" mode="sync"/>
         <action service="sendOrderCompleteNotification" mode="async" persist="true"/>
     </eca>
+    <eca service="changeOrderStatus" event="commit" run-on-error="false">
+        <condition field-name="orderTypeId" operator="equals" value="PURCHASE_ORDER"/>
+        <condition field-name="statusId" operator="equals" value="ORDER_APPROVED"/>
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action service="createPaymentFromOrder" mode="sync" persist="true"/>
+    </eca>
 
     <!-- DISABLED FOR NOW
     <eca service="changeOrderStatus" event="commit" run-on-error="false">
