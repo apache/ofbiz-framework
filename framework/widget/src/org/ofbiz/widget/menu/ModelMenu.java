@@ -258,7 +258,7 @@ public class ModelMenu extends ModelWidget {
     public ModelMenuItem addUpdateMenuItem(ModelMenuItem modelMenuItem) {
 
             // not a conditional item, see if a named item exists in Map
-            ModelMenuItem existingMenuItem = (ModelMenuItem) this.menuItemMap.get(modelMenuItem.getName());
+            ModelMenuItem existingMenuItem = this.menuItemMap.get(modelMenuItem.getName());
             if (existingMenuItem != null) {
                 // does exist, update the item by doing a merge/override
                 existingMenuItem.mergeOverrideModelMenuItem(modelMenuItem);
@@ -272,7 +272,7 @@ public class ModelMenu extends ModelWidget {
     }
 
     public ModelMenuItem getModelMenuItemByName(String name) {
-            ModelMenuItem existingMenuItem = (ModelMenuItem) this.menuItemMap.get(name);
+            ModelMenuItem existingMenuItem = this.menuItemMap.get(name);
             return existingMenuItem;
     }
 
