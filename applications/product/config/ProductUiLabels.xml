@@ -7722,12 +7722,12 @@
         <value xml:lang="zh">把会员关联到分类(输入会员标识、选择类型，然后输入可选的开始日期)</value>
     </property>
     <property key="ProductAssociatePartyToProduct">
-        <value xml:lang="de">Akteur zu Produkt zuordnen (Akteur ID eingeben, Typ wählen und optional Von Datum eingeben)</value>
-        <value xml:lang="en">Associate Party to Product (enter Party ID, select Type, then enter optional From Date)</value>
-        <value xml:lang="fr">Associer l'acteur à l'article (entrer une réf. acteur, sélectionner le type, en option : une date de départ)</value>
-        <value xml:lang="it">Associare Soggetto al Prodotto (inserire Codice Soggetto, seleziona Tipo, allora inserire opzionalmente Da Data)</value>
-        <value xml:lang="th">เชื่อมโยงกลุ่มไปยังสินค้า (กรอกรหัสรหัสกลุ่มผู้ใช้ , เลือกประเภท , หลังจากนั้นเลือกจากวันที่)</value>
-        <value xml:lang="zh">把会员关联到产品(输入会员标识、选择类型，然后输入可选的开始日期)</value>
+        <value xml:lang="de">Akteur zu Produkt zuordnen</value>
+        <value xml:lang="en">Associate Party to Product</value>
+        <value xml:lang="fr">Associer l'acteur à l'article</value>
+        <value xml:lang="it">Associare Soggetto al Prodotto</value>
+        <value xml:lang="th">เชื่อมโยงกลุ่มไปยังสินค้า</value>
+        <value xml:lang="zh">把会员关联到产品</value>
     </property>
     <property key="ProductAssociationNotFound">
         <value xml:lang="de">Zuordnung nicht gefunden: Produkt ID=${productId?if_exists}, Produkt ID Zu=${productIdTo?if_exists}, Zuordnungstyp ID=${productAssocTypeId?if_exists}, Von Datum=${fromDate?if_exists}</value>
