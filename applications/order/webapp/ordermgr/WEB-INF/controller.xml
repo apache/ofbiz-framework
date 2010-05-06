@@ -85,6 +85,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="SendConfirmationMail"/>
     </request-map>
+    <request-map uri="completionmailedit">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SendCompletionMail"/>
+    </request-map>
     <request-map uri="sendconfirmationmail">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="sendMail"/>
@@ -1893,6 +1897,7 @@ under the License.
     <view-map name="OrderPickSheetPDF" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#PrintPickSheets.fo" content-type="application/pdf" encoding="none"/>
 
     <view-map name="SendConfirmationMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderConfirmation"/>
+    <view-map name="SendCompletionMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderCompletion"/>
     <view-map name="ReturnHistory" type="screen" page="component://order/widget/ordermgr/OrderReturnScreens.xml#OrderReturnHistory"/>
     <!-- end of view mappings -->
 </site-conf>

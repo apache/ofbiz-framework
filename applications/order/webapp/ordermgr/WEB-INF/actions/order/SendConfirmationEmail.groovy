@@ -37,7 +37,7 @@ context.donePage = donePage;
 // Provide the correct order confirmation ProductStoreEmailSetting, if one exists
 orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
 if (orderHeader.productStoreId) {
-    productStoreEmailSetting = delegator.findByPrimaryKeyCache("ProductStoreEmailSetting", [productStoreId : orderHeader.productStoreId, emailType : "PRDS_ODR_CONFIRM"]);
+    productStoreEmailSetting = delegator.findByPrimaryKeyCache("ProductStoreEmailSetting", [productStoreId : orderHeader.productStoreId, emailType : emailType]);
     if (productStoreEmailSetting) {
         context.productStoreEmailSetting = productStoreEmailSetting;
     }
