@@ -333,6 +333,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderSendConfirmationEmail"/>
                 <set field="headerItem" value="findorders"/>
+                <set field="emailType" value="PRDS_ODR_CONFIRM"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/SendConfirmationEmail.groovy"/>
             </actions>
             <widgets>
@@ -340,6 +341,25 @@ under the License.
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://order/webapp/ordermgr/order/sendconfirmationemail.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SendOrderCompletion">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderSendConfirmationEmail"/>
+                <set field="headerItem" value="findorders"/>
+                <set field="emailType" value="PRDS_ODR_COMPLETE"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/SendConfirmationEmail.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderViewDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://csstore/webapp/csstore/order/sendconfirmationemail.ftl"/></html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
