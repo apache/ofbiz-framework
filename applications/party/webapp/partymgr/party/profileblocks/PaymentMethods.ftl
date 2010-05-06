@@ -52,7 +52,7 @@ under the License.
           <#list paymentMethodValueMaps as paymentMethodValueMap>
             <#assign paymentMethod = paymentMethodValueMap.paymentMethod/>
             <tr>
-              <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
+              <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId && paymentMethodValueMap.creditCard?has_content>
                 <#assign creditCard = paymentMethodValueMap.creditCard/>
                 <td class="label">
                   ${uiLabelMap.AccountingCreditCard}
