@@ -1171,10 +1171,6 @@ under the License.
                     <order-by field-name="roleTypeId"/>
                     <order-by field-name="partyId"/>
                 </entity-condition>
-
-                <entity-condition entity-name="RoleType" list="roleTypes">
-                    <order-by field-name="description"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1183,6 +1179,9 @@ under the License.
                             <platform-specific>
                                 <html><html-template location="component://product/webapp/catalog/product/EditProductParties.ftl"/></html>
                             </platform-specific>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductAssociatePartyToProduct}">
+                            <include-form name="AddProductRole" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

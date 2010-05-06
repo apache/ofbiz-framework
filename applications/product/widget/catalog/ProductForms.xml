@@ -2008,4 +2008,20 @@ under the License.
     <form name="EditCommEvent" extends="EditCommEvent" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml">
         <field name="productId" map-name="parameters"><hidden/></field>
     </form>
+
+    <form name="AddProductRole" type="single" target="addPartyToProduct" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="addPartyToProduct"/>
+        <field name="productId"><hidden/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>        
+        <field name="roleTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
  </forms>

@@ -22,6 +22,8 @@ under the License.
     <tr class="header-row">
       <td>${uiLabelMap.PartyPartyId}</td>
       <td>${uiLabelMap.PartyRole}</td>
+      <td>${uiLabelMap.CommonSequenceNum}</td>
+      <td>${uiLabelMap.CommonComments}</td>
       <td>${uiLabelMap.CommonFromDateTime}</td>
       <td>${uiLabelMap.CommonThruDateTime}</td>
       <td>&nbsp;</td>
@@ -34,6 +36,8 @@ under the License.
       <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
         <td><a href="/partymgr/control/viewprofile?partyId=${(productRole.partyId)?if_exists}" target="_blank" class="buttontext">${(productRole.partyId)?if_exists}</a></td>
         <td>${(curRoleType.get("description",locale))?if_exists}</td>
+        <td>${productRole.sequenceNum?if_exists}</td>
+        <td>${productRole.comments?if_exists}</td>
         <#assign hasntStarted = false>
         <#if (productRole.getTimestamp("fromDate"))?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().before(productRole.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
         <td<#if hasntStarted> class="alert"</#if>>${(productRole.fromDate)?if_exists}</td>
@@ -50,6 +54,7 @@ under the License.
             <input type="submit" value="${uiLabelMap.CommonUpdate}" />
           </form>
         </td>
+
         <td align="center">
           <form action="<@ofbizUrl>removePartyFromProduct</@ofbizUrl>" method="post">
              <input type="hidden" name="partyId" value="${(productRole.partyId)?if_exists}" />
@@ -68,21 +73,4 @@ under the License.
       </#if>
     </#list>
   </table>
-  <br />
-  <h2>${uiLabelMap.ProductAssociatePartyToProduct}:</h2>
-  <br />
-  <form method="post" action="<@ofbizUrl>addPartyToProduct</@ofbizUrl>" name="addNewForm">
-    <input type="hidden" name="productId" value="${productId}" />
-    <#-- TODO: Add PartyId lookup screen
-    <@htmlTemplate.lookupField formName="addNewForm" name="partyId" id="partyId" fieldFormName="LookupCustomerName"/>
-    -->
-    <select name="roleTypeId" size="1">
-    <#list roleTypes as roleType>
-        <option value="${(roleType.roleTypeId)?if_exists}" <#if roleType.roleTypeId.equals("_NA_")> selected="selected"</#if>>${(roleType.get("description",locale))?if_exists}</option>
-    </#list>
-    </select>
-    <input type="text" size="25" name="fromDate" />
-    <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
-    <input type="submit" value="${uiLabelMap.CommonAdd}" />
-  </form>
 </#if>
