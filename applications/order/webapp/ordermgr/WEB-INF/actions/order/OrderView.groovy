@@ -309,11 +309,13 @@ if (orderHeader) {
         context.returnHeaderTypeId = "CUSTOMER_RETURN";
         // also set the product store facility Id for sales orders
         productStore = orderHeader.getRelatedOne("ProductStore");
-        context.storeFacilityId = productStore.inventoryFacilityId;
-        if (productStore.reqReturnInventoryReceive) {
-            context.needsInventoryReceive = productStore.reqReturnInventoryReceive;
-        } else {
-            context.needsInventoryReceive = "Y";
+        if (productStore) {
+            context.storeFacilityId = productStore.inventoryFacilityId;
+            if (productStore.reqReturnInventoryReceive) {
+                context.needsInventoryReceive = productStore.reqReturnInventoryReceive;
+            } else {
+                context.needsInventoryReceive = "Y";
+            }
         }
     } else {
         context.returnHeaderTypeId = "VENDOR_RETURN";
