@@ -303,13 +303,28 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
     public void addExtendEntity(ModelReader reader, Element extendEntityElement) {
         for (Element fieldElement: UtilXml.childElementList(extendEntityElement, "field")) {
-            // TODO: should we look for existing fields of the same name here? for now just add to list...
             ModelField field = reader.createModelField(fieldElement);
             if (field != null) {
-                field.setModelEntity(this);
-                this.fields.add(field);
-                // this will always be true for now as extend-entity fielsd are always nonpks
-                if (!field.isPk) this.nopks.add(field);
+                ModelField existingField = this.getField(field.getName());
+                if (existingField != null) {
+                    // override the existing field's attributes
+                    // TODO: only overrides of type, colName and description are currently supported
+                    if (UtilValidate.isNotEmpty(field.getType())) {
+                        existingField.setType(field.getType());
+                    }
+                    if (UtilValidate.isNotEmpty(field.getColName())) {
+                        existingField.setColName(field.getColName());
+                    }
+                    if (UtilValidate.isNotEmpty(field.getDescription())) {
+                        existingField.setDescription(field.getDescription());
+                    }
+                } else {
+                    // add to the entity as a new field
+                    field.setModelEntity(this);
+                    this.fields.add(field);
+                    // this will always be true for now as extend-entity fielsd are always nonpks
+                    if (!field.isPk) this.nopks.add(field);
+                }
             }
         }
         
