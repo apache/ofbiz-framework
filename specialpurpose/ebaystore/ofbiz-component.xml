@@ -33,7 +33,6 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/EbayStoreHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/EbayStorePortletData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoEbayStoreData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/EbayStoreScheduledJobs.xml"/>
 
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
