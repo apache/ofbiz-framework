@@ -393,11 +393,9 @@ function initCartProcessObservers() {
             Event.observe(e, 'change', cartItemQtyChanged);
         }
     });
-    var removeLinks = cartForm.getElementsByTagName('a');
-    var links = $A(removeLinks);
+    var links = $$('form#cartForm a');
     links.each( function(e) {
-        var removeLink = e.id;
-        if (removeLink.startsWith('removeItemLink_')) {
+        if ((e.id).startsWith('removeItemLink_')) {
             Event.observe(e, 'click', removeItem);
         }
     });
