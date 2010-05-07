@@ -554,9 +554,51 @@ function hideLookup() {
     obj.closeLookup();
 }
 
+//global expand/col button var
+var COLLAPSE = 1999;
+function getNextCollapseSeq() {
+	COLLAPSE++;
+	return COLLAPSE;
+}
+
+//modify epande/ collapse button
+function modifyCollapseable(lookupDiv){
+	if (!lookupDiv) {
+		return;
+	}
+	
+    var slTitleBars = lookupDiv.getElementsByClassName('screenlet-title-bar');
+    for (i in slTitleBars) {
+    	var slTitleBar = slTitleBars[i];
+    	
+    	var ul = slTitleBar.firstChild;
+
+    	if ((typeof ul) != 'object') {
+    		continue;
+    	}
+
+    	var childElements = ul.childNodes;
+    	for (j in childElements) {
+    		if (childElements[j].className == 'expanded' ||childElements[j].className == 'collapsed') {
+    			break;
+    		}
+    	}
+    	
+    	getNextCollapseSeq();
+    	var childEle = childElements[j].firstChild;
+    	childEle.onclick = function () {
+    		toggleScreenlet(childEle, 'lec' + COLLAPSE, 'true', 'Expand', 'Collapse');
+    	};
+    	slTitleBar.next('div').setAttribute('id', 'lec' + COLLAPSE);
+    	
+    } 
+}
+
 function modifySubmitButton (lookupDiv) {
 	/* changes form/submit behavior for Lookup Layer */
     if (lookupDiv) {
+        modifyCollapseable(lookupDiv);
+    	
         //find the lookup form
         var forms = lookupDiv.getElementsByTagName('form');
         var lookupForm = null;
