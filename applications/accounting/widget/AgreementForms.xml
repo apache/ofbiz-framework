@@ -242,7 +242,9 @@ under the License.
         <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><hidden/></field>
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="TermType" description="${description}"/>
+                <entity-options entity-name="TermType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
