@@ -1500,6 +1500,9 @@ under the License.
       <relation type="one" fk-name="PROD_FEAT_TYPE" rel-entity-name="ProductFeatureType">
         <key-map field-name="productFeatureTypeId"/>
       </relation>
+      <relation rel-entity-name="Uom" type="one">
+          <key-map field-name="uomId"/>
+      </relation>
     </entity>
     <view-entity entity-name="ProductFeatureAndAppl"
             package-name="org.ofbiz.product.feature"
