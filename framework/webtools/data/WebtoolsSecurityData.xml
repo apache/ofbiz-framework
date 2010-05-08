@@ -58,6 +58,11 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PERIOD_MAINT"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="PERIOD_MAINT"/>
 
+    <!-- PortalPage Maintenance security -->
+    <SecurityPermission description="All Portal Page Maintenance pages." permissionId="PORTALPAGE_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PORTALPAGE_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PORTALPAGE_MAINT"/>
+
     <!-- Enum & Status Maintenance security -->
     <SecurityPermission description="Use the Enum and Status Maintenance pages." permissionId="ENUM_STATUS_MAINT"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENUM_STATUS_MAINT"/>

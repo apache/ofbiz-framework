@@ -304,6 +304,10 @@
         <value xml:lang="th">ค้นหางาน</value>
         <value xml:lang="zh">查找任务</value>
     </property>
+    <property key="PageTitleFindPortalPage">
+        <value xml:lang="en">Find Portal page</value>
+        <value xml:lang="fr">Rech. page portail</value>
+    </property>
     <property key="PageTitleFindUtilCache">
         <value xml:lang="de">Cache Wartungsseite</value>
         <value xml:lang="en">Cache Maintenance Page</value>
@@ -463,6 +467,10 @@
         <value xml:lang="ro">Administreaza</value>
         <value xml:lang="th">ผู้ดูแลระบบ</value>
         <value xml:lang="zh">管理</value>
+    </property>
+    <property key="WebtoolsAdminPortalPage">
+        <value xml:lang="en">Portal page Admin.</value>
+        <value xml:lang="fr">Admin. Page portail</value>
     </property>
     <property key="WebtoolsAll">
         <value xml:lang="de">Alle</value>

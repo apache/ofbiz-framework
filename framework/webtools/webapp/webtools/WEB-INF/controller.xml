@@ -519,6 +519,101 @@ under the License.
         <response name="success" type="view" value="findTemporalExpression"/>
     </request-map>
 
+    <!-- PortalPage administration  -->
+    <request-map uri="FindPortalPage">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindPortalPage"/>
+    </request-map>
+    <request-map uri="EditPortalPage">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="ManagePortalPagesAdm">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="DuplicatePortalPage">
+        <security https="true" auth="true"/>
+        <event  type="simple" invoke="duplicatePortalPage" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="NewPortalPage">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreatePortalPage"/>
+    </request-map>
+    <request-map uri="createPortalPageAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPortalPage"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="CreatePortalPage"/>
+    </request-map>
+    <request-map uri="updatePortalPageAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortalPage"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+
+    <!-- PortalPage detail administration, copy from portal-controller with response target change to EditPortalPage-->
+    <request-map uri="addPortalPageColumnAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addPortalPageColumn"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="deletePortalPageColumnAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePortalPageColumn"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="AddPortletAdm">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AddPortletAdm"/>
+    </request-map>
+    <request-map uri="updatePortalPageColumnAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortalPageColumn"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="movePortletToPortalPageAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="movePortletToPortalPage"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="deletePortalPagePortletAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePortalPagePortlet"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="updatePortalPagePortletSeqAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortalPagePortletSeq"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="updatePortalPagePortletAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortalPagePortlet"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="createPortalPagePortletAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPortalPagePortlet"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="setPortalPortletAttributesAdm">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="setPortalPortletAttributes" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -605,6 +700,12 @@ under the License.
     <!-- Temporal expression views -->
     <view-map name="editTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#EditTemporalExpression"/>
     <view-map name="findTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#FindTemporalExpression"/>
+
+    <!-- PortalPage administration  -->
+    <view-map name="FindPortalPage" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#FindPortalPage"/>
+    <view-map name="CreatePortalPage" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#CreatePortalPage"/>
+    <view-map name="EditPortalPage" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#EditPortalPage"/>
+    <view-map name="AddPortletAdm" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#AddPortletAdm"/>
 
     <!-- end of view mappings -->
 </site-conf>

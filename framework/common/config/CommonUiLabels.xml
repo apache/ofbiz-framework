@@ -261,6 +261,10 @@
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">添加新的</value>
     </property>
+    <property key="CommonAddPortletToPage">
+        <value xml:lang="en">Add a portlet to portal page</value>
+        <value xml:lang="fr">Ajouter une portlet à la page</value>
+    </property>
     <property key="CommonAddProblem">
         <value xml:lang="ar">مشكل أثناء الإضافة</value>
         <value xml:lang="de">Problem hinzufügen</value>

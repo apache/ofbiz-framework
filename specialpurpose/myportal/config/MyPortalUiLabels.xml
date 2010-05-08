@@ -39,14 +39,6 @@
         <value xml:lang="en">Seq.</value>
         <value xml:lang="fr">Seq.</value>
     </property>
-    <property key="MyPortalAddPortletToPage">
-        <value xml:lang="en">Add a portlet to portal page</value>
-        <value xml:lang="fr">Ajouter une portlet à la page</value>
-    </property>
-    <property key="MyPropalAdminPortalPage">
-        <value xml:lang="en">Portal page Admin.</value>
-        <value xml:lang="fr">Admin. Page portail</value>
-    </property>
     <property key="MyPortalAppBar">
         <value xml:lang="en">My Page App Bar</value>
         <value xml:lang="fr">Menu des applications</value>

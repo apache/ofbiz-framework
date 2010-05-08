@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+
+    <!-- list all PortalPage in a tabular format -->
+    <screen name="FindPortalPage">
+        <section>
+            <actions>
+                <set field="headerItem" value="portalAdmin"/>
+                <set field="titleProperty" value="PageTitleFindPortalPage"/>
+                <set field="inputFields" from-field="parameters"/>
+                <set field="inputFields.portalPageId" from-field="parameters.portalPageIdSearch"/>
+                <set field="inputFields.portalPageId_op" from-field="parameters.portalPageIdSearch_op"/>
+                <set field="inputFields.portalPageId_ic" from-field="parameters.portalPageIdSearch_ic"/>
+                <set field="inputFields.parentPortalPageId" from-field="parameters.parentPortalPageIdSearch"/>
+                <set field="inputFields.parentPortalPageId_op" from-field="parameters.parentPortalPageIdSearch_op"/>
+                <set field="inputFields.parentPortalPageId_ic" from-field="parameters.parentPortalPageIdSearch_ic"/>
+                <service service-name="performFind" result-map="result" >
+                   <field-map field-name="entityName" value="PortalPage"/>
+                   <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                </service>
+                <set field="pagesList" from-field="result.listIt"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="PORTALPAGE" action="_MAINT"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindPortalPages" location="component://webtools/widget/PortalAdmForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListPortalPages" location="component://webtools/widget/PortalAdmForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.PortalPageViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CreatePortalPage">
+      <section>
+        <actions>
+          <set field="targetPortalPage" value="createPortalPageAdm"/>
+        </actions>
+        <widgets>
+          <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+             <decorator-section name="body">
+               <section>
+                <actions>
+                  <set field="portalPage.portalPageId" value=""/>
+                  <set field="editPortalPageId" value="Y"/>
+                </actions>
+                <widgets><include-form name="EditPortalPage" location="component://webtools/widget/PortalAdmForms.xml"/></widgets>
+               </section>
+             </decorator-section>
+           </decorator-screen>
+        </widgets>
+      </section>
+    </screen>
+
+    <screen name="EditPortalPage">
+        <section>
+            <actions>
+                <set field="headerItem" value="PortalPageAdminItem"/>
+                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                <set field="Adm" value="Adm"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="no-clear">
+                            <section>
+                                <condition>
+                                   <not><if-empty field="portalPage"/></not>
+                                </condition>
+                                <actions><set field="targetPortalPage" value="updatePortalPageAdm"/></actions>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.CommonPortalEditPage}" navigation-menu-name="PortalPageAdmin">
+                                        <include-menu name="PortalPageAdmin" location="component://webtools/widget/Menus.xml"/>
+                                        <include-form name="EditPortalPage" location="component://webtools/widget/PortalAdmForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                            <section>
+                                <condition>
+                                    <and>
+                                        <not><if-empty field="portalPage"/></not>
+                                        <not><if-empty field="parameters.editAttributes"/></not>
+                                    </and>
+                                </condition>
+                                <actions>
+                                    <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
+                                    <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+                                    <entity-one entity-name="PortalPortlet" value-field="portalPortlet"/>
+                                </actions>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}">
+                                        <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                            <section>
+                                <condition>
+                                    <not><if-empty field="portalPage"/></not>
+                                </condition>
+                                <actions>
+                                    <set field="portalPages[]" from-field="portalPage"/>
+                                    <entity-condition entity-name="PortalPageColumn" list="portalPageColumnList">
+                                        <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
+                                        <order-by field-name="columnSeqId"/>
+                                    </entity-condition>
+                                    <entity-condition entity-name="PortalPagePortletView" list="portalPagePortletViewList">
+                                        <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
+                                        <order-by field-name="+columnSeqId"/>
+                                        <order-by field-name="+sequenceNum"/>
+                                    </entity-condition>
+                                </actions>
+                                <widgets>
+                                    <container id="portalContainerId">
+                                        <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
+                                            <link target="addPortalPageColumnAdm" style="buttontext" text="${uiLabelMap.CommonAddColumn}">
+                                                <parameter param-name="portalPageId" from-field="portalPage.portalPageId"/>
+                                            </link>
+                                            <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
+                                        </screenlet>
+                                    </container>
+                                </widgets>
+                            </section>
+                       </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="AddPortletAdm">
+        <section>
+            <actions>
+                <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+                <set field="portalPageId" from-field="parameters.portalPageId"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPortlets.groovy"/>
+                <entity-one value-field="portalPage" entity-name="PortalPage" use-cache="true"/>
+                <set field="Adm" value="Adm"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonAddPortletToPage}: ${portalPage.portalPageName} [${portalPageId}]">
+                            <include-form name="PortletCategoryAndPortlet" location="component://common/widget/PortalPageForms.xml"/>
+                        </screenlet>
+                        <platform-specific><html><html-template location="component://common/webcommon/portal/listPortalPortlets.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>
