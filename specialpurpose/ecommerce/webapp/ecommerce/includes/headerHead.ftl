@@ -20,10 +20,10 @@ under the License.
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title><#if title?has_content>${title}<#elseif titleProperty?has_content>${uiLabelMap.get(titleProperty)}</#if>: ${(productStore.storeName)?if_exists}</title>
-  <#if layoutSettings.shortcutIcon?has_content>
-    <#assign shortcutIcon = layoutSettings.shortcutIcon/>
-  <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
+  <#if layoutSettings.VT_SHORTCUT_ICON?has_content>
     <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
+  <#elseif layoutSettings.shortcutIcon?has_content>
+    <#assign shortcutIcon = layoutSettings.shortcutIcon/>
   </#if>
   <#if shortcutIcon?has_content>
     <link rel="shortcut icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" />
