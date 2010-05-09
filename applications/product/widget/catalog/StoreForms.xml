@@ -99,4 +99,58 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+
+    <!-- ProductStoreFacility forms -->
+    <form name="ListProductStoreFacility" type="list" list-name="listIt" target=""
+            default-table-style="basic-table hover-bar" odd-row-style="alternate-row">
+        <actions>
+            <entity-and entity-name="ProductStoreFacility">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <order-by field-name="sequenceNum"/>
+                <order-by field-name="fromDate"/>
+            </entity-and>
+        </actions>
+        
+        <field name="submitButton" title=" " >
+            <hyperlink target="javascript:ajaxUpdateArea('ProductStoreFacilityEditArea', 'editProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');" 
+                target-type="plain" image-location="/images/mini-edit.png" image-title="${uiLabelMap.CommonEdit}"/>
+        </field>
+        <field name="productStoreId"><hidden /></field>
+        <field name="facilityId">
+            <display-entity entity-name="Facility"  description="${facilityName}">
+                <sub-hyperlink link-style="link" description="[${facilityId}]"  target="EditFacility">
+                    <parameter param-name="facilityId"/>
+                </sub-hyperlink>
+            </display-entity>    
+        </field>
+        <field name="sequenceNum" ><display /></field>
+        <field name="fromDate" ><display type="date-time" /></field>
+        <field name="thruDate" ><display type="date-time" /></field>
+        <field name="deleteLink" title=" " >
+            <hyperlink target="javascript:ajaxUpdateArea('PrdStoreFacilityMgmtArea', 'deleteProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');"
+               target-type="plain" request-confirmation="true" image-location="/images/mini-trash.png" image-title="${uiLabelMap.CommonRemove}">
+            </hyperlink>
+        </field>
+     </form>
+
+     <form name="EditProductStoreFacility" type="single" focus-field-name="facilityId"
+               target="addProductStoreFacility" title="" default-map-name="productStoreFacility" >
+        <alt-target target="updateProductStoreFacility" use-when="productStoreFacility != null"/>
+
+        <field name="productStoreId"><hidden /></field>
+        <field name="facilityId" use-when="productStoreFacility != null"><display/></field>
+        <field name="facilityId" use-when="productStoreFacility == null">
+            <drop-down allow-empty="false">
+                <entity-options description="${facilityName} [${facilityId}]" entity-name="Facility"/>
+            </drop-down>
+        </field>
+        <field name="sequenceNum" ><text size="3"/></field>
+        <field name="fromDate"   use-when="productStoreFacility != null"><display type="date-time"/></field>
+        <field name="fromDate"   use-when="productStoreFacility == null"><date-time type="date" input-method="time-dropdown"/></field>
+        <field name="thruDate"><date-time type="date" input-method="time-dropdown"/></field>
+        <field name="submitButton" title="${groovy: productStoreFacility == null ? uiLabelMap.CommonAdd : uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <on-event-update-area event-type="submit" area-id="PrdStoreFacilityMgmt_refresh" area-target="refreshPortlet?portalPortletId=PrdStoreFacilityMgmt&amp;productStoreId=${parameters.productStoreId}"/>
+     </form>
 </forms>

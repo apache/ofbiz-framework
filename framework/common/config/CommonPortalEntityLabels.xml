@@ -31,4 +31,17 @@
         <value xml:lang="en">My Time Sheet</value>
         <value xml:lang="fr">Mes feuilles de temps</value>
     </property>
+    <property key="PortalPage.portalPageName.ProductStoreFacility">
+        <value xml:lang="de">Lager</value>
+        <value xml:lang="en">Facility</value>
+        <value xml:lang="es">Almacén</value>
+        <value xml:lang="fr">Lieu de stockage</value>
+        <value xml:lang="it">Stabilimento </value>
+        <value xml:lang="nl">Faciliteit</value>
+        <value xml:lang="ro">Compartiment </value>
+        <value xml:lang="ru">Оборудование</value>
+        <value xml:lang="th">คลังสินค้า</value>
+        <value xml:lang="zh">场所</value>
+        <value xml:lang="zh_CN">仓储设施</value>
+    </property>
 </resource>

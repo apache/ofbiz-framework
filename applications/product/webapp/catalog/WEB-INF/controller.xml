@@ -21,6 +21,7 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Catalog Module Site Configuration File</description>
     <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
@@ -2296,6 +2297,32 @@ under the License.
         <response name="error" type="view" value="EditProductStoreVendorShipments"/>
     </request-map>
 
+    <!-- ================ ProductStore Facility Requests =========== -->
+    <request-map uri="ProductStoreFacilities"><security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductStoreFacilities"/>
+    </request-map>
+    <request-map uri="editProductStoreFacility"><security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductStoreFacility"/>
+    </request-map>
+    <request-map uri="addProductStoreFacility">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProductStoreFacility"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    <request-map uri="updateProductStoreFacility">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductStoreFacility"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    <request-map uri="deleteProductStoreFacility">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteProductStoreFacility"/>
+        <response name="success" type="view" value="ListProductStoreFacility"/>
+        <response name="error" type="view" value="ListProductStoreFacility"/>
+    </request-map>
+
     <!-- ================ Keyword Thesaurus Requests ================= -->
     <request-map uri="editKeywordThesaurus">
         <security https="true" auth="true"/>
@@ -2811,6 +2838,9 @@ under the License.
     <view-map name="EditProductStoreFinAccountSettings" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFinAccountSettings"/>
     <view-map name="EditProductStoreVendorPayments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorPayments"/>
     <view-map name="EditProductStoreVendorShipments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorShipments"/>
+    <view-map name="ProductStoreFacilities" page="component://product/widget/catalog/StoreScreens.xml#ProductStoreFacilities" type="screen"/>
+    <view-map name="ListProductStoreFacility" page="component://product/widget/catalog/StoreScreens.xml#ListProductStoreFacility" type="screen"/>
+    <view-map name="EditProductStoreFacility" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFacility" type="screen"/>
     <view-map name="EditVendorProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditVendorProduct"/>
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
 
