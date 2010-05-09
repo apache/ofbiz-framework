@@ -290,7 +290,7 @@ under the License.
         <!-- Standard Lookup in a layer (new style)-->
         <!-- passes the name in one and the id in another field, the layer is centered -->
         <field name="partyName" title="${uiLabelMap.CommonName}">
-            <lookup target-form-name="LookupPartyExampleByName" description-field-name="partyIdTo" presentation="layer"/>
+            <lookup target-form-name="LookupPartyExampleByName" description-field-name="partyIdTo"/>
         </field>
         <!-- This field may be hidden and the name rendered in partyName using default-value if partyIdTo exists-->
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><text/></field><!-- the text field is only used for rendering  -->
