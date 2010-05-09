@@ -19642,6 +19642,10 @@
         <value xml:lang="th">คลังสินค้า</value>
         <value xml:lang="zh">店铺</value>
     </property>
+    <property key="ProductStoreFacilityAssocList">
+        <value xml:lang="en">Product Store Facility Settings</value>
+        <value xml:lang="fr">Paramétrage des lieux de stockage du centre de profit</value>
+    </property>
     <property key="ProductStoreFinAccountSettings">
         <value xml:lang="en">Product Store Financial Account Settings</value>
         <value xml:lang="fr">Paramétrage des comptes financiers du centre de profit</value>

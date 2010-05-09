@@ -27,4 +27,24 @@
         description="List of best selling products of the day"/>
     <PortletPortletCategory portalPortletId="BestSellingProducts" portletCategoryId="PRODUCTS"/>
 
+    <PortletCategory portletCategoryId="PRODUCTSTORE" description="ProductStore Management"/>
+    <PortalPortlet portalPortletId="PrdStoreFacilityMgmt"
+        portletName="Facility associated to ProductStore management"
+        screenName="GenericScreenletAjaxWithMenu"
+        screenLocation="component://common/widget/PortalPageScreens.xml"
+        description="Facilities associated for one productStore list and management : associate a facility, edit associate data, remove association" 
+                securityServiceName="" securityMainAction="VIEW"/>
+      <PortletAttribute portalPortletId="PrdStoreFacilityMgmt" attrName="titleLabel"     attrValue="ProductStoreFacilityAssocList" portalPageId="_NA_" portletSeqId="00000"/>
+      <PortletAttribute portalPortletId="PrdStoreFacilityMgmt" attrName="divIdRefresh"   attrValue="PrdStoreFacilityMgmt_refresh" portalPageId="_NA_" portletSeqId="00000"/>
+      <PortletAttribute portalPortletId="PrdStoreFacilityMgmt" attrName="divIdArea"      attrValue="PrdStoreFacilityMgmtArea"     portalPageId="_NA_" portletSeqId="00000"/>
+      <PortletAttribute portalPortletId="PrdStoreFacilityMgmt" attrName="screenName"     attrValue="ListProductStoreFacility"         portalPageId="_NA_" portletSeqId="00000"/>
+      <PortletAttribute portalPortletId="PrdStoreFacilityMgmt" attrName="screenLocation" attrValue="component://product/widget/catalog/StoreScreens.xml" portalPageId="_NA_" portletSeqId="00000"/>
+      <PortletAttribute portalPortletId="PrdStoreFacilityMgmt" attrName="menuName"       attrValue="ProductStoreFacility"             portalPageId="_NA_" portletSeqId="00000"/>
+      <PortletAttribute portalPortletId="PrdStoreFacilityMgmt" attrName="menuLocation"   attrValue="component://product/widget/catalog/CatalogMenus.xml" portalPageId="_NA_" portletSeqId="00000"/>
+    <PortletPortletCategory portalPortletId="PrdStoreFacilityMgmt" portletCategoryId="PRODUCTSTORE"/>
+    <PortalPage portalPageId="ProductStoreFacility" sequenceNum="100" portalPageName="ProductStore Facility Management"
+                description="The page to manage productStoreFacility data" ownerUserLoginId="_NA_" />
+      <PortalPageColumn portalPageId="ProductStoreFacility" columnSeqId="00001"/>
+        <PortalPagePortlet portalPageId="ProductStoreFacility" portalPortletId="PrdStoreFacilityMgmt" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+
 </entity-engine-xml>

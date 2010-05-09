@@ -290,4 +290,20 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!--ProductStoreFacility Services -->
+    <service name="createProductStoreFacility" default-entity-name="ProductStoreFacility" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductStoreFacility</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductStoreFacility" default-entity-name="ProductStoreFacility" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductStoreFacility</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductStoreFacility" default-entity-name="ProductStoreFacility" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductStoreFacility</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>

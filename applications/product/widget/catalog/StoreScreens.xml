@@ -568,4 +568,55 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <!--   Assoc with product -->
+    <screen name="ProductStoreFacilities">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductStoreFacilityAssocList"/>
+                <set field="headerItem" value="store"/>
+                <set field="tabButtonItem" value="EditProductStoreFacilities"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <set field="portalPageId" value="ProductStoreFacility"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                      <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListProductStoreFacility">
+      <section>
+        <widgets>
+          <decorator-screen name="uiLabelDecorator" location="${parameters.mainDecoratorLocation}">
+            <decorator-section name="body">
+              <container id="ProductStoreFacilityEditArea"/>
+              <include-form name="ListProductStoreFacility" location="component://product/widget/catalog/StoreForms.xml"/>
+            </decorator-section>
+          </decorator-screen>
+        </widgets>
+      </section>
+    </screen>
+    <screen name="EditProductStoreFacility">
+        <section>
+            <condition><if-has-permission permission="CATALOG" action="_ADMIN"/></condition>
+            <actions>
+                <entity-one entity-name="ProductStoreFacility" value-field="productStoreFacility"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="uiLabelDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                      <include-form name="EditProductStoreFacility" location="component://product/widget/catalog/StoreForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="h3">${uiLabelMap.ProductCatalogUpdatePermissionError}</label>
+           </fail-widgets>
+        </section>
+    </screen>
+
 </screens>
