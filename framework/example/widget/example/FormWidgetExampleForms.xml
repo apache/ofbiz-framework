@@ -284,7 +284,7 @@ under the License.
     <form name="ExampleLookupFields" type="single" title="">
         <!-- Lookup (in a popup windows, old style) -->
         <!-- Using separated labels is not recommended (it's better using sentences than words for translation) but here we use only Common labels to avoid dependencies from application to framework -->
-        <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
+        <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><!-- we use partyIdFrom here only to differentiate from the other partyId field we use below, ie partyIdTo-->
             <lookup target-form-name="LookupPartyExample" presentation="window"/>
         </field>
         <!-- Standard Lookup in a layer (new style)-->
@@ -293,7 +293,8 @@ under the License.
             <lookup target-form-name="LookupPartyExampleByName" description-field-name="partyIdTo"/>
         </field>
         <!-- This field may be hidden and the name rendered in partyName using default-value if partyIdTo exists-->
-        <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><text/></field><!-- the text field is only used for rendering  -->
+        <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><text/></field><!-- the text field is only used for rendering. In the "real life" you would use the hidden fiels commented below to pass the data to the request  -->
+        <!--field name="partyIdTo"><hidden/></field-->        
         <sort-order>
             <field-group>
                 <sort-field name="partyIdFrom"/>
