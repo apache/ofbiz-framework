@@ -288,7 +288,7 @@ under the License.
             <lookup target-form-name="LookupPartyExample" presentation="window"/>
         </field>
         <!-- Standard Lookup in a layer (new style)-->
-        <!-- passes the name in one and the id in another field, the layer is centered -->
+        <!-- passes the name in one and the id in another field -->
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <lookup target-form-name="LookupPartyExampleByName" description-field-name="partyIdTo"/>
         </field>
