@@ -447,8 +447,8 @@
         <value xml:lang="fr">Lookup de type layer (only test)</value>
     </property>
     <property key="ExampleLookupFields">
-        <value xml:lang="en">Examples Lookup Fields (first of type popup, second layered)</value>
-        <value xml:lang="fr">Exemples de champs de recherche (le premier de type popup, le second de type layer)</value>
+        <value xml:lang="en">Examples Lookup Fields (first of type popup using also autocomplete, second layered and showing use of set_values underneath, ie returning not only Id but also another value)</value>
+        <value xml:lang="fr">Exemples de champs de recherche (le premier de type popup utilisant aussi l'autocompletion, le second de type layer avec usage sous-jacent de set_values qui permet de traiter non seulement une référence mais aussi une autre valeur)</value>
     </property>
     <property key="ExampleMainPage">
         <value xml:lang="en">Example Main Page</value>
