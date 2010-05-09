@@ -285,7 +285,7 @@ under the License.
         <!-- Lookup (in a popup windows, old style) -->
         <!-- Using separated labels is not recommended (it's better using sentences than words for translation) but here we use only Common labels to avoid dependencies from application to framework -->
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><!-- we use partyIdFrom here only to differentiate from the other partyId field we use below, ie partyIdTo-->
-            <lookup target-form-name="LookupPartyExample" presentation="window"/>
+            <lookup target-form-name="LookupPartyExample" presentation="window" client-autocomplete-field="true"/>
         </field>
         <!-- Standard Lookup in a layer (new style)-->
         <!-- passes the name in one and the id in another field -->
