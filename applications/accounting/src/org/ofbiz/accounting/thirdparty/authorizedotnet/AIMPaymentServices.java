@@ -323,7 +323,7 @@ public class AIMPaymentServices {
             result.put("httpResponse", httpResponse);
             result.put("authorizeResponse", ar);
         } catch (HttpClientException e) {
-            Debug.logInfo("Could not complete Authorize.Net transaction: " + e.toString(),module);
+            Debug.logInfo(e, "Could not complete Authorize.Net transaction: " + e.toString(),module);
         }
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
