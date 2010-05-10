@@ -493,6 +493,9 @@ under the License.
             <set field="custRequest.fromPartyId" from-field="communicationEvent.partyIdFrom"/>
         </if-empty>
         <set field="custRequest.statusId" value="CRQ_ACCEPTED"/>
+        <if-empty field="custRequest.story">
+            <set field="custRequest.story" from-field="communicationEvent.content"/>
+        </if-empty>
         <call-service service-name="createCustRequest" in-map-name="custRequest">
             <result-to-field result-name="custRequestId" field="parameters.custRequestId"/>
         </call-service>
