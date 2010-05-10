@@ -241,6 +241,7 @@ under the License.
     <StatusValidChange condition="" statusId="CRQ_REVIEWED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
     <StatusValidChange condition="" statusId="CRQ_REVIEWED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
     <StatusValidChange condition="" statusId="CRQ_REVIEWED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
+    <StatusValidChange condition="" statusId="CRQ_COMPLETED" statusIdTo="CRQ_REVIEWED" transitionName="Re-open Request"/>
 
     <!-- Requirement statuses -->
     <StatusType description="Requirement Status" hasTable="N" parentTypeId="" statusTypeId="REQUIREMENT_STATUS"/>
