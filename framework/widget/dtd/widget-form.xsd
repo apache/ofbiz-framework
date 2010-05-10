@@ -780,7 +780,8 @@ under the License.
         <xs:attribute type="xs:positiveInteger" name="maxlength"/>
         <xs:attribute type="xs:string" name="default-value"/>
         <xs:attribute name="client-autocomplete-field" default="true">
-            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>    <xs:simpleType>
+            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>
+            <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
@@ -909,7 +910,8 @@ under the License.
             <xs:annotation><xs:documentation>The name of a field whose value is passed in as a parameter to the lookup target form. Can be a comma separated list.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute name="client-autocomplete-field" default="true">
-            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>    <xs:simpleType>
+            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>
+            <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
@@ -1011,7 +1013,7 @@ under the License.
         <xs:attribute type="xs:positiveInteger" name="maxlength"/>
         <xs:attribute type="xs:string" name="default-value"/>
         <xs:attribute name="client-autocomplete-field" default="true">
-            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>            
+            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1092,7 +1094,7 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="client-autocomplete-field" default="true">
-            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>            
+            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
@@ -1168,7 +1170,7 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="client-autocomplete-field" default="true">
-            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>            
+            <xs:annotation><xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
