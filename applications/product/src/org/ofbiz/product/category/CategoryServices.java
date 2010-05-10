@@ -153,7 +153,7 @@ public class CategoryServices {
 
     private static String getCategoryFindEntityName(Delegator delegator, List<String> orderByFields, Timestamp introductionDateLimit, Timestamp releaseDateLimit) {
         // allow orderByFields to contain fields from the Product entity, if there are such fields
-        String entityName = introductionDateLimit == null || releaseDateLimit != null ? "ProductCategoryMember" : "ProductAndCategoryMember";
+        String entityName = introductionDateLimit == null && releaseDateLimit == null ? "ProductCategoryMember" : "ProductAndCategoryMember";
         if (orderByFields == null) {
             return entityName;
         }
