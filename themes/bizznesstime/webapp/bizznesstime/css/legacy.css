@@ -497,7 +497,7 @@ height:16px;
 }
 
 .view-calendar a {
-background: url(/images/cal.gif) no-repeat;
+background: url(/images/cal.gif) no-repeat !important;
 display: inline-block;
 /* margin: 3px 10px 0px 4px; */
 vertical-align:top;
