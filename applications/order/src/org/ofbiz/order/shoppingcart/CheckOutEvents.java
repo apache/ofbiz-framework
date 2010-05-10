@@ -808,7 +808,7 @@ public class CheckOutEvents {
                     shipAfterDate = request.getParameter("sgi" + shipGroupIndex + "_shipAfterDate");
                     internalOrderNotes = request.getParameter("internal_order_notes");
                     shippingNotes = request.getParameter("shippingNotes");
-                    if (request.getParameter(shipGroupIndex + "_ship_estimate") != null) {
+                    if (UtilValidate.isNotEmpty(request.getParameter(shipGroupIndex + "_ship_estimate"))) {
                         shipEstimate = new BigDecimal(request.getParameter(shipGroupIndex + "_ship_estimate"));
                     }
                     
