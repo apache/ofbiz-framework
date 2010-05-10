@@ -46,7 +46,7 @@ under the License.
             <#else>
                 <tr>
                     <td colspan="${columnCount}">
-                        <h2>${uiLabelMap.WebtoolsNoRecordsFound} ${entityName}.</h2>
+                        <h2>${uiLabelMap.WebtoolsNoEntityRecordFound} ${entityName}.</h2>
                     </td>
                 </tr>
             </#if>

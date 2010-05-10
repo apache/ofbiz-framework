@@ -2256,7 +2256,7 @@
         <value xml:lang="th">ไม่ระบุค่าตัวแปร</value>
         <value xml:lang="zh">没有定义参数</value>
     </property>
-    <property key="WebtoolsNoRecordsFound">
+    <property key="WebtoolsNoEntityRecordsFound">
         <value xml:lang="de">Für die Entität wurden keine Datensätze gefunden</value>
         <value xml:lang="en">No Records found for Entity</value>
         <value xml:lang="fr">Aucun enregistrement trouvé pour l'entité</value>

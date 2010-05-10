@@ -2034,22 +2034,6 @@
         <value xml:lang="th">ไม่มีสินค้าในคลังสินค้า</value>
         <value xml:lang="zh">这个站点没有产品店铺；请检查设置。</value>
     </property>
-    <property key="EcommerceNoRecordsFound">
-        <value xml:lang="da">Der er ikke fundet nogen registreringer</value>
-        <value xml:lang="de">Keine Datensätze gefunden</value>
-        <value xml:lang="en">No Records Found</value>
-        <value xml:lang="es">No se encontraron registros</value>
-        <value xml:lang="fr">Aucun enregistrement trouvé</value>
-        <value xml:lang="hi_IN">कोई जानकारी नहीं</value>
-        <value xml:lang="it">Nessun record trovato</value>
-        <value xml:lang="ja">No records found</value>
-        <value xml:lang="nl">Geen records gevonden</value>
-        <value xml:lang="pt_BR">Nenhum registro encontrado</value>
-        <value xml:lang="ro">Nici-o inregistrare gasita</value>
-        <value xml:lang="ru">Записи не найдены</value>
-        <value xml:lang="th">ไม่มีบันทึกที่ค้นหา</value>
-        <value xml:lang="zh">没有找到记录</value>
-    </property>
     <property key="EcommerceNoShoppingListsCreate">
         <value xml:lang="cs">Nelze vybrat žádný nákupní seznam, založte nový</value>
         <value xml:lang="da">Ingen indkøbslister kan vælges, opret en ny</value>

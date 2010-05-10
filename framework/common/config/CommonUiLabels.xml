@@ -4634,10 +4634,20 @@
         <value xml:lang="zh_CN">无</value>
     </property>
     <property key="CommonNoRecordFound">
-        <value xml:lang="de">Kein Datensatz gefunden</value>
-        <value xml:lang="en">No Record Found.</value>
-        <value xml:lang="fr">Aucun résultat trouvé</value>
-        <value xml:lang="hi_IN">कोई रिकॉर्ड नहीं मिला</value>
+        <value xml:lang="da">Der er ikke fundet nogen registreringer</value>
+        <value xml:lang="de">Keine Datensätze gefunden</value>
+        <value xml:lang="en">No Records Found</value>
+        <value xml:lang="es">No se encontraron registros</value>
+        <value xml:lang="fr">Aucun enregistrement trouvé</value>
+        <value xml:lang="hi_IN">कोई जानकारी नहीं</value>
+        <value xml:lang="it">Nessun record trovato</value>
+        <value xml:lang="ja">No records found</value>
+        <value xml:lang="nl">Geen records gevonden</value>
+        <value xml:lang="pt_BR">Nenhum registro encontrado</value>
+        <value xml:lang="ro">Nici-o inregistrare gasita</value>
+        <value xml:lang="ru">Записи не найдены</value>
+        <value xml:lang="th">ไม่มีบันทึกที่ค้นหา</value>
+        <value xml:lang="zh">没有找到记录</value>
     </property>
     <property key="CommonNormal">
         <value xml:lang="en">Normal</value>
@@ -4663,6 +4673,12 @@
         <value xml:lang="th">ไม่</value>
         <value xml:lang="zh">不是</value>
         <value xml:lang="zh_CN">不是</value>
+    </property>
+    <property key="CommonNotAssigned">
+        <value xml:lang="de">Nicht zugewiesen</value>
+        <value xml:lang="en">Not Assigned</value>
+        <value xml:lang="fr">Non attribué</value>
+        <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
     </property>
     <property key="CommonNotAssigned">
         <value xml:lang="de">Nicht zugewiesen</value>

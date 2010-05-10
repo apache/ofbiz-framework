@@ -89,7 +89,7 @@ under the License.
 
 
 <#if sz == 0 >
-  <tr><td class="tabletext" align="center">${uiLabelMap.EcommerceNoRecordsFound}</td></tr>
+  <tr><td class="tabletext" align="center">${uiLabelMap.CommonNoRecordFound}</td></tr>
 </#if>
 <@wrapSubContentCache subContentId=contentIdx wrapTemplateId=stdWrapId contentPurposeList="ARTICLE">
 </@wrapSubContentCache>
