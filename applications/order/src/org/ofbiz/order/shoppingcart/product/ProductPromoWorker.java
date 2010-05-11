@@ -1063,7 +1063,7 @@ public class ProductPromoWorker {
                 // call the getOrderedSummaryInformation service to get the sub-total
                 int monthsToInclude = 12;
                 if (otherValue != null) {
-                    monthsToInclude = Integer.parseInt(condValue);
+                    monthsToInclude = Integer.parseInt(otherValue);
                 }
                 Map serviceIn = UtilMisc.toMap("partyId", partyId, "roleTypeId", "PLACING_CUSTOMER", "orderTypeId", "SALES_ORDER", "statusId", "ORDER_COMPLETED", "monthsToInclude", Integer.valueOf(monthsToInclude), "userLogin", userLogin);
                 try {
