@@ -8570,8 +8570,7 @@
         <value xml:lang="nl">Producten in deze categorie</value>    
         <value xml:lang="ro">Produse pentru aceasta categorie</value>
         <value xml:lang="ru">Продукты из категории</value>
-        <value xml:lang="th">สินค้าจากหมวดหมู่นี้
-        </value>
+        <value xml:lang="th">สินค้าจากหมวดหมู่นี้</value>
         <value xml:lang="zh">产品来自这个分类</value>
     </property>
     <property key="ProductCategoryPurchaseAllowPermReqd">
