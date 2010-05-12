@@ -31,4 +31,11 @@ under the License.
         <condition field-name="invoiceTypeId" operator="equals" value="COMMISSION_INVOICE"/>
         <action service="removeInvoiceItemAssocOnCancelInvoice" mode="sync"/>
     </eca>
+
+    <eca service="setInvoiceStatus" event="commit">
+        <condition operator="equals" field-name="statusId" value="INVOICE_APPROVED"/>
+        <condition operator="not-equals" field-name="oldStatusId" value="INVOICE_APPROVED"/>
+        <action service="createMatchingPaymentApplication" mode="sync"/>
+    </eca>
+
 </service-eca>

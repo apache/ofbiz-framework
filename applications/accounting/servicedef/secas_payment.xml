@@ -67,4 +67,17 @@ under the License.
          <condition field-name="statusId" operator="equals" value="FINACT_TRNS_CANCELED"/>
          <action service="setFinAccountTransStatus" mode="sync"/>
      </eca>
+
+    <eca service="setPaymentStatus" event="commit">
+        <condition operator="equals" field-name="statusId" value="PMNT_RECEIVED"/>
+        <condition operator="not-equals" field-name="oldStatusId" value="PMNT_RECEIVED"/>
+        <action service="createMatchingPaymentApplication" mode="sync"/>
+    </eca>
+
+    <eca service="setPaymentStatus" event="commit">
+        <condition operator="equals" field-name="statusId" value="PMNT_SENT"/>
+        <condition operator="not-equals" field-name="oldStatusId" value="PMNT_SENT"/>
+        <action service="createMatchingPaymentApplication" mode="sync"/>
+    </eca>
+
 </service-eca>
