@@ -7986,7 +7986,7 @@
         <value xml:lang="de">Annulliert</value>
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="es">Cancelado</value>
-        <value xml:lang="fr">Annulée</value>
+        <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelada</value>
         <value xml:lang="ro">Sters</value>
@@ -7998,7 +7998,7 @@
         <value xml:lang="de">Geschlossen</value>
         <value xml:lang="en">Closed</value>
         <value xml:lang="es">Cerrado</value>
-        <value xml:lang="fr">Fermé</value>
+        <value xml:lang="fr">Clos</value>
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="pt">Fechada</value>
         <value xml:lang="ro">Inchis</value>
@@ -8010,7 +8010,7 @@
         <value xml:lang="de">Abgeschlossen</value>
         <value xml:lang="en">Completed</value>
         <value xml:lang="es">Completado</value>
-        <value xml:lang="fr">Accompli</value>
+        <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="pt">Completa</value>
         <value xml:lang="ro">Completat</value>
@@ -8034,7 +8034,7 @@
         <value xml:lang="de">Bestätigt</value>
         <value xml:lang="en">Confirmed</value>
         <value xml:lang="es">Confirmado</value>
-        <value xml:lang="fr">Confirmée</value>
+        <value xml:lang="fr">Imprimé</value>
         <value xml:lang="it">Confermato</value>
         <value xml:lang="pt">Confirmada</value>
         <value xml:lang="ro">Confirmat</value>
@@ -8046,7 +8046,7 @@
         <value xml:lang="de">Läuft zurzeit</value>
         <value xml:lang="en">Running</value>
         <value xml:lang="es">En ejecución</value>
-        <value xml:lang="fr">En fonction</value>
+        <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="pt">Em Execução</value>
         <value xml:lang="ro">In Executie</value>
@@ -8056,7 +8056,7 @@
     </property>
     <property key="StatusItem.description.PRUN_SCHEDULED">
         <value xml:lang="en">Scheduled</value>
-        <value xml:lang="fr">Programmé</value>
+        <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">Schedulato</value>
         <value xml:lang="zh">已计划</value>
     </property>
@@ -8064,7 +8064,7 @@
         <value xml:lang="de">Annulliert</value>
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="es">Cancelado</value>
-        <value xml:lang="fr">Annulée</value>
+        <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="zh">已取消</value>
     </property>
