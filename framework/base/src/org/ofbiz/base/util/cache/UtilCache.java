@@ -699,7 +699,7 @@ public class UtilCache<K, V> implements Serializable {
     }
 
     public void setSizeLimit(int newSizeLimit) {
-        this.sizeLimit = sizeLimit;
+        this.sizeLimit = newSizeLimit;
     }
 
     public int getSizeLimit() {
