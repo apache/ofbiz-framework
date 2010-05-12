@@ -814,4 +814,79 @@ under the License.
         <call-service service-name="updatePayment" in-map-name="updatePayment"/>
         <field-to-result field="parameters.paymentId" result-name="paymentId"/>
     </simple-method>
+    
+    <simple-method method-name="createMatchingPaymentApplication" short-description="Create a payment application if either the invoice of payment could be found">
+        <if-not-empty field="parameters.invoiceId">
+            <entity-one value-field="invoice" entity-name="Invoice"/>
+            <if-not-empty field="invoice">
+                <call-class-method method-name="getInvoiceTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
+                    <field field="invoice" type="GenericValue"/>
+                </call-class-method>
+                <entity-condition list="payments" entity-name="Payment">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" value="PMNT_CONFIRMED" operator="not-equals"/>
+                        <condition-expr field-name="partyIdFrom" from-field="invoice.partyId" operator="equals"/>
+                        <condition-expr field-name="partyIdTo" from-field="invoice.partyIdFrom" operator="equals"/>
+                        <condition-expr field-name="amount" from-field="invoiceTotal" operator="equals"/>
+                    </condition-list>
+                    <order-by field-name="effectiveDate"/>
+                </entity-condition>
+                <if-not-empty field="payments">
+                    <!-- check if already applied -->
+                    <entity-and list="paymentAppls" entity-name="PaymentApplication">
+                        <field-map field-name="paymentId" from-field="payments[0].paymentId"/>
+                    </entity-and>
+                    <if-empty field="paymentAppls">
+                        <set field="createAppl.paymentId" from-field="payments[0].paymentId"/>
+                        <set field="createAppl.invoiceId" from-field="parameters.invoiceId"/>
+                        <set field="createAppl.amountApplied" from-field="invoiceTotal"/>
+                    </if-empty>
+                </if-not-empty>
+            </if-not-empty>
+        </if-not-empty>
+    
+        <if-not-empty field="parameters.paymentId">
+            <entity-one value-field="payment" entity-name="Payment"/>
+            <if-not-empty field="payment">
+                <entity-condition list="invoices" entity-name="Invoice">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" value="INVOICE_READY" operator="not-equals"/>
+                        <condition-expr field-name="statusId" value="INVOICE_PAID" operator="not-equals"/>
+                        <condition-expr field-name="statusId" value="INVOICE_CANCELLED" operator="not-equals"/>
+                        <condition-expr field-name="statusId" value="INVOICE_WRITEOFF" operator="not-equals"/>
+                        <condition-expr field-name="partyIdFrom" from-field="payment.partyIdTo"/>
+                        <condition-expr field-name="partyId" from-field="payment.partyIdFrom"/>
+                    </condition-list>
+                    <order-by field-name="invoiceDate"/>
+                </entity-condition>
+                <iterate entry="invoice" list="invoices">
+                    <call-class-method method-name="getInvoiceTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="invoiceTotal">
+                        <field field="invoice" type="GenericValue"/>
+                    </call-class-method>
+                    <if-compare-field operator="equals" field="invoiceTotal" to-field="payment.amount">
+                        <set field="invoiceId" from-field="invoice.invoiceId"/>
+                    </if-compare-field>                
+                </iterate>
+                <if-not-empty field="invoiceId">
+                    <entity-and list="paymentAppls" entity-name="PaymentApplication">
+                        <field-map field-name="invoiceId" from-field="invoiceId"/>
+                    </entity-and>
+                    <if-empty field="paymentAppls">
+                        <set field="createAppl.paymentId" from-field="parameters.paymentId"/>
+                        <set field="createAppl.invoiceId" from-field="invoiceId"/>
+                        <set field="createAppl.amountApplied" from-field="payment.amount"/>
+                    </if-empty>
+                </if-not-empty>
+            </if-not-empty>
+        </if-not-empty>
+    
+    
+        <if-not-empty field="createAppl.paymentId">
+            <if-not-empty field="createAppl.invoiceId">
+                <call-service service-name="createPaymentApplication" in-map-name="createAppl"/>    
+                <set field="successMessage" value="also application created"/>
+            </if-not-empty>
+        </if-not-empty>
+    </simple-method>
+    
 </simple-methods>
