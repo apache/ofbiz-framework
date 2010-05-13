@@ -816,6 +816,13 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createMatchingPaymentApplication" short-description="Create a payment application if either the invoice of payment could be found">
+    
+        <property-to-field resource="AccountingConfig" property="accounting.payment.application.autocreate" field="autoCreate" default="Y"/>
+        <if-compare operator="not-equals" value="Y" field="autoCreate">
+            <log level="info" message="payment application not automatically created because config is not set to Y"/>
+            <return/>
+        </if-compare>
+    
         <if-not-empty field="parameters.invoiceId">
             <entity-one value-field="invoice" entity-name="Invoice"/>
             <if-not-empty field="invoice">
@@ -884,7 +891,7 @@ under the License.
         <if-not-empty field="createAppl.paymentId">
             <if-not-empty field="createAppl.invoiceId">
                 <call-service service-name="createPaymentApplication" in-map-name="createAppl"/>    
-                <set field="successMessage" value="also application created"/>
+                <log level="info" message="payment application automatically created between invoiceId: ${createAppl.invoiceId} and paymentId: ${createAppl.paymentId} for the amount: ${createAppl.appliedAmount} (can be disabled in AccountingConfig.properties)"/>
             </if-not-empty>
         </if-not-empty>
     </simple-method>
