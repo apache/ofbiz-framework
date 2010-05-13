@@ -30,6 +30,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -316,44 +317,41 @@ public class WidgetWorker {
         public String getValue(Map<String, Object> context) {
             if (this.value != null) {
                 return this.value.expandString(context);
-            } else if (this.fromField != null && this.fromField.get(context) != null) {
-                Object retVal = this.fromField.get(context);
-                
-                if (retVal != null) {
-                    TimeZone timeZone = (TimeZone) context.get("timeZone");
-                    if (timeZone == null) timeZone = TimeZone.getDefault();
-                    
-                    String returnValue = null;
-                    // format string based on the user's time zone (not locale because these are parameters)
-                    if (retVal instanceof Double || retVal instanceof Float || retVal instanceof BigDecimal) {
-                        returnValue = retVal.toString();
-                    } else if (retVal instanceof java.sql.Date) {
-                        DateFormat df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
-                        returnValue = df.format((java.util.Date) retVal);
-                    } else if (retVal instanceof java.sql.Time) {
-                        DateFormat df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
-                        returnValue = df.format((java.util.Date) retVal);
-                    } else if (retVal instanceof java.sql.Timestamp) {
-                        DateFormat df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
-                        returnValue = df.format((java.util.Date) retVal);
-                    } else if (retVal instanceof java.util.Date) {
-                        DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
-                        returnValue = df.format((java.util.Date) retVal);
-                    } else {
-                        returnValue = retVal.toString();
-                    }
-                    return returnValue;
-                } else {
-                    return null;
-                }
+            }
+            
+            Object retVal = null;
+            if (this.fromField != null && this.fromField.get(context) != null) {
+                retVal = this.fromField.get(context);
             } else {
-                // as a last chance try finding a context field with the key of the name field
-                Object obj = context.get(this.name);
-                if (obj != null) {
-                    return obj.toString();
+                retVal = context.get(this.name);
+            }
+
+            if (retVal != null) {
+                TimeZone timeZone = (TimeZone) context.get("timeZone");
+                if (timeZone == null) timeZone = TimeZone.getDefault();
+                
+                String returnValue = null;
+                // format string based on the user's time zone (not locale because these are parameters)
+                if (retVal instanceof Double || retVal instanceof Float || retVal instanceof BigDecimal) {
+                    returnValue = retVal.toString();
+                } else if (retVal instanceof java.sql.Date) {
+                    DateFormat df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
+                    returnValue = df.format((java.util.Date) retVal);
+                } else if (retVal instanceof java.sql.Time) {
+                    DateFormat df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
+                    returnValue = df.format((java.util.Date) retVal);
+                } else if (retVal instanceof java.sql.Timestamp) {
+                    DateFormat df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
+                    returnValue = df.format((java.util.Date) retVal);
+                } else if (retVal instanceof java.util.Date) {
+                    DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
+                    returnValue = df.format((java.util.Date) retVal);
                 } else {
-                    return null;
+                    returnValue = retVal.toString();
                 }
+                return returnValue;
+            } else {
+                return null;
             }
         }
     }
