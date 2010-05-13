@@ -586,9 +586,9 @@ function modifyCollapseable(lookupDiv){
     	
     	getNextCollapseSeq();
     	var childEle = childElements[j].firstChild;
-    	childEle.onclick = function () {
-    		toggleScreenlet(childEle, 'lec' + COLLAPSE, 'true', 'Expand', 'Collapse');
-    	};
+    	
+    	childEle.setAttribute('onclick', "javascript:toggleScreenlet(this, 'lec" + COLLAPSE +"', 'true', 'Expand', 'Collapse');");
+    	childEle.href = "javascript:void(0);"
     	slTitleBar.next('div').setAttribute('id', 'lec' + COLLAPSE);
     	
     } 
