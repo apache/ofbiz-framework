@@ -748,6 +748,13 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createPaymentFromOrder" short-description="Service auto create Payment from Order">
+    
+        <property-to-field resource="AccountingConfig" property="accounting.payment.purchaseorder.autocreate" field="autoCreate" default="Y"/>
+        <if-compare operator="not-equals" value="Y" field="autoCreate">
+            <log level="info" message="payment not created from approved order because config is not set to Y (AccountingConfig.properties)"/>
+            <return/>
+        </if-compare>
+    
         <entity-one value-field="orderHeader" entity-name="OrderHeader"/>
         <entity-and list="orderRoleToList" entity-name="OrderRole">
             <field-map field-name="orderId" from-field="orderHeader.orderId"/>
@@ -813,6 +820,7 @@ under the License.
         <set-service-fields service-name="updatePayment" to-map="updatePayment" map="parameters"/>
         <call-service service-name="updatePayment" in-map-name="updatePayment"/>
         <field-to-result field="parameters.paymentId" result-name="paymentId"/>
+        <log level="info" message="payment ${parameters.paymentId} with the not-paid status automatically created from order: ${parameters.orderId} (can be disabled in AccountingConfig.properties)"/>
     </simple-method>
     
     <simple-method method-name="createMatchingPaymentApplication" short-description="Create a payment application if either the invoice of payment could be found">
