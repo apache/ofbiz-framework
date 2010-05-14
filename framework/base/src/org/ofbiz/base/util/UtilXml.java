@@ -56,7 +56,6 @@ import org.apache.xerces.xni.XMLLocator;
 import org.apache.xerces.xni.XMLResourceIdentifier;
 import org.apache.xerces.xni.XMLString;
 import org.apache.xerces.xni.XNIException;
-import org.apache.xml.serialize.OutputFormat;
 import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
@@ -330,27 +329,6 @@ public class UtilXml {
         try {
             writeXmlDocument(node, os, "UTF-8", false, true, 4);
         } catch (TransformerException e) {
-            // Wrapping this exception for backwards compatibility
-            throw new IOException(e.getMessage());
-        }
-    }
-
-    /**
-     * @deprecated Use  <a href="#writeXmlDocument(org.w3c.dom.Node,%20java.io.OutputStream,%20java.lang.String,%20boolean,%20boolean,%20int)">writeXmlDocument(Node node, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)</a>
-     */
-    @Deprecated
-    public static void writeXmlDocument(OutputStream os, Element element, OutputFormat format) throws java.io.IOException {
-        if (element == null) {
-            Debug.logWarning("[UtilXml.writeXmlDocument] Element was null, doing nothing", module);
-            return;
-        }
-        if (os == null) {
-            Debug.logWarning("[UtilXml.writeXmlDocument] OutputStream was null, doing nothing", module);
-            return;
-        }
-        try {
-            writeXmlDocument(element, os, format.getEncoding(), format.getOmitXMLDeclaration(), format.getIndenting(), format.getIndent());
-        } catch (Exception e) {
             // Wrapping this exception for backwards compatibility
             throw new IOException(e.getMessage());
         }
