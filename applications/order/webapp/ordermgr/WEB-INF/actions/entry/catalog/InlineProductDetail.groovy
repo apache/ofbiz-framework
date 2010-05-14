@@ -150,7 +150,7 @@ if (inlineProduct) {
     context.variantSampleKeys = null;
     context.variantSampleSize = null;
     if ("Y".equals(inlineProduct.isVirtual)) {
-        if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, inlineProductId))) {
+        if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod(delegator, inlineProductId))) {
             context.featureLists = ProductWorker.getSelectableProductFeaturesByTypesAndSeq(inlineProduct);
         } else {
             featureMap = dispatcher.runSync("getProductFeatureSet", [productId : inlineProductId]);

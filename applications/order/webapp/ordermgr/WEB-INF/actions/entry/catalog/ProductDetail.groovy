@@ -236,7 +236,7 @@ if (product) {
 
     // Special Variant Code
     if ("Y".equals(product.isVirtual)) {
-        if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, productId))) {
+        if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod(delegator, productId))) {
             context.featureLists = ProductWorker.getSelectableProductFeaturesByTypesAndSeq(product);
         } else {
             featureMap = dispatcher.runSync("getProductFeatureSet", [productId : productId]);
