@@ -1039,26 +1039,4 @@ public class ShoppingCartHelper {
         return result;
     }
 
-    /**
-     * Get the first SupplierProduct record for productId with matching quantity and currency
-     *
-     * @deprecated replaced by {@link ShoppingCart#getSupplierProduct(String, java.math.BigDecimal, org.ofbiz.service.LocalDispatcher)}
-     *
-     * */
-    @Deprecated
-    public GenericValue getProductSupplier(String productId, BigDecimal quantity, String currencyUomId) {
-        GenericValue productSupplier = null;
-        Map params = UtilMisc.toMap("productId", productId, "partyId", cart.getPartyId(), "currencyUomId", currencyUomId, "quantity", quantity);
-        try {
-            Map result = dispatcher.runSync("getSuppliersForProduct", params);
-            List productSuppliers = (List)result.get("supplierProducts");
-            if ((productSuppliers != null) && (productSuppliers.size() > 0)) {
-                productSupplier=(GenericValue) productSuppliers.get(0);
-            }
-        } catch (GenericServiceException e) {
-            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderRunServiceGetSuppliersForProductError", cart.getLocale()) + e.getMessage(), module);
-        }
-        return productSupplier;
-    }
-
 }
