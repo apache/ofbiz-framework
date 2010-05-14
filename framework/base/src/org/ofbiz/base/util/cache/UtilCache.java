@@ -659,23 +659,6 @@ public class UtilCache<K, V> implements Serializable {
         this.removeMissCount.set(0);
     }
 
-    /** Sets the maximum number of elements in the cache.
-     * If 0, there is no maximum.
-     * @param maxSize The maximum number of elements in the cache
-     * @deprecated Use setMaxInMemory
-     */
-    public void setMaxSize(int maxSize) {
-        setMaxInMemory(maxSize);
-    }
-
-    /** Returns the current maximum number of elements in the cache
-     * @return The maximum number of elements in the cache
-     * @deprecated Use getMaxInMemory
-     */
-    public int getMaxSize() {
-        return getMaxInMemory();
-    }
-
     public void setMaxInMemory(int newInMemory) {
         this.maxInMemory = newInMemory;
         Map<Object, CacheLine<V>> oldmap = this.memoryTable;
@@ -873,28 +856,6 @@ public class UtilCache<K, V> implements Serializable {
         return lineInfos;
     }
 
-    /** Returns a boolean specifying whether or not the element corresponding to the key has expired.
-     * Only returns true if element is in cache and has expired. Error conditions return false, if no expireTable entry, returns true.
-     * Always returns false if expireTime <= 0.
-     * Also, if SoftReference in the CacheLine object has been cleared by the gc return true.
-     *
-     * @param key The key for the element, used to reference it in the hastables and LRU linked list
-     * @return True is the element corresponding to the specified key has expired, otherwise false
-     * @deprecated elements are automatically expired in the background
-     */
-    @Deprecated
-    public boolean hasExpired(Object key) {
-        return !memoryTable.containsKey(fromKey(key));
-    }
-
-    /** Clears all expired cache entries; also clear any cache entries where the SoftReference in the CacheLine object has been cleared by the gc
-     * @deprecated entries are removed automatically now
-    */
-    @Deprecated
-    public void clearExpired() {
-        // do nothing, expired values are removed automatically in the background
-    }
-
     /** Send a key addition event to all registered listeners */
     protected void noteAddition(K key, V newValue) {
         for (CacheListener<K, V> listener: listeners) {
@@ -924,14 +885,6 @@ public class UtilCache<K, V> implements Serializable {
     /** Removes an event listener for key removals */
     public void removeListener(CacheListener<K, V> listener) {
         listeners.remove(listener);
-    }
-
-    /** Clears all expired cache entries from all caches
-     * @deprecated entries are removed automatically now
-    */
-    @Deprecated
-    public static void clearExpiredFromAllCaches() {
-        // do nothing, expired values are removed automatically in the background
     }
 
     /** Checks for a non-expired key in a specific cache */
