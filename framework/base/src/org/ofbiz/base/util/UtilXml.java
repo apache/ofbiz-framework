@@ -737,13 +737,11 @@ public class UtilXml {
 
         List<Node> nodes = FastList.newInstance();
 
-        if (node != null) {
-            do {
-                if (node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
-                    nodes.add(node);
-                }
-            } while ((node = node.getNextSibling()) != null);
-        }
+        do {
+            if (node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
+                nodes.add(node);
+            }
+        } while ((node = node.getNextSibling()) != null);
         return nodes;
     }
 
