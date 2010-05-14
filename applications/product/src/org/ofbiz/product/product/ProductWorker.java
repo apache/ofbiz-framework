@@ -396,14 +396,6 @@ public class ProductWorker {
         return features;
     }
 
-    /**
-     * @deprecated Deprecated due to typo, use getProductVirtualVariantMethod(Delegator, String) instead
-     */
-    @Deprecated
-    public static String getProductvirtualVariantMethod(Delegator delegator, String productId) {
-        return getProductVirtualVariantMethod(delegator, productId);
-    }
-
     public static String getProductVirtualVariantMethod(Delegator delegator, String productId) {
         GenericValue product = null;
         try {
@@ -687,14 +679,6 @@ public class ProductWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        return getCurrentProductCategories(product);
-    }
-
-    /**
-     * @deprecated use getCurrentProductCategories(GenericValue) instead
-     */
-    @Deprecated
-    public static List<GenericValue> getCurrentProductCategories(Delegator delegator, GenericValue product) {
         return getCurrentProductCategories(product);
     }
 
