@@ -52,7 +52,7 @@ under the License.
       <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorAnd" value="AND" <#if requestParameters.SEARCH_OPERATOR?if_exists == "AND">checked="checked"</#if> />
     </div>
     <div>
-      <a href="javascript:$('keywordSearchForm').submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
+      <input type="submit" name="find" value="${uiLabelMap.CommonFind}" class="buttontext" />
     </div>
     </fieldset>
 </form>
