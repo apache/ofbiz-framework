@@ -23,6 +23,7 @@ import org.ofbiz.base.util.GeneralException;
 /**
  * Exception
  */
+@SuppressWarnings("serial")
 public class CartItemModifyException extends GeneralException {
 
     public CartItemModifyException() {
