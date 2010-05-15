@@ -475,7 +475,7 @@ under the License.
             </drop-down>
         </field>
         <field name="ownerContentId" position="2">
-            <lookup target-form-name="LookupContent"/>
+            <lookup presentation="window" target-form-name="LookupContent"/>
         </field>
         <field name="contentName" position="1">
             <text/>

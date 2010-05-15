@@ -123,7 +123,7 @@ under the License.
 
         <field name="rootContentId" map-name="empty" widget-style="buttontext"><hidden/></field>
         <field name="rootContentRevisionSeqId"  map-name="empty" widget-style="buttontext"><hidden/></field>
-        <field name="contentId" widget-style="buttontext"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentId" widget-style="buttontext"><lookup presentation="window" target-form-name="LookupContent"/></field>
         <field name="contentRevisionSeqId" widget-style="inputBox"><text/></field>
 <!--         <field name="contentRevisionSeqId">
             <drop-down allow-empty="true">
@@ -188,7 +188,7 @@ under the License.
 
         <field name="rootContentId" map-name="empty" widget-style="buttontext"><hidden/></field>
         <field name="rootContentRevisionSeqId"  map-name="empty" widget-style="buttontext"><hidden/></field>
-        <field name="contentId" widget-style="buttontext"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentId" widget-style="buttontext"><lookup presentation="window" target-form-name="LookupContent"/></field>
         <field name="contentRevisionSeqId" widget-style="inputBox"><text/></field>
         <field name="itemContentId" widget-style="inputBox"><text/></field>
         <field name="oldDataResourceId" widget-style="inputBox"><text/></field>

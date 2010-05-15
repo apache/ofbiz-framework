@@ -516,7 +516,7 @@ under the License.
         <alt-target use-when="workEffort==null" target="createworkeffort"/>
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId"><hidden/></field>
-        <field name="workEffortId"><lookup  target-form-name="LookupWorkEffort"/></field>
+        <field name="workEffortId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

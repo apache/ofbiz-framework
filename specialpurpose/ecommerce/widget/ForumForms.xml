@@ -346,7 +346,7 @@ under the License.
                 <option key="TEMPLATE_COMPOSITE" description="${uiLabelMap.EcommerceNestedContent}"/>
             </drop-down>
         </field>
-        <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="ownerContentId"><lookup presentation="window" target-form-name="LookupContent"/></field>
         <field name="mimeTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
