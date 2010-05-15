@@ -356,7 +356,7 @@
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
         <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
-        <field name="projectId" title="${uiLabelMap.ProjectMgrWorkEffortIdFrom}"><lookup  target-form-name="LookupWorkEffort"/></field>
+        <field name="projectId" title="${uiLabelMap.ProjectMgrWorkEffortIdFrom}"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
         <field name="fromDate"><date-time/></field>
         <field name="currentStatusId">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
@@ -899,7 +899,7 @@
             </drop-down>
         </field>
         <!-- note sure if these two are necessray, but they are kind of confusing in this context:
-            <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
+            <field name="ownerContentId"><lookup presentation="window" target-form-name="LookupContent"/></field>
             <field name="dataResourceId"><lookup target-form-name="LookupDataResource"/></field>
         -->
         <field name="contentTypeId">

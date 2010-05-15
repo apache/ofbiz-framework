@@ -889,7 +889,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table" target="createFacilityContent?facilityId=${facilityId}">
         <field name="facilityId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.FormFieldTitle_existContentId}">
-            <lookup target-form-name="LookupContent"/>
+            <lookup presentation="window" target-form-name="LookupContent"/>
         </field>
         <field name="contentTypeId" title="${uiLabelMap.FormFieldTitle_contentTypeId}">
             <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
@@ -907,7 +907,7 @@ under the License.
             </drop-down>
         </field>
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
-        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentIdFrom" title="${uiLabelMap.ContentCompDocParentContentId}"><lookup presentation="window" target-form-name="LookupContent"/></field>
         <field name="createButton"><submit button-type="button"/></field>
     </form>
     

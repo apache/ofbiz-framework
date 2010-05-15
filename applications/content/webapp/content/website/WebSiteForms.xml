@@ -134,7 +134,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWebSiteContent"/>
         <field name="webSiteId" map-name="webSite"><display also-hidden="true"/></field>
-        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentId"><lookup presentation="window" target-form-name="LookupContent"/></field>
         <field name="webSiteContentTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WebSiteContentType" description="${description}">

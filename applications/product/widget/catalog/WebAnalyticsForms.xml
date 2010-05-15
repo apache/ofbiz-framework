@@ -119,7 +119,7 @@ under the License.
             </drop-down>
         </field>
         <field name="contentId">
-            <lookup target-form-name="LookupContent"/>
+            <lookup presentation="window" target-form-name="LookupContent"/>
         </field>
         <field use-when="webAnalyticsConfig!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="webAnalyticsConfig==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>

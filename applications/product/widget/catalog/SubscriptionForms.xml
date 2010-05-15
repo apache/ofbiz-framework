@@ -335,7 +335,7 @@ under the License.
         <field name="parentResourceId"><ignored/></field>
 
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
-        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentId"><lookup presentation="window" target-form-name="LookupContent"/></field>
         <field name="webSiteId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WebSite" description="${siteName} [${webSiteId}]">

@@ -555,7 +555,7 @@ under the License.
             </drop-down>
         </field>
         <!-- note sure if these two are necessray, but they are kind of confusing in this context:
-        <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="ownerContentId"><lookup presentation="window" target-form-name="LookupContent"/></field>
         <field name="dataResourceId"><lookup target-form-name="LookupDataResource"/></field>
         -->
         <field name="contentTypeId">
