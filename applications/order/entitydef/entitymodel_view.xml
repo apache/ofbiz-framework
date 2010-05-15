@@ -105,7 +105,7 @@ under the License.
       <view-link entity-alias="OISGIR" rel-entity-alias="II">
         <key-map field-name="inventoryItemId"/>
       </view-link>
-      <view-link entity-alias="II" rel-entity-alias="FL">
+      <view-link entity-alias="II" rel-entity-alias="FL" rel-optional="true">
         <key-map field-name="facilityId"/>
         <key-map field-name="locationSeqId"/>
       </view-link>

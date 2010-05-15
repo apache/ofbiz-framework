@@ -106,10 +106,14 @@ under the License.
             <entity-condition entity-name="OrderHeaderAndItemFacilityLocation" list="OrderHeaderAndItemFacilityLocationList" distinct="true">
                 <condition-list combine="and">
                     <condition-expr field-name="orderId" from-field="orderHeader.orderId"/>
-                    <condition-expr field-name="locationTypeEnumId" value="FLT_PICKLOC"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_PICKLOC"/>
+                        <condition-expr field-name="locationTypeEnumId" operator="equals" from-field="nullField"/>
+                    </condition-list>
                 </condition-list>
                 <select-field field-name="shipmentMethodTypeId"/>
                 <select-field field-name="areaId"/>
+                <use-iterator/>
             </entity-condition>
             <set field="groupName"/>
             <set field="groupName1"/> <!-- Group by Shipping Method -->
@@ -137,7 +141,11 @@ under the License.
                     </if-compare>
 
                     <if-compare field="groupByWarehouseArea" operator="equals" value="Y">
-                        <set field="groupName2" from-field="orderHeaderAndItemFacilityLocation.areaId"/>
+                        <!-- If warehouse area is not setup, then just mark the group name as not-applicable (N/A)
+                             This way if the user has selected group by warehouse area alone or with other options then system can still group the orders with a dummy group i.e. N/A
+                             and user will still be able to see the group details by clicking on the group name which was not possible if warehouse area is not setup.
+                        -->
+                        <set field="groupName2" from-field="orderHeaderAndItemFacilityLocation.areaId" default-value="N/A"/>
                         <set field="locationGroupName" from-field="orderHeaderAndItemFacilityLocation.areaId"/>
                     </if-compare>
 
@@ -172,6 +180,7 @@ under the License.
                         <condition>
                             <and>
                                 <if-compare field="groupByWarehouseArea" operator="equals" value="Y"/>
+                                <not><if-empty field="locationGroupName"></if-empty></not>
                                 <not><if-compare-field field="locations" operator="contains" to-field="locationGroupName"/></not>
                             </and>
                         </condition>
