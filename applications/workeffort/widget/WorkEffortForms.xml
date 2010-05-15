@@ -124,7 +124,7 @@ under the License.
         </field>
 
 
-<!--        <field name="workEffortParentId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field> -->
+<!--        <field name="workEffortParentId"><lookup  target-form-name="LookupWorkEffort"/></field> -->
         <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
 <!--        <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field> -->
         <field name="moneyUomId" title="${uiLabelMap.CommonCurrency}">
@@ -291,7 +291,7 @@ under the License.
         <field name="workEffortId"><hidden value=""/></field>
         -->
         <field name="workEffortIdFrom"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} [${workEffortId}]"/></field>
-        <field name="workEffortIdTo"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
+        <field name="workEffortIdTo"><lookup  target-form-name="LookupWorkEffort"/></field>
         <field name="workEffortAssocTypeId">
             <drop-down>
                 <entity-options entity-name="WorkEffortAssocType" description="${description}">
@@ -319,7 +319,7 @@ under the License.
     <form name="AddWorkEffortAssoc" target="createWorkEffortAssoc" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortIdFrom"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} [${workEffortId}]"/></field>
-        <field name="workEffortIdTo"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
+        <field name="workEffortIdTo"><lookup  target-form-name="LookupWorkEffort"/></field>
         <field name="workEffortAssocTypeId">
             <drop-down>
                 <entity-options entity-name="WorkEffortAssocType" description="${description}">
@@ -833,7 +833,7 @@ under the License.
         </actions>
         <field name="timeEntryId"><hidden/></field>
         <field name="timesheetId">
-            <lookup presentation="window" size="10" target-form-name="LookupTimesheet">
+            <lookup size="10" target-form-name="LookupTimesheet">
                 <sub-hyperlink target="EditTimesheet" link-style="buttontext" description="${uiLabelMap.WorkEffortTimesheet}:${timesheetId}">
                 <parameter param-name="timesheetId"/>
             </sub-hyperlink>
@@ -871,7 +871,7 @@ under the License.
         <auto-fields-service service-name="createTimeEntry"/>
 
         <field name="timeEntryId"><ignored/><!-- don't pass, will be sequenced --></field>
-        <field name="timesheetId"><lookup presentation="window" size="10" target-form-name="LookupTimesheet"/></field>
+        <field name="timesheetId"><lookup size="10" target-form-name="LookupTimesheet"/></field>
 
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">

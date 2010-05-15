@@ -58,9 +58,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
-        <field name="facilityId"><lookup presentation="window" target-form-name="LookupFacility"/></field>
-        <field name="fixedAssetId"><lookup presentation="window" target-form-name="LookupFixedAsset"/></field>
+        <field name="workEffortParentId"><lookup  target-form-name="LookupWorkEffort"/></field>
+        <field name="facilityId"><lookup  target-form-name="LookupFacility"/></field>
+        <field name="fixedAssetId"><lookup  target-form-name="LookupFixedAsset"/></field>
         <field name="scopeEnumId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
@@ -126,9 +126,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
-        <field name="facilityId"><lookup presentation="window" target-form-name="LookupFacility"/></field>
-        <field name="fixedAssetId"><lookup presentation="window" target-form-name="LookupFixedAsset"/></field>
+        <field name="workEffortParentId"><lookup  target-form-name="LookupWorkEffort"/></field>
+        <field name="facilityId"><lookup  target-form-name="LookupFacility"/></field>
+        <field name="fixedAssetId"><lookup  target-form-name="LookupFixedAsset"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
@@ -157,8 +157,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Timesheet" default-field-type="find"/>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}"><text-find/></field>
-        <field name="partyId"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
-        <field name="clientPartyId"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
+        <field name="partyId"><lookup  target-form-name="LookupPartyName"/></field>
+        <field name="clientPartyId"><lookup  target-form-name="LookupPartyName"/></field>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>

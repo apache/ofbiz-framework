@@ -278,7 +278,7 @@ under the License.
             </drop-down>
         </field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"></lookup></field>
-        <field name="workEffortId"><lookup presentation="window" target-form-name="LookupWorkEffort"><sub-hyperlink target="ww" description="${workEffortName}"/></lookup></field>
+        <field name="workEffortId"><lookup  target-form-name="LookupWorkEffort"><sub-hyperlink target="ww" description="${workEffortName}"/></lookup></field>
         <field name="emplPositionTypeId" position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="EmplPositionType" description="${description}">

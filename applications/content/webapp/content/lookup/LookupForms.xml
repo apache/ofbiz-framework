@@ -51,13 +51,13 @@ under the License.
             <text-find/>
         </field>
         <field name="createdByUserLogin">
-             <lookup presentation="window" target-form-name="LookupPerson"/>
+             <lookup  target-form-name="LookupPerson"/>
         </field>
         <field name="createdDate">
             <date-find/>
         </field>
         <field name="lastModifiedByUserLogin">
-             <lookup presentation="window" target-form-name="LookupParty"/>
+             <lookup  target-form-name="LookupParty"/>
         </field>
         <field name="lastModifiedDate">
             <date-find/>

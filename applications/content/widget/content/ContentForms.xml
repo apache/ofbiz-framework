@@ -43,10 +43,10 @@ under the License.
             </drop-down>
         </field>
         <field name="dataResourceId" position="1">
-            <lookup presentation="window" target-form-name="LookupDataResource"/>
+            <lookup  target-form-name="LookupDataResource"/>
         </field>
         <field name="ownerContentId" position="2">
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup  target-form-name="LookupContent"/>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
@@ -56,7 +56,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="createdByUserLogin" position="2"><lookup presentation="window" target-form-name="LookupPerson"/></field>
+        <field name="createdByUserLogin" position="2"><lookup  target-form-name="LookupPerson"/></field>
         <field name="localeString">
             <drop-down allow-empty="true">
                 <entity-options entity-name="CountryCode" description="${countryName} [${countryCode}]" key-field-name="countryCode">
@@ -518,7 +518,7 @@ under the License.
         <auto-fields-service service-name="createWorkEffortContent"/>
         <field name="contentId"><hidden value="${parameters.contentId}"/></field>
         <field name="workEffortId">
-            <lookup presentation="window" target-form-name="LookupWorkEffort"/>
+            <lookup  target-form-name="LookupWorkEffort"/>
         </field>
         <field name="workEffortContentTypeId">
             <drop-down no-current-selected-key="">
