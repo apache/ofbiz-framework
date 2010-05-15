@@ -2637,4 +2637,237 @@
         <value xml:lang="th">ของเถื่อน</value>
         <value xml:lang="zh">被盗</value>
     </property>
+
+    <!-- Field Descriptions -->
+    <!--  ProductStore -->
+    <property key="FieldDescription.ProductStore.productStoreId">
+        <value xml:lang="en">The id for the product store..</value>
+    </property>
+    <property key="FieldDescription.ProductStore.primaryStoreGroupId">
+        <value xml:lang="en">What group this store belongs to. Stores can be grouped together with a price for each store group. It can be left blank if there are no store groups set up.</value>
+        <!-- Store groups cannot be set up in the catalog manager and must be inserted directly into the database. -->
+    </property>
+    <property key="FieldDescription.ProductStore.storeName">
+        <value xml:lang="en">This is the name of the store that this catalog represents.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.companyName">
+        <value xml:lang="en">This is the name of the company that this catalog represents.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.title">
+        <value xml:lang="en">This value gets displayed in the header section of the ecommerce store.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.subtitle">
+        <value xml:lang="en">This value gets displayed in the header section of the ecommerce store.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.payToPartyId">
+        <value xml:lang="en">Note that this corresponds with the organizationPartyId that GL transactions will be posted to.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.daysToCancelNonPay">
+        <value xml:lang="en">Triggers cancellation of orders for non-payment after the number of days entered here.</value>
+        <!-- There is an automated service that can be scheduled (see Job Scheduler in Webtools) nightly to cancel orders which have not been paid. This defines how many days an order can be outstanding and unpaid before it is canceled. A value of zero here will leave all orders open indefinitely. -->
+    </property>
+    <property key="FieldDescription.ProductStore.manualAuthIsCapture">
+        <value xml:lang="en">Drop-down Y/N box on the question of whether a Manual Authorization is captured.</value> <!--  TODO - what does this really mean? -->
+    </property>
+    <property key="FieldDescription.ProductStore.prorateShipping">
+        <value xml:lang="en">When some share of the cost of shipping is covered under an account other than the bill-to.</value> <!--  TODO - what does this really mean? -->
+    </property>
+    <property key="FieldDescription.ProductStore.prorateTaxes">
+        <value xml:lang="en"></value>
+    </property>
+    <property key="FieldDescription.ProductStore.viewCartOnAdd">
+        <value xml:lang="en">Controls whether the user is taken to the shopping cart immediately after adding a product to his cart.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.autoSaveCart">
+        <value xml:lang="en">Drop-down Y/N box on the question of automatically saving the contents of the shopping cart.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.autoApproveReviews">
+        <value xml:lang="en">If the site allows users to enter product reviews, this controls whether the reviews must be approved, or whether they are automatically shown on the site.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.isDemoStore">
+        <value xml:lang="en">If Yes, any orders created will not be sent, credit card charges will not be made, etc.
+        </value>
+    </property>
+    <property key="FieldDescription.ProductStore.isImmediatelyFulfilled">
+        <value xml:lang="en">If Yes, the order will be immediately fulfilled through system-generated processes in ofbiz (e.g. for POS sales).  If no, it will be held for manual review.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.inventoryFacilityId">
+        <value xml:lang="en">This is where the stock levels are drawn from.</value>
+        <!-- Used for knowing where to change product inventory as items are sold. See the 'Facility Manager' to create a facility. All existing facilities are presented here. -->
+    </property>
+    <property key="FieldDescription.ProductStore.oneInventoryFacility">
+        <value xml:lang="en">If this is a 'Single Inventory' facility. With newer or less complex businesses, you will find the Single Inventory concept much easier to work with.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.checkInventory">
+        <value xml:lang="en">This determines whether the system checks inventory levels when processing an order.</value>
+        <!--  If inventory IS checked (Y), the item cannot be ordered or rather the order cannot be fulfilled if there is insufficient QOH or ATP. If Inventory is not checked, however, the order may be accepted but items not available will be processed as a back-order. You need a system in place to track, replenish and fulfill back-ordered items if you set this flag to N. -->
+    </property>
+    <property key="FieldDescription.ProductStore.reserveInventory">
+        <value xml:lang="en">Causes inventory to be reserved for items ordered in the store. The inventory may still be on hand but will no longer be available for other orders.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.reserveOrderEnumId">
+        <value xml:lang="en">Choose how inventory should be reserved.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.requireInventory">
+        <value xml:lang="en">If sufficient inventory not on hand, order will not be processed when this flag is set to Yes.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.balanceResOnOrderCreation">
+        <value xml:lang="en">If set to Y, when a new sales order is created with backordered items, then reservations on the facility/product are reassigned according to the priority given by the shipBeforeDate field.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.requirementMethodEnumId">
+        <value xml:lang="en">Refers to warehouse stocking level triggers.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.orderNumberPrefix">
+        <value xml:lang="en">All orders will be prefixed by this. For example, if you wished accounting to be able to quickly differentiate orders between stores.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.defaultLocaleString">
+        <value xml:lang="en">Default locale, for language, number, and currency formats.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.defaultCurrencyUomId">
+        <value xml:lang="en">Which national currency will be used if none is specified. Use webtools to find codes for non-US locations.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.defaultSalesChannelEnumId">
+        <value xml:lang="en">Unless the sales channel has been specified in the transaction, it will be assumed that the sale came in through the selected path.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.allowPassword">
+        <value xml:lang="en">If No, when a customer creates an account they will not be asked for a password and they have to wait for their account to be enabled and a password to be sent to them.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.defaultPassword">
+        <value xml:lang="en">If you allow others access with a password, what is the default password that anyone could use if they knew it?</value>
+    </property>
+    <property key="FieldDescription.ProductStore.explodeOrderItems">
+        <value xml:lang="en">If set to Y then any shopping cart item with a quantity greater than one will be split into separate order items with a quantity of 1 each.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.checkGcBalance">
+        <value xml:lang="en"></value>
+    </property>
+    <property key="FieldDescription.ProductStore.retryFailedAuths">
+        <value xml:lang="en">How many times can an unsuccessful attempt to authorize an order be allowed?</value>
+    </property>
+    <property key="FieldDescription.ProductStore.headerApprovedStatus">
+        <value xml:lang="en">This is the message you want your customers to see when their order is approved.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.itemApprovedStatus">
+        <value xml:lang="en">What to set order items status to when orders are approved, declined, or canceled. Based on the standard defined status codes in Open for Business.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.digitalItemApprovedStatus">
+        <value xml:lang="en">What to set order items status to when Digital Item orders are approved, declined, or canceled. Based on the standard defined status codes in Open for Business.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.headerDeclinedStatus">
+        <value xml:lang="en">This is the message you want your customers to see when their order is declined. Based on the standard defined status codes in Open for Business.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.itemDeclinedStatus">
+        <value xml:lang="en">This is the message you want the customer to see when one of their items is declined for some reason.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.headerCancelStatus">
+        <value xml:lang="en">This is the message that you want the client to see when their order is cancelled.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.itemCancelStatus">
+        <value xml:lang="en">The message shown when an item they ordered is cancelled.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.authDeclinedMessage">
+        <value xml:lang="en">Message shown when payment authorization is declined.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.authFraudMessage">
+        <value xml:lang="en">Message sent when fraud is suspected.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.authErrorMessage">
+        <value xml:lang="en">Message sent when a processing error is encountered.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.visualThemeId">
+        <value xml:lang="en">For controlling the look and feel and a web-based store.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.storeCreditAccountEnumId">
+        <value xml:lang="en">Specify the type (Billing Account or Financial Account) of Store Credit Account used for refund return.</value>
+        <!-- This field is override by ReturnHeader.billingAccountId or ReturnHeader.finAccountId, whichever is specified but if only finAccountId is specified explicitly then system will first try to locate any billing account with -ve amount. If found, then amount is credit to this billing account else the amount will be credit to the financial account of the user. -->
+    </property>
+    <property key="FieldDescription.ProductStore.usePrimaryEmailUsername">
+        <value xml:lang="en">If set to Y then in the create customer form no entry box will be presented for a username - the primary email address will be used for username.</value>
+        <!-- If set to N, the default, there is a checkbox a user can select to use the email address as a username, but they also have the option of entering a username. -->
+    </property>
+    <property key="FieldDescription.ProductStore.requireCustomerRole">
+        <value xml:lang="en">If set to Y then the customer must be associated with the store in the Customer role in order to be able to login (e.g. B2B)</value>
+        <!-- If they are not associated with the store in the Customer role, they will receive an error message when they try to login. Note that this means entering an assignment of Customer as Role for every customer that wants to by. This could delay them from being able to make purchases. It also means giving attention to every prospect until they become identified as a Customer. -->
+    </property>
+    <property key="FieldDescription.ProductStore.autoInvoiceDigitalItems">
+        <value xml:lang="en">If Y, digital items will be immediately invoiced when the order is placed.</value>
+        <!--  If N, will need to wait for some sort of fulfillment process to set the item status to complete which would then trigger the invoice creation. -->
+    </property>
+    <property key="FieldDescription.ProductStore.reqShipAddrForDigItems">
+        <value xml:lang="en">Require Shipping Address for Digital Items? Note this only has an effect if there are ONLY digital goods in the cart.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.showCheckoutGiftOptions">
+        <value xml:lang="en">If set to N the options related to gifts (the 'is gift' and 'gift message' options) will not be shown during checkout.</value>
+        <!--  This is meant for use in business oriented stores or others where the gift options do not make sense. -->
+    </property>
+    <property key="FieldDescription.ProductStore.selectPaymentTypePerItem">
+        <value xml:lang="en">If Yes, allows customer to pay for some order items with one payment type, others with another type.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.showPricesWithVatTax">
+        <value xml:lang="en">Should the displayed prices include (Y) or not include (N) the VAT Tax amount?</value>
+    </property>
+    <property key="FieldDescription.ProductStore.showTaxIsExempt">
+        <value xml:lang="en">Will it be appropriate to indicate when an item is exempt from tax?</value>
+    </property>
+    <property key="FieldDescription.ProductStore.vatTaxAuthGeoId">
+        <value xml:lang="en">What is the Geographical ID for the VAT taxing authority?</value>
+    </property>
+    <property key="FieldDescription.ProductStore.vatTaxAuthPartyId">
+        <value xml:lang="en">What is the Party ID of the Vat Taxing Authority?</value>
+    </property>
+    <property key="FieldDescription.ProductStore.enableAutoSuggestionList">
+        <value xml:lang="en">The auto-suggestion list is a special ShoppingList that the addSuggestionsToShoppingList service will maintain for cross-sells of ordered items.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.enableDigProdUpload">
+        <value xml:lang="en">Unless this is set to Yes, the sale of Digital Products from your Store will not be permitted.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.prodSearchExcludeVariants">
+        <value xml:lang="en">If set to Y an additional constraint will of isVariant!=Y will be added to all product searches for the store.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.digProdUploadCategoryId">
+        <value xml:lang="en">Which Category of Digital Products may be uploaded?</value>
+    </property>
+    <property key="FieldDescription.ProductStore.autoOrderCcTryExp">
+        <value xml:lang="en">For auto-orders try other Credit Card expiration dates (if date is wrong or general failure where type not known).</value>
+    </property>
+    <property key="FieldDescription.ProductStore.autoOrderCcTryOtherCards">
+        <value xml:lang="en">For auto-orders try other Credit Cards for the customer.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.autoOrderCcTryLaterNsf">
+        <value xml:lang="en">For auto-orders if Credit Cards fails for NSF (Not Sufficient Funds) try again later.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.autoOrderCcTryLaterMax">
+        <value xml:lang="en">For auto-orders if Credit Cards fails for NSF try again how many times.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.storeCreditValidDays">
+        <value xml:lang="en">How many days that store credit is valid for. Null value implies no expiration.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.autoApproveInvoice">
+        <value xml:lang="en">If Y or empty, sales invoices created from orders will be marked ready.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.autoApproveOrder">
+        <value xml:lang="en">If N, orders will not be automatically approved when payment is authorized.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.shipIfCaptureFails">
+        <value xml:lang="en">If N, the captureOrderPayments will cause a service error if credit card capture fails.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.setOwnerUponIssuance">
+        <value xml:lang="en">If Y or empty, set the inventory item owner upon issuance.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.reqReturnInventoryReceive">
+        <value xml:lang="en">If set to Y return will automatically go to the Received status when Accepted instead of waiting for actual receipt of the return.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.addToCartRemoveIncompat">
+        <value xml:lang="en">If Y then on add to cart remove all products in cart with a ProductAssoc record related to or from the product and with the PRODUCT_INCOMPATABLE type.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.addToCartReplaceUpsell">
+        <value xml:lang="en">If Y then on add to cart remove all products in cart with a ProductAssoc record related from the product and with the PRODUCT_UPGRADE type.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.splitPayPrefPerShpGrp">
+        <value xml:lang="en">If Y then before the order is stored the OrderPaymentPreference record will be split, one for each OrderItemShipGroup.</value>
+    </property>
+    <property key="FieldDescription.ProductStore.showOutOfStockProducts">
+        <value xml:lang="en">If N then out of stock products will not be displayed on site</value>
+    </property>
+    
 </resource>
