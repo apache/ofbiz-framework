@@ -27,6 +27,7 @@ under the License.
     <copyright>Copyright 2001-2009 The Apache Software Foundation</copyright>
     <author>None</author>
     <version>1.0</version>
+    <default-resource-name>ProductEntityLabels</default-resource-name>
 
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
@@ -3643,7 +3644,8 @@ under the License.
 
     <entity entity-name="ProductStore"
             package-name="org.ofbiz.product.store"
-            title="Product Store Entity">
+            title="Product Store Entity"
+            default-resource-name="ProductEntityLabels">
       <field name="productStoreId" type="id-ne"></field>
       <field name="primaryStoreGroupId" type="id"></field>
       <field name="storeName" type="name"></field>
