@@ -156,20 +156,16 @@ var FieldLookupCounter = Class.create({
     
     setReference: function (key, ref) {
         //if key doesn't exist in the array and
-        var bool = true;
         for (itm in this.refArr) {
             if (itm == key) {
-                bool = false;
-                break;
+                prefix = key.substring(0, key.indexOf("_"));
+                key = prefix + "_" + key; 
+                this.refArr[key] = ref;
+                return this.refArr[key];
             }
         }
-
-        if (bool) {
-            this.refArr[key] = ref;
-            return this.refArr[key];
-        }
-        
-        return null;
+        this.refArr[key] = ref;
+        return this.refArr[key];
     },
     
     getReference: function (key) {
