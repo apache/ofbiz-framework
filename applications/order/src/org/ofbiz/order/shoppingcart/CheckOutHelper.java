@@ -20,8 +20,6 @@ package org.ofbiz.order.shoppingcart;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,7 +45,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
@@ -87,9 +84,9 @@ public class CheckOutHelper {
         this.cart = cart;
     }
 
-    public Map setCheckOutShippingAddress(String shippingContactMechId) {
+    public Map<String, Object> setCheckOutShippingAddress(String shippingContactMechId) {
         List errorMessages = new ArrayList();
-        Map result;
+        Map<String, Object> result;
         String errMsg = null;
 
         if (UtilValidate.isNotEmpty(this.cart)) {
@@ -1292,8 +1289,8 @@ public class CheckOutHelper {
      * @return A Map conforming to the OFBiz Service conventions containing
      * any error messages
      */
-    public Map finalizeOrderEntryShip(int shipGroupIndex, String shippingContactMechId, String supplierPartyId) {
-        Map result;
+    public Map<String, Object> finalizeOrderEntryShip(int shipGroupIndex, String shippingContactMechId, String supplierPartyId) {
+        Map<String, Object> result;
         String errMsg=null;
         //Verify the field is valid
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
@@ -1324,20 +1321,20 @@ public class CheckOutHelper {
      * @return A Map conforming to the OFBiz Service conventions containing
      * any error messages
      */
-    public Map finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
+    public Map<String, Object> finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
             String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String orderAdditionalEmails) {
         this.cart.setOrderAdditionalEmails(orderAdditionalEmails);
         return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, null, null);
     }
-    public Map finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
+    public Map<String, Object> finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
             String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes, String shippingNotes, BigDecimal shipEstimate) {
         this.cart.setItemShipGroupEstimate(shipEstimate, shipGroupIndex);
         return finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, internalOrderNotes, shippingNotes);
     }
-    public Map finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
+    public Map<String, Object> finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
             String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate, String internalOrderNotes, String shippingNotes) {
-
-        Map result = ServiceUtil.returnSuccess();
+        
+        Map<String, Object> result = ServiceUtil.returnSuccess();
 
         String errMsg=null;
         //Verify the shipping method is valid

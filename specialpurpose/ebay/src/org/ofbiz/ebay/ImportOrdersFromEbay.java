@@ -21,7 +21,6 @@ package org.ofbiz.ebay;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -713,8 +712,6 @@ public class ImportOrdersFromEbay {
                 // set partyId to
                 String partyId = null;
                 String contactMechId = "";
-                String emailContactMechId = null;
-                String phoneContactMechId = null;
                 GenericValue partyAttribute = null;
                 if (UtilValidate.isNotEmpty(parameters.get("eiasTokenBuyer"))) {
                     partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String)parameters.get("eiasTokenBuyer"))));
@@ -729,9 +726,9 @@ public class ImportOrdersFromEbay {
                     contactMechId = EbayHelper.setShippingAddressContactMech(dispatcher, delegator, party, userLogin, parameters);
                     String emailBuyer = (String) parameters.get("emailBuyer");
                     if (!(emailBuyer.equals("") || emailBuyer.equalsIgnoreCase("Invalid Request"))) {
-                        String emailContactMech = EbayHelper.setEmailContactMech(dispatcher, delegator, party, userLogin, parameters);
+                        EbayHelper.setEmailContactMech(dispatcher, delegator, party, userLogin, parameters);
                     }
-                    String phoneContactMech = EbayHelper.setPhoneContactMech(dispatcher, delegator, party, userLogin, parameters);
+                    EbayHelper.setPhoneContactMech(dispatcher, delegator, party, userLogin, parameters);
                 }
 
                 // create party if none exists already
@@ -782,7 +779,7 @@ public class ImportOrdersFromEbay {
                 Debug.logInfo("Creating CheckOutHelper.", module);
                 CheckOutHelper checkout = new CheckOutHelper(dispatcher, delegator, cart);
                 Debug.logInfo("Creating order.", module);
-                Map orderCreate = checkout.createOrder(userLogin);
+                Map<String, Object> orderCreate = checkout.createOrder(userLogin);
 
                 String orderId = (String)orderCreate.get("orderId");
                 Debug.logInfo("Created order with id: " + orderId, module);

@@ -19,7 +19,6 @@
 package org.ofbiz.order.shoppingcart;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +29,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.ofbiz.base.util.*;
+import javolution.util.FastMap;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.GeneralRuntimeException;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -45,8 +53,6 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.stats.VisitHandler;
-
-import javolution.util.FastMap;
 
 /**
  * Events used for processing checkout and orders.
@@ -108,22 +114,22 @@ public class CheckOutEvents {
             String partyTaxId = request.getParameter("partyTaxId");
             String isExempt = request.getParameter("isExempt");
 
-            List errorMessages = new ArrayList();
-            Map errorMaps = new HashMap();
+            List<String> errorMessages = new ArrayList<String>();
+            Map<String, Object> errorMaps = new HashMap<String, Object>();
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 // set the shipping method
                 if (shippingContactMechId == null) {
                     shippingContactMechId = (String) request.getAttribute("contactMechId"); // FIXME
                 }
                 String supplierPartyId = (String) request.getAttribute(shipGroupIndex + "_supplierPartyId");
-                Map callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
+                Map<String, ? extends Object> callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
                 ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
             }
 
             // if taxAuthPartyGeoIds is not empty drop that into the database
             if (UtilValidate.isNotEmpty(taxAuthPartyGeoIds)) {
                 try {
-                    Map createCustomerTaxAuthInfoResult = dispatcher.runSync("createCustomerTaxAuthInfo",
+                    Map<String, ? extends Object> createCustomerTaxAuthInfoResult = dispatcher.runSync("createCustomerTaxAuthInfo",
                             UtilMisc.<String, Object>toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId", partyTaxId, "isExempt", isExempt, "userLogin", userLogin));
                     ServiceUtil.getMessages(request, createCustomerTaxAuthInfoResult, null);
                     if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
@@ -136,7 +142,7 @@ public class CheckOutEvents {
                 }
             }
 
-            Map callResult = checkOutHelper.setCheckOutShippingAddress(shippingContactMechId);
+            Map<String, ? extends Object> callResult = checkOutHelper.setCheckOutShippingAddress(shippingContactMechId);
             ServiceUtil.getMessages(request, callResult, null);
 
             if (!(ServiceUtil.isError(callResult))) {
@@ -154,7 +160,7 @@ public class CheckOutEvents {
             String internalCode = request.getParameter("internalCode");
             String shipBeforeDate =  request.getParameter("shipBeforeDate");
             String shipAfterDate = request.getParameter("shipAfterDate");
-            Map callResult = ServiceUtil.returnSuccess();
+            Map<String, ? extends Object> callResult = ServiceUtil.returnSuccess();
 
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, orderAdditionalEmails);
@@ -771,9 +777,9 @@ public class CheckOutEvents {
 
         // ====================================================================================
         if (mode != null && (mode.equals("ship") || mode.equals("options"))) {
-            Map callResult = ServiceUtil.returnSuccess();
-            List errorMessages = new ArrayList();
-            Map errorMaps = new HashMap();
+            Map<String, Object> callResult = ServiceUtil.returnSuccess();
+            List<String> errorMessages = new ArrayList<String>();
+            Map<String, Object> errorMaps = new HashMap<String, Object>();
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 // set the shipping method
                 if (mode != null && mode.equals("ship")) {
@@ -823,7 +829,7 @@ public class CheckOutEvents {
             //See whether we need to return an error or not
             callResult = ServiceUtil.returnSuccess();
             if (errorMessages.size() > 0) {
-                callResult.put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
+                callResult.put(ModelService.ERROR_MESSAGE_LIST,  errorMessages);
                 callResult.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             }
             if (errorMaps.size() > 0) {

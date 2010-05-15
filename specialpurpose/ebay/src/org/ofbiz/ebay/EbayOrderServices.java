@@ -33,6 +33,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -123,7 +124,7 @@ public class EbayOrderServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = FastMap.newInstance();
         String externalId = (String) context.get("externalId");
-        List orderList = (List) context.get("orderList");
+        List<Map<String, Object>> orderList = UtilGenerics.checkList(context.get("orderList"));
         try {
             if (UtilValidate.isNotEmpty(orderList)) {
                 Iterator<Map<String, Object>> orderListIter = orderList.iterator();
@@ -1037,7 +1038,7 @@ public class EbayOrderServices {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.paymentIsStillNotReceived", locale));
             }
 
-            List orderItemList = (List) context.get("orderItemList");
+            List<Map<String, Object>> orderItemList = UtilGenerics.checkList(context.get("orderItemList"));
             Iterator<Map<String, Object>> orderItemIter = orderItemList.iterator();
             while (orderItemIter.hasNext()) {
                 Map<String, Object> orderItem = (Map<String, Object>) orderItemIter.next();
@@ -1049,7 +1050,7 @@ public class EbayOrderServices {
                 cart.setBillFromVendorPartyId(payToPartyId);
             }
             // Apply shipping costs as order adjustment
-            Map shippingServiceSelectedCtx =  (Map) context.get("shippingServiceSelectedCtx");
+            Map<String, Object> shippingServiceSelectedCtx =  UtilGenerics.checkMap(context.get("shippingServiceSelectedCtx"));
 
             String shippingCost = (String) shippingServiceSelectedCtx.get("shippingServiceCost");
             if (UtilValidate.isNotEmpty(shippingCost)) {
@@ -1073,7 +1074,7 @@ public class EbayOrderServices {
                 }
             }
             // Apply sales tax as order adjustment
-            Map shippingDetailsCtx = (Map) context.get("shippingDetailsCtx");
+            Map<String, Object> shippingDetailsCtx = UtilGenerics.checkMap(context.get("shippingDetailsCtx"));
             String salesTaxAmount = (String) shippingDetailsCtx.get("salesTaxAmount");
             String salesTaxPercent = (String) shippingDetailsCtx.get("salesTaxPercent");
             if (UtilValidate.isNotEmpty(salesTaxAmount)) {
@@ -1096,7 +1097,7 @@ public class EbayOrderServices {
                 String partyId = null;
                 String contactMechId = null;
 
-                Map shippingAddressCtx =  (Map) context.get("shippingAddressCtx");
+                Map<String, Object> shippingAddressCtx = UtilGenerics.checkMap(context.get("shippingAddressCtx"));
                 if (UtilValidate.isNotEmpty(shippingAddressCtx)) {
                     String buyerName = (String) shippingAddressCtx.get("buyerName");
                     String firstName = (String) buyerName.substring(0, buyerName.indexOf(" "));
@@ -1134,9 +1135,9 @@ public class EbayOrderServices {
                     contactMechId = EbayHelper.setShippingAddressContactMech(dispatcher, delegator, party, userLogin, shippingAddressCtx);
                     String emailBuyer = (String) context.get("emailBuyer");
                     if (!(emailBuyer.equals("") || emailBuyer.equalsIgnoreCase("Invalid Request"))) {
-                        String emailContactMech = EbayHelper.setEmailContactMech(dispatcher, delegator, party, userLogin, context);
+                        EbayHelper.setEmailContactMech(dispatcher, delegator, party, userLogin, context);
                     }
-                    String phoneContactMech = EbayHelper.setPhoneContactMech(dispatcher, delegator, party, userLogin, shippingAddressCtx);
+                    EbayHelper.setPhoneContactMech(dispatcher, delegator, party, userLogin, shippingAddressCtx);
                 }
 
                 // create party if none exists already
@@ -1151,7 +1152,7 @@ public class EbayOrderServices {
 
                 // create new party's contact information
                 if (UtilValidate.isEmpty(contactMechId)) {
-                    Map buyerCtx = (Map) context.get("buyerCtx");
+                    Map<String, Object> buyerCtx = UtilGenerics.checkMap(context.get("buyerCtx"));
                     String eiasTokenBuyer = null;
                     if (UtilValidate.isNotEmpty(buyerCtx)) {
                         eiasTokenBuyer = (String) buyerCtx.get("eiasTokenBuyer");
@@ -1194,7 +1195,7 @@ public class EbayOrderServices {
                 Map<?, ?> orderCreate = checkout.createOrder(userLogin);
 
                 if ("error".equals(orderCreate.get("responseMessage"))) {
-                    List errorMessageList = (List)orderCreate.get("errorMessageList");
+                    List<String> errorMessageList = UtilGenerics.checkList(orderCreate.get("errorMessageList"), String.class);
                     return ServiceUtil.returnError(errorMessageList);
                 }
                 String orderId = (String) orderCreate.get("orderId");
