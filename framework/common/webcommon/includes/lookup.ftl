@@ -85,7 +85,7 @@ under the License.
              src.style.backgroundColor = bkColor;
         }
         // function passing selected value to calling window
-        function set_value(value) {
+     /*   function set_value(value) {
                 if (!obj_caller) return;
                 setSourceColor(obj_caller.target);
                 obj_caller.target.value = value;
@@ -95,7 +95,7 @@ under the License.
                 }
                 window.close();
         }
-        // function passing selected value to calling window
+       // function passing selected value to calling window
         function set_values(value, value2) {
                 set_value(value);
                 if (!obj_caller.target2) return;
@@ -107,7 +107,7 @@ under the License.
                     obj_caller.target2.onchange();
                 }
         }
-        function set_multivalues(value) {
+      */  function set_multivalues(value) {
             obj_caller.target.value = value;
             var thisForm = obj_caller.target.form;
             var evalString = "";

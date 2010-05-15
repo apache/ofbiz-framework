@@ -2445,7 +2445,7 @@ display: inline;
 margin-top: 0;
 }
 
-#fadedBackground {
+.fadedBackground {
 background: url(../images/faded_background.png);
 position: absolute;
 overflow: visible;
