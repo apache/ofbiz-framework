@@ -1114,6 +1114,9 @@ public class ModelForm extends ModelWidget {
             formStringRenderer.renderFormOpen(writer, context, this);
         }
 
+        // prepare the items iterator and compute the pagination parameters
+        this.preparePager(context);
+
         // render formatting wrapper open
         formStringRenderer.renderFormatListWrapperOpen(writer, context, this);
 
