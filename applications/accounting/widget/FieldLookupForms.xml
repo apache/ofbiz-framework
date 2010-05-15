@@ -123,8 +123,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="Payment" default-field-type="hidden"/>
         <field name="paymentId" title="${uiLabelMap.AccountingPaymentID}"><text-find/></field>
-        <field name="partyIdFrom"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
-        <field name="partyIdTo"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
+        <field name="partyIdFrom"><lookup  target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo"><lookup  target-form-name="LookupPartyName"/></field>
         <field name="amountApplied"><text-find default-value=""></text-find> </field>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
@@ -166,8 +166,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="1" name="partyIdFrom"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
-        <field position="2" name="partyId" title="${uiLabelMap.AccountingPartyIdTo}"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
+        <field position="1" name="partyIdFrom"><lookup  target-form-name="LookupPartyName"/></field>
+        <field position="2" name="partyId" title="${uiLabelMap.AccountingPartyIdTo}"><lookup  target-form-name="LookupPartyName"/></field>
         <field position="1" name="Datefrom" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field position="2" name="DateThru" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
 
@@ -285,7 +285,7 @@ under the License.
             header-row-style="header-row" default-table-style="basic-table">
         <field name="glReconciliationId" title="${uiLabelMap.FormFieldTitle_glReconciliationId}"><text-find/></field>
         <field name="glReconciliationName" title="${uiLabelMap.FormFieldTitle_glReconciliationName}"><text-find/></field>
-        <field name="organizationPartyId" title="${uiLabelMap.FormFieldTitle_organizationPartyId}"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
+        <field name="organizationPartyId" title="${uiLabelMap.FormFieldTitle_organizationPartyId}"><lookup  target-form-name="LookupPartyName"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>

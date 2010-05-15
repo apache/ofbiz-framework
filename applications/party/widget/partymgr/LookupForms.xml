@@ -317,8 +317,8 @@ under the License.
     <form name="LookupCommEvent" type="single" target="LookupCommEvent"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}"><text-find/></field>
-        <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
-        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup  target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><lookup  target-form-name="LookupPartyName"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem">
@@ -347,7 +347,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="custRequestId" title="${uiLabelMap.PartyServicemgntCustRequestId}"><lookup presentation="window" size="20" target-form-name="LookupCustRequest"/></field>
+        <field name="custRequestId" title="${uiLabelMap.PartyServicemgntCustRequestId}"><lookup  size="20" target-form-name="LookupCustRequest"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-find/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-find/></field>
         <field map-name="subjectMap" name="subject" title="${uiLabelMap.PartyCommEventSubject}"><text-find/></field>

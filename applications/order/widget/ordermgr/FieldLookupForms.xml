@@ -47,7 +47,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="productStoreId"><lookup presentation="window" target-form-name="/marketing/control/LookupProductStore"/></field>
+        <field name="productStoreId"><lookup  target-form-name="/marketing/control/LookupProductStore"/></field>
         <field name="currencyUom">
             <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
@@ -215,7 +215,7 @@ under the License.
             </drop-down>
         </field>
         -->
-        <field name="partyId"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
+        <field name="partyId"><lookup  target-form-name="LookupPartyName"/></field>
         <field name="custRequestCategoryId"><hidden/></field>
         <field name="priority"><hidden/></field>
         <field name="description"><hidden/></field>
@@ -302,7 +302,7 @@ under the License.
                 <entity-options description="${description}" entity-name="QuoteType" key-field-name="quoteTypeId"/>
             </drop-down>
         </field>
-        <field name="partyId"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
+        <field name="partyId"><lookup  target-form-name="LookupPartyName"/></field>
         <field name="issueDate" title="${uiLabelMap.OrderOrderQuoteIssueDate}"></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
@@ -365,8 +365,8 @@ under the License.
         <field name="quoteId"><hidden/></field>
         <field name="isPromo"><hidden/></field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}"><display/></field>
-        <field name="productId"><lookup presentation="window" target-form-name="LookupProduct"/></field>
-        <field name="productFeatureId"><lookup presentation="window" target-form-name="LookupProductFeature"/></field>
+        <field name="productId"><lookup  target-form-name="LookupProduct"/></field>
+        <field name="productFeatureId"><lookup  target-form-name="LookupProductFeature"/></field>
         <field name="deliverableTypeId" title="${uiLabelMap.OrderOrderQuoteDeliverableTypeId}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="DeliverableType" key-field-name="deliverableTypeId"/>
@@ -466,7 +466,7 @@ under the License.
             </drop-down>
         </field>
         <field name="productId">
-            <lookup presentation="window" target-form-name="LookupProduct"/>
+            <lookup  target-form-name="LookupProduct"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="requirementStartDate" title="${uiLabelMap.OrderRequirementStartDate}"><date-find type="date"/></field>

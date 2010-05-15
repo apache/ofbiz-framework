@@ -1316,7 +1316,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="maintTemplateWorkEffortId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
+        <field name="maintTemplateWorkEffortId"><lookup  target-form-name="LookupWorkEffort"/></field>
         <field name="intervalUomId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
@@ -1351,7 +1351,7 @@ under the License.
             </drop-down>
         </field>
         <field name="maintName"><text size="20"/></field>
-        <field name="maintTemplateWorkEffortId"><lookup  presentation="window" target-form-name="LookupWorkEffort"/></field>
+        <field name="maintTemplateWorkEffortId"><lookup   target-form-name="LookupWorkEffort"/></field>
         <field name="intervalUomId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
@@ -1716,7 +1716,7 @@ under the License.
         <auto-fields-service service-name="createWorkEffortGoodStandard"/>
         <field name="productId"><hidden value="${parameters.productId}"/></field>
         <field name="workEffortId">
-            <lookup presentation="window" target-form-name="LookupWorkEffort"/>
+            <lookup  target-form-name="LookupWorkEffort"/>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">

@@ -30,7 +30,7 @@ under the License.
             </drop-down>
         </field>
         <!-- This lookup does not exist, is there for a long time? (I did not find its date of introduction, the older I found is r615322) and I can't see anything close -->
-        <!--field name="customTimePeriodId"><lookup presentation="window" target-form-name="LookupCustomTimePeriod"/></field-->
+        <!--field name="customTimePeriodId"><lookup  target-form-name="LookupCustomTimePeriod"/></field-->
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -58,7 +58,7 @@ under the License.
                 <entity-options description="${description}" key-field-name="budgetItemTypeId" entity-name="BudgetItemType"></entity-options>
             </drop-down>
         </field>
-        <field name="budgetId"><lookup presentation="window" target-form-name="LookupBudget"/></field>
+        <field name="budgetId"><lookup  target-form-name="LookupBudget"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -91,9 +91,9 @@ under the License.
                 <entity-options description="${description}" key-field-name="emplPositionTypeId" entity-name="EmplPositionType"></entity-options>
             </drop-down>
         </field>
-        <field name="partyId"><lookup presentation="window" target-form-name="LookupPartyName"/></field>
-        <field name="budgetId"><lookup presentation="window" target-form-name="LookupBudget"/></field>
-        <field name="budgetItemSeqId"><lookup presentation="window" target-form-name="LookupBudgetItem"/></field>
+        <field name="partyId"><lookup  target-form-name="LookupPartyName"/></field>
+        <field name="budgetId"><lookup  target-form-name="LookupBudget"/></field>
+        <field name="budgetItemSeqId"><lookup  target-form-name="LookupBudgetItem"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
