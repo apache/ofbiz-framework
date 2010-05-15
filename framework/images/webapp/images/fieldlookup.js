@@ -37,6 +37,7 @@ function moveobj(evt) {
 
 var target = null;
 var target2 = null;
+var targetW = null;
 var lookups =[];
 
 function call_fieldlookup(target, viewName, formName, viewWidth, viewheight) {
@@ -88,7 +89,7 @@ function fieldLookup1(obj_target, args) {
     if (obj_target.value == null)
     return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
     //this.target = obj_target;
-    target = obj_target;
+    targetW = obj_target;
     
     // register in global collections
     //this.id = lookups.length;
@@ -103,7 +104,7 @@ function fieldLookup2(obj_target, obj_target2) {
     return lookup_error("Error calling the field lookup: no target control specified");
     if (obj_target.value == null)
     return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
-    target = obj_target;
+    targetW = obj_target;
     // validate input parameters
     if (! obj_target2)
     return lookup_error("Error calling the field lookup: no target2 control specified");
@@ -323,7 +324,7 @@ var FieldLookupPopup = Class.create({
     },
 
     close_on_click: function (evt) {
-        if (! Event.element(evt).descendantOf(this.divRef)) {
+        if (this.divRef.previousSiblings().member(Event.element(evt))) {
             this.closeLookup(this);
         } else {
             identifyLookup(this.globalRef);
@@ -360,15 +361,10 @@ var FieldLookupPopup = Class.create({
     },
 
     createFadedBackground: function (){
-        //remove the faded Background if exists
-        var fb = $('fadedBackground')
-        if (fb != null) {
-            fb.parentNode.removeChild(fb);
-        }
-
         var pageSize = this.getPageSize();
         var fadedBackground = new Element ('DIV', {
-            id: "fadedBackground",
+            id: GLOBAL_LOOKUP_REF.createNextKey() + "_fadedBackground",
+            class: "fadedBackground" ,
             style: "width: " + pageSize[0] + "px; height: " + pageSize[1] + "px;"
             });
 
@@ -472,7 +468,7 @@ var FieldLookupPopup = Class.create({
         Element.stopObserving(document, "mousedown", this.close_on_click);
         this.divRef.parentNode.removeChild(this.divRef);
         //remove the faded Background if exists
-        var fb = $('fadedBackground')
+        var fb = $(this.globalRef + '_fadedBackground')
         if (fb != null){
             fb.parentNode.removeChild(fb);
         }
@@ -845,7 +841,12 @@ function setSourceColor(src) {
 }
 // function passing selected value to calling window
 function set_value (value) {
+	if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
     obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);
+	}
+	else{
+	obj_caller.target = obj_caller.targetW;		
+	}	
     var target = obj_caller.target;
     
     write_value(value, target);
@@ -854,8 +855,13 @@ function set_value (value) {
 }
 // function passing selected value to calling window
 function set_values (value, value2) {
-    obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);
-    var target = obj_caller.target;
+	if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
+	obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);
+	}
+	else{
+	obj_caller.target = obj_caller.targetW;		
+	}
+	var target = obj_caller.target;
     var target2 = obj_caller.target2;
     write_value(value, target);
     write_value(value2, target2)
@@ -892,7 +898,7 @@ function set_multivalues(value) {
 }
 //close the window after passing the value
 function closeLookup() {
-    if (window.opener != null) {
+    if (window.opener != null && GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP) == null) {
         window.close();
     } else {
         obj = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP);
