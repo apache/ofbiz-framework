@@ -130,7 +130,7 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td class="label">${uiLabelMap.PartyAddressLine1}</td>
+      <td class="label">${uiLabelMap.PartyAddressLine1} *</td>
       <td>
         <input type="text" size="100" maxlength="255" name="address1" value="${(mechMap.postalAddress.address1)?default(request.getParameter('address1')?if_exists)}" />
       </td>
@@ -142,7 +142,7 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td class="label">${uiLabelMap.PartyCity}</td>
+      <td class="label">${uiLabelMap.PartyCity} *</td>
       <td>
         <input type="text" size="50" maxlength="100" name="city" value="${(mechMap.postalAddress.city)?default(request.getParameter('city')?if_exists)}" />
       </td>
@@ -158,7 +158,7 @@ under the License.
       </td>
     </tr>
     <tr>
-      <td class="label">${uiLabelMap.PartyZipCode}</td>
+      <td class="label">${uiLabelMap.PartyZipCode} *</td>
       <td>
         <input type="text" size="30" maxlength="60" name="postalCode" value="${(mechMap.postalAddress.postalCode)?default(request.getParameter('postalCode')?if_exists)}" />
       </td>
