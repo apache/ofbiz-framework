@@ -48,12 +48,12 @@ under the License.
                 <entity-options entity-name="InventoryItemType" description="${description}" key-field-name="inventoryItemTypeId"/>
             </drop-down>
         </field>
-        <field name="productId">
-            <text>
-                <sub-hyperlink use-when="productId!=null" target="/catalog/control/EditProduct" target-type="inter-app" description="${uiLabelMap.ProductEditProduct} [${productId}]">
+        <field name="productId" required-field="true" position="1">
+            <lookup target-form-name="LookupProduct">
+                <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${uiLabelMap.ProductEditProduct} [${productId}]">
                     <parameter param-name="productId"/>
                 </sub-hyperlink>
-            </text>
+            </lookup>
         </field>
         <field name="statusId" use-when="inventoryItem==null">
             <drop-down allow-empty="true">
@@ -112,7 +112,7 @@ under the License.
         <field name="accountingQuantityTotal">
             <display/>
         </field>
-        <field name="totals" title="${uiLabelMap.ProductAvailablePromiseQuantityHand}">
+        <field name="totals" use-when="inventoryItem!=null" title="${uiLabelMap.ProductAvailablePromiseQuantityHand}">
             <display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/>
         </field>
 
@@ -122,6 +122,33 @@ under the License.
         <field use-when="inventoryItem==null" name="submit" title="${uiLabelMap.CommonCreate}">
             <submit/>
         </field>
+        <sort-order>
+            <sort-field name="inventoryItemId"/>
+            <sort-field name="inventoryItemTypeId"/>
+            <sort-field name="productId"/>
+            <sort-field name="partyId"/>
+            <sort-field name="ownerPartyId"/>
+            <sort-field name="statusId"/>
+            <sort-field name="datetimeReceived"/>
+            <sort-field name="datetimeManufactured"/>
+            <sort-field name="expireDate"/>
+            <sort-field name="facilityId"/>
+            <sort-field name="containerId"/>
+            <sort-field name="lotId"/>
+            <sort-field name="uomId"/>
+            <sort-field name="binNumber"/>
+            <sort-field name="locationSeqId"/>
+            <sort-field name="comments"/>
+            <sort-field name="accountingQuantityTotal"/>
+            <sort-field name="serialNumber"/>
+            <sort-field name="softIdentifier"/>
+            <sort-field name="activationNumber"/>
+            <sort-field name="activationValidThru"/>
+            <sort-field name="unitCost"/>
+            <sort-field name="currencyUomId"/>
+            <sort-field name="totals"/>
+            <sort-field name="submit"/>
+        </sort-order>
     </form>
 
     <form name="CreatePhysicalInventoryAndVariance" type="single" target="createPhysicalInventoryAndVariance" title=""
