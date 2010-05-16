@@ -45,6 +45,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.WidgetFactory;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.FormStringRenderer;
@@ -83,45 +84,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
     public static List<ModelScreenWidget> readSubWidgets(ModelScreen modelScreen, List<? extends Element> subElementList) {
         List<ModelScreenWidget> subWidgets = FastList.newInstance();
         for (Element subElement: subElementList) {
-            if ("section".equals(subElement.getNodeName())) {
-                subWidgets.add(new Section(modelScreen, subElement));
-            } else if ("container".equals(subElement.getNodeName())) {
-                subWidgets.add(new Container(modelScreen, subElement));
-            } else if ("screenlet".equals(subElement.getNodeName())) {
-                subWidgets.add(new Screenlet(modelScreen, subElement));
-            } else if ("include-screen".equals(subElement.getNodeName())) {
-                subWidgets.add(new IncludeScreen(modelScreen, subElement));
-            } else if ("decorator-screen".equals(subElement.getNodeName())) {
-                subWidgets.add(new DecoratorScreen(modelScreen, subElement));
-            } else if ("decorator-section-include".equals(subElement.getNodeName())) {
-                subWidgets.add(new DecoratorSectionInclude(modelScreen, subElement));
-            } else if ("label".equals(subElement.getNodeName())) {
-                subWidgets.add(new Label(modelScreen, subElement));
-            } else if ("include-form".equals(subElement.getNodeName())) {
-                subWidgets.add(new Form(modelScreen, subElement));
-            } else if ("include-menu".equals(subElement.getNodeName())) {
-                subWidgets.add(new Menu(modelScreen, subElement));
-            } else if ("include-tree".equals(subElement.getNodeName())) {
-                subWidgets.add(new Tree(modelScreen, subElement));
-            } else if ("content".equals(subElement.getNodeName())) {
-                subWidgets.add(new Content(modelScreen, subElement));
-            } else if ("sub-content".equals(subElement.getNodeName())) {
-                subWidgets.add(new SubContent(modelScreen, subElement));
-            } else if ("platform-specific".equals(subElement.getNodeName())) {
-                subWidgets.add(new PlatformSpecific(modelScreen, subElement));
-            } else if ("link".equals(subElement.getNodeName())) {
-                subWidgets.add(new Link(modelScreen, subElement));
-            } else if ("image".equals(subElement.getNodeName())) {
-                subWidgets.add(new Image(modelScreen, subElement));
-            } else if ("iterate-section".equals(subElement.getNodeName())) {
-                subWidgets.add(new IterateSectionWidget(modelScreen, subElement));
-            } else if ("horizontal-separator".equals(subElement.getNodeName())) {
-                subWidgets.add(new HorizontalSeparator(modelScreen, subElement));
-            } else {
-                throw new IllegalArgumentException("Found invalid screen widget element with name: " + subElement.getNodeName());
-            }
+            subWidgets.add(WidgetFactory.getModelScreenWidget(modelScreen, subElement));
         }
-
         return subWidgets;
     }
 
@@ -170,6 +134,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Section extends ModelScreenWidget {
+        public static final String TAG_NAME = "section";
         protected ModelScreenCondition condition;
         protected List<ModelScreenAction> actions;
         protected List<ModelScreenWidget> subWidgets;
@@ -266,6 +231,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Container extends ModelScreenWidget {
+        public static final String TAG_NAME = "container";
         protected FlexibleStringExpander idExdr;
         protected FlexibleStringExpander styleExdr;
         protected FlexibleStringExpander autoUpdateTargetExdr;
@@ -325,6 +291,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Screenlet extends ModelScreenWidget {
+        public static final String TAG_NAME = "screenlet";
         protected FlexibleStringExpander idExdr;
         protected FlexibleStringExpander titleExdr;
         protected Menu navigationMenu = null;
@@ -471,6 +438,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class HorizontalSeparator extends ModelScreenWidget {
+        public static final String TAG_NAME = "horizontal-separator";
         protected FlexibleStringExpander idExdr;
         protected FlexibleStringExpander styleExdr;
 
@@ -500,6 +468,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class IncludeScreen extends ModelScreenWidget {
+        public static final String TAG_NAME = "include-screen";
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
         protected FlexibleStringExpander shareScopeExdr;
@@ -600,6 +569,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class DecoratorScreen extends ModelScreenWidget {
+        public static final String TAG_NAME = "decorator-screen";
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
         protected Map<String, DecoratorSection> sectionMap = new HashMap<String, DecoratorSection>();
@@ -688,6 +658,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class DecoratorSection extends ModelScreenWidget {
+        public static final String TAG_NAME = "decorator-section";
         protected List<ModelScreenWidget> subWidgets;
 
         public DecoratorSection(ModelScreen modelScreen, Element decoratorSectionElement) {
@@ -710,6 +681,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class DecoratorSectionInclude extends ModelScreenWidget {
+        public static final String TAG_NAME = "decorator-section-include";
 
         public DecoratorSectionInclude(ModelScreen modelScreen, Element decoratorSectionElement) {
             super(modelScreen, decoratorSectionElement);
@@ -744,6 +716,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Label extends ModelScreenWidget {
+        public static final String TAG_NAME = "label";
         protected FlexibleStringExpander textExdr;
 
         protected FlexibleStringExpander idExdr;
@@ -796,6 +769,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Form extends ModelScreenWidget {
+        public static final String TAG_NAME = "include-form";
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
         protected FlexibleStringExpander shareScopeExdr;
@@ -884,6 +858,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Tree extends ModelScreenWidget {
+        public static final String TAG_NAME = "include-tree";
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
         protected FlexibleStringExpander shareScopeExdr;
@@ -966,6 +941,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class PlatformSpecific extends ModelScreenWidget {
+        public static final String TAG_NAME = "platform-specific";
         protected Map<String, ModelScreenWidget> subWidgets;
 
         public PlatformSpecific(ModelScreen modelScreen, Element platformSpecificElement) {
@@ -1013,6 +989,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Content extends ModelScreenWidget {
+        public static final String TAG_NAME = "content";
 
         protected FlexibleStringExpander contentId;
         protected FlexibleStringExpander editRequest;
@@ -1239,6 +1216,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class SubContent extends ModelScreenWidget {
+        public static final String TAG_NAME = "sub-content";
         protected FlexibleStringExpander contentId;
         protected FlexibleStringExpander mapKey;
         protected FlexibleStringExpander editRequest;
@@ -1306,6 +1284,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Menu extends ModelScreenWidget {
+        public static final String TAG_NAME = "include-menu";
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
 
@@ -1366,6 +1345,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Link extends ModelScreenWidget {
+        public static final String TAG_NAME = "link";
         protected FlexibleStringExpander textExdr;
         protected FlexibleStringExpander idExdr;
         protected FlexibleStringExpander styleExdr;
@@ -1559,6 +1539,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     }
 
     public static class Image extends ModelScreenWidget {
+        public static final String TAG_NAME = "image";
         protected FlexibleStringExpander srcExdr;
         protected FlexibleStringExpander idExdr;
         protected FlexibleStringExpander styleExdr;
