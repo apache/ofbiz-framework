@@ -54,7 +54,7 @@ under the License.
 
     <entity entity-name="ProdCatalog"
             package-name="org.ofbiz.product.catalog"
-            title="Catalog Entity">
+            title="Catalog Entity" default-resource-name="ProductEntityLabels">
       <field name="prodCatalogId" type="id-ne"></field>
       <field name="catalogName" type="name"></field>
       <field name="useQuickAdd" type="indicator"></field>

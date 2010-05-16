@@ -2639,6 +2639,35 @@
     </property>
 
     <!-- Field Descriptions -->
+    <!--  ProdCatalog -->
+    <property key="FieldDescription.ProdCatalog.prodCatalogId">
+        <value xml:lang="en">This cannot be changed without re-creating the Product Catalog.</value>
+    </property>
+    <property key="FieldDescription.ProdCatalog.catalogName">
+        <value xml:lang="en">This will be shown to your customers, so think of image when giving your catalog a name.</value>
+    </property>
+    <property key="FieldDescription.ProdCatalog.useQuickAdd">
+        <value xml:lang="en">Set this to Y if you want to give users the option to quick add products.</value>
+    </property>
+    <property key="FieldDescription.ProdCatalog.styleSheet">
+        <value xml:lang="en">The path to your distinctive style sheet which will govern the appearance of your catalog goes here.</value>
+    </property>
+    <property key="FieldDescription.ProdCatalog.headerLogo">
+        <value xml:lang="en">This will be seen by your customers. Maintain your image and message with the logo presented.</value>
+    </property>
+    <property key="FieldDescription.ProdCatalog.contentPathPrefix">
+        <value xml:lang="en">If specified will be prepended to image and other content paths. Should start with a slash but not end with one.</value>
+    </property>
+    <property key="FieldDescription.ProdCatalog.templatePathPrefix">
+        <value xml:lang="en">If specified will be prepended to template paths. Should start with a slash but not end with one.</value>
+    </property>
+    <property key="FieldDescription.ProdCatalog.viewAllowPermReqd">
+        <value xml:lang="en">If Y, administrators can only add products to 'View Allow' categories if they have the permission CATALOG_VIEW_ALLOW</value>
+    </property>
+    <property key="FieldDescription.ProdCatalog.purchaseAllowPermReqd">
+        <value xml:lang="en">If Y, administrators can only add products to 'Purchase Allow' categories if they have the permission CATALOG_VIEW_ALLOW</value>
+    </property>
+
     <!--  ProductStore -->
     <property key="FieldDescription.ProductStore.productStoreId">
         <value xml:lang="en">The id for the product store..</value>
