@@ -166,7 +166,7 @@ under the License.
         </field>
         <field name="ownerContentId"><lookup presentation="window" target-form-name="LookupContent"/></field>
         <field name="decoratorContentId">
-            <lookup target-form-name="LookupContent">
+            <lookup presentation="window" target-form-name="LookupContent">
                 <sub-hyperlink use-when="&quot;${currentValue.decoratorContentId}&quot;.length()>0" link-style="buttontext" target="EditContent" description="${uiLabelMap.ContentGoToContent}">
                     <parameter param-name="contentId" from-field="currentValue.decoratorContentId"/>
                 </sub-hyperlink>
