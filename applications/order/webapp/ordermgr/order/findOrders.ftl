@@ -444,6 +444,8 @@ function toggleOrderIdList() {
                         <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", countryGeoId), true)>
                         <option value="${countryGeoId}">${geo.geoName?if_exists}</option>
                         <option value="${countryGeoId}">---</option>
+                    <#else>
+                        <option value="">---</option>
                     </#if>
                     ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                   </select>
