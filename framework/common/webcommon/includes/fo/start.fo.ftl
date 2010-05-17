@@ -33,6 +33,9 @@ under the License.
     <#include pageMaster/>
   </#list>
 <#else>
+  <#include "component://common/webcommon/includes/fo/pm-11x17.fo.ftl"/>
+  <#include "component://common/webcommon/includes/fo/pm-iso216.fo.ftl"/>
+  <#include "component://common/webcommon/includes/fo/pm-legal.fo.ftl"/>  
   <#include "component://common/webcommon/includes/fo/pm-letter.fo.ftl"/>
 </#if>
   </fo:layout-master-set>
