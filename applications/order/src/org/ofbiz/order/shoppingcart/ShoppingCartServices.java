@@ -32,6 +32,7 @@ import javolution.util.FastMap;
 import org.apache.commons.lang.math.NumberUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -194,7 +195,7 @@ public class ShoppingCartServices {
         cart.setOrderType(orderTypeId);
         cart.setChannelType(orderHeader.getString("salesChannelEnumId"));
         cart.setInternalCode(orderHeader.getString("internalCode"));
-        cart.setOrderDate(orderHeader.getTimestamp("orderDate"));
+        cart.setOrderDate(UtilDateTime.nowTimestamp());
         cart.setOrderId(orderHeader.getString("orderId"));
         cart.setOrderName(orderHeader.getString("orderName"));
         cart.setOrderStatusId(orderHeader.getString("statusId"));
