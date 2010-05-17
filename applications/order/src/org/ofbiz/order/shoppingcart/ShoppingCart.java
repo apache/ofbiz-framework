@@ -4758,12 +4758,15 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
 
                 GenericValue productStore = null;
+                String splitPayPrefPerShpGrp = null;
                 try {
                     productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", cart.getProductStoreId()));
                 } catch (GenericEntityException e) {
                     Debug.logError(e.toString(), module);
                 }
-                String splitPayPrefPerShpGrp = productStore.getString("splitPayPrefPerShpGrp");
+                if (productStore != null) {
+                    splitPayPrefPerShpGrp = productStore.getString("splitPayPrefPerShpGrp");
+                }
                 if (splitPayPrefPerShpGrp == null) {
                     splitPayPrefPerShpGrp = "N";
                 }
