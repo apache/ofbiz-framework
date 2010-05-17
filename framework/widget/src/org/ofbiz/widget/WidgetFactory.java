@@ -89,16 +89,14 @@ public class WidgetFactory {
             try {
                 // Subclass of ModelScreenWidget and non-abstract
                 if (ModelScreenWidget.class.isAssignableFrom(clz) && (clz.getModifiers() & Modifier.ABSTRACT) == 0) {
-                    if (ModelScreenWidget.class.isAssignableFrom(clz)) {
-                        try {
-                            Field field = clz.getField("TAG_NAME");
-                            Object fieldObject = field.get(null);
-                            if (fieldObject != null) {
-                                Class<? extends ModelScreenWidget> widgetClass = UtilGenerics.cast(clz);
-                                registerScreenWidget(fieldObject.toString(), widgetClass);
-                            }
-                        } catch (Exception e) {}
-                    }
+                    try {
+                        Field field = clz.getField("TAG_NAME");
+                        Object fieldObject = field.get(null);
+                        if (fieldObject != null) {
+                            Class<? extends ModelScreenWidget> widgetClass = UtilGenerics.cast(clz);
+                            registerScreenWidget(fieldObject.toString(), widgetClass);
+                        }
+                    } catch (Exception e) {}
                 }
             } catch (Exception e) {
                 Debug.logError(e, module);
