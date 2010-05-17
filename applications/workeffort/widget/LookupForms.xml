@@ -58,7 +58,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="workEffortParentId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
         <field name="facilityId"><lookup  target-form-name="LookupFacility"/></field>
         <field name="fixedAssetId"><lookup  target-form-name="LookupFixedAsset"/></field>
         <field name="scopeEnumId">
