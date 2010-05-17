@@ -59,8 +59,8 @@ under the License.
             </drop-down>
         </field>
         <field name="workEffortParentId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
-        <field name="facilityId"><lookup  target-form-name="LookupFacility"/></field>
-        <field name="fixedAssetId"><lookup  target-form-name="LookupFixedAsset"/></field>
+        <field name="facilityId"><lookup presentation="window" target-form-name="LookupFacility"/></field>
+        <field name="fixedAssetId"><lookup presentation="window" target-form-name="LookupFixedAsset"/></field>
         <field name="scopeEnumId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
