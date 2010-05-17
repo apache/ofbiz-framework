@@ -51,6 +51,7 @@ under the License.
     <simple-method method-name="createCustRequest" short-description="Create Customer Request">
         <make-value value-field="newEntity" entity-name="CustRequest"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <now-timestamp field="newEntity.lastModifiedDate"/>
 
         <now-timestamp field="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
@@ -208,14 +209,18 @@ under the License.
         <make-value value-field="newEntity" entity-name="CustRequestAttribute"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <now-timestamp field="newEntity.lastModifiedDate"/>
         <create-value value-field="newEntity"/>
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <now-timestamp field="newEntity.lastModifiedDate"/>
+        <store-value value-field="custRequest"/>
     </simple-method>
     <simple-method method-name="updateCustRequestAttribute" short-description="Update Customer Request Attribute">
         <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
         <set from-field="parameters.attrName" field="lookupPKMap.attrName"/>
         <find-by-primary-key entity-name="CustRequestAttribute" map="lookupPKMap" value-field="custRequestAttr"/>
         <set-nonpk-fields map="parameters" value-field="custRequestAttr"/>
-        <store-value value-field="custRequestAttr"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
 
     <simple-method method-name="createCustRequestItem" short-description="Create Customer Request Item">
@@ -232,6 +237,7 @@ under the License.
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.custRequestId" result-name="custRequestId"/>
         <field-to-result field="newEntity.custRequestItemSeqId" result-name="custRequestItemSeqId"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="updateCustRequestItem" short-description="Update Customer Request Item">
         <call-simple-method method-name="checkStatusCustRequest"/>        
@@ -240,6 +246,7 @@ under the License.
         <find-by-primary-key entity-name="CustRequestItem" map="lookupPKMap" value-field="custRequestItem"/>
         <set-nonpk-fields map="parameters" value-field="custRequestItem"/>
         <store-value value-field="custRequestItem"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
 
     <simple-method method-name="createCustRequestParty" short-description="Create Customer RequestParty">
@@ -259,12 +266,14 @@ under the License.
             <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
         <create-value value-field="newEntity"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="updateCustRequestParty" short-description="Update an existing CustRequestParty">
         <call-simple-method method-name="checkStatusCustRequest"/>                
         <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="deleteCustRequestParty" short-description="Delete Customer CustRequestParty">
         <call-simple-method method-name="checkStatusCustRequest"/>
@@ -272,6 +281,7 @@ under the License.
         <now-timestamp field="thruDate"/>
         <set field="lookedUpValue.thruDate" from-field="thruDate"/>
         <store-value value-field="lookedUpValue"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="createCustRequestNote" short-description="Create Customer Request Note">
         <make-value value-field="newEntity" entity-name="CustRequestNote"/>
@@ -285,6 +295,7 @@ under the License.
         <entity-one entity-name="CustRequest" value-field="custRequest"/>
         <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification services -->
         <field-to-result field="custRequest.custRequestName" result-name="custRequestName"/><!-- for notification services -->
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="updateCustRequestNote" short-description="Update CustRequest Note">
         <entity-one entity-name="CustRequestNote" value-field="lookedUpValue"/>
@@ -293,6 +304,7 @@ under the License.
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValueForNoteData"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="createCustRequestItemNote" short-description="Create Customer RequestItem Note">
         <call-simple-method method-name="checkStatusCustRequest"/>        
@@ -310,6 +322,7 @@ under the License.
         <entity-one entity-name="CustRequest" value-field="custRequest"/>
         <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification services -->
         <field-to-result field="custRequest.custRequestName" result-name="custRequestName"/><!-- for notification services -->
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
 
     <simple-method method-name="getCustRequestsByRole" short-description="Create Customer RequestItem Note">
@@ -472,6 +485,7 @@ under the License.
         <if-not-empty field="parameters.reason"><!-- update reason if provided -->
             <set field="custRequest.reason" from-field="parameters.reason"/>
         </if-not-empty>
+        <now-timestamp field="custRequest.lastModifiedDate"/>
         <store-value value-field="custRequest"/>
         <call-simple-method method-name="createCustRequestStatus"/>
     </simple-method>
@@ -534,6 +548,7 @@ under the License.
         </if-empty>
 
         <create-value value-field="newEntity"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="deleteCustRequestContent" short-description="Remove a Customer Request Content">
         <call-simple-method method-name="checkStatusCustRequest"/>
@@ -543,6 +558,13 @@ under the License.
             <now-timestamp field="lookedUpValue.thruDate"/>
         </if-empty>
         <store-value value-field="lookedUpValue"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+
+    <simple-method method-name="updateCustRequestModifiedDate" short-description="update the modified date field in a customer request">
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <now-timestamp field="newEntity.lastModifiedDate"/>
+        <store-value value-field="custRequest"/>
     </simple-method>
 
 </simple-methods>
