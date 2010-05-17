@@ -1565,3 +1565,11 @@ height:16px;
 .calendar_date_select .cds_buttons a {
   background: none !important; 
 }
+
+.wait-spinner {
+    float: right;
+    margin-right: 10px;
+}
+.wait-spinner div {
+    padding-top: 4px;
+}

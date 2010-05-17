@@ -233,7 +233,11 @@ function confirmActionFormLink(msg, formName) {
   * @param targetParams The URL parameters
 */
 function ajaxUpdateArea(areaId, target, targetParams) {
-    new Ajax.Updater(areaId, target, {parameters: targetParams, evalScripts: true});
+    waitSpinnerShow();
+    new Ajax.Updater(areaId, target, {parameters: targetParams, evalScripts: true,
+        onSuccess: function(transport) {waitSpinnerHide();},
+        onFailure: function() {waitSpinnerHide();}
+    });
 }
 
 /** Update multiple areas (HTML container elements).
@@ -241,6 +245,7 @@ function ajaxUpdateArea(areaId, target, targetParams) {
   * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
 function ajaxUpdateAreas(areaCsvString) {
+    waitSpinnerShow();
     responseFunction = function(transport) {
         // Uncomment the next two lines to see the HTTP responses
         //var response = transport.responseText || "no response text";
@@ -249,7 +254,13 @@ function ajaxUpdateAreas(areaCsvString) {
     var areaArray = areaCsvString.split(",");
     var numAreas = parseInt(areaArray.length / 3);
     for (var i = 0; i < numAreas * 3; i = i + 3) {
-        new Ajax.Updater(areaArray[i], areaArray[i + 1], {parameters: areaArray[i + 2], onComplete: responseFunction,evalScripts: true });
+        new Ajax.Updater(areaArray[i], areaArray[i + 1], {
+                 parameters: areaArray[i + 2], 
+                 onComplete: responseFunction,
+                 evalScripts: true,
+                 onSuccess: function(transport) {waitSpinnerHide();},
+                 onFailure: function() {waitSpinnerHide();}
+                 });
     }
 }
 
@@ -300,6 +311,7 @@ function submitFormInBackground(form, areaId, submitUrl) {
 */
 function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
     submitFormDisableSubmits($(form));
+    waitSpinnerShow();
     updateFunction = function(transport) {
         var data = transport.responseText.evalJSON(true);
         if (data._ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined) {
@@ -549,4 +561,12 @@ function setUserLayoutPreferences(userPrefGroupTypeId, userPrefTypeId, userPrefV
 }
 
 function toggleLeftColumn(){
+}
+
+function waitSpinnerShow() {
+    document.getElementById("wait-spinner").style.visibility = 'visible';
+}
+
+function waitSpinnerHide() {
+    document.getElementById("wait-spinner").style.visibility = 'hidden';
 }

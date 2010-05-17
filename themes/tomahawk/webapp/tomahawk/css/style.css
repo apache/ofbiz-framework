@@ -2495,3 +2495,11 @@ background-color:#a9b996;
 .order-item-status-list.REJECTED .screenlet-body, .alternate-row .order-item-status-list.REJECTED .screenlet-body {
 background-color:#b29898;
 }
+
+.wait-spinner {
+    float: right;
+    margin-right: 10px;
+}
+.wait-spinner div {
+    padding-top: 4px;
+}

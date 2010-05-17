@@ -2270,3 +2270,11 @@ Lookups
      left: 0px;
      top: 0px;
  }
+
+.wait-spinner {
+    float: right;
+    margin-right: 10px;
+}
+.wait-spinner div {
+    padding-top: 4px;
+}
