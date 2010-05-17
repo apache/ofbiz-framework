@@ -191,6 +191,11 @@ under the License.
         <response name="success" type="view" value="showHelp"/>
     </request-map>
 
+    <request-map uri="authview">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="none"/>
