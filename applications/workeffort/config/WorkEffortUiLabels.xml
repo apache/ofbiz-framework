@@ -34,7 +34,7 @@
     <property key="FormFieldTitle_actualCompletionDate">
         <value xml:lang="de">Tatsächliches Erledigungsdatum</value>
         <value xml:lang="en">Actual Completion Date</value>
-        <value xml:lang="fr">Véritable date d'achèvement</value>
+        <value xml:lang="fr">Date d'achèvement réelle</value>
         <value xml:lang="it">Data completamento attuale</value>
         <value xml:lang="nl">Datum gereed</value>
         <value xml:lang="ro">Data Finalizare Actuala</value>
