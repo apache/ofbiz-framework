@@ -35,6 +35,7 @@ under the License.
             </td>
           </tr>
         </table>
+        <a href='<@ofbizUrl>authview</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
         <input type="hidden" name="JavaScriptEnabled" value="N"/>
       </form>
     </div>
