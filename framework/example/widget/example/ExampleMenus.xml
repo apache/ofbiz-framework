@@ -34,6 +34,8 @@ under the License.
         </menu-item>
         <menu-item name="ExampleGeoLocation" title="${uiLabelMap.CommonGeoLocation}"><link target="ExampleGeoLocationPointSet1"/></menu-item>
         <menu-item name="Birt" title="${uiLabelMap.Birt}"><link target="BirtMain"/></menu-item>
+        <menu-item name="Barchart" title="Flotr : Bar Chart"><link target="BarChart"/></menu-item>
+        <menu-item name="Piechart" title="Flotr : Pie Chart"><link target="PieChart"/></menu-item> 
     </menu>
 
     <menu name="EditExample" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

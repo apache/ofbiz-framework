@@ -238,6 +238,14 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewHandler"/>
     </request-map>
+    <request-map uri="BarChart">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="BarChart"/>
+    </request-map>
+    <request-map uri="PieChart">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PieChart"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -277,6 +285,11 @@ under the License.
     <view-map name="Report" type="screen" page="component://example/widget/example/BirtScreens.xml#Report"/>
     <view-map name="Mail" type="screen" page="component://example/widget/example/BirtScreens.xml#EditMail"/>
     <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/product.rptdesign" content-type="application/pdf"/>
+
+    <!-- Flotr view mapping -->
+    <view-map name="BarChart" page="component://example/widget/example/ExampleScreens.xml#BarChart" type="screen"/>
+    <view-map name="PieChart" page="component://example/widget/example/ExampleScreens.xml#PieChart" type="screen"/>
+
     <!-- Supported Content Types -->
     <!--
         text/html
