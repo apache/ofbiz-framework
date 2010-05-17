@@ -209,17 +209,15 @@ under the License.
         <make-value value-field="newEntity" entity-name="CustRequestAttribute"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <now-timestamp field="newEntity.lastModifiedDate"/>
         <create-value value-field="newEntity"/>
-        <entity-one entity-name="CustRequest" value-field="custRequest"/>
-        <now-timestamp field="newEntity.lastModifiedDate"/>
-        <store-value value-field="custRequest"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="updateCustRequestAttribute" short-description="Update Customer Request Attribute">
         <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
         <set from-field="parameters.attrName" field="lookupPKMap.attrName"/>
         <find-by-primary-key entity-name="CustRequestAttribute" map="lookupPKMap" value-field="custRequestAttr"/>
         <set-nonpk-fields map="parameters" value-field="custRequestAttr"/>
+        <store-value value-field="custRequestAttr"/>
         <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
 
