@@ -445,8 +445,7 @@ function toggleOrderIdList() {
                         <option value="${countryGeoId}">${geo.geoName?if_exists}</option>
                         <option value="${countryGeoId}">---</option>
                     </#if>
-                    <option value="">---</option>
-S                    ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+                    ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                   </select>
                   <select name="includeCountry">
                     <#if requestParameters.includeCountry?has_content>
