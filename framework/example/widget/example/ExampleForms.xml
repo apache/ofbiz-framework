@@ -270,4 +270,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+    <form name="ChartDataList" type="list" list-name="chartData">
+        <field name="exampleTypeId"><display/></field>
+        <field name="total"><display/></field>
+    </form>
 </forms>

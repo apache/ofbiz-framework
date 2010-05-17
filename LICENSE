@@ -2697,6 +2697,15 @@ ofbiz/trunk/framework/images/webapp/images/prototype/sound.js
 ofbiz/trunk/framework/images/webapp/images/prototype/unittest.js
 ofbiz/trunk/framework/images/webapp/images/prototype/builder.js
 ===================================================================================
+Apache Ofbiz includes flotr javascript lib from http://code.google.com/p/flotr/
+licensed under the terms of the MIT License
+ofbiz/trunk/framework/images/webapp/images/flotr/lib/excanvas.js
+ofbiz/trunk/framework/images/webapp/images/flotr/lib/base64.js
+ofbiz/trunk/framework/images/webapp/images/flotr/lib/canvas2image.js
+ofbiz/trunk/framework/images/webapp/images/flotr/lib/canvastext.js
+ofbiz/trunk/framework/images/webapp/images/flotr/flotr.debug-0.2.0-alpha.js
+ofbiz/trunk/framework/images/webapp/images/flotr/flotr-0.2.0-alpha.js
+===================================================================================
 Apache Ofbiz includes LivePipe Control Suite from http://livepipe.net/projects/control_suite/
 licensed under the terms of the MIT License
 ofbiz/trunk/framework/images/webapp/images/prototype/control.progress_bar.js
@@ -2786,6 +2795,6 @@ The DocBook XSL stylesheets are maintained by Norman Walsh,
 The docbook schemas in the files docbook.xsd, docbook.dtd xlink.xsd
 and xml.xsd are distributed under the GNU Free Documentation License
 GNU Free Documentation License
-It was allowed by the author to use the docbook files within the 
-Apache OFBiz system in an email to H.Bakker from N.Walsh dd     
-Tue, 25 Aug 2009 07:27:51 -0400 (18:27 ICT) 
+It was allowed by the author to use the docbook files within the
+Apache OFBiz system in an email to H.Bakker from N.Walsh dd
+Tue, 25 Aug 2009 07:27:51 -0400 (18:27 ICT)

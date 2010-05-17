@@ -148,4 +148,10 @@ under the License.
             <order-by field-name="exampleName"/>
         </entity-condition>
     </view-entity>
+    <!--example view for creating charts -->
+    <view-entity entity-name="ExampleCountByType" package-name="org.ofbiz.example.example">
+        <member-entity entity-alias="EX" entity-name="Example"/>
+        <alias entity-alias="EX" name="total" field="exampleId" function="count-distinct"/>
+        <alias entity-alias="EX" name="exampleTypeId" group-by="true"/>
+    </view-entity>
 </entitymodel>
