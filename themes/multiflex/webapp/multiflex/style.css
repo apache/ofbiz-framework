@@ -2295,3 +2295,10 @@ font-size: 1px;
 height: 1px;
 }
 
+.wait-spinner {
+    float: right;
+    margin-right: 10px;
+}
+.wait-spinner div {
+    padding-top: 4px;
+}

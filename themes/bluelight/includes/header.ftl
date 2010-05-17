@@ -172,6 +172,13 @@ under the License.
                 </li>
               </#if>
             </#if>
+            <li class="control-area">
+              <div class="wait-spinner" style="background:none; visibility:hidden">
+                <div id="wait-spinner" style="">
+                  <img src="/images/spinner.gif" alt="" title=""/>
+                </div>
+              </div>
+            </li>
           </ul>
         </li>
       </ul>

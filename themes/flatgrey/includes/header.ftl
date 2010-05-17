@@ -184,6 +184,13 @@ under the License.
               <#include "component://common/webcommon/includes/helplink.ftl" />
               <li><a <#if pageAvail?has_content>class="alert"</#if> href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
            </#if>
+           <li class="control-area">
+             <div class="wait-spinner" style="background:none; visibility:hidden">
+               <div id="wait-spinner" style="">
+                 <img src="/images/spinner.gif" alt="" title=""/>
+               </div>
+             </div>
+           </li>
           </ul>
         </li>
       </#if>
