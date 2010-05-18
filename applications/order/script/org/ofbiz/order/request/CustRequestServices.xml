@@ -561,7 +561,7 @@ under the License.
 
     <simple-method method-name="updateCustRequestLastModifiedDate" short-description="update the modified date field in a customer request">
         <entity-one entity-name="CustRequest" value-field="custRequest"/>
-        <now-timestamp field="newEntity.lastModifiedDate"/>
+        <now-timestamp field="custRequest.lastModifiedDate"/>
         <store-value value-field="custRequest"/>
     </simple-method>
 
