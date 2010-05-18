@@ -183,11 +183,11 @@ under the License.
                                     </td>
                                     <td>
                                         <input id="CommResponsivenessId${feedbackCounter}" type="hidden" value="0" name="ratingComm${feedbackCounter}"/>
-                                        <img id="starCommResponsivenessId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',1,this,${feedbackCounter})"/>
-                                        <img id="starCommResponsivenessId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',2,this,${feedbackCounter})"/>
-                                        <img id="starCommResponsivenessId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',3,this,${feedbackCounter})"/>
-                                        <img id="starCommResponsivenessId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',4,this,${feedbackCounter})"/>
-                                        <img id="starCommResponsivenessId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',5,this,${feedbackCounter})"/>
+                                        <img id="starCommResponsivenessId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',1,this,${feedbackCounter})"/>
+                                        <img id="starCommResponsivenessId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',2,this,${feedbackCounter})"/>
+                                        <img id="starCommResponsivenessId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',3,this,${feedbackCounter})"/>
+                                        <img id="starCommResponsivenessId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',4,this,${feedbackCounter})"/>
+                                        <img id="starCommResponsivenessId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',5,this,${feedbackCounter})"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -196,11 +196,11 @@ under the License.
                                     </td>
                                     <td>
                                         <input id="ShippingTimeId${feedbackCounter}" type="hidden" value="0" name="ratingShip${feedbackCounter}"/>
-                                        <img id="starShippingTimeId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',1,this,${feedbackCounter})"/>
-                                        <img id="starShippingTimeId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',2,this,${feedbackCounter})"/>
-                                        <img id="starShippingTimeId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',3,this,${feedbackCounter})"/>
-                                        <img id="starShippingTimeId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',4,this,${feedbackCounter})"/>
-                                        <img id="starShippingTimeId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',5,this,${feedbackCounter})"/>
+                                        <img id="starShippingTimeId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',1,this,${feedbackCounter})"/>
+                                        <img id="starShippingTimeId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',2,this,${feedbackCounter})"/>
+                                        <img id="starShippingTimeId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',3,this,${feedbackCounter})"/>
+                                        <img id="starShippingTimeId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',4,this,${feedbackCounter})"/>
+                                        <img id="starShippingTimeId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',5,this,${feedbackCounter})"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -209,11 +209,11 @@ under the License.
                                     </td>
                                     <td>
                                         <input id="ShippingHandlingChargesId${feedbackCounter}" type="hidden" value="0" name="ratingShipHand${feedbackCounter}"/>
-                                        <img id="starShippingHandlingChargesId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',1,this,${feedbackCounter})"/>
-                                        <img id="starShippingHandlingChargesId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',2,this,${feedbackCounter})"/>
-                                        <img id="starShippingHandlingChargesId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',3,this,${feedbackCounter})"/>
-                                        <img id="starShippingHandlingChargesId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',4,this,${feedbackCounter})"/>
-                                        <img id="starShippingHandlingChargesId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',5,this,${feedbackCounter})"/>
+                                        <img id="starShippingHandlingChargesId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',1,this,${feedbackCounter})"/>
+                                        <img id="starShippingHandlingChargesId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',2,this,${feedbackCounter})"/>
+                                        <img id="starShippingHandlingChargesId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',3,this,${feedbackCounter})"/>
+                                        <img id="starShippingHandlingChargesId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',4,this,${feedbackCounter})"/>
+                                        <img id="starShippingHandlingChargesId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',5,this,${feedbackCounter})"/>
                                     </td>
                                 </tr>
                             </table>
@@ -296,11 +296,11 @@ under the License.
                                 </td>
                                 <td>
                                     <input id="ItemAsDescribedId${feedbackCounter}" type="hidden" value="0" name="ratingItem${feedbackCounter}"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',1,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='block'"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',2,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='block'"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',3,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',4,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',5,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',1,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='block'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',2,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='block'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',3,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',4,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',5,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
                                 </td>
                             </tr>
                             <tr id="itemOption${feedbackCounter}" style="display:none;border:#eeeeee solid thin;text-indent:10px">
@@ -342,11 +342,11 @@ under the License.
                                 </td>
                                 <td>
                                     <input id="CommResponsivenessId${feedbackCounter}" type="hidden" value="0" name="ratingComm${feedbackCounter}"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',1,this,${feedbackCounter})"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',2,this,${feedbackCounter})"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',3,this,${feedbackCounter})"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',4,this,${feedbackCounter})"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',5,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',1,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',2,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',3,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',4,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',5,this,${feedbackCounter})"/>
                                 </td>
                             </tr>
                             <tr>
@@ -355,11 +355,11 @@ under the License.
                                 </td>
                                 <td>
                                     <input id="ShippingTimeId${feedbackCounter}" type="hidden" value="0" name="ratingShip${feedbackCounter}"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',1,this,${feedbackCounter})"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',2,this,${feedbackCounter})"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',3,this,${feedbackCounter})"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',4,this,${feedbackCounter})"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',5,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',1,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',2,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',3,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',4,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',5,this,${feedbackCounter})"/>
                                 </td>
                             </tr>
                             <tr>
@@ -368,11 +368,11 @@ under the License.
                                 </td>
                                 <td>
                                     <input id="ShippingHandlingChargesId${feedbackCounter}" type="hidden" value="0" name="ratingShipHand${feedbackCounter}"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',1,this,${feedbackCounter})"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',2,this,${feedbackCounter})"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',3,this,${feedbackCounter})"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',4,this,${feedbackCounter})"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',5,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',1,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',2,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',3,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',4,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',5,this,${feedbackCounter})"/>
                                 </td>
                             </tr>
                         </table>
@@ -428,11 +428,11 @@ under the License.
                                 </td>
                                 <td>
                                     <input id="ItemAsDescribedId${feedbackCounter}" type="hidden" value="0" name="ratingItem${feedbackCounter}"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',1,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='block'"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',2,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='block'"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',3,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',4,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
-                                    <img id="starItemAsDescribedId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',5,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',1,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='block'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',2,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='block'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',3,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',4,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
+                                    <img id="starItemAsDescribedId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ItemAsDescribedId',5,this,${feedbackCounter});document.getElementById('itemOption${feedbackCounter}').style.display='none'"/>
                                 </td>
                             </tr>
                             <tr id="itemOption${feedbackCounter}" style="display:none;border:#eeeeee solid thin;text-indent:10px">
@@ -474,11 +474,11 @@ under the License.
                                 </td>
                                 <td>
                                     <input id="CommResponsivenessId${feedbackCounter}" type="hidden" value="0" name="ratingComm${feedbackCounter}"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',1,this,${feedbackCounter})"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',2,this,${feedbackCounter})"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',3,this,${feedbackCounter})"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',4,this,${feedbackCounter})"/>
-                                    <img id="starCommResponsivenessId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',5,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',1,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',2,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',3,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',4,this,${feedbackCounter})"/>
+                                    <img id="starCommResponsivenessId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('CommResponsivenessId',5,this,${feedbackCounter})"/>
                                 </td>
                             </tr>
                             <tr>
@@ -487,11 +487,11 @@ under the License.
                                 </td>
                                 <td>
                                     <input id="ShippingTimeId${feedbackCounter}" type="hidden" value="0" name="ratingShip${feedbackCounter}"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',1,this,${feedbackCounter})"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',2,this,${feedbackCounter})"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',3,this,${feedbackCounter})"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',4,this,${feedbackCounter})"/>
-                                    <img id="starShippingTimeId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',5,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',1,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',2,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',3,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',4,this,${feedbackCounter})"/>
+                                    <img id="starShippingTimeId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingTimeId',5,this,${feedbackCounter})"/>
                                 </td>
                             </tr>
                             <tr>
@@ -500,11 +500,11 @@ under the License.
                                 </td>
                                 <td>
                                     <input id="ShippingHandlingChargesId${feedbackCounter}" type="hidden" value="0" name="ratingShipHand${feedbackCounter}"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_1" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',1,this,${feedbackCounter})"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_2" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',2,this,${feedbackCounter})"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_3" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',3,this,${feedbackCounter})"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_4" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',4,this,${feedbackCounter})"/>
-                                    <img id="starShippingHandlingChargesId${feedbackCounter}_5" src="/images/rate/starDefault.gif" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',5,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_1" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',1,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_2" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',2,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_3" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',3,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_4" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',4,this,${feedbackCounter})"/>
+                                    <img id="starShippingHandlingChargesId${feedbackCounter}_5" src="/images/rate/starDefault.gif" alt="" onmouseover="overStar(this)" onmouseout="outStar(this)" onclick="setRate('ShippingHandlingChargesId',5,this,${feedbackCounter})"/>
                                 </td>
                             </tr>
                         </table>
