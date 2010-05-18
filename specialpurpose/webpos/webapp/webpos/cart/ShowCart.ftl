@@ -94,7 +94,7 @@ under the License.
                             <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
                             <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
                             <#if smallImageUrl?string?has_content>
-                                <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" width="50" class="imageborder" border="0"/>
+                                <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" width="50" class="imageborder" border="0" alt="" />
                             </#if>
                             <#-- end code to display a small image of the product -->
                             ${cartLine.getProductId()} - ${cartLine.getName()?if_exists} : ${cartLine.getDescription()?if_exists}
