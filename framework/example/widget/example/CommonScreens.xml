@@ -252,7 +252,31 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
+    <screen name="CommonExampleChartsDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleCharts"/>
+                <entity-condition entity-name="ExampleCountByType" list="chartData">
+                    <order-by field-name="exampleTypeId"/>
+                </entity-condition>
+                <set field="labelFieldName" value="exampleTypeId"/>
+                <set field="dataFieldName" value="total"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ExampleCharts" location="component://example/widget/example/ExampleMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <container style="clear" />
+                        <include-screen name="FlotrChart" location="component://common/widget/flotrScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="main">
         <!-- This is the screen for the Main page in the Example component. A common pattern
             in OFBiz is to have each component include a Main page as a starting point for
