@@ -58,7 +58,7 @@ under the License.
       <div>
         <#if categoryImageUrl?string?has_content>
           <#assign height=100/>
-          <img src='<@ofbizContentUrl>${categoryImageUrl}</@ofbizContentUrl>' vspace='5' hspace='5' border='1' height='${height}' align='left'/>
+          <img src='<@ofbizContentUrl>${categoryImageUrl}</@ofbizContentUrl>' vspace='5' hspace='5' border='1' height='${height}' align='left' alt="" />
         </#if>
         <#if longDescription?has_content>
           ${longDescription}
