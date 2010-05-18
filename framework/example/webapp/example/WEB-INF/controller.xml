@@ -238,13 +238,13 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewHandler"/>
     </request-map>
-    <request-map uri="BarChart">
+    <request-map uri="ExampleBarChart">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="BarChart"/>
+        <response name="success" type="view" value="ExampleBarChart"/>
     </request-map>
-    <request-map uri="PieChart">
+    <request-map uri="ExamplePieChart">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="PieChart"/>
+        <response name="success" type="view" value="ExamplePieChart"/>
     </request-map>
     <!-- end of request mappings -->
 
@@ -287,8 +287,8 @@ under the License.
     <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/product.rptdesign" content-type="application/pdf"/>
 
     <!-- Flotr view mapping -->
-    <view-map name="BarChart" page="component://example/widget/example/ExampleScreens.xml#BarChart" type="screen"/>
-    <view-map name="PieChart" page="component://example/widget/example/ExampleScreens.xml#PieChart" type="screen"/>
+    <view-map name="ExampleBarChart" page="component://example/widget/example/ExampleScreens.xml#ExampleBarChart" type="screen"/>
+    <view-map name="ExamplePieChart" page="component://example/widget/example/ExampleScreens.xml#ExamplePieChart" type="screen"/>
 
     <!-- Supported Content Types -->
     <!--

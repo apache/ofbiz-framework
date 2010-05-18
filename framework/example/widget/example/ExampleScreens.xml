@@ -312,62 +312,27 @@ under the License.
         </section>
     </screen>
 
-    <screen name="ChartDataList">
-        <section>
-            <widgets>
-                <include-form name="ChartDataList" location="component://example/widget/example/ExampleForms.xml" />
-            </widgets>
-        </section>
-    </screen>
-    <screen name="PieChart">
+    <screen name="ExamplePieChart">
         <section>
             <actions>
-                <set field="headerItem" value="Piecharts"/>
-                <entity-condition entity-name="ExampleCountByType" list="chartData">
-                    <order-by field-name="exampleTypeId"/>
-                </entity-condition>
+                <set field="tabButtonItem" value="ExamplePieChart"/>
                 <set field="chartType" value="Pie"/>
-                <set field="labelFieldName" value="exampleTypeId"/>
-                <set field="dataFieldName" value="total"/>
                 <set field="chartId" value="pieChartDiv"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="Chart Data">
-                            <include-screen name="ChartDataList"/>
-                        </screenlet>
-                        <screenlet title="Flotr Pie Chart representing above data">
-                            <include-screen name="FlotrChart" location="component://common/widget/flotrScreens.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
+                <include-screen name="CommonExampleChartsDecorator" location="${parameters.mainDecoratorLocation}"/>
             </widgets>
         </section>
     </screen>
-    <screen name="BarChart">
+    <screen name="ExampleBarChart">
         <section>
             <actions>
-                <set field="headerItem" value="Barcharts"/>
-                <entity-condition entity-name="ExampleCountByType" list="chartData">
-                    <order-by field-name="exampleTypeId"/>
-                </entity-condition>
+                <set field="tabButtonItem" value="ExampleBarChart"/>
                 <set field="chartType" value="Bars"/>
-                <set field="labelFieldName" value="exampleTypeId"/>
-                <set field="dataFieldName" value="total"/>
                 <set field="chartId" value="barChartDiv"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="Chart Data">
-                            <include-screen name="ChartDataList"/>
-                        </screenlet>
-                        <screenlet title="Flotr Bar Chart representing above data">
-                            <include-screen name="FlotrChart" location="component://common/widget/flotrScreens.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
+                <include-screen name="CommonExampleChartsDecorator" location="${parameters.mainDecoratorLocation}"/>
             </widgets>
         </section>
     </screen>
