@@ -307,6 +307,8 @@ public class FindServices {
             } else if ("not-like".equals(operation) || "notLike".equals(operation)) {
                 fieldOp = EntityOperator.NOT_LIKE;
                 fieldValue = fieldValue + "%";
+            } else if ("opLessThan".equals(operation)) {
+                fieldOp = EntityOperator.LESS_THAN;
             } else if (operation.equals("greaterThanFromDayStart")) {
                 String timeStampString = (String) fieldValue;
                 Object startValue = modelField.getModelEntity().convertFieldValue(modelField, dayStart(timeStampString, 0), delegator, context);
