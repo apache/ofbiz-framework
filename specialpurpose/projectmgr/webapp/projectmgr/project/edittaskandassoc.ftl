@@ -90,7 +90,7 @@ under the License.
             <select name="currentStatusId">
               <#if task?exists>
                 <#assign currentStatus = task.geRelatedOne("CurrentStatusItem")?if_exists>
-                <option SELECTED value="${currentStatus.currentStatusId}">${currentStatus.description}</option>
+                <option selected="selected" value="${currentStatus.currentStatusId}">${currentStatus.description}</option>
                 <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatus.currentStatusId))>
                 <#list statusValidChangeToDetailList as statusValidChangeToDetail>
                   <option value=${statusValidChangeToDetail.statusId}>[${uiLabelMap.WorkEffortGeneral}]${statusValidChangeToDetail.description}</option>
@@ -120,7 +120,7 @@ under the License.
             </#if>
             <select name="priority" size="1">
               <#if priority?exists>
-                <option SELECTED value="${priority}">${priority}</option>
+                <option selected="selected" value="${priority}">${priority}</option>
                 <option></option>
                 <option value=1>${uiLabelMap.WorkEffortPriorityOne}</option>
                 <option value=2>${uiLabelMap.WorkEffortPriorityTwo}</option>
