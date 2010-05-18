@@ -25,7 +25,7 @@ under the License.
 
 <#macro renderDisplayField type imageLocation idName description class alert inPlaceEditorUrl="" inPlaceEditorParams="">
     <#if type?has_content && type=="image">
-        <img src="${imageLocation}"><#lt/>
+        <img src="${imageLocation}" alt=""><#lt/>
     <#else>
         <#if inPlaceEditorUrl?has_content || class?has_content || alert=="true">
             <span <#if idName?has_content>id="cc_${idName}"</#if> <@renderClass class alert />><#t/>
@@ -483,7 +483,7 @@ ${item.description}</span>
 
 <#macro renderFileField className alert name value size maxlength autocomplete><input type="file" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></#macro>
 <#macro renderPasswordField className alert name value size maxlength id autocomplete><input type="password" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/></#macro>
-<#macro renderImageField value description alternate border width height event action><img<#if value?has_content> src="${value}"</#if><#if description?has_content> title="${description}"</#if><#if alternate?has_content> alt="${alternate}"</#if><#if border?has_content> border="${border}"</#if><#if width?has_content> width="${width}"</#if><#if height?has_content> height="${height}"</#if><#if event?has_content> ${rp.event?html}="${action}" </#if>/></#macro>
+<#macro renderImageField value description alternate border width height event action><img<#if value?has_content> src="${value}"</#if><#if description?has_content> title="${description}"</#if> alt="<#if alternate?has_content>${alternate}"</#if>"<#if border?has_content> border="${border}"</#if><#if width?has_content> width="${width}"</#if><#if height?has_content> height="${height}"</#if><#if event?has_content> ${rp.event?html}="${action}" </#if>/></#macro>
 
 <#macro renderBanner style leftStyle rightStyle leftText text rightText>
 <table width="100%">  <tr><#rt/>
@@ -524,5 +524,5 @@ ${item.description}</span>
 </#macro>
 
 <#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow><form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${name}"><#list parameters as parameter><input name="${parameter.name}" value="${parameter.value}" type="hidden"/></#list></form></#macro>
-<#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description confirmation><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="javascript:document.${hiddenFormName}.submit()"<#if action?has_content && event?has_content> ${event}="${action}"</#if><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>><#if imgSrc?has_content><img src="${imgSrc}"/></#if>${description}</a></#macro>
+<#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description confirmation><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="javascript:document.${hiddenFormName}.submit()"<#if action?has_content && event?has_content> ${event}="${action}"</#if><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>><#if imgSrc?has_content><img src="${imgSrc}" alt=""/></#if>${description}</a></#macro>
 <#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc title alternate linkUrl targetWindow description confirmation><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="${linkUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if><#if action?has_content && event?has_content> ${event}="${action}"</#if><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>><#if imgSrc?has_content><img src="${imgSrc}" alt="${alternate}" title="${title}"/></#if>${description}</a></#macro>

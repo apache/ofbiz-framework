@@ -19,13 +19,14 @@ under the License.
 <#if portalPage?has_content>
 <table width="100%">
   <tr>
+  	<#assign line=0>
     <#list portalPageColumnList?if_exists as portalPageColumn>
       <td class="manage-portal-column-toolbar" style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
         <hr />
         <ul>
-          <li id="delete-column"><form method="post" action="<@ofbizUrl>deletePortalPageColumn${Adm?if_exists}</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="delPortalPageId_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.delPortalPageId_${portalPageColumn_index}.submit()">${uiLabelMap.CommonRemove}</a></li>
-          <li id="add-portlet"><form method="post" action="<@ofbizUrl>AddPortlet${Adm?if_exists}</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="addPortlet_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.addPortlet_${portalPageColumn_index}.submit()">${uiLabelMap.CommonAddAPortlet}</a></li>
-          <li id="column-width">
+          <li id="delete-column_${line}"><form method="post" action="<@ofbizUrl>deletePortalPageColumn${Adm?if_exists}</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="delPortalPageId_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.delPortalPageId_${portalPageColumn_index}.submit()">${uiLabelMap.CommonRemove}</a></li>
+          <li id="add-portlet_${line}"><form method="post" action="<@ofbizUrl>AddPortlet${Adm?if_exists}</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="addPortlet_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.addPortlet_${portalPageColumn_index}.submit()">${uiLabelMap.CommonAddAPortlet}</a></li>
+          <li id="column-width_${line}">
            <form method="post" action="<@ofbizUrl>updatePortalPageColumn${Adm?if_exists}</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="updatePortalPageColum_${portalPageColumn_index}">
             <input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/>
             <input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/>
@@ -43,6 +44,7 @@ under the License.
       <#if portalPageColumn_has_next>
         <td>&nbsp;</td>
       </#if>
+      <#assign line=line+1>
     </#list>
   </tr>
   <tr>
@@ -121,10 +123,10 @@ under the License.
           <#assign firstInColumn = false/>
         </#if>
       </#list>
+      </td>
       <#if portalPageColumn_has_next>
         <td>&nbsp;</td>
       </#if>
-      </td>
     </#list>
   </tr>
 </table>
