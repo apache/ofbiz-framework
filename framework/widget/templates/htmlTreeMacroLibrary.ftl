@@ -58,7 +58,7 @@ under the License.
 
 <#macro renderImage src id style wid hgt border alt urlString>
 <#if src?has_content>
-<img <#if id?has_content>id="${id}"</#if><#if style?has_content> class="${style}"</#if><#if wid?has_content> width="${wid}"</#if><#if hgt?has_content> height="${hgt}"</#if><#if border?has_content> border="${border}"</#if><#if alt?has_content> alt="${alt}"</#if> src="${urlString}" /><#rt/>
+<img <#if id?has_content>id="${id}"</#if><#if style?has_content> class="${style}"</#if><#if wid?has_content> width="${wid}"</#if><#if hgt?has_content> height="${hgt}"</#if><#if border?has_content> border="${border}"</#if> alt="<#if alt?has_content>${alt}</#if>" src="${urlString}" /><#rt/>
 </#if>
 </#macro>
  

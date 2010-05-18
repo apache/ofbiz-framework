@@ -52,7 +52,7 @@ under the License.
                 <td>
                   <#if portalPortlet.screenshot?has_content>
                     <div class="screenshot">
-                      <a href="<@ofbizContentUrl>${portalPortlet.screenshot}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${portalPortlet.screenshot}</@ofbizContentUrl>" width="250"/></a>
+                      <a href="<@ofbizContentUrl>${portalPortlet.screenshot}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${portalPortlet.screenshot}</@ofbizContentUrl>" width="250" alt=""/></a>
                     </div>
                   </#if>
                 </td>
