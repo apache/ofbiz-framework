@@ -166,7 +166,7 @@ under the License.
                                  <#list inventoryItemTypes as nextInventoryItemType>
                                     <option value='${nextInventoryItemType.inventoryItemTypeId}'
                                  <#if (facility.defaultInventoryItemTypeId?has_content) && (nextInventoryItemType.inventoryItemTypeId == facility.defaultInventoryItemTypeId)>
-                                    SELECTED
+                                    selected="selected"
                                   </#if>
                                  >${nextInventoryItemType.get("description",locale)?default(nextInventoryItemType.inventoryItemTypeId)}</option>
                                  </#list>

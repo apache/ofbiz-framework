@@ -91,8 +91,8 @@ under the License.
             <td width="20%" align="right" class="label">${uiLabelMap.PartyParties}</td>
             <td width="80%">
               <span>
-                <span>${uiLabelMap.CommonTo}:&nbsp;${(toPerson.firstName)?if_exists} ${(toPerson.middleName)?if_exists} ${(toPerson.lastName)?if_exists} ${(toPartyGroup.groupName)?if_exists} [${shipment.partyIdTo?if_exists}]
-                <span>${uiLabelMap.CommonFrom}:&nbsp;${(fromPerson.firstName)?if_exists} ${(fromPerson.middleName)?if_exists} ${(fromPerson.lastName)?if_exists} ${(fromPartyGroup.groupName)?if_exists} [${shipment.partyIdFrom?if_exists}]
+                <span>${uiLabelMap.CommonTo}:&nbsp;${(toPerson.firstName)?if_exists} ${(toPerson.middleName)?if_exists} ${(toPerson.lastName)?if_exists} ${(toPartyGroup.groupName)?if_exists} [${shipment.partyIdTo?if_exists}]</span>
+                <span>${uiLabelMap.CommonFrom}:&nbsp;${(fromPerson.firstName)?if_exists} ${(fromPerson.middleName)?if_exists} ${(fromPerson.lastName)?if_exists} ${(fromPartyGroup.groupName)?if_exists} [${shipment.partyIdFrom?if_exists}]</span>
               </span>
             </td>
           </tr>

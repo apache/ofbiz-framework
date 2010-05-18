@@ -108,14 +108,15 @@ under the License.
           <#assign orderReadyToPickInfoListSizeTotal = orderReadyToPickInfoListSizeTotal + orderReadyToPickInfoListSize>
           <#assign orderNeedsStockMoveInfoListSizeTotal = orderNeedsStockMoveInfoListSizeTotal + orderNeedsStockMoveInfoListSize>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-            <form name="viewGroupDetail_${pickMoveInfo_index}" action="<@ofbizUrl>PicklistOptions</@ofbizUrl>" method="post">
-              <input type ="hidden" name="viewDetail" value= "${groupName?if_exists}"/>
-              <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
-              <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
-              <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems?if_exists}"/>
-              <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
-              <#if ((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
                 <td>
+                    <form name="viewGroupDetail_${pickMoveInfo_index}" action="<@ofbizUrl>PicklistOptions</@ofbizUrl>" method="post">
+                      <input type ="hidden" name="viewDetail" value= "${groupName?if_exists}"/>
+                      <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
+                      <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
+                      <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems?if_exists}"/>
+                      <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                    </form>
+              <#if ((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
                   <#if groupName1?has_content>
                     <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName1}</a>
                   </#if>
@@ -129,13 +130,10 @@ under the License.
                   <#if groupName3?has_content>
                     <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName3}</a></td>
                   </#if>
-                </td>
               <#else>
-                <td>
                   <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName?if_exists}</a>
-                </td>
               </#if>
-            </form>
+                </td>
             <td>
               <#if !((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
                 <#if orderReadyToPickInfoListSize == 0 >${uiLabelMap.CommonN}<#else>${uiLabelMap.CommonY}</#if>
