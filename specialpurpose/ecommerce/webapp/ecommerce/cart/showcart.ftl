@@ -289,7 +289,7 @@ function setAlternateGwp(field) {
                 <select class="selectBox" name="option^GIFT_WRAP_${cartLineIndex}" onchange="javascript:document.cartform.submit()">
                   <option value="NO^">${uiLabelMap.EcommerceNoGiftWrap}</option>
                   <#list giftWrapOption as option>
-                    <option value="${option.productFeatureId}" <#if ((selectedOption.productFeatureId)?exists && selectedOption.productFeatureId == option.productFeatureId)>SELECTED</#if>>${option.description} : ${option.amount?default(0)}</option>
+                    <option value="${option.productFeatureId}" <#if ((selectedOption.productFeatureId)?exists && selectedOption.productFeatureId == option.productFeatureId)>selected="selected"</#if>>${option.description} : ${option.amount?default(0)}</option>
                   </#list>
                 </select>
               <#elseif showNoGiftWrapOptions>
