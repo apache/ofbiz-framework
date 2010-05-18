@@ -98,7 +98,7 @@ under the License.
                     <tr>
                         <td class="label"> Code Captcha </td>
                         <td >
-                            <div id="captchaImage"><img src="${parameters.captchaFileName}"/></div>
+                            <div id="captchaImage"><img src="${parameters.captchaFileName}" alt="" /></div>
                         </td>
                     </tr>
                     <script type="text/javascript" language="JavaScript">
