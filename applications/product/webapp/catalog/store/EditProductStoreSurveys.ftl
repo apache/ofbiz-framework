@@ -39,7 +39,7 @@ under the License.
               <tr valign="middle"<#if alt_row>class="alternate-row"</#if>>
                 <td>${surveyType.get("description",locale)}</td>
                 <td>${storeSurvey.groupName?if_exists}</td>
-                <td><a href="/content/control/EditSurvey?surveyId=${storeSurvey.surveyId}" class="buttontext">${survey.description?default("[" + survey.surveyId + "]")}</a>
+                <td><a href="/content/control/EditSurvey?surveyId=${storeSurvey.surveyId}" class="buttontext">${survey.description?default("[" + survey.surveyId + "]")}</a></td>
                 <td>${storeSurvey.productId?default("${uiLabelMap.CommonNA}")}</td>
                 <td>${storeSurvey.productCategoryId?default("${uiLabelMap.CommonNA}")}</td>
                 <td>${storeSurvey.fromDate?if_exists?string}</td>
@@ -50,7 +50,8 @@ under the License.
                     <input type="hidden" name="productStoreSurveyId" value="${storeSurvey.productStoreSurveyId}" />
                     <a href="javascript:document.deleteProductStoreSurveyAppl_${storeSurvey_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                   </form>
-                </td> 
+                </td>
+              </tr>
                 <#-- toggle the row color -->
                 <#assign alt_row = !alt_row>
             </#list>

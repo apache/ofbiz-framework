@@ -106,7 +106,7 @@ under the License.
           <#list areaUomList as uom>
             <option value='${uom.uomId}'
                <#if (facility.facilitySizeUomId?has_content) && (uom.uomId == facility.facilitySizeUomId)>
-               SELECTED
+               selected="selected"
                </#if>
              >${uom.get("description",locale)?default(uom.uomId)}</option>
           </#list>

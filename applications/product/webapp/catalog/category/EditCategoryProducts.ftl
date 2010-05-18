@@ -41,20 +41,28 @@ under the License.
         </#if>
     </div>
     <div class="screenlet-body">
-        <table cellspacing="0" class="basic-table">
-          <tr class="header-row">
-            <td>${uiLabelMap.ProductProductNameId}</td>
-            <td>${uiLabelMap.CommonFromDateTime}</td>
-            <td align="center">${uiLabelMap.ProductThruDateTimeSequenceQuantity} ${uiLabelMap.CommonComments}</td>
-            <td>&nbsp;</td>
-          </tr>
-          <#if (listSize > 0)>
-            <tr><td>
-            <form method="post" action="<@ofbizUrl>updateCategoryProductMember</@ofbizUrl>" name="updateCategoryProductForm">
+        <#if (listSize == 0)>
+           <table cellspacing="0" class="basic-table">
+              <tr class="header-row">
+                 <td>${uiLabelMap.ProductProductNameId}</td>
+                 <td>${uiLabelMap.CommonFromDateTime}</td>
+                 <td align="center">${uiLabelMap.ProductThruDateTimeSequenceQuantity} ${uiLabelMap.CommonComments}</td>
+                 <td>&nbsp;</td>
+              </tr>
+           </table>
+        <#else>
+           <form method="post" action="<@ofbizUrl>updateCategoryProductMember</@ofbizUrl>" name="updateCategoryProductForm">
               <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
               <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
               <input type="hidden" name="activeOnly" value="${activeOnly.toString()}" />
               <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
+              <table cellspacing="0" class="basic-table">
+                 <tr class="header-row">
+                    <td>${uiLabelMap.ProductProductNameId}</td>
+                    <td>${uiLabelMap.CommonFromDateTime}</td>
+                    <td align="center">${uiLabelMap.ProductThruDateTimeSequenceQuantity} ${uiLabelMap.CommonComments}</td>
+                    <td>&nbsp;</td>
+                 </tr>
               <#assign rowClass = "2">
               <#assign rowCount = 0>
               <#list productCategoryMembers as productCategoryMember>
@@ -101,21 +109,21 @@ under the License.
                   </tr>
                   <#assign rowCount = rowCount + 1>
               </#list>
-            </form>
-            <#assign rowCount = 0>
-            <#list productCategoryMembers as productCategoryMember>
-            <form name="deleteProductFromCategory_o_${rowCount}" method="post" action="<@ofbizUrl>removeCategoryProductMember</@ofbizUrl>">
+              </table>
+           </form>
+           <#assign rowCount = 0>
+           <#list productCategoryMembers as productCategoryMember>
+           <form name="deleteProductFromCategory_o_${rowCount}" method="post" action="<@ofbizUrl>removeCategoryProductMember</@ofbizUrl>">
               <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
               <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
               <input type="hidden" name="productId" value="${(productCategoryMember.productId)?if_exists}" />
               <input type="hidden" name="productCategoryId" value="${(productCategoryMember.productCategoryId)?if_exists}"/>
               <input type="hidden" name="fromDate" value="${productCategoryMember.getString("fromDate")?if_exists}"/>
               <input type="hidden" name="activeOnly" value="${activeOnly.toString()}"/>
-            </form>
-            <#assign rowCount = rowCount + 1>
-            </#list>
-          </#if>
-        </table>
+           </form>
+           <#assign rowCount = rowCount + 1>
+           </#list>        
+      </#if>
     </div>
     <div class="screenlet-title-bar">
         <#if (listSize > 0)>
