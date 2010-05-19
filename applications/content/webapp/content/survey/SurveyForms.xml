@@ -29,7 +29,7 @@ under the License.
         <field name="allowMultiple"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
         <field name="allowUpdate"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
         <field name="acroFormContentId">
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
@@ -68,7 +68,7 @@ under the License.
         <field name="allowUpdate"><drop-down no-current-selected-key="N" allow-empty="false"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
 
         <field name="acroFormContentId" use-when="survey!=null">
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="acroFormContentId" use-when="survey==null"><ignored/></field>
 

@@ -43,10 +43,10 @@ under the License.
             </drop-down>
         </field>
         <field name="dataResourceId" position="1">
-            <lookup presentation="window" target-form-name="LookupDataResource"/>
+            <lookup target-form-name="LookupDataResource"/>
         </field>
         <field name="ownerContentId" position="2">
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
@@ -56,7 +56,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="createdByUserLogin" position="2"><lookup presentation="window" target-form-name="LookupPerson"/></field>
+        <field name="createdByUserLogin" position="2"><lookup target-form-name="LookupPerson"/></field>
         <field name="localeString">
             <drop-down allow-empty="true">
                 <entity-options entity-name="CountryCode" description="${countryName} [${countryCode}]" key-field-name="countryCode">
@@ -164,9 +164,9 @@ under the License.
                 </sub-hyperlink>
             </lookup>
         </field>
-        <field name="ownerContentId"><lookup presentation="window" target-form-name="LookupContent"/></field>
+        <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
         <field name="decoratorContentId">
-            <lookup presentation="window" target-form-name="LookupContent">
+            <lookup target-form-name="LookupContent">
                 <sub-hyperlink use-when="&quot;${currentValue.decoratorContentId}&quot;.length()>0" link-style="buttontext" target="EditContent" description="${uiLabelMap.ContentGoToContent}">
                     <parameter param-name="contentId" from-field="currentValue.decoratorContentId"/>
                 </sub-hyperlink>
@@ -213,7 +213,7 @@ under the License.
                 <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId"/>
             </drop-down>
         </field>
-        <field name="ownerContentId" title="${uiLabelMap.CommonEmptyHeader}"><lookup presentation="window" target-form-name="LookupContent"/></field>
+        <field name="ownerContentId" title="${uiLabelMap.CommonEmptyHeader}"><lookup target-form-name="LookupContent"/></field>
         <field name="mimeTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
@@ -265,7 +265,7 @@ under the License.
         <auto-fields-entity entity-name="ContentAssoc"/>
         <field name="contentId" widget-style="tabletext"><display description="${contentId}"/></field>
         <field name="contentIdTo" map-name="currentValue">
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="contentAssocTypeId">
             <drop-down allow-empty="true">
@@ -356,7 +356,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentRole"/>
         <field name="contentId" widget-style="buttontext" >
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="partyId" widget-style="buttontext"><lookup target-form-name="LookupPerson"/></field>
         <field name="roleTypeId">
@@ -402,7 +402,7 @@ under the License.
     <form name="AddContentPurpose" target="addContentPurpose" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentPurpose"/>
-        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" ><lookup presentation="window" target-form-name="LookupContent"/></field>
+        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" ><lookup target-form-name="LookupContent"/></field>
         <field name="contentPurposeTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId">
@@ -434,7 +434,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentAttribute"/>
         <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -461,7 +461,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentMetaData"/>
         <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="metaDataPredicateId">
             <drop-down allow-empty="true">
@@ -518,7 +518,7 @@ under the License.
         <auto-fields-service service-name="createWorkEffortContent"/>
         <field name="contentId"><hidden value="${parameters.contentId}"/></field>
         <field name="workEffortId">
-            <lookup presentation="window" target-form-name="LookupWorkEffort"/>
+            <lookup target-form-name="LookupWorkEffort"/>
         </field>
         <field name="workEffortContentTypeId">
             <drop-down no-current-selected-key="">
