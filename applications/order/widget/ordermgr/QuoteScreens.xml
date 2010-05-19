@@ -393,7 +393,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuotePriceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteListCoefficients}">
                             <container>
@@ -422,7 +422,7 @@ under the License.
                 <entity-one entity-name="QuoteCoefficient" value-field="quoteCoefficient"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuotePriceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteEditCoefficients}">
                             <container>
@@ -461,7 +461,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/ManageQuotePrices.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuotePriceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuotePrices}">
                             <platform-specific>
@@ -495,7 +495,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuotePriceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteListAdjustments}">
                             <container>
@@ -527,7 +527,7 @@ under the License.
                 <entity-one entity-name="QuoteAdjustment" value-field="quoteAdjustment"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuotePriceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteEditAdjustments}">
                             <container>
@@ -566,7 +566,7 @@ under the License.
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/ViewQuoteProfit.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonQuotePriceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteViewProfit}">
                             <platform-specific>
