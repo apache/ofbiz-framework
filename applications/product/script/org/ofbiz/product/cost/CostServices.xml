@@ -145,6 +145,7 @@ under the License.
 
                     <!-- if currency conversion fails then a 0 cost will be returned -->
                     <if-empty field="productCost">
+                        <log level="warning" message="Currency conversion failed for ProductCost lookup; unable to convert from ${priceCost.currencyUomId} to ${parameters.currencyUomId}"/>
                         <set field="productCost" value="0" type="BigDecimal"/>
                     </if-empty>
                 </if-not-empty>
