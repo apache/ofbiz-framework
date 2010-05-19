@@ -16,4 +16,4 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<img src="/content/control/stream?contentId=${contentId}"/>
+<img src="/content/control/stream?contentId=${contentId}" alt=""/>

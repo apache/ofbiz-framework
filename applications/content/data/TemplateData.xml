@@ -196,7 +196,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
         >
             <#assign drDataResourceId=content.dataResourceId?if_exists/>
         </@traverseSubContentCache>
-        <img src="<@ofbizUrl>/img?imgId=${drDataResourceId?if_exists}</@ofbizUrl>"/>
+        <img src="<@ofbizUrl>/img?imgId=${drDataResourceId?if_exists}</@ofbizUrl>" alt=""/>
     </td>
   </tr>
 </table>
@@ -447,7 +447,7 @@ ${txt}
         <textData><![CDATA[<table>
   <tr>
     <td>
-        <img src="<@ofbizContentUrl><@renderSubContentCache mapKey="IMAGE" wrapTemplateId=""/></@ofbizContentUrl>"/>
+        <img src="<@ofbizContentUrl><@renderSubContentCache mapKey="IMAGE" wrapTemplateId=""/></@ofbizContentUrl>" alt="" />
     </td>
   </tr>
 </table>

@@ -312,6 +312,6 @@ under the License.
       <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&amp;surveyQuestionId=${surveyQuestionOption.surveyQuestionId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyOption}]</a>
     </#if>
     ${createSurveyOptionWrapper.renderFormString()}
-  </#if>
     </div>
 </div>
+</#if>
