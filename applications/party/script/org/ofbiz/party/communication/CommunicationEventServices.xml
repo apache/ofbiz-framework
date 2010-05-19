@@ -545,6 +545,19 @@ under the License.
                 <else>
                     <set field="communicationEvent.statusId" from-field="parameters.statusId"/>
                     <store-value value-field="communicationEvent"/>
+                    <if-compare operator="equals" value="Y" field="parameters.setRoleStatusToComplete">
+                        <if-compare operator="equals" value="COM_COMPLETE" field="parameters.statusId">
+                            <!-- if the status of the communicationevent is set to complete, all roles need to be set to complete, 
+                                which means the commevent was dealt with and no further action is required by any of the other participants/addressees -->
+                            <get-related relation-name="CommunicationEventRole" list="roles" value-field="communicationEvent"/>
+                            <iterate entry="role" list="roles">
+                                <if-compare-field operator="not-equals" field="role.statusId" to-field="COM_ROLE_COMPLETED">
+                                    <set field="role.statusId" value="COM_ROLE_COMPLETED"/>
+                                    <store-value value-field="role"/>
+                                </if-compare-field>                    
+                            </iterate>
+                        </if-compare>
+                    </if-compare>
                 </else>
             </if-empty>
         </if-compare-field>

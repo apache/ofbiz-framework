@@ -741,6 +741,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+        <attribute name="setRoleStatusToComplete" mode="IN" type="String" default-value="N"/>
     </service>
     <service name="setCommunicationEventRoleStatus" engine="simple" default-entity-name="CommunicationEventRole"
             location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="setCommunicationEventRoleStatus" auth="true">
