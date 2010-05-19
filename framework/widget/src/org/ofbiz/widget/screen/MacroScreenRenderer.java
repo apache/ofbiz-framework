@@ -728,7 +728,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
 
         // get the parametrized pagination index and size fields
-        int paginatorNumber = modelForm.getPaginatorNumber(context);
+        int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         String viewIndexParam = modelForm.getMultiPaginateIndexField(context);
         String viewSizeParam = modelForm.getMultiPaginateSizeField(context);
 

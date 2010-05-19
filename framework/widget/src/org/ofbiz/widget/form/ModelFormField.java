@@ -2232,7 +2232,7 @@ public class ModelFormField {
             if (UtilValidate.isEmpty(fieldKey)) {
                 fieldKey = this.modelFormField.fieldName;
             }
-            Delegator delegator = this.modelFormField.modelForm.getDelegator(context);
+            Delegator delegator = WidgetWorker.getDelegator(context);
             String fieldValue = modelFormField.getEntry(context);
             try {
                 value = delegator.findOne(this.entityName, this.cache, fieldKey, fieldValue);

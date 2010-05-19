@@ -709,7 +709,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelForm modelForm = modelFormField.getModelForm();
         ModelFormField.AutoComplete autoComplete = dropDownField.getAutoComplete();
         boolean ajaxEnabled = autoComplete != null && this.javaScriptEnabled;
-        List<ModelFormField.OptionValue> allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = dropDownField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
@@ -955,7 +955,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String currentValue = modelFormField.getEntry(context);
         Boolean allChecked = checkField.isAllChecked(context);
 
-        List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
 
@@ -1005,7 +1005,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderRadioField(Appendable writer, Map<String, Object> context, RadioField radioField) throws IOException {
         ModelFormField modelFormField = radioField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
-        List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         String currentValue = modelFormField.getEntry(context);
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
@@ -2308,7 +2308,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         // get the parameterized pagination index and size fields
-        int paginatorNumber = modelForm.getPaginatorNumber(context);
+        int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         String viewIndexParam = modelForm.getMultiPaginateIndexField(context);
         String viewSizeParam = modelForm.getMultiPaginateSizeField(context);
 

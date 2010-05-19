@@ -673,7 +673,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         ModelFormField modelFormField = dropDownField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
-        List<ModelFormField.OptionValue> allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = dropDownField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         ModelFormField.AutoComplete autoComplete = dropDownField.getAutoComplete();
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
@@ -903,7 +903,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
         }
 
-        List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         items.append("[");
         for (ModelFormField.OptionValue optionValue : allOptionValues) {
             if (items.length() >1) {
@@ -947,7 +947,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     public void renderRadioField(Appendable writer, Map<String, Object> context, RadioField radioField) throws IOException {
         ModelFormField modelFormField = radioField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
-        List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
         String currentValue = modelFormField.getEntry(context);
         String className = "";
         String alert = "false";
@@ -1211,7 +1211,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
             String displayHelpText = UtilProperties.getPropertyValue("widget.properties", "widget.form.displayhelpText");
             if ("Y".equals(displayHelpText)) {
-                Delegator delegator = modelFormField.getModelForm().getDelegator(context);
+                Delegator delegator = WidgetWorker.getDelegator(context);
                 Locale locale = (Locale)context.get("locale");
                 String entityName = modelFormField.getEntityName();
                 String fieldName = modelFormField.getFieldName();
@@ -2123,7 +2123,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
 
         // get the parameterized pagination index and size fields
-        int paginatorNumber = modelForm.getPaginatorNumber(context);
+        int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         String viewIndexParam = modelForm.getMultiPaginateIndexField(context);
         String viewSizeParam = modelForm.getMultiPaginateSizeField(context);
 
