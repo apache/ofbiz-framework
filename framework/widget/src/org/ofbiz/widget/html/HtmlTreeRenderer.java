@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
@@ -53,6 +54,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
         if (node.isRootNode()) {
             appendWhitespace(writer);
+            this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
             renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
             writer.append("<ul class=\"basic-tree\">");
         }

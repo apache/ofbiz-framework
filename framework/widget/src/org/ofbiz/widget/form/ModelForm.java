@@ -809,8 +809,6 @@ public class ModelForm extends ModelWidget {
 
         runFormActions(context);
 
-        setWidgetBoundaryComments(context);
-
         // if this is a list form, don't useRequestParameters
         if ("list".equals(this.type) || "multi".equals(this.type)) {
             context.put("useRequestParameters", Boolean.FALSE);

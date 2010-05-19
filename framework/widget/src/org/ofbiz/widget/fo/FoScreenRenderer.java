@@ -24,6 +24,7 @@ import java.util.Map;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.html.HtmlWidgetRenderer;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
@@ -58,6 +59,9 @@ public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenString
     }
 
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
+        if (section.isMainSection) {
+            this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
+        }
         renderBeginningBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {

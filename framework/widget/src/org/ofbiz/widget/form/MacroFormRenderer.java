@@ -98,6 +98,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     protected HttpServletResponse response;
     protected boolean javaScriptEnabled = false;
     protected boolean renderPagination = true;
+    protected boolean widgetCommentsEnabled = false;
 
     public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
@@ -1232,6 +1233,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         renderBeginningBoundaryComment(writer, "Form Widget - Form Element", modelForm);
         String targetType = modelForm.getTargetType();
         String targ = modelForm.getTarget(context, targetType);
@@ -2639,7 +2641,7 @@ public class MacroFormRenderer implements FormStringRenderer {
      * @param modelWidget The widget
      */
     public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
-        if (modelWidget.boundaryCommentsEnabled()) {
+        if (this.widgetCommentsEnabled) {
             StringWriter sr = new StringWriter();
             sr.append("<@formatBoundaryComment ");
             sr.append(" boundaryType=\"");
@@ -2660,7 +2662,7 @@ public class MacroFormRenderer implements FormStringRenderer {
      * @param modelWidget The widget
      */
     public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
-        if (modelWidget.boundaryCommentsEnabled()) {
+        if (this.widgetCommentsEnabled) {
             StringWriter sr = new StringWriter();
             sr.append("<@formatBoundaryComment ");
             sr.append(" boundaryType=\"");

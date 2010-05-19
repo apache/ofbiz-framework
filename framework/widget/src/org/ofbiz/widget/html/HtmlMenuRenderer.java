@@ -35,6 +35,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenu;
@@ -238,6 +239,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
 
             //Debug.logInfo("in HtmlMenuRenderer, userLoginIdHasChanged:" + userLoginIdHasChanged,"");
+        this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         renderBeginningBoundaryComment(writer, "Menu Widget", modelMenu);
         writer.append("<div");
         String menuId = modelMenu.getId();

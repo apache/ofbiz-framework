@@ -58,6 +58,8 @@ public class MacroTreeRenderer implements TreeStringRenderer {
     ScreenStringRenderer screenStringRenderer = null;
     private Template macroLibrary;
     private Environment environment;
+    protected boolean widgetCommentsEnabled = false;
+
 
     public MacroTreeRenderer(String macroLibraryPath, Appendable writer) throws TemplateException, IOException {
         this.macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
@@ -96,7 +98,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
      * @param modelWidget The widget
      */
     public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
-        if (modelWidget.boundaryCommentsEnabled()) {
+        if (this.widgetCommentsEnabled) {
             StringWriter sr = new StringWriter();
             sr.append("<@formatBoundaryComment ");
             sr.append(" boundaryType=\"");
@@ -117,7 +119,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
      * @param modelWidget The widget
      */
     public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
-        if (modelWidget.boundaryCommentsEnabled()) {
+        if (this.widgetCommentsEnabled) {
             StringWriter sr = new StringWriter();
             sr.append("<@formatBoundaryComment ");
             sr.append(" boundaryType=\"");
@@ -137,6 +139,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         
         String style = "";
         if (node.isRootNode()) {           
+            this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
             renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
             style = "basic-tree";
         }

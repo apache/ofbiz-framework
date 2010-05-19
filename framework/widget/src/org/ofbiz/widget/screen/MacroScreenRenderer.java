@@ -47,6 +47,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetContentWorker;
 import org.ofbiz.widget.WidgetDataResourceWorker;
 import org.ofbiz.widget.WidgetWorker;
@@ -69,6 +70,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     private WeakHashMap<Appendable, Environment> environments = new WeakHashMap<Appendable, Environment>();
     private String rendererName;
     private int elementId = 999;
+    protected boolean widgetCommentsEnabled = false;
 
     public MacroScreenRenderer(String name, String macroLibraryPath) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
@@ -123,7 +125,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
-        if (section.boundaryCommentsEnabled()) {
+        if (section.isMainSection) {
+            this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
+        }
+        if (this.widgetCommentsEnabled) {
             StringWriter sr = new StringWriter();
             sr.append("<@renderSectionBegin ");
             sr.append("boundaryComment=\"Begin ");
@@ -134,7 +139,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
     }
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
-        if (section.boundaryCommentsEnabled()) {
+        if (this.widgetCommentsEnabled) {
             StringWriter sr = new StringWriter();
             sr.append("<@renderSectionEnd ");
             sr.append("boundaryComment=\"End ");

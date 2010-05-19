@@ -307,7 +307,6 @@ public class ModelMenu extends ModelWidget {
      *   use the same menu definitions for many types of menu UIs
      */
     public void renderMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
-        setWidgetBoundaryComments(context);
 
         boolean passed = true;
 

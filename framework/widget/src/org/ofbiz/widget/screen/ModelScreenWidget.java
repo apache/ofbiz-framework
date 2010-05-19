@@ -101,11 +101,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    @Override
-    public boolean boundaryCommentsEnabled() {
-        return modelScreen.boundaryCommentsEnabled();
-    }
-
     public ModelScreen getModelScreen() {
         return this.modelScreen;
     }

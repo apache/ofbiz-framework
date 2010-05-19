@@ -36,6 +36,8 @@ public class HtmlWidgetRenderer {
      */
     public static final String whiteSpace = "\r\n";
 
+    protected boolean widgetCommentsEnabled = false;
+
     /**
      * Helper method used to append whitespace characters to the end of each rendered element.
      * @param writer The writer to write to
@@ -65,7 +67,7 @@ public class HtmlWidgetRenderer {
      * @param modelWidget The widget
      */
     public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
-        if (modelWidget.boundaryCommentsEnabled()) {
+        if (this.widgetCommentsEnabled) {
             writer.append(this.buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
@@ -77,7 +79,7 @@ public class HtmlWidgetRenderer {
      * @param modelWidget The widget
      */
     public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
-        if (modelWidget.boundaryCommentsEnabled()) {
+        if (this.widgetCommentsEnabled) {
             writer.append(this.buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
