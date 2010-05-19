@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
@@ -179,6 +180,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     }
 
     public void renderFormOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         renderBeginningBoundaryComment(writer, "Form Widget", modelForm);
     }
 

@@ -43,6 +43,7 @@ import org.ofbiz.base.util.StringUtil.SimpleEncoder;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
@@ -1308,6 +1309,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderFormOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         renderBeginningBoundaryComment(writer, "Form Widget - Form Element", modelForm);
         writer.append("<form method=\"post\" ");
         String targetType = modelForm.getTargetType();
@@ -1438,6 +1440,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String queryString = UtilHttp.urlEncodeArgs(inputFields);
         context.put("_QBESTRING_", queryString);
 
+        this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         renderBeginningBoundaryComment(writer, "Form Widget", modelForm);
 
         if (this.renderPagination) {

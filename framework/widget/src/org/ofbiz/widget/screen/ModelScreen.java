@@ -349,8 +349,6 @@ public class ModelScreen extends ModelWidget implements Serializable {
         // make sure the "null" object is in there for entity ops
         context.put("null", GenericEntity.NULL_FIELD);
 
-        setWidgetBoundaryComments(context);
-
         // wrap the whole screen rendering in a transaction, should improve performance in querying and such
         Map<String, String> parameters = UtilGenerics.cast(context.get("parameters"));
         boolean beganTransaction = false;
