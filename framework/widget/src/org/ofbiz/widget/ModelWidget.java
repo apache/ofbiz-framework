@@ -88,7 +88,9 @@ public class ModelWidget implements Serializable {
      * Returns true if boundary comments are enabled for this widget, otherwise
      * returns false.
      * @return True if boundary comments are enabled for this widget
+     * @deprecated Use the static <code>widgetBoundaryCommentsEnabled</code> method instead
      */
+    @Deprecated
     public boolean boundaryCommentsEnabled() {
         return enableWidgetBoundaryComments;
     }
@@ -96,7 +98,9 @@ public class ModelWidget implements Serializable {
     /**
      * Enables/disables boundary comments for this widget.
      * @param context The screen rendering context
+     * @deprecated Do not use this - it is not thread-safe
      */
+    @Deprecated
     public void setWidgetBoundaryComments(Map<String, ? extends Object> context) {
         Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
         enableWidgetBoundaryComments = widgetBoundaryCommentsEnabled(parameters);
