@@ -95,6 +95,8 @@ under the License.
     <div class="screenlet-body">
 <!-- if we're called with loadOrderItems or createReturn, then orderId would exist -->
 <#if !requestParameters.orderId?exists>
+          <form method="post" action="<@ofbizUrl>updateReturnItems</@ofbizUrl>">
+          <input type="hidden" name="_useRowSubmit" value="Y" />
         <table cellspacing="0" class="basic-table">
           <#if "CUSTOMER_RETURN" == returnHeader.returnHeaderTypeId>
             <#assign readOnly = (returnHeader.statusId != "RETURN_REQUESTED")>
@@ -141,8 +143,6 @@ under the License.
           <#assign returnTotal = 0.0>
           <#assign rowCount = 0>
           <#assign rowCountForAdjRemove = 0>
-          <form method="post" action="<@ofbizUrl>updateReturnItems</@ofbizUrl>">
-          <input type="hidden" name="_useRowSubmit" value="Y" />
           <#if returnItems?has_content>
             <#assign alt_row = false>
             <#list returnItems as item>
@@ -159,12 +159,13 @@ under the License.
                  <#assign returnItemSubTotal = null >  <#-- otherwise the last item's might carry over -->
               </#if>
               <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                <td><a href="<@ofbizUrl>orderview?orderId=${item.orderId}</@ofbizUrl>" class="buttontext">${item.orderId}</a> - ${item.orderItemSeqId?default("N/A")}</td>
+                <td><a href="<@ofbizUrl>orderview?orderId=${item.orderId}</@ofbizUrl>" class="buttontext">${item.orderId}</a> - ${item.orderItemSeqId?default("N/A")}
                   <input name="orderId_o_${rowCount}" value="${item.orderId}" type="hidden" />
                   <input name="returnId_o_${rowCount}" value="${item.returnId}" type="hidden" />
                   <input name="returnItemTypeId_o_${rowCount}" value="${item.returnItemTypeId}" type="hidden" />
                   <input name="returnItemSeqId_o_${rowCount}" value="${item.returnItemSeqId}" type="hidden" />
                   <input type="hidden" name="_rowSubmit_o_${rowCount}" value="Y" />
+                </td>
                 <td><div>
                     <#if item.get("productId")?exists>
                         <a href="/catalog/control/EditProductInventoryItems?productId=${item.productId}" class="buttontext">${item.productId}</a>
@@ -270,7 +271,7 @@ under the License.
                 </td>
                 </#if>
                 <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
-                  <td align='right'><a href='javascript:document.removeReturnItem_${item_index}.submit()' class='buttontext'>${uiLabelMap.CommonRemove}</a>
+                  <td align='right'><a href='javascript:document.removeReturnItem_${item_index}.submit()' class='buttontext'>${uiLabelMap.CommonRemove}</a></td>
                 <#else>
                   <td>&nbsp;</td>
                 </#if>
@@ -307,15 +308,15 @@ under the License.
             </tr>
             <#if (!readOnly) && (rowCount > 0)>
                <tr>
+                  <td colspan="6" align="right">
                   <input name="returnId" value="${returnHeader.returnId}" type="hidden" />
                   <input name="_rowCount" value="${rowCount}" type="hidden" />
-                  <td colspan="6" align="right"><input type="submit" class="bottontext" value="${uiLabelMap.CommonUpdate}" /></td>
+                  <input type="submit" class="bottontext" value="${uiLabelMap.CommonUpdate}" /></td>
               </tr>
            </#if>
            <tr><td colspan="10"><hr/></td></tr>
-        </form>
-
         </table>
+        </form>
         <#if returnItems?has_content>
           <#list returnItems as item>
             <form name="removeReturnItem_${item_index}" method="post" action="<@ofbizUrl>removeReturnItem</@ofbizUrl>">
