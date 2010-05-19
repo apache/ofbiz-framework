@@ -756,6 +756,7 @@ under the License.
         <field name="description"><textarea/></field>
         <field name="createButton" widget-style="smallSubmit"><submit button-type="button"/></field>
         <sort-order>
+            <sort-field name="organizationPartyId"/>        
             <sort-field name="acctgTransTypeId"/>
             <sort-field name="glFiscalTypeId"/>
             <sort-field name="glJournalId"/>
@@ -986,6 +987,8 @@ under the License.
             <sort-field name="voucherDate"/>
             <sort-field name="description"/>
             <sort-field name="createButton"/>
+            <sort-field name="createdByUserLogin"/>
+            <sort-field name="lastModifiedByUserLogin"/>
         </sort-order>
     </form>
     <form name="ViewAcctgTransEntries" type="list" list-name="acctgTransEntries" default-entity-name="AcctgTransEntry"

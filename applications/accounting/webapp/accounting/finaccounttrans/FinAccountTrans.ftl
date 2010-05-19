@@ -177,7 +177,7 @@ function getFinAccountTransRunningTotalAndBalances() {
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td>
               <#if payments?has_content>
-                <a id="togglePayment_${finAccountTrans.finAccountTransId}" href="javascript:void(0)"><img src="<@ofbizContentUrl>/images/expand.gif</@ofbizContentUrl>"/></a> ${finAccountTrans.finAccountTransId}
+                <a id="togglePayment_${finAccountTrans.finAccountTransId}" href="javascript:void(0)"><img src="<@ofbizContentUrl>/images/expand.gif</@ofbizContentUrl>" alt=""/></a> ${finAccountTrans.finAccountTransId}
                 <div id="displayPayments_${finAccountTrans.finAccountTransId}" class="popup" style="display: none;width: 650px;">
                   <div align="right">
                     <input class="popup_closebox buttontext" type="button" value="X"/>
