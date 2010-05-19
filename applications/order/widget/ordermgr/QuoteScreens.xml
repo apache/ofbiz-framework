@@ -85,7 +85,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderViewQuote"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ViewQuote"/>
 
                 <set field="showQuoteManagementLinks" value="Y"/>
@@ -222,7 +221,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteEdit"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="EditQuote"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
@@ -245,7 +243,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteListRoles"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteRoles"/>
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
@@ -274,7 +271,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteEditRoles"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteRoles"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
@@ -303,7 +299,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteListItems"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteItems"/>
 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -335,7 +330,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteEditItems"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteItems"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
@@ -364,7 +358,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteListAttributes"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteAttributes"/>
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
@@ -392,7 +385,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteEditAttributes"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteAttributes"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
@@ -421,7 +413,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteListCoefficients"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteCoefficients"/>
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
@@ -449,7 +440,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteEditCoefficients"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteCoefficients"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
@@ -478,7 +468,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuotePrices"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ManageQuotePrices"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
@@ -520,7 +509,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteListAdjustments"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteAdjustments"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
@@ -554,7 +542,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteEditAdjustments"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteAdjustments"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
@@ -583,7 +570,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteViewProfit"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ViewQuoteProfit"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
@@ -620,7 +606,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderOrderQuoteEditReportMail"/>
-                <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ViewQuote"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
