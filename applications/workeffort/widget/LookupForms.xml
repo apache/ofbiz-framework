@@ -88,7 +88,7 @@ under the License.
         <field name="noteId"><ignored/></field>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="button"/></field>
     </form>
     <form name="lookupWorkEffortShort" target="LookupWorkEffortShort" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
