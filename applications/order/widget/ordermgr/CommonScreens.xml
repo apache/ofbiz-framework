@@ -101,45 +101,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonQuoteDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="quote"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <!-- do check for ORDERMGR, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field="quote"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
-                                    </widgets>
-                                </section>
-                                <container>
-                                    <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
-                                </container>
-
-                                <decorator-section-include name="body"/>
-
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.OrderViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="CommonPopUpDecorator">
         <section>
             <actions>
