@@ -357,7 +357,7 @@ public abstract class ModelFormAction {
             try {
                 Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
-                    serviceContext = this.modelForm.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
+                    serviceContext = WidgetWorker.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                 } else {
                     serviceContext = new HashMap<String, Object>();
                 }
@@ -368,9 +368,9 @@ public abstract class ModelFormAction {
 
                 Map<String, Object> result = null;
                 if (this.ignoreError) {
-                    result = this.modelForm.getDispatcher(context).runSync(serviceNameExpanded, serviceContext, -1, true);
+                    result = WidgetWorker.getDispatcher(context).runSync(serviceNameExpanded, serviceContext, -1, true);
                 } else {
-                    result = this.modelForm.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
+                    result = WidgetWorker.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
                 }
 
                 if (!this.resultMapNameAcsr.isEmpty()) {
@@ -419,7 +419,7 @@ public abstract class ModelFormAction {
         @Override
         public void runAction(Map<String, Object> context) {
             try {
-                finder.runFind(context, this.modelForm.getDelegator(context));
+                finder.runFind(context, WidgetWorker.getDelegator(context));
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -457,7 +457,7 @@ public abstract class ModelFormAction {
         public void runAction(Map<String, Object> context) {
             try {
                 // don't want to do this: context.put("defaultFormResultList", null);
-                finder.runFind(context, this.modelForm.getDelegator(context));
+                finder.runFind(context, WidgetWorker.getDelegator(context));
                 Object obj = context.get(this.actualListName);
                 if (obj != null && ((obj instanceof List) || (obj instanceof EntityListIterator))) {
                     String modelFormListName = modelForm.getListName();
@@ -501,7 +501,7 @@ public abstract class ModelFormAction {
         public void runAction(Map<String, Object> context) {
             try {
                 // don't want to do this: context.put("defaultFormResultList", null);
-                finder.runFind(context, this.modelForm.getDelegator(context));
+                finder.runFind(context, WidgetWorker.getDelegator(context));
                 Object obj = context.get(this.actualListName);
                 if (obj != null && ((obj instanceof List) || (obj instanceof EntityListIterator))) {
                     String modelFormListName = modelForm.getListName();

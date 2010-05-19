@@ -23,9 +23,6 @@ import java.util.Map;
 import org.w3c.dom.Element;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.service.LocalDispatcher;
 
 /**
  * Widget Library - Widget model class. ModelWidget is a base class that is
@@ -119,43 +116,4 @@ public class ModelWidget implements Serializable {
         }
         return result;
     }
-
-    public int getPaginatorNumber(Map<String, Object> context) {
-        int paginator_number = 0;
-        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
-        if (globalCtx != null) {
-            Integer paginateNumberInt= (Integer)globalCtx.get("PAGINATOR_NUMBER");
-            if (paginateNumberInt == null) {
-                paginateNumberInt = Integer.valueOf(0);
-                globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
-            }
-            paginator_number = paginateNumberInt.intValue();
-        }
-        return paginator_number;
-    }
-
-    public void incrementPaginatorNumber(Map<String, Object> context) {
-        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
-        if (globalCtx != null) {
-            Boolean NO_PAGINATOR = (Boolean) globalCtx.get("NO_PAGINATOR");
-            if (UtilValidate.isNotEmpty(NO_PAGINATOR)) {
-                globalCtx.remove("NO_PAGINATOR");
-            } else {
-                Integer paginateNumberInt = Integer.valueOf(getPaginatorNumber(context) + 1);
-                globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
-            }
-        }
-    }
-
-    public LocalDispatcher getDispatcher(Map<String, Object> context) {
-        LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
-        return dispatcher;
-    }
-
-    public Delegator getDelegator(Map<String, Object> context) {
-        Delegator delegator = (Delegator) context.get("delegator");
-        return delegator;
-    }
-
-
 }

@@ -43,6 +43,7 @@ import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 
 
@@ -125,8 +126,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
             Debug.logError("Object not list or map type", module);
             return;
         }
-        this.incrementPaginatorNumber(context);
-        int startPageNumber = this.getPaginatorNumber(context);
+        WidgetWorker.incrementPaginatorNumber(context);
+        int startPageNumber = WidgetWorker.getPaginatorNumber(context);
         getListLimits(context, theList);
         int rowCount = 0;
         Iterator<?> iter = theList.iterator();
@@ -265,8 +266,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
         if (getPaginate(context)) {
             try {
                 Map<String, String> params = UtilGenerics.cast(context.get("parameters"));
-                String viewIndexString = params.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
-                String viewSizeString = params.get("VIEW_SIZE" + "_" + getPaginatorNumber(context));
+                String viewIndexString = params.get("VIEW_INDEX" + "_" + WidgetWorker.getPaginatorNumber(context));
+                String viewSizeString = params.get("VIEW_SIZE" + "_" + WidgetWorker.getPaginatorNumber(context));
                 viewIndex = Integer.parseInt(viewIndexString);
                 viewSize = Integer.parseInt(viewSizeString);
             } catch (Exception e) {
@@ -302,7 +303,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         }
 
         String queryString = UtilHttp.urlEncodeArgs(inputFields);
-        int paginatorNumber = this.getPaginatorNumber(context);
+        int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
         queryString = UtilHttp.stripViewParamsFromQueryString(queryString, "" + paginatorNumber);
 
 

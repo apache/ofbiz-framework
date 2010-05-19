@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -30,7 +29,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -38,6 +36,8 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -405,4 +405,40 @@ public class WidgetWorker {
         return combinedName.substring(pos + 1);
     }
 
+    public static int getPaginatorNumber(Map<String, Object> context) {
+        int paginator_number = 0;
+        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+        if (globalCtx != null) {
+            Integer paginateNumberInt= (Integer)globalCtx.get("PAGINATOR_NUMBER");
+            if (paginateNumberInt == null) {
+                paginateNumberInt = Integer.valueOf(0);
+                globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
+            }
+            paginator_number = paginateNumberInt.intValue();
+        }
+        return paginator_number;
+    }
+
+    public static void incrementPaginatorNumber(Map<String, Object> context) {
+        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+        if (globalCtx != null) {
+            Boolean NO_PAGINATOR = (Boolean) globalCtx.get("NO_PAGINATOR");
+            if (UtilValidate.isNotEmpty(NO_PAGINATOR)) {
+                globalCtx.remove("NO_PAGINATOR");
+            } else {
+                Integer paginateNumberInt = Integer.valueOf(getPaginatorNumber(context) + 1);
+                globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
+            }
+        }
+    }
+
+    public static LocalDispatcher getDispatcher(Map<String, Object> context) {
+        LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
+        return dispatcher;
+    }
+
+    public static Delegator getDelegator(Map<String, Object> context) {
+        Delegator delegator = (Delegator) context.get("delegator");
+        return delegator;
+    }
 }

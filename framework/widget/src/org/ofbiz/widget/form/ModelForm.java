@@ -59,6 +59,7 @@ import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 
 import bsh.EvalError;
@@ -794,7 +795,7 @@ public class ModelForm extends ModelWidget {
     public void renderFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
         //  increment the paginator, only for list and multi forms
         if ("list".equals(this.type) || "multi".equals(this.type)) {
-            this.incrementPaginatorNumber(context);
+            WidgetWorker.incrementPaginatorNumber(context);
         }
 
         //if pagination is disabled, update the defualt view size
@@ -2245,7 +2246,7 @@ public class ModelForm extends ModelWidget {
             field = DEFAULT_PAG_INDEX_FIELD;
         }
         //  append the paginator number
-        field = field + "_" + getPaginatorNumber(context);
+        field = field + "_" + WidgetWorker.getPaginatorNumber(context);
         return field;
     }
 
@@ -2260,7 +2261,7 @@ public class ModelForm extends ModelWidget {
                 // try parameters.VIEW_INDEX as that is an old OFBiz convention
                 Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
                 if (parameters != null) {
-                    value = parameters.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
+                    value = parameters.get("VIEW_INDEX" + "_" + WidgetWorker.getPaginatorNumber(context));
 
                     if (value == null) {
                         value = parameters.get(field);
@@ -2300,7 +2301,7 @@ public class ModelForm extends ModelWidget {
             field = DEFAULT_PAG_SIZE_FIELD;
         }
         //  append the paginator number
-        field = field + "_" + getPaginatorNumber(context);
+        field = field + "_" + WidgetWorker.getPaginatorNumber(context);
         return field;
     }
 
@@ -2315,7 +2316,7 @@ public class ModelForm extends ModelWidget {
                 // try parameters.VIEW_SIZE as that is an old OFBiz convention
                 Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
                 if (parameters != null) {
-                    value = parameters.get("VIEW_SIZE" + "_" + getPaginatorNumber(context));
+                    value = parameters.get("VIEW_SIZE" + "_" + WidgetWorker.getPaginatorNumber(context));
 
                     if (value == null) {
                         value = parameters.get(field);

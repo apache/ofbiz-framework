@@ -406,7 +406,7 @@ public class ModelMenuItem {
         List<GenericValue> portalPages = null;
         String parentPortalPageId = this.getParentPortalPageId(context);
         if (UtilValidate.isNotEmpty(parentPortalPageId)) {
-            Delegator delegator = modelMenu.getDelegator(context);
+            Delegator delegator = WidgetWorker.getDelegator(context);
             try {
                 // first get public pages
                 EntityCondition cond =
