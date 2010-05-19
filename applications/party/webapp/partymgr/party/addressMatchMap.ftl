@@ -26,8 +26,8 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
+    <form name="addaddrmap" method="post" action="<@ofbizUrl>createAddressMatchMap</@ofbizUrl>">
     <table class="basic-table" cellspacing="0">
-      <form name="addaddrmap" method="post" action="<@ofbizUrl>createAddressMatchMap</@ofbizUrl>">
         <tr>
           <td class="label">${uiLabelMap.PartyAddressMatchKey}</td>
           <td><input type="text" name="mapKey"/></td>
@@ -44,18 +44,20 @@ under the License.
           <td></td>
           <td><a href="javascript:document.addaddrmap.submit()" class="smallSubmit">${uiLabelMap.CommonCreate}</a></td>
         </tr>
-      </form>
+    </table>
+    </form>
+    <table class="basic-table" cellspacing="0">
       <tr><td colspan="2">&nbsp;</td></tr>
-      <form name="importaddrmap"method="post" enctype="multipart/form-data" action="<@ofbizUrl>importAddressMatchMapCsv</@ofbizUrl>">
         <tr>
           <td></td>
           <td>
+            <form name="importaddrmap" method="post" enctype="multipart/form-data" action="<@ofbizUrl>importAddressMatchMapCsv</@ofbizUrl>">
             <input type="file" name="uploadedFile" size="14"/>
             <input type="submit" value="${uiLabelMap.CommonUpload} CSV"/>
             <p>${uiLabelMap.PartyAddressMatchMessage1}</p>
+            </form>
           </td>
         </tr>
-      </form>
     </table>
   </div>
 </div>

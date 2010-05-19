@@ -22,11 +22,8 @@ under the License.
   <div class="screenlet-title-bar">
     <#if !creditCard?exists>
       <h3>${uiLabelMap.AccountingAddNewCreditCard}</h3>
-      <form method="post" action="<@ofbizUrl>createCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform" style="margin: 0;">
     <#else>
       <h3>${uiLabelMap.AccountingEditCreditCard}</h3>
-      <form method="post" action="<@ofbizUrl>updateCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform" style="margin: 0;">
-        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}" />
     </#if>
   </div>
   <div class="screenlet-body">
@@ -34,6 +31,12 @@ under the License.
           <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
           <a href="javascript:document.editcreditcardform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
         </div>
+    <#if !creditCard?exists>
+      <form method="post" action="<@ofbizUrl>createCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform" style="margin: 0;">
+    <#else>
+      <form method="post" action="<@ofbizUrl>updateCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform" style="margin: 0;">
+        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}" />
+    </#if>
         <input type="hidden" name="partyId" value="${partyId}"/>
         <table class="basic-table" cellspacing="0">
 

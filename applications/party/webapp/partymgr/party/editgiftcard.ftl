@@ -22,14 +22,17 @@ under the License.
   <div class="screenlet-title-bar">
     <#if !giftCard?exists>
       <h3>${uiLabelMap.AccountingCreateNewGiftCard}</h3>
-      <form method="post" action="<@ofbizUrl>createGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
     <#else>
       <h3>${uiLabelMap.AccountingEditGiftCard}</h3>
-      <form method="post" action="<@ofbizUrl>updateGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
-        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}" />
     </#if>
   </div>
   <div class="screenlet-body">
+    <#if !giftCard?exists>
+      <form method="post" action="<@ofbizUrl>createGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
+    <#else>
+      <form method="post" action="<@ofbizUrl>updateGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
+        <input type="hidden" name="paymentMethodId" value="${paymentMethodId}" />
+    </#if>
         <input type="hidden" name="partyId" value="${partyId}"/>
         <div class="button-bar">
           <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>

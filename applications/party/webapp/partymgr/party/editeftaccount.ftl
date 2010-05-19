@@ -22,11 +22,8 @@ under the License.
   <div class="screenlet-title-bar">
     <#if !eftAccount?exists>
       <h3>${uiLabelMap.AccountingAddNewEftAccount}</h3>
-      <form method="post" action='<@ofbizUrl>createEftAccount?DONE_PAGE=${donePage}</@ofbizUrl>' name="editeftaccountform" style='margin: 0;'>
     <#else>
       <h3>${uiLabelMap.PageTitleEditEftAccount}</h3>
-      <form method="post" action='<@ofbizUrl>updateEftAccount?DONE_PAGE=${donePage}</@ofbizUrl>' name="editeftaccountform" style='margin: 0;'>
-        <input type="hidden" name='paymentMethodId' value='${paymentMethodId}' />
     </#if>
   </div>
   <div class="screenlet-body">
@@ -34,6 +31,12 @@ under the License.
           <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
           <a href="javascript:document.editeftaccountform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
         </div>
+    <#if !eftAccount?exists>
+      <form method="post" action='<@ofbizUrl>createEftAccount?DONE_PAGE=${donePage}</@ofbizUrl>' name="editeftaccountform" style='margin: 0;'>
+    <#else>
+      <form method="post" action='<@ofbizUrl>updateEftAccount?DONE_PAGE=${donePage}</@ofbizUrl>' name="editeftaccountform" style='margin: 0;'>
+        <input type="hidden" name='paymentMethodId' value='${paymentMethodId}' />
+    </#if>
         <input type="hidden" name="partyId" value="${partyId}"/>
         <table class="basic-table" cellspacing="0">
         <tr>
