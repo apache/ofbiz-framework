@@ -120,7 +120,7 @@ public class ModelWidget implements Serializable {
         return result;
     }
 
-    public static int getPaginatorNumber(Map<String, Object> context) {
+    public int getPaginatorNumber(Map<String, Object> context) {
         int paginator_number = 0;
         Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
         if (globalCtx != null) {
@@ -134,7 +134,7 @@ public class ModelWidget implements Serializable {
         return paginator_number;
     }
 
-    public static void incrementPaginatorNumber(Map<String, Object> context) {
+    public void incrementPaginatorNumber(Map<String, Object> context) {
         Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
         if (globalCtx != null) {
             Boolean NO_PAGINATOR = (Boolean) globalCtx.get("NO_PAGINATOR");
@@ -147,12 +147,12 @@ public class ModelWidget implements Serializable {
         }
     }
 
-    public static LocalDispatcher getDispatcher(Map<String, Object> context) {
+    public LocalDispatcher getDispatcher(Map<String, Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
         return dispatcher;
     }
 
-    public static Delegator getDelegator(Map<String, Object> context) {
+    public Delegator getDelegator(Map<String, Object> context) {
         Delegator delegator = (Delegator) context.get("delegator");
         return delegator;
     }
