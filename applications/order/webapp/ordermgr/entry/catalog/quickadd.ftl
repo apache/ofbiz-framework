@@ -45,7 +45,7 @@ under the License.
         <td valign="top" width="0" colspan='2'>
           <div>
             <#if productCategory.categoryImageUrl?exists>
-              <img src="<@ofbizContentUrl>${productCategory.categoryImageUrl}</@ofbizContentUrl>" vspace="5" hspace="5" border="1" height='100' />
+              <img src="<@ofbizContentUrl>${productCategory.categoryImageUrl}</@ofbizContentUrl>" vspace="5" hspace="5" border="1" height='100' alt="" />
             </#if>
             ${productCategory.longDescription?if_exists}
           </div>

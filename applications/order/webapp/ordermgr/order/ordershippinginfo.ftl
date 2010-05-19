@@ -68,73 +68,73 @@ under the License.
             <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
             <#if ownedFacilities?has_content>
               <#if !allShipments?has_content>
-                <form action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
-                  <input type="hidden" name="initialSelected" value="Y"/>
-                  <input type="hidden" name="orderId" value="${orderId}"/>
-                  <#-- destination form (/facility/control/ReceiveInventory) wants purchaseOrderId instead of orderId, so we set it here as a workaround -->
-                  <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
                   <li>
-                    <select name="facilityId">
-                      <#list ownedFacilities as facility>
-                        <option value="${facility.facilityId}">${facility.facilityName}</option>
-                      </#list>
-                    </select>
-                    <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
+                     <form action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
+                       <input type="hidden" name="initialSelected" value="Y"/>
+                       <input type="hidden" name="orderId" value="${orderId}"/>
+                       <#-- destination form (/facility/control/ReceiveInventory) wants purchaseOrderId instead of orderId, so we set it here as a workaround -->
+                       <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
+                      <select name="facilityId">
+                        <#list ownedFacilities as facility>
+                          <option value="${facility.facilityId}">${facility.facilityName}</option>
+                        </#list>
+                      </select>
+                      <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
+                     </form>
                   </li>
-                </form>
-                <form name="receivePurchaseOrderForm" action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
-                  <input type="hidden" name="initialSelected" value="Y"/>
-                  <input type="hidden" name="orderId" value="${orderId}"/>
-                  <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
-                  <input type="hidden" name="partialReceive" value="Y"/>
                   <li>
-                    <select name="facilityId">
-                      <#list ownedFacilities as facility>
-                        <option value="${facility.facilityId}">${facility.facilityName}</option>
-                      </#list>
-                    </select>
-                    <a href="javascript:document.receivePurchaseOrderForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
+                    <form name="receivePurchaseOrderForm" action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
+                      <input type="hidden" name="initialSelected" value="Y"/>
+                      <input type="hidden" name="orderId" value="${orderId}"/>
+                      <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
+                      <input type="hidden" name="partialReceive" value="Y"/>
+                      <select name="facilityId">
+                        <#list ownedFacilities as facility>
+                          <option value="${facility.facilityId}">${facility.facilityName}</option>
+                        </#list>
+                      </select>
+                      </form>
+                      <a href="javascript:document.receivePurchaseOrderForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
                   </li>
-                </form>
               <#else>
-                <form name="receiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
-                  <input type="hidden" name="initialSelected" value="Y"/>
-                  <input type="hidden" name="purchaseOrderId" value="${orderId?if_exists}"/>
                   <li>
-                    <select name="facilityId">
-                      <#list ownedFacilities as facility>
-                        <option value="${facility.facilityId}">${facility.facilityName}</option>
-                      </#list>
-                    </select>
+                    <form name="receiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
+                      <input type="hidden" name="initialSelected" value="Y"/>
+                      <input type="hidden" name="purchaseOrderId" value="${orderId?if_exists}"/>
+                      <select name="facilityId">
+                        <#list ownedFacilities as facility>
+                          <option value="${facility.facilityId}">${facility.facilityName}</option>
+                        </#list>
+                      </select>
+                    </form>
                     <a href="javascript:document.receiveInventoryForm.submit()" class="buttontext">${uiLabelMap.OrderQuickReceivePurchaseOrder}</a>
                   </li>
-                </form>
-                <form name="partialReceiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
-                  <input type="hidden" name="initialSelected" value="Y"/>
-                  <input type="hidden" name="purchaseOrderId" value="${orderId?if_exists}"/>
-                  <input type="hidden" name="partialReceive" value="Y"/>
                   <li>
-                    <select name="facilityId">
-                      <#list ownedFacilities as facility>
-                        <option value="${facility.facilityId}">${facility.facilityName}</option>
-                      </#list>
-                    </select>
+                    <form name="partialReceiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
+                      <input type="hidden" name="initialSelected" value="Y"/>
+                      <input type="hidden" name="purchaseOrderId" value="${orderId?if_exists}"/>
+                      <input type="hidden" name="partialReceive" value="Y"/>
+                      <select name="facilityId">
+                        <#list ownedFacilities as facility>
+                           <option value="${facility.facilityId}">${facility.facilityName}</option>
+                         </#list>
+                       </select>
+                    </form>
                     <a href="javascript:document.partialReceiveInventoryForm.submit()" class="buttontext">${uiLabelMap.CommonReceive}</a>
                   </li>
-                </form>
               </#if>
               <#if orderHeader.statusId != "ORDER_COMPLETED">
-                <form action="<@ofbizUrl>completePurchaseOrder?externalLoginKey=${externalLoginKey}</@ofbizUrl>" method="post">
-                  <input type="hidden" name="orderId" value="${orderId}"/>
                   <li>
+                    <form action="<@ofbizUrl>completePurchaseOrder?externalLoginKey=${externalLoginKey}</@ofbizUrl>" method="post">
+                     <input type="hidden" name="orderId" value="${orderId}"/>
                     <select name="facilityId">
                       <#list ownedFacilities as facility>
                         <option value="${facility.facilityId}">${facility.facilityName}</option>
                       </#list>
                     </select>
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderForceCompletePurchaseOrder}"/>
+                    </form>
                   </li>
-                </form>
               </#if>
             </#if>
           </#if>
@@ -145,20 +145,23 @@ under the License.
         </#if>
         <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session) && orderHeader.statusId == "ORDER_COMPLETED">
           <#if returnableItems?has_content>
+            <li>
             <form name="quickRefundOrder" method="post" action="<@ofbizUrl>quickRefundOrder</@ofbizUrl>">
               <input type="hidden" name="orderId" value="${orderId}"/>
               <input type="hidden" name="receiveReturn" value="true"/>
               <input type="hidden" name="returnHeaderTypeId" value="${returnHeaderTypeId}"/>
             </form>
-            <li><a href="javascript:document.quickRefundOrder.submit()" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a></li>
-
+            <a href="javascript:document.quickRefundOrder.submit()" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a>
+            </li>
+            <li>
             <form name="quickreturn" method="post" action="<@ofbizUrl>quickreturn</@ofbizUrl>">
               <input type="hidden" name="orderId" value="${orderId}"/>
               <input type="hidden" name="party_id" value="${partyId?if_exists}"/>
               <input type="hidden" name="returnHeaderTypeId" value="${returnHeaderTypeId}"/>
               <input type="hidden" name="needsInventoryReceive" value="${needsInventoryReceive?default("N")}"/>
             </form>
-            <li><a href="javascript:document.quickreturn.submit()" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
+            <a href="javascript:document.quickreturn.submit()" class="buttontext">${uiLabelMap.OrderCreateReturn}</a>
+            </li>
           </#if>
         </#if>
 
