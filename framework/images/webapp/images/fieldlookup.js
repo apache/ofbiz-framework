@@ -596,15 +596,28 @@ function modifySubmitButton (lookupDiv) {
         var lookupForm = null;
         for (var i = 0; i < forms.length; i++) {
             if (! isEmpty(forms[i].getAttribute('id'))) {
-                lookupForm = $(forms[i].getAttribute('id'));
+                lookupForm = $(forms[i]);
             }
         }
         
         if (lookupForm == null) {
             return;
         }
+        
+        //set new form name and id
+        oldFormName = lookupForm.getAttribute('name');
+        lookupForm.setAttribute('name', 'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
+        lookupForm.setAttribute('id', 'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
+        lookupForm = $('form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
+        
+        //set new links for lookups
+        var newLookups = $A(lookupDiv.getElementsByClassName('field-lookup'));
+        newLookups.each(function(newLookup){
+        	var link = newLookup.getElementsByTagName('a')[0].href;
+        	newLookup.getElementsByTagName('a')[0].href = String.replace(link, 'document.'+oldFormName, 'document.'+'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
+        });
 
-        //diable the form action
+        //disable the form action
         var formAction = lookupForm.getAttribute('action');
         lookupForm.setAttribute('action', '');
 
@@ -612,13 +625,14 @@ function modifySubmitButton (lookupDiv) {
         for (var i = 0; i < lookupForm.length; i++) {
             var ele = lookupForm.elements[i];
             if ((ele.getAttribute('type')) == "submit") {
+
                 ele.style.display = "none";
                 var txt = ele.value;
                 var submit = new Element('A', {
                     id: 'lookupSubmitButton'
                 });
                 submit.onclick = function () {
-                    lookupFormAjaxRequest(formAction, lookupForm.getAttribute('id'));
+                    lookupFormAjaxRequest(formAction, lookupForm.id);
                     return false;
                 };
                 submit.setAttribute("class", "smallSubmit");
@@ -630,7 +644,7 @@ function modifySubmitButton (lookupDiv) {
                 ele.parentNode.appendChild(submit);
                 Event.observe(document, "keypress", function (evt) {
                     if (Event.KEY_RETURN == evt.keyCode) {
-                        lookupFormAjaxRequest(formAction, lookupForm.getAttribute('id'));
+                        lookupFormAjaxRequest(formAction, lookupForm.id);
                     }
                 });
                 ele.parentNode.removeChild(ele);
@@ -646,7 +660,7 @@ function modifySubmitButton (lookupDiv) {
                             var select = eleChild[k].getElementsByTagName("SELECT");
 
                             if (link.length > 0) {
-                            	link[0].href = "javascript:lookupPaginationAjaxRequest('" + link[0].href + "', '" + lookupForm.getAttribute('id') + "', 'link')";
+                            	link[0].href = "javascript:lookupPaginationAjaxRequest('" + link[0].href + "', '" + lookupForm.id + "', 'link')";
                             } else if (select.length > 0) {
                                 try {
                                     var oc = select[0].getAttribute("onchange");
@@ -660,7 +674,7 @@ function modifySubmitButton (lookupDiv) {
                                             var viewSize = select[0].value;
                                             var spl = ocSub.split(searchPattern);
                                             select[0].onchange = function () {
-                                                lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], lookupForm.getAttribute('id'), 'select');
+                                                lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], lookupForm.id, 'select');
                                             };
                                         } else if (searchPattern2.test(ocSub)) {
                                             ocSub = ocSub.replace(searchPattern2, "");
@@ -668,12 +682,12 @@ function modifySubmitButton (lookupDiv) {
                                                 ocSub.replace(searchPattern, viewSize);
                                             }
                                             select[0].onchange = function () {
-                                                lookupPaginationAjaxRequest(ocSub + this.value, lookupForm.getAttribute('id'), 'select');
+                                                lookupPaginationAjaxRequest(ocSub + this.value, lookupForm.id, 'select');
                                             };
                                         }
                                     } else {
                                         var ocSub = oc.substring((oc.indexOf('=') + 1),(oc.length - 1));
-                                        select[0].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ", '" + lookupForm.getAttribute('id') +"')");
+                                        select[0].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ", '" + lookupForm.id +"')");
                                     }
                                 }
                                 catch (ex) {
@@ -838,7 +852,7 @@ function setSourceColor(src) {
 // function passing selected value to calling window
 function set_value (value) {
 	if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
-    obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);
+    obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget);
 	}
 	else{
 	obj_caller.target = obj_caller.targetW;		
