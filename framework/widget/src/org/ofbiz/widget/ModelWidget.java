@@ -116,7 +116,7 @@ public class ModelWidget implements Serializable {
         return result;
     }
 
-    public int getPaginatorNumber(Map<String, Object> context) {
+    public static int getPaginatorNumber(Map<String, Object> context) {
         int paginator_number = 0;
         Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
         if (globalCtx != null) {
@@ -130,7 +130,7 @@ public class ModelWidget implements Serializable {
         return paginator_number;
     }
 
-    public void incrementPaginatorNumber(Map<String, Object> context) {
+    public static void incrementPaginatorNumber(Map<String, Object> context) {
         Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
         if (globalCtx != null) {
             Boolean NO_PAGINATOR = (Boolean) globalCtx.get("NO_PAGINATOR");
