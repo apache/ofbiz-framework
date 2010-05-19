@@ -124,7 +124,7 @@ under the License.
         </field>
 
 
-<!--        <field name="workEffortParentId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field> -->
+<!--        <field name="workEffortParentId"><lookup target-form-name="LookupWorkEffort"/></field> -->
         <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
 <!--        <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field> -->
         <field name="moneyUomId" title="${uiLabelMap.CommonCurrency}">
@@ -291,7 +291,7 @@ under the License.
         <field name="workEffortId"><hidden value=""/></field>
         -->
         <field name="workEffortIdFrom"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} [${workEffortId}]"/></field>
-        <field name="workEffortIdTo"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
+        <field name="workEffortIdTo"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="workEffortAssocTypeId">
             <drop-down>
                 <entity-options entity-name="WorkEffortAssocType" description="${description}">
@@ -319,7 +319,7 @@ under the License.
     <form name="AddWorkEffortAssoc" target="createWorkEffortAssoc" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortIdFrom"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} [${workEffortId}]"/></field>
-        <field name="workEffortIdTo"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
+        <field name="workEffortIdTo"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="workEffortAssocTypeId">
             <drop-down>
                 <entity-options entity-name="WorkEffortAssocType" description="${description}">
@@ -966,7 +966,7 @@ under the License.
         <auto-fields-service service-name="createWorkEffortContent"/>
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="contentId">
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="workEffortContentTypeId">
             <drop-down no-current-selected-key="">

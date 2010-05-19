@@ -24,7 +24,7 @@ under the License.
         <auto-fields-entity entity-name="PartyResume" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="contentId"><lookup presentation="window" target-form-name="LookupContent"/></field>
+        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
         <field name="resumeId"><lookup target-form-name="LookupPartyResume"/></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -63,7 +63,7 @@ under the License.
         <alt-target use-when="partyResume != null" target="updatePartyResume"/>
         <field name="resumeId" use-when="partyResume!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="resumeId" use-when="partyResume==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
-        <field name="contentId"><lookup presentation="window" target-form-name="LookupContent"/></field>
+        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
         <field name="partyId" use-when="partyResume!=null&amp;&amp;partyId!=null" title="${uiLabelMap.FormFieldTitle_partyId}"><hidden/></field>
         <field name="partyId" use-when="partyResume==null&amp;&amp;partyId==null" title="${uiLabelMap.FormFieldTitle_partyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="resumeDate"><date-time/></field>

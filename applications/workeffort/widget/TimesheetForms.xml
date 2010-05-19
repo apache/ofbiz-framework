@@ -59,7 +59,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
+        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="hours"><text size="5"/></field>
         <field name="comments"><text size="40"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -259,7 +259,7 @@ under the License.
             </drop-down>
         </field>
 
-        <field name="workEffortId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
+        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
 
         <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
         <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>

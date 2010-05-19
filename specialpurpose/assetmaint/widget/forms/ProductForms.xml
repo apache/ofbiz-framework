@@ -140,7 +140,7 @@
         </field>
         <field name="intervalQuantity"><text/></field>
         <field name="repeatCount"><text/></field>
-        <field name="maintTemplateWorkEffortId"><lookup presentation="window" target-form-name="LookupWorkEffort"/></field>
+        <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteProductMaint" description="${uiLabelMap.CommonDelete}" also-hidden="false">
