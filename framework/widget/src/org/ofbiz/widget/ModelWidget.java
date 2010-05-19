@@ -99,20 +99,30 @@ public class ModelWidget implements Serializable {
      */
     @Deprecated
     public void setWidgetBoundaryComments(Map<String, ? extends Object> context) {
-        Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
-        enableWidgetBoundaryComments = widgetBoundaryCommentsEnabled(parameters);
+        enableWidgetBoundaryComments = widgetBoundaryCommentsEnabled(context);
     }
 
     /**
      * Returns true if widget boundary comments are enabled. Widget boundary comments are
-     * enabled by setting widgetVerbose true in the parameters Map, or by setting
+     * enabled by setting widgetVerbose true in the context Map, or by setting
      * widget.verbose=true in widget.properties.
-     * @param parameters Optional parameters Map
+     * @param context Optional context Map
      */
-    public static boolean widgetBoundaryCommentsEnabled(Map<String, ? extends Object> parameters) {
+    public static boolean widgetBoundaryCommentsEnabled(Map<String, ? extends Object> context) {
         boolean result = "true".equals(UtilProperties.getPropertyValue("widget", "widget.verbose"));
-        if (!result && parameters != null) {
-            result = "true".equals(parameters.get(enableBoundaryCommentsParam));
+        if (context != null) {
+            String str = (String) context.get(enableBoundaryCommentsParam);
+            if (str != null) {
+                result = "true".equals(str);
+            } else{
+                Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
+                if (parameters != null) {
+                    str = (String) parameters.get(enableBoundaryCommentsParam);
+                    if (str != null) {
+                        result = "true".equals(str);
+                    }
+                }
+            }
         }
         return result;
     }
