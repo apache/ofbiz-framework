@@ -191,7 +191,7 @@ ${menuWrapper.renderMenuString()}
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
     <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Image</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
-        <img src="<@ofbizUrl>img?imgId=${imgDataResourceId?if_exists}</@ofbizUrl>" />
+        <img src="<@ofbizUrl>img?imgId=${imgDataResourceId?if_exists}</@ofbizUrl>" alt="" />
 <div></td></tr>
   </table>
           </td>

@@ -88,7 +88,7 @@ under the License.
         <#assign caption = item/>
     </#if>
   </#list>
-  <img src="${fileref}" <#if depth?has_content> height="${depth}"</#if> <#if width?has_content> width="${width}"</#if> <#if alt?has_content> alt="${alt}"</#if>/>
+  <img src="${fileref}" <#if depth?has_content> height="${depth}"</#if> <#if width?has_content> width="${width}"</#if> alt="<#if alt?has_content>${alt}</#if>" />
   <#if caption?has_content><div>${caption}</div></#if>
 </#macro>
 
