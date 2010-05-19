@@ -143,12 +143,12 @@ public class ModelWidget implements Serializable {
         }
     }
 
-    public LocalDispatcher getDispatcher(Map<String, Object> context) {
+    public static LocalDispatcher getDispatcher(Map<String, Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
         return dispatcher;
     }
 
-    public Delegator getDelegator(Map<String, Object> context) {
+    public static Delegator getDelegator(Map<String, Object> context) {
         Delegator delegator = (Delegator) context.get("delegator");
         return delegator;
     }
