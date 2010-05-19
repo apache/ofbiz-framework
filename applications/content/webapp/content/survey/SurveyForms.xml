@@ -79,7 +79,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="surveyId" map-name="survey"><hidden/></field>
         <field name="contentId" map-name="empty" title="${uiLabelMap.ContentPDF}">
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.ContentSurveyGenerateQuestions}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -91,7 +91,7 @@ under the License.
         <field name="pdfFileNameIn" map-name="empty"><text/></field>
 
         <field name="contentId" map-name="empty" title="${uiLabelMap.ContentPDF}">
-            <lookup presentation="window" target-form-name="LookupContent"/>
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.ContentSurveyBuildRespondeFromPDF}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
