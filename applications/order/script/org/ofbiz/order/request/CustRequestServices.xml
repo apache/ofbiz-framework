@@ -490,10 +490,16 @@ under the License.
 
     <simple-method method-name="createCustRequestFromCommEvent" short-description="Create a Customer request from a commEvent(email)">
         <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
-        <if-empty field="communicationEvent">
-            <add-error><fail-message message="Event Id: ${parameters.communicationEventId} not found"/></add-error>
-            <return response-code="error"/>
-        </if-empty>
+
+        <!-- check if the commevent is already converted to a customer request, then return that id -->
+        <get-related relation-name="CustRequestCommEvent" list="custRequests" value-field="communicationEvent"/>
+        <if-compare operator="equals" value="COM_COMPLETE" field="communicationEvent.statusId">
+            <if-not-empty field="custRequests">
+                <field-to-result field="custRequests[0].custRequestId" result-name="custRequestId"/>            
+                <return/>
+            </if-not-empty>
+        </if-compare>
+                
         <set-service-fields service-name="createCustRequest" map="parameters" to-map="custRequest"/>
         <if-empty field="custRequest.custRequestName">
             <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
@@ -504,6 +510,7 @@ under the License.
         <if-empty field="parameters.fromPartyId">
             <set field="custRequest.fromPartyId" from-field="communicationEvent.partyIdFrom"/>
         </if-empty>
+        <set field="custRequest.custRequestDate" from-field="communicationEvent.entryDate"/>
         <set field="custRequest.statusId" value="CRQ_ACCEPTED"/>
         <if-empty field="custRequest.story">
             <set field="custRequest.story" from-field="communicationEvent.content"/>
@@ -526,6 +533,7 @@ under the License.
 
         <!-- update status from communication event -->
         <set-service-fields service-name="setCommunicationEventStatus" map="parameters" to-map="updStat"/>
+        <set field="updStat.setRoleStatusToComplete" value="Y"/>
         <set field="updStat.statusId" value="COM_COMPLETE"/>
         <call-service service-name="setCommunicationEventStatus" in-map-name="updStat"/>
 
