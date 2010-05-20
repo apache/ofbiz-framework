@@ -344,6 +344,11 @@ var FieldLookupPopup = Class.create({
             parameters: { presentation : "layer" },
             onSuccess: function (transport) {
                 var lookupContent = transport.responseText;
+                //if the return screen contains the login page, the whole page have do be redirected
+                if (lookupContent.search(/loginform/) != -1) {
+                    window.location.href = window.location.href;
+                    return;
+                }
                 lookupDiv.appendChild(lookupCont);
                 lookupCont.insert({
                     bottom: "" + lookupContent + ""
@@ -361,10 +366,11 @@ var FieldLookupPopup = Class.create({
         var pageSize = this.getPageSize();
         var fadedBackground = new Element ('DIV', {
             id: GLOBAL_LOOKUP_REF.createNextKey() + "_fadedBackground",
-            class: "fadedBackground" ,
             style: "width: " + pageSize[0] + "px; height: " + pageSize[1] + "px;"
             });
-
+        fadedBackground.setAttribute("class", "fadedBackground");
+        fadedBackground.setAttribute("className", "fadedBackground");
+        
         document.body.appendChild(fadedBackground);
     },
     
@@ -756,6 +762,11 @@ function lookupAjaxRequest(request) {
         },
         onSuccess: function (transport) {
             var formRequest = transport.responseText;
+            //if the return screen contains the login page, the whole page have do be redirected
+            if (formRequest.search(/loginform/) != -1) {
+                window.location.href = window.location.href;
+                return;
+            }
             lookupContent.remove();
             var lookupCont = new Element('DIV', {
                 id: "fieldLookupContent"
@@ -788,6 +799,11 @@ function lookupFormAjaxRequest(formAction, form) {
         },
         onSuccess: function (transport) {
             var formRequest = transport.responseText;
+            //if the return screen contains the login page, the whole page have do be redirected
+            if (formRequest.search(/loginform/) != -1) {
+                window.location.href = window.location.href;
+                return;
+            }
             lookupContent.remove();
             var lookupCont = new Element('DIV', {
                 id: "fieldLookupContent"
@@ -818,6 +834,11 @@ function lookupPaginationAjaxRequest(navAction, form, type) {
         },
         onSuccess: function (transport) {
             var formRequest = transport.responseText;
+            //if the return screen contains the login page, the whole page have do be redirected
+            if (formRequest.search(/loginform/) != -1) {
+                window.location.href = window.location.href;
+                return;
+            }
             lookupContent.remove();
             var lookupCont = new Element('DIV', {
                 id: "fieldLookupContent"
