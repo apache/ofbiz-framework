@@ -73,7 +73,7 @@ function call_fieldlookup2(target, viewName) {
 }
 
 function call_fieldlookup3(target, target2, viewName) {
-    var fieldLookup = new fieldLookup2(target, target2);
+    var fieldLookup = new fieldLookup2(target, target2, arguments);
     fieldLookup.popup2(viewName);
 }
 
@@ -95,7 +95,8 @@ function fieldLookup1(obj_target, args) {
     //this.id = lookups.length;
     //lookups[this.id] = this;
 }
-function fieldLookup2(obj_target, obj_target2) {
+function fieldLookup2(obj_target, obj_target2, args) {
+    this.args = args;
     // passing methods
     this.popup = lookup_popup1;
     this.popup2 = lookup_popup2;
