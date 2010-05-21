@@ -55,15 +55,15 @@ under the License.
     }
 
     function setServiceName(selection) {
-        if ( selection.value == 'massInvoicesToApprove' || selection.value == 'massInvoicesToReceive' || selection.value == 'massInvoicesToReady' || selection.value == 'massInvoicesToPaid' || selection.value == 'massInvoicesToWriteoff' || selection.value == 'massInvoicesToCancel') {
+        if ( selection.value == 'massInvoicesToApprove' || selection.value == 'massInvoicesToSent' || selection.value == 'massInvoicesToReady' || selection.value == 'massInvoicesToPaid' || selection.value == 'massInvoicesToWriteoff' || selection.value == 'massInvoicesToCancel') {
             $('listInvoices').action = $('invoiceStatusChange').value;
         } else {
             $('listInvoices').action = selection.value;
         }
         if (selection.value == 'massInvoicesToApprove') {
             $('statusId').value = "INVOICE_APPROVED";
-        } else if (selection.value == 'massInvoicesToReceive') {
-            $('statusId').value = "INVOICE_RECEIVED";
+        } else if (selection.value == 'massInvoicesToSent') {
+            $('statusId').value = "INVOICE_SENT";
         } else if (selection.value == 'massInvoicesToReady') {
             $('statusId').value = "INVOICE_READY";
         } else if (selection.value == 'massInvoicesToPaid') {
@@ -94,7 +94,7 @@ under the License.
         <option value="">${uiLabelMap.AccountingSelectAction}</option>
         <option value="<@ofbizUrl>PrintInvoices</@ofbizUrl>">${uiLabelMap.AccountingPrintInvoices}</option>
         <option value="massInvoicesToApprove">${uiLabelMap.AccountingInvoiceStatusToApproved}</option>
-        <option value="massInvoicesToReceive">${uiLabelMap.AccountingInvoiceStatusToReceived}</option>
+        <option value="massInvoicesToSent">${uiLabelMap.AccountingInvoiceStatusToSent}</option>
         <option value="massInvoicesToReady">${uiLabelMap.AccountingInvoiceStatusToReady}</option>
         <option value="massInvoicesToPaid">${uiLabelMap.AccountingInvoiceStatusToPaid}</option>
         <option value="massInvoicesToWriteoff">${uiLabelMap.AccountingInvoiceStatusToWriteoff}</option>
