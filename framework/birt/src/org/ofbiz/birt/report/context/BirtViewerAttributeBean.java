@@ -28,6 +28,7 @@ import org.eclipse.birt.report.resource.ResourceConstants;
 import org.eclipse.birt.report.utility.DataUtil;
 import org.eclipse.birt.report.utility.ParameterAccessor;
 import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.base.util.UtilValidate;
 
 public class BirtViewerAttributeBean extends ViewerAttributeBean {
 
@@ -56,12 +57,13 @@ public class BirtViewerAttributeBean extends ViewerAttributeBean {
             this.reportDesignName = ParameterAccessor.getReport( request, null );
         }
 
-        this.reportDesignHandle = getDesignHandle( request );
-        if ( this.reportDesignHandle == null )
-            throw new ViewerException(
-                    ResourceConstants.GENERAL_EXCEPTION_NO_REPORT_DESIGN );
-
-        // Initialize report parameters.
-        __initParameters( request );
+        if (UtilValidate.isNotEmpty(this.reportDesignName)) {
+            this.reportDesignHandle = getDesignHandle( request );
+            if ( this.reportDesignHandle == null )
+                throw new ViewerException(
+                        ResourceConstants.GENERAL_EXCEPTION_NO_REPORT_DESIGN );
+            // Initialize report parameters.
+            __initParameters( request );
+        }
     }
 }
