@@ -10503,7 +10503,7 @@
     </property>
     <property key="FormFieldTitle_emailAddressCc">
         <value xml:lang="ar">نسخ عنوان البريد الإلكتروني</value>
-        <value xml:lang="en">Copy Emailadress</value>
+        <value xml:lang="en">Copy Email Address</value>
         <value xml:lang="es">Copia de dirección de correo electrónico</value>
         <value xml:lang="fr">Adresse courriel en copie</value>
         <value xml:lang="hi_IN">ईमेलएड्रेस कॉपी करे</value>
@@ -10516,7 +10516,7 @@
     </property>
     <property key="FormFieldTitle_emailAddressFrom">
         <value xml:lang="ar">من عنوان البريد الإلكتروني</value>
-        <value xml:lang="en">From Emailadress</value>
+        <value xml:lang="en">From Email Address</value>
         <value xml:lang="es">Dirección de correo electrónico de origen</value>
         <value xml:lang="fr">Adresse courriel expéditeur</value>
         <value xml:lang="hi_IN">ईमेलएड्रेस से</value>
@@ -10529,7 +10529,7 @@
     </property>
     <property key="FormFieldTitle_emailAddressTo">
         <value xml:lang="ar">إلى عنوان البريد الإلكتروني</value>
-        <value xml:lang="en">To Emailadress</value>
+        <value xml:lang="en">To Email Address</value>
         <value xml:lang="es">Dirección de correo electrónico destino</value>
         <value xml:lang="fr">Adresse courriel destinataire</value>
         <value xml:lang="hi_IN">ईमेलएड्रेस को</value>
