@@ -905,7 +905,9 @@ under the License.
         <xs:attribute type="xs:nonNegativeInteger" name="size" default="25"/>
         <xs:attribute type="xs:positiveInteger" name="maxlength"/>
         <xs:attribute type="xs:string" name="default-value"/>
-        <xs:attribute type="xs:string" name="description-field-name"/>
+        <xs:attribute type="xs:string" name="description-field-name">
+            <xs:annotation><xs:documentation>The name of a field whose value is also filled when coming back from lookup selection.</xs:documentation></xs:annotation>            
+        </xs:attribute>
         <xs:attribute type="xs:string" name="target-parameter">
             <xs:annotation><xs:documentation>The name of a field whose value is passed in as a parameter to the lookup target form. Can be a comma separated list.</xs:documentation></xs:annotation>
         </xs:attribute>
