@@ -502,7 +502,13 @@ under the License.
                 
         <set-service-fields service-name="createCustRequest" map="parameters" to-map="custRequest"/>
         <if-empty field="custRequest.custRequestName">
-            <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
+            <set field="subjectLength" value="${groovy:communicationEvent.subject.length()}" type="Integer"/>
+            <if-compare field="subjectLength" operator="less" value="100" type="Integer">
+                <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
+                <else>
+                    <set field="custRequest.custRequestName" value="${groovy:communicationEvent.subject.substring(0,95) + &quot;.....&quot; }"/>
+                </else>
+            </if-compare>
         </if-empty>
         <if-empty field="parameters.custRequestTypeId">
             <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
