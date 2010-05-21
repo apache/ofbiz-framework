@@ -331,6 +331,7 @@ under the License.
                 <set field="titleProperty" value="PageTitlePaymentOverview"/>
                 <set field="tabButtonItem" value="paymentOverview"/>
                 <set field="labelTitleProperty" value="PageTitlePaymentOverview"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <entity-one entity-name="Payment" value-field="payment"/>
                 <set field="finAccountTransId" from-field="payment.finAccountTransId"/>
