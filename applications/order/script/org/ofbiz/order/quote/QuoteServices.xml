@@ -123,7 +123,7 @@ under the License.
 
     <!-- update an existing Quote -->
     <simple-method method-name="updateQuote" short-description="Update an existing Quote">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuote"/>
         </check-permission>
         <check-errors/>
@@ -221,7 +221,7 @@ under the License.
         <check-errors/>
     </simple-method>
     <simple-method method-name="checkUpdateQuoteStatus" short-description="Set the Quote status to ordered.">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCheckUpdateQuoteStatus"/>
         </check-permission>
         <check-errors/>
@@ -255,7 +255,7 @@ under the License.
 
     <!-- remove an existing QuoteRole -->
     <simple-method method-name="removeQuoteRole" short-description="Remove an existing QuoteRole">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_DELETE">
             <fail-message message="Security Error: to run removeQuoteRole you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
         </check-permission>
         <check-errors/>
@@ -344,7 +344,7 @@ under the License.
 
     <!-- update an existing QuoteItem -->
     <simple-method method-name="updateQuoteItem" short-description="Update an existing QuoteItem">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuoteItem"/>
         </check-permission>
         <check-errors/>
@@ -357,7 +357,7 @@ under the License.
 
     <!-- remove an quoteItem -->
     <simple-method method-name="removeQuoteItem" short-description="Remove a QuoteItem">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_DELETE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/>
         </check-permission>
         <check-errors/>
@@ -422,7 +422,7 @@ under the License.
 
     <!-- update an existing QuoteAttribute -->
     <simple-method method-name="updateQuoteAttribute" short-description="Update an existing QuoteAttribute">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuoteAttribute"/>
         </check-permission>
         <check-errors/>
@@ -435,7 +435,7 @@ under the License.
 
     <!-- remove an existing QuoteAttribute -->
     <simple-method method-name="removeQuoteAttribute" short-description="Remove an existing QuoteAttribute">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_DELETE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteAttribute"/>
         </check-permission>
         <check-errors/>
@@ -461,7 +461,7 @@ under the License.
 
     <!-- update an existing QuoteCoefficient -->
     <simple-method method-name="updateQuoteCoefficient" short-description="Update an existing QuoteCoefficient">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuoteCoefficient"/>
         </check-permission>
         <check-errors/>
@@ -474,7 +474,7 @@ under the License.
 
     <!-- remove an existing QuoteCoefficient -->
     <simple-method method-name="removeQuoteCoefficient" short-description="Remove an existing QuoteCoefficient">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_DELETE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteCoefficient"/>
         </check-permission>
         <check-errors/>
@@ -540,7 +540,7 @@ under the License.
         <check-errors/>
     </simple-method>
     <simple-method method-name="autoUpdateQuotePrice" short-description="Auto update a QuoteItem price">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunAutoUpdateQuotePrice"/>
         </check-permission>
         <check-errors/>
@@ -669,7 +669,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeQuoteAdjustment" short-description="Remove an existing QuoteAdjustment">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_DELETE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteAdjustment"/>
         </check-permission>
         <check-errors/>
@@ -679,7 +679,7 @@ under the License.
         <check-errors/>
     </simple-method>
     <simple-method method-name="updateQuoteAdjustment" short-description="Update an existing QuoteAdjustment">
-        <check-permission permission="ORDERMGR" action="_CREATE">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateQuoteAdjustment"/>
         </check-permission>
         <check-errors/>
