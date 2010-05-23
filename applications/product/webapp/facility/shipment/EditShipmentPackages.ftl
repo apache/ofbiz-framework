@@ -169,8 +169,8 @@ under the License.
                     </select>
                     </div>
                 </td>
-                <td><span class="label">Track#</span><input type="text" size="22" name="trackingCode"/></td>
-                <td><span class="label">Box#</span><input type="text" size="5" name="boxNumber"/></td>
+                <td><span class="label">Track ${uiLabelMap.CommonNbr}</span><input type="text" size="22" name="trackingCode"/></td>
+                <td><span class="label">Box ${uiLabelMap.CommonNbr}</span><input type="text" size="5" name="boxNumber"/></td>
                 <td><a href="javascript:document.createShipmentPackageRouteSegForm${shipmentPackageData_index}.submit()" class="buttontext">${uiLabelMap.CommonAdd}</a></td>
                 <td>&nbsp;</td>
                 </form>

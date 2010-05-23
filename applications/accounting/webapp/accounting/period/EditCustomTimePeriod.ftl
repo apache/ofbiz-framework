@@ -56,7 +56,7 @@ under the License.
           <td>${uiLabelMap.CommonParent}</td>
           <td>${uiLabelMap.AccountingOrgPartyId}</td>
           <td>${uiLabelMap.AccountingPeriodType}</td>
-          <td>#</td>
+          <td>${uiLabelMap.CommonNbr}</td>
           <td>${uiLabelMap.AccountingPeriodName}</td>
           <td>${uiLabelMap.CommonFromDate}</td>
           <td>${uiLabelMap.CommonThruDate}</td>
@@ -148,7 +148,7 @@ under the License.
           <td>${uiLabelMap.CommonParent}</td>
           <td>${uiLabelMap.AccountingOrgPartyId}</td>
           <td>${uiLabelMap.AccountingPeriodType}</td>
-          <td>#</td>
+          <td>${uiLabelMap.CommonNbr}</td>
           <td>${uiLabelMap.AccountingPeriodName}</td>
           <td>${uiLabelMap.CommonFromDate}</td>
           <td>${uiLabelMap.CommonThruDate}</td>
