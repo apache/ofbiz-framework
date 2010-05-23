@@ -320,7 +320,7 @@
     <property key="OrderCouldNotSelectAlternateGiftNoCartLineItemFoundFor">
         <value xml:lang="en">Could not select alternate gift, no cart line item found for # ${alternateGwpLine}. </value>
         <value xml:lang="es">No puede seleccionar el regalo suplementario, ninguna línea del carro encontrada para # ${alternateGwpLine}.</value>
-        <value xml:lang="fr">Vous ne pouvez pas sélectionner un cadeau alternatif, aucune élément du panier trouvé pour ${alternateGwpLine}.</value>
+        <value xml:lang="fr">Vous ne pouvez pas sélectionner un cadeau alternatif, aucune élément du panier trouvé pour le n°${alternateGwpLine}.</value>
         <value xml:lang="it">Non è possibile selezionare un'omaggio alternativo, nessuna riga prodotto carrello trovata per # ${alternateGwpLine}. </value>
         <value xml:lang="pt_BR">Não foi possível selecionar um presente alternativo, nenhuma linha no carrinho encontrada para # ${alternateGwpLine}. </value>
         <value xml:lang="ro">Nu este posibila selectionarea unui omagiu alternativ, nici-o linie produs gasita in cos pentru  # ${alternateGwpLine}. </value>
@@ -3440,7 +3440,7 @@
         <value xml:lang="de">Ungültiger Betrag für Rechnungskonto #${billingAccountId} eingesetzt .</value>
         <value xml:lang="en">Invalid amount set for Billing Account #${billingAccountId}.</value>
         <value xml:lang="es">El importe indicado no es válido para la cuenta de facturación #${billingAccountId}.</value>
-        <value xml:lang="fr">Montant retenu non valide pour facturer le compte n° ${billingAccountId}.</value>
+        <value xml:lang="fr">Montant retenu non valide pour facturer le compte n°${billingAccountId}.</value>
         <value xml:lang="it">Importo Invalido impostato per # Billing Account ${billingAccountId}.</value>
         <value xml:lang="nl">Invalid amount set for Billing Account #${billingAccountId}.</value>
         <value xml:lang="pt_BR">Quantidade inválida para a conta de faturamento #${billingAccountId}.</value>
@@ -3468,7 +3468,7 @@
         <value xml:lang="de">Nicht genug verfügbar auf Konto #{billingAccountId}.</value>
         <value xml:lang="en">Not enough available on account #{billingAccountId}.</value>
         <value xml:lang="es">No hay suficiente disponible en la cuenta #{billingAccountId}.</value>
-        <value xml:lang="fr">Disponibilités insuffisantes sur le compte n° {billingAccountId}.</value>
+        <value xml:lang="fr">Disponibilités insuffisantes sur le compte n°{billingAccountId}.</value>
         <value xml:lang="it">Non abbastanza diponibilità sul conto #{billingAccountId}.</value>
         <value xml:lang="nl">Not enough available on account #{billingAccountId}.</value>
         <value xml:lang="pt_BR">Sem recursos suficientes na conta #{billingAccountId}.</value>
