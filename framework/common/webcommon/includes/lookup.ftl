@@ -85,29 +85,7 @@ under the License.
              src.style.backgroundColor = bkColor;
         }
         // function passing selected value to calling window
-     /*   function set_value(value) {
-                if (!obj_caller) return;
-                setSourceColor(obj_caller.target);
-                obj_caller.target.value = value;
-                obj_caller.target.fire("lookup:changed");
-                if (obj_caller.target.onchange != null) {
-                    obj_caller.target.onchange();                       
-                }
-                window.close();
-        }
-       // function passing selected value to calling window
-        function set_values(value, value2) {
-                set_value(value);
-                if (!obj_caller.target2) return;
-                if (obj_caller.target2 == null) return;
-                setSourceColor(obj_caller.target2);
-                obj_caller.target2.value = value2;
-                obj_caller.target2.fire("lookup:changed");
-                if (obj_caller.target2.onchange != null) {
-                    obj_caller.target2.onchange();
-                }
-        }
-      */  function set_multivalues(value) {
+        function set_multivalues(value) {
             obj_caller.target.value = value;
             var thisForm = obj_caller.target.form;
             var evalString = "";

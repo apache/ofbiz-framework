@@ -60,6 +60,7 @@ function call_fieldlookupLayer3(target, target2, viewName, lookupWidth, lookupHe
     if (isEmpty(target) || isEmpty(target2) || isEmpty(viewName)) {
         return lookup_error("Lookup can't be created, one of these variables is missing: target=" + target + " target2=" + target2 + " viewName=" + viewName);
     }
+        
     var fieldLookupPopup = new FieldLookupPopup(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground);
     fieldLookupPopup.showLookup();
     this.target = target;
@@ -83,10 +84,8 @@ function fieldLookup1(obj_target, args) {
     this.popup2 = lookup_popup2;
     
     // validate input parameters
-    if (! obj_target)
-    return lookup_error("Error calling the field lookup: no target control specified");
-    if (obj_target.value == null)
-    return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
+    if (! obj_target) return lookup_error("Error calling the field lookup: no target control specified");
+    if (obj_target.value == null) return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
     //this.target = obj_target;
     targetW = obj_target;
     
@@ -100,16 +99,12 @@ function fieldLookup2(obj_target, obj_target2, args) {
     this.popup = lookup_popup1;
     this.popup2 = lookup_popup2;
     // validate input parameters
-    if (! obj_target)
-    return lookup_error("Error calling the field lookup: no target control specified");
-    if (obj_target.value == null)
-    return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
+    if (! obj_target) return lookup_error("Error calling the field lookup: no target control specified");
+    if (obj_target.value == null) return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
     targetW = obj_target;
     // validate input parameters
-    if (! obj_target2)
-    return lookup_error("Error calling the field lookup: no target2 control specified");
-    if (obj_target2.value == null)
-    return lookup_error("Error calling the field lookup: parameter specified is not valid target2 control");
+    if (! obj_target2) return lookup_error("Error calling the field lookup: no target2 control specified");
+    if (obj_target2.value == null) return lookup_error("Error calling the field lookup: parameter specified is not valid target2 control");
     target2 = obj_target2;
     
     
@@ -182,7 +177,6 @@ var FieldLookupCounter = Class.create({
         for (itm in this.refArr) {
             count++;
         }
-        
         return count;
     },
     
@@ -308,7 +302,7 @@ var FieldLookupPopup = Class.create({
         //set the layer position
         this.setPosition(lookupDiv);
 
-        this.divRef = lookupDiv;
+        this.divRef = lookupDiv;        
 
         //make layer draggable
         this.makeDraggable(lookupDiv);
@@ -528,7 +522,7 @@ var FieldLookupPopup = Class.create({
 });
 
 /**
-* returns true if a Stirng is empty
+* returns true if a String is empty
 * @param value - String value
 * @return
 */
@@ -557,7 +551,7 @@ function getNextCollapseSeq() {
     return COLLAPSE;
 }
 
-//modify epande/ collapse button
+//modify expande/collapse button
 function modifyCollapseable(lookupDiv){
     if (!lookupDiv) {
         return;
@@ -618,7 +612,8 @@ function modifySubmitButton (lookupDiv) {
         var newLookups = $A(lookupDiv.getElementsByClassName('field-lookup'));
         newLookups.each(function(newLookup){
             var link = newLookup.getElementsByTagName('a')[0].href;
-            newLookup.getElementsByTagName('a')[0].href = link.replace('document.' + oldFormName, 'document.'+'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
+            var replaced = new  RegExp('document.' + oldFormName, 'g');
+            newLookup.getElementsByTagName('a')[0].href = link.replace(replaced, 'document.'+'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
         });
 
         //disable the form action
@@ -652,7 +647,7 @@ function modifySubmitButton (lookupDiv) {
                     }
                 });
                 ele.parentNode.removeChild(ele);
-                // modifay nav-pager
+                // modify nav-pager
                 var navPager = null;
                 navPager = lookupDiv.getElementsByClassName("nav-pager");
                 if (navPager.length > 0) {
@@ -733,17 +728,15 @@ function modifySubmitButton (lookupDiv) {
                                     cellElement.href = "javascript:lookupAjaxRequest('" + liSub + "')";
                                 }
                             }
-                            
                         }
                     }
-                }
-                
+                }                
             }
         }
     }
 }
 /**
- * Createan ajax Request
+ * Create an ajax Request
  */
 function lookupAjaxRequest(request) {
     lookupDiv = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).divRef);
@@ -809,7 +802,7 @@ function lookupFormAjaxRequest(formAction, form) {
 
             lookupCont.insert({
                 bottom: "" + formRequest + ""
-            });
+            });           
             GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef = lookupCont;
             modifySubmitButton(lookupDiv);
         }
@@ -871,10 +864,10 @@ function setSourceColor(src) {
 // function passing selected value to calling window
 function set_value (value) {
     if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
-    obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget);
+        obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget);
     }
     else{
-    obj_caller.target = obj_caller.targetW;        
+        obj_caller.target = obj_caller.targetW;
     }    
     var target = obj_caller.target;
     
@@ -885,10 +878,10 @@ function set_value (value) {
 // function passing selected value to calling window
 function set_values (value, value2) {
     if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
-    obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);
+        obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);
     }
     else{
-    obj_caller.target = obj_caller.targetW;        
+        obj_caller.target = obj_caller.targetW;        
     }
     var target = obj_caller.target;
     var target2 = obj_caller.target2;
