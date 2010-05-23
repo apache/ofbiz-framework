@@ -6479,7 +6479,7 @@
         <value xml:lang="th">ผลตอบแทน</value>
         <value xml:lang="zh">退货</value>
         <value xml:lang="zh_CN">退货单</value>
-    </property>
+    </property>    
     <property key="OrderOrderReturns">
         <value xml:lang="de">Retouren</value>
         <value xml:lang="en">Returns</value>
@@ -8633,6 +8633,10 @@
         <value xml:lang="ru">На склад</value>
         <value xml:lang="th">เป้าหมายของคลังสินค้า</value>
         <value xml:lang="zh">目的地场所</value>
+    </property>
+    <property key="OrderReturnedItemRaNumber">
+        <value xml:lang="en">Returned Item RA#</value>
+        <value xml:lang="fr">Retour, autorisation n°</value>
     </property>
     <property key="OrderReturnEnumId">
         <value xml:lang="de">Retoure Seq. ID</value>
