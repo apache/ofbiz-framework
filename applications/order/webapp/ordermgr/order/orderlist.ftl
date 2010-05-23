@@ -150,7 +150,7 @@ under the License.
         <table class="basic-table hover-bar" cellspacing='0'>
           <tr class="header-row">
             <td width="15%">${uiLabelMap.CommonDate}</td>
-            <td width="10%">${uiLabelMap.OrderOrder} #</td>
+            <td width="10%">${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}</td>
             <td width="10%">${uiLabelMap.OrderOrderType}</td>
             <td width="10%">${uiLabelMap.OrderOrderBillFromParty}</td>
             <td width="10%">${uiLabelMap.OrderOrderBillToParty}</td>

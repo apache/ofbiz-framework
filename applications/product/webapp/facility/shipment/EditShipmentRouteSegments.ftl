@@ -312,12 +312,12 @@ under the License.
                     <#if shipmentPackageRouteSeg.labelImage?exists>
                         <a href="javascript:document.viewShipmentPackageRouteSegLabelImage_${shipmentRouteSegmentData_index}_${shipmentPackageRouteSeg_index}.submit();" class="buttontext">${uiLabelMap.ProductViewLabelImage}</a>
                     </#if>
-                    <span class="label">${uiLabelMap.ProductTrack} #</span><input type="text" size="22" name="trackingCode" value="${shipmentPackageRouteSeg.trackingCode?if_exists}"/>
+                    <span class="label">${uiLabelMap.ProductTrack} ${uiLabelMap.CommonNbr}</span><input type="text" size="22" name="trackingCode" value="${shipmentPackageRouteSeg.trackingCode?if_exists}"/>
                 </div>
             </td>
             <td valign="top">
                <div>
-                   <span class="label">${uiLabelMap.ProductBox} #</span>
+                   <span class="label">${uiLabelMap.ProductBox} ${uiLabelMap.CommonNbr}</span>
                    <input type="text" size="5" name="boxNumber" value="${shipmentPackageRouteSeg.boxNumber?if_exists}"/>
                </div>
             </td>

@@ -35,7 +35,7 @@ under the License.
     <#if orderHeaderList?has_content>
       <table class="basic-table hover-bar" cellspacing='0'>
         <tr class="header-row">
-          <td width="10%">${uiLabelMap.OrderOrder} #</td>
+          <td width="10%">${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}</td>
           <td width="15%">${uiLabelMap.OrderOrderBillToParty}</td>
           <td width="25%">${uiLabelMap.OrderProductStore}</td>
           <td width="10%">${uiLabelMap.CommonAmount}</td>
