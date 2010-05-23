@@ -24,7 +24,7 @@ under the License.
         <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
         <#-- Receiving Results -->
         <#if receivedItems?has_content>
-          <h3>${uiLabelMap.ProductReceiptForReturn}# <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">${returnHeader.returnId}</a></h3>
+          <h3>${uiLabelMap.ProductReceiptForReturn} ${uiLabelMap.CommonNbr}<a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">${returnHeader.returnId}</a></h3>
           <#if "RETURN_RECEIVED" == returnHeader.getString("statusId")>
             <h3>${uiLabelMap.ProductReturnCompletelyReceived}</h3>
           </#if>
@@ -93,7 +93,7 @@ under the License.
                   <input type="hidden" name="facilityId_o_${rowCount}" value="${requestParameters.facilityId?if_exists}" />
                   <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${now}" />
                   <input type="hidden" name="quantityRejected_o_${rowCount}" value="0" />
-                  <input type="hidden" name="comments_o_${rowCount}" value="Returned Item RA# ${returnItem.returnId}" />
+                  <input type="hidden" name="comments_o_${rowCount}" value="${uiLabelMap.OrderReturnedItemRaNumber} ${returnItem.returnId}" />
 
                   <#assign unitCost = Static["org.ofbiz.order.order.OrderReturnServices"].getReturnItemInitialCost(delegator, returnItem.returnId, returnItem.returnItemSeqId)/>
                   <tr>
