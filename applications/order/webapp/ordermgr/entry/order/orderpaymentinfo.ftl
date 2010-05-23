@@ -41,7 +41,7 @@ under the License.
                   <div align="center">${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode}
                   <div align="center">${paymentAddress.countryGeoId}</div>
                   <div align="center"><hr /></div>
-                  <div align="center"><b>${uiLabelMap.OrderBeSureIncludeOrder} #</b></div>
+                  <div align="center"><b>${uiLabelMap.OrderBeSureIncludeOrder} ${uiLabelMap.CommonNbr}</b></div>
                 </#if>
               </td>
             <#else>

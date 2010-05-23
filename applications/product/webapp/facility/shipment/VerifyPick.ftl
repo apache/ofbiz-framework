@@ -39,7 +39,7 @@ under the License.
           <ul>
             <#list invoiceIds as invoiceId>
               <li>
-                #<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}&amp;externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">${invoiceId}</a>
+                ${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoiceId}&amp;externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">${invoiceId}</a>
                 (<a href="/accounting/control/invoice.pdf?invoiceId=${invoiceId}&amp;externalLoginKey=${externalLoginKey}" target="_blank" class="buttontext">PDF</a>)
               </li>
             </#list>
@@ -106,7 +106,7 @@ under the License.
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <li class="h3">${uiLabelMap.ProductOrderId} #<a href="/ordermgr/control/orderview?orderId=${orderId}">${orderId}</a> / ${uiLabelMap.ProductOrderShipGroupId} #${shipGroupSeqId}</li>
+          <li class="h3">${uiLabelMap.ProductOrderId} ${uiLabelMap.CommonNbr}<a href="/ordermgr/control/orderview?orderId=${orderId}">${orderId}</a> / ${uiLabelMap.ProductOrderShipGroupId} #${shipGroupSeqId}</li>
         </ul>
         <br class="clear"/>
       </div>
@@ -191,7 +191,7 @@ under the License.
           <table class="basic-table" cellspacing='0'>
             <tr class="header-row">
               <td>&nbsp;</td>
-              <td>${uiLabelMap.ProductItem} #</td>
+              <td>${uiLabelMap.ProductItem} ${uiLabelMap.CommonNbr}</td>
               <td>${uiLabelMap.ProductProductId}</td>
               <td>${uiLabelMap.ProductInternalName}</td>
               <td>${uiLabelMap.ProductCountryOfOrigin}</td>
@@ -334,9 +334,9 @@ under the License.
           <div class="screenlet-body">
             <table class="basic-table" cellspacing='0'>
               <tr class="header-row">
-                <td>${uiLabelMap.ProductItem} #</td>
+                <td>${uiLabelMap.ProductItem} ${uiLabelMap.CommonNbr}</td>
                 <td>${uiLabelMap.ProductProductId}</td>
-                <td>${uiLabelMap.ProductInventoryItem} #</td>
+                <td>${uiLabelMap.ProductInventoryItem} ${uiLabelMap.CommonNbr}</td>
                 <td align="right">${uiLabelMap.ProductVerified}&nbsp;${uiLabelMap.CommonQuantity}</td>
                 <td>&nbsp;</td>
               </tr>

@@ -226,19 +226,19 @@ under the License.
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStorePrimaryColor} :</td>
               <td valign="middle">
-                   #<input type="text" id="storePrimaryColor" name="storePrimaryColor" size="10" value="${ebayStore.storeColorPrimary?if_exists}"/>
+                   ${uiLabelMap.CommonNbr}<input type="text" id="storePrimaryColor" name="storePrimaryColor" size="10" value="${ebayStore.storeColorPrimary?if_exists}"/>
               </td>
             </tr>
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreSecondColor} :</td>
               <td valign="middle">
-                   #<input type="text" id="storeSecondaryColor" name="storeSecondaryColor" size="10" value="${ebayStore.storeColorSecondary?if_exists}"/>
+                   ${uiLabelMap.CommonNbr}<input type="text" id="storeSecondaryColor" name="storeSecondaryColor" size="10" value="${ebayStore.storeColorSecondary?if_exists}"/>
               </td>
             </tr>
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreAccentColor} :</td>
               <td valign="middle">
-                   #<input type="text" id="storeAccentColor" name="storeAccentColor" size="10" value="${ebayStore.storeColorAccent?if_exists}"/>
+                   ${uiLabelMap.CommonNbr}<input type="text" id="storeAccentColor" name="storeAccentColor" size="10" value="${ebayStore.storeColorAccent?if_exists}"/>
               </td>
             </tr>
             <tr>
@@ -284,7 +284,7 @@ under the License.
                                 </select>
                             </td>
                             <td>
-                                #<input id="storeNameFontColor" type="text" size="10" name="storeNameFontColor" value="${storeFontColor?if_exists}"/>
+                                ${uiLabelMap.CommonNbr}<input id="storeNameFontColor" type="text" size="10" name="storeNameFontColor" value="${storeFontColor?if_exists}"/>
                             </td>
                         </tr>
                     </table>
@@ -317,7 +317,7 @@ under the License.
                                 </select>
                             </td>
                             <td>
-                                #<input id="storeTitleFontColor" type="text" size="10" name="storeTitleFontColor" value="${storeTitleColor?if_exists}"/>
+                                ${uiLabelMap.CommonNbr}<input id="storeTitleFontColor" type="text" size="10" name="storeTitleFontColor" value="${storeTitleColor?if_exists}"/>
                             </td>
                         </tr>
                     </table>
@@ -350,7 +350,7 @@ under the License.
                                 </select>
                             </td>
                             <td>
-                                #<input id="storeDescFontColor" type="text" size="10" name="storeDescFontColor" value="${storeDescColor?if_exists}"/>
+                                ${uiLabelMap.CommonNbr}<input id="storeDescFontColor" type="text" size="10" name="storeDescFontColor" value="${storeDescColor?if_exists}"/>
                             </td>
                         </tr>
                     </table>

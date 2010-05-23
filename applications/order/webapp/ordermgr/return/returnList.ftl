@@ -23,7 +23,7 @@ under the License.
 <br />
 <table cellspacing="0" class="basic-table">
   <tr class="header-row">
-    <td>${uiLabelMap.OrderReturnId} #</td>
+    <td>${uiLabelMap.OrderReturnId} ${uiLabelMap.CommonNbr}</td>
     <td>${uiLabelMap.FormFieldTitle_entryDate}</td>
     <td>${uiLabelMap.PartyParty}</td>
     <td>${uiLabelMap.FacilityFacility}</td>

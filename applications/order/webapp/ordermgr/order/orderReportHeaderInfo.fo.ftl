@@ -35,7 +35,7 @@ under the License.
                     </fo:table-row>
 
                     <fo:table-row>
-                      <fo:table-cell><fo:block>${uiLabelMap.OrderOrder} #</fo:block></fo:table-cell>
+                      <fo:table-cell><fo:block>${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}</fo:block></fo:table-cell>
                       <fo:table-cell><fo:block>${orderId}</fo:block></fo:table-cell>
                     </fo:table-row>
 

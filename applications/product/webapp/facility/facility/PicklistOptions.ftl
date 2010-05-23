@@ -55,7 +55,7 @@ under the License.
       <#if pickMoveInfoList?has_content || rushOrderInfo?has_content>
         <tr class="header-row">
           <#if !((requestParameters.groupByShippingMethod?exists && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?exists && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?exists && requestParameters.groupByNoOfOrderItems == "Y"))>
-            <td>${uiLabelMap.OrderOrder} #</td>
+            <td>${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}</td>
           <#else>
             <td>${uiLabelMap.ProductShipmentMethod}</td>
             <td>${uiLabelMap.ProductWarehouseArea}</td>
