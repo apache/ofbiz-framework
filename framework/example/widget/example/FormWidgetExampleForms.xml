@@ -282,12 +282,12 @@ under the License.
 
     <!-- Lookup Layer Example -->
     <form name="ExampleLookupFields" type="single" title="">
-        <!-- Lookup (in a popup windows, old style) -->
-        <!-- Using separated labels is not recommended (it's better using sentences than words for translation) but here we use only Common labels to avoid dependencies from application to framework -->
+        <!-- Old style lookup (in a popup window) -->
+        <!-- Using separated labels is not recommended (it's better using sentences than words for translation) -->
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><!-- we use partyIdFrom here only to differentiate from the other partyId field we use below, ie partyIdTo-->
             <lookup target-form-name="LookupPartyExample" presentation="window"/>
         </field>
-        <!-- Standard Lookup in a layer (new style)-->
+        <!-- Standard lookup (in a layer)-->
         <!-- passes the name in one and the id in another field -->
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <lookup target-form-name="LookupPartyExampleByName" description-field-name="partyIdTo"/>
