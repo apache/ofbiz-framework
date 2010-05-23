@@ -615,6 +615,15 @@ function modifySubmitButton (lookupDiv) {
             var replaced = new  RegExp('document.' + oldFormName, 'g');
             newLookup.getElementsByTagName('a')[0].href = link.replace(replaced, 'document.'+'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
         });
+        
+        //set new calendar links
+        newLookups = $A(lookupDiv.getElementsByClassName('view-calendar'));
+        newLookups.each(function(newLookup){
+            link = $A(newLookup.getElementsByTagName('a'));
+            link.each(function(cal){
+                cal.href = cal.href.replace('document.' + oldFormName, 'document.'+'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
+            });
+        });
 
         //disable the form action
         var formAction = lookupForm.getAttribute('action');
