@@ -415,7 +415,7 @@
     <property key="AccountingAdditionalShippingChargeForShipment">
         <value xml:lang="de">Zusätzliche Versandkosten für Lieferung #${shipmentId}</value>
         <value xml:lang="en">Additional Shipping Charge For Shipment #${shipmentId}</value>
-        <value xml:lang="fr">Ajouter des frais de transport à la livraison</value>
+        <value xml:lang="fr">Ajouter des frais de transport à la livraison n°${shipmentId}</value>
         <value xml:lang="hi_IN">अतिरिक्त माल के परिवहन के लिए प्रयुक्त</value>
         <value xml:lang="it">Ricarico spedizione aggiuntivo per la spedizione #${shipmentId}</value>
         <value xml:lang="nl">Extra vrachtkosten voor zending #${shipmentId}</value>
@@ -5931,7 +5931,7 @@
         <value xml:lang="de">Kontonr.</value>
         <value xml:lang="en">Account #</value>
         <value xml:lang="es">Número de cuenta</value>
-        <value xml:lang="fr">N° de compte</value>
+        <value xml:lang="fr">N° de compte </value>
         <value xml:lang="hi_IN">ख़ाता #</value>
         <value xml:lang="it">Conto N°</value>
         <value xml:lang="ja">アカウント #</value>
@@ -6628,7 +6628,7 @@
         <value xml:lang="de">Auftrags-Nr.</value>
         <value xml:lang="en">Order #</value>
         <value xml:lang="es">Orden #</value>
-        <value xml:lang="fr">Commande #</value>
+        <value xml:lang="fr">Commande n°</value>
         <value xml:lang="hi_IN">आदेश #</value>
         <value xml:lang="it">Ordine n°</value>
         <value xml:lang="nl">Ordernr.</value>
