@@ -104,7 +104,7 @@ under the License.
                             <form method="post" action="<@ofbizUrl>updatePicklistBin</@ofbizUrl>" style="display: inline;">
                                 <input type="hidden" name="facilityId" value="${facilityId}"/>
                                 <input type="hidden" name="picklistBinId" value="${picklistBinInfo.picklistBin.picklistBinId}"/>
-                                <span class="label">${uiLabelMap.ProductLocation}#</span>
+                                <span class="label">${uiLabelMap.ProductLocation} ${uiLabelMap.CommonNbr}</span>
                                 <input type"text" size="2" name="binLocationNumber" value="${picklistBinInfo.picklistBin.binLocationNumber}"/>
                                 <span class="label">${uiLabelMap.PageTitlePickList}</span>
                                 <select name="picklistId">
