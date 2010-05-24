@@ -2969,6 +2969,14 @@
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ในการรัน ${resourceDescription} คุณต้องมีการได้รับอนุญาตก่อน${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须具有下列权限之一：${primaryPermission}_${mainAction}、${primaryPermission}_ADMIN${altPermissionList}</value>
     </property>
+    <property key="CommonGenericServiceErrorMessage">
+        <value xml:lang="en">Error while executing service</value>
+        <value xml:lang="fr">Erreur lors de l'exécution du service</value>
+    </property>
+    <property key="CommonGenericServiceSuccessMessage">
+        <value xml:lang="en">Service executed successfully</value>
+        <value xml:lang="fr">Service exécuté avec succès</value>
+    </property>
     <property key="CommonGeo">
         <value xml:lang="ar">جيو</value>
         <value xml:lang="de">Geo</value>
