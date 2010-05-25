@@ -122,7 +122,7 @@ under the License.
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="OrderHeaderAndShipGroups"/>
+                <field-map field-name="entityName" value="OrderHeaderAndShipGroupsByProduct"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
@@ -142,6 +142,9 @@ under the License.
         <field name="countryGeoId"><display/></field>
         <field name="stateProvinceGeoId"><display/></field>
         <field name="grandTotal"><display/></field>
+        <field name="productId"><display/></field>
+        <field name="brandName"><display/></field>
+        <field name="internalName"><display/></field>
     </form>
 
     <form name="lookupPurchaseOrderHeaderAndShipInfo" target="LookupPurchaseOrderHeaderAndShipInfo" title="" type="single"
@@ -177,7 +180,10 @@ under the License.
              </drop-down>
         </field>
         <field name="grandTotal"><range-find/></field>
-
+        <field name="productId"><text-find/></field>
+        <field name="brandName"><text-find/></field>
+        <field name="internalName"><text-find/></field>
+        
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
