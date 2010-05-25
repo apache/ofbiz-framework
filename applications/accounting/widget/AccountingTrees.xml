@@ -20,7 +20,30 @@ under the License.
 
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
-    <tree name="GlAccountTree" entity-name="GlAccount" root-node-name="node-root" default-render-style="expand-collapse" default-wrap-style="accountItem">
+    <tree name="GlAccountTree" entity-name="GlAccount" root-node-name="node-root" default-render-style="expand-collapse" default-wrap-style="accountItem" expand-collapse-request="GlAccountNavigate">
+        <node name="node-root" render-style="simple">
+            <sub-node node-name="node-body">
+                <entity-and entity-name="GlAccount">
+                    <field-map field-name="parentGlAccountId" from-field="null"/>
+                    <order-by field-name="glAccountId"/>
+                </entity-and>
+            </sub-node>
+        </node>
+        <node name="node-body">
+            <entity-one entity-name="GlAccount" value-field="glAccount"></entity-one>
+            <link target="GlAccountNavigate" text="${glAccountId} ${glAccount.accountName} ${postedBalance}">
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="trail"/>
+            </link>
+            <sub-node node-name="node-body">
+                <entity-and entity-name="GlAccount">
+                    <field-map field-name="parentGlAccountId" from-field="glAccountId"/>
+                    <order-by field-name="glAccountId"/>
+                </entity-and>
+            </sub-node>
+        </node>
+    </tree>
+    <tree name="ListGlAccountTree" entity-name="GlAccount" root-node-name="node-root" default-render-style="expand-collapse" default-wrap-style="accountItem">
         <node name="node-root" render-style="simple">
             <sub-node node-name="node-body">
                 <entity-and entity-name="GlAccount">
