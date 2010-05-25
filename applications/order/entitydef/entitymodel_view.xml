@@ -1108,6 +1108,40 @@ under the License.
         <key-map field-name="orderId"/>
       </view-link>
     </view-entity>
+    
+    <view-entity entity-name="OrderHeaderAndShipGroupsByProduct"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="Order Header And Ship Groups By Product">
+      <member-entity entity-alias="OISG" entity-name="OrderItemShipGroup"/>
+      <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+      <member-entity entity-alias="OH" entity-name="OrderHeader"/>
+      <member-entity entity-alias="ORR" entity-name="OrderRole"/>
+      <member-entity entity-alias="OI" entity-name="OrderItem"/>
+      <member-entity entity-alias="PR" entity-name="Product"/>
+      <alias-all entity-alias="OISG"/>
+      <alias-all entity-alias="PA"/>
+      <alias-all entity-alias="ORR"/>
+      <alias-all entity-alias="OH"/>
+      <alias name="productId" field="productId" entity-alias="PR"/>
+      <alias name="brandName" field="brandName" entity-alias="PR"/>
+      <alias name="internalName" field="internalName" entity-alias="PR"/>
+      <view-link entity-alias="OH" rel-entity-alias="OISG">
+        <key-map field-name="orderId"/>
+      </view-link>
+      <view-link entity-alias="OISG" rel-entity-alias="PA">
+        <key-map field-name="contactMechId"/>
+      </view-link>
+      <view-link entity-alias="OH" rel-entity-alias="ORR">
+        <key-map field-name="orderId"/>
+      </view-link>
+      <view-link entity-alias="OH" rel-entity-alias="OI">
+        <key-map field-name="orderId"/>
+      </view-link>
+      <view-link entity-alias="OI" rel-entity-alias="PR">
+        <key-map field-name="productId"/>
+      </view-link>
+    </view-entity>
 
     <view-entity entity-name="OrderReportSalesGroupByProduct"
             package-name="org.ofbiz.order.order"
