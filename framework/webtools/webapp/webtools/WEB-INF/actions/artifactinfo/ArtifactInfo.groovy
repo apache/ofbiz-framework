@@ -26,8 +26,11 @@ name = parameters.name;
 location = parameters.location;
 type = parameters.type;
 uniqueId = parameters.uniqueId;
-
-aif = ArtifactInfoFactory.getArtifactInfoFactory(delegator.getDelegatorName());
+delegatorName = delegator.getDelegatorName()
+if (delegatorName.contains("default#")) {
+    delegatorName = "default";
+}
+aif = ArtifactInfoFactory.getArtifactInfoFactory(delegatorName);
 context.aif = aif;
 artifactInfo = null;
 if ("search".equals(parameters.findType)) {
