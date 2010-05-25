@@ -152,7 +152,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleViewGlAccountEntries}">
-                            <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>
+                            <include-tree name="ListGlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleViewGlAccountEntries}">
                             <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
@@ -178,7 +178,7 @@ under the License.
                     <decorator-section name="body">
                         <include-menu name="GlAccountTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                         <screenlet title="${uiLabelMap.PageTitleViewAccountingTransaction}">
-                            <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>
+                            <include-tree name="ListGlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleViewAccountingTransaction}">
                             <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
@@ -207,7 +207,7 @@ under the License.
 
                         <!-- include-screen screen-name="ListGlAccounts" name="ListGlAccounts" / -->
 
-                        <!-- tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/ -->
+                        <!-- tree name="ListGlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/ -->
                      </decorator-section>
                 </decorator-screen>
             </widgets>
