@@ -323,6 +323,19 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         basicTest(cache);
     }
 
+    public void testPutIfAbsent() throws Exception {
+        UtilCache<String, String> cache = createUtilCache(5, 5, 2000, false, false);
+        Listener<String, String> gotListener = createListener(cache);
+        Listener<String, String> wantedListener = new Listener<String, String>();
+        wantedListener.noteKeyAddition(cache, "two", "dos");
+        assertNull("putIfAbsent", cache.putIfAbsent("two", "dos"));
+        assertHasSingleKey(cache, "two", "dos");
+        assertEquals("putIfAbsent", "dos", cache.putIfAbsent("two", "double"));
+        assertHasSingleKey(cache, "two", "dos");
+        cache.removeListener(gotListener);
+        assertEquals("listener", wantedListener, gotListener);
+    }
+
     public void testChangeMemSize() throws Exception {
         int size = 5;
         long ttl = 2000;

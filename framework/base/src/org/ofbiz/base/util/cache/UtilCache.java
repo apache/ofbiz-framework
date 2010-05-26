@@ -291,6 +291,10 @@ public class UtilCache<K, V> implements Serializable {
         return putInternal(key, value, expireTimeNanos);
     }
 
+    public V putIfAbsent(K key, V value) {
+        return putIfAbsentInternal(key, value, expireTimeNanos);
+    }
+
     CacheLine<V> createSoftRefCacheLine(final Object key, V value, long loadTimeNanos, long expireTimeNanos) {
         return tryRegister(loadTimeNanos, new SoftRefCacheLine<V>(value, loadTimeNanos, expireTimeNanos) {
             @Override
@@ -368,6 +372,10 @@ public class UtilCache<K, V> implements Serializable {
         return putInternal(key, value, TimeUnit.NANOSECONDS.convert(expireTimeMillis, TimeUnit.MILLISECONDS));
     }
 
+    public V putIfAbsent(K key, V value, long expireTimeMillis) {
+        return putIfAbsentInternal(key, value, TimeUnit.NANOSECONDS.convert(expireTimeMillis, TimeUnit.MILLISECONDS));
+    }
+
     V putInternal(K key, V value, long expireTimeNanos) {
         Object nulledKey = fromKey(key);
         CacheLine<V> oldCacheLine = memoryTable.put(nulledKey, createCacheLine(key, value, expireTimeNanos));
@@ -388,6 +396,41 @@ public class UtilCache<K, V> implements Serializable {
             return null;
         } else {
             noteUpdate(key, value, oldValue);
+            return oldValue;
+        }
+    }
+
+    V putIfAbsentInternal(K key, V value, long expireTimeNanos) {
+        Object nulledKey = fromKey(key);
+        V oldValue;
+        if (fileTable != null) {
+            try {
+                synchronized (this) {
+                    oldValue = fileTable.get(nulledKey);
+                    if (oldValue == null) {
+                        memoryTable.put(nulledKey, createCacheLine(key, value, expireTimeNanos));
+                        fileTable.put(nulledKey, value);
+                        jdbmMgr.commit();
+                    }
+                }
+            } catch (IOException e) {
+                Debug.logError(e, module);
+                oldValue = null;
+            }
+        } else {
+            CacheLine<V> newCacheLine = createCacheLine(key, value, expireTimeNanos);
+            CacheLine<V> oldCacheLine = memoryTable.putIfAbsent(nulledKey, newCacheLine);
+            if (oldCacheLine == null) {
+                oldValue = null;
+            } else {
+                oldValue = oldCacheLine.getValue();
+                cancel(newCacheLine);
+            }
+        }
+        if (oldValue == null) {
+            noteAddition(key, value);
+            return null;
+        } else {
             return oldValue;
         }
     }
