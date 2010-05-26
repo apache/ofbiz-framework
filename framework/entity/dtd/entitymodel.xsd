@@ -202,6 +202,14 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.index-field">
         <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="function">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="lower"/>
+                    <xs:enumeration value="upper"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     
     <!-- ================== view-entity ===================== -->

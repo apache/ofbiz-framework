@@ -27,7 +27,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.IteratorWrapper;
 
 /**
  * Generic Entity - Relation model class
@@ -42,7 +44,7 @@ public class ModelIndex extends ModelChild {
     protected boolean unique;
 
     /** list of the field names included in this index */
-    protected List<String> fieldNames = new ArrayList<String>();
+    protected List<Field> fields = new ArrayList<Field>();
 
     /** Default Constructor */
     public ModelIndex() {
@@ -71,7 +73,8 @@ public class ModelIndex extends ModelChild {
 
             if (indexFieldElement.getParentNode() == indexElement) {
                 String fieldName = indexFieldElement.getAttribute("name").intern();
-                this.fieldNames.add(fieldName);
+                String function = indexFieldElement.getAttribute("function");
+                this.fields.add(new Field(fieldName, UtilValidate.isNotEmpty(function) ? Function.valueOf(function.toUpperCase()) : null));
             }
         }
     }
@@ -94,24 +97,45 @@ public class ModelIndex extends ModelChild {
         this.unique = unique;
     }
 
+    /** @deprecated use getFieldsIterator() */
+    @Deprecated
     public Iterator<String> getIndexFieldsIterator() {
-        return this.fieldNames.iterator();
+        return new IteratorWrapper<String, Field>(this.fields.iterator()) {
+            protected void noteRemoval(String dest, Field src) {
+            }
+
+            protected String convert(Field src) {
+                return src.getFieldName();
+            }
+        };
+    }
+
+    public Iterator<Field> getFieldsIterator() {
+        return this.fields.iterator();
     }
 
     public int getIndexFieldsSize() {
-        return this.fieldNames.size();
+        return this.fields.size();
     }
 
     public String getIndexField(int index) {
-        return this.fieldNames.get(index);
+        return this.fields.get(index).getFieldName();
     }
 
     public void addIndexField(String fieldName) {
-        this.fieldNames.add(fieldName);
+        this.fields.add(new Field(fieldName, null));
+    }
+
+    public void addIndexField(String fieldName, String functionName) {
+        this.fields.add(new Field(fieldName, Function.valueOf(functionName)));
+    }
+
+    public void addIndexField(String fieldName, Function function) {
+        this.fields.add(new Field(fieldName, function));
     }
 
     public String removeIndexField(int index) {
-        return this.fieldNames.remove(index);
+        return this.fields.remove(index).getFieldName();
     }
 
     public Element toXmlElement(Document document) {
@@ -121,12 +145,43 @@ public class ModelIndex extends ModelChild {
             root.setAttribute("unique", "true");
         }
 
-        for (String fieldName: this.fieldNames) {
+        for (Field field: this.fields) {
             Element fn = document.createElement("index-field");
-            fn.setAttribute("name", fieldName);
+            fn.setAttribute("name", field.getFieldName());
+            if (field.getFunction() != null) {
+                fn.setAttribute("function", field.getFunction().toString());
+            }
             root.appendChild(fn);
         }
 
         return root;
     }
+
+    public static final class Field {
+        private final String fieldName;
+        private final Function function;
+
+        public Field(String fieldName, Function function) {
+            this.fieldName = fieldName;
+            this.function = function;
+        }
+
+        public String getFieldName() {
+            return this.fieldName;
+        }
+
+        public Function getFunction() {
+            return function;
+        }
+
+        public String toString() {
+            if (function == null) {
+                return fieldName;
+            } else {
+                return function.toString() + '(' + fieldName + ')';
+            }
+        }
+    }
+
+    public enum Function { LOWER, UPPER }
 }

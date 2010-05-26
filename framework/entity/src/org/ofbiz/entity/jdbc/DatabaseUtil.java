@@ -2800,16 +2800,23 @@ public class DatabaseUtil {
     }
 
     public String makeIndexClause(ModelEntity entity, ModelIndex modelIndex) {
-        Iterator<String> fieldNamesIter = modelIndex.getIndexFieldsIterator();
+        Iterator<ModelIndex.Field> fieldsIter = modelIndex.getFieldsIterator();
         StringBuilder mainCols = new StringBuilder();
 
-        while (fieldNamesIter.hasNext()) {
-            String fieldName = fieldNamesIter.next();
-            ModelField mainField = entity.getField(fieldName);
+        while (fieldsIter.hasNext()) {
+            ModelIndex.Field field = fieldsIter.next();
+            ModelIndex.Function function = field.getFunction();
             if (mainCols.length() > 0) {
                 mainCols.append(", ");
             }
+            if (function != null) {
+                mainCols.append(function.toString()).append('(');
+            }
+            ModelField mainField = entity.getField(field.getFieldName());
             mainCols.append(mainField.getColName());
+            if (function != null) {
+                mainCols.append(')');
+            }
         }
 
         StringBuilder indexSqlBuf = new StringBuilder("CREATE ");
