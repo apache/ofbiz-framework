@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javolution.util.FastMap;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.cache.UtilCache;
 
@@ -44,7 +45,7 @@ public final class BshUtil {
 
     public static final String module = BshUtil.class.getName();
 
-    protected static Map<ClassLoader, BshClassManager> masterClassManagers = new HashMap<ClassLoader, BshClassManager>();
+    protected static FastMap<ClassLoader, BshClassManager> masterClassManagers = FastMap.newInstance();
     public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = UtilCache.createUtilCache("script.BshLocationParsedCache", 0, 0, false);
 
     /**
@@ -109,14 +110,10 @@ public final class BshUtil {
         //find the "master" BshClassManager for this classpath
         BshClassManager master = BshUtil.masterClassManagers.get(classLoader);
         if (master == null) {
-            synchronized (OfbizBshBsfEngine.class) {
-                master = BshUtil.masterClassManagers.get(classLoader);
-                if (master == null) {
-                    master = BshClassManager.createClassManager();
-                    master.setClassLoader(classLoader);
-                    BshUtil.masterClassManagers.put(classLoader, master);
-                }
-            }
+            master = BshClassManager.createClassManager();
+            master.setClassLoader(classLoader);
+            BshUtil.masterClassManagers.putIfAbsent(classLoader, master);
+            master = BshUtil.masterClassManagers.get(classLoader);
         }
 
         if (master != null) {
