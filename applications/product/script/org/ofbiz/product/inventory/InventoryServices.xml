@@ -604,7 +604,13 @@ under the License.
         <set from-field="parameters.locationSeqId" field="lookupFieldMap.locationSeqId"/>
         <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
         <!-- we might get away with a cache here since real serious errors will occur during the reservation service... but only if we need the speed -->
-        <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItems" use-iterator="true" use-cache="${parameters.useCache}"/>
+        <if-compare field="parameters.useCache" operator="equals" value="true" type="Boolean">
+            <!-- if caching was requested, don't use an iterator -->
+            <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItems" use-cache="true"/>
+            <else>
+                <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItems" use-iterator="true" use-cache="false"/>
+            </else>
+        </if-compare>
 
         <set field="parameters.availableToPromiseTotal" value="0" type="BigDecimal"/>
         <set field="parameters.quantityOnHandTotal" value="0" type="BigDecimal"/>
