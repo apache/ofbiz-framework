@@ -55,7 +55,7 @@ public class ContainerConfig {
                         throw new ContainerException("Container config file cannot be null");
                     }
                     new ContainerConfig(configFile);
-                    container = (Container) containers.get(containerName);
+                    container = containers.get(containerName);
                 }
             }
             if (container == null) {
