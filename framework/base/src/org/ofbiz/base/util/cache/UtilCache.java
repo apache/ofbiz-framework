@@ -271,7 +271,9 @@ public class UtilCache<K, V> implements Serializable {
     public boolean isEmpty() {
         if (fileTable != null) {
             try {
-                return fileTable.keys().next() == null;
+                synchronized (this) {
+                    return fileTable.keys().next() == null;
+                }
             } catch (IOException e) {
                 Debug.logError(e, module);
                 return false;
@@ -372,9 +374,11 @@ public class UtilCache<K, V> implements Serializable {
         V oldValue = oldCacheLine == null ? null : cancel(oldCacheLine);
         if (fileTable != null) {
             try {
-                if (oldValue == null) oldValue = fileTable.get(nulledKey);
-                fileTable.put(nulledKey, value);
-                jdbmMgr.commit();
+                synchronized (this) {
+                    if (oldValue == null) oldValue = fileTable.get(nulledKey);
+                    fileTable.put(nulledKey, value);
+                    jdbmMgr.commit();
+                }
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
@@ -400,7 +404,9 @@ public class UtilCache<K, V> implements Serializable {
             if (fileTable != null) {
                 V value;
                 try {
-                    value = fileTable.get(nulledKey);
+                    synchronized (this) {
+                        value = fileTable.get(nulledKey);
+                    }
                 } catch (IOException e) {
                     Debug.logError(e, module);
                     value = null;
@@ -426,11 +432,13 @@ public class UtilCache<K, V> implements Serializable {
         if (fileTable != null) {
             List<V> values = FastList.newInstance();
             try {
-                FastIterator<V> iter = fileTable.values();
-                V value = iter.next();
-                while (value != null) {
-                    values.add(value);
-                    value = iter.next();
+                synchronized (this) {
+                    FastIterator<V> iter = fileTable.values();
+                    V value = iter.next();
+                    while (value != null) {
+                        values.add(value);
+                        value = iter.next();
+                    }
                 }
             } catch (IOException e) {
                 Debug.logError(e, module);
@@ -458,11 +466,13 @@ public class UtilCache<K, V> implements Serializable {
         long totalSize = 0;
         if (fileTable != null) {
             try {
-                FastIterator<V> iter = fileTable.values();
-                V value = iter.next();
-                while (value != null) {
-                    totalSize += findSizeInBytes(value);
-                    value = iter.next();
+                synchronized (this) {
+                    FastIterator<V> iter = fileTable.values();
+                    V value = iter.next();
+                    while (value != null) {
+                        totalSize += findSizeInBytes(value);
+                        value = iter.next();
+                    }
                 }
             } catch (IOException e) {
                 Debug.logError(e, module);
@@ -495,14 +505,16 @@ public class UtilCache<K, V> implements Serializable {
         V oldValue;
         if (fileTable != null) {
             try {
-                try {
-                    oldValue = fileTable.get(nulledKey);
-                } catch (IOException e) {
-                    oldValue = null;
-                    throw e;
+                synchronized (this) {
+                    try {
+                        oldValue = fileTable.get(nulledKey);
+                    } catch (IOException e) {
+                        oldValue = null;
+                        throw e;
+                    }
+                    fileTable.remove(nulledKey);
+                    jdbmMgr.commit();
                 }
-                fileTable.remove(nulledKey);
-                jdbmMgr.commit();
             } catch (IOException e) {
                 oldValue = null;
                 Debug.logError(e, module);
@@ -533,8 +545,10 @@ public class UtilCache<K, V> implements Serializable {
         }
         if (fileTable != null) {
             try {
-                fileTable.remove(nulledKey);
-                jdbmMgr.commit();
+                synchronized (this) {
+                    fileTable.remove(nulledKey);
+                    jdbmMgr.commit();
+                }
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
@@ -546,21 +560,23 @@ public class UtilCache<K, V> implements Serializable {
     public synchronized void erase() {
         if (fileTable != null) {
             // FIXME: erase from memory too
-            Set<Object> keys = new HashSet<Object>();
-            try {
-                addAllFileTableKeys(keys);
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-            for (Object key: keys) {
+            synchronized (this) {
+                Set<Object> keys = new HashSet<Object>();
                 try {
-                    V value = fileTable.get(key);
-                    noteRemoval(toKey(key), value);
-                    removeHitCount.incrementAndGet();
-                    fileTable.remove(key);
-                    jdbmMgr.commit();
+                    addAllFileTableKeys(keys);
                 } catch (IOException e) {
                     Debug.logError(e, module);
+                }
+                for (Object key: keys) {
+                    try {
+                        V value = fileTable.get(key);
+                        noteRemoval(toKey(key), value);
+                        removeHitCount.incrementAndGet();
+                        fileTable.remove(key);
+                        jdbmMgr.commit();
+                    } catch (IOException e) {
+                        Debug.logError(e, module);
+                    }
                 }
             }
             memoryTable.clear();
@@ -735,9 +751,11 @@ public class UtilCache<K, V> implements Serializable {
         if (fileTable != null) {
             int size = 0;
             try {
-                FastIterator<Object> iter = fileTable.keys();
-                while (iter.next() != null) {
-                    size++;
+                synchronized (this) {
+                    FastIterator<Object> iter = fileTable.keys();
+                    while (iter.next() != null) {
+                        size++;
+                    }
                 }
             } catch (IOException e) {
                 Debug.logError(e, module);
@@ -758,11 +776,13 @@ public class UtilCache<K, V> implements Serializable {
         if (line == null) {
             if (fileTable != null) {
                 try {
-                    FastIterator<Object> iter = fileTable.keys();
-                    Object checkKey = null;
-                    while ((checkKey = iter.next()) != null) {
-                        if (nulledKey.equals(checkKey)) {
-                            return true;
+                    synchronized (this) {
+                        FastIterator<Object> iter = fileTable.keys();
+                        Object checkKey = null;
+                        while ((checkKey = iter.next()) != null) {
+                            if (nulledKey.equals(checkKey)) {
+                                return true;
+                            }
                         }
                     }
                 } catch (IOException e) {
@@ -787,7 +807,9 @@ public class UtilCache<K, V> implements Serializable {
         if (fileTable != null) {
             keys = new HashSet<Object>();
             try {
-                addAllFileTableKeys(keys);
+                synchronized (this) {
+                    addAllFileTableKeys(keys);
+                }
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
@@ -837,7 +859,9 @@ public class UtilCache<K, V> implements Serializable {
             Object nulledKey = fromKey(key);
             if (fileTable != null) {
                 try {
-                    lineInfos.add(createLineInfo(keyIndex, key, fileTable.get(nulledKey)));
+                    synchronized (this) {
+                        lineInfos.add(createLineInfo(keyIndex, key, fileTable.get(nulledKey)));
+                    }
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
