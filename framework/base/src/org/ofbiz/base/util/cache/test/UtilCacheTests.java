@@ -346,9 +346,8 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             assertKey(s, cache, s, new String(s), new String(":" + s), i + 1, map);
         }
         cache.setMaxInMemory(2);
-        for (int i = 0; i < size - 2; i++) {
-            map.remove(Integer.toString(i));
-        }
+        assertEquals("cache.size", 2, cache.size());
+        map.keySet().retainAll(cache.getCacheLineKeys());
         assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
         assertEquals("map-values", map.values(), cache.values());
         cache.setMaxInMemory(0);
