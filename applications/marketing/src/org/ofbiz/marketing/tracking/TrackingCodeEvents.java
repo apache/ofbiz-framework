@@ -72,7 +72,7 @@ public class TrackingCodeEvents {
                 return "error";
             }
 
-            return processTrackingCode(trackingCode, request, response);
+            return processTrackingCode(trackingCode, request, response, "TKCDSRC_URL_PARAM");
         } else {
             return "success";
         }
@@ -164,13 +164,13 @@ public class TrackingCodeEvents {
                 }
             }
 
-            return processTrackingCode(trackingCode, request, response);
+            return processTrackingCode(trackingCode, request, response, "TKCDSRC_URL_PARAM");
         } else {
             return "success";
         }
     }
 
-    private static String processTrackingCode(GenericValue trackingCode, HttpServletRequest request, HttpServletResponse response) {
+    public static String processTrackingCode(GenericValue trackingCode, HttpServletRequest request, HttpServletResponse response, String sourceEnumId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String trackingCodeId = trackingCode.getString("trackingCodeId");
 
@@ -192,7 +192,7 @@ public class TrackingCodeEvents {
         } else {
             GenericValue trackingCodeVisit = delegator.makeValue("TrackingCodeVisit",
                     UtilMisc.toMap("trackingCodeId", trackingCodeId, "visitId", visit.get("visitId"),
-                    "fromDate", UtilDateTime.nowTimestamp(), "sourceEnumId", "TKCDSRC_URL_PARAM"));
+                    "fromDate", UtilDateTime.nowTimestamp(), "sourceEnumId", sourceEnumId));
             try {
                 trackingCodeVisit.create();
             } catch (GenericEntityException e) {
