@@ -550,6 +550,8 @@ under the License.
             <field-map field-name="organizationPartyId"/>
         </entity-and>
         <first-from-list list="productAverageCostList" entry="productAverageCost"/>
+        
+        <!-- <log level="always" message="In updateProductAverageCostOnReceiveInventory found productAverageCost: ${productAverageCost}"/> -->
 
         <set-service-fields service-name="createProductAverageCost" map="parameters" to-map="productAverageCostMap"/>
         <set field="productAverageCostMap.productAverageCostTypeId" value="SIMPLE_AVG_COST"/>
@@ -561,11 +563,13 @@ under the License.
             <set-service-fields service-name="updateProductAverageCost" map="productAverageCost" to-map="updateProductAverageCostMap"/>
             <now-timestamp field="updateProductAverageCostMap.thruDate"/>
             <call-service service-name="updateProductAverageCost" in-map-name="updateProductAverageCostMap"/>
+            
             <set field="serviceInMap.productId" from-field="parameters.productId"/>
             <set field="serviceInMap.facilityId" from-field="parameters.facilityId"/>
             <call-service service-name="getInventoryAvailableByFacility" in-map-name="serviceInMap">
                 <result-to-field result-name="quantityOnHandTotal"/> 
             </call-service>
+            
             <set field="oldProductQuantity" value="${quantityOnHandTotal - parameters.quantityAccepted}"/>
             <set field="productAverageCostMap.averageCost" value="${((productAverageCost.averageCost * oldProductQuantity) + (inventoryItem.unitCost * parameters.quantityAccepted))/(quantityOnHandTotal)}" type="BigDecimal"/>
             <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
@@ -573,10 +577,22 @@ under the License.
             <calculate field="productAverageCostMap.averageCost" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="get" field="productAverageCostMap.averageCost"/>
             </calculate>
+            
+            <!-- ensure that the new ProductAverageCost record has a different PK than the previous one by setting the fromDate to now, plus an offset if needed -->
+            <now-timestamp field="nowTimestamp"/>
+            <set field="timeDiff" value="${groovy: return nowTimestamp.getTime() - productAverageCost.fromDate.getTime()}" type="Long"/>
+            <if-compare field="timeDiff" operator="less-equals" value="1000" type="Long">
+                <set-calendar field="productAverageCostMap.fromDate" from-field="nowTimestamp" seconds="+1"/>
+                <else>
+                    <set field="productAverageCostMap.fromDate" from-field="nowTimestamp"/>
+                </else>
+            </if-compare>
         </else>
         </if-empty>
-       <call-service service-name="createProductAverageCost" in-map-name="productAverageCostMap"/>
-       <log level="info" message="For facilityId ${parameters.facilityId}, Average cost of product ${parameters.productId} is set from  ${updateProductAverageCostMap.averageCost} to ${productAverageCostMap.averageCost}"/>
+        
+        <!-- <log level="always" message="In updateProductAverageCostOnReceiveInventory creating new average cost with productAverageCostMap: ${productAverageCostMap}"/> -->
+        <call-service service-name="createProductAverageCost" in-map-name="productAverageCostMap"/>
+        <log level="info" message="For facilityId ${parameters.facilityId}, Average cost of product ${parameters.productId} is set from  ${updateProductAverageCostMap.averageCost} to ${productAverageCostMap.averageCost}"/>
     </simple-method>
 
     <simple-method method-name="getProductAverageCost" short-description="Service to get the average cost of product">
