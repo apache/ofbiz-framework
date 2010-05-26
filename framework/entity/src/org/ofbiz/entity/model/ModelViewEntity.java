@@ -75,7 +75,7 @@ public class ModelViewEntity extends ModelEntity {
     protected List<ModelMemberEntity> allModelMemberEntities = FastList.newInstance();
 
     /** Contains member-entity ModelEntities: key is alias, value is ModelEntity; populated with fields */
-    protected Map<String, String> memberModelEntities = null;
+    protected Map<String, String> memberModelEntities = FastMap.newInstance();
 
     /** List of alias-alls which act as a shortcut for easily pulling over member entity fields */
     protected List<ModelAliasAll> aliasAlls = FastList.newInstance();
@@ -190,10 +190,6 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public ModelEntity getMemberModelEntity(String alias) {
-        if (this.memberModelEntities == null) {
-            this.memberModelEntities = FastMap.newInstance();
-            populateFields(this.getModelReader());
-        }
         String entityName = this.memberModelEntities.get(alias);
         return entityName != null ? this.getModelReader().getModelEntityNoCheck(entityName) : null;
     }
@@ -397,10 +393,6 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public void populateFieldsBasic(ModelReader modelReader) {
-        if (this.memberModelEntities == null) {
-            this.memberModelEntities = FastMap.newInstance();
-        }
-
         for (Map.Entry<String, ModelMemberEntity> entry: memberModelMemberEntities.entrySet()) {
 
             ModelMemberEntity modelMemberEntity = entry.getValue();
