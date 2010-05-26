@@ -21,7 +21,7 @@ SHELL		:= /bin/bash -O extglob
 
 export DH_VERBOSE
 
-JAVA_HOME	:= /usr/lib/jvm/java-6-openjdk
+JAVA_HOME	:= /usr/lib/jvm/java-6-sun
 JAVAC		:= $(JAVA_HOME)/bin/javac
 JAVA		:= $(JAVA_HOME)/bin/java
 
