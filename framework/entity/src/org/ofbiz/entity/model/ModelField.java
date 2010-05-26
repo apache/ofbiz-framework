@@ -45,6 +45,8 @@ public class ModelField extends ModelChild {
     /** The col-name of the Field */
     protected String colName = "";
 
+    protected String colValue;
+
     /** boolean which specifies whether or not the Field is a Primary Key */
     protected boolean isPk = false;
     protected boolean encrypt = false;
@@ -131,6 +133,14 @@ public class ModelField extends ModelChild {
         if (UtilValidate.isEmpty(this.colName)) {
             this.colName = ModelUtil.javaNameToDbName(UtilXml.checkEmpty(this.name));
         }
+    }
+
+    public String getColValue() {
+        return UtilValidate.isEmpty(this.colValue) ? this.colName : this.colValue;
+    }
+
+    public void setColValue(String colValue) {
+        this.colValue = colValue;
     }
 
     /** boolean which specifies whether or not the Field is a Primary Key */

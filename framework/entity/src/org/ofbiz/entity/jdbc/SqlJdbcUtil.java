@@ -391,17 +391,15 @@ public class SqlJdbcUtil {
             Iterator<ModelField> fieldsIter = modelEntity.getFieldsIterator();
             if (fieldsIter.hasNext()) {
                 ModelField curField = fieldsIter.next();
-                String colname = curField.getColName();
-                sql.append(colname);
+                sql.append(curField.getColValue());
                 sql.append(" AS ");
-                sql.append(filterColName(colname));
+                sql.append(filterColName(curField.getColName()));
                 while (fieldsIter.hasNext()) {
                     curField = fieldsIter.next();
-                    colname = curField.getColName();
                     sql.append(", ");
-                    sql.append(colname);
+                    sql.append(curField.getColValue());
                     sql.append(" AS ");
-                    sql.append(filterColName(colname));
+                    sql.append(filterColName(curField.getColName()));
                 }
             }
             sql.append(makeFromClause(modelEntity, datasourceInfo));

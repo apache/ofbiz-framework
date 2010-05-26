@@ -343,7 +343,7 @@ public class ModelViewEntity extends ModelEntity {
         Iterator<ModelField> fldsIt = flds.iterator();
         while (fldsIt.hasNext()) {
             ModelField field = fldsIt.next();
-            returnString.append(field.colName);
+            returnString.append(field.getColValue());
             if (alias) {
                 ModelAlias modelAlias = this.getAlias(field.name);
                 if (modelAlias != null) {
@@ -449,7 +449,8 @@ public class ModelViewEntity extends ModelEntity {
                 StringBuilder colNameBuffer = new StringBuilder();
                 StringBuilder fieldTypeBuffer = new StringBuilder();
                 alias.makeAliasColName(colNameBuffer, fieldTypeBuffer, this, modelReader);
-                field.colName = colNameBuffer.toString();
+                field.colValue = colNameBuffer.toString();
+                field.colName = ModelUtil.javaNameToDbName(alias.name);
                 field.type = fieldTypeBuffer.toString();
                 field.isPk = false;
             } else {
@@ -495,7 +496,7 @@ public class ModelViewEntity extends ModelEntity {
                 if (prefix == null) {
                     Debug.logWarning("Specified alias function [" + alias.function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", module);
                 } else {
-                    field.colName = prefix + field.colName + ")";
+                    field.colValue = prefix + field.getColValue() + ")";
                 }
             }
         }
