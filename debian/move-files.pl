@@ -101,6 +101,7 @@ while (<FIND>) {
 	next if (m,(^|.*/)build\.xml$,);
 	#print("1\n");
 	next if (m,^$appDirsRe/[^/]+/(build/classes|src|testdef)/.*,);
+	next if (m,^$appDirsRe/[^/]+/build/lib/[^/]+-test\.jar$,);
 	next if (m,^runtime/(catalina/work|data/derby|logs)/.*,);
 	next if (m,^\.hg(|/.*),);
 	#print("2\n");
