@@ -10,6 +10,7 @@ ofbiz (UNRELEASED) unstable; urgency=low
   * Bump Standards-Version to 3.8.3.
   * Remove use of openjdk, it has issues compiling some things(generics
     markup), and doesn't handle all https urls.
+  * Don't install build/lib/*-test.jar into the packages.
 
  -- Adam Heath <doogie@brainfood.com>  Fri, 04 Sep 2009 16:41:32 -0500
 
