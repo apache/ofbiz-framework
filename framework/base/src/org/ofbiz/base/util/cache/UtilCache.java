@@ -38,9 +38,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
-import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap.Builder;
-import com.googlecode.concurrentlinkedhashmap.Weighers;
+import com.reardencommerce.kernel.collections.shared.evictable.ConcurrentLinkedHashMap;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -145,9 +143,7 @@ public class UtilCache<K, V> implements Serializable {
         if (maxMemSize == 0) {
             memoryTable = new ConcurrentHashMap<Object, CacheLine<V>>();
         } else {
-            memoryTable = new Builder<Object, CacheLine<V>>()
-            .maximumWeightedCapacity(maxMemSize)
-            .build();
+            memoryTable = ConcurrentLinkedHashMap.create(ConcurrentLinkedHashMap.EvictionPolicy.LRU, maxMemSize);
         }
         if (this.useFileSystemStore) {
             // create the manager the first time it is needed
@@ -672,9 +668,7 @@ public class UtilCache<K, V> implements Serializable {
                 ((ConcurrentLinkedHashMap) this.memoryTable).setCapacity(newInMemory);
                 return;
             } else {
-                this.memoryTable =new Builder<Object, CacheLine<V>>()
-                    .maximumWeightedCapacity(newInMemory)
-                    .build();
+                this.memoryTable = ConcurrentLinkedHashMap.create(ConcurrentLinkedHashMap.EvictionPolicy.LRU, newInMemory);
             }
         } else {
             this.memoryTable = new ConcurrentHashMap<Object, CacheLine<V>>();
