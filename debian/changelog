@@ -11,6 +11,8 @@ ofbiz (UNRELEASED) unstable; urgency=low
   * Remove use of openjdk, it has issues compiling some things(generics
     markup), and doesn't handle all https urls.
   * Don't install build/lib/*-test.jar into the packages.
+  * Set the source format to 3.0 (quilt), to make it easier to have local
+    changes that might have binary files.
 
  -- Adam Heath <doogie@brainfood.com>  Fri, 04 Sep 2009 16:41:32 -0500
 
