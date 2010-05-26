@@ -37,7 +37,7 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin
 # set defaults
 DEFAULT=/etc/default/ofbiz
 JAVA_HOME=""
-JAVA_HOMES="/usr/lib/jvm/java-6-openjdk"
+JAVA_HOMES="/usr/lib/jvm/java-6-sun"
 MEMIF=""
 UMASK=002
 
