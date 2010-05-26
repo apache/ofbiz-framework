@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.Delegator;
@@ -54,6 +55,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     public static final int ID_NOT_IN = 13;
     public static final int ID_NOT_LIKE = 14;
 
+    private static final AtomicInteger dynamicId = new AtomicInteger();
     private static HashMap<String, EntityOperator<?,?,?>> registry = new HashMap<String, EntityOperator<?,?,?>>();
 
     private static <L,R,T> void registerCase(String name, EntityOperator<L,R,T> operator) {
@@ -61,7 +63,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         registry.put(name.toUpperCase(), operator);
     }
 
-    private static <L,R,T> void register(String name, EntityOperator<L,R,T> operator) {
+    public static <L,R,T> void register(String name, EntityOperator<L,R,T> operator) {
         registerCase(name, operator);
         registerCase(name.replaceAll("-", "_"), operator);
         registerCase(name.replaceAll("_", "-"), operator);
@@ -83,6 +85,10 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         if (!(operator instanceof EntityJoinOperator))
             throw new IllegalArgumentException(name + " is not a join operator");
         return UtilGenerics.cast(operator);
+    }
+
+    public static int requestId() {
+        return dynamicId.get();
     }
 
     public static final EntityComparisonOperator<?,?> EQUALS = new ComparableEntityComparisonOperator<Object>(ID_EQUALS, "=") {
