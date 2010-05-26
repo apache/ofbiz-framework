@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import java.util.Map;
-
 import javolution.util.FastMap;
 
 /**
@@ -32,7 +30,10 @@ import javolution.util.FastMap;
 public class UtilTimer {
 
     public static final String module = UtilTimer.class.getName();
-    protected static Map<String, UtilTimer> staticTimers = FastMap.newInstance();
+    protected static FastMap<String, UtilTimer> staticTimers = FastMap.newInstance();
+    static {
+        staticTimers.setShared(true);
+    }
 
     protected String timerName = null;
     protected String lastMessage = null;
@@ -222,14 +223,10 @@ public class UtilTimer {
     public static UtilTimer getTimer(String timerName, boolean log) {
         UtilTimer timer = staticTimers.get(timerName);
         if (timer == null) {
-            synchronized(UtilTimer.class) {
-                timer = staticTimers.get(timerName);
-                if (timer == null) {
-                    timer = new UtilTimer(timerName, false);
-                    timer.setLog(log);
-                    staticTimers.put(timerName, timer);
-                }
-            }
+            timer = new UtilTimer(timerName, false);
+            timer.setLog(log);
+            staticTimers.putIfAbsent(timerName, timer);
+            timer = staticTimers.get(timerName);
         }
         return timer;
     }
@@ -260,8 +257,6 @@ public class UtilTimer {
         if (message != null) {
             UtilTimer.timerLog(timerName, message, module);
         }
-        synchronized(UtilTimer.class) {
-            staticTimers.remove(timerName);
-        }
+        staticTimers.remove(timerName);
     }
 }
