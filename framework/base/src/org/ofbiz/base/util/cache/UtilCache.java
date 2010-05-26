@@ -515,7 +515,14 @@ public class UtilCache<K, V> implements Serializable {
         if (oldCacheLine != null) {
             cancel(oldCacheLine);
         }
-        return postRemove((K) key, oldValue, countRemove);
+        if (oldValue != null) {
+            noteRemoval((K) key, oldValue);
+            if (countRemove) removeHitCount.incrementAndGet();
+            return oldValue;
+        } else {
+            if (countRemove) removeMissCount.incrementAndGet();
+            return null;
+        }
     }
 
     protected synchronized void removeInternal(Object key, CacheLine<V> existingCacheLine) {
@@ -533,17 +540,6 @@ public class UtilCache<K, V> implements Serializable {
             }
         }
         noteRemoval((K) key, existingCacheLine.getValue());
-    }
-
-    V postRemove(K key, V oldValue, boolean countRemove) {
-        if (oldValue != null) {
-            noteRemoval((K) key, oldValue);
-            if (countRemove) removeHitCount.incrementAndGet();
-            return oldValue;
-        } else {
-            if (countRemove) removeMissCount.incrementAndGet();
-            return null;
-        }
     }
 
     /** Removes all elements from this cache */
