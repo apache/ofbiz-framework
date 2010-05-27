@@ -24,8 +24,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Catalog Module Site Configuration File</description>
-    <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
-
+    
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
 

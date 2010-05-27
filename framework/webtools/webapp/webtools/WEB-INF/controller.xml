@@ -24,8 +24,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>
     <include location="component://testtools/webapp/testtools/WEB-INF/controller.xml"/>
     <description>WebTools Site Configuration File</description>
-    <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
-
+    
     <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->

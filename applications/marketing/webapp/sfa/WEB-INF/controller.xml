@@ -25,8 +25,7 @@ under the License.
     <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
     <description>SFA Manager Module Site Configuration File</description>
-    <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
-
+    
     <!-- Request Mappings -->
     <request-map uri="main">
         <security https="true" auth="true"/>
