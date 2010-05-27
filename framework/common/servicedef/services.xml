@@ -439,7 +439,14 @@ under the License.
         <attribute name="userPrefGroupTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="userPrefLoginId" type="String" mode="IN" optional="true"/>
     </service>
-
+    <service name="removeUserPreference" engine="java"
+        location="org.ofbiz.common.preferences.PreferenceServices" invoke="removeUserPreference" auth="true">
+        <description>Sets a single user preference.</description>
+        <permission-service service-name="preferenceGetSetPermission" main-action="CREATE"/>
+        <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="userPrefLoginId" type="String" mode="IN" optional="true"/>
+    </service>
+    
     <service name="setUserPreferenceGroup" engine="java"
             location="org.ofbiz.common.preferences.PreferenceServices" invoke="setUserPreferenceGroup" auth="true">
         <description>Sets a group of user preferences.</description>

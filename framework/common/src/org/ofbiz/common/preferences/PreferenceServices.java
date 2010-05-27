@@ -195,6 +195,31 @@ public class PreferenceServices {
         return ServiceUtil.returnSuccess();
     }
 
+    public static Map<String, Object> removeUserPreference(DispatchContext ctx, Map<String, ?> context) {
+        Delegator delegator = ctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+
+        String userLoginId = PreferenceWorker.getUserLoginId(context, false);
+        String userPrefTypeId = (String) context.get("userPrefTypeId");
+        //Debug.logError("In removeUserPreference userLoginId=" + userLoginId + ", userPrefTypeId=" + userPrefTypeId, module);
+        if (UtilValidate.isEmpty(userLoginId) || UtilValidate.isEmpty(userPrefTypeId)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.invalidArgument", locale));
+        }
+
+        try {
+            GenericValue rec = delegator.findOne("UserPreference", 
+                    UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId), false);
+            if (rec != null) {
+                rec.remove();
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.writeFailure", new Object[] { e.getMessage() }, locale));
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
+
     /**
      * Stores a user preference group in persistent storage. Call with
      * userPrefMap, userPrefGroupTypeId and optional userPrefLoginId. If userPrefLoginId
