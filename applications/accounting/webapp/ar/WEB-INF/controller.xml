@@ -22,8 +22,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>
     <description>Accounting Manager Module Site Configuration File</description>
-    <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
-
+    
     <!-- Request Mappings -->
     <request-map uri="main">
         <security https="true" auth="true"/>

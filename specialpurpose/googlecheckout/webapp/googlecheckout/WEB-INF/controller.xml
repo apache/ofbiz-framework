@@ -22,8 +22,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Google Checkout Component Site Configuration File</description>
-    <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
-    
+        
     <request-map uri="main">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>

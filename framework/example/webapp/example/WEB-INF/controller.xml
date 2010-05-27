@@ -27,8 +27,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
 
     <description>Example Component Site Configuration File</description>
-    <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
-
+    
     <!--
       These can be used to return the reports as views; make sure the classes are compiled and available
         <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
