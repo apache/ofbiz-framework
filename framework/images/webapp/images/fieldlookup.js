@@ -369,20 +369,12 @@ var FieldLookupPopup = Class.create({
         //set layer position
         var bdy = document.body;
         if (this.position == "center") {
-            if (ACTIVATED_LOOKUP != null) {
-                obj = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP);
-                obj.divRef.appendChild(lookupDiv);
-                lookupLeft = 0;
-                lookupTop = 0;
-            }
-            else {        
-                bdy.appendChild(lookupDiv);
-                var dimensions = lookupDiv.getDimensions();
-                lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
-                var scrollOffY = document.viewport.getScrollOffsets().top;
-                var winHeight = document.viewport.getHeight();
-                lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
-            }
+            bdy.appendChild(lookupDiv);
+            var dimensions = lookupDiv.getDimensions();
+            lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
+            var scrollOffY = document.viewport.getScrollOffsets().top;
+            var winHeight = document.viewport.getHeight();
+            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
             
             lookupDiv.style.left = lookupLeft + "px";
             lookupDiv.style.top = lookupTop + "px";
