@@ -30,7 +30,6 @@ under the License.
     </PackageHeader>
 
     <RedefinableHeader PublicationStatus="UNDER_REVISION">
-        <Author>Andy Zeneski</Author>
         <Responsibles>
             <Responsible>admin</Responsible>
         </Responsibles>
@@ -70,7 +69,6 @@ under the License.
             </ProcessHeader>
 
             <RedefinableHeader PublicationStatus="UNDER_REVISION">
-                <Author>OFBiz</Author>
                 <Responsibles>
                   <Responsible>admin</Responsible>
                 </Responsibles>
