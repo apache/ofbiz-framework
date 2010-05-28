@@ -7,8 +7,6 @@
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
 
     <description>@component-resource-name@ Component Site Configuration File</description>
-    <owner></owner>
-
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
