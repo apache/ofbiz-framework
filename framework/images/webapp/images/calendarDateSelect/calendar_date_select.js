@@ -132,6 +132,7 @@ CalendarDateSelect.prototype = {
     this.calendar_div.setStyle({visibility:""});
     /* mod for OFBiz layered lookups*/
     this.target_element.up().style.height = e_height.toString() + "px";
+    this.target_element.up().style.display = "block";
     /* end mod*/
 
     // draw an iframe behind the calendar -- ugly hack to make IE 6 happy
