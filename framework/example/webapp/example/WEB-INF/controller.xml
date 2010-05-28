@@ -49,8 +49,7 @@ under the License.
 
     <!-- Request Mappings -->
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
-    <request-map uri="authview"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
-
+    
     <!-- Example Requests -->
     <request-map uri="FindExample"><security https="true" auth="true"/><response name="success" type="view" value="FindExample"/></request-map>
     <request-map uri="EditExample"><security https="true" auth="true"/><response name="success" type="view" value="EditExample"/></request-map>
