@@ -96,32 +96,33 @@ under the License.
         <!-- before getting going, see if there are any validation issues so far -->
         <check-errors/>
 
+        <!-- Status for Non serialized and Serialized inventory are different, lets make sure correct status is stored in database -->
+        <if-compare field="parameters.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
+            <if-compare field="parameters.statusId" operator="equals" value="INV_DEFECTIVE"><!-- This status may come from the Receive Return Screen -->
+                <set field="parameters.statusId" value="INV_NS_DEFECTIVE"/>
+            <else>
+                <if-compare field="parameters.statusId" operator="equals" value="INV_ON_HOLD">
+                    <set field="parameters.statusId" value="INV_NS_ON_HOLD"/>
+                </if-compare>
+            </else>
+            </if-compare>
+            <!-- Any other status should be just set to null, if it is not a valid status for Non Serialized inventory -->
+            <if>
+                <condition>
+                    <and>
+                        <not><if-compare field="parameters.statusId" operator="equals" value="INV_NS_DEFECTIVE"/></not>
+                        <not><if-compare field="parameters.statusId" operator="equals" value="INV_NS_ON_HOLD"/></not>
+                    </and>
+                </condition>
+                <then>
+                    <set field="parameters.statusId" from-field="nullField"/>
+                </then>
+            </if>
+        </if-compare>
+
         <loop count="${loops}" field="currentLoop">
             <log level="info" message="receiveInventoryProduct Looping and creating inventory info - ${currentLoop}"/>
 
-            <!-- Status for Non serialized and Serialized inventory are different, lets make sure correct status is stored in database -->
-            <if-compare field="parameters.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                <if-compare field="parameters.statusId" operator="equals" value="INV_DEFECTIVE"><!-- This status may come from the Receive Return Screen -->
-                    <set field="parameters.statusId" value="INV_NS_DEFECTIVE"/>
-                <else>
-                    <if-compare field="parameters.statusId" operator="equals" value="INV_ON_HOLD">
-                        <set field="parameters.statusId" value="INV_NS_ON_HOLD"/>
-                    </if-compare>
-                </else>
-                </if-compare>
-                <!-- Any other status should be just set to null, if it is not a valid status for Non Serialized inventory -->
-                <if>
-                    <condition>
-                        <and>
-                            <not><if-compare field="parameters.statusId" operator="equals" value="INV_NS_DEFECTIVE"/></not>
-                            <not><if-compare field="parameters.statusId" operator="equals" value="INV_NS_ON_HOLD"/></not>
-                        </and>
-                    </condition>
-                    <then>
-                        <set field="parameters.statusId" from-field="nullField"/>
-                    </then>
-                </if>
-            </if-compare>
             <!-- if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns); if not create one -->
             <clear-field field="serviceInMap"/>
             <clear-field field="currentInventoryItemId"/>
