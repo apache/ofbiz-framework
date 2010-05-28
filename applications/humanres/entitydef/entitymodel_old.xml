@@ -22,7 +22,6 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     <title>Entity of an Open For Business Project Component</title>
     <description>None</description>
-    <author>None</author>
     <version>1.0</version>
 
   <entity entity-name="OldEmplPositionTypeRate" table-name="EMPL_POSITION_TYPE_RATE"
