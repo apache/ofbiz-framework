@@ -644,7 +644,7 @@ public class DatabaseUtil {
                     }
                 }
             }
-            if (Debug.infoOn()) Debug.logInfo("Created " + numIndicesCreated + " indices", module);
+            if (numIndicesCreated > 0 && Debug.infoOn()) Debug.logInfo("Created " + numIndicesCreated + " indices", module);
 
         }
 
