@@ -163,7 +163,7 @@ public class GenericDAO {
 
         modelEntity.colNameString(fieldsToSave, sqlB, "");
         sqlB.append(") VALUES (");
-        sqlB.append(modelEntity.fieldsStringList(fieldsToSave, "?", ", "));
+        modelEntity.fieldsStringList(fieldsToSave, sqlB, "?", ", ");
         String sql = sqlB.append(")").toString();
 
         try {
