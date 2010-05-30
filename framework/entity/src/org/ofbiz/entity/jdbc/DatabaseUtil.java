@@ -1583,6 +1583,8 @@ public class DatabaseUtil {
                             indexInfo.put(tableName, tableIndexList);
                             if (Debug.verboseOn()) Debug.logVerbose("Adding new Map for table: " + tableName, module);
                         }
+                        // Need the check here, because an index can contain multiple columns,
+                        // and this is represented by having multiple rows in rsCols.
                         if (!tableIndexList.contains(indexName)) totalIndices++;
                         tableIndexList.add(indexName);
                     } catch (SQLException e) {
