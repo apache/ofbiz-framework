@@ -46,7 +46,9 @@ public final class FieldDef extends Atom {
 
     public StringBuilder appendTo(StringBuilder sb) {
         value.appendTo(sb);
-        sb.append(" AS ").append(alias);
+        if (!equalsHelper(value.getDefaultName(), alias)) {
+            sb.append(" AS ").append(alias);
+        }
         return sb;
     }
 }
