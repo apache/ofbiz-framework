@@ -665,7 +665,7 @@ public class DatabaseUtil {
                             }
                         }
                         if (createdIndexes) {
-                            String message = "Created foreign key index/indices for entity [" + entity.getEntityName() + "]";
+                            String message = "Created declared index/indices for entity [" + entity.getEntityName() + "]";
                             Debug.logImportant(message, module);
                             if (messages != null) messages.add(message);
                         }
