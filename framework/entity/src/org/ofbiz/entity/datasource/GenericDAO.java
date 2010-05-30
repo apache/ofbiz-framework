@@ -867,7 +867,7 @@ public class GenericDAO {
 
             collist.add(mf.getColName());
             fldlist.add(mf.getName());
-            selsb.append(ttable + "." + mf.getColName());
+            selsb.append(ttable).append(".").append(mf.getColName());
             if (iterator.hasNext()) {
                 selsb.append(", ");
             } else {
@@ -887,7 +887,7 @@ public class GenericDAO {
             if (wheresb.length() > 0) {
                 wheresb.append(" AND ");
             }
-            wheresb.append(atable + "." + modelEntityOne.getField(lfname).getColName() + " = " + ttable + "." + modelEntityTwo.getField(rfname).getColName());
+            wheresb.append(atable).append(".").append(modelEntityOne.getField(lfname).getColName()).append(" = ").append(ttable).append(".").append(modelEntityTwo.getField(rfname).getColName());
         }
 
         // construct the source entity qualifier
@@ -909,7 +909,7 @@ public class GenericDAO {
             if (wheresb.length() > 0) {
                 wheresb.append(" AND ");
             }
-            wheresb.append(atable + "." + lcolname + " = ? ");
+            wheresb.append(atable).append(".").append(lcolname).append(" = ? ");
         }
 
         // construct a join sql query
@@ -918,7 +918,7 @@ public class GenericDAO {
         sqlsb.append("SELECT ");
         sqlsb.append(selsb.toString());
         sqlsb.append(" FROM ");
-        sqlsb.append(atable + ", " + ttable);
+        sqlsb.append(atable).append(", ").append(ttable);
         sqlsb.append(" WHERE ");
         sqlsb.append(wheresb.toString());
         sqlsb.append(SqlJdbcUtil.makeOrderByClause(modelEntityTwo, orderBy, true, datasourceInfo));

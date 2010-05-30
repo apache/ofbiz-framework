@@ -100,7 +100,7 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan, EntityC
     }
 
     public StringBuilder appendTo(StringBuilder sb) {
-        sb.append("dve=" + dve);
+        sb.append("dve=").append(dve);
         if (getWherePlan() != null) {
             if (sb.length() > 0) sb.append(", ");
             sb.append("where=(");
