@@ -520,7 +520,8 @@ public class DatabaseUtil {
             // TODO: check each key-map to make sure it exists in the index, if any differences warn and then remove the index and recreate it
 
             // get ALL column info, put into hashmap by table name
-            Map<String, Set<String>> tableIndexListMap = this.getIndexInfo(indexTableNames, messages);
+            boolean needsUpperCase[] = new boolean[1];
+            Map<String, Set<String>> tableIndexListMap = this.getIndexInfo(indexTableNames, messages, needsUpperCase);
 
             // Debug.logVerbose("Ref Info Map: " + refTableInfoMap, module);
 
@@ -602,8 +603,9 @@ public class DatabaseUtil {
                         ModelIndex modelIndex = indexes.next();
 
                         String relIndexName = makeIndexName(modelIndex, datasourceInfo.constraintNameClipLength);
-                        if (tableIndexList.contains(relIndexName)) {
-                            tableIndexList.remove(relIndexName);
+                        String checkIndexName = needsUpperCase[0] ? relIndexName.toUpperCase() : relIndexName;
+                        if (tableIndexList.contains(checkIndexName)) {
+                            tableIndexList.remove(checkIndexName);
                         } else {
                             if (datasourceInfo.checkIndicesOnStart) {
                                 // if not, create one
@@ -1492,7 +1494,7 @@ public class DatabaseUtil {
         return refInfo;
     }
 
-    public Map<String, Set<String>> getIndexInfo(Set<String> tableNames, Collection<String> messages) {
+    public Map<String, Set<String>> getIndexInfo(Set<String> tableNames, Collection<String> messages, boolean[] needsUpperCase) {
         Connection connection = getConnectionLogged(messages);
         if (connection == null) {
             return null;
@@ -1516,9 +1518,9 @@ public class DatabaseUtil {
             return null;
         }
 
-        boolean needsUpperCase = false;
+        needsUpperCase[0] = false;
         try {
-            needsUpperCase = dbData.storesLowerCaseIdentifiers() || dbData.storesMixedCaseIdentifiers();
+            needsUpperCase[0] = dbData.storesLowerCaseIdentifiers() || dbData.storesMixedCaseIdentifiers();
         } catch (SQLException e) {
             String message = "Error getting identifier case information... Error was:" + e.toString();
             Debug.logError(message, module);
@@ -1547,7 +1549,7 @@ public class DatabaseUtil {
                 try {
                     // false for unique, we don't really use unique indexes
                     // true for approximate, don't really care if stats are up-to-date
-                    rsCols = dbData.getIndexInfo(null, lookupSchemaName, needsUpperCase ? curTableName.toLowerCase() : curTableName, false, true);
+                    rsCols = dbData.getIndexInfo(null, lookupSchemaName, needsUpperCase[0] ? curTableName.toLowerCase() : curTableName, false, true);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Error getting index info for table: " + curTableName + " using lookupSchemaName " + lookupSchemaName, module);
                 }
@@ -1563,7 +1565,7 @@ public class DatabaseUtil {
                         // if (!rsCols.getBoolean("NON_UNIQUE")) continue;
 
                         String tableName = rsCols.getString("TABLE_NAME");
-                        if (needsUpperCase && tableName != null) {
+                        if (needsUpperCase[0] && tableName != null) {
                             tableName = tableName.toUpperCase();
                         }
                         if (lookupSchemaName != null) {
@@ -1572,7 +1574,7 @@ public class DatabaseUtil {
                         if (!tableNames.contains(tableName)) continue;
 
                         String indexName = rsCols.getString("INDEX_NAME");
-                        if (needsUpperCase && indexName != null) {
+                        if (needsUpperCase[0] && indexName != null) {
                             indexName = indexName.toUpperCase();
                         }
                         if (indexName.startsWith("PK_") || indexName.startsWith("pk_")) continue;
