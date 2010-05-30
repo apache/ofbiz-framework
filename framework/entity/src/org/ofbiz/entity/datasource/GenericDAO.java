@@ -704,11 +704,7 @@ public class GenericDAO {
 
         // HAVING clause
         List<EntityConditionParam> havingEntityConditionParams = FastList.newInstance();
-        StringBuilder havingString = makeConditionHavingString(modelEntity, havingEntityCondition, viewHavingConditions, havingEntityConditionParams);
-        if (havingString.length() > 0) {
-            sqlBuffer.append(" HAVING ");
-            sqlBuffer.append(havingString);
-        }
+        makeConditionHavingString(sqlBuffer, " HAVING ", modelEntity, havingEntityCondition, viewHavingConditions, havingEntityConditionParams);
 
         // ORDER BY clause
         List<String> orderByExpanded = FastList.<String>newInstance();
@@ -817,7 +813,12 @@ public class GenericDAO {
         return whereString;
     }
 
+    @Deprecated
     protected StringBuilder makeConditionHavingString(ModelEntity modelEntity, EntityCondition havingEntityCondition, List<EntityCondition> viewHavingConditions, List<EntityConditionParam> havingEntityConditionParams) throws GenericEntityException {
+        return makeConditionHavingString(new StringBuilder(), "", modelEntity, havingEntityCondition, viewHavingConditions, havingEntityConditionParams);
+    }
+
+    protected StringBuilder makeConditionHavingString(StringBuilder havingString, String prefix, ModelEntity modelEntity, EntityCondition havingEntityCondition, List<EntityCondition> viewHavingConditions, List<EntityConditionParam> havingEntityConditionParams) throws GenericEntityException {
         ModelViewEntity modelViewEntity = null;
         if (modelEntity instanceof ModelViewEntity) {
             modelViewEntity = (ModelViewEntity) modelEntity;
@@ -836,7 +837,10 @@ public class GenericDAO {
             }
         }
 
-        StringBuilder havingString = new StringBuilder();
+        if (UtilValidate.isNotEmpty(entityCondHavingString) || UtilValidate.isNotEmpty(viewEntityCondHavingString)) {
+            havingString.append(prefix);
+        }
+
         if (UtilValidate.isNotEmpty(entityCondHavingString)) {
             boolean addParens = entityCondHavingString.charAt(0) != '(';
             if (addParens) havingString.append("(");
@@ -1053,11 +1057,7 @@ public class GenericDAO {
 
         // HAVING clause
         List<EntityConditionParam> havingEntityConditionParams = FastList.newInstance();
-        StringBuilder havingString = makeConditionHavingString(modelEntity, havingEntityCondition, viewHavingConditions, havingEntityConditionParams);
-        if (havingString.length() > 0) {
-            sqlBuffer.append(" HAVING ");
-            sqlBuffer.append(havingString);
-        }
+        makeConditionHavingString(sqlBuffer, " HAVING ", modelEntity, havingEntityCondition, viewHavingConditions, havingEntityConditionParams);
 
         if (isGroupBy) {
             sqlBuffer.append(") TEMP_NAME");
