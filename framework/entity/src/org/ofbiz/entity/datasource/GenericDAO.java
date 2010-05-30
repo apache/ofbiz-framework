@@ -268,7 +268,7 @@ public class GenericDAO {
         StringBuilder sql = new StringBuilder().append("UPDATE ").append(modelEntity.getTableName(datasourceInfo)).append(" SET ");
         modelEntity.colNameString(fieldsToSave, sql, "", "=?, ", "=?", false);
         sql.append(" WHERE ");
-        sql.append(SqlJdbcUtil.makeWhereStringFromFields(modelEntity.getPkFieldsUnmodifiable(), entity, "AND"));
+        SqlJdbcUtil.makeWhereStringFromFields(sql, modelEntity.getPkFieldsUnmodifiable(), entity, "AND");
 
         int retVal = 0;
 
@@ -1129,12 +1129,13 @@ public class GenericDAO {
             throw new org.ofbiz.entity.GenericNotImplementedException("Operation delete not supported yet for view entities");
         }
 
-        String sql = "DELETE FROM " + modelEntity.getTableName(datasourceInfo) + " WHERE " + SqlJdbcUtil.makeWhereStringFromFields(modelEntity.getPkFieldsUnmodifiable(), entity, "AND");
+        StringBuilder sql = new StringBuilder().append("DELETE FROM ").append(modelEntity.getTableName(datasourceInfo)).append(" WHERE ");
+        SqlJdbcUtil.makeWhereStringFromFields(sql, modelEntity.getPkFieldsUnmodifiable(), entity, "AND");
 
         int retVal;
 
         try {
-            sqlP.prepareStatement(sql);
+            sqlP.prepareStatement(sql.toString());
             SqlJdbcUtil.setPkValues(sqlP, modelEntity, entity, modelFieldTypeReader);
             retVal = sqlP.executeUpdate();
             entity.removedFromDatasource();
