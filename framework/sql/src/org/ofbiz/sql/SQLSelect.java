@@ -41,10 +41,10 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
 
     public SQLSelect(boolean isDistinct, List<FieldAll> fieldAlls, Map<String, FieldDef> fieldDefs, Table table, Map<String, Relation> relations, Condition whereCondition, Condition havingCondition, List<String> groupBy, List<OrderByItem> orderBy, int offset, int limit) {
         this.isDistinct = isDistinct;
-        this.fieldAlls = fieldAlls;
-        this.fieldDefs = fieldDefs;
+        this.fieldAlls = checkEmpty(fieldAlls);
+        this.fieldDefs = checkEmpty(fieldDefs);
         this.table = table;
-        this.relations = relations;
+        this.relations = checkEmpty(relations);
         this.whereCondition = whereCondition;
         this.havingCondition = havingCondition;
         this.groupBy = groupBy;
@@ -108,10 +108,10 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
 
         SQLSelect other = (SQLSelect) o;
         return isDistinct == other.isDistinct
-            && fieldAlls.equals(other.fieldAlls)
-            && fieldDefs.equals(other.fieldDefs)
+            && equalsHelper(fieldAlls, other.fieldAlls)
+            && equalsHelper(fieldDefs, other.fieldDefs)
             && table.equals(other.table)
-            && relations.equals(other.relations)
+            && equalsHelper(relations, other.relations)
             && equalsHelper(whereCondition, other.whereCondition)
             && equalsHelper(havingCondition, other.havingCondition)
             && offset == other.offset
@@ -126,14 +126,18 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         if (isDistinct) {
             sb.append(" DISTINCT");
         }
-        StringUtil.appendTo(sb, fieldAlls, " ", null, ",");
-        if (!fieldAlls.isEmpty() && !fieldDefs.isEmpty()) {
+        if (fieldAlls != null) {
+            StringUtil.appendTo(sb, fieldAlls, " ", null, ",");
+        }
+        if (fieldAlls != null && fieldDefs != null) {
             sb.append(',');
         }
-        StringUtil.appendTo(sb, fieldDefs.values(), " ", null, ",");
+        if (fieldDefs != null) {
+            StringUtil.appendTo(sb, fieldDefs.values(), " ", null, ",");
+        }
         sb.append(" FROM ");
         table.appendTo(sb);
-        if (!relations.isEmpty()) {
+        if (relations != null) {
             StringUtil.appendTo(sb, relations.values(), " ", null, ",");
         }
         if (whereCondition != null) {
