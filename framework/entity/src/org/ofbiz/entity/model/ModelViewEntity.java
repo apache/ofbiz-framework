@@ -248,6 +248,10 @@ public class ModelViewEntity extends ModelEntity {
         return newList;
     }
 
+    public int getGroupBysSize() {
+        return this.groupBys.size();
+    }
+
     public List<ModelField> getGroupBysCopy() {
         return getGroupBysCopy(null);
     }
