@@ -231,17 +231,27 @@ public class SqlJdbcUtil {
     }
 
     /** Makes a WHERE clause String with "<col name>=?" if not null or "<col name> IS null" if null, all AND separated */
+    @Deprecated
     public static String makeWhereStringFromFields(List<ModelField> modelFields, Map<String, Object> fields, String operator) {
-        return makeWhereStringFromFields(modelFields, fields, operator, null);
+        return makeWhereStringFromFields(new StringBuilder(), modelFields, fields, operator, null).toString();
+    }
+
+    public static StringBuilder makeWhereStringFromFields(StringBuilder sb, List<ModelField> modelFields, Map<String, Object> fields, String operator) {
+        return makeWhereStringFromFields(sb, modelFields, fields, operator, null);
     }
 
     /** Makes a WHERE clause String with "<col name>=?" if not null or "<col name> IS null" if null, all AND separated */
+    @Deprecated
     public static String makeWhereStringFromFields(List<ModelField> modelFields, Map<String, Object> fields, String operator, List<EntityConditionParam> entityConditionParams) {
+        return makeWhereStringFromFields(new StringBuilder(), modelFields, fields, operator, entityConditionParams).toString();
+    }
+
+    /** Makes a WHERE clause String with "<col name>=?" if not null or "<col name> IS null" if null, all AND separated */
+    public static StringBuilder makeWhereStringFromFields(StringBuilder sb, List<ModelField> modelFields, Map<String, Object> fields, String operator, List<EntityConditionParam> entityConditionParams) {
         if (modelFields.size() < 1) {
-            return "";
+            return sb;
         }
 
-        StringBuilder returnString = new StringBuilder();
         Iterator<ModelField> iter = modelFields.iterator();
         while (iter.hasNext()) {
             Object item = iter.next();
@@ -249,29 +259,29 @@ public class SqlJdbcUtil {
             ModelField modelField = null;
             if (item instanceof ModelField) {
                 modelField = (ModelField) item;
-                returnString.append(modelField.getColName());
+                sb.append(modelField.getColName());
                 name = modelField.getName();
             } else {
-                returnString.append(item);
+                sb.append(item);
                 name = item;
             }
 
             Object fieldValue = fields.get(name);
             if (fieldValue != null && fieldValue != GenericEntity.NULL_FIELD) {
-                returnString.append('=');
-                addValue(returnString, modelField, fieldValue, entityConditionParams);
+                sb.append('=');
+                addValue(sb, modelField, fieldValue, entityConditionParams);
             } else {
-                returnString.append(" IS NULL");
+                sb.append(" IS NULL");
             }
 
             if (iter.hasNext()) {
-                returnString.append(' ');
-                returnString.append(operator);
-                returnString.append(' ');
+                sb.append(' ');
+                sb.append(operator);
+                sb.append(' ');
             }
         }
 
-        return returnString.toString();
+        return sb;
     }
 
     public static String makeWhereClause(ModelEntity modelEntity, List<ModelField> modelFields, Map<String, Object> fields, String operator, String joinStyle) throws GenericEntityException {
