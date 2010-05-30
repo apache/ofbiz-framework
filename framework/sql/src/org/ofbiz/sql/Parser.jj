@@ -672,6 +672,14 @@ private String SQuoted():
     { return sb.toString(); }
 }
 
+private String Text():
+{
+    StringBuilder sb = new StringBuilder();
+}
+{
+    ( <TEXT> { sb.append(getToken(0).image); } )+
+    { return sb.toString(); }
+}
 private List<String> FieldList():
 {
     List<String> list = FastList.newInstance();
@@ -826,21 +834,24 @@ private Condition BooleanExpression():
 
 private String ComparisonOperator():
 {
-    StringBuilder sb;
+    StringBuilder sb = new StringBuilder();
+    String s;
 }
 {
-    (<TEXT>)+ { sb = new StringBuilder(); sb.append(getToken(0).image); }
+    s=Text() { sb.append(s); }
     (
         <EQUALS> { sb.append(getToken(0).image); }
-        ((<TEXT>)+ { sb.append(getToken(0).image); })?
+        (s=Text() { sb.append(s); })?
     )* { return sb.toString(); }
 |    <NAME> { return getToken(0).image; }
 |    <EQUALS> { return getToken(0).image.toLowerCase(); }
 }
 
 private String MathOperator():
-{}
 {
-    ( <TEXT> )+ { return getToken(0).image.toLowerCase(); }
+    String s;
+}
+{
+    s=Text() { return s.toLowerCase(); }
 |    <NAME> { return getToken(0).image.toLowerCase(); }
 }
