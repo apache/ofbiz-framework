@@ -19,7 +19,7 @@
 package org.ofbiz.sql;
 
 public final class OrderByItem extends Atom {
-    enum Order { DEFAULT, ASCENDING, DESCENDING };
+    public enum Order { DEFAULT, ASCENDING, DESCENDING };
 
     private final Order order;
     private final String functionName;
