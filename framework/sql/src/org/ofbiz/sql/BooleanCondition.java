@@ -45,6 +45,15 @@ public final class BooleanCondition extends Condition {
         return right;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof BooleanCondition) {
+            BooleanCondition other = (BooleanCondition) o;
+            return left.equals(other.left) & op.equals(other.op) && right.equals(other.right);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         left.appendTo(sb);
         sb.append(' ').append(op).append(' ');

@@ -51,6 +51,15 @@ public final class SQLInsert extends SQLStatement<SQLInsert> {
         return columns.iterator();
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof SQLInsert) {
+            SQLInsert other = (SQLInsert) o;
+            return tableName.equals(other.tableName) && equalsHelper(columns, other.columns) && source.equals(other.source);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("INSERT INTO ");
         tableName.appendTo(sb);

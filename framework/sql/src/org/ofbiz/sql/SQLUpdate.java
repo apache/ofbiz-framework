@@ -50,6 +50,15 @@ public final class SQLUpdate extends SQLStatement<SQLUpdate> implements Iterable
         return whereCondition;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof SQLUpdate) {
+            SQLUpdate other = (SQLUpdate) o;
+            return table.equals(other.table) && setFields.equals(other.setFields) && equalsHelper(whereCondition, other.whereCondition);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("UPDATE ");
         table.getTableName().appendTo(sb);

@@ -39,6 +39,15 @@ public final class Table extends Atom {
         return joined;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof Table) {
+            Table other = (Table) o;
+            return tableName.equals(other.tableName) && equalsHelper(joined, other.joined);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         tableName.appendTo(sb);
         if (joined != null) {

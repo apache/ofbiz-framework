@@ -39,6 +39,15 @@ public final class SQLView extends SQLStatement<SQLView> {
         return sqlSelect;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof SQLView) {
+            SQLView other = (SQLView) o;
+            return name.equals(other.name) && sqlSelect.equals(other.sqlSelect);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("CREATE VIEW ").append(name).append(" AS ");
         sqlSelect.appendTo(sb);

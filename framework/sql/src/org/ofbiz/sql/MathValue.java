@@ -48,6 +48,15 @@ public final class MathValue extends StaticValue implements Iterable<ConstantVal
         return values.iterator();
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof MathValue) {
+            MathValue other = (MathValue) o;
+            return op.equals(other.op) && values.equals(other.values);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append('(');
         StringUtil.appendTo(sb, values, " ", null, op);

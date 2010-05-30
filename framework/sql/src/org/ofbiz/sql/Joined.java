@@ -54,6 +54,15 @@ public final class Joined extends Atom implements Iterable<KeyMap> {
         return joined;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof Joined) {
+            Joined other = (Joined) o;
+            return tableName.equals(other.tableName) && keyMaps.equals(other.keyMaps) && equalsHelper(joined, other.joined);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         return appendTo("left", sb);
     }

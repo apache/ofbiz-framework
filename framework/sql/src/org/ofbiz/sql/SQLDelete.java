@@ -39,6 +39,15 @@ public final class SQLDelete extends SQLStatement<SQLDelete> {
         return whereCondition;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof SQLDelete) {
+            SQLDelete other = (SQLDelete) o;
+            return table.equals(other.table) && equalsHelper(whereCondition, other.whereCondition);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("DELETE FROM ");
         table.getTableName().appendTo(sb);

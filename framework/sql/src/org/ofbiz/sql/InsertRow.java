@@ -34,6 +34,15 @@ public final class InsertRow extends Atom implements Iterable<Value> {
         return values.iterator();
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof InsertRow) {
+            InsertRow other = (InsertRow) o;
+            return values.equals(other.values);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append('(');
         StringUtil.appendTo(sb, values, null, null, ", ");

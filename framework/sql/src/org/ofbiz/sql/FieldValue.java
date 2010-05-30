@@ -47,6 +47,15 @@ public final class FieldValue extends StaticValue {
         return fieldName;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof FieldValue) {
+            FieldValue other = (FieldValue) o;
+            return fieldName.equals(other.fieldName) && equalsHelper(tableName, other.tableName);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         if (tableName != null) {
             sb.append(tableName).append('.');

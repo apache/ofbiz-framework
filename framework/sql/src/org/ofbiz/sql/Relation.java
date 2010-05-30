@@ -56,6 +56,15 @@ public final class Relation extends Atom implements Iterable<KeyMap> {
         return keyMaps.iterator();
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof Relation) {
+            Relation other = (Relation) o;
+            return equalsHelper(type, other.type) && equalsHelper(title, other.title) && entityName.equals(other.entityName) && keyMaps.equals(other.keyMaps);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("RELATION");
         if (type != null) {

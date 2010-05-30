@@ -45,6 +45,15 @@ public final class BetweenCondition extends Condition {
         return r2;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof BetweenCondition) {
+            BetweenCondition other = (BetweenCondition) o;
+            return left.equals(other.left) && r1.equals(other.r1) && r2.equals(other.r2);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         left.appendTo(sb);
         sb.append(" BETWEEN ");

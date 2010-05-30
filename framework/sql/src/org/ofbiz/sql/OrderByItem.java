@@ -43,6 +43,15 @@ public final class OrderByItem extends Atom {
         return fieldName;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof OrderByItem) {
+            OrderByItem other = (OrderByItem) o;
+            return order.equals(other.order) && equalsHelper(functionName, other.functionName) && fieldName.equals(other.fieldName);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         if (functionName != null) sb.append(functionName).append('(');
         sb.append(fieldName);

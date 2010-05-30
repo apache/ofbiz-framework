@@ -19,8 +19,13 @@
 package org.ofbiz.sql;
 
 import org.ofbiz.base.lang.Appender;
+import org.ofbiz.base.util.UtilObject;
 
 public abstract class Atom implements Appender<StringBuilder> {
+    public static boolean equalsHelper(Object l, Object r) {
+        return UtilObject.equalsHelper(l, r);
+    }
+
     public String toString() {
         return appendTo(new StringBuilder()).toString();
     }
