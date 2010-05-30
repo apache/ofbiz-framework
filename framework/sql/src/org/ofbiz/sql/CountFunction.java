@@ -18,32 +18,36 @@
  */
 package org.ofbiz.sql;
 
-public abstract class Value extends Atom {
-    public static final class Null extends Value {
-        private Null() {
-        }
-        public void accept(Visitor visitor) {
-            visitor.visit(this);
-        }
+public final class CountFunction extends StaticValue {
+    private final boolean isDistinct;
+    private final FieldValue field;
 
-        public StringBuilder appendTo(StringBuilder sb) {
-            return sb.append("NULL");
-        }
+    public CountFunction(boolean isDistinct, FieldValue field) {
+        this.isDistinct = isDistinct;
+        this.field = field;
     }
 
-    public static final Null NULL = new Null();
-
-    public interface Visitor {
-        void visit(FieldValue value);
-        void visit(FunctionCall value);
-        void visit(MathValue value);
-        void visit(Null value);
-        void visit(NumberValue value);
-        void visit(ParameterValue value);
-        void visit(StringValue value);
-        void visit(CountFunction value);
-        void visit(CountAllFunction value);
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 
-    public abstract void accept(Visitor visitor);
+    public String getDefaultName() {
+        return "COUNT";
+    }
+
+    public boolean isDistinct() {
+        return isDistinct;
+    }
+
+    public FieldValue getField() {
+        return field;
+    }
+
+    public StringBuilder appendTo(StringBuilder sb) {
+        sb.append("COUNT(");
+        if (isDistinct) sb.append("DISTINCT ");
+        field.appendTo(sb);
+        sb.append(')');
+        return sb;
+    }
 }

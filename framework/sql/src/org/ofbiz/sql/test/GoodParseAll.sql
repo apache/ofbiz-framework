@@ -25,7 +25,10 @@ SELECT
     d.description AS roleDescription,
     SUM(a.partyId),
     FOO(a.partyId, 1) AS baz,
-    (a.partyId || '-' || a.partyTypeId) AS one
+    (a.partyId || '-' || a.partyTypeId) AS one,
+    COUNT(a.partyId) AS cnt1,
+    COUNT(partyId) AS cnt2,
+    COUNT(DISTINCT a.partyId) AS cnt3
 FROM
     Party a LEFT JOIN Person b USING partyId
     LEFT JOIN PartyGroup c ON b.partyId = c.partyId
