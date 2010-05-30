@@ -27,6 +27,7 @@ import java.util.Map;
 import org.ofbiz.base.util.StringUtil;
 
 public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSource {
+    private final boolean isDistinct;
     private final List<FieldAll> fieldAlls;
     private final Map<String, FieldDef> fieldDefs;
     private final Table table;
@@ -38,7 +39,8 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
     private final List<OrderByItem> orderBy;
     private final List<String> groupBy;
 
-    public SQLSelect(List<FieldAll> fieldAlls, Map<String, FieldDef> fieldDefs, Table table, Map<String, Relation> relations, Condition whereCondition, Condition havingCondition, List<String> groupBy, List<OrderByItem> orderBy, int offset, int limit) {
+    public SQLSelect(boolean isDistinct, List<FieldAll> fieldAlls, Map<String, FieldDef> fieldDefs, Table table, Map<String, Relation> relations, Condition whereCondition, Condition havingCondition, List<String> groupBy, List<OrderByItem> orderBy, int offset, int limit) {
+        this.isDistinct = isDistinct;
         this.fieldAlls = fieldAlls;
         this.fieldDefs = fieldDefs;
         this.table = table;
@@ -53,6 +55,10 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
 
     public void accept(Visitor visitor) {
         visitor.visit(this);
+    }
+
+    public boolean getIsDistinct() {
+        return isDistinct;
     }
 
     public Collection<FieldAll> getFieldAlls() {
@@ -97,6 +103,9 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
 
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("SELECT");
+        if (isDistinct) {
+            sb.append(" DISTINCT");
+        }
         StringUtil.appendTo(sb, fieldAlls, " ", null, ",");
         if (!fieldAlls.isEmpty() && !fieldDefs.isEmpty()) {
             sb.append(',');
