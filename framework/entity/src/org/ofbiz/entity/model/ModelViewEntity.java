@@ -343,7 +343,7 @@ public class ModelViewEntity extends ModelEntity {
             if (alias) {
                 ModelAlias modelAlias = this.getAlias(field.name);
                 if (modelAlias != null) {
-                    returnString.append(" AS " + modelAlias.getColAlias());
+                    returnString.append(" AS ").append(modelAlias.getColAlias());
                 }
             }
             if (fldsIt.hasNext()) {
