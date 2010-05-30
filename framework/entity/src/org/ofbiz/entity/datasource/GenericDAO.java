@@ -695,11 +695,7 @@ public class GenericDAO {
 
         // WHERE clause
         List<EntityConditionParam> whereEntityConditionParams = FastList.newInstance();
-        StringBuilder whereString = makeConditionWhereString(modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
-        if (whereString.length() > 0) {
-            sqlBuffer.append(" WHERE ");
-            sqlBuffer.append(whereString.toString());
-        }
+        makeConditionWhereString(sqlBuffer, " WHERE ", modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
 
         // GROUP BY clause for view-entity
         if (modelViewEntity != null) {
@@ -765,7 +761,12 @@ public class GenericDAO {
         return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader, this, whereEntityCondition, havingEntityCondition, findOptions.getDistinct());
     }
 
+    @Deprecated
     protected StringBuilder makeConditionWhereString(ModelEntity modelEntity, EntityCondition whereEntityCondition, List<EntityCondition> viewWhereConditions, List<EntityConditionParam> whereEntityConditionParams) throws GenericEntityException {
+        return makeConditionWhereString(new StringBuilder(), "", modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
+    }
+
+    protected StringBuilder makeConditionWhereString(StringBuilder whereString, String prefix, ModelEntity modelEntity, EntityCondition whereEntityCondition, List<EntityCondition> viewWhereConditions, List<EntityConditionParam> whereEntityConditionParams) throws GenericEntityException {
         ModelViewEntity modelViewEntity = null;
         if (modelEntity instanceof ModelViewEntity) {
             modelViewEntity = (ModelViewEntity) modelEntity;
@@ -786,7 +787,10 @@ public class GenericDAO {
 
         String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
 
-        StringBuilder whereString = new StringBuilder();
+        if (entityCondWhereString.length() > 0 || UtilValidate.isNotEmpty(viewEntityCondWhereString) || viewClause.length() > 0) {
+            whereString.append(prefix);
+        }
+
         if (entityCondWhereString.length() > 0) {
             boolean addParens = entityCondWhereString.charAt(0) != '(';
             if (addParens) whereString.append("(");
@@ -1040,11 +1044,7 @@ public class GenericDAO {
 
         // WHERE clause
         List<EntityConditionParam> whereEntityConditionParams = FastList.newInstance();
-        StringBuilder whereString = makeConditionWhereString(modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
-        if (whereString.length() > 0) {
-            sqlBuffer.append(" WHERE ");
-            sqlBuffer.append(whereString.toString());
-        }
+        makeConditionWhereString(sqlBuffer, " WHERE ", modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
 
         // GROUP BY clause for view-entity
         if (isGroupBy) {
