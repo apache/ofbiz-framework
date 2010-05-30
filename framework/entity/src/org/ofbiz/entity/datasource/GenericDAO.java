@@ -980,13 +980,9 @@ public class GenericDAO {
 
         boolean isGroupBy = false;
         ModelViewEntity modelViewEntity = null;
-        String groupByString = null;
         if (modelEntity instanceof ModelViewEntity) {
             modelViewEntity = (ModelViewEntity) modelEntity;
-            groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false);
-            if (UtilValidate.isNotEmpty(groupByString)) {
-                isGroupBy = true;
-            }
+            isGroupBy = modelViewEntity.getGroupBysSize() > 0;
         }
 
         // To get a count of the rows that will be returned when there is a GROUP BY, must do something like:
@@ -1051,10 +1047,8 @@ public class GenericDAO {
 
         // GROUP BY clause for view-entity
         if (isGroupBy) {
-            if (UtilValidate.isNotEmpty(groupByString)) {
-                sqlBuffer.append(" GROUP BY ");
-                sqlBuffer.append(groupByString);
-            }
+            sqlBuffer.append(" GROUP BY ");
+            sqlBuffer.append(modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false));
         }
 
         // HAVING clause
