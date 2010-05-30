@@ -514,7 +514,7 @@ public class DatabaseUtil {
         }
 
         // make sure each one-relation has an index
-        if (checkFkIdx) {
+        if (checkFkIdx || datasourceInfo.checkIndicesOnStart) {
         //if (!justColumns && datasourceInfo.useFkIndices && datasourceInfo.checkFkIndicesOnStart) {
             int numIndicesCreated = 0;
             // TODO: check each key-map to make sure it exists in the index, if any differences warn and then remove the index and recreate it
@@ -545,21 +545,28 @@ public class DatabaseUtil {
 
                     if (tableIndexList == null) {
                         // evidently no indexes in the database for this table, do the create all
-                        this.createForeignKeyIndices(entity, datasourceInfo.constraintNameClipLength, messages);
-                    } else {
-                        // go through each relation to see if an FK already exists
-                        boolean createdConstraints = false;
-                        Iterator<ModelRelation> relations = entity.getRelationsIterator();
-                        while (relations.hasNext()) {
-                            ModelRelation modelRelation = relations.next();
-                            if (!"one".equals(modelRelation.getType())) {
-                                continue;
-                            }
+                        if (checkFkIdx) {
+                            this.createForeignKeyIndices(entity, datasourceInfo.constraintNameClipLength, messages);
+                        }
+                        if (datasourceInfo.checkIndicesOnStart) {
+                            this.createDeclaredIndices(entity, messages);
+                        }
+                        continue;
+                    }
+                    // go through each relation to see if an FK already exists
+                    boolean createdConstraints = false;
+                    Iterator<ModelRelation> relations = entity.getRelationsIterator();
+                    while (relations.hasNext()) {
+                        ModelRelation modelRelation = relations.next();
+                        if (!"one".equals(modelRelation.getType())) {
+                            continue;
+                        }
 
-                            String relConstraintName = makeFkConstraintName(modelRelation, datasourceInfo.constraintNameClipLength);
-                            if (tableIndexList.contains(relConstraintName)) {
-                                tableIndexList.remove(relConstraintName);
-                            } else {
+                        String relConstraintName = makeFkConstraintName(modelRelation, datasourceInfo.constraintNameClipLength);
+                        if (tableIndexList.contains(relConstraintName)) {
+                            tableIndexList.remove(relConstraintName);
+                        } else {
+                            if (checkFkIdx) {
                                 // if not, create one
                                 String noIdxMessage = "No Index [" + relConstraintName + "] found for entity [" + entityName + "]";
                                 if (messages != null) messages.add(noIdxMessage);
@@ -581,68 +588,24 @@ public class DatabaseUtil {
                                 }
                             }
                         }
-                        if (createdConstraints) {
-                            String message = "Created foreign key index/indices for entity [" + entity.getEntityName() + "]";
-                            Debug.logImportant(message, module);
-                            if (messages != null) messages.add(message);
-                        }
                     }
 
-                    // show foreign key references that exist but are unknown
-                    if (tableIndexList != null) {
-                        for (String indexLeft: tableIndexList) {
-                            String message = "Unknown Index " + indexLeft + " found in table " + entity.getTableName(datasourceInfo);
-                            Debug.logImportant(message, module);
-                            if (messages != null) messages.add(message);
-                        }
+                    if (createdConstraints) {
+                        String message = "Created foreign key index/indices for entity [" + entity.getEntityName() + "]";
+                        Debug.logImportant(message, module);
+                        if (messages != null) messages.add(message);
                     }
-                }
-            }
-            if (Debug.infoOn()) Debug.logInfo("Created " + numIndicesCreated + " indices", module);
-        }
+                    // go through each indice to see if an indice already exists
+                    boolean createdIndexes = false;
+                    Iterator<ModelIndex> indexes = entity.getIndexesIterator();
+                    while (indexes.hasNext()) {
+                        ModelIndex modelIndex = indexes.next();
 
-        if (datasourceInfo.checkIndicesOnStart) {
-            int numIndicesCreated = 0;
-            // TODO: check each key-map to make sure it exists in the index, if any differences warn and then remove the index and recreate it
-
-            // get ALL column info, put into hashmap by table name
-            Map<String, Set<String>> tableIndexListMap = this.getIndexInfo(indexTableNames, messages);
-
-            // Debug.logVerbose("Ref Info Map: " + refTableInfoMap, module);
-
-            if (tableIndexListMap == null) {
-                // uh oh, something happened while getting info...
-                if (Debug.verboseOn()) Debug.logVerbose("Ref Table Info Map is null", module);
-            } else {
-                for (ModelEntity entity: modelEntityList) {
-                    String entityName = entity.getEntityName();
-                    // if this is a view entity, do not check it...
-                    if (entity instanceof ModelViewEntity) {
-                        String entMessage = "NOT Checking View Entity " + entity.getEntityName();
-                        Debug.logVerbose(entMessage, module);
-                        if (messages != null) messages.add(entMessage);
-                        continue;
-                    }
-
-                    // get existing index list for this table
-                    Set<String> tableIndexList = tableIndexListMap.get(entity.getTableName(datasourceInfo));
-
-                    // Debug.logVerbose("Got ind info for table " + entity.getTableName(datasourceInfo) + ": " + tableIndexList, module);
-
-                    if (tableIndexList == null) {
-                        // evidently no indexes in the database for this table, do the create all
-                        this.createDeclaredIndices(entity, messages);
-                    } else {
-                        // go through each indice to see if an indice already exists
-                        boolean createdIndexes = false;
-                        Iterator<ModelIndex> indexes = entity.getIndexesIterator();
-                        while (indexes.hasNext()) {
-                            ModelIndex modelIndex = indexes.next();
-
-                            String relIndexName = makeIndexName(modelIndex, datasourceInfo.constraintNameClipLength);
-                            if (tableIndexList.contains(relIndexName)) {
-                                tableIndexList.remove(relIndexName);
-                            } else {
+                        String relIndexName = makeIndexName(modelIndex, datasourceInfo.constraintNameClipLength);
+                        if (tableIndexList.contains(relIndexName)) {
+                            tableIndexList.remove(relIndexName);
+                        } else {
+                            if (datasourceInfo.checkIndicesOnStart) {
                                 // if not, create one
                                 String noIdxMessage = "No Index [" + relIndexName + "] found for entity [" + entityName + "]";
                                 if (messages != null) messages.add(noIdxMessage);
@@ -664,11 +627,11 @@ public class DatabaseUtil {
                                 }
                             }
                         }
-                        if (createdIndexes) {
-                            String message = "Created declared index/indices for entity [" + entity.getEntityName() + "]";
-                            Debug.logImportant(message, module);
-                            if (messages != null) messages.add(message);
-                        }
+                    }
+                    if (createdIndexes) {
+                        String message = "Created declared index/indices for entity [" + entity.getEntityName() + "]";
+                        Debug.logImportant(message, module);
+                        if (messages != null) messages.add(message);
                     }
 
                     // show Indexe key references that exist but are unknown
