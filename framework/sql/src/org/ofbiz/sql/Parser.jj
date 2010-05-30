@@ -278,6 +278,7 @@ private SQLView View():
 private SQLSelect Select():
 {
     Integer i;
+    boolean isDistinct = false;
     List<OrderByItem> orderBy = null;
     List<String> groupBy = null;
     Map<String, FieldDef> fieldDefs = FastMap.newInstance();
@@ -289,7 +290,7 @@ private SQLSelect Select():
     int offset = -1, limit = -1;
 }
 {
-    <SELECT> (
+    <SELECT> (<DISTINCT> { isDistinct = true; })? (
         FieldDef(fieldDefs, fieldAlls, fieldAllAliases)
         ( <COMMA> FieldDef(fieldDefs, fieldAlls, fieldAllAliases) )*
     )
@@ -301,7 +302,7 @@ private SQLSelect Select():
     ( <ORDER> <BY> orderBy=OrderByList() )?
     ( <OFFSET> offset=Integer() )?
     ( <LIMIT> limit=Integer() )?
-    { return new SQLSelect(fieldAlls, fieldDefs, table, relations, whereCondition, havingCondition, groupBy, orderBy, offset, limit); }
+    { return new SQLSelect(isDistinct, fieldAlls, fieldDefs, table, relations, whereCondition, havingCondition, groupBy, orderBy, offset, limit); }
 }
 
 private void Relation(Map<String, Relation> relations):
