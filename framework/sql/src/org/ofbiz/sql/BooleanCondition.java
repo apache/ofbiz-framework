@@ -25,7 +25,7 @@ public final class BooleanCondition extends Condition {
 
     public BooleanCondition(Value left, String op, Value right) {
         this.left = left;
-        this.op = op;
+        this.op = op.toLowerCase();
         this.right = right;
     }
 

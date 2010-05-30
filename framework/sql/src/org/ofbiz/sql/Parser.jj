@@ -844,7 +844,7 @@ private String ComparisonOperator():
         (s=Text() { sb.append(s); })?
     )* { return sb.toString(); }
 |    <NAME> { return getToken(0).image; }
-|    <EQUALS> { return getToken(0).image.toLowerCase(); }
+|    <EQUALS> { return getToken(0).image; }
 }
 
 private String MathOperator():
@@ -852,6 +852,6 @@ private String MathOperator():
     String s;
 }
 {
-    s=Text() { return s.toLowerCase(); }
-|    <NAME> { return getToken(0).image.toLowerCase(); }
+    s=Text() { return s; }
+|    <NAME> { return getToken(0).image; }
 }

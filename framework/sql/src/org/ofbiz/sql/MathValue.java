@@ -28,7 +28,7 @@ public final class MathValue extends StaticValue implements Iterable<ConstantVal
     private final List<ConstantValue> values;
 
     public MathValue(String op, List<ConstantValue> values) {
-        this.op = op;
+        this.op = op.toLowerCase();
         this.values = values;
     }
 
