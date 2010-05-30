@@ -18,32 +18,17 @@
  */
 package org.ofbiz.sql;
 
-public abstract class Value extends Atom {
-    public static final class Null extends Value {
-        private Null() {
-        }
-        public void accept(Visitor visitor) {
-            visitor.visit(this);
-        }
-
-        public StringBuilder appendTo(StringBuilder sb) {
-            return sb.append("NULL");
-        }
+public final class CountAllFunction extends StaticValue {
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 
-    public static final Null NULL = new Null();
-
-    public interface Visitor {
-        void visit(FieldValue value);
-        void visit(FunctionCall value);
-        void visit(MathValue value);
-        void visit(Null value);
-        void visit(NumberValue value);
-        void visit(ParameterValue value);
-        void visit(StringValue value);
-        void visit(CountFunction value);
-        void visit(CountAllFunction value);
+    public String getDefaultName() {
+        return "COUNT";
     }
 
-    public abstract void accept(Visitor visitor);
+    public StringBuilder appendTo(StringBuilder sb) {
+        sb.append("COUNT(*)");
+        return sb;
+    }
 }

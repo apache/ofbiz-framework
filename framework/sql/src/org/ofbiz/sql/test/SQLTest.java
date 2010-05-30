@@ -128,6 +128,24 @@ public class SQLTest extends GenericTestCaseBase {
             assertTrue("fifth is FieldDefValue", fieldDef instanceof FieldDefValue);
             fdv = (FieldDefValue) fieldDef;
 
+            assertTrue("has sixth field def", fieldDefIt.hasNext());
+            fieldDef = fieldDefIt.next();
+            assertEquals("sixth fieldDef.alias", "cnt1", fieldDef.getAlias());
+            assertTrue("sixth is FieldDefValue", fieldDef instanceof FieldDefValue);
+            fdv = (FieldDefValue) fieldDef;
+
+            assertTrue("has seventh field def", fieldDefIt.hasNext());
+            fieldDef = fieldDefIt.next();
+            assertEquals("seventh fieldDef.alias", "cnt2", fieldDef.getAlias());
+            assertTrue("seventh is FieldDefValue", fieldDef instanceof FieldDefValue);
+            fdv = (FieldDefValue) fieldDef;
+
+            assertTrue("has eighth field def", fieldDefIt.hasNext());
+            fieldDef = fieldDefIt.next();
+            assertEquals("eighth fieldDef.alias", "cnt3", fieldDef.getAlias());
+            assertTrue("eighth is FieldDefValue", fieldDef instanceof FieldDefValue);
+            fdv = (FieldDefValue) fieldDef;
+
             assertFalse("has no more field def", fieldDefIt.hasNext());
 
         }
