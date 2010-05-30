@@ -1596,7 +1596,8 @@ public class DatabaseUtil {
                         if (rsCols.getShort("TYPE") == DatabaseMetaData.tableIndexStatistic) continue;
 
                         // HACK: for now skip all "unique" indexes since our foreign key indices are not unique, but the primary key ones are
-                        if (!rsCols.getBoolean("NON_UNIQUE")) continue;
+                        // not correct, declared indices can also be unique
+                        // if (!rsCols.getBoolean("NON_UNIQUE")) continue;
 
                         String tableName = rsCols.getString("TABLE_NAME");
                         if (needsUpperCase && tableName != null) {
@@ -1611,6 +1612,7 @@ public class DatabaseUtil {
                         if (needsUpperCase && indexName != null) {
                             indexName = indexName.toUpperCase();
                         }
+                        if (indexName.startsWith("PK_") || indexName.startsWith("pk_")) continue;
 
                         Set<String> tableIndexList = indexInfo.get(tableName);
                         if (tableIndexList == null) {
