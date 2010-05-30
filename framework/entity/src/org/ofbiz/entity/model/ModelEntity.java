@@ -847,42 +847,70 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return fieldsStringList(fields, "null", ", ", false, true);
     }
 
+    @Deprecated
     public String fieldsStringList(String eachString, String separator, ModelField... flds) {
         return fieldsStringList(Arrays.asList(flds), eachString, separator, false, false);
     }
 
+    public StringBuilder fieldsStringList(StringBuilder sb, String eachString, String separator, ModelField... flds) {
+        return fieldsStringList(Arrays.asList(flds), sb, eachString, separator, false, false);
+    }
+
+    @Deprecated
     public String fieldsStringList(List<ModelField> flds, String eachString, String separator) {
         return fieldsStringList(flds, eachString, separator, false, false);
     }
 
+    public StringBuilder fieldsStringList(List<ModelField> flds, StringBuilder sb, String eachString, String separator) {
+        return fieldsStringList(flds, sb, eachString, separator, false, false);
+    }
+
+    @Deprecated
     public String fieldsStringList(String eachString, String separator, boolean appendIndex, ModelField... flds) {
         return fieldsStringList(Arrays.asList(flds), eachString, separator, appendIndex, false);
     }
 
+    public StringBuilder fieldsStringList(StringBuilder sb, String eachString, String separator, boolean appendIndex, ModelField... flds) {
+        return fieldsStringList(Arrays.asList(flds), sb, eachString, separator, appendIndex, false);
+    }
+
+    @Deprecated
     public String fieldsStringList(List<ModelField> flds, String eachString, String separator, boolean appendIndex) {
         return fieldsStringList(flds, eachString, separator, appendIndex, false);
     }
 
+    public StringBuilder fieldsStringList(List<ModelField> flds, StringBuilder sb, String eachString, String separator, boolean appendIndex) {
+        return fieldsStringList(flds, sb, eachString, separator, appendIndex, false);
+    }
+
+    @Deprecated
     public String fieldsStringList(String eachString, String separator, boolean appendIndex, boolean onlyNonPK, ModelField... flds) {
         return fieldsStringList(Arrays.asList(flds), eachString, separator, appendIndex, onlyNonPK);
     }
 
-    public String fieldsStringList(List<ModelField> flds, String eachString, String separator, boolean appendIndex, boolean onlyNonPK) {
-        StringBuilder returnString = new StringBuilder();
+    public StringBuilder fieldsStringList(StringBuilder sb, String eachString, String separator, boolean appendIndex, boolean onlyNonPK, ModelField... flds) {
+        return fieldsStringList(Arrays.asList(flds), sb, eachString, separator, appendIndex, onlyNonPK);
+    }
 
+    @Deprecated
+    public String fieldsStringList(List<ModelField> flds, String eachString, String separator, boolean appendIndex, boolean onlyNonPK) {
+        return fieldsStringList(flds, new StringBuilder(), eachString, separator, appendIndex, onlyNonPK).toString();
+    }
+
+    public StringBuilder fieldsStringList(List<ModelField> flds, StringBuilder sb, String eachString, String separator, boolean appendIndex, boolean onlyNonPK) {
         if (flds.size() < 1) {
-            return "";
+            return sb;
         }
 
         int i = 0;
 
         for (; i < flds.size(); i++) {
             if (onlyNonPK && flds.get(i).isPk) continue;
-            returnString.append(eachString);
-            if (appendIndex) returnString.append(i + 1);
-            if (i < flds.size() - 1) returnString.append(separator);
+            sb.append(eachString);
+            if (appendIndex) sb.append(i + 1);
+            if (i < flds.size() - 1) sb.append(separator);
         }
-        return returnString.toString();
+        return sb;
     }
 
     @Deprecated
