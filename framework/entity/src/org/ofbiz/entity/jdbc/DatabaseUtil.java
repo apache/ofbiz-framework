@@ -114,6 +114,22 @@ public class DatabaseUtil {
         return connection;
     }
 
+    protected Connection getConnectionLogged(Collection<String> messages) {
+        try {
+            return getConnection();
+        } catch (SQLException e) {
+            String message = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(message, module);
+            if (messages != null) messages.add(message);
+            return null;
+        } catch (GenericEntityException e) {
+            String message = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
+            Debug.logError(message, module);
+            if (messages != null) messages.add(message);
+            return null;
+        }
+    }
+
     public DatasourceInfo getDatasourceInfo() {
         return this.datasourceInfo;
     }
@@ -765,19 +781,7 @@ public class DatabaseUtil {
 
     public DatabaseMetaData getDatabaseMetaData(Connection connection, Collection<String> messages) {
         if (connection == null) {
-            try {
-                connection = getConnection();
-            } catch (SQLException e) {
-                String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-                Debug.logError(message, module);
-                if (messages != null) messages.add(message);
-                return null;
-            } catch (GenericEntityException e) {
-                String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-                Debug.logError(message, module);
-                if (messages != null) messages.add(message);
-                return null;
-            }
+            connection = getConnectionLogged(messages);
         }
 
         if (connection == null) {
@@ -1051,21 +1055,7 @@ public class DatabaseUtil {
     }
 
     public TreeSet<String> getTableNames(Collection<String> messages) {
-        Connection connection = null;
-
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-            Debug.logError(message, module);
-            if (messages != null) messages.add(message);
-            return null;
-        } catch (GenericEntityException e) {
-            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-            Debug.logError(message, module);
-            if (messages != null) messages.add(message);
-            return null;
-        }
+        Connection connection = getConnectionLogged(messages);
 
         if (connection == null) {
             String message = "Unable to establish a connection with the database, no additional information available.";
@@ -1183,17 +1173,8 @@ public class DatabaseUtil {
 
         Connection connection = null;
         try {
-            try {
-                connection = getConnection();
-            } catch (SQLException e) {
-                String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-                Debug.logError(e, message, module);
-                if (messages != null) messages.add(message);
-                return null;
-            } catch (GenericEntityException e) {
-                String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-                Debug.logError(e, message, module);
-                if (messages != null) messages.add(message);
+            connection = getConnectionLogged(messages);
+            if (connection == null) {
                 return null;
             }
 
@@ -1401,18 +1382,8 @@ public class DatabaseUtil {
     }
 
     public Map<String, Map<String, ReferenceCheckInfo>> getReferenceInfo(Set<String> tableNames, Collection<String> messages) {
-        Connection connection = null;
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-            Debug.logError(message, module);
-            if (messages != null) messages.add(message);
-            return null;
-        } catch (GenericEntityException e) {
-            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-            Debug.logError(message, module);
-            if (messages != null) messages.add(message);
+        Connection connection = getConnectionLogged(messages);;
+        if (connection == null) {
             return null;
         }
 
@@ -1559,19 +1530,8 @@ public class DatabaseUtil {
     }
 
     public Map<String, Set<String>> getIndexInfo(Set<String> tableNames, Collection<String> messages) {
-        Connection connection = null;
-
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-            Debug.logError(message, module);
-            if (messages != null) messages.add(message);
-            return null;
-        } catch (GenericEntityException e) {
-            String message = "Unable to establish a connection with the database... Error was:" + e.toString();
-            Debug.logError(message, module);
-            if (messages != null) messages.add(message);
+        Connection connection = getConnectionLogged(messages);
+        if (connection == null) {
             return null;
         }
 
@@ -1853,19 +1813,9 @@ public class DatabaseUtil {
             return;
         }
 
-        Connection connection = null;
+        Connection connection = getConnectionLogged(messages);;
         Statement stmt = null;
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(errMsg, module);
-            if (messages != null) messages.add(errMsg);
-            return;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(errMsg, module);
-            if (messages != null) messages.add(errMsg);
+        if (connection == null) {
             return;
         }
 
@@ -2084,24 +2034,9 @@ public class DatabaseUtil {
         }
 
         // need connection
-        Connection connection = null;
+        Connection connection = getConnectionLogged(messages);;
         Statement stmt = null;
-
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            if (messages != null) {
-                messages.add(errMsg);
-            }
-            return;
-        } catch (GenericEntityException e) {
-            String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            if (messages != null) {
-                messages.add(errMsg);
-            }
+        if (connection == null) {
             return;
         }
 
@@ -2143,15 +2078,8 @@ public class DatabaseUtil {
         }
 
         // fresh connection
-        try {
-            connection = getConnection();
-        } catch (SQLException e) {
-            if (messages != null)
-                messages.add("Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString());
-            return;
-        } catch (GenericEntityException e) {
-            if (messages != null)
-                messages.add("Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString());
+        connection = getConnectionLogged(messages);
+        if (connection == null) {
             return;
         }
 
@@ -3177,17 +3105,7 @@ public class DatabaseUtil {
         try {
             Statement stmt = null;
 
-            try {
-                connection = getConnection();
-            } catch (SQLException e) {
-                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                messages.add(errMsg);
-            } catch (GenericEntityException e) {
-                String errMsg = "Unable to establish a connection with the database for helperName [" + this.helperInfo.getHelperFullName() + "]... Error was: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                messages.add(errMsg);
-            }
+            connection = getConnectionLogged(messages);
             if (connection == null) {
                 return;
             }
