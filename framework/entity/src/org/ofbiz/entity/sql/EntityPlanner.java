@@ -41,8 +41,6 @@ import org.ofbiz.sql.ConditionList;
 import org.ofbiz.sql.ConstantValue;
 import org.ofbiz.sql.FieldAll;
 import org.ofbiz.sql.FieldDef;
-import org.ofbiz.sql.FieldDefFieldValue;
-import org.ofbiz.sql.FieldDefValue;
 import org.ofbiz.sql.FieldValue;
 import org.ofbiz.sql.FunctionCall;
 import org.ofbiz.sql.Joined;
@@ -117,10 +115,11 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
     }
 
     private static void addFieldDef(DynamicViewEntity dve, List<String> groupBy, String alias, FieldDef fieldDef) {
-        if (fieldDef instanceof FieldDefFieldValue) {
-            addFieldDef(dve, groupBy, fieldDef.getAlias(), ((FieldDefFieldValue) fieldDef).getFieldValue(), null);
-        } else if (fieldDef instanceof FieldDefValue) {
-            addFieldDef(dve, groupBy, fieldDef.getAlias(), ((FieldDefValue) fieldDef).getValue());
+        StaticValue value = fieldDef.getValue();
+        if (value instanceof FieldValue) {
+            addFieldDef(dve, groupBy, fieldDef.getAlias(), (FieldValue) value, null);
+        } else if (value instanceof ConstantValue) {
+            addFieldDef(dve, groupBy, fieldDef.getAlias(), (ConstantValue) value);
         } else {
             throw new UnsupportedOperationException(alias + "[" + fieldDef + "]:" + fieldDef.getClass());
         }

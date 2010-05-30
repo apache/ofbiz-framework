@@ -554,13 +554,13 @@ private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls,
                     <CLOSE_PAREN>
                 )?
                 { fieldAlls.add(new FieldAll(n, excludeList)); return; }
-            | fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? { def = new FieldDefFieldValue(new FieldValue(n, fieldName), fieldAlias); }
+            | fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? { def = new FieldDef(new FieldValue(n, fieldName), fieldAlias); }
             )
-        |    v=FunctionCallRest(n) ( <AS> fieldAlias=NamePart() )? { def = new FieldDefValue(v, fieldAlias); }
-        |    ( <AS> fieldAlias=NamePart() )? { def = new FieldDefFieldValue(new FieldValue(null, n), fieldAlias); }
+        |    v=FunctionCallRest(n) ( <AS> fieldAlias=NamePart() )? { def = new FieldDef(v, fieldAlias); }
+        |    ( <AS> fieldAlias=NamePart() )? { def = new FieldDef(new FieldValue(null, n), fieldAlias); }
         )
-    |    v=MathValue() ( <AS> fieldAlias=NamePart() )? { def = new FieldDefValue(v, fieldAlias); }
-    |   v=Count() ( <AS> fieldAlias=NamePart() )? { def = new FieldDefValue(v, fieldAlias); }
+    |    v=MathValue() ( <AS> fieldAlias=NamePart() )? { def = new FieldDef(v, fieldAlias); }
+    |   v=Count() ( <AS> fieldAlias=NamePart() )? { def = new FieldDef(v, fieldAlias); }
     ) {
         if (fieldDefs.containsKey(def.getAlias())) throw new ParseException("duplicate alias(" + def.getAlias() + ")");
         fieldDefs.put(def.getAlias(), def);
