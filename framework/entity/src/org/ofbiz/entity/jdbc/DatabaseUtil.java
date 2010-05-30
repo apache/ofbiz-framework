@@ -1764,7 +1764,7 @@ public class DatabaseUtil {
             sqlBuf.append(pkName);
         }
         sqlBuf.append(" PRIMARY KEY (");
-        sqlBuf.append(entity.colNameString(entity.getPkFieldsUnmodifiable()));
+        entity.colNameString(entity.getPkFieldsUnmodifiable(), sqlBuf, "");
         sqlBuf.append(")");
 
         if (addFks) {
@@ -2596,7 +2596,7 @@ public class DatabaseUtil {
                 sqlBuf.append(pkName);
             }
             sqlBuf.append(" PRIMARY KEY (");
-            sqlBuf.append(entity.colNameString(entity.getPkFieldsUnmodifiable()));
+            entity.colNameString(entity.getPkFieldsUnmodifiable(), sqlBuf, "");
             sqlBuf.append(")");
 
             if (Debug.verboseOn()) Debug.logVerbose("[createPrimaryKey] sql=" + sqlBuf.toString(), module);
