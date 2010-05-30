@@ -81,13 +81,37 @@ public class ExpressCheckoutEvents {
     }
 
     public static String expressCheckoutRedirect(HttpServletRequest request, HttpServletResponse response) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         String token = (String) cart.getAttribute("payPalCheckoutToken");
+        String paymentGatewayConfigId = null;
+        GenericValue payPalGatewayConfig = null;
+        String productStoreId = null;
         if (UtilValidate.isEmpty(token)) {
             Debug.logError("No ExpressCheckout token found in cart, you must do a successful setExpressCheckout before redirecting.", module);
             return "error";
         }
-        StringBuilder redirectUrl = new StringBuilder("https://www.sandbox.paypal.com/cgi-bin/webscr");
+        if (cart != null) {
+            productStoreId = cart.getProductStoreId();
+        }
+        if (productStoreId != null) {
+            GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, "EXT_PAYPAL", null, true);
+            if (payPalPaymentSetting != null) {
+                paymentGatewayConfigId = payPalPaymentSetting.getString("paymentGatewayConfigId");
+            }
+        }
+        if (paymentGatewayConfigId != null) {
+            try {
+                payPalGatewayConfig = delegator.findOne("PaymentGatewayPayPal", true, "paymentGatewayConfigId", paymentGatewayConfigId);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
+        if (payPalGatewayConfig == null) {
+            request.setAttribute("_EVENT_MESSAGE_", "Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.");
+            return "error";
+        }
+        StringBuilder redirectUrl = new StringBuilder(payPalGatewayConfig.getString("redirectUrl"));
         redirectUrl.append("?cmd=_express-checkout&token=");
         redirectUrl.append(token);
         try {
