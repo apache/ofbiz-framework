@@ -1567,15 +1567,15 @@ public class DatabaseUtil {
         Map<String, Set<String>> indexInfo = FastMap.newInstance();
         try {
             int totalIndices = 0;
-            for (String curTableName: tableNames) {
-                String lookupSchemaName = null;
-                if (dbData.supportsSchemasInTableDefinitions()) {
-                    if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
-                        lookupSchemaName = this.datasourceInfo.schemaName;
-                    } else {
-                        lookupSchemaName = dbData.getUserName();
-                    }
+            String lookupSchemaName = null;
+            if (dbData.supportsSchemasInTableDefinitions()) {
+                if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
+                    lookupSchemaName = this.datasourceInfo.schemaName;
+                } else {
+                    lookupSchemaName = dbData.getUserName();
                 }
+            }
+            for (String curTableName: tableNames) {
 
                 ResultSet rsCols = null;
                 try {
