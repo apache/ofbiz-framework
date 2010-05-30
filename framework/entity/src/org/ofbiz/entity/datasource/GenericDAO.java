@@ -787,8 +787,7 @@ public class GenericDAO {
 
         StringBuilder whereString = new StringBuilder();
         if (entityCondWhereString.length() > 0) {
-            boolean addParens = false;
-            if (entityCondWhereString.charAt(0) != '(') addParens = true;
+            boolean addParens = entityCondWhereString.charAt(0) != '(';
             if (addParens) whereString.append("(");
             whereString.append(entityCondWhereString);
             if (addParens) whereString.append(")");
@@ -796,8 +795,7 @@ public class GenericDAO {
 
         if (UtilValidate.isNotEmpty(viewEntityCondWhereString)) {
             if (whereString.length() > 0) whereString.append(" AND ");
-            boolean addParens = false;
-            if (viewEntityCondWhereString.charAt(0) != '(') addParens = true;
+            boolean addParens = viewEntityCondWhereString.charAt(0) != '(';
             if (addParens) whereString.append("(");
             whereString.append(viewEntityCondWhereString);
             if (addParens) whereString.append(")");
@@ -805,8 +803,7 @@ public class GenericDAO {
 
         if (viewClause.length() > 0) {
             if (whereString.length() > 0) whereString.append(" AND ");
-            boolean addParens = false;
-            if (viewClause.charAt(0) != '(') addParens = true;
+            boolean addParens = viewClause.charAt(0) != '(';
             if (addParens) whereString.append("(");
             whereString.append(viewClause);
             if (addParens) whereString.append(")");
@@ -836,16 +833,14 @@ public class GenericDAO {
 
         StringBuilder havingString = new StringBuilder();
         if (UtilValidate.isNotEmpty(entityCondHavingString)) {
-            boolean addParens = false;
-            if (entityCondHavingString.charAt(0) != '(') addParens = true;
+            boolean addParens = entityCondHavingString.charAt(0) != '(';
             if (addParens) havingString.append("(");
             havingString.append(entityCondHavingString);
             if (addParens) havingString.append(")");
         }
         if (UtilValidate.isNotEmpty(viewEntityCondHavingString)) {
             if (havingString.length() > 0) havingString.append(" AND ");
-            boolean addParens = false;
-            if (viewEntityCondHavingString.charAt(0) != '(') addParens = true;
+            boolean addParens = viewEntityCondHavingString.charAt(0) != '(';
             if (addParens) havingString.append("(");
             havingString.append(viewEntityCondHavingString);
             if (addParens) havingString.append(")");
