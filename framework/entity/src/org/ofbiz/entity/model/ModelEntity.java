@@ -885,36 +885,55 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return returnString.toString();
     }
 
+    @Deprecated
     public String colNameString(ModelField... flds) {
-        return colNameString(Arrays.asList(flds));
+        return colNameString(new StringBuilder(), "", flds).toString();
     }
 
+    public StringBuilder colNameString(StringBuilder sb, String prefix,  ModelField... flds) {
+        return colNameString(Arrays.asList(flds), sb, prefix);
+    }
+
+    @Deprecated
     public String colNameString(List<ModelField> flds) {
-        return colNameString(flds, ", ", "", false);
+        return colNameString(flds, new StringBuilder(), "", ", ", "", false).toString();
     }
 
+    public StringBuilder colNameString(List<ModelField> flds, StringBuilder sb, String prefix) {
+        return colNameString(flds, sb, prefix, ", ", "", false);
+    }
+
+    @Deprecated
     public String colNameString(String separator, String afterLast, boolean alias, ModelField... flds) {
-        return colNameString(Arrays.asList(flds), separator, afterLast, alias);
+        return colNameString(Arrays.asList(flds), new StringBuilder(), "", separator, afterLast, alias).toString();
     }
 
-    public String colNameString(List<ModelField> flds, String separator, String afterLast, boolean alias) {
-        StringBuilder returnString = new StringBuilder();
+    public StringBuilder colNameString(StringBuilder sb, String prefix, String separator, String afterLast, boolean alias, ModelField... flds) {
+        return colNameString(Arrays.asList(flds), sb, prefix, separator, afterLast, alias);
+    }
 
+    @Deprecated
+    public String colNameString(List<ModelField> flds, String separator, String afterLast, boolean alias) {
+        return colNameString(flds, new StringBuilder(), "", separator, afterLast, alias).toString();
+    }
+
+    public StringBuilder colNameString(List<ModelField> flds, StringBuilder sb, String prefix, String separator, String afterLast, boolean alias) {
         if (flds.size() < 1) {
-            return "";
+            return sb;
         }
 
+        sb.append(prefix);
         Iterator<ModelField> fldsIt = flds.iterator();
         while (fldsIt.hasNext()) {
             ModelField field = fldsIt.next();
-            returnString.append(field.colName);
+            sb.append(field.colName);
             if (fldsIt.hasNext()) {
-                returnString.append(separator);
+                sb.append(separator);
             }
         }
 
-        returnString.append(afterLast);
-        return returnString.toString();
+        sb.append(afterLast);
+        return sb;
     }
 
     public String classNameString(ModelField... flds) {

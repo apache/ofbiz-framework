@@ -159,8 +159,12 @@ public class GenericDAO {
             }
         }
 
-        String sql = "INSERT INTO " + modelEntity.getTableName(datasourceInfo) + " (" + modelEntity.colNameString(fieldsToSave) + ") VALUES (" +
-            modelEntity.fieldsStringList(fieldsToSave, "?", ", ") + ")";
+        StringBuilder sqlB = new StringBuilder("INSERT INTO ").append(modelEntity.getTableName(datasourceInfo)).append(" (");
+
+        modelEntity.colNameString(fieldsToSave, sqlB, "");
+        sqlB.append(") VALUES (");
+        sqlB.append(modelEntity.fieldsStringList(fieldsToSave, "?", ", "));
+        String sql = sqlB.append(")").toString();
 
         try {
             sqlP.prepareStatement(sql);
@@ -261,13 +265,15 @@ public class GenericDAO {
             addFieldIfMissing(fieldsToSave, ModelEntity.STAMP_FIELD, modelEntity);
         }
 
-        String sql = "UPDATE " + modelEntity.getTableName(datasourceInfo) + " SET " + modelEntity.colNameString(fieldsToSave, "=?, ", "=?", false) + " WHERE " +
-            SqlJdbcUtil.makeWhereStringFromFields(modelEntity.getPkFieldsUnmodifiable(), entity, "AND");
+        StringBuilder sql = new StringBuilder().append("UPDATE ").append(modelEntity.getTableName(datasourceInfo)).append(" SET ");
+        modelEntity.colNameString(fieldsToSave, sql, "", "=?, ", "=?", false);
+        sql.append(" WHERE ");
+        sql.append(SqlJdbcUtil.makeWhereStringFromFields(modelEntity.getPkFieldsUnmodifiable(), entity, "AND"));
 
         int retVal = 0;
 
         try {
-            sqlP.prepareStatement(sql);
+            sqlP.prepareStatement(sql.toString());
             SqlJdbcUtil.setValues(sqlP, fieldsToSave, entity, modelFieldTypeReader);
             SqlJdbcUtil.setPkValues(sqlP, modelEntity, entity, modelFieldTypeReader);
             retVal = sqlP.executeUpdate();
@@ -505,7 +511,7 @@ public class GenericDAO {
         StringBuilder sqlBuffer = new StringBuilder("SELECT ");
 
         if (modelEntity.getNopksSize() > 0) {
-            sqlBuffer.append(modelEntity.colNameString(modelEntity.getNopksCopy(), ", ", "", datasourceInfo.aliasViews));
+            modelEntity.colNameString(modelEntity.getNopksCopy(), sqlBuffer, "", ", ", "", datasourceInfo.aliasViews);
         } else {
             sqlBuffer.append("*");
         }
@@ -575,7 +581,7 @@ public class GenericDAO {
         StringBuilder sqlBuffer = new StringBuilder("SELECT ");
 
         if (partialFields.size() > 0) {
-            sqlBuffer.append(modelEntity.colNameString(partialFields, ", ", "", datasourceInfo.aliasViews));
+            modelEntity.colNameString(partialFields, sqlBuffer, "", ", ", "", datasourceInfo.aliasViews);
         } else {
             sqlBuffer.append("*");
         }
@@ -668,7 +674,7 @@ public class GenericDAO {
         }
 
         if (selectFields.size() > 0) {
-            sqlBuffer.append(modelEntity.colNameString(selectFields, ", ", "", datasourceInfo.aliasViews));
+            modelEntity.colNameString(selectFields, sqlBuffer, "", ", ", "", datasourceInfo.aliasViews);
         } else {
             sqlBuffer.append("*");
         }
@@ -697,12 +703,7 @@ public class GenericDAO {
 
         // GROUP BY clause for view-entity
         if (modelViewEntity != null) {
-            String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(selectFields), ", ", "", false);
-
-            if (UtilValidate.isNotEmpty(groupByString)) {
-                sqlBuffer.append(" GROUP BY ");
-                sqlBuffer.append(groupByString);
-            }
+            modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(selectFields), sqlBuffer, " GROUP BY ", ", ", "", false);
         }
 
         // HAVING clause
@@ -1047,8 +1048,7 @@ public class GenericDAO {
 
         // GROUP BY clause for view-entity
         if (isGroupBy) {
-            sqlBuffer.append(" GROUP BY ");
-            sqlBuffer.append(modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false));
+            modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), sqlBuffer, " GROUP BY ", ", ", "", false);
         }
 
         // HAVING clause
