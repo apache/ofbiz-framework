@@ -18,12 +18,24 @@
  */
 package org.ofbiz.sql;
 
+import java.util.Collection;
+import java.util.Map;
+
 import org.ofbiz.base.lang.Appender;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.base.util.UtilValidate;
 
 public abstract class Atom implements Appender<StringBuilder> {
     public static boolean equalsHelper(Object l, Object r) {
         return UtilObject.equalsHelper(l, r);
+    }
+
+    public static <T extends Collection<I>, I> T checkEmpty(T col) {
+        return UtilValidate.isEmpty(col) ? null : col;
+    }
+
+    public static <T extends Map<K, V>, K, V> T checkEmpty(T map) {
+        return UtilValidate.isEmpty(map) ? null : map;
     }
 
     public String toString() {
