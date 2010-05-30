@@ -29,7 +29,7 @@ public final class ListCondition extends Condition {
 
     public ListCondition(Value left, String op, List<Value> values) {
         this.left = left;
-        this.op = op;
+        this.op = op.toLowerCase();
         this.values = values;
     }
 
