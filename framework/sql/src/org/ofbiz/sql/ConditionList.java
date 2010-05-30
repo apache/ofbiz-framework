@@ -48,6 +48,15 @@ public final class ConditionList extends Condition implements Iterable<Condition
         return conditions.iterator();
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof ConditionList) {
+            ConditionList other = (ConditionList) o;
+            return joiner.equals(other.joiner) && conditions.equals(other.conditions);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append('(');
         StringUtil.appendTo(sb, conditions, " ", " ", joiner.toString());

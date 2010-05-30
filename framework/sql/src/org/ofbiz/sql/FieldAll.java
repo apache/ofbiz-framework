@@ -40,6 +40,15 @@ public final class FieldAll extends Atom implements Iterable<String> {
         return exclude.iterator();
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof FieldAll) {
+            FieldAll other = (FieldAll) o;
+            return alias.equals(other.alias) && exclude.equals(other.exclude);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append(alias).append(".*");
         if (!exclude.isEmpty()) {

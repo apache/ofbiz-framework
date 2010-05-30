@@ -34,6 +34,15 @@ public final class InsertValues extends Atom implements InsertSource, Iterable<I
         return rows.iterator();
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof InsertValues) {
+            InsertValues other = (InsertValues) o;
+            return rows.equals(other.rows);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("VALUES ");
         StringUtil.appendTo(sb, rows, null, null, ", ");

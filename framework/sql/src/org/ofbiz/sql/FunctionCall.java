@@ -52,6 +52,15 @@ public final class FunctionCall extends StaticValue implements Iterable<Value> {
         return values.iterator();
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof FunctionCall) {
+            FunctionCall other = (FunctionCall) o;
+            return name.equals(other.name) && values.equals(other.values);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append(name).append('(');
         StringUtil.appendTo(sb, values, null, null, ", ");

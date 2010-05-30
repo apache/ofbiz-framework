@@ -49,6 +49,15 @@ public final class ListCondition extends Condition {
         return values;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof ListCondition) {
+            ListCondition other = (ListCondition) o;
+            return left.equals(other.left) && op.equals(other.op) && values.equals(other.values);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         left.appendTo(sb);
         sb.append(' ').append(op).append(" (");

@@ -101,6 +101,26 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         return limit;
     }
 
+    public boolean equals(Object o) {
+        if (!(o instanceof SQLSelect)) {
+            return false;
+        }
+
+        SQLSelect other = (SQLSelect) o;
+        return isDistinct == other.isDistinct
+            && fieldAlls.equals(other.fieldAlls)
+            && fieldDefs.equals(other.fieldDefs)
+            && table.equals(other.table)
+            && relations.equals(other.relations)
+            && equalsHelper(whereCondition, other.whereCondition)
+            && equalsHelper(havingCondition, other.havingCondition)
+            && offset == other.offset
+            && limit == other.limit
+            && equalsHelper(groupBy, other.groupBy)
+            && equalsHelper(orderBy, other.orderBy)
+        ;
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("SELECT");
         if (isDistinct) {

@@ -33,6 +33,15 @@ public final class StringValue extends ConstantValue {
         return str;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof StringValue) {
+            StringValue other = (StringValue) o;
+            return str.equals(other.str);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append('\'').append(str.replaceAll("'", "''")).append('\'');
         return sb;

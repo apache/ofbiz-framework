@@ -35,6 +35,15 @@ public final class KeyMap extends Atom {
         return rightFieldName;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof KeyMap) {
+            KeyMap other = (KeyMap) o;
+            return leftFieldName.equals(other.leftFieldName) && rightFieldName.equals(other.rightFieldName);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         return appendTo("left", "right", sb);
     }

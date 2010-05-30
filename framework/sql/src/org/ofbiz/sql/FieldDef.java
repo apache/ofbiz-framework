@@ -35,6 +35,15 @@ public final class FieldDef extends Atom {
         return value;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof FieldDef) {
+            FieldDef other = (FieldDef) o;
+            return alias.equals(other.alias) && value.equals(other.value);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         value.appendTo(sb);
         sb.append(" AS ").append(alias);

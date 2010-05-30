@@ -43,6 +43,15 @@ public final class CountFunction extends StaticValue {
         return field;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof CountFunction) {
+            CountFunction other = (CountFunction) o;
+            return isDistinct == other.isDistinct && field.equals(other.field);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("COUNT(");
         if (isDistinct) sb.append("DISTINCT ");

@@ -33,6 +33,15 @@ public final class ParameterValue extends Value {
         return name;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof ParameterValue) {
+            ParameterValue other = (ParameterValue) o;
+            return name.equals(other.name);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append('?').append(name);
         return sb;

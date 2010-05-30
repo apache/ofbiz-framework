@@ -35,6 +35,15 @@ public final class TableName extends Atom {
         return alias;
     }
 
+    public boolean equals(Object o) {
+        if (o instanceof TableName) {
+            TableName other = (TableName) o;
+            return tableName.equals(other.tableName) && alias.equals(other.alias);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append(tableName);
         if (!alias.equals(tableName)) {
