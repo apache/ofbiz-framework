@@ -18,14 +18,26 @@
  */
 package org.ofbiz.sql;
 
-public abstract class FieldDef extends Atom {
-    protected final String alias;
+public final class FieldDef extends Atom {
+    private final String alias;
+    private final StaticValue value;
 
-    protected FieldDef(String alias) {
-        this.alias = alias;
+    public FieldDef(StaticValue value, String alias) {
+        this.alias = alias == null ? value.getDefaultName() : alias;
+        this.value = value;
     }
 
     public final String getAlias() {
         return alias;
+    }
+
+    public StaticValue getValue() {
+        return value;
+    }
+
+    public StringBuilder appendTo(StringBuilder sb) {
+        value.appendTo(sb);
+        sb.append(" AS ").append(alias);
+        return sb;
     }
 }
