@@ -1576,6 +1576,9 @@ public class DatabaseUtil {
                 }
             }
             for (String curTableName: tableNames) {
+                if (lookupSchemaName != null) {
+                    curTableName = curTableName.substring(lookupSchemaName.length() + 1);
+                }
 
                 ResultSet rsCols = null;
                 try {
@@ -1598,6 +1601,9 @@ public class DatabaseUtil {
                         String tableName = rsCols.getString("TABLE_NAME");
                         if (needsUpperCase && tableName != null) {
                             tableName = tableName.toUpperCase();
+                        }
+                        if (lookupSchemaName != null) {
+                            tableName = lookupSchemaName + '.' + tableName;
                         }
                         if (!tableNames.contains(tableName)) continue;
 
