@@ -293,7 +293,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         protected Menu tabMenu = null;
         protected Form navigationForm = null;
         protected boolean collapsible = false;
-        protected boolean initiallyCollapsed = false;
+        protected FlexibleStringExpander initiallyCollapsed;
         protected boolean saveCollapsed = true;
         protected boolean padded = true;
         protected List<ModelScreenWidget> subWidgets;
@@ -302,8 +302,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
             super(modelScreen, screenletElement);
             this.idExdr = FlexibleStringExpander.getInstance(screenletElement.getAttribute("id"));
             this.collapsible = "true".equals(screenletElement.getAttribute("collapsible"));
-            this.initiallyCollapsed = "true".equals(screenletElement.getAttribute("initially-collapsed"));
-            if (this.initiallyCollapsed) {
+            this.initiallyCollapsed = FlexibleStringExpander.getInstance(screenletElement.getAttribute("initially-collapsed"));
+            if ("true".equals(this.initiallyCollapsed.getOriginal())) {
                 this.collapsible = true;
             }
             // By default, for a collapsible screenlet, the collapsed/expanded status must be saved
@@ -388,7 +388,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 return Boolean.valueOf((String)userPreferences.get(screenletId)).booleanValue() ;
             }
 
-            return this.initiallyCollapsed;
+            return "true".equals(this.initiallyCollapsed.expand(context));
         }
 
         public boolean saveCollapsed() {
