@@ -154,8 +154,11 @@ public class UtilHttp {
     }
 
     public static Map<String, Object> getQueryStringOnlyParameterMap(HttpServletRequest request) {
+        return getQueryStringOnlyParameterMap(request.getQueryString());
+    }
+
+    public static Map<String, Object> getQueryStringOnlyParameterMap(String queryString) {
         Map<String, Object> paramMap = FastMap.newInstance();
-        String queryString = request.getQueryString();
         if (UtilValidate.isNotEmpty(queryString)) {
             StringTokenizer queryTokens = new StringTokenizer(queryString, "&");
             while (queryTokens.hasMoreTokens()) {
@@ -169,7 +172,7 @@ public class UtilHttp {
                 String name = token;
                 if (equalsIndex > 0) {
                     name = token.substring(0, equalsIndex);
-                    paramMap.put(name, request.getParameter(name));
+                    paramMap.put(name, token.substring(equalsIndex + 1));
                 }
             }
         }
@@ -177,12 +180,15 @@ public class UtilHttp {
     }
 
     public static Map<String, Object> getPathInfoOnlyParameterMap(HttpServletRequest request, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
+        return getPathInfoOnlyParameterMap(request.getPathInfo(), nameSet, onlyIncludeOrSkip);
+    }
+
+    public static Map<String, Object> getPathInfoOnlyParameterMap(String pathInfoStr, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
         boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip.booleanValue();
         Map<String, Object> paramMap = FastMap.newInstance();
 
         // now add in all path info parameters /~name1=value1/~name2=value2/
         // note that if a parameter with a given name already exists it will be put into a list with all values
-        String pathInfoStr = request.getPathInfo();
 
         if (UtilValidate.isNotEmpty(pathInfoStr)) {
             // make sure string ends with a trailing '/' so we get all values
@@ -224,9 +230,13 @@ public class UtilHttp {
     }
 
     public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
+        return getUrlOnlyParameterMap(request.getQueryString(), request.getPathInfo());
+    }
+
+    public static Map<String, Object> getUrlOnlyParameterMap(String queryString, String pathInfo) {
         // NOTE: these have already been through canonicalizeParameterMap, so not doing it again here
-        Map<String, Object> paramMap = getQueryStringOnlyParameterMap(request);
-        paramMap.putAll(getPathInfoOnlyParameterMap(request, null, null));
+        Map<String, Object> paramMap = getQueryStringOnlyParameterMap(queryString);
+        paramMap.putAll(getPathInfoOnlyParameterMap(pathInfo, null, null));
         return paramMap;
     }
 
