@@ -19,21 +19,14 @@
 
 package org.ofbiz.party.party;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
-import javolution.util.FastList;
-
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * PartyRelationshipHelper
@@ -42,44 +35,48 @@ public class PartyRelationshipHelper {
 
     public static final String module = PartyRelationshipHelper.class.getName();
 
-    /** Return A List of the active Party Relationships (ie with valid from and thru dates)
-     *@param delegator needed Delegator
-     *@param partyRelationshipValues Map containing the input parameters (primaries keys + partyRelationshipTypeId)
-     *@return List of the active Party Relationships
+    /**
+     * Return A List of the active Party Relationships
+     *
+     * @param delegator
+     * @param partyRelationshipValues Map containing the input parameters
+     * @return List of the active Party Relationships
      */
-    public static List<GenericValue> getActivePartyRelationships(Delegator delegator, Map<String, ?> partyRelationshipValues) {
-        String partyIdFrom = (String) partyRelationshipValues.get("partyIdFrom") ;
-        String partyIdTo = (String) partyRelationshipValues.get("partyIdTo") ;
-        String roleTypeIdFrom = (String) partyRelationshipValues.get("roleTypeIdFrom") ;
-        String roleTypeIdTo = (String) partyRelationshipValues.get("roleTypeIdTo") ;
-        String partyRelationshipTypeId = (String) partyRelationshipValues.get("partyRelationshipTypeId") ;
-        Timestamp fromDate = UtilDateTime.nowTimestamp();
+    public static List<GenericValue> getPartyRelationships(Delegator delegator, Map<String, ?> partyRelationshipValues) {
+        return getPartyRelationships(delegator, partyRelationshipValues, true);
+    }
 
-        List<EntityCondition> condList = FastList.newInstance();
-        condList.add(EntityCondition.makeCondition("partyIdFrom", partyIdFrom));
-        condList.add(EntityCondition.makeCondition("partyIdTo", partyIdTo));
-        condList.add(EntityCondition.makeCondition("roleTypeIdFrom", roleTypeIdFrom));
-        condList.add(EntityCondition.makeCondition("roleTypeIdTo", roleTypeIdTo));
-        condList.add(EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId));
-        condList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, fromDate));
-        EntityCondition thruCond = EntityCondition.makeCondition(UtilMisc.toList(
-                EntityCondition.makeCondition("thruDate", null),
-                EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, fromDate)),
-                EntityOperator.OR);
-        condList.add(thruCond);
-        EntityCondition condition = EntityCondition.makeCondition(condList);
-
+    /**
+     * Return A List of the Party Relationships
+     *
+     * @param delegator
+     * @param partyRelationshipValues Map containing the input parameters
+     * @param activeOnly
+     * @return List of the active Party Relationships
+     */
+    public static List<GenericValue> getPartyRelationships(Delegator delegator, Map<String, ?> partyRelationshipValues, boolean activeOnly) {
         List<GenericValue> partyRelationships = null;
         try {
-            partyRelationships = delegator.findList("PartyRelationship", condition, null, null, null, false);
+            partyRelationships = delegator.findByAndCache("PartyRelationship", partyRelationshipValues);
+            if (activeOnly){
+                partyRelationships = EntityUtil.filterByDate(partyRelationships);
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem finding PartyRelationships. ", module);
-            return null;
         }
-        if (UtilValidate.isNotEmpty(partyRelationships)) {
-           return partyRelationships;
-        } else {
-            return null;
-        }
+
+        return partyRelationships;
+    }
+
+    @Deprecated
+    /**
+     * Return A List of the active Party Relationships (ie with valid from and thru dates)
+     *
+     * @param delegator needed Delegator
+     * @param partyRelationshipValues Map containing the input parameters (primaries keys + partyRelationshipTypeId)
+     * @return List of the active Party Relationships
+     */
+    public static List<GenericValue> getActivePartyRelationships(Delegator delegator, Map<String, ?> partyRelationshipValues) {
+        return getPartyRelationships(delegator, partyRelationshipValues, true);
     }
 }
