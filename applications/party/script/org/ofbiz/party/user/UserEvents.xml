@@ -408,7 +408,7 @@ under the License.
         <set field="emailContext.partyId" from-field="partyId"/>
         <set field="emailContext.productStoreId" from-field="parameters.PRODUCT_STORE_ID"/>
         <set-service-fields service-name="sendCreatePartyEmailNotification" map="emailContext" to-map="serviceInMap"/>
-        <call-service service-name="sendCreatePartyEmailNotification" in-map-name="serviceInMap"/>
+        <call-service-asynch service-name="sendCreatePartyEmailNotification" in-map-name="serviceInMap"/>
     </simple-method>
 
 </simple-methods>
