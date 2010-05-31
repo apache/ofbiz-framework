@@ -214,8 +214,8 @@ under the License.
             <set field="eventWe.description" from-field="parameters.relationDescription"/>
             <create-value value-field="lookupMap"/>
         </if-empty>
-        <field-to-result field="workEffortId" result-name="lookupMap"/>
-        <field-to-result field="communicationEventId" result-name="lookupMap"/>
+        <field-to-result field="lookupMap.workEffortId" result-name="workEffortId"/>
+        <field-to-result field="lookupMap.communicationEventId" result-name="communicationEventId"/>
     </simple-method>
 
     <simple-method method-name="updateCommunicationEventWorkEff" short-description="Delete a CommunicationEventWorkEff">
