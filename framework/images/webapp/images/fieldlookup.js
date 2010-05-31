@@ -978,6 +978,6 @@ var lookupDescriptionLoaded = Class.create({
         }
         Element.cleanWhitespace(wrapperElement);
         Element.cleanWhitespace(wrapperElement.down());
-        setLookDescription(this.fieldId, wrapperElement.firstDescendant().firstDescendant().textContent);
+        setLookDescription(this.fieldId, wrapperElement.firstDescendant().firstDescendant().innerHTML);
     }            
 });
