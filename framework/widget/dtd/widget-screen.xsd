@@ -915,8 +915,8 @@ under the License.
         <xs:attribute type="xs:string" name="title">
             <xs:annotation><xs:documentation>Title text to be placed in the screenlet title bar.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="id"/>
-        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute name="id" type="xs:string"/>
+        <xs:attribute name="name" type="xs:string"/>
         <xs:attribute name="collapsible" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -925,14 +925,8 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="initially-collapsed" default="false">
-            <xs:annotation><xs:documentation>When set to true, screenlet will be collapsed initially. Defaults to false.</xs:documentation></xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
+        <xs:attribute name="initially-collapsed" type="xs:string" default="false">
+            <xs:annotation><xs:documentation>When set to true, screenlet will be collapsed initially. Can be an expanded string to get the value from a variable. Defaults to false.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute name="save-collapsed" default="true">
             <xs:annotation><xs:documentation>When set to true, screenlet collapse status is saved as user preference. Defaults to true.</xs:documentation></xs:annotation>

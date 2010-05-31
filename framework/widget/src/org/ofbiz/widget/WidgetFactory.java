@@ -77,6 +77,8 @@ public class WidgetFactory {
         try {
             return widgetConst.newInstance(modelScreen, element);
         } catch (Exception e) {
+            // log the original exception since the rethrown exception doesn't include much info about it and hides the cause
+            Debug.logError(e, "Error getting widget for element " + element.getTagName(), module);
             throw new IllegalArgumentException(e.getMessage() + " for element " + element.getTagName());
         }
     }
