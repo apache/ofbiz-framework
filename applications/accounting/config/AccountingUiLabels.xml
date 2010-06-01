@@ -1273,6 +1273,7 @@
     </property>
     <property key="AccountingBankAccount">
         <value xml:lang="en">Bank Account</value>
+        <value xml:lang="fr">Relevé d'identité bancaire</value>
         <value xml:lang="hi_IN">बैन्क खाता</value>
     </property>
     <property key="AccountingBankName">
