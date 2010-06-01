@@ -38,6 +38,10 @@ public abstract class Atom implements Appender<StringBuilder> {
         return UtilValidate.isEmpty(map) ? null : map;
     }
 
+    public boolean equals(Object o) {
+        throw new UnsupportedOperationException(getClass().getName());
+    }
+
     public String toString() {
         return appendTo(new StringBuilder()).toString();
     }

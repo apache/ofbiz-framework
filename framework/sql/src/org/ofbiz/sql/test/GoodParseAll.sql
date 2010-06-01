@@ -57,7 +57,11 @@ ORDER BY
 OFFSET 5
 LIMIT 10
 ;
-
+SELECT DISTINCT
+	firstName
+FROM
+	Person
+;
 INSERT INTO Party (partyId, partyTypeId, statusId) VALUES
     ('a', 'PERSON', 'PARTY_DISABLED'),
     (5, 'PARTY_GROUP', ?name);
