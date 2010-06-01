@@ -329,7 +329,7 @@
     </property>
     <property key="FormFieldTitle_partyQualTypeId">
         <value xml:lang="en">Party Qual Type Id</value>
-        <value xml:lang="fr">Type de qualification</value>
+        <value xml:lang="fr">Diplôme</value>
         <value xml:lang="it">Tipo qualifica soggetto</value>
         <value xml:lang="pt_BR">Id de tipo qualificação de participante</value>
         <value xml:lang="zh">会员资质类型</value>
@@ -440,7 +440,7 @@
     </property>
     <property key="FormFieldTitle_qualificationDesc">
         <value xml:lang="en">Qualification Desc</value>
-        <value xml:lang="fr">Description de la qualification</value>
+        <value xml:lang="fr">Desc. compl.</value>
         <value xml:lang="it">Descrizione qualifica</value>
         <value xml:lang="pt_BR">Descrição de qualificação</value>
         <value xml:lang="zh">资质描述</value>
@@ -587,7 +587,7 @@
     </property>
     <property key="FormFieldTitle_verifStatusId">
         <value xml:lang="en">Verif Status Id</value>
-        <value xml:lang="fr">Vérification de statut</value>
+        <value xml:lang="fr">Verifié</value>
         <value xml:lang="it">Stato verifica</value>
         <value xml:lang="pt_BR">Id de estado de verificação</value>
         <value xml:lang="zh">审核状态</value>
