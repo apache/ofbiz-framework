@@ -8572,6 +8572,35 @@
         <value xml:lang="nl">Onder handen</value>       
         <value xml:lang="zh">处理中</value>
     </property>
+    <property key="StatusItem.description.TRAINING_APPROVED">
+        <value xml:lang="en">Approved</value>
+        <value xml:lang="fr">Approuvée</value>
+        <value xml:lang="it">Approvato</value>
+        <value xml:lang="nl">Goedgekeurd</value>
+        <value xml:lang="zh">已批准</value>
+    </property>
+    <property key="StatusItem.description.TRAINING_PROPOSED">
+        <value xml:lang="de">Vorgeschlagen</value>
+        <value xml:lang="en">Proposed</value>
+        <value xml:lang="es">Propuesto</value>
+        <value xml:lang="fr">Proposée</value>
+        <value xml:lang="it">Proposto</value>
+        <value xml:lang="ru">Предложено</value>
+        <value xml:lang="th">ถูกเสนอ</value>
+        <value xml:lang="zh">提议</value>
+    </property>
+    <property key="StatusItem.description.TRAINING_REJECTED">
+        <value xml:lang="de">Abgelehnt</value>
+        <value xml:lang="en">Rejected</value>
+        <value xml:lang="es">Rechazado</value>
+        <value xml:lang="fr">Rejetée</value>
+        <value xml:lang="it">Rifiutato</value>
+        <value xml:lang="pt">Rejeitado</value>
+        <value xml:lang="ro">Refuzat</value>
+        <value xml:lang="ru">Отклонено</value>
+        <value xml:lang="th">ปฏิเสธ</value>
+        <value xml:lang="zh">已拒绝</value>
+    </property>
     <property key="StatusItem.description.WEFA_AVAILABLE">
         <value xml:lang="en">Available</value>
         <value xml:lang="fr">Disponible</value>
