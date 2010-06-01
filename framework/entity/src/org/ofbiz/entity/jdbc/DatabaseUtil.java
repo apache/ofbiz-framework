@@ -47,7 +47,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -64,7 +63,6 @@ import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.base.concurrent.DependencyPool;
 import org.ofbiz.base.concurrent.ExecutionPool;
 
 /**
@@ -186,7 +184,7 @@ public class DatabaseUtil {
         return result;
     }
 
-    private class TableFuture extends DBFuture<TableFuture> implements DependencyPool.Item<TableFuture, String, TableFuture> {
+    private class TableFuture extends DBFuture<TableFuture> {
         private final int curEnt;
         private final int totalEnt;
         private final ModelEntity entity;
@@ -202,18 +200,6 @@ public class DatabaseUtil {
             this.entity = entity;
             this.checkPks = checkPks;
             this.addMissing = addMissing;
-        }
-
-        public String getKey() {
-            return "table#" + entity.getTableName(datasourceInfo);
-        }
-
-        public Collection<String> getDependencies() {
-            return Collections.emptyList();
-        }
-
-        public Collection<String> getProvides() {
-            return Collections.emptyList();
         }
 
         public TableFuture call() {
@@ -416,7 +402,7 @@ public class DatabaseUtil {
         }
     }
 
-    private class ForeignKeyIndexFuture extends CountingFuture<ForeignKeyIndexFuture> implements DependencyPool.Item<ForeignKeyIndexFuture, String, ForeignKeyIndexFuture> {
+    private class ForeignKeyIndexFuture extends CountingFuture<ForeignKeyIndexFuture> {
         private final ModelEntity entity;
         private final int constraintNameClipLength;
 
@@ -426,43 +412,18 @@ public class DatabaseUtil {
             this.constraintNameClipLength = constraintNameClipLength;
         }
 
-        public String getKey() {
-            return "fk-index#" + entity.getTableName(datasourceInfo);
-        }
-
-        public Collection<String> getDependencies() {
-            return UtilMisc.toList("table#" + entity.getTableName(datasourceInfo));
-        }
-
-        public Collection<String> getProvides() {
-            return Collections.emptyList();
-        }
-
         public ForeignKeyIndexFuture call() {
             count.addAndGet(createForeignKeyIndices(entity, constraintNameClipLength, messages));
             return this;
         }
     }
 
-    private class DeclaredIndexFuture extends CountingFuture<DeclaredIndexFuture> implements DependencyPool.Item<DeclaredIndexFuture, String, DeclaredIndexFuture> {
+    private class DeclaredIndexFuture extends CountingFuture<DeclaredIndexFuture> {
         private final ModelEntity entity;
 
         protected DeclaredIndexFuture(AtomicInteger count, ModelEntity entity) {
             super(count);
             this.entity = entity;
-        }
-
-        public String getKey() {
-            return "declared-index#" + entity.getTableName(datasourceInfo);
-        }
-
-        public Collection<String> getDependencies() {
-            String tableName = entity.getTableName(datasourceInfo);
-            return UtilMisc.toList("table#" + tableName, "fk-index#" + tableName);
-        }
-
-        public Collection<String> getProvides() {
-            return Collections.emptyList();
         }
 
         public DeclaredIndexFuture call() {
@@ -516,11 +477,9 @@ public class DatabaseUtil {
         int curEnt = 0;
         int totalEnt = modelEntityList.size();
         List<ModelEntity> entitiesAdded = FastList.newInstance();
-        List<TableFuture> tableFutures = FastList.newInstance();
+        List<Future<TableFuture>> tableFutureFutures = FastList.newInstance();
         ScheduledExecutorService threadPool = ExecutionPool.getNewOptimalExecutor("Databaseutil");
-        DependencyPool depPool = new DependencyPool(threadPool, 3);
 
-        Debug.logInfo("start of table creation", module);
         for (ModelEntity entity: modelEntityList) {
             curEnt++;
 
@@ -532,44 +491,13 @@ public class DatabaseUtil {
                 continue;
             }
 
-            TableFuture tf = new TableFuture(modelEntities, timer, tableNames, colInfo, curEnt, totalEnt, entity, checkPks, addMissing);
-            tableFutures.add(tf);
-            depPool.add(tf);
+            tableFutureFutures.add(threadPool.submit(new TableFuture(modelEntities, timer, tableNames, colInfo, curEnt, totalEnt, entity, checkPks, addMissing)));
         }
 
-        // for each newly added table, add fk indices
-        Debug.logInfo("start of fk indices", module);
-        List<ForeignKeyIndexFuture> fkIndicesFutures = FastList.newInstance();
-        AtomicInteger totalFkIndices = new AtomicInteger();
-        if (datasourceInfo.useFkIndices) {
-            for (ModelEntity curEntity: entitiesAdded) {
-                if (curEntity.getRelationsOneSize() > 0) {
-                    ForeignKeyIndexFuture fkif = new ForeignKeyIndexFuture(totalFkIndices, curEntity, datasourceInfo.constraintNameClipLength);
-                    fkIndicesFutures.add(fkif);
-                    depPool.add(fkif);
-                }
-            }
+        for (TableFuture tableFuture: getAllFutures(tableFutureFutures)) {
+            tableFuture.updateData(messages, entitiesAdded);
         }
-        // for each newly added table, add declared indexes
-        List<DeclaredIndexFuture> disFutures = FastList.newInstance();
-        AtomicInteger totalDis = new AtomicInteger();
-        if (datasourceInfo.useIndices) {
-            for (ModelEntity curEntity: entitiesAdded) {
-                if (curEntity.getIndexesSize() > 0) {
-                    DeclaredIndexFuture dif = new DeclaredIndexFuture(totalDis, curEntity);
-                    disFutures.add(dif);
-                    depPool.add(dif);
-                }
-            }
-        }
-
-        depPool.start();
-        try {
-            depPool.await();
-        } catch (InterruptedException e) {
-            Debug.logError(e, "Couldn't wait for dependency pool to finish while creating the database", module);
-            return;
-        }
+        timer.timerString("After Individual Table/Column Check");
 
         // -list all tables that do not have a corresponding entity
         for (String tableName: tableNames) {
@@ -577,13 +505,17 @@ public class DatabaseUtil {
             Debug.logWarning(message, module);
             if (messages != null) messages.add(message);
         }
-        for (TableFuture tableFuture: tableFutures) {
-            tableFuture.updateData(messages, entitiesAdded);
-        }
-        timer.timerString("After Individual Table/Column Check");
 
+        // for each newly added table, add fk indices
         if (datasourceInfo.useFkIndices) {
-            for (ForeignKeyIndexFuture fkIndicesFuture: fkIndicesFutures) {
+            List<Future<ForeignKeyIndexFuture>> fkIndicesFutureFutures = FastList.newInstance();
+            AtomicInteger totalFkIndices = new AtomicInteger();
+            for (ModelEntity curEntity: entitiesAdded) {
+                if (curEntity.getRelationsOneSize() > 0) {
+                    fkIndicesFutureFutures.add(threadPool.submit(new ForeignKeyIndexFuture(totalFkIndices, curEntity, datasourceInfo.constraintNameClipLength)));
+                }
+            }
+            for (ForeignKeyIndexFuture fkIndicesFuture: getAllFutures(fkIndicesFutureFutures)) {
                 fkIndicesFuture.updateData(messages);
             }
             if (totalFkIndices.get() > 0) Debug.logImportant("==== TOTAL Foreign Key Indices Created: " + totalFkIndices.get(), module);
@@ -600,7 +532,14 @@ public class DatabaseUtil {
 
         // for each newly added table, add declared indexes
         if (datasourceInfo.useIndices) {
-            for (DeclaredIndexFuture disFuture: disFutures) {
+            List<Future<DeclaredIndexFuture>> disFutureFutures = FastList.newInstance();
+            AtomicInteger totalDis = new AtomicInteger();
+            for (ModelEntity curEntity: entitiesAdded) {
+                if (curEntity.getIndexesSize() > 0) {
+                    disFutureFutures.add(threadPool.submit(new DeclaredIndexFuture(totalDis, curEntity)));
+                }
+            }
+            for (DeclaredIndexFuture disFuture: getAllFutures(disFutureFutures)) {
                 disFuture.updateData(messages);
             }
             if (totalDis.get() > 0) Debug.logImportant("==== TOTAL Declared Indices Created: " + totalDis.get(), module);

@@ -21,12 +21,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.ofbiz.base.lang.LockedBy;
 import org.ofbiz.base.lang.SourceMonitored;
-import org.ofbiz.base.util.Debug;
 
 @SourceMonitored
 public class DependencyPool<K, I extends DependencyPool.Item<I, K, V>, V> {
-    public static final String module = DependencyPool.class.getName();
-
     private final Executor executor;
     private final ConcurrentMap<K, I> allItems = new ConcurrentHashMap<K, I>();
     private final ConcurrentMap<K, Future<V>> results = new ConcurrentHashMap<K, Future<V>>();
@@ -87,14 +84,10 @@ public class DependencyPool<K, I extends DependencyPool.Item<I, K, V>, V> {
     public boolean await() throws InterruptedException {
         submitLock.lock();
         try {
-            Debug.logInfo("a outstanding.size=" + outstanding.size(), module);
-            Debug.logInfo("a pending.size=" + pending.size(), module);
             submitWork();
             while (!outstanding.isEmpty()) {
                 submitCondition.await();
             }
-            Debug.logInfo("b outstanding.size=" + outstanding.size(), module);
-            Debug.logInfo("b pending.size=" + pending.size(), module);
             return pending.isEmpty();
         } finally {
             submitLock.unlock();
