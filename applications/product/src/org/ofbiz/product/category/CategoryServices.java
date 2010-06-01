@@ -264,7 +264,10 @@ public class CategoryServices {
         if (productCategory != null) {
             try {
                 if (useCacheForMembers) {
-                    EntityCondition lookupCondition = EntityCondition.makeCondition(UtilMisc.toMap("productCategoryId", productCategoryId));
+                    productCategoryMembers = delegator.findByAndCache(entityName, UtilMisc.toMap("productCategoryId", productCategoryId), orderByFields);
+                    if (activeOnly) {
+                        productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
+                    }
                     List<EntityCondition> filterConditions = FastList.newInstance();
                     if (introductionDateLimit != null) {
                         EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
@@ -274,19 +277,14 @@ public class CategoryServices {
                         EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
                         filterConditions.add(condition);
                     }
+                    if (!filterConditions.isEmpty()) {
+                        productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
+                    }
 
                     // filter out the view allow before getting the sublist
                     if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
-                        productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, lookupCondition, orderByFields, activeOnly, filterConditions, viewProductCategoryId);
+                        productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
                         listSize = productCategoryMembers.size();
-                    } else {
-                        productCategoryMembers = delegator.findList(entityName, lookupCondition, null, orderByFields, null, true);
-                        if (activeOnly) {
-                            productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
-                        }
-                        if (!filterConditions.isEmpty()) {
-                            productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
-                        }
                     }
 
                     // set the index and size
