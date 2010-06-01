@@ -18,15 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.product.category;
 
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -374,18 +379,169 @@ public class CategoryWorker {
     }
 
     public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId, String productIdFieldName) throws GenericEntityException {
-        List<GenericValue> newList = FastList.newInstance();
-
-        if (productCategoryId == null) return newList;
         if (valueObjects == null) return null;
+        if (productCategoryId == null) return FastList.newInstance();
 
+        EntityCondition productCategoryIdCondition = EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, productCategoryId);
+        Iterator<GenericValue> it = valueObjects.iterator();
+        Set<String> allowedProductIds = FastSet.newInstance();
+        Map<String, Set<String>> variants = FastMap.newInstance();
+        Timestamp now = UtilDateTime.nowTimestamp();
+        while (it.hasNext()) {
+            Set<String> lookupProductIds = FastSet.newInstance();
+            while (lookupProductIds.size() < 100 && it.hasNext()) {
+                GenericValue value = it.next();
+                lookupProductIds.add(value.getString("productId"));
+            }
+            EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("productId", EntityOperator.IN, lookupProductIds), EntityOperator.AND, productCategoryIdCondition);
+            //Debug.logInfo("query(ProductAndCategoryMember)->" + condition, module);
+            List<GenericValue> subProducts = delegator.findList("ProductAndCategoryMember", condition, null, null, null, true);
+            for (GenericValue subProduct: subProducts) {
+                String productId = subProduct.getString("productId");
+                if (EntityUtil.isValueActive(subProduct, now)) {
+                    allowedProductIds.add(productId);
+                    variants.remove(productId);
+                } else if ("Y".equals(subProduct.get("isVariant"))) {
+                    variants.put(productId, null);
+                }
+            }
+        }
+
+        return filterVariantsInCategory(delegator, now, productCategoryIdCondition, valueObjects, allowedProductIds, variants, productIdFieldName);
+    }
+
+    private static List<GenericValue> filterVariantsInCategory(Delegator delegator, Timestamp now, EntityCondition productCategoryIdCondition, List<GenericValue> valueObjects, Set<String> allowedProductIds, Map<String, Set<String>> variants, String productIdFieldName) throws GenericEntityException {
+        List<GenericValue> newList = FastList.newInstance();
+        EntityCondition assocTypeIdCondition = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_VARIANT");
+        Map<String, Set<String>> revVariantMap = FastMap.newInstance();
+        Map<String, Set<String>> revParentMap = FastMap.newInstance();
+        // there may have been multiple rows with a variant's productId,
+        // with some of those rows not being active by date, with later
+        // rows being active.  This would cause the earlier rows to get
+        // added to variants, and the later ones to be added to
+        // allowed products.  Since we only care about finding allowed
+        // products, once something is allowed, we no longer need to be
+        // concerned about it.
+        variants.keySet().removeAll(allowedProductIds);
+        while (!variants.isEmpty()) {
+            Iterator<Map.Entry<String, Set<String>>> variantIt = variants.entrySet().iterator();
+            // this maps from possible variant child id, to original id,
+            // from the first loop above; this is so we can finally mark
+            // the original product as allowed
+            while (variantIt.hasNext()) {
+                Map.Entry<String, Set<String>> entry = variantIt.next();
+                Set<String> assocParents = entry.getValue();
+                if (assocParents == null) {
+                    // this only happens the first time thru the outer
+                    // loop.
+                    UtilMisc.addToSetInMap(entry.getKey(), revVariantMap, entry.getKey());
+                    entry.setValue(FastSet.<String>newInstance());
+                } else if (assocParents.isEmpty()) {
+                    variantIt.remove();
+                } else {
+                    for (String assocParent: assocParents) {
+                        UtilMisc.addToSetInMap(entry.getKey(), revVariantMap, assocParent);
+                    }
+                    assocParents.clear();
+                }
+            }
+            Iterator<String> variantIdIt = revVariantMap.keySet().iterator();
+            while (variantIdIt.hasNext()) {
+                Set<String> lookupProductIds = FastSet.newInstance();
+                while (variantIdIt.hasNext() && lookupProductIds.size() < 100) {
+                    lookupProductIds.add(variantIdIt.next());
+                }
+                // FIXME: use correct productAssocTypeId
+                EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("productIdTo", EntityOperator.IN, lookupProductIds), EntityOperator.AND, assocTypeIdCondition);
+                Debug.logInfo("query(ProductAndAssoc)->" + condition, module);
+                List<GenericValue> assocValues = delegator.findList("ProductAndAssoc", condition, null, null, null, true);
+                for (GenericValue assocValue: assocValues) {
+                    if (!EntityUtil.isValueActive(assocValue, now)) {
+                        continue;
+                    }
+                    String productIdTo = assocValue.getString("productIdTo");
+                    String parentProductId = assocValue.getString("productId");
+                    for (String originalProductId: revVariantMap.get(productIdTo)) {
+                        variants.get(originalProductId).add(parentProductId);
+                        //allParentProductIds.add(parentProductId);
+                        UtilMisc.addToSetInMap(originalProductId, revParentMap, parentProductId);
+                    }
+                }
+            }
+            revVariantMap.clear();
+            // at this point, the values in variants contain all the
+            // parent productIds.  Now do another membership test in
+            // the requested productCategory.
+            Iterator<String> parentIdIt = revParentMap.keySet().iterator();
+            while (parentIdIt.hasNext()) {
+                Set<String> lookupProductIds = FastSet.newInstance();
+                while (parentIdIt.hasNext() && lookupProductIds.size() < 100) {
+                    lookupProductIds.add(parentIdIt.next());
+                }
+                EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("productId", EntityOperator.IN, lookupProductIds), EntityOperator.AND, productCategoryIdCondition);
+                Debug.logInfo("query(ProductAndCategoryMember)->" + condition, module);
+                List<GenericValue> subProducts = delegator.findList("ProductAndCategoryMember", condition, null, null, null, true);
+                for (GenericValue subProduct: subProducts) {
+                    String productId = subProduct.getString("productId");
+                    if (EntityUtil.isValueActive(subProduct, now)) {
+                        // yay, found a membership
+                        for (String originalProductId: revParentMap.get(productId)) {
+                            allowedProductIds.add(originalProductId);
+                            variants.remove(originalProductId);
+                        }
+                    } else if ("Y".equals(subProduct.get("isVariant"))) {
+                        for (String originalProductId: revParentMap.get(productId)) {
+                            UtilMisc.addToSetInMap(productId, variants, originalProductId);
+                        }
+                    }
+                }
+            }
+            revParentMap.clear();
+        }
         for (GenericValue curValue: valueObjects) {
             String productId = curValue.getString(productIdFieldName);
-            if (isProductInCategory(delegator, productId, productCategoryId)) {
+            if (allowedProductIds.contains(productId)) {
                 newList.add(curValue);
             }
         }
         return newList;
+    }
+
+    public static List<GenericValue> filterProductsInCategory(Delegator delegator, EntityCondition lookupCondition, List<String> orderByFields, boolean activeOnly, List<EntityCondition> filterConditions, String productCategoryId) throws GenericEntityException {
+        List<GenericValue> newList = FastList.newInstance();
+        if (productCategoryId == null) return newList;
+
+        EntityCondition productCategoryIdCondition = EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, productCategoryId);
+        EntityCondition assocTypeIdCondition = EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_VARIANT");
+        Set<String> allowedProductIds = FastSet.newInstance();
+        Map<String, Set<String>> variants = FastMap.newInstance();
+        Map<String, Set<String>> revVariantMap = FastMap.newInstance();
+        Map<String, Set<String>> revParentMap = FastMap.newInstance();
+        Timestamp now = UtilDateTime.nowTimestamp();
+
+        EntityCondition valueCondition = EntityCondition.makeCondition(lookupCondition, EntityOperator.AND, EntityCondition.makeCondition("secondaryProductCategoryId", EntityOperator.EQUALS, productCategoryId));
+        //Debug.logInfo("findList(ProductAndCategoryMember, " + valueCondition + ", " + orderByFields + ")", module);
+        List<GenericValue> valueObjects = delegator.findList("ProductAndCategoryMemberDouble", valueCondition, null, orderByFields, null, true);
+        //Debug.logInfo("valueObjects.size()=" + valueObjects.size(), module);
+        if (filterConditions.isEmpty()) {
+            valueObjects = EntityUtil.filterByAnd(valueObjects, filterConditions);
+        }
+        if (activeOnly) {
+            valueObjects = EntityUtil.filterByDate(valueObjects, now);
+        }
+        //Debug.logInfo("valueObjects.size()=" + valueObjects.size(), module);
+        Iterator<GenericValue> it = valueObjects.iterator();
+        while (it.hasNext()) {
+            GenericValue row = it.next();
+            String productId = row.getString("productId");
+            if (EntityUtil.isValueActive(row, now, "secondaryFromDate", "secondaryThruDate")) {
+                allowedProductIds.add(productId);
+            } else if ("Y".equals(row.get("isVariant"))) {
+                variants.put(productId, null);
+            }
+        }
+        //Debug.logInfo("allowedProductIds.size()=" + allowedProductIds.size(), module);
+        return filterVariantsInCategory(delegator, now, productCategoryIdCondition, valueObjects, allowedProductIds, variants, "productId");
     }
 
     public static void getCategoryContentWrappers(Map<String, CategoryContentWrapper> catContentWrappers, List<GenericValue> categoryList, HttpServletRequest request) throws GenericEntityException {
