@@ -40,7 +40,7 @@ under the License.
     <!--<description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>-->
   </context-param>
   <context-param>
-    <param-name>serviceReaderUrls</param-name>
+    <param-name>_serviceReaderUrls</param-name>
     <param-value>/WEB-INF/services.xml</param-value>
     <!--<description>Configuration File(s) For The Service Dispatcher</description>-->
   </context-param>
@@ -75,7 +75,7 @@ under the License.
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/applet:/includes/maincss.css</param-value>
+            <param-value>/index:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/applet:/includes/maincss.css</param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
