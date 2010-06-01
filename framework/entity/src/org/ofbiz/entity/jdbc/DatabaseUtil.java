@@ -31,7 +31,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -55,6 +63,7 @@ import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.base.concurrent.ExecutionPool;
 
 /**
  * Utilities for Entity Database Maintenance
@@ -142,62 +151,58 @@ public class DatabaseUtil {
         checkDb(modelEntities, null, messages, datasourceInfo.checkPrimaryKeysOnStart, (datasourceInfo.useFks && datasourceInfo.checkForeignKeysOnStart), (datasourceInfo.useFkIndices && datasourceInfo.checkFkIndicesOnStart), addMissing);
     }
 
-    public void checkDb(Map<String, ModelEntity> modelEntities, List<String> colWrongSize, List<String> messages, boolean checkPks, boolean checkFks, boolean checkFkIdx, boolean addMissing) {
-        if (isLegacy) {
-            throw new RuntimeException("Cannot run checkDb on a legacy database connection; configure a database helper (entityengine.xml)");
+    private abstract class DBFuture<F extends DBFuture> implements Callable<F> {
+        protected final Map<String, ModelEntity> modelEntities;
+        protected final Set<String> tableNames;
+        protected final UtilTimer timer;
+        protected final Map<String, Map<String, ColumnCheckInfo>> colInfo;
+        protected final List<String> messages = FastList.newInstance();
+
+        protected DBFuture(Map<String, ModelEntity> modelEntities, UtilTimer timer, Set<String> tableNames, Map<String, Map<String, ColumnCheckInfo>> colInfo) {
+            this.modelEntities = modelEntities;
+            this.timer = timer;
+            this.tableNames = tableNames;
+            this.colInfo = colInfo;
         }
-        UtilTimer timer = new UtilTimer();
-        timer.timerString("Start - Before Get Database Meta Data");
 
-        // get ALL tables from this database
-        TreeSet<String> tableNames = this.getTableNames(messages);
-        TreeSet<String> fkTableNames = tableNames == null ? null : new TreeSet<String>(tableNames);
-        TreeSet<String> indexTableNames = tableNames == null ? null : new TreeSet<String>(tableNames);
-
-        if (tableNames == null) {
-            String message = "Could not get table name information from the database, aborting.";
-            if (messages != null) messages.add(message);
-            Debug.logError(message, module);
-            return;
+        protected void updateData(List<String> messages) {
+            if (messages != null) messages.addAll(this.messages);
         }
-        timer.timerString("After Get All Table Names");
+    }
 
-        // get ALL column info, put into hashmap by table name
-        Map<String, Map<String, ColumnCheckInfo>> colInfo = this.getColumnInfo(tableNames, checkPks, messages);
-        if (colInfo == null) {
-            String message = "Could not get column information from the database, aborting.";
-            if (messages != null) messages.add(message);
-            Debug.logError(message, module);
-            return;
-        }
-        timer.timerString("After Get All Column Info");
-
-        // -make sure all entities have a corresponding table
-        // -list all tables that do not have a corresponding entity
-        // -display message if number of table columns does not match number of entity fields
-        // -list all columns that do not have a corresponding field
-        // -make sure each corresponding column is of the correct type
-        // -list all fields that do not have a corresponding column
-
-        timer.timerString("Before Individual Table/Column Check");
-
-        ArrayList<ModelEntity> modelEntityList = new ArrayList<ModelEntity>(modelEntities.values());
-        // sort using compareTo method on ModelEntity
-        Collections.sort(modelEntityList);
-        int curEnt = 0;
-        int totalEnt = modelEntityList.size();
-        List<ModelEntity> entitiesAdded = FastList.newInstance();
-        for (ModelEntity entity: modelEntityList) {
-            curEnt++;
-
-            // if this is a view entity, do not check it...
-            if (entity instanceof ModelViewEntity) {
-                String entMessage = "(" + timer.timeSinceLast() + "ms) NOT Checking #" + curEnt + "/" + totalEnt + " View Entity " + entity.getEntityName();
-                Debug.logVerbose(entMessage, module);
-                if (messages != null) messages.add(entMessage);
-                continue;
+    private static <F> Collection<F> getAllFutures(Collection<Future<F>> futureList) {
+        List<F> result = FastList.newInstance();
+        for (Future<F> future: futureList) {
+            try {
+                result.add(future.get());
+            } catch (ExecutionException e) {
+                Debug.logError(e, module);
+            } catch (InterruptedException e) {
+                Debug.logError(e, module);
             }
+        }
+        return result;
+    }
 
+    private class TableFuture extends DBFuture<TableFuture> {
+        private final int curEnt;
+        private final int totalEnt;
+        private final ModelEntity entity;
+        private final boolean checkPks;
+        private final boolean addMissing;
+        private final List<String> colWrongSize = FastList.newInstance();
+        private boolean entityAdded = false;
+
+        protected TableFuture(Map<String, ModelEntity> modelEntities, UtilTimer timer, Set<String> tableNames, Map<String, Map<String, ColumnCheckInfo>> colInfo, int curEnt, int totalEnt, ModelEntity entity, boolean checkPks, boolean addMissing) {
+            super(modelEntities, timer, tableNames, colInfo);
+            this.curEnt = curEnt;
+            this.totalEnt = totalEnt;
+            this.entity = entity;
+            this.checkPks = checkPks;
+            this.addMissing = addMissing;
+        }
+
+        public TableFuture call() {
             String entMessage = "(" + timer.timeSinceLast() + "ms) Checking #" + curEnt + "/" + totalEnt +
                 " Entity " + entity.getEntityName() + " with table " + entity.getTableName(datasourceInfo);
 
@@ -236,7 +241,6 @@ public class DatabaseUtil {
                                     int openParen = fullTypeStr.indexOf('(');
                                     int closeParen = fullTypeStr.indexOf(')');
                                     int comma = fullTypeStr.indexOf(',');
-
                                     if (openParen > 0 && closeParen > 0 && closeParen > openParen) {
                                         typeName = fullTypeStr.substring(0, openParen);
                                         if (comma > 0 && comma > openParen && comma < closeParen) {
@@ -264,7 +268,6 @@ public class DatabaseUtil {
                                     } else {
                                         typeName = fullTypeStr;
                                     }
-
                                     // override the default typeName with the sqlTypeAlias if it is specified
                                     if (UtilValidate.isNotEmpty(modelFieldType.getSqlTypeAlias())) {
                                         typeName = modelFieldType.getSqlTypeAlias();
@@ -368,15 +371,132 @@ public class DatabaseUtil {
                         Debug.logError(message, module);
                         if (messages != null) messages.add(message);
                     } else {
-                        entitiesAdded.add(entity);
+                        entityAdded = true;
                         message = "Created table [" + entity.getTableName(datasourceInfo) + "]";
                         Debug.logImportant(message, module);
                         if (messages != null) messages.add(message);
                     }
                 }
             }
+            return this;
         }
 
+        protected void updateData(List<String> messages, List<ModelEntity> entitiesAdded) {
+            updateData(messages);
+            if (entityAdded) {
+                entitiesAdded.add(entity);
+            }
+        }
+    }
+
+    private abstract class CountingFuture<F extends CountingFuture<F>> implements Callable<F> {
+        protected final AtomicInteger count;
+        protected final List<String> messages = FastList.newInstance();
+
+        protected CountingFuture(AtomicInteger count) {
+            this.count = count;
+        }
+
+        protected void updateData(List<String> messages) {
+            if (messages != null) messages.addAll(this.messages);
+        }
+    }
+
+    private class ForeignKeyIndexFuture extends CountingFuture<ForeignKeyIndexFuture> {
+        private final ModelEntity entity;
+        private final int constraintNameClipLength;
+
+        protected ForeignKeyIndexFuture(AtomicInteger count, ModelEntity entity, int constraintNameClipLength) {
+            super(count);
+            this.entity = entity;
+            this.constraintNameClipLength = constraintNameClipLength;
+        }
+
+        public ForeignKeyIndexFuture call() {
+            count.addAndGet(createForeignKeyIndices(entity, constraintNameClipLength, messages));
+            return this;
+        }
+    }
+
+    private class DeclaredIndexFuture extends CountingFuture<DeclaredIndexFuture> {
+        private final ModelEntity entity;
+
+        protected DeclaredIndexFuture(AtomicInteger count, ModelEntity entity) {
+            super(count);
+            this.entity = entity;
+        }
+
+        public DeclaredIndexFuture call() {
+            count.addAndGet(createDeclaredIndices(entity, messages));
+            return this;
+        }
+    }
+
+    public void checkDb(Map<String, ModelEntity> modelEntities, List<String> colWrongSize, List<String> messages, boolean checkPks, boolean checkFks, boolean checkFkIdx, boolean addMissing) {
+        if (isLegacy) {
+            throw new RuntimeException("Cannot run checkDb on a legacy database connection; configure a database helper (entityengine.xml)");
+        }
+        UtilTimer timer = new UtilTimer();
+        timer.timerString("Start - Before Get Database Meta Data");
+
+        // get ALL tables from this database
+        SortedSet<String> tableNames = this.getTableNames(messages);
+        TreeSet<String> fkTableNames = tableNames == null ? null : new TreeSet<String>(tableNames);
+        TreeSet<String> indexTableNames = tableNames == null ? null : new TreeSet<String>(tableNames);
+
+        if (tableNames == null) {
+            String message = "Could not get table name information from the database, aborting.";
+            if (messages != null) messages.add(message);
+            Debug.logError(message, module);
+            return;
+        }
+        timer.timerString("After Get All Table Names");
+
+        // get ALL column info, put into hashmap by table name
+        Map<String, Map<String, ColumnCheckInfo>> colInfo = this.getColumnInfo(tableNames, checkPks, messages);
+        if (colInfo == null) {
+            String message = "Could not get column information from the database, aborting.";
+            if (messages != null) messages.add(message);
+            Debug.logError(message, module);
+            return;
+        }
+        timer.timerString("After Get All Column Info");
+
+        // -make sure all entities have a corresponding table
+        // -list all tables that do not have a corresponding entity
+        // -display message if number of table columns does not match number of entity fields
+        // -list all columns that do not have a corresponding field
+        // -make sure each corresponding column is of the correct type
+        // -list all fields that do not have a corresponding column
+
+        timer.timerString("Before Individual Table/Column Check");
+
+        ArrayList<ModelEntity> modelEntityList = new ArrayList<ModelEntity>(modelEntities.values());
+        // sort using compareTo method on ModelEntity
+        Collections.sort(modelEntityList);
+        int curEnt = 0;
+        int totalEnt = modelEntityList.size();
+        List<ModelEntity> entitiesAdded = FastList.newInstance();
+        List<Future<TableFuture>> tableFutureFutures = FastList.newInstance();
+        ScheduledExecutorService threadPool = ExecutionPool.getNewOptimalExecutor("Databaseutil");
+
+        for (ModelEntity entity: modelEntityList) {
+            curEnt++;
+
+            // if this is a view entity, do not check it...
+            if (entity instanceof ModelViewEntity) {
+                String entMessage = "(" + timer.timeSinceLast() + "ms) NOT Checking #" + curEnt + "/" + totalEnt + " View Entity " + entity.getEntityName();
+                Debug.logVerbose(entMessage, module);
+                if (messages != null) messages.add(entMessage);
+                continue;
+            }
+
+            tableFutureFutures.add(threadPool.submit(new TableFuture(modelEntities, timer, tableNames, colInfo, curEnt, totalEnt, entity, checkPks, addMissing)));
+        }
+
+        for (TableFuture tableFuture: getAllFutures(tableFutureFutures)) {
+            tableFuture.updateData(messages, entitiesAdded);
+        }
         timer.timerString("After Individual Table/Column Check");
 
         // -list all tables that do not have a corresponding entity
@@ -388,13 +508,17 @@ public class DatabaseUtil {
 
         // for each newly added table, add fk indices
         if (datasourceInfo.useFkIndices) {
-            int totalFkIndices = 0;
+            List<Future<ForeignKeyIndexFuture>> fkIndicesFutureFutures = FastList.newInstance();
+            AtomicInteger totalFkIndices = new AtomicInteger();
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getRelationsOneSize() > 0) {
-                    totalFkIndices += this.createForeignKeyIndices(curEntity, datasourceInfo.constraintNameClipLength, messages);
+                    fkIndicesFutureFutures.add(threadPool.submit(new ForeignKeyIndexFuture(totalFkIndices, curEntity, datasourceInfo.constraintNameClipLength)));
                 }
             }
-            if (totalFkIndices > 0) Debug.logImportant("==== TOTAL Foreign Key Indices Created: " + totalFkIndices, module);
+            for (ForeignKeyIndexFuture fkIndicesFuture: getAllFutures(fkIndicesFutureFutures)) {
+                fkIndicesFuture.updateData(messages);
+            }
+            if (totalFkIndices.get() > 0) Debug.logImportant("==== TOTAL Foreign Key Indices Created: " + totalFkIndices.get(), module);
         }
 
         // for each newly added table, add fks
@@ -408,13 +532,17 @@ public class DatabaseUtil {
 
         // for each newly added table, add declared indexes
         if (datasourceInfo.useIndices) {
-            int totalDis = 0;
+            List<Future<DeclaredIndexFuture>> disFutureFutures = FastList.newInstance();
+            AtomicInteger totalDis = new AtomicInteger();
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getIndexesSize() > 0) {
-                    totalDis += this.createDeclaredIndices(curEntity, messages);
+                    disFutureFutures.add(threadPool.submit(new DeclaredIndexFuture(totalDis, curEntity)));
                 }
             }
-            if (totalDis > 0) Debug.logImportant("==== TOTAL Declared Indices Created: " + totalDis, module);
+            for (DeclaredIndexFuture disFuture: getAllFutures(disFutureFutures)) {
+                disFuture.updateData(messages);
+            }
+            if (totalDis.get() > 0) Debug.logImportant("==== TOTAL Declared Indices Created: " + totalDis.get(), module);
         }
 
         // make sure each one-relation has an FK
@@ -657,7 +785,7 @@ public class DatabaseUtil {
     /** Creates a list of ModelEntity objects based on meta data from the database */
     public List<ModelEntity> induceModelFromDb(Collection<String> messages) {
         // get ALL tables from this database
-        TreeSet<String> tableNames = this.getTableNames(messages);
+        SortedSet<String> tableNames = this.getTableNames(messages);
 
         // get ALL column info, put into hashmap by table name
         Map<String, Map<String, ColumnCheckInfo>> colInfo = this.getColumnInfo(tableNames, true, messages);
@@ -700,7 +828,7 @@ public class DatabaseUtil {
         List<String> messages = new ArrayList<String>();
 
         // get ALL tables from this database
-        TreeSet<String> tableNames = this.getTableNames(messages);
+        SortedSet<String> tableNames = this.getTableNames(messages);
 
         // get ALL column info, put into hashmap by table name
         Map<String, Map<String, ColumnCheckInfo>> colInfo = this.getColumnInfo(tableNames, true, messages);
@@ -1019,7 +1147,7 @@ public class DatabaseUtil {
         }
     }
 
-    public TreeSet<String> getTableNames(Collection<String> messages) {
+    public SortedSet<String> getTableNames(Collection<String> messages) {
         Connection connection = getConnectionLogged(messages);
 
         if (connection == null) {
@@ -1038,7 +1166,7 @@ public class DatabaseUtil {
         if (Debug.infoOn()) Debug.logInfo("Getting Table Info From Database", module);
 
         // get ALL tables from this database
-        TreeSet<String> tableNames = new TreeSet<String>();
+        SortedSet<String> tableNames = new ConcurrentSkipListSet<String>();
         ResultSet tableSet = null;
 
         String lookupSchemaName = null;
@@ -1163,7 +1291,7 @@ public class DatabaseUtil {
 
             if (Debug.infoOn()) Debug.logInfo("Getting Column Info From Database", module);
 
-            Map<String, Map<String, ColumnCheckInfo>> colInfo = FastMap.newInstance();
+            Map<String, Map<String, ColumnCheckInfo>> colInfo = new ConcurrentHashMap<String, Map<String, ColumnCheckInfo>>();
             String lookupSchemaName = null;
             try {
                 if (dbData.supportsSchemasInTableDefinitions()) {
