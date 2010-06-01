@@ -37,7 +37,7 @@ public class DependencyPool<K, I extends DependencyPool.Item<I, K, V>, V> {
         this.executor = executor;
     }
 
-    public void add(I item) {
+    public I add(I item) {
         if (allItems.putIfAbsent(item.getKey(), item) == null) {
             submitLock.lock();
             try {
@@ -46,6 +46,7 @@ public class DependencyPool<K, I extends DependencyPool.Item<I, K, V>, V> {
                 submitLock.unlock();
             }
         }
+        return allItems.get(item.getKey());
     }
 
     public void addAll(Collection<I> items) {
