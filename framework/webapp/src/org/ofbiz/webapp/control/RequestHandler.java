@@ -907,6 +907,9 @@ public class RequestHandler {
         if (requestResponse == null || requestResponse.redirectParameterMap.size() == 0) {
             Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
             String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
+            if(UtilValidate.isEmpty(queryString)) {
+                return queryString;
+            }
             return "?" + queryString;
         } else {
             StringBuilder queryString = new StringBuilder();
