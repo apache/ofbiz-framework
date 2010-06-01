@@ -122,15 +122,9 @@ under the License.
             <field-map field-name="userLoginId" from-field="partyUserLogin.userLoginId"/>
             <field-map field-name="partyId" from-field="partyId"/>
         </entity-one>
-        <!-- get the encrypted password -->
-        <call-class-method method-name="getHashType" class-name="org.ofbiz.common.login.LoginServices" ret-field="hashType"/>
-        <call-class-method method-name="getDigestHash" class-name="org.ofbiz.base.crypto.HashCrypt" ret-field="newPasswordHash">
-            <field field="serviceCtx.newPassword" type="java.lang.String"/>
-            <field field="hashType" type="java.lang.String"/>
-        </call-class-method>
         <assert>
             <not><if-empty field="partyAndUserLogin"/></not>
-            <if-compare-field field="partyAndUserLogin.currentPassword" to-field="newPasswordHash" operator="equals"/>
+            <if-compare-field field="partyUserLogin.currentPassword" to-field="partyAndUserLogin.currentPassword" operator="not-equals"/>
             <if-compare-field field="partyAndUserLogin.userLoginId" to-field="userLoginId" operator="equals"/>
         </assert>
         <check-errors/>
