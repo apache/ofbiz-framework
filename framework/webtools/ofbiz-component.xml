@@ -30,7 +30,7 @@ under the License.
         title="WebTools"
         menu-name="secondary"
         server="default-server"
-        location="webapp/webslinger"
+        location="webapp/webtools"
         base-permission="OFBTOOLS,WEBTOOLS"
         mount-point="/webtools"/>
 </ofbiz-component>
