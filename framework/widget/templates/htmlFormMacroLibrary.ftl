@@ -205,20 +205,10 @@ ${item.description}</span>
 
 <#macro renderIgnoredField></#macro>
 
-<#macro renderFieldTitle style title fieldHelpText="">
-    <#if fieldHelpText?has_content>
-        <span title="${fieldHelpText}"><#t/>
-    </#if>
-    <#if style?has_content>
-        <span class="${style}"><#t/>
-    </#if>
+<#macro renderFieldTitle style title id fieldHelpText="">
+    <span<#if fieldHelpText?has_content> title="${fieldHelpText}"</#if><#if style?has_content> class="${style}"</#if><#if id?has_content> id="${id}"</#if>><#t/>
     ${title}<#t/>
-    <#if style?has_content>
-        </span><#t/>
-    </#if>
-    <#if fieldHelpText?has_content>
-        </span><#t/>
-    </#if>    
+    </span><#t/>
 </#macro>
 
 <#macro renderSingleFormFieldTitle></#macro>

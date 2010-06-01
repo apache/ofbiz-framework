@@ -1149,6 +1149,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         String tempTitleText = modelFormField.getTitle(context);
         String titleText = UtilHttp.encodeAmpersands(tempTitleText);
         String style = modelFormField.getTitleStyle();
+        String id = modelFormField.getCurrentContainerId(context);
+        
         StringBuilder sb = new StringBuilder();
         if (UtilValidate.isNotEmpty(titleText)) {
             if (" ".equals(titleText)) {
@@ -1223,6 +1225,11 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
             sr.append("\" title=\"");
             sr.append(sb.toString());
+            if (UtilValidate.isNotEmpty(id)) {
+                sr.append("\" id=\"");
+                sr.append(id);
+                sr.append("_title");
+            }
             sr.append("\" />");
             executeMacro(writer, sr.toString());
         }
