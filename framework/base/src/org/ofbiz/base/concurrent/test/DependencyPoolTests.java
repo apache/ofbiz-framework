@@ -23,7 +23,7 @@ public class DependencyPoolTests extends GenericTestCaseBase {
     public void testDependencyPool() throws Exception {
         // always use more threads than cpus, so that the single-cpu case can be tested
         ScheduledExecutorService executor = ExecutionPool.getNewOptimalExecutor(getName());
-        DependencyPool pool = new DependencyPool(executor);
+        DependencyPool pool = new DependencyPool(executor, 5);
         int itemSize = 100, depMax = 5, subMax = 3;
         List<TestItem> items = new ArrayList<TestItem>(itemSize);
         List<TestItem> previousItems = new ArrayList<TestItem>(itemSize);
@@ -74,6 +74,7 @@ OUTER:
         private final Integer key;
         private final String result;
         private final Collection<Integer> dependencies;
+        private final Collection<Integer> provides;
         private final Collection<TestItem> subItems;
 
         protected TestItem(DependencyPool pool, Integer key, String result, Collection<Integer> dependencies, Collection<TestItem> subItems) {
@@ -81,6 +82,7 @@ OUTER:
             this.key = key;
             this.result = result;
             this.dependencies = dependencies;
+            this.provides = java.util.Collections.emptyList();
             this.subItems = subItems;
         }
 
@@ -90,6 +92,10 @@ OUTER:
 
         public Collection<Integer> getDependencies() {
             return dependencies;
+        }
+
+        public Collection<Integer> getProvides() {
+            return provides;
         }
 
         public Collection<TestItem> getSubItems() {
