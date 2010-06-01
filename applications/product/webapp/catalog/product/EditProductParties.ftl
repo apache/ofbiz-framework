@@ -27,6 +27,7 @@ under the License.
       <td>${uiLabelMap.CommonFromDateTime}</td>
       <td>${uiLabelMap.CommonThruDateTime}</td>
       <td>&nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
     <#assign line = 0>
     <#assign rowClass = "2">
@@ -36,13 +37,13 @@ under the License.
       <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
         <td><a href="/partymgr/control/viewprofile?partyId=${(productRole.partyId)?if_exists}" target="_blank" class="buttontext">${(productRole.partyId)?if_exists}</a></td>
         <td>${(curRoleType.get("description",locale))?if_exists}</td>
-        <td>${productRole.sequenceNum?if_exists}</td>
-        <td>${productRole.comments?if_exists}</td>
-        <#assign hasntStarted = false>
-        <#if (productRole.getTimestamp("fromDate"))?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().before(productRole.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
-        <td<#if hasntStarted> class="alert"</#if>>${(productRole.fromDate)?if_exists}</td>
-        <td align="center">
-          <form method="post" action="<@ofbizUrl>updatePartyToProduct</@ofbizUrl>" name="lineForm${line}">
+        <form method="post" action="<@ofbizUrl>updatePartyToProduct</@ofbizUrl>" name="lineForm${line}">
+          <td><input type="text" size="5" name="sequenceNum" value="${(productRole.sequenceNum)?if_exists}" /></td>
+          <td><input type='text' size='30' name="comments" value="${(productRole.comments)?if_exists}" /></td>
+          <#assign hasntStarted = false>
+          <#if (productRole.getTimestamp("fromDate"))?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().before(productRole.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
+          <td<#if hasntStarted> class="alert"</#if>>${(productRole.fromDate)?if_exists}</td>
+          <td align="center">
             <#assign hasExpired = false>
             <#if (productRole.getTimestamp("thruDate"))?exists && (Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(productRole.getTimestamp("thruDate")))> <#assign hasExpired = true></#if>
             <input type="hidden" name="productId" value="${(productRole.productId)?if_exists}" />
@@ -51,9 +52,9 @@ under the License.
             <input type="hidden" name="fromDate" value="${(productRole.getTimestamp("fromDate"))?if_exists}" />
             <input type="text" size="25" name="thruDate" value="${(productRole. getTimestamp("thruDate"))?if_exists}"<#if hasExpired> class="alert"</#if> />
             <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(productRole.getTimestamp("thruDate"))?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
-            <input type="submit" value="${uiLabelMap.CommonUpdate}" />
-          </form>
-        </td>
+          </td>
+          <td><input type="submit" value="${uiLabelMap.CommonUpdate}" /></td>
+        </form>
 
         <td align="center">
           <form action="<@ofbizUrl>removePartyFromProduct</@ofbizUrl>" method="post">
