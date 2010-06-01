@@ -456,7 +456,7 @@ public class LoginServices {
         // save this password in history
         GenericValue userLoginPwdHistToCreate = delegator.makeValue("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userLoginId,"fromDate", nowTimestamp));
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
-        userLoginPwdHistToCreate.set("currentPassword", useEncryption ? HashCrypt.cryptPassword(getHashType(), currentPassword) : currentPassword);
+        userLoginPwdHistToCreate.set("currentPassword", useEncryption ? HashCrypt.getDigestHash(currentPassword, getHashType()) : currentPassword);
         userLoginPwdHistToCreate.create();
     }
 
@@ -521,7 +521,7 @@ public class LoginServices {
         userLoginToCreate.set("enabled", enabled);
         userLoginToCreate.set("requirePasswordChange", requirePasswordChange);
         userLoginToCreate.set("partyId", partyId);
-        userLoginToCreate.set("currentPassword", useEncryption ? HashCrypt.cryptPassword(getHashType(), currentPassword) : currentPassword);
+        userLoginToCreate.set("currentPassword", useEncryption ? HashCrypt.getDigestHash(currentPassword, getHashType()) : currentPassword);
 
         try {
             EntityCondition condition = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.EQUALS, EntityFunction.UPPER(userLoginId));
@@ -667,7 +667,7 @@ public class LoginServices {
                 return ServiceUtil.returnError(errMsg);
             }
         } else {
-            userLoginToUpdate.set("currentPassword", useEncryption ? HashCrypt.cryptPassword(getHashType(), newPassword) : newPassword, false);
+            userLoginToUpdate.set("currentPassword", useEncryption ? HashCrypt.getDigestHash(newPassword, getHashType()) : newPassword, false);
             userLoginToUpdate.set("passwordHint", passwordHint, false);
             userLoginToUpdate.set("requirePasswordChange", "N");
 
@@ -893,7 +893,7 @@ public class LoginServices {
                 errMsg = UtilProperties.getMessage(resource,"loginservices.old_password_not_correct_reenter", locale);
                 errorMessageList.add(errMsg);
             }
-            if (currentPassword.equals(newPassword)) {
+            if (currentPassword.equals(newPassword) || encodedPassword.equals(newPassword)) {
                 errMsg = UtilProperties.getMessage(resource,"loginservices.new_password_is_equal_to_old_password", locale);
                 errorMessageList.add(errMsg);
             }
@@ -922,7 +922,7 @@ public class LoginServices {
             Delegator delegator = userLogin.getDelegator();
             String newPasswordHash = newPassword;
             if (useEncryption) {
-                newPasswordHash = HashCrypt.cryptPassword(getHashType(), newPassword);
+                newPasswordHash = HashCrypt.getDigestHash(newPassword, getHashType());
             }
             try {
                 List<GenericValue> pwdHistList = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId",userLogin.getString("userLoginId"),"currentPassword",newPasswordHash));
@@ -981,6 +981,21 @@ public class LoginServices {
         boolean passwordMatches = false;
         if (oldPassword != null) {
             if (useEncryption) {
+                String encodedPassword = HashCrypt.getDigestHash(currentPassword, getHashType());
+                String encodedPasswordOldFunnyHexEncode = HashCrypt.getDigestHashOldFunnyHexEncode(password, getHashType());
+                String encodedPasswordUsingDbHashType = encodedPassword;
+                if (oldPassword.startsWith("{")) {
+                    // get encode according to the type in the database
+                    String dbHashType = HashCrypt.getHashTypeFromPrefix(oldPassword);
+                    if (dbHashType != null) {
+                        encodedPasswordUsingDbHashType = HashCrypt.getDigestHash(password, dbHashType);
+                    }
+                }
+                passwordMatches = (HashCrypt.removeHashTypePrefix(encodedPassword).equals(HashCrypt.removeHashTypePrefix(currentPassword)) ||
+                        HashCrypt.removeHashTypePrefix(encodedPasswordOldFunnyHexEncode).equals(HashCrypt.removeHashTypePrefix(currentPassword)) 
+                        HashCrypt.removeHashTypePrefix(encodedPasswordUsingDbHashType).equals(HashCrypt.removeHashTypePrefix(currentPassword)) ||
+                    ("true".equals(UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain")) && password.equ
+
                 passwordMatches = HashCrypt.comparePassword(oldPassword, getHashType(), currentPassword);
             } else {
                 passwordMatches = oldPassword.equals(currentPassword);
@@ -990,5 +1005,35 @@ public class LoginServices {
             passwordMatches = currentPassword.equals(oldPassword);
         }
         return passwordMatches;
+
+
+
+
+
+
+
+
+
+
+        String currentPassword = userLogin.getString("currentPassword");
+        if (useEncryption && currentPassword != null && currentPassword.startsWith("{")) {
+            // get encode according to the type in the database
+            String dbHashType = HashCrypt.getHashTypeFromPrefix(currentPassword);
+            if (dbHashType != null) {
+                encodedPasswordUsingDbHashType = HashCrypt.getDigestHash(password, dbHashType);
+            }
+        }
+        if (oldPassword != null) {
+
+(userLogin.get("currentPassword") != null &&
+
+
+// FIXME: needs to be getBytes("UTF-8")
+
+
+
+
+
+
     }
 }
