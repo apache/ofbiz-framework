@@ -24,10 +24,15 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
 import java.io.File;
 
 import javolution.util.FastList;
 
+import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
@@ -367,8 +372,8 @@ public class EntityDataLoadContainer implements Container {
         changedFormat.setMinimumIntegerDigits(5);
         changedFormat.setGroupingUsed(false);
 
-        List<Object> errorMessages = FastList.newInstance();
-        List<String> infoMessages = FastList.newInstance();
+        final List<Object> errorMessages = FastList.newInstance();
+        final List<String> infoMessages = FastList.newInstance();
         int totalRowsChanged = 0;
         if (UtilValidate.isNotEmpty(urlList)) {
             Debug.logImportant("=-=-=-=-=-=-= Doing a data load with the following files:", module);
@@ -378,15 +383,26 @@ public class EntityDataLoadContainer implements Container {
 
             Debug.logImportant("=-=-=-=-=-=-= Starting the data load...", module);
 
+            ScheduledExecutorService pool = ExecutionPool.getNewOptimalExecutor("entity-data-load");
+            List<Future> futures = FastList.newInstance();
             for (URL dataUrl: urlList) {
+                futures.add(pool.submit(createCallable(dataUrl, helperInfo.getHelperBaseName(), delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts)));
+            }
+            for (int i = 0; i < urlList.size(); i++) {
+                URL dataUrl = urlList.get(i);
+                Future<Integer> future = futures.get(i);
+
                 try {
-                    int rowsChanged = EntityDataLoader.loadData(dataUrl, helperInfo.getHelperBaseName(), delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts);
+                    int rowsChanged = future.get();
                     totalRowsChanged += rowsChanged;
                     infoMessages.add(changedFormat.format(rowsChanged) + " of " + changedFormat.format(totalRowsChanged) + " from " + dataUrl.toExternalForm());
-                } catch (GenericEntityException e) {
+                } catch (ExecutionException e) {
+                    Debug.logError(e, "Error loading data file: " + dataUrl.toExternalForm(), module);
+                } catch (InterruptedException e) {
                     Debug.logError(e, "Error loading data file: " + dataUrl.toExternalForm(), module);
                 }
             }
+            pool.shutdownNow();
         } else {
             Debug.logImportant("=-=-=-=-=-=-= No data load files found.", module);
         }
@@ -465,6 +481,14 @@ public class EntityDataLoadContainer implements Container {
         }
 
         return true;
+    }
+
+    private static Callable<Integer> createCallable(final URL dataUrl, final String helperBaseName, final Delegator delegator, final List<Object> errorMessages, final int txTimeout, final boolean useDummyFks, final boolean maintainTxs, final boolean tryInserts) {
+        return new Callable<Integer>() {
+            public Integer call() throws Exception {
+                return EntityDataLoader.loadData(dataUrl, helperBaseName, delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts);
+            }
+        };
     }
 
     /**
