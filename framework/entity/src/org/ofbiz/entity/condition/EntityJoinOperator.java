@@ -56,18 +56,26 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
 
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, List<? extends EntityCondition> conditionList, DatasourceInfo datasourceInfo) {
         if (UtilValidate.isNotEmpty(conditionList)) {
-            sql.append('(');
+            boolean hadSomething = false;
             Iterator<? extends EntityCondition> conditionIter = conditionList.iterator();
             while (conditionIter.hasNext()) {
                 EntityCondition condition = conditionIter.next();
-                sql.append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
-                if (conditionIter.hasNext()) {
+                if (condition.isEmpty()) {
+                    continue;
+                }
+                if (hadSomething) {
                     sql.append(' ');
                     sql.append(getCode());
                     sql.append(' ');
+                } else {
+                    hadSomething = true;
+                    sql.append('(');
                 }
+                sql.append(condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo));
             }
-            sql.append(')');
+            if (hadSomething) {
+                sql.append(')');
+            }
         }
     }
 
@@ -104,6 +112,20 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
 
     public Boolean eval(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
         return entityMatches(entity, lhs, rhs) ? Boolean.TRUE : Boolean.FALSE;
+    }
+
+    @Override
+    public boolean isEmpty(EntityCondition lhs, EntityCondition rhs) {
+        return lhs.isEmpty() && rhs.isEmpty();
+    }
+
+    public boolean isEmpty(List<? extends EntityCondition> conditionList) {
+        for (EntityCondition condition: conditionList) {
+            if (!condition.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

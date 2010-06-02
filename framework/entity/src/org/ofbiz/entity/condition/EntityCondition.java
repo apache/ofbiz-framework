@@ -26,6 +26,7 @@ import java.util.Map;
 import javolution.lang.Reusable;
 import javolution.util.FastList;
 
+import org.ofbiz.base.lang.IsEmpty;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
@@ -43,7 +44,7 @@ import org.ofbiz.entity.model.ModelEntity;
  * These can be used in various combinations using the EntityConditionList and EntityExpr objects.
  *
  */
-public abstract class EntityCondition extends EntityConditionBase implements Reusable {
+public abstract class EntityCondition extends EntityConditionBase implements IsEmpty, Reusable {
 
     public static <L,R,LL,RR> EntityExpr makeCondition(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
         EntityExpr expr = EntityExpr.entityExprFactory.object();

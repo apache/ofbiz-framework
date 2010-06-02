@@ -55,6 +55,11 @@ public class EntityDateFilterCondition extends EntityCondition {
     }
 
     @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         EntityCondition condition = makeCondition();
         return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);

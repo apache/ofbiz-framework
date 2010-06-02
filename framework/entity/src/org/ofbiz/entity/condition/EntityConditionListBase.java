@@ -86,6 +86,11 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     }
 
     @Override
+    public boolean isEmpty() {
+        return operator.isEmpty(conditionList);
+    }
+
+    @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
         StringBuilder sql = new StringBuilder();

@@ -23,6 +23,7 @@ import java.util.Map;
 
 import javolution.context.ObjectFactory;
 
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
@@ -59,6 +60,11 @@ public class EntityWhereString extends EntityCondition {
 
     public void reset() {
         this.sqlString = null;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return UtilValidate.isEmpty(sqlString);
     }
 
     @Override

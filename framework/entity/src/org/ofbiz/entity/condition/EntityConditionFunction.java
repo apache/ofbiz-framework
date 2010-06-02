@@ -100,6 +100,11 @@ public abstract class EntityConditionFunction extends EntityCondition {
     }
 
     @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         StringBuilder sb = new StringBuilder();
         sb.append(codeString).append('(');
