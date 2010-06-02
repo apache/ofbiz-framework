@@ -537,13 +537,6 @@
     </menu>
     <menu name="CommEventTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Find" title="${uiLabelMap.CommonFind}">
-            <condition>
-                <or>
-                    <if-compare field="tabButtonItem" operator="equals" value="Find"/>
-                    <if-compare field="tabButtonItem" operator="equals" value="ListUnknownPartyComms"/>
-                    <if-compare field="tabButtonItem" operator="equals" value="FindCommunicationByOrder"/>
-                </or>
-            </condition>
             <link target="FindCommunicationEvents"/>
         </menu-item>
         <menu-item name="OverView" title="${uiLabelMap.CommonOverview}">
@@ -591,23 +584,9 @@
             </menu-item>
         -->
         <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.PartyEmailFromUnknownParties}">
-            <condition>
-                <or>
-                    <if-compare field="tabButtonItem" operator="equals" value="Find"/>
-                    <if-compare field="tabButtonItem" operator="equals" value="ListUnknownPartyComms"/>
-                    <if-compare field="tabButtonItem" operator="equals" value="FindCommunicationByOrder"/>
-                </or>
-            </condition>
             <link target="listUnknownPartyComms"/>
         </menu-item>
         <menu-item name="FindCommunicationByOrder" title="${uiLabelMap.PartyFindCommunicationsByOrder}">
-            <condition>
-                <or>
-                    <if-compare field="tabButtonItem" operator="equals" value="Find"/>
-                    <if-compare field="tabButtonItem" operator="equals" value="ListUnknownPartyComms"/>
-                    <if-compare field="tabButtonItem" operator="equals" value="FindCommunicationByOrder"/>
-                </or>
-            </condition>
             <link target="FindCommunicationByOrder"/>
         </menu-item>
         <menu-item name="UpdateCommOrders" title="${uiLabelMap.OrderOrders}">
