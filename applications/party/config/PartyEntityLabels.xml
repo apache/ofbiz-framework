@@ -1510,6 +1510,7 @@
     </property>
     <property key="RoleType.description.ADDRESSEE">
         <value xml:lang="en">Addressee</value>
+        <value xml:lang="fr">Destinataire</value>
         <value xml:lang="it">Indirizzi</value>
         <value xml:lang="pt_BR">Destinatário</value>
         <value xml:lang="zh">收信人</value>
@@ -2291,6 +2292,7 @@
     </property>
     <property key="RoleType.description.ORIGINATOR">
         <value xml:lang="en">Originator</value>
+        <value xml:lang="fr">Initiateur</value>
         <value xml:lang="hi_IN">उत्पन्नकर्ता</value>
         <value xml:lang="it">Iniziatore</value>
         <value xml:lang="zh">发起人</value>
