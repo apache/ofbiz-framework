@@ -286,6 +286,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     }
     */
 
+    public abstract boolean isEmpty(L lhs, R rhs);
     public abstract boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, L lhs, R rhs);
     public abstract void validateSql(ModelEntity entity, L lhs, R rhs) throws GenericModelException;
     public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, L lhs, R rhs, DatasourceInfo datasourceInfo) {

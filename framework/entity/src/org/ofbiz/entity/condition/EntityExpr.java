@@ -124,6 +124,11 @@ public class EntityExpr extends EntityCondition {
     }
 
     @Override
+    public boolean isEmpty() {
+        return operator.isEmpty(lhs, rhs);
+    }
+
+    @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
 

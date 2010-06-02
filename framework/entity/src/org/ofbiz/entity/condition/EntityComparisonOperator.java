@@ -116,6 +116,11 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         makeRHSWhereString(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
     }
 
+    @Override
+    public boolean isEmpty(L lhs, R rhs) {
+        return false;
+    }
+
     protected void makeRHSWhereString(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sql, ModelField field, R rhs, DatasourceInfo datasourceInfo) {
         sql.append(' ').append(getCode()).append(' ');
         makeRHSWhereStringValue(entity, entityConditionParams, sql, field, rhs, datasourceInfo);
