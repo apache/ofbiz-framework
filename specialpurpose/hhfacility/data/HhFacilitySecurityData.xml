@@ -17,23 +17,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<entity-engine-xml>
+    <SecurityPermission description="ALL hh facility operations." permissionId="HHFACILITY_ADMIN"/>
+    <SecurityPermission description="hh facility View permission." permissionId="HHFACILITY_VIEW"/>
 
-<ofbiz-component name="hhfacility"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <resource-loader name="main" type="component"/>
-    <classpath type="jar" location="build/lib/*"/>
-
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/HhFacilitySecurityData.xml"/>
-
-    <service-resource type="model" loader="main" location="servicedef/services_hhfacility.xml"/>
-
-    <webapp name="hhfacility"
-        title="HandheldFacility"
-        menu-name="secondary"
-        server="default-server"
-        location="webapp/hhfacility"
-        base-permission="OFBTOOLS,HHFACILITY"
-        mount-point="/hhfacility"
-        app-bar-display="true"/>
-</ofbiz-component>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="HHFACILITY_ADMIN"/>
+</entity-engine-xml>
