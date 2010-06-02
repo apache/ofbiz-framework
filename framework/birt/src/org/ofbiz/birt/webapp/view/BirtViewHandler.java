@@ -81,23 +81,23 @@ public class BirtViewHandler implements ViewHandler {
                 design = engine.openReportDesign(servletContext.getRealPath(page));
             }
 
-             Map<String, Object> context = FastMap.newInstance();
+            Map<String, Object> context = FastMap.newInstance();
             // set parameters from request
              Map<String, Object> parameters = UtilGenerics.cast(request.getAttribute(BirtWorker.BIRT_PARAMETERS));
-                if (parameters != null) {
-                    context.put(BirtWorker.BIRT_PARAMETERS, parameters);
-                } else {
-                    context.put(BirtWorker.BIRT_PARAMETERS, UtilHttp.getParameterMap(request));
-                }
-                // set locale from request
-                Locale locale = (Locale)request.getAttribute(BirtWorker.BIRT_LOCALE);
-                if (locale == null) {
-                    locale = UtilHttp.getLocale(request);
-                }
-                context.put(BirtWorker.BIRT_LOCALE, locale);
-                String birtImageDirectory = UtilProperties.getPropertyValue("birt", "birt.html.image.directory");
-                context.put(BirtWorker.BIRT_IMAGE_DIRECTORY, birtImageDirectory);
-             BirtWorker.exportReport(design, context, contentType, response.getOutputStream());
+            if (parameters != null) {
+                context.put(BirtWorker.BIRT_PARAMETERS, parameters);
+            } else {
+                context.put(BirtWorker.BIRT_PARAMETERS, UtilHttp.getParameterMap(request));
+            }
+            // set locale from request
+            Locale locale = (Locale)request.getAttribute(BirtWorker.BIRT_LOCALE);
+            if (locale == null) {
+                locale = UtilHttp.getLocale(request);
+            }
+            context.put(BirtWorker.BIRT_LOCALE, locale);
+            String birtImageDirectory = UtilProperties.getPropertyValue("birt", "birt.html.image.directory");
+            context.put(BirtWorker.BIRT_IMAGE_DIRECTORY, birtImageDirectory);
+            BirtWorker.exportReport(design, context, contentType, response.getOutputStream());
         } catch (BirtException e) {
             throw new ViewHandlerException("Birt Error create engine: " + e.toString(), e);
         } catch (IOException e) {
