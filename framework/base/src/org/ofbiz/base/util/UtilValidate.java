@@ -25,6 +25,8 @@ import java.util.Map;
 
 import org.apache.commons.validator.EmailValidator;
 
+import org.ofbiz.base.lang.IsEmpty;
+
 /**
  * General input/data validation methods
  * Utility methods for validating data, especially input.
@@ -190,6 +192,16 @@ public class UtilValidate {
     /** Check whether an object is NOT empty, will see if it is a String, Map, Collection, etc. */
     public static boolean isNotEmpty(Object o) {
         return !ObjectType.isEmpty(o);
+    }
+
+    /** Check whether IsEmpty o is empty. */
+    public static boolean isEmpty(IsEmpty o) {
+        return o == null || o.isEmpty();
+    }
+
+    /** Check whether IsEmpty o is NOT empty. */
+    public static boolean isNotEmpty(IsEmpty o) {
+        return o != null && !o.isEmpty();
     }
 
     /** Check whether string s is empty. */

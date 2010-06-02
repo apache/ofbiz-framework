@@ -33,6 +33,7 @@ import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.conversion.LocalizedConverter;
+import org.ofbiz.base.lang.IsEmpty;
 import org.ofbiz.base.lang.SourceMonitored;
 import org.w3c.dom.Node;
 
@@ -768,6 +769,7 @@ public class ObjectType {
         if (value instanceof Collection) return UtilValidate.isEmpty((Collection<? extends Object>) value);
         if (value instanceof Map) return UtilValidate.isEmpty((Map<? extends Object, ? extends Object>) value);
         if (value instanceof CharSequence) return UtilValidate.isEmpty((CharSequence) value);
+        if (value instanceof IsEmpty) return UtilValidate.isEmpty((IsEmpty) value);
 
         // These types would flood the log
         // Number covers: BigDecimal, BigInteger, Byte, Double, Float, Integer, Long, Short
