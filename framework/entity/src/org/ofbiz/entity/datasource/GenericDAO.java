@@ -770,13 +770,15 @@ public class GenericDAO {
         }
 
         List<EntityCondition> conditions = FastList.newInstance();
-        if (whereEntityCondition != null) {
+        if (whereEntityCondition != null && !whereEntityCondition.isEmpty()) {
             conditions.add(whereEntityCondition);
         }
 
         if (modelViewEntity != null && !viewWhereConditions.isEmpty()) {
             EntityCondition viewWhereEntityCondition = EntityCondition.makeCondition(viewWhereConditions);
-            conditions.add(viewWhereEntityCondition);
+            if (!viewWhereEntityCondition.isEmpty()) {
+                conditions.add(viewWhereEntityCondition);
+            }
         }
 
         String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
