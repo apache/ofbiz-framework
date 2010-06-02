@@ -433,7 +433,7 @@ under the License.
             <display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="entryDate" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display type="date"/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSent}"><display type="date"/></field>
     </form>
 
     <form name="FindCommunicationByOrder" type="single" target="FindCommunicationByOrder" paginate="true" focus-field-name="submitButton"
