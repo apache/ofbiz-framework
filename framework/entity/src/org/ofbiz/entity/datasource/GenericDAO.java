@@ -47,6 +47,7 @@ import org.ofbiz.entity.GenericNotImplementedException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionParam;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
@@ -767,43 +768,25 @@ public class GenericDAO {
             modelViewEntity = (ModelViewEntity) modelEntity;
         }
 
-        String entityCondWhereString = "";
+        List<EntityCondition> conditions = FastList.newInstance();
         if (whereEntityCondition != null) {
-            entityCondWhereString = whereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
+            conditions.add(whereEntityCondition);
         }
 
-        String viewEntityCondWhereString = null;
-        if (modelViewEntity != null) {
+        if (modelViewEntity != null && !viewWhereConditions.isEmpty()) {
             EntityCondition viewWhereEntityCondition = EntityCondition.makeCondition(viewWhereConditions);
-            if (viewWhereEntityCondition != null) {
-                viewEntityCondWhereString = viewWhereEntityCondition.makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo);
-            }
+            conditions.add(viewWhereEntityCondition);
         }
 
         String viewClause = SqlJdbcUtil.makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
 
         StringBuilder whereString = new StringBuilder();
-        if (entityCondWhereString.length() > 0) {
-            boolean addParens = entityCondWhereString.charAt(0) != '(';
-            if (addParens) whereString.append("(");
-            whereString.append(entityCondWhereString);
-            if (addParens) whereString.append(")");
-        }
-
-        if (UtilValidate.isNotEmpty(viewEntityCondWhereString)) {
-            if (whereString.length() > 0) whereString.append(" AND ");
-            boolean addParens = viewEntityCondWhereString.charAt(0) != '(';
-            if (addParens) whereString.append("(");
-            whereString.append(viewEntityCondWhereString);
-            if (addParens) whereString.append(")");
-        }
-
         if (viewClause.length() > 0) {
-            if (whereString.length() > 0) whereString.append(" AND ");
-            boolean addParens = viewClause.charAt(0) != '(';
-            if (addParens) whereString.append("(");
-            whereString.append(viewClause);
-            if (addParens) whereString.append(")");
+            conditions.add(EntityCondition.makeConditionWhere(viewClause));
+        }
+
+        if (!conditions.isEmpty()) {
+            whereString.append(EntityCondition.makeCondition(conditions, EntityOperator.AND).makeWhereString(modelEntity, whereEntityConditionParams, this.datasourceInfo));
         }
 
         return whereString;
