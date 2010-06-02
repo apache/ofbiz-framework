@@ -86,6 +86,8 @@ public class BirtViewHandler implements ViewHandler {
              Map<String, Object> parameters = UtilGenerics.cast(request.getAttribute(BirtWorker.BIRT_PARAMETERS));
                 if (parameters != null) {
                     context.put(BirtWorker.BIRT_PARAMETERS, parameters);
+                } else {
+                    context.put(BirtWorker.BIRT_PARAMETERS, UtilHttp.getParameterMap(request));
                 }
                 // set locale from request
                 Locale locale = (Locale)request.getAttribute(BirtWorker.BIRT_LOCALE);
