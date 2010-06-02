@@ -636,6 +636,7 @@ under the License.
 
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             </actions>
@@ -655,8 +656,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListCommWorkEfforts"/>
                 <set field="tabButtonItem" value="UpdateCommWorkEfforts"/>
-
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
