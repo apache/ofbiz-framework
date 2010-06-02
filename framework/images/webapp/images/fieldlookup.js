@@ -24,6 +24,8 @@ var IE5 = (document.getElementById && document.all)? true: false;
 var NS6 = (document.getElementById && navigator.appName.indexOf("Netscape") >= 0)? true: false;
 var mx, my;
 var ACTIVATED_LOOKUP = null;
+var LOOKUP_DIV = null;
+INITIALLY_COLLAPSED = null;
 
 function moveobj(evt) {
     if (NS4 || NS6) {
@@ -46,22 +48,22 @@ function call_fieldlookup(target, viewName, formName, viewWidth, viewheight) {
     if (! viewheight) viewheight = 200;
     fieldLookup.popup(viewName, formName, viewWidth, viewheight);
 }
-function call_fieldlookupLayer(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground) {
+function call_fieldlookupLayer(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground, initiallyCollapsed) {
     if (isEmpty(target) || isEmpty(viewName)) {
         return lookup_error("Lookup can't be created, one of these variables is missing: target=" + target + " viewName=" + viewName);
     }
 
-    var fieldLookupPopup = new FieldLookupPopup(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground, arguments);
+    var fieldLookupPopup = new FieldLookupPopup(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground, initiallyCollapsed, arguments);
     fieldLookupPopup.showLookup();
     this.target = target;
 }
 
-function call_fieldlookupLayer3(target, target2, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground) {
+function call_fieldlookupLayer3(target, target2, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground, initiallyCollapsed) {
     if (isEmpty(target) || isEmpty(target2) || isEmpty(viewName)) {
         return lookup_error("Lookup can't be created, one of these variables is missing: target=" + target + " target2=" + target2 + " viewName=" + viewName);
     }
 
-    var fieldLookupPopup = new FieldLookupPopup(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground, arguments);
+    var fieldLookupPopup = new FieldLookupPopup(target, viewName, lookupWidth, lookupHeight, lookupPosition, fadeBackground, initiallyCollapsed, arguments);
     fieldLookupPopup.showLookup();
     this.target = target;
     this.target2 = target2;
@@ -140,6 +142,39 @@ function lookup_error(str_message) {
     return null;
 }
 
+function initiallyCollapse() {
+    if ((!LOOKUP_DIV) || (INITIALLY_COLLAPSED != "true")) return;
+    var slTitleBars = LOOKUP_DIV.getElementsByClassName('screenlet-title-bar');
+    for (i in slTitleBars) {
+        var slTitleBar = slTitleBars[i];
+        var ul = slTitleBar.firstChild;
+        if ((typeof ul) != 'object') continue;
+
+        var childElements = ul.childNodes;
+        for (j in childElements) {
+            if (childElements[j].className == 'expanded' || childElements[j].className == 'collapsed') {
+                break;
+            }
+        }        
+        var childEle = childElements[j].firstChild;
+        CollapsePanel(childEle, 'lec' + COLLAPSE);
+        break;
+    }
+}
+
+function CollapsePanel(link, areaId){
+    var container = $(areaId);
+    var liElement = $(link).up('li');
+    liElement.removeClassName('expanded');
+    liElement.addClassName('collapsed');
+    Effect.toggle(container, 'appear');
+}
+
+function initiallyCollapseDelayed() {
+    setTimeout("initiallyCollapse()", 400);
+}
+
+
 /*************************************
 * Fieldlookup Class & Methods
 *************************************/
@@ -200,19 +235,21 @@ var GLOBAL_LOOKUP_REF = new FieldLookupCounter;
 * lookupWidth - layer width i.e. 500px, 27% ... [default: 700px]
 * lookupHeight - layer height i.e. 500px, 27% ... [default: 550px]
 * position - normal (under the target field), center (layer is centered), etc. (see widget-form.xsd), default: top-left 
+* fadeBackGround - boolean, true by default 
+* initiallyCollapsed - boolean, false by default 
 */
 var FieldLookupPopup = Class.create({
-    initialize: function (target, viewName, lookupWidth, lookupHeight, position, fadeBackground, args) {
+    initialize: function (target, viewName, lookupWidth, lookupHeight, position, fadeBackground, initiallyCollapsed, args) {
         if (args != null) {
             var argString = "";
-            if (args.length > 7) {
-                for (var i = 7; i < args.length; i++) {
-                    if ((viewName.indexOf("?") == -1) && (i - 6) == 1) {
+            if (args.length > 8) {
+                for (var i = 8; i < args.length; i++) {
+                    if ((viewName.indexOf("?") == -1) && (i - 7) == 1) {
                         sep = "?";
                     } else {
                         sep = "&";
                     }
-                    argString += sep + "parm" + (i - 6) + "=" + args[i];
+                    argString += sep + "parm" + (i - 7) + "=" + args[i];
                 }
             viewName += argString;
             }
@@ -237,9 +274,10 @@ var FieldLookupPopup = Class.create({
         this.parentTarget = target;
         this.viewName = viewName;
         this.position = position;
-
+        INITIALLY_COLLAPSED = initiallyCollapsed;
+        
         this.createElement();
-
+        
         //set observe events for mouse and keypress
         Event.observe(document, "keypress", this.key_event = this.key_event.bindAsEventListener(this));
         Event.observe(document, "mousedown", this.close_on_click = this.close_on_click.bindAsEventListener(this));
@@ -317,15 +355,20 @@ var FieldLookupPopup = Class.create({
         //set the layer position
         this.setPosition(lookupDiv);
 
-        this.divRef = lookupDiv;        
+        this.divRef = lookupDiv;
 
         //make layer draggable
         this.makeDraggable(lookupDiv);
 
         //make the window resiable
         this.makeResizeable(lookupDiv);
-        
+                
         identifyLookup(this.globalRef);
+        
+        //Collapse the search screenlet if the flag is set
+        LOOKUP_DIV = lookupDiv;
+        initiallyCollapseDelayed();
+        
     },
 
     close_on_click: function (evt) {
@@ -366,7 +409,7 @@ var FieldLookupPopup = Class.create({
         
         return lookupCont
     },
-
+         
     createFadedBackground: function (){
         var pageSize = this.getPageSize();
         var fadedBackground = new Element ('DIV', {
@@ -575,7 +618,7 @@ function modifyCollapseable(lookupDiv){
 
         var childElements = ul.childNodes;
         for (j in childElements) {
-            if (childElements[j].className == 'expanded' ||childElements[j].className == 'collapsed') {
+            if (childElements[j].className == 'expanded' || childElements[j].className == 'collapsed') {
                 break;
             }
         }
@@ -586,7 +629,6 @@ function modifyCollapseable(lookupDiv){
         childEle.setAttribute('onclick', "javascript:toggleScreenlet(this, 'lec" + COLLAPSE +"', 'true', 'Expand', 'Collapse');");
         childEle.href = "javascript:void(0);"
         slTitleBar.next('div').setAttribute('id', 'lec' + COLLAPSE);
-        
     } 
 }
 
