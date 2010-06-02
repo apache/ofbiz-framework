@@ -968,6 +968,15 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="initially-collapsed" default="false">
+            <xs:annotation><xs:documentation>If true the search screenlet is collapsed intially, default to false.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="password" substitutionGroup="AllFields">
         <xs:complexType>

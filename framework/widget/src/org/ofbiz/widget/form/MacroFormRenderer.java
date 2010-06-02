@@ -2025,7 +2025,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isEmpty(fadeBackground)){
             fadeBackground = "false";
         }
-        
+        Boolean isInitiallyCollapsed = lookupField.getInitiallyCollapsed();
+                        
         String clearText = "";
         Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));        
         if (uiLabelMap != null) {
@@ -2093,6 +2094,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(clearText);
         sr.append("\" showDescription=\"");
         sr.append(Boolean.toString(showDescription));
+        sr.append("\" initiallyCollapsed=\"");
+        sr.append(Boolean.toString(isInitiallyCollapsed));
         sr.append("\" />");
         executeMacro(writer, sr.toString());
 
