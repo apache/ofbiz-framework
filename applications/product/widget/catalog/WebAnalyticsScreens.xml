@@ -24,9 +24,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindWebAnalyticsConfigs"/>
-                <set field="headerItem" value="WebAnalytics"/>
                 <set field="tabButtonItem" value="WebAnalyticsConfigs"/>
-                <set field="tabButtonItem2" value="WebAnalyticsTypes"/>
+                <set field="tabButtonItem2" value="FindWebAnalyticsConfigs"/>
                 <set field="webAnalyticsConfigCtx" from-field="parameters"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
@@ -57,9 +56,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditWebAnalyticsConfigs"/>
-                <set field="headerItem" value="WebAnalytics"/>
                 <set field="tabButtonItem" value="WebAnalyticsConfigs"/>
-                <set field="tabButtonItem2" value="WebAnalyticsTypes"/>
+                <set field="tabButtonItem2" value="EditWebAnalyticsConfig"/>
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <set field="webAnalyticsTypeId" from-field="parameters.webAnalyticsTypeId"/>
                 <entity-one entity-name="WebAnalyticsConfig" value-field="webAnalyticsConfig" auto-field-map="true"/>
@@ -81,7 +79,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindWebAnalyticsTypes"/>
-                <set field="headerItem" value="WebAnalytics"/>
                 <set field="tabButtonItem" value="WebAnalyticsTypes"/>
                 <set field="tabButtonItem2" value="FindWebAnalyticsTypes"/>
                 <set field="webAnalyticsTypeCtx" from-field="parameters"/>
@@ -114,9 +111,8 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditWebAnalyticsTypes"/>
-                <set field="headerItem" value="WebAnalytics"/>
                 <set field="tabButtonItem" value="WebAnalyticsTypes"/>
-                <set field="tabButtonItem2" value="WebAnalyticsTypes"/>
+                <set field="tabButtonItem2" value="EditWebAnalyticsType"/>
                 <set field="webAnalyticsTypeId" from-field="parameters.webAnalyticsTypeId"/>
                 <entity-one entity-name="WebAnalyticsType" value-field="webAnalyticsType" auto-field-map="true"/>
             </actions>

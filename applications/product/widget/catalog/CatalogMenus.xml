@@ -456,12 +456,12 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="WebAnalyticsConfigTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="WebAnalyticsConfigTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="tabButtonItem2">
         <menu-item name="FindWebAnalyticsConfigs" title="${uiLabelMap.CommonFind}"><link target="FindWebAnalyticsConfigs"/></menu-item>
         <menu-item name="EditWebAnalyticsConfig" title="${uiLabelMap.CommonNew}"><link target="EditWebAnalyticsConfig"/></menu-item>
     </menu>
 
-    <menu name="WebAnalyticsTypeTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="WebAnalyticsTypeTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="tabButtonItem2">
         <menu-item name="FindWebAnalyticsTypes" title="${uiLabelMap.CommonFind}"><link target="FindWebAnalyticsTypes"/></menu-item>
         <menu-item name="EditWebAnalyticsType" title="${uiLabelMap.CommonNew}"><link target="EditWebAnalyticsType"/></menu-item>
     </menu>

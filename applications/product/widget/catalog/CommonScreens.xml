@@ -309,6 +309,7 @@ under the License.
     <screen name="CommonWebAnalyticsDecorator">
         <section>
             <actions>
+                <set field="headerItem" value="WebAnalytics"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>
