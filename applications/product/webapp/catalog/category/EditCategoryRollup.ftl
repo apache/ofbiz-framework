@@ -54,7 +54,18 @@ under the License.
                     <#assign hasExpired = false>
                     <#if productCategoryRollup.thruDate?exists && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
                     <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                        <td><#if curCategory?has_content><a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${curCategory.description?if_exists} [${curCategory.productCategoryId}]</a></#if></td>
+                        <td><#if curCategory?has_content>
+                                <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
+                                    <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)?if_exists>
+                                    <#if catContentWrapper?has_content>
+                                        ${catContentWrapper.get("CATEGORY_NAME")!catContentWrapper.get("DESCRIPTION")!curCategory.categoryName!curCategory.description!}
+                                    <#else>
+                                        ${curCategory.categoryName!curCategory.description!}
+                                    </#if>
+                                    [${curCategory.productCategoryId}]
+                                </a>
+                            </#if>
+                        </td>
                         <td <#if hasntStarted>style="color: red;"</#if>>${productCategoryRollup.fromDate}</td>
                         <td align="center">
                             <input type="hidden" name="showProductCategoryId${suffix}" value="${productCategoryRollup.productCategoryId}" />
@@ -152,7 +163,18 @@ under the License.
                     <#assign hasExpired = false>
                     <#if productCategoryRollup.thruDate?exists && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                            <td><#if curCategory?has_content><a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${curCategory.description?if_exists} [${curCategory.productCategoryId}]</a></#if></td>
+                            <td><#if curCategory?has_content>
+                                    <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
+                                        <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)?if_exists>
+                                        <#if catContentWrapper?has_content>
+                                            ${catContentWrapper.get("CATEGORY_NAME")!catContentWrapper.get("DESCRIPTION")!curCategory.categoryName!curCategory.description!}
+                                        <#else>
+                                            ${curCategory.categoryName!curCategory.description!}
+                                        </#if>
+                                        [${curCategory.productCategoryId}]
+                                    </a>
+                                </#if>
+                            </td>
                             <td <#if hasntStarted>style="color: red"</#if>>${productCategoryRollup.fromDate}</td>
                             <td align="center">
                                 <input type="hidden" name="productCategoryId${suffix}" value="${productCategoryRollup.productCategoryId}" />
