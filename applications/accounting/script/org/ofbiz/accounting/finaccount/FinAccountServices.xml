@@ -400,6 +400,19 @@ under the License.
         <set field="paymentIds" from-field="parameters.paymentIds"/>
         <set field="finAccountId" from-field="parameters.finAccountId"/>
         <entity-one entity-name="FinAccount" value-field="finAccount"/>
+        <!-- Do not create a batch against a financial account which is Manually Frozen or Canceled -->
+        <if>
+           <condition>
+               <or>
+                   <if-compare field="finAccount.statusId" operator="equals" value="FNACT_MANFROZEN"/>
+                   <if-compare field="finAccount.statusId" operator="equals" value="FNACT_CANCELLED"/>
+               </or>
+           </condition>
+           <then>
+               <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/></add-error>
+           </then>
+        </if>
+        <check-errors/>
         <set field="paymentRunningTotal" type="BigDecimal" value="0"/>
         <entity-condition entity-name="Payment" list="payments">
             <condition-expr field-name="paymentId" operator="in" from-field="paymentIds"/>

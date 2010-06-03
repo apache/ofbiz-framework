@@ -128,7 +128,9 @@ function setServiceName(selection) {
                         <label for="finAccountId">${uiLabelMap.AccountingBankAccount}</label>
                         <select name="finAccountId" id="finAccountId">
                             <#list finAccounts as finAccount>
+                              <#if ("FNACT_MANFROZEN" != finAccount.statusId) && ("FNACT_CANCELLED" != finAccount.statusId)>
                                 <option value="${finAccount.get("finAccountId")}">${finAccount.get("finAccountName")} [${finAccount.get("finAccountId")}]</option>
+                              </#if>
                             </#list>
                         </select>
                     </#if>
