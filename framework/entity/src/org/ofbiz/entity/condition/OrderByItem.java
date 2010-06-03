@@ -32,7 +32,11 @@ public class OrderByItem implements Comparator<GenericEntity> {
     public static final int UPPER   = 1;
     public static final int LOWER   = 2;
 
+    public static final String NULLS_FIRST = "NULLS FIRST";
+    public static final String NULLS_LAST = "NULLS LAST";
+
     protected boolean descending;
+    protected Boolean nullsFirst;
     protected EntityConditionValue value;
 
     public OrderByItem(EntityConditionValue value) {
@@ -42,6 +46,11 @@ public class OrderByItem implements Comparator<GenericEntity> {
     public OrderByItem(EntityConditionValue value, boolean descending) {
         this(value);
         this.descending = descending;
+    }
+
+    public OrderByItem(EntityConditionValue value, boolean descending, Boolean nullsFirst) {
+        this(value, descending);
+        this.nullsFirst = nullsFirst;
     }
 
     public EntityConditionValue getValue() {
@@ -66,6 +75,19 @@ public class OrderByItem implements Comparator<GenericEntity> {
 
     public static final OrderByItem parse(String text) {
         text = text.trim();
+        
+        // handle nulls first/last
+        Boolean nullsFirst = null;
+        if (text.toUpperCase().endsWith(NULLS_FIRST)) {
+            nullsFirst = true;
+            text = text.substring(0, text.length() - NULLS_FIRST.length()).trim();
+        }
+        
+        if (text.toUpperCase().endsWith(NULLS_LAST)) {
+            nullsFirst = false;
+            text = text.substring(0, text.length() - NULLS_LAST.length()).trim();
+        }
+
         int startIndex = 0, endIndex = text.length();
         boolean descending;
         int caseSensitivity;
@@ -121,7 +143,7 @@ public class OrderByItem implements Comparator<GenericEntity> {
                 value = EntityFunction.LOWER(value);
                 break;
         }
-        return new OrderByItem(value, descending);
+        return new OrderByItem(value, descending, nullsFirst);
     }
 
     public void checkOrderBy(ModelEntity modelEntity) throws GenericModelException {
@@ -152,8 +174,22 @@ public class OrderByItem implements Comparator<GenericEntity> {
     }
 
     public void makeOrderByString(StringBuilder sb, ModelEntity modelEntity, boolean includeTablenamePrefix, DatasourceInfo datasourceInfo) {
+        if ((nullsFirst != null) && (!datasourceInfo.useOrderByNulls)) {
+            sb.append("CASE WHEN ");
+            getValue().addSqlValue(sb, modelEntity, null, includeTablenamePrefix, datasourceInfo);
+            sb.append(" IS NULL THEN ");
+            sb.append(nullsFirst ? "0" : "1");
+            sb.append(" ELSE ");
+            sb.append(nullsFirst ? "1" : "0");
+            sb.append(" END, ");
+        }
+        
         getValue().addSqlValue(sb, modelEntity, null, includeTablenamePrefix, datasourceInfo);
         sb.append(descending ? " DESC" : " ASC");
+        
+        if ((nullsFirst != null) && (datasourceInfo.useOrderByNulls)) {
+            sb.append(nullsFirst ? " NULLS FIRST" : " NULLS LAST");
+        }
     }
 
     @Override
@@ -169,6 +205,9 @@ public class OrderByItem implements Comparator<GenericEntity> {
         StringBuilder sb = new StringBuilder();
         sb.append(getValue());
         sb.append(descending ? " DESC" : " ASC");
+        if (nullsFirst != null) {
+            sb.append(nullsFirst ? " NULLS FIRST" : " NULLS LAST");
+        }
         return sb.toString();
     }
 }
