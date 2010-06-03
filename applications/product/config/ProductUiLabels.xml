@@ -7263,6 +7263,7 @@
         <value xml:lang="en">Add To Compare</value>
         <value xml:lang="fr">Comparer</value>
         <value xml:lang="it">Confronta</value>
+        <value xml:lang="nl">Voeg toe aan vergelijklijst</value>		
     </property>
     <property key="ProductAddToCompareListSuccess">
         <value xml:lang="de">${name} wurde erfolgreich zum Produktvergleich hinzugefügt</value>

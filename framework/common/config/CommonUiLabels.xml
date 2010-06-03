@@ -1430,7 +1430,7 @@
         <value xml:lang="fr">But du contact</value>
         <value xml:lang="hi_IN">संपर्क प्रयोजन</value>
         <value xml:lang="it">Funzione contatto</value>
-        <value xml:lang="nl">Kontact reden</value>
+        <value xml:lang="nl">Contact reden</value>
         <value xml:lang="pt">Propósito de Contacto</value>
         <value xml:lang="ro">Functie Contact</value>
         <value xml:lang="ru">Цель контакта</value>
@@ -1446,7 +1446,7 @@
         <value xml:lang="fr">Contactez-nous</value>
         <value xml:lang="hi_IN">हमसे संपर्क करें</value>
         <value xml:lang="it">Contattaci</value>
-        <value xml:lang="nl">Kontakt</value>
+        <value xml:lang="nl">Contact</value>
         <value xml:lang="pt">Contactar-nos</value>
         <value xml:lang="ro">Contacteazane</value>
         <value xml:lang="ru">Написать нам</value>
@@ -1462,7 +1462,7 @@
         <value xml:lang="fr">Contacts</value>
         <value xml:lang="hi_IN">संपर्क</value>
         <value xml:lang="it">Contatti</value>
-        <value xml:lang="nl">Kontakten</value>
+        <value xml:lang="nl">Contacten</value>
         <value xml:lang="pt">Contactos</value>
         <value xml:lang="ro">Contacte</value>
         <value xml:lang="ru">Контакты    </value>
@@ -4051,6 +4051,7 @@
         <value xml:lang="fr">Messages</value>
         <value xml:lang="hi_IN">खबरें</value>
         <value xml:lang="it">Messaggi</value>
+        <value xml:lang="nl">Berichten</value>		
         <value xml:lang="ro">Mesaje </value>
         <value xml:lang="ru">Сообщения</value>
         <value xml:lang="th">ข้อความ</value>
