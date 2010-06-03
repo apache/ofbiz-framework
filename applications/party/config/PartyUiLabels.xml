@@ -7359,7 +7359,7 @@
         <value xml:lang="hi_IN">कोई जानकारी उपलब्घ नही</value>
         <value xml:lang="it">Nessuna informazione per contatto in archivio</value>
         <value xml:lang="ja">No contact information on file</value>
-        <value xml:lang="nl">Geen kontakt informatie bekend hier.</value>
+        <value xml:lang="nl">Geen contactinformatie bekend hier.</value>
         <value xml:lang="pt_BR">Nenhum dado de contato no arquivo</value>
         <value xml:lang="pt_PT">Sem Informação de Contacto Em Arquivo</value>
         <value xml:lang="ro">Nici-o informatie contact in fisier</value>
@@ -8858,7 +8858,7 @@
         <value xml:lang="hi_IN">क्रमांक के साथ संपर्क प्रयोजन प्रकार नहीं मिला</value>
         <value xml:lang="it">Tipo funzione contatto non trovate con codice</value>
         <value xml:lang="ja">Contact Purpose Type Not Found with ID</value>
-        <value xml:lang="nl">Kontakt reden niet gevonden met de ID</value>
+        <value xml:lang="nl">Contact reden niet gevonden met de ID</value>
         <value xml:lang="pt_BR">Tipo de finalidade de contato não encontrado com ID</value>
         <value xml:lang="pt_PT">Tipo de Objectivo de Contacto Sem Identificação</value>
         <value xml:lang="ro">Nu gaseste Tip Functie Contact cu Cod</value>
@@ -9487,7 +9487,7 @@
         <value xml:lang="hi_IN">संपर्क प्रकार चुनें</value>
         <value xml:lang="it">Seleziona tipo di contatto</value>
         <value xml:lang="ja">Select Contact Type</value>
-        <value xml:lang="nl">Selekteer het Kontakt type</value>
+        <value xml:lang="nl">Selecteer het Contacttype</value>
         <value xml:lang="pt_BR">Selecione o tipo de contato</value>
         <value xml:lang="pt_PT">Seleccionar Tipo de Contacto</value>
         <value xml:lang="ro">Selectioneaza Tip Contact</value>

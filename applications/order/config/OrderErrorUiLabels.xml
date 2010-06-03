@@ -24,6 +24,7 @@
         <value xml:lang="es">Se debe seleccionar una tienda para un pedido de venta</value>
         <value xml:lang="fr">Un centre de profit doit être choisi pour une commande de vente.</value>
         <value xml:lang="it">Un Negozioe DEVE essere selezionato per un'Ordine di Vendita. </value>
+        <value xml:lang="nl">Er moet een winkel geselecteerd zijn voor een verkoopbestelling.</value>       
         <value xml:lang="pt_BR">Um produto da loja deve estar selecionado para um pedido de venda</value>
         <value xml:lang="ro">TREBUIE sa selectionezi un magazin pentru o comanda de Vanzare. </value>
         <value xml:lang="ru">Для сбытового заказа ДОЛЖНА быть выбрана торговая точка. </value>
@@ -68,6 +69,7 @@
         <value xml:lang="es">Un precio unitario no puede ser menor que cero.</value>
         <value xml:lang="fr">Un prix unitaire ne peut pas être inférieur à zéro</value>
         <value xml:lang="it">Il prezzo unitario non puù essere minore di zero</value>
+        <value xml:lang="nl">Een stukprijs kan niet lager zijn dan nul.</value>     
         <value xml:lang="pt_BR">O preço unitário não pode ser menor que zero</value>
         <value xml:lang="ro">Pretul unitar nu poate fi mai mic decat zero</value>
         <value xml:lang="ru">Цена не может быть меньше ноля</value>
@@ -79,6 +81,7 @@
         <value xml:lang="es">No se puede obtener encabezado del pedido :</value>
         <value xml:lang="fr">Impossible d'obtenir l'en-tête de la commande :</value>
         <value xml:lang="it">Non è possibile leggere testata ordine : </value>
+        <value xml:lang="nl">Kan de bestellingkop niet ophalen : </value>       
         <value xml:lang="pt_BR">Impossível obter cabeçalho do pedido</value>
         <value xml:lang="ro">Nu este posibila citerea Antetului Comenzii : </value>
         <value xml:lang="ru">Невозможно получить шапку заказа: </value>
@@ -90,6 +93,7 @@
         <value xml:lang="es">No se puede leer el ítem del pedido</value>
         <value xml:lang="fr">Impossible de lire la ligne de la commande</value>
         <value xml:lang="it">Non è possibile leggere l'entità riga ordine</value>
+        <value xml:lang="nl">Kan de tabel met bestellingen niet lezen</value>       
         <value xml:lang="pt_BR">Não foi possível ler o item do pedido</value>
         <value xml:lang="ro">Nu este posibila citerea entitatii linie comanda</value>
         <value xml:lang="ru">Невозможно прочитать объект позиции заказа</value>
@@ -101,6 +105,7 @@
         <value xml:lang="es">No puede retirar ítems una vez que se aprueba la devolución</value>
         <value xml:lang="fr">Impossible d'enlever des articles une fois que le retour est approuvé</value>
         <value xml:lang="it">Non è possibile rimuovere righe una volta che il reso è approvato</value>
+        <value xml:lang="nl">Regels kunnen niet verwijderd worden als een retour is goedgekeurd</value>     
         <value xml:lang="pt_BR">Não é possível remover itens uma vez que a devolução for aprovada</value>
         <value xml:lang="ro">Nu este posibila stergerea liniilor din moment ce returnarea a fost aprobata.</value>
         <value xml:lang="ru">После утверждения возврата удаление позиций невозможно</value>
@@ -112,6 +117,7 @@
         <value xml:lang="es">No se pudo actualizar; No hay grupos disponibles a cambiar</value>
         <value xml:lang="fr">Impossible de mettre à jour; Aucun groupe(s) disponible(s) à changer</value>
         <value xml:lang="it">Non è possibile la modifica; Nessun gruppo(i) disponibile(i) da modificare</value>
+        <value xml:lang="nl">Kan niet aanpassen; geen beschikbare groep(en) te wijzigen</value>     
         <value xml:lang="pt_BR">Não foi possível atualizar; Nenhum grupo disponível para trocar</value>
         <value xml:lang="ro">Nu este posibila modificarea; Nici-un grup(uri) nu este  disponibil(e) pentru modificare</value>
         <value xml:lang="ru">Невозможно обновить; Нет доступных для изменения групп</value>
@@ -123,6 +129,7 @@
         <value xml:lang="es">No se puede actualizar encabezado del pedido [ ${orderId} ]</value>
         <value xml:lang="fr">Impossible de mettre à jour l'en-tête de commande [ ${orderId} ]</value>
         <value xml:lang="it">Non è possibile modificare a null testata ordine [ ${orderId} ]</value>
+        <value xml:lang="nl">Kan lege bestellingkop niet aanpassen [ ${orderId} ]</value>       
         <value xml:lang="pt_BR">Impossível atualizar cabeçalho de pedido vazio  [ ${orderId} ]</value>
         <value xml:lang="ro">Nu este posibila anularea Antetului comenzii[ ${orderId} ]</value>
         <value xml:lang="ru">Невозможно обновить шапку заказа с пустым значением [ ${orderId} ]</value>
@@ -134,6 +141,7 @@
         <value xml:lang="es">No se pudo actualizar; problema obteniendo la preferencia de envío del pedido</value>
         <value xml:lang="fr">Impossible de mettre à jour; Problème en obtenant la préférence d'expédition de la commande</value>
         <value xml:lang="it">Non è possibile modificare; Problema leggendo OrderShipmentPreference</value>
+        <value xml:lang="nl">Kan niet aanpassen; er is een probleem met het ophalen van de voorkeuren voor de verzending</value>        
         <value xml:lang="pt_BR">Não foi possível atualizar; Problemas lendo preferências de envio do pedido</value>
         <value xml:lang="ro">Nu este posibila modificarea; Probleme la citerea OrderShipmentPreference</value>
         <value xml:lang="ru">Невозможно обновить; проблема при получении OrderShipmentPreference</value>
@@ -145,6 +153,7 @@
         <value xml:lang="es">No se pudo actualizar; problema estableciendo la preferencia de envío del pedido</value>
         <value xml:lang="fr">Impossible de mettre à jour; Problème en mettant la préférence d'expédition de la commande</value>
         <value xml:lang="it">Non è possibile modificare; Problema scrivendo OrderShipmentPreference</value>
+        <value xml:lang="nl">Kan niet aanpassen; er is een probleem met het vaststellen van de voorkeuren voor de verzending</value>        
         <value xml:lang="pt_BR">Não foi possível atualizar; Problemas gravando preferências de envio do pedido</value>
         <value xml:lang="ro">Nu este posibila modificarea; Probleme la scriere OrderShipmentPreference</value>
         <value xml:lang="ru">Невозможно обновить; проблема установки OrderShipmentPreference</value>
@@ -156,6 +165,7 @@
         <value xml:lang="es">Grupo de envío del carro no encontrado [ ${groupIndex} ]</value>
         <value xml:lang="fr">Groupe de chariots non trouvé [ ${groupIndex} ]</value>
         <value xml:lang="it">Gruppo Spedizione Carrello non trovato [ ${groupIndex} ]</value>
+        <value xml:lang="nl">Winkelwagen verzendgroep niet gevinden [ ${groupIndex} ]</value>       
         <value xml:lang="pt_BR">Grupo de envio de carrinho não encontrado [ ${groupIndex} ]</value>
         <value xml:lang="ro">Grup Expediere Cos negasit [ ${groupIndex} ]</value>
         <value xml:lang="ru">Группа поставки корзины не найдена [ ${groupIndex} ]</value>
@@ -167,6 +177,7 @@
         <value xml:lang="es">Excepción capturada en la actualización del carro.</value>
         <value xml:lang="fr">Exception attrapée dans la mise à jour du chariot. </value>
         <value xml:lang="it">Eccezione sull'aggiornamento carrello. </value>
+        <value xml:lang="nl">Er is een uitzondering opgetreden tijdens het aanpassen van de winkelwagen. </value>       
         <value xml:lang="pt_BR">Exceção capturada durante a atualização do carrinho</value>
         <value xml:lang="ro">Exceptie la actualizarea cosului. </value>
         <value xml:lang="ru">При обновлении корзины перехвачено исключение. </value>
@@ -176,6 +187,7 @@
     <property key="OrderCaughtGenericServiceExceptionWhileGettingOrderId">
         <value xml:lang="en">Caught generic service exception while getting order Id </value>
         <value xml:lang="fr">Erreur générique de service lors de l'acquisition de la réf. de commande </value>
+        <value xml:lang="nl">Er is een algemene service uitzondering opgetreden tijdens het ophalen van de bestelling ID </value>       
         <value xml:lang="pt_BR">Exceção capturada em serviço genérico durante a obtenção do ID do pedido</value>
         <value xml:lang="zh">获得订单标识时发生一般服务意外错误 </value>
     </property>
@@ -184,6 +196,7 @@
         <value xml:lang="es">Excepción de formato de número capturada en la actualización del carro.</value>
         <value xml:lang="fr">Exception du format de n° lors de la mise à jour du panier. </value>
         <value xml:lang="it">Eccezione formato numerico sull'aggiornamento carrello. </value>
+        <value xml:lang="nl">Er is een nummer formaat uitzondering opgetreden tijdens het aanpassen van de winkelwagen. </value>        
         <value xml:lang="pt_BR">Exceção de formato numérico capturada durante a atualização do carrinho</value>
         <value xml:lang="ro">Exceptie format numeric </value>
         <value xml:lang="ru">При обновлении корзины перехвачено исключение вызванное неверным форматом числа. </value>
@@ -195,6 +208,7 @@
         <value xml:lang="es">Excepción del análisis sintáctico atrapada en la actualización del carro.</value>
         <value xml:lang="fr">Exception de l'analyse syntaxique attrapée de dans la mise à jour du chariot. </value>
         <value xml:lang="it">Eccezione parse sull'aggiornamento carrello.</value>
+        <value xml:lang="nl">Er is een uitzondering opgetreden met het parsen tijdens het aanpassen van de winkelwagen. </value>        
         <value xml:lang="pt_BR">Exceção de parse durante a atualização do carrinho.</value>
         <value xml:lang="ro">Exceptie parse la actualizarea cosului.</value>
         <value xml:lang="ru">При обновлении корзины перехвачено исключение синтаксического разбора. </value>
@@ -203,16 +217,19 @@
     </property>
     <property key="OrderCheckCustRequest">
         <value xml:lang="en">Can only update customer request, when status is in-process...is now: ${custRequest.statusId}</value>
+        <value xml:lang="nl">Kan alleen een klantvraag aanpassen wanneer de status 'onder handen' is ... status is nu: ${custRequest.statusId}</value>      
         <value xml:lang="pt_BR">Não se pode apenas atualizar CustRequest, quando o estado está "em processamento"... é agora: ${custRequest.statusId}</value>
     </property>
     <property key="OrderCheckCustRequestDraftStatusForDelete">
         <value xml:lang="en">Can only delete customer request in 'draft' status, status is now however: ${custRequest.statusId}</value>
+        <value xml:lang="nl">Kan alleen een klantvraag verwijderen wanneer de status 'draft' is ... status is nu: ${custRequest.statusId}</value>       
     </property>
     <property key="OrderCouldNotFindOrderHeaderForOrderIdInGetProductStoreFromOrderReturningNull">
         <value xml:lang="en">Could not find OrderHeader for orderId [ ${orderId} ] in getProductStoreFromOrder, returning null</value>
         <value xml:lang="es">No se pudo obtener encabezado del pedido para el código [ ${orderId} ] en la obtención de la tienda para los productos del pedido, retornando un valor nulo.</value>
         <value xml:lang="fr">Vous ne pouvez pas trouver l'en-tôte de la commande pour l'identifiant de commande [ ${orderId} ] dans l'obtention du magasin pour les articles de la commande, le retour étant nul</value>
         <value xml:lang="it">Non è possibile trovare OrderHeader per orderId [ ${orderId} ] in getProductStoreFromOrder, restituito null</value>
+        <value xml:lang="nl">Kan de bestellingkop niet vinden voor bestelling ID [ ${orderId} ] in service getProductStoreFromOrder, respons is leeg</value>
         <value xml:lang="pt_BR">Não foi possível encontrar o cabeçalho do pedido de ID [ ${orderId} ] em in getProductStoreFromOrder, returning null</value>
         <value xml:lang="ro">Nu este posibila gasirea OrderHeader pentru orderId [ ${orderId} ] in getProductStoreFromOrder, returnat nul</value>
         <value xml:lang="ru">Невозможно найти OrderHeader для orderId [ ${orderId} ] в getProductStoreFromOrder, возвращается пустое значение</value>
@@ -224,6 +241,7 @@
         <value xml:lang="es">No se puede encontrar el activo fijo relacionado para el producto: ${productId}</value>
         <value xml:lang="fr">Vous ne pouvez pas trouver le Fixed Asset pour l'article : ${productId}</value>
         <value xml:lang="it">Non è possibile trovare Cespite per il prodotto : ${productId}</value>
+        <value xml:lang="nl">Kan geen gerelateerde vaste active vinden voor het product : ${productId}</value>      
         <value xml:lang="pt_BR">Não foi possível encontrar o ativo fixo relacionado para o produto : ${productId}</value>
         <value xml:lang="ro">Nu este posibila gasirea Mijlocului fix pentru produsul : ${productId}</value>
         <value xml:lang="ru">Невозможно найти связанные с продуктом ${productId} основные средства </value>
@@ -235,6 +253,7 @@
         <value xml:lang="es">No se pudo obtener el acuerdo ${agreementId}</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation ${agreementId}</value>
         <value xml:lang="it">Non è possibile leggere accordo ${agreementId}</value>
+        <value xml:lang="nl">Kan overeenkomst met nummer ${agreementId} niet ophalen</value>        
         <value xml:lang="pt_BR">Não foi possível ler o acordo ${agreementId}</value>
         <value xml:lang="ro">Nu este posibila citerea acordului ${agreementId}</value>
         <value xml:lang="ru">Невозможно получить договор ${agreementId}</value>
@@ -246,6 +265,7 @@
         <value xml:lang="es">No se pudo obtener los ítems del acuerdo por ${agreementid}</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation pour les articles par ${agreementId}</value>
         <value xml:lang="it">Non è possibile leggere righe accordo attraverso ${agreementId}</value>
+        <value xml:lang="nl">Kan regels van overeenkomst met nummer ${agreementId} niet ophalen</value>     
         <value xml:lang="pt_BR">Não foi possível ler os itens do acordo através od acordo ${agreementId}</value>
         <value xml:lang="ro">Nu este posibila citirea liniilor acord prin intermediul ${agreementId}</value>
         <value xml:lang="ru">Невозможно получить agreementItems для ${agreementId}</value>
@@ -257,6 +277,7 @@
         <value xml:lang="es">No se pudo obtener los términos del acuerdo por ${agreementid}</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation pour les termes par ${agreementId}</value>
         <value xml:lang="it">Non è possibile leggere termini accordo attraverso ${agreementId}</value>
+        <value xml:lang="nl">Kan voorwaarden van  overeenkomst met nummer ${agreementId} niet ophalen</value>       
         <value xml:lang="pt_BR">Não foi possível ler os Termos do acordo através do acordo ${agreementId}</value>
         <value xml:lang="ro">Nu este posibila citirea termenelor acord prin intermediul ${agreementId}</value>
         <value xml:lang="ru">Невозможно получить agreementTerms для ${agreementId}</value>
@@ -268,6 +289,7 @@
         <value xml:lang="es">No se pudo inicializar un pedido de compra vacío.</value>
         <value xml:lang="fr">Impossible d'initialiser un ordre d'achat vide</value>
         <value xml:lang="it">Non è possibile inizializzare un'ordine di acquisto vuoto.</value>
+        <value xml:lang="nl">Kan een lege inkoopbestelling niet initialiseren.</value>      
         <value xml:lang="pt_BR">Não foi possível iniciar um pedido de compra vazio</value>
         <value xml:lang="ru">Невозможно инициализировать пустой закупочный заказ.</value>
         <value xml:lang="th">ไม่สามารถเริ่มดำเนินการรายการสั่งซื้อว่าง</value>
@@ -278,6 +300,7 @@
         <value xml:lang="es">No se puede localizar al participante seleccionado.</value>
         <value xml:lang="fr">Impossible de localiser l'acteur sélectionné.</value>
         <value xml:lang="it">Non è possibile localizzare il soggetto selezionato. </value>
+        <value xml:lang="nl">Kan de geselecteerde relatie niet vinden.</value>      
         <value xml:lang="pt_BR">Não foi possível encontrar o participante selecionado</value>
         <value xml:lang="ro">Nu este posibila localizarea subiectului selectionat. </value>
         <value xml:lang="ru">Невозможно обнаружить выбранного участника. </value>
@@ -350,6 +373,7 @@
         <value xml:lang="es">no parece ser un regalo promocional válido.</value>
         <value xml:lang="fr">ne semble pas être un cadeau promotionnel valable.</value>
         <value xml:lang="it">non sembra essere una promozione omaggio valida. </value>
+        <value xml:lang="nl">lijkt geen valide promotiegeschenk te zijn. </value>       
         <value xml:lang="pt_BR">não parece ser um presente promocional válido.</value>
         <value xml:lang="ro">nu pare a fi o promotie omagiu valida. </value>
         <value xml:lang="ru">не производит впечатления правильного акционного подарка. </value>
@@ -361,6 +385,7 @@
         <value xml:lang="es">Tipo de realización de emails aún no implementado</value>
         <value xml:lang="fr">Type d'accomplissement des courriels non encore mis en oeuvre</value>
         <value xml:lang="it">Tipo Email Fulfillment non ancora implementata</value>
+        <value xml:lang="nl">Email fulfillment soort is nog niet geimplementeerd</value>        
         <value xml:lang="pt_BR">Tipo de preenchimento de e-mail ainda não implementado</value>
         <value xml:lang="ro">Tip Email Fulfillment nu a fost inca  implementata</value>
         <value xml:lang="ru">Тип исполнения эл.почта еще не реализован</value>
@@ -372,6 +397,7 @@
         <value xml:lang="es">ERROR:</value>
         <value xml:lang="fr">Erreur : </value>
         <value xml:lang="it">ERRORE : </value>
+        <value xml:lang="nl">Fout : </value>        
         <value xml:lang="pt_BR">ERRO: </value>
         <value xml:lang="ro">EROARE : </value>
         <value xml:lang="ru">ОШИБКА: </value>
@@ -380,10 +406,12 @@
     </property>
     <property key="OrderErrorAllItemsOfOrderAreAlreadyVerified">
         <value xml:lang="en">ERROR: All items of order #${orderId} are already verified</value>
+        <value xml:lang="nl">Fout: Alle regels van de bestelling met nummer #${orderId} zijn al gevalideerd</value>     
         <value xml:lang="pt_BR">ERRO: Todos os itens do pedido #${orderId} já foram verificados</value>
     </property>
     <property key="OrderErrorAttemptToVerifyOrderFailed">
         <value xml:lang="en">ERROR: Attempt to verify order #${orderId} failed</value>
+        <value xml:lang="nl">Fout Poging om bestelling met nummer #${orderId} te controleren is mislukt</value>     
         <value xml:lang="pt_BR">ERRO: Tentativa de verificar pedido #${orderId} falhou</value>
     </property>
     <property key="OrderErrorCallingCountProductQuantityOrderedService">
@@ -391,6 +419,7 @@
         <value xml:lang="es">Error al llamar al servicio countProductQuantityOrdered:</value>
         <value xml:lang="fr">Erreur lors de l'appel de countProductQuantityOrdered : </value>
         <value xml:lang="it">Errore esecuzione servizio countProductQuantityOrdered : </value>
+        <value xml:lang="nl">Fout bij het uitvoeren van de countProductQuantityOrdered service : </value>       
         <value xml:lang="pt_BR">Erro ao invocar serviço countProductQuantityOrdered: </value>
         <value xml:lang="ro">Eroare executie serviciu countProductQuantityOrdered : </value>
         <value xml:lang="ru">Ошибка вызова службы countProductQuantityOrdered: </value>
@@ -402,6 +431,7 @@
         <value xml:lang="es">Error de invocación del servicio createOrderAdjustment</value>
         <value xml:lang="fr">Erreur lors de l'appel du service de createOrderAdjustment</value>
         <value xml:lang="it">Errore nell'esecuzione del servizio createOrderAdjustment</value>
+        <value xml:lang="nl">Fout bij het uitvoeren van de countProductQuantityOrdered service : </value>       
         <value xml:lang="pt_BR">Erro ao invocar o servço createOrderAdjustment</value>
         <value xml:lang="ru">Ошибка вызова службы createOrderAdjustment</value>
         <value xml:lang="th">ข้อผิดพลาดการเรียกบริการ createOrderAdjustment : </value>
@@ -412,6 +442,7 @@
         <value xml:lang="es">ERROR: No se puede cancelar el ítem; ítem no encontrado: ${itemMsgInfo}</value>
         <value xml:lang="fr">Erreur : Ne peut pas annuler l'article; article non trouvé : ${itemMsgInfo}</value>
         <value xml:lang="it">ERRORE : Non è possibile annullare la riga; riga non trovata : ${itemMsgInfo}</value>
+        <value xml:lang="nl">Fout : Kan de regel niet annuleren; regel niet gevonden : ${itemMsgInfo}</value>       
         <value xml:lang="pt_BR">ERRO: Não foi possível cancelar o item; item não encontrado: ${itemMsgInfo}</value>
         <value xml:lang="ro">EROARE : Nu este posibila stergerea linie; Linie negasita: ${itemMsgInfo}</value>
         <value xml:lang="ru">ОШИБКА: невозможно отменить позицию; позиция не найдена: ${itemMsgInfo}</value>
@@ -423,6 +454,7 @@
         <value xml:lang="es">ERROR: No se pudo cambiar el estado; ítem no encontrado.</value>
         <value xml:lang="fr">Erreur : Ne peut pas changer le status de l'article; article non trouvé.</value>
         <value xml:lang="it">ERRORE : Non è possibile cambiare stato riga; riga non trovata. </value>
+        <value xml:lang="nl">Fout: Kan de status van de regel niet wijzigen; regel niet gevonden. </value>      
         <value xml:lang="pt_BR">ERRO : Não foi possível alterar estado do item; item não encontrado.</value>
         <value xml:lang="ro">EROARE : Nu este posibila schimbarea statului liniei; linie negasita. </value>
         <value xml:lang="ru">ОШИБКА: невозможно изменить статус позиции; позиция не найдена. </value>
@@ -434,6 +466,7 @@
         <value xml:lang="es">ERROR: No se pudo comprobar la realización; ítem no encontrado.</value>
         <value xml:lang="fr">Erreur : Ne peut pas vérifier l'exécution; article non trouvé.</value>
         <value xml:lang="it">ERRORE : Non è possibile controllare per soddisfazione; riga non trovata. </value>
+        <value xml:lang="nl">Fout : Kan de fulfillment niet controleren; regel niet gevonden. </value>      
         <value xml:lang="pt_BR">ERRO : Não foi possível verificar o preenchimento; item não encontrado. </value>
         <value xml:lang="ro">EROARE : Nu este posibil controlul pentru executie; linie ne gasita. </value>
         <value xml:lang="ru">ОШИБКА: невозможно проверить исполнение; позиция не найдена. </value>
@@ -445,6 +478,7 @@
         <value xml:lang="es">ERROR: No se pudo comprobar la realización; producto no encontrado.</value>
         <value xml:lang="fr">Erreur : Ne peut pas vérifier l'exécution; article non trouvé.</value>
         <value xml:lang="it">ERRORE: Non è possibile controllare per soddisfazione; prodotto non trovato. </value>
+        <value xml:lang="nl">Fout : Kan de fulfillment niet controleren; product niet gevonden. </value>        
         <value xml:lang="pt_BR">ERRO: Não foi possível verificar o preenchimento; produto não encontrado. </value>
         <value xml:lang="ro">EROARE: Nu este posibil controlul pentru executie; prodous negasit. </value>
         <value xml:lang="ru">ОШИБКА: невозможно проверить исполнение; продукт не найден. </value>
@@ -456,6 +490,7 @@
         <value xml:lang="es">ERROR: No puede crear el ajuste</value>
         <value xml:lang="fr">Erreur : Ne peut pas créer l'ajustement : </value>
         <value xml:lang="it">ERRORE : Non è possibile creare aggiustamento</value>
+        <value xml:lang="nl">Fout : Kan de aanpassing niet aanmaken</value>     
         <value xml:lang="pt_BR">ERRO : Não foi possível criar ajuste</value>
         <value xml:lang="ro">EROARE : Nu este posibila crearea modificarii</value>
         <value xml:lang="ru">ОШИБКА: невозможно создать корректировку</value>
@@ -467,6 +502,7 @@
         <value xml:lang="es">ERROR: No puede obtener la entidad del encabezado del pedido:</value>
         <value xml:lang="fr">Erreur : Ne peut pas obtenir l'entité de l'en-tête de la commande : </value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità OrderHeader : </value>
+        <value xml:lang="nl">Fout : Kan de bestellingkop tabel niet ophalen : </value>      
         <value xml:lang="pt_BR">ERRO : Não foi possível obter cabeçalho do produto :</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii OrderHeader : </value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderHeader: </value>
@@ -478,6 +514,7 @@
         <value xml:lang="es">ERROR: No puede obtener la entidad de la asociación de los ítems del pedido ${itemMsgInfo}</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité d'association des articles de la commande ${itemMsgInfo}</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità OrderItem Assoc : ${itemMsgInfo}</value>
+        <value xml:lang="nl">Fout : Kan de bestellingregel associatie tabel niet ophalen : ${itemMsgInfo}</value>       
         <value xml:lang="pt_BR">Não foi possível obter OrderItem associado a entity : ${itemMsgInfo}</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii OrderItem Assoc : ${itemMsgInfo}</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderItem Assoc: ${itemMsgInfo}</value>
@@ -489,6 +526,7 @@
         <value xml:lang="es">ERROR: No puede obtener la entidad de los ítems del pedido :</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité des articles de la commande : </value>
         <value xml:lang="it">ERRORE: Non è possibile ottenere entità OrderItem :</value>
+        <value xml:lang="nl">Fout : Kan de bestellingregel tabel niet ophalen : </value>        
         <value xml:lang="pt_BR">ERRO: Não foi possível ler entity do OrderItem: </value>
         <value xml:lang="ro">EROARE: Nu este posibila obtinerea entitatii OrderItem :</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderItem:</value>
@@ -500,6 +538,7 @@
         <value xml:lang="es">ERROR: No puede obtener la entidad del rol del pedido : ${itemMsgInfo}</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité du rôle de la commande ${itemMsgInfo}</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità OrderRole : ${itemMsgInfo}</value>
+        <value xml:lang="nl">Fout : Kan de bestellingrol tabel niet ophalen : ${itemMsgInfo}</value>        
         <value xml:lang="pt_BR">ERRO : Não foi possível ler entity de OrderRole : ${itemMsgInfo}</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii OrderRole : ${itemMsgInfo}</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderRole: ${itemMsgInfo}</value>
@@ -511,6 +550,7 @@
         <value xml:lang="es">ERROR: No se pudo obtener la entidad del producto:</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité Product</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità Product : </value>
+        <value xml:lang="nl">Fout : Kan de product tabel niet ophalen : </value>        
         <value xml:lang="pt_BR">ERRO : Não foi possível ler a entity do produto : </value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii Product : </value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект Product: </value>
@@ -522,6 +562,7 @@
         <value xml:lang="es">Error: No puede tener una unidad de medida si el ítem no tiene una unidad de medida por defecto</value>
         <value xml:lang="fr">Erreur : impossible d'avoir une unité de mesure sans valeur par défaut</value>
         <value xml:lang="it">Errore: non è possibile ricavare Udm senza la Udm di default</value>
+        <value xml:lang="nl">Fout:  Er kan geen eenheid zijn als er geen standaard eenheid gedefinieerd is</value>      
         <value xml:lang="pt_BR">ERRO : Não é possível te ruma unidade de medida se o produto não tem uma unidade de medida</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด !  ไม่สามารถมีหน่วยวัดโดยไม่มีค่าเริ่มต้นของหน่วยวัด</value>
         <value xml:lang="zh">错误：没有缺省度量单位的话就不能有度量单位</value>
