@@ -45,4 +45,31 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="LookupPayment">
+        <section>
+            <condition>
+                <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.AccountingLookupPayment}"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="entityName" value="Payment"/>
+                <set field="searchFields" value="[paymentId, partyIdFrom, partyIdTo, currencyUomId]"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="search-options">
+                        <include-form name="LookupPayment" location="component://accounting/widget/ap/forms/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listPayment" location="component://accounting/widget/FieldLookupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

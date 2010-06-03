@@ -154,4 +154,5 @@ under the License.
     <view-map name="EditVendor" type="screen" page="component://accounting/widget/ap/CommonScreens.xml#EditVendor"/>
 
     <view-map name="LookupInvoice" type="screen" page="component://accounting/widget/ap/LookupScreens.xml#LookupInvoice"/>
+    <view-map name="LookupPayment" type="screen" page="component://accounting/widget/ap/LookupScreens.xml#LookupPayment"/>
 </site-conf>
