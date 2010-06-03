@@ -861,11 +861,10 @@ public class EbayOrderServices {
                             // retrieve transactionId
                             String transactionId = UtilXml.childElementValue(transactionElement, "TransactionID", "");
 
-                            // set the externalId and transactionId
-                            orderCtx.put("externalId", itemId);
-                            orderCtx.put("transactionId", transactionId);
+                            // set the externalId
+                            orderCtx.put("externalId", transactionId);
 
-                            GenericValue orderExist = externalOrderExists(delegator, itemId);
+                            GenericValue orderExist = externalOrderExists(delegator, transactionId);
                             if (orderExist != null) {
                                 orderCtx.put("orderId", (String) orderExist.get("orderId"));
                             } else {
