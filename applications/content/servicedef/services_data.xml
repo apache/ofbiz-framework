@@ -252,4 +252,11 @@
         <attribute mode="IN" name="rootDir" optional="true" type="String"/>
     </service>
     -->
+    
+    <!-- Cleared associated DataResource rendered cache from UtilCache. -->
+    <service name="clearAssociatedRenderCache" engine="java" auth="true" default-entity-name="DataResource"
+            location="org.ofbiz.content.data.DataServices" invoke="clearAssociatedRenderCache">
+        <auto-attributes include="pk" mode="IN" />
+    </service>
+    
 </services>

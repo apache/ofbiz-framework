@@ -546,6 +546,20 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     // DataResource rendering methods
     // -------------------------------------
 
+    public static void clearAssociatedRenderCache(Delegator delegator, String dataResourceId) throws GeneralException {
+        if (dataResourceId == null) {
+            throw new GeneralException("Cannot clear dataResource related cache for a null dataResourceId");
+        }
+
+        GenericValue dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+        if (dataResource != null) {
+            String dataTemplateTypeId = dataResource.getString("dataTemplateTypeId");
+            if ("FTL".equals(dataTemplateTypeId)) {
+                FreeMarkerWorker.clearTemplateFromCache("DataResource:" + dataResourceId);        
+            }
+        }
+    }
+
     public static String renderDataResourceAsText(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
              Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         Writer writer = new StringWriter();
