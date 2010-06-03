@@ -31,7 +31,7 @@ sendTo = request.getParameter("sendTo");
 context.partyId = partyId;
 context.sendTo = sendTo;
 
-donePage = request.getParameter("DONE_PAGE") ?: "orderview?orderId=" + orderId;
+donePage = request.getParameter("DONE_PAGE") ?: "orderview";
 context.donePage = donePage;
 
 // Provide the correct order confirmation ProductStoreEmailSetting, if one exists
