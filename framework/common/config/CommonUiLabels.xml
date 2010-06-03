@@ -4688,12 +4688,6 @@
         <value xml:lang="fr">Non attribué</value>
         <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
     </property>
-    <property key="CommonNotAssigned">
-        <value xml:lang="de">Nicht zugewiesen</value>
-        <value xml:lang="en">Not Assigned</value>
-        <value xml:lang="fr">Non attribué</value>
-        <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
-    </property>
     <property key="CommonNotModifRecreat">
         <value xml:lang="de">kann nur mit Neuanlage geändert werden</value>
         <value xml:lang="en">cannot change without re-creating</value>
