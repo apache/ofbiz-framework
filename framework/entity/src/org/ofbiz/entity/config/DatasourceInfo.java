@@ -72,6 +72,7 @@ public class DatasourceInfo {
     public boolean alwaysUseConstraintKeyword = false;
     public boolean dropFkUseForeignKeyKeyword = false;
     public boolean useBinaryTypeForBlob = false;
+    public boolean useOrderByNulls = false;
     public String tableType = null;
     public String characterSet = null;
     public String collate = null;
@@ -155,6 +156,7 @@ public class DatasourceInfo {
             this.alwaysUseConstraintKeyword = "true".equals(datasourceElement.getAttribute("always-use-constraint-keyword"));
             this.dropFkUseForeignKeyKeyword = "true".equals(datasourceElement.getAttribute("drop-fk-use-foreign-key-keyword"));
             this.useBinaryTypeForBlob = "true".equals(datasourceElement.getAttribute("use-binary-type-for-blob"));
+            this.useOrderByNulls = "true".equals(datasourceElement.getAttribute("use-order-by-nulls"));
 
             this.tableType = datasourceElement.getAttribute("table-type");
             this.characterSet = datasourceElement.getAttribute("character-set");
