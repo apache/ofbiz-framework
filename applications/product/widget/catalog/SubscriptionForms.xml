@@ -465,7 +465,7 @@ under the License.
         <field name="subscriptionId"><hidden value="${parameters.subscriptionId}"/></field>
         <field name="communicationEventId">
             <lookup target-form-name="LookupCommEvent">
-                <sub-hyperlink target="/partymgr/control/ViewCommunicationEvent" target-type="inter-app" description="${subscription.communicationEventId}" link-style="buttontext">
+                <sub-hyperlink target="/partymgr/control/ViewCommunicationEvent" target-type="inter-app" link-type="hidden-form" description="${subscription.communicationEventId}" link-style="buttontext">
                 <parameter param-name="communicationEventId" from-field="subscription.communicationEventId"/>
             </sub-hyperlink>
             </lookup>

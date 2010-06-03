@@ -179,7 +179,7 @@ under the License.
     <form name="ViewRequestCommunicationEvents" type="list" extends="ListCommEvents"
             extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml">
         <field name="subject">
-            <hyperlink description="${subject}" target="/partymgr/control/ViewCommunicationEvent" target-type="inter-app">
+            <hyperlink description="${subject}" target="/partymgr/control/ViewCommunicationEvent" target-type="inter-app" link-type="hidden-form">
                 <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>
