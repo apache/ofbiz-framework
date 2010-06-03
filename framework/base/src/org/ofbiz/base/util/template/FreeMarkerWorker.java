@@ -173,6 +173,12 @@ public class FreeMarkerWorker {
         renderTemplate(template, context, outWriter);
     }
 
+    public static void clearTemplateFromCache(String templateLocation) {
+        synchronized (cachedTemplates) {
+            cachedTemplates.remove(templateLocation);
+        }
+    }
+    
     public static Environment renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         Template template = cachedTemplates.get(templateLocation);
         if (template == null) {
@@ -186,7 +192,6 @@ public class FreeMarkerWorker {
                 }
             }
         }
-
         return renderTemplate(template, context, outWriter);
     }
 
