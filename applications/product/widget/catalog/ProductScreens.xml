@@ -788,10 +788,6 @@ under the License.
                 <set field="productId" from-field="parameters.productId"/>
                 <set field="orderBy" from-field="parameters.orderBy" default-value="partyId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <entity-and entity-name="SupplierProduct" list="productSuppliers">
-                    <field-map field-name="productId"/>
-                    <order-by field-name="${orderBy}"/>
-                </entity-and>
                 <entity-one entity-name="SupplierProduct" value-field="supplierProduct" auto-field-map="true"/>
             </actions>
             <widgets>

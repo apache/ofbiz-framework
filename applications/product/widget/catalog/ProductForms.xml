@@ -861,9 +861,17 @@ under the License.
         <field use-when="supplierProduct == null" name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field use-when="supplierProduct != null" name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-    <form name="ListSupplierProducts" type="list" target="updateSupplierProduct" title="" list-name="productSuppliers"
+    <form name="ListSupplierProducts" type="list" target="updateSupplierProduct" title="" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table">
-        <!--<auto-fields-service service-name="updateSupplierProduct"/>-->
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" value="SupplierProduct"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
         <field name="partyId" title="${uiLabelMap.ProductSupplier}">
             <display-entity entity-name="PartyNameView" also-hidden="true" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
@@ -872,20 +880,20 @@ under the License.
             </display-entity>
         </field>
         <field name="supplierProductId"><display/></field>
-        <field name="minimumOrderQuantity" title="${uiLabelMap.ProductMinimumOrderQuantity}">
-            <display/>
+        <field name="minimumOrderQuantity" title="${uiLabelMap.ProductMinimumOrderQuantity}" sort-field="true">
+            <display type="date-time"/>
         </field>
-        <field name="orderQtyIncrements" title="${uiLabelMap.ProductOrderQtyIncrements}">
-            <display/>
+        <field name="orderQtyIncrements" title="${uiLabelMap.ProductOrderQtyIncrements}" sort-field="true">
+            <display type="date-time"/>
         </field>
         <field name="supplierPrefOrderId">
             <display-entity entity-name="SupplierPrefOrder"/>
         </field>
-        <field name="availableFromDate" title="${uiLabelMap.ProductAvailableFromDate}" red-when="after-now"><display/></field>
-        <field name="availableThruDate" title="${uiLabelMap.ProductAvailableThruDate}" red-when="before-now"><display/></field>
+        <field name="availableFromDate" title="${uiLabelMap.ProductAvailableFromDate}" red-when="after-now" sort-field="true"><display/></field>
+        <field name="availableThruDate" title="${uiLabelMap.ProductAvailableThruDate}" red-when="before-now" sort-field="true"><display/></field>
         <field name="quantityUomId"><display-entity entity-name="Uom" key-field-name="uomId"/></field>
         <field name="supplierCommissionPerc"><display/></field>
-        <field name="lastPrice">
+        <field name="lastPrice" sort-field="true">
             <display type="currency" currency="${currencyUomId}"/>
         </field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
