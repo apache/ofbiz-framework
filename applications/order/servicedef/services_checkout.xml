@@ -28,13 +28,13 @@ under the License.
         <attribute name="lastName" type="String" mode="IN" optional="true"/>
         <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
-        <attribute name="countryCode" type="String" mode="IN" optional="true"/>
-        <attribute name="areaCode" type="String" mode="IN" optional="true"/>
-        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
-        <attribute name="extension" type="String" mode="IN" optional="true"/>
+        <attribute name="shipToCountryCode" type="String" mode="IN" optional="true"/>
+        <attribute name="shipToAreaCode" type="String" mode="IN" optional="true"/>
+        <attribute name="shipToContactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="shipToExtension" type="String" mode="IN" optional="true"/>
         <attribute name="emailContactMechId" mode="INOUT" type="String" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="phoneContactMechId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="shipToPhoneContactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
 
     <service name="createUpdateBillingAddressAndPaymentMethod" engine="simple" location="component://order/script/org/ofbiz/order/order/CheckoutServices.xml" auth="false" invoke="createUpdateBillingAddressAndPaymentMethod">
@@ -42,13 +42,13 @@ under the License.
         <implements service="createUpdateCreditCard"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
-        <attribute name="countryCode" type="String" mode="IN" optional="true"/>
-        <attribute name="areaCode" type="String" mode="IN" optional="true"/>
-        <attribute name="contactNumber" type="String" mode="IN" optional="true"/>
-        <attribute name="extension" type="String" mode="IN" optional="true"/>
-        <attribute name="cardSecurityCode" type="String" mode="IN" optional="true"/>
+        <attribute name="billToCountryCode" type="String" mode="IN" optional="true"/>
+        <attribute name="billToAreaCode" type="String" mode="IN" optional="true"/>
+        <attribute name="billToContactNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="billToExtension" type="String" mode="IN" optional="true"/>
+        <attribute name="billToCardSecurityCode" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="phoneContactMechId" mode="INOUT" type="String" optional="true"/>
+        <attribute name="billToPhoneContactMechId" mode="INOUT" type="String" optional="true"/>
     </service>
 
     <service name="setAnonUserLogin" engine="simple" location="component://order/script/org/ofbiz/order/order/CheckoutServices.xml" auth="false" invoke="setAnonUserLogin">
