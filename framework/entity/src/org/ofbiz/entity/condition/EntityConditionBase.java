@@ -67,7 +67,7 @@ public abstract class EntityConditionBase implements Serializable {
     protected String getColName(ModelField modelField, String fieldName) {
         String colName = null;
         if (modelField != null) {
-            colName = modelField.getColName();
+            colName = modelField.getColValue();
         } else {
             colName = fieldName;
         }
