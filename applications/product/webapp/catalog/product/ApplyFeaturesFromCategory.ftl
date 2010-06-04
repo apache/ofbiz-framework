@@ -75,8 +75,8 @@ under the License.
     <tr id="productFeatureId_tableRow_${rowCount}"  valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
         <input type="hidden" name="productFeatureId_o_${rowCount}" value="${productFeature.productFeatureId}" />
         <td><a href="<@ofbizUrl>EditFeature?productFeatureId=${productFeature.productFeatureId}</@ofbizUrl>" class="buttontext">${productFeature.productFeatureId}</a></td>
-        <td>${productFeature.description}</td>
-        <td><#if curProductFeatureType?exists>${curProductFeatureType.description}<#else> [${productFeature.productFeatureTypeId}]</#if></td>
+        <td>${productFeature.description!}</td>
+        <td><#if curProductFeatureType?exists>${curProductFeatureType.description!}<#else> [${productFeature.productFeatureTypeId}]</#if></td>
         <td>
           <select name="productFeatureApplTypeId_o_${rowCount}" size="1">
             <#list productFeatureApplTypes as productFeatureApplType>
