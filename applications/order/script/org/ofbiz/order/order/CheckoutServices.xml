@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="createUpdateCustomerAndShippingAddress" short-description="Create/Update Customer, Shipping Address and other contact details." login-required="false">
         <call-map-processor xml-resource="component://order/script/org/ofbiz/order/customer/CheckoutMapProcs.xml"
-                processor-name="phoneNumber" in-map-name="parameters" out-map-name="shipToPhoneCtx"/>
+                processor-name="shipToPhone" in-map-name="parameters" out-map-name="shipToPhoneCtx"/>
         <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressCtx"/>
         <check-errors/>
@@ -69,7 +69,7 @@ under the License.
         <set field="createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_SHIPPING"/>
         <call-service service-name="createUpdatePartyTelecomNumber" in-map-name="createUpdatePartyTelecomNumberCtx">
             <result-to-field result-name="contactMechId" field="shipToPhoneContactMechId"/>
-            <result-to-result result-name="contactMechId" service-result-name="phoneContactMechId"/>
+            <result-to-result result-name="contactMechId" service-result-name="shipToPhoneContactMechId"/>
         </call-service>
 
         <if-not-empty field="shipToPhoneContactMechId">
@@ -114,7 +114,7 @@ under the License.
 
     <simple-method method-name="createUpdateBillingAddressAndPaymentMethod" short-description="Create/update billing address and payment information" login-required="false">
         <call-map-processor xml-resource="component://order/script/org/ofbiz/order/customer/CheckoutMapProcs.xml"
-                processor-name="phoneNumber" in-map-name="parameters" out-map-name="billToPhoneContext"/>
+                processor-name="billToPhone" in-map-name="parameters" out-map-name="billToPhoneContext"/>
         <check-errors/>
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
         <call-object-method obj-field="shoppingCart" method-name="getUserLogin" ret-field="userLogin"/>
@@ -162,7 +162,7 @@ under the License.
         <set field="createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_BILLING"/>
         <call-service service-name="createUpdatePartyTelecomNumber" in-map-name="createUpdatePartyTelecomNumberCtx">
             <result-to-field result-name="contactMechId" field="billToPhoneContactMechId"/>
-            <result-to-result result-name="contactMechId" service-result-name="phoneContactMechId"/>
+            <result-to-result result-name="contactMechId" service-result-name="billToPhoneContactMechId"/>
         </call-service>
         <if-not-empty field="billToPhoneContactMechId">
             <call-object-method obj-field="shoppingCart" method-name="addContactMech">
