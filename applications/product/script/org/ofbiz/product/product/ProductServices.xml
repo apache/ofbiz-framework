@@ -229,6 +229,37 @@ under the License.
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-field="foundValue" new-value-field="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productId"/>
+                <!-- Clone Content -->
+                <sequenced-id sequence-name="Content" field="newContentId"/>
+                <entity-one entity-name="Content" value-field="oldContent" use-cache="false">
+                    <field-map field-name="contentId" value="${newTempValue.contentId}"/>
+                </entity-one>
+                <if-not-empty field="oldContent">
+                    <clone-value value-field="oldContent" new-value-field="clonedContent"/>
+                    <set from-field="newContentId" field="clonedContent.contentId"/>
+                    <set from-field="newContentId" field="newTempValue.contentId"/>
+                    <!-- Clone DataResource -->
+                    <entity-one entity-name="DataResource" value-field="oldDataResource" use-cache="false">
+                        <field-map field-name="dataResourceId" value="${clonedContent.dataResourceId}"/>
+                    </entity-one>
+                    <if-not-empty field="oldDataResource">
+                        <sequenced-id sequence-name="DataResource" field="newDataResourceId"/>
+                        <clone-value new-value-field="clonedDataresource" value-field="oldDataResource"/>
+                        <set from-field="newDataResourceId" field="clonedDataresource.dataResourceId"/>
+                        <!-- set new data resource id in cloned content -->
+                        <set from-field="newDataResourceId" field="clonedContent.dataResourceId"/>
+                        <create-value value-field="clonedDataresource"/>
+                        <!-- Clone Electronic Text if exists -->
+                        <get-related-one value-field="oldDataResource" relation-name="ElectronicText" to-value-field="oldElectronicText"/>
+                        <if-not-empty field="oldElectronicText">
+                            <clone-value value-field="oldElectronicText" new-value-field="clonedElectronicText"/>
+                            <set from-field="newDataResourceId" field="clonedElectronicText.dataResourceId"/>
+                            <create-value value-field="clonedElectronicText"/>
+                        </if-not-empty>
+                    </if-not-empty>
+                    <create-value value-field="clonedContent"/>
+                </if-not-empty>
+                <!-- End Clone Contet -->
                 <create-value value-field="newTempValue"/>
             </iterate>
         </if-not-empty>
