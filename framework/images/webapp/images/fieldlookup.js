@@ -785,10 +785,10 @@ function modifySubmitButton (lookupDiv) {
                                 if (cellElement.tagName == 'A') {
                                     var link = cellElement.href;
                                     var liSub = link.substring(link.lastIndexOf('/')+1,(link.length));
-                                    if (liSub.contains("javascript:set_value(")) {
+                                    if (liSub.contains("javascript:set_")) {
                                         cellElement.href = liSub;
                                     } else {
-                                        cellElement.href = 'javascript:lookupAjaxRequest("' + liSub + '")';
+                                        cellElement.href = "javascript:lookupAjaxRequest('" + liSub + "')";
                                     }
                                 }
                             }
