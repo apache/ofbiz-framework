@@ -340,9 +340,7 @@
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><date-time type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><date-time type="date"/></field>
         <field name="edit" title=" ">
-            <hyperlink target="EditTask" description="${uiLabelMap.CommonEdit"}>
-                <parameter param-name="workEffortId" from-field="workEffortId}"/>
-            </hyperlink>
+            <hyperlink target="EditTask?workEffortId=${workEffortId}" description="${uiLabelMap.CommonEdit}"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
