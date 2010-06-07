@@ -199,7 +199,9 @@ under the License.
     <form name="LookupAssociatedProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts"
         paginate-target="LookupAssociatedProducts" default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext">
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
+				<parameter param-name="productId" from-field="productId"/>
+			</hyperlink>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName"><display/></field>

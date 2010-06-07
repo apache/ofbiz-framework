@@ -1997,7 +1997,9 @@ under the License.
 
     <form name="ListCommEvents" list-name="communicationEvents" type="list" header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId" widget-style="buttontext">
-            <hyperlink description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app"/>
+            <hyperlink description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent" target-type="inter-app">
+				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
+			</hyperlink>
         </field>
         <field name="subject"><display/></field>
         <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
