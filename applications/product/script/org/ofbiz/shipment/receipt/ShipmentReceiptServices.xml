@@ -103,6 +103,11 @@ under the License.
             <else>
                 <if-compare field="parameters.statusId" operator="equals" value="INV_ON_HOLD">
                     <set field="parameters.statusId" value="INV_NS_ON_HOLD"/>
+                <else>
+                    <if-compare field="parameters.statusId" operator="equals" value="INV_RETURNED">
+                        <set field="parameters.statusId" value="INV_NS_RETURNED"/>
+                    </if-compare>
+                </else>
                 </if-compare>
             </else>
             </if-compare>
@@ -112,6 +117,7 @@ under the License.
                     <and>
                         <not><if-compare field="parameters.statusId" operator="equals" value="INV_NS_DEFECTIVE"/></not>
                         <not><if-compare field="parameters.statusId" operator="equals" value="INV_NS_ON_HOLD"/></not>
+                        <not><if-compare field="parameters.statusId" operator="equals" value="INV_NS_RETURNED"/></not>
                     </and>
                 </condition>
                 <then>
