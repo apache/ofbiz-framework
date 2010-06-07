@@ -287,7 +287,9 @@ under the License.
         <field name="communicationEventId"><display/></field>
         <field name="contactListId" use-when="contactListId!=null">
             <display-entity entity-name="ContactList" description="${contactListName}">
-                <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${communicationEvent.contactListId}" description="[${communicationEvent.contactListId}]" target-type="inter-app"/>
+                <sub-hyperlink target="/marketing/control/EditContactList" description="[${communicationEvent.contactListId}]" target-type="inter-app">
+                <parameter param-name="contactListId" from-field="communicationEvent.contactListId"/>
+            </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyIdFrom" use-when="&quot;my&quot;==void" title="${uiLabelMap.PartyPartyFrom}">
@@ -470,7 +472,9 @@ under the License.
             </service>
         </actions>
         <field name="orderId" title="${uiLabelMap.FormFieldTitle_orderId}">
-            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="inter-app"/>
+            <hyperlink target="/ordermgr/control/orderview" description="${orderId}" target-type="inter-app">
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
         </field>
         <field name="communicationEventId">
             <hyperlink description="${communicationEventId}" target="ViewCommunicationEvent">
@@ -1022,7 +1026,9 @@ under the License.
             <set field="orderTypeId" from-field="orderHeader.orderTypeId"/>
         </row-actions>
         <field name="orderId" title="${uiLabelMap.FormFieldTitle_orderId}" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="inter-app"/>
+            <hyperlink target="/ordermgr/control/orderview" description="${orderId}" target-type="inter-app">
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
         </field>
         <field name="communicationEventId"><hidden/></field>
         <field name="orderTypeId" title="${uiLabelMap.OrderOrderType}">

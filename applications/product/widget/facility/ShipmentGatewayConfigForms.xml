@@ -50,7 +50,9 @@ under the License.
         <auto-fields-entity entity-name="ShipmentGatewayConfig" default-field-type="display"/>
         <field name="shipmentGatewayConfigId"><hidden/></field>
         <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigDescription}">
-            <hyperlink description="${description}" target="EditShipmentGatewayConfig?shipmentGatewayConfigId=${shipmentGatewayConfigId}"/>
+            <hyperlink description="${description}" target="EditShipmentGatewayConfig">
+                <parameter param-name="shipmentGatewayConfigId" from-field="shipmentGatewayConfigId"/>
+            </hyperlink>
         </field>
         <field name="shipmentGatewayConfTypeId" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeId}">
             <display-entity entity-name="ShipmentGatewayConfigType" key-field-name="shipmentGatewayConfTypeId" description="${description}"/>
@@ -313,7 +315,9 @@ under the License.
         <auto-fields-entity entity-name="ShipmentGatewayConfigType" default-field-type="display"/>
         <field name="shipmentGatewayConfTypeId"><hidden/></field>
         <field name="description" title="${uiLabelMap.FacilityShipmentGatewayConfigTypeDescription}">
-            <hyperlink description="${description}" target="EditShipmentGatewayConfigType?shipmentGatewayConfTypeId=${shipmentGatewayConfTypeId}"/>
+            <hyperlink description="${description}" target="EditShipmentGatewayConfigType">
+                <parameter param-name="shipmentGatewayConfTypeId" from-field="shipmentGatewayConfTypeId"/>
+            </hyperlink>
         </field>
     </form>
     

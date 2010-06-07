@@ -215,7 +215,12 @@ under the License.
         <field name="paymentId"><hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
-        <field name="acctgTransId"><hyperlink description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/></field>
+        <field name="acctgTransId">
+            <hyperlink description="${acctgTransId}" target="EditAcctgTrans">
+                <parameter param-name="acctgTransId" from-field="acctgTransId"/>
+                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+            </hyperlink>
+        </field>
         <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}"><display-entity entity-name="AcctgTransType"/></field>
         <field name="glJournalId" title="${uiLabelMap.FormFieldTitle_glJournal}"><display-entity entity-name="GlJournal" description="${glJournalName}"/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}"><display-entity entity-name="GlAccountType"/></field>
