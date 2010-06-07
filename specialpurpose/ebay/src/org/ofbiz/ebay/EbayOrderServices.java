@@ -41,6 +41,8 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
@@ -450,14 +452,14 @@ public class EbayOrderServices {
                             Map<String, Object> orderCtx = FastMap.newInstance();
                             Element ordersElement = (Element) ordersElemIter.next();
                             String externalOrderId = UtilXml.childElementValue(ordersElement, "OrderID");
-                            GenericValue orderExist = externalOrderExists(delegator, externalOrderId);
+                            orderCtx.put("externalId", "EBO_" + externalOrderId);
+                            GenericValue orderExist = externalOrderExists(delegator, (String)orderCtx.get("externalId"));
                             if (orderExist != null) {
-                                orderCtx.put("orderId", (String) orderExist.get("orderId"));
+                                orderCtx.put("orderId", (String)orderExist.get("orderId"));
                             } else {
                                 orderCtx.put("orderId", "");
                             }
 
-                            orderCtx.put("externalId", externalOrderId);
                             orderCtx.put("amountPaid", UtilXml.childElementValue(ordersElement, "Total", "0"));
                             String createdDate = UtilXml.childElementValue(ordersElement, "CreatedTime");
                             if (UtilValidate.isNotEmpty(createdDate)) {
@@ -823,6 +825,7 @@ public class EbayOrderServices {
                             }
                             orderCtx.put("externalTransactionCtx", externalTransactionCtx);
 
+                            String quantityPurchased = UtilXml.childElementValue(transactionElement, "QuantityPurchased", "");
                             // retrieve item
                             List<Map<String, Object>> orderItemList = FastList.newInstance();
                             String itemId = "";
@@ -833,7 +836,7 @@ public class EbayOrderServices {
                                 Element itemElement = (Element)itemElemIter.next();
                                 itemId = UtilXml.childElementValue(itemElement, "ItemID", "");
                                 orderItemCtx.put("paymentMethods", UtilXml.childElementValue(itemElement, "PaymentMethods", ""));
-                                orderItemCtx.put("quantity", UtilXml.childElementValue(itemElement, "Quantity", "0"));
+                                orderItemCtx.put("quantity", quantityPurchased);
                                 orderItemCtx.put("startPrice", UtilXml.childElementValue(itemElement, "StartPrice", "0"));
                                 orderItemCtx.put("title", UtilXml.childElementValue(itemElement, "Title", ""));
 
@@ -862,9 +865,14 @@ public class EbayOrderServices {
                             String transactionId = UtilXml.childElementValue(transactionElement, "TransactionID", "");
 
                             // set the externalId
-                            orderCtx.put("externalId", transactionId);
+                            if ("0".equals(transactionId)) {
+                                // this is a Chinese Auction: ItemID is used to uniquely identify the transaction
+                                orderCtx.put("externalId", "EBI_" + itemId);
+                            } else {
+                                orderCtx.put("externalId", "EBT_" + transactionId);
+                            }
 
-                            GenericValue orderExist = externalOrderExists(delegator, transactionId);
+                            GenericValue orderExist = externalOrderExists(delegator, (String)orderCtx.get("externalId"));
                             if (orderExist != null) {
                                 orderCtx.put("orderId", (String) orderExist.get("orderId"));
                             } else {
@@ -1230,7 +1238,8 @@ public class EbayOrderServices {
     private static GenericValue externalOrderExists(Delegator delegator, String externalId) throws GenericEntityException {
         Debug.logInfo("Checking for existing externalId: " + externalId, module);
         GenericValue orderHeader = null;
-        List<GenericValue> orderHeaderList = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId));
+        EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("externalId", EntityComparisonOperator.EQUALS, externalId), EntityCondition.makeCondition("statusId", EntityComparisonOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityComparisonOperator.AND);
+        List<GenericValue> orderHeaderList = delegator.findList("OrderHeader", condition, null, null, null, true);
         if (UtilValidate.isNotEmpty(orderHeaderList)) {
             orderHeader = EntityUtil.getFirst(orderHeaderList);
         }

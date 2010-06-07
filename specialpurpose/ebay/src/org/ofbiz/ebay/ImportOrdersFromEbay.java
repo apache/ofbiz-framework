@@ -40,6 +40,8 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
@@ -89,7 +91,6 @@ public class ImportOrdersFromEbay {
             order.put("productStoreId", (String) context.get("productStoreId"));
             order.put("userLogin", (GenericValue) context.get("userLogin"));
             order.put("externalId", (String) context.get("externalId"));
-            order.put("transactionId", (String) context.get("transactionId"));
             order.put("createdDate", (String) context.get("createdDate"));
             order.put("productId", (String) context.get("productId"));
             order.put("quantityPurchased", (String) context.get("quantityPurchased"));
@@ -128,7 +129,6 @@ public class ImportOrdersFromEbay {
         Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
         String externalId = (String) context.get("externalId");
-        String transactionId = (String) context.get("transactionId");
         Map<String, Object> result = FastMap.newInstance();
         try {
             if (orderId == null && externalId == null) {
@@ -151,9 +151,8 @@ public class ImportOrdersFromEbay {
                     return ServiceUtil.returnSuccess();
                 }
 
-                // get externalId and transactionId from OrderHeader
+                // get externalId from OrderHeader
                 externalId = (String)orderHeader.get("externalId");
-                transactionId = (String)orderHeader.get("transactionId");
                 String productStoreId = (String) orderHeader.get("productStoreId");
                 if (UtilValidate.isNotEmpty(productStoreId)) {
                     context.put("productStoreId", productStoreId);
@@ -164,7 +163,7 @@ public class ImportOrdersFromEbay {
 
             StringBuffer completeSaleXml = new StringBuffer();
 
-            if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, transactionId, context, completeSaleXml, eBayConfigResult.get("token").toString()))) {
+            if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, context, completeSaleXml, eBayConfigResult.get("token").toString()))) {
                 result = EbayHelper.postItem(eBayConfigResult.get("xmlGatewayUri").toString(), completeSaleXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "CompleteSale", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
                 String successMessage = (String)result.get("successMessage");
                 if (successMessage != null) {
@@ -248,13 +247,12 @@ public class ImportOrdersFromEbay {
          return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> buildCompleteSaleRequest(Delegator delegator, Locale locale, String itemId, String transactionId, Map<String, Object> context, StringBuffer dataItemsXml, String token) {
+    public static Map<String, Object> buildCompleteSaleRequest(Delegator delegator, Locale locale, String transactionId, Map<String, Object> context, StringBuffer dataItemsXml, String token) {
         String paid = (String)context.get("paid");
         String shipped = (String)context.get("shipped");
 
         try {
-            if (itemId == null && transactionId == null) {
-                Debug.logError("Cannot retrieve itemId and transactionId from externalId", module);
+            if (transactionId == null) {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.errorDuringBuildItemAndTransactionIdFromExternalId", locale));
             }
 
@@ -264,7 +262,17 @@ public class ImportOrdersFromEbay {
 
             EbayHelper.appendRequesterCredentials(transElem, transDoc, token);
 
-            UtilXml.addChildElementValue(transElem, "ItemID", itemId, transDoc);
+            if (transactionId.startsWith("EBT_")) {
+                UtilXml.addChildElementValue(transElem, "TransactionID", transactionId.substring(4), transDoc);
+                UtilXml.addChildElementValue(transElem, "ItemID", "0", transDoc);
+            } else if (transactionId.startsWith("EBO_")) {
+                UtilXml.addChildElementValue(transElem, "OrderID", transactionId.substring(4), transDoc);
+                UtilXml.addChildElementValue(transElem, "TransactionID", "0", transDoc);
+                UtilXml.addChildElementValue(transElem, "ItemID", "0", transDoc);
+            } else if (transactionId.startsWith("EBI_")) {
+                UtilXml.addChildElementValue(transElem, "ItemID", transactionId.substring(4), transDoc);
+                UtilXml.addChildElementValue(transElem, "TransactionID", "0", transDoc);
+            }
 
             // default shipped = Y (call from eca during order completed)
             if (paid == null && shipped == null) {
@@ -290,8 +298,6 @@ public class ImportOrdersFromEbay {
                 }
                 UtilXml.addChildElementValue(transElem, "Shipped", shipped, transDoc);
             }
-
-            UtilXml.addChildElementValue(transElem, "TransactionID", (transactionId==null? "0": transactionId), transDoc);
 
             dataItemsXml.append(UtilXml.writeXmlDocument(transDoc));
         } catch (Exception e) {
@@ -486,11 +492,15 @@ public class ImportOrdersFromEbay {
                             // retrieve transactionId
                             String transactionId = UtilXml.childElementValue(transactionElement, "TransactionID", "");
 
-                            // set the externalId and transactionId
-                            order.put("externalId", itemId);
-                            order.put("transactionId", transactionId);
+                            // set the externalId
+                            if ("0".equals(transactionId)) {
+                                // this is a Chinese Auction: ItemID is used to uniquely identify the transaction
+                                order.put("externalId", "EBI_" + itemId);
+                            } else {
+                                order.put("externalId", "EBT_" + transactionId);
+                            }
 
-                            GenericValue orderExist = externalOrderExists(delegator, itemId, transactionId);
+                            GenericValue orderExist = externalOrderExists(delegator, (String)order.get("externalId"));
                             if (orderExist != null) {
                                 order.put("orderId", (String)orderExist.get("orderId"));
                             } else {
@@ -598,15 +608,11 @@ public class ImportOrdersFromEbay {
             // set the external id with the eBay Item Id
             String externalId = (String) parameters.get("externalId");
 
-            // set the transaction id with the eBay Transacation Id
-            String transactionId = (String) parameters.get("transactionId");
-
             if (UtilValidate.isNotEmpty(externalId)) {
-                if (externalOrderExists(delegator, externalId, transactionId) != null && create) {
+                if (externalOrderExists(delegator, externalId) != null && create) {
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.externalIdAlreadyExist", locale));
                 }
                 cart.setExternalId(externalId);
-                cart.setTransactionId(transactionId);
             } else {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.externalIdNotAvailable", locale));
             }
@@ -806,12 +812,13 @@ public class ImportOrdersFromEbay {
     }
 
 
-    private static GenericValue externalOrderExists(Delegator delegator, String externalId, String transactionId) throws GenericEntityException {
-        Debug.logInfo("Checking for existing externalId: " + externalId +" and transactionId: " + transactionId, module);
+    private static GenericValue externalOrderExists(Delegator delegator, String externalId) throws GenericEntityException {
+        Debug.logInfo("Checking for existing externalId: " + externalId, module);
         GenericValue orderHeader = null;
-        List<GenericValue> entities = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "transactionId", transactionId));
-        if (UtilValidate.isNotEmpty(entities)) {
-            orderHeader = EntityUtil.getFirst(entities);
+        EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("externalId", EntityComparisonOperator.EQUALS, externalId), EntityCondition.makeCondition("statusId", EntityComparisonOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityComparisonOperator.AND);
+        List<GenericValue> orderHeaderList = delegator.findList("OrderHeader", condition, null, null, null, true);
+        if (UtilValidate.isNotEmpty(orderHeaderList)) {
+            orderHeader = EntityUtil.getFirst(orderHeaderList);
         }
         return orderHeader;
     }
