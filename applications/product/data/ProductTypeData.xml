@@ -494,6 +494,7 @@ under the License.
     <StatusItem description="Defective" sequenceId="21" statusCode="DEFECTIVE" statusId="INV_DEFECTIVE" statusTypeId="INV_SERIALIZED_STTS"/>
     <StatusItem description="On Hold (Non-Serialized)" sequenceId="01" statusCode="ON_HOLD_NS" statusId="INV_NS_ON_HOLD" statusTypeId="INV_NON_SER_STTS"/>
     <StatusItem description="Defective (Non-Serialized)" sequenceId="02" statusCode="DEFECTIVE_NS" statusId="INV_NS_DEFECTIVE" statusTypeId="INV_NON_SER_STTS"/>
+    <StatusItem description="Returned (Non-Serialized)" sequenceId="02" statusCode="RETURNED_NS" statusId="INV_NS_RETURNED" statusTypeId="INV_NON_SER_STTS"/>
     <StatusValidChange condition="" statusId="INV_ON_ORDER" statusIdTo="INV_AVAILABLE" transitionName="Order Arrived"/>
     <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_PROMISED" transitionName="Promise"/>
     <StatusValidChange condition="" statusId="INV_AVAILABLE" statusIdTo="INV_ON_HOLD" transitionName="Hold"/>
@@ -516,6 +517,8 @@ under the License.
     <StatusValidChange condition="" statusId="INV_ACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
     <StatusValidChange condition="" statusId="INV_DEACTIVATED" statusIdTo="INV_ON_HOLD" transitionName="Hold Inactive"/>
     <StatusValidChange condition="" statusId="INV_DEACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Inactive"/>
+    <StatusValidChange condition="" statusId="INV_NS_RETURNED" statusIdTo="INV_NS_ON_HOLD" transitionName="Make Return Held"/>
+    <StatusValidChange condition="" statusId="INV_NS_RETURNED" statusIdTo="INV_NS_DEFECTIVE" transitionName="Mark Return Defective"/>
 
     <!-- inventory transfer status -->
     <StatusType description="Inventory Transfer" hasTable="N" parentTypeId="" statusTypeId="INVENTORY_XFER_STTS"/>
