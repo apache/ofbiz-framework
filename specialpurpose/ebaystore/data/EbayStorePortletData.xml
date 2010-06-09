@@ -23,7 +23,7 @@
         screenName="EbayPersonalInformation"
         screenLocation="component://ebaystore/widget/EbayAccountScreens.xml"
         description="Ebay Personan Information"/>
-    <PortletPortletCategory portalPortletId="EbayPersonalInfo" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="EbayPersonalInfo" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPage portalPageId="EbayAccount" sequenceNum="0" portalPageName="Ebay Account Portal Page" description="Ebay Account page using flexible Portal technology" ownerUserLoginId="_NA_"/>
     <PortalPageColumn portalPageId="EbayAccount" columnSeqId="00001" columnWidthPercentage="50"/>
