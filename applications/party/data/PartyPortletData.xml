@@ -20,116 +20,116 @@
 <entity-engine-xml>
 
     <!-- party -->
-    <PortletCategory portletCategoryId="PROFILE" description="Profiles"/>
+    <PortletCategory portletCategoryId="PARTY_PROFILE" description="Profiles"/>
     <PortalPortlet portalPortletId="party"
         portletName="Party Info"
         screenName="Party"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="General information about a person or party group"
         screenshot="/images/portlets/party.png"/>
-    <PortletPortletCategory portalPortletId="party" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="party" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="Attributes" portletName="Attributes"
         screenName="Attributes"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Attributes of a party"
         screenshot="/images/portlets/Attributes.png"/>
-    <PortletPortletCategory portalPortletId="Attributes" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="Attributes" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="PartyIdentifications" portletName="Party Identification"
         screenName="PartyIdentifications"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Identification associate to a party"
         screenshot=""/>
-    <PortletPortletCategory portalPortletId="PartyIdentifications" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="PartyIdentifications" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings"
         screenName="AvsSettings"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Avs Settings of a party"
         screenshot="/images/portlets/AvsSettings.png"/>
-    <PortletPortletCategory portalPortletId="AvsSettings" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="AvsSettings" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="Content" portletName="Content"
         screenName="Content"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Attached Content of a party"
         screenshot="/images/portlets/Content.png"/>
-    <PortletPortletCategory portalPortletId="Content" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="Content" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="LoyaltyPoints" portletName="Loyalty Points"
         screenName="LoyaltyPoints"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Loyalty Points of a party"
         screenshot="/images/portlets/LoyaltyPoints.png"/>
-    <PortletPortletCategory portalPortletId="LoyaltyPoints" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="LoyaltyPoints" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="MYTASKSPARTY" portletName="My Tasks From Party"
         screenName="mytasks"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Assigned Tasks of a party"
         screenshot="/images/portlets/MYTASKSPARTY.png"/>
-    <PortletPortletCategory portalPortletId="MYTASKSPARTY" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="MYTASKSPARTY" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="Notes" portletName="Notes"
         screenName="Notes"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Notes of a party"
         screenshot="/images/portlets/Notes.png"/>
-    <PortletPortletCategory portalPortletId="Notes" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="Notes" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="PaymentMethods" portletName="Payment Methods"
         screenName="PaymentMethods"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="PaymentMethods of a party"
         screenshot="/images/portlets/PaymentMethods.png"/>
-    <PortletPortletCategory portalPortletId="PaymentMethods" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="PaymentMethods" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="ShipperAccount" portletName="Shipper Account"
         screenName="ShipperAccount"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Shipper Accounts of a party"
         screenshot="/images/portlets/ShipperAccount.png"/>
-    <PortletPortletCategory portalPortletId="ShipperAccount" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="ShipperAccount" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="UserLogin" portletName="User Login"
         screenName="UserLogin"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="User Logins of a party"
         screenshot="/images/portlets/UserLogin.png"/>
-    <PortletPortletCategory portalPortletId="UserLogin" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="UserLogin" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="Visits" portletName="Visits"
         screenName="Visits"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Visits of a certain party"
         screenshot="/images/portlets/Visits.png"/>
-    <PortletPortletCategory portalPortletId="Visits" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="Visits" portletCategoryId="PARTY_PROFILE"/>
     
     <PortalPortlet portalPortletId="ProductStores" portletName="ProductStores"
         screenName="ProductStores"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="ProductStores of a certain party"/>
-    <PortletPortletCategory portalPortletId="ProductStores" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="ProductStores" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="contact" portletName="Contact"
         screenName="Contact"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="contact methods of a party"
         screenshot="/images/portlets/contact.png"/>
-    <PortletPortletCategory portalPortletId="contact" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="contact" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="partyRelContacts" portletName="Account Related Contacts"
         screenName="partyRelContacts"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Related contacts of an account"/>
-    <PortletPortletCategory portalPortletId="partyRelContacts" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="partyRelContacts" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="partyRelAccounts" portletName="Contact Related Accounts"
         screenName="partyRelAccounts"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
         description="Related accounts of an contact"/>
-    <PortletPortletCategory portalPortletId="partyRelAccounts" portletCategoryId="PROFILE"/>
+    <PortletPortletCategory portalPortletId="partyRelAccounts" portletCategoryId="PARTY_PROFILE"/>
 
     <!-- communications -->
     <PortletCategory portletCategoryId="COMMUNICATIONS" description="Communication(s)"/>
