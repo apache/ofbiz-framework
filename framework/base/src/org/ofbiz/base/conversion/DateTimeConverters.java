@@ -305,7 +305,7 @@ public class DateTimeConverters implements ConverterLoader {
         }
 
         public java.sql.Time convert(java.sql.Date obj) throws ConversionException {
-            return new java.sql.Time(obj.getTime()); 
+            throw new ConversionException("Conversion from Date to Time not supported");
        }
     }
 
