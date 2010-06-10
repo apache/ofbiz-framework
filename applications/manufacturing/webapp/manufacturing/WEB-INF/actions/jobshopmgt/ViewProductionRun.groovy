@@ -48,16 +48,6 @@ if (productionRunId) {
         if (orderItems) {
             context.orderItems = orderItems;
         }
-        // Find all the work efforts that must be completed before this one.
-        mandatoryWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", [workEffortIdTo : productionRunId, workEffortAssocTypeId : "WORK_EFF_PRECEDENCY"]));
-        if (mandatoryWorkEfforts) {
-            context.mandatoryWorkEfforts = mandatoryWorkEfforts;
-        }
-        // Find all the work efforts that can start after this one.
-        dependentWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", [workEffortIdFrom : productionRunId, workEffortAssocTypeId : "WORK_EFF_PRECEDENCY"]));
-        if (dependentWorkEfforts) {
-            context.dependentWorkEfforts = dependentWorkEfforts;
-        }
         //  RoutingTasks list
         context.productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
         context.quantity = productionRun.getQuantity(); // this is useful to compute the total estimates runtime in the form
