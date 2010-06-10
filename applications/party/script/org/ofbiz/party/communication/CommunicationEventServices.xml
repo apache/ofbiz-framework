@@ -545,8 +545,8 @@ under the License.
                 <else>
                     <set field="communicationEvent.statusId" from-field="parameters.statusId"/>
                     <store-value value-field="communicationEvent"/>
-                    <if-compare operator="equals" value="Y" field="parameters.setRoleStatusToComplete">
-                        <if-compare operator="equals" value="COM_COMPLETE" field="parameters.statusId">
+                    <if-compare operator="equals" value="COM_COMPLETE" field="parameters.statusId">
+                        <if-compare operator="equals" value="Y" field="parameters.setRoleStatusToComplete">
                             <!-- if the status of the communicationevent is set to complete, all roles need to be set to complete, 
                                 which means the commevent was dealt with and no further action is required by any of the other participants/addressees -->
                             <get-related relation-name="CommunicationEventRole" list="roles" value-field="communicationEvent"/>
@@ -556,6 +556,21 @@ under the License.
                                     <store-value value-field="role"/>
                                 </if-compare-field>                    
                             </iterate>
+                            <else><!-- make sure at least the senders role is set to complete -->
+                                <entity-one  entity-name="CommunicationEventRole" value-field="communicationEventRole">
+                                    <field-map field-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
+                                    <field-map field-name="partyId" from-field="communicationEvent.partyIdFrom"/>
+                                    <field-map field-name="roleTypeId" value="ORIGINATOR"/> 
+                                </entity-one>
+                                <if-not-empty field="communicationEventRole">
+                                    <if-compare operator="not-equals" value="COM_ROLE_COMPLETED" field="comunnicationEventRole.statusId">
+                                        <set-service-fields service-name="updateCommunicationEventRole" to-map="updateRole" map="communicationEventRole"/>
+                                        <set field="updateRole.statusId" value="COM_ROLE_COMPLETED"/>
+                                        
+                                        <call-service service-name="updateCommunicationEventRole" in-map-name="updateRole"/>
+                                    </if-compare>
+                                </if-not-empty>
+                            </else>
                         </if-compare>
                     </if-compare>
                 </else>
