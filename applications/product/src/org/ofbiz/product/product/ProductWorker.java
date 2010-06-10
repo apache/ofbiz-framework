@@ -648,7 +648,7 @@ public class ProductWorker {
                     BigDecimal rating = productReview.getBigDecimal("productRating");
                     if (rating != null) {
                         ratingTally = ratingTally.add(rating);
-                        numRatings.add(BigDecimal.ONE);
+                        numRatings = numRatings.add(BigDecimal.ONE);
                     }
                 }
             }
