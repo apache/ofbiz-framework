@@ -652,6 +652,7 @@ under the License.
                     <xs:enumeration value="equals"/>
                     <xs:enumeration value="not-equals"/>
                     <xs:enumeration value="in"/>
+                    <xs:enumeration value="not-in"/>
                     <xs:enumeration value="between"/>
                     <xs:enumeration value="like"/>
                 </xs:restriction>
