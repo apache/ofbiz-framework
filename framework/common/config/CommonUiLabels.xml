@@ -1836,6 +1836,10 @@
         <value xml:lang="zh">日</value>
         <value xml:lang="zh_CN">天数</value>
     </property>
+    <property key="CommonDeactivate">
+        <value xml:lang="en">Deactivate, set thruDate to Now</value>
+        <value xml:lang="fr">Désactiver, mettre la date du jour comme date de fin</value>
+    </property>
     <property key="CommonDebit">
         <value xml:lang="ar">دين</value>
         <value xml:lang="de">Belastung</value>
