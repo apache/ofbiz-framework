@@ -873,7 +873,7 @@ public class PayPalServices {
             if (errors.size() == 1) {
                 Map.Entry<String, String> error = errors.entrySet().iterator().next();
                 result.put("releaseCode", error.getKey());
-                result.put("releaseMessage", error.getValue()t);
+                result.put("releaseMessage", error.getValue());
             } else {
                 result.put("releaseMessage", "Multiple errors occurred, please refer to the gateway response messages");
                 result.put("internalRespMsgs", errors);
