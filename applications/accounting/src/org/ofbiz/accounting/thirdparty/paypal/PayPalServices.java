@@ -775,9 +775,11 @@ public class PayPalServices {
             result.put("authRefNum", "N/A");
             result.put("processAmount", BigDecimal.ZERO);
             if (errors.size() == 1) {
-                result.put("responseMessage", errors.get(0));
+                Map.Entry<String, String> error = errors.entrySet().iterator().next();
+                result.put("authCode", error.getKey());
+                result.put("authMessage", error.getValue());
             } else {
-                result.put("responseMessage", "Multiple errors occurred, please refer to the gateway response messages");
+                result.put("authMessage", "Multiple errors occurred, please refer to the gateway response messages");
                 result.put("internalRespMsgs", errors);
             }
         } else {
@@ -824,9 +826,11 @@ public class PayPalServices {
             result.put("captureRefNum", "N/A");
             result.put("captureAmount", BigDecimal.ZERO);
             if (errors.size() == 1) {
-                result.put("responseMessage", errors.get(0));
+                Map.Entry<String, String> error = errors.entrySet().iterator().next();
+                result.put("captureCode", error.getKey());
+                result.put("captureMessage", error.getValue());
             } else {
-                result.put("responseMessage", "Multiple errors occurred, please refer to the gateway response messages");
+                result.put("captureMessage", "Multiple errors occurred, please refer to the gateway response messages");
                 result.put("internalRespMsgs", errors);
             }
         } else {
@@ -867,9 +871,11 @@ public class PayPalServices {
             result.put("releaseRefNum", authTrans.getString("referenceNum"));
             result.put("releaseAmount", BigDecimal.ZERO);
             if (errors.size() == 1) {
-                result.put("responseMessage", errors.get(0));
+                Map.Entry<String, String> error = errors.entrySet().iterator().next();
+                result.put("releaseCode", error.getKey());
+                result.put("releaseMessage", error.getValue()t);
             } else {
-                result.put("responseMessage", "Multiple errors occurred, please refer to the gateway response messages");
+                result.put("releaseMessage", "Multiple errors occurred, please refer to the gateway response messages");
                 result.put("internalRespMsgs", errors);
             }
         } else {
@@ -916,9 +922,11 @@ public class PayPalServices {
             result.put("refundRefNum", captureTrans.getString("referenceNum"));
             result.put("refundAmount", BigDecimal.ZERO);
             if (errors.size() == 1) {
-                result.put("responseMessage", errors.get(0));
+                Map.Entry<String, String> error = errors.entrySet().iterator().next();
+                result.put("refundCode", error.getKey());
+                result.put("refundMessage", error.getValue());
             } else {
-                result.put("responseMessage", "Multiple errors occurred, please refer to the gateway response messages");
+                result.put("refundMessage", "Multiple errors occurred, please refer to the gateway response messages");
                 result.put("internalRespMsgs", errors);
             }
         } else {
