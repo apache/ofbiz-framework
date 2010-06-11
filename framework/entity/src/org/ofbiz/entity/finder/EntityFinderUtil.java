@@ -199,7 +199,7 @@ public class EntityFinderUtil {
             }
 
             // If IN or BETWEEN operator, see if value is a literal list and split it
-            if ((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN))
+            if ((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN) || operator.equals(EntityOperator.NOT_IN))
                     && value instanceof String) {
                 String delim = null;
                 if (((String)value).indexOf("|") >= 0) {
@@ -217,7 +217,7 @@ public class EntityFinderUtil {
             }
 
             // don't convert the field to the desired type if this is an IN or BETWEEN operator and we have a Collection
-            if (!((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN))
+            if (!((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN) || operator.equals(EntityOperator.NOT_IN))
                     && value instanceof Collection)) {
                 // now to a type conversion for the target fieldName
                 value = modelEntity.convertFieldValue(modelEntity.getField(fieldName), value, modelFieldTypeReader, context);
