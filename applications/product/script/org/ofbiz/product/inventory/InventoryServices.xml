@@ -628,6 +628,7 @@ under the License.
                             <or>
                                 <if-empty field="inventoryItem.statusId"/>
                                 <if-compare field="inventoryItem.statusId" operator="equals" value="INV_AVAILABLE"/>
+                                <if-compare field="inventoryItem.statusId" operator="equals" value="INV_NS_RETURNED"/>
                                 <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM"/><!-- status is reflected in total fields -->
                             </or>
                         </and>
