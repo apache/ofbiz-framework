@@ -245,10 +245,12 @@ public class ContextFilter implements Filter {
 
                 if (redirectPath == null) {
                     int error = 404;
-                    try {
-                        error = Integer.parseInt(errorCode);
-                    } catch (NumberFormatException nfe) {
-                        Debug.logWarning(nfe, "Error code specified would not parse to Integer : " + errorCode, module);
+                    if (UtilValidate.isNotEmpty(errorCode)) {
+                        try {
+                            error = Integer.parseInt(errorCode);
+                        } catch (NumberFormatException nfe) {
+                            Debug.logWarning(nfe, "Error code specified would not parse to Integer : " + errorCode, module);
+                        }
                     }
                     filterMessage = filterMessage + " (" + error + ")";
                     wrapper.sendError(error, contextUri);
