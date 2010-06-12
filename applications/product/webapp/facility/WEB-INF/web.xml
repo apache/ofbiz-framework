@@ -65,7 +65,7 @@ under the License.
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css:/ShippingAPI.dll</param-value>
+            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css:/ShippingAPI.dll</param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
