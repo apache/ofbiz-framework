@@ -30,6 +30,7 @@ under the License.
         <tr class="header-row">
           <td><b>${uiLabelMap.CommonId}</b></td>
           <td><b>${uiLabelMap.CommonDescription}</b></td>
+          <td><b>${uiLabelMap.ProductUomId}</b></td>
           <td><b>${uiLabelMap.ProductType}</b></td>
           <td><b>${uiLabelMap.ProductCategory}</b></td>
           <td><b>${uiLabelMap.CommonFromDate}</b></td>
@@ -38,6 +39,9 @@ under the License.
         </tr>
   <#assign rowClass = "2">
   <#list productFeatureAndAppls as productFeatureAndAppl>
+    <#if productFeatureAndAppl.uomId?exists>
+        <#assign curProductFeatureUom = delegator.findOne("Uom",{"uomId",productFeatureAndAppl.uomId}, true)>
+    </#if>
     <#assign curProductFeatureType = productFeatureAndAppl.getRelatedOneCache("ProductFeatureType")>
     <#assign curProductFeatureApplType = productFeatureAndAppl.getRelatedOneCache("ProductFeatureApplType")>
     <#assign curProductFeatureCategory = (productFeatureAndAppl.getRelatedOneCache("ProductFeatureCategory")?if_exists)>
@@ -49,6 +53,7 @@ under the License.
           <a href="<@ofbizUrl>EditFeature?productFeatureId=${(productFeatureAndAppl.productFeatureId)?if_exists}</@ofbizUrl>" class="buttontext">
               ${(productFeatureAndAppl.productFeatureId)?if_exists}</a></td>
           <td>${(productFeatureAndAppl.get("description",locale))?if_exists}</td>
+          <td><#if productFeatureAndAppl.uomId?exists>${curProductFeatureUom.abbreviation!}</#if></td>
           <td>${(curProductFeatureType.get("description",locale))?default((productFeatureAndAppl.productFeatureTypeId)?if_exists)}</td>
           <td><a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${(productFeatureAndAppl.productFeatureCategoryId)?if_exists}&amp;productId=${(productFeatureAndAppl.productId)?if_exists}</@ofbizUrl>" class="buttontext">
               ${(curProductFeatureCategory.description)?if_exists}
