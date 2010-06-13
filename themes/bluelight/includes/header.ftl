@@ -129,6 +129,16 @@ under the License.
           <#if headerImageUrl?exists>
             <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(headerImageUrl)}</@ofbizContentUrl>"/></a></li>
           </#if>
+          <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
+            <li>
+            <div class="last-system-msg">
+            <center>${layoutSettings.middleTopHeader?if_exists}</center>
+            <a href="${layoutSettings.middleTopLink1?if_exists}">${layoutSettings.middleTopMessage1?if_exists}</a><br/>
+            <a href="${layoutSettings.middleTopLink2?if_exists}">${layoutSettings.middleTopMessage2?if_exists}</a><br/>
+            <a href="${layoutSettings.middleTopLink3?if_exists}">${layoutSettings.middleTopMessage3?if_exists}</a>
+            </div>
+            </li>
+          </#if>
         </#if>
         <li class="control-area">
           <ul id="preferences-menu">
