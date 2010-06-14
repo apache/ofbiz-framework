@@ -30,27 +30,32 @@ under the License.
         <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
         <log level="info" message="In getNextQuoteId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
 
-        <if>
-            <condition>
-                <if-compare field="partyAcctgPreference.quoteSequenceEnumId" operator="equals" value="QTESQ_ENF_SEQ"/>
-            </condition>
-            <then>
-                <!-- <log level="info" message="In getNextQuoteId sequence enum QTESQ_ENF_SEQ"/> -->
-                <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
-                <if-not-empty field="partyAcctgPreference.lastQuoteNumber">
-                    <calculate field="partyAcctgPreference.lastQuoteNumber" type="Long">
-                        <calcop operator="add" field="partyAcctgPreference.lastQuoteNumber"/>
-                        <number value="1"/>
-                    </calculate>
-                    <else>
-                        <calculate field="partyAcctgPreference.lastQuoteNumber" type="Long"><number value="1"/></calculate>
-                    </else>
-                </if-not-empty>
-                <store-value value-field="partyAcctgPreference"/>
-                <set from-field="partyAcctgPreference.lastQuoteNumber" field="quoteIdTemp"/>
-            </then>
+        <if-not-empty field="partyAcctgPreference">
+           <get-related-one relation-name="QuoteCustomMethod" value-field="partyAcctgPreference" to-value-field="customMethod"/>
+           <else>
+               <property-to-field field="errorPartyPerf" resource="AccountingErrorUiLabels" property="AccountingPartyAcctgPreferenceNotDefine"/>
+               <log level="warning" message="errorPartyPerf" />
+           </else>
+        </if-not-empty>
+
+        <if-not-empty field="customMethod">
+            <set field="customMethodName" from-field="customMethod.customMethodName"/>
+            <else><!-- retreive service from deprecated enumeration -->
+                <if-compare operator="equals" value="QUOSQ_ENF_SEQ" field="partyAcctgPreference.oldQuoteSequenceEnumId">
+                    <set field="customMethodName" value="quoteSequence-enforced"/>
+                </if-compare>
+            </else>
+        </if-not-empty>
+
+        <if-not-empty field="customMethod">
+            <set-service-fields service-name="${customMethodName}" map="parameters" to-map="customMethodMap"/>
+            <set field="customMethodMap.partyId" from-field="parameters.partyId"/>
+            <set field="customMethodMap.partyAcctgPreference" from-field="partyAcctgPreference"/>
+            <call-service service-name="${customMethodName}" in-map-name="customMethodMap">
+               <result-to-field result-name="quoteId" field="quoteIdTemp"/>
+            </call-service>
             <else>
-                <!-- <log level="info" message="In getNextQuoteId sequence enum QTESQ_STANDARD"/> -->
+                <!-- <log level="info" message="In getNextQuoteId sequence by Standard"/> -->
                 <!-- default to the default sequencing: QTESQ_STANDARD -->
                 <set from-field="parameters.quoteId" field="quoteIdTemp"/>
                 <if-empty field="quoteIdTemp">
@@ -62,12 +67,32 @@ under the License.
                     </else>
                 </if-empty>
             </else>
-        </if>
+        </if-not-empty>
 
         <!-- use quoteIdTemp along with the quoteIdPrefix to create the real ID -->
         <set field="quoteId" value="${partyAcctgPreference.quoteIdPrefix}${quoteIdTemp}"/>
         <field-to-result field="quoteId" result-name="quoteId"/>
     </simple-method>
+
+    <simple-method method-name="quoteSequence-enforced" short-description="Enforced Sequence (no gaps, per organization)">
+        <log level="info" message="In getNextQuoteId sequence enum Enforced"/> 
+        <set field="partyAcctgPreference" from-field="parameters.partyAcctgPreference"/>
+        <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
+
+        <if-not-empty field="partyAcctgPreference.lastQuoteNumber">
+            <calculate field="partyAcctgPreference.lastQuoteNumber" type="Long">
+                <calcop operator="add" field="partyAcctgPreference.lastQuoteNumber"/>
+                <number value="1"/>
+            </calculate>
+            <else>
+                <calculate field="partyAcctgPreference.lastQuoteNumber" type="Long"><number value="1"/></calculate>
+            </else>
+        </if-not-empty>
+
+        <store-value value-field="partyAcctgPreference"/>
+        <set from-field="partyAcctgPreference.lastQuoteNumber" field="quoteId"/>
+        <field-to-result field="quoteId" result-name="quoteId"/>
+   </simple-method> 
 
     <!-- create a new Quote -->
     <simple-method method-name="createQuote" short-description="Create a Quote">
@@ -94,6 +119,7 @@ under the License.
         <!-- create a non existing ID; if we have a productStoreId do it for the payToPartyId of that ProductStore according to PartyAcctgPreferences, otherwise get from standard sequence -->
         <entity-one entity-name="ProductStore" value-field="productStore"/>
         <if-not-empty field="productStore.payToPartyId">
+            <set-service-fields service-name="getNextQuoteId" to-map="getNextQuoteIdContext" map="parameters"/>
             <set field="getNextQuoteIdContext.partyId" from-field="productStore.payToPartyId"/>
             <call-service service-name="getNextQuoteId" in-map-name="getNextQuoteIdContext">
                 <result-to-field result-name="quoteId" field="newEntity.quoteId"/>

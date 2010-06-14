@@ -2306,15 +2306,15 @@ under the License.
         <field name="taxFormId" type="id-ne"/>
         <field name="cogsMethodId" type="id-ne"/>
         <field name="baseCurrencyUomId" type="id-ne"/>
-        <field name="invoiceSequenceEnumId" type="id-ne"/>
+        <field name="invoiceSeqCustMethId" type="id-ne"/>
         <field name="invoiceIdPrefix" type="very-short"/>
         <field name="lastInvoiceNumber" type="numeric"/>
         <field name="lastInvoiceRestartDate" type="date-time"/>
         <field name="useInvoiceIdForReturns" type="indicator"/>
-        <field name="quoteSequenceEnumId" type="id-ne"/>
+        <field name="quoteSeqCustMethId" type="id-ne"/>
         <field name="quoteIdPrefix" type="very-short"/>
         <field name="lastQuoteNumber" type="numeric"/>
-        <field name="orderSequenceEnumId" type="id-ne"/>
+        <field name="orderSeqCustMethId" type="id-ne"/>
         <field name="orderIdPrefix" type="very-short"/>
         <field name="lastOrderNumber" type="numeric"/>
         <field name="refundPaymentMethodId" type="id"/>
@@ -2324,6 +2324,10 @@ under the License.
                 If the error journal is set, if the GL posting fails for some reason the triggering operation (finalizing an invoice or payment or whatever) would NOT roll back, instead the partial GL post would be placed into the error journal.
             </description>
         </field>
+        <!-- Deprecated Field-->
+        <field name="oldInvoiceSequenceEnumId" type="id-ne"/>
+        <field name="oldOrderSequenceEnumId" type="id-ne"/>
+        <field name="oldQuoteSequenceEnumId" type="id-ne"/>
         <prim-key field="partyId"/>
         <relation type="one" rel-entity-name="Party" fk-name="ACTG_PREF_PTY">
             <key-map field-name="partyId"/>
@@ -2337,20 +2341,30 @@ under the License.
         <relation type="one" fk-name="ACCTGPREF_CURNCY" rel-entity-name="Uom">
             <key-map field-name="baseCurrencyUomId" rel-field-name="uomId"/>
         </relation>
-        <relation type="one" fk-name="ACTGPREF_INVSQ" title="InvoiceSequence" rel-entity-name="Enumeration">
-            <key-map field-name="invoiceSequenceEnumId" rel-field-name="enumId"/>
+        <relation type="one" fk-name="ACTGPREF_INVCM" title="Invoice" rel-entity-name="CustomMethod">
+            <key-map field-name="invoiceSeqCustMethId" rel-field-name="customMethodId"/>
         </relation>
-        <relation type="one" fk-name="ACTGPREF_QTESQ" title="QuoteSequence" rel-entity-name="Enumeration">
-            <key-map field-name="quoteSequenceEnumId" rel-field-name="enumId"/>
+        <relation type="one" fk-name="ACTGPREF_QTECM" title="Quote" rel-entity-name="CustomMethod">
+            <key-map field-name="quoteSeqCustMethId" rel-field-name="customMethodId"/>
         </relation>
-        <relation type="one" fk-name="ACTGPREF_ODRSQ" title="OrderSequence" rel-entity-name="Enumeration">
-            <key-map field-name="orderSequenceEnumId" rel-field-name="enumId"/>
+        <relation type="one" fk-name="ACTGPREF_ODRCM" title="Order" rel-entity-name="CustomMethod">
+            <key-map field-name="orderSeqCustMethId" rel-field-name="customMethodId"/>
         </relation>
         <relation type="one" rel-entity-name="PaymentMethod">
             <key-map field-name="refundPaymentMethodId" rel-field-name="paymentMethodId"/>
         </relation>
         <relation type="one" fk-name="ACTGPREF_GLJRNL" rel-entity-name="GlJournal">
             <key-map field-name="errorGlJournalId" rel-field-name="glJournalId"/>
+        </relation>
+        <!-- Deprecated relation-->
+        <relation type="one" fk-name="ACTGPREF_INVSQ" title="InvoiceSequence" rel-entity-name="Enumeration">
+            <key-map field-name="oldInvoiceSequenceEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="ACTGPREF_QTESQ" title="QuoteSequence" rel-entity-name="Enumeration">
+            <key-map field-name="oldQuoteSequenceEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="ACTGPREF_ODRSQ" title="OrderSequence" rel-entity-name="Enumeration">
+            <key-map field-name="oldOrderSequenceEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
     <entity entity-name="ProductAverageCost"

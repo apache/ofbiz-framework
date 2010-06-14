@@ -28,8 +28,22 @@ under the License.
     <service name="getNextInvoiceId" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getNextInvoiceId">
         <description>Get the Next Invoice ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
+        <implements service="createInvoice"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="invoiceSequence-enforced" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="invoiceSequence-enforced">
+        <implements service="getNextInvoiceId"/>
+        <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
+        <override name="invoiceId" type="Long" mode="OUT"/>
+    </service>
+
+    <service name="invoiceSequence-restart" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="invoiceSequence-restart">
+        <implements service="getNextInvoiceId"/>
+        <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
     </service>
 
     <!-- Invoice services -->
