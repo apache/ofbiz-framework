@@ -426,13 +426,17 @@ public class OrderServices {
         }
 
         if (UtilValidate.isNotEmpty(orgPartyId)) {
-            Map getNextOrderIdContext = UtilMisc.toMap("partyId", orgPartyId, "userLogin", userLogin);
+            Map getNextOrderIdContext = FastMap.newInstance();
+            getNextOrderIdContext.putAll(context);
+            getNextOrderIdContext.put("partyId", orgPartyId);
+            getNextOrderIdContext.put("userLogin", userLogin);
 
             if ((orderTypeId.equals("SALES_ORDER")) || (productStoreId != null)) {
                 getNextOrderIdContext.put("productStoreId", productStoreId);
             }
             if (UtilValidate.isEmpty(orderId)) {
                 try {
+                    getNextOrderIdContext = ctx.makeValidContext("getNextOrderId", "IN", getNextOrderIdContext);
                     Map getNextOrderIdResult = dispatcher.runSync("getNextOrderId", getNextOrderIdContext);
                     if (ServiceUtil.isError(getNextOrderIdResult)) {
                         String errMsg = UtilProperties.getMessage(resource_error, "OrderErrorGettingNextOrderIdWhileCreatingOrder", locale);

@@ -21,9 +21,15 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountingFinAccountInactiveStatusError">
         <value xml:lang="en">FinAccount must be in active status</value>
+        <value xml:lang="fr">Le compte financier doit être dans un état actif</value>
     </property>
     <property key="AccountingFinAccountStatusNotValidError">
         <value xml:lang="en">FinAccount not in valid status</value>
+        <value xml:lang="fr">Le compte financier n'est pas dans un état valide</value>
+    </property>
+    <property key="AccountingPartyAcctgPreferenceNotDefine">
+        <value xml:lang="en">Acctg preference not define</value>
+        <value xml:lang="fr">il n'y a pas de configuration sur les préférences de gestion encore définie pour votre société</value>
     </property>
     <property key="AccountingPayPalCommunicationError">
         <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
@@ -32,6 +38,7 @@
     </property>
     <property key="AccountingPayPalShoppingCartIsEmpty">
         <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
+        <value xml:lang="fr">Votre panier est vide, vous ne pouvez pas effectuer une validation express</value>
         <value xml:lang="hi_IN">शॉपिंग कार्ट खाली है, एक्सप्रेस चेकआउट के साथ आगे नहीं बढ़ सकते</value>
         <value xml:lang="it">Il carrello è vuoto, non posso procedere con il checkout Express</value>
     </property>
@@ -100,41 +107,49 @@
     </property>
     <property key="worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed To Execute Service CreatePaymentFromPreference</value>
+        <value xml:lang="fr">Échec sur l'execution du service de création d'un payment suivant les préférence (CreatePaymentFromPreference)</value>
         <value xml:lang="hi_IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
         <value xml:lang="it">Fallita esecuzione servizio CreatePaymentFromPreference</value>
     </property>
     <property key="worldPayEvents.noValidOrderIdReturned">
         <value xml:lang="en">No Valid OrderId Returned</value>
+        <value xml:lang="fr">Référence commande retournée n'est pas valide</value>
         <value xml:lang="hi_IN">मान्य OrderId वापस नहीं लौटा</value>
         <value xml:lang="it">Nessun numero ordine restituito</value>
     </property>
     <property key="worldPayEvents.problemsConnectingWithWorldPay">
         <value xml:lang="en">Problems Connecting With WorldPay</value>
+        <value xml:lang="fr">Problème rencontré dans la connexion avec WorldPay</value>
         <value xml:lang="hi_IN">WorldPay के साथ जोड़ने में समस्या</value>
         <value xml:lang="it">Problema nella connessione con WorldPay</value>
     </property>
     <property key="worldPayEvents.problemsGettingAuthenticationUser">
         <value xml:lang="en">Problems Getting Authentication User</value>
+        <value xml:lang="en">Problème sur l'authentification de l'utilisateur</value>
         <value xml:lang="hi_IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema durante l'autenticazione utente</value>
     </property>
     <property key="worldPayEvents.problemsGettingInstId">
         <value xml:lang="en">Problems Getting Inst Id</value>
+        <value xml:lang="fr">Problème de récupération de l'Inst Id</value>
         <value xml:lang="hi_IN">Inst Id में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare il parametro Inst Id</value>
     </property>
     <property key="worldPayEvents.problemsGettingInstIdToInteger">
         <value xml:lang="en">Problems Getting Inst Id To Integer</value>
+        <value xml:lang="fr">Problème de récupération de l'Inst Id vers un nombre</value>
         <value xml:lang="hi_IN">Inst Id से Integer में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel convertire il parametro Inst Id ad intero</value>
     </property>
     <property key="worldPayEvents.problemsGettingMerchantConfiguration">
         <value xml:lang="en">Problems Getting Merchant Configuration</value>
+        <value xml:lang="fr">Problème de récupération de la configuration marchand</value>
         <value xml:lang="hi_IN">व्यापारी विन्यास में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare la configurazione del negoziante</value>
     </property>
     <property key="worldPayEvents.problemsGettingOrderHeader">
         <value xml:lang="en">Problems Getting OrderHeader</value>
+        <value xml:lang="fr">Problème de récupération de la commande</value>
         <value xml:lang="hi_IN">OrderHeader में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare la testata ordine</value>
     </property>

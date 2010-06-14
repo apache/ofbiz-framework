@@ -630,9 +630,17 @@ under the License.
     <service name="getNextOrderId" engine="simple"
         location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="getNextOrderId">
         <description>Get the Next Order ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
+        <implements service="storeOrder" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="orderSequence-enforced" engine="simple"
+        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="orderSequence-enforced">
+        <implements service="getNextOrderId"/>
+        <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
+        <override name="orderId" type="Long" mode="OUT"/>
     </service>
 
     <!-- OrderHeader -->

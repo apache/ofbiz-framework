@@ -479,28 +479,32 @@ under the License.
         <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special order number sequencing -->
         <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
         <log level="info" message="In getNextOrderId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
+ 
+        <if-not-empty field="partyAcctgPreference">
+           <get-related-one relation-name="OrderCustomMethod" value-field="partyAcctgPreference" to-value-field="customMethod"/>
+           <else>
+               <property-to-field field="errorPartyPerf" resource="AccountingErrorUiLabels" property="AccountingPartyAcctgPreferenceNotDefine"/>  
+               <log level="warning" message="errorPartyPerf" />
+           </else>
+        </if-not-empty>
 
-        <if>
-            <condition>
-                <if-compare field="partyAcctgPreference.orderSequenceEnumId" operator="equals" value="ODRSQ_ENF_SEQ"/>
-            </condition>
-            <then>
-                <!-- <log level="info" message="In getNextOrderId sequence enum ODRSQ_ENF_SEQ"/> -->
-                <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
-                <if-not-empty field="partyAcctgPreference.lastOrderNumber">
-                    <calculate field="partyAcctgPreference.lastOrderNumber" type="Long">
-                        <calcop operator="add" field="partyAcctgPreference.lastOrderNumber"/>
-                        <number value="1"/>
-                    </calculate>
-                    <else>
-                        <calculate field="partyAcctgPreference.lastOrderNumber" type="Long"><number value="1"/></calculate>
-                    </else>
-                </if-not-empty>
-                <store-value value-field="partyAcctgPreference"/>
-                <set from-field="partyAcctgPreference.lastOrderNumber" field="orderIdTemp"/>
-            </then>
+        <if-not-empty field="customMethod">
+            <set field="customMethodName" from-field="customMethod.customMethodName"/>
+            <else><!-- retreive service from deprecated enumeration -->
+                <if-compare operator="equals" value="ORDSQ_ENF_SEQ" field="partyAcctgPreference.oldOrderSequenceEnumId">
+                    <set field="customMethodName" value="orderSequence-enforced"/>
+                </if-compare>
+            </else>
+        </if-not-empty>
+
+        <if-not-empty field="customMethodName">
+            <set-service-fields service-name="${customMethodName}" map="parameters" to-map="customMethodMap"/>
+            <set field="customMethodMap.partyAcctgPreference" from-field="partyAcctgPreference"/>
+            <call-service service-name="${customMethodName}" in-map-name="customMethodMap">
+               <result-to-field result-name="orderId" field="orderIdTemp"/>
+            </call-service>
             <else>
-                <!-- <log level="info" message="In getNextOrderId sequence enum ODRSQ_STANDARD"/> -->
+                <!-- <log level="info" message="In getNextOrderId sequence by Standard"/> -->
                 <!-- default to the default sequencing: ODRSQ_STANDARD -->
                 <set from-field="parameters.orderId" field="orderIdTemp"/>
                 <if-empty field="orderIdTemp">
@@ -512,8 +516,8 @@ under the License.
                     </else>
                 </if-empty>
             </else>
-        </if>
-
+        </if-not-empty>
+        
         <if-not-empty field="parameters.productStoreId">
             <entity-one entity-name="ProductStore" value-field="productStore"/>
         </if-not-empty>
@@ -522,6 +526,26 @@ under the License.
         <set field="orderId" value="${productStore.orderNumberPrefix}${partyAcctgPreference.orderIdPrefix}${str:toString(orderIdTemp)}"/>
         <field-to-result field="orderId" result-name="orderId"/>
     </simple-method>
+
+    <simple-method method-name="orderSequence-enforced" short-description="Enforced Sequence (no gaps, per organization)">
+        <log level="info" message="In getNextOrderId sequence enum Enforced"/> 
+        <set field="partyAcctgPreference" from-field="parameters.partyAcctgPreference"/>
+        <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
+
+        <if-not-empty field="partyAcctgPreference.lastOrderNumber">
+            <calculate field="partyAcctgPreference.lastOrderNumber" type="Long">
+                <calcop operator="add" field="partyAcctgPreference.lastOrderNumber"/>
+                <number value="1"/>
+            </calculate>
+            <else>
+                <calculate field="partyAcctgPreference.lastOrderNumber" type="Long"><number value="1"/></calculate>
+            </else>
+        </if-not-empty>
+
+        <store-value value-field="partyAcctgPreference"/>
+        <set from-field="partyAcctgPreference.lastOrderNumber" field="orderId"/>
+        <field-to-result field="orderId" result-name="orderId"/>
+    </simple-method> 
 
     <simple-method method-name="createOrderHeader" short-description="Create OrderHeader">
         <now-timestamp field="nowTimestamp"/>

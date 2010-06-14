@@ -28,8 +28,16 @@ under the License.
     <service name="getNextQuoteId" engine="simple"
         location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="getNextQuoteId">
         <description>Get the Next Quote ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
+        <implements service="createQuote"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="quoteSequence-enforced" engine="simple"
+        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="quoteSequence-enforced">
+        <implements service="getNextQuoteId" optional="true"/>
+        <attribute name="partyAcctgPreference" type="org.ofbiz.entity.GenericValue" mode="IN"/>
+        <override name="quoteId" type="Long" mode="OUT"/>
     </service>
 
     <service name="createQuote" default-entity-name="Quote" engine="simple"
