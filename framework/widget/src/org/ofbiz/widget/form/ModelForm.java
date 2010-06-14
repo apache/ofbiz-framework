@@ -1986,12 +1986,18 @@ public class ModelForm extends ModelWidget {
     }
 
     public String getCurrentContainerId(Map<String, Object> context) {
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+        MapStack<String> localContext = MapStack.create(context);
+
+        FlexibleStringExpander containerIdExpander = FlexibleStringExpander.getInstance(this.getContainerId());
+        String retVal = containerIdExpander.expandString(localContext, locale);
+
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null && "list".equals(this.getType())) {
-            return this.getContainerId() + this.getItemIndexSeparator() + itemIndex.intValue();
+            return retVal + this.getItemIndexSeparator() + itemIndex.intValue();
         }
 
-        return this.getContainerId();
+        return retVal;
     }
 
     public String getContainerStyle() {
