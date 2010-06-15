@@ -941,7 +941,13 @@ public class SqlJdbcUtil {
         if (field != null) {
             buffer.append('?');
         } else {
-            buffer.append('\'').append(value).append('\'');
+            buffer.append('\'');
+            if (value instanceof String) {
+                buffer.append(((String) value).replaceAll("'", "''"));
+            } else {
+                buffer.append(value);
+            }
+            buffer.append('\'');
         }
         if (field != null && params != null) params.add(new EntityConditionParam(field, value));
     }
