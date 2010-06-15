@@ -71,6 +71,10 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updatePartyContactMech" short-description="Update a PartyContactMech">
+        <if-empty field="parameters.partyId">
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
+        </if-empty>
+        
         <!-- Find old value -->
         <make-value entity-name="PartyContactMech" value-field="partyContactMechMap"/>
         <set-pk-fields value-field="partyContactMechMap" map="parameters"/>
