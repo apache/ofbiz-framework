@@ -1573,3 +1573,14 @@ height:16px;
 .wait-spinner div {
     padding-top: 4px;
 }
+
+#controls span#last-system-msg{
+color:#1C334D;
+padding-left:10px;
+float: right;
+margin-right: 20px;
+}
+
+.last-system-msg a{
+color:#1C334D;
+}

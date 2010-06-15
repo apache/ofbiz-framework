@@ -128,6 +128,14 @@ under the License.
               <#include "component://common/webcommon/includes/helplink.ftl" />
               <span><a href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></span>
            </#if>
+           <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
+             <span id="last-system-msg">
+               <center>${layoutSettings.middleTopHeader?if_exists}</center>
+               <a href="${layoutSettings.middleTopLink1?if_exists}">${layoutSettings.middleTopMessage1?if_exists}</a><br/>
+               <a href="${layoutSettings.middleTopLink2?if_exists}">${layoutSettings.middleTopMessage2?if_exists}</a><br/>
+               <a href="${layoutSettings.middleTopLink3?if_exists}">${layoutSettings.middleTopMessage3?if_exists}</a>
+             </span>
+           </#if>
            <div class="wait-spinner" style="background:none; visibility:hidden">
              <div id="wait-spinner" style="">
                <img src="/images/spinner.gif" alt="" title=""/>
