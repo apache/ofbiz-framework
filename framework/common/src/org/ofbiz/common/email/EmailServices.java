@@ -431,6 +431,7 @@ public class EmailServices {
             partyId = (String) bodyParameters.get("partyId");
         }
         String orderId = (String) bodyParameters.get("orderId");
+        String custRequestId = (String) bodyParameters.get("custRequestId");
         
         bodyParameters.put("communicationEventId", serviceContext.get("communicationEventId"));
         NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
@@ -567,6 +568,9 @@ public class EmailServices {
         if (UtilValidate.isNotEmpty(orderId)) {
             serviceContext.put("orderId", orderId);
         }            
+        if (UtilValidate.isNotEmpty(custRequestId)) {
+            serviceContext.put("custRequestId", custRequestId);
+        }            
         
         if (Debug.verboseOn()) Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, module);
 
@@ -592,6 +596,9 @@ public class EmailServices {
         result.put("subject", subject);
         if (UtilValidate.isNotEmpty(orderId)) {
             result.put("orderId", orderId);
+        }            
+        if (UtilValidate.isNotEmpty(custRequestId)) {
+            result.put("custRequstId", custRequestId);
         }            
         return result;
     }

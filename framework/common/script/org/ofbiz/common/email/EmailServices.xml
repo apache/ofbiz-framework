@@ -57,7 +57,9 @@ under the License.
             <set field="emailParams.sendBcc" from-field="emailTemplateSetting.bccAddress"/>
             <set field="emailParams.subject" from-field="emailTemplateSetting.subject"/>
             <set field="emailParams.contentType" from-field="emailTemplateSetting.contentType" default-value="text/html"/>
-
+            <if-not-empty field="parameters.custRequestId">
+                <set field="emailParams.bodyParameters.custRequestId" from-field="parameters.custRequestId"/>
+            </if-not-empty>
             <!-- copy the incoming parameter fields AFTER setting the ones from EmailTemplateSetting so they can override things like subject, sendFrom, etc -->
             <set-service-fields service-name="sendMailFromScreen" map="parameters" to-map="emailParams"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams">
