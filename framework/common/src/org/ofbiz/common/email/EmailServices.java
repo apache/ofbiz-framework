@@ -598,7 +598,7 @@ public class EmailServices {
             result.put("orderId", orderId);
         }            
         if (UtilValidate.isNotEmpty(custRequestId)) {
-            result.put("custRequstId", custRequestId);
+            result.put("custRequestId", custRequestId);
         }            
         return result;
     }
