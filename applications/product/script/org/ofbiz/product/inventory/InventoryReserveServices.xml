@@ -88,6 +88,8 @@ under the License.
                         <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
                         <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
                         <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_PICKLOC"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="INV_NS_DEFECTIVE"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="INV_DEFECTIVE"/>
                     </condition-list>
                     <order-by field-name="${orderByString}"/>
                 </entity-condition>
@@ -108,6 +110,8 @@ under the License.
                             <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
                             <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_BULK"/>
+                            <condition-expr field-name="statusId" operator="not-equals" value="INV_NS_DEFECTIVE"/>
+                            <condition-expr field-name="statusId" operator="not-equals" value="INV_DEFECTIVE"/>
                         </condition-list>
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
@@ -129,6 +133,8 @@ under the License.
                             <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
                             <condition-expr field-name="locationSeqId" operator="equals" from-field="nullField"/>
+                            <condition-expr field-name="statusId" operator="not-equals" value="INV_NS_DEFECTIVE"/>
+                            <condition-expr field-name="statusId" operator="not-equals" value="INV_DEFECTIVE"/>
                         </condition-list>
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
