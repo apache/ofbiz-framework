@@ -22,10 +22,12 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.SimpleMethod;
@@ -243,10 +245,14 @@ public class Calculate extends MethodOperation {
 
         public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) {
             String valueStr = methodContext.expandString(this.valueStr);
+            Locale locale = (Locale) methodContext.getLocale();
+
+            if (locale == null) locale = Locale.getDefault();
+            
             BigDecimal value;
             try {
-                value = new BigDecimal(valueStr);
-                value = value.setScale(scale, roundingMode);
+                BigDecimal parseVal = (BigDecimal) ObjectType.simpleTypeConvert(valueStr, "BigDecimal", null, null, locale, true);
+                value = parseVal.setScale(scale, roundingMode);
             } catch (Exception e) {
                 Debug.logError(e, "Could not parse the number string: " + valueStr, module);
                 throw new IllegalArgumentException("Could not parse the number string: " + valueStr);
