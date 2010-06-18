@@ -642,7 +642,7 @@ under the License.
             </call-service>
             <log level="info" message="Phone Contact created phoneContactMechId is ${contactMechId}"/>
         <else>
-            <set-service-fields service-name="createPartyTelecomNumber" map="parameters" to-map="phoneContext"/>
+            <set-service-fields service-name="updatePartyTelecomNumber" map="parameters" to-map="phoneContext"/>
             <call-service service-name="updatePartyTelecomNumber" in-map-name="phoneContext">
                 <result-to-field result-name="contactMechId" field="contactMechId"/>
             </call-service>
@@ -660,11 +660,11 @@ under the License.
             </call-service>
             <log level="info" message="Postal address created, contactMechId is ${contactMechId}"></log>
             <else>
-                <set-service-fields service-name="createPartyPostalAddress" map="parameters" to-map="postalAddressContext"/>
+                <set-service-fields service-name="updatePartyPostalAddress" map="parameters" to-map="postalAddressContext"/>
                 <call-service service-name="updatePartyPostalAddress" in-map-name="postalAddressContext">
                     <result-to-field result-name="contactMechId" field="contactMechId"/>
                 </call-service>
-                <log level="info" message="Postal address contact updated, contactMechId is ${contactMechId}"></log>
+                <log level="info" message="Postal address updated, contactMechId is ${contactMechId}"></log>
             </else>
         </if-empty>
         <field-to-result field="contactMechId"/>
