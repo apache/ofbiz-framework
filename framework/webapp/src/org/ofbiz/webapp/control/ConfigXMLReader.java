@@ -32,6 +32,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
@@ -318,7 +319,11 @@ public class ConfigXMLReader {
             Element firstvisitElement = UtilXml.firstChildElement(rootElement, "firstvisit");
             if (firstvisitElement != null) {
                 for (Element eventElement: UtilXml.childElementList(firstvisitElement, "event")) {
-                    this.firstVisitEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
+                    String eventName = eventElement.getAttribute("name");
+                    if (UtilValidate.isEmpty(eventName)) {
+                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
+                    }
+                    this.firstVisitEventList.put(eventName, new Event(eventElement));
                 }
             }
 
@@ -326,7 +331,11 @@ public class ConfigXMLReader {
             Element preprocessorElement = UtilXml.firstChildElement(rootElement, "preprocessor");
             if (preprocessorElement != null) {
                 for (Element eventElement: UtilXml.childElementList(preprocessorElement, "event")) {
-                    this.preprocessorEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
+                    String eventName = eventElement.getAttribute("name");
+                    if (UtilValidate.isEmpty(eventName)) {
+                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
+                    }
+                    this.preprocessorEventList.put(eventName, new Event(eventElement));
                 }
             }
 
@@ -334,7 +343,11 @@ public class ConfigXMLReader {
             Element postprocessorElement = UtilXml.firstChildElement(rootElement, "postprocessor");
             if (postprocessorElement != null) {
                 for (Element eventElement: UtilXml.childElementList(postprocessorElement, "event")) {
-                    this.postprocessorEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
+                    String eventName = eventElement.getAttribute("name");
+                    if (UtilValidate.isEmpty(eventName)) {
+                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
+                    }
+                    this.postprocessorEventList.put(eventName, new Event(eventElement));
                 }
             }
 
@@ -342,7 +355,11 @@ public class ConfigXMLReader {
             Element afterLoginElement = UtilXml.firstChildElement(rootElement, "after-login");
             if (afterLoginElement != null) {
                 for (Element eventElement: UtilXml.childElementList(afterLoginElement, "event")) {
-                    this.afterLoginEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
+                    String eventName = eventElement.getAttribute("name");
+                    if (UtilValidate.isEmpty(eventName)) {
+                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
+                    }
+                    this.afterLoginEventList.put(eventName, new Event(eventElement));
                 }
             }
 
@@ -350,7 +367,11 @@ public class ConfigXMLReader {
             Element beforeLogoutElement = UtilXml.firstChildElement(rootElement, "before-logout");
             if (beforeLogoutElement != null) {
                 for (Element eventElement: UtilXml.childElementList(beforeLogoutElement, "event")) {
-                    this.beforeLogoutEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
+                    String eventName = eventElement.getAttribute("name");
+                    if (UtilValidate.isEmpty(eventName)) {
+                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
+                    }
+                    this.beforeLogoutEventList.put(eventName, new Event(eventElement));
                 }
             }
         }
