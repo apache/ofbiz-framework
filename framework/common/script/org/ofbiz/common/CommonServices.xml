@@ -229,4 +229,14 @@ under the License.
         </iterate>
         <field-to-result field="themeResources"/>
     </simple-method>
+
+    <simple-method method-name="updateNote" short-description="Update a note">
+        <entity-one entity-name="NoteData" value-field="noteData">
+            <field-map field-name="noteId" from-field="parameters.noteId"/>
+        </entity-one>
+        <set-nonpk-fields map="parameters" value-field="noteData"/>
+        <store-value value-field="noteData"/>
+        <field-to-result field="noteData.noteId" result-name="noteId"/>
+    </simple-method>
+    
 </simple-methods>
