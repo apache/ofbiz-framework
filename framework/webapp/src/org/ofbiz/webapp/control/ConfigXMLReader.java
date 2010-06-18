@@ -32,7 +32,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
@@ -290,7 +289,6 @@ public class ConfigXMLReader {
                     try {
                         URL urlLocation = FlexibleLocation.resolveLocation(includeLocation);
                         includes.add(urlLocation);
-                        ControllerConfig controllerConfig = getControllerConfig(urlLocation);
                     } catch (MalformedURLException mue) {
                         Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
                     }
