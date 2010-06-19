@@ -493,12 +493,12 @@ under the License.
         <field name="comments" ><textarea/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductCategoryMemeber" type="list" target="updateProductToCategory" title="" list-name="productCategoryMembers"
+    <form name="UpdateProductCategoryMember" type="list" target="updateProductToCategory" title="" list-name="productCategoryMembers"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateProductToCategory"/>
         <field name="productId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategory_Id}">
-            <display-entity entity-name="ProductCategory" also-hidden="true" description="${description}">
+            <display-entity entity-name="ProductCategory" also-hidden="true" description="${categoryName}">
                 <sub-hyperlink target="EditCategory" description="${productCategoryId}" link-style="buttontext"><parameter param-name="productCategoryId"/></sub-hyperlink>
             </display-entity>
         </field>
