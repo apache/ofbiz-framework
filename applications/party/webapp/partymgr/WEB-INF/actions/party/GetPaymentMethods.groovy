@@ -19,7 +19,7 @@
 
 import org.ofbiz.accounting.payment.PaymentWorker;
 
-partyId = parameters.partyId ? parameters.partyId : userLogin.partyId;
+partyId = parameters.partyId ?: userLogin.partyId;
 showOld = "true".equals(parameters.SHOW_OLD);
 context.showOld = showOld;
 context.partyId = partyId;
