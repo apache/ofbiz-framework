@@ -181,7 +181,7 @@ under the License.
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductCategories}">
-                            <include-form name="UpdateProductCategoryMemeber" location="component://product/widget/catalog/ProductForms.xml"/>
+                            <include-form name="UpdateProductCategoryMember" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProductCategories}">
                             <include-form name="AddProductCategoryMember" location="component://product/widget/catalog/ProductForms.xml"/>
