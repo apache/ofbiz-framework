@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <VisualTheme visualThemeId="DROPPINGCRUMBS" visualThemeSetId="BACKOFFICE" description="Dropping Crumbs: Includes a drop down menu embedded in the breadcrumbs bar"/>
+    <VisualTheme visualThemeId="DROPPINGCRUMBS" visualThemeSetId="BACKOFFICE" description="Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar"/>
     <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_NAME" resourceValue="DROPPINGCRUMBS" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/droppingcrumbs/css/style.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DROPPINGCRUMBS" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/droppingcrumbs/css/help.css" sequenceId="01"/>    
