@@ -15311,12 +15311,15 @@
         <value xml:lang="en">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
     </property>
     <property key="VisualTheme.description.DROPPINGCRUMBS">
-        <value xml:lang="en">Dropping Crumbs: Includes a drop down menu embedded in the breadcrumbs bar</value>
+        <value xml:lang="en">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
     </property>
     <property key="VisualTheme.description.FLAT_GREY">
         <value xml:lang="en">Flat Grey - Old OFBiz Standard Floating Layout</value>
     </property>
     <property key="VisualTheme.description.MULTIFLEX">
         <value xml:lang="en">Alternative VisualTheme for Ecommerce</value>
+    </property>
+    <property key="VisualTheme.description.TOMAHAWK">
+        <value xml:lang="en">Tomahawk: the evolution of the Dropping Crumbs theme</value>
     </property>
 </resource>
