@@ -50,7 +50,7 @@ context.assignRoleTypeId = assignRoleTypeId;
 context.fromDate = fromDate;
 context.delegate = delegate;
 context.todayDate = new java.sql.Date(System.currentTimeMillis()).toString();
-
+def partyId = null;
 
 orderHeader = null;
 orderItems = null;
@@ -286,22 +286,24 @@ if (orderHeader) {
     // to the same contact mech of the ship group.
     if ("PURCHASE_ORDER".equals(orderType)) {
         facilitiesForShipGroup = [:];
-        ownerPartyId = orderReadHelper.getBillToParty().partyId;
-        Map ownedFacilities = FastMap.newInstance();
-        shipGroups.each { shipGroup ->
-            lookupMap = [ownerPartyId : ownerPartyId];
-            if (shipGroup.contactMechId) {
-                lookupMap.contactMechId = shipGroup.contactMechId;
+        if (orderReadHelper.getBillToParty()) {
+            ownerPartyId = orderReadHelper.getBillToParty().partyId;
+            Map ownedFacilities = FastMap.newInstance();
+            shipGroups.each { shipGroup ->
+                lookupMap = [ownerPartyId : ownerPartyId];
+                if (shipGroup.contactMechId) {
+                    lookupMap.contactMechId = shipGroup.contactMechId;
+                }
+                facilities = delegator.findByAndCache("FacilityAndContactMech", lookupMap);
+                facilitiesForShipGroup[shipGroup.shipGroupSeqId] = facilities;
+                facilities.each { facility ->
+                    ownedFacilities[facility.facilityId] = facility;
+                }
             }
-            facilities = delegator.findByAndCache("FacilityAndContactMech", lookupMap);
-            facilitiesForShipGroup[shipGroup.shipGroupSeqId] = facilities;
-            facilities.each { facility ->
-                ownedFacilities[facility.facilityId] = facility;
-            }
+            context.facilitiesForShipGroup = facilitiesForShipGroup;
+            // Now get the list of all the facilities owned by the bill-to-party
+            context.ownedFacilities = ownedFacilities.values();
         }
-        context.facilitiesForShipGroup = facilitiesForShipGroup;
-        // Now get the list of all the facilities owned by the bill-to-party
-        context.ownedFacilities = ownedFacilities.values();
     }
 
     // set the type of return based on type of order
