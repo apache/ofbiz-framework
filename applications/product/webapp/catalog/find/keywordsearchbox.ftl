@@ -41,7 +41,7 @@ under the License.
     </div>
     <div>
       <label for="keywordSearchCategoryId">${uiLabelMap.ProductCategoryId}:</label>
-      <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="keywordsearchform" name="SEARCH_CATEGORY_ID" id="keywordSearchCategoryId" fieldFormName="LookupProduct"/>
+      <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="keywordsearchform" name="SEARCH_CATEGORY_ID" id="keywordSearchCategoryId" fieldFormName="LookupProductCategory"/>
     </div>
     <div>
       <label for="keywordSearchCointains">${uiLabelMap.CommonNoContains}</label>
@@ -71,7 +71,7 @@ under the License.
   <fieldset>
     <input type="hidden" name="viewSize" value="20" />
     <input type="hidden" name="viewIndex" value="1" />
-    <@htmlTemplate.lookupField value="${requestParameters.productId?if_exists}" formName="productjumpform" name="productId" id="productJumpFormProductId" fieldFormName="LookupProductCategory"/>
+    <@htmlTemplate.lookupField value="${requestParameters.productId?if_exists}" formName="productjumpform" name="productId" id="productJumpFormProductId" fieldFormName="LookupProduct"/>
     <select name="DUMMYPAGE" id="dummyPage" onchange="submitProductJump()">
         <option value="<@ofbizUrl>EditProduct</@ofbizUrl>">-${uiLabelMap.ProductProductJump}-</option>
         <option value="<@ofbizUrl>EditProductQuickAdmin</@ofbizUrl>">${uiLabelMap.ProductQuickAdmin}</option>
