@@ -1006,14 +1006,12 @@ public class UtilMisc {
         }
     }
 
+    /** @deprecated use Thread.sleep() */
+    @Deprecated
     public static void staticWait(long timeout) throws InterruptedException {
-        new UtilMiscWaiter().safeWait(timeout);
+        Thread.sleep(timeout);
     }
-    protected static class UtilMiscWaiter {
-        public synchronized void safeWait(long timeout) throws InterruptedException {
-            this.wait(timeout);
-        }
-    }
+
     public static void copyFile(File sourceLocation , File targetLocation) throws IOException {
         if (sourceLocation.isDirectory()) {
             throw new IOException("File is a directory, not a file, cannot copy") ;
