@@ -24,7 +24,7 @@ under the License.
     <#assign productData = productDataMap[product.productId]/>
     <#assign productContentWrapper = productData.productContentWrapper/>
     <#assign price = productData.priceMap/>
-    <#assign productUrl = StringUtil.wrapString(Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, product.productId, categoryId, ""))/>
+    <#assign productUrl><@ofbizCatalogUrl productId=product.productId currentCategoryId=categoryId/></#assign>
     <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL")/>
     <#if smallImageUrl!?length == 0>
         <#assign smallImageUrl = "/images/defaultImage.jpg"/>

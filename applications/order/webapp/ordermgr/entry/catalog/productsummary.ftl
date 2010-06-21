@@ -18,7 +18,7 @@ under the License.
 -->
 <#if product?exists>
     <#-- variable setup -->
-    <#assign productUrl = Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, product.productId, categoryId, "")/>
+    <#assign productUrl><@ofbizCatalogUrl productId=product.productId currentCategoryId=categoryId/></#assign>
 
     <#if requestAttributes.productCategoryMember?exists>
         <#assign prodCatMem = requestAttributes.productCategoryMember>
