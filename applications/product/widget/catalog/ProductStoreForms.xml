@@ -322,6 +322,7 @@
                 <sort-field name="reserveInventory"/>
                 <sort-field name="reserveOrderEnumId"/>
                 <sort-field name="balanceResOnOrderCreation"/>
+                <sort-field name="showOutOfStockProducts"/>                                
             </field-group>
             <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
                 <sort-field name="viewCartOnAdd"/>
@@ -340,6 +341,7 @@
             </field-group>
             <field-group title="${uiLabelMap.CommonPayments}" collapsible="true" initially-collapsed="true">
                 <sort-field name="payToPartyId"/>
+                <sort-field name="storeCreditAccountEnumId"/>                
                 <sort-field name="manualAuthIsCapture"/>
                 <sort-field name="retryFailedAuths"/>
                 <sort-field name="daysToCancelNonPay"/>
