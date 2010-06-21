@@ -23,15 +23,13 @@ under the License.
 <#-- looping macro -->
 <#macro categoryList parentCategory category>
   <#if parentCategory.productCategoryId != category.productCategoryId>
-    <#assign categoryUrl = Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, "", category.productCategoryId, parentCategory.productCategoryId) />
-  <#else>
-    <#assign categoryUrl = Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, "", category.productCategoryId, "") />
+    <#local previousCategoryId = parentCategory.productCategoryId />
   </#if>
 
   <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
     <li>
     <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists>
-      <a href="${categoryUrl}" class="<#if curCategoryId?exists && curCategoryId == category.productCategoryId>buttontextdisabled<#else>linktext</#if>">
+      <a href="<@ofbizCatalogUrl currentCategoryId=category.productCategoryId previousCategoryId=previousCategoryId!""/>" class="<#if curCategoryId?exists && curCategoryId == category.productCategoryId>buttontextdisabled<#else>linktext</#if>">
         <#if catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
           ${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")}
         <#elseif catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>
