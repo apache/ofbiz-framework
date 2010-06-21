@@ -128,7 +128,8 @@ for (supplierProduct in supplierProducts) {
             productInfoMap.supplierProductId = supplierProduct.supplierProductId;
             productInfoMap.lastPrice = supplierProduct.lastPrice;
             productInfoMap.orderQtyIncrements = supplierProduct.orderQtyIncrements;
-    
+            productInfoMap.minimumOrderQuantity = supplierProduct.minimumOrderQuantity;
+
             productInfoMap.minimumStock = productFacility.minimumStock;
     
             newProductList.add(productInfoMap);
