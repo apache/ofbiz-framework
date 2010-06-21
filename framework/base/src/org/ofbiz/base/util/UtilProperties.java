@@ -896,9 +896,6 @@ public class UtilProperties implements Serializable {
             UtilResourceBundle bundle = bundleCache.get(resourceName);
             if (bundle == null) {
                 synchronized (bundleCache) {
-                    if (bundle != null) {
-                        return bundle;
-                    }
                     double startTime = System.currentTimeMillis();
                     FastList<Locale> candidateLocales = (FastList<Locale>) getCandidateLocales(locale);
                     UtilResourceBundle parentBundle = null;
