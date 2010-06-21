@@ -178,7 +178,7 @@ public class FreeMarkerWorker {
             cachedTemplates.remove(templateLocation);
         }
     }
-    
+
     public static Environment renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         Template template = cachedTemplates.get(templateLocation);
         if (template == null) {
@@ -401,14 +401,14 @@ public class FreeMarkerWorker {
             }
             Map<String, ?> ctx = null;
             if (ctxObj instanceof BeanModel) {
-                ctx = UtilGenerics.cast(((BeanModel)ctxObj).getWrappedObject());
-            returnObj = ctx.get(key);
+                ctx = UtilGenerics.cast(((BeanModel) ctxObj).getWrappedObject());
+                returnObj = ctx.get(key);
             }
             /*
             try {
-                Map templateContext = (Map)FreeMarkerWorker.getWrappedObject("context", env);
+                Map templateContext = (Map) FreeMarkerWorker.getWrappedObject("context", env);
                 if (templateContext != null) {
-                    returnObj = (String)templateContext.get(key);
+                    returnObj = (String) templateContext.get(key);
                 }
             } catch (ClassCastException e2) {
                 //return null;
@@ -426,7 +426,7 @@ public class FreeMarkerWorker {
         } else if (o instanceof SimpleScalar) {
             returnObj = o.toString();
         } else if (o instanceof BeanModel) {
-            returnObj = ((BeanModel)o).getWrappedObject();
+            returnObj = ((BeanModel) o).getWrappedObject();
         }
 
         return returnObj;
@@ -468,10 +468,11 @@ public class FreeMarkerWorker {
         //Map saveMap = new HashMap();
         for (String key: saveKeyNames) {
             Object o = context.get(key);
-            if (o instanceof Map)
+            if (o instanceof Map) {
                 o = UtilMisc.makeMapWritable(UtilGenerics.checkMap(o));
-            else if (o instanceof List)
+            } else if (o instanceof List) {
                 o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
+            }
             saveMap.put(key, o);
         }
     }
@@ -480,10 +481,11 @@ public class FreeMarkerWorker {
         Map<String, Object> saveMap = FastMap.newInstance();
         for (String key: saveKeyNames) {
             Object o = context.get(key);
-            if (o instanceof Map)
+            if (o instanceof Map) {
                 o = UtilMisc.makeMapWritable(UtilGenerics.checkMap(o));
-            else if (o instanceof List)
+            } else if (o instanceof List) {
                 o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
+            }
             saveMap.put(key, o);
         }
         return saveMap;
@@ -525,8 +527,9 @@ public class FreeMarkerWorker {
                     ctx.put(key, null);
                 } else {
                     Object unwrappedObj = unwrap(obj);
-                    if (unwrappedObj == null)
+                    if (unwrappedObj == null) {
                         unwrappedObj = obj;
+                    }
                     ctx.put(key, unwrappedObj.toString());
                 }
             } else {
@@ -599,13 +602,16 @@ public class FreeMarkerWorker {
         public int hashCode() {
             return templateLocation.hashCode();
         }
+
         @Override
         public boolean equals(Object obj) {
             return obj instanceof FlexibleTemplateSource && obj.hashCode() == this.hashCode();
         }
+
         public String getTemplateLocation() {
             return templateLocation;
         }
+
         public long getLastModified() {
             return createdDate.getTime();
         }
@@ -619,14 +625,17 @@ public class FreeMarkerWorker {
         public Object findTemplateSource(String name) throws IOException {
             return new FlexibleTemplateSource(name);
         }
+
         public long getLastModified(Object templateSource) {
             FlexibleTemplateSource fts = (FlexibleTemplateSource) templateSource;
             return fts.getLastModified();
         }
+
         public Reader getReader(Object templateSource, String encoding) throws IOException {
             FlexibleTemplateSource fts = (FlexibleTemplateSource) templateSource;
             return makeReader(fts.getTemplateLocation());
         }
+
         public void closeTemplateSource(Object templateSource) throws IOException {
             // do nothing
         }
@@ -657,8 +666,8 @@ public class FreeMarkerWorker {
             }
         }
     }
-    
+
     public static String encodeDoubleQuotes(String htmlString) {
         return htmlString.replaceAll("\"", "\\\\\"");
-    }    
+    }
 }
