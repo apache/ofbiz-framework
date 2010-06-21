@@ -116,6 +116,7 @@ if (shipmentId) {
     context.shipmentPackageRouteSegList = shipmentPackageRouteSegList;
 }
 
+weightPackageSession.setShipmentId(shipmentId)
 weightPackageSession.setPrimaryShipGroupSeqId(shipGroupSeqId);
 weightPackageSession.setPrimaryOrderId(orderId);
 weightPackageSession.setPicklistBinId(picklistBinId);
