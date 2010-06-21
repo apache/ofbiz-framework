@@ -497,13 +497,9 @@ public class FreeMarkerWorker {
             String key = entry.getKey();
             Object o = entry.getValue();
             if (o instanceof Map) {
-                Map<Object, Object> map = FastMap.newInstance();
-                map.putAll(UtilGenerics.checkMap(o));
-                context.put(key, map);
+                context.put(key, UtilMisc.makeMapWritable(UtilGenerics.checkMap(o)));
             } else if (o instanceof List) {
-                List<Object> list = new ArrayList<Object>();
-                list.addAll(UtilGenerics.checkList(o));
-                context.put(key, list);
+                context.put(key, UtilMisc.makeListWritable(UtilGenerics.checkList(o)));
             } else {
                 context.put(key, o);
             }
