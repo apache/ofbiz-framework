@@ -29,6 +29,7 @@ import org.codehaus.groovy.runtime.InvokerHelper;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
@@ -68,8 +69,10 @@ public final class GroovyEngine extends GenericAsyncEngine {
         Map<String, Object> params = FastMap.newInstance();
         params.putAll(context);
         context.put("parameters", params);
-        context.put("dctx", dispatcher.getLocalContext(localName));
-        context.put("dispatcher", dispatcher);
+
+        DispatchContext dctx = dispatcher.getLocalContext(localName);
+        context.put("dctx", dctx);
+        context.put("dispatcher", dctx.getDispatcher());
         context.put("delegator", dispatcher.getDelegator());
         try {
             Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService)), GroovyUtil.getBinding(context));
