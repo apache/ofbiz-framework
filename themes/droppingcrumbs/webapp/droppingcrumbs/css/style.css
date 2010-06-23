@@ -2171,7 +2171,7 @@ Lookups
     border-left: 2px solid #999;
     border-bottom: 3px solid #999;
     position: absolute;
-    padding: 3px 1 1 1;
+    padding: 3px 1px 1px 1px;
     overflow: visible;
     z-index: 110000;
     visibility: visible;
