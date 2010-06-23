@@ -1002,7 +1002,7 @@ public class GenericDAO {
                 } else {
                     sqlBuffer.append("COUNT(DISTINCT ");
                     // this only seems to support a single column, which is not desirable but seems a lot better than no columns or in certain cases all columns
-                    sqlBuffer.append(firstSelectField.getColName());
+                    sqlBuffer.append(firstSelectField.getColValue());
                     // sqlBuffer.append(modelEntity.colNameString(selectFields, ", ", "", datasourceInfo.aliasViews));
                     sqlBuffer.append(")");
                 }
