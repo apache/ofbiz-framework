@@ -460,7 +460,7 @@
             <widgets>
                 <decorator-screen name="EbayActiveListing">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.EbayOpenListings}">
+                        <screenlet title="Active to Open Listings">
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
                             <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ActiveItemList"/>
                         </screenlet>
@@ -550,6 +550,33 @@
                                 <html-template location="component://ebaystore/webapp/ebaystore/store/orderImported.ftl"/>
                             </html>
                         </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="GetItemProduct">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <service service-name="getEbayStoreProductItem" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="itemId" from-field="parameters.itemId"/>
+                </service>
+                <set field="title" from-field="result.title"/>
+                <set field="description" from-field="result.description"/>
+                <set field="price" from-field="result.price"/>
+                <set field="pictureURL" from-field="result.pictureURL"/>
+                <set field="listingType" from-field="result.listingType"/>
+                <set field="currencyId" from-field="result.currencyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                            <screenlet title="Edit Product Item" collapsible="true" name="GetItemProduct">
+                                <include-form name="EditItemProduct"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

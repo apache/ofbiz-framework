@@ -441,4 +441,45 @@ under the License.
         <attribute name="functionName" mode="IN" type="String" optional="false"/>
         <attribute name="logMessage" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="getMyeBaySelling" engine="java" transaction-timeout="36000"
+        location="org.ofbiz.ebaystore.EbayStore" invoke="getMyeBaySelling" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="entriesPerPage" mode="IN" type="String" optional="true"/>
+        <attribute name="pageNumber" mode="IN" type="String" optional="true"/>
+        <attribute name="listingType" mode="IN" type="String" optional="true"/>
+        <attribute name="activeItems" mode="OUT" type="List" optional="true"/>
+        <attribute name="soldItems" mode="OUT" type="List" optional="true"/>
+        <attribute name="unsoldItems" mode="OUT" type="List" optional="true"/>
+        <attribute name="scheduledItems" mode="OUT" type="List" optional="true"/>
+        <attribute name="activeSize" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="soldSize" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="unsoldeSize" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="scheduledSize" mode="OUT" type="Integer" optional="true"/>
+    </service>
+    <service name="getEbayStoreProductItem" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStore" invoke="getEbayStoreProductItem" auth="true">
+        <description>Get item data (title, description, price information, and so on) for the specified item ID</description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="itemId" mode="IN" type="String" optional="false"/>
+        <attribute name="listingType" mode="OUT" type="String" optional="true"/>
+        <attribute name="title" mode="OUT" type="String" optional="true"/>
+        <attribute name="description" mode="OUT" type="String" optional="true"/>
+        <attribute name="price" mode="OUT" type="String" optional="true"/>
+        <attribute name="currencyId" mode="OUT" type="String" optional="true"/>
+        <attribute name="pictureURL" mode="OUT" type="String" optional="true"/>
+    </service>
+    <service name="reviseEbayStoreProductItem" engine="java" transaction-timeout="3600"
+        location="org.ofbiz.ebaystore.EbayStore" invoke="reviseEbayStoreProductItem" auth="true">
+        <description>Change the properties of a currently active listing</description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="itemId" mode="IN" type="String" optional="false"/>
+        <attribute name="listingType" mode="IN" type="String" optional="true"/>
+        <attribute name="title" mode="IN" type="String" optional="true"/>
+        <attribute name="description" mode="IN" type="String" allow-html="safe"/>
+        <attribute name="price" mode="IN" type="String" optional="true"/>
+        <attribute name="currencyId" mode="IN" type="String" optional="true"/>
+        <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
+        <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
+        <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
+    </service>
 </services>

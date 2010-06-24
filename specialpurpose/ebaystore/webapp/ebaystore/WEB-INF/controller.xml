@@ -314,12 +314,21 @@
         <response name="success" type="request" value="clearExpListing"/>
         <response name="error" type="view" value="exportProductListing"/>
     </request-map>
-
     <!-- Selling Manager -->
     <request-map uri="sellingManager">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ebayStoreInventory"/>
         <response name="error" type="view" value="ebayStoreInventory"/>
+    </request-map>
+    <request-map uri="getItemProduct">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="GetItemProduct"/>
+    </request-map>
+    <request-map uri="editItemProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="reviseEbayStoreProductItem"/>
+        <response name="success" type="view" value="GetItemProduct"/>
+        <response name="error" type="view" value="GetItemProduct"/>
     </request-map>
     <!-- Active -->
     <request-map uri="activeListing">
@@ -416,6 +425,7 @@
     <view-map name="AutomationPreferences" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayAutomationPreferences"/>
     <!-- Selling Manager -->
     <view-map name="editEmailTemplate" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EditEmailTemplate"/>
+    <view-map name="GetItemProduct" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#GetItemProduct"/>
     <!-- store Inventory -->
     <view-map name="ebayStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayStoreInventory"/>
     <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayLoadStoreInventory"/>
@@ -441,5 +451,6 @@
     <view-map name="WaitingToShipping" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#WaitingToShipping"/>
     <view-map name="ordersImported" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ordersImported"/>
     <view-map name="errorMessageList" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#errorMessageList"/>
+    
     <!-- end of view mappings -->
 </site-conf>

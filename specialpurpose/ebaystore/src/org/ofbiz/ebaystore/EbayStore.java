@@ -19,6 +19,8 @@
 package org.ofbiz.ebaystore;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,6 +28,8 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -37,6 +41,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -44,6 +49,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.common.DataModelConstants;
+
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -66,12 +72,19 @@ import com.ebay.sdk.SdkSoapException;
 import com.ebay.sdk.call.*;
 import com.ebay.sdk.util.eBayUtil;
 import com.ebay.soap.eBLBaseComponents.AmountType;
+import com.ebay.soap.eBLBaseComponents.BestOfferActionCodeType;
+import com.ebay.soap.eBLBaseComponents.BestOfferDetailsType;
+import com.ebay.soap.eBLBaseComponents.BestOfferStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.BestOfferType;
+import com.ebay.soap.eBLBaseComponents.CategoryFeatureType;
 import com.ebay.soap.eBLBaseComponents.CheckoutStatusCodeType;
 import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
 import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateRequestType;
 import com.ebay.soap.eBLBaseComponents.DeleteSellingManagerTemplateResponseType;
 import com.ebay.soap.eBLBaseComponents.DisputeExplanationCodeType;
 import com.ebay.soap.eBLBaseComponents.DisputeReasonCodeType;
+import com.ebay.soap.eBLBaseComponents.FeesType;
+import com.ebay.soap.eBLBaseComponents.GalleryTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.GetAllBiddersModeCodeType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryRequestType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryResponseType;
@@ -80,13 +93,19 @@ import com.ebay.soap.eBLBaseComponents.GetStoreOptionsResponseType;
 import com.ebay.soap.eBLBaseComponents.GetStoreRequestType;
 import com.ebay.soap.eBLBaseComponents.GetStoreResponseType;
 import com.ebay.soap.eBLBaseComponents.ItemSortTypeCodeType;
+import com.ebay.soap.eBLBaseComponents.ListingDetailsType;
 import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.MerchDisplayCodeType;
+import com.ebay.soap.eBLBaseComponents.NameRecommendationType;
 import com.ebay.soap.eBLBaseComponents.OfferType;
 import com.ebay.soap.eBLBaseComponents.OrderTransactionArrayType;
 import com.ebay.soap.eBLBaseComponents.OrderTransactionType;
 import com.ebay.soap.eBLBaseComponents.OrderType;
 import com.ebay.soap.eBLBaseComponents.PaginationType;
+import com.ebay.soap.eBLBaseComponents.PhotoDisplayCodeType;
+import com.ebay.soap.eBLBaseComponents.PictureDetailsType;
+import com.ebay.soap.eBLBaseComponents.PictureSourceCodeType;
+import com.ebay.soap.eBLBaseComponents.RecommendationsType;
 import com.ebay.soap.eBLBaseComponents.SecondChanceOfferDurationCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductDetailsType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductInventoryStatusType;
@@ -125,6 +144,7 @@ import com.ebay.soap.eBLBaseComponents.TaskStatusCodeType;
 import com.ebay.soap.eBLBaseComponents.TransactionArrayType;
 import com.ebay.soap.eBLBaseComponents.TransactionType;
 import com.ebay.soap.eBLBaseComponents.UserType;
+import com.ebay.soap.eBLBaseComponents.ValueRecommendationType;
 import com.ebay.soap.eBLBaseComponents.VerifyAddSecondChanceItemResponseType;
 
 import java.sql.Timestamp;
@@ -1442,6 +1462,8 @@ public class EbayStore {
         String buyerId = (String) context.get("buyerId");
         String listingType = (String) context.get("listingType");
         List soldItems = FastList.newInstance();
+        double reservPrice = 0;
+        int hitCount = 0;
         try {
             Map<String, Object> inMap = FastMap.newInstance();
             inMap.put("productStoreId", productStoreId);
@@ -1505,6 +1527,12 @@ public class EbayStore {
                             api.setDetailLevel(detailLevels);
                             ItemType itemType = api.getItem();
                             String itemUrl = null;
+                            
+                            entry.put("SKU", itemType.getSKU());
+                            if (UtilValidate.isNotEmpty(itemType.getReservePrice())) reservPrice = itemType.getReservePrice().getValue();
+                            entry.put("reservePrice", reservPrice);
+                            entry.put("hitCount", itemType.getHitCount() != null ? itemType.getHitCount() : 0);
+                            
                             if (itemType.getListingDetails() != null) {
                                 itemUrl  = itemType.getListingDetails().getViewItemURL();
                             }
@@ -1892,6 +1920,7 @@ public class EbayStore {
             GetMyeBaySellingCall api = new GetMyeBaySellingCall(apiContext);
             ItemListCustomizationType itemListType = new ItemListCustomizationType();
             itemListType.setInclude(Boolean.TRUE);
+            itemListType.setSort(ItemSortTypeCodeType.ITEM_ID_DESCENDING);
 
             String entriesPerPage = (String) context.get("entriesPerPage");
             String pageNumber = (String) context.get("pageNumber");
@@ -1907,6 +1936,8 @@ public class EbayStore {
             itemListType.setPagination(page);
             if (UtilValidate.isNotEmpty(listingType)) {
                 itemListType.setListingType(ListingTypeCodeType.valueOf(listingType));
+            } else {
+                itemListType.setListingType(ListingTypeCodeType.FIXED_PRICE_ITEM);
             }
             DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
                     DetailLevelCodeType.RETURN_ALL,
@@ -2031,6 +2062,8 @@ public class EbayStore {
     static Map<String, Object> schItemToColumns(ItemType item) {
         Map<String, Object> cols = FastMap.newInstance();
         int i = 0;
+        double reservPrice = 0;
+        int hitCount = 0;
         cols.put("itemId", item.getItemID() != null ? item.getItemID() : "");
         cols.put("title", item.getTitle() != null ? item.getTitle() : "");
 
@@ -2046,12 +2079,18 @@ public class EbayStore {
         }
         cols.put("quantity", quantityStr);
         cols.put("listingType", item.getListingType().value());
+        cols.put("SKU", item.getSKU());
+        if (UtilValidate.isNotEmpty(item.getReservePrice())) reservPrice = item.getReservePrice().getValue();
+        cols.put("reservePrice", reservPrice);
+        cols.put("hitCount", item.getHitCount() != null ? item.getHitCount() : 0);
         return cols;
     }
 
     static Map<String, Object> unsoldItemToColumns(ItemType item) {
         Map<String, Object> cols = FastMap.newInstance();
         int i = 0;
+        double reservPrice = 0;
+        int hitCount = 0;
         cols.put("itemId", item.getItemID() != null ? item.getItemID() : "");
         cols.put("title", item.getTitle() != null ? item.getTitle() : "");
 
@@ -2071,6 +2110,10 @@ public class EbayStore {
         }
         cols.put("quantity", quantityStr);
         cols.put("listingType", item.getListingType().value());
+        cols.put("SKU", item.getSKU());
+        if (UtilValidate.isNotEmpty(item.getReservePrice())) reservPrice = item.getReservePrice().getValue();
+        cols.put("reservePrice", reservPrice);
+        cols.put("hitCount", item.getHitCount() != null ? item.getHitCount() : 0);
         return cols;
     }
 
@@ -2190,5 +2233,137 @@ public class EbayStore {
         cols.put("createdDate", createdDate);
         cols.put("sellerPaidStatus", sellerPaidStatus);
         return cols; 
+    }
+    
+    public Map<String, Object> getEbayStoreProductItem(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object>result = FastMap.newInstance();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        String productStoreId = (String) context.get("productStoreId");
+        String itemID = (String) context.get("itemId");
+        
+        try {
+            Map<String, Object> inMap = FastMap.newInstance();
+            inMap.put("productStoreId", productStoreId);
+            inMap.put("userLogin", userLogin);
+            Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
+            String userID = (String) resultUser.get("userLoginId");
+            ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+            GetItemCall api = new GetItemCall(apiContext);
+            
+            DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
+                    DetailLevelCodeType.RETURN_ALL,
+                    DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+                    DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+            };
+            api.setDetailLevel(detailLevels);
+            api.getItem(itemID);
+            
+            // Set item type.
+            ItemType item = api.getReturnedItem();
+            String title = item.getTitle();
+            String description = item.getDescription();
+            String listingType = item.getListingType().value();
+            
+            if (item.getPictureDetails() != null) {
+                String url[] = item.getPictureDetails().getPictureURL();
+                if (url.length != 0) {
+                    result.put("pictureURL", url[0]);
+                } else {
+                    result.put("pictureURL", null);
+                }
+            } else {
+                result.put("pictureURL", null);
+            }
+            
+            result.put("title", title);
+            result.put("description", description);
+            AmountType amt = item.getStartPrice();
+            result.put("price", amt != null ? (new Double(amt.getValue()).toString()) : "");
+            result.put("currencyId", amt.getCurrencyID().toString());
+            result.put("listingType", listingType);
+        } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return result;
+    }
+    
+    public Map<String, Object> reviseEbayStoreProductItem(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object>result = FastMap.newInstance();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        String productStoreId = (String) context.get("productStoreId");
+        String itemID = (String) context.get("itemId");
+        String listingType = (String) context.get("listingType");
+        String title = (String) context.get("title");
+        String description = (String) context.get("description");
+        String price = (String) context.get("price");
+        String imageFileName = (String) context.get("_imageData_fileName");
+        String currencyId = (String) context.get("currencyId");
+        
+        try {
+            Map<String, Object> inMap = FastMap.newInstance();
+            inMap.put("productStoreId", productStoreId);
+            inMap.put("userLogin", userLogin);
+            Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
+            String userID = (String) resultUser.get("userLoginId");
+            ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+            String sandboxEPSURL = "https://api.sandbox.ebay.com/ws/api.dll";
+            apiContext.setEpsServerUrl(sandboxEPSURL);
+            ReviseItemCall api = new ReviseItemCall(apiContext);
+            
+            // Set item type.
+            ItemType itemToBeRevised = new ItemType();
+            itemToBeRevised.setItemID(itemID);
+            
+            if (UtilValidate.isNotEmpty(title)) {
+                itemToBeRevised.setTitle(title);
+            }
+            
+            if (UtilValidate.isNotEmpty(description)) {
+                itemToBeRevised.setDescription(description);
+            }
+            
+            // Set startPrice value.
+            AmountType startPrice = new AmountType();
+            if (UtilValidate.isNotEmpty(price)) {
+                startPrice.setValue(Double.parseDouble(price));
+                startPrice.setCurrencyID(CurrencyCodeType.valueOf(currencyId));
+                itemToBeRevised.setStartPrice(startPrice);
+            }
+            
+            // Check upload image file.
+            if (UtilValidate.isNotEmpty(imageFileName)) { 
+                
+                // Upload image to ofbiz path /runtime/tmp .
+                ByteBuffer byteWrap = (ByteBuffer) context.get("imageData");
+                File file = new File(System.getProperty("ofbiz.home"), "runtime" + File.separator + "tmp" + File.separator + imageFileName);
+                FileChannel wChannel = new FileOutputStream(file, false).getChannel();
+                wChannel.write(byteWrap);
+                wChannel.close();
+                
+                // Set path file picture to api and set picture details.
+                String [] pictureFiles = {System.getProperty("ofbiz.home") + File.separator + "runtime" + File.separator + "tmp" + File.separator + imageFileName};
+                PictureDetailsType pictureDetails = new PictureDetailsType();
+                pictureDetails.setGalleryType(GalleryTypeCodeType.GALLERY);
+                pictureDetails.setPhotoDisplay(PhotoDisplayCodeType.NONE);
+                pictureDetails.setPictureSource(PictureSourceCodeType.EPS);
+                itemToBeRevised.setPictureDetails(pictureDetails);
+                
+                api.setItemToBeRevised(itemToBeRevised);
+                api.uploadPictures(pictureFiles, pictureDetails);
+                FeesType fees = api.reviseItem();
+            } else {
+                api.setItemToBeRevised(itemToBeRevised);
+                FeesType fees = api.reviseItem();
+            }
+        } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return ServiceUtil.returnSuccess("Update Item  Successfully.");
     }
 }

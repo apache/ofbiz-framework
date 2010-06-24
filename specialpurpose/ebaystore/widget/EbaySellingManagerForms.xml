@@ -77,9 +77,12 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         </row-actions>
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
         <field name="itemId"><display description="${itemId}"/></field>
+        <field name="SKU" title="Product ID"><display/></field>
         <field name="title"><display description="${title}"/></field>
         <field name="buyer"><display description="${buyer}"/></field>
         <field name="listingType"><display description="${listingType}"/></field>
+        <field name="hitCount"><display/></field>
+        <field name="reservePrice"><display/></field>
         <field name="quantity"><display description="${quantity}"/></field>
         <field name="transactionId"><display description="${transactionId}"/></field>
         <field name="totalAmount"><display description="${totalAmount}"/></field>
@@ -469,7 +472,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
     <form name="ActiveItemList" type="list"  target="doAction" list-name="activeItemList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
         <field name="itemId"><display/></field>
-        <field name="SKU"><display/></field>
+        <field name="SKU" title="Product ID"><display/></field>
         <field name="title">
             <hyperlink target="${viewItemURL}" description="${title}" target-type="plain" target-window="_BLANK"/>
         </field>
@@ -480,15 +483,20 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="startTime"><display/></field>
         <field name="quantity"><display/></field>
         <field name="listingType"><display/></field>
+        <field name="EditItem">
+            <hyperlink target="getItemProduct?productStoreId=${parameters.productStoreId}&amp;itemId=${itemId}" description="Edit" target-type="plain" target-window="_BLANK"/>
+        </field>
     </form>
     <!-- Unsold Listing -->
     <form name="UnsoldItemList" type="list"  target="doAction" list-name="unsoldItemList"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
         <field name="itemId"><display/></field>
+        <field name="SKU" title="Product ID"><display/></field>
         <field name="title"><display/></field>
-        <field name="quantity"><display/></field>
         <field name="price"><display/></field>
+        <field name="hitCount"><display/></field>
+        <field name="reservePrice"><display/></field>
         <field name="startTime"><display/></field>
         <field name="endTime"><display/></field>
         <field name="quantity"><display/></field>
@@ -552,5 +560,18 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="EditItemProduct"  target="editItemProduct" type="upload" >
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="itemId"><hidden value="${parameters.itemId}"/></field>
+        <field name="listingType"><hidden/></field>
+        <field name="pictureURL" title="Picture" use-when="pictureURL==null"><image width="100" value="/images/defaultImage.jpg"></image></field>
+        <field name="pictureURL" title="Picture" use-when="pictureURL!=null"><image width="150"></image></field>
+        <field name="imageData" title="${uiLabelMap.CommonUpload}"><file/></field>
+        <field name="title"><text size="50"/></field>
+        <field name="description" encode-output="true"><textarea/></field>
+        <field name="price"><text/></field>
+        <field name="currencyId" title="Currency Code"><display/></field>
+        <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
     </form>
 </forms>
