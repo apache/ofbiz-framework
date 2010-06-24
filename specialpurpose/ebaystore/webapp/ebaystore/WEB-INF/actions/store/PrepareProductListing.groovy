@@ -119,6 +119,20 @@
                  if (primaryCate) pkCateId = primaryCate.getCategoryID();
              }
          }
+         categorySpecificObject = EbayEvents.categorySpecifics(pkCateId, request);
+         Map<String, List> categorySpecificMap = categorySpecificObject.get("categorySpecifics");
+         int checkNameSpecific = null;
+         int checkValueSpecific = null;
+         Iterator<String> specificIterator = categorySpecificMap.keySet().iterator();
+         while(specificIterator.hasNext()){
+             String name = specificIterator.next();
+             List<String> valueList = categorySpecificMap.get(name);
+             checkValueSpecific = (valueList) ? 1 : 0 ;
+         }
+         checkNameSpecific = categorySpecificMap.size();
+         String checkSpecific = ((checkNameSpecific > 0) && (checkValueSpecific == 1)) ? "true" : "false";
+         context.checkSpecific = checkSpecific;
+         context.categorySpecifix = categorySpecificObject;
          context.stCate1ID = stCate1ID;
          context.stCate2ID = stCate2ID;
          if (pkCateId) {
