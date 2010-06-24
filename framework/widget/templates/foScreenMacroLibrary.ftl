@@ -35,6 +35,8 @@ under the License.
     ${foStyle?default("")}
 </#macro>
 
+<#escape x as x?xml>
+
 <#macro renderScreenBegin>
 <?xml version="1.0" encoding="UTF-8"?>
 </#macro>
@@ -67,3 +69,5 @@ under the License.
 <#macro renderScreenletEnd></#macro>
 
 <#macro renderScreenletPaginateMenu lowIndex actualPageSize ofLabel listSize paginateLastStyle lastLinkUrl paginateLastLabel paginateNextStyle nextLinkUrl paginateNextLabel paginatePreviousStyle paginatePreviousLabel previousLinkUrl paginateFirstStyle paginateFirstLabel firstLinkUrl></#macro>
+</#escape>
+
