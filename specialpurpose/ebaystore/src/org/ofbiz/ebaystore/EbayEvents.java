@@ -50,6 +50,7 @@ import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
 import com.ebay.sdk.call.AddItemCall;
+import com.ebay.sdk.call.GetCategorySpecificsCall;
 import com.ebay.sdk.call.GetSellingManagerInventoryCall;
 import com.ebay.sdk.call.ReviseSellingManagerProductCall;
 import com.ebay.sdk.call.VerifyAddItemCall;
@@ -59,12 +60,17 @@ import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
 import com.ebay.soap.eBLBaseComponents.CategoryType;
 import com.ebay.soap.eBLBaseComponents.CountryCodeType;
 import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
+import com.ebay.soap.eBLBaseComponents.DetailLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryRequestType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryResponseType;
 import com.ebay.soap.eBLBaseComponents.ItemSpecificsEnabledCodeType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
 import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
+import com.ebay.soap.eBLBaseComponents.NameRecommendationType;
+import com.ebay.soap.eBLBaseComponents.NameValueListArrayType;
+import com.ebay.soap.eBLBaseComponents.NameValueListType;
 import com.ebay.soap.eBLBaseComponents.PictureDetailsType;
+import com.ebay.soap.eBLBaseComponents.RecommendationsType;
 import com.ebay.soap.eBLBaseComponents.ReturnPolicyType;
 import com.ebay.soap.eBLBaseComponents.ReviseSellingManagerProductRequestType;
 import com.ebay.soap.eBLBaseComponents.ReviseSellingManagerProductResponseType;
@@ -76,6 +82,7 @@ import com.ebay.soap.eBLBaseComponents.SiteCodeType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryType;
 import com.ebay.soap.eBLBaseComponents.StorefrontType;
 import com.ebay.soap.eBLBaseComponents.VATDetailsType;
+import com.ebay.soap.eBLBaseComponents.ValueRecommendationType;
 import com.ebay.soap.eBLBaseComponents.WarningLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.ListingDesignerType;
 import com.ebay.soap.eBLBaseComponents.ShippingDetailsType;
@@ -642,7 +649,33 @@ public class EbayEvents {
         String itemPkCateId = (String) requestParams.get("primaryCateId");
         String shippingService = (String) requestParams.get("ShippingService");
         String productStoreId = (String) requestParams.get("productStoreId");
-
+        
+        // initialize request parameter.
+        Map paramMap = UtilHttp.getParameterMap(request);
+        List<String> nameSpecificList = FastList.newInstance();
+        List<String> valueSpecificList = FastList.newInstance();
+        String nameValueListType = null;
+        String valueListType = null;
+        int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
+        if (rowCount > 1) {
+            for (int i = 0; i < rowCount; i++) {
+                String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;        // current suffix after each field id
+                // get the NameSpecifics
+                if (paramMap.containsKey("nameValueListType" + thisSuffix)) {
+                    nameValueListType = (String) paramMap.remove("nameValueListType" + thisSuffix);
+                }
+                // get the ValueSpecifics
+                if (paramMap.containsKey("categorySpecifics" + thisSuffix)) {
+                    valueListType = (String) paramMap.remove("categorySpecifics" + thisSuffix);
+                }
+                
+                if ((UtilValidate.isNotEmpty(nameValueListType)) && (UtilValidate.isNotEmpty(valueListType))){
+                   nameSpecificList.add(nameValueListType);
+                   valueSpecificList.add(valueListType);
+                }
+            }
+        }
+        	
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
@@ -677,7 +710,28 @@ public class EbayEvents {
                         attributeMapList.put("CategoryParentID", item.getPrimaryCategory().getCategoryParentID(0).toString());
                         attributeMapList.put("LeafCategory", "true");
                         attributeMapList.put("LSD", "true");
-
+                        
+                        // set Item Specifics.
+                        int itemSpecificsSize = nameSpecificList.size();
+                        int valueSpecificsSize = valueSpecificList.size();
+                        if ((itemSpecificsSize > 0) && (valueSpecificsSize > 0)) {
+                            NameValueListArrayType nameValueListArray = new NameValueListArrayType();
+                            NameValueListType[] nameValueListTypes = new NameValueListType[nameSpecificList.size()];
+                            for (int i = 0; i < itemSpecificsSize; i++) {
+                                String name = (String) nameSpecificList.get(i);
+                                String value = (String) valueSpecificList.get(i);
+                                String[] valueArray = new String[] { value };
+                                
+                                // set Name value list type.
+                                NameValueListType listType = new NameValueListType();
+                                listType.setName(name);
+                                listType.setValue(valueArray);
+                                nameValueListTypes[i] = listType;
+                            }
+                            nameValueListArray.setNameValueList(nameValueListTypes);
+                            item.setItemSpecifics(nameValueListArray);
+                        }
+                        
                         item.setUseTaxTable(false);
                         item.setDispatchTimeMax(3);
                         ReturnPolicyType policy = new ReturnPolicyType();
@@ -1051,5 +1105,50 @@ public class EbayEvents {
         } catch (Exception e) {
             Debug.logError(e.getMessage(), module);
         }
+    }
+    
+    public static Map<String, Map> categorySpecifics(String categoryId, HttpServletRequest request) {
+        Map<String, Map> recommendationMap = FastMap.newInstance();
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        Map<String,Object> requestParams = UtilHttp.getParameterMap(request);
+        Locale locale = UtilHttp.getLocale(request);
+        String productStoreId = (String) requestParams.get("productStoreId");
+        HttpSession session = request.getSession(true);
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        
+        try {
+            ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+            GetCategorySpecificsCall categorySpecifics = new GetCategorySpecificsCall(apiContext);
+            String[] categoryIds = {categoryId};
+            categorySpecifics.setCategoryID(categoryIds);
+            DetailLevelCodeType[] detailLevel = new DetailLevelCodeType[] {
+                    DetailLevelCodeType.RETURN_ALL,
+                    DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+                    DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+            };
+            categorySpecifics.setDetailLevel(detailLevel);
+            RecommendationsType[] recommend =  categorySpecifics.getCategorySpecifics();
+            
+            for (int i = 0; i < recommend.length; i++) {
+                NameRecommendationType[] nameRecommend = recommend[i].getNameRecommendation();
+                Map<String, List> nameRecommendationMap = FastMap.newInstance();
+                for (int j = 0; j < nameRecommend.length; j++) {
+                    String name = nameRecommend[j].getName();
+                    List<String> valueList = FastList.newInstance();
+                    ValueRecommendationType[] valueRecommend = nameRecommend[j].getValueRecommendation();
+                    for (int k = 0; k < valueRecommend.length; k++) {
+                        String value = valueRecommend[k].getValue();
+                        valueList.add(value);
+                    }
+                    nameRecommendationMap.put(name, valueList);
+                }
+                recommendationMap.put("categorySpecifics", nameRecommendationMap);
+            }
+        } catch (Exception e) {
+            Debug.logError(e.getMessage(), module);
+            return null;
+        }
+        return recommendationMap;
     }
 }

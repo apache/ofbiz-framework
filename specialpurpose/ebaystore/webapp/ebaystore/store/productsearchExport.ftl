@@ -71,7 +71,7 @@ under the License.
         if (cateId.indexOf(':')!= -1) {
             cateId = cateId.substring(0,cateId.indexOf(':'));
         }
-        var pars = 'ebayCategoryId='+cateId+'&amp;productStoreId='+productStoreId; 
+        var pars = 'ebayCategoryId='+cateId+'&productStoreId='+productStoreId; 
         var myAjax = new Ajax.Request( url, {
         method: 'get', 
         parameters: pars,
@@ -99,7 +99,7 @@ under the License.
     }
 
      function retrieveTemplateByTemGroupId(templateGroupId,productStoreId,pkCategoryId){
-        var pars = 'templateGroupId='+templateGroupId+'&amp;productStoreId='+productStoreId+'&amp;pkCategoryId='+pkCategoryId; 
+        var pars = 'templateGroupId='+templateGroupId+'&productStoreId='+productStoreId+'&pkCategoryId='+pkCategoryId; 
         var url = '<@ofbizUrl>ebayAdItemTemplate</@ofbizUrl>';
         var myAjax = new Ajax.Request( url, {
         method: 'get', 
@@ -448,12 +448,38 @@ under the License.
                           </div>
                           <!-- item specifices section -->
                           <#if primaryCate?has_content && primaryCate.getCategoryID()?exists && listingTypes?has_content>
+                             <#if checkSpecific == "true">
                              <div class="screenlet">
                                  <div class="screenlet-title-bar"><ul><li class="h3">Item specifices</li></ul><br class="clear"/></div>
-                                 <div class="screenlet-body">
-                                 
+                                     <div class="screenlet-body">
+                                        <table width="50%" height="100%" id="table2"  cellspacing="0">
+                                        <#list categorySpecifix?keys as key>
+                                            <#assign values = categorySpecifix.get(key)?if_exists/>
+                                            <#assign i = 0/>
+                                            <#list values?keys as nameSpecific>
+                                            <#assign itemSpecifics = values.get(nameSpecific)?if_exists/>
+                                                <#if itemSpecifics?has_content>
+                                                    <tr>
+                                                        <td class="label">${nameSpecific?if_exists}</td>
+                                                        <input type="hidden" name="nameValueListType_o_${i}" value="${nameSpecific?if_exists}"/>
+                                                        <td>
+                                                            <select id="categorySpecifics" name="categorySpecifics_o_${i}">
+                                                               <option  value="" ></option>
+                                                               <#list itemSpecifics as itemSpecific>
+                                                                   <option  value="${itemSpecific?if_exists}" >${itemSpecific?if_exists}</option>
+                                                               </#list>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <#assign i = i + 1/>
+                                                </#if>
+                                            </#list>
+                                        </#list>
+                                        </table>
+                                     </div>
                                  </div>
                              </div>
+                             </#if>
                           </#if>
                           <!-- Setup ad templates section -->
                           <#if primaryCate?has_content && primaryCate.getCategoryID()?exists && listingTypes?has_content>
