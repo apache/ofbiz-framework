@@ -26,7 +26,7 @@ under the License.
 
 <script type="text/javascript">
 document.observe('dom:loaded', function(){
-    var dataAsText = '${dataText}';
+    var dataAsText = '${StringUtil.wrapString(dataText)}';
     var chartData = [];
     chartData = dataAsText.split(',');
     var allData = [];
