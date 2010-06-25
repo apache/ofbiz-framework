@@ -46,6 +46,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
@@ -2806,7 +2807,9 @@ public class MacroFormRenderer implements FormStringRenderer {
             ajaxUrl += this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl));
             ajaxUrl += "," + ajaxParams;
         }
-        return ajaxUrl;
+        Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+        MapStack<String> localContext = MapStack.create( (Map<String,Object>)context);
+        return FlexibleStringExpander.expandString(ajaxUrl, localContext, locale);
     }
     /** Extracts parameters from a target URL string, prepares them for an Ajax
      * JavaScript call. This method is currently set to return a parameter string
