@@ -204,3 +204,19 @@ selPayments = EntityUtil.filterByDate(paymentMethods, nowTimestamp, "fromDate", 
 if (selPayments) {
     context.eftAccount = delegator.findByPrimaryKey("EftAccount", [paymentMethodId : selPayments[0].paymentMethodId]);
 }
+
+// Tax ID Info
+partyTaxAuthInfoList = delegator.findByAnd("PartyTaxAuthInfo", [partyId : partyId]);
+if (partyTaxAuthInfoList) {
+    if (address.countryGeoId) {
+        // if we have an address with country filter by that
+        partyTaxAuthInfoList.eachWithIndex { partyTaxAuthInfo, i ->
+            if (partyTaxAuthInfo.taxAuthGeoId.equals(address.countryGeoId)) {
+                context.sendingPartyTaxId = partyTaxAuthInfo.partyTaxId;
+            }
+        }
+    } else {
+        // otherwise just grab the first one
+        context.sendingPartyTaxId = partyTaxAuthInfoList[0].partyTaxId;
+    }
+}
