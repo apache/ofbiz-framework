@@ -26,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.management.ManagementFactory;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.List;
@@ -34,6 +35,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public final class InstrumenterWorker {
 
@@ -69,23 +74,65 @@ public final class InstrumenterWorker {
             e.printStackTrace();
             return srcPaths;
         }
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors());
         try {
             File instrumenterFile = new File(instrumenterFileName);
             instrumenterFile.delete();
             instrumenter.open(instrumenterFile, true);
-            List<File> result = new ArrayList<File>();
+            List<Future<File>> futures = new ArrayList<Future<File>>();
             for (File file: srcPaths) {
                 String path = file.getPath();
                 if (path.matches(".*/ofbiz[^/]*\\.(jar|zip)")) {
-                    file = new FileInstrumenter(instrumenter, file).call();
+                    futures.add(executor.submit(new FileInstrumenter(instrumenter, file)));
+                } else {
+                    futures.add(new ConstantFutureFile(file));
                 }
-                result.add(file);
+            }
+            List<File> result = new ArrayList<File>(futures.size());
+            for (Future<File> future: futures) {
+                result.add(future.get());
             }
             instrumenter.close();
             return result;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return srcPaths;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return srcPaths;
         } catch (IOException e) {
             e.printStackTrace();
             return srcPaths;
+        } finally {
+            executor.shutdown();
+        }
+    }
+
+    private static final class ConstantFutureFile implements Future<File> {
+        private final File file;
+
+        protected ConstantFutureFile(File file) {
+            this.file = file;
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            return false;
+        }
+
+        public File get() {
+            return file;
+        }
+
+        public File get(long timeout, TimeUnit  unit) {
+            return file;
+        }
+
+        public boolean isCancelled() {
+            return false;
+        }
+
+        public boolean isDone() {
+            return true;
         }
     }
 
@@ -101,7 +148,7 @@ public final class InstrumenterWorker {
         }
 
         public File call() throws IOException {
-            System.err.println("instrumenting " + path);
+            System.err.println(Thread.currentThread() + ":instrumenting " + path);
             String prefix = path.substring(0, path.length() - 4);
             int slash = prefix.lastIndexOf("/");
             if (slash != -1) prefix = prefix.substring(slash + 1);
