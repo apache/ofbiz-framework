@@ -303,7 +303,7 @@ OUTER:
     }
 
     public static <T> List<T> list(T... list) {
-        return Arrays.asList(list);
+        return new ArrayList<T>(Arrays.asList(list));
     }
 
     public static <T> Set<T> set(T value) {
