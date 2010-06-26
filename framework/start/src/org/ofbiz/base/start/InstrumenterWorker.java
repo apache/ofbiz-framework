@@ -76,45 +76,7 @@ public final class InstrumenterWorker {
             for (File file: srcPaths) {
                 String path = file.getPath();
                 if (path.matches(".*/ofbiz[^/]*\\.(jar|zip)")) {
-                    System.err.println("instrumenting " + path);
-                    String prefix = path.substring(0, path.length() - 4);
-                    int slash = prefix.lastIndexOf("/");
-                    if (slash != -1) prefix = prefix.substring(slash + 1);
-                    prefix += "-";
-                    File zipTmp = File.createTempFile("instrumented-" + prefix, path.substring(path.length() - 4));
-                    try {
-                        zipTmp.deleteOnExit();
-                        ZipInputStream zin = new ZipInputStream(new FileInputStream(file));
-                        ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(zipTmp));
-                        ZipEntry entry;
-                        while ((entry = zin.getNextEntry()) != null) {
-                            InputStream in;
-                            long size;
-                            if (entry.getName().endsWith(".class")) {
-                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                copy(zin, baos);
-                                byte[] bytes = instrumenter.instrumentClass(baos.toByteArray());
-                                size = bytes.length;
-                                in = new ByteArrayInputStream(bytes);
-                            } else {
-                                in = zin;
-                                size = entry.getSize();
-                            }
-                            ZipEntry newEntry = new ZipEntry(entry);
-                            newEntry.setSize(size);
-                            newEntry.setCompressedSize(-1);
-                            zout.putNextEntry(newEntry);
-                            copy(in, zout);
-                            if (entry.getName().endsWith(".class")) {
-                                in.close();
-                            }
-                        }
-                        zout.close();
-                        file = zipTmp;
-                    } catch (IOException e) {
-                        zipTmp.delete();
-                        throw e;
-                    }
+                    file = new FileInstrumenter(instrumenter, file).instrument();
                 }
                 result.add(file);
             }
@@ -123,6 +85,60 @@ public final class InstrumenterWorker {
         } catch (IOException e) {
             e.printStackTrace();
             return srcPaths;
+        }
+    }
+
+    private static final class FileInstrumenter {
+        private final Instrumenter instrumenter;
+        private final File file;
+        private final String path;
+
+        protected FileInstrumenter(Instrumenter instrumenter, File file) {
+            this.instrumenter = instrumenter;
+            this.file = file;
+            this.path = file.getPath();
+        }
+
+        protected File instrument() throws IOException {
+            System.err.println("instrumenting " + path);
+            String prefix = path.substring(0, path.length() - 4);
+            int slash = prefix.lastIndexOf("/");
+            if (slash != -1) prefix = prefix.substring(slash + 1);
+            prefix += "-";
+            File zipTmp = File.createTempFile("instrumented-" + prefix, path.substring(path.length() - 4));
+            try {
+                zipTmp.deleteOnExit();
+                ZipInputStream zin = new ZipInputStream(new FileInputStream(file));
+                ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(zipTmp));
+                ZipEntry entry;
+                while ((entry = zin.getNextEntry()) != null) {
+                    InputStream in;
+                    long size;
+                    if (entry.getName().endsWith(".class")) {
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        copy(zin, baos);
+                        byte[] bytes = instrumenter.instrumentClass(baos.toByteArray());
+                        size = bytes.length;
+                        in = new ByteArrayInputStream(bytes);
+                    } else {
+                        in = zin;
+                        size = entry.getSize();
+                    }
+                    ZipEntry newEntry = new ZipEntry(entry);
+                    newEntry.setSize(size);
+                    newEntry.setCompressedSize(-1);
+                    zout.putNextEntry(newEntry);
+                    copy(in, zout);
+                    if (entry.getName().endsWith(".class")) {
+                        in.close();
+                    }
+                }
+                zout.close();
+                return zipTmp;
+            } catch (IOException e) {
+                zipTmp.delete();
+                throw e;
+            }
         }
     }
 }
