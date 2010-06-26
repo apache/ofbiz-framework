@@ -21,6 +21,7 @@ package org.ofbiz.base.lang.test;
 import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.lang.ComparableRange;
 import org.ofbiz.base.lang.SourceMonitored;
+import org.ofbiz.base.util.UtilGenerics;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -79,7 +80,7 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         assertFalse(label + ":a-d equals null", all.equals(null));
         ClassCastException caught = null;
         try {
-            ((Comparable) first).compareTo(ComparableRangeTests.class);
+            UtilGenerics.<Comparable<Object>>cast(first).compareTo(ComparableRangeTests.class);
         } catch (ClassCastException e) {
             caught = e;
         } finally {
