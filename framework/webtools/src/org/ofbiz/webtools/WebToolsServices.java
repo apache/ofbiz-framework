@@ -745,8 +745,8 @@ public class WebToolsServices {
                             List<String> fieldNameList = FastList.newInstance();
 
                             ModelIndex index = entity.getIndex(r);
-                            for (Iterator<String> fieldIterator = index.getIndexFieldsIterator(); fieldIterator.hasNext();) {
-                                fieldNameList.add(fieldIterator.next());
+                            for (Iterator<ModelIndex.Field> fieldIterator = index.getFieldsIterator(); fieldIterator.hasNext();) {
+                                fieldNameList.add(fieldIterator.next().getFieldName());
                             }
 
                             Map<String, Object> indexMap = FastMap.newInstance();
