@@ -2727,6 +2727,7 @@ public class ModelForm extends ModelWidget {
         protected String eventType;
         protected String areaId;
         protected String areaTarget;
+        List<WidgetWorker.Parameter> parameterList =FastList.newInstance();
         /** XML constructor.
          * @param updateAreaElement The <code>&lt;on-xxx-update-area&gt;</code>
          * XML element.
@@ -2735,6 +2736,10 @@ public class ModelForm extends ModelWidget {
             this.eventType = updateAreaElement.getAttribute("event-type");
             this.areaId = updateAreaElement.getAttribute("area-id");
             this.areaTarget = updateAreaElement.getAttribute("area-target");
+            List<? extends Element> parameterElementList = UtilXml.childElementList(updateAreaElement, "parameter");
+            for (Element parameterElement: parameterElementList) {
+                this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
+            }
         }
         /** String constructor.
          * @param areaId The id of the widget element to be updated
@@ -2761,6 +2766,14 @@ public class ModelForm extends ModelWidget {
         }
         public String getAreaTarget(Map<String, ? extends Object> context) {
             return FlexibleStringExpander.expandString(areaTarget, context);
+        }
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            Map<String, String> fullParameterMap = FastMap.newInstance();
+            for (WidgetWorker.Parameter parameter: this.parameterList) {
+                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
+            }
+            
+            return fullParameterMap;
         }
     }
 

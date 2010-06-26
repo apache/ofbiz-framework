@@ -371,6 +371,9 @@ under the License.
             <xs:documentation>Area to be updated when a form event occurs.</xs:documentation>
         </xs:annotation>
         <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter"/>
+            </xs:sequence>
             <xs:attributeGroup ref="attlist.on-form-event-update-area"/>
         </xs:complexType>
     </xs:element>
