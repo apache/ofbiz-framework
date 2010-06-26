@@ -2795,6 +2795,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             } else {
                 ajaxUrl += ",";
             }
+            Map<String, String> parameters = updateArea.getParameterMap((Map<String, Object>) context);
             String targetUrl = updateArea.getAreaTarget(context);
             String ajaxParams = getAjaxParamsFromTarget(targetUrl);
             if (UtilValidate.isNotEmpty(extraParams)) {
@@ -2802,6 +2803,17 @@ public class MacroFormRenderer implements FormStringRenderer {
                     ajaxParams += "&";
                 }
                 ajaxParams += extraParams;
+            }
+            if(UtilValidate.isNotEmpty(parameters)){
+                if(UtilValidate.isEmpty(ajaxParams)){
+                    ajaxParams = "";
+                }
+                for (String key : parameters.keySet()) {
+                    if (ajaxParams.length()>0){
+                        ajaxParams += "&";
+                    }
+                    ajaxParams += key + "=" + parameters.get(key);
+                }
             }
             ajaxUrl += updateArea.getAreaId() + ",";
             ajaxUrl += this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl));
