@@ -24,7 +24,6 @@ import java.util.Map;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -78,7 +77,7 @@ public class ServiceEngineTestServices {
 
             // wait at least long enough for the other method to have locked resource B
             Debug.logInfo("In testServiceDeadLockRetryThreadA just updated SVCLRT_A, beginning wait", module);
-            UtilMisc.staticWait(100);
+            Thread.sleep(100);
 
             Debug.logInfo("In testServiceDeadLockRetryThreadA done with wait, updating SVCLRT_B", module);
             GenericValue testingTypeB = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_B");
@@ -112,7 +111,7 @@ public class ServiceEngineTestServices {
 
             // wait at least long enough for the other method to have locked resource B
             Debug.logInfo("In testServiceDeadLockRetryThreadB just updated SVCLRT_B, beginning wait", module);
-            UtilMisc.staticWait(100);
+            Thread.sleep(100);
 
             Debug.logInfo("In testServiceDeadLockRetryThreadB done with wait, updating SVCLRT_A", module);
             GenericValue testingTypeA = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_A");
@@ -178,7 +177,7 @@ public class ServiceEngineTestServices {
 
             // wait at least long enough for the other method to have locked resource wait time out
             // (tx timeout 6s on this the Grabber and 2s on the Waiter): wait 4 seconds because timeout on this
-            UtilMisc.staticWait(4 * 1000);
+            Thread.sleep(4 * 1000);
         } catch (GenericEntityException e) {
             String errMsg = "Entity Engine Exception running lock wait timeout test Grabber thread: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -196,7 +195,7 @@ public class ServiceEngineTestServices {
 
         try {
             // wait for a small amount of time to make sure the grabber does it's thing first
-            UtilMisc.staticWait(100);
+            Thread.sleep(100);
 
             Debug.logInfo("In testServiceLockWaitTimeoutRetryWaiter about to update SVCLWTRT, wait starts here", module);
 
