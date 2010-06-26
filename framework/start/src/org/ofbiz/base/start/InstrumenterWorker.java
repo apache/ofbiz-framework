@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
+import java.util.concurrent.Callable;
 
 public final class InstrumenterWorker {
 
@@ -76,7 +77,7 @@ public final class InstrumenterWorker {
             for (File file: srcPaths) {
                 String path = file.getPath();
                 if (path.matches(".*/ofbiz[^/]*\\.(jar|zip)")) {
-                    file = new FileInstrumenter(instrumenter, file).instrument();
+                    file = new FileInstrumenter(instrumenter, file).call();
                 }
                 result.add(file);
             }
@@ -88,7 +89,7 @@ public final class InstrumenterWorker {
         }
     }
 
-    private static final class FileInstrumenter {
+    private static final class FileInstrumenter implements Callable<File> {
         private final Instrumenter instrumenter;
         private final File file;
         private final String path;
@@ -99,7 +100,7 @@ public final class InstrumenterWorker {
             this.path = file.getPath();
         }
 
-        protected File instrument() throws IOException {
+        public File call() throws IOException {
             System.err.println("instrumenting " + path);
             String prefix = path.substring(0, path.length() - 4);
             int slash = prefix.lastIndexOf("/");
