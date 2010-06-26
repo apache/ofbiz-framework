@@ -499,7 +499,9 @@ public class FreeMarkerWorker {
             if (o instanceof Map) {
                 context.put(key, UtilMisc.makeMapWritable(UtilGenerics.checkMap(o)));
             } else if (o instanceof List) {
-                context.put(key, UtilMisc.makeListWritable(UtilGenerics.checkList(o)));
+                List<Object> list = new ArrayList<Object>();
+                list.addAll(UtilGenerics.checkList(o));
+                context.put(key, list);
             } else {
                 context.put(key, o);
             }
