@@ -237,12 +237,12 @@ public class FlexibleStringExpanderTests extends TestCase {
     }
 
     @SuppressWarnings("unchecked")
-    public static class SpecialNumberToString extends AbstractConverter {
+    public static class SpecialNumberToString extends AbstractConverter<SpecialNumber, String> {
         public SpecialNumberToString() {
             super(SpecialNumber.class, String.class);
         }
 
-        public Object convert(Object obj) throws ConversionException {
+        public String convert(SpecialNumber obj) throws ConversionException {
             throw new NullPointerException();
         }
     }

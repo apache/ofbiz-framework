@@ -44,6 +44,7 @@ import jdbm.htree.HTree;
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 
@@ -459,7 +460,7 @@ public class UtilCache<K, V> implements Serializable {
                 } else {
                     hitCount.incrementAndGet();
                 }
-                memoryTable.put(nulledKey, createCacheLine((K) key, value, expireTimeNanos));
+                memoryTable.put(nulledKey, createCacheLine(UtilGenerics.<K>cast(key), value, expireTimeNanos));
                 return value;
             } else {
                 missCountNotFound.incrementAndGet();
@@ -595,7 +596,7 @@ public class UtilCache<K, V> implements Serializable {
                 Debug.logError(e, module);
             }
         }
-        noteRemoval((K) key, existingCacheLine.getValue());
+        noteRemoval(UtilGenerics.<K>cast(key), existingCacheLine.getValue());
     }
 
     /** Removes all elements from this cache */
@@ -869,7 +870,7 @@ public class UtilCache<K, V> implements Serializable {
                 keys = memoryTable.keySet();
             }
         }
-        return Collections.unmodifiableSet((Set<? extends K>) keys);
+        return Collections.unmodifiableSet(UtilGenerics.<Set<? extends K>>cast(keys));
     }
 
     public Collection<? extends CacheLine<V>> getCacheLineValues() {
