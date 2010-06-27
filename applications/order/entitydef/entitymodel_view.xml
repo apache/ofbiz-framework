@@ -1160,7 +1160,12 @@ under the License.
       <alias entity-alias="OH" name="orderTypeId" group-by="false"/>
       <alias entity-alias="RL" name="partyId" group-by="false"/>
       <alias entity-alias="RL" name="roleTypeId" group-by="false"/>
-      <alias entity-alias="OI" name="quantity" function="sum"/>
+      <alias entity-alias="OI" name="quantityOrdered" function="sum">
+        <complex-alias operator="-">
+          <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
+          <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
+        </complex-alias>
+      </alias>
       <alias entity-alias="OI" name="unitPrice" function="sum"/>
       <view-link entity-alias="OH" rel-entity-alias="OI">
         <key-map field-name="orderId"/>
