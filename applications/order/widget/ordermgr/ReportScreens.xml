@@ -226,7 +226,7 @@ under the License.
                     <select-field field-name="storeName"/>
                     <select-field field-name="productId"/>
                     <select-field field-name="internalName"/>
-                    <select-field field-name="quantity"/>
+                    <select-field field-name="quantityOrdered"/>
                     <select-field field-name="unitPrice"/>
                     <order-by field-name="storeName"/>
                     <order-by field-name="internalName"/>

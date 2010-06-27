@@ -59,7 +59,6 @@ under the License.
                     <fo:table-row font-weight="bold">
                         <#if showProductStore><fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.FormFieldTitle_productStoreId}</fo:block></fo:table-cell></#if>
                         <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductProduct}</fo:block></fo:table-cell>
-                        <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.OrderQuantitySold}</fo:block></fo:table-cell>
                         <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.OrderValueSold}</fo:block></fo:table-cell>
                     </fo:table-row>
                 </fo:table-header>
@@ -76,7 +75,7 @@ under the License.
                                 <fo:block>${productReport.internalName?default("")} (${productReport.productId?if_exists})</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.quantity?if_exists}</fo:block>
+                                <fo:block>${productReport.quantityOrdered?if_exists}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block>${productReport.unitPrice?if_exists}</fo:block>
