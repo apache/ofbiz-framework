@@ -619,7 +619,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             field-type-name="advantage"
             check-on-start="true"
             add-missing-on-start="true"
-            check-indices-on-start="true"
+            check-indices-on-start="false"
             use-foreign-keys="false"
             use-foreign-key-indices="true"
             join-style="ansi-no-parenthesis"
