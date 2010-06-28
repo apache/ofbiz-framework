@@ -75,13 +75,32 @@ under the License.
    ========================================================== -->
     <entity entity-name="TestBlob"
         package-name="org.ofbiz.entity.test"
-        title="Entity for testing the blob type">
+        title="Entity for testing the blob type (Deprecated)">
+        <description>Deprecated - use TestFieldType instead</description>
         <field name="testBlobId" type="id-ne"/>
         <field name="testBlobField" type="blob"/>
          <prim-key field="testBlobId"/>
     </entity>
   <!-- =========================================================
-    Testing Node entity : hierachy of nodes having
+     An entity for testing the field data types
+   ========================================================== -->
+    <entity entity-name="TestFieldType"
+        package-name="org.ofbiz.entity.test"
+        title="Entity for testing the field data types">
+        <description>An entity for testing the field data types</description>
+        <field name="testFieldTypeId" type="id-ne"/>
+        <field name="blobField" type="blob"/>
+        <field name="dateField" type="date"/>
+        <field name="timeField" type="time"/>
+        <field name="dateTimeField" type="date-time"/>
+        <field name="fixedPointField" type="fixed-point"/>
+        <field name="floatingPointField" type="floating-point"/>
+        <field name="numericField" type="numeric"/>
+        <field name="clobField" type="very-long"/>
+        <prim-key field="testFieldTypeId"/>
+    </entity>
+  <!-- =========================================================
+    Testing Node entity : hierarchy of nodes having
     'testing node member' as potential members
   ========================================================= -->
     <entity entity-name="TestingNode"
