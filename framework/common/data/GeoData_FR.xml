@@ -38,6 +38,7 @@ under the License.
     <Geo abbreviation="CHM" geoCode="17" geoId="FR-17" geoName="Charente-Maritime" geoTypeId="COUNTY"/>
     <Geo abbreviation="CHE" geoCode="18" geoId="FR-18" geoName="Cher" geoTypeId="COUNTY"/>
     <Geo abbreviation="COR" geoCode="19" geoId="FR-19" geoName="Corrèze" geoTypeId="COUNTY"/>
+    <Geo abbreviation="COS" geoCode="20" geoId="FR-20" geoName="Corse" geoTypeId="COUNTY"/>
     <Geo abbreviation="CDS" geoCode="2A" geoId="FR-2A" geoName="Corse-du-Sud" geoTypeId="COUNTY"/>
     <Geo abbreviation="HCO" geoCode="2B" geoId="FR-2B" geoName="Haute-Corse" geoTypeId="COUNTY"/>
     <Geo abbreviation="COO" geoCode="21" geoId="FR-21" geoName="Côte-d'Or" geoTypeId="COUNTY"/>
@@ -115,6 +116,8 @@ under the License.
     <Geo abbreviation="SSD" geoCode="93" geoId="FR-93" geoName="Seine-Saint-Denis" geoTypeId="COUNTY"/>
     <Geo abbreviation="VDM" geoCode="94" geoId="FR-94" geoName="Val-de-Marne" geoTypeId="COUNTY"/>
     <Geo abbreviation="VDO" geoCode="95" geoId="FR-95" geoName="Val-d'Oise" geoTypeId="COUNTY"/>
+    <Geo abbreviation="REU" geoCode="97" geoId="FR-97" geoName="Réunion" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MON" geoCode="98" geoId="FR-98" geoName="Monaco" geoTypeId="COUNTY"/>
 
     <Geo abbreviation="BEB" geoCode="BEB" geoId="FR-BEB01" geoName="Bourg-en-Bresse" geoTypeId="COUNTY_CITY"/>
     <Geo abbreviation="LAO" geoCode="LAO" geoId="FR-LAO02" geoName="Laon" geoTypeId="COUNTY_CITY"/>
