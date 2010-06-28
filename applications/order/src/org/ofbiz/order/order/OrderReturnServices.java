@@ -2077,7 +2077,17 @@ public class OrderReturnServices {
                             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                         }
                     } else {
-                        OrderChangeHelper.approveOrder(dispatcher, userLogin, createdOrderId);
+                        if ("CUSTOMER_RETURN".equals(returnHeaderTypeId)) {
+                            OrderChangeHelper.approveOrder(dispatcher, userLogin, createdOrderId);
+                        } else {
+                            try {
+                                OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, createdOrderId, "ORDER_APPROVED", null, "ITEM_APPROVED", null);
+                            } catch (GenericServiceException e) {
+                                String errorMessage = "Service invocation error, status changes were not updated for order #" + createdOrderId;
+                                Debug.logError(e, errorMessage, module);
+                                return ServiceUtil.returnError(errorMessage);
+                            }
+                        }
                     }
 
                     // create a ReturnItemResponse and attach to each ReturnItem
