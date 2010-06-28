@@ -18,13 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.entity.test;
 
+import java.math.BigDecimal;
+import java.sql.Blob;
+import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import junit.framework.TestCase;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -40,11 +42,13 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.entity.testtools.EntityTestCase;
 
 public class EntityTestSuite extends EntityTestCase {
 
@@ -249,6 +253,16 @@ public class EntityTestSuite extends EntityTestCase {
      * Tests foreign key integrity by trying to remove an entity which has foreign-key dependencies.  Should cause an exception.
      */
     public void testForeignKeyCreate() {
+        try {
+            String helperName = delegator.getEntityHelper("Testing").getHelperName();
+            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+            if (!datasourceInfo.useFks) {
+                Debug.logInfo("Datasource " + datasourceInfo.name + " use-foreign-keys set to false, skipping testForeignKeyCreate", module);
+                return;
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
         GenericEntityException caught = null;
         try {
             delegator.create("Testing", "testingId", delegator.getNextSeqId("Testing"), "testingTypeId", "NO-SUCH-KEY");
@@ -263,6 +277,16 @@ public class EntityTestSuite extends EntityTestCase {
      * Tests foreign key integrity by trying to remove an entity which has foreign-key dependencies.  Should cause an exception.
      */
     public void testForeignKeyRemove() {
+        try {
+            String helperName = delegator.getEntityHelper("TestingNode").getHelperName();
+            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+            if (!datasourceInfo.useFks) {
+                Debug.logInfo("Datasource " + datasourceInfo.name + " use-foreign-keys set to false, skipping testForeignKeyRemove", module);
+                return;
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
         GenericEntityException caught = null;
         try {
             EntityCondition isLevel1 = EntityCondition.makeCondition("description", EntityOperator.EQUALS, "node-level #1");
@@ -465,38 +489,81 @@ public class EntityTestSuite extends EntityTestCase {
     }
 
     /*
-     * This will test setting a blob field to null by creating a TestBlob entity whose blob field is not set
+     * Tests field types.
      */
-    public void testSetNullBlob() throws Exception {
-        try {
-            delegator.create("TestBlob", "testBlobId", "null-blob");
-        } finally {
-            List<GenericValue> allTestBlobs = delegator.findList("TestBlob", null, null, null, null, false);
-            delegator.removeAll(allTestBlobs);
+    public void testFieldTypes() throws Exception {
+        String id = "testFieldTypes";
+        byte[] b = new byte[100000];
+        for (int i = 0; i < b.length; i++) {
+            b[i] = (byte) i;
         }
-    }
-
-    /*
-     * Tests setting a byte value into a blob data type using the GenericValue .setBytes method
-     */
-    public void testBlobCreate() throws Exception {
+        String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder sb = new StringBuilder(alpha.length() * 1000);
+        for (int i = 0; i < 1000; i++) {
+            sb.append(alpha);
+        }
+        String clobStr = sb.toString();
+        long currentMillis = System.currentTimeMillis();
+        Date currentDate = Date.valueOf(new Date(currentMillis).toString());
+        Time currentTime = Time.valueOf(new Time(currentMillis).toString());
+        Timestamp currentTimestamp = new Timestamp(currentMillis);
+        BigDecimal fixedPoint = new BigDecimal("999999999999.999999");
+        Double floatingPoint = Double.MAX_VALUE / 2;
+        Long numeric = Long.MAX_VALUE;
         try {
-            byte[] b = new byte[100000];
-            for (int i = 0; i < b.length; i++) {
-                b[i] = (byte) i;
+            GenericValue testValue = delegator.makeValue("TestFieldType", "testFieldTypeId", id);
+            testValue.create();
+            testValue.set("blobField", b);
+            testValue.set("dateField", currentDate);
+            testValue.set("timeField", currentTime);
+            testValue.set("dateTimeField", currentTimestamp);
+            testValue.set("fixedPointField", fixedPoint);
+            testValue.set("floatingPointField", floatingPoint);
+            testValue.set("numericField", numeric);
+            testValue.set("clobField", clobStr);
+            testValue.store();
+            testValue = delegator.findOne("TestFieldType", UtilMisc.toMap("testFieldTypeId", id), false);
+            assertEquals("testFieldTypeId", id, testValue.get("testFieldTypeId"));
+            byte[] c = null;
+            try {
+                Blob blob = (Blob) testValue.get("blobField");
+                c = blob.getBytes(1, (int) blob.length());
+            } catch (ClassCastException e) {
+                c = (byte[]) testValue.get("blobField");
             }
-            GenericValue testingBlob = delegator.makeValue("TestBlob", "testBlobId", "byte-blob");
-            testingBlob.setBytes("testBlobField", b);
-            testingBlob.create();
-            testingBlob = delegator.findOne("TestBlob", UtilMisc.toMap("testBlobId", "byte-blob"), false);
-            byte[] c = testingBlob.getBytes("testBlobField");
-            assertEquals("Byte array read from Blob data is the same length", b.length, c.length);
+            assertEquals("Byte array read from entity is the same length", b.length, c.length);
             for (int i = 0; i < b.length; i++) {
-                assertEquals("Blob data[" + i + "]", b[i], c[i]);
+                assertEquals("Byte array data[" + i + "]", b[i], c[i]);
             }
+            assertEquals("dateField", currentDate, testValue.get("dateField"));
+            assertEquals("timeField", currentTime, testValue.get("timeField"));
+            assertEquals("dateTimeField", currentTimestamp, testValue.get("dateTimeField"));
+            assertEquals("fixedPointField", fixedPoint, testValue.get("fixedPointField"));
+            assertEquals("floatingPointField", floatingPoint, testValue.get("floatingPointField"));
+            assertEquals("numericField", numeric, testValue.get("numericField"));
+            assertEquals("clobField", clobStr, testValue.get("clobField"));
+            testValue.set("blobField", null);
+            testValue.set("dateField", null);
+            testValue.set("timeField", null);
+            testValue.set("dateTimeField", null);
+            testValue.set("fixedPointField", null);
+            testValue.set("floatingPointField", null);
+            testValue.set("numericField", null);
+            testValue.set("clobField", null);
+            testValue.store();
+            testValue = delegator.findOne("TestFieldType", UtilMisc.toMap("testFieldTypeId", id), false);
+            assertEquals("testFieldTypeId", id, testValue.get("testFieldTypeId"));
+            assertNull("blobField null", testValue.get("blobField"));
+            assertNull("dateField null", testValue.get("dateField"));
+            assertNull("timeField null", testValue.get("timeField"));
+            assertNull("dateTimeField null", testValue.get("dateTimeField"));
+            assertNull("fixedPointField null", testValue.get("fixedPointField"));
+            assertNull("floatingPointField null", testValue.get("floatingPointField"));
+            assertNull("numericField null", testValue.get("numericField"));
+            assertNull("clobField null", testValue.get("clobField"));
         } finally {
             // Remove all our newly inserted values.
-            List<GenericValue> values = delegator.findList("TestBlob", null, null, null, null, false);
+            List<GenericValue> values = delegator.findList("TestFieldType", null, null, null, null, false);
             delegator.removeAll(values);
         }
     }
