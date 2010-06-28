@@ -31,11 +31,12 @@ under the License.
     <field-type-def type="date" sql-type="Date" java-type="java.sql.Date"></field-type-def>
     <field-type-def type="time" sql-type="Time" java-type="java.sql.Time"></field-type-def>
 
-    <field-type-def type="currency-amount" sql-type="Money" java-type="java.math.BigDecimal"><validate method="isSignedDouble"/></field-type-def>
-    <field-type-def type="currency-precise" sql-type="Double" java-type="java.math.BigDecimal"><validate method="isSignedDouble"/></field-type-def>
-    <field-type-def type="fixed-point" sql-type="Double" java-type="java.math.BigDecimal"><validate method="isSignedDouble"/></field-type-def>
+    <!-- Advantage numeric fields are 2 bytes longer than the value to be stored - to hold the sign and decimal point. -->
+    <field-type-def type="currency-amount" sql-type="Numeric(20,2)" java-type="java.math.BigDecimal"><validate method="isSignedDouble"/></field-type-def>
+    <field-type-def type="currency-precise" sql-type="Numeric(20,3)" java-type="java.math.BigDecimal"><validate method="isSignedDouble"/></field-type-def>
+    <field-type-def type="fixed-point" sql-type="Numeric(20,6)" java-type="java.math.BigDecimal"><validate method="isSignedDouble"/></field-type-def>
     <field-type-def type="floating-point" sql-type="Double" java-type="Double"><validate method="isSignedDouble"/></field-type-def>
-    <field-type-def type="numeric" sql-type="Integer" java-type="Long"><validate method="isSignedLong"/></field-type-def>
+    <field-type-def type="numeric" sql-type="Numeric(20,0)" java-type="Long"><validate method="isSignedLong"/></field-type-def>
 
     <field-type-def type="id" sql-type="Char(20)" java-type="String"></field-type-def>
     <field-type-def type="id-long" sql-type="Char(60)" java-type="String"></field-type-def>
