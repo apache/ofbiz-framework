@@ -17,7 +17,7 @@
  under the License.
  */
 
-package org.ofbiz.service.xmlrpc;
+package org.ofbiz.webapp.xmlrpc;
 
 import org.apache.xmlrpc.client.XmlRpcClientConfig;
 import org.apache.xmlrpc.client.XmlRpcTransportFactory;
