@@ -65,4 +65,11 @@ under the License.
     <test-case case-name="service-eca-global-event-exec-assert-data">
         <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceEcaGlobalEventAssertData.xml"/>
     </test-case>
+    
+    <test-case case-name="service-xml-rpc">
+        <junit-test-suite class-name="org.ofbiz.service.test.XmlRpcTests"/>
+    </test-case>
+    <test-case case-name="service-xml-rpc-local-engine">
+        <service-test service-name="testXmlRpcClientAdd"/>
+    </test-case>
 </test-suite>

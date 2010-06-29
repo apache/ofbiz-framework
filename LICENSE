@@ -65,6 +65,9 @@ ofbiz/trunk/framework/base/lib/j2eespecs/tomcat-6.0.26-servlet-api.jar
 ofbiz/trunk/framework/base/lib/scripting/bsf-2.4.0.jar
 ofbiz/trunk/framework/base/lib/scripting/jakarta-oro-2.0.8.jar
 ofbiz/trunk/framework/base/lib/scripting/groovy-all-1.7.3.jar
+ofbiz/trunk/framework/base/lib/xmlrpc-client-3.0.jar
+ofbiz/trunk/framework/base/lib/xmlrpc-common-3.0.jar
+ofbiz/trunk/framework/base/lib/xmlrpc-server-3.0.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-6.0.26-catalina-ha.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-6.0.26-catalina-tribes.jar
 ofbiz/trunk/framework/catalina/lib/tomcat-6.0.26-catalina.jar
@@ -104,9 +107,6 @@ ofbiz/trunk/framework/webapp/lib/ezmorph-0.9.1.jar
 ofbiz/trunk/framework/webapp/lib/rome-0.9.jar
 ofbiz/trunk/framework/webapp/lib/serializer-2.7.0.jar
 ofbiz/trunk/framework/webapp/lib/xalan-2.7.1.jar
-ofbiz/trunk/framework/webapp/lib/xmlrpc-client-3.0.jar
-ofbiz/trunk/framework/webapp/lib/xmlrpc-common-3.0.jar
-ofbiz/trunk/framework/webapp/lib/xmlrpc-server-3.0.jar
 ofbiz/trunk/framework/webapp/lib/ws-commons-java5-1.0.1.jar
 ofbiz/trunk/framework/webapp/lib/ws-commons-util-1.0.1.jar
 ofbiz/trunk/framework/geronimo/lib/geronimo-connector-2.1.1.jar
