@@ -36,7 +36,7 @@ under the License.
         </if-compare>
         <set-service-fields service-name="createUpdatePerson" map="parameters" to-map="createUpdatePersonCtx"/>
         <set field="createUpdatePersonCtx.userLogin" from-field="userLogin"/>
-        <set field="createUpdatePersonCtx.partyId" from-field="userLogin.partyId"/>
+        <set field="createUpdatePersonCtx.partyId" from-field="partyId"/>
         <call-service service-name="createUpdatePerson" in-map-name="createUpdatePersonCtx">
             <result-to-field result-name="partyId"/>
         </call-service>
