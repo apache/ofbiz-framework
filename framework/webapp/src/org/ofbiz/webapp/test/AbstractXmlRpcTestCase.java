@@ -17,10 +17,10 @@
  under the License.
  */
 
-package org.ofbiz.service.test;
+package org.ofbiz.webapp.test;
 
 import junit.framework.TestCase;
-import org.ofbiz.service.xmlrpc.XmlRpcClient;
+import org.ofbiz.webapp.xmlrpc.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
 import java.net.URL;

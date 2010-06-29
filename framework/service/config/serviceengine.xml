@@ -58,11 +58,7 @@ under the License.
         <engine name="ofbiz-workflow" class="org.ofbiz.workflow.WorkflowEngine"/>
         <engine name="workflow" class="org.ofbiz.shark.service.SharkServiceEngine"/>
         <engine name="webslinger-server" class="org.ofbiz.webslinger.WebslingerServerEngine"/>
-        <engine name="xml-rpc-local" class="org.ofbiz.service.engine.XMLRPCClientEngine">
-            <parameter name="url" value="http://localhost:8080/webtools/control/xmlrpc"/>
-            <parameter name="login" value="admin"/>
-            <parameter name="password" value="ofbiz"/>
-        </engine>
+
         <service-location name="main-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
         <service-location name="main-http" location="http://localhost:8080/webtools/control/httpService"/>
 

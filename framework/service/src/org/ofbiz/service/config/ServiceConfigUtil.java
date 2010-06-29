@@ -31,8 +31,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Misc. utility method for dealing with the serviceengine.xml file
@@ -143,32 +141,6 @@ public class ServiceConfigUtil implements Serializable {
            return engineNotifyMap.get(group);
         }
 
-        return null;
-    }
-
-
-    public static String getEngineParameter(String engineName, String name) throws GenericConfigException {
-        Element root = ServiceConfigUtil.getXmlRootElement();
-        Node node = root.getFirstChild();
-
-        if (node != null) {
-            do {
-                if (node.getNodeType() == Node.ELEMENT_NODE && "engine".equals(node.getLocalName())) {
-                    Element engine = (Element) node;
-                    if (engineName.equals(engine.getAttribute("name"))) {
-                        NodeList params  = engine.getElementsByTagName("parameter");
-                        if (params.getLength() > 0) {
-                            for (int index = 0; index < params.getLength(); index++) {
-                                Element param = (Element) params.item(index);
-                                if (param != null && name.equals(param.getAttribute("name"))) {
-                                    return (String) param.getAttribute("value");
-                                }
-                            }
-                        }
-                    }
-                }
-            } while ((node = node.getNextSibling()) != null);
-        }
         return null;
     }
 

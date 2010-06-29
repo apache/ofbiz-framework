@@ -92,26 +92,9 @@ under the License.
     </xs:attributeGroup>
     <xs:element name="engine">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter"/>
-            </xs:sequence>
             <xs:attributeGroup ref="attlist.engine"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="parameter">
-        <xs:annotation>
-            <xs:documentation>
-                Technical parameters use by engine
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.parameter"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.parameter">
-        <xs:attribute type="xs:string" name="name" use="required"/>
-        <xs:attribute type="xs:string" name="value"  use="required"/>
-    </xs:attributeGroup>
     <xs:attributeGroup name="attlist.engine">
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="class" use="required"/>
