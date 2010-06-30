@@ -506,9 +506,13 @@ public class EntityTestSuite extends EntityTestCase {
         long currentMillis = System.currentTimeMillis();
         Date currentDate = Date.valueOf(new Date(currentMillis).toString());
         Time currentTime = Time.valueOf(new Time(currentMillis).toString());
-        Timestamp currentTimestamp = new Timestamp(currentMillis);
+        // Different databases have different precision for Timestamps, so
+        // we will ignore fractional seconds.
+        Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
         BigDecimal fixedPoint = new BigDecimal("999999999999.999999");
-        Double floatingPoint = Double.MAX_VALUE / 2;
+        // Different databases have different precision for floating
+        // point types, so we will use a simple decimal number.
+        Double floatingPoint = 1.0123456789;
         Long numeric = Long.MAX_VALUE;
         try {
             GenericValue testValue = delegator.makeValue("TestFieldType", "testFieldTypeId", id);
