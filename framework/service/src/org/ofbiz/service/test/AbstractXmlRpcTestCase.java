@@ -17,14 +17,15 @@
  under the License.
  */
 
-package org.ofbiz.webapp.test;
+package org.ofbiz.service.test;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import junit.framework.TestCase;
-import org.ofbiz.webapp.xmlrpc.XmlRpcClient;
-import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
-import java.net.URL;
-import java.net.MalformedURLException;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.ofbiz.service.xmlrpc.XmlRpcClient;
 
 /**
  * AbstractXmlRpcTestCase

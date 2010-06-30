@@ -17,29 +17,30 @@
  under the License.
  */
 
-package org.ofbiz.webapp.xmlrpc;
+package org.ofbiz.service.xmlrpc;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
+
+import javax.net.ssl.HttpsURLConnection;
+
+import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.XmlRpcRequest;
 import org.apache.xmlrpc.client.XmlRpcClientException;
 import org.apache.xmlrpc.client.XmlRpcHttpClientConfig;
 import org.apache.xmlrpc.client.XmlRpcHttpTransport;
 import org.apache.xmlrpc.client.XmlRpcTransport;
 import org.apache.xmlrpc.client.XmlRpcTransportFactoryImpl;
-import org.apache.xmlrpc.XmlRpcRequest;
-import org.apache.xmlrpc.XmlRpcException;
-import org.apache.xmlrpc.util.HttpUtil;
 import org.apache.xmlrpc.common.XmlRpcStreamRequestConfig;
-import org.ofbiz.base.util.SSLUtil;
+import org.apache.xmlrpc.util.HttpUtil;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.SSLUtil;
 import org.xml.sax.SAXException;
-
-import javax.net.ssl.HttpsURLConnection;
-import java.security.KeyStore;
-import java.security.GeneralSecurityException;
-import java.net.URLConnection;
-import java.net.URL;
-import java.net.HttpURLConnection;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * AliasSupportedTransportFactory
