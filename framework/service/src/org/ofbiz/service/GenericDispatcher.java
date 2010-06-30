@@ -180,7 +180,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     }
 
     public Map<String, Object> runSync(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
-        return runSync(serviceName, transactionTimeout, requireNewTransaction, ServiceUtil.makeContext(context));
+        return runSync(serviceName, ServiceUtil.makeContext(context), transactionTimeout, requireNewTransaction);
     }
 
     /**
