@@ -23,6 +23,8 @@ under the License.
   <!-- ===================== field-type-def ==================== -->
    <!-- General Types -->
     <field-type-def type="blob" sql-type="BLOB" java-type="java.sql.Blob"></field-type-def>
+    <field-type-def type="byte-array" sql-type="BLOB" java-type="byte[]"></field-type-def>
+    <field-type-def type="object" sql-type="BLOB" java-type="Object"></field-type-def>
 
     <field-type-def type="date-time" sql-type="TIMESTAMP" java-type="java.sql.Timestamp"></field-type-def>
     <field-type-def type="date" sql-type="DATE" java-type="java.sql.Date"></field-type-def>

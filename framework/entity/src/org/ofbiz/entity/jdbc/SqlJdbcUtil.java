@@ -42,8 +42,6 @@ import javax.sql.rowset.serial.SerialClob;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.conversion.Converter;
-import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
@@ -57,6 +55,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityConditionParam;
 import org.ofbiz.entity.condition.OrderByList;
 import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.jdbc.JdbcValueHandler;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
@@ -492,7 +491,6 @@ public class SqlJdbcUtil {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static void getValue(ResultSet rs, int ind, ModelField curField, GenericEntity entity, ModelFieldTypeReader modelFieldTypeReader) throws GenericEntityException {
         ModelFieldType mft = modelFieldTypeReader.getModelFieldType(curField.getType());
 
@@ -501,48 +499,21 @@ public class SqlJdbcUtil {
                     entity.getEntityName() + "." + curField.getName() + ".");
         }
 
-        // ----- Try out the new converter code -----
+        // ----- Try out the new handler code -----
 
-        Object sourceObject = null;
-        try {
-            sourceObject = rs.getObject(ind);
-            if (sourceObject == null) {
-                entity.dangerousSetNoCheckButFast(curField, null);
+        JdbcValueHandler handler = mft.getJdbcValueHandler();
+        if (handler != null) {
+            try {
+                entity.dangerousSetNoCheckButFast(curField, handler.getValue(rs, ind));
                 return;
+            } catch (Exception e) {
+                Debug.logError(e, module);
             }
-        } catch (SQLException e) {
-            throw new GenericEntityException(e);
-        }
-        Class<?> targetClass = mft.getJavaClass();
-        if (targetClass != null) {
-            Class<?> sourceClass = sourceObject.getClass();
-            if (targetClass.equals(sourceClass)) {
-                entity.dangerousSetNoCheckButFast(curField, sourceObject);
-                return;
-            }
-            Converter<Object, Object> converter = (Converter<Object, Object>) mft.getSqlToJavaConverter();
-            if (converter == null) {
-                if (mft.getSqlClass() == null) {
-                    mft.setSqlClass(sourceClass);
-                }
-                try {
-                    converter = (Converter<Object, Object>) Converters.getConverter(sourceClass, targetClass);
-                    mft.setSqlToJavaConverter(converter);
-                } catch (Exception e) {
-                    Debug.logError(e, module);
-                }
-            }
-            if (converter != null) {
-                try {
-                    entity.dangerousSetNoCheckButFast(curField, converter.convert(sourceObject));
-                    return;
-                } catch (ClassCastException e) {
-                    Debug.logError(e.toString(), module);
-                } catch (Exception e) {
-                    Debug.logError(e, module);
-                }
-            }
-            Debug.logInfo("Unable to convert, falling back on switch statement", module);
+        } else {
+            Debug.logWarning("JdbcValueHandler not found for java-type " + mft.getJavaType() + 
+                    ", falling back on switch statement. Entity = " + 
+                    curField.getModelEntity().getEntityName() +
+                    ", field = " + curField.getName() + ".", module);
         }
 
         // ------------------------------------------
@@ -776,6 +747,25 @@ public class SqlJdbcUtil {
         if (fieldValue == GenericEntity.NULL_FIELD) {
             fieldValue = null;
         }
+
+        // ----- Try out the new handler code -----
+
+        JdbcValueHandler handler = mft.getJdbcValueHandler();
+        if (handler != null) {
+            try {
+                sqlP.setValue(handler, fieldValue);
+                return;
+            } catch (SQLException e) {
+                throw new GenericDataSourceException("SQL Exception while setting value on field [" + modelField.getName() + "] of entity " + entityName + ": ", e);
+            }
+        } else {
+            Debug.logWarning("JdbcValueHandler not found for java-type " + mft.getJavaType() + 
+                    ", falling back on switch statement. Entity = " + 
+                    modelField.getModelEntity().getEntityName() +
+                    ", field = " + modelField.getName() + ".", module);
+        }
+
+        // ------------------------------------------
 
         String fieldType = mft.getJavaType();
         if (fieldValue != null) {

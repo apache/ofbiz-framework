@@ -518,6 +518,8 @@ public class EntityTestSuite extends EntityTestCase {
             GenericValue testValue = delegator.makeValue("TestFieldType", "testFieldTypeId", id);
             testValue.create();
             testValue.set("blobField", b);
+            testValue.set("byteArrayField", b);
+            testValue.set("objectField", currentTimestamp);
             testValue.set("dateField", currentDate);
             testValue.set("timeField", currentTime);
             testValue.set("dateTimeField", currentTimestamp);
@@ -539,6 +541,12 @@ public class EntityTestSuite extends EntityTestCase {
             for (int i = 0; i < b.length; i++) {
                 assertEquals("Byte array data[" + i + "]", b[i], c[i]);
             }
+            c = (byte[]) testValue.get("byteArrayField");
+            assertEquals("Byte array read from entity is the same length", b.length, c.length);
+            for (int i = 0; i < b.length; i++) {
+                assertEquals("Byte array data[" + i + "]", b[i], c[i]);
+            }
+            assertEquals("objectField", currentTimestamp, testValue.get("objectField"));
             assertEquals("dateField", currentDate, testValue.get("dateField"));
             assertEquals("timeField", currentTime, testValue.get("timeField"));
             assertEquals("dateTimeField", currentTimestamp, testValue.get("dateTimeField"));
@@ -547,6 +555,8 @@ public class EntityTestSuite extends EntityTestCase {
             assertEquals("numericField", numeric, testValue.get("numericField"));
             assertEquals("clobField", clobStr, testValue.get("clobField"));
             testValue.set("blobField", null);
+            testValue.set("byteArrayField", null);
+            testValue.set("objectField", null);
             testValue.set("dateField", null);
             testValue.set("timeField", null);
             testValue.set("dateTimeField", null);
@@ -558,6 +568,8 @@ public class EntityTestSuite extends EntityTestCase {
             testValue = delegator.findOne("TestFieldType", UtilMisc.toMap("testFieldTypeId", id), false);
             assertEquals("testFieldTypeId", id, testValue.get("testFieldTypeId"));
             assertNull("blobField null", testValue.get("blobField"));
+            assertNull("byteArrayField null", testValue.get("byteArrayField"));
+            assertNull("objectField null", testValue.get("objectField"));
             assertNull("dateField null", testValue.get("dateField"));
             assertNull("timeField null", testValue.get("timeField"));
             assertNull("dateTimeField null", testValue.get("dateTimeField"));
