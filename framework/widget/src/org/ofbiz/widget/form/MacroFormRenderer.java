@@ -2820,8 +2820,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             ajaxUrl += "," + ajaxParams;
         }
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-        MapStack<String> localContext = MapStack.create(UtilGenerics.<Map<String,Object>>cast(context));
-        return FlexibleStringExpander.expandString(ajaxUrl, localContext, locale);
+        return FlexibleStringExpander.expandString(ajaxUrl, context, locale);
     }
     /** Extracts parameters from a target URL string, prepares them for an Ajax
      * JavaScript call. This method is currently set to return a parameter string
