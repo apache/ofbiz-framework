@@ -41,7 +41,95 @@ under the License.
         <xs:attribute type="xs:string" name="type" use="required"/>
         <xs:attribute type="xs:string" name="sql-type" use="required"/>
         <xs:attribute type="xs:string" name="sql-type-alias"/>
-        <xs:attribute type="xs:string" name="java-type" use="required"/>
+        <xs:attribute name="java-type" use="required">
+            <xs:annotation><xs:documentation>
+                The java-type attribute must contain a Java data type
+                recognized by the JDBC driver (ResultSet getXxx methods
+                or PreparedStatement setXxx methods).
+            </xs:documentation></xs:annotation>
+            <!-- Developers Note: SQL type to Java type mapping taken from
+            http://java.sun.com/j2se/1.4.2/docs/guide/jdbc/getstart/mapping.html -->
+        	<xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="byte[]">
+                        <xs:annotation><xs:documentation>
+                            Use with BLOB, BINARY, VARBINARY, and LONGVARBINARY SQL types
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="Boolean">
+                        <xs:annotation><xs:documentation>
+                            Use with BIT and BOOLEAN SQL types
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="Double">
+                        <xs:annotation><xs:documentation>
+                            Use with DOUBLE and FLOAT SQL types
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="Float">
+                        <xs:annotation><xs:documentation>
+                            Use with REAL SQL type
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="Integer">
+                        <xs:annotation><xs:documentation>
+                            Use with INTEGER SQL type
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="Long">
+                        <xs:annotation><xs:documentation>
+                            Use with BIGINT SQL type
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="Object">
+                        <xs:annotation><xs:documentation>
+                            Use with BLOB and LONGVARBINARY SQL types
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="Short">
+                        <xs:annotation><xs:documentation>
+                            Use with SMALLINT and TINYINT SQL types
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+        			<xs:enumeration value="String">
+        			    <xs:annotation><xs:documentation>
+        			        Use with CLOB, CHAR, VARCHAR,
+        			        and LONGVARCHAR SQL types
+        			    </xs:documentation></xs:annotation>
+        			</xs:enumeration>
+                    <xs:enumeration value="java.math.BigDecimal">
+                        <xs:annotation><xs:documentation>
+                            Use with DECIMAL and NUMERIC SQL types
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="java.sql.Blob">
+                        <xs:annotation><xs:documentation>
+                            Use with BLOB SQL type
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="java.sql.Clob">
+                        <xs:annotation><xs:documentation>
+                            Use with CLOB SQL type
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="java.sql.Date">
+                        <xs:annotation><xs:documentation>
+                            Use with DATE SQL type
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="java.sql.Time">
+                        <xs:annotation><xs:documentation>
+                            Use with TIME SQL type
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="java.sql.Timestamp">
+                        <xs:annotation><xs:documentation>
+                            Use with TIMESTAMP SQL type
+                        </xs:documentation></xs:annotation>
+                    </xs:enumeration>
+        		</xs:restriction>
+        	</xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="validate">
         <xs:complexType>

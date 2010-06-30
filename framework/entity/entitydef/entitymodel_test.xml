@@ -90,6 +90,8 @@ under the License.
         <description>An entity for testing the field data types</description>
         <field name="testFieldTypeId" type="id-ne"/>
         <field name="blobField" type="blob"/>
+        <field name="byteArrayField" type="byte-array"/>
+        <field name="objectField" type="object"/>
         <field name="dateField" type="date"/>
         <field name="timeField" type="time"/>
         <field name="dateTimeField" type="date-time"/>
