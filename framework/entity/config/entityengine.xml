@@ -94,7 +94,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <field-type name="hsql" loader="fieldfile" location="fieldtypehsql.xml"/>
     <field-type name="derby" loader="fieldfile" location="fieldtypederby.xml"/>
-    <field-type name="cloudscape" loader="fieldfile" location="fieldtypecloudscape.xml"/>
     <field-type name="daffodil" loader="fieldfile" location="fieldtypedaffodil.xml"/>
     <field-type name="axion" loader="fieldfile" location="fieldtypeaxion.xml"/>
     <field-type name="mysql" loader="fieldfile" location="fieldtypemysql.xml"/>
@@ -247,27 +246,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/DerbyDataSource" isolation-level="ReadCommitted"/> -->
     </datasource>
     
-    <datasource name="localcloudscape"
-            helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
-            field-type-name="cloudscape"
-            check-on-start="true"
-            add-missing-on-start="true">
-        <read-data reader-name="seed"/>
-        <read-data reader-name="seed-initial"/>
-        <read-data reader-name="demo"/>
-        <read-data reader-name="ext"/>
-        <inline-jdbc
-                jdbc-driver="COM.cloudscape.core.JDBCDriver"
-                jdbc-uri="jdbc:cloudscape:../../data/ofbiz; create=true"
-                jdbc-username="ofbiz"
-                jdbc-password="ofbiz"
-                isolation-level="ReadCommitted"
-                pool-minsize="2"
-                pool-maxsize="250"
-                time-between-eviction-runs-millis="600000"/>
-        <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/CloudscapeDataSource" isolation-level="Serializable"/> -->
-    </datasource>
-
     <datasource name="localdaffodil"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             field-type-name="daffodil"
