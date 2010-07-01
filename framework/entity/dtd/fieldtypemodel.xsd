@@ -30,13 +30,9 @@ under the License.
     <!-- ================= Children of fieldtypemodel =================== -->
     <xs:element name="field-type-def">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="validate"/>
-            </xs:sequence>
             <xs:attributeGroup ref="attlist.field-type-def"/>
         </xs:complexType>
     </xs:element>
-    <!-- ================= Children of field-type-def =================== -->
     <xs:attributeGroup name="attlist.field-type-def">
         <xs:attribute type="xs:string" name="type" use="required"/>
         <xs:attribute type="xs:string" name="sql-type" use="required"/>
@@ -130,14 +126,5 @@ under the License.
         		</xs:restriction>
         	</xs:simpleType>
         </xs:attribute>
-    </xs:attributeGroup>
-    <xs:element name="validate">
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.validate"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.validate">
-        <xs:attribute type="xs:string" name="method" use="required"/>
-        <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate"/>
     </xs:attributeGroup>
 </xs:schema>

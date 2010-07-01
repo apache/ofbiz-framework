@@ -25,43 +25,43 @@ under the License.
 
     <!-- ===================== field-type-def ==================== -->
     <!-- General Types -->
-    <field-type-def type="blob" sql-type="Blob" java-type="java.sql.Blob"></field-type-def>
-    <field-type-def type="byte-array" sql-type="Blob" java-type="byte[]"></field-type-def>
-    <field-type-def type="object" sql-type="Blob" java-type="Object"></field-type-def>
+    <field-type-def type="blob" sql-type="Blob" java-type="java.sql.Blob"/>
+    <field-type-def type="byte-array" sql-type="Blob" java-type="byte[]"/>
+    <field-type-def type="object" sql-type="Blob" java-type="Object"/>
 
-    <field-type-def type="date-time" sql-type="TimeStamp" java-type="java.sql.Timestamp"></field-type-def>
-    <field-type-def type="date" sql-type="Date" java-type="java.sql.Date"></field-type-def>
-    <field-type-def type="time" sql-type="Time" java-type="java.sql.Time"></field-type-def>
+    <field-type-def type="date-time" sql-type="TimeStamp" java-type="java.sql.Timestamp"/>
+    <field-type-def type="date" sql-type="Date" java-type="java.sql.Date"/>
+    <field-type-def type="time" sql-type="Time" java-type="java.sql.Time"/>
 
-    <!-- Advantage numeric fields are 2 bytes longer than the value to be stored - to hold the sign and decimal point. -->
-    <field-type-def type="currency-amount" sql-type="Numeric(20,2)" java-type="java.math.BigDecimal"><validate method="isSignedDouble"/></field-type-def>
-    <field-type-def type="currency-precise" sql-type="Numeric(20,3)" java-type="java.math.BigDecimal"><validate method="isSignedDouble"/></field-type-def>
-    <field-type-def type="fixed-point" sql-type="Numeric(20,6)" java-type="java.math.BigDecimal"><validate method="isSignedDouble"/></field-type-def>
-    <field-type-def type="floating-point" sql-type="Double" java-type="Double"><validate method="isSignedDouble"/></field-type-def>
-    <field-type-def type="numeric" sql-type="Numeric(20,0)" java-type="Long"><validate method="isSignedLong"/></field-type-def>
+    <!-- Advantage numeric fields are 2 bytes longer than the intended precision - to hold the sign and decimal point. -->
+    <field-type-def type="currency-amount" sql-type="Numeric(20,2)" java-type="java.math.BigDecimal"/>
+    <field-type-def type="currency-precise" sql-type="Numeric(20,3)" java-type="java.math.BigDecimal"/>
+    <field-type-def type="fixed-point" sql-type="Numeric(20,6)" java-type="java.math.BigDecimal"/>
+    <field-type-def type="floating-point" sql-type="Double" java-type="Double"/>
+    <field-type-def type="numeric" sql-type="Numeric(20,0)" java-type="Long"/>
 
-    <field-type-def type="id" sql-type="Char(20)" java-type="String"></field-type-def>
-    <field-type-def type="id-long" sql-type="Char(60)" java-type="String"></field-type-def>
-    <field-type-def type="id-vlong" sql-type="Char(255)" java-type="String"></field-type-def>
+    <field-type-def type="id" sql-type="Char(20)" java-type="String"/>
+    <field-type-def type="id-long" sql-type="Char(60)" java-type="String"/>
+    <field-type-def type="id-vlong" sql-type="Char(255)" java-type="String"/>
 
-    <field-type-def type="indicator" sql-type="Char(1)" java-type="String"></field-type-def>
-    <field-type-def type="very-short" sql-type="Char(10)" java-type="String"></field-type-def>
-    <field-type-def type="short-varchar" sql-type="Char(60)" java-type="String"></field-type-def>
-    <field-type-def type="long-varchar" sql-type="Char(255)" java-type="String"></field-type-def>
-    <field-type-def type="very-long" sql-type="Memo" java-type="String"></field-type-def>
+    <field-type-def type="indicator" sql-type="Char(1)" java-type="String"/>
+    <field-type-def type="very-short" sql-type="Char(10)" java-type="String"/>
+    <field-type-def type="short-varchar" sql-type="Char(60)" java-type="String"/>
+    <field-type-def type="long-varchar" sql-type="Char(255)" java-type="String"/>
+    <field-type-def type="very-long" sql-type="Memo" java-type="String"/>
 
-    <field-type-def type="comment" sql-type="Char(255)" java-type="String"></field-type-def>
-    <field-type-def type="description" sql-type="Char(255)" java-type="String"></field-type-def>
-    <field-type-def type="name" sql-type="Char(100)" java-type="String"></field-type-def>
-    <field-type-def type="value" sql-type="Char(255)" java-type="String"></field-type-def>
+    <field-type-def type="comment" sql-type="Char(255)" java-type="String"/>
+    <field-type-def type="description" sql-type="Char(255)" java-type="String"/>
+    <field-type-def type="name" sql-type="Char(100)" java-type="String"/>
+    <field-type-def type="value" sql-type="Char(255)" java-type="String"/>
 
     <!-- Specialized Types -->
-    <field-type-def type="credit-card-number" sql-type="Char(255)" java-type="String"><validate method="isAnyCard"/></field-type-def>
-    <field-type-def type="credit-card-date" sql-type="Char(20)" java-type="String"><validate method="isDateAfterToday"/></field-type-def>
-    <field-type-def type="email" sql-type="Char(255)" java-type="String"><validate method="isEmail"/></field-type-def>
-    <field-type-def type="url" sql-type="Char(255)" java-type="String"></field-type-def>
-    <field-type-def type="id-ne" sql-type="Char(20)" java-type="String"><validate method="isNotEmpty"/></field-type-def>
-    <field-type-def type="id-long-ne" sql-type="Char(60)" java-type="String"><validate method="isNotEmpty"/></field-type-def>
-    <field-type-def type="id-vlong-ne" sql-type="Char(255)" java-type="String"><validate method="isNotEmpty"/></field-type-def>
-    <field-type-def type="tel-number" sql-type="Char(60)" java-type="String"><validate method="isInternationalPhoneNumber"/></field-type-def>
+    <field-type-def type="credit-card-number" sql-type="Char(255)" java-type="String"/>
+    <field-type-def type="credit-card-date" sql-type="Char(20)" java-type="String"/>
+    <field-type-def type="email" sql-type="Char(255)" java-type="String"/>
+    <field-type-def type="url" sql-type="Char(255)" java-type="String"/>
+    <field-type-def type="id-ne" sql-type="Char(20)" java-type="String"/>
+    <field-type-def type="id-long-ne" sql-type="Char(60)" java-type="String"/>
+    <field-type-def type="id-vlong-ne" sql-type="Char(255)" java-type="String"/>
+    <field-type-def type="tel-number" sql-type="Char(60)" java-type="String"/>
 </fieldtypemodel>
