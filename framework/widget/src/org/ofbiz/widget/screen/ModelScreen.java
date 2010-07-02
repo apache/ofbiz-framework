@@ -39,6 +39,7 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetAction;
 import org.w3c.dom.Element;
 
 /**
@@ -89,13 +90,13 @@ public class ModelScreen extends ModelWidget implements Serializable {
 
     protected static void findServiceNamesUsedInWidget(ModelScreenWidget currentWidget, Set<String> allServiceNamesUsed) {
         if (currentWidget instanceof ModelScreenWidget.Section) {
-            List<ModelScreenAction> actions = ((ModelScreenWidget.Section)currentWidget).actions;
+            List<ModelWidgetAction> actions = ((ModelScreenWidget.Section)currentWidget).actions;
             List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).subWidgets;
             List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).failWidgets;
             if (actions != null) {
-                for (ModelScreenAction screenOperation: actions) {
-                    if (screenOperation instanceof ModelScreenAction.Service) {
-                        String serviceName = ((ModelScreenAction.Service) screenOperation).serviceNameExdr.getOriginal();
+                for (ModelWidgetAction screenOperation: actions) {
+                    if (screenOperation instanceof ModelWidgetAction.Service) {
+                        String serviceName = ((ModelWidgetAction.Service) screenOperation).getServiceNameExdr().getOriginal();
                         if (UtilValidate.isNotEmpty(serviceName)) allServiceNamesUsed.add(serviceName);
                     }
                 }
@@ -148,25 +149,25 @@ public class ModelScreen extends ModelWidget implements Serializable {
     }
     protected static void findEntityNamesUsedInWidget(ModelScreenWidget currentWidget, Set<String> allEntityNamesUsed) {
         if (currentWidget instanceof ModelScreenWidget.Section) {
-            List<ModelScreenAction> actions = ((ModelScreenWidget.Section)currentWidget).actions;
+            List<ModelWidgetAction> actions = ((ModelScreenWidget.Section)currentWidget).actions;
             List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).subWidgets;
             List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).failWidgets;
             if (actions != null) {
-                for (ModelScreenAction screenOperation: actions) {
-                    if (screenOperation instanceof ModelScreenAction.EntityOne) {
-                        String entName = ((ModelScreenAction.EntityOne) screenOperation).finder.getEntityName();
+                for (ModelWidgetAction screenOperation: actions) {
+                    if (screenOperation instanceof ModelWidgetAction.EntityOne) {
+                        String entName = ((ModelWidgetAction.EntityOne) screenOperation).getFinder().getEntityName();
                         if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
-                    } else if (screenOperation instanceof ModelScreenAction.EntityAnd) {
-                        String entName = ((ModelScreenAction.EntityAnd) screenOperation).finder.getEntityName();
+                    } else if (screenOperation instanceof ModelWidgetAction.EntityAnd) {
+                        String entName = ((ModelWidgetAction.EntityAnd) screenOperation).getFinder().getEntityName();
                         if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
-                    } else if (screenOperation instanceof ModelScreenAction.EntityCondition) {
-                        String entName = ((ModelScreenAction.EntityCondition) screenOperation).finder.getEntityName();
+                    } else if (screenOperation instanceof ModelWidgetAction.EntityCondition) {
+                        String entName = ((ModelWidgetAction.EntityCondition) screenOperation).getFinder().getEntityName();
                         if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
-                    } else if (screenOperation instanceof ModelScreenAction.GetRelated) {
-                        String relationName = ((ModelScreenAction.GetRelated) screenOperation).relationName;
+                    } else if (screenOperation instanceof ModelWidgetAction.GetRelated) {
+                        String relationName = ((ModelWidgetAction.GetRelated) screenOperation).getRelationName();
                         if (UtilValidate.isNotEmpty(relationName)) allEntityNamesUsed.add(relationName);
-                    } else if (screenOperation instanceof ModelScreenAction.GetRelatedOne) {
-                        String relationName = ((ModelScreenAction.GetRelatedOne) screenOperation).relationName;
+                    } else if (screenOperation instanceof ModelWidgetAction.GetRelatedOne) {
+                        String relationName = ((ModelWidgetAction.GetRelatedOne) screenOperation).getRelationName();
                         if (UtilValidate.isNotEmpty(relationName)) allEntityNamesUsed.add(relationName);
                     }
                 }
