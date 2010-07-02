@@ -702,8 +702,8 @@ public abstract class JdbcValueHandler {
      * <p>This <code>JdbcValueHandler</code> accommodates databases that
      * don't support sub-second precision. If the date-time field type
      * is a <code>CHAR(30)</code> SQL type, <code>java.sql.Timestamp</code>s
-     * will be stored as JDBC escape strings
-     * (<code>yyyy-mm-dd hh:mm:ss.fffffffff</code>).</p> 
+     * will be stored as JDBC timestamp escape format strings
+     * (<code>yyyy-mm-dd hh:mm:ss.fffffffff</code>), referenced to UTC.</p> 
      */
     protected static class TimestampJdbcValueHandler extends JdbcValueHandler {
         protected TimestampJdbcValueHandler(int jdbcType) {
