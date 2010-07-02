@@ -14203,7 +14203,7 @@
         <value xml:lang="de">Es sind keine Positionen auf diesem Beschaffungsauftrag bereit zum Eingang</value>
         <value xml:lang="en">There are no items in the PO to receive</value>
         <value xml:lang="es">No existen artículos en el pedido de compra</value>
-        <value xml:lang="fr">Il n'y a pas de ligne dans la commande d'achat reçue</value>
+        <value xml:lang="fr">Aucune ligne dans la commande d'achat reçue</value>
         <value xml:lang="it">Non ci sono righe nel OA da ricevere</value>
         <value xml:lang="ro">Nu sunt linii in OA de primit</value>
         <value xml:lang="ru">В закупочном заказе нет позиций для получения</value>
@@ -14225,7 +14225,7 @@
         <value xml:lang="de">Keine Positionen zum Empfangen vorhanden</value>
         <value xml:lang="en">There are no items to receive</value>
         <value xml:lang="es">No hay artículos para recibir</value>
-        <value xml:lang="fr">Il n'y a pas de ligne à recevoir</value>
+        <value xml:lang="fr">Aucune ligne à recevoir</value>
         <value xml:lang="it">Non ci sono righe da ricevere</value>
         <value xml:lang="ro">Nu sunt linii de primit</value>
         <value xml:lang="ru">Нет позиций для получения</value>

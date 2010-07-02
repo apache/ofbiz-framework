@@ -29,7 +29,7 @@
     </property>
     <property key="AccountingPartyAcctgPreferenceNotDefine">
         <value xml:lang="en">Acctg preference not define</value>
-        <value xml:lang="fr">il n'y a pas de configuration sur les préférences de gestion encore définie pour votre société</value>
+        <value xml:lang="fr">Aucune configuration sur les préférences de gestion encore définie pour votre société</value>
     </property>
     <property key="AccountingPayPalCommunicationError">
         <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>

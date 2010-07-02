@@ -7485,7 +7485,7 @@
         <value xml:lang="de">Finde keine Akteur-Information für den aktuellen Nutzer mit Nutzernamen</value>
         <value xml:lang="en">No party found for current user with user name</value>
         <value xml:lang="es">No hay un actor associado a este nombre de usuario</value>
-        <value xml:lang="fr">Il n'y a pas d'acteur associé au nom d'utilisateur</value>
+        <value xml:lang="fr">Aucun acteur associé au nom d'utilisateur</value>
         <value xml:lang="hi_IN">इस नाम से कोई पार्टी नही है</value>
         <value xml:lang="it">Nessun soggetto associato al nome dell'utente</value>
         <value xml:lang="ja">No party found for current user with user name</value>

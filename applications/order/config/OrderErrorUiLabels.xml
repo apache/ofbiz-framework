@@ -4128,7 +4128,7 @@
         <value xml:lang="de">FEHLER: Keine Produkte für den Auftrag vorhanden</value>
         <value xml:lang="en">ERROR: There are no items to order</value>
         <value xml:lang="es">ERROR: No hay artículos a pedir</value>
-        <value xml:lang="fr">ERREUR : Il n'y a pas d'article à commander</value>
+        <value xml:lang="fr">ERREUR : aucun article à commander</value>
         <value xml:lang="it">ERRORE: Non ci sono articoli nell'ordine</value>
         <value xml:lang="nl">ERROR: There are no items to bestelling</value>
         <value xml:lang="pt_BR">ERRO: não há itens para o pedido</value>
