@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.widget.screen;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +45,7 @@ import org.w3c.dom.Element;
  * Widget Library - Screen model class
  */
 @SuppressWarnings("serial")
-public class ModelScreen extends ModelWidget implements Serializable {
+public class ModelScreen extends ModelWidget {
 
     public static final String module = ModelScreen.class.getName();
 
