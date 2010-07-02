@@ -29,6 +29,7 @@ import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Map;
 
@@ -698,6 +699,11 @@ public abstract class JdbcValueHandler {
 
     /**
      * A <code>java.sql.Timestamp</code> JDBC value handler.
+     * <p>This <code>JdbcValueHandler</code> accommodates databases that
+     * don't support sub-second precision. If the date-time field type
+     * is a <code>CHAR(30)</code> SQL type, <code>java.sql.Timestamp</code>s
+     * will be stored as JDBC escape strings
+     * (<code>yyyy-mm-dd hh:mm:ss.fffffffff</code>).</p> 
      */
     protected static class TimestampJdbcValueHandler extends JdbcValueHandler {
         protected TimestampJdbcValueHandler(int jdbcType) {
@@ -713,7 +719,22 @@ public abstract class JdbcValueHandler {
         }
         @Override
         protected JdbcValueHandler newInstance(int sqlType) {
-            return new TimestampJdbcValueHandler(sqlType);
+            if (sqlType == Types.CHAR) {
+                return new TimestampJdbcValueHandler(sqlType) {
+                    protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
+                        ps.setString(parameterIndex, ((java.sql.Timestamp) obj).toString());
+                    }
+                    public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+                        String str = rs.getString(columnIndex);
+                        if (str == null) {
+                            return null;
+                        }
+                        return Timestamp.valueOf(str);
+                    }
+                };
+            } else {
+                return new TimestampJdbcValueHandler(sqlType);
+            }
         }
     }
 }
