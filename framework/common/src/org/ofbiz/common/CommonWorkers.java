@@ -33,7 +33,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * Common Workers
@@ -134,35 +133,6 @@ public class CommonWorkers {
         }
 
         return geoList;
-    }
-
-    public static List<GenericValue> getAssociatedProductsList(Delegator delegator, String productCategoryId) {
-        return getAssociatedProductsList(delegator, productCategoryId, null);
-    }
-
-    /**
-     * Returns a list of active related products for a product category
-     */
-    public static List<GenericValue> getAssociatedProductsList(Delegator delegator, String productCategoryId, String listOrderBy) {
-        List<GenericValue> products = FastList.newInstance();
-        if (UtilValidate.isNotEmpty(productCategoryId)) {
-            EntityCondition productsFindCond = EntityCondition.makeCondition(
-                    EntityCondition.makeCondition("productCategoryId", productCategoryId));
-    
-            if (UtilValidate.isEmpty(listOrderBy)) {
-                listOrderBy = "sequenceNum";
-            }
-            List<String> sortList = UtilMisc.toList(listOrderBy);
-    
-            try {
-                products = delegator.findList("ProductCategoryMember", productsFindCond, null, sortList, null, true);
-                products = EntityUtil.filterByDate(products);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Cannot lookup ProductCategoryMember", module);
-            }
-        }
-
-        return products;
     }
 
     /**
