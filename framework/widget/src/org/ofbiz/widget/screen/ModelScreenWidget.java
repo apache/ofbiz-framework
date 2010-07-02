@@ -45,6 +45,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.WidgetFactory;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormFactory;
@@ -131,7 +132,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     public static class Section extends ModelScreenWidget {
         public static final String TAG_NAME = "section";
         protected ModelScreenCondition condition;
-        protected List<ModelScreenAction> actions;
+        protected List<ModelWidgetAction> actions;
         protected List<ModelScreenWidget> subWidgets;
         protected List<ModelScreenWidget> failWidgets;
         public boolean isMainSection = false;
@@ -148,7 +149,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // read all actions under the "actions" element
             Element actionsElement = UtilXml.firstChildElement(sectionElement, "actions");
             if (actionsElement != null) {
-                this.actions = ModelScreenAction.readSubActions(modelScreen, actionsElement);
+                this.actions = ModelWidgetAction.readSubActions(modelScreen, actionsElement);
             }
 
             // read sub-widgets
@@ -177,7 +178,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // if condition does not exist or evals to true run actions and render widgets, otherwise render fail-widgets
             if (condTrue) {
                 // run the actions only if true
-                ModelScreenAction.runSubActions(this.actions, context);
+                ModelWidgetAction.runSubActions(this.actions, context);
 
                 try {
                     // section by definition do not themselves do anything, so this method will generally do nothing, but we'll call it anyway
