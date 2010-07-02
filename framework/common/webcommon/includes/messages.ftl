@@ -37,7 +37,7 @@ under the License.
 
 <#-- display the error messages -->
 <#if (errorMessage?has_content || errorMessageList?has_content)>
-  <div class="content-messages errorMessage">
+  <div id="content-messages" class="content-messages errorMessage" onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
     <p>${uiLabelMap.CommonFollowingErrorsOccurred}:</p>
     <#if errorMessage?has_content>
       <p>${errorMessage}</p>
@@ -52,7 +52,7 @@ under the License.
 
 <#-- display the event messages -->
 <#if (eventMessage?has_content || eventMessageList?has_content)>
-  <div class="content-messages eventMessage">
+  <div id="content-messages" class="content-messages eventMessage" onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
     <p>${uiLabelMap.CommonFollowingOccurred}:</p>
     <#if eventMessage?has_content>
       <p>${eventMessage}</p>

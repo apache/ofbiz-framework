@@ -312,13 +312,17 @@ function submitFormInBackground(form, areaId, submitUrl) {
 function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
     submitFormDisableSubmits($(form));
     waitSpinnerShow();
+    hideErrorContainer = function() {
+        $('content-messages').removeClassName('errorMessage');
+        new Effect.Fade('content-messages',{duration: 0.0});
+    }
     updateFunction = function(transport) {
         var data = transport.responseText.evalJSON(true);
         if (data._ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined) {
             if(!$('content-messages')) {
                //add this div just after app-navigation
                if($('content-main-section')){
-                   $('content-main-section' ).insert({before: '<div id="content-messages"></div>'});
+                   $('content-main-section' ).insert({before: '<div id="content-messages" onclick="hideErrorContainer()"></div>'});
                }
             }
            $('content-messages').addClassName('errorMessage');
@@ -331,6 +335,7 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
             }
             ajaxUpdateAreas(areaCsvString);
         }
+        waitSpinnerHide();
     }
     new Ajax.Request($(form).action, {
         parameters: $(form).serialize(true),
