@@ -116,6 +116,13 @@ under the License.
         <attribute name="category" type="org.ofbiz.entity.GenericValue" mode="OUT"/>
         <attribute name="categoryMembers" type="java.util.Collection" mode="OUT"/>
     </service>
+    
+    <service name="getAssociatedProductsList" engine="simple" auth="false"
+        location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="getAssociatedProductsList">
+        <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
+        <attribute name="products" mode="OUT" type="java.util.List"/>
+    </service>
+    
     <service name="getPreviousNextProducts" engine="java"
         location="org.ofbiz.product.category.CategoryServices" invoke="getPreviousNextProducts">
         <description>Gets the previous and next product Ids.</description>
