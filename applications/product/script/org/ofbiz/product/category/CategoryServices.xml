@@ -840,4 +840,29 @@ under the License.
         <field-to-result field="hasPermission"/>
         <field-to-result field="failMessage"/>
     </simple-method>
+
+    <!-- To help dynamically populate a products dropdown given a product category id from a change in another dropdown, possibly sorted on sequenceNum -->    
+    <simple-method method-name="getAssociatedProductsList" short-description="Set the product options for selected product category" login-required="false">
+        <set field="parameters.categoryId" from-field="parameters.productCategoryId"/>
+        <set-service-fields service-name="getProductCategoryMembers" map="parameters" to-map="getProductCategoryMembersMap"/>        
+        <call-service service-name="getProductCategoryMembers" in-map-name="getProductCategoryMembersMap">
+            <result-to-field result-name="categoryMembers" field="productsList"/>
+        </call-service>
+        <order-map-list list="productsList">
+            <order-by field-name="sequenceNum"/>
+        </order-map-list>
+        <iterate list="productsList" entry="productMember">
+            <entity-one entity-name="Product" value-field="product">
+                <field-map field-name="productId" from-field="productMember.productId"/>
+            </entity-one>
+            <set field="productName" value="${product.internalName}: ${product.productId}"/>
+            <field-to-list list="products" field="productName"/>
+        </iterate>
+        <if-empty field="products">
+            <set field="noOption" value="No products: _NA_"/>
+            <field-to-list list="products" field="noOption"/>
+        </if-empty>
+        <field-to-result field="products"/>
+    </simple-method>
+    
 </simple-methods>
