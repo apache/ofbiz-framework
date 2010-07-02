@@ -68,6 +68,7 @@ import org.w3c.dom.Element;
  * Widget Library - Screen model class
  */
 @SuppressWarnings("serial")
+@Deprecated
 public abstract class ModelScreenAction implements Serializable {
     public static final String module = ModelScreenAction.class.getName();
 
@@ -78,8 +79,10 @@ public abstract class ModelScreenAction implements Serializable {
         if (Debug.verboseOn()) Debug.logVerbose("Reading Screen action with name: " + actionElement.getNodeName(), module);
     }
 
+    @Deprecated
     public abstract void runAction(Map<String, Object> context) throws GeneralException;
 
+    @Deprecated
     public static List<ModelScreenAction> readSubActions(ModelScreen modelScreen, Element parentElement) {
         List<ModelScreenAction> actions = FastList.newInstance();
 
@@ -113,6 +116,7 @@ public abstract class ModelScreenAction implements Serializable {
         return actions;
     }
 
+    @Deprecated
     public static void runSubActions(List<ModelScreenAction> actions, Map<String, Object> context) throws GeneralException {
         if (actions == null) return;
 
@@ -122,6 +126,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @Deprecated
     public static class SetField extends ModelScreenAction {
         protected FlexibleMapAccessor<Object> field;
         protected FlexibleMapAccessor<Object> fromField;
@@ -282,6 +287,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @Deprecated
     public static class PropertyMap extends ModelScreenAction {
         protected FlexibleStringExpander resourceExdr;
         protected FlexibleMapAccessor<ResourceBundleMapWrapper> mapNameAcsr;
@@ -337,6 +343,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @Deprecated
     public static class PropertyToField extends ModelScreenAction {
 
         protected FlexibleStringExpander resourceExdr;
@@ -394,6 +401,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @Deprecated
     public static class Script extends ModelScreenAction {
         protected static final Object[] EMPTY_ARGS = {};
         protected String location;
@@ -442,6 +450,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @Deprecated
     public static class Service extends ModelScreenAction {
         protected FlexibleStringExpander serviceNameExdr;
         protected FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr;
@@ -519,6 +528,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @Deprecated
     public static class EntityOne extends ModelScreenAction {
         protected PrimaryKeyFinder finder;
 
@@ -539,6 +549,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @Deprecated
     public static class EntityAnd extends ModelScreenAction {
         protected ByAndFinder finder;
 
@@ -559,6 +570,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @Deprecated
     public static class EntityCondition extends ModelScreenAction {
         ByConditionFinder finder;
 
@@ -579,6 +591,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @Deprecated
     public static class GetRelatedOne extends ModelScreenAction {
         protected FlexibleMapAccessor<Object> valueNameAcsr;
         protected FlexibleMapAccessor<Object> toValueNameAcsr;
@@ -623,6 +636,7 @@ public abstract class ModelScreenAction implements Serializable {
 
     }
 
+    @Deprecated
     public static class GetRelated extends ModelScreenAction {
         protected FlexibleMapAccessor<Object> valueNameAcsr;
         protected FlexibleMapAccessor<List<GenericValue>> listNameAcsr;
