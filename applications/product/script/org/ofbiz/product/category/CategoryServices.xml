@@ -859,7 +859,7 @@ under the License.
             <field-to-list list="products" field="productName"/>
         </iterate>
         <if-empty field="products">
-            <set field="noOption" value="No products: _NA_"/>
+            <property-to-field resource="ProductUiLabels" property="ProductNoProducts" field="noOption"/>
             <field-to-list list="products" field="noOption"/>
         </if-empty>
         <field-to-result field="products"/>

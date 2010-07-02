@@ -1061,7 +1061,7 @@ under the License.
             <field-to-list list="stateList" field="stateName"/>
         </iterate>
         <if-empty field="stateList">
-            <set field="noOption" value="No States/Provinces exist: _NA_"/>
+            <property-to-field resource="CommonUiLabels" property="CommonNoStatesProvinces" field="noOption"/>
             <field-to-list list="stateList" field="noOption"/>
         </if-empty>
         <field-to-result field="stateList"/>
