@@ -7263,7 +7263,7 @@
         <value xml:lang="en">Add To Compare</value>
         <value xml:lang="fr">Comparer</value>
         <value xml:lang="it">Confronta</value>
-        <value xml:lang="nl">Voeg toe aan vergelijklijst</value>		
+        <value xml:lang="nl">Voeg toe aan vergelijklijst</value>    
     </property>
     <property key="ProductAddToCompareListSuccess">
         <value xml:lang="de">${name} wurde erfolgreich zum Produktvergleich hinzugefügt</value>
@@ -14332,11 +14332,21 @@
         <value xml:lang="it">Nessun prodotto trovato</value>
         <value xml:lang="nl">Geen producten gevonden</value>
     </property>
+    <property key="ProductNoProducts">
+        <value xml:lang="de">Keine Produkte: _NA_</value>
+        <value xml:lang="en">No products: _NA_</value>
+        <value xml:lang="es">No existen productos: _NA_</value>
+        <value xml:lang="fr">Aucun article: _NA_</value>
+        <value xml:lang="it">Nessun prodotto: _NA_</value>
+        <value xml:lang="ru">В категории продуктов нет: _NA_</value>
+        <value xml:lang="th">ไม่มีสินค้าในหมวดหมู่: _NA_</value>
+        <value xml:lang="zh">分类中没有产品: _NA_</value>
+    </property>
     <property key="ProductNoProductsInCategory">
         <value xml:lang="de">Keine Produkte in der Kategorie</value>
         <value xml:lang="en">No products in category</value>
         <value xml:lang="es">No existen productos en la categoría</value>
-        <value xml:lang="fr">Pas d'article dans la catégorie</value>
+        <value xml:lang="fr">Aucun article dans la catégorie</value>
         <value xml:lang="it">Nessun prodotto nella categoria</value>
         <value xml:lang="ru">В категории продуктов нет</value>
         <value xml:lang="th">ไม่มีสินค้าในหมวดหมู่</value>
@@ -14347,7 +14357,7 @@
         <value xml:lang="de">Es gibt keine Produkte in dieser Produktgruppe</value>
         <value xml:lang="en">There are no products in this category</value>
         <value xml:lang="es">No hay productos en esta categoría</value>
-        <value xml:lang="fr">Il n'y a pas d'article dans cette catégorie</value>
+        <value xml:lang="fr">Aucun article dans cette catégorie</value>
         <value xml:lang="hi_IN">इस सुची मे कोई सामान नही है</value>
         <value xml:lang="it">Non ci sono prodotti in questa categoria</value>
         <value xml:lang="ja">There are no products in this category</value>

@@ -4055,7 +4055,7 @@
         <value xml:lang="fr">Messages</value>
         <value xml:lang="hi_IN">खबरें</value>
         <value xml:lang="it">Messaggi</value>
-        <value xml:lang="nl">Berichten</value>		
+        <value xml:lang="nl">Berichten</value>    
         <value xml:lang="ro">Mesaje </value>
         <value xml:lang="ru">Сообщения</value>
         <value xml:lang="th">ข้อความ</value>
@@ -4598,6 +4598,10 @@
         <value xml:lang="ru">Нет адреса</value>
         <value xml:lang="th">ไม่มีรหัสไปรษณีย์</value>
         <value xml:lang="zh">没有邮政地址</value>
+    </property>
+    <property key="CommonNoStatesProvinces">            
+        <value xml:lang="en">No States/Provinces exist: _NA_</value>
+        <value xml:lang="fr">Aucun état ou province: _NA_</value>
     </property>
     <property key="CommonNoTaskAssigned">
         <value xml:lang="ar">لا مهام حالية تستوجب إهتمامكم</value>
