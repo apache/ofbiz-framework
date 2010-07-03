@@ -41,6 +41,7 @@ import org.ofbiz.entity.model.ModelEntity;
  *  encapsulate where conditions and don't require you to directly write SQL.</p>
  *
  */
+@SuppressWarnings("serial")
 public class EntityWhereString extends EntityCondition {
 
     protected static final ObjectFactory<EntityWhereString> entityWhereStringFactory = new ObjectFactory<EntityWhereString>() {

@@ -33,6 +33,7 @@ import org.ofbiz.entity.model.ModelEntity;
  * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
  *
  */
+@SuppressWarnings("serial")
 public abstract class EntityConditionListBase<T extends EntityCondition> extends EntityCondition {
     public static final String module = EntityConditionListBase.class.getName();
 
@@ -123,7 +124,7 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityConditionListBase)) return false;
+        if (!(obj instanceof EntityConditionListBase<?>)) return false;
         EntityConditionListBase<?> other = UtilGenerics.cast(obj);
 
         boolean isEqual = conditionList.equals(other.conditionList) && operator.equals(other.operator);

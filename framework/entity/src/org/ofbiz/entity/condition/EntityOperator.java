@@ -35,9 +35,10 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 
 /**
- * Encapsulates operations between entities and entity fields. This is an immutable class.
+ * Base class for operators (less than, greater than, equals, etc).
  *
  */
+@SuppressWarnings("serial")
 public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
 
     public static final int ID_EQUALS = 1;
@@ -75,7 +76,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
 
     public static <L,R> EntityComparisonOperator<L,R> lookupComparison(String name) {
         EntityOperator<?,?,Boolean> operator = lookup(name);
-        if (!(operator instanceof EntityComparisonOperator))
+        if (!(operator instanceof EntityComparisonOperator<?,?>))
             throw new IllegalArgumentException(name + " is not a comparison operator");
         return UtilGenerics.cast(operator);
     }
@@ -233,7 +234,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         if (this == obj) {
             return true;
         }
-        if (obj instanceof EntityOperator) {
+        if (obj instanceof EntityOperator<?,?,?>) {
             EntityOperator<?,?,?> otherOper = UtilGenerics.cast(obj);
             return this.idInt == otherOper.idInt;
         }
@@ -247,7 +248,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     protected void appendRHSList(List<EntityConditionParam> entityConditionParams, StringBuilder whereStringBuilder, ModelField field, R rhs) {
         whereStringBuilder.append('(');
 
-        if (rhs instanceof Collection) {
+        if (rhs instanceof Collection<?>) {
             Iterator<R> rhsIter = UtilGenerics.<Collection<R>>cast(rhs).iterator();
 
             while (rhsIter.hasNext()) {
@@ -265,7 +266,7 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
     }
 
     protected <X> void appendRHSBetweenList(List<EntityConditionParam> entityConditionParams, StringBuilder whereStringBuilder, ModelField field, X rhs) {
-        if (rhs instanceof Collection) {
+        if (rhs instanceof Collection<?>) {
             Iterator<R> rhsIter = UtilGenerics.<Collection<R>>cast(rhs).iterator();
 
             while (rhsIter.hasNext()) {
@@ -309,12 +310,22 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
         }
     };
 
+    /**
+     * Comparison operator for <code>Collection</code> types.
+     *
+     * @param <E>
+     */
     public static abstract class CollectionEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, Collection<Comparable<E>>> {
         public CollectionEntityComparisonOperator(int id, String code) {
             super(id, code);
         }
     }
 
+    /**
+     * Comparison operator for <code>Comparable</code> types.
+     *
+     * @param <E>
+     */
     public static abstract class ComparableEntityComparisonOperator<E> extends EntityComparisonOperator<Comparable<E>, E> {
         public ComparableEntityComparisonOperator(int id, String code) {
             super(id, code);

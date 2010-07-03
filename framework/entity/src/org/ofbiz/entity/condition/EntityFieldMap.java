@@ -34,6 +34,7 @@ import org.ofbiz.entity.util.EntityUtil;
  * Encapsulates simple expressions used for specifying queries
  *
  */
+@SuppressWarnings("serial")
 public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     protected static final ObjectFactory<EntityFieldMap> entityFieldMapFactory = new ObjectFactory<EntityFieldMap>() {

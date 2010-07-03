@@ -40,8 +40,9 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 
 /**
- * Encapsulates operations between entities and entity fields. This is a immutable class.
+ * Base class for comparisons.
  */
+@SuppressWarnings("serial")
 public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R, Boolean> {
 
     public static final String module = EntityComparisonOperator.class.getName();
@@ -255,7 +256,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
             } else {
                 return true;
             }
-        } else if (rhs instanceof Collection) {
+        } else if (rhs instanceof Collection<?>) {
             if (((Collection<?>) rhs).contains(lhs)) {
                 return true;
             } else {

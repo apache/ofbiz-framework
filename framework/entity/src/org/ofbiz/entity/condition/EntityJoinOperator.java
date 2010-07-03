@@ -34,9 +34,10 @@ import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
- * Encapsulates operations between entities and entity fields. This is a immutable class.
+ * Join operator (AND/OR).
  *
  */
+@SuppressWarnings("serial")
 public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCondition, Boolean> {
 
     protected boolean shortCircuitValue;
