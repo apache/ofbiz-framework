@@ -44,6 +44,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.finder.ByAndFinder;
 import org.ofbiz.entity.finder.ByConditionFinder;
@@ -241,7 +242,7 @@ public abstract class ModelMenuAction {
 
     public static class PropertyMap extends ModelMenuAction {
         protected FlexibleStringExpander resourceExdr;
-        protected FlexibleMapAccessor<Map<String, Object>> mapNameAcsr;
+        protected FlexibleMapAccessor<ResourceBundleMapWrapper> mapNameAcsr;
         protected FlexibleStringExpander globalExdr;
 
         public PropertyMap(ModelMenu modelMenu, Element setElement) {
@@ -259,13 +260,36 @@ public abstract class ModelMenuAction {
 
             Locale locale = (Locale) context.get("locale");
             String resource = this.resourceExdr.expandString(context, locale);
-            Map<String, Object> propertyMap = UtilProperties.getResourceBundleMap(resource, locale);
-            this.mapNameAcsr.put(context, propertyMap);
+
+            ResourceBundleMapWrapper existingPropMap = this.mapNameAcsr.get(context);
+            if (existingPropMap == null) {
+                this.mapNameAcsr.put(context, UtilProperties.getResourceBundleMap(resource, locale, context));
+            } else {
+                try {
+                    existingPropMap.addBottomResourceBundle(resource);
+                } catch (IllegalArgumentException e) {
+                    // log the error, but don't let it kill everything just for a typo or bad char in an l10n file
+                    Debug.logError(e, "Error adding resource bundle [" + resource + "]: " + e.toString(), module);
+                }
+            }
 
             if (global) {
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 if (globalCtx != null) {
-                    this.mapNameAcsr.put(globalCtx, propertyMap);
+                    ResourceBundleMapWrapper globalExistingPropMap = this.mapNameAcsr.get(globalCtx);
+                    if (globalExistingPropMap == null) {
+                        this.mapNameAcsr.put(globalCtx, UtilProperties.getResourceBundleMap(resource, locale, context));
+                    } else {
+                        // is it the same object? if not add it in here too...
+                        if (existingPropMap != globalExistingPropMap) {
+                            try {
+                                globalExistingPropMap.addBottomResourceBundle(resource);
+                            } catch (IllegalArgumentException e) {
+                                // log the error, but don't let it kill everything just for a typo or bad char in an l10n file
+                                Debug.logError(e, "Error adding resource bundle [" + resource + "]: " + e.toString(), module);
+                            }
+                        }
+                    }
                 }
             }
         }
