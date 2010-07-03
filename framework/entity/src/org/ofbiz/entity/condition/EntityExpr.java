@@ -42,6 +42,7 @@ import org.ofbiz.entity.model.ModelFieldType;
  * Encapsulates simple expressions used for specifying queries
  *
  */
+@SuppressWarnings("serial")
 public class EntityExpr extends EntityCondition {
     public static final String module = EntityExpr.class.getName();
 
@@ -73,7 +74,7 @@ public class EntityExpr extends EntityCondition {
         }
 
         if (EntityOperator.BETWEEN.equals(operator)) {
-            if (!(rhs instanceof Collection) || (((Collection<?>) rhs).size() != 2)) {
+            if (!(rhs instanceof Collection<?>) || (((Collection<?>) rhs).size() != 2)) {
                 throw new IllegalArgumentException("BETWEEN Operator requires a Collection with 2 elements for the right/rhs argument");
             }
         }
@@ -198,11 +199,11 @@ public class EntityExpr extends EntityCondition {
         if (this.rhs == null || this.rhs == GenericEntity.NULL_FIELD || modelEntity == null) return;
 
         Object value = this.rhs;
-        if (this.rhs instanceof EntityFunction) {
+        if (this.rhs instanceof EntityFunction<?>) {
             value = UtilGenerics.<EntityFunction<?>>cast(this.rhs).getOriginalValue();
         }
 
-        if (value instanceof Collection) {
+        if (value instanceof Collection<?>) {
             Collection<?> valueCol = UtilGenerics.cast(value);
             if (valueCol.size() > 0) {
                 value = valueCol.iterator().next();

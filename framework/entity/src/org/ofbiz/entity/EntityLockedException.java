@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * EntityLockedException
  *
  */
+@SuppressWarnings("serial")
 public class EntityLockedException extends GenericEntityException {
 
     public EntityLockedException() {

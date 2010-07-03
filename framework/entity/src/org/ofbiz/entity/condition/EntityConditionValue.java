@@ -30,7 +30,7 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 
 /**
- * Encapsulates operations between entities and entity fields. This is a immutable class.
+ * Base class for condition expression values.
  *
  */
 @SuppressWarnings("serial")

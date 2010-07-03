@@ -31,6 +31,11 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelViewEntity;
 
+/**
+ * Sub-query action.
+ *
+ */
+@SuppressWarnings("serial")
 public class EntityConditionSubSelect extends EntityConditionValue {
     public static final String module = EntityConditionSubSelect.class.getName();
 

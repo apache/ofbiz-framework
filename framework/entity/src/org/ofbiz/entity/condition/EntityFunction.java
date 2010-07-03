@@ -33,9 +33,10 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 
 /**
- * Encapsulates operations between entities and entity fields. This is a immutable class.
+ * Base class for entity functions.
  *
  */
+@SuppressWarnings("serial")
 public abstract class EntityFunction<T extends Comparable<?>> extends EntityConditionValue implements Reusable {
 
     public static interface Fetcher<T> {
@@ -77,6 +78,10 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     public static EntityFunction<String> LOWER(EntityConditionValue nested) { return LOWER.lowerFactory.createFunction(nested); }
     public static EntityFunction<String> LOWER(Object value) { return LOWER.lowerFactory.createFunction(value); }
 
+    /**
+     * Length() entity function.
+     *
+     */
     public static class LENGTH extends EntityFunction<Integer> {
         public static Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
             public Integer getValue(Object value) { return value.toString().length(); }
@@ -98,6 +103,10 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         }
     }
 
+    /**
+     * Trim() entity function.
+     *
+     */
     public static class TRIM extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().trim(); }
@@ -119,6 +128,10 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         }
     }
 
+    /**
+     * Upper() entity function.
+     *
+     */
     public static class UPPER extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toUpperCase(); }
@@ -140,6 +153,10 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         }
     }
 
+    /**
+     * Lower() entity function.
+     *
+     */
     public static class LOWER extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toLowerCase(); }
@@ -221,7 +238,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityFunction)) return false;
+        if (!(obj instanceof EntityFunction<?>)) return false;
         EntityFunction<?> otherFunc = UtilGenerics.cast(obj);
         return (this.function == otherFunc.function &&
             (this.nested != null ? nested.equals(otherFunc.nested) : otherFunc.nested == null) &&

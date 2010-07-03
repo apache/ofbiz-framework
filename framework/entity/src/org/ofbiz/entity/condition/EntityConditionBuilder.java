@@ -80,7 +80,7 @@ public class EntityConditionBuilder extends BuilderSupport {
         }
         if (child instanceof EntityCondition) {
             tempList.add((EntityCondition)child);
-        } else if (child instanceof List) {
+        } else if (child instanceof List<?>) {
             tempList.addAll(UtilGenerics.<EntityCondition>checkList(child));
         }
         parentConList.init(tempList, parentConList.getOperator());

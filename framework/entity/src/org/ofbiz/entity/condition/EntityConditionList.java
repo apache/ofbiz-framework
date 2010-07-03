@@ -26,6 +26,7 @@ import javolution.context.ObjectFactory;
  * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
  *
  */
+@SuppressWarnings("serial")
 public class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
     public static final String module = EntityConditionList.class.getName();
 

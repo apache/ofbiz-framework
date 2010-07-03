@@ -28,9 +28,10 @@ import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
 /**
- * Encapsulates operations between entities and entity fields. This is a immutable class.
+ * Base class for entity condition functions.
  *
  */
+@SuppressWarnings("serial")
 public abstract class EntityConditionFunction extends EntityCondition {
 
     public static final int ID_NOT = 1;

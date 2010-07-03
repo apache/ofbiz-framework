@@ -38,7 +38,7 @@ import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 
 /**
- * Encapsulates operations between entities and entity fields. This is a immutable class.
+ * Field value expression.
  *
  */
 @SuppressWarnings("serial")

@@ -44,6 +44,7 @@ import org.ofbiz.entity.model.ModelEntity;
  * These can be used in various combinations using the EntityConditionList and EntityExpr objects.
  *
  */
+@SuppressWarnings("serial")
 public abstract class EntityCondition extends EntityConditionBase implements IsEmpty, Reusable {
 
     public static <L,R,LL,RR> EntityExpr makeCondition(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {

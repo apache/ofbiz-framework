@@ -30,6 +30,11 @@ import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
+/**
+ * Date-range condition. 
+ *
+ */
+@SuppressWarnings("serial")
 public class EntityDateFilterCondition extends EntityCondition {
 
     protected static final ObjectFactory<EntityDateFilterCondition> entityDateFilterConditionFactory = new ObjectFactory<EntityDateFilterCondition>() {

@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.entity;
 
+@SuppressWarnings("serial")
 public class EntityCryptoException extends GenericEntityException {
 
     public EntityCryptoException() {
