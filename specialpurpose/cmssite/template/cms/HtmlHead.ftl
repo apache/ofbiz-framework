@@ -21,20 +21,18 @@ under the License.
 <#assign initialLocale = locale.toString()>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>${(decoratedContent.subcontent.title.render)?default("CMS Site Generic Title (Set subcontent 'title' on your content!)")}</title>
+    <title>${(decoratedContent.subcontent.title.render)!"CMS Site Generic Title (Set subcontent 'title' on your content!)"}</title>
     <link rel="shortcut icon" href="/images/ofbiz.ico" />
     <script language="javascript" src="/images/prototypejs/prototype.js" type="text/javascript"></script>
     <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
     <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
     <script language="javascript" src="/images/calendarDateSelect/calendar_date_select.js" type="text/javascript"></script>
-    <#if parameters.userLogin?has_content>
-      <script language="javascript" src="<@ofbizContentUrl>/images/calendarDateSelect/locale/${parameters.userLogin.lastLocale!initialLocale}.js</@ofbizContentUrl>" type="text/javascript"></script>
-    </#if>
+    <script language="javascript" src="<@ofbizContentUrl>/images/calendarDateSelect/locale/${(parameters.userLogin.lastLocale)!initialLocale!'en'}.js</@ofbizContentUrl>" type="text/javascript"></script>
     <link rel="stylesheet" href="/images/ecommain.css" type="text/css"/>
     <link rel="stylesheet" href="/ecommerce/images/blog.css" type="text/css"/>
     <link rel="stylesheet" href="/content/images/contentForum.css" type="text/css"/>
 
-    <meta name="description" content="${(decoratedContent.subcontent.metaDescription.render)?default("")}"/>
-    <meta name="keywords" content="${(decoratedContent.subcontent.metaKeywords.render)?default("")}"/>
+    <meta name="description" content="${(decoratedContent.subcontent.metaDescription.render)!}"/>
+    <meta name="keywords" content="${(decoratedContent.subcontent.metaKeywords.render)!}"/>
 </head>
 <body>

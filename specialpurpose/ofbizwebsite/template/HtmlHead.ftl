@@ -18,7 +18,7 @@ under the License.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
+<#assign initialLocale = locale.toString()>
 <head>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <title>${uiLabelMap.OfbizTitle}</title>
@@ -27,6 +27,7 @@ under the License.
     <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
     <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
     <script language="javascript" src="/images/calendar_date_select.js" type="text/javascript"></script>
+    <script language="javascript" src="/images/calendarDateSelect/locale/${(parameters.userLogin.lastLocale)!initialLocale!'en'}.js" type="text/javascript"></script>
     <script language="javascript" src="/ofbiz/script/effects.js" type="text/javascript"></script>
     <script language="javascript" src="/ofbiz/script/search.js" type="text/javascript"></script>
     <script language="javascript" src="/ofbiz/script/slides.js" type="text/javascript"></script>
