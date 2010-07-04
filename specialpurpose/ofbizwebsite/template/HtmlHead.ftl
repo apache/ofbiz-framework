@@ -35,6 +35,6 @@ under the License.
     <link rel="stylesheet" href="/ofbiz/images/global.css" type="text/css"/>
     
     <meta content="OFBiz_Thai for Thai user" name="Description"/>
-    <meta content="OFBiz, ofbiz support, ofbiz training, Ant websystems, outsource, outsourcing,framework, cheap, competitive, quality, OFBiz, Open Source ERP,Open Source CRM,Open Source E-Commerce,Open Source eCommerce,Open Source POS,Open Source SCM,Open Source MRP,Open Source CMMS,Open Source EAM,web services,workflow,ebusiness,e-business,ecommerce,e-commerce,automation,enterprise software,open source,entity engine,service engine,erp,crm,party,accounting,facility,supply,chain,management,catalog,order,project,task,work effort,financial,ledger,content management,customer,inventory" name="keywords"/>
+    <meta content="Open Source ERP,Open Source CRM,Open Source E-Commerce,Open Source eCommerce,Open Source POS,Open Source SCM,Open Source MRP,Open Source CMMS,Open Source EAM,web services,workflow,ebusiness,e-business,ecommerce,e-commerce,automation,enterprise software,open source,entity engine,service engine,erp,crm,party,accounting,facility,supply,chain,management,catalog,order,project,task,work effort,financial,ledger,content management,customer,inventory" name="keywords"/>
 </head>
 
