@@ -120,7 +120,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/calendar_date_select.js" global="true"/>
-                <set field="initialLocale" type="String" value="${parameters.userLogin.lastLocale}" default-value="${groovy:locale.toString()}"/>
+                <set field="initialLocale" type="String" value="${parameters.userLogin.lastLocale}" default-value="${groovy:locale.toString()?:'en'}"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/locale/${initialLocale}.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
@@ -318,7 +318,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/calendar_date_select.js" global="true"/>
-                <set field="initialLocale" type="String" value="${parameters.userLogin.lastLocale}" default-value="${groovy:locale.toString()}"/>
+                <set field="initialLocale" type="String" value="${parameters.userLogin.lastLocale}" default-value="${groovy:locale.toString()?:'en'}"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendarDateSelect/locale/${initialLocale}.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/GooglemapSimple.js" global="true"/>
                 <!-- The default (global) shortcut icon -->

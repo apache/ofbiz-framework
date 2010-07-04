@@ -32,7 +32,7 @@ under the License.
     <script language="javascript" src="<@ofbizContentUrl>/images/fieldlookup.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/calendarDateSelect/calendar_date_select.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <script language="javascript" src="<@ofbizContentUrl>/images/calendarDateSelect/locale/${parameters.userLogin.lastLocale!initialLocale}.js</@ofbizContentUrl>" type="text/javascript"></script>
+    <script language="javascript" src="<@ofbizContentUrl>/images/calendarDateSelect/locale/${(parameters.userLogin.lastLocale)!initialLocale!'en'}.js</@ofbizContentUrl>" type="text/javascript"></script>
     <#if layoutSettings.javaScripts?has_content>
         <#--layoutSettings.javaScripts is a list of java scripts. -->
         <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
