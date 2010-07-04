@@ -748,7 +748,7 @@ public class UtilCache<K, V> implements Serializable {
 
     /** Sets the expire time for the cache elements.
      * If 0, elements never expire.
-     * @param expireTime The expire time for the cache elements
+     * @param expireTimeMillis The expire time for the cache elements
      */
     public void setExpireTime(long expireTimeMillis) {
         // if expire time was <= 0 and is now greater, fill expire table now
