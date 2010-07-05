@@ -27,7 +27,7 @@ under the License.
     <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
     <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
     <script language="javascript" src="/images/calendar_date_select.js" type="text/javascript"></script>
-    <script language="javascript" src="/images/calendarDateSelect/locale/${(parameters.userLogin.lastLocale)!initialLocale!'en'}.js" type="text/javascript"></script>
+    <script language="javascript" src="/images/calendarDateSelect/locale/${(parameters.userLogin.lastLocale?substring(0,2))!initialLocale?substring(0,2)!'en'}.js" type="text/javascript"></script>
     <script language="javascript" src="/ofbiz/script/effects.js" type="text/javascript"></script>
     <script language="javascript" src="/ofbiz/script/search.js" type="text/javascript"></script>
     <script language="javascript" src="/ofbiz/script/slides.js" type="text/javascript"></script>
