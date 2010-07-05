@@ -185,12 +185,12 @@ under the License.
                                 <if-not-empty field="partyRates">
                                     <first-from-list entry="partyRate" list="partyRates"/>
                                     <if-not-empty field="partyRate.percentageUsed">
-                                        <calculate field="timeEntry.hours" type="BigDecimal">
+                                        <calculate field="timeEntry.hours" type="Double">
                                             <calcop operator="multiply" field="timeEntry.hours">
                                                 <calcop operator="get" field="partyRate.percentageUsed"/>
                                             </calcop>
                                         </calculate>
-                                        <calculate field="timeEntry.hours" type="BigDecimal">
+                                        <calculate field="timeEntry.hours" type="Double">
                                             <calcop operator="divide" field="timeEntry.hours">
                                                 <number value="100"/>
                                             </calcop>
