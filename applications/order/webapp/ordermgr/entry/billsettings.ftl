@@ -383,34 +383,17 @@ function makeExpDate() {
                   </#if>
                   <select name="expMonth" onchange="javascript:makeExpDate();">
                     <#if creditCard?has_content && expMonth?has_content><#assign ccExprMonth = expMonth><#else><#assign ccExprMonth = requestParameters.expMonth?if_exists></#if>
-                    <option value="${ccExprMonth?if_exists}">${ccExprMonth?if_exists}</option>
-                    <option></option>
-                    <option value="01">01</option>
-                    <option value="02">02</option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="06">06</option>
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                    <option value="09">09</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
+                    <#if ccExprMonth?has_content>
+                      <option value="${ccExprMonth?if_exists}">${ccExprMonth?if_exists}</option>
+                    </#if>
+                    ${screens.render("component://common/widget/CommonScreens.xml#ccmonths")}
                   </select>
                   <select name="expYear" onchange="javascript:makeExpDate();">
                     <#if creditCard?has_content && expYear?has_content><#assign ccExprYear = expYear><#else><#assign ccExprYear = requestParameters.expYear?if_exists></#if>
-                    <option value="${ccExprYear?if_exists}">${ccExprYear?if_exists}</option>
-                    <option></option>
-                    <option value="2005">2005</option>
-                    <option value="2006">2006</option>
-                    <option value="2007">2007</option>
-                    <option value="2008">2008</option>
-                    <option value="2009">2009</option>
-                    <option value="2010">2010</option>
-                    <option value="2011">2011</option>
-                    <option value="2012">2012</option>
-                    <option value="2013">2013</option>
+                    <#if ccExprYear?has_content>
+                      <option value="${ccExprYear?if_exists}">${ccExprYear?if_exists}</option>
+                    </#if>
+                    ${screens.render("component://common/widget/CommonScreens.xml#ccyears")}
                   </select>
                 *</td>
               </tr>
