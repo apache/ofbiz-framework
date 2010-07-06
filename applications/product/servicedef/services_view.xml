@@ -119,8 +119,8 @@ under the License.
     
     <service name="getAssociatedProductsList" engine="simple" auth="false"
         location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="getAssociatedProductsList">
-        <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
-        <attribute name="products" mode="OUT" type="java.util.List"/>
+        <attribute name="mainId" mode="IN" type="String" optional="false"/>
+        <attribute name="valuesList" mode="OUT" type="java.util.List"/>
     </service>
     
     <service name="getPreviousNextProducts" engine="java"
