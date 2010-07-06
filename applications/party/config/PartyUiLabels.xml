@@ -288,7 +288,7 @@
     </property>
     <property key="FormFieldTitle_deleteEmail">
         <value xml:lang="en">Delete email</value>
-        <value xml:lang="fr">Supprimer le courriel</value>
+        <value xml:lang="fr">Supprimer mél</value>
         <value xml:lang="hi_IN">ईमेल मिटायें</value>
         <value xml:lang="it">Cancella email</value>
         <value xml:lang="pt_BR">Excluir e-mail</value>
@@ -334,7 +334,7 @@
         <value xml:lang="de">E-Mail Adresse</value>
         <value xml:lang="en">Email Address</value>
         <value xml:lang="es">Correo electrónico</value>
-        <value xml:lang="fr">Adresse courriel</value>
+        <value xml:lang="fr">Mél</value>
         <value xml:lang="hi_IN">ईमेल पता</value>
         <value xml:lang="it">Indirizzo Email</value>
         <value xml:lang="nl">Emailadres</value>     
@@ -4363,7 +4363,7 @@
     <property key="PartyCreateAddEmail">
         <value xml:lang="en">Create/Add Email to Party</value>
         <value xml:lang="es">Crear/añadir correo electrónico para participante</value>
-        <value xml:lang="fr">Créer/AjouterCreate une adresse courriel  à un acteur</value>
+        <value xml:lang="fr">Associer le mél à l'acteur</value>
         <value xml:lang="hi_IN">पार्टी का ईमेल बनाएँ/जोड़ें</value>
         <value xml:lang="it">Creare/Aggiungere email ad un soggetto</value>
         <value xml:lang="pt_BR">Criar/adicionar e-mail ao participante</value>
@@ -4873,7 +4873,7 @@
         <value xml:lang="de">E-Mail löschen</value>
         <value xml:lang="en">Delete Email</value>
         <value xml:lang="es">Borrar correo electrónico</value>
-        <value xml:lang="fr">Supprimer un(e adresse?) courriel</value>
+        <value xml:lang="fr">Supprimer le mél</value>
         <value xml:lang="hi_IN">ईमेल हटाएँ</value>
         <value xml:lang="it">Cancella email</value>
         <value xml:lang="nl">E-mail verwijderen</value>
@@ -4966,6 +4966,7 @@
     </property>
     <property key="PartyDraftEmails">
         <value xml:lang="en">Draft Emails</value>
+        <value xml:lang="fr">Mél Brouillon</value>
         <value xml:lang="hi_IN">ईमेल मसौदा(Draft)</value>
         <value xml:lang="it">Bozze emails</value>
         <value xml:lang="pt_BR">Rascunhos de e-mails</value>
@@ -5135,7 +5136,7 @@
         <value xml:lang="de">E-Mail Adresse</value>
         <value xml:lang="en">E-Mail Address</value>
         <value xml:lang="es">Dirección de E-Mail</value>
-        <value xml:lang="fr">Adresse courriel</value>
+        <value xml:lang="fr">Mél</value>
         <value xml:lang="hi_IN">ई-मेल पता</value>
         <value xml:lang="it">Indirizzo email</value>
         <value xml:lang="nl">Emailadres</value>
@@ -5149,7 +5150,7 @@
         <value xml:lang="de">E-Mail Adresse fehlt</value>
         <value xml:lang="en">Email Address is missing</value>
         <value xml:lang="es">Falta dirección e-mail</value>
-        <value xml:lang="fr">Adresse E-mail manquante</value>
+        <value xml:lang="fr">Mél manquant</value>
         <value xml:lang="hi_IN">ईमेल पता नही है</value>
         <value xml:lang="it">Indirizzo Email mancante</value>
         <value xml:lang="nl">E-mailadres ontbreekt</value>
@@ -5165,7 +5166,7 @@
         <value xml:lang="de">E-Mail Adresse fehlt</value>
         <value xml:lang="en">E-mail address is missing</value>
         <value xml:lang="es">Falta dirección de E-mail</value>
-        <value xml:lang="fr">Adresse courriel absente</value>
+        <value xml:lang="fr">Mél absent</value>
         <value xml:lang="hi_IN">ईमेल पता नही है</value>
         <value xml:lang="it">Indirizzo E-mail mancante</value>
         <value xml:lang="ja">E-mail address is missing</value>
@@ -5181,7 +5182,7 @@
         <value xml:lang="de">Die E-Mail Adresse kann nicht überprüft werden. Die E-Mail Adresse existiert nicht.</value>
         <value xml:lang="en">The Email Address cannot be verified.  This Email Address does not exists.</value>
         <value xml:lang="es">La dirección de correo electrónico no se puede verificar. Esta dirección no existe.</value>
-        <value xml:lang="fr">L'adresse courriel ne peut pas être vérifiée. Cette adresse courriel n'existe pas</value>
+        <value xml:lang="fr">L'adresse électronique ne peut pas être vérifiée. Cette adresse n'existe pas</value>
         <value xml:lang="hi_IN">ईमेल पता सत्यापित नहीं किया जा सकता है| यह ईमेल पता मौजूद नहीं है|</value>
         <value xml:lang="it">L'indirizzo email non può essere verificato. Questo indirizzo email non esiste.</value>
         <value xml:lang="nl">Verificatie e-mailadres mislukt. Dit e-mailadres bestaat niet.</value>
@@ -5194,7 +5195,7 @@
         <value xml:lang="de">E-Mail Adresse ist nicht im richtigen Format, sie muss dem folgenden Muster entsprechen: name@domain</value>
         <value xml:lang="en">E-mail address not formatted correctly, must be like: name@domain</value>
         <value xml:lang="es">Formato de E-mail incorrecto, ponga como: name@domain</value>
-        <value xml:lang="fr">Format de l'adresse courriel non correct, il doit être similaire à nom@domaine</value>
+        <value xml:lang="fr">Format de l'adresse électronique non correct, il doit être similaire à nom@domaine</value>
         <value xml:lang="hi_IN">ईमेल पता सही नही है, ऐसा होना चाहिये : नाम@डोमेन</value>
         <value xml:lang="it">Indirizzo e-mail non valido (formato: nome@dominio)</value>
         <value xml:lang="ja">E-mail address not formatted correctly, must be like: name@domain</value>
@@ -5210,7 +5211,7 @@
         <value xml:lang="de">E-Mail Adresse erfolgreich erstellt.</value>
         <value xml:lang="en">Email Address successfully created.</value>
         <value xml:lang="es">La dirección de correo electrónico se ha creado con éxito.</value>
-        <value xml:lang="fr">Adresse courriel créée.</value>
+        <value xml:lang="fr">Mél créé</value>
         <value xml:lang="hi_IN">ईमेल पता सफलतापूर्वक बनाया गया है|</value>
         <value xml:lang="it">Indirizzo email creato con successo.</value>
         <value xml:lang="nl">E-mailadres succesvol aangemaakt.</value>
@@ -5223,7 +5224,7 @@
         <value xml:lang="de">E-Mail Adresse erfolgreich aktualisiert.</value>
         <value xml:lang="en">Email Address successfully updated.</value>
         <value xml:lang="es">La dirección de correo electrónico se ha actualizado con éxito.</value>
-        <value xml:lang="fr">Adresse courriel mise à jour.</value>
+        <value xml:lang="fr">Mél mis à jour.</value>
         <value xml:lang="hi_IN">ईमेल पता सफलतापूर्वक नवीनीकृत हो गया है|</value>
         <value xml:lang="it">Indirizzo email aggiornato con successo.</value>
         <value xml:lang="nl">E-mailadres succesvol aangepast.</value>
@@ -5236,7 +5237,7 @@
         <value xml:lang="de">Die E-Mail Adresse Verifikation ist abgelaufen.</value>
         <value xml:lang="en">The Email Address Verification has been expired.</value>
         <value xml:lang="es">La validación de la dirección de correo electrónico ha caducado.</value>
-        <value xml:lang="fr">La vérification de cette adresse courriel a expirée</value>
+        <value xml:lang="fr">La vérification de l'adresse électronique a expirée</value>
         <value xml:lang="hi_IN">ईमेल पता सत्यापन की समय सीमा समाप्त हो गई है|</value>
         <value xml:lang="it">La verifica dell'indirizzo email è scaduta.</value>
         <value xml:lang="nl">De verificatie van het e-mailadres is verlopen.</value>
@@ -5249,7 +5250,7 @@
         <value xml:lang="de">E-Mail Adressen</value>
         <value xml:lang="en">Email Addresses</value>
         <value xml:lang="es">Direcciones de Email</value>
-        <value xml:lang="fr">Adresses courriel</value>
+        <value xml:lang="fr">Mél</value>
         <value xml:lang="hi_IN">ईमेल पता</value>
         <value xml:lang="it">Indirizzi email</value>
         <value xml:lang="ja">Email Addresses</value>
@@ -5274,6 +5275,7 @@
     </property>
     <property key="PartyEmailMessage">
         <value xml:lang="en">Allocate this message to a existing or new party and add an email address</value>
+        <value xml:lang="fr">Associer ce message a un acteur présent ou nouveau puis lui ajouter l'adresse électronique</value>
         <value xml:lang="hi_IN">इस संदेश को एक मौजूदा या नई पार्टी को आवंटित करे और एक ईमेल पता जोड़ें|</value>
         <value xml:lang="it">Allocare questo messagio ad un soggetto esistente o nuovo e aggiungere un indirizzo email</value>
         <value xml:lang="pt_BR">Alocar esta mensagem a um participante já existente ou crie um novo e adicione um endereço de e-mail</value>
@@ -5281,7 +5283,7 @@
     </property>
     <property key="PartyEmailTo">
         <value xml:lang="en">Email to</value>
-        <value xml:lang="fr">Courriel dest.</value>
+        <value xml:lang="fr">Mél dest.</value>
         <value xml:lang="hi_IN">ईमेल करे</value>
         <value xml:lang="it">Email a</value>
         <value xml:lang="pt_BR">Destinatário do e-mail</value>
@@ -5289,7 +5291,7 @@
     </property>
     <property key="PartyEmailsFromUnknownOrigin">
         <value xml:lang="en">Emails from UN-known origin</value>
-        <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
+        <value xml:lang="fr">Mél issu d'une origine inconnue</value>
         <value xml:lang="hi_IN">अज्ञात मूल से ईमेल</value>
         <value xml:lang="it">Emails da origini conosciuta</value>
         <value xml:lang="pt_BR">E-mails com remetente desconhecido</value>
@@ -5617,7 +5619,7 @@
         <value xml:lang="de">Von E-Mail Adresse</value>
         <value xml:lang="en">From Email Address</value>
         <value xml:lang="es">De (e-mail)</value>
-        <value xml:lang="fr">Depuis adresse courriel</value>
+        <value xml:lang="fr">Depuis mél</value>
         <value xml:lang="hi_IN">ईमेल पते से</value>
         <value xml:lang="it">Da Indirizzo Email</value>
         <value xml:lang="nl">Van e-mailadres</value>
@@ -7715,6 +7717,7 @@
     </property>
     <property key="PartyNotificationMailVerification">
         <value xml:lang="en">Email Address Verification</value>
+        <value xml:lang="fr"> Verification Mél</value>
         <value xml:lang="hi_IN">ईमेल पता सत्यापन</value>
         <value xml:lang="it">Verifica indirizzo Email</value>
         <value xml:lang="pt_BR">Verificação de endereço de e-mail</value>
@@ -7817,6 +7820,7 @@
     </property>
     <property key="PartyOriginEmailNotKnown">
         <value xml:lang="en">Origin Email address not known!</value>
+        <value xml:lang="fr">Origine du mél inconnue</value>
         <value xml:lang="hi_IN">उत्पत्ति ईमेल पता अज्ञात!</value>
         <value xml:lang="it">Indirizzo origine email address not conosciuto!</value>
         <value xml:lang="pt_BR">Endereço do e-mail de origem desconhecido</value>
@@ -8936,7 +8940,7 @@
         <value xml:lang="de">Sie werden ein Passwort per email erhalten, wenn Ihr neues Konto freigegeben wird</value>
         <value xml:lang="en">You will receive a password by email when your new account is approved</value>
         <value xml:lang="es">Recibirá la contraseña por email cuando la nueva cuenta sea aprobada</value>
-        <value xml:lang="fr">Vous recevrez votre mot de passe par courriel quand votre compte sera validé</value>
+        <value xml:lang="fr">Vous recevrez votre mot de passe par mél quand votre compte sera validé</value>
         <value xml:lang="hi_IN">जान्च के बाद आपको नया पासकोड ईमेल से दिया जाएगा</value>
         <value xml:lang="it">Riceverai una password per email quando la tua nuova utenza sarà approvata</value>
         <value xml:lang="ja">You will receive a password by email when your new account is approved</value>
@@ -10217,7 +10221,7 @@
         <value xml:lang="de">Zur E-Mail Adresse</value>
         <value xml:lang="en">To Email Address</value>
         <value xml:lang="es">Para (e-mail)</value>
-        <value xml:lang="fr">A l'adresse courriel</value>
+        <value xml:lang="fr">Vers mél</value>
         <value xml:lang="hi_IN">ईमेल पते को</value>
         <value xml:lang="it">A Indirizzo Email</value>
         <value xml:lang="nl">Naar e-mailadres</value>
