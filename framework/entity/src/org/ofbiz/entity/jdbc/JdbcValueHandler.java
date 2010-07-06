@@ -123,6 +123,8 @@ public abstract class JdbcValueHandler {
         result.put("CHAR VARYING", Types.VARCHAR);
         result.put("CHARACTER VARYING", Types.VARCHAR);
         // DB2, MS SQL Data Types
+        // Note: Do NOT map the DATETIME SQL data type, the
+        // java-type will be used to select the correct data type
         result.put("LONGVARCHAR", Types.LONGVARCHAR);
         result.put("LONG VARCHAR", Types.LONGVARCHAR);
         result.put("BIGINT", Types.BIGINT);
@@ -132,8 +134,8 @@ public abstract class JdbcValueHandler {
         result.put("VARBINARY", Types.VARBINARY);
         result.put("LONGVARBINARY", Types.LONGVARBINARY);
         result.put("LONG VARBINARY", Types.LONGVARBINARY);
-        // Note: Do NOT map the DATETIME SQL data type, the
-        // java-type will be used to select the correct data type
+        // PostgreSQL SQL Data Types
+        result.put("BYTEA", Types.BINARY);
         return result;
     }
 
