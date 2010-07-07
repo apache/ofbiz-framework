@@ -242,9 +242,9 @@ var FieldLookupPopup = Class.create({
     initialize: function (target, viewName, lookupWidth, lookupHeight, position, fadeBackground, initiallyCollapsed, args) {
         if (args != null) {
             var argString = "";
-            if (args.length > 8) {
-                for (var i = 8; i < args.length; i++) {
-                    if ((viewName.indexOf("?") == -1) && (i - 7) == 1) {
+            if (args.length > 7) {
+                for (var i = 7; i < args.length; i++) {
+                    if ((viewName.indexOf("?") == -1) && (i - 7) == 0) {
                         sep = "?";
                     } else {
                         sep = "&";
