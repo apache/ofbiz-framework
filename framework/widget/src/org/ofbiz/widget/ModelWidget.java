@@ -21,6 +21,7 @@ package org.ofbiz.widget;
 import java.io.Serializable;
 import java.util.Map;
 import org.w3c.dom.Element;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 
@@ -110,7 +111,7 @@ public class ModelWidget implements Serializable {
      */
     public static boolean widgetBoundaryCommentsEnabled(Map<String, ? extends Object> context) {
         boolean result = "true".equals(UtilProperties.getPropertyValue("widget", "widget.verbose"));
-        if (context != null) {
+        if (result == false && context != null) {
             String str = (String) context.get(enableBoundaryCommentsParam);
             if (str != null) {
                 result = "true".equals(str);
