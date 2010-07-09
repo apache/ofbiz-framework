@@ -41,11 +41,11 @@ under the License.
         <param-value>component://example/widget/example/CommonScreens.xml</param-value>
         <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
-    <context-param>
+    <!-- context-param>
         <param-name>widgetVerbose</param-name>
         <param-value>false</param-value>
-        <description>Enable widget boundary comments. See org.ofbiz.widget.ModelWidget.widgetBoundaryCommentsEnabled().</description>
-    </context-param>
+        <description>Enable/disable widget boundary comments. will override widget.properties See org.ofbiz.widget.ModelWidget.widgetBoundaryCommentsEnabled().</description>
+    </context-param-->
     <context-param>
         <param-name>compressHTML</param-name>
         <param-value>false</param-value>
