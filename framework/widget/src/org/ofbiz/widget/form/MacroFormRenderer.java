@@ -1297,7 +1297,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderMultiFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        //FIXME copy from HtmlFormRenderer.java
+        //FIXME copy from HtmlFormRenderer.java (except for the closing form tag itself, that is now converted)
         Iterator<ModelFormField> submitFields = modelForm.getMultiSubmitFields().iterator();
         while (submitFields.hasNext()) {
             ModelFormField submitField = submitFields.next();
@@ -1321,8 +1321,9 @@ public class MacroFormRenderer implements FormStringRenderer {
 
             }
         }
-        writer.append("</form>");
-        appendWhitespace(writer);
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderMultiFormClose />");
+        executeMacro(writer, sr.toString());
 
         // see if there is anything that needs to be added outside of the multi-form
         Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
