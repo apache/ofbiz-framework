@@ -80,7 +80,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             screens.getContext().put("simpleEncoder", StringUtil.getEncoder(UtilProperties.getPropertyValue("widget", getName() + ".encoder")));
             screens.render(page);
         } catch (Exception e) {
-            renderError("Problems with the response writer/output stream", e, request, response);
+            renderError("Problems with the response writer/output stream", e, "[Not Yet Rendered]", request, response);
             return;
         }
 
@@ -101,7 +101,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             Fop fop = ApacheFopWorker.createFopInstance(out, contentType);
             ApacheFopWorker.transform(src, null, fop);
         } catch (Exception e) {
-            renderError("Unable to transform FO file", e, request, response);
+            renderError("Unable to transform FO file", e, screenOutString, request, response);
             return;
         }
         // set the content type and length
@@ -113,12 +113,12 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             out.writeTo(response.getOutputStream());
             response.getOutputStream().flush();
         } catch (IOException e) {
-            renderError("Unable to write to OutputStream", e, request, response);
+            renderError("Unable to write to OutputStream", e, screenOutString, request, response);
         }
     }
 
-    protected void renderError(String msg, Exception e, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
-        Debug.logError(msg + ": " + e, module);
+    protected void renderError(String msg, Exception e, String screenOutString, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
+        Debug.logError(msg + ": " + e + "; Screen XSL:FO text was:\n" + screenOutString, module);
         try {
             Writer writer = new StringWriter();
             ScreenRenderer screens = new ScreenRenderer(writer, null, new HtmlScreenRenderer());
