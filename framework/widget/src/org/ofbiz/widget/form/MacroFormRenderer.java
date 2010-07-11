@@ -1969,7 +1969,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
         String autocomplete = "";
-        if (!lookupField.getClientAutocompleteField() || ajaxEnabled) {
+        if (!lookupField.getClientAutocompleteField() || !ajaxEnabled) {
             autocomplete = "off";
         }
 
