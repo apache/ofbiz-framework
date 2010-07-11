@@ -226,7 +226,9 @@ ${item.description}</span>
         <script language="JavaScript" type="text/javascript">document.${formName}.${focusFieldName}.focus();</script><#lt/>
     </#if>
 </#macro>
-<#macro renderMultiFormClose></#macro>
+<#macro renderMultiFormClose>
+    </form><#lt/>
+</#macro>
 
 <#macro renderFormatListWrapperOpen formName style columnStyles>
     <table cellspacing="0" class="<#if style?has_content>${style}<#else>basic-table form-widget-table dark-grid</#if>"><#lt/>
