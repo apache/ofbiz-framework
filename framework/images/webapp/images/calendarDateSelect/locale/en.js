@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-Date.weekdays = $w("Sa M T W T F Su");
+Date.weekdays = $w("Su M T W T F Sa");
 Date.months = $w("January February March April May June July August September October November December" );
 
 Date.first_day_of_week = 0;
