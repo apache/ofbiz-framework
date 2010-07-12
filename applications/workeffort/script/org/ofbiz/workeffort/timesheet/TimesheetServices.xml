@@ -315,17 +315,42 @@ under the License.
     </simple-method>
     <simple-method method-name="updateTimeEntry" short-description="Update TimeEntry">
         <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
-        <!-- allow update of invoiceId and seqId if not yet filled, else check status -->
+        <call-simple-method method-name="checkTimesheetStatus"/>
+        
+        <!-- update all fields except invoiceId,invoiceItemSeqId and only those if they are not yet set -->
+        <map-to-map map="parameters" to-map="fieldsToCopy"/>
+        <clear-field field="fieldsToCopy.invoiceId"/>
+        <clear-field field="fieldsToCopy.invoiceItemSeqId"/>
+        
+        <!-- if dates are updated and no hours value is specified, calc it here -->
+        <if>
+            <condition>
+                <and>
+                    <if-empty field="fieldsToCopy.hours"/>
+                    <or>
+                        <not><if-empty field="fieldsToCopy.fromDate"/></not>
+                        <not><if-empty field="fieldsToCopy.thruDate"/></not>
+                    </or>
+                    <or>
+                        <if-compare-field field="fieldsToCopy.fromDate" operator="not-equals" to-field="lookedUpValue.fromDate"/>
+                        <if-compare-field field="fieldsToCopy.thruDate" operator="not-equals" to-field="lookedUpValue.thruDate"/>
+                    </or>
+                </and>
+            </condition>
+            <then>
+                <set field="fieldsToCopy.hours" value="${groovy:org.ofbiz.base.util.UtilDateTime.getInterval((fieldsToCopy.fromDate ? fieldsToCopy.fromDate : lookedUpValue.fromDate), (fieldsToCopy.thruDate ? fieldsToCopy.thruDate : lookedUpValue.thruDate))/3600000}" type="Double"/>
+            </then>
+        </if>
+        
+        <set-nonpk-fields map="fieldsToCopy" value-field="lookedUpValue"/>
+        
         <if-not-empty field="parameters.invoiceId">
             <if-empty field="lookedUpValue.invoiceId">
-            <set field="lookedUpValue.invoiceId" from-field="parameters.invoiceId"/>
-            <set field="lookedUpValue.invoiceItemSeqId" from-field="parameters.invoiceItemSeqId"/>
-            <else>
-                <call-simple-method method-name="checkTimesheetStatus"/>
-                <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-            </else>
+                <set field="lookedUpValue.invoiceId" from-field="parameters.invoiceId"/>
+                <set field="lookedUpValue.invoiceItemSeqId" from-field="parameters.invoiceItemSeqId"/>
             </if-empty>
         </if-not-empty>
+        
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTimeEntry" short-description="Delete TimeEntry">
