@@ -36,7 +36,7 @@ function submitForm(form, mode, value) {
         form.submit();
     } else if (mode == "EC") {
         // edit credit card
-        form.action="<@ofbizUrl>updateCheckoutOptions/editcreditcard?DONE_PAGE=checkoutpayment&amp;paymentMethodId="+value+"</@ofbizUrl>";
+        form.action="<@ofbizUrl>updateCheckoutOptions/editcreditcard?DONE_PAGE=checkoutpayment&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
     } else if (mode == "GC") {
         // edit gift card
@@ -48,11 +48,11 @@ function submitForm(form, mode, value) {
         form.submit();
     } else if (mode == "EE") {
         // edit eft account
-        form.action="<@ofbizUrl>updateCheckoutOptions/editeftaccount?DONE_PAGE=checkoutpayment&amp;paymentMethodId="+value+"</@ofbizUrl>";
+        form.action="<@ofbizUrl>updateCheckoutOptions/editeftaccount?DONE_PAGE=checkoutpayment&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
     }else if(mode = "EG")
     //edit gift card
-        form.action="<@ofbizUrl>updateCheckoutOptions/editgiftcard?DONE_PAGE=checkoutpayment&amp;paymentMethodId="+value+"</@ofbizUrl>";
+        form.action="<@ofbizUrl>updateCheckoutOptions/editgiftcard?DONE_PAGE=checkoutpayment&paymentMethodId="+value+"</@ofbizUrl>";
         form.submit();
 }
 //]]>

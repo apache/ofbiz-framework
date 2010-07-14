@@ -17,18 +17,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
+//<![CDATA[
 function shipBillAddr() {
     if (document.checkoutsetupform.useShipAddr.checked) {
-        window.location = "<@ofbizUrl>setBilling?createNew=Y&amp;finalizeMode=payment&amp;paymentMethodType=${paymentMethodType?if_exists}&amp;useShipAddr=Y</@ofbizUrl>";
+        window.location = "<@ofbizUrl>setBilling?createNew=Y&finalizeMode=payment&paymentMethodType=${paymentMethodType?if_exists}&useShipAddr=Y</@ofbizUrl>";
     } else {
-        window.location = "<@ofbizUrl>setBilling?createNew=Y&amp;finalizeMode=payment&amp;paymentMethodType=${paymentMethodType?if_exists}</@ofbizUrl>";
+        window.location = "<@ofbizUrl>setBilling?createNew=Y&finalizeMode=payment&paymentMethodType=${paymentMethodType?if_exists}</@ofbizUrl>";
     }
 }
 
 function makeExpDate() {
     document.checkoutsetupform.expireDate.value = document.checkoutsetupform.expMonth.options[document.checkoutsetupform.expMonth.selectedIndex].value + "/" + document.checkoutsetupform.expYear.options[document.checkoutsetupform.expYear.selectedIndex].value;
 }
+//]]>
 </script>
 
 <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session)>

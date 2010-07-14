@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script language="javascript" type="text/javascript">
-<!--
+<script type="text/javascript">
+//<![CDATA[
 function submitForm(form, mode, value) {
     if (mode == "DN") {
         // done action; checkout
@@ -30,11 +30,11 @@ function submitForm(form, mode, value) {
         form.submit();
     } else if (mode == "NA") {
         // new address
-        form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?preContactMechTypeId=POSTAL_ADDRESS&amp;contactMechPurposeTypeId=SHIPPING_LOCATION&amp;DONE_PAGE=checkoutshippingaddress</@ofbizUrl>";
+        form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?preContactMechTypeId=POSTAL_ADDRESS&contactMechPurposeTypeId=SHIPPING_LOCATION&DONE_PAGE=checkoutshippingaddress</@ofbizUrl>";
         form.submit();
     } else if (mode == "EA") {
         // edit address
-        form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=checkoutshippingaddress&amp;contactMechId="+value+"</@ofbizUrl>";
+        form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=checkoutshippingaddress&contactMechId="+value+"</@ofbizUrl>";
         form.submit();
     }
 }
@@ -51,7 +51,7 @@ function toggleBillingAccount(box) {
     }
 }
 
-// -->
+//]]>
 </script>
 <#assign cart = shoppingCart?if_exists/>
 <form method="post" name="checkoutInfoForm" style="margin:0;">
