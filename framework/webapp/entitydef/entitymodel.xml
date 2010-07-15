@@ -175,7 +175,7 @@ under the License.
         <field name="initialReferrer" type="url"></field>
         <field name="initialUserAgent" type="long-varchar"></field>
         <field name="userAgentId" type="id"></field>
-        <field name="clientIpAddress" type="id"></field>
+        <field name="clientIpAddress" type="short-varchar"></field>
         <field name="clientHostName" type="long-varchar"></field>
         <field name="clientUser" type="short-varchar"></field>
         <field name="clientIpIspName" type="short-varchar"></field>
