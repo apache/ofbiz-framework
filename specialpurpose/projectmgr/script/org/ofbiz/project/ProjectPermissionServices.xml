@@ -75,7 +75,7 @@
                     <or>
                         <and>
                             <!-- view a project with a null id is a null operation, so ok... -->
-                            <if-empty field="parameters.projectIdId"/>
+                            <if-empty field="parameters.projectId"/>
                             <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                         </and>
                         <and>
