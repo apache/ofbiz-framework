@@ -1,0 +1,38 @@
+Manifest-Version: 1.0
+Bundle-ClassPath: lib/js.jar
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Bundle-Name: Mozilla Rhino
+Bundle-SymbolicName: org.mozilla.rhino
+Bundle-Version: 1.7.1.v20090608
+Export-Package: org.mozilla.javascript,org.mozilla.javascript.debug
+Bundle-ManifestVersion: 2
+
+Name: lib/js.jar
+SHA1-Digest: gM+tV1H11ULhJQf/GLub29Ts9ls=
+
+Name: eclipse32.png
+SHA1-Digest: eCk/A3/COXL3S6qAVDOSrlsqmLw=
+
+Name: about_files/NPL-1.1.html
+SHA1-Digest: Rowm9287ix5MWF+pzBLeopDLGtI=
+
+Name: about.ini
+SHA1-Digest: 2w8BfdBzQbbWHJNbazxzu9YMYwo=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: about.properties
+SHA1-Digest: 5pjlj+GVJmM0lzSVHh9PIVbKH6A=
+
+Name: about.mappings
+SHA1-Digest: 7fWXWpBVaPXv2G/FWw3i4eblO9g=
+
+Name: about_files/MPL-1.1.txt
+SHA1-Digest: q6jXbQr2fVfaPDwyHKpZ89JCOGs=
+
+Name: about.html
+SHA1-Digest: mjyIyqtILChRk8+Yq6uuQHDoeFY=
+

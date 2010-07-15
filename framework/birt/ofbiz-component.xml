@@ -27,7 +27,7 @@ under the License.
     <classpath type="jar" location="lib/platform/plugins/org.eclipse.emf.ecore_2.5.0.v200906151043.jar"/>
     <classpath type="jar" location="lib/platform/plugins/org.eclipse.emf.ecore.xmi_2.5.0.v200906151043.jar"/>
     <classpath type="jar" location="lib/platform/plugins/org.w3c.css.sac_1.3.0.v200805290154.jar"/>
-    <classpath type="jar" location="lib/platform/plugins/org.mozilla.rhino_1.7.1.v20090521/lib/js.jar"/>
+    <classpath type="jar" location="lib/platform/plugins/org.mozilla.rhino_1.7.1.v20090608/lib/js.jar"/>
     <classpath type="jar" location="lib/platform/plugins/org.w3c.sac_1.3.0.v20070710/lib/flute.jar"/>
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
