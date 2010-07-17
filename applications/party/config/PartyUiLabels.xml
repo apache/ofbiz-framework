@@ -6260,6 +6260,9 @@
         <value xml:lang="th">เชื่อมโยงกลุ่มผู้ใช้</value>
         <value xml:lang="zh">链接会员</value>
     </property>
+    <property key="PartyLinkExplanation">
+        <value xml:lang="en">This will set the status of 'partyId' to disabled however will link it to 'partyTo' in the party Attributes</value>
+    </property>
     <property key="PartyLinkMessage1">
         <value xml:lang="de">WARNUNG: Dies kann nicht rückgängig gemacht werden. Bestätigen Sie bitte, dass Sie die beiden unten aufgeführten Akteure verknüpfen möchten. </value>
         <value xml:lang="en">WARNING: This cannot be un-done, confirm you wish to link the two party records listed below.</value>

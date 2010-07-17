@@ -218,6 +218,13 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
+    <form name="PartyLink" type="single" target="setPartyLink"
+        focus-field-name="partyId" header-row-style="header-row" default-table-style="basic-table">
+        <field position="1" name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="2" name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>
+      <field name="submitButton" title="${uiLabelMap.PartyLink}"><submit button-type="button" request-confirmation="true" confirmation-message="${uiLabelMap.PartyLinkMessage1}"/></field>
+    </form>
+
     <!-- PartyRelationship -->
     <form name="AddPartyRelationshipType" type="single" target="createPartyRelationshipType"
         header-row-style="header-row" default-table-style="basic-table">
