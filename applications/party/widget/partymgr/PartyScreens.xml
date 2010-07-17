@@ -206,15 +206,24 @@ under the License.
                 <set field="titleProperty" value="PartyLink"/>
                 <set field="headerItem" value="link"/>
                 <set field="tabButtonItem" value="linkparty"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/LinkParty.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://party/webapp/partymgr/party/linkparty.ftl"/></html>
-                        </platform-specific>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="PARTYMGR" action="_UPDATE"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PartyLink}">
+                                    <label text="${uiLabelMap.PartyLinkExplanation}"></label>
+                                    <include-form name="PartyLink" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3" text="${uiLabelMap.PartyPermissionError}"/>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
