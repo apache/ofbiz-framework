@@ -18,6 +18,7 @@
  */
 
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
@@ -26,13 +27,13 @@ import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 
-andExprs = [];
-entityName = context.entityName;
-searchFields = context.searchFields;
-displayFields = context.displayFields ?: searchFields;
-searchValueFieldName = parameters.searchValueField;
+def andExprs = [];
+def entityName = context.entityName;
+def searchFields = context.searchFields;
+def displayFields = context.displayFields ?: searchFields;
+def searchValueFieldName = parameters.searchValueField;
 if (searchValueFieldName) fieldValue = parameters.get(searchValueFieldName);
-searchType = context.searchType;
+def searchType = context.searchType;
 
 if (searchFields && fieldValue) {
     searchFieldsList = StringUtil.toList(searchFields);
@@ -55,6 +56,18 @@ if (searchFields && fieldValue) {
         } else {
             andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
         }        
+    }
+}
+
+/* the following is part of an attempt to handle additional parameters that are passed in from other form fields at run-time,
+ * but that is not supported by the scrip.aculo.us Ajax.Autocompleter, but this is still useful to pass parameters from the
+ * lookup screen definition:
+ */
+def conditionFields = context.conditionFields;
+if (conditionFields) {
+    // these fields are for additonal conditions, this is a Map of name/value pairs
+    for (conditionFieldEntry in conditionFields.entrySet()) {
+        andExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, conditionFieldEntry.getValue()));    
     }
 }
 
