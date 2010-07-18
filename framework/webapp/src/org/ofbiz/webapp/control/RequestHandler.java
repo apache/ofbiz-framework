@@ -173,9 +173,9 @@ public class RequestHandler {
 
             // Check to make sure we are allowed to access this request directly. (Also checks if this request is defined.)
             // If the request cannot be called, or is not defined, check and see if there is a default-request we can process
-            String defaultRequest = controllerConfig.getDefaultRequest();
-            if (!requestMap.securityDirectRequest && defaultRequest != null) {
-                if (!requestMapMap.get(defaultRequest).securityDirectRequest) {
+            if (!requestMap.securityDirectRequest) {
+                String defaultRequest = controllerConfig.getDefaultRequest();
+                if (defaultRequest == null || !requestMapMap.get(defaultRequest).securityDirectRequest) {
                     // use the same message as if it was missing for security reasons, ie so can't tell if it is missing or direct request is not allowed
                     throw new RequestHandlerException(requestMissingErrorMessage);
                 } else {
