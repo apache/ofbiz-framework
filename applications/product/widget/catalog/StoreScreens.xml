@@ -353,7 +353,7 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleEditProductStorePaySetup}">
                             <section>
                                 <condition>
-                                    <if-has-permission permission="CATALOG" action="CREATE"/>
+                                    <if-has-permission permission="CATALOG" action="_CREATE"/>
                                 </condition>
                                 <widgets>
                                     <include-form name="EditProductStorePaymentSetting" location="component://product/widget/catalog/ProductStoreForms.xml"/>
