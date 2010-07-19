@@ -26,7 +26,7 @@ under the License.
     <eca service="setInvoiceStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="INVOICE_READY"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
-        <action service="loadSalesInvoiceFact" mode="sync" run-as-user="system"/>
+        <action service="loadSalesInvoiceFact" mode="async" run-as-user="system"/>
     </eca>
 
 </service-eca>

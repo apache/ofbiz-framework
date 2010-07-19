@@ -23,9 +23,9 @@ under the License.
 
     <!-- dimension entities -->
     <eca service="createProduct" event="commit">
-        <action service="loadType1ProductInProductDimension" mode="sync"/>
+        <action service="loadType1ProductInProductDimension" mode="async"/>
     </eca>
     <eca service="updateProduct" event="commit">
-        <action service="loadType2ProductInProductDimension" mode="sync"/>
+        <action service="loadType2ProductInProductDimension" mode="async"/>
     </eca>
 </service-eca>
