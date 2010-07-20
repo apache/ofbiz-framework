@@ -127,7 +127,7 @@ public class WebToolsServices {
         // #############################
         // The filename to parse is prepared
         // #############################
-        if (UtilValidate.isNotEmpty(filename)) {
+        if (UtilValidate.isNotEmpty(fmfilename) && UtilValidate.isNotEmpty(filename)) {
             try {
                 url = isUrl?FlexibleLocation.resolveLocation(filename):UtilURL.fromFilename(filename);
                 InputStream is = url.openStream();
@@ -144,7 +144,7 @@ public class WebToolsServices {
         // #############################
         // The text to parse is prepared
         // #############################
-        if (UtilValidate.isNotEmpty(fulltext)) {
+        if (UtilValidate.isNotEmpty(fmfilename) && UtilValidate.isNotEmpty(fulltext)) {
             StringReader sr = new StringReader(fulltext);
             ins = new InputSource(sr);
         }
