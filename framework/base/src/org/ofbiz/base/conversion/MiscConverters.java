@@ -137,7 +137,7 @@ public class MiscConverters implements ConverterLoader {
         }
     }
 
-    public static class EnumToString extends AbstractConverter<Enum, String> {
+    public static class EnumToString extends AbstractConverter<Enum<?>, String> {
         public EnumToString() {
             super(Enum.class, String.class);
         }
@@ -146,34 +146,30 @@ public class MiscConverters implements ConverterLoader {
             return Enum.class.isAssignableFrom(sourceClass) && String.class.isAssignableFrom(targetClass);
         }
 
-        public String convert(Enum obj) throws ConversionException {
+        public String convert(Enum<?> obj) throws ConversionException {
             return obj.name();
         }
 
-        public String convert(Class<? extends String> targetClass, Enum obj) throws ConversionException {
+        public String convert(Class<? extends String> targetClass, Enum<?> obj) throws ConversionException {
             return convert(obj);
         }
 
-        public Class<? super Enum> getSourceClass() {
+        public Class<? super Enum<?>> getSourceClass() {
             return null;
         }
     }
 
-    public static class StringToEnumConverterCreator implements ConverterCreator, ConverterLoader {
+    public static class StringToEnumConverterCreator<E extends Enum<E>> implements ConverterCreator, ConverterLoader {
         public void loadConverters() {
             Converters.registerCreator(this);
         }
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
             if (String.class == sourceClass && Enum.class.isAssignableFrom(targetClass)) {
-                return UtilGenerics.cast(new StringToEnum());
+                return UtilGenerics.cast(new StringToEnum<E>());
             } else {
                 return null;
             }
-        }
-
-        private <E extends Enum<E>> StringToEnum<E> createConverter(Class<Enum<E>> targetClass) {
-            return new StringToEnum<E>();
         }
     }
 
@@ -194,7 +190,7 @@ public class MiscConverters implements ConverterLoader {
             return Enum.valueOf(UtilGenerics.<Class<E>>cast(targetClass), obj);
         }
 
-        public Class<? super Enum> getTargetClass() {
+        public Class<? super Enum<?>> getTargetClass() {
             return null;
         }
     }
