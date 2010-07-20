@@ -2344,7 +2344,7 @@ under the License.
       <alias entity-alias="PTY" name="partyId"/>
       <alias entity-alias="PTY" name="partyTypeId"/>
       <alias entity-alias="PTY" name="description"/>
-      <alias entity-alias="PTY" name="statusId"/>
+      <alias entity-alias="PTY" name="partyStatusId" field="statusId"/>
       <alias entity-alias="PER" name="firstName"/>
       <alias entity-alias="PER" name="middleName"/>
       <alias entity-alias="PER" name="lastName"/>
