@@ -18,11 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
-import java.util.List;
-import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 /** Boolean Converter classes. */
 public class BooleanConverters implements ConverterLoader {

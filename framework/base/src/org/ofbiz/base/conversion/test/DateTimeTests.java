@@ -22,7 +22,6 @@ import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.DateTimeConverters;
 import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.test.GenericTestCaseBase;
-import org.ofbiz.base.util.UtilGenerics;
 
 @SourceMonitored
 public class DateTimeTests extends GenericTestCaseBase {

@@ -29,7 +29,6 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilValidate;
 
 /** Collection Converter classes. */
 public class CollectionConverters implements ConverterLoader {
