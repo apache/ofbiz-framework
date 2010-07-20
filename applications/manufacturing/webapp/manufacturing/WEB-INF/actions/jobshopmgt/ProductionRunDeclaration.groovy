@@ -152,7 +152,8 @@ if (productionRunId) {
                   !issueTaskId &&
                   !completeTaskId &&
                   ("PRUN_CREATED".equals(task.currentStatusId) ||
-                   "PRUN_SCHEDULED".equals(task.currentStatusId))) {
+                   "PRUN_SCHEDULED".equals(task.currentStatusId) ||
+                   "PRUN_DOC_PRINTED".equals(task.currentStatusId))) {
                 startTaskId = task.workEffortId;
             }
         }
