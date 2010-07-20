@@ -1214,6 +1214,7 @@
     </property>
     <property key="FormFieldTitle_requirePasswordChange">
         <value xml:lang="en">Require Password Change</value>
+        <value xml:lang="fr">Changement mot de passe obligatoire</value>
         <value xml:lang="hi_IN">पासवर्ड परिवर्तित किया जाना चाहिए</value>
         <value xml:lang="it">Richiesto cambio password</value>
         <value xml:lang="pt_BR">Pedir alteração de senha</value>
