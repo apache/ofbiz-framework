@@ -110,7 +110,11 @@ public class OrderReadHelper {
             }
         }
         if (this.orderHeader == null) {
-            throw new IllegalArgumentException("Order header passed in is not valid for orderId [" + orderHeader.getString("orderId") + "]");
+            if (orderHeader == null) {
+                throw new IllegalArgumentException("Order header passed is null, or is otherwise invalid");
+            } else {
+                throw new IllegalArgumentException("Order header passed in is not valid for orderId [" + orderHeader.getString("orderId") + "]");
+            }
         }
     }
 
