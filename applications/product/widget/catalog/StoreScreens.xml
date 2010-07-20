@@ -314,6 +314,10 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ProductNewShipmentEstimate}">
+                                    <container style="button-bar">
+                                        <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpandAll}" style="buttontext expand-all" url-mode="plain"/>
+                                        <link target="javascript:expandAll(false);" text="${uiLabelMap.CommonCollapseAll}" style="buttontext collapse-all" url-mode="plain"/>
+                                    </container>
                                     <include-form name="AddShipmentCostEstimate" location="component://product/widget/catalog/ProductStoreForms.xml"/>
                                 </screenlet>
                             </widgets>
