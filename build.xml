@@ -555,6 +555,12 @@ under the License.
                 </fileset>
             </classpath>
         </taskdef>
+        <cobertura-merge datafile="runtime/logs/cobertura.dat">
+            <fileset dir="runtime/logs">
+                <include name="cobertura-base.dat"/>
+                <include name="cobertura-components.dat"/>
+            </fileset>
+        </cobertura-merge>
         <cobertura-report datafile="runtime/logs/cobertura.dat" destdir="runtime/logs/cobertura-report">
             <dirset dir=".">
                 <include name="*/*/src"/>
