@@ -539,7 +539,7 @@ public class StringUtil {
         } catch (EncodingException e) {
             // NOTE: using different log and user targeted error messages to allow the end-user message to be less technical
             Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) error for attribute named [" + valueName + "], String [" + value + "]: " + e.toString(), module);
-            errorMessageList.add("In field [" + valueName + "] found character espacing (mixed or double) that is not allowed or other format consistency error: " + e.toString());
+            errorMessageList.add("In field [" + valueName + "] found character escaping (mixed or double) that is not allowed or other format consistency error: " + e.toString());
         }
 
         // check for "<", ">"
