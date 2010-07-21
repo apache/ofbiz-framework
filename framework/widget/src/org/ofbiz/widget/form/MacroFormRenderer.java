@@ -493,6 +493,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         String className = "";
         String alert = "false";
         String name = "";
+        String event = modelFormField.getEvent();
+        String action = modelFormField.getAction(context);
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
             className = modelFormField.getWidgetStyle();
             if (modelFormField.shouldBeRed(context)) {
@@ -629,6 +631,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(value);
         sr.append("\" id=\"");
         sr.append(id);
+        sr.append("\" event=\"");
+        sr.append(event);
+        sr.append("\" action=\"");
+        sr.append(action);
         sr.append("\" dateType=\"");
         sr.append(dateTimeField.getType());
         sr.append("\" shortDateInput=");
