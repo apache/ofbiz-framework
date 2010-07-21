@@ -751,11 +751,13 @@ public class ModelMenuItem {
         public Map<String, String> getParameterMap(Map<String, Object> context) {
             Map<String, String> fullParameterMap = FastMap.newInstance();
 
-            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
-            if (addlParamMap != null) {
-                fullParameterMap.putAll(addlParamMap);
+            if (this.parametersMapAcsr != null) {
+                Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
+                if (addlParamMap != null) {
+                    fullParameterMap.putAll(addlParamMap);
+                }
             }
-            
+
             for (WidgetWorker.Parameter parameter: this.parameterList) {
                 fullParameterMap.put(parameter.getName(), parameter.getValue(context));
             }
