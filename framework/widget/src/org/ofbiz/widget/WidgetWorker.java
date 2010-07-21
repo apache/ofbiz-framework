@@ -29,6 +29,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -98,6 +99,22 @@ public class WidgetWorker {
             }
 
             for (Map.Entry<String, String> parameter: parameterMap.entrySet()) {
+                String parameterValue = null;
+                if (!(parameter.getValue() instanceof String)) {
+                    // it's probably a String[], just get the first value
+                    Object parameterObject = parameter.getValue();
+                    if (parameterObject instanceof String[]) {
+                        String[] parameterArray = (String[]) parameterObject;
+                        parameterValue = parameterArray[0];
+                        Debug.logInfo("Found String array value for parameter [" + parameter.getKey() + "], using first value: " + parameterValue, module);
+                    } else {
+                        // not a String, and not a String[], just use toString
+                        parameterValue = parameterObject.toString();
+                    }
+                } else {
+                    parameterValue = parameter.getValue();
+                }
+                
                 if (needsAmp) {
                     externalWriter.append("&amp;");
                 } else {
@@ -107,9 +124,9 @@ public class WidgetWorker {
                 externalWriter.append('=');
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
-                    externalWriter.append(simpleEncoder.encode(parameter.getValue()));
+                    externalWriter.append(simpleEncoder.encode(parameterValue));
                 } else {
-                    externalWriter.append(parameter.getValue());
+                    externalWriter.append(parameterValue);
                 }
             }
         } else {

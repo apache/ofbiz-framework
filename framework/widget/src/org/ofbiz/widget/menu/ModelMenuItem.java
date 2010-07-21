@@ -37,6 +37,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -622,6 +623,7 @@ public class ModelMenuItem {
         protected boolean secure = false;
         protected boolean encode = false;
         protected String linkType;
+        protected FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
         protected boolean requestConfirmation = false;
         protected FlexibleStringExpander confirmationMsgExdr;
@@ -645,6 +647,7 @@ public class ModelMenuItem {
             }
 
             this.linkType = linkElement.getAttribute("link-type");
+            this.parametersMapAcsr = FlexibleMapAccessor.getInstance(linkElement.getAttribute("parameters-map"));
             List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
             for (Element parameterElement: parameterElementList) {
                 this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
@@ -748,12 +751,10 @@ public class ModelMenuItem {
         public Map<String, String> getParameterMap(Map<String, Object> context) {
             Map<String, String> fullParameterMap = FastMap.newInstance();
 
-            /* leaving this here... may want to add it at some point like the hyperlink element:
             Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
             if (addlParamMap != null) {
                 fullParameterMap.putAll(addlParamMap);
             }
-            */
             
             for (WidgetWorker.Parameter parameter: this.parameterList) {
                 fullParameterMap.put(parameter.getName(), parameter.getValue(context));
