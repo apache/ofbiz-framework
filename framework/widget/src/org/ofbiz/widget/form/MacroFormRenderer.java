@@ -571,7 +571,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         // if we have an input method of time-dropdown, then render two
         // dropdowns
-        if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
+        if ("time-dropdown".equals(dateTimeField.getInputMethod()) && UtilValidate.isNotEmpty(value)) {
             className = modelFormField.getWidgetStyle();
             classString = (className != null ? className : "");
             isTwelveHour = "12".equals(dateTimeField.getClock());
