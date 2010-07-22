@@ -66,7 +66,11 @@ public class KeyStoreUtil {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
         File file = FileUtil.getFile(ks.createResourceHandler().getFullLocation());
         FileOutputStream out = new FileOutputStream(file);
-        store.store(out, ks.getPassword().toCharArray());
+        try {
+            store.store(out, ks.getPassword().toCharArray());
+        } finally {
+            out.close();
+        }
     }
 
     public static KeyStore getComponentKeyStore(String componentName, String keyStoreName) throws IOException, GeneralSecurityException, GenericConfigException {
@@ -83,7 +87,12 @@ public class KeyStoreUtil {
             throw new IOException("Invalid keystore type; null");
         }
         KeyStore ks = KeyStore.getInstance(type);
-        ks.load(url.openStream(), password.toCharArray());
+        InputStream in = url.openStream();
+        try {
+            ks.load(in, password.toCharArray());
+        } finally {
+            in.close();
+        }
         return ks;
     }
 
@@ -107,7 +116,12 @@ public class KeyStoreUtil {
         }
 
         if (keyFile.exists() && keyFile.canRead()) {
-            ks.load(new FileInputStream(keyFile), password.toCharArray());
+            InputStream in = new FileInputStream(keyFile);
+            try {
+                ks.load(in, password.toCharArray());
+            } finally {
+                in.close();
+            }
         } else {
             ks.load(null, "changeit".toCharArray());
         }
