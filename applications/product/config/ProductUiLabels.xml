@@ -727,7 +727,7 @@
         <value xml:lang="de">Vereinbarungsselement Seq. ID</value>
         <value xml:lang="en">Agreement Item Seq Id</value>
         <value xml:lang="es">Código de secuenca del ítem del acuerdo</value>
-        <value xml:lang="fr">Réf. séq. d'un point d'accord</value>
+        <value xml:lang="fr">Réf. séq. d'un point d'accord commercial</value>
         <value xml:lang="it">N.Seq. Riga Accordo</value>
         <value xml:lang="th">รหัสรายการหัวข้อสัญญา</value>
         <value xml:lang="zh">合同明细序号</value>
@@ -736,7 +736,7 @@
         <value xml:lang="de">Gang ID</value>
         <value xml:lang="en">Aisle Id</value>
         <value xml:lang="es">Código de pasillo</value>
-        <value xml:lang="fr">Réf. d'allée</value>
+        <value xml:lang="fr">Réf. d'allée du lieu de stockage</value>
         <value xml:lang="it">Corridoio</value>
         <value xml:lang="th">รหัสชั้นวางสินค้า</value>
         <value xml:lang="zh">巷道标识</value>
@@ -818,7 +818,7 @@
         <value xml:lang="de">Gebiet ID</value>
         <value xml:lang="en">Area Id</value>
         <value xml:lang="es">Código de área</value>
-        <value xml:lang="fr">Réf. de secteur</value>
+        <value xml:lang="fr">Réf. de secteur du lieu de stockage</value>
         <value xml:lang="it">Area</value>
         <value xml:lang="th">รหัสพื้นที่</value>
         <value xml:lang="zh">区域标识</value>
@@ -1124,7 +1124,7 @@
         <value xml:lang="de">Transportunternehmen ID</value>
         <value xml:lang="en">carrier Id</value>
         <value xml:lang="es">Código de transportista</value>
-        <value xml:lang="fr">Réf. transporteur</value>
+        <value xml:lang="fr">Réf. de transporteur</value>
         <value xml:lang="it">Corriere</value>
         <value xml:lang="ru">Код перевозчика</value>
         <value xml:lang="th">รหัสผู้ส่ง</value>
@@ -1134,7 +1134,7 @@
         <value xml:lang="de">Transportunternehmen Akteur ID</value>
         <value xml:lang="en">Carrier Party Id</value>
         <value xml:lang="es">Código de participante del transportista</value>
-        <value xml:lang="fr">Réf. de transporteur</value>
+        <value xml:lang="fr">Réf. de transporteur (acteur)</value>
         <value xml:lang="it">Corriere</value>
         <value xml:lang="nl">Vervoerder Id</value>
         <value xml:lang="ro">Cod Curier</value>
@@ -1202,7 +1202,7 @@
         <value xml:lang="de">Zeichensatz ID</value>
         <value xml:lang="en">Character Set Id</value>
         <value xml:lang="es">Código del conjunto de caracteres</value>
-        <value xml:lang="fr">Ensemble de caractères</value>
+        <value xml:lang="fr">Ensemble de caractères [Réf.]</value>
         <value xml:lang="it">Set di Caratteri</value>
         <value xml:lang="ro">Set de Caractere</value>
         <value xml:lang="ru">Код символьного набора</value>
@@ -1403,7 +1403,7 @@
         <value xml:lang="de">Kosten Einheit ID</value>
         <value xml:lang="en">Cost Uom Id</value>
         <value xml:lang="es">Unidad de medida del coste</value>
-        <value xml:lang="fr">Unité de mesure de coût</value>
+        <value xml:lang="fr">Unité de mesure de coût [Réf.]</value>
         <value xml:lang="it">Udm Costo</value>
         <value xml:lang="ro">Udm Cost</value>
         <value xml:lang="ru">Валюта</value>
@@ -1631,7 +1631,7 @@
         <value xml:lang="de">Digitales Produkt Hochladen Kategorie ID</value>
         <value xml:lang="en">Dig Prod Upload Category Id</value>
         <value xml:lang="es">Categoría de carga producto digital</value>
-        <value xml:lang="fr">Catégorie de téléchargement d'articles numériques</value>
+        <value xml:lang="fr">Catégorie de téléchargement d'articles numériques [Réf.]</value>
         <value xml:lang="it">Codice Categoria Caricamento Prodotti Digitali</value>
         <value xml:lang="ro">Cod Categoria Incarcare Produse Digitale</value>
         <value xml:lang="ru">Загружать цифр. продукты в категорию</value>
@@ -1749,7 +1749,7 @@
         <value xml:lang="de">Geo ID ausschliessen</value>
         <value xml:lang="en">Excl. Geo Id</value>
         <value xml:lang="es">Excl. lugar</value>
-        <value xml:lang="fr">Excl. lieu</value>
+        <value xml:lang="fr">Excl. lieu [Réf.]</value>
         <value xml:lang="it">Esc. Geo.</value>
         <value xml:lang="ru">Исключать территорию</value>
         <value xml:lang="th">แยกออกจากรหัสโครงสร้าง</value>
@@ -1819,7 +1819,7 @@
         <value xml:lang="de">Einrichtung ID</value>
         <value xml:lang="en">Facility Id</value>
         <value xml:lang="es">Código de almacén</value>
-        <value xml:lang="fr">Lieu de stockage</value>
+        <value xml:lang="fr">Lieu de stockage [Réf.]</value>
         <value xml:lang="it">Codice stabilimento</value>
         <value xml:lang="nl">Faciliteit Id</value>
         <value xml:lang="ro">Cod Compartiment</value>
@@ -2443,7 +2443,7 @@
         <value xml:lang="de">Maximale Lebensdauer Zeiteinheit ID</value>
         <value xml:lang="en">Max Life Time Uom Id</value>
         <value xml:lang="es">UDM tiempo de vida máximo</value>
-        <value xml:lang="fr">Unité de temps disponible</value>
+        <value xml:lang="fr">Unité de temps disponible [Réf.]</value>
         <value xml:lang="it">Udm Massimo Tempo di Vita</value>
         <value xml:lang="ru">Код времени для макс. вр. жизни</value>
         <value xml:lang="th">รหัสหน่วยวัดอายุการใช้งานมาก</value>
@@ -2483,7 +2483,7 @@
         <value xml:lang="de">Maximum Betrag Währungseinheit ID</value>
         <value xml:lang="en">Maximum Amount Uom Id</value>
         <value xml:lang="es">UDM Cantidad máxima</value>
-        <value xml:lang="fr">Unité de mesure de montant maxi</value>
+        <value xml:lang="fr">Unité de mesure de montant maxi [Réf.]</value>
         <value xml:lang="it">Udm Importo Massimo</value>
         <value xml:lang="ro">Udm Valoare Maxima</value>
         <value xml:lang="ru">Макс. сумма</value>
@@ -2713,7 +2713,7 @@
         <value xml:lang="de">Organisation Akteur ID übersteuern</value>
         <value xml:lang="en">Override Org Party Id</value>
         <value xml:lang="es">Reemplazar código de participante original</value>
-        <value xml:lang="fr">Remplacer la réf. org. d'acteur</value>
+        <value xml:lang="fr">Remplacer la réf. originelle d'acteur</value>
         <value xml:lang="it">Sostituisce Organizzazione</value>
         <value xml:lang="th">ยกเลิกรหัสกลุ่มองค์กร</value>
         <value xml:lang="zh">覆盖组织机构会员标识</value>
@@ -2751,7 +2751,7 @@
         <value xml:lang="de">Übergeordnete Einrichtung ID</value>
         <value xml:lang="en">Parent Facility Id</value>
         <value xml:lang="es">Código Almacén precursor</value>
-        <value xml:lang="fr">Lieu de stockage parent</value>
+        <value xml:lang="fr">Lieu de stockage parent [Réf.]</value>
         <value xml:lang="it">Stabilimento padre</value>
         <value xml:lang="zh">上级场所标识</value>
     </property>
@@ -2953,7 +2953,7 @@
         <value xml:lang="de">Produktkategorie ID</value>
         <value xml:lang="en">Product Category Id</value>
         <value xml:lang="es">Código Categoría de productos</value>
-        <value xml:lang="fr">Catégorie</value>
+        <value xml:lang="fr">Catégorie [Réf.]</value>
         <value xml:lang="it">Categoria Prodotto</value>
         <value xml:lang="ro">Categorie Produs</value>
         <value xml:lang="ru">Код категории продукта</value>
@@ -2997,7 +2997,7 @@
         <value xml:lang="de">Produktmerkmal Kategorie ID</value>
         <value xml:lang="en">Product Feature Category Id</value>
         <value xml:lang="es">Código Categoría de característica de producto</value>
-        <value xml:lang="fr">Catégorie de caractéristique d'article</value>
+        <value xml:lang="fr">Catégorie de caractéristique d'article [Réf.]</value>
         <value xml:lang="it">Categoria Caratteristica Prodotto</value>
         <value xml:lang="ro">Categorie Caracteristica Produs</value>
         <value xml:lang="ru">Код категории особенности</value>
@@ -3019,7 +3019,7 @@
         <value xml:lang="de">Interaktionstyp</value>
         <value xml:lang="en">Interaction Type</value>
         <value xml:lang="es">Código Tipo de interacción</value>
-        <value xml:lang="fr">Type d'interaction</value>
+        <value xml:lang="fr">Type d'interaction [Réf.]</value>
         <value xml:lang="it">Tipo di interazione</value>
         <value xml:lang="zh">交互类型</value>
     </property>
@@ -3167,7 +3167,7 @@
         <value xml:lang="de">Produkt Laden ID</value>
         <value xml:lang="en">Product Store Id</value>
         <value xml:lang="es">Código de tienda</value>
-        <value xml:lang="fr">Centre de profit</value>
+        <value xml:lang="fr">Centre de profit [Réf.]</value>
         <value xml:lang="it">Negozio</value>
         <value xml:lang="nl">Produkt Winkel Id</value>
         <value xml:lang="ro">Magazin</value>
@@ -3575,7 +3575,7 @@
         <value xml:lang="de">Aufzählung des Bedarfs</value>
         <value xml:lang="en">Requirement Method Enum Id</value>
         <value xml:lang="es">Tipo de método de requisito</value>
-        <value xml:lang="fr">Méthode retenue pour le réapprovisionnement</value>
+        <value xml:lang="fr">Méthode retenue pour le réapprovisionnement [Réf.]</value>
         <value xml:lang="it">Richiesta Scelta Tipo Metodo Fabbisogno</value>
         <value xml:lang="nl">Vereisten methodelijst ID</value>
         <value xml:lang="ro">Cerere Alegere Tip Metoda Necesar</value>
@@ -3599,7 +3599,7 @@
         <value xml:lang="de">Art der Auftragsreservierung</value>
         <value xml:lang="en">Reserve Order Enum Id</value>
         <value xml:lang="es">Orden de reserva</value>
-        <value xml:lang="fr">Ordre de réservation</value>
+        <value xml:lang="fr">Ordre de réservation [Réf.]</value>
         <value xml:lang="it">Scegli Tipo Riservamento Ordine</value>
         <value xml:lang="nl">Voorraadcirculatie methode ID</value>
         <value xml:lang="ro">Alege Tip Rezervare Comanda</value>
@@ -4102,7 +4102,7 @@
         <value xml:lang="de">Einheit ID</value>
         <value xml:lang="en">termUomId</value>
         <value xml:lang="es">Código Unidad de medida</value>
-        <value xml:lang="fr">Unité de mesure de temps/fréquence</value>
+        <value xml:lang="fr">Unité de mesure de temps/fréquence [Réf.]</value>
         <value xml:lang="it">Udm Termini</value>
         <value xml:lang="ro">Udm Termene</value>
         <value xml:lang="ru">Единицы измерения</value>
@@ -4296,7 +4296,7 @@
         <value xml:lang="de">Varianz Grund ID</value>
         <value xml:lang="en">Variance Reason Id</value>
         <value xml:lang="es">Código razón de variación</value>
-        <value xml:lang="fr">Motif de la variation</value>
+        <value xml:lang="fr">Motif de la variation [Réf.]</value>
         <value xml:lang="it">Motivazione Varianza</value>
         <value xml:lang="ro">Motivare Varianta</value>
         <value xml:lang="ru">Код причины разногласий</value>
@@ -7002,7 +7002,7 @@
         <value xml:lang="de">Akteur ID hinzufügen</value>
         <value xml:lang="en">Add Party Id</value>
         <value xml:lang="es">Añadir Código de Participante</value>
-        <value xml:lang="fr">Ajouter une identité d'acteur</value>
+        <value xml:lang="fr">Ajouter une réf. d'acteur</value>
         <value xml:lang="it">Aggiungi Codice Soggetto</value>
         <value xml:lang="ro">Adauga Cod Subiect</value>
         <value xml:lang="ru">Добавить код участника</value>
@@ -7494,7 +7494,7 @@
         <value xml:lang="de">Betrag Währungseinheit Typ ID</value>
         <value xml:lang="en">Amount Uom Type Id</value>
         <value xml:lang="es">Moneda del Importe</value>
-        <value xml:lang="fr">Type d'unité de mesure de montant</value>
+        <value xml:lang="fr">Type d'unité de mesure de montant [Réf.]</value>
         <value xml:lang="it">Udm Importo</value>
         <value xml:lang="ro">Udm Valoare</value>
         <value xml:lang="ru">Количество чего?</value>
@@ -8339,7 +8339,7 @@
         <value xml:lang="de">Katalog [ID]</value>
         <value xml:lang="en">Catalog [ID]</value>
         <value xml:lang="es">Catálogo [código]</value>
-        <value xml:lang="fr">Catalogue [réf]</value>
+        <value xml:lang="fr">Catalogue [Réf.]</value>
         <value xml:lang="it">Catalogo [Codice]</value>
         <value xml:lang="ro">Catalog [Cod]</value>
         <value xml:lang="ru">Каталог [Код]</value>
@@ -8497,7 +8497,7 @@
         <value xml:lang="de">Kategorie ID</value>
         <value xml:lang="en">Category ID</value>
         <value xml:lang="es">Código de Categoría</value>
-        <value xml:lang="fr">Catég.</value>
+        <value xml:lang="fr">Catég. [Réf.]</value>
         <value xml:lang="it">Codice Categoria</value>
         <value xml:lang="ro">Cod Categorie</value>
         <value xml:lang="ru">Категория</value>
@@ -8744,7 +8744,7 @@
         <value xml:lang="de">Untergeordnete Kategorie ID</value>
         <value xml:lang="en">Child Category ID</value>
         <value xml:lang="es">Código de Categoría Hija</value>
-        <value xml:lang="fr">Catégorie fille</value>
+        <value xml:lang="fr">Catégorie fille [Réf.]</value>
         <value xml:lang="it">Codice Categoria Figlia</value>
         <value xml:lang="ro">Cod Categorie Fica</value>
         <value xml:lang="ru">Код подчин. категории</value>
@@ -9147,7 +9147,7 @@
         <value xml:lang="de">Inhalt [ID]</value>
         <value xml:lang="en">Content [ID]</value>
         <value xml:lang="es">Contenido [CÓDIGO]</value>
-        <value xml:lang="fr">Contenu [réf]</value>
+        <value xml:lang="fr">Contenu [Réf.]</value>
         <value xml:lang="it">Contenuto [Codice]</value>
         <value xml:lang="ro">Continut [Cod]</value>
         <value xml:lang="ru">Контент [Код]</value>
@@ -9189,7 +9189,7 @@
         <value xml:lang="de">Einrichtung nicht gefunden mit der ID</value>
         <value xml:lang="en">Could Not Find Facility with ID</value>
         <value xml:lang="es">No se pudo encontrar Almacén con el Código</value>
-        <value xml:lang="fr">Impossible de trouver le lieu de stockage avec la référence</value>
+        <value xml:lang="fr">Impossible de trouver le lieu de stockage avec sa référence</value>
         <value xml:lang="it">Non Trovata Stabilimento con Codice</value>
         <value xml:lang="ro">Negasit Compartiment cu Cod</value>
         <value xml:lang="ru">Невозможно найти объект с кодом</value>
@@ -9853,7 +9853,7 @@
         <value xml:lang="de">Tiefe Einheit ID</value>
         <value xml:lang="en">Depth Uom Id</value>
         <value xml:lang="es">Código de la UDM de la profundidad</value>
-        <value xml:lang="fr">Unité de mesure de profondeur</value>
+        <value xml:lang="fr">Unité de mesure de profondeur [Réf.]</value>
         <value xml:lang="it">UdM Profondità</value>
         <value xml:lang="ro">UdM Profunzime </value>
         <value xml:lang="ru">Ед. изм. глубины</value>
@@ -10086,7 +10086,7 @@
         <value xml:lang="de">Katalog bearbeiten mit der Katalog ID</value>
         <value xml:lang="en">Edit Catalog with Catalog ID</value>
         <value xml:lang="es">Editar Catálogo con Código</value>
-        <value xml:lang="fr">Modification de catalogue avec sa référence</value>
+        <value xml:lang="fr">Modification de catalogue (saisir ou rechercher sa référence)</value>
         <value xml:lang="it">Aggiorna Catalogo con Codice Catalogo</value>
         <value xml:lang="nl">Wijzigen catalogus met [ID]</value>    
         <value xml:lang="ro">Actualizeaza Catalog cu Cod Catalog</value>
@@ -10110,7 +10110,7 @@
         <value xml:lang="de">Kategorie bearbeiten mit der Kategorie ID</value>
         <value xml:lang="en">Edit Category with Category ID</value>
         <value xml:lang="es">Editar Categoría con Código</value>
-        <value xml:lang="fr">Modification de la catégorie avec sa référence</value>
+        <value xml:lang="fr">Modification de la catégorie (saisir ou rechercher sa référence)</value>
         <value xml:lang="it">Aggiorna Categoria con Codice Categoria</value>
         <value xml:lang="nl">Wijzigen categorie met [ID]</value>    
         <value xml:lang="ro">Actualizeaza Categoria cu Cod Categorie</value>
@@ -10166,7 +10166,7 @@
         <value xml:lang="de">Merkmal bearbeiten mit der ID</value>
         <value xml:lang="en">Edit Feature with ID</value>
         <value xml:lang="es">Editar Característica con Código</value>
-        <value xml:lang="fr">Modification de caractéristique de réf:</value>
+        <value xml:lang="fr">Modification de la caractéristique de réf:</value>
         <value xml:lang="it">Aggiorna Caratteristica con Codice</value>
         <value xml:lang="ro">Actualizeaza Caracteristica cu Cod</value>
         <value xml:lang="ru">Редактировать особенность с кодом</value>
@@ -10229,7 +10229,7 @@
         <value xml:lang="de">Produkt bearbeiten mit der Produkt ID</value>
         <value xml:lang="en">Edit Product with Product ID</value>
         <value xml:lang="es">Editar Producto con Código</value>
-        <value xml:lang="fr">Modification de l'article de référence</value>
+        <value xml:lang="fr">Modification de l'article (saisir ou rechercher sa référence)</value>
         <value xml:lang="it">Aggiorna Prodotto con Codice Prodotto</value>
         <value xml:lang="nl">Wijzigen product met [ID]</value>    
         <value xml:lang="ro">Actualizeaza Produs cu Cod Produs</value>
@@ -10735,7 +10735,7 @@
         <value xml:lang="de">Einrichtung oder Container ID</value>
         <value xml:lang="en">Facility or Container ID</value>
         <value xml:lang="es">Almacén o Código del contenedor</value>
-        <value xml:lang="fr">Lieu de stockage ou réf. de contenant</value>
+        <value xml:lang="fr">Réf. de lieu de stockage ou de contenant</value>
         <value xml:lang="it">Stabilimento o Codice Contenitore</value>
         <value xml:lang="ro">Compartiment sau Cod Contenitor</value>
         <value xml:lang="ru">Объект или код контейнера</value>
@@ -10796,7 +10796,7 @@
         <value xml:lang="de">Einrichtungsgruppe ID</value>
         <value xml:lang="en">Facility Group ID</value>
         <value xml:lang="es">Código de grupo de Almacén</value>
-        <value xml:lang="fr">Groupe de lieux de stockage [réf]</value>
+        <value xml:lang="fr">Groupe de lieux de stockage [Réf.]</value>
         <value xml:lang="it">Codice Gruppo Stabilimento</value>
         <value xml:lang="ro">Cod Grup Compartiment</value>
         <value xml:lang="ru">Код группы объектов</value>
@@ -10873,7 +10873,7 @@
         <value xml:lang="de">Einrichtung ID</value>
         <value xml:lang="en">Facility ID</value>
         <value xml:lang="es">Código de Almacén</value>
-        <value xml:lang="fr">Réf. de lieux de stockage</value>
+        <value xml:lang="fr">Réf. de lieu de stockage</value>
         <value xml:lang="it">Codice Stabilimento</value>
         <value xml:lang="ro">Cod Compartiment</value>
         <value xml:lang="ru">Код объекта</value>
@@ -10945,7 +10945,7 @@
         <value xml:lang="de">Einrichtung Namen [ID]</value>
         <value xml:lang="en">Facility Name [ID]</value>
         <value xml:lang="es">Nombre del Almacén [CÓDIGO]</value>
-        <value xml:lang="fr">Nom du lieu de stockage [Réf]</value>
+        <value xml:lang="fr">Nom du lieu de stockage [Réf.]</value>
         <value xml:lang="it">Nome Stabilimento [Codice]</value>
         <value xml:lang="ro">Nume Compartiment [Cod]</value>
         <value xml:lang="ru">Название объекта [Код]</value>
@@ -10998,7 +10998,7 @@
         <value xml:lang="de">Einrichtungstyp ID</value>
         <value xml:lang="en">Facility Type ID</value>
         <value xml:lang="es">Código de tipo de Almacén</value>
-        <value xml:lang="fr">Type de lieu de stockage</value>
+        <value xml:lang="fr">Type de lieu de stockage [Réf.]</value>
         <value xml:lang="it">Tipo Stabilimento</value>
         <value xml:lang="ro">Tip Compartiment ID</value>
         <value xml:lang="ru">Код типа объектов</value>
@@ -15933,7 +15933,7 @@
         <value xml:lang="de">Preisregel Name [ID]</value>
         <value xml:lang="en">Price Rule Name [ID]</value>
         <value xml:lang="es">Nombre de la regla de precio [CÓDIGO]</value>
-        <value xml:lang="fr">Nom de la règle de prix [réf]</value>
+        <value xml:lang="fr">Nom de la règle de prix [Réf.]</value>
         <value xml:lang="it">Nome Regola Prezzo [Codice]</value>
         <value xml:lang="nl">Naam prijsregel [ID]</value>    
         <value xml:lang="ro">Nume Regula Pret [Cod]</value>
@@ -16690,7 +16690,7 @@
         <value xml:lang="de">Aktionsname [ID]</value>
         <value xml:lang="en">Promo Name [ID]</value>
         <value xml:lang="es">Nombre de la promoción [CÓDIGO]</value>
-        <value xml:lang="fr">Nom de la promotion [réf]</value>
+        <value xml:lang="fr">Nom de la promotion [Réf.]</value>
         <value xml:lang="it">Nome Promozione [Codice]</value>
         <value xml:lang="ro">Nume Promotie [Cod]</value>
         <value xml:lang="ru">Имя акции [Код]</value>
@@ -19702,7 +19702,7 @@
         <value xml:lang="de">Laden Namen [ID]</value>
         <value xml:lang="en">Store Name [ID]</value>
         <value xml:lang="es">Nombre de tienda [código]</value>
-        <value xml:lang="fr">Nom du centre de profit [réf]</value>
+        <value xml:lang="fr">Nom du centre de profit [Réf.]</value>
         <value xml:lang="it">Nome Negozio [Codice]</value>
         <value xml:lang="nl">Naam winkel [ID]</value>    
         <value xml:lang="ro">Nume Magazin [Cod]</value>
@@ -20091,7 +20091,7 @@
         <value xml:lang="de">Ziel Typ Enum [ID]</value>
         <value xml:lang="en">Target Type Enum [Id]</value>
         <value xml:lang="es">Enumeración del tipo de objetivo [CÓDIGO]</value>
-        <value xml:lang="fr">Type d'énumérateur cible [réf]</value>
+        <value xml:lang="fr">Type d'énumérateur cible [Réf.]</value>
         <value xml:lang="it">Tipo Destinazione</value>
         <value xml:lang="ro">Tip Destinatie</value>
         <value xml:lang="ru">Код типа назначения [Код]</value>
@@ -21205,7 +21205,7 @@
         <value xml:lang="de">Webseite [ID]</value>
         <value xml:lang="en">WebSite [ID]</value>
         <value xml:lang="es">Sitio web [CÓDIGO]</value>
-        <value xml:lang="fr">Site Web [réf]</value>
+        <value xml:lang="fr">Site Web [Réf.]</value>
         <value xml:lang="it">Sito Web [Codice]</value>
         <value xml:lang="ro">Sit Web [Cod]</value>
         <value xml:lang="ru">WebСайт [Код]</value>
