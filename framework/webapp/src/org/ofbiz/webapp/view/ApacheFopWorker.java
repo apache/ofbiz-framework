@@ -82,10 +82,10 @@ public class ApacheFopWorker {
                     String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path", ofbizHome + "/framework/webapp/config");
                     File userConfigFile = FileUtil.getFile(fopPath + "/fop.xconf");
                     fopFactory.setUserConfig(userConfigFile);
-                    String fopFontBaseUrl = fopFactory.getBaseURL();
+                    String fopFontBaseUrl = fopFactory.getFontBaseURL();
                     if (fopFontBaseUrl == null) {
                         fopFontBaseUrl = UtilProperties.getPropertyValue("fop.properties", "fop.font.base.url", "file:///" + ofbizHome + "/framework/webapp/config/");
-                        fopFactory.setBaseURL(fopFontBaseUrl);
+                        fopFactory.setFontBaseURL(fopFontBaseUrl);
                     }
                     Debug.logInfo("FOP-FontBaseURL: " + fopFontBaseUrl, module);
                 } catch (Exception e) {
