@@ -106,7 +106,8 @@ under the License.
                     <td width="15%">${uiLabelMap.ProductDefaultPrice}:</td>
                     <td>
                         <input type="hidden" name="defaultPrice" value="${requestParameters.defaultPrice?if_exists}"/>
-                        <div>&nbsp;${requestParameters.defaultPrice?default("&nbsp;")}</div>
+                        <input type="hidden" name="currencyUomId" value="${requestParameters.currencyUomId?if_exists}"/>
+                        <div>&nbsp;${requestParameters.defaultPrice?default("&nbsp;")}&nbsp;${requestParameters.currencyUomId?default("&nbsp;")}</div>
                     </td>
                 </tr>
                 <tr>
