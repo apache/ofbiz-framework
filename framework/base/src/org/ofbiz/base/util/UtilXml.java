@@ -855,6 +855,20 @@ public class UtilXml {
             return elementValue;
     }
 
+    /** Return a named attribute of a named child node or a default if null. */
+    public static String childElementAttribute(Element element, String childElementName, String attributeName, String defaultValue) {
+        if (element == null) return defaultValue;
+        // get the value of the first element with the given name
+        Element childElement = firstChildElement(element, childElementName);
+        String elementAttribute = elementAttribute(childElement, attributeName, defaultValue);
+
+        if (UtilValidate.isEmpty(elementAttribute))
+            return defaultValue;
+        else
+            return elementAttribute;
+    }
+
+
     /** Return the text (node value) of the first node under this, works best if normalized. */
     public static String elementValue(Element element) {
         if (element == null) return null;
