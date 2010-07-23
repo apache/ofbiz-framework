@@ -63,7 +63,18 @@ under the License.
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductDefaultPrice}:</td>
-                    <td><input type="text" name="defaultPrice" size="8"/></td>
+                    <td><input type="text" name="defaultPrice" size="8"/>
+                    <#assign findCurrenciesMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("uomTypeId", "CURRENCY_MEASURE")>
+                    <#assign currencies = delegator.findByAndCache('Uom', findCurrenciesMap) />
+                    <#if currencies?has_content && (currencies?size > 0)>
+                        <select name="currencyUomId">
+                            <option value=""></option>
+                            <#list currencies as currency>
+                                <option value="${currency.uomId}">${currency.get("description",locale)} [${currency.uomId}]</option>
+                            </#list>
+                        </select>
+                    </#if>
+                    </td>
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductAverageCost}:</td>
