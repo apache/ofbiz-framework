@@ -261,6 +261,11 @@ public class ServiceMultiEventHandler implements EventHandler {
                             }
                         }
 
+                        // make any composite parameter data (e.g., from a set of parameters {name_c_date, name_c_hour, name_c_minutes})
+                        if (value == null) {
+                            value = UtilHttp.makeParamValueFromComposite(request, paramName + curSuffix, locale);
+                        }
+
                         if (value == null) {
                             // still null, give up for this one
                             continue;

@@ -1312,6 +1312,9 @@ public class UtilHttp {
             int rowDelimiterIndex = (parameterName != null? parameterName.indexOf(UtilHttp.MULTI_ROW_DELIMITER): -1);
             if (rowDelimiterIndex > 0) {
                 String thisRowIndex = parameterName.substring(rowDelimiterIndex + rowDelimiterLength);
+                if (thisRowIndex.indexOf("_") > -1) {
+                    thisRowIndex = thisRowIndex.substring(0, thisRowIndex.indexOf("_"));
+                }
                 if (maxRowIndex.length() < thisRowIndex.length()) {
                     maxRowIndex = thisRowIndex;
                 } else if (maxRowIndex.length() == thisRowIndex.length() && maxRowIndex.compareTo(thisRowIndex) < 0) {
