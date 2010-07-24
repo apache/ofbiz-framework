@@ -102,6 +102,22 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
     }
 
+    private void executeMacro(Appendable writer, String macroName, Map<String, String> parameters) throws IOException {
+        StringBuilder sb = new StringBuilder("<@");
+        sb.append(macroName);
+        if (parameters != null) {
+            for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+                sb.append(' ');
+                sb.append(parameter.getKey());
+                sb.append("=\"");
+                sb.append(parameter.getValue().replaceAll("\"", "\\\\\""));
+                sb.append('"');
+            }
+        }
+        sb.append(" />");
+        executeMacro(writer, sb.toString());
+    }
+
     private Environment getEnvironment(Appendable writer) throws TemplateException, IOException {
         Environment environment = environments.get(writer);
         if (environment == null) {
