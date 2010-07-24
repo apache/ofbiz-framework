@@ -99,8 +99,8 @@ under the License.
       </description>
       <field name="calendarId" type="id-ne"></field>
       <field name="exceptionDateStartTime" type="date-time"></field>
-      <field name="exceptionCapacity" type="floating-point"></field>
-      <field name="usedCapacity" type="floating-point"></field>
+      <field name="exceptionCapacity" type="fixed-point"></field>
+      <field name="usedCapacity" type="fixed-point"></field>
       <field name="description" type="description"></field>
       <prim-key field="calendarId"/>
       <prim-key field="exceptionDateStartTime"/>
