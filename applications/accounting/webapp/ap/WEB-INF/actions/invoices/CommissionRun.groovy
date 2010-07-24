@@ -22,7 +22,6 @@ import org.ofbiz.entity.condition.EntityOperator;
 
 fromDate = parameters.fromDate;
 thruDate = parameters.thruDate;
-partyIds = parameters.partyIds;
 
 if (fromDate) {
     List invoiceCond = [];
@@ -33,8 +32,8 @@ if (fromDate) {
     if (thruDate) {
         invoiceCond.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)));
     }
-    if (partyIds) {
-        invoiceCond.add(EntityCondition.makeCondition("invoiceRolePartyId", EntityOperator.IN, partyIds));
+    if (context.salesRepPartyList) {
+        invoiceCond.add(EntityCondition.makeCondition("invoiceRolePartyId", EntityOperator.IN, context.salesRepPartyList));
     }
     invoiceList = delegator.findList("InvoiceAndRole", EntityCondition.makeCondition(invoiceCond, EntityOperator.AND), null, null, null, false);
 
