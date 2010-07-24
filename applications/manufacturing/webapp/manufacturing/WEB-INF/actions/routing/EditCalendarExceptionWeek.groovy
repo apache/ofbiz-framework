@@ -53,7 +53,7 @@ context.listCalendarExceptionWeekWrapper = listCalendarExceptionWeekWrapper;
 context.addCalendarExceptionWeekWrapper = addCalendarExceptionWeekWrapper;
 
 exceptionDateStart = parameters.exceptionDateStart ?: request.getAttribute("exceptionDateStart");
-exceptionDateStart = ObjectType.simpleTypeConvert(exceptionDateStart, "Timestamp", null, null);
+exceptionDateStart = ObjectType.simpleTypeConvert(exceptionDateStart, "java.sql.Date", null, null);
 
 if (exceptionDateStart) {
     calendarExceptionWeek = delegator.findByPrimaryKey("TechDataCalendarExcWeek", [calendarId : calendarId , exceptionDateStart : exceptionDateStart]);
