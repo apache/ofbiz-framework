@@ -76,8 +76,8 @@ function enableSubmitButton() {
 
 <#if invoices?has_content >
   <form name="listSalesInvoices" id="listSalesInvoices" method="post">
-    <#if parties?has_content>
-      <input type="hidden" name="partyIds" value="${parties?if_exists}"/>
+    <#if salesRepPartyList?has_content>
+      ${setRequestAttribute("partyIds", salesRepPartyList)}
     </#if>
     <div align="right">
       <select name="serviceName" id="serviceName" onchange="javascript:setServiceName(this);">

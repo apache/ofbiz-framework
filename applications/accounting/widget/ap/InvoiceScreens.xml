@@ -165,7 +165,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingFindSalesInvoicesForCommissionRun"/>
                 <set field="tabButtonItem" value="commissionRun"/>
-                <set field="parties" type="List" from-field="parameters.partyIds"/>
+                <set field="salesRepPartyList" type="List" from-field="parameters.partyIds"/>
                 <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/CommissionRun.groovy"/>
             </actions>
             <widgets>
