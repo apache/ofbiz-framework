@@ -186,7 +186,9 @@ under the License.
     <request-map uri="quickAddContact">
         <security https="true" auth="true"/>
         <event type="service" invoke="createContact"/>
-        <response name="success" type="request" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile">
+            <redirect-parameter name="partyId"/>
+        </response>
     </request-map>
 
     <!-- Forecast Requests -->
