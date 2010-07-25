@@ -2599,10 +2599,10 @@ under the License.
         <view-link entity-alias="PR" rel-entity-alias="RT">
             <key-map field-name="roleTypeId"/>
         </view-link>
-        <view-link entity-alias="PTY" rel-entity-alias="PCM">
+        <view-link entity-alias="PTY" rel-entity-alias="PCM" rel-optional="true">
             <key-map field-name="partyId"/>
         </view-link>
-        <view-link entity-alias="PCM" rel-entity-alias="CM">
+        <view-link entity-alias="PCM" rel-entity-alias="CM" rel-optional="true">
             <key-map field-name="contactMechId"/>
         </view-link>
         <view-link entity-alias="PCM" rel-entity-alias="PA" rel-optional="true">
