@@ -18,6 +18,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 <project name="Ant - Macros">
+ <condition property="antatleast171">
+  <antversion atleast="1.7.1"/>
+ </condition>
+ <fail unless="antatleast171" message="Please upgrade ant to at least 1.7.1"/>
+
  <dirname property="ofbiz.home.dir" file="${ant.file.Ant - Macros}"/>
  <macrodef name="iterate">
   <attribute name="filelist" default="subdirs"/>
