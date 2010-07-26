@@ -165,7 +165,7 @@ public class LabelManagerFactory {
     }
 
     public Set<String> getLocalesFound() {
-        return localesFound;
+        return new TreeSet<String>(localesFound);
     }
 
     public static Collection<LabelFile> getFilesFound() {
