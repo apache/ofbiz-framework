@@ -125,7 +125,7 @@
     </property>
     <property key="worldPayEvents.problemsGettingAuthenticationUser">
         <value xml:lang="en">Problems Getting Authentication User</value>
-        <value xml:lang="en">Problème sur l'authentification de l'utilisateur</value>
+        <value xml:lang="fr">Problème sur l'authentification de l'utilisateur</value>
         <value xml:lang="hi_IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema durante l'autenticazione utente</value>
     </property>
