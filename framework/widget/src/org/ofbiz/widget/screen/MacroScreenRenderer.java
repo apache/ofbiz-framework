@@ -216,33 +216,39 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
 
+        String targetWindow = link.getTargetWindow(context);
         String target = link.getTarget(context);
 
+        String uniqueItemName = link.getModelScreen().getName() + "_LF_" + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
 
         String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
+        String linkUrl = "";
         String actionUrl = "";
-        StringBuilder targetParameters = new StringBuilder();
+        StringBuilder parameters=new StringBuilder();
         if ("hidden-form".equals(linkType)) {
             StringBuilder sb = new StringBuilder();
             WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context),
                     link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
             actionUrl = sb.toString();
-            targetParameters.append("[");
+            parameters.append("[");
             for (Map.Entry<String, String> parameter: link.getParameterMap(context).entrySet()) {
-                if (targetParameters.length() >1) {
-                    targetParameters.append(",");
+                if (parameters.length() >1) {
+                    parameters.append(",");
                 }
-                targetParameters.append("{'name':'");
-                targetParameters.append(parameter.getKey());
-                targetParameters.append("'");
-                targetParameters.append(",'value':'");
-                targetParameters.append(parameter.getValue());
-                targetParameters.append("'}");
+                parameters.append("{'name':'");
+                parameters.append(parameter.getKey());
+                parameters.append("'");
+                parameters.append(",'value':'");
+                parameters.append(parameter.getValue());
+                parameters.append("'}");
             }
-            targetParameters.append("]");
+            parameters.append("]");
 
         }
-        String linkUrl = "";
+        String id = link.getId(context);
+        String style = link.getStyle(context);
+        String name = link.getName(context);
+        String text = link.getText(context);
         if (UtilValidate.isNotEmpty(target)) {
             if (!"hidden-form".equals(linkType)) {
                 StringBuilder sb = new StringBuilder();
@@ -258,24 +264,34 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             renderImage(sw, context, img);
             imgStr = sw.toString();
         }
-
-        Map<String, Object> parameters = FastMap.newInstance();
-        parameters.put("parameterList", targetParameters.toString());
-        parameters.put("targetWindow", link.getTargetWindow(context));
-        parameters.put("target", target);
-
-        String uniqueItemName = link.getModelScreen().getName() + "_LF_" + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
-        parameters.put("uniqueItemName", uniqueItemName);
-
-        parameters.put("linkType", linkType);
-        parameters.put("actionUrl", actionUrl);
-        parameters.put("id", link.getId(context));
-        parameters.put("style", link.getStyle(context));
-        parameters.put("name", link.getName(context));
-        parameters.put("linkUrl", linkUrl);
-        parameters.put("text", link.getText(context));
-        parameters.put("imgStr", imgStr);
-        executeMacro(writer, "renderLink", parameters);
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderLink ");
+        sr.append("parameterList=");
+        sr.append(parameters.length()==0?"\"\"":parameters.toString());
+        sr.append(" targetWindow=\"");
+        sr.append(targetWindow);
+        sr.append("\" target=\"");
+        sr.append(target);
+        sr.append("\" uniqueItemName=\"");
+        sr.append(uniqueItemName);
+        sr.append("\" linkType=\"");
+        sr.append(linkType);
+        sr.append("\" actionUrl=\"");
+        sr.append(actionUrl);
+        sr.append("\" id=\"");
+        sr.append(id);
+        sr.append("\" style=\"");
+        sr.append(style);
+        sr.append("\" name=\"");
+        sr.append(name);
+        sr.append("\" linkUrl=\"");
+        sr.append(linkUrl);
+        sr.append("\" text=\"");
+        sr.append(text);
+        sr.append("\" imgStr=\"");
+        sr.append(imgStr.replaceAll("\"", "\\\\\""));
+        sr.append("\" />");
+        executeMacro(writer, sr.toString());
     }
 
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
