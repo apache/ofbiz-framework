@@ -326,7 +326,13 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
                }
             }
            $('content-messages').addClassName('errorMessage');
-           $('content-messages' ).update(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
+           if (data._ERROR_MESSAGE_LIST_ != undefined && data._ERROR_MESSAGE_ != undefined) {
+              $('content-messages' ).update(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
+           } else if (data._ERROR_MESSAGE_LIST_ != undefined) {
+               $('content-messages' ).update(data._ERROR_MESSAGE_LIST_);
+           } else {
+               $('content-messages' ).update(data._ERROR_MESSAGE_);
+           }
            new Effect.Appear('content-messages',{duration: 0.5});
         }else {
             if($('content-messages')) {
