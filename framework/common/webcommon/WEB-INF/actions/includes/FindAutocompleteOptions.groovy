@@ -27,16 +27,21 @@ import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 
-def andExprs = [];
+def mainAndConds = [];
+def orExprs = [];
 def entityName = context.entityName;
 def searchFields = context.searchFields;
 def displayFields = context.displayFields ?: searchFields;
+
 def searchValueFieldName = parameters.searchValueField;
+def fieldValue = null;
 if (searchValueFieldName) fieldValue = parameters.get(searchValueFieldName);
+
 def searchType = context.searchType;
+def displayFieldsSet = null;
 
 if (searchFields && fieldValue) {
-    searchFieldsList = StringUtil.toList(searchFields);
+    def searchFieldsList = StringUtil.toList(searchFields);
     displayFieldsSet = StringUtil.toSet(displayFields);
     returnField = searchFieldsList[0]; //default to first element of searchFields
     displayFieldsSet.add(returnField); //add it to select fields, in case it is missing
@@ -51,10 +56,10 @@ if (searchFields && fieldValue) {
     }
     searchFieldsList.each { fieldName ->
         if ("EQUALS".equals(searchType)) {
-            andExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(returnField), EntityOperator.EQUALS, searchValue));    
+            orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(returnField), EntityOperator.EQUALS, searchValue));    
             return;//in case of EQUALS, we search only a match for the returned field
         } else {
-            andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
+            orExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));
         }        
     }
 }
@@ -67,17 +72,19 @@ def conditionFields = context.conditionFields;
 if (conditionFields) {
     // these fields are for additonal conditions, this is a Map of name/value pairs
     for (conditionFieldEntry in conditionFields.entrySet()) {
-        andExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, conditionFieldEntry.getValue()));    
+        mainAndConds.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, conditionFieldEntry.getValue()));    
     }
 }
 
-if (andExprs && entityName && displayFieldsSet) {
-    entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.OR);
+if (orExprs && entityName && displayFieldsSet) {
+    mainAndConds.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR));
 
-    //if there is an extra condition, add it to main condition
-    if (context.andCondition && context.andCondition  instanceof EntityCondition) {
-        entityConditionList = EntityCondition.makeCondition(context.andCondition, entityConditionList);
+    //if there is an extra condition, add it to main condition list
+    if (context.andCondition && context.andCondition instanceof EntityCondition) {
+        mainAndConds.add(context.andCondition);
     }
+    
+    def entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND);
 
     Integer autocompleterViewSize = Integer.valueOf(context.autocompleterViewSize ?: 10);
     EntityFindOptions findOptions = new EntityFindOptions();
