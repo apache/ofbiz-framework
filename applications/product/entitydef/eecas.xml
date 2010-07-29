@@ -29,6 +29,9 @@ under the License.
         <condition field-name="autoCreateKeywords" operator="not-equals" value="N"/>
         <action service="indexProductKeywords" mode="sync"/>
     </eca>
+    <eca entity="GoodIdentification" operation="create-store" event="return">
+        <action service="indexProductKeywords" mode="sync"/>
+    </eca>
     <eca entity="ProductAttribute" operation="create-store" event="return">
         <action service="indexProductKeywords" mode="sync"/>
     </eca>
