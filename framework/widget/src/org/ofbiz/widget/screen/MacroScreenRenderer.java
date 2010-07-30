@@ -345,7 +345,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
          Map<String, Object> parameters = FastMap.newInstance();
          parameters.put("editRequest", editRequest);
-         parameters.put("enableEditValue", enableEditValue);
+         parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
          executeMacro(writer, "renderContentBegin", parameters);
     }
