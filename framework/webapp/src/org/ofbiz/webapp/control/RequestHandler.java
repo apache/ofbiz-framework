@@ -274,23 +274,20 @@ public class RequestHandler {
             }
 
             // If its the first visit run the first visit events.
-            if (this.trackVisit(request) && session.getAttribute("visit") == null) {
+            if (this.trackVisit(request) && session.getAttribute("_FIRST_VISIT_EVENTS_") == null) {
                 if (Debug.infoOn())
                     Debug.logInfo("This is the first request in this visit." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                // This isn't an event because it is required to run. We do not want to make it optional.
-                GenericValue visit = VisitHandler.getVisit(session);
-                if (visit != null) {
-                    for (ConfigXMLReader.Event event: controllerConfig.getFirstVisitEventList().values()) {
-                        try {
-                            String returnString = this.runEvent(request, response, event, null, "firstvisit");
-                            if (returnString != null && !returnString.equalsIgnoreCase("success")) {
-                                throw new EventHandlerException("First-Visit event did not return 'success'.");
-                            } else if (returnString == null) {
-                                interruptRequest = true;
-                            }
-                        } catch (EventHandlerException e) {
-                            Debug.logError(e, module);
+                session.setAttribute("_FIRST_VISIT_EVENTS_", "complete");
+                for (ConfigXMLReader.Event event: controllerConfig.getFirstVisitEventList().values()) {
+                    try {
+                        String returnString = this.runEvent(request, response, event, null, "firstvisit");
+                        if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                            throw new EventHandlerException("First-Visit event did not return 'success'.");
+                        } else if (returnString == null) {
+                            interruptRequest = true;
                         }
+                    } catch (EventHandlerException e) {
+                        Debug.logError(e, module);
                     }
                 }
             }
