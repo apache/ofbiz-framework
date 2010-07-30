@@ -53,6 +53,7 @@ fi
 if [ -e "$DEFAULT" ]; then
 	. "$DEFAULT"
 fi
+umask $UMASK
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 
