@@ -44,12 +44,14 @@ public class Log extends MethodOperation {
 
     String levelStr;
     String message;
+    Object startLine;
     List<MethodString> methodStrings = null;
 
     public Log(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.message = element.getAttribute("message");
         this.levelStr = element.getAttribute("level");
+        this.startLine = element.getUserData("startLine");
 
         List<? extends Element> methodStringElements = UtilXml.childElementList(element);
         if (methodStringElements.size() > 0) {
@@ -97,6 +99,10 @@ public class Log extends MethodOperation {
         buf.append(methodLocation);
         buf.append("#");
         buf.append(this.simpleMethod.getMethodName());
+        if (this.startLine != null) {
+            buf.append(" line ");
+            buf.append(this.startLine);
+        }
         buf.append("] ");
 
         if (message != null) buf.append(message);
