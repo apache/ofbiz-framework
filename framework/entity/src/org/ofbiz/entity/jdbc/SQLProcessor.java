@@ -533,7 +533,7 @@ public class SQLProcessor {
      *
      * @throws SQLException
      */
-    public void setValue(JdbcValueHandler handler, Object field) throws SQLException {
+    public <T> void setValue(JdbcValueHandler<T> handler, T field) throws SQLException {
         handler.setValue(_ps, _ind, field);
         _ind++;
     }

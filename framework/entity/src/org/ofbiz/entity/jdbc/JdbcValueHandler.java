@@ -44,18 +44,18 @@ import org.ofbiz.base.util.Debug;
  * <code>PreparedStatement</code> and <code>ResultSet</code> objects.
  *
  */
-public abstract class JdbcValueHandler {
+public abstract class JdbcValueHandler<T> {
     public static final String module = JdbcValueHandler.class.getName();
-    private static final Map<String, JdbcValueHandler> JdbcValueHandlerMap = createJdbcValueHandlerMap();
+    private static final Map<String, JdbcValueHandler<?>> JdbcValueHandlerMap = createJdbcValueHandlerMap();
     private static final Map<String, Integer> SqlTypeMap = createSqlTypeMap();
 
-    private static Map<String, JdbcValueHandler> createJdbcValueHandlerMap() {
+    private static Map<String, JdbcValueHandler<?>> createJdbcValueHandlerMap() {
         /*
         This Map is used to select the correct JdbcValueHandler
         for the specified Java type. The JdbcValueHandler instances are
         initialized with the SQL type recommended by Sun/Oracle.
          */
-        Map<String, JdbcValueHandler> result = FastMap.newInstance();
+        Map<String, JdbcValueHandler<?>> result = FastMap.newInstance();
         // JDBC 1
         result.put("byte[]", new ByteArrayJdbcValueHandler(Types.LONGVARBINARY));
         result.put("java.lang.Boolean", new BooleanJdbcValueHandler(Types.BOOLEAN));
@@ -146,8 +146,8 @@ public abstract class JdbcValueHandler {
      * @param sqlType The SQL type specified in fieldtype*.xml
      * @return A <code>JdbcValueHandler</code> instance
      */
-    public static JdbcValueHandler getInstance(String javaType, String sqlType) {
-        JdbcValueHandler handler = JdbcValueHandlerMap.get(javaType);
+    public static JdbcValueHandler<?> getInstance(String javaType, String sqlType) {
+        JdbcValueHandler<?> handler = JdbcValueHandlerMap.get(javaType);
         if (handler != null) {
             String key = parseSqlType(sqlType);
             Integer sqlTypeInt = SqlTypeMap.get(key);
@@ -230,9 +230,9 @@ public abstract class JdbcValueHandler {
      * @param obj
      * @throws SQLException
      */
-    protected abstract void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException;
+    protected abstract void castAndSetValue(PreparedStatement ps, int parameterIndex, T obj) throws SQLException;
 
-    protected JdbcValueHandler create(int sqlType) {
+    protected JdbcValueHandler<T> create(int sqlType) {
         if (sqlType == this.getSqlType()) {
             return this;
         }
@@ -257,7 +257,7 @@ public abstract class JdbcValueHandler {
      * @return
      * @throws SQLException
      */
-    public abstract Object getValue(ResultSet rs, int columnIndex) throws SQLException;
+    public abstract T getValue(ResultSet rs, int columnIndex) throws SQLException;
 
     /**
      * Returns a new instance of the object - initialized with
@@ -265,7 +265,9 @@ public abstract class JdbcValueHandler {
      * @param sqlType
      * @return
      */
-    protected abstract JdbcValueHandler newInstance(int sqlType);
+    protected abstract JdbcValueHandler<T> newInstance(int sqlType);
+
+    public abstract Class<T> getJavaClass();
 
     /** Sets a value in a <code>PreparedStatement</code>. The
      * <code>obj</code> argument is converted to the correct data
@@ -276,7 +278,7 @@ public abstract class JdbcValueHandler {
      * @param obj
      * @throws SQLException
      */
-    public void setValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
+    public void setValue(PreparedStatement ps, int parameterIndex, T obj) throws SQLException {
         if (obj == null) {
             ps.setNull(parameterIndex, this.getSqlType());
             return;
@@ -287,20 +289,24 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.math.BigDecimal</code> JDBC value handler.
      */
-    protected static class BigDecimalJdbcValueHandler extends JdbcValueHandler {
+    protected static class BigDecimalJdbcValueHandler extends JdbcValueHandler<java.math.BigDecimal> {
         protected BigDecimalJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setBigDecimal(parameterIndex, (java.math.BigDecimal) obj);
+        public Class<java.math.BigDecimal> getJavaClass() {
+            return java.math.BigDecimal.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.math.BigDecimal obj) throws SQLException {
+            ps.setBigDecimal(parameterIndex, obj);
+        }
+        @Override
+        public java.math.BigDecimal getValue(ResultSet rs, int columnIndex) throws SQLException {
             return rs.getBigDecimal(columnIndex);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<java.math.BigDecimal> newInstance(int sqlType) {
             return new BigDecimalJdbcValueHandler(sqlType);
         }
     }
@@ -308,9 +314,13 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.sql.Blob</code> JDBC value handler.
      */
-    protected static class BlobJdbcValueHandler extends JdbcValueHandler {
+    protected static class BlobJdbcValueHandler extends JdbcValueHandler<Object> {
         protected BlobJdbcValueHandler(int jdbcType) {
             super(jdbcType);
+        }
+        @Override
+        public Class<Object> getJavaClass() {
+            return Object.class;
         }
         @Override
         protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
@@ -375,7 +385,7 @@ public abstract class JdbcValueHandler {
             return null;
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<Object> newInstance(int sqlType) {
             return new BlobJdbcValueHandler(sqlType);
         }
     }
@@ -383,21 +393,25 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.lang.Boolean</code> JDBC value handler.
      */
-    protected static class BooleanJdbcValueHandler extends JdbcValueHandler {
+    protected static class BooleanJdbcValueHandler extends JdbcValueHandler<Boolean> {
         protected BooleanJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setBoolean(parameterIndex, (Boolean) obj);
+        public Class<Boolean> getJavaClass() {
+            return Boolean.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Boolean obj) throws SQLException {
+            ps.setBoolean(parameterIndex, obj);
+        }
+        @Override
+        public Boolean getValue(ResultSet rs, int columnIndex) throws SQLException {
             boolean value = rs.getBoolean(columnIndex);
             return rs.wasNull() ? null : Boolean.valueOf(value);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<Boolean> newInstance(int sqlType) {
             return new BooleanJdbcValueHandler(sqlType);
         }
     }
@@ -405,21 +419,25 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>byte[]</code> JDBC value handler.
      */
-    protected static class ByteArrayJdbcValueHandler extends JdbcValueHandler {
+    protected static class ByteArrayJdbcValueHandler extends JdbcValueHandler<byte[]> {
         protected ByteArrayJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setBytes(parameterIndex, (byte[]) obj);
+        public Class<byte[]> getJavaClass() {
+            return byte[].class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, byte[] obj) throws SQLException {
+            ps.setBytes(parameterIndex, obj);
+        }
+        @Override
+        public byte[] getValue(ResultSet rs, int columnIndex) throws SQLException {
             byte[] value = rs.getBytes(columnIndex);
             return rs.wasNull() ? null : value;
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<byte[]> newInstance(int sqlType) {
             return new ByteArrayJdbcValueHandler(sqlType);
         }
     }
@@ -427,9 +445,13 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.sql.Clob</code> JDBC value handler.
      */
-    protected static class ClobJdbcValueHandler extends JdbcValueHandler {
+    protected static class ClobJdbcValueHandler extends JdbcValueHandler<Object> {
         protected ClobJdbcValueHandler(int jdbcType) {
             super(jdbcType);
+        }
+        @Override
+        public Class<Object> getJavaClass() {
+            return Object.class;
         }
         @Override
         protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
@@ -478,7 +500,7 @@ public abstract class JdbcValueHandler {
             }
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<Object> newInstance(int sqlType) {
             return new ClobJdbcValueHandler(sqlType);
         }
     }
@@ -486,20 +508,24 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.sql.Date</code> JDBC value handler.
      */
-    protected static class DateJdbcValueHandler extends JdbcValueHandler {
+    protected static class DateJdbcValueHandler extends JdbcValueHandler<java.sql.Date> {
         protected DateJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setDate(parameterIndex, (java.sql.Date) obj);
+        public Class<java.sql.Date> getJavaClass() {
+            return java.sql.Date.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.sql.Date obj) throws SQLException {
+            ps.setDate(parameterIndex, obj);
+        }
+        @Override
+        public java.sql.Date getValue(ResultSet rs, int columnIndex) throws SQLException {
             return rs.getDate(columnIndex);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<java.sql.Date> newInstance(int sqlType) {
             return new DateJdbcValueHandler(sqlType);
         }
     }
@@ -507,21 +533,25 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.lang.Double</code> JDBC value handler.
      */
-    protected static class DoubleJdbcValueHandler extends JdbcValueHandler {
+    protected static class DoubleJdbcValueHandler extends JdbcValueHandler<Double> {
         protected DoubleJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setDouble(parameterIndex, (Double) obj);
+        public Class<Double> getJavaClass() {
+            return Double.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Double obj) throws SQLException {
+            ps.setDouble(parameterIndex, obj);
+        }
+        @Override
+        public Double getValue(ResultSet rs, int columnIndex) throws SQLException {
             double value = rs.getDouble(columnIndex);
             return rs.wasNull() ? null : Double.valueOf(value);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<Double> newInstance(int sqlType) {
             return new DoubleJdbcValueHandler(sqlType);
         }
     }
@@ -529,21 +559,25 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.lang.Float</code> JDBC value handler.
      */
-    protected static class FloatJdbcValueHandler extends JdbcValueHandler {
+    protected static class FloatJdbcValueHandler extends JdbcValueHandler<Float> {
         protected FloatJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setFloat(parameterIndex, (Float) obj);
+        public Class<Float> getJavaClass() {
+            return Float.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Float obj) throws SQLException {
+            ps.setFloat(parameterIndex, obj);
+        }
+        @Override
+        public Float getValue(ResultSet rs, int columnIndex) throws SQLException {
             float value = rs.getFloat(columnIndex);
             return rs.wasNull() ? null : Float.valueOf(value);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<Float> newInstance(int sqlType) {
             return new FloatJdbcValueHandler(sqlType);
         }
     }
@@ -551,21 +585,25 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.lang.Integer</code> JDBC value handler.
      */
-    protected static class IntegerJdbcValueHandler extends JdbcValueHandler {
+    protected static class IntegerJdbcValueHandler extends JdbcValueHandler<Integer> {
         protected IntegerJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setInt(parameterIndex, (Integer) obj);
+        public Class<Integer> getJavaClass() {
+            return Integer.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Integer obj) throws SQLException {
+            ps.setInt(parameterIndex, obj);
+        }
+        @Override
+        public Integer getValue(ResultSet rs, int columnIndex) throws SQLException {
             int value = rs.getInt(columnIndex);
             return rs.wasNull() ? null : Integer.valueOf(value);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<Integer> newInstance(int sqlType) {
             return new IntegerJdbcValueHandler(sqlType);
         }
     }
@@ -573,21 +611,25 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.lang.Long</code> JDBC value handler.
      */
-    protected static class LongJdbcValueHandler extends JdbcValueHandler {
+    protected static class LongJdbcValueHandler extends JdbcValueHandler<Long> {
         protected LongJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setLong(parameterIndex, (Long) obj);
+        public Class<Long> getJavaClass() {
+            return Long.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Long obj) throws SQLException {
+            ps.setLong(parameterIndex, obj);
+        }
+        @Override
+        public Long getValue(ResultSet rs, int columnIndex) throws SQLException {
             long value = rs.getLong(columnIndex);
             return rs.wasNull() ? null : Long.valueOf(value);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<Long> newInstance(int sqlType) {
             return new LongJdbcValueHandler(sqlType);
         }
     }
@@ -595,9 +637,13 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.lang.Object</code> JDBC value handler.
      */
-    protected static class ObjectJdbcValueHandler extends JdbcValueHandler {
+    protected static class ObjectJdbcValueHandler extends JdbcValueHandler<Object> {
         protected ObjectJdbcValueHandler(int jdbcType) {
             super(jdbcType);
+        }
+        @Override
+        public Class<Object> getJavaClass() {
+            return Object.class;
         }
         @Override
         protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
@@ -630,7 +676,7 @@ public abstract class JdbcValueHandler {
             }
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<Object> newInstance(int sqlType) {
             return new ObjectJdbcValueHandler(sqlType);
         }
     }
@@ -638,21 +684,25 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.lang.Short</code> JDBC value handler.
      */
-    protected static class ShortJdbcValueHandler extends JdbcValueHandler {
+    protected static class ShortJdbcValueHandler extends JdbcValueHandler<Short> {
         protected ShortJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setShort(parameterIndex, (Short) obj);
+        public Class<Short> getJavaClass() {
+            return Short.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Short obj) throws SQLException {
+            ps.setShort(parameterIndex, obj);
+        }
+        @Override
+        public Short getValue(ResultSet rs, int columnIndex) throws SQLException {
             short value = rs.getShort(columnIndex);
             return rs.wasNull() ? null : Short.valueOf(value);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<Short> newInstance(int sqlType) {
             return new ShortJdbcValueHandler(sqlType);
         }
     }
@@ -660,20 +710,24 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.lang.String</code> JDBC value handler.
      */
-    protected static class StringJdbcValueHandler extends JdbcValueHandler {
+    protected static class StringJdbcValueHandler extends JdbcValueHandler<String> {
         protected StringJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setString(parameterIndex, (String) obj);
+        public Class<String> getJavaClass() {
+            return String.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, String obj) throws SQLException {
+            ps.setString(parameterIndex, obj);
+        }
+        @Override
+        public String getValue(ResultSet rs, int columnIndex) throws SQLException {
             return rs.getString(columnIndex);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<String> newInstance(int sqlType) {
             return new StringJdbcValueHandler(sqlType);
         }
     }
@@ -681,20 +735,24 @@ public abstract class JdbcValueHandler {
     /**
      * A <code>java.sql.Time</code> JDBC value handler.
      */
-    protected static class TimeJdbcValueHandler extends JdbcValueHandler {
+    protected static class TimeJdbcValueHandler extends JdbcValueHandler<java.sql.Time> {
         protected TimeJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setTime(parameterIndex, (java.sql.Time) obj);
+        public Class<java.sql.Time> getJavaClass() {
+            return java.sql.Time.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.sql.Time obj) throws SQLException {
+            ps.setTime(parameterIndex, obj);
+        }
+        @Override
+        public java.sql.Time getValue(ResultSet rs, int columnIndex) throws SQLException {
             return rs.getTime(columnIndex);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<java.sql.Time> newInstance(int sqlType) {
             return new TimeJdbcValueHandler(sqlType);
         }
     }
@@ -707,26 +765,30 @@ public abstract class JdbcValueHandler {
      * will be stored as JDBC timestamp escape format strings
      * (<code>yyyy-mm-dd hh:mm:ss.fffffffff</code>), referenced to UTC.</p> 
      */
-    protected static class TimestampJdbcValueHandler extends JdbcValueHandler {
+    protected static class TimestampJdbcValueHandler extends JdbcValueHandler<java.sql.Timestamp> {
         protected TimestampJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            ps.setTimestamp(parameterIndex, (java.sql.Timestamp) obj);
+        public Class<java.sql.Timestamp> getJavaClass() {
+            return java.sql.Timestamp.class;
         }
         @Override
-        public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.sql.Timestamp obj) throws SQLException {
+            ps.setTimestamp(parameterIndex, obj);
+        }
+        @Override
+        public java.sql.Timestamp getValue(ResultSet rs, int columnIndex) throws SQLException {
             return rs.getTimestamp(columnIndex);
         }
         @Override
-        protected JdbcValueHandler newInstance(int sqlType) {
+        protected JdbcValueHandler<java.sql.Timestamp> newInstance(int sqlType) {
             if (sqlType == Types.CHAR) {
                 return new TimestampJdbcValueHandler(sqlType) {
-                    protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-                        ps.setString(parameterIndex, ((java.sql.Timestamp) obj).toString());
+                    protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.sql.Timestamp obj) throws SQLException {
+                        ps.setString(parameterIndex, obj.toString());
                     }
-                    public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
+                    public java.sql.Timestamp getValue(ResultSet rs, int columnIndex) throws SQLException {
                         String str = rs.getString(columnIndex);
                         if (str == null) {
                             return null;
