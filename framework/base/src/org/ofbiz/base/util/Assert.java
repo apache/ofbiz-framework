@@ -20,9 +20,14 @@ package org.ofbiz.base.util;
 import java.util.Collection;
 import java.util.Map;
 
-/** Basic assertions.
+import org.ofbiz.base.lang.ThreadSafe;
+
+/** Basic assertions. The static methods in this class provide a convenient way
+ * to test method arguments. All of the methods in this class throw <code>
+ * IllegalArgumentException</code> if the method arguments are invalid.
  * 
  */
+@ThreadSafe
 public class Assert {
 
     /**
@@ -58,7 +63,7 @@ public class Assert {
     }
 
     /**
-     * Tests if an argument is not null and is an instance of a specified class.
+     * Tests if an argument is not null and is an instance of one of the specified classes.
      * <p><code>Assert.isInstanceOf("foo", foo, Foo.class, Bar.class, ...);</code></p>
      * 
      * @param argumentName
@@ -101,7 +106,7 @@ public class Assert {
     }
 
     /**
-     * Tests if an argument is not null and is not an instance of a specified class.
+     * Tests if an argument is not null and is not an instance of one of the specified classes.
      * <p><code>Assert.isNotInstanceOf("foo", foo, Foo.class, Bar.class, ...);</code></p>
      * 
      * @param argumentName
