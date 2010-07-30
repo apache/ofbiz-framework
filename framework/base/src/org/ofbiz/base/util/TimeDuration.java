@@ -19,12 +19,15 @@
 package org.ofbiz.base.util;
 
 import java.io.Serializable;
-import com.ibm.icu.util.Calendar;
 
 import org.ofbiz.base.lang.SourceMonitored;
+import org.ofbiz.base.lang.ThreadSafe;
+
+import com.ibm.icu.util.Calendar;
 
 /** An immutable representation of a period of time. */
 @SourceMonitored
+@ThreadSafe
 @SuppressWarnings("serial")
 public class TimeDuration implements Serializable, Comparable<TimeDuration> {
     /** A <code>TimeDuration</code> instance that represents a zero time duration. */
