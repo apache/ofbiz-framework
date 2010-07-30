@@ -182,10 +182,10 @@ under the License.
             </if-not-empty>
             <if-compare value="0" operator="not-equals" field="qtyForShipmentItem" type="BigDecimal">
                 <!-- add the qtyForShipmentItem to the shipmentItem -->
-                <set from-field="paremeters.quantity" field="originalQuantity"/>
-                <set from-field="qtyForShipmentItem" field="paremeters.quantity"/>
+                <set from-field="parameters.quantity" field="originalQuantity"/>
+                <set from-field="qtyForShipmentItem" field="parameters.quantity"/>
                 <call-simple-method method-name="findCreateIssueShipmentItem"/>
-                <set from-field="originalQuantity" field="paremeters.quantity"/>
+                <set from-field="originalQuantity" field="parameters.quantity"/>
             </if-compare>
         <else>
             <!-- decrement the orderShipment.quantity -->
