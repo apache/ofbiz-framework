@@ -762,6 +762,20 @@ under the License.
      </simple-method>
 
     <!-- OrderItemShipGroup -->
+    <simple-method method-name="createOrderItemShipGroup" short-description="Create OrderItemShipGroup">
+        <check-permission permission="ORDERMGR" action="_CREATE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderItemShipGroup"/>
+        </check-permission>
+        <check-errors/>
+        <make-value value-field="newEntity" entity-name="OrderItemShipGroup"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.shipGroupSeqId">
+            <make-next-seq-id value-field="newEntity" seq-field-name="shipGroupSeqId"/> <!-- this finds the next sub-sequence ID -->
+            <field-to-result field="newEntity.shipGroupSeqId" result-name="shipGroupSeqId"/>
+        </if-empty>
+        <create-value value-field="newEntity"/>
+    </simple-method>
     <simple-method method-name="updateOrderItemShipGroup" short-description="Update OrderItemShipGroup">
         <check-permission permission="ORDERMGR" action="_UPDATE">
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderItemShipGroup"/>
