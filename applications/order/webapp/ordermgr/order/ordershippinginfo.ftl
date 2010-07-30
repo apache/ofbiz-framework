@@ -171,6 +171,12 @@ under the License.
               <li><a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCancelAllItems}</a></li>
             -->
             <li><a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderEditItems}</a></li>
+            <li>
+            <form name="createOrderItemShipGroup" method="post" action="<@ofbizUrl>createOrderItemShipGroup</@ofbizUrl>">
+              <input type="hidden" name="orderId" value="${orderId}"/>
+            </form>
+            <a href="javascript:document.createOrderItemShipGroup.submit()" class="buttontext">${uiLabelMap.OrderCreateShipGroup}</a>
+            </li>
           </#if>
           <li><a href="<@ofbizUrl>loadCartFromOrder?${paramString}&amp;finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateAsNewOrder}</a></li>
           <#if orderHeader.statusId == "ORDER_COMPLETED">
@@ -203,7 +209,6 @@ under the License.
         <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
         <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId?if_exists}"/>
         <table class="basic-table" cellspacing='0'>
-            <#if shipGroup.contactMechId?has_content>
                 <tr>
                     <td align="right" valign="top" width="15%">
                         <span class="label">&nbsp;${uiLabelMap.OrderAddress}</span>
@@ -230,17 +235,15 @@ under the License.
                         </div>
                     </td>
                 </tr>
-                </#if>
 
                 <#-- the setting of shipping method is only supported for sales orders at this time -->
-                <#if orderHeader.orderTypeId == "SALES_ORDER" && shipGroup.shipmentMethodTypeId?has_content>
+                <#if orderHeader.orderTypeId == "SALES_ORDER">
                   <tr>
                     <td align="right" valign="top" width="15%">
                         <span class="label">&nbsp;<b>${uiLabelMap.CommonMethod}</b></span>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td valign="top" width="80%">
-                        <#if shipGroup.carrierPartyId?has_content || shipmentMethodType?has_content>
                         <div>
                             <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
                             <#-- passing the shipmentMethod value as the combination of two fields value
@@ -248,7 +251,11 @@ under the License.
                             "@" symbol.
                             -->
                             <select name="shipmentMethod">
+                                <#if shipGroup.shipmentMethodTypeId?has_content>
                                 <option value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId?if_exists}"><#if shipGroup.carrierPartyId != "_NA_">${shipGroup.carrierPartyId?if_exists}</#if>&nbsp;${shipmentMethodType.get("description",locale)?default("")}</option>
+                                <#else>
+                                <option value=""/>
+                                </#if>
                                 <#list productStoreShipmentMethList as productStoreShipmentMethod>
                                 <#assign shipmentMethodTypeAndParty = productStoreShipmentMethod.shipmentMethodTypeId + "@" + productStoreShipmentMethod.partyId>
                                 <#if productStoreShipmentMethod.partyId?has_content || productStoreShipmentMethod?has_content>
@@ -260,12 +267,11 @@ under the License.
                             <#if shipGroup.carrierPartyId != "_NA_">
                             ${shipGroup.carrierPartyId?if_exists}
                             </#if>
-                            ${shipmentMethodType.get("description",locale)?default("")}
+                            ${shipmentMethodType?if_exists.get("description",locale)?default("")}
                             </#if>
                         </div>
-                        </#if>
                     </td>
-                </tr>
+                  </tr>
                 </#if>
                 <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
                 <tr>
@@ -277,12 +283,12 @@ under the License.
                     </td>
                 </tr>
                 </#if>
-            <#if !shipGroup.contactMechId?has_content && !shipGroup.shipmentMethodTypeId?has_content>
-            <#assign noShipment = "true">
-            <tr>
-                <td colspan="3" align="center">${uiLabelMap.OrderNotShipped}</td>
-            </tr>
-            </#if>
+                <#if !shipGroup.contactMechId?has_content && !shipGroup.shipmentMethodTypeId?has_content>
+                <#assign noShipment = "true">
+                <tr>
+                    <td colspan="3" align="center">${uiLabelMap.OrderNotShipped}</td>
+                </tr>
+                </#if>
       </table>
       </form>
       <div id="newShippingAddressForm" class="popup" style="display: none;">

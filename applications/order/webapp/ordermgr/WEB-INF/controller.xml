@@ -1563,6 +1563,12 @@ under the License.
         <response name="success" type="view" value="ListOrderHeaders"/>
         <response name="error" type="view" value="ListOrderHeaders"/>
     </request-map>
+    <request-map uri="createOrderItemShipGroup">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createOrderItemShipGroup"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
     <request-map uri="updateOrderItemShipGroup">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateOrderItemShipGroup"/>

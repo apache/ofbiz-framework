@@ -3365,6 +3365,7 @@ public class OrderServices {
 
                 // set the item in the selected ship group
                 item.setShipBeforeDate(itemDesiredDeliveryDate);
+                cart.clearItemShipInfo(item);
                 cart.setItemShipGroupQty(item, item.getQuantity(), shipGroupIdx);
             }
         } catch (CartItemModifyException e) {

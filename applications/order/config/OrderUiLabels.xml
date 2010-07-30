@@ -2696,6 +2696,10 @@
         <value xml:lang="pt_BR">Criar envio de devolução</value>
         <value xml:lang="zh">创建退货运输</value>
     </property>
+    <property key="OrderCreateShipGroup">
+        <value xml:lang="en">Create New Ship Group</value>
+        <value xml:lang="it">Creare Nuovo Gruppo di Spedizione</value>
+    </property>
     <property key="OrderCreateShippingAddress">
         <value xml:lang="de">Neue Versandadresse erstellen</value>
         <value xml:lang="en">Create New Shipping Address</value>
