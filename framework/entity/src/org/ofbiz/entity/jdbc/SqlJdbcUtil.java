@@ -735,7 +735,7 @@ public class SqlJdbcUtil {
         setValue(sqlP, modelField, entity.getEntityName(), fieldValue, modelFieldTypeReader);
     }
 
-    public static void setValue(SQLProcessor sqlP, ModelField modelField, String entityName, Object fieldValue, ModelFieldTypeReader modelFieldTypeReader) throws GenericEntityException {
+    public static <T> void setValue(SQLProcessor sqlP, ModelField modelField, String entityName, Object fieldValue, ModelFieldTypeReader modelFieldTypeReader) throws GenericEntityException {
         ModelFieldType mft = modelFieldTypeReader.getModelFieldType(modelField.getType());
 
         if (mft == null) {
@@ -750,10 +750,10 @@ public class SqlJdbcUtil {
 
         // ----- Try out the new handler code -----
 
-        JdbcValueHandler handler = mft.getJdbcValueHandler();
+        JdbcValueHandler<T> handler = UtilGenerics.cast(mft.getJdbcValueHandler());
         if (handler != null) {
             try {
-                sqlP.setValue(handler, fieldValue);
+                sqlP.setValue(handler, handler.getJavaClass().cast(fieldValue));
                 return;
             } catch (SQLException e) {
                 throw new GenericDataSourceException("SQL Exception while setting value on field [" + modelField.getName() + "] of entity " + entityName + ": ", e);
