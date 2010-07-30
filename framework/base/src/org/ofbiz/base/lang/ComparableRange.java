@@ -20,6 +20,7 @@ package org.ofbiz.base.lang;
 
 /** An immutable range of values. */
 @SourceMonitored
+@ThreadSafe
 public class ComparableRange<T extends Comparable<T>> implements Range<T>, Comparable<ComparableRange<T>> {
 
     protected final T start;
@@ -71,7 +72,7 @@ public class ComparableRange<T extends Comparable<T>> implements Range<T>, Compa
             return true;
         }
         try {
-            ComparableRange that = (ComparableRange) obj;
+            ComparableRange<?> that = (ComparableRange<?>) obj;
             return this.start.equals(that.start()) && this.end.equals(that.end());
         } catch (Exception e) {}
         return false;
