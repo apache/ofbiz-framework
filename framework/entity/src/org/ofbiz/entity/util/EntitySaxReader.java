@@ -218,7 +218,19 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
             return 0;
         }
         Debug.logImportant("Beginning import from URL: " + location.toExternalForm(), module);
-        return this.parse(location.openStream(), location.toString());
+        InputStream is = null;
+        long numberRead = 0;
+        try {
+            is = location.openStream();
+            numberRead = this.parse(is, location.toString());
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch(Exception e) {}
+            }
+        }
+        return numberRead;
     }
 
     public long parse(InputStream is, String docDescription) throws SAXException, java.io.IOException {
