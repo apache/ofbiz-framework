@@ -521,7 +521,7 @@ public class UpsServices {
                     return ServiceUtil.returnError("Weight value not found for ShipmentRouteSegment with shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + ", and shipmentPackageSeqId " + shipmentPackage.getString("shipmentPackageSeqId"));
                 }
                 BigDecimal boxWeight = shipmentPackage.getBigDecimal("weight");
-                UtilXml.addChildElementValue(packageWeightElement, "Weight", UtilValidate.isNotEmpty(boxWeight) ? ""+boxWeight.intValue() : "", shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(packageWeightElement, "Weight", UtilValidate.isNotEmpty(boxWeight) ? ""+ boxWeight.setScale(0, boxWeight.ROUND_CEILING) : "", shipmentConfirmRequestDoc);
                 // Adding only when order is not an international order
                 if (!internationalServiceCodes.contains(carrierServiceCode)) {
                     Element referenceNumberElement = UtilXml.addChildElement(packageElement, "ReferenceNumber", shipmentConfirmRequestDoc);
