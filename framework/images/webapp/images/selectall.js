@@ -547,7 +547,7 @@ function expandAll(expanded) {
             groupbody=divs1[j];
           }
         }
-        if(groupbody.style.visible != expanded) {
+        if($(groupbody).visible() != expanded) {
           toggleCollapsiblePanel(links[0], groupbody.id, 'expand', 'collapse');
         }
       }
