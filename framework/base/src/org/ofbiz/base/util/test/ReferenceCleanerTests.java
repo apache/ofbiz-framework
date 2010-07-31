@@ -19,15 +19,13 @@
 package org.ofbiz.base.util.test;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Exchanger;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.TimeUnit;
 
-import org.ofbiz.base.util.ReferenceCleaner;
 import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.test.GenericTestCaseBase;
+import org.ofbiz.base.util.ReferenceCleaner;
 
 @SourceMonitored
 public class ReferenceCleanerTests extends GenericTestCaseBase {

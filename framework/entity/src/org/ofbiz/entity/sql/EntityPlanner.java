@@ -24,33 +24,23 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionValue;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
+import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAlias;
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasField;
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasMember;
-import org.ofbiz.entity.model.ModelKeyMap;
-
-import org.ofbiz.sql.BooleanCondition;
-import org.ofbiz.sql.Condition;
-import org.ofbiz.sql.ConditionList;
 import org.ofbiz.sql.ConstantValue;
 import org.ofbiz.sql.FieldAll;
 import org.ofbiz.sql.FieldDef;
 import org.ofbiz.sql.FieldValue;
 import org.ofbiz.sql.FunctionCall;
 import org.ofbiz.sql.Joined;
-import org.ofbiz.sql.Joiner;
 import org.ofbiz.sql.KeyMap;
 import org.ofbiz.sql.MathValue;
 import org.ofbiz.sql.NumberValue;
 import org.ofbiz.sql.OrderByItem;
 import org.ofbiz.sql.Planner;
-import org.ofbiz.sql.MathValue;
 import org.ofbiz.sql.Relation;
 import org.ofbiz.sql.SQLDelete;
 import org.ofbiz.sql.SQLInsert;

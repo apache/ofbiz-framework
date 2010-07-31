@@ -23,21 +23,18 @@ import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionValue;
+import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityOperator;
-
 import org.ofbiz.sql.BooleanCondition;
 import org.ofbiz.sql.Condition;
 import org.ofbiz.sql.ConditionList;
-import org.ofbiz.sql.ConditionPlan;
 import org.ofbiz.sql.ConditionPlanner;
 import org.ofbiz.sql.FieldValue;
 import org.ofbiz.sql.Joiner;
 import org.ofbiz.sql.NumberValue;
-import org.ofbiz.sql.ParameterizedConditionException;
 import org.ofbiz.sql.ParameterValue;
+import org.ofbiz.sql.ParameterizedConditionException;
 import org.ofbiz.sql.StringValue;
 import org.ofbiz.sql.Value;
 

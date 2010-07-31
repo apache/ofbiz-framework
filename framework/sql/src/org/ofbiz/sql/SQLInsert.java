@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilGenerics;
 
 public final class SQLInsert extends SQLStatement<SQLInsert> {
     private final TableName tableName;

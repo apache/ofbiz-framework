@@ -18,38 +18,19 @@
  *******************************************************************************/
 package org.ofbiz.common.olap;
 
-import java.nio.ByteBuffer;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
-import javax.mail.internet.MimeMessage;
-import javax.transaction.xa.XAException;
-
-import javolution.util.FastMap;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilDateTime;
-import static org.ofbiz.base.util.UtilGenerics.checkList;
-import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.ServiceXaWrapper;
-import org.ofbiz.service.mail.MimeMessageWrapper;
 
 /**
  * Common Services

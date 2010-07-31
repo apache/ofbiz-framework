@@ -19,7 +19,6 @@
 package org.ofbiz.base.json;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;

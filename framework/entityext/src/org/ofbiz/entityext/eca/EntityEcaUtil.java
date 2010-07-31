@@ -18,12 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.entityext.eca;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Collection;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -35,10 +32,10 @@ import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.EntityEcaReaderInfo;
-import org.ofbiz.entity.Delegator;
 import org.w3c.dom.Element;
 
 /**

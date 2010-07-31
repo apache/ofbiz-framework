@@ -25,13 +25,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javolution.lang.Reusable;
 import javolution.context.ObjectFactory;
+import javolution.lang.Reusable;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 
 

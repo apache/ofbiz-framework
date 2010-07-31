@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.entityext.eca;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javolution.util.FastList;

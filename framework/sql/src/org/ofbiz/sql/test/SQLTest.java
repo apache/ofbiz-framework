@@ -18,17 +18,11 @@
  */
 package org.ofbiz.sql.test;
 
-import java.net.URL;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
-import junit.framework.TestCase;
-
+import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.sql.BetweenCondition;
 import org.ofbiz.sql.BooleanCondition;
 import org.ofbiz.sql.Condition;
@@ -38,8 +32,8 @@ import org.ofbiz.sql.FieldAll;
 import org.ofbiz.sql.FieldDef;
 import org.ofbiz.sql.FieldValue;
 import org.ofbiz.sql.FunctionCall;
-import org.ofbiz.sql.InsertValues;
 import org.ofbiz.sql.InsertRow;
+import org.ofbiz.sql.InsertValues;
 import org.ofbiz.sql.Joined;
 import org.ofbiz.sql.Joiner;
 import org.ofbiz.sql.KeyMap;
@@ -50,19 +44,17 @@ import org.ofbiz.sql.OrderByItem;
 import org.ofbiz.sql.ParameterValue;
 import org.ofbiz.sql.Parser;
 import org.ofbiz.sql.Relation;
-import org.ofbiz.sql.SetField;
 import org.ofbiz.sql.SQLDelete;
 import org.ofbiz.sql.SQLInsert;
 import org.ofbiz.sql.SQLSelect;
 import org.ofbiz.sql.SQLStatement;
 import org.ofbiz.sql.SQLUpdate;
 import org.ofbiz.sql.SQLView;
+import org.ofbiz.sql.SetField;
 import org.ofbiz.sql.StringValue;
 import org.ofbiz.sql.Table;
 import org.ofbiz.sql.TableName;
 import org.ofbiz.sql.Value;
-
-import org.ofbiz.base.test.GenericTestCaseBase;
 
 public class SQLTest extends GenericTestCaseBase {
     public SQLTest(String name) {

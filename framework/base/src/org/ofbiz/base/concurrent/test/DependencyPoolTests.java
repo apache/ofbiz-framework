@@ -3,16 +3,12 @@ package org.ofbiz.base.concurrent.test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.ScheduledExecutorService;
 
 import org.ofbiz.base.concurrent.DependencyPool;
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.test.GenericTestCaseBase;
-import org.ofbiz.base.util.UtilMisc;
 
 @SourceMonitored
 public class DependencyPoolTests extends GenericTestCaseBase {

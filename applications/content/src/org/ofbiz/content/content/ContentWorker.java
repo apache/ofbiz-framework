@@ -60,7 +60,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 

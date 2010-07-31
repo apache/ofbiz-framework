@@ -19,14 +19,9 @@
 package org.ofbiz.entity.sql;
 
 import java.io.StringReader;
-import java.util.List;
 
-import org.ofbiz.entity.condition.EntityCondition;
-
-import org.ofbiz.sql.Parser;
 import org.ofbiz.sql.ParseException;
-import org.ofbiz.sql.SQLPlan;
-import org.ofbiz.sql.SQLStatement;
+import org.ofbiz.sql.Parser;
 
 public class SQLUtil {
     private static final EntityPlanner planner = new EntityPlanner();

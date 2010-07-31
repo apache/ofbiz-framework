@@ -26,7 +26,6 @@ import javolution.util.FastList;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;

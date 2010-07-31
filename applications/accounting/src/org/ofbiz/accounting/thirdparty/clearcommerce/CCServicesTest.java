@@ -19,27 +19,15 @@
 
 package org.ofbiz.accounting.thirdparty.clearcommerce;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.lang.Thread;
 import java.math.BigDecimal;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.testtools.OFBizTestCase;
 

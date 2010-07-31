@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.ofbiz.base.util.Debug;
+
 import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
@@ -48,7 +48,6 @@ import com.ebay.soap.eBLBaseComponents.ItemSpecificsEnabledCodeType;
 import com.ebay.soap.eBLBaseComponents.ListingDurationDefinitionType;
 import com.ebay.soap.eBLBaseComponents.ListingDurationDefinitionsType;
 import com.ebay.soap.eBLBaseComponents.ListingDurationReferenceType;
-import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.NameRecommendationType;
 import com.ebay.soap.eBLBaseComponents.RecommendationsType;
 import com.ebay.soap.eBLBaseComponents.SiteDefaultsType;

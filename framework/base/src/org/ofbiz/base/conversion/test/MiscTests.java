@@ -20,18 +20,15 @@ package org.ofbiz.base.conversion.test;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.ofbiz.base.concurrent.TTLObject;
 import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.ConverterLoader;
 import org.ofbiz.base.conversion.Converters;
