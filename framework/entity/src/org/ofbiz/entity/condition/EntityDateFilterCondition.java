@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import javolution.context.ObjectFactory;
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.Delegator;
@@ -132,5 +133,66 @@ public class EntityDateFilterCondition extends EntityCondition {
                 EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN_EQUAL_TO, moment)
            )
       );
+    }
+
+    /**
+     * Creates an EntityCondition representing a date range filter query to be used against 
+     * entities that themselves represent a date range.  When used the resulting entities 
+     * will meet at least one of the following criteria:
+     * - fromDate is equal to or after rangeStart but before rangeEnd
+     * - thruDate is equal to or after rangeStart but before rangeEnd
+     * - fromDate is null and thruDate is equal to or after rangeStart
+     * - thruDate is null and fromDate is before rangeEnd
+     * - fromDate is null and thruDate is null
+     * @param rangeStart
+     * @param rangeEnd
+     * @param fromDateName
+     * @param thruDateName
+     * @return
+     */
+    public static EntityCondition makeRangeCondition(Timestamp rangeStart, Timestamp rangeEnd, String fromDateName, String thruDateName) {
+        List<EntityCondition> criteria = FastList.newInstance();
+        // fromDate is equal to or after rangeStart but before rangeEnd
+        criteria.add(
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart),
+                        EntityOperator.AND,
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)
+                )
+        );
+        // thruDate is equal to or after rangeStart but before rangeEnd
+        criteria.add(
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart),
+                        EntityOperator.AND,
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.LESS_THAN, rangeEnd)
+                )
+        );
+        // fromDate is null and thruDate is equal to or after rangeStart
+        criteria.add(
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.EQUALS, null),
+                        EntityOperator.AND,
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart)
+                )
+        );
+        // thruDate is null and fromDate is before rangeEnd
+        criteria.add(
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.EQUALS, null),
+                        EntityOperator.AND,
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)
+                )
+        );
+        // fromDate is null and thruDate is null
+        criteria.add(
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.EQUALS, null),
+                        EntityOperator.AND,
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.EQUALS, null)
+                )
+        );
+        // require at least one of the above to be true
+        return EntityCondition.makeCondition(criteria, EntityOperator.OR);
     }
 }
