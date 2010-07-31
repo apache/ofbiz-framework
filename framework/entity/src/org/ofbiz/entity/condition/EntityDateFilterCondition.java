@@ -144,11 +144,12 @@ public class EntityDateFilterCondition extends EntityCondition {
      * - fromDate is null and thruDate is equal to or after rangeStart
      * - thruDate is null and fromDate is before rangeEnd
      * - fromDate is null and thruDate is null
-     * @param rangeStart
-     * @param rangeEnd
-     * @param fromDateName
-     * @param thruDateName
-     * @return
+     * 
+     * @param rangeStart    The start of the range to filter against
+     * @param rangeEnd      The end of the range to filter against
+     * @param fromDateName  The name of the field containing the entity's "fromDate"
+     * @param thruDateName  The name of the field containing the entity's "thruDate"
+     * @return EntityCondition representing the date range filter
      */
     public static EntityCondition makeRangeCondition(Timestamp rangeStart, Timestamp rangeEnd, String fromDateName, String thruDateName) {
         List<EntityCondition> criteria = FastList.newInstance();
