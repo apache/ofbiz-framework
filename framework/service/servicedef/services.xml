@@ -65,12 +65,25 @@ under the License.
     <!-- Service Engine Interfaces -->
     <service name="permissionInterface" engine="interface">
         <description>Interface to describe base parameters for Permission Services</description>
-        <attribute name="mainAction" type="String" mode="IN" optional="true"/>
-        <attribute name="resourceDescription" type="String" mode="IN" optional="true">
-            <!-- Note that this will be filled in either with what the user specifies in the service definition, or will default to the service name. -->
+        <attribute name="mainAction" type="String" mode="IN" optional="true">
+            <description>The action requiring permission. Must be one of ADMIN, CREATE, UPDATE, DELETE, VIEW.</description>
         </attribute>
-        <attribute name="hasPermission" type="Boolean" mode="OUT" optional="false"/>
-        <attribute name="failMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="primaryPermission" type="String" mode="IN" optional="true">
+            <description>The permission to check - typically the name of an application or entity.</description>
+        </attribute>
+        <attribute name="altPermission" type="String" mode="IN" optional="true">
+            <description>Optional alternate permission to check. If the primary permission check fails,
+            the alternate permission will be checked.</description>
+        </attribute>
+        <attribute name="resourceDescription" type="String" mode="IN" optional="true">
+            <description>The name of the resource being accessed - defaults to service name.</description>
+        </attribute>
+        <attribute name="hasPermission" type="Boolean" mode="OUT" optional="false">
+            <description>Contains true if the requested permission has been granted.</description>
+        </attribute>
+        <attribute name="failMessage" type="String" mode="OUT" optional="true">
+            <description>Contains an explanation if the permission was denied.</description>
+        </attribute>
     </service>
 
     <service name="authenticationInterface" engine="interface">
@@ -84,7 +97,7 @@ under the License.
     </service>
 
     <service name="serviceStreamInterface" engine="interface">
-        <description>Inteface to describe services call with streams</description>
+        <description>Interface to describe services call with streams</description>
         <attribute name="inputStream" type="java.io.InputStream" mode="IN"/>
         <attribute name="outputStream" type="java.io.OutputStream" mode="IN"/>
         <attribute name="contentType" type="String" mode="OUT"/>

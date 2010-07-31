@@ -421,6 +421,7 @@ if (selectedService) {
             curInParam.internal = curParam.internal ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse;
             curInParam.mode = curParam.mode;
             curInParam.name = curParam.name;
+            curInParam.description = curParam.description;
             curInParam.optional = curParam.optional ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse;
             curInParam.type = curParam.type;
             inParamsList.add(curInParam);
@@ -440,6 +441,7 @@ if (selectedService) {
             curOutParam.internal = curParam.internal ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse;
             curOutParam.mode = curParam.mode;
             curOutParam.name = curParam.name;
+            curOutParam.description = curParam.description;
             curOutParam.optional = curParam.optional ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse;
             curOutParam.type = curParam.type;
             outParamsList.add(curOutParam);
@@ -458,6 +460,7 @@ if (selectedService) {
                 curOvrPrm.internal = curParam.internal ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse;
                 curOvrPrm.mode = curParam.mode;
                 curOvrPrm.name = curParam.name;
+                curOvrParam.description = curParam.description;
                 curOvrPrm.optional = curParam.optional ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse;
                 curOvrPrm.type = curParam.type;
                 ovrPrmList.add(curOvrPrm);
