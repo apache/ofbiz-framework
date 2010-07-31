@@ -18,26 +18,21 @@
  *******************************************************************************/
 package org.ofbiz.base.util.cache.test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
+
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.cache.CacheListener;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.test.GenericTestCaseBase;
 
 public class UtilCacheTests extends GenericTestCaseBase implements Serializable {
     public static final String module = UtilCacheTests.class.getName();

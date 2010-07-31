@@ -19,8 +19,7 @@
 package org.ofbiz.base.util.test;
 
 import java.math.BigDecimal;
-import java.nio.CharBuffer;
-import java.nio.Buffer;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -29,21 +28,15 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
-import java.sql.Timestamp;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Attr;
 
 import org.ofbiz.base.lang.SourceMonitored;
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.TimeDuration;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.test.GenericTestCaseBase;
+import org.w3c.dom.Document;
 
 @SourceMonitored
 public class ObjectTypeTests extends GenericTestCaseBase {

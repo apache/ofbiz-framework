@@ -20,10 +20,10 @@ package org.ofbiz.widget;
 
 import java.io.Serializable;
 import java.util.Map;
-import org.w3c.dom.Element;
-import org.ofbiz.base.util.Debug;
+
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
+import org.w3c.dom.Element;
 
 /**
  * Widget Library - Widget model class. ModelWidget is a base class that is

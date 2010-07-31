@@ -21,25 +21,24 @@ package org.ofbiz.ebaystore;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Set;
-import java.util.Iterator;
-import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.ebay.EbayHelper;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -86,17 +85,12 @@ import com.ebay.soap.eBLBaseComponents.PictureDetailsType;
 import com.ebay.soap.eBLBaseComponents.ReturnPolicyType;
 import com.ebay.soap.eBLBaseComponents.ShipmentTrackingDetailsType;
 import com.ebay.soap.eBLBaseComponents.ShippingDetailsType;
-import com.ebay.soap.eBLBaseComponents.ShippingServiceCodeType;
+import com.ebay.soap.eBLBaseComponents.ShippingLocationDetailsType;
 import com.ebay.soap.eBLBaseComponents.ShippingServiceOptionsType;
 import com.ebay.soap.eBLBaseComponents.ShippingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
-import com.ebay.soap.eBLBaseComponents.ShippingLocationDetailsType;
 import com.ebay.soap.eBLBaseComponents.TradingRoleCodeType;
 import com.ebay.soap.eBLBaseComponents.VATDetailsType;
-
-import org.ofbiz.ebay.EbayHelper;
-
-import sun.net.www.content.text.Generic;
 
 public class EbayStoreHelper {
     private static final String configFileName = "ebayStore.properties";

@@ -21,14 +21,13 @@ package org.ofbiz.base.util.collections.test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.collections.GenericMap;
 import org.ofbiz.base.util.collections.GenericMapEntry;
 import org.ofbiz.base.util.collections.IteratorWrapper;
-import org.ofbiz.base.test.GenericTestCaseBase;
 
 public class GenericMapTest extends GenericTestCaseBase {
     public static class TestGenericMap<K, V> extends GenericMap<K, V> {

@@ -18,31 +18,30 @@
  *******************************************************************************/
 package org.ofbiz.accounting.thirdparty.gosoftware;
 
-import java.util.Map;
-import java.util.Properties;
-import java.util.List;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilNumber;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.entity.GenericValue;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.accounting.payment.PaymentGatewayServices;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 
 public class RitaServices {

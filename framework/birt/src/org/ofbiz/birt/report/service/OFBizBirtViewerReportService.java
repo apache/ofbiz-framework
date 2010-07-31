@@ -21,8 +21,6 @@ package org.ofbiz.birt.report.service;
 import java.io.File;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -51,9 +49,6 @@ import org.eclipse.birt.report.utility.ParameterAccessor;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.birt.container.BirtContainer;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 public class OFBizBirtViewerReportService extends BirtViewerReportService {
 

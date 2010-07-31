@@ -18,27 +18,15 @@
  */
 package org.ofbiz.ebaystore;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
-
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.ebay.EbayHelper;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.taglib.ServiceTag;
-import org.w3c.dom.Document;
 
 import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
-import com.ebay.sdk.SdkSoapException;
 import com.ebay.sdk.attributes.AttributesMaster;
 import com.ebay.sdk.attributes.AttributesXmlDownloader;
 import com.ebay.sdk.attributes.AttributesXslDownloader;
@@ -47,32 +35,22 @@ import com.ebay.sdk.attributes.model.IAttributesMaster;
 import com.ebay.sdk.attributes.model.IAttributesXmlProvider;
 import com.ebay.sdk.attributes.model.IAttributesXslProvider;
 import com.ebay.sdk.attributes.model.ICategoryCSProvider;
-import com.ebay.sdk.call.GetAttributesCSCall;
-import com.ebay.sdk.call.GetCategory2CSCall;
-import com.ebay.sdk.call.GetDescriptionTemplatesCall;
 import com.ebay.sdk.call.GetStoreCall;
 import com.ebay.sdk.helper.cache.CategoriesDownloader;
 import com.ebay.sdk.helper.cache.DetailsDownloader;
 import com.ebay.sdk.helper.cache.FeaturesDownloader;
-import com.ebay.sdk.util.eBayUtil;
 import com.ebay.soap.eBLBaseComponents.CategoryFeatureType;
 import com.ebay.soap.eBLBaseComponents.CategoryType;
-import com.ebay.soap.eBLBaseComponents.DescriptionTemplateType;
 import com.ebay.soap.eBLBaseComponents.FeatureDefinitionsType;
 import com.ebay.soap.eBLBaseComponents.GetCategoryFeaturesResponseType;
-import com.ebay.soap.eBLBaseComponents.GetDescriptionTemplatesRequestType;
-import com.ebay.soap.eBLBaseComponents.GetDescriptionTemplatesResponseType;
 import com.ebay.soap.eBLBaseComponents.GetStoreRequestType;
 import com.ebay.soap.eBLBaseComponents.GetStoreResponseType;
 import com.ebay.soap.eBLBaseComponents.GeteBayDetailsResponseType;
-import com.ebay.soap.eBLBaseComponents.ItemSpecificsEnabledCodeType;
-import com.ebay.soap.eBLBaseComponents.ItemSpecificsEnabledDefinitionType;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
 import com.ebay.soap.eBLBaseComponents.SiteDefaultsType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryArrayType;
 import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryType;
 import com.ebay.soap.eBLBaseComponents.StoreType;
-import com.ebay.soap.eBLBaseComponents.ThemeGroupType;
 
 public class EbayStoreSiteFacade {
     public static final String module = EbayStoreSiteFacade.class.getName();

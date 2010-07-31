@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.concurrent;
 
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
@@ -29,9 +27,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
-import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.lang.ObjectWrapper;
-import org.ofbiz.base.util.UtilIO;
+import org.ofbiz.base.lang.SourceMonitored;
 
 @SourceMonitored
 public abstract class TTLObject<T> implements ObjectWrapper<T> {

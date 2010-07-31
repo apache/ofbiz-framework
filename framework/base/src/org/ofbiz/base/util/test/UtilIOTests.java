@@ -26,7 +26,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Locale;
@@ -34,9 +33,9 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 import org.ofbiz.base.lang.SourceMonitored;
+import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.UtilIO;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.test.GenericTestCaseBase;
 
 @SourceMonitored
 public class UtilIOTests extends GenericTestCaseBase {

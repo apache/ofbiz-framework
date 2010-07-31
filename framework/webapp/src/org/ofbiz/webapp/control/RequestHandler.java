@@ -53,7 +53,6 @@ import org.ofbiz.webapp.event.EventFactory;
 import org.ofbiz.webapp.event.EventHandler;
 import org.ofbiz.webapp.event.EventHandlerException;
 import org.ofbiz.webapp.stats.ServerHitBin;
-import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.webapp.view.ViewFactory;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;

@@ -21,10 +21,7 @@ package org.ofbiz.base.util.collections;
 import java.util.Locale;
 import java.util.Map;
 
-import javolution.lang.Reusable;
 import javolution.context.ObjectFactory;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;

@@ -20,20 +20,18 @@ package org.ofbiz.widget.html;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.widget.menu.MenuStringRenderer;
-import org.ofbiz.widget.menu.ModelMenuItem;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-
+import org.ofbiz.widget.menu.MenuStringRenderer;
+import org.ofbiz.widget.menu.ModelMenuItem;
 import org.xml.sax.SAXException;
 
 /**

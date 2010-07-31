@@ -23,7 +23,6 @@ import java.util.concurrent.Future;
 
 import org.ofbiz.base.concurrent.TTLObject;
 import org.ofbiz.base.lang.SourceMonitored;
-import org.ofbiz.base.test.GenericTestCaseBase;
 
 @SourceMonitored
 public class AsyncTTLObjectTest extends TTLObjectTest {

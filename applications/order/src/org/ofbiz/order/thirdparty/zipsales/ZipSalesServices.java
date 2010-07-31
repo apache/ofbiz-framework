@@ -21,7 +21,6 @@ package org.ofbiz.order.thirdparty.zipsales;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

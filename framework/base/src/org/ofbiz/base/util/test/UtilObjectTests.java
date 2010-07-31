@@ -19,10 +19,9 @@
 package org.ofbiz.base.util.test;
 
 import java.io.ByteArrayInputStream;
-import java.io.Externalizable;
 import java.io.FilterInputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -31,10 +30,10 @@ import java.util.Set;
 
 import org.ofbiz.base.lang.Factory;
 import org.ofbiz.base.lang.SourceMonitored;
+import org.ofbiz.base.test.GenericTestCaseBase;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilObject;
-import org.ofbiz.base.test.GenericTestCaseBase;
 
 @SourceMonitored
 public class UtilObjectTests extends GenericTestCaseBase {

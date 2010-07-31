@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.util.cache;
 
-import java.util.concurrent.TimeUnit;
-
 import org.ofbiz.base.concurrent.ExecutionPool;
 
 public abstract class CacheLine<V> extends ExecutionPool.Pulse {

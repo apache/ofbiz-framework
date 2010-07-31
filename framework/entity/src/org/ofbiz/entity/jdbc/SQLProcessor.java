@@ -35,7 +35,6 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDataSourceException;
 import org.ofbiz.entity.GenericEntityException;

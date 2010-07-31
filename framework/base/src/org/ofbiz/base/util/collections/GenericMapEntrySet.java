@@ -19,7 +19,6 @@
 package org.ofbiz.base.util.collections;
 
 import java.util.Map;
-import java.util.Set;
 
 public abstract class GenericMapEntrySet<K, V, M extends GenericMap<K, V>> extends GenericMapSet<K, V, M, Map.Entry<K, V>> {
     public GenericMapEntrySet(M source) {

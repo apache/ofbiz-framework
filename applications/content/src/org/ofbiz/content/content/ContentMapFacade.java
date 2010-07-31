@@ -19,22 +19,12 @@
 
 package org.ofbiz.content.content;
 
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.website.WebSiteWorker;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.content.data.DataResourceWorker;
-
-import java.util.*;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +32,19 @@ import javax.servlet.http.HttpServletResponse;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.content.data.DataResourceWorker;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * ContentMapFacade

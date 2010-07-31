@@ -18,14 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.base.config;
 
-import java.util.Map;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * JNDIConfigUtil
