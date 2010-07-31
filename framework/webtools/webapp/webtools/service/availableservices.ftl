@@ -271,14 +271,21 @@ under the License.
     <#-- End if service has ECA's -->
 
     <#list selectedServiceMap.allParamsList?if_exists as paramList>
+      <style type="text/css">
+        .param-table tr td {
+          width: 12.5%;
+          vertical-align: top;
+        }
+      </style>
       <div class="screenlet">
         <div class="screenlet-title-bar">
           <h3>${paramList.title}</h3>
         </div>
         <#if paramList.paramList?exists && paramList.paramList?has_content>
-          <table class="basic-table" cellspacing='0'>
+          <table class="basic-table param-table" cellspacing='0'>
               <tr class="header-row">
                 <td>${uiLabelMap.WebtoolsParameterName}</td>
+                <td>${uiLabelMap.CommonDescription}</td>
                 <td>${uiLabelMap.WebtoolsOptional}</td>
                 <td>${uiLabelMap.CommonType}</td>
                 <#-- <td>Default Value</td> -->
@@ -290,6 +297,7 @@ under the License.
               <#list paramList.paramList as modelParam>
                 <tr>
                   <td>${modelParam.name?if_exists}</td>
+                  <td>${modelParam.description?if_exists}</td>
                   <td>${modelParam.optional?if_exists}</td>
                   <td>${modelParam.type?if_exists}</td>
                   <#-- <td>[${modelParam.defaultValue?if_exists}]</td> -->
