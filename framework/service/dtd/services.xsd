@@ -314,6 +314,7 @@ under the License.
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="type-validate"/>
+                <xs:element minOccurs="0" ref="description" />
             </xs:sequence>
             <xs:attributeGroup ref="attlist.attribute"/>
         </xs:complexType>

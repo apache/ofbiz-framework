@@ -43,6 +43,9 @@ public class ModelParam implements Serializable {
     /** Parameter name */
     public String name;
 
+    /** The description of this parameter */
+    public String description;
+
     /** Paramater type */
     public String type;
 
@@ -88,6 +91,7 @@ public class ModelParam implements Serializable {
 
     public ModelParam(ModelParam param) {
         this.name = param.name;
+        this.description = param.description;
         this.type = param.type;
         this.mode = param.mode;
         this.formLabel = param.formLabel;

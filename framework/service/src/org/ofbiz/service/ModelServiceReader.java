@@ -518,6 +518,7 @@ public class ModelServiceReader implements Serializable {
             ModelParam param = new ModelParam();
 
             param.name = UtilXml.checkEmpty(attribute.getAttribute("name")).intern();
+            param.description = getCDATADef(baseElement, "description");
             param.type = UtilXml.checkEmpty(attribute.getAttribute("type")).intern();
             param.mode = UtilXml.checkEmpty(attribute.getAttribute("mode")).intern();
             param.entityName = UtilXml.checkEmpty(attribute.getAttribute("entity-name")).intern();
