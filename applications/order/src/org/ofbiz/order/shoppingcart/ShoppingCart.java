@@ -1755,7 +1755,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Returns the Payment Method Ids */
-    public List getPaymentMethodIds() {
+    public List<String> getPaymentMethodIds() {
         List pmi = new LinkedList();
         Iterator i = paymentInfo.iterator();
         while (i.hasNext()) {
@@ -1768,7 +1768,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Returns the Payment Method Ids */
-    public List getPaymentMethodTypeIds() {
+    public List<String> getPaymentMethodTypeIds() {
         List pmt = FastList.newInstance();
         Iterator i = paymentInfo.iterator();
         while (i.hasNext()) {
@@ -1781,7 +1781,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Returns a list of PaymentMethod value objects selected in the cart */
-    public List getPaymentMethods() {
+    public List<GenericValue> getPaymentMethods() {
         List methods = FastList.newInstance();
         if (UtilValidate.isNotEmpty(paymentInfo)) {
             Iterator paymentMethodIdIter = getPaymentMethodIds().iterator();
@@ -1842,7 +1842,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return creditCards;
     }
 
-    public List getGiftCards() {
+    public List<GenericValue> getGiftCards() {
         List paymentMethods = this.getPaymentMethods();
         List giftCards = new LinkedList();
         if (paymentMethods != null) {
@@ -4007,7 +4007,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Returns a Map of cart values to pass to the storeOrder service */
-    public Map makeCartMap(LocalDispatcher dispatcher, boolean explodeItems) {
+    public Map<String, Object> makeCartMap(LocalDispatcher dispatcher, boolean explodeItems) {
         Map result = new HashMap();
 
         result.put("orderTypeId", this.getOrderType());
