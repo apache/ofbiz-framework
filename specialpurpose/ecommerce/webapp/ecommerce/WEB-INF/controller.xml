@@ -588,7 +588,7 @@ under the License.
     <request-map uri="checkoutoptions">
       <security https="true" auth="true"/>
       <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="setCheckOutPages"/>
-      <response name="shippingaddress" type="view" value="checkoutshippingaddress"/>
+      <response name="shippingaddress" type="view" value="checkoutshippingaddress" save-current-view="true"/>
       <response name="shippingoptions" type="request" value="setOrderCurrencyAgreementShipDates"/>
       <response name="payment" type="request" value="setPoNumber"/>
       <response name="confirm" type="request" value="calcShipping"/>
@@ -994,7 +994,7 @@ under the License.
     </request-map>
 
     <!-- ContactMech Requests -->
-    <request-map uri="editcontactmech"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech" save-last-view="true"/></request-map>
+    <request-map uri="editcontactmech"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech"/></request-map>
     <request-map uri="editcontactmechnosave"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech"/></request-map>
     <request-map uri="editcontactmechdone"><security https="true" auth="true"/><response name="success" type="view-last" value="editcontactmech"/></request-map>
 
