@@ -704,7 +704,6 @@ public class CheckOutHelper {
             party = this.delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsGettingPartyRecord", cart.getLocale()), module);
-            party = null;
         }
 
         // create order contact mechs for the email address(s)
