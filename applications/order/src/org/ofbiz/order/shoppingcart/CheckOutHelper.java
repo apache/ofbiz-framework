@@ -1444,12 +1444,12 @@ public class CheckOutHelper {
         return availableAccountBalance(billingAccountId, dispatcher);
     }
 
-    public Map<String, BigDecimal> makeBillingAccountMap(List paymentPrefs) {
+    public Map<String, BigDecimal> makeBillingAccountMap(List<GenericValue> paymentPrefs) {
         Map<String, BigDecimal> accountMap = new HashMap<String, BigDecimal>();
         if (paymentPrefs != null) {
-            Iterator i = accountMap.keySet().iterator();
+            Iterator<GenericValue> i = paymentPrefs.iterator();
             while (i.hasNext()) {
-                GenericValue pp = (GenericValue) i.next();
+                GenericValue pp = i.next();
                 if (pp.get("billingAccountId") != null) {
                     accountMap.put(pp.getString("billingAccountId"), pp.getBigDecimal("maxAmount"));
                 }
