@@ -1133,7 +1133,7 @@ public class CheckOutHelper {
         }
     }
 
-    public Map<String, Object> checkOrderBlacklist(GenericValue userLogin) {
+    public Map<String, Object> checkOrderBlackList() {
         if (cart == null) {
             return ServiceUtil.returnSuccess("success");
         }
@@ -1199,6 +1199,11 @@ public class CheckOutHelper {
         } else {
             return ServiceUtil.returnSuccess("success");
         }
+    }
+
+    @Deprecated
+    public Map<String, Object> checkOrderBlacklist(GenericValue userLogin) {
+        return checkOrderBlackList();
     }
 
     public Map<String, Object> failedBlacklistCheck(GenericValue userLogin, GenericValue productStore) {
