@@ -31,5 +31,5 @@ under the License.
 
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
 
-    <test-suite loader="main" location="testdef/webapptests.xml"/>
+<!--<test-suite loader="main" location="testdef/webapptests.xml"/>-->
 </ofbiz-component>
