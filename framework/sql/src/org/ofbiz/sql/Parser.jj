@@ -242,6 +242,24 @@ public Condition Condition(): {
     c=ConditionExpression() <EOF> { return c; }
 }
 
+public FieldAll parse_FieldAll(): {
+    FieldAll fieldAll;
+} {
+    fieldAll=FieldAll() <EOF> { return fieldAll; }
+}
+
+public FieldDef parse_FieldDef(): {
+    FieldDef fieldDef;
+} {
+    fieldDef=FieldDef() <EOF> { return fieldDef; }
+}
+
+public OrderByItem parse_OrderByItem(): {
+    OrderByItem item;
+} {
+    item=OrderByItem() <EOF> { return item; }
+}
+
 private SQLStatement Statement(): {
     SQLStatement statement;
 } {
