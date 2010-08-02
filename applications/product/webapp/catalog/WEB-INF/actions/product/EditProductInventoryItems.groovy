@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.common.CommonWorkers
 import org.ofbiz.entity.condition.*
+import org.ofbiz.entity.util.EntityTypeUtil
 import org.ofbiz.product.inventory.InventoryWorker
 
 if (product) {
-    boolean isMarketingPackage = CommonWorkers.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG");
+    boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG");
     context.isMarketingPackage = (isMarketingPackage? "true": "false");
     //If product is virtual gather summary data from variants
     if (product.isVirtual && "Y".equals(product.isVirtual)) {
