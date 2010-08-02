@@ -25,12 +25,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.test.GenericTestCaseBase;
+import org.ofbiz.sql.AggregateFunction;
 import org.ofbiz.sql.BetweenCondition;
 import org.ofbiz.sql.BooleanCondition;
 import org.ofbiz.sql.Condition;
 import org.ofbiz.sql.ConditionList;
 import org.ofbiz.sql.ConstantValue;
-import org.ofbiz.sql.CountFunction;
 import org.ofbiz.sql.FieldAll;
 import org.ofbiz.sql.FieldDef;
 import org.ofbiz.sql.FieldValue;
@@ -88,12 +88,12 @@ public class SQLTest extends GenericTestCaseBase {
                 GenericTestCaseBase.<String, FieldDef>map(
                     "roleTypeId", new FieldDef(new FieldValue("d", "roleTypeId"), null),
                     "roleDescription", new FieldDef(new FieldValue("d", "description"), "roleDescription"),
-                    "SUM",  new FieldDef(new FunctionCall("SUM", GenericTestCaseBase.<Value>list(new FieldValue("a", "partyId"))), null),
+                    "SUM",  new FieldDef(new AggregateFunction("SUM", false, new FieldValue("a", "partyId")), null),
                     "baz",  new FieldDef(new FunctionCall("FOO", GenericTestCaseBase.<Value>list(new FieldValue("a", "partyId"), new NumberValue<Integer>(Integer.valueOf(1)))), "baz"),
                     "one",  new FieldDef(new MathValue("||", list(new FieldValue("a", "partyId"), new StringValue("-"), new FieldValue("a", "partyTypeId"))), "one"),
-                    "cnt1", new FieldDef(new CountFunction(false, new FieldValue("a", "partyId")), "cnt1"),
-                    "cnt2", new FieldDef(new CountFunction(false, new FieldValue(null, "partyId")), "cnt2"),
-                    "cnt3", new FieldDef(new CountFunction(true, new FieldValue("a", "partyId")), "cnt3")
+                    "cnt1", new FieldDef(new AggregateFunction("COUNT", false, new FieldValue("a", "partyId")), "cnt1"),
+                    "cnt2", new FieldDef(new AggregateFunction("COUNT", false, new FieldValue(null, "partyId")), "cnt2"),
+                    "cnt3", new FieldDef(new AggregateFunction("COUNT", true, new FieldValue("a", "partyId")), "cnt3")
                 ),
                 new Table(
                     new TableName("Party", "a"),

@@ -28,7 +28,6 @@ import junit.framework.TestCase;
 
 import org.ofbiz.sql.ConstantValue;
 import org.ofbiz.sql.CountAllFunction;
-import org.ofbiz.sql.CountFunction;
 import org.ofbiz.sql.FieldValue;
 import org.ofbiz.sql.FunctionCall;
 import org.ofbiz.sql.MathValue;
