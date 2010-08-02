@@ -111,8 +111,6 @@ TOKEN: {
     | <INSERT: "INSERT">
     | <RELATION: "RELATION">
     | <EXCLUDE: "EXCLUDE">
-    | <UPPER: "UPPER">
-    | <LOWER: "LOWER">
     | <TYPE: "TYPE">
     | <TITLE: "TITLE">
     | <SET: "SET">
@@ -697,7 +695,7 @@ private List<OrderByItem> OrderByList(): {
 }
 
 public OrderByItem OrderByItem(): {
-    String functionName = null, fieldName = null;
+    ConstantValue value;
     OrderByItem.Order ordering = OrderByItem.Order.DEFAULT;
     OrderByItem.Nulls nulls = OrderByItem.Nulls.DEFAULT;
 } {
@@ -707,18 +705,9 @@ public OrderByItem OrderByItem(): {
                   <PLUS> { ordering = OrderByItem.Order.ASCENDING; }
                 | <MINUS> { ordering = OrderByItem.Order.DESCENDING; }
             )
-            (
-                  ( <UPPER> | <LOWER> ) { functionName = getToken(0).image; }
-                  <OPEN_PAREN> fieldName=NamePart() <CLOSE_PAREN>
-                | fieldName=NamePart()
-            )
+            value=ConstantValue()
           )
-        | (
-              ( <UPPER> | <LOWER> ) { functionName = getToken(0).image; }
-              <OPEN_PAREN> fieldName=NamePart() <CLOSE_PAREN>
-            | fieldName=NamePart()
-          )
-          (
+        | value=ConstantValue() (
               <DESC> { ordering = OrderByItem.Order.DESCENDING; }
             | <ASC> { ordering = OrderByItem.Order.ASCENDING; }
           )?
@@ -729,7 +718,7 @@ public OrderByItem OrderByItem(): {
             | <LAST> { nulls = OrderByItem.Nulls.LAST; }
         )
     )?
-    { return new OrderByItem(ordering, nulls, functionName, fieldName); }
+    { return new OrderByItem(ordering, nulls, value); }
 }
 
 private Integer Integer(): {
