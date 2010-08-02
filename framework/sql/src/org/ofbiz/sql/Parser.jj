@@ -134,6 +134,9 @@ TOKEN: {
     | <NOT: "NOT">
     | <NULL: "NULL">
     | <MAP: "MAP">
+    | <NULLS: "NULLS">
+    | <FIRST: "FIRST">
+    | <LAST: "LAST">
     | <START_DQUOTE: "\""> { pushState(IN_DQUOTE); }
     | <START_SQUOTE: "'"> { pushState(IN_SQUOTE); }
     | <INTEGER:
@@ -696,6 +699,7 @@ private List<OrderByItem> OrderByList(): {
 private OrderByItem OrderByItem(): {
     String functionName = null, fieldName = null;
     OrderByItem.Order ordering = OrderByItem.Order.DEFAULT;
+    OrderByItem.Nulls nulls = OrderByItem.Nulls.DEFAULT;
 } {
     (
           (
@@ -719,7 +723,13 @@ private OrderByItem OrderByItem(): {
             | <ASC> { ordering = OrderByItem.Order.ASCENDING; }
           )?
     )
-    { return new OrderByItem(ordering, functionName, fieldName); }
+    (
+        <NULLS> (
+              <FIRST> { nulls = OrderByItem.Nulls.FIRST; }
+            | <LAST> { nulls = OrderByItem.Nulls.LAST; }
+        )
+    )?
+    { return new OrderByItem(ordering, nulls, functionName, fieldName); }
 }
 
 private Integer Integer(): {

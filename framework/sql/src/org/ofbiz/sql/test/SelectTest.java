@@ -116,8 +116,9 @@ public class SelectTest extends GenericTestCaseBase {
         fieldDefTest("v5", v5, fv1, null, "partyId", v1, true);
     }
 
-    private static void orderByItemTest(String label, OrderByItem v, OrderByItem.Order order, String functionName, String fieldName, OrderByItem o, boolean matches) throws Exception {
+    private static void orderByItemTest(String label, OrderByItem v, OrderByItem.Order order, OrderByItem.Nulls nulls, String functionName, String fieldName, OrderByItem o, boolean matches) throws Exception {
         assertEquals(label + ":order", order, v.getOrder());
+        assertEquals(label + ":nulls", nulls, v.getNulls());
         assertEquals(label + ":function-name", functionName, v.getFunctionName());
         assertEquals(label + ":field-name", fieldName, v.getFieldName());
         assertEquals(label + ":parse", v, parser(v).parse_OrderByItem());
@@ -125,15 +126,17 @@ public class SelectTest extends GenericTestCaseBase {
     }
 
     public void testOrderByItem() throws Exception {
-        OrderByItem v1 = new OrderByItem(OrderByItem.Order.DEFAULT, null, "partyId");
-        orderByItemTest("v1", v1, OrderByItem.Order.DEFAULT, null, "partyId", null, false);
-        OrderByItem v2 = new OrderByItem(OrderByItem.Order.ASCENDING, null, "partyId");
-        orderByItemTest("v3", v2, OrderByItem.Order.ASCENDING, null, "partyId", v1, false);
-        OrderByItem v3 = new OrderByItem(OrderByItem.Order.DESCENDING, null, "partyId");
-        orderByItemTest("v2", v3, OrderByItem.Order.DESCENDING, null, "partyId", v1, false);
-        OrderByItem v4 = new OrderByItem(OrderByItem.Order.DEFAULT, "LOWER", "partyId");
-        orderByItemTest("v4", v4, OrderByItem.Order.DEFAULT, "LOWER", "partyId", v1, false);
-        OrderByItem v5 = new OrderByItem(OrderByItem.Order.DEFAULT, null, "firstName");
-        orderByItemTest("v5", v5, OrderByItem.Order.DEFAULT, null, "firstName", v1, false);
+        OrderByItem v1 = new OrderByItem(OrderByItem.Order.DEFAULT, OrderByItem.Nulls.DEFAULT, null, "partyId");
+        orderByItemTest("v1", v1, OrderByItem.Order.DEFAULT, OrderByItem.Nulls.DEFAULT, null, "partyId", null, false);
+        OrderByItem v2 = new OrderByItem(OrderByItem.Order.ASCENDING, OrderByItem.Nulls.FIRST, null, "partyId");
+        orderByItemTest("v3", v2, OrderByItem.Order.ASCENDING, OrderByItem.Nulls.FIRST, null, "partyId", v1, false);
+        OrderByItem v3 = new OrderByItem(OrderByItem.Order.DESCENDING, OrderByItem.Nulls.LAST, null, "partyId");
+        orderByItemTest("v2", v3, OrderByItem.Order.DESCENDING, OrderByItem.Nulls.LAST, null, "partyId", v1, false);
+        OrderByItem v4 = new OrderByItem(OrderByItem.Order.DEFAULT, OrderByItem.Nulls.DEFAULT, "LOWER", "partyId");
+        orderByItemTest("v4", v4, OrderByItem.Order.DEFAULT, OrderByItem.Nulls.DEFAULT, "LOWER", "partyId", v1, false);
+        OrderByItem v5 = new OrderByItem(OrderByItem.Order.DEFAULT, OrderByItem.Nulls.DEFAULT, null, "firstName");
+        orderByItemTest("v5", v5, OrderByItem.Order.DEFAULT, OrderByItem.Nulls.DEFAULT, null, "firstName", v1, false);
+        OrderByItem v6 = new OrderByItem(OrderByItem.Order.DEFAULT, OrderByItem.Nulls.LAST, null, "firstName");
+        orderByItemTest("v6", v6, OrderByItem.Order.DEFAULT, OrderByItem.Nulls.LAST, null, "firstName", v1, false);
     }
 }
