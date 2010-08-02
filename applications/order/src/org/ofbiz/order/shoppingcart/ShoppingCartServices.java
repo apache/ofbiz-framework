@@ -332,6 +332,7 @@ public class ShoppingCartServices {
             cartShipInfo.setFacilityId(orderItemShipGroup.getString("facilityId"));
             cartShipInfo.setVendorPartyId(orderItemShipGroup.getString("vendorPartyId"));
             cartShipInfo.setShipGroupSeqId(orderItemShipGroup.getString("shipGroupSeqId"));
+            cartShipInfo.shipTaxAdj.addAll(orh.getOrderHeaderAdjustmentsTax(orderItemShipGroup.getString("shipGroupSeqId")));
         }
 
         List<GenericValue> orderItems = orh.getValidOrderItems();
