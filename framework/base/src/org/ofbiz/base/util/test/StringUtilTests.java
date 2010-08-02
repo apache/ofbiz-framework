@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.base.util.test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -278,7 +280,24 @@ public class StringUtilTests extends GenericTestCaseBase {
         assertEquals("all converions", "one && two || three > four >= five < six <= seven", StringUtil.convertOperatorSubstitutions("one @and two @or three @gt four @gteq five @lt six @lteq seven"));
     }
 
+    private static void checkStringForHtmlStrictNone_test(String label, String fixed, String input, String... wantedMessages) {
+        List<String> gottenMessages = new ArrayList<String>();
+        assertEquals(label, fixed, StringUtil.checkStringForHtmlStrictNone(label, input, gottenMessages));
+        assertEquals(label, Arrays.asList(wantedMessages), gottenMessages);
+    }
+
     public void testCheckStringForHtmlStrictNone() {
+        checkStringForHtmlStrictNone_test("null pass-thru", null, null);
+        checkStringForHtmlStrictNone_test("empty pass-thru", "", "");
+        checkStringForHtmlStrictNone_test("o-numeric-encode", "foo", "f&#111;o");
+        checkStringForHtmlStrictNone_test("o-hex-encode", "foo", "f%6fo");
+        checkStringForHtmlStrictNone_test("o-double-hex-encode", "foo", "f%256fo");
+        checkStringForHtmlStrictNone_test("<-not-allowed", "f<oo", "f<oo", "In field [<-not-allowed] less-than (<) and greater-than (>) symbols are not allowed.");
+        checkStringForHtmlStrictNone_test(">-not-allowed", "f>oo", "f>oo", "In field [>-not-allowed] less-than (<) and greater-than (>) symbols are not allowed.");
+        checkStringForHtmlStrictNone_test("high-ascii", "fÀ®", "f%C0%AE");
+        // this looks like a bug, namely the extra trailing ;
+        checkStringForHtmlStrictNone_test("double-ampersand", "f\";oo", "f%26quot%3boo");
+        checkStringForHtmlStrictNone_test("double-encoding", "%2%353Cscript", "%2%353Cscript", "In field [double-encoding] found character escaping (mixed or double) that is not allowed or other format consistency error: org.owasp.esapi.errors.IntrusionException: Input validation failure");
     }
 
     public void testCheckStringForHtmlSafeOnly() {

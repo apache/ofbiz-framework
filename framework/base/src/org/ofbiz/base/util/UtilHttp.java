@@ -55,6 +55,7 @@ import javolution.util.FastMap;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.owasp.esapi.errors.EncodingException;
+import org.owasp.esapi.errors.IntrusionException;
 
 /**
  * HttpUtil - Misc HTTP Utility Functions
@@ -260,7 +261,7 @@ public class UtilHttp {
             String cannedStr = StringUtil.defaultWebEncoder.canonicalize(paramValue, StringUtil.esapiCanonicalizeStrict);
             if (Debug.verboseOn()) Debug.logVerbose("Canonicalized parameter with " + (cannedStr.equals(paramValue) ? "no " : "") + "change: original [" + paramValue + "] canned [" + cannedStr + "]", module);
             return cannedStr;
-        } catch (EncodingException e) {
+        } catch (IntrusionException e) {
             Debug.logError(e, "Error in canonicalize parameter value [" + paramValue + "]: " + e.toString(), module);
             return paramValue;
         }

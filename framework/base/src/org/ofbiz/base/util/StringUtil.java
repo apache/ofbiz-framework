@@ -46,7 +46,7 @@ import org.owasp.esapi.Validator;
 import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
 import org.owasp.esapi.codecs.PercentCodec;
-import org.owasp.esapi.errors.EncodingException;
+import org.owasp.esapi.errors.IntrusionException;
 import org.owasp.esapi.reference.DefaultEncoder;
 import org.owasp.esapi.reference.DefaultValidator;
 
@@ -62,7 +62,7 @@ public class StringUtil {
 
     /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
     public static final boolean esapiCanonicalizeStrict = false;
-    public static final Encoder defaultWebEncoder;
+    public static final DefaultEncoder defaultWebEncoder;
     public static final Validator defaultWebValidator;
     static {
         // possible codecs: CSSCodec, HTMLEntityCodec, JavaScriptCodec, MySQLCodec, OracleCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec
@@ -540,7 +540,7 @@ public class StringUtil {
         // canonicalize, strict (error on double-encoding)
         try {
             value = defaultWebEncoder.canonicalize(value, true);
-        } catch (EncodingException e) {
+        } catch (IntrusionException e) {
             // NOTE: using different log and user targeted error messages to allow the end-user message to be less technical
             Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) error for attribute named [" + valueName + "], String [" + value + "]: " + e.toString(), module);
             errorMessageList.add("In field [" + valueName + "] found character escaping (mixed or double) that is not allowed or other format consistency error: " + e.toString());
