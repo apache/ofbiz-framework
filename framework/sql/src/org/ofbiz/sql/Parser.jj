@@ -513,9 +513,9 @@ private FieldAll FieldAll(): {
     { return new FieldAll(n, excludeList); }
 }
 
-private FieldDef FieldDef(): {
+private StaticValue StaticValue(): {
     StaticValue v;
-    String n, fieldAlias = null, fieldName;
+    String n, fieldName;
 } {
     (
           n=NamePart() (
@@ -525,7 +525,14 @@ private FieldDef FieldDef(): {
           )
         | v=MathValue()
         | v=Count()
-    ) ( <AS> fieldAlias=NamePart() )? {
+    ) { return v; }
+}
+
+private FieldDef FieldDef(): {
+    StaticValue v;
+    String fieldAlias = null;
+} {
+    v=StaticValue() ( <AS> fieldAlias=NamePart() )? {
         return new FieldDef(v, fieldAlias);
     }
 }
