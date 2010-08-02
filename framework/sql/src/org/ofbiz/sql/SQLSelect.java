@@ -146,12 +146,6 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
             sb.append(" HAVING ");
             havingCondition.appendTo(sb);
         }
-        if (offset != -1) {
-            sb.append(" OFFSET ").append(offset);
-        }
-        if (limit != -1) {
-            sb.append(" LIMIT ").append(limit);
-        }
         if (groupBy != null) {
             sb.append(" GROUP BY ");
             StringUtil.append(sb, groupBy, null, null, ", ");
@@ -159,6 +153,12 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         if (orderBy != null) {
             sb.append(" ORDER BY ");
             StringUtil.append(sb, orderBy, null, null, ", ");
+        }
+        if (offset != -1) {
+            sb.append(" OFFSET ").append(offset);
+        }
+        if (limit != -1) {
+            sb.append(" LIMIT ").append(limit);
         }
         sb.append(';');
         return sb;
