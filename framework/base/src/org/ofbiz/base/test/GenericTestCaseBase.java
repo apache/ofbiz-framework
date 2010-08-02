@@ -241,6 +241,56 @@ OUTER:
         assertFalse(msg + "too many items", i < Array.getLength(got));
     }
 
+    public static <V, I extends Iterable<V>> void assertEqualsIterable(String label, List<? extends V> wanted, I got) {
+        assertEqualsIterable(label, wanted, 0, got, 0);
+    }
+
+    public static <V, I extends Iterable<V>> void assertEqualsIterable(String label, List<? extends V> wanted, int wantedExtra, I got, int gotExtra) {
+        Iterator<? extends V> wantedIt = wanted.iterator();
+        Iterator<V> gotIt = got.iterator();
+        while (wantedIt.hasNext() && gotIt.hasNext()) {
+            assertEquals(label + ":iterate", wantedIt.next(), gotIt.next());
+        }
+        while (wantedExtra > 0) {
+            assertTrue(label + ":wanted-extra(" + wantedExtra + ")", wantedIt.hasNext());
+            wantedExtra--;
+        }
+        assertFalse(label + ":wanted-done", wantedIt.hasNext());
+        while (gotExtra > 0) {
+            assertTrue(label + ":got-extra(" + gotExtra + ")", gotIt.hasNext());
+            gotExtra--;
+        }
+        assertFalse(label + ":got-done", gotIt.hasNext());
+    }
+
+    public static <V, I extends Iterable<V>> void assertEqualsIterable(String label, List<? extends V> wanted, List<? extends V> wantedExtra, I got, List<? extends V> gotExtra) {
+        assertEqualsIterable(label, wanted, wantedExtra, false, got, gotExtra, false);
+    }
+
+    public static <V, I extends Iterable<V>> void assertEqualsIterable(String label, List<? extends V> wanted, List<? extends V> wantedExtra, boolean removeWanted, I got, List<? extends V> gotExtra, boolean removeGot) {
+        Iterator<? extends V> wantedIt = wanted.iterator();
+        Iterator<V> gotIt = got.iterator();
+        while (wantedIt.hasNext() && gotIt.hasNext()) {
+            assertEquals(label + ":iterate", wantedIt.next(), gotIt.next());
+        }
+        while (wantedExtra.size() > 0) {
+            assertTrue(label + ":wanted-extra(" + wantedExtra + ")-hasNext", wantedIt.hasNext());
+            assertEquals(label + ":wanted-extra(" + wantedExtra + ")", wantedExtra.remove(0), wantedIt.next());
+            if (removeWanted) {
+                wantedIt.remove();
+            }
+        }
+        assertFalse(label + ":wanted-done", wantedIt.hasNext());
+        while (gotExtra.size() > 0) {
+            assertTrue(label + ":got-extra(" + gotExtra + ")-hasNext", gotIt.hasNext());
+            assertEquals(label + ":got-extra(" + gotExtra + ")", gotExtra.remove(0), gotIt.next());
+            if (removeGot) {
+                gotIt.remove();
+            }
+        }
+        assertFalse(label + ":got-done", gotIt.hasNext());
+    }
+
     public static <T> void assertEquals(Map<T, ?> wanted, Object got) {
         assertEquals(null, wanted, got);
     }
