@@ -699,17 +699,27 @@ private OrderByItem OrderByItem(): {
     OrderByItem.Order ordering = OrderByItem.Order.DEFAULT;
 } {
     (
-          <PLUS> { ordering = OrderByItem.Order.ASCENDING; }
-        | <MINUS> { ordering = OrderByItem.Order.DESCENDING; }
-    )?
-    (
-          ( <UPPER> | <LOWER> ) { functionName = getToken(0).image; } <OPEN_PAREN> fieldName=NamePart() <CLOSE_PAREN>
-        | fieldName=NamePart()
+          (
+            (
+                  <PLUS> { ordering = OrderByItem.Order.ASCENDING; }
+                | <MINUS> { ordering = OrderByItem.Order.DESCENDING; }
+            )
+            (
+                  ( <UPPER> | <LOWER> ) { functionName = getToken(0).image; }
+                  <OPEN_PAREN> fieldName=NamePart() <CLOSE_PAREN>
+                | fieldName=NamePart()
+            )
+          )
+        | (
+              ( <UPPER> | <LOWER> ) { functionName = getToken(0).image; }
+              <OPEN_PAREN> fieldName=NamePart() <CLOSE_PAREN>
+            | fieldName=NamePart()
+          )
+          (
+              <DESC> { ordering = OrderByItem.Order.DESCENDING; }
+            | <ASC> { ordering = OrderByItem.Order.ASCENDING; }
+          )?
     )
-    LOOKAHEAD({!orderingSet}) (
-          <DESC> { ordering = OrderByItem.Order.DESCENDING; }
-        | <ASC> { ordering = OrderByItem.Order.ASCENDING; }
-    )?
     { return new OrderByItem(ordering, functionName, fieldName); }
 }
 
