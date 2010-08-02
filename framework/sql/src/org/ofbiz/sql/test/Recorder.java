@@ -16,37 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ofbiz.sql;
 
-import org.ofbiz.base.lang.SourceMonitored;
+package org.ofbiz.sql.test;
 
-@SourceMonitored
-public final class StringValue extends ConstantValue {
-    private final String str;
+import java.util.HashMap;
+import java.util.Map;
 
-    public StringValue(String str) {
-        this.str = str;
-    }
+public abstract class Recorder<I> {
+    public Map<I, Integer> counts = new HashMap<I, Integer>();
 
-    public void accept(Visitor visitor) {
-        visitor.visit(this);
-    }
-
-    public String getString() {
-        return str;
-    }
-
-    public boolean equals(Object o) {
-        if (o instanceof StringValue) {
-            StringValue other = (StringValue) o;
-            return str.equals(other.str);
+    protected void record(I key) {
+        Integer count = counts.get(key);
+        if (count == null) {
+            counts.put(key, Integer.valueOf(1));
         } else {
-            return false;
+            counts.put(key, Integer.valueOf(count.intValue() + 1));
         }
-    }
-
-    public StringBuilder appendTo(StringBuilder sb) {
-        sb.append('\'').append(str.replaceAll("'", "''")).append('\'');
-        return sb;
     }
 }

@@ -21,8 +21,10 @@ package org.ofbiz.sql;
 import java.util.Iterator;
 import java.util.List;
 
+import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.util.StringUtil;
 
+@SourceMonitored
 public final class MathValue extends StaticValue implements Iterable<ConstantValue> {
     private final String op;
     private final List<ConstantValue> values;
