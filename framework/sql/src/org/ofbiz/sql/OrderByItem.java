@@ -23,19 +23,26 @@ import org.ofbiz.base.lang.SourceMonitored;
 @SourceMonitored
 public final class OrderByItem extends Atom {
     public enum Order { DEFAULT, ASCENDING, DESCENDING };
+    public enum Nulls { DEFAULT, FIRST, LAST };
 
     private final Order order;
+    private final Nulls nulls;
     private final String functionName;
     private final String fieldName;
 
-    public OrderByItem(Order order, String functionName, String fieldName) {
+    public OrderByItem(Order order, Nulls nulls, String functionName, String fieldName) {
         this.order = order;
+        this.nulls = nulls;
         this.functionName = functionName;
         this.fieldName = fieldName;
     }
 
     public final Order getOrder() {
         return order;
+    }
+
+    public final Nulls getNulls() {
+        return nulls;
     }
 
     public final String getFunctionName() {
@@ -49,7 +56,7 @@ public final class OrderByItem extends Atom {
     public boolean equals(Object o) {
         if (o instanceof OrderByItem) {
             OrderByItem other = (OrderByItem) o;
-            return order.equals(other.order) && equalsHelper(functionName, other.functionName) && fieldName.equals(other.fieldName);
+            return order.equals(other.order) && nulls.equals(other.nulls) && equalsHelper(functionName, other.functionName) && fieldName.equals(other.fieldName);
         } else {
             return false;
         }
@@ -65,6 +72,14 @@ public final class OrderByItem extends Atom {
                 break;
             case DESCENDING:
                 sb.append(" DESC");
+                break;
+        }
+        switch (nulls) {
+            case FIRST:
+                sb.append(" NULLS FIRST");
+                break;
+            case LAST:
+                sb.append(" NULLS LAST");
                 break;
         }
         return sb;

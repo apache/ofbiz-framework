@@ -135,9 +135,9 @@ public class SQLTest extends GenericTestCaseBase {
                 new BooleanCondition(new FieldValue("b", "firstName"), "LIKE", new StringValue("%foo%")),
                 null,
                 list(
-                    new OrderByItem(OrderByItem.Order.DEFAULT, "LOWER", "lastName"),
-                    new OrderByItem(OrderByItem.Order.DEFAULT, null, "firstName"),
-                    new OrderByItem(OrderByItem.Order.DESCENDING, null, "birthDate")
+                    new OrderByItem(OrderByItem.Order.DEFAULT, OrderByItem.Nulls.DEFAULT, "LOWER", "lastName"),
+                    new OrderByItem(OrderByItem.Order.DEFAULT, OrderByItem.Nulls.DEFAULT, null, "firstName"),
+                    new OrderByItem(OrderByItem.Order.DESCENDING, OrderByItem.Nulls.DEFAULT, null, "birthDate")
                 ),
                 5,
                 10
