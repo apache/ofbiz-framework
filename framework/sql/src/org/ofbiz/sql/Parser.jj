@@ -575,7 +575,7 @@ private StaticValue Count(): {
     <COUNT> <OPEN_PAREN> (
           n=NamePart() (
               <PERIOD> (
-                  <STAR> <CLOSE_PAREN> { return new CountAllFunction(); }
+                  <STAR> <CLOSE_PAREN> { return new CountAllFunction(n); }
                 | fieldName=NamePart() <CLOSE_PAREN> { return new CountFunction(false, new FieldValue(n, fieldName)); }
               )
             | <CLOSE_PAREN> { return new CountFunction(false, new FieldValue(null, n)); }

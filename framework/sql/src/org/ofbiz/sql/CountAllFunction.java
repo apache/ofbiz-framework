@@ -22,6 +22,12 @@ import org.ofbiz.base.lang.SourceMonitored;
 
 @SourceMonitored
 public final class CountAllFunction extends StaticValue {
+    private final String tableName;
+
+    public CountAllFunction(String tableName) {
+        this.tableName = tableName;
+    }
+
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -30,8 +36,25 @@ public final class CountAllFunction extends StaticValue {
         return "COUNT";
     }
 
+    public String getTableName() {
+        return tableName;
+    }
+
+    public boolean equals(Object o) {
+        if (o instanceof CountAllFunction) {
+            CountAllFunction other = (CountAllFunction) o;
+            return equalsHelper(tableName, other.tableName);
+        } else {
+            return false;
+        }
+    }
+
     public StringBuilder appendTo(StringBuilder sb) {
-        sb.append("COUNT(*)");
+        sb.append("COUNT(");
+        if (tableName != null) {
+            sb.append(tableName).append('.');
+        }
+        sb.append("*)");
         return sb;
     }
 }
