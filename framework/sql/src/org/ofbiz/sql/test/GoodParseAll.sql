@@ -33,10 +33,10 @@ FROM
     Party a LEFT JOIN Person b USING partyId
     LEFT JOIN PartyGroup c ON b.partyId = c.partyId
     JOIN PartyRole d ON c.partyId = d.partyId AND c.partyId = d.partyId
-RELATION TYPE one TITLE MainA Person USING partyId
-RELATION TITLE MainB Person USING partyId
-RELATION TYPE one Person USING partyId
-RELATION PartyGroup USING partyId
+RELATION TYPE one TITLE MainA Person MAP partyId
+RELATION TITLE MainB Person MAP partyId
+RELATION TYPE one Person MAP partyId
+RELATION PartyGroup MAP partyId
 WHERE
     a.partyTypeId = 'PERSON'
     AND
