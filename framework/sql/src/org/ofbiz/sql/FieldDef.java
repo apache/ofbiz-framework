@@ -23,12 +23,16 @@ public final class FieldDef extends Atom {
     private final StaticValue value;
 
     public FieldDef(StaticValue value, String alias) {
-        this.alias = alias == null ? value.getDefaultName() : alias;
+        this.alias = alias;
         this.value = value;
     }
 
     public final String getAlias() {
         return alias;
+    }
+
+    public String getDefaultName() {
+        return alias == null ? value.getDefaultName() : alias;
     }
 
     public StaticValue getValue() {
@@ -38,7 +42,7 @@ public final class FieldDef extends Atom {
     public boolean equals(Object o) {
         if (o instanceof FieldDef) {
             FieldDef other = (FieldDef) o;
-            return alias.equals(other.alias) && value.equals(other.value);
+            return equalsHelper(alias, other.alias) && value.equals(other.value);
         } else {
             return false;
         }
@@ -46,7 +50,7 @@ public final class FieldDef extends Atom {
 
     public StringBuilder appendTo(StringBuilder sb) {
         value.appendTo(sb);
-        if (!equalsHelper(value.getDefaultName(), alias)) {
+        if (alias != null) {
             sb.append(" AS ").append(alias);
         }
         return sb;
