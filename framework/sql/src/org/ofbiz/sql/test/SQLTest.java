@@ -18,6 +18,8 @@
  */
 package org.ofbiz.sql.test;
 
+import java.io.StringReader;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -59,6 +61,10 @@ import org.ofbiz.sql.Value;
 public class SQLTest extends GenericTestCaseBase {
     public SQLTest(String name) {
         super(name);
+    }
+
+    private static Parser parser(SQLStatement s) throws Exception {
+        return new Parser(new StringReader(s.toString()));
     }
 
     public void testParse() throws Exception {
@@ -138,6 +144,7 @@ public class SQLTest extends GenericTestCaseBase {
             );
             SQLStatement stmt = stmtIt.next();
             assertEquals("firstSelect", select, stmt);
+            assertEquals("firstSelect:parse", parser(select).SelectStatement(), parser(stmt).SelectStatement());
         }
         {
             SQLInsert insert = new SQLInsert(
@@ -152,6 +159,7 @@ public class SQLTest extends GenericTestCaseBase {
             );
             SQLStatement stmt = stmtIt.next();
             assertEquals("firstInsert", insert, stmt);
+            assertEquals("firstInsert:parse", parser(insert).InsertStatement(), parser(stmt).InsertStatement());
         }
         {
             SQLInsert insert = new SQLInsert(
@@ -176,6 +184,7 @@ public class SQLTest extends GenericTestCaseBase {
             );
             SQLStatement stmt = stmtIt.next();
             assertEquals("secondInsert", insert, stmt);
+            assertEquals("secondInsert:parse", parser(insert).InsertStatement(), parser(stmt).InsertStatement());
         }
         {
             SQLUpdate update = new SQLUpdate(
@@ -187,6 +196,7 @@ public class SQLTest extends GenericTestCaseBase {
             );
             SQLStatement stmt = stmtIt.next();
             assertEquals("firstUpdate", update, stmt);
+            assertEquals("firstUpdate:parse", parser(update).UpdateStatement(), parser(stmt).UpdateStatement());
         }
         {
             SQLUpdate update = new SQLUpdate(
@@ -200,6 +210,7 @@ public class SQLTest extends GenericTestCaseBase {
             );
             SQLStatement stmt = stmtIt.next();
             assertEquals("secondUpdate", update, stmt);
+            assertEquals("secondUpdate:parse", parser(update).UpdateStatement(), parser(stmt).UpdateStatement());
         }
         {
             SQLUpdate update = new SQLUpdate(
@@ -214,6 +225,7 @@ public class SQLTest extends GenericTestCaseBase {
             );
             SQLStatement stmt = stmtIt.next();
             assertEquals("thirdUpdate", update, stmt);
+            assertEquals("thirdUpdate:parse", parser(update).UpdateStatement(), parser(stmt).UpdateStatement());
         }
         {
             SQLDelete delete = new SQLDelete(
@@ -222,6 +234,7 @@ public class SQLTest extends GenericTestCaseBase {
             );
             SQLStatement stmt = stmtIt.next();
             assertEquals("firstDelete", delete, stmt);
+            assertEquals("firstDelete:parse", parser(delete).DeleteStatement(), parser(stmt).DeleteStatement());
         }
         {
             SQLDelete delete = new SQLDelete(
@@ -230,6 +243,7 @@ public class SQLTest extends GenericTestCaseBase {
             );
             SQLStatement stmt = stmtIt.next();
             assertEquals("secondDelete", delete, stmt);
+            assertEquals("secondDelete:parse", parser(delete).DeleteStatement(), parser(stmt).DeleteStatement());
         }
         {
             SQLView view = new SQLView(
@@ -250,6 +264,7 @@ public class SQLTest extends GenericTestCaseBase {
             );
             SQLStatement stmt = stmtIt.next();
             assertEquals("firstView", view, stmt);
+            assertEquals("firstView:parse", parser(view).ViewStatement(), parser(stmt).ViewStatement());
         }
     }
 /*
