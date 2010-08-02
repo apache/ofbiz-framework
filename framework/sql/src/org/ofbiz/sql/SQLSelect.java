@@ -136,7 +136,7 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         sb.append(" FROM ");
         table.appendTo(sb);
         if (relations != null) {
-            StringUtil.appendTo(sb, relations.values(), " ", null, ",");
+            StringUtil.appendTo(sb, relations.values(), " ", null, null);
         }
         if (whereCondition != null) {
             sb.append(" WHERE ");
