@@ -45,5 +45,34 @@ public abstract class Value extends Atom {
         void visit(CountAllFunction value);
     }
 
+    public static class BaseVisitor implements Visitor {
+        public void visit(FieldValue value) {
+        }
+
+        public void visit(FunctionCall value) {
+        }
+
+        public void visit(MathValue value) {
+        }
+
+        public void visit(Null value) {
+        }
+
+        public void visit(NumberValue value) {
+        }
+
+        public void visit(ParameterValue value) {
+        }
+
+        public void visit(StringValue value) {
+        }
+
+        public void visit(CountFunction value) {
+        }
+
+        public void visit(CountAllFunction value) {
+        }
+    }
+
     public abstract void accept(Visitor visitor);
 }
