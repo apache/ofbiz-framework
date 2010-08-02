@@ -18,7 +18,7 @@
  */
 package org.ofbiz.sql;
 
-public final class KeyMap extends Atom {
+public final class KeyMap {
     private final String leftFieldName;
     private final String rightFieldName;
 
@@ -42,16 +42,5 @@ public final class KeyMap extends Atom {
         } else {
             return false;
         }
-    }
-
-    public StringBuilder appendTo(StringBuilder sb) {
-        return appendTo("left", "right", sb);
-    }
-
-    public StringBuilder appendTo(String leftAlias, String rightAlias, StringBuilder sb) {
-        sb.append(leftAlias).append('.').append(leftFieldName);
-        sb.append(" = ");
-        sb.append(rightAlias).append('.').append(rightFieldName);
-        return sb;
     }
 }
