@@ -275,8 +275,8 @@ private SQLSelect Select(): {
     int offset = -1, limit = -1;
 } {
     <SELECT> (<DISTINCT> { isDistinct = true; })? (
-        FieldDef(fieldDefs, fieldAlls, fieldAllAliases)
-        ( <COMMA> FieldDef(fieldDefs, fieldAlls, fieldAllAliases) )*
+        SelectField(fieldDefs, fieldAlls, fieldAllAliases)
+        ( <COMMA> SelectField(fieldDefs, fieldAlls, fieldAllAliases) )*
     )
     <FROM> table=Table()
     ( <RELATION> Relation(relations) )*
@@ -486,6 +486,20 @@ private Boolean Joiner(): {
     | <JOIN> { return Boolean.FALSE; }
 }
 
+private void SelectField(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls, Set<String> fieldAllAliases): {
+    FieldAll fieldAll;
+    FieldDef fieldDef;
+} {
+      LOOKAHEAD(3) fieldAll=FieldAll() {
+        if (fieldAllAliases.contains(fieldAll.getAlias())) throw new ParseException("Duplicate aliasAll(" + fieldAll.getAlias() + ")");
+        fieldAlls.add(fieldAll); return;
+      }
+    | fieldDef=FieldDef() {
+        if (fieldDefs.containsKey(fieldDef.getAlias())) throw new ParseException("duplicate alias(" + fieldDef.getAlias() + ")");
+        fieldDefs.put(fieldDef.getAlias(), fieldDef);
+    }
+}
+
 private FieldAll FieldAll(): {
     String n, exc;
     Set<String> excludeList = FastSet.newInstance();
@@ -499,18 +513,12 @@ private FieldAll FieldAll(): {
     { return new FieldAll(n, excludeList); }
 }
 
-private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls, Set<String> fieldAllAliases): {
+private FieldDef FieldDef(): {
     StaticValue v;
     String n, fieldAlias = null, fieldName;
-    FieldDef def;
-    FieldAll fieldAll;
 } {
     (
-          LOOKAHEAD(3) fieldAll=FieldAll() {
-            if (fieldAllAliases.contains(fieldAll.getAlias())) throw new ParseException("Duplicate aliasAll(" + fieldAll.getAlias() + ")");
-            fieldAlls.add(fieldAll); return;
-          }
-        | n=NamePart() (
+          n=NamePart() (
               <PERIOD> fieldName=NamePart() { v = new FieldValue(n, fieldName); }
             | v=FunctionCallRest(n)
             | { v = new FieldValue(null, n); }
@@ -518,9 +526,7 @@ private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls,
         | v=MathValue()
         | v=Count()
     ) ( <AS> fieldAlias=NamePart() )? {
-        def = new FieldDef(v, fieldAlias);
-        if (fieldDefs.containsKey(def.getAlias())) throw new ParseException("duplicate alias(" + def.getAlias() + ")");
-        fieldDefs.put(def.getAlias(), def);
+        return new FieldDef(v, fieldAlias);
     }
 }
 
