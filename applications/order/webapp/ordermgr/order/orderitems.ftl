@@ -137,7 +137,7 @@ under the License.
                                                                 ${qohQuantity} (${uiLabelMap.ProductAtp}: ${atpQuantity})
                                                             </td>
                                                         </tr>
-                                                        <#if (product != null) && (product.productTypeId != null) && Static["org.ofbiz.common.CommonWorkers"].hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")>
+                                                        <#if (product != null) && (product.productTypeId != null) && Static["org.ofbiz.entity.util.EntityTypeUtil"].hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")>
                                                             <tr>
                                                                 <td>${uiLabelMap.ProductMarketingPackageQOH}</td>
                                                                 <td style="padding-left: 15px; text-align: left;">
