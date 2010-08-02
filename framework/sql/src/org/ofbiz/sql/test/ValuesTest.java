@@ -72,9 +72,18 @@ public class ValuesTest extends GenericTestCaseBase {
         assertTrue(label + ":nothing-else-visited", visitor.counts.isEmpty());
     }
 
+    private static void countAllFunctionTest(String label, CountAllFunction v, String tableName, String s, CountAllFunction o, boolean matches) {
+        assertEquals(label + ":left", tableName, v.getTableName());
+        basicTest(label, CountAllFunction.class, v, "COUNT", s, o, matches);
+    }
+
     public void testCountAllFunction() {
-        CountAllFunction v1 = new CountAllFunction();
-        basicTest("count-all", CountAllFunction.class, v1, "COUNT", "COUNT(*)", null, false);
+        CountAllFunction v1 = new CountAllFunction("a");
+        countAllFunctionTest("v1", v1, "a", "COUNT(a.*)", null, false);
+        CountAllFunction v2 = new CountAllFunction(null);
+        countAllFunctionTest("v2", v2, null, "COUNT(*)", v1, false);
+        CountAllFunction v3 = new CountAllFunction("a");
+        countAllFunctionTest("v3", v3, "a", "COUNT(a.*)", v1, true);
     }
 
     private static void countFunctionTest(String label, CountFunction v, boolean isDistinct, FieldValue fv, String s, CountFunction o, boolean matches) {
