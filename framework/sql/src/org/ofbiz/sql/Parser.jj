@@ -109,6 +109,8 @@ TOKEN: {
     | <DELETE: "DELETE">
     | <UPDATE: "UPDATE">
     | <INSERT: "INSERT">
+    | <INDEX: "INDEX">
+    | <UNIQUE: "UNIQUE">
     | <RELATION: "RELATION">
     | <EXCLUDE: "EXCLUDE">
     | <TYPE: "TYPE">
@@ -210,7 +212,7 @@ public SQLStatement StandaloneStatement(): {
 public SQLView ViewStatement(): {
     SQLView sqlView;
 } {
-    sqlView=View() ( <SEMI> )? <EOF>
+    <CREATE> <VIEW> sqlView=View() ( <SEMI> )? <EOF>
     { return sqlView; }
 }
 
@@ -270,7 +272,18 @@ private SQLStatement Statement(): {
         | statement=Delete() { return statement; }
         | statement=Update() { return statement; }
         | statement=Insert() { return statement; }
-        | statement=View() { return statement; }
+        | statement=Creates() { return statement; }
+    )
+}
+
+private SQLStatement Creates(): {
+    SQLStatement statement;
+    boolean isUnique = false;
+} {
+    <CREATE> (
+          <VIEW> statement=View() { return statement; }
+        | ( <UNIQUE> { isUnique = true; } )?
+          <INDEX> statement=Index(isUnique) { return statement; }
     )
 }
 
@@ -278,7 +291,7 @@ private SQLView View(): {
     String name;
     SQLSelect sqlSelect;
 } {
-    <CREATE> <VIEW> name=NamePart() <AS> sqlSelect=Select() { return new SQLView(name, sqlSelect); }
+    name=NamePart() <AS> sqlSelect=Select() { return new SQLView(name, sqlSelect); }
 }
 
 private SQLSelect Select(): {
@@ -363,6 +376,20 @@ private SQLDelete Delete(): {
     ( LOOKAHEAD(<USING>, {deleteSupportsUsing}) <USING> joined=JoinedRest(false, tableName) )?
     ( <WHERE> whereCondition=ConditionExpression() )?
     { return new SQLDelete(new Table(tableName, joined), whereCondition); }
+}
+
+private SQLIndex Index(boolean isUnique): {
+    String name, table, using = null;
+    ConstantValue value;
+    List<ConstantValue> values = FastList.newInstance();
+} {
+    name=NamePart() <ON> table=NamePart()
+    ( <USING> using=NamePart() )?
+    <OPEN_PAREN>
+    value=ConstantValue() { values.add(value); }
+    ( <COMMA> value=ConstantValue() { values.add(value); } )*
+    <CLOSE_PAREN>
+    { return new SQLIndex(isUnique, name, table, using, values); }
 }
 
 private SQLInsert Insert(): {
