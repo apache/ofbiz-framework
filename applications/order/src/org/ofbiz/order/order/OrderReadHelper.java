@@ -1333,6 +1333,10 @@ public class OrderReadHelper {
         return getOrderHeaderAdjustments(getAdjustments(), shipGroupSeqId);
     }
 
+    public List<GenericValue> getOrderHeaderAdjustmentsTax(String shipGroupSeqId) {
+        return filterOrderAdjustments(getOrderHeaderAdjustments(getAdjustments(), shipGroupSeqId), false, true, false, false, false);
+    }
+
     public List<GenericValue> getOrderHeaderAdjustmentsToShow() {
         return filterOrderAdjustments(getOrderHeaderAdjustments(), true, false, false, false, false);
     }
