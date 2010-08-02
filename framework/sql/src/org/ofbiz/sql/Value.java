@@ -34,6 +34,7 @@ public abstract class Value extends Atom {
     public static final Null NULL = new Null();
 
     public interface Visitor {
+        void visit(AggregateFunction value);
         void visit(FieldValue value);
         void visit(FunctionCall value);
         void visit(MathValue value);
@@ -41,11 +42,13 @@ public abstract class Value extends Atom {
         void visit(NumberValue value);
         void visit(ParameterValue value);
         void visit(StringValue value);
-        void visit(CountFunction value);
         void visit(CountAllFunction value);
     }
 
     public static class BaseVisitor implements Visitor {
+        public void visit(AggregateFunction value) {
+        }
+
         public void visit(FieldValue value) {
         }
 
@@ -65,9 +68,6 @@ public abstract class Value extends Atom {
         }
 
         public void visit(StringValue value) {
-        }
-
-        public void visit(CountFunction value) {
         }
 
         public void visit(CountAllFunction value) {

@@ -18,47 +18,61 @@
  */
 package org.ofbiz.sql;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.ofbiz.base.lang.SourceMonitored;
+import org.ofbiz.base.util.StringUtil;
 
 @SourceMonitored
-public final class CountFunction extends StaticValue {
-    private final boolean isDistinct;
-    private final FieldValue field;
+public final class AggregateFunction extends StaticValue {
+    public static final String module = AggregateFunction.class.getName();
 
-    public CountFunction(boolean isDistinct, FieldValue field) {
+    private final String name;
+    private final boolean isDistinct;
+    private final StaticValue value;
+
+    public AggregateFunction(String name, boolean isDistinct, StaticValue value) {
+        this.name = name;
         this.isDistinct = isDistinct;
-        this.field = field;
+        this.value = value;
     }
 
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
-    public String getDefaultName() {
-        return "COUNT";
+    public String getName() {
+        return name;
     }
 
     public boolean isDistinct() {
         return isDistinct;
     }
 
-    public FieldValue getField() {
-        return field;
+    public String getDefaultName() {
+        return name;
+    }
+
+    public StaticValue getValue() {
+        return value;
     }
 
     public boolean equals(Object o) {
-        if (o instanceof CountFunction) {
-            CountFunction other = (CountFunction) o;
-            return isDistinct == other.isDistinct && field.equals(other.field);
+        if (o instanceof AggregateFunction) {
+            AggregateFunction other = (AggregateFunction) o;
+            return name.equals(other.name) && isDistinct == other.isDistinct && value.equals(other.value);
         } else {
             return false;
         }
     }
 
     public StringBuilder appendTo(StringBuilder sb) {
-        sb.append("COUNT(");
-        if (isDistinct) sb.append("DISTINCT ");
-        field.appendTo(sb);
+        sb.append(name).append('(');
+        if (isDistinct) {
+            sb.append("DISTINCT ");
+        }
+        value.appendTo(sb);
         sb.append(')');
         return sb;
     }

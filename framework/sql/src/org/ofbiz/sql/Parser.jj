@@ -40,6 +40,7 @@ PARSER_BEGIN(Parser)
 
 package org.ofbiz.sql;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -94,6 +95,10 @@ TOKEN: {
     | <LEFT: "LEFT">
     | <AS: "AS">
     | <COUNT: "COUNT">
+    | <MAX: "MAX">
+    | <MIN: "MIN">
+    | <SUM: "SUM">
+    | <AVG: "AVG">
     | <DISTINCT: "DISTINCT">
     | <WHERE: "WHERE">
     | <HAVING: "HAVING">
@@ -583,7 +588,8 @@ private StaticValue StaticValue(): {
             | { v = new FieldValue(null, n); }
           )
         | v=MathValue()
-        | v=Count()
+        | LOOKAHEAD(5) v=CountAll()
+        | v=AggregateFunction()
     ) { return v; }
 }
 
@@ -596,23 +602,14 @@ private FieldDef FieldDef(): {
     }
 }
 
-private StaticValue Count(): {
-    String n, fieldName;
+private CountAllFunction CountAll(): {
+    String n;
 } {
     <COUNT> <OPEN_PAREN> (
-          n=NamePart() (
-              <PERIOD> (
-                  <STAR> <CLOSE_PAREN> { return new CountAllFunction(n); }
-                | fieldName=NamePart() <CLOSE_PAREN> { return new CountFunction(false, new FieldValue(n, fieldName)); }
-              )
-            | <CLOSE_PAREN> { return new CountFunction(false, new FieldValue(null, n)); }
-          )
-        | <STAR> <CLOSE_PAREN> { return new CountAllFunction(null); }
-        | <DISTINCT> n=NamePart() (
-              <PERIOD> fieldName=NamePart() <CLOSE_PAREN> { return new CountFunction(true, new FieldValue(n, fieldName)); }
-            | <CLOSE_PAREN> { return new CountFunction(true, new FieldValue(null, n)); }
-        )
-    )
+          n=NamePart()
+        | { n = null; }
+    ) <PERIOD> <STAR> <CLOSE_PAREN>
+    { return new CountAllFunction(n); }
 }
 
 private StaticValue MathValue(): {
@@ -634,6 +631,23 @@ private StaticValue MathValue(): {
         if (values.size() == 1 && values.get(0) instanceof StaticValue) return (StaticValue) values.get(0);
         return new MathValue(operator, values);
     }
+}
+
+private AggregateFunction AggregateFunction(): {
+    StaticValue v;
+    String name, n, fieldName;
+    boolean isDistinct = false;
+} {
+    name=AggregateName() <OPEN_PAREN>
+    ( <DISTINCT> { isDistinct = true; } )? (
+          n=NamePart() (
+              <PERIOD> fieldName=NamePart() { v = new FieldValue(n, fieldName); }
+            | v=FunctionCallRest(n)
+            | { v = new FieldValue(null, n); }
+          )
+        | v=MathValue()
+    ) <CLOSE_PAREN>
+    { return new AggregateFunction(name, isDistinct, v); }
 }
 
 private FunctionCall FunctionCallRest(String name): {
@@ -851,4 +865,15 @@ private String MathOperator(): {
 } {
       s=Text() { return s; }
     | <NAME> { return getToken(0).image; }
+}
+
+private String AggregateName(): {
+} {
+      <COUNT> { return getToken(0).image; }
+    | <MAX> { return getToken(0).image; }
+    | <MIN> { return getToken(0).image; }
+    | <SUM> { return getToken(0).image; }
+    | <AVG> { return getToken(0).image; }
+    | <FIRST> { return getToken(0).image; }
+    | <LAST> { return getToken(0).image; }
 }

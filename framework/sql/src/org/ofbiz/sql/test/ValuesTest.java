@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 
 import org.ofbiz.sql.ConstantValue;
 import org.ofbiz.sql.CountAllFunction;
-import org.ofbiz.sql.CountFunction;
+import org.ofbiz.sql.AggregateFunction;
 import org.ofbiz.sql.FieldValue;
 import org.ofbiz.sql.FunctionCall;
 import org.ofbiz.sql.MathValue;
@@ -86,23 +86,26 @@ public class ValuesTest extends GenericTestCaseBase {
         countAllFunctionTest("v3", v3, "a", "COUNT(a.*)", v1, true);
     }
 
-    private static void countFunctionTest(String label, CountFunction v, boolean isDistinct, FieldValue fv, String s, CountFunction o, boolean matches) {
+    private static void aggregateFunctionTest(String label, AggregateFunction v, String name, boolean isDistinct, FieldValue fv, String s, AggregateFunction o, boolean matches) {
+        assertEquals(label + ":name", name, v.getName());
         assertEquals(label + ":left", isDistinct, v.isDistinct());
-        assertEquals(label + ":field-value", fv, v.getField());
-        basicTest(label, CountFunction.class, v, "COUNT", s, o, matches);
+        assertEquals(label + ":field-value", fv, v.getValue());
+        basicTest(label, AggregateFunction.class, v, name, s, o, matches);
     }
 
-    public void testCountFunction() {
-        CountFunction v1 = new CountFunction(false, fv2);
-        countFunctionTest("v1", v1, false, fv2, "COUNT(a.partyId)", null, false);
-        CountFunction v2 = new CountFunction(true, fv2);
-        countFunctionTest("v2", v2, true, fv2, "COUNT(DISTINCT a.partyId)", v1, false);
-        CountFunction v3 = new CountFunction(true, fv1);
-        countFunctionTest("v3", v3, true, fv1, "COUNT(DISTINCT partyId)", v1, false);
-        CountFunction v4 = new CountFunction(false, fv1);
-        countFunctionTest("v4", v4, false, fv1, "COUNT(partyId)", v1, false);
-        CountFunction v5 = new CountFunction(false, fv2);
-        countFunctionTest("v5", v5, false, fv2, "COUNT(a.partyId)", v1, true);
+    public void testAggregateFunction() {
+        AggregateFunction v1 = new AggregateFunction("COUNT", false, fv2);
+        aggregateFunctionTest("v1", v1, "COUNT", false, fv2, "COUNT(a.partyId)", null, false);
+        AggregateFunction v2 = new AggregateFunction("COUNT", true, fv2);
+        aggregateFunctionTest("v2", v2, "COUNT", true, fv2, "COUNT(DISTINCT a.partyId)", v1, false);
+        AggregateFunction v3 = new AggregateFunction("COUNT", true, fv1);
+        aggregateFunctionTest("v3", v3, "COUNT", true, fv1, "COUNT(DISTINCT partyId)", v1, false);
+        AggregateFunction v4 = new AggregateFunction("COUNT", false, fv1);
+        aggregateFunctionTest("v4", v4, "COUNT", false, fv1, "COUNT(partyId)", v1, false);
+        AggregateFunction v5 = new AggregateFunction("MAX", false, fv2);
+        aggregateFunctionTest("v5", v5, "MAX", false, fv2, "MAX(a.partyId)", v1, false);
+        AggregateFunction v6 = new AggregateFunction("COUNT", false, fv2);
+        aggregateFunctionTest("v6", v6, "COUNT", false, fv2, "COUNT(a.partyId)", v1, true);
     }
 
     private static void fieldValueTest(String label, FieldValue v, String tableName, String fieldName, String s, FieldValue o, boolean matches) {
@@ -198,6 +201,11 @@ public class ValuesTest extends GenericTestCaseBase {
     }
 
     public static class ValueVisitorRecorder extends Recorder<Class<? extends Value>> implements Value.Visitor {
+
+        public void visit(AggregateFunction value) {
+            record(AggregateFunction.class);
+        }
+
         public void visit(FieldValue value) {
             record(FieldValue.class);
         }
@@ -224,10 +232,6 @@ public class ValuesTest extends GenericTestCaseBase {
 
         public void visit(StringValue value) {
             record(StringValue.class);
-        }
-
-        public void visit(CountFunction value) {
-            record(CountFunction.class);
         }
 
         public void visit(CountAllFunction value) {
