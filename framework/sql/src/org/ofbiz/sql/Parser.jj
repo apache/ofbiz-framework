@@ -511,13 +511,13 @@ private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls,
             fieldAlls.add(fieldAll); return;
           }
         | n=NamePart() (
-              <PERIOD> fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? { v = new FieldValue(n, fieldName); }
-            | v=FunctionCallRest(n) ( <AS> fieldAlias=NamePart() )?
-            | ( <AS> fieldAlias=NamePart() )? { v = new FieldValue(null, n); }
+              <PERIOD> fieldName=NamePart() { v = new FieldValue(n, fieldName); }
+            | v=FunctionCallRest(n)
+            | { v = new FieldValue(null, n); }
           )
-        | v=MathValue() ( <AS> fieldAlias=NamePart() )?
-        | v=Count() ( <AS> fieldAlias=NamePart() )?
-    ) {
+        | v=MathValue()
+        | v=Count()
+    ) ( <AS> fieldAlias=NamePart() )? {
         def = new FieldDef(v, fieldAlias);
         if (fieldDefs.containsKey(def.getAlias())) throw new ParseException("duplicate alias(" + def.getAlias() + ")");
         fieldDefs.put(def.getAlias(), def);
