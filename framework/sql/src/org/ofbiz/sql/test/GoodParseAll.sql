@@ -68,6 +68,7 @@ UPDATE Person SET lastName = ('auto-' || partyId), height = 6, width = 5, nickna
 DELETE FROM Person WHERE partyId IN ('a', 'b');
 DELETE FROM Party WHERE partyId IN ('a', 'b');
 CREATE VIEW viewOne AS SELECT a.* FROM Party a;
+CREATE INDEX testIndex ON Party USING btree (partyId);
 /*
 UPDATE Person SET firstName = partyId || '-auto' WHERE partyId IN ('a', 'b');
 */

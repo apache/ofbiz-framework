@@ -29,6 +29,7 @@ import org.ofbiz.sql.BetweenCondition;
 import org.ofbiz.sql.BooleanCondition;
 import org.ofbiz.sql.Condition;
 import org.ofbiz.sql.ConditionList;
+import org.ofbiz.sql.ConstantValue;
 import org.ofbiz.sql.CountFunction;
 import org.ofbiz.sql.FieldAll;
 import org.ofbiz.sql.FieldDef;
@@ -47,6 +48,7 @@ import org.ofbiz.sql.ParameterValue;
 import org.ofbiz.sql.Parser;
 import org.ofbiz.sql.Relation;
 import org.ofbiz.sql.SQLDelete;
+import org.ofbiz.sql.SQLIndex;
 import org.ofbiz.sql.SQLInsert;
 import org.ofbiz.sql.SQLSelect;
 import org.ofbiz.sql.SQLStatement;
@@ -265,6 +267,19 @@ public class SQLTest extends GenericTestCaseBase {
             SQLStatement stmt = stmtIt.next();
             assertEquals("firstView", view, stmt);
             assertEquals("firstView:parse", parser(view).ViewStatement(), parser(stmt).ViewStatement());
+        }
+        {
+            SQLIndex index = new SQLIndex(
+                false,
+                "testIndex",
+                "Party",
+                "btree",
+                GenericTestCaseBase.<ConstantValue>list(
+                    new FieldValue(null, "partyId")
+                )
+            );
+            SQLStatement stmt = stmtIt.next();
+            assertEquals("firstIndex", index, stmt);
         }
         assertFalse("has no more statements", stmtIt.hasNext());
     }
