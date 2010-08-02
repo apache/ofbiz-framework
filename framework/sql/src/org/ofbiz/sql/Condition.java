@@ -26,5 +26,19 @@ public abstract class Condition extends Atom {
         void visit(ListCondition condition);
     }
 
+    public static class BaseVisitor implements Visitor {
+        public void visit(BetweenCondition condition) {
+        }
+
+        public void visit(BooleanCondition condition) {
+        }
+
+        public void visit(ConditionList condition) {
+        }
+
+        public void visit(ListCondition condition) {
+        }
+    }
+
     public abstract void accept(Visitor visitor);
 }

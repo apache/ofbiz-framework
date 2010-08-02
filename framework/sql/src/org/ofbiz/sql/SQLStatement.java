@@ -27,5 +27,22 @@ public abstract class SQLStatement<S extends SQLStatement<S>> extends Atom {
         void visit(SQLView statement);
     }
 
+    public static class BaseVisitor implements Visitor {
+        public void visit(SQLDelete statement) {
+        }
+
+        public void visit(SQLInsert statement) {
+        }
+
+        public void visit(SQLSelect statement) {
+        }
+
+        public void visit(SQLUpdate statement) {
+        }
+
+        public void visit(SQLView statement) {
+        }
+    }
+
     public abstract void accept(Visitor visitor);
 }
