@@ -27,14 +27,12 @@ public final class OrderByItem extends Atom {
 
     private final Order order;
     private final Nulls nulls;
-    private final String functionName;
-    private final String fieldName;
+    private final ConstantValue value;
 
-    public OrderByItem(Order order, Nulls nulls, String functionName, String fieldName) {
+    public OrderByItem(Order order, Nulls nulls, ConstantValue value) {
         this.order = order;
         this.nulls = nulls;
-        this.functionName = functionName;
-        this.fieldName = fieldName;
+        this.value = value;
     }
 
     public final Order getOrder() {
@@ -45,27 +43,21 @@ public final class OrderByItem extends Atom {
         return nulls;
     }
 
-    public final String getFunctionName() {
-        return functionName;
-    }
-
-    public final String getFieldName() {
-        return fieldName;
+    public final ConstantValue getValue() {
+        return value;
     }
 
     public boolean equals(Object o) {
         if (o instanceof OrderByItem) {
             OrderByItem other = (OrderByItem) o;
-            return order.equals(other.order) && nulls.equals(other.nulls) && equalsHelper(functionName, other.functionName) && fieldName.equals(other.fieldName);
+            return order.equals(other.order) && nulls.equals(other.nulls) && value.equals(other.value);
         } else {
             return false;
         }
     }
 
     public StringBuilder appendTo(StringBuilder sb) {
-        if (functionName != null) sb.append(functionName).append('(');
-        sb.append(fieldName);
-        if (functionName != null) sb.append(')');
+        value.appendTo(sb);
         switch (order) {
             case ASCENDING:
                 sb.append(" ASC");
