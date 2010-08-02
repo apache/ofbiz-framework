@@ -539,6 +539,9 @@ public class ShoppingCartServices {
                 List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
                 if (itemAdjustments != null) {
                     for(GenericValue itemAdjustment : itemAdjustments) {
+                        if ("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId"))) {
+                            continue;
+                        }
                         cartItem.addAdjustment(itemAdjustment);
                     }
                 }
@@ -549,6 +552,7 @@ public class ShoppingCartServices {
                 int itemIndex = 0;
                 for (GenericValue item : orderItems) {
 
+                    List<GenericValue> orderItemAdjustments = orh.getOrderItemAdjustments(item);
                     // set the item's ship group info
                     List<GenericValue> shipGroupAssocs = orh.getOrderItemShipGroupAssocs(item);
                     for (int g = 0; g < shipGroupAssocs.size(); g++) {
@@ -567,6 +571,16 @@ public class ShoppingCartServices {
                         }
 
                         cart.setItemShipGroupQty(itemIndex, shipGroupQty, cartShipGroupIndex);
+
+                        List<GenericValue> shipGroupItemAdjustments = EntityUtil.filterByAnd(orderItemAdjustments, UtilMisc.toMap("shipGroupSeqId", cartShipGroupIndexStr));
+                        ShoppingCart.CartShipInfo csi = cart.getShipInfo(cartShipGroupIndex);
+                        List itemTaxAdj = csi.getShipItemInfo(cart.findCartItem(itemIndex)).itemTaxAdj;
+                        for(GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
+                            if ("SALES_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId"))) {
+                                itemTaxAdj.add(shipGroupItemAdjustment);
+                                continue;
+                            }
+                        }
                     }
                     itemIndex ++;
                 }
