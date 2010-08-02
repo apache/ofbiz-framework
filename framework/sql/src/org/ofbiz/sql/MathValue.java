@@ -61,7 +61,7 @@ public final class MathValue extends StaticValue implements Iterable<ConstantVal
 
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append('(');
-        StringUtil.appendTo(sb, values, " ", null, op);
+        StringUtil.appendTo(sb, values, null, null, " ", op, " ");
         sb.append(')');
         return sb;
     }

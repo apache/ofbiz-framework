@@ -135,13 +135,13 @@ public class ValuesTest extends GenericTestCaseBase {
 
     public void testMathValue() {
         MathValue v1 = new MathValue("+", GenericTestCaseBase.<ConstantValue>list(nv1, nv2));
-        mathValueTest("v1", v1, "+", list(nv1, nv2), "( 1+ 2.0)", null, false);
+        mathValueTest("v1", v1, "+", list(nv1, nv2), "(1 + 2.0)", null, false);
         MathValue v2 = new MathValue("+", GenericTestCaseBase.<ConstantValue>list(nv1, nv3));
-        mathValueTest("v2", v2, "+", list(nv1, nv3), "( 1+ 3)", v1, false);
+        mathValueTest("v2", v2, "+", list(nv1, nv3), "(1 + 3)", v1, false);
         MathValue v3 = new MathValue("+", GenericTestCaseBase.<ConstantValue>list(nv1, nv2));
-        mathValueTest("v3", v3, "+", list(nv1, nv2), "( 1+ 2.0)", v1, true);
+        mathValueTest("v3", v3, "+", list(nv1, nv2), "(1 + 2.0)", v1, true);
         MathValue v4 = new MathValue("-", GenericTestCaseBase.<ConstantValue>list(nv1, nv3));
-        mathValueTest("v4", v4, "-", list(nv1, nv3), "( 1- 3)", v1, false);
+        mathValueTest("v4", v4, "-", list(nv1, nv3), "(1 - 3)", v1, false);
     }
 
     public void testNull() {
