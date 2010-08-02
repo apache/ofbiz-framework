@@ -133,6 +133,7 @@ TOKEN: {
     | <IS: "IS">
     | <NOT: "NOT">
     | <NULL: "NULL">
+    | <MAP: "MAP">
     | <START_DQUOTE: "\""> { pushState(IN_DQUOTE); }
     | <START_SQUOTE: "'"> { pushState(IN_SQUOTE); }
     | <INTEGER:
@@ -309,17 +310,30 @@ private SQLSelect Select(): {
 
 private void Relation(Map<String, Relation> relations): {
     String type = null, title = null, entityName;
-    List<KeyMap> keyMaps;
+    KeyMap keyMap;
+    List<KeyMap> keyMaps = FastList.newInstance();
 } {
     ( <TYPE> type=NamePart() )?
     ( <TITLE> title=NamePart() )?
     <NAME> { entityName = getToken(0).image; }
-    keyMaps=KeyMaps("cur", "other")
+    <MAP> keyMap=PlainKeyMap() { keyMaps.add(keyMap); } (
+        <COMMA>
+        keyMap=PlainKeyMap() { keyMaps.add(keyMap); }
+    )*
     {
         Relation relation = new Relation(type, title, entityName, keyMaps);
         if (relations.containsKey(relation.getName())) throw new ParseException("Duplicate relation: " + relation);
         relations.put(relation.getName(), relation);
     }
+}
+
+private KeyMap PlainKeyMap(): {
+    String left, right;
+} {
+    left=NamePart() (
+          <EQUALS> right=NamePart() { return new KeyMap(left, right); }
+        | { return new KeyMap(left, left); }
+    )
 }
 
 private SQLUpdate Update(): {

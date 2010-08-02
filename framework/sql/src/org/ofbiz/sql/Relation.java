@@ -74,12 +74,12 @@ public final class Relation extends Atom implements Iterable<KeyMap> {
             sb.append(" TITLE ").append(title);
         }
         sb.append(' ').append(entityName);
-        sb.append(" ON");
+        sb.append(" MAP");
         for (int i = 0; i < keyMaps.size(); i++) {
             KeyMap keyMap = keyMaps.get(i);
             if (i != 0) sb.append(" AND ");
-            sb.append(" cur.").append(keyMap.getLeftFieldName());
-            sb.append(" = other.").append(keyMap.getRightFieldName());
+            sb.append(' ').append(keyMap.getLeftFieldName());
+            sb.append(" = ").append(keyMap.getRightFieldName());
         }
         return sb;
     }
