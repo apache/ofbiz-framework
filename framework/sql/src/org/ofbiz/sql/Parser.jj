@@ -104,7 +104,10 @@ TOKEN: {
     | <HAVING: "HAVING">
     | <GROUP: "GROUP">
     | <ORDER: "ORDER">
-//  | <UNION: "UNION">
+    | <INTERSECT: "INTERSECT">
+    | <EXCEPT: "EXCEPT">
+    | <UNION: "UNION">
+    | <ALL: "ALL">
     | <BY: "BY">
     | <ON: "ON">
     | <USING: "USING">
@@ -299,7 +302,51 @@ private SQLView View(): {
     name=NamePart() <AS> sqlSelect=Select() { return new SQLView(name, sqlSelect); }
 }
 
+private SelectGroup SelectGroup(): {
+    boolean isDistinct = false;
+    List<String> groupBy = null;
+    Map<String, FieldDef> fieldDefs = FastMap.newInstance();
+    List<FieldAll> fieldAlls = FastList.newInstance();
+    Set<String> fieldAllAliases = FastSet.newInstance();
+    Table table;
+    Condition whereCondition = null, havingCondition = null;
+} {
+    <SELECT> (<DISTINCT> { isDistinct = true; })? (
+        SelectField(fieldDefs, fieldAlls, fieldAllAliases)
+        ( <COMMA> SelectField(fieldDefs, fieldAlls, fieldAllAliases) )*
+    )
+    <FROM> table=Table()
+    ( <WHERE> whereCondition=ConditionExpression() )?
+    ( <HAVING> havingCondition=ConditionExpression() )?
+    ( <GROUP> <BY> groupBy=FieldList() )?
+    { return new SelectGroup(isDistinct, fieldAlls, fieldDefs, table, whereCondition, havingCondition, groupBy); }
+}
+
+private Unioned.Operator UnionOperator(): {
+} {
+      <UNION>
+      ( <ALL> { return Unioned.Operator.UNION_ALL; } )?
+      { return Unioned.Operator.UNION; }
+    | <INTERSECT>
+      ( <ALL> { return Unioned.Operator.INTERSECT_ALL; } )?
+      { return Unioned.Operator.INTERSECT; }
+    | <EXCEPT>
+      ( <ALL> { return Unioned.Operator.EXCEPT_ALL; } )?
+      { return Unioned.Operator.EXCEPT; }
+}
+
+private Unioned Unioned(): {
+    Unioned.Operator operator;
+    SelectGroup selectGroup;
+    Unioned next = null;
+} {
+    operator=UnionOperator() selectGroup=SelectGroup() ( next=Unioned() )?
+    { return new Unioned(operator, selectGroup, next); }
+}
+
 private SQLSelect Select(): {
+    boolean hadEarlyRelations = false;
+    Unioned unioned = null;
     boolean isDistinct = false;
     List<OrderByItem> orderBy = null;
     List<String> groupBy = null;
@@ -316,14 +363,16 @@ private SQLSelect Select(): {
         ( <COMMA> SelectField(fieldDefs, fieldAlls, fieldAllAliases) )*
     )
     <FROM> table=Table()
-    ( <RELATION> Relation(relations) )*
+    ( LOOKAHEAD(1) <RELATION> Relation(relations) { hadEarlyRelations = true; } )*
     ( <WHERE> whereCondition=ConditionExpression() )?
     ( <HAVING> havingCondition=ConditionExpression() )?
     ( <GROUP> <BY> groupBy=FieldList() )?
+    ( unioned=Unioned() )?
+    ( LOOKAHEAD(1, {!hadEarlyRelations}) <RELATION> Relation(relations) )*
     ( <ORDER> <BY> orderBy=OrderByList() )?
     ( <OFFSET> offset=Integer() )?
     ( <LIMIT> limit=Integer() )?
-    { return new SQLSelect(isDistinct, fieldAlls, fieldDefs, table, relations, whereCondition, havingCondition, groupBy, orderBy, offset, limit); }
+    { return new SQLSelect(new SelectGroup(isDistinct, fieldAlls, fieldDefs, table, whereCondition, havingCondition, groupBy), unioned, relations, orderBy, offset, limit); }
 }
 
 private void Relation(Map<String, Relation> relations): {

@@ -42,6 +42,7 @@ import org.ofbiz.sql.NumberValue;
 import org.ofbiz.sql.OrderByItem;
 import org.ofbiz.sql.Planner;
 import org.ofbiz.sql.Relation;
+import org.ofbiz.sql.SelectGroup;
 import org.ofbiz.sql.SQLDelete;
 import org.ofbiz.sql.SQLInsert;
 import org.ofbiz.sql.SQLSelect;
@@ -51,6 +52,7 @@ import org.ofbiz.sql.StaticValue;
 import org.ofbiz.sql.StringValue;
 import org.ofbiz.sql.Table;
 import org.ofbiz.sql.TableName;
+import org.ofbiz.sql.Unioned;
 import org.ofbiz.sql.Value;
 
 public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, EntityDeletePlan, EntityInsertPlan, EntitySelectPlan, EntityUpdatePlan, EntityViewPlan> {
@@ -68,20 +70,25 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
 
     public EntitySelectPlan planSelect(SQLSelect selectStatement) {
         DynamicViewEntity dve = new DynamicViewEntity();
-        Table table = selectStatement.getTable();
+        Unioned unioned = selectStatement.getUnioned();
+        if (unioned.getOperator() != null || unioned.getNext() != null) {
+            throw new IllegalArgumentException("union views not yet supported");
+        }
+        SelectGroup selectGroup = unioned.getGroup();
+        Table table = selectGroup.getTable();
         addMember(dve, table.getTableName());
         addJoined(dve, table.getTableName().getAlias(), table.getJoined());
-        for (FieldAll fieldAll: selectStatement.getFieldAlls()) {
+        for (FieldAll fieldAll: selectGroup.getFieldAlls()) {
             dve.addAliasAll(fieldAll.getAlias(), null);
         }
         for (Relation relation: selectStatement.getRelations().values()) {
             dve.addRelation(relation.getType(), relation.getTitle(), relation.getEntityName(), buildKeyMaps(relation));
         }
-        List<String> groupBy = selectStatement.getGroupBy();
+        List<String> groupBy = selectGroup.getGroupBy();
         if (groupBy == null) {
             groupBy = Collections.emptyList();
         }
-        for (FieldDef fieldDef: selectStatement.getFieldDefs()) {
+        for (FieldDef fieldDef: selectGroup.getFieldDefs()) {
             addFieldDef(dve, groupBy, fieldDef.getAlias(), fieldDef);
         }
         List<String> orderBy;
@@ -93,7 +100,7 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
                 orderBy.add(orderByItem.toString());
             }
         }
-        return new EntitySelectPlan(dve, plan(selectStatement.getWhereCondition()), plan(selectStatement.getHavingCondition()), orderBy);
+        return new EntitySelectPlan(dve, plan(selectGroup.getWhereCondition()), plan(selectGroup.getHavingCondition()), orderBy);
     }
 
     public EntityUpdatePlan planUpdate(SQLUpdate updateStatement) {
