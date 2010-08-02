@@ -266,6 +266,7 @@ public class SQLTest extends GenericTestCaseBase {
             assertEquals("firstView", view, stmt);
             assertEquals("firstView:parse", parser(view).ViewStatement(), parser(stmt).ViewStatement());
         }
+        assertFalse("has no more statements", stmtIt.hasNext());
     }
 /*
 CREATE VIEW viewOne AS SELECT a.* FROM Party a;
