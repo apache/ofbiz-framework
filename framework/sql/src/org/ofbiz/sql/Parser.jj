@@ -486,25 +486,32 @@ private Boolean Joiner(): {
     | <JOIN> { return Boolean.FALSE; }
 }
 
-private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls, Set<String> fieldAllAliases): {
-    StaticValue v;
-    String n, fieldAlias = null, fieldName, exc;
-    FieldDef def;
+private FieldAll FieldAll(): {
+    String n, exc;
     Set<String> excludeList = FastSet.newInstance();
 } {
+    n=NamePart() <PERIOD> <STAR> (
+        <EXCLUDE> <OPEN_PAREN>
+        exc=NamePart() { excludeList.add(exc); }
+        ( <COMMA> exc=NamePart() { excludeList.add(exc); } )*
+        <CLOSE_PAREN>
+    )?
+    { return new FieldAll(n, excludeList); }
+}
+
+private void FieldDef(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAlls, Set<String> fieldAllAliases): {
+    StaticValue v;
+    String n, fieldAlias = null, fieldName;
+    FieldDef def;
+    FieldAll fieldAll;
+} {
     (
-          n=NamePart() (
-              <PERIOD> (
-                <STAR> (
-                    { if (fieldAllAliases.contains(n)) throw new ParseException("Duplicate aliasAll(" + n + ")"); }
-                    <EXCLUDE> <OPEN_PAREN>
-                    exc=NamePart() { excludeList.add(exc); }
-                    ( <COMMA> exc=NamePart() { excludeList.add(exc); } )*
-                    <CLOSE_PAREN>
-                )?
-                { fieldAlls.add(new FieldAll(n, excludeList)); return; }
-              | fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? { def = new FieldDef(new FieldValue(n, fieldName), fieldAlias); }
-              )
+          LOOKAHEAD(3) fieldAll=FieldAll() {
+            if (fieldAllAliases.contains(fieldAll.getAlias())) throw new ParseException("Duplicate aliasAll(" + fieldAll.getAlias() + ")");
+            fieldAlls.add(fieldAll); return;
+          }
+        | n=NamePart() (
+              <PERIOD> fieldName=NamePart() ( <AS> fieldAlias=NamePart() )? { def = new FieldDef(new FieldValue(n, fieldName), fieldAlias); }
             | v=FunctionCallRest(n) ( <AS> fieldAlias=NamePart() )? { def = new FieldDef(v, fieldAlias); }
             | ( <AS> fieldAlias=NamePart() )? { def = new FieldDef(new FieldValue(null, n), fieldAlias); }
           )
