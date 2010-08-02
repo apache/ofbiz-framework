@@ -56,6 +56,7 @@ import org.owasp.esapi.reference.DefaultValidator;
  */
 public class StringUtil {
 
+    public static final StringUtil INSTANCE = new StringUtil();
     public static final String module = StringUtil.class.getName();
     protected static final Map<String, Pattern> substitutionPatternMap;
 
@@ -80,6 +81,9 @@ public class StringUtil {
     public static final SimpleEncoder htmlEncoder = new HtmlEncoder();
     public static final SimpleEncoder xmlEncoder = new XmlEncoder();
     public static final SimpleEncoder stringEncoder = new StringEncoder();
+
+    private StringUtil() {
+    }
 
     public static interface SimpleEncoder {
         public String encode(String original);

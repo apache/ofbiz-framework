@@ -86,7 +86,7 @@ public class FreeMarkerWorker {
         newConfig.setObjectWrapper(wrapper);
         newConfig.setSharedVariable("Static", wrapper.getStaticModels());
         newConfig.setLocalizedLookup(false);
-        newConfig.setSharedVariable("StringUtil", new BeanModel(new StringUtil(), wrapper));
+        newConfig.setSharedVariable("StringUtil", new BeanModel(StringUtil.INSTANCE, wrapper));
         newConfig.setTemplateLoader(new FlexibleTemplateLoader());
         newConfig.setAutoImports(UtilProperties.getProperties("freemarkerImports"));
         newConfig.setTemplateExceptionHandler(new FreeMarkerWorker.OFBizTemplateExceptionHandler());
