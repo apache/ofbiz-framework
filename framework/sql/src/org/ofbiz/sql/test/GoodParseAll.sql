@@ -53,7 +53,7 @@ WHERE
 HAVING
     b.firstName LIKE '%foo%'
 ORDER BY
-    LOWER(lastName), firstName, birthDate DESC
+    LOWER(lastName), firstName, -birthDate
 OFFSET 5
 LIMIT 10
 ;
