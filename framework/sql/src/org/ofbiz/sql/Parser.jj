@@ -513,8 +513,8 @@ private void SelectField(Map<String, FieldDef> fieldDefs, List<FieldAll> fieldAl
         fieldAlls.add(fieldAll); return;
       }
     | fieldDef=FieldDef() {
-        if (fieldDefs.containsKey(fieldDef.getAlias())) throw new ParseException("duplicate alias(" + fieldDef.getAlias() + ")");
-        fieldDefs.put(fieldDef.getAlias(), fieldDef);
+        if (fieldDefs.containsKey(fieldDef.getDefaultName())) throw new ParseException("duplicate alias(" + fieldDef.getDefaultName() + ")");
+        fieldDefs.put(fieldDef.getDefaultName(), fieldDef);
     }
 }
 
