@@ -696,7 +696,7 @@ private List<OrderByItem> OrderByList(): {
     { return orderBy; }
 }
 
-private OrderByItem OrderByItem(): {
+public OrderByItem OrderByItem(): {
     String functionName = null, fieldName = null;
     OrderByItem.Order ordering = OrderByItem.Order.DEFAULT;
     OrderByItem.Nulls nulls = OrderByItem.Nulls.DEFAULT;
