@@ -281,7 +281,6 @@ private SQLView View(): {
 }
 
 private SQLSelect Select(): {
-    Integer i;
     boolean isDistinct = false;
     List<OrderByItem> orderBy = null;
     List<String> groupBy = null;
