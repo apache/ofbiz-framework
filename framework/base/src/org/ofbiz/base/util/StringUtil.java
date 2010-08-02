@@ -651,23 +651,39 @@ public class StringUtil {
     }
 
     public static StringBuilder appendTo(StringBuilder sb, Iterable<? extends Appender<StringBuilder>> iterable, String prefix, String suffix, String sep) {
+        return appendTo(sb, iterable, prefix, suffix, null, sep, null);
+    }
+
+    public static StringBuilder appendTo(StringBuilder sb, Iterable<? extends Appender<StringBuilder>> iterable, String prefix, String suffix, String sepPrefix, String sep, String sepSuffix) {
         Iterator<? extends Appender<StringBuilder>> it = iterable.iterator();
         while (it.hasNext()) {
             if (prefix != null) sb.append(prefix);
             it.next().appendTo(sb);
             if (suffix != null) sb.append(suffix);
-            if (it.hasNext() && sep != null) sb.append(sep);
+            if (it.hasNext() && sep != null) {
+                if (sepPrefix != null) sb.append(sepPrefix);
+                sb.append(sep);
+                if (sepSuffix != null) sb.append(sepSuffix);
+            }
         }
         return sb;
     }
 
     public static StringBuilder append(StringBuilder sb, Iterable<? extends Object> iterable, String prefix, String suffix, String sep) {
+        return append(sb, iterable, prefix, suffix, null, sep, null);
+    }
+
+    public static StringBuilder append(StringBuilder sb, Iterable<? extends Object> iterable, String prefix, String suffix, String sepPrefix, String sep, String sepSuffix) {
         Iterator<? extends Object> it = iterable.iterator();
         while (it.hasNext()) {
             if (prefix != null) sb.append(prefix);
             sb.append(it.next());
             if (suffix != null) sb.append(suffix);
-            if (it.hasNext() && sep != null) sb.append(sep);
+            if (it.hasNext() && sep != null) {
+                if (sepPrefix != null) sb.append(sepPrefix);
+                sb.append(sep);
+                if (sepSuffix != null) sb.append(sepSuffix);
+            }
         }
         return sb;
     }
