@@ -20,8 +20,10 @@ package org.ofbiz.sql;
 
 import java.util.List;
 
+import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.util.StringUtil;
 
+@SourceMonitored
 public final class ListCondition extends Condition {
     private final Value left;
     private final String op;

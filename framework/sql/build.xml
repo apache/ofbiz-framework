@@ -46,6 +46,9 @@ under the License.
        <pathelement location="src"/>
     </path>
     <filelist id="test.classes" dir="${src.dir}">
+        <file name="org/ofbiz/sql/test/ValuesTest.java"/>
+        <file name="org/ofbiz/sql/test/ConditionsTest.java"/>
+        <file name="org/ofbiz/sql/test/SelectTest.java"/>
         <file name="org/ofbiz/sql/test/SQLTest.java"/>
     </filelist>
 

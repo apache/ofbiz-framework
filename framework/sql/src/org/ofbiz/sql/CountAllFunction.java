@@ -18,6 +18,9 @@
  */
 package org.ofbiz.sql;
 
+import org.ofbiz.base.lang.SourceMonitored;
+
+@SourceMonitored
 public final class CountAllFunction extends StaticValue {
     public void accept(Visitor visitor) {
         visitor.visit(this);

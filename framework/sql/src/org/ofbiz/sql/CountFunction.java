@@ -18,6 +18,9 @@
  */
 package org.ofbiz.sql;
 
+import org.ofbiz.base.lang.SourceMonitored;
+
+@SourceMonitored
 public final class CountFunction extends StaticValue {
     private final boolean isDistinct;
     private final FieldValue field;

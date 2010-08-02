@@ -18,6 +18,9 @@
  */
 package org.ofbiz.sql;
 
+import org.ofbiz.base.lang.SourceMonitored;
+
+@SourceMonitored
 public final class OrderByItem extends Atom {
     public enum Order { DEFAULT, ASCENDING, DESCENDING };
 

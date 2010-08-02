@@ -18,6 +18,9 @@
  */
 package org.ofbiz.sql;
 
+import org.ofbiz.base.lang.SourceMonitored;
+
+@SourceMonitored
 public final class BetweenCondition extends Condition {
     private final Value left;
     private final Value r1;
