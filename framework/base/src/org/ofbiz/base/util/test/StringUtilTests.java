@@ -44,7 +44,8 @@ public class StringUtilTests extends GenericTestCaseBase {
     }
 
     public void testStringUtil() throws Exception {
-        //assertStaticHelperClass(StringUtil.class);
+        assertStaticHelperClass(StringUtil.class);
+        assertTrue("correct INSTANCE", StringUtil.INSTANCE instanceof StringUtil);
     }
 
     private static void encoderTest(String label, StringUtil.SimpleEncoder encoder, String wanted, String toEncode) {
