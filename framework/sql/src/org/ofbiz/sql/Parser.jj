@@ -695,7 +695,6 @@ private List<OrderByItem> OrderByList(): {
 
 private OrderByItem OrderByItem(): {
     String functionName = null, fieldName = null;
-    boolean descending = false, orderingSet = false;
     OrderByItem.Order ordering = OrderByItem.Order.DEFAULT;
 } {
     (
