@@ -715,7 +715,7 @@ under the License.
             <add-error><fail-message message="ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] does not exist."/></add-error>
             <check-errors/>
         </if-empty>
-        <remove-value value-field="lookupMap"/>
+        <remove-value value-field="custRequestWorkEffort"/>
     </simple-method>
 
     <!-- CustRequestItem workeffort -->
