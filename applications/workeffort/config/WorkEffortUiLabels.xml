@@ -95,6 +95,10 @@
         <value xml:lang="it">Disponibilità</value>
         <value xml:lang="zh">有效性</value>
     </property>
+    <property key="FormFieldTitle_calendarType">
+        <value xml:lang="en">Calendar Type</value>
+        <value xml:lang="fr">Type de calendrier</value>
+    </property>
     <property key="FormFieldTitle_clientPartyId">
         <value xml:lang="de">Klienten Akteur ID</value>
         <value xml:lang="en">Client Party Id</value>
@@ -163,6 +167,10 @@
         <value xml:lang="it">Data/Ora Fine</value>
         <value xml:lang="th">วันเวลาที่เสร็จ</value>
         <value xml:lang="zh">完成日期时间</value>
+    </property>
+    <property key="FormFieldTitle_hideEvents">
+        <value xml:lang="fr">Cacher les évènements</value>
+        <value xml:lang="en">Hide events</value>
     </property>
     <property key="FormFieldTitle_hours">
         <value xml:lang="de">Stunden</value>
