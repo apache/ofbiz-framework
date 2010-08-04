@@ -41,7 +41,7 @@ if (match) {
         return;
     }
 
-    context.matches = PartyWorker.findMatchingPartyAndPostalAddress(delegator, address1, address2, city,
+    context.matches = PartyWorker.findMatchingPersonPostalAddresses(delegator, address1, address2, city,
             state, postalCode, null, null, firstName, null, lastName);
 
     context.addressString = PartyWorker.makeMatchingString(delegator, address1);

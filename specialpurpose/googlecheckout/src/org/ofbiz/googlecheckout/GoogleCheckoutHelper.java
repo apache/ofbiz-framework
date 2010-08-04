@@ -433,7 +433,7 @@ public class GoogleCheckoutHelper {
         String partyId = null;
 
         // look for an existing shipping address
-        List<GenericValue> shipInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, shipAddr.getAddress1(),
+        List<GenericValue> shipInfo = PartyWorker.findMatchingPersonPostalAddresses(delegator, shipAddr.getAddress1(),
                 (UtilValidate.isEmpty(shipAddr.getAddress2()) ? null : shipAddr.getAddress2()), shipAddr.getCity(), shipAddr.getRegion(),
                 shipAddr.getPostalCode(), null, getCountryGeoId(shipAddr.getCountryCode()), shipAddr.getStructuredName().getFirstName(),
                 null, shipAddr.getStructuredName().getLastName());
@@ -446,7 +446,7 @@ public class GoogleCheckoutHelper {
         }
 
         // look for an existing billing address
-        List<GenericValue> billInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, billAddr.getAddress1(),
+        List<GenericValue> billInfo = PartyWorker.findMatchingPersonPostalAddresses(delegator, billAddr.getAddress1(),
                 (UtilValidate.isEmpty(billAddr.getAddress2()) ? null : billAddr.getAddress2()), billAddr.getCity(), billAddr.getRegion(),
                 billAddr.getPostalCode(), null, getCountryGeoId(billAddr.getCountryCode()), billAddr.getStructuredName().getFirstName(),
                 null, billAddr.getStructuredName().getLastName());
@@ -480,7 +480,7 @@ public class GoogleCheckoutHelper {
         // create the billing address if necessary
         if (billCmId == null) {
             // check the billing address again (in case it was just created)
-            billInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, billAddr.getAddress1(),
+            billInfo = PartyWorker.findMatchingPersonPostalAddresses(delegator, billAddr.getAddress1(),
                     billAddr.getAddress2(), billAddr.getCity(), billAddr.getRegion(),
                     billAddr.getPostalCode(), null, getCountryGeoId(billAddr.getCountryCode()), billAddr.getStructuredName().getFirstName(),
                     null, billAddr.getStructuredName().getLastName());

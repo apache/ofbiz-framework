@@ -1115,7 +1115,7 @@ public class EbayOrderServices {
                     String city = (String) shippingAddressCtx.get("shippingAddressCityName");
                     EbayHelper.correctCityStateCountry(dispatcher, shippingAddressCtx, city, state, country);
 
-                    List<GenericValue> shipInfo = PartyWorker.findMatchingPartyAndPostalAddress(delegator, shippingAddressCtx.get("shippingAddressStreet1").toString(),
+                    List<GenericValue> shipInfo = PartyWorker.findMatchingPersonPostalAddresses(delegator, shippingAddressCtx.get("shippingAddressStreet1").toString(),
                             (UtilValidate.isEmpty(shippingAddressCtx.get("shippingAddressStreet2")) ? null : shippingAddressCtx.get("shippingAddressStreet2").toString()), shippingAddressCtx.get("city").toString(), shippingAddressCtx.get("stateProvinceGeoId").toString(),
                             shippingAddressCtx.get("shippingAddressPostalCode").toString(), null, shippingAddressCtx.get("countryGeoId").toString(), firstName, null, lastName);
                     if (UtilValidate.isNotEmpty(shipInfo)) {
