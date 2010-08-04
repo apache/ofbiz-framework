@@ -222,6 +222,26 @@ public class PartyWorker {
         return null;
     }
 
+    /** Finds all matching parties based on the values provided.  Excludes party records with a statusId PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
+     * The matching process is as follows:
+     * 1. Candidate addresses are found by querying PartyAndPostalAddress using the supplied city and if provided, stateProvinceGeoId, postalCode, postalCodeExt and countryGeoId
+     * 2. In-memory address line comparisons are then performed against the supplied address1 and if provided, address2.  Address lines are compared after the strings have been converted using {@link #makeMatchingString(Delegator, String)}.
+     * 3. For each matching PartyAndPostalAddress record, the Person record for the Party is then retrieved and an upper case comparison is performed against the supplied firstName, lastName and if provided, middleName.
+     * 
+     * @param delegator             Delegator instance
+     * @param address1              PostalAddress.address1 to match against (Required).
+     * @param address2              Optional PostalAddress.address2 to match against.
+     * @param city                  PostalAddress.city value to match against (Required).
+     * @param stateProvinceGeoId    Optional PostalAddress.stateProvinceGeoId value to match against.  If null or "**" is passed then the value will be ignored during matching.  "NA" can be passed in place of "_NA_".
+     * @param postalCode            PostalAddress.postalCode value to match against.  Cannot be null but can be skipped by passing a value starting with an "*".  If the length of the supplied string is 10 characters and the string contains a "-" then the postal code will be split at the "-" and the second half will be used as the postalCodeExt.
+     * @param postalCodeExt         Optional PostalAddress.postalCodeExt value to match against.  Will be overridden if a postalCodeExt value is retrieved from postalCode as described above.
+     * @param countryGeoId          Optional PostalAddress.countryGeoId value to match against.
+     * @param firstName             Person.firstName to match against (Required).
+     * @param middleName            Optional Person.middleName to match against.
+     * @param lastName              Person.lastName to match against (Required).
+     * @return List of PartyAndPostalAddress GenericValues that match the supplied criteria.
+     * @throws GeneralException
+     */
     public static List<GenericValue> findMatchingPartyAndPostalAddress(Delegator delegator, String address1, String address2, String city,
                             String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId,
                             String firstName, String middleName, String lastName) throws GeneralException {
@@ -338,6 +358,16 @@ public class PartyWorker {
         return returnList;
     }
 
+    /**
+     * Converts the supplied String into a String suitable for address line matching.
+     * Performs the following transformations on the supplied String:
+     * - Converts to upper case
+     * - Retrieves all records from the AddressMatchMap table and replaces all occurrences of addressMatchMap.mapKey with addressMatchMap.mapValue using upper case matching.
+     * - Removes all non-word characters from the String i.e. everything except A-Z, 0-9 and _
+     * @param delegator     A Delegator instance
+     * @param address       The address String to convert
+     * @return              The converted Address
+     */
     public static String makeMatchingString(Delegator delegator, String address) {
         if (address == null) {
             return null;
