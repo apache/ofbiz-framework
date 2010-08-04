@@ -222,7 +222,7 @@ public class PartyWorker {
         return null;
     }
 
-    /** Finds all matching parties based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
+    /** Finds all matching PartyAndPostalAddress records based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
      * The matching process is as follows:
      * 1. Calls {@link #findMatchingPartyPostalAddress(Delegator, String, String, String, String, String, String, String, String)} to retrieve a list of address matched PartyAndPostalAddress records.  Results are limited to Parties of type PERSON.
      * 2. For each matching PartyAndPostalAddress record, the Person record for the Party is then retrieved and an upper case comparison is performed against the supplied firstName, lastName and if provided, middleName.
@@ -241,10 +241,9 @@ public class PartyWorker {
      * @return List of PartyAndPostalAddress GenericValue objects that match the supplied criteria.
      * @throws GeneralException
      */
-    public static List<GenericValue> findMatchingPartyAndPostalAddress(Delegator delegator, String address1, String address2, String city,
-                            String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId,
-                            String firstName, String middleName, String lastName) throws GeneralException {
-
+    public static List<GenericValue> findMatchingPersonPostalAddresses(Delegator delegator, String address1, String address2, String city,
+            String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId,
+            String firstName, String middleName, String lastName) throws GeneralException {
         // return list
         List<GenericValue> returnList = FastList.newInstance();
 
@@ -281,6 +280,16 @@ public class PartyWorker {
         }
 
         return returnList;
+    }
+
+    /**
+     * @deprecated Renamed to {@link #findMatchingPersonPartyAndPostalAddress(Delegator, String, String, String, String, String, String, String, String, String, String)}
+     */
+    @Deprecated
+    public static List<GenericValue> findMatchingPartyAndPostalAddress(Delegator delegator, String address1, String address2, String city,
+                            String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId,
+                            String firstName, String middleName, String lastName) throws GeneralException {
+        return PartyWorker.findMatchingPersonPostalAddresses(delegator, address1, address2, city, stateProvinceGeoId, postalCode, postalCodeExt, countryGeoId, firstName, middleName, lastName);
     }
 
     /**
