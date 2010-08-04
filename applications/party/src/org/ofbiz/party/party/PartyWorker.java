@@ -293,60 +293,63 @@ public class PartyWorker {
         List<GenericValue> addresses = EntityUtil.filterByDate(delegator.findList("PartyAndPostalAddress", addrCond, null, sort, null, false));
         //Debug.log("Checking for matching address: " + addrCond.toString() + "[" + addresses.size() + "]", module);
 
+        if (UtilValidate.isEmpty(addresses)) {
+            // No address matches, return an empty list
+            return returnList;
+        }
+
         List<GenericValue> validFound = FastList.newInstance();
-        if (UtilValidate.isNotEmpty(addresses)) {
-            // check the address line
-            for (GenericValue address: addresses) {
-                // address 1 field
-                String addr1Source = PartyWorker.makeMatchingString(delegator, address1);
-                String addr1Target = PartyWorker.makeMatchingString(delegator, address.getString("address1"));
+        // check the address line
+        for (GenericValue address: addresses) {
+            // address 1 field
+            String addr1Source = PartyWorker.makeMatchingString(delegator, address1);
+            String addr1Target = PartyWorker.makeMatchingString(delegator, address.getString("address1"));
 
-                if (addr1Target != null) {
-                    Debug.log("Comparing address1 : " + addr1Source + " / " + addr1Target, module);
-                    if (addr1Target.equals(addr1Source)) {
+            if (addr1Target != null) {
+                Debug.log("Comparing address1 : " + addr1Source + " / " + addr1Target, module);
+                if (addr1Target.equals(addr1Source)) {
 
-                        // address 2 field
-                        if (address2 != null) {
-                            String addr2Source = PartyWorker.makeMatchingString(delegator, address2);
-                            String addr2Target = PartyWorker.makeMatchingString(delegator, address.getString("address2"));
-                            if (addr2Target != null) {
-                                Debug.log("Comparing address2 : " + addr2Source + " / " + addr2Target, module);
+                    // address 2 field
+                    if (address2 != null) {
+                        String addr2Source = PartyWorker.makeMatchingString(delegator, address2);
+                        String addr2Target = PartyWorker.makeMatchingString(delegator, address.getString("address2"));
+                        if (addr2Target != null) {
+                            Debug.log("Comparing address2 : " + addr2Source + " / " + addr2Target, module);
 
-                                if (addr2Source.equals(addr2Target)) {
-                                    Debug.log("Matching address2; adding valid address", module);
-                                    validFound.add(address);
-                                    //validParty.put(address.getString("partyId"), address.getString("contactMechId"));
-                                }
-                            }
-                        } else {
-                            if (address.get("address2") == null) {
-                                Debug.log("No address2; adding valid address", module);
+                            if (addr2Source.equals(addr2Target)) {
+                                Debug.log("Matching address2; adding valid address", module);
                                 validFound.add(address);
                                 //validParty.put(address.getString("partyId"), address.getString("contactMechId"));
                             }
                         }
+                    } else {
+                        if (address.get("address2") == null) {
+                            Debug.log("No address2; adding valid address", module);
+                            validFound.add(address);
+                            //validParty.put(address.getString("partyId"), address.getString("contactMechId"));
+                        }
                     }
                 }
             }
+        }
 
-            if (UtilValidate.isNotEmpty(validFound)) {
-                for (GenericValue partyAndAddr: validFound) {
-                    String partyId = partyAndAddr.getString("partyId");
-                    if (UtilValidate.isNotEmpty(partyId)) {
-                        GenericValue p = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
-                        if (p != null) {
-                            String fName = p.getString("firstName");
-                            String lName = p.getString("lastName");
-                            String mName = p.getString("middleName");
-                            if (lName.toUpperCase().equals(lastName.toUpperCase())) {
-                                if (fName.toUpperCase().equals(firstName.toUpperCase())) {
-                                    if (mName != null && middleName != null) {
-                                        if (mName.toUpperCase().equals(middleName.toUpperCase())) {
-                                            returnList.add(partyAndAddr);
-                                        }
-                                    } else if (middleName == null) {
+        if (UtilValidate.isNotEmpty(validFound)) {
+            for (GenericValue partyAndAddr: validFound) {
+                String partyId = partyAndAddr.getString("partyId");
+                if (UtilValidate.isNotEmpty(partyId)) {
+                    GenericValue p = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
+                    if (p != null) {
+                        String fName = p.getString("firstName");
+                        String lName = p.getString("lastName");
+                        String mName = p.getString("middleName");
+                        if (lName.toUpperCase().equals(lastName.toUpperCase())) {
+                            if (fName.toUpperCase().equals(firstName.toUpperCase())) {
+                                if (mName != null && middleName != null) {
+                                    if (mName.toUpperCase().equals(middleName.toUpperCase())) {
                                         returnList.add(partyAndAddr);
                                     }
+                                } else if (middleName == null) {
+                                    returnList.add(partyAndAddr);
                                 }
                             }
                         }
@@ -354,6 +357,7 @@ public class PartyWorker {
                 }
             }
         }
+
 
         return returnList;
     }
