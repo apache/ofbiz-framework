@@ -258,7 +258,6 @@ public class PartyWorker {
             addrExprs.add(EntityCondition.makeCondition("postalCodeExt", EntityOperator.EQUALS, postalCodeExt));
         }
 
-        city = city.replaceAll("'", "\\\\'");
         addrExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("city"), EntityOperator.EQUALS, EntityFunction.UPPER(city)));
 
         if (countryGeoId != null) {
