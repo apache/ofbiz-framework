@@ -66,7 +66,6 @@ function lookupInventory() {
                       <span>
                         <@htmlTemplate.lookupField value='${requestParameters.productId?if_exists}' formName="lookupinventory" name="productId" id="productId" fieldFormName="LookupProduct"/>
                       </span>
-                      <input type='text' size='25' readonly="readonly" name='productId_description' value=''/>${uiLabelMap.CommonDescription}
                      </td>
                   </tr>
                   <tr>
