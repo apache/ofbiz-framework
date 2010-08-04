@@ -45,7 +45,7 @@
                 If you want to contribute to this document, you are very welcome.
                 Several possibilities exist:
                 <orderedlist>
-                    <listitem><para>Convert existing OFBiz documents on the <link xl:href="http://docs.ofbiz.org">OFBiz documentation site to the <link xl:href="http://docbook.org">docbook</link> format</link></para></listitem>
+                    <listitem><para>Convert existing OFBiz documents on the <link xl:href="https://cwiki.apache.org/confluence/display/OFBADMIN/OFBiz+Documentation+Index">OFBiz documentation site</link> to the <link xl:href="http://docbook.org">docbookformat</link></para></listitem>
                     <listitem><para>Write new document chapters for an OFBiz component</para></listitem>
                     <listitem><para>Write new Help screens which can be inserted as sections in the document.</para></listitem>
                 </orderedlist>
