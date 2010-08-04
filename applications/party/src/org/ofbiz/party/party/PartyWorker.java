@@ -222,11 +222,10 @@ public class PartyWorker {
         return null;
     }
 
-    /** Finds all matching parties based on the values provided.  Excludes party records with a statusId PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
+    /** Finds all matching parties based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
      * The matching process is as follows:
-     * 1. Candidate addresses are found by querying PartyAndPostalAddress using the supplied city and if provided, stateProvinceGeoId, postalCode, postalCodeExt and countryGeoId
-     * 2. In-memory address line comparisons are then performed against the supplied address1 and if provided, address2.  Address lines are compared after the strings have been converted using {@link #makeMatchingString(Delegator, String)}.
-     * 3. For each matching PartyAndPostalAddress record, the Person record for the Party is then retrieved and an upper case comparison is performed against the supplied firstName, lastName and if provided, middleName.
+     * 1. Calls {@link #findMatchingPartyPostalAddress(Delegator, String, String, String, String, String, String, String, String)} to retrieve a list of address matched PartyAndPostalAddress records.  Results are limited to Parties of type PERSON.
+     * 2. For each matching PartyAndPostalAddress record, the Person record for the Party is then retrieved and an upper case comparison is performed against the supplied firstName, lastName and if provided, middleName.
      * 
      * @param delegator             Delegator instance
      * @param address1              PostalAddress.address1 to match against (Required).
@@ -239,7 +238,7 @@ public class PartyWorker {
      * @param firstName             Person.firstName to match against (Required).
      * @param middleName            Optional Person.middleName to match against.
      * @param lastName              Person.lastName to match against (Required).
-     * @return List of PartyAndPostalAddress GenericValues that match the supplied criteria.
+     * @return List of PartyAndPostalAddress GenericValue objects that match the supplied criteria.
      * @throws GeneralException
      */
     public static List<GenericValue> findMatchingPartyAndPostalAddress(Delegator delegator, String address1, String address2, String city,
@@ -250,7 +249,61 @@ public class PartyWorker {
         List<GenericValue> returnList = FastList.newInstance();
 
         // address information
-        if (firstName == null || lastName == null || address1 == null || city == null || postalCode == null) {
+        if (firstName == null || lastName == null) {
+            throw new IllegalArgumentException();
+        }
+
+        List<GenericValue> validFound = findMatchingPartyPostalAddress(delegator, address1, address2, city, stateProvinceGeoId, postalCode, postalCodeExt, countryGeoId, "PERSON");
+
+        if (UtilValidate.isNotEmpty(validFound)) {
+            for (GenericValue partyAndAddr: validFound) {
+                String partyId = partyAndAddr.getString("partyId");
+                if (UtilValidate.isNotEmpty(partyId)) {
+                    GenericValue p = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
+                    if (p != null) {
+                        String fName = p.getString("firstName");
+                        String lName = p.getString("lastName");
+                        String mName = p.getString("middleName");
+                        if (lName.toUpperCase().equals(lastName.toUpperCase())) {
+                            if (fName.toUpperCase().equals(firstName.toUpperCase())) {
+                                if (mName != null && middleName != null) {
+                                    if (mName.toUpperCase().equals(middleName.toUpperCase())) {
+                                        returnList.add(partyAndAddr);
+                                    }
+                                } else if (middleName == null) {
+                                    returnList.add(partyAndAddr);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return returnList;
+    }
+
+    /**
+     * Finds all matching parties based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
+     * 1. Candidate addresses are found by querying PartyAndPostalAddress using the supplied city and if provided, stateProvinceGeoId, postalCode, postalCodeExt and countryGeoId
+     * 2. In-memory address line comparisons are then performed against the supplied address1 and if provided, address2.  Address lines are compared after the strings have been converted using {@link #makeMatchingString(Delegator, String)}.
+     * 
+     * @param delegator             Delegator instance
+     * @param address1              PostalAddress.address1 to match against (Required).
+     * @param address2              Optional PostalAddress.address2 to match against.
+     * @param city                  PostalAddress.city value to match against (Required).
+     * @param stateProvinceGeoId    Optional PostalAddress.stateProvinceGeoId value to match against.  If null or "**" is passed then the value will be ignored during matching.  "NA" can be passed in place of "_NA_".
+     * @param postalCode            PostalAddress.postalCode value to match against.  Cannot be null but can be skipped by passing a value starting with an "*".  If the length of the supplied string is 10 characters and the string contains a "-" then the postal code will be split at the "-" and the second half will be used as the postalCodeExt.
+     * @param postalCodeExt         Optional PostalAddress.postalCodeExt value to match against.  Will be overridden if a postalCodeExt value is retrieved from postalCode as described above.
+     * @param countryGeoId          Optional PostalAddress.countryGeoId value to match against.
+     * @param partyTypeId           Optional Party.partyTypeId to match against.
+     * @return List of PartyAndPostalAddress GenericValue objects that match the supplied criteria.
+     * @throws GenericEntityException
+     */
+    public static List<GenericValue> findMatchingPartyPostalAddress(Delegator delegator, String address1, String address2, String city, 
+                            String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId, String partyTypeId) throws GenericEntityException {
+
+        if (address1 == null || city == null || postalCode == null) {
             throw new IllegalArgumentException();
         }
 
@@ -288,6 +341,10 @@ public class PartyWorker {
         addrExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null),
                 EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
 
+        if (partyTypeId != null) {
+            addrExprs.add(EntityCondition.makeCondition("partyTypeId", EntityOperator.EQUALS, partyTypeId));
+        }
+
         List<String> sort = UtilMisc.toList("-fromDate");
         EntityCondition addrCond = EntityCondition.makeCondition(addrExprs, EntityOperator.AND);
         List<GenericValue> addresses = EntityUtil.filterByDate(delegator.findList("PartyAndPostalAddress", addrCond, null, sort, null, false));
@@ -295,7 +352,7 @@ public class PartyWorker {
 
         if (UtilValidate.isEmpty(addresses)) {
             // No address matches, return an empty list
-            return returnList;
+            return addresses;
         }
 
         List<GenericValue> validFound = FastList.newInstance();
@@ -332,34 +389,7 @@ public class PartyWorker {
                 }
             }
         }
-
-        if (UtilValidate.isNotEmpty(validFound)) {
-            for (GenericValue partyAndAddr: validFound) {
-                String partyId = partyAndAddr.getString("partyId");
-                if (UtilValidate.isNotEmpty(partyId)) {
-                    GenericValue p = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", partyId));
-                    if (p != null) {
-                        String fName = p.getString("firstName");
-                        String lName = p.getString("lastName");
-                        String mName = p.getString("middleName");
-                        if (lName.toUpperCase().equals(lastName.toUpperCase())) {
-                            if (fName.toUpperCase().equals(firstName.toUpperCase())) {
-                                if (mName != null && middleName != null) {
-                                    if (mName.toUpperCase().equals(middleName.toUpperCase())) {
-                                        returnList.add(partyAndAddr);
-                                    }
-                                } else if (middleName == null) {
-                                    returnList.add(partyAndAddr);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
-        return returnList;
+        return validFound;
     }
 
     /**
