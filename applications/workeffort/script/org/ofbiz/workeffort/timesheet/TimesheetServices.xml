@@ -388,13 +388,16 @@ under the License.
     </simple-method>
 
     <!-- subroutines -->
-    <simple-method method-name="checkTimesheetStatus" short-description="Check access and if the timesheet is in progress">
+    <simple-method method-name="checkTimesheetStatus" short-description="Check access and if the timesheet is in progress, however do allow invoiceId to be updated when completed (need to invoice completed timesheets)">
         <if>
             <condition>
-                <or>
-                    <not><if-empty field="parameters.timesheetId"/></not>
-                    <not><if-empty field="lookedUpValue.timesheetId"/></not>
-                </or>
+                <and>
+                    <or>
+                        <not><if-empty field="parameters.timesheetId"/></not>
+                        <not><if-empty field="lookedUpValue.timesheetId"/></not>
+                    </or>
+                    <if-empty field="parameters.invoiceId"/>
+                </and>
             </condition>
             <then>
                 <if-empty field="parameters.timesheetId">
