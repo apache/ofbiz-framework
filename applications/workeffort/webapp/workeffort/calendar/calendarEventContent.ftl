@@ -34,7 +34,7 @@ under the License.
     </#list>
   </#if>
 <#elseif workEffort.workEffortTypeId == "PROD_ORDER_TASK">
-  <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}" class="event">
+  <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortParentId}" class="event">
     ${workEffort.workEffortParentId} / ${workEffort.workEffortId}
   </a>
   &nbsp;${workEffort.workEffortName?default("Undefined")}<#if workEffort.reservPersons?exists>&nbsp;Persons:${workEffort.reservPersons}</#if>
