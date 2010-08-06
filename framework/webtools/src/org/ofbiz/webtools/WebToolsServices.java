@@ -121,17 +121,14 @@ public class WebToolsServices {
         if (txTimeout == null) {
             txTimeout = Integer.valueOf(7200);
         }
-        InputSource ins = null;
         URL url = null;
 
         // #############################
         // The filename to parse is prepared
         // #############################
-        if (UtilValidate.isNotEmpty(fmfilename) && UtilValidate.isNotEmpty(filename)) {
+        if (UtilValidate.isNotEmpty(filename)) {
             try {
                 url = isUrl?FlexibleLocation.resolveLocation(filename):UtilURL.fromFilename(filename);
-                InputStream is = url.openStream();
-                ins = new InputSource(is);
             } catch (MalformedURLException mue) {
                 return ServiceUtil.returnError("ERROR: invalid file name (" + filename + "): " + mue.getMessage());
             } catch (IOException ioe) {
@@ -142,18 +139,9 @@ public class WebToolsServices {
         }
 
         // #############################
-        // The text to parse is prepared
-        // #############################
-        if (UtilValidate.isNotEmpty(fmfilename) && UtilValidate.isNotEmpty(fulltext)) {
-            StringReader sr = new StringReader(fulltext);
-            ins = new InputSource(sr);
-        }
-
-        // #############################
         // FM Template
         // #############################
-        String s = null;
-        if (UtilValidate.isNotEmpty(fmfilename) && ins != null) {
+        if (UtilValidate.isNotEmpty(fmfilename) && (UtilValidate.isNotEmpty(fulltext) || url != null)) {
             FileReader templateReader = null;
             try {
                 templateReader = new FileReader(fmfilename);
@@ -169,14 +157,25 @@ public class WebToolsServices {
                 template = new Template("FMImportFilter", templateReader, conf);
                 Map<String, Object> fmcontext = FastMap.newInstance();
 
-                NodeModel nodeModel = NodeModel.parse(ins);
+                InputSource ins = url != null ? new InputSource(url.openStream()) : new InputSource(new StringReader(fulltext));
+                NodeModel nodeModel;
+                try {
+                    nodeModel = NodeModel.parse(ins);
+                } finally {
+                    if (ins.getByteStream() != null) {
+                        ins.getByteStream().close();
+                    }
+                    if (ins.getCharacterStream() != null) {
+                        ins.getCharacterStream().close();
+                    }
+                }
                 fmcontext.put("doc", nodeModel);
                 BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
                 TemplateHashModel staticModels = wrapper.getStaticModels();
                 fmcontext.put("Static", staticModels);
 
                 template.process(fmcontext, outWriter);
-                s = outWriter.toString();
+                fulltext = outWriter.toString();
             } catch (Exception ex) {
                 return ServiceUtil.returnError("ERROR processing template file (" + fmfilename + "): " + ex.getMessage());
             }
@@ -185,7 +184,7 @@ public class WebToolsServices {
         // #############################
         // The parsing takes place
         // #############################
-        if (s != null || fulltext != null || url != null) {
+        if (fulltext != null || url != null) {
             try {
                 Map<String, Object> inputMap = UtilMisc.toMap("mostlyInserts", mostlyInserts,
                                               "createDummyFks", createDummyFks,
@@ -193,14 +192,10 @@ public class WebToolsServices {
                                               "maintainTimeStamps", maintainTimeStamps,
                                               "txTimeout", txTimeout,
                                               "userLogin", userLogin);
-                if (s != null) {
-                    inputMap.put("xmltext", s);
+                if (fulltext != null) {
+                    inputMap.put("xmltext", fulltext);
                 } else {
-                    if (fulltext != null) {
-                        inputMap.put("xmltext", fulltext);
-                    } else {
-                        inputMap.put("url", url);
-                    }
+                    inputMap.put("url", url);
                 }
                 Map<String, Object> outputMap = dispatcher.runSync("parseEntityXmlFile", inputMap);
                 if (ServiceUtil.isError(outputMap)) {
