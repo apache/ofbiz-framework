@@ -38,6 +38,15 @@ if (invoiceItemList) {
         if (orderItemBilling) {
             orderId = orderItemBilling.orderId;
             invoiceItemMap.orderId = orderId;
+        } else {
+            orderAdjustmentBilling = EntityUtil.getFirst(delegator.findByAnd("OrderAdjustmentBilling", [invoiceId : invoiceId, invoiceItemSeqId : invoiceItemSeqId]));
+            if (orderAdjustmentBilling) {
+                orderAdjustment = EntityUtil.getFirst(delegator.findByAnd("OrderAdjustment", [orderAdjustmentId : orderAdjustmentBilling.orderAdjustmentId]))
+                if (orderAdjustment) {
+                    orderId = orderAdjustment.orderId;
+                    invoiceItemMap.orderId = orderId;
+                }
+            }
         }
         invoiceItems.add(invoiceItemMap);
     }
