@@ -208,10 +208,7 @@ under the License.
                                 <condition>
                                     <or>
                                         <if-empty field="oldRateAmount"/>
-                                        <and>
-                                            <not><if-empty field="OldRateAmount"/></not>
-                                            <if-compare-field field="rateAmount" operator="not-equals" to-field="oldRateAmount"/>
-                                        </and>
+                                        <if-compare-field field="rateAmount" operator="not-equals" to-field="oldRateAmount"/>
                                     </or>
                                 </condition>
                                 <then>
@@ -263,9 +260,9 @@ under the License.
                             <set field="updTimeEntry.invoiceId" from-field="invoiceItemMap.invoiceId"/>
                             <set field="updTimeEntry.invoiceItemSeqId" from-field="invoiceItemMap.invoiceItemSeqId"/>
                             <call-service service-name="updateTimeEntry" in-map-name="updTimeEntry"/>
-                            <else>
+                            <!-- else>
                                 <log level="info" message="Timeentry: ${timeEntry.timeEntryId} already connected to invoiceId: ${timeEntry.invoiceId}...not added to invoiceItem"/>
-                            </else>
+                            </else-->
                         </if-empty>
                         <else>
                             <set field="errMsg" value="Invoice ${invoiceId} should have the status 'in progress', the status is however: ${invoice.statusId}"/>
