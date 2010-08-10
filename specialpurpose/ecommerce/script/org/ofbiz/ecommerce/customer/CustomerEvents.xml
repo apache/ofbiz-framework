@@ -1053,7 +1053,7 @@ under the License.
             Map shipCost = org.ofbiz.order.shoppingcart.shipping.ShippingEvents.getShipGroupEstimate(dispatcher, delegator, shoppingCart, 0);
             shippingTotal = shipCost.get("shippingTotal");
             if (shippingTotal == null) {
-                shippingTotal = 0.00;
+                shippingTotal = java.math.BigDecimal.ZERO;
             }
             shoppingCart.setItemShipGroupEstimate(shippingTotal, 0);
             parameters.put("shippingTotal", org.ofbiz.base.util.UtilFormatOut.formatCurrency(shippingTotal, isoCode, locale));
@@ -1068,7 +1068,6 @@ under the License.
 
             cartGrandTotal = org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getGrandTotal(), isoCode, locale);
             parameters.put("cartGrandTotal", cartGrandTotal);
-
         ]]></call-bsh>
         <call-class-method method-name="doPromotions" class-name="org.ofbiz.order.shoppingcart.product.ProductPromoWorker">
             <field field="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
