@@ -99,7 +99,7 @@ public class UtilFormatOut {
     }
 
     /** Formats a BigDecimal into a properly formatted currency string based on isoCode and Locale
-     * @param price The price double to be formatted
+     * @param price The price BigDecimal to be formatted
      * @param isoCode the currency ISO code
      * @param locale The Locale used to format the number
      * @param maximumFractionDigits The maximum number of fraction digits used; if set to -1 than the default value for the locale is used
@@ -124,8 +124,8 @@ public class UtilFormatOut {
         return nbParsing;
     }
 
-    /** Formats a double into a properly formatted currency string based on isoCode and Locale
-     * @param price The price double to be formatted
+    /** Formats a BigDecimal into a properly formatted currency string based on isoCode and Locale
+     * @param price The price BigDecimal to be formatted
      * @param isoCode the currency ISO code
      * @param locale The Locale used to format the number
      * @return A String with the formatted price
