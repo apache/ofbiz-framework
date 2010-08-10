@@ -180,7 +180,7 @@ under the License.
             <result-to-result result-name="paymentMethodId"/>
         </call-service>
         <!-- Set Payment Method-->
-        <set field="cardSecurityCode" from-field="parameters.billToCardSecurityCode"/>
+        <set field="cardSecurityCode" from-field="parameters.billToCardSecurityCode" set-if-null="true" set-if-empty="true"/>
         <create-object class-name="org.ofbiz.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
             <field field="delegator" type="org.ofbiz.entity.Delegator"/>

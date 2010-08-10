@@ -543,8 +543,8 @@ under the License.
                                 <input id="cardNumber" name="cardNumber" class="required" type="text" value="${cardNumber?if_exists}" size="30" maxlength="16" />
                             </span>
                             <span>
-                                <label for="CVV2">CVV2</label>
-                                <input id="CVV2" name="cardSecurityCode" size="4" type="text" maxlength="4" value="" />
+                                <label for="billToCardSecurityCode">CVV2</label>
+                                <input id="billToCardSecurityCode" name="billToCardSecurityCode" size="4" type="text" maxlength="4" value="" />
                             </span>
                         </div>
                         <div>
