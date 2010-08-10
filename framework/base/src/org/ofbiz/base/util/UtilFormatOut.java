@@ -462,11 +462,11 @@ public class UtilFormatOut {
         return retString;
     }
 
-    /** Replaces all occurances of oldString in mainString with newString
+    /** Replaces all occurrences of oldString in mainString with newString
      * @param mainString The original string
      * @param oldString The string to replace
      * @param newString The string to insert in place of the old
-     * @return mainString with all occurances of oldString replaced by newString
+     * @return mainString with all occurrences of oldString replaced by newString
      */
     public static String replaceString(String mainString, String oldString, String newString) {
         return StringUtil.replaceString(mainString, oldString, newString);
