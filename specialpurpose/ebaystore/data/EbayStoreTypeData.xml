@@ -37,7 +37,16 @@ under the License.
     <Enumeration enumId="EBAY_AUTO_PR_EMAIL" description="Automatic send payment received email when has not been received" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_ITEM_DISP" description="Automatic send item dispatched email" enumTypeId="EBAY_AUTO_PREF"/>
     <Enumeration enumId="EBAY_AUTO_BLK_ITEM" description="Automatic block item that out of stock" enumTypeId="EBAY_AUTO_PREF"/>
-
+    <Enumeration enumId="EBAY_AUTO_BEST_OFFER" description="Automatic best offer enable" enumTypeId="EBAY_AUTO_PREF"/>
+    <!-- Ebay Automation Price -->
+    <EnumerationType description="Ebay setting auto price" enumTypeId="EBAY_AUTO_PRICE" hasTable="N" parentTypeId=""/>
+    <Enumeration enumId="REFAIL_PRICE" description="Refail Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="START_PRICE" description="Start Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="RESERVE_PRICE" description="Reserve Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="BUY_IT_NOW_PRICE" description="Buy-It-Now Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="SELLER_COST" description="Seller Cost" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="SECOND_CHANCE_PRICE" description="Second Chance Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="STORE_PRICE" description="Store Price" enumTypeId="EBAY_AUTO_PRICE"/>
     <!-- Automation email -->
     <Enumeration enumId="EBAY_WIN_BUYER_NOTI" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold." enumTypeId="PRDS_EMAIL"/>
     <Enumeration enumId="EBAY_PAY_RECIEVED" description="Automatically send Payment Received email when payment has been received." enumTypeId="PRDS_EMAIL"/>

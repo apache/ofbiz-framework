@@ -406,6 +406,69 @@
         <response name="success" type="view" value="errorMessageList"/>
         <response name="error" type="view" value="errorMessageList"/>
     </request-map>
+    <request-map uri="bestOffer">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="bestOffer"/>
+        <response name="error" type="view" value="bestOffer"/>
+    </request-map>
+    <request-map uri="setBestOffer">
+        <security https="true" auth="true"/>
+        <event type="service"  invoke="setBestOffer"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="ebayAutoPrefCond">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.ebaystore.EbayStoreAutoPrefEvents" invoke="ebayAutoPrefCond"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="ebayBestOfferPrefCond">
+        <security https="true" auth="true"/>
+        <event type="service"  invoke="ebayBestOfferPrefCond"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="createEbayProductStorePrefCond">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createEbayProductStorePrefCond"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="updateEbayProductStorePrefCond">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updateEbayProductStorePrefCond"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="customerService">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="customerService"/>
+        <response name="error" type="view" value="customerService"/>
+    </request-map>
+    <request-map uri="customerOfferData">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="customerOfferData"/>
+        <response name="error" type="view" value="customerOfferData"/>
+    </request-map>
+    <request-map uri="listBestOfferIncludeMessage">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="listBestOfferIncludeMessage"/>
+        <response name="success" type="view" value="customerService"/>
+        <response name="error" type="view" value="customerService"/>
+    </request-map>
+    <request-map uri="updateContactStatus">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updateContactStatus"/>
+        <response name="success" type="view" value="customerOfferData"/>
+        <response name="error" type="view" value="customerOfferData"/>
+    </request-map>
+    <request-map uri="deleteContactAlert">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteContactAlert"/>
+        <response name="success" type="view" value="customerService"/>
+        <response name="error" type="view" value="customerService"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -451,6 +514,8 @@
     <view-map name="WaitingToShipping" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#WaitingToShipping"/>
     <view-map name="ordersImported" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ordersImported"/>
     <view-map name="errorMessageList" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#errorMessageList"/>
-    
+    <!-- Customer Service-->
+    <view-map name="customerService" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#customerService"/>
+    <view-map name="customerOfferData" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#customerOfferData"/>
     <!-- end of view mappings -->
 </site-conf>

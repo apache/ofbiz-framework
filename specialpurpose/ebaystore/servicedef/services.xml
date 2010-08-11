@@ -325,7 +325,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="serviceName" mode="IN" type="String" optional="false"/>
     </service>
-    <service name="updateEbayProductStorePref" engine="entity-auto" default-entity-name="EbayProductStorePref" invoke="update" auth="true" >
+    <service name="updateEbayProductStorePref" engine="entity-auto" default-entity-name="EbayProductStorePref" invoke="update" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" />
         <attribute name="enabled" mode="IN" type="String" optional="false" default-value="N"/>
@@ -426,6 +426,37 @@ under the License.
         <attribute name="functionName" mode="IN" type="String" optional="false"/>
         <attribute name="logMessage" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="ebayBestOfferPrefCond" engine="java"
+        location="org.ofbiz.ebaystore.EbayBestOfferAutoPref" invoke="ebayBestOfferPrefCond" auth="true">
+        <attribute name="productStoreId" mode="IN" type="String"/>
+        <attribute name="enabled" mode="IN" type="String" default-value="N" optional="true"></attribute>
+        <!--<attribute name="userLogin" mode="IN" type="String"></attribute>-->
+        <attribute name="condition1" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="condition2" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="condition3" mode="IN" type="String" default-value="N" optional="true"></attribute>
+        <attribute name="condition4" mode="IN" type="String" default-value="N" optional="true"></attribute>
+        <attribute name="condition5" mode="IN" type="String" default-value="N" optional="true"></attribute>
+        <attribute name="condition6" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="condition7" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="condition8" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="condition9" mode="IN" type="String" default-value="N"></attribute>
+        <attribute name="condition10" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="condition11" mode="IN" type="String" optional="true"></attribute>
+    </service>
+    <service name="createEbayProductStorePrefCond" engine="entity-auto" default-entity-name="EbayProductStorePrefCond" invoke="create" auth="true" use-transaction="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateEbayProductStorePrefCond" engine="entity-auto" default-entity-name="EbayProductStorePrefCond" invoke="update" auth="true" use-transaction="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true" />
+        <attribute name="condition" mode="IN" type="String" optional="false"/>
+    </service>
+    <service name="autoBestOffer" engine="java" transaction-timeout="36000"
+        location="org.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoBestOffer" auth="false">
+        <attribute name="jobId" mode="IN" type="String" optional="false"/>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
     <service name="getMyeBaySelling" engine="java" transaction-timeout="36000"
         location="org.ofbiz.ebaystore.EbayStore" invoke="getMyeBaySelling" auth="true">
         <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
@@ -466,5 +497,40 @@ under the License.
         <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
         <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
         <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
+    </service>
+    <service name="listBestOfferIncludeMessage" engine="java" transaction-timeout="10000"
+        location="org.ofbiz.ebaystore.EbayStoreCustomerService" invoke="listBestOfferIncludeMessage">
+        <description>List customer offer data</description>
+        <attribute name="userId" mode="IN" type="String"></attribute>
+        <attribute name="itemId" mode="IN" type="String"></attribute>
+        <attribute name="bestOfferId" mode="IN" type="String"></attribute>
+        <attribute name="productStoreId" mode="IN" type="String"></attribute>
+        <attribute name="email" mode="OUT" type="String" optional="true"></attribute>
+        <attribute name="message" mode="OUT" type="String" optional="true"></attribute>
+        <attribute name="price" mode="OUT" type="String" optional="true"></attribute>
+        <attribute name="quantity" mode="OUT" type="String" optional="true"></attribute>
+        <attribute name="offerStatus" mode="OUT" type="String" optional="true"></attribute>
+        <attribute name="itemName" mode="OUT" type="String" optional="true"></attribute>
+    </service>
+    <service name="updateContactStatus" engine="java" transaction-timeout="10000"
+        location="org.ofbiz.ebaystore.EbayStoreCustomerService" invoke="updateContactStatus">
+        <description>List customer offer data</description>
+        <attribute name="userId" mode="INOUT" type="String"></attribute>
+        <attribute name="itemId" mode="INOUT" type="String"></attribute>
+        <attribute name="itemName" mode="INOUT" type="String"></attribute>
+        <attribute name="productStoreId" mode="INOUT" type="String"></attribute>
+        <attribute name="offerId" mode="INOUT" type="String"></attribute>
+        <attribute name="price" mode="INOUT" type="String"></attribute>
+        <attribute name="email" mode="INOUT" type="String"></attribute>
+        <attribute name="quantity" mode="INOUT" type="String"></attribute>
+        <attribute name="contactStatus" mode="INOUT" type="String"></attribute>
+        <attribute name="contactSetting" mode="IN" type="String"></attribute>
+    </service>
+    <service name="deleteContactAlert" engine="java" transaction-timeout="10000"
+        location="org.ofbiz.ebaystore.EbayStoreCustomerService" invoke="deleteContactAlert">
+        <description>Delete customer offer data</description>
+        <attribute name="userId" mode="IN" type="String"></attribute>
+        <attribute name="itemId" mode="IN" type="String"></attribute>
+        <attribute name="productStoreId" mode="INOUT" type="String"></attribute>
     </service>
 </services>
