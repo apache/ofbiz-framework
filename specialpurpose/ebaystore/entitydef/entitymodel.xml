@@ -64,6 +64,7 @@ under the License.
         <field name="condition1" type="value"/>
         <field name="condition2" type="value"/>
         <field name="condition3" type="value"/>
+        <field name="parentPrefCondId" type="id-ne"></field>
         <prim-key field="productStoreId"/>
         <prim-key field="autoPrefEnumId"/>
         <relation type="one" fk-name="EBY_STR_PREF" rel-entity-name="ProductStore">
@@ -122,5 +123,22 @@ under the License.
         <relation type="one" fk-name="EBAY_ERROR_STR" rel-entity-name="ProductStore">
             <key-map field-name="productStoreId"/>
         </relation>
+    </entity>
+    <entity entity-name="EbayProductStorePrefCond" package-name="org.ofbiz.ebay.store">
+        <field name="prefCondId" type="id-ne"/>
+        <field name="condition" type="long-varchar"></field>
+        <field name="description" type="long-varchar"></field>
+        <field name="parentPrefCondId" type="id-ne"></field>
+        <prim-key field="prefCondId"/>
+    </entity>
+    <entity entity-name="EbayUserBestOffer" package-name="org.ofbiz.ebay.store"
+        title="ebay User Best Offer">
+        <field name="itemId" type="value"/>
+        <field name="userId" type="value"/>
+        <field name="bestOfferId" type="value"/>
+        <field name="productStoreId" type="id-ne"/>
+        <field name="contactStatus" type="value"/>
+        <prim-key field="itemId"/>
+        <prim-key field="userId"/>
     </entity>
 </entitymodel>

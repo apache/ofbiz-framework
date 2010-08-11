@@ -96,6 +96,11 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
+        <menu-item name="customerService" title="Customer Service">
+            <link target="customerService">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="EbayAccountTabBar" selected-menuitem-context-field-name="accountItem" type="simple" 
         default-selected-style="selected" menu-container-style="button-bar button-style-2">

@@ -269,6 +269,9 @@
                         <screenlet title="${uiLabelMap.EbayBlockItemOutOfStock}" id="blockItemsOutOfStock" collapsible="true" initially-collapsed="true">
                             <include-form name="blockItemsOutOfStock" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
                         </screenlet>
+                        <screenlet title="${uiLabelMap.AutoBestOfferSetting}" id="bestOfferSetting" collapsible="true" initially-collapsed="true">
+                            <include-form name="bestOffer" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -580,6 +583,52 @@
                     </decorator-section>
                 </decorator-screen>
             </widgets>
+        </section>
+    </screen>
+    <screen name="customerService">
+        <section>
+            <actions>
+                    <set field="headerItem" value="ebayStore"/>
+                    <service service-name="getEbayStoreUser" result-map="result">
+                        <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    </service>
+                    <set field="productStoreId" from-field="parameters.productStoreId"/>
+                    <set field="userLoginId" from-field="result.userLoginId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet name="ebayCustomerService" title="Customer Offer Included Message" collapsible="true">
+                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="bestOfferIncludeMessage"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="customerOfferData">
+        <section>
+           <actions>
+               <set field="productStoreId" value="${parameters.productStoreId}"/>
+               <set field="itemId" value="${parameters.itemId}"/>
+               <set field="userId" value="${parameters.userId}"/>
+               <set field="itemName" value="${parameters.itemName}"/>
+               <set field="email" value="${parameters.email}"/>
+               <set field="quantity" value="${parameters.quantity}"/>
+               <set field="price" value="${parameters.price}"/>
+               <set field="message" value="${parameters.message}"/>
+               <set field="offerId" value="${parameters.offerId}"/>
+               <set field="contactStatus" value="${parameters.contactStatus}"/>
+           </actions>
+           <widgets>
+               <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                   <decorator-section name="body">
+                       <screenlet name="customerData"  title="Customer Offer Data">
+                           <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="viewCustomerOfferData"/>
+                       </screenlet>
+                   </decorator-section>
+               </decorator-screen>
+           </widgets>
         </section>
     </screen>
 </screens>

@@ -561,6 +561,50 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
+    <form name="bestOffer" type="single" target="ebayAutoPrefCond">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="automateEnable" title="Enable" tooltip="${uiLabelMap.EbayEvaluateOn}" tooltip-style="h3"><check/></field>
+        <field name="kindOfPrice" title="Based Price" tooltip="${uiLabelMap.EbayBasedOn}" tooltip-style="h3">
+            <drop-down>
+                <option key="" description="None Price"/>
+                <entity-options key-field-name="enumId" description="${enumId}" entity-name="Enumeration">
+                    <entity-constraint name="enumTypeId" operator="equals" value="EBAY_AUTO_PRICE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="acceptBestOfferValue" title="Percent value to accept" tooltip="${uiLabelMap.EbayAcceptTheBestOffer1}" tooltip-style="h3"><text/></field>
+        <field name="rejectOffer" title="Reject the offer" tooltip="${uiLabelMap.EbayRejectTheOffer}" tooltip-style="h3"><check/></field>
+        <field name="ignoreOfferMessage" title="Ignore offer message" tooltip="${uiLabelMap.EbayIgnoreTheOffer}" tooltip-style="h3"><check/></field>
+        <field name="rejectGreaterEnable" title="Enable rejection"><check/></field>
+        <field name="greaterValue" title="Greater price percent" tooltip="${uiLabelMap.EbayRejectGreaterRate1}" tooltip-style="h3"><text/></field>
+        <field name="lessValue" title="Less price percent" tooltip="${uiLabelMap.EbayRejectGreaterRate2}" tooltip-style="h3"><text/></field>
+        <field name="rejectGreaterMsg" title="${uiLabelMap.EbayRejectGreaterRate3}"><textarea cols="100" rows="2"/></field>
+        <field name="dummy" title=" "><display/></field>
+        <field name="rejectLessEnable" title="Enable rejection"><check/></field>
+        <field name="lessThanValue" title="Less price percent" tooltip="${uiLabelMap.EbayRejectLessRate1}" tooltip-style="h3"><text/></field>
+        <field name="rejectLessMsg" title="${uiLabelMap.EbayRejectGreaterRate3}"><textarea cols="100" rows="2"/></field>
+        <field name="save"><submit/>
+        </field>
+        <sort-order>
+            <field-group title="Enable Best Offer" collapsible="true">
+                <sort-field name="automateEnable"/>
+                <sort-field name="kindOfPrice"/>
+                <sort-field name="acceptBestOfferValue"/>
+                <sort-field name="rejectOffer"/>
+                <sort-field name="ignoreOfferMessage"/>
+            </field-group>
+            <field-group title="Rejection Notifications" collapsible="true">
+                <sort-field name="rejectGreaterEnable"/>
+                <sort-field name="greaterValue"/>
+                <sort-field name="lessValue"/>
+                <sort-field name="rejectGreaterMsg"/>
+                <sort-field name="dummy"/>
+                <sort-field name="rejectLessEnable"/>
+                <sort-field name="lessThanValue"/>
+                <sort-field name="rejectLessMsg"/>
+            </field-group>
+        </sort-order>
+    </form>
     <form name="EditItemProduct"  target="editItemProduct" type="upload" >
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
         <field name="itemId"><hidden value="${parameters.itemId}"/></field>
@@ -573,5 +617,87 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="price"><text/></field>
         <field name="currencyId" title="Currency Code"><display/></field>
         <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
+    </form>
+    <form name="bestOfferIncludeMessage" type="list" title="" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <actions>
+            <set field="productStoreId" from-field="parameters.productStoreId"/>
+            <entity-and entity-name="EbayUserBestOffer" list="listIt">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            </entity-and>
+        </actions>
+        <row-actions>
+            
+            <set field="userId" value="${userId}"/>
+            <set field="itemId" value="${itemId}"/>
+            <set field="bestOfferId" value="${bestOfferId}"/>
+            <set field="contactStatus" value="${contactStatus}"/>
+            <service service-name="listBestOfferIncludeMessage" result-map="inMap">
+                <field-map field-name="userId" from-field="userId"/>
+                <field-map field-name="itemId" from-field="itemId"/>
+                <field-map field-name="bestOfferId" from-field="bestOfferId"/>
+                <field-map field-name="productStoreId" from-field="productStoreId"/>
+            </service>
+        </row-actions>
+        
+        <field name="itemId" title="Item ID"><display description="${itemId}"/></field>
+        <field name="itemName" title="Item Name"><display description="${inMap.itemName}"/></field>
+        <field name="userId" title="User ID"><display description="${userId}"/></field>
+        <field name="message" title="Message"><hidden value="${inMap.message}"/></field>
+        <field name="userEmail" title="Email"><hidden value="${inMap.email}"/></field>
+        <field name="offerStatus" title="Offer Status"><display description="${inMap.offerStatus}"/></field>
+        <field name="contactStatus" title="Contact Status"><display description="${contactStatus}"/></field>
+        <field name="viewCustomerDataButton" widget-style="buttontext" title="View Customer Offer Data">
+            <hyperlink target="customerOfferData" description="View Data" also-hidden="false">
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                <parameter param-name="itemId" from-field="itemId"/>
+                <parameter param-name="userId" from-field="userId"/>
+                <parameter param-name="offerId" from-field="bestOfferId"/>
+                <parameter param-name="itemName" value="${inMap.itemName}"/>
+                <parameter param-name="email" value="${inMap.email}"/>
+                <parameter param-name="message" value="${inMap.message}"/>
+                <parameter param-name="quantity" value="${inMap.quantity}"/>
+                <parameter param-name="price" value="${inMap.price}"/>
+                <parameter param-name="contactStatus" from-field="contactStatus"/>
+            </hyperlink>
+        </field>
+        <field name="deleteOfferButton" title="Delete Offer Alert Data" widget-style="buttontext">
+            <hyperlink target="deleteContactAlert" description="Delete Data" also-hidden="false">
+                <parameter param-name="itemId" from-field="itemId"/>
+                <parameter param-name="userId" from-field="userId"/>
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="viewCustomerOfferData" type="single" target="updateContactStatus">
+        <field name="customerUserId" title="Customer User ID"><display description="${userId}"/></field>
+        <field name="productId" title="Item Id"><display description="${itemId}"/></field>
+        <field name="productName" title="Item Name"><display description="${itemName}"/></field>
+        <field name="orderQuantity"><display description="${quantity}"/></field>
+        <field name="offerPrice"><display description="${price}"/></field>
+        <field name="customerEmail"><display description="${email}"/></field>
+        <field name="customerMessage"><display description="${message}"/></field>
+        <field name="currentContact"><display description="${contactStatus}"/></field>
+        
+        <field name="userId"><hidden value="${userId}"/></field>
+        <field name="itemId"><hidden value="${itemId}"/></field>
+        <field name="itemName"><hidden value="${itemName}"/></field>
+        <field name="productStoreId"><hidden value="${productStoreId}"/></field>
+        <field name="offerId"><hidden value="${offerId}"/></field>
+        <field name="price"><hidden value="${price}"/></field>
+        <field name="message"><hidden value="${message}"/></field>
+        <field name="email"><hidden value="${email}"/></field>
+        <field name="quantity"><hidden value="${quantity}"/></field>
+        <field name="contactStatus"><hidden value="${contactStatus}"/></field>
+        <field name="contactSetting" title="Contact Status Setting">
+            <drop-down >
+                <option key="_NA_" description="_Select_"/>
+                <option key="NOT_CONTACT" description="Not Contact"/>
+                <option key="CONTACTING" description="Contacting"/>
+                <option key="ACCEPT" description="Accept Offer"/>
+                <option key="DECLINE" description="Decline Offer"/>
+            </drop-down>
+        </field>
+        <field name="updateContactStatus"><submit button-type="button"/></field>
     </form>
 </forms>

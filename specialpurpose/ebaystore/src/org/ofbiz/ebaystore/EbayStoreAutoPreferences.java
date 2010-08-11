@@ -18,6 +18,7 @@
  */
 package org.ofbiz.ebaystore;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +30,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,15 +64,24 @@ import com.ebay.sdk.call.AddDisputeCall;
 import com.ebay.sdk.call.AddItemCall;
 import com.ebay.sdk.call.AddOrderCall;
 import com.ebay.sdk.call.DeleteSellingManagerTemplateCall;
+import com.ebay.sdk.call.GetBestOffersCall;
+import com.ebay.sdk.call.GetItemCall;
+import com.ebay.sdk.call.GetMyeBaySellingCall;
 import com.ebay.sdk.call.GetSellingManagerInventoryCall;
 import com.ebay.sdk.call.GetSellingManagerSoldListingsCall;
 import com.ebay.sdk.call.GetUserCall;
 import com.ebay.sdk.call.LeaveFeedbackCall;
+import com.ebay.sdk.call.RespondToBestOfferCall;
+import com.ebay.sdk.call.VerifyAddSecondChanceItemCall;
 import com.ebay.sdk.call.RelistItemCall;
 import com.ebay.soap.eBLBaseComponents.AddOrderRequestType;
 import com.ebay.soap.eBLBaseComponents.AddOrderResponseType;
 import com.ebay.soap.eBLBaseComponents.AmountType;
 import com.ebay.soap.eBLBaseComponents.AutomatedLeaveFeedbackEventCodeType;
+import com.ebay.soap.eBLBaseComponents.BestOfferActionCodeType;
+import com.ebay.soap.eBLBaseComponents.BestOfferDetailsType;
+import com.ebay.soap.eBLBaseComponents.BestOfferStatusCodeType;
+import com.ebay.soap.eBLBaseComponents.BestOfferType;
 import com.ebay.soap.eBLBaseComponents.BuyerPaymentMethodCodeType;
 import com.ebay.soap.eBLBaseComponents.CommentTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.CurrencyCodeType;
@@ -81,8 +93,14 @@ import com.ebay.soap.eBLBaseComponents.DisputeReasonCodeType;
 import com.ebay.soap.eBLBaseComponents.FeedbackDetailType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryRequestType;
 import com.ebay.soap.eBLBaseComponents.GetSellingManagerInventoryResponseType;
+import com.ebay.soap.eBLBaseComponents.ItemArrayType;
+import com.ebay.soap.eBLBaseComponents.ItemListCustomizationType;
+import com.ebay.soap.eBLBaseComponents.ItemSortTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.ItemType;
+import com.ebay.soap.eBLBaseComponents.ListingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.OrderType;
+import com.ebay.soap.eBLBaseComponents.PaginatedItemArrayType;
+import com.ebay.soap.eBLBaseComponents.PaginationType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerOrderStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerPaidStatusCodeType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductDetailsType;
@@ -1141,6 +1159,229 @@ public class EbayStoreAutoPreferences {
                 }
             }
         } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        return ServiceUtil.returnSuccess();
+    }
+    public static Map<String, Object> autoBestOffer(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        try {
+            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
+            String jobId = (String) context.get("jobId");
+            String productStoreId = (String) context.get("productStoreId");
+            GenericValue ebayProductStorePref = (GenericValue) delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"));
+            String parentPrefCondId = ebayProductStorePref.getString("parentPrefCondId");
+            List<GenericValue> ebayProductStorePrefCond = delegator.findByAnd("EbayProductStorePrefCond", UtilMisc.toMap("parentPrefCondId", parentPrefCondId));
+            //Parameters
+            String priceType = ebayProductStorePrefCond.get(0).getString("condition");
+            String acceptBestOfferValue = ebayProductStorePrefCond.get(1).getString("condition");
+            String rejectOffer = ebayProductStorePrefCond.get(2).getString("condition");
+            String ignoreOfferMessage = ebayProductStorePrefCond.get(3).getString("condition");
+            String rejectGreaterEnable = ebayProductStorePrefCond.get(4).getString("condition");
+            String greaterValue = ebayProductStorePrefCond.get(5).getString("condition");
+            String lessValue = ebayProductStorePrefCond.get(6).getString("condition");
+            String rejectGreaterMsg = ebayProductStorePrefCond.get(7).getString("condition");
+            String rejectLessEnable = ebayProductStorePrefCond.get(8).getString("condition");
+            String lessThanValue = ebayProductStorePrefCond.get(9).getString("condition");
+            String rejectLessMsg = ebayProductStorePrefCond.get(10).getString("condition");
+            //case parameter to double type
+            BigDecimal acceptPercentValue = new BigDecimal(acceptBestOfferValue);
+            BigDecimal greaterPercentValue = new BigDecimal(greaterValue);
+            BigDecimal lessThanPercentValue = new BigDecimal(lessValue);
+            BigDecimal rejectPercentValue = new BigDecimal(lessThanValue);
+
+            Map<String, Object> inMap = FastMap.newInstance();
+            inMap.put("productStoreId", productStoreId);
+            inMap.put("userLogin", userLogin);
+            Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
+            String userID = (String) resultUser.get("userLoginId");
+            ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
+            //GetMysbaySellingCall for get total page
+            GetMyeBaySellingCall getTotalPage = new GetMyeBaySellingCall(apiContext);
+            ItemListCustomizationType itemListType = new ItemListCustomizationType();
+            itemListType.setInclude(Boolean.TRUE);
+            itemListType.setSort(ItemSortTypeCodeType.ITEM_ID_DESCENDING);
+            itemListType.setListingType(ListingTypeCodeType.FIXED_PRICE_ITEM);
+            DetailLevelCodeType[] detailLevels = new DetailLevelCodeType[] {
+                DetailLevelCodeType.RETURN_ALL,
+                DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+                DetailLevelCodeType.ITEM_RETURN_DESCRIPTION
+            };
+            getTotalPage.setDetailLevel(detailLevels);
+            getTotalPage.setActiveList(itemListType);
+            getTotalPage.getMyeBaySelling();
+            int totalPage = getTotalPage.getReturnedActiveList().getPaginationResult().getTotalNumberOfPages();
+            for (int t = 1; t <= totalPage; t++) {
+                //GetMyebaySellingCall for get item that is sold on store
+                GetMyeBaySellingCall ebaySelling = new GetMyeBaySellingCall(apiContext);
+                //Set type of item
+                ItemListCustomizationType itemList = new ItemListCustomizationType();
+                itemList.setInclude(Boolean.TRUE);
+                itemListType.setSort(ItemSortTypeCodeType.ITEM_ID_DESCENDING);
+                itemListType.setListingType(ListingTypeCodeType.FIXED_PRICE_ITEM);
+
+                PaginationType page = new PaginationType();
+                page.setPageNumber(t);
+                itemList.setPagination(page);
+                itemList.setListingType(ListingTypeCodeType.FIXED_PRICE_ITEM);
+
+                DetailLevelCodeType[] detailLevel = new DetailLevelCodeType[] {
+                        DetailLevelCodeType.RETURN_ALL,
+                        DetailLevelCodeType.ITEM_RETURN_ATTRIBUTES,
+                        DetailLevelCodeType.ITEM_RETURN_DESCRIPTION,
+                        DetailLevelCodeType.RETURN_HEADERS,
+                        DetailLevelCodeType.RETURN_MESSAGES
+                };
+                ebaySelling.setDetailLevel(detailLevel);
+                ebaySelling.setActiveList(itemList);
+                ebaySelling.getMyeBaySelling();
+                PaginatedItemArrayType itemListCustomizationType = ebaySelling.getReturnedActiveList();
+                ItemArrayType itemArrayType = itemListCustomizationType.getItemArray();
+                int itemArrayTypeSize = itemArrayType.getItemLength();
+
+                //Loop for get item
+                for (int itemCount = 0; itemCount < itemArrayTypeSize; itemCount++) {
+                    ItemType item = itemArrayType.getItem(itemCount);
+                    String itemID = item.getItemID();
+                    Double buyItNowPrice = item.getBuyItNowPrice().getValue();
+                    GetItemCall getItem = new GetItemCall(apiContext);
+                    getItem.setDetailLevel(detailLevel);
+                    getItem.getItem(itemID);
+                    String SKUItem = getItem.getSKU();
+                    ItemType itemBestOffer = getItem.getReturnedItem();
+                    String sellerUserID = itemBestOffer.getSeller().getUserID();
+                    BestOfferDetailsType bestOfferDetailsType = itemBestOffer.getBestOfferDetails();
+                    int inventoryQuantityItem = item.getQuantityAvailable();  //Quantity of the item
+                    int bestOfferCount = itemBestOffer.getBestOfferDetails().getBestOfferCount();
+                    Boolean bestOfferIsEnabled = itemBestOffer.getBestOfferDetails().isBestOfferEnabled();
+                    //Check value of Best offer Detail not null
+                    if ((bestOfferDetailsType != null) && (bestOfferCount > 0) && bestOfferIsEnabled.equals(true)) {
+                        //Get base price from kindOfPrice parameter
+                        Double doBasePrice = null;
+                        if (priceType.equals("BUY_IT_NOW_PRICE")) {
+                        	doBasePrice = buyItNowPrice;
+                        } else if (priceType.equals("START_PRICE")) {
+                        	doBasePrice = itemBestOffer.getStartPrice().getValue();
+                        } else if (priceType.equals("RESERVE_PRICE")) {
+                        	doBasePrice = itemBestOffer.getReservePrice().getValue();
+                        } else if (priceType.equals("RETAIL_PRICE")) {
+                            //ignore
+                        } else if (priceType.equals("SELLER_COST")) {
+                            List<GenericValue> supplierProduct = delegator.findByAnd("SupplierProduct", "productId", SKUItem, UtilMisc.toList("availableFromDate DESC"));
+                            String lastPrice = supplierProduct.get(0).getString("lastPrice");
+                            doBasePrice = Double.parseDouble(lastPrice);
+                        } else if (priceType.equals("SECOND_CHANCE_PRICE")) {
+                            VerifyAddSecondChanceItemCall verifyAddSecondChanceItemCall = new VerifyAddSecondChanceItemCall(apiContext);
+                            doBasePrice = verifyAddSecondChanceItemCall.getBuyItNowPrice().getValue();
+                        } else if (priceType.equals("STORE_PRICE")) {
+                            //ignore
+                        }
+                        BigDecimal basePrice = new BigDecimal(doBasePrice);
+                        BigDecimal percent = new BigDecimal(100);
+                        //Calculate price with base price and percent from parameter
+                        BigDecimal acceptPrice = (basePrice.multiply(acceptPercentValue)).divide(percent);
+                        BigDecimal greaterPrice = (basePrice.multiply(greaterPercentValue)).divide(percent);
+                        BigDecimal lessThanPrice = (basePrice.multiply(lessThanPercentValue)).divide(percent);
+                        BigDecimal rejectPrice = (basePrice.multiply(rejectPercentValue)).divide(percent);
+
+                        //GetBestOfferCall for get best offer detail
+                        GetBestOffersCall getBestOfferCall = new GetBestOffersCall(apiContext);
+                        getBestOfferCall.setItemID(itemID);
+                        getBestOfferCall.setDetailLevel(detailLevel);
+                        getBestOfferCall.setBestOfferStatus(BestOfferStatusCodeType.ALL);
+                        getBestOfferCall.getBestOffers();
+                        BestOfferType[] bestOffers = getBestOfferCall.getReturnedBestOffers();
+                        List<String> acceptBestOfferIndexId = FastList.newInstance();
+                        SortedMap<String, Object> acceptBestOfferIDs = new TreeMap<String, Object>();
+                        //Loop for get data best offer from buyer
+                        RespondToBestOfferCall respondToBestOfferCall = new RespondToBestOfferCall(apiContext);
+                        respondToBestOfferCall.setItemID(itemID);
+                        for (int offerCount = 0; offerCount < bestOffers.length; offerCount++) {
+                            BestOfferType bestOfferType = bestOffers[offerCount];
+                            BestOfferStatusCodeType bestOfferStatusCodeType = bestOfferType.getStatus();
+                            //Check status of best offer
+                            if (bestOfferStatusCodeType == BestOfferStatusCodeType.PENDING) {
+                                String bestOfferID = bestOfferType.getBestOfferID();
+                                UserType buyer = bestOfferType.getBuyer();
+                                String buyerUserID = buyer.getUserID();
+                                AmountType price = bestOfferType.getPrice();
+                                String offerPrice = new Double(price.getValue()).toString();
+                                Double doCerrentPrice = Double.parseDouble(offerPrice);
+                                int offerQuantity = bestOfferType.getQuantity();
+                                String[] bestOfferIDs = { bestOfferID };
+                                respondToBestOfferCall.setBestOfferIDs(bestOfferIDs);
+
+                                if (rejectOffer.equals("Y")) {
+                                    if (offerQuantity > inventoryQuantityItem) {
+                                        respondToBestOfferCall.setSellerResponse("Your order is more than inventory item's Buy-It-Now price.");
+                                        respondToBestOfferCall.setBestOfferAction(BestOfferActionCodeType.DECLINE);
+                                        respondToBestOfferCall.respondToBestOffer();
+                                        continue;
+                                    }
+                                }
+
+                                String buyerMessage = bestOfferType.getBuyerMessage();
+                                if (ignoreOfferMessage.equals("Y") && UtilValidate.isNotEmpty(buyerMessage)) {
+                                    GenericValue userOfferCheck = delegator.findByPrimaryKey("EbayUserBestOffer", UtilMisc.toMap("itemId", itemID, "userId", buyerUserID));
+                                    if (UtilValidate.isEmpty(userOfferCheck)) {
+                                        GenericValue ebayUserBestOffer = delegator.makeValue("EbayUserBestOffer");
+                                        ebayUserBestOffer.put("productStoreId", productStoreId);
+                                        ebayUserBestOffer.put("itemId", itemID);
+                                        ebayUserBestOffer.put("userId", buyerUserID);
+                                        ebayUserBestOffer.put("bestOfferId", bestOfferID);
+                                        ebayUserBestOffer.put("contactStatus", "NOT_CONTACT");
+                                        ebayUserBestOffer.create();
+                                    }
+                                    continue;
+                                }
+                                BigDecimal cerrentPrice = new BigDecimal(doCerrentPrice);
+                                if (cerrentPrice.compareTo(acceptPrice) >= 0) {
+                                    acceptBestOfferIndexId.add(bestOfferID);
+                                    String Quantity = String.valueOf(offerQuantity);
+                                    acceptBestOfferIDs.put(bestOfferID, Quantity);
+                                } else if ((cerrentPrice.compareTo(greaterPrice) >= 0) && (cerrentPrice.compareTo(lessThanPrice) <= 0 ) && rejectGreaterEnable.equals("Y")) {
+                                    respondToBestOfferCall.setBestOfferAction(BestOfferActionCodeType.DECLINE);
+                                    respondToBestOfferCall.setSellerResponse(rejectGreaterMsg);
+                                    respondToBestOfferCall.respondToBestOffer();
+                                } else if ((cerrentPrice.compareTo(rejectPrice) <= 0 && rejectLessEnable.equals("Y"))) {
+                                    respondToBestOfferCall.setBestOfferAction(BestOfferActionCodeType.DECLINE);
+                                    respondToBestOfferCall.setSellerResponse(rejectLessMsg);
+                                    respondToBestOfferCall.respondToBestOffer();
+                                } else {
+                                    respondToBestOfferCall.setBestOfferAction(BestOfferActionCodeType.DECLINE);
+                                    respondToBestOfferCall.respondToBestOffer();
+                                }
+                            }
+                        }
+
+                        if (acceptBestOfferIndexId.size() > 0) {
+                            int quantityAvailable = inventoryQuantityItem;
+                            Collections.sort(acceptBestOfferIndexId);
+                            RespondToBestOfferCall respondAcceptBestOfferCall = new RespondToBestOfferCall(apiContext);
+                            respondAcceptBestOfferCall.setItemID(itemID);
+                            for (String bestOfferIdIndex : acceptBestOfferIndexId) {
+                                if (quantityAvailable <= 0) break;
+                                Integer offerQuantity = Integer.parseInt(acceptBestOfferIDs.get(bestOfferIdIndex).toString());
+                                String[] bestOfferID = { bestOfferIdIndex };
+                                respondAcceptBestOfferCall.setBestOfferIDs(bestOfferID);
+                                //respondAcceptBestOfferCall.setBestOfferIDs(bestOfferID);
+                                if (offerQuantity <= quantityAvailable) {
+                                    respondAcceptBestOfferCall.setBestOfferAction(BestOfferActionCodeType.ACCEPT);
+                                    quantityAvailable = quantityAvailable - offerQuantity;
+                                } else {
+                                    respondAcceptBestOfferCall.setBestOfferAction(BestOfferActionCodeType.DECLINE);
+                                }
+                                respondAcceptBestOfferCall.respondToBestOffer();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (ApiException e){
+            return ServiceUtil.returnError(e.getMessage());
+        }catch(Exception e){
             return ServiceUtil.returnError(e.getMessage());
         }
         return ServiceUtil.returnSuccess();
