@@ -193,13 +193,17 @@ function makeDroppable(id){
 //calls ajax request for dropping container on a portlet
 function getDestinationInformationPortlets(originId, destinationId, mode){
     loadingImage();
-
-    var move = document.forms['freeMove_' + destinationId];
+ 
+    // extract integer part of arguments for freeMove_<id>
+    var destId = destinationId.replace(/.*_([0-9]+)/, "\$1");
+    var origId = originId.replace(/.*_([0-9]+)/, "\$1");
+    
+    var move = document.forms['freeMove_' + destId];
     var d_portalPageId = move.elements['portalPageId'].value;
     var d_portalPortletId = move.elements['portalPortletId'].value;
     var d_portletSeqId =  move.elements['portletSeqId'].value;
 
-    var move = document.forms['freeMove_' + originId];
+    var move = document.forms['freeMove_' + origId];
     var o_portalPageId = move.elements['portalPageId'].value;
     var o_portalPortletId = move.elements['portalPortletId'].value;
     var o_portletSeqId =  move.elements['portletSeqId'].value;
@@ -287,15 +291,32 @@ function onCompleteRequest() {
     }
 }
 
+//safely get height of whole document
+function getDocHeight() {
+    var D = document;
+    return Math.max(
+        Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
+        Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
+        Math.max(D.body.clientHeight, D.documentElement.clientHeight)
+    );
+}
+
 //displays the loading image
-function loadingImage() {
-    var container = document.getElementById("portalContainerId");
+function loadingImage() {	
     var p = document.createElement("div");
-    p.setAttribute("id", "loading");
+    p.setAttribute("id", "loading");    
+    p.setAttribute("style", "height: " + getDocHeight() + "px;" )
+    
     var img = document.createElement("img");
     img.setAttribute("src", "/images/loader.gif");
     img.setAttribute("id", "loaderImg");
+
+    //place loader image somwhere in the middle of the viewport
+    img.setAttribute("style", "top: " + (document.viewport.getHeight() / 2 + document.viewport.getScrollOffsets().top - 50) + "px;");    
+    
     p.appendChild(img);
+    
+    var container = document.getElementById("portalContainerId");
     container.appendChild(p);
 }
 
