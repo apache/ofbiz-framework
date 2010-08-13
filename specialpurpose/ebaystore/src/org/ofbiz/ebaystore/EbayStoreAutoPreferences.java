@@ -1175,17 +1175,17 @@ public class EbayStoreAutoPreferences {
             String parentPrefCondId = ebayProductStorePref.getString("parentPrefCondId");
             List<GenericValue> ebayProductStorePrefCond = delegator.findByAnd("EbayProductStorePrefCond", UtilMisc.toMap("parentPrefCondId", parentPrefCondId));
             //Parameters
-            String priceType = ebayProductStorePrefCond.get(0).getString("condition");
-            String acceptBestOfferValue = ebayProductStorePrefCond.get(1).getString("condition");
-            String rejectOffer = ebayProductStorePrefCond.get(2).getString("condition");
-            String ignoreOfferMessage = ebayProductStorePrefCond.get(3).getString("condition");
-            String rejectGreaterEnable = ebayProductStorePrefCond.get(4).getString("condition");
-            String greaterValue = ebayProductStorePrefCond.get(5).getString("condition");
-            String lessValue = ebayProductStorePrefCond.get(6).getString("condition");
-            String rejectGreaterMsg = ebayProductStorePrefCond.get(7).getString("condition");
-            String rejectLessEnable = ebayProductStorePrefCond.get(8).getString("condition");
-            String lessThanValue = ebayProductStorePrefCond.get(9).getString("condition");
-            String rejectLessMsg = ebayProductStorePrefCond.get(10).getString("condition");
+            String priceType = ebayProductStorePrefCond.get(0).getString("acceptanceCondition");
+            String acceptBestOfferValue = ebayProductStorePrefCond.get(1).getString("acceptanceCondition");
+            String rejectOffer = ebayProductStorePrefCond.get(2).getString("acceptanceCondition");
+            String ignoreOfferMessage = ebayProductStorePrefCond.get(3).getString("acceptanceCondition");
+            String rejectGreaterEnable = ebayProductStorePrefCond.get(4).getString("acceptanceCondition");
+            String greaterValue = ebayProductStorePrefCond.get(5).getString("acceptanceCondition");
+            String lessValue = ebayProductStorePrefCond.get(6).getString("acceptanceCondition");
+            String rejectGreaterMsg = ebayProductStorePrefCond.get(7).getString("acceptanceCondition");
+            String rejectLessEnable = ebayProductStorePrefCond.get(8).getString("acceptanceCondition");
+            String lessThanValue = ebayProductStorePrefCond.get(9).getString("acceptanceCondition");
+            String rejectLessMsg = ebayProductStorePrefCond.get(10).getString("acceptanceCondition");
             //case parameter to double type
             BigDecimal acceptPercentValue = new BigDecimal(acceptBestOfferValue);
             BigDecimal greaterPercentValue = new BigDecimal(greaterValue);

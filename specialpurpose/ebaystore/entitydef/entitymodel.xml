@@ -126,7 +126,7 @@ under the License.
     </entity>
     <entity entity-name="EbayProductStorePrefCond" package-name="org.ofbiz.ebay.store">
         <field name="prefCondId" type="id-ne"/>
-        <field name="condition" type="long-varchar"></field>
+        <field name="acceptanceCondition" type="long-varchar"></field>
         <field name="description" type="long-varchar"></field>
         <field name="parentPrefCondId" type="id-ne"></field>
         <prim-key field="prefCondId"/>

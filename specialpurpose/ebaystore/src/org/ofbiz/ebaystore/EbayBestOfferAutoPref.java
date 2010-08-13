@@ -43,37 +43,37 @@ public class EbayBestOfferAutoPref {
             String condition11 = (String) context.get("condition11");
             try {
                 Map ebayCondition1 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition1.put("condition", condition1);
+                ebayCondition1.put("acceptanceCondition", condition1);
 
                 Map ebayCondition2 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition2.put("condition", condition2);
+                ebayCondition2.put("acceptanceCondition", condition2);
 
                 Map ebayCondition3 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition3.put("condition", condition3);
+                ebayCondition3.put("acceptanceCondition", condition3);
 
                 Map ebayCondition4 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition4.put("condition", condition4);
+                ebayCondition4.put("acceptanceCondition", condition4);
 
                 Map ebayCondition5 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition5.put("condition", condition5);
+                ebayCondition5.put("acceptanceCondition", condition5);
 
                 Map ebayCondition6 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition6.put("condition", condition6);
+                ebayCondition6.put("acceptanceCondition", condition6);
 
                 Map ebayCondition7 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition7.put("condition", condition7);
+                ebayCondition7.put("acceptanceCondition", condition7);
 
                 Map ebayCondition8 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition8.put("condition", condition8);
+                ebayCondition8.put("acceptanceCondition", condition8);
 
                 Map ebayCondition9 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition9.put("condition", condition9);
+                ebayCondition9.put("acceptanceCondition", condition9);
 
                 Map ebayCondition10 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition10.put("condition", condition10);
+                ebayCondition10.put("acceptanceCondition", condition10);
 
                 Map ebayCondition11 = UtilMisc.toMap("userLogin", userLogin);
-                ebayCondition11.put("condition", condition11);
+                ebayCondition11.put("acceptanceCondition", condition11);
 
             GenericValue productStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"));
             if (UtilValidate.isEmpty(productStorePref)) {
@@ -165,7 +165,7 @@ public class EbayBestOfferAutoPref {
                     Map ebayPrefCond = UtilMisc.toMap("userLogin", userLogin);
                     for (int i = 0; i < productPref.size(); i++) {
                         ebayPrefCond.put("prefCondId",productPref.get(i).getString("prefCondId"));
-                        ebayPrefCond.put("condition",condition[i]);
+                        ebayPrefCond.put("acceptanceCondition",condition[i]);
                         dispatcher.runSync("updateEbayProductStorePrefCond",ebayPrefCond);
                     }
                 }
