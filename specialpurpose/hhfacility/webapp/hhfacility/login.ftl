@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
+<#assign useMultitenant = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "multitenant")>
 <#assign username = requestParameters.USERNAME?default((sessionAttributes.autoUserLogin.userLoginId)?default(""))>
 <#if username != "">
   <#assign focusName = false>
@@ -62,6 +62,12 @@ under the License.
                           <input type="password" name="PASSWORD" value="" size="20" />
                         </td>
                       </tr>
+          <#if ("Y" == useMultitenant)>
+            <tr>
+              <td class="label">TenantId</td>
+              <td><input type="text" name="tenantId" value="${parameters.tenantId?if_exists}" size="20"/></td>
+            </tr>
+          </#if>
                       <tr>
                         <td colspan="2" align="center">
                           <!--<a href="javascript:document.loginform.submit()" class="buttontext">[Login]</a>-->

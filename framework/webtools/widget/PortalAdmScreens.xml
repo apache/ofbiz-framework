@@ -93,6 +93,8 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="PortalPageAdminItem"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/> 
+                <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/> 
                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
                 <set field="Adm" value="Adm"/>
             </actions>

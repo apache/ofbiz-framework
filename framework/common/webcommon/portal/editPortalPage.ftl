@@ -57,8 +57,8 @@ under the License.
               <#assign portletFields = '<input name="portalPageId" value="' + portlet.portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
               <div class="portlet-config" id="portalPortlet_${portlet_index}" onmouseover="javascript:this.style.cursor='move';">
               <div class="portlet-config-title-bar">
-                  <script type="text/javascript">makeDragable("${portlet_index}");</script>
-                  <script type="text/javascript">makeDroppable("${portlet_index}");</script>
+                  <script type="text/javascript">makeDragable("portalPortlet_${portlet_index}");</script>
+                  <script type="text/javascript">makeDroppable("portalPortlet_${portlet_index}");</script>
                   <form method="post" action="<@ofbizUrl>updatePortalPagePortletAjax</@ofbizUrl>" name="freeMove_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumnList[portalPageColumn_index].columnSeqId}" type="hidden"/><input name="mode" value="RIGHT" type="hidden"/></form>
                 <#list portalPages as portalPageList>
                   <#if portalPage.portalPageId != portalPageList.portalPageId>
