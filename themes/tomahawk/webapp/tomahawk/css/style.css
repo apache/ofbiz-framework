@@ -995,10 +995,6 @@ padding: 0;
 color: #AAAAAA;
 }
 
-ul#preferences-menu li.org {
-clear: both;
-}
-
 ul#preferences-menu li.user a,
 ul#preferences-menu li.org a {
 color: #AAAAAA;
