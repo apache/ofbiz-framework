@@ -22,6 +22,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 
 productPromoId = request.getParameter("productPromoId");
+if (!productPromoId) productPromoId = parameters.productPromoId;
 productPromo = delegator.findByPrimaryKey("ProductPromo", [productPromoId : productPromoId]);
 
 promoAutoDescription = ProductPromoWorker.makeAutoDescription(productPromo, delegator, locale);
