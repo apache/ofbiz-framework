@@ -22,7 +22,7 @@ under the License.
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Party Introduction</title>
+    <title>The Party Manager Application</title>
     <para>
         The Party Manager application is used to manage the parties, i.e any legal entity your company has to deal with.
     </para>
