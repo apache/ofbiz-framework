@@ -445,7 +445,7 @@
         <value xml:lang="es">Nombre del grupo</value>
         <value xml:lang="fr">Nom du groupe d'acteurs</value>
         <value xml:lang="hi_IN">समूह का नाम</value>
-        <value xml:lang="it">Nome Gruppo</value>
+        <value xml:lang="it">Nome gruppo</value>
         <value xml:lang="nl">Groepnaam</value>
         <value xml:lang="pt_BR">Nome do grupo</value>
         <value xml:lang="ro">Nume Grup</value>
@@ -459,7 +459,7 @@
         <value xml:lang="es">Nombre local del grupo</value>
         <value xml:lang="fr">Nom de groupe local</value>
         <value xml:lang="hi_IN">स्थानीय समूह का नाम</value>
-        <value xml:lang="it">Nome Gruppo Locale</value>
+        <value xml:lang="it">Nome gruppo locale</value>
         <value xml:lang="nl">Groepnaam lokaal</value>
         <value xml:lang="pt_BR">Nome do grupo local</value>
         <value xml:lang="ro">Nume Grup Local</value>
@@ -527,7 +527,7 @@
         <value xml:lang="es">Última fecha de invitación</value>
         <value xml:lang="fr">Date de dernière invitation</value>
         <value xml:lang="hi_IN">अंतिम आमंत्रित दिनांक</value>
-        <value xml:lang="it">Data Ultimo Invito</value>
+        <value xml:lang="it">Data ultimo invito</value>
         <value xml:lang="nl">Datum laatste uitnodiging</value>
         <value xml:lang="pt_BR">Data do último convite</value>
         <value xml:lang="th">วันที่เข้ามาครั้งสุดท้าย</value>
@@ -1031,7 +1031,7 @@
         <value xml:lang="es">Código Invitación de participante</value>
         <value xml:lang="fr">Invitation d'acteur</value>
         <value xml:lang="hi_IN">पार्टी निमंत्रण क्रमांक</value>
-        <value xml:lang="it">Invito soggetto</value>
+        <value xml:lang="it">Codice invito</value>
         <value xml:lang="nl">Uitnodigingnr. relatie</value>
         <value xml:lang="pt_BR">Id do convite do participante</value>
         <value xml:lang="th">รหัสการเชิญชวนกลุ่มผู้ใช้</value>
@@ -1588,7 +1588,7 @@
         <value xml:lang="es">Añadir asociación de grupo a invitación de participante</value>
         <value xml:lang="fr">Ajoutez le groupe d'association d'invitation de l'acteur</value>
         <value xml:lang="hi_IN">पार्टी निमंत्रण समूह एसोसिएशन जोड़ें</value>
-        <value xml:lang="it">Aggiorna Gruppo Associazioni Inviti Soggetto</value>
+        <value xml:lang="it">Aggiungi al gruppo di soggetti associati</value>
         <value xml:lang="nl">Uitnodiging relatie groep-associatie toevoegen</value>
         <value xml:lang="pt_BR">Adicionar convite de associação ao grupo para participante</value>
         <value xml:lang="th">เพิ่มการเชื่อมโยงกลุ่มผู้ใช้</value>
@@ -1600,7 +1600,7 @@
         <value xml:lang="es">Añadir asociación de rol a invitación de participante</value>
         <value xml:lang="fr">Ajoutez le rôle d'association d'invitation de l'acteur</value>
         <value xml:lang="hi_IN">पार्टी निमंत्रण भूमिका एसोसिएशन जोड़ें</value>
-        <value xml:lang="it">Aggiorna Ruolo Associazioni Inviti Soggetto</value>
+        <value xml:lang="it">Associa nuovo ruolo all'invito</value>
         <value xml:lang="nl">Uitnodiging relatie rol-associatie toevoegen</value>
         <value xml:lang="pt_BR">Adicionar convite de associação de papel ao participante</value>
         <value xml:lang="th">เพิ่มสถานะการเชิญชวนกลุ่มผู้ใช้</value>
@@ -1866,7 +1866,7 @@
         <value xml:lang="es">Editar asociación de grupo de invitación de participante</value>
         <value xml:lang="fr">Modifier l'association groupe invitation de l'acteurs</value>
         <value xml:lang="hi_IN">पार्टी निमंत्रण समूहएसोसिएशन(GroupAssoc) को संपादित करें</value>
-        <value xml:lang="it">Aggiorna associazione gruppo invito</value>
+        <value xml:lang="it">Aggiorna soggetti associati all'invito</value>
         <value xml:lang="nl">Groepassociaties relatie-uitnodigingen wijzigen</value>
         <value xml:lang="pt_BR">Editar associação de grupo de convite de participante</value>
         <value xml:lang="th">แก้ไขการเชิญชวนกลุ่มผู้ใช้</value>
@@ -3494,7 +3494,7 @@
         <value xml:lang="es">Grupo de clasificación</value>
         <value xml:lang="fr">Groupe classification</value>
         <value xml:lang="hi_IN">वर्गीकरण समूह</value>
-        <value xml:lang="it">Gruppo Classificazione</value>
+        <value xml:lang="it">Gruppo classificazione</value>
         <value xml:lang="nl">Classificatiegroep</value>
         <value xml:lang="pt_BR">Grupo de classificação</value>
         <value xml:lang="ro">Grup Clasificare</value>
@@ -4592,7 +4592,7 @@
         <value xml:lang="es">Nuevo participante</value>
         <value xml:lang="fr">Choisir un type d'acteur</value>
         <value xml:lang="hi_IN">पार्टी के नए विस्तार बनाएँ</value>
-        <value xml:lang="it">Creare nuovo soggetto</value>
+        <value xml:lang="it">Nuovo soggetto</value>
         <value xml:lang="nl">Nieuwe detail relatie</value>
         <value xml:lang="pt_BR">Criar novos dados de participante</value>
         <value xml:lang="pt_PT">CriarNovo Detalhe de Secção</value>
@@ -4607,7 +4607,7 @@
         <value xml:lang="es">Crear nuevo grupo de clasificación</value>
         <value xml:lang="fr">Créer un nouveau groupe de classification</value>
         <value xml:lang="hi_IN">पार्टी का नया वर्गीकरण समूह बनाएँ</value>
-        <value xml:lang="it">Creare nuovo gruppo classificazione cliente</value>
+        <value xml:lang="it">Nuovo gruppo classificazione soggetti</value>
         <value xml:lang="nl">Nieuw kenmerkgroep voor relatie</value>
         <value xml:lang="pt_BR">Criar novo grupo de classificação de participantes</value>
         <value xml:lang="ro">Creare un Nou Grupo Clasificare Client</value>
@@ -5698,7 +5698,7 @@
         <value xml:lang="es">Nombre del grupo</value>
         <value xml:lang="fr">Nom du groupe</value>
         <value xml:lang="hi_IN">समूह का नाम</value>
-        <value xml:lang="it">Nome Gruppo</value>
+        <value xml:lang="it">Nome gruppo</value>
         <value xml:lang="nl">Groepnaam</value>
         <value xml:lang="pt_BR">Nome do grupo</value>
         <value xml:lang="ro">Nome Grup</value>
@@ -5712,7 +5712,7 @@
         <value xml:lang="es">Falta nombre del grupo</value>
         <value xml:lang="fr">Nom du groupe absent</value>
         <value xml:lang="hi_IN">समूह का नाम गायब है</value>
-        <value xml:lang="it">Nome Gruppo mancante</value>
+        <value xml:lang="it">Nome gruppo mancante</value>
         <value xml:lang="nl">Groepnaam ontbreekt</value>
         <value xml:lang="pt_BR">Nome do grupo está faltando</value>
         <value xml:lang="ro">Nume Grup Lipsa</value>
@@ -5994,7 +5994,7 @@
         <value xml:lang="es">Invitación</value>
         <value xml:lang="fr">Invitation</value>
         <value xml:lang="hi_IN">निमंत्रण</value>
-        <value xml:lang="it">Inviti soggetti</value>
+        <value xml:lang="it">Invito</value>
         <value xml:lang="pt_BR">Convite</value>
         <value xml:lang="th">คำเชิญ</value>
         <value xml:lang="zh">邀请</value>
@@ -6029,7 +6029,7 @@
         <value xml:lang="es">Grupo de asociación</value>
         <value xml:lang="fr">Groupe d'associations</value>
         <value xml:lang="hi_IN">समूहसंघ</value>
-        <value xml:lang="it">Gruppo associazione inviti</value>
+        <value xml:lang="it">Soggetti associati</value>
         <value xml:lang="nl">Associaties</value>
         <value xml:lang="pt_BR">Grupo de associação</value>
         <value xml:lang="th">รวมกลุ่ม</value>
@@ -6065,7 +6065,7 @@
         <value xml:lang="es">Nueva invitación de participante</value>
         <value xml:lang="fr">Nouvelle invitation pour l'acteur</value>
         <value xml:lang="hi_IN">नया पार्टी निमंत्रण</value>
-        <value xml:lang="it">Nuovo invito soggetto</value>
+        <value xml:lang="it">Nuovo invito</value>
         <value xml:lang="nl">Nieuwe uitnodiging</value>
         <value xml:lang="pt_BR">Novo convite de participante</value>
         <value xml:lang="th">คำเชิญของกลุ่มผู้ใช้ใหม่</value>
@@ -6083,25 +6083,13 @@
         <value xml:lang="th">นี่ไม่ใช่คำเชิญของกลุ่มผู้ใช้</value>
         <value xml:lang="zh">这不是一个有效的会员邀请</value>
     </property>
-    <property key="PartyInvitationPartyInvitationId">
-        <value xml:lang="de">Akteur Einladung ID</value>
-        <value xml:lang="en">Party Invitation Id</value>
-        <value xml:lang="es">Código Invitación de participante</value>
-        <value xml:lang="fr">Invitation d'acteur</value>
-        <value xml:lang="hi_IN">पार्टी निमंत्रण क्रमांक</value>
-        <value xml:lang="it">Invito Soggetto</value>
-        <value xml:lang="nl">Uitnodiging</value>
-        <value xml:lang="pt_BR">Id do convite de participante</value>
-        <value xml:lang="th">รหัสคำเชิญของกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员邀请标识</value>
-    </property>
     <property key="PartyInvitationRoleAssoc">
         <value xml:lang="de">Rolle Verbindung</value>
         <value xml:lang="en">RoleAssoc</value>
         <value xml:lang="es">Asociación Rol</value>
         <value xml:lang="fr">Association de rôle</value>
         <value xml:lang="hi_IN">भूमिकाएसोसिएशन</value>
-        <value xml:lang="it">Ruolo associazione inviti</value>
+        <value xml:lang="it">Ruolo associati</value>
         <value xml:lang="nl">Soort associatie</value>
         <value xml:lang="pt_BR">Associação de papel</value>
         <value xml:lang="th">สถานะที่เกี่ยวเนื่องกัน</value>
@@ -6484,7 +6472,7 @@
         <value xml:lang="es">Buscar participante por nombre</value>
         <value xml:lang="fr">Consultation de l'acteur par son nom</value>
         <value xml:lang="hi_IN">पार्टी के नाम से लुकअप</value>
-        <value xml:lang="it">Ricerca Soggetti per Nome</value>
+        <value xml:lang="it">Ricerca soggetti per nome</value>
         <value xml:lang="nl">Relatie op naam zoeken</value>
         <value xml:lang="pt_BR">Buscar participante por nome</value>
         <value xml:lang="ro">Cauta Subiecti pe Nume</value>
@@ -6554,7 +6542,7 @@
         <value xml:lang="es">Buscar conexión y detalles de participante</value>
         <value xml:lang="fr">Consulter l'identifiant de connexion et les détails de l'acteur</value>
         <value xml:lang="hi_IN">उपयोगकर्तालॉगिन/पार्टीविवरण लुकअप</value>
-        <value xml:lang="it">Ricerca Soggetti Utenti e Dettagli</value>
+        <value xml:lang="it">Ricerca soggetti utenti e dettagli</value>
         <value xml:lang="nl">Logingegevens zoeken</value>
         <value xml:lang="pt_BR">Buscar nome de usuário e detalhes de participante</value>
         <value xml:lang="ru">Искать подробности имени входа/участника</value>
@@ -7948,7 +7936,7 @@
         <value xml:lang="es">de participante</value>
         <value xml:lang="fr">De l'acteur</value>
         <value xml:lang="hi_IN">पार्टी से</value>
-        <value xml:lang="it">Soggetto dal</value>
+        <value xml:lang="it">Dal soggetto</value>
         <value xml:lang="nl">Relatie van</value>
         <value xml:lang="pt_BR">do participante</value>
         <value xml:lang="pt_PT">Secção de</value>
@@ -7978,7 +7966,7 @@
         <value xml:lang="es">Nombre del grupo</value>
         <value xml:lang="fr">Nom du groupe d'acteurs</value>
         <value xml:lang="hi_IN">पार्टी समूह का नाम</value>
-        <value xml:lang="it">Nome Gruppo Soggetto</value>
+        <value xml:lang="it">Nome gruppo soggetti</value>
         <value xml:lang="nl">Naam relatiegroep</value>
         <value xml:lang="pt_BR">Nome do grupo de participantes</value>
         <value xml:lang="pt_PT">Nome de Grupo de Secção</value>
@@ -9394,7 +9382,7 @@
         <value xml:lang="es">Lista de grupos de seguridad</value>
         <value xml:lang="fr">Liste des groupes de sécurité</value>
         <value xml:lang="hi_IN">सुरक्षासमूह की सूची</value>
-        <value xml:lang="it">Lista Gruppi Sicurezza</value>
+        <value xml:lang="it">Lista gruppi sicurezza</value>
         <value xml:lang="nl">Overzicht beveiligingsgroepen</value>
         <value xml:lang="pt_BR">Lista de grupos de segurança</value>
         <value xml:lang="pt_PT">Lista de Grupos de Segurança</value>
@@ -10670,7 +10658,7 @@
         <value xml:lang="es">Ver certificado</value>
         <value xml:lang="fr">Afficher le certificat</value>
         <value xml:lang="hi_IN">प्रमाणपत्र देखें</value>
-        <value xml:lang="it">Mostra Certificato</value>
+        <value xml:lang="it">Mostra certificato</value>
         <value xml:lang="nl">Certificaat bekijken</value>
         <value xml:lang="pt_BR">Ver certificado</value>
         <value xml:lang="ru">Просмотр сертификата</value>
