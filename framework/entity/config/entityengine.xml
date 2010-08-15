@@ -50,9 +50,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <connection-factory class="org.ofbiz.entity.connection.DBCPConnectionFactory"/>
 
     <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
-        <group-map group-name="org.ofbiz" datasource-name="localpostgres"/>
+        <group-map group-name="org.ofbiz" datasource-name="localderby"/>
         <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
-        <group-map group-name="org.ofbiz.tenant" datasource-name="localpostgrestenant"/>
+        <group-map group-name="org.ofbiz.tenant" datasource-name="localderbytenant"/>
     </delegator>
     <delegator name="default-no-eca" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" entity-eca-enabled="false" distributed-cache-clear-enabled="false">
         <group-map group-name="org.ofbiz" datasource-name="localderby"/>
@@ -365,58 +365,23 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
         <inline-jdbc
-            jdbc-driver="org.postgresql.Driver"
-            jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiz"
-            jdbc-username="ofbiz"
-            jdbc-password="ofbiz"
-            isolation-level="ReadCommitted"
-            pool-minsize="2"
-            pool-maxsize="250"
-            time-between-eviction-runs-millis="600000"/><!-- Be warned that at this date (2009-09-20) the max_connections parameters in postgresql.conf
+                jdbc-driver="org.postgresql.Driver"
+                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiz"
+                jdbc-username="ofbiz"
+                jdbc-password="ofbiz"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"
+                time-between-eviction-runs-millis="600000"/><!-- Be warned that at this date (2009-09-20) the max_connections parameters in postgresql.conf
                 is set by default to 100 by the initdb process see http://www.postgresql.org/docs/8.4/static/runtime-config-connection.html#GUC-MAX-CONNECTIONS-->
-        
+
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="java:comp/env/jdbc/localpostgres" isolation-level="ReadCommitted"/>-->
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="comp/env/jdbc/xa/localpostgres" isolation-level="ReadCommitted"/> --> <!-- Orion Style JNDI name -->
         <!-- <jndi-jdbc jndi-server-name="localweblogic" jndi-name="PostgresDataSource"/> --> <!-- Weblogic Style JNDI name -->
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="jdbc/localpostgres" isolation-level="ReadCommitted"/> --> <!-- JRun4 Style JNDI name -->
         <!-- <tyrex-dataSource dataSource-name="localpostgres" isolation-level="ReadCommitted"/> -->
     </datasource>
-    
-    <datasource name="localpostgrestenant"
-        helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
-        schema-name="public"
-        field-type-name="postgres"
-        check-on-start="true"
-        add-missing-on-start="true"
-        use-fk-initially-deferred="false"
-        alias-view-columns="false"
-        join-style="ansi"
-        use-binary-type-for-blob="true">
-        <!-- use this attribute to make the EntityListIterator more effective for pgjdbc 7.5devel and later:
-            result-fetch-size="50"
-        -->
-        <read-data reader-name="seed"/>
-        <read-data reader-name="seed-initial"/>
-        <read-data reader-name="demo"/>
-        <read-data reader-name="ext"/>
-        <inline-jdbc
-            jdbc-driver="org.postgresql.Driver"
-            jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiztenant"
-            jdbc-username="ofbiz"
-            jdbc-password="ofbiz"
-            isolation-level="ReadCommitted"
-            pool-minsize="2"
-            pool-maxsize="250"
-            time-between-eviction-runs-millis="600000"/><!-- Be warned that at this date (2009-09-20) the max_connections parameters in postgresql.conf
-                is set by default to 100 by the initdb process see http://www.postgresql.org/docs/8.4/static/runtime-config-connection.html#GUC-MAX-CONNECTIONS-->
-        
-        <!-- <jndi-jdbc jndi-server-name="default" jndi-name="java:comp/env/jdbc/localpostgres" isolation-level="ReadCommitted"/>-->
-        <!-- <jndi-jdbc jndi-server-name="default" jndi-name="comp/env/jdbc/xa/localpostgres" isolation-level="ReadCommitted"/> --> <!-- Orion Style JNDI name -->
-        <!-- <jndi-jdbc jndi-server-name="localweblogic" jndi-name="PostgresDataSource"/> --> <!-- Weblogic Style JNDI name -->
-        <!-- <jndi-jdbc jndi-server-name="default" jndi-name="jdbc/localpostgres" isolation-level="ReadCommitted"/> --> <!-- JRun4 Style JNDI name -->
-        <!-- <tyrex-dataSource dataSource-name="localpostgres" isolation-level="ReadCommitted"/> -->
-    </datasource>
-    
+
     <!-- use localpostnew for NEW installations (don't switch from localpostgres) and for PostgreSQL
      at or above 8.1 (for more information see the comment in the fieldtype file "fieldtypepostnew") -->
 
