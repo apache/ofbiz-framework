@@ -215,6 +215,30 @@ under the License.
         </section>
     </screen>
 
+    <screen name="CommonExampleOsmGeoLocationDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleGeoLocation"/>
+                <set field="geoChart.dataSourceId" value="GEOPT_OSM"/>
+                <set field="geoChart.width" value="600px"/>
+                <set field="geoChart.height" value="500px"/>
+                <set field="geoChart.points" from-field="geoPoints"/>
+                <set field="geoChart.center" from-field="geoCenter"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ExampleGeoLocation" location="component://example/widget/example/ExampleMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <container style="clear" />
+                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="CommonBirtDecorator">
         <section>
             <actions>

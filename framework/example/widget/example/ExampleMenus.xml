@@ -74,6 +74,11 @@ under the License.
         <menu-item name="ExampleGeoLocationPointSet3" title="${uiLabelMap.PointSet3}"><link target="ExampleGeoLocationPointSet3"/></menu-item>
         <menu-item name="ExampleGeoLocationPointSet4" title="${uiLabelMap.PointSet4}"><link target="ExampleGeoLocationPointSet4"/></menu-item>
         <menu-item name="ExampleGeoLocationAddress" title="${uiLabelMap.ExamplePointAddress}"><link target="ExampleGeoLocationAddress"/></menu-item>
+        <!--Examples using openstreetmap -->
+        <menu-item name="ExampleOsmGeoLocationPointSet1" title="${uiLabelMap.OsmPointSet1}"><link target="ExampleOsmGeoLocationPointSet1"/></menu-item>
+        <menu-item name="ExampleOsmGeoLocationPointSet2" title="${uiLabelMap.OsmPointSet2}"><link target="ExampleOsmGeoLocationPointSet2"/></menu-item>
+        <menu-item name="ExampleOsmGeoLocationPointSet3" title="${uiLabelMap.OsmPointSet3}"><link target="ExampleOsmGeoLocationPointSet3"/></menu-item>
+        <menu-item name="ExampleOsmGeoLocationPointSet4" title="${uiLabelMap.OsmPointSet4}"><link target="ExampleOsmGeoLocationPointSet4"/></menu-item>
     </menu>
 
     <menu name="BirtTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

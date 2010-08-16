@@ -212,6 +212,10 @@ under the License.
     <request-map uri="ExampleGeoLocationPointSet3"><security https="true" auth="true"/><response name="success" type="view" value="ExampleGeoLocationPointSet3"/></request-map>
     <request-map uri="ExampleGeoLocationPointSet4"><security https="true" auth="true"/><response name="success" type="view" value="ExampleGeoLocationPointSet4"/></request-map>
     <request-map uri="ExampleGeoLocationAddress"><security https="true" auth="true"/><response name="success" type="view" value="ExampleGeoLocationAddress"/></request-map>
+    <request-map uri="ExampleOsmGeoLocationPointSet1"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet1"/></request-map>
+    <request-map uri="ExampleOsmGeoLocationPointSet2"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet2"/></request-map>
+    <request-map uri="ExampleOsmGeoLocationPointSet3"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet3"/></request-map>
+    <request-map uri="ExampleOsmGeoLocationPointSet4"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet4"/></request-map>
 
     <!-- Birt example Requests -->
     <request-map uri="BirtMain">
@@ -277,6 +281,10 @@ under the License.
     <view-map name="ExampleGeoLocationPointSet3" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet3"/>
     <view-map name="ExampleGeoLocationPointSet4" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationPointSet4"/>
     <view-map name="ExampleGeoLocationAddress" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleGeoLocationAddress"/>
+    <view-map name="ExampleOsmGeoLocationPointSet1" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleOsmGeoLocationPointSet1"/>
+    <view-map name="ExampleOsmGeoLocationPointSet2" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleOsmGeoLocationPointSet2"/>
+    <view-map name="ExampleOsmGeoLocationPointSet3" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleOsmGeoLocationPointSet3"/>
+    <view-map name="ExampleOsmGeoLocationPointSet4" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleOsmGeoLocationPointSet4"/>
 
     <!-- Birt example View Mappings -->
     <view-map name="BirtMain" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
