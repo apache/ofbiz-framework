@@ -88,6 +88,30 @@ under the License.
             });
           }
         --></script>
+      <#elseif geoChart.dataSourceId == "GEOPT_OSM">
+        <div id="<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>" style="border:1px solid #979797; background-color:#e5e3df; width:${geoChart.width}; height:${geoChart.height}; margin:2em auto;">
+        </div>
+        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+        <script>
+          map = new OpenLayers.Map("<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>");
+          map.addLayer(new OpenLayers.Layer.OSM());
+          <#if geoChart.center?has_content>
+            var zoom = ${geoChart.center.zoom};
+            var center= new OpenLayers.LonLat(${geoChart.center.lon?c},${geoChart.center.lat?c})
+              .transform(new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                         map.getProjectionObject() // to Spherical Mercator Projection
+                         );
+          </#if>
+          var markers = new OpenLayers.Layer.Markers( "Markers" );
+          map.addLayer(markers);
+          <#if geoChart.points?has_content>
+            <#list geoChart.points as point>
+              markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(${point.lon?c} ,${point.lat?c}).transform(
+                new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject())));
+            </#list>
+          </#if>
+          map.setCenter(center, zoom);
+        </script>
       </#if>
     </#if>
 <#else>

@@ -336,4 +336,134 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ExampleOsmGeoLocationPointSet1">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet1"/>
+                <set field="geoPoints[+0].lat" value="37.4419" type="Float"/>
+                <set field="geoPoints[0].lon" value="-122.1419" type="Float"/>
+                <set field="geoPoints[+1].lat" value="37.4819" type="Float"/>
+                <set field="geoPoints[1].lon" value="-122.1519" type="Float"/>
+                <set field="geoPoints[+2].lat" value="37.4719" type="Float"/>
+                <set field="geoPoints[2].lon" value="-122.1319" type="Float"/>
+                <set field="geoCenter.lat" value="37.4419" type="Float"/>
+                <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                <set field="geoCenter.zoom" value="13"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleOsmGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleOsmGeoLocationPointSet2">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet2"/>
+                <set field="geoPoints[+0].lat" value="37.4459" type="Float"/>
+                <set field="geoPoints[0].lon" value="-122.1489" type="Float"/>
+                <set field="geoPoints[+1].lat" value="37.4829" type="Float"/>
+                <set field="geoPoints[1].lon" value="-122.1599" type="Float"/>
+                <set field="geoPoints[+2].lat" value="37.4769" type="Float"/>
+                <set field="geoPoints[2].lon" value="-122.1219" type="Float"/>
+                <set field="geoCenter.lat" value="37.4419" type="Float"/>
+                <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                <set field="geoCenter.zoom" value="12"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleOsmGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleOsmGeoLocationPointSet3">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet3"/>
+                <set field="geoPoints[+0].lat" value="37.4379" type="Float"/>
+                <set field="geoPoints[0].lon" value="-122.1119" type="Float"/>
+                <set field="geoPoints[+1].lat" value="37.4819" type="Float"/>
+                <set field="geoPoints[1].lon" value="-122.1519" type="Float"/>
+                <set field="geoPoints[+2].lat" value="37.4229" type="Float"/>
+                <set field="geoPoints[2].lon" value="-122.1369" type="Float"/>
+                <set field="geoCenter.lat" value="37.4419" type="Float"/>
+                <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                <set field="geoCenter.zoom" value="11"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleOsmGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleOsmGeoLocationPointSet4">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleGeoLocation"/>
+                <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet4"/>
+                <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
+                <set field="geoChart.width" value="600px"/>
+                <set field="geoChart.height" value="500px"/>
+                <set field="geoChart.points" from-field="geoPoints"/>
+                <set field="geoChart.center" from-field="geoCenter"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ExampleGeoLocation" location="component://example/widget/example/ExampleMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <actions>
+                                        <set field="geoPoints[+0].lat" value="37.4459" type="Float"/>
+                                        <set field="geoPoints[0].lon" value="-122.1489" type="Float"/>
+                                        <set field="geoPoints[+1].lat" value="37.4829" type="Float"/>
+                                        <set field="geoPoints[1].lon" value="-122.1599" type="Float"/>
+                                        <set field="geoPoints[+2].lat" value="37.4769" type="Float"/>
+                                        <set field="geoPoints[2].lon" value="-122.1219" type="Float"/>
+                                        <set field="geoCenter.lat" value="37.4419" type="Float"/>
+                                        <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                                        <set field="geoCenter.zoom" value="12"/>
+                                        <set field="geoChart.id" value="chart1"/>
+                                        <set field="geoChart.dataSourceId" value="GEOPT_OSM"/>
+                                        <set field="geoChart.width" value="600px"/>
+                                        <set field="geoChart.height" value="500px"/>
+                                        <set field="geoChart.points" from-field="geoPoints"/>
+                                        <set field="geoChart.center" from-field="geoCenter"/>
+                                    </actions>
+                                    <widgets>
+                                        <container style="clear" />
+                                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <actions>
+                                        <set field="geoPoints" value=""/>
+                                        <set field="geoPoints[+0].lat" value="37.4379" type="Float"/>
+                                        <set field="geoPoints[0].lon" value="-122.1119" type="Float"/>
+                                        <set field="geoPoints[+1].lat" value="37.4819" type="Float"/>
+                                        <set field="geoPoints[1].lon" value="-122.1519" type="Float"/>
+                                        <set field="geoPoints[+2].lat" value="37.4229" type="Float"/>
+                                        <set field="geoPoints[2].lon" value="-122.1369" type="Float"/>
+                                        <set field="geoCenter.lat" value="37.4419" type="Float"/>
+                                        <set field="geoCenter.lon" value="-122.1419" type="Float"/>
+                                        <set field="geoCenter.zoom" value="11"/>
+                                        <set field="geoChart.id" value="chart2"/>
+                                        <set field="geoChart.dataSourceId" value="GEOPT_OSM"/>
+                                        <set field="geoChart.width" value="800px"/>
+                                        <set field="geoChart.height" value="500px"/>
+                                        <set field="geoChart.points" from-field="geoPoints"/>
+                                        <set field="geoChart.center" from-field="geoCenter"/>
+                                    </actions>
+                                    <widgets>
+                                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
