@@ -60,7 +60,7 @@ under the License.
                             <container style="clear"></container>
                         </container>
                     </decorator-section>
-                </decorator-screen>                
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -197,7 +197,7 @@ under the License.
                 <set field="headerItem" value="ExampleGeoLocation"/>
                 <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
                 <set field="geoChart.width" value="600px"/>
-                <set field="geoChart.height" value="500px"/>                
+                <set field="geoChart.height" value="500px"/>
                 <set field="geoChart.points" from-field="geoPoints"/>
                 <set field="geoChart.center" from-field="geoCenter"/>
             </actions>
