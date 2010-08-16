@@ -73,6 +73,7 @@ public class ShipmentServices {
         GenericValue estimate = delegator.makeValue("ShipmentCostEstimate");
 
         estimate.set("shipmentCostEstimateId", delegator.getNextSeqId("ShipmentCostEstimate"));
+        estimate.set("productStoreShipMethId", productStoreShipMethId);
         estimate.set("shipmentMethodTypeId", productStoreShipMeth.getString("shipmentMethodTypeId"));
         estimate.set("carrierPartyId", productStoreShipMeth.getString("partyId"));
         estimate.set("carrierRoleTypeId", "CARRIER");
