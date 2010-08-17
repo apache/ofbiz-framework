@@ -175,18 +175,4 @@ under the License.
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="geos" type="java.util.List" mode="OUT" optional="true"/>
     </service>
-
-    <!-- Get a list of country and associated states from Geo -->
-    <service name="getCountryList" engine="simple" auth="false"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getCountryList">
-        <attribute name="countryList" mode="OUT" type="java.util.List"/>
-    </service>
-
-    <service name="getAssociatedStateList" engine="simple" auth="false"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getAssociatedStateList">
-        <attribute name="countryGeoId" mode="IN" type="String" optional="false"/>
-        <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
-        <attribute name="stateList" mode="OUT" type="java.util.List"/>
-    </service>
-
 </services>
