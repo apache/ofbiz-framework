@@ -195,6 +195,25 @@ under the License.
         <response name="success" type="view" value="main"/>
     </request-map>
     
+    <!--========================== AJAX events =====================-->
+    <!-- to dynamically get products related to a product category -->
+    <request-map uri="getAssociatedProductsList">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="getAssociatedProductsList"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <!-- to dynamically get states related to a country -->
+    <request-map uri="getAssociatedStateList">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="getAssociatedStateList"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>    
+    <!--========================== AJAX events =====================-->
+    
+    
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="none"/>

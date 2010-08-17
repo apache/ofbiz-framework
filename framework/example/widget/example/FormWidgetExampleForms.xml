@@ -215,19 +215,43 @@ under the License.
         <!-- ***   field7  *** -->
         <!-- ***************** -->
         <field name="field7"
-               title="${uiLabelMap.ExampleDropDownField7Title}"
-               tooltip="${uiLabelMap.ExampleToDo}">
+            title="${uiLabelMap.ExampleDropDownField7Title}"
+            tooltip="${uiLabelMap.ExampleToDo}">
             <drop-down>
                 <entity-options entity-name="ExampleType"
-                                key-field-name="exampleTypeId"
-                                description="${description}">
+                    key-field-name="exampleTypeId"
+                    description="${description}">
                     <entity-constraint name="exampleTypeId"
-                                       value="INSPIRED"
-                                       operator="greater"/>
+                        value="INSPIRED"
+                        operator="greater"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
+        <!-- ****************************** -->
+        <!-- ***   Dependent dropdowns  *** -->
+        <!-- ****************************** -->        
+        <field name="emptyField" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="dependendDropDownFields" title="${uiLabelMap.ExampleDependentDropDowns}">
+            <display description="${uiLabelMap.ExampleDependentDropDownTooltip}"/>
+        </field>
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" widget-style="required"><drop-down allow-empty="false"/></field>                       
+        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down no-current-selected-key="USA">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
+                    <entity-order-by field-name="geoName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
+        <field name="separator" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="productCategoryId" tooltip="${uiLabelMap.CommonRequired}"  widget-style="required">
+            <drop-down>
+                <entity-options entity-name="ProductCategory" key-field-name="productCategoryId" description="${categoryName } ${description}"/>                
+            </drop-down>
+        </field>        
+        <field name="productId" widget-style="required"><drop-down allow-empty="false"></drop-down></field>
     </form>
 
     <!-- Simple form to print a FOP PDF file with the  fonts available in OFBiz Project -->
