@@ -51,11 +51,39 @@ under the License.
                                         <label>${uiLabelMap.ExampleDefinitionName} &quot;DropDownFieldsExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
                                         <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                     </container>
-                                    <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                    <section>
+                                        <actions>
+                                            <!-- fields for the form where dependent dropdowns are-->
+                                            <set field="dependentForm" value="DropDownFieldsExampleForm"/>
+                                            
+                                            <!-- fields for setCountryStatesEventJs -->                                            
+                                            <set field="selectedStateProvinceGeoId" from-field="postalAddress.stateProvinceGeoId" default-value="_none_"/><!-- postalAddress.stateProvinceGeoId does not make much sense here, only to get the idea -->
+
+                                            <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization but there are still issues. For instance: what if we have 2 couple of dependent dropdowns in the same form? -->
+                                            <set field="mainId" value="productCategoryId"/><!-- here mainId and its key are same -->
+                                            <set field="dependentId" value="productId"/>
+                                            <set field="requestName" value="getAssociatedProductsList"/>
+                                            <set field="responseName" value="products"/>
+                                            <set field="dependentKeyName" value="productId"/>
+                                            <set field="descName" value="internalName"/>
+                                            <set field="selectedDependentOption" from-field="parameters.productId" default-value="_none_"/>                                            
+                                        </actions>
+                                        <widgets>
+                                            <platform-specific><html><html-template location="component://common/webcommon/includes/setCountryStatesEventJs.ftl"/></html></platform-specific>
+                                            <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                            <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                        </widgets>
+                                    </section>
                                 </container>
                                 <container style="screenlet-body">
-                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleLookupFields}</label></container>
-                                    <include-form name="ExampleLookupFields" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleLookupFieldsTitle}</label></container>
+                                        <container style="screenlet-body">
+                                            <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                            <label>${uiLabelMap.ExampleDefinitionName} &quot;ExampleLookupFields&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                            <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                            <label>${uiLabelMap.ExampleLookupFields}</label>
+                                            <include-form name="ExampleLookupFields" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                        </container>
                                 </container>
                                 <container style="screenlet-body">
                                     <container style="button-bar"><label style="h2">${uiLabelMap.ExampleGroupFields}</label></container>
@@ -63,6 +91,10 @@ under the License.
                                         <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
                                         <label>${uiLabelMap.ExampleDefinitionName} &quot;FieldGroupExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
                                         <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <container style="button-bar">
+                                            <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpandAll}" style="buttontext expand-all" url-mode="plain"/>
+                                            <link target="javascript:expandAll(false);" text="${uiLabelMap.CommonCollapseAll}" style="buttontext collapse-all" url-mode="plain"/>
+                                        </container>
                                         <include-form name="FieldGroupExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                     </container>
                                 </container>
