@@ -1037,36 +1037,6 @@ under the License.
         </if-not-empty>
     </simple-method>
 
-    <simple-method method-name="getCountryList" short-description="Returns a list of country" login-required="false">
-        <call-class-method method-name="getCountryList" class-name="org.ofbiz.common.CommonWorkers" ret-field="geoList">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <iterate list="geoList" entry="countryGeo">
-            <set field="countryName" value="${countryGeo.geoName}: ${countryGeo.geoId}"/>
-            <field-to-list list="countryList" field="countryName"/>
-        </iterate>
-        <field-to-result field="countryList"/>
-    </simple-method>
-
-    <simple-method method-name="getAssociatedStateList" short-description="set the state options for selected country" login-required="false">
-        <set field="countryGeoId" from-field="parameters.countryGeoId"/>
-        <set field="listOrderBy" from-field="parameters.listOrderBy"/>
-        <call-class-method method-name="getAssociatedStateList" class-name="org.ofbiz.common.CommonWorkers" ret-field="geoList">
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            <field field="countryGeoId" type="String"/>
-            <field field="listOrderBy" type="String"/>
-        </call-class-method>
-        <iterate list="geoList" entry="stateGeo">
-            <set field="stateName" value="${stateGeo.geoName}: ${stateGeo.geoId}"/>
-            <field-to-list list="stateList" field="stateName"/>
-        </iterate>
-        <if-empty field="stateList">
-            <property-to-field resource="CommonUiLabels" property="CommonNoStatesProvinces" field="noOption"/>
-            <field-to-list list="stateList" field="noOption"/>
-        </if-empty>
-        <field-to-result field="stateList"/>
-    </simple-method>
-
     <simple-method method-name="createUpdatePerson" short-description="Create and update a person" login-required="false">
         <call-map-processor xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="personMap"/>
