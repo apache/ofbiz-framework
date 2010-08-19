@@ -129,7 +129,7 @@ under the License.
         <field name="anotherText">
             <drop-down allow-empty="true">
                 <option key="Explicit Option" description="${uiLabelMap.ExampleExplicitOption}"/>        
-                <entity-options entity-name="ProductType" description="${description}" key-field-name="productTypeId">
+                <entity-options entity-name="ExampleType" description="${description}" key-field-name="exampleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

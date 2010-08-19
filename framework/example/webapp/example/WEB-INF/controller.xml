@@ -290,7 +290,7 @@ under the License.
     <view-map name="BirtMain" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
     <view-map name="Report" type="screen" page="component://example/widget/example/BirtScreens.xml#Report"/>
     <view-map name="Mail" type="screen" page="component://example/widget/example/BirtScreens.xml#EditMail"/>
-    <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/product.rptdesign" content-type="application/pdf"/>
+    <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
 
     <!-- Flotr view mapping -->
     <view-map name="ExampleBarChart" page="component://example/widget/example/ExampleScreens.xml#ExampleBarChart" type="screen"/>
