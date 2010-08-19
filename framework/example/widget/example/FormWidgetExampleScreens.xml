@@ -62,7 +62,7 @@ under the License.
                                             <set field="responseName" value="stateList"/>
                                             <set field="dependentKeyName" value="geoId"/>
                                             <set field="descName" value="geoName"/>
-                                            <set field="selectedStateProvinceGeoId" from-field="postalAddress.stateProvinceGeoId" default-value="_none_"/><!-- postalAddress.stateProvinceGeoId does not make much sense here, only to get the idea -->
+                                            <set field="selectedDependentOption" from-field="postalAddress.stateProvinceGeoId" default-value="_none_"/><!-- postalAddress.stateProvinceGeoId does not make much sense here, only to get the idea -->
                                         </actions>
                                         <widgets>
                                             <!--platform-specific><html><html-template location="component://common/webcommon/includes/setCountryStatesEventJs.ftl"/></html></platform-specific-->
