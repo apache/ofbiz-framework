@@ -738,7 +738,7 @@ under the License.
             <key-map field-name="portalPortletId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="PortletAttribute" package-name="org.ofbiz.common.portal" title="Product Attribute Entity">
+    <entity entity-name="PortletAttribute" package-name="org.ofbiz.common.portal" title="Allows to set different attribute values for each instance of the same portlet">
         <field name="portalPageId" type="id-ne"></field>
         <field name="portalPortletId" type="id-ne"></field>
         <field name="portletSeqId" type="id-ne"></field>
