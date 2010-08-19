@@ -21,7 +21,7 @@ under the License.
     <div class="screenlet-title-bar">
       <ul>
         <li class="h3">${uiLabelMap.PartyVisits}</li>
-        <li><a href="<@ofbizUrl>showvisits?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.CommonListAll}</a></li>
+        <li><a href="<@ofbizUrl>findVisits?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.CommonListAll}</a></li>
       </ul>
       <br class="clear" />
     </div>
