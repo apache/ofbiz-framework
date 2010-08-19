@@ -21,14 +21,12 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="showvisits">
+    <screen name="FindVisits">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleVisitList"/>
                 <set field="headerItem" value="visits"/>
-                <set field="tabButtonItem" value="showvisits"/>
-
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/ShowVisits.groovy"/>
+                <set field="titleProperty" value="PageTitleVisitList"/>
+                <set field="noConditionFind" value="Y"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -39,9 +37,14 @@ under the License.
                                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://party/webapp/partymgr/visit/showvisits.ftl"/></html>
-                                </platform-specific>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindVisits"  location="component://party/widget/partymgr/PartyVisitForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListVisits"  location="component://party/widget/partymgr/PartyVisitForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
@@ -52,6 +55,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="visitdetail">
         <section>
             <actions>
