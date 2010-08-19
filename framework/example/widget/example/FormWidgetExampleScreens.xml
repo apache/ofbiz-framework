@@ -56,7 +56,7 @@ under the License.
                                             <!-- setCountryStatesEventJs.ftl, it's not used here but is a good example of a reusable template-script with harcoded values which make sense -->
                                             <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization but there are still issues. For instance: what if we have 2 couple of dependent dropdowns in the same form? -->
                                             <set field="dependentForm" value="DropDownFieldsExampleForm"/>
-                                            <set field="mainId" value="countryGeoId"/><!-- here mainId and its key are same -->
+                                            <set field="mainId" value="countryGeoId"/>
                                             <set field="dependentId" value="stateProvinceGeoId"/>
                                             <set field="requestName" value="getAssociatedStateList"/>
                                             <set field="responseName" value="stateList"/>
