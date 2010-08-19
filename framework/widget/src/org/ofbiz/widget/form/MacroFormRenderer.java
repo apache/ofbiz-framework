@@ -38,6 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -81,7 +82,6 @@ import com.ibm.icu.util.Calendar;
 import freemarker.core.Environment;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
 
 /**
  * Widget Library - Form Renderer implementation based on Freemarker macros
@@ -191,9 +191,25 @@ public class MacroFormRenderer implements FormStringRenderer {
         String description = displayField.getDescription(context);
         String type = displayField.getType();
         String imageLocation = displayField.getImageLocation();
+        Integer size = Integer.valueOf("0");
+        String title = "";
+
+        if (UtilValidate.isNotEmpty(displayField.getSize())) {
+            try {
+                size = Integer.parseInt(displayField.getSize());
+            }
+            catch(NumberFormatException nfe) {
+                Debug.logError(nfe, "Error reading size of a field fieldName=" + displayField.getModelFormField().getFieldName()
+                        + " FormName= " + displayField.getModelFormField().getModelForm().getName(), module);
+            }
+        }
 
         ModelFormField.InPlaceEditor inPlaceEditor = displayField.getInPlaceEditor();
         boolean ajaxEnabled = inPlaceEditor != null && this.javaScriptEnabled;
+        if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size ) {
+            title = description;
+            description = description.substring(0, size-3)+"...";
+        }
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderDisplayField ");
@@ -205,6 +221,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(idName);
         sr.append("\" description=\"");
         sr.append(description);
+        sr.append("\" title=\"");
+        sr.append(title);
         sr.append("\" class=\"");
         sr.append(modelFormField.getWidgetStyle());
         sr.append("\" alert=\"");
@@ -345,12 +363,14 @@ public class MacroFormRenderer implements FormStringRenderer {
         String encodedImageTitle = encode(hyperlinkField.getImageTitle(context), modelFormField, context);
         this.request.setAttribute("alternate", encodedAlternate);
         this.request.setAttribute("imageTitle", encodedImageTitle);
+        this.request.setAttribute("descriptionSize", hyperlinkField.getSize());
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context),
                 hyperlinkField.getParameterMap(context), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), hyperlinkField.getConfirmation(context), modelFormField,
                 this.request, this.response, context);
 
         this.appendTooltip(writer, context, modelFormField);
         this.request.removeAttribute("image");
+        this.request.removeAttribute("descriptionSize");
     }
 
     public void renderTextField(Appendable writer, Map<String, Object> context, TextField textField) throws IOException {
@@ -684,6 +704,16 @@ public class MacroFormRenderer implements FormStringRenderer {
         ModelFormField.AutoComplete autoComplete = dropDownField.getAutoComplete();
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
+        Integer textSize = Integer.valueOf(0);
+        if (UtilValidate.isNotEmpty(dropDownField.getTextSize())) {
+            try {
+                textSize = Integer.parseInt(dropDownField.getTextSize());
+            }
+            catch(NumberFormatException nfe) {
+                Debug.logError(nfe, "Error reading size of a field fieldName=" + dropDownField.getModelFormField().getFieldName()
+                        + " FormName= " + dropDownField.getModelFormField().getModelForm().getName(), module);
+            }
+        }
         boolean ajaxEnabled = autoComplete != null && this.javaScriptEnabled;
         String className = "";
         String alert = "false";
@@ -758,6 +788,11 @@ public class MacroFormRenderer implements FormStringRenderer {
             options.append("'");
             options.append(",'description':'");
             String description = encode(optionValue.getDescription(), modelFormField, context);
+            String unescaped = StringEscapeUtils.unescapeHtml(description);
+            if (textSize > 0 && unescaped.length() > textSize ) {
+                String reduced = unescaped.substring(0, textSize - 3) + "...";
+                description = StringEscapeUtils.escapeJavaScript(StringEscapeUtils.escapeHtml(reduced));
+            }
             options.append(description);
 
             if (UtilValidate.isNotEmpty(currentValueList)) {
@@ -2943,6 +2978,15 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
             if (UtilValidate.isNotEmpty(request.getAttribute("imageTitle"))) {
                 imgTitle = request.getAttribute("imageTitle").toString();
+            }
+            Integer size = Integer.valueOf("0");
+
+            if (UtilValidate.isNotEmpty(request.getAttribute("descriptionSize"))) {
+                size = Integer.valueOf(request.getAttribute("descriptionSize").toString());
+            }
+            if( UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
+                imgTitle = description;
+                description = description.substring(0, size - 3) + "...";
             }
             if(UtilValidate.isEmpty(imgTitle)){
                 imgTitle = modelFormField.getTitle(context);

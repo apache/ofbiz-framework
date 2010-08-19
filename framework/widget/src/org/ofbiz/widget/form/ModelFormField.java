@@ -2047,6 +2047,7 @@ public class ModelFormField {
         protected boolean alsoHidden = true;
         protected FlexibleStringExpander description;
         protected String type;  // matches type of field, currently text or currency
+        protected String size;  // maximum number of characters to display
         protected String imageLocation;
         protected FlexibleStringExpander currency;
         protected FlexibleStringExpander date;
@@ -2067,6 +2068,7 @@ public class ModelFormField {
         public DisplayField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.type = element.getAttribute("type");
+            this.size = element.getAttribute("size");
             this.imageLocation = element.getAttribute("image-location");
             this.setCurrency(element.getAttribute("currency"));
             this.setDescription(element.getAttribute("description"));
@@ -2089,6 +2091,13 @@ public class ModelFormField {
         }
         public String getType(){
             return this.type;
+        }
+
+        public String getSize(){
+            return this.size;
+        }
+        public String setSize(String size){
+            return this.size = size;
         }
 
         public String getImageLocation(){
@@ -2211,6 +2220,7 @@ public class ModelFormField {
             this.entityName = element.getAttribute("entity-name");
             this.keyFieldName = element.getAttribute("key-field-name");
             this.cache = !"false".equals(element.getAttribute("cache"));
+            this.size = element.getAttribute("size");
 
             if (this.description == null || this.description.isEmpty()) {
                 this.setDescription("${description}");
@@ -2267,6 +2277,9 @@ public class ModelFormField {
         public void setSubHyperlink(SubHyperlink newSubHyperlink) {
             this.subHyperlink = newSubHyperlink;
         }
+        public String getSize(){
+            return this.size;
+        }
     }
 
     public static class HyperlinkField extends FieldInfo {
@@ -2276,6 +2289,7 @@ public class ModelFormField {
         protected String linkType;
         protected String targetType;
         protected String image;
+        protected String size;
         protected FlexibleStringExpander target;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander alternate;
@@ -2311,6 +2325,7 @@ public class ModelFormField {
             this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
             this.parametersMapAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("parameters-map"));
             this.image = element.getAttribute("image-location");
+            this.size = element.getAttribute("size");
             this.setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
             this.setConfirmationMsg(element.getAttribute("confirmation-message"));
             List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
@@ -2399,6 +2414,14 @@ public class ModelFormField {
 
         public String getImage() {
             return this.image;
+        }
+
+        public String getSize() {
+            return this.size;
+        }
+
+        public String setSize(String size) {
+            return this.size = size;
         }
 
         /**
@@ -3071,6 +3094,7 @@ public class ModelFormField {
         protected boolean allowMulti = false;
         protected String current;
         protected String size;
+        protected String textSize;
         protected FlexibleStringExpander currentDescription;
         protected SubHyperlink subHyperlink;
         protected int otherFieldSize = 0;
@@ -3093,6 +3117,7 @@ public class ModelFormField {
 
             this.current = element.getAttribute("current");
             this.size = element.getAttribute("size");
+            this.textSize = element.getAttribute("text-size");
             this.allowEmpty = "true".equals(element.getAttribute("allow-empty"));
             this.allowMulti = "true".equals(element.getAttribute("allow-multiple"));
             this.currentDescription = FlexibleStringExpander.getInstance(element.getAttribute("current-description"));
@@ -3100,6 +3125,9 @@ public class ModelFormField {
             // set the default size
             if (size == null) {
                 size = "1";
+            }
+            if (textSize == null) {
+                textSize = "0";
             }
 
             String sizeStr = element.getAttribute("other-field-size");
@@ -3183,6 +3211,10 @@ public class ModelFormField {
 
         public String getSize() {
             return this.size;
+        }
+
+        public String getTextSize() {
+            return this.textSize;
         }
 
         /**

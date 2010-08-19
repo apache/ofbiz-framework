@@ -659,6 +659,9 @@ under the License.
         <xs:attribute type="xs:string" name="description">
             <xs:annotation><xs:documentation>Specifies the string to display, can use the ${} syntax to insert context values; if empty the value of the field will be printed for a default.</xs:documentation></xs:annotation>
         </xs:attribute>
+        <xs:attribute type="xs:integer" name="size">
+            <xs:annotation><xs:documentation>Specifies the size of the field (as a number of characters), when the text to display exceed the given size it is truncated and add the complete text as a hint</xs:documentation></xs:annotation>
+        </xs:attribute>
         <xs:attribute name="type" default="text">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -699,6 +702,9 @@ under the License.
         <xs:attribute type="xs:string" name="entity-name" use="required"/>
         <xs:attribute type="xs:string" name="key-field-name"/>
         <xs:attribute type="xs:string" name="description" default="${description}"/>
+        <xs:attribute type="xs:integer" name="size">
+            <xs:annotation><xs:documentation>Specifies the size of the field (as a number of characters), when the text to display exceed the given size it is truncated and add the complete text as a hint</xs:documentation></xs:annotation>
+        </xs:attribute>
         <xs:attribute name="cache" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -770,6 +776,9 @@ under the License.
               In order to use this feature, the javascript code contained in the file:
               images/webapp/images/combobox.js must be included in the page.
             </xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="text-size" >
+            <xs:annotation><xs:documentation>Specifies the size of the field (as a number of characters), when the text to display exceed the given size it is truncated and add the complete text as a hint</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="file" substitutionGroup="AllFields">
@@ -865,6 +874,9 @@ under the License.
         <xs:attribute name="confirmation-message" type="xs:string"><xs:annotation><xs:documentation>The message displayed in confirmation box</xs:documentation></xs:annotation></xs:attribute>
         <xs:attribute name="parameters-map" type="xs:string">
             <xs:annotation><xs:documentation>A Map in the context that will be used as additional name/value pairs.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="size">
+            <xs:annotation><xs:documentation>Specifies the size of the field (as a number of characters), when the text to display exceed the given size it is truncated and add the complete text as a hint</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="parameter">
