@@ -244,14 +244,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
-        <field name="separator" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
-        <field name="productCategoryId" tooltip="${uiLabelMap.CommonRequired}"  widget-style="required">
-            <drop-down>
-                <entity-options entity-name="ProductCategory" key-field-name="productCategoryId" description="${categoryName } ${description}"/>                
-            </drop-down>
-        </field>        
-        <field name="productId" widget-style="required"><drop-down allow-empty="false"></drop-down></field>
     </form>
 
     <!-- Simple form to print a FOP PDF file with the  fonts available in OFBiz Project -->
