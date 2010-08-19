@@ -20,7 +20,7 @@ under the License.
 <#assign birt = JspTaglibs["/WEB-INF/birt.tld"]/>
 
 <@birt.report id="birtReport"
-    reportDesign="component://example/webapp/birt/report/product.rptdesign"
+    reportDesign="component://example/webapp/birt/report/example.rptdesign"
     baseURL="/birt"
     height="700"
     width="900"

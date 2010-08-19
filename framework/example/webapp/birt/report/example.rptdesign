@@ -1,107 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.20" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 2.5.1.v20090903 Build &lt;2.5.1.v20090917-1447></property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.6.0.v20100531 Build &lt;2.6.0.v20100609-1613></property>
     <property name="units">in</property>
     <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
 
-module = "product.rptdesign";]]></method>
+module = "example.rptdesign";]]></method>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
     <data-sources>
         <script-data-source name="OFBiz" id="8"/>
     </data-sources>
     <data-sets>
-        <script-data-set name="Product" id="9">
+        <script-data-set name="Example" id="9">
             <list-property name="resultSetHints">
                 <structure>
                     <property name="position">0</property>
-                    <property name="name">productId</property>
+                    <property name="name">exampleId</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">1</property>
-                    <property name="name">productTypeId</property>
+                    <property name="name">exampleTypeId</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">2</property>
-                    <property name="name">internalName</property>
+                    <property name="name">exampleName</property>
                     <property name="dataType">string</property>
                 </structure>
             </list-property>
             <list-property name="columnHints">
                 <structure>
-                    <property name="columnName">productId</property>
-                    <text-property name="displayName">productId</text-property>
+                    <property name="columnName">exampleId</property>
+                    <text-property name="displayName">exampleId</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">productTypeId</property>
-                    <text-property name="displayName">productTypeId</text-property>
+                    <property name="columnName">exampleTypeId</property>
+                    <text-property name="displayName">exampleTypeId</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">internalName</property>
-                    <text-property name="displayName">internalName</text-property>
+                    <property name="columnName">exampleName</property>
+                    <text-property name="displayName">exampleName</text-property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
                     <structure>
                         <property name="position">1</property>
-                        <property name="name">productId</property>
+                        <property name="name">exampleId</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">2</property>
-                        <property name="name">productTypeId</property>
+                        <property name="name">exampleTypeId</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">internalName</property>
+                        <property name="name">exampleName</property>
                         <property name="dataType">string</property>
                     </structure>
                 </list-property>
             </structure>
             <property name="dataSource">OFBiz</property>
-            <method name="open"><![CDATA[products = null;
+            <method name="open"><![CDATA[examples = null;
 try {
-    products = delegator.findList("Product", null, null, null, null, false);
+    examples = delegator.findList("Example", null, null, null, null, false);
 } catch (e) {
     Debug.logError(e, module);
 }
 totalRow = 0;
 countOfRow = 0;
-if (products) {
-    totalRow = products.size();
+if (examples) {
+    totalRow = examples.size();
 }]]></method>
             <method name="fetch"><![CDATA[if (countOfRow == totalRow - 1) return false;
 
-product = products.get(countOfRow);
-productId = product.getString("productId");
-productTypeId = product.getString("productTypeId");
-internalName = product.getString("internalName");
+example = examples.get(countOfRow);
+exampleId = example.getString("exampleId");
+exampleTypeId = example.getString("exampleTypeId");
+exampleName = example.getString("exampleName");
 
-row["productId"] = productId;
-row["productTypeId"] = productTypeId;
-row["internalName"] = internalName;
+row["exampleId"] = exampleId;
+row["exampleTypeId"] = exampleTypeId;
+row["exampleName"] = exampleName;
 
 countOfRow ++;
 return true;]]></method>
@@ -153,24 +135,24 @@ return true;]]></method>
     </page-setup>
     <body>
         <table id="10">
-            <property name="dataSet">Product</property>
+            <property name="dataSet">Example</property>
             <list-property name="boundDataColumns">
                 <structure>
-                    <property name="name">productId</property>
-                    <text-property name="displayName">productId</text-property>
-                    <expression name="expression">dataSetRow["productId"]</expression>
+                    <property name="name">exampleId</property>
+                    <text-property name="displayName">exampleId</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["exampleId"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">productTypeId</property>
-                    <text-property name="displayName">productTypeId</text-property>
-                    <expression name="expression">dataSetRow["productTypeId"]</expression>
+                    <property name="name">exampleTypeId</property>
+                    <text-property name="displayName">exampleTypeId</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["exampleTypeId"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">internalName</property>
-                    <text-property name="displayName">internalName</text-property>
-                    <expression name="expression">dataSetRow["internalName"]</expression>
+                    <property name="name">exampleName</property>
+                    <text-property name="displayName">exampleName</text-property>
+                    <expression name="expression">dataSetRow["exampleName"]</expression>
                     <property name="dataType">string</property>
                 </structure>
             </list-property>
@@ -184,17 +166,17 @@ return true;]]></method>
                     <property name="textAlign">center</property>
                     <cell id="12">
                         <label id="13">
-                            <text-property name="text">productId</text-property>
+                            <text-property name="text">exampleId</text-property>
                         </label>
                     </cell>
                     <cell id="14">
                         <label id="15">
-                            <text-property name="text">productTypeId</text-property>
+                            <text-property name="text">exampleTypeId</text-property>
                         </label>
                     </cell>
                     <cell id="16">
                         <label id="17">
-                            <text-property name="text">internalName</text-property>
+                            <text-property name="text">exampleName</text-property>
                         </label>
                     </cell>
                 </row>
@@ -203,17 +185,17 @@ return true;]]></method>
                 <row id="18">
                     <cell id="19">
                         <data id="20">
-                            <property name="resultSetColumn">productId</property>
+                            <property name="resultSetColumn">exampleId</property>
                         </data>
                     </cell>
                     <cell id="21">
                         <data id="22">
-                            <property name="resultSetColumn">productTypeId</property>
+                            <property name="resultSetColumn">exampleTypeId</property>
                         </data>
                     </cell>
                     <cell id="23">
                         <data id="24">
-                            <property name="resultSetColumn">internalName</property>
+                            <property name="resultSetColumn">exampleName</property>
                         </data>
                     </cell>
                 </row>

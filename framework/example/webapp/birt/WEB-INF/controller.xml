@@ -85,6 +85,6 @@ under the License.
         application/vnd.ms-word
         application/vnd.ms-powerpoint
      -->
-    <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/product.rptdesign" content-type="application/pdf"/>
+    <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
     <!-- end of view mappings -->
 </site-conf>
