@@ -65,7 +65,7 @@ under the License.
                                             <set field="selectedStateProvinceGeoId" from-field="postalAddress.stateProvinceGeoId" default-value="_none_"/><!-- postalAddress.stateProvinceGeoId does not make much sense here, only to get the idea -->
                                         </actions>
                                         <widgets>
-                                            <platform-specific><html><html-template location="component://common/webcommon/includes/setCountryStatesEventJs.ftl"/></html></platform-specific>
+                                            <!--platform-specific><html><html-template location="component://common/webcommon/includes/setCountryStatesEventJs.ftl"/></html></platform-specific-->
                                             <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
                                             <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                         </widgets>
