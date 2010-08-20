@@ -25,6 +25,7 @@ under the License.
          elements found in the common-controller.xml file. -->
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
+    <include location="component://example/webapp/birt/WEB-INF/controller.xml"/>
 
     <description>Example Component Site Configuration File</description>
     
@@ -222,24 +223,8 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="BirtMain"/>
     </request-map>
-    <request-map uri="Report">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="Report"/>
-    </request-map>
-    <request-map uri="Mail">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="Mail"/>
-    </request-map>
-    <request-map uri="sendBirtMail">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="sendBirtMail"/>
-        <response name="success" type="view" value="Mail"/>
-        <response name="error" type="view" value="Mail"/>
-    </request-map>
-    <request-map uri="ViewHandler">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ViewHandler"/>
-    </request-map>
+
+    <!--flotr example requests-->
     <request-map uri="ExampleBarChart">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ExampleBarChart"/>
@@ -288,9 +273,6 @@ under the License.
 
     <!-- Birt example View Mappings -->
     <view-map name="BirtMain" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
-    <view-map name="Report" type="screen" page="component://example/widget/example/BirtScreens.xml#Report"/>
-    <view-map name="Mail" type="screen" page="component://example/widget/example/BirtScreens.xml#EditMail"/>
-    <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
 
     <!-- Flotr view mapping -->
     <view-map name="ExampleBarChart" page="component://example/widget/example/ExampleScreens.xml#ExampleBarChart" type="screen"/>
