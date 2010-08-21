@@ -330,11 +330,11 @@ under the License.
             </entity-one>
 
             <entity-condition list="modifyPpList" entity-name="PortalPagePortlet">
-             <condition-list combine="and">
-                <condition-expr field-name="portalPageId" operator="equals" value="${parameters.o_portalPageId}"/>
-                <condition-expr field-name="sequenceNum" operator="greater-equals" value="${destiPp.sequenceNum}"/>
-             </condition-list>
-        </entity-condition>
+                <condition-list combine="and">
+                    <condition-expr field-name="portalPageId" operator="equals" value="${parameters.o_portalPageId}"/>
+                    <condition-expr field-name="sequenceNum" operator="greater-equals" value="${destiPp.sequenceNum}"/>
+                </condition-list>
+            </entity-condition>
         </if-compare>
 
         <if-compare operator="equals" field="parameters.mode" value="DRAGDROPAFTER">
@@ -345,10 +345,10 @@ under the License.
             </entity-one>
 
             <entity-condition list="modifyPpList" entity-name="PortalPagePortlet">
-             <condition-list combine="and">
-                <condition-expr field-name="portalPageId" operator="equals" value="${parameters.o_portalPageId}"/>
-                <condition-expr field-name="sequenceNum" operator="greater" value="${destiPp.sequenceNum}"/>
-             </condition-list>
+                <condition-list combine="and">
+                    <condition-expr field-name="portalPageId" operator="equals" value="${parameters.o_portalPageId}"/>
+                    <condition-expr field-name="sequenceNum" operator="greater" value="${destiPp.sequenceNum}"/>
+                </condition-list>
             </entity-condition>
         </if-compare>
 
