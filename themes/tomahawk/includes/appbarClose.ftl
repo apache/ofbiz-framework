@@ -78,11 +78,11 @@ under the License.
         </li>
       </#if>
     </#if>
-    <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
-      <#include "component://common/webcommon/includes/helplink.ftl" />
-      <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
-    </#if>
     <#if userLogin?exists>
+      <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
+        <#include "component://common/webcommon/includes/helplink.ftl" />
+        <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
+      </#if>
       <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
       <li><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
     <#else>
