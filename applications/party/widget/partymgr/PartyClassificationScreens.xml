@@ -61,21 +61,28 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
                         <section>
+                            <condition>
+                                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
+                            </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://party/webapp/partymgr/party/ClassificationTabBar.ftl"/></html>
-                                </platform-specific>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="PartyClassificationTabBar"/>
                             </widgets>
                         </section>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
+                            <condition>
+                                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
+                            </condition>
                             <widgets>
                                 <screenlet id="AddPartyClassificationGroupPartiesPanel" title="${uiLabelMap.PartyClassificationGroups}" collapsible="true">
                                     <include-form name="AddPartyClassificationParty" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                                 </screenlet>
                                 <include-form name="ListPartyClassificationGroupParties" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                             </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
@@ -125,20 +132,27 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
                         <section>
+                            <condition>
+                                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
+                            </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://party/webapp/partymgr/party/ClassificationTabBar.ftl"/></html>
-                                </platform-specific>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="PartyClassificationTabBar"/>
                             </widgets>
                         </section>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
+                            <condition>
+                                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
+                            </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyClassificationGroup}">
                                     <include-form name="EditPartyClassificationGroup" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                                 </screenlet>
                             </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
