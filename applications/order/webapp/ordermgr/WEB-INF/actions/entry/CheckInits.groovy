@@ -42,7 +42,7 @@ context.shoppingCart = shoppingCart;
 salesChannels = delegator.findByAndCache("Enumeration", [enumTypeId : "ORDER_SALES_CHANNEL"], ["sequenceId"]);
 context.salesChannels = salesChannels;
 
-productStores = delegator.findList("ProductStore", null, null, ["storeName"], null, true);
+productStores = delegator.findList("ProductStore", null, null, ["productStoreId", "storeName"], null, true);
 context.productStores = productStores;
 
 suppliers = delegator.findByAnd("PartyRoleAndPartyDetail", [roleTypeId : "SUPPLIER"], ["groupName", "partyId"]);
