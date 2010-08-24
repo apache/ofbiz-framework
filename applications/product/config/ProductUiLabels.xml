@@ -20267,7 +20267,7 @@
         <value xml:lang="de">Bis Datum/Zeit, Sequenz Menge</value>
         <value xml:lang="en">Thru Date/Time, Sequence Quantity</value>
         <value xml:lang="es">Fecha fin/Hora, Secuencia y cantidad</value>
-        <value xml:lang="fr">Jusqu'à la date et l'heure, la séquence et la quantité</value>
+        <value xml:lang="fr">Jusqu'à la date et heure, séquence et quantité</value>
         <value xml:lang="it">Alla Data/Ora,Sequenza e Quantità</value>
         <value xml:lang="ro">La Data/Ora,Secventa si Cantitatea ProductThruDateTimeSequenceType=La Data/Ora,Secventa si Tipul</value>
         <value xml:lang="ru">До даты/времени, последовательность и кол-во</value>
