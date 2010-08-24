@@ -419,17 +419,10 @@ under the License.
         <field name="USER_ADDRESS1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
         <field name="USER_ADDRESS2" title="${uiLabelMap.CommonAddress2}"><text size="30" maxlength="60"/></field>
         <field name="USER_CITY" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
-        <field name="USER_STATE" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId} - ${geoName}">
-                    <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
-                    <entity-order-by field-name="geoId"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="USER_STATE" title="${uiLabelMap.CommonState}" widget-style="required"><drop-down allow-empty="false"/></field>                       
         <field name="USER_POSTAL_CODE" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="10" maxlength="30"/></field>
         <field name="USER_COUNTRY" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
-            <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
+            <drop-down no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
                     <entity-order-by field-name="geoId"/>
