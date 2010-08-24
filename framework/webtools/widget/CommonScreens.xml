@@ -91,7 +91,7 @@ under the License.
     <screen name="browsercerts">
         <section>
             <actions>
-                <set field="headerItem" value="main"/>
+                <set field="tabButtonItem" value="myCertificates"/>
                 <set field="titleProperty" value="WebtoolsCertsX509"/>
             </actions>
             <widgets>

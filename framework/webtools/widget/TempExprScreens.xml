@@ -24,7 +24,7 @@ under the License.
     <screen name="TemporalExpressionDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="tempexpr"/>
+                <set field="tabButtonItem" value="tempexpr"/>
                 <property-map resource="TemporalExpressionUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap[titleProperty]}" global="true"/>
             </actions>
