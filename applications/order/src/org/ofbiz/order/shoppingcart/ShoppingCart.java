@@ -1519,6 +1519,22 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return inf;
     }
 
+    /** Creates a CartPaymentInfo object with a possible authCode (may be null) */
+    public CartPaymentInfo makePaymentInfo(String id, String refNum, String authCode, BigDecimal amount) {
+        CartPaymentInfo inf = new CartPaymentInfo();
+        inf.refNum[0] = refNum;
+        inf.refNum[1] = authCode;
+        inf.amount = amount;
+
+        if (!isPaymentMethodType(id)) {
+            inf.paymentMethodTypeId = this.getPaymentMethodTypeId(id);
+            inf.paymentMethodId = id;
+        } else {
+            inf.paymentMethodTypeId = id;
+        }
+        return inf;
+    }
+
     /** Locates the index of an existing CartPaymentInfo object or -1 if none found */
     public int getPaymentInfoIndex(String id, String refNum) {
         CartPaymentInfo thisInf = this.makePaymentInfo(id, refNum, null);
@@ -1561,7 +1577,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /** Locates an existing (or creates a new) CartPaymentInfo object */
     public CartPaymentInfo getPaymentInfo(String id, String refNum, String authCode, BigDecimal amount, boolean update) {
-        CartPaymentInfo thisInf = this.makePaymentInfo(id, refNum, amount);
+        CartPaymentInfo thisInf = this.makePaymentInfo(id, refNum, authCode, amount);
         Iterator i = paymentInfo.iterator();
         while (i.hasNext()) {
             CartPaymentInfo inf = (CartPaymentInfo) i.next();
