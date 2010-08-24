@@ -39,26 +39,28 @@ under the License.
 
     <form name="BasicExpressionList" type="list"
          default-table-style="basic-table hover-bar" odd-row-style="alternate-row" header-row-style="header-row-2">
-        <field name="tempExprId" title="${uiLabelMap.TemporalExpressionId}">
+        <field name="tempExprId" title="${uiLabelMap.TemporalExpressionId}" sort-field="true">
             <hyperlink also-hidden="false" target-type="plain" description="${tempExprId}" target="editTemporalExpression">
                 <parameter param-name="tempExprId"/>
             </hyperlink>
         </field>
-        <field name="tempExprTypeId" title="${uiLabelMap.TemporalExpressionType}"><display/></field>
-        <field name="description"><display/></field>
-        <field name="date1"><display/></field>
-        <field name="date2"><display/></field>
-        <field name="integer1"><display/></field>
-        <field name="integer2"><display/></field>
-        <field name="string1"><display/></field>
-        <field name="string2"><display/></field>
+        <field name="tempExprTypeId" title="${uiLabelMap.TemporalExpressionType}" sort-field="true"><display/></field>
+        <field name="description" sort-field="true"><display/></field>
+        <field name="date1" sort-field="true"><display/></field>
+        <field name="date2" sort-field="true"><display/></field>
+        <field name="integer1" sort-field="true"><display/></field>
+        <field name="integer2" sort-field="true"><display/></field>
+        <field name="string1" sort-field="true"><display/></field>
+        <field name="string2" sort-field="true"><display/></field>
     </form>
 
     <form name="ListTemporalExpressions" extends="BasicExpressionList" list-name="listIt" paginate="true">
         <actions>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="tempExprId"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="TemporalExpression"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
