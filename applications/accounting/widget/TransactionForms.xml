@@ -22,7 +22,6 @@ under the License.
     <!-- form whose input filters the ListGatewayResponses -->
     <form name="FindGatewayResponses" type="single" target="FindGatewayResponses" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="hideSearch"><hidden value="Y"/></field> <!-- what is this for? -->
         <field name="paymentGatewayResponseId" title="${uiLabelMap.AccountingPaymentGatewayResponseId}">
             <text-find/>
         </field>
