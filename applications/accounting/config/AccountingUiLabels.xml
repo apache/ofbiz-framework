@@ -10296,6 +10296,7 @@
     </property>
     <property key="FormFieldTitle_costCenters">
         <value xml:lang="en">Cost Centers</value>
+        <value xml:lang="fr">Centres de coût</value>
         <value xml:lang="hi_IN">लागत केंद्र</value>
     </property>
     <property key="FormFieldTitle_credit">
