@@ -146,7 +146,7 @@ if (reviews) {
 }
 
 // an example of getting features of a certain type to show
-sizeProductFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", [productId : productId, productFeatureTypeId : "SIZE"], ["sequenceNum", "defaultSequenceNum"]);
+sizeProductFeatureAndAppls = delegator.findByAndCache("ProductFeatureAndAppl", [productId : productId, productFeatureTypeId : "SIZE"], ["sequenceNum", "defaultSequenceNum"]);
 
 context.product = product;
 context.categoryId = categoryId;
