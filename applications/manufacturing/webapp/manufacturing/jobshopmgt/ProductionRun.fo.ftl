@@ -18,8 +18,8 @@ under the License.
 -->
 <#escape x as x?xml>
 <#if productionRunId?has_content>
-            <fo:block space-after.optimum="0.3cm">${uiLabelMap.ManufacturingProductionRunId}: ${productionRunData.workEffortId?if_exists}</fo:block>
-            <fo:block space-after.optimum="1.0cm">${uiLabelMap.ProductProductId}: ${productionRunData.productId?if_exists}/${productionRunData.productName?if_exists}</fo:block>
+            <fo:block>${uiLabelMap.ManufacturingProductionRunId}: ${productionRunData.workEffortId?if_exists}<#if productionRunData.productionRunName?exists> / ${productionRunData.productionRunName}</#if></fo:block>
+            <fo:block space-after.optimum="0.2cm">${uiLabelMap.ProductProductId}: ${productionRunData.productId?if_exists}<#if productionRunData.product.productName?exists> / ${productionRunData.product.productName}</#if></fo:block>
             <#assign dimColor = "#D4D0C8">
             <fo:table>
                 <fo:table-column column-width="4.0cm"/>
