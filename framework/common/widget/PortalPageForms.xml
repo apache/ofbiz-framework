@@ -130,7 +130,6 @@ under the License.
     </form>
 
     <form name="FindGenericEntity" type="single" target="list${entity}" title="" focus-field-name="idName">
-        <field name="hideSearch"><hidden value="Y"/></field>  
         <field name="idName" title="${uiLabelMap.FormFieldTitle_${pkIdName}"><text size="16"/></field>
         <field name="idName_op" ><hidden value="contains"/></field>
         <field name="idName_ic" ><hidden value="Y"/></field>

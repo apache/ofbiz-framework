@@ -23,7 +23,6 @@ under the License.
     <!-- Routing forms -->
     <form name="FindRoutings" type="single" target="FindRouting" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="hideSearch"><hidden value="Y"/></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingId}">
             <text-find/>
         </field>
@@ -71,7 +70,6 @@ under the License.
     <!-- Routing Task Forms -->
     <form name="FindRoutingTasks" type="single" target="FindRoutingTask" title=""
          header-row-style="header-row" default-table-style="basic-table">
-        <field name="hideSearch"><hidden value="Y"/></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
             <text-find/>
         </field>

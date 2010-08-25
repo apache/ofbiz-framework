@@ -23,7 +23,6 @@ under the License.
     <form name="FindRequirements" type="single" target="FindRequirements" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
-        <field name="hideSearch"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
             <drop-down allow-empty="true">
@@ -213,7 +212,6 @@ under the License.
     </form>
     <form name="FindNotApprovedRequirements" type="single" target="ApproveRequirements" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="hideSearch"><hidden value="Y"/></field>
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
             <drop-down allow-empty="true">
