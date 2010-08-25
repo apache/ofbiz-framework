@@ -25,7 +25,6 @@ under the License.
     <screen name="LookupGeo">
         <section>
             <actions>
-                <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupGeo}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
