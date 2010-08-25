@@ -82,7 +82,6 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ProductCategory" value-field="lookedUpValue"/>
-        <log level="always" message="parameters=======================${parameters}"></log>
         <!-- save this value before overwriting it so we can compare it later -->
         <!-- <field-to-field field-name="primaryParentCategoryId" map-name="lookedUpValue" to-map-name="saveIdMap"/> -->
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
