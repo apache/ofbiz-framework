@@ -208,7 +208,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         boolean ajaxEnabled = inPlaceEditor != null && this.javaScriptEnabled;
         if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size ) {
             title = description;
-            description = description.substring(0, size-3)+"...";
+            description = description.substring(0, size - 8) + "..." + description.substring(description.length() - 5);
         }
 
         StringWriter sr = new StringWriter();
@@ -713,6 +713,9 @@ public class MacroFormRenderer implements FormStringRenderer {
                 Debug.logError(nfe, "Error reading size of a field fieldName=" + dropDownField.getModelFormField().getFieldName()
                         + " FormName= " + dropDownField.getModelFormField().getModelForm().getName(), module);
             }
+            if (textSize > 0 && UtilValidate.isNotEmpty(currentValue) && currentValue.length() > textSize) {
+                currentValue = currentValue.substring(0, textSize - 8) + "..." + currentValue.substring(currentValue.length() - 5);
+            }
         }
         boolean ajaxEnabled = autoComplete != null && this.javaScriptEnabled;
         String className = "";
@@ -759,6 +762,9 @@ public class MacroFormRenderer implements FormStringRenderer {
             explicitDescription = (ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
         }
 
+        if (textSize > 0 && UtilValidate.isNotEmpty(explicitDescription) && explicitDescription.length() > textSize) {
+            explicitDescription = explicitDescription.substring(0, textSize - 8) + "..." + explicitDescription.substring(explicitDescription.length() - 5);
+        }
         // if allow empty is true, add an empty option
         if (dropDownField.isAllowEmpty()) {
             allowEmpty = "Y";
@@ -790,7 +796,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             String description = encode(optionValue.getDescription(), modelFormField, context);
             String unescaped = StringEscapeUtils.unescapeHtml(description);
             if (textSize > 0 && unescaped.length() > textSize ) {
-                String reduced = unescaped.substring(0, textSize - 3) + "...";
+                String reduced = unescaped.substring(0, textSize - 8) + "..." + unescaped.substring(unescaped.length() - 5);
                 description = StringEscapeUtils.escapeJavaScript(StringEscapeUtils.escapeHtml(reduced));
             }
             options.append(description);
@@ -2986,7 +2992,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
             if( UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
                 imgTitle = description;
-                description = description.substring(0, size - 3) + "...";
+                description = description.substring(0, size - 8) + "..." + description.substring(description.length() - 5);
             }
             if(UtilValidate.isEmpty(imgTitle)){
                 imgTitle = modelFormField.getTitle(context);
