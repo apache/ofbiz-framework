@@ -1872,15 +1872,6 @@
         <value xml:lang="th">ค้นหาข้อมูลรายการติดต่อ</value>
         <value xml:lang="zh">查找联系列表</value>
     </property>
-    <property key="PageTitleLookupGeo">
-        <value xml:lang="en">Lookup Geo</value>
-        <value xml:lang="fr">Consulter la zone géographique</value>
-        <value xml:lang="it">Ricerca Geografia</value>
-        <value xml:lang="pt_BR">Buscar localização</value>
-        <value xml:lang="ro">Cauta Geografia</value>
-        <value xml:lang="th">ค้นหาข้อมูลโครงสร้าง</value>
-        <value xml:lang="zh">查找地理</value>
-    </property>
     <property key="PageTitleLookupSalesForecast">
         <value xml:lang="de">Verkaufsprognosen anschauen</value>
         <value xml:lang="en">Lookup Sales Forecast</value>
