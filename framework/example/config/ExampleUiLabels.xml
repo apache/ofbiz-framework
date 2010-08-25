@@ -41,6 +41,14 @@
         <value xml:lang="th">ตัวอย่างโปรแกรมคอมพิวเตอร์</value>
         <value xml:lang="zh">样例应用</value>
     </property>
+    <property key="ExampleBirtChartReport">
+        <value xml:lang="en">HTML chart report</value>
+        <value xml:lang="fr">Graphiques HTML</value>
+    </property>
+    <property key="ExampleBirtChartViewHandler">
+        <value xml:lang="en">PDF chart report</value>
+        <value xml:lang="fr">Graphiques PDF</value>
+    </property>
     <property key="ExampleBirtReport">
         <value xml:lang="en">HTML</value>
     </property>

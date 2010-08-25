@@ -87,4 +87,27 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="chartReport">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="chartReport"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBirtDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="Using report tag">
+                                    <platform-specific>
+                                        <html><html-template location="component://example/webapp/birt/birt/chartReport.ftl"/></html>
+                                    </platform-specific>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

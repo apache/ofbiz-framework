@@ -70,6 +70,15 @@ under the License.
         <response name="success" type="view" value="ViewHandler"/>
     </request-map>
 
+    <request-map uri="chartReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="chartReport"/>
+    </request-map>
+    <request-map uri="chartViewHandler">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="chartViewHandler"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -86,5 +95,8 @@ under the License.
         application/vnd.ms-powerpoint
      -->
     <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
+    
+    <view-map name="chartViewHandler" type="birt" page="component://example/webapp/birt/report/chart.rptdesign" content-type="application/pdf"/>
+    <view-map name="chartReport" type="screen" page="component://example/widget/example/BirtScreens.xml#chartReport"/>
     <!-- end of view mappings -->
 </site-conf>
