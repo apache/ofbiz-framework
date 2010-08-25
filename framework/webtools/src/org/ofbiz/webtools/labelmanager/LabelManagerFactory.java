@@ -193,7 +193,8 @@ public class LabelManagerFactory {
         for (int i = 0; i < localeNames.size(); i++) {
             String localeName = localeNames.get(i);
             String localeValue = localeValues.get(i);
-            String localeComment = localeComments.get(i);
+            String localeComment = null;
+            if (UtilValidate.isNotEmpty(localeComments)) localeComment = localeComments.get(i);
             if (UtilValidate.isNotEmpty(localeValue) || UtilValidate.isNotEmpty(localeComment)) {
                 if (label == null) {
                     try {
