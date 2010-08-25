@@ -84,6 +84,7 @@ under the License.
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
     <view-map name="Report" type="screen" page="component://example/widget/example/BirtScreens.xml#Report"/>
+    <view-map name="chartReport" type="screen" page="component://example/widget/example/BirtScreens.xml#chartReport"/>
     <view-map name="Mail" type="screen" page="component://example/widget/example/BirtScreens.xml#EditMail"/>
     
     <!-- Supported Content Types -->
@@ -95,8 +96,6 @@ under the License.
         application/vnd.ms-powerpoint
      -->
     <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
-    
     <view-map name="chartViewHandler" type="birt" page="component://example/webapp/birt/report/chart.rptdesign" content-type="application/pdf"/>
-    <view-map name="chartReport" type="screen" page="component://example/widget/example/BirtScreens.xml#chartReport"/>
     <!-- end of view mappings -->
 </site-conf>
