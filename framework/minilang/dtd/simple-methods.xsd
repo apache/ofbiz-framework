@@ -2458,7 +2458,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-object">
-        <xs:attribute name="object-name" type="xs:string" use="required">
+        <xs:attribute name="field" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Field in the current context where that condition object is that implements the entity condition interface.

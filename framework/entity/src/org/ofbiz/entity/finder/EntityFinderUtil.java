@@ -312,10 +312,10 @@ public class EntityFinderUtil {
         protected FlexibleMapAccessor<Object> fieldNameAcsr;
 
         public ConditionObject(Element conditionExprElement) {
-            this.fieldNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("object-name"));
+            this.fieldNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("field-name"));
             if (this.fieldNameAcsr.isEmpty()) {
                 // no "field-name"? try "name"
-                this.fieldNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("field-name"));
+                this.fieldNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("name"));
             }
         }
 
