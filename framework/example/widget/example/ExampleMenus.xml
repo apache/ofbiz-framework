@@ -87,7 +87,7 @@ under the License.
         <menu-item name="Mail" title="${uiLabelMap.ExampleBirtMail}"><link target="Mail"/></menu-item>
         <!-- Reports using charts-->
         <menu-item name="chartReport" title="${uiLabelMap.ExampleBirtChartReport}"><link target="chartReport"/></menu-item>
-        <menu-item name="chartExport" title="${uiLabelMap.ExampleBirtChartViewHandler} (not working)"><link target="chartViewHandler"/></menu-item>
+        <menu-item name="chartExport" title="${uiLabelMap.ExampleBirtChartViewHandler}"><link target="chartViewHandler"/></menu-item>
     </menu>
 
     <menu name="ExampleCharts" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

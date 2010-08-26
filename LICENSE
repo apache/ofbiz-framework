@@ -2358,6 +2358,12 @@ ofbiz/trunk/framework/birt/lib/odadesignapi.jar
 ofbiz/trunk/framework/birt/lib/saaj.jar
 ofbiz/trunk/framework/birt/lib/scriptapi.jar
 ofbiz/trunk/framework/birt/lib/viewservlets.jar
+ofbiz/trunk/framework/birt/lib/platform/plugins/org.apache.batik.css_1.6.0.v200912221622.jar
+ofbiz/trunk/framework/birt/lib/platform/plugins/org.apache.batik.util_1.6.0.v200805290154.jar
+ofbiz/trunk/framework/birt/lib/platform/plugins/org.apache.batik.transcoder_1.6.0.v200805290154.jar
+ofbiz/trunk/framework/birt/lib/platform/plugins/org.apache.batik.dom.svg_1.6.0.v200805290154.jar
+ofbiz/trunk/framework/birt/lib/platform/plugins/org.apache.batik.bridge_1.6.0.v200912221622.jar
+ofbiz/trunk/framework/birt/lib/platform/plugins/org.apache.batik.dom_1.6.0.v200912221622.jar
 ofbiz/trunk/framework/birt/lib/platform/plugins/org.apache.xml.resolver_1.2.0.v201005080400.jar
 ofbiz/trunk/framework/birt/lib/platform/plugins/org.apache.xml.serializer_2.7.1.v201005080400.jar
 ofbiz/trunk/framework/birt/lib/platform/plugins/org.eclipse.birt.api_1.0.0.jar
