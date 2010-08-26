@@ -699,7 +699,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.condition-object">
-        <xs:attribute type="xs:string" name="object-name" use="required"/>
+        <xs:attribute type="xs:string" name="field" use="required"/>
     </xs:attributeGroup>
     <xs:element name="select-field">
         <xs:complexType>
