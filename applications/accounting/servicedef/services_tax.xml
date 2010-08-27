@@ -28,6 +28,7 @@ under the License.
     <service name="calcTaxInterface" engine="interface" location="" invoke="">
         <description>Tax Calc Service Interface</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"><!-- this will be used to find the payToPartyId, if the payToPartyId parameter is not explicitly passed, and as one of the columns to constrain by on the lookup --></attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"><!-- if no shippingAddress is passed in this will be used to lookup an address for a face-to-face sale --></attribute>
         <attribute name="payToPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="billToPartyId" type="String" mode="IN" optional="true"><!-- would like to have this not-optional, but in some circumstances may need a tax estimate without knowing who the customer is --></attribute>
         <attribute name="itemProductList" type="java.util.List" mode="IN" optional="false"><!-- List of GenericValues --></attribute>
