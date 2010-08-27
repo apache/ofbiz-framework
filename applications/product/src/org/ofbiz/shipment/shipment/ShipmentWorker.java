@@ -19,12 +19,23 @@
 package org.ofbiz.shipment.shipment;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
+import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
 
 /**
  * ShipmentWorker - Worker methods for Shipment and related entities
@@ -32,7 +43,7 @@ import org.ofbiz.entity.GenericValue;
 public class ShipmentWorker {
 
     public static final String module = ShipmentWorker.class.getName();
-
+    public static final MathContext generalRounding = new MathContext(10);
     /*
      * Returns the value of a given ShipmentPackageContent record.  Calculated by working out the total value (from the OrderItems) of all ItemIssuances
      * for the ShipmentItem then dividing that by the total quantity issued for the same to get an average item value then multiplying that by the package
@@ -90,6 +101,122 @@ public class ShipmentWorker {
         // take the average value of the issuances and multiply it by the shipment package content quantity
         value = totalValue.divide(totalIssued, 10, BigDecimal.ROUND_HALF_EVEN).multiply(quantity);
         return value;
+    }
+    
+    public static List<Map<String, BigDecimal>> getPackageSplit(DispatchContext dctx, List<Map<String, Object>> shippableItemInfo, BigDecimal maxWeight) {
+        // create the package list w/ the first package
+        List<Map<String, BigDecimal>> packages = FastList.newInstance();
+
+        if (shippableItemInfo != null) {
+            for (Map<String, Object> itemInfo: shippableItemInfo) {
+                long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
+                BigDecimal totalQuantity = (BigDecimal) itemInfo.get("quantity");
+                BigDecimal totalWeight = (BigDecimal) itemInfo.get("weight");
+                String productId = (String) itemInfo.get("productId");
+
+                // sanity check
+                if (pieces < 1) {
+                    pieces = 1; // can NEVER be less than one
+                }
+                BigDecimal weight = totalWeight.divide(BigDecimal.valueOf(pieces), generalRounding);
+
+                for (int z = 1; z <= totalQuantity.intValue(); z++) {
+                    BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), generalRounding) : BigDecimal.ONE;
+                    for (long x = 0; x < pieces; x++) {
+                        if (weight.compareTo(maxWeight) >= 0) {
+                            Map<String, BigDecimal> newPackage = FastMap.newInstance();
+                            newPackage.put(productId, partialQty);
+                            packages.add(newPackage);
+                        } else if (totalWeight.compareTo(BigDecimal.ZERO) > 0) {
+                            // create the first package
+                            if (packages.size() == 0) {
+                                packages.add(FastMap.<String, BigDecimal>newInstance());
+                            }
+
+                            // package loop
+                            boolean addedToPackage = false;
+                            for (Map<String, BigDecimal> packageMap: packages) {
+                                if (!addedToPackage) {
+                                    BigDecimal packageWeight = calcPackageWeight(dctx, packageMap, shippableItemInfo, weight);
+                                    if (packageWeight.compareTo(maxWeight) <= 0) {
+                                        BigDecimal qty = (BigDecimal) packageMap.get(productId);
+                                        qty = qty == null ? BigDecimal.ZERO : qty;
+                                        packageMap.put(productId, qty.add(partialQty));
+                                        addedToPackage = true;
+                                    }
+                                }
+                            }
+                            if (!addedToPackage) {
+                                Map<String, BigDecimal> packageMap = FastMap.newInstance();
+                                packageMap.put(productId, partialQty);
+                                packages.add(packageMap);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return packages;
+    }
+    
+    public static BigDecimal calcPackageWeight(DispatchContext dctx, Map<String, BigDecimal> packageMap, List<Map<String, Object>> shippableItemInfo, BigDecimal additionalWeight) {
+
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        BigDecimal totalWeight = BigDecimal.ZERO;
+        String defaultWeightUomId = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom");
+        if (UtilValidate.isEmpty(defaultWeightUomId)) {
+            Debug.logWarning("No shipment.default.weight.uom set in shipment.properties, setting it to WT_oz for USPS", module);
+            defaultWeightUomId = "WT_oz";
+        }
+
+        for (Map.Entry<String, BigDecimal> entry: packageMap.entrySet()) {
+            String productId = entry.getKey();
+            Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
+            BigDecimal productWeight = (BigDecimal) productInfo.get("weight");
+            BigDecimal quantity = (BigDecimal) packageMap.get(productId);
+
+            // DLK - I'm not sure if this line is working. shipment_package seems to leave this value null so???
+            String weightUomId = (String) productInfo.get("weight_uom_id");
+
+            Debug.logInfo("Product Id : " + productId.toString() + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), module);
+
+            if (UtilValidate.isEmpty(weightUomId)) {
+                weightUomId = defaultWeightUomId;
+                //  Most shipping modules assume pounds while ProductEvents.java assumes WT_oz. - Line 720 for example.
+            }
+            if (!"WT_lb".equals(weightUomId)) {
+                // attempt a conversion to pounds
+                Map<String, Object> result = FastMap.newInstance();
+                try {
+                    result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", productWeight));
+                } catch (GenericServiceException ex) {
+                    Debug.logError(ex, module);
+                }
+
+                if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
+                    productWeight = (BigDecimal) result.get("convertedValue");
+                } else {
+                    Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",module);
+                }
+
+            }
+
+            totalWeight = totalWeight.add(productWeight.multiply(quantity));
+        }
+        Debug.logInfo("Package Weight : " + String.valueOf(totalWeight) + " lbs.", module);
+        return totalWeight.add(additionalWeight);
+    }
+    
+    public static Map<String, Object> getProductItemInfo(List<Map<String, Object>> shippableItemInfo, String productId) {
+        if (shippableItemInfo != null) {
+            for (Map<String, Object> testMap: shippableItemInfo) {
+                String id = (String) testMap.get("productId");
+                if (productId.equals(id)) {
+                    return testMap;
+                }
+            }
+        }
+        return null;
     }
 }
 
