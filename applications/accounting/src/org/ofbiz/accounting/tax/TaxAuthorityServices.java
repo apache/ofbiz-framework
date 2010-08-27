@@ -134,6 +134,7 @@ public class TaxAuthorityServices {
     public static Map rateProductTaxCalc(DispatchContext dctx, Map context) {
         Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
+        String facilityId = (String) context.get("facilityId");
         String payToPartyId = (String) context.get("payToPartyId");
         String billToPartyId = (String) context.get("billToPartyId");
         List itemProductList = (List) context.get("itemProductList");
@@ -143,41 +144,54 @@ public class TaxAuthorityServices {
         BigDecimal orderShippingAmount = (BigDecimal) context.get("orderShippingAmount");
         BigDecimal orderPromotionsAmount = (BigDecimal) context.get("orderPromotionsAmount");
         GenericValue shippingAddress = (GenericValue) context.get("shippingAddress");
+        
+        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
+        GenericValue productStore = null;
+        GenericValue facility = null;
+        try {
+            if (productStoreId != null) {
+                productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+            }
+            if (facilityId != null) {
+                facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+            }
+        } catch (GenericEntityException e) {
+            String errMsg = "Data error getting tax settings: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        if (productStore == null && payToPartyId == null) {
+            throw new IllegalArgumentException("Could not find payToPartyId [" + payToPartyId + "] or ProductStore [" + productStoreId + "] for tax calculation");
+        }
+        
+        if (shippingAddress == null && facility != null) {
+            // if there is no shippingAddress and there is a facility it means it is a face-to-face sale so get facility's address
+            try {
+                GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+                if (facilityContactMech != null) {
+                    shippingAddress = delegator.findByPrimaryKey("PostalAddress",
+                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
+                }
+            } catch (GenericEntityException e) {
+                String errMsg = "Data error getting tax settings: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+        }
         if (shippingAddress == null || (shippingAddress.get("countryGeoId") == null && shippingAddress.get("stateProvinceGeoId") == null && shippingAddress.get("postalCodeGeoId") == null)) {
             return ServiceUtil.returnError("The address(es) used for tax calculation did not have State/Province or Country or other tax jurisdiction values set, so we cannot determine the taxes to charge.");
         }
 
         // without knowing the TaxAuthority parties, just find all TaxAuthories for the set of IDs...
         Set taxAuthoritySet = FastSet.newInstance();
-        GenericValue productStore = null;
-        // Check value productStore *** New
-        if (productStoreId!=null) {
-            try {
-                getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
-                if (productStoreId != null) {
-                    productStore = delegator.findByPrimaryKey("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
-                }
-
-            } catch (GenericEntityException e) {
-                String errMsg = "Data error getting tax settings: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-            }
-
-            if (productStore == null && payToPartyId == null) {
-                throw new IllegalArgumentException("Could not find payToPartyId [" + payToPartyId + "] or ProductStore [" + productStoreId + "] for tax calculation");
-            }
-        }
-        else
-        {
-            try {
-                getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
-            } catch (GenericEntityException e) {
-                String errMsg = "Data error getting tax settings: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-            }
+        try {
+            getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
+        } catch (GenericEntityException e) {
+            String errMsg = "Data error getting tax settings: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
         }
 
         // Setup the return lists.
