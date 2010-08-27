@@ -1529,6 +1529,7 @@ public class OrderServices {
 
                     // if shippingAddress is still null then don't calculate tax; it may be an situation where no tax is applicable, or the data is bad and we don't have a way to find an address to check tax for
                     if (shippingAddress == null) {
+                        Debug.logWarning("Not calculating tax for Order [" + orderId + "] because there is no shippingAddress, and no address on the origin facility [" +  orderHeader.getString("originFacilityId") + "]", module);
                         continue;
                     }
 
