@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import java.util.Iterator;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.manufacturing.bom.BOMNode;
 
 tree = request.getAttribute("tree");
@@ -34,7 +34,7 @@ if (tree) {
     context.tree = treeArray;
     Iterator treeQtyIt = treeQty.values().iterator();
     productsData = [];
-    grandTotalCost = null;
+    grandTotalCost = 0.0;
     while (treeQtyIt) {
         BOMNode node = (BOMNode)treeQtyIt.next();
         unitCost = null;
@@ -58,7 +58,9 @@ if (tree) {
                                                                                               userLogin : userLogin]);
                 qoh = outMap.quantityOnHandTotal;
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logError("Error retrieving bom simulation data: " + e.getMessage(), "BomSimulation");
+        }
         productsData.add([node : node, unitCost : unitCost, totalCost : totalCost, qoh : qoh]);
     }
     context.productsData = productsData;
