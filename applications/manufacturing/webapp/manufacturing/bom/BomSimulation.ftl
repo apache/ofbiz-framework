@@ -97,12 +97,13 @@ under the License.
       <br />
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
-          <td width="18%">${uiLabelMap.ProductProductId}</td>
+          <td width="20%">${uiLabelMap.ProductProductId}</td>
           <td width="50%">${uiLabelMap.ProductProductName}</td>
-          <td width="8%" align="right">${uiLabelMap.CommonQuantity}</td>
-          <td width="8%" align="right">${uiLabelMap.ProductQoh}</td>
-          <td width="8%" align="right">${uiLabelMap.FormFieldTitle_cost}</td>
-          <td width="8%" align="right">${uiLabelMap.CommonTotalCost}</td>
+          <td width="6%" align="right">${uiLabelMap.CommonQuantity}</td>
+          <td width="6%" align="right">${uiLabelMap.ProductQoh}</td>
+          <td width="6%" align="right">${uiLabelMap.ProductWeight}</td>
+          <td width="6%" align="right">${uiLabelMap.FormFieldTitle_cost}</td>
+          <td width="6%" align="right">${uiLabelMap.CommonTotalCost}</td>
         </tr>
         <#if productsData?has_content>
           <#assign alt_row = false>
@@ -113,10 +114,11 @@ under the License.
               <td>${node.product.internalName?default("&nbsp;")}</td>
               <td align="right">${node.quantity}</td>
               <td align="right">${productData.qoh?if_exists}</td>
+              <td align="right">${node.product.productWeight?if_exists}</td>
               <#if productData.unitCost?exists && (productData.unitCost > 0)>
               <td align="right">${productData.unitCost?if_exists}</td>
               <#else>
-              <td align="center"><a href="/catalog/control/EditProductCosts?productId=${node.product.productId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">NA</a></td>
+              <td align="right"><a href="/catalog/control/EditProductCosts?productId=${node.product.productId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">NA</a></td>
               </#if>
               <td align="right">${productData.totalCost?if_exists}</td>
             </tr>
