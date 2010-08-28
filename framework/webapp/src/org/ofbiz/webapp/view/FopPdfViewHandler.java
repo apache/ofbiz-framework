@@ -66,7 +66,7 @@ public class FopPdfViewHandler extends JPublishViewHandler {
         }
 
         // set the content type and length
-        response.setContentType("application/pdf");
+        response.setContentType(contentType);
         response.setContentLength(out.size());
 
         // write to the browser
