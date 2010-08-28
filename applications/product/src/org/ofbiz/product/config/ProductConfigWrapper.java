@@ -115,7 +115,7 @@ public class ProductConfigWrapper implements Serializable {
             basePrice = price;
         }
         questions = FastList.newInstance();
-        if (product.getString("productTypeId") != null && product.getString("productTypeId").equals("AGGREGATED")) {
+        if ("AGGREGATED".equals(product.getString("productTypeId"))) {
             List<GenericValue> questionsValues = delegator.findByAnd("ProductConfig", UtilMisc.toMap("productId", productId), UtilMisc.toList("sequenceNum"));
             questionsValues = EntityUtil.filterByDate(questionsValues);
             Set<String> itemIds = FastSet.newInstance();
