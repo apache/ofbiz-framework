@@ -487,6 +487,7 @@ public class ContactMechWorker {
                 facilityContactMechPurposes = EntityUtil.filterByDate(facilityContactMechPurposes);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
+                continue;
             }
             for (GenericValue facilityContactMechPurpose: facilityContactMechPurposes) {
                 String contactMechId = facilityContactMechPurpose.getString("contactMechId");
