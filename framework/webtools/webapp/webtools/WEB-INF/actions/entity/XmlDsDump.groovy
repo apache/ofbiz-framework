@@ -212,8 +212,7 @@ if (tobrowser) {
                 }
 
                 curNumberWritten = 0;
-                valuesIter = values.iterator();
-                while ((value = valuesIter.next()) != null) {
+                while (value = values.next()) {
                     value.writeXmlText(writer, "");
                     numberWritten++;
                     curNumberWritten++;
@@ -269,8 +268,7 @@ if (tobrowser) {
                     isFirst = true;
                     writer = null;
                     fileSplitNumber = 1;
-                    valuesIter = values.iterator();
-                    while ((value = valuesIter.next()) != null) {
+                    while (value = values.next()) {
                         //Don't bother writing the file if there's nothing
                         //to put into it
                         if (isFirst) {
