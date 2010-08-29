@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -23,13 +23,13 @@
     xmlns="http://docbook.org/ns/docbook">
     <title>Bienvenue dans l'aide Apache OFBiz</title>
     <section>
-        <para>Si vous Ãªtes arrivÃ©s sur cette page sans sÃ©lectionner la page d'index,
-             c'est qu'il n'y a pas de page d'aide spÃ©cifique pour cette catÃ©gorie.
+        <para>Si vous êtes arrivés sur cette page sans sélectionner la page d'index,
+             c'est qu'il n'y a pas de page d'aide spécifique pour cette catégorie.
         </para>
     </section>
     <section>
         <para>
-            Cette fenÃªtre permet d'avoir une aide sur les diffÃ©rents composants de l'application Apache OFBiz.
+            Cette fenêtre permet d'avoir une aide sur les différents composants de l'application Apache OFBiz.
         </para>
         <para>
             L'aide est en cours de traduction. Toutes les contributions sont les bienvenues !
