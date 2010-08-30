@@ -62,6 +62,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.shipment.shipment.ShipmentWorker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -1658,11 +1659,11 @@ public class UpsServices {
         }
     }
 
-    private static void splitEstimatePackages(Document requestDoc, Element shipmentElement, List<Map<String, Object>> shippableItemInfo, BigDecimal maxWeight, BigDecimal minWeight) {
-        List<Map<String, BigDecimal>> packages = getPackageSplit(shippableItemInfo, maxWeight);
+    private static void splitEstimatePackages(DispatchContext dctx, Document requestDoc, Element shipmentElement, List<Map<String, Object>> shippableItemInfo, BigDecimal maxWeight, BigDecimal minWeight) {
+        List<Map<String, BigDecimal>> packages = ShipmentWorker.getPackageSplit(dctx, shippableItemInfo, maxWeight);
         if (UtilValidate.isNotEmpty(packages)) {
             for (Map<String, BigDecimal> packageMap: packages) {
-                addPackageElement(requestDoc, shipmentElement, shippableItemInfo, packageMap, minWeight);
+                addPackageElement(dctx, requestDoc, shipmentElement, shippableItemInfo, packageMap, minWeight);
             }
         } else {
 
@@ -1682,8 +1683,8 @@ public class UpsServices {
         }
     }
 
-    private static void addPackageElement(Document requestDoc, Element shipmentElement, List<Map<String, Object>> shippableItemInfo, Map<String, BigDecimal> packageMap, BigDecimal minWeight) {
-        BigDecimal packageWeight = checkForDefaultPackageWeight(calcPackageWeight(packageMap, shippableItemInfo, BigDecimal.ZERO), minWeight);
+    private static void addPackageElement(DispatchContext dctx, Document requestDoc, Element shipmentElement, List<Map<String, Object>> shippableItemInfo, Map<String, BigDecimal> packageMap, BigDecimal minWeight) {
+        BigDecimal packageWeight = checkForDefaultPackageWeight(ShipmentWorker.calcPackageWeight(dctx,packageMap, shippableItemInfo, BigDecimal.ZERO), minWeight);
         Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", requestDoc);
         Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", requestDoc);
         UtilXml.addChildElementValue(packagingTypeElement, "Code", "00", requestDoc);
@@ -1695,7 +1696,7 @@ public class UpsServices {
         if (packageMap.size() ==1) {
             Iterator<String> i = packageMap.keySet().iterator();
             String productId = i.next();
-            Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
+            Map<String, Object> productInfo = ShipmentWorker.getProductItemInfo(shippableItemInfo, productId);
             if (productInfo.get("inShippingBox") != null &&  ((String) productInfo.get("inShippingBox")).equalsIgnoreCase("Y")
                     && productInfo.get("shippingDepth") !=null && productInfo.get("shippingWidth") !=null && productInfo.get("shippingHeight") !=null) {
                 Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", requestDoc);
@@ -1720,91 +1721,6 @@ public class UpsServices {
 
     private static BigDecimal checkForDefaultPackageWeight(BigDecimal weight, BigDecimal minWeight) {
         return (weight.compareTo(BigDecimal.ZERO) > 0 && weight.compareTo(minWeight) > 0 ? weight : minWeight);
-    }
-
-    private static List<Map<String, BigDecimal>> getPackageSplit(List<Map<String, Object>> shippableItemInfo, BigDecimal maxWeight) {
-        // create the package list w/ the first package
-        List<Map<String, BigDecimal>> packages = FastList.newInstance();
-
-        if (shippableItemInfo != null) {
-            for (Map<String, Object> itemInfo: shippableItemInfo) {
-                long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
-                BigDecimal totalQuantity = (BigDecimal) itemInfo.get("quantity");
-                BigDecimal totalWeight = (BigDecimal) itemInfo.get("weight");
-                String productId = (String) itemInfo.get("productId");
-
-                // sanity check
-                if (pieces < 1) {
-                    pieces = 1; // can NEVER be less than one
-                }
-                BigDecimal weight = totalWeight.divide(BigDecimal.valueOf(pieces), generalRounding);
-
-                for (int z = 1; z <= totalQuantity.intValue(); z++) {
-                    BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), generalRounding) : BigDecimal.ONE;
-                    for (long x = 0; x < pieces; x++) {
-                        if (itemInfo.get("inShippingBox") != null &&  ((String) itemInfo.get("inShippingBox")).equalsIgnoreCase("Y")) {
-                            Map<String, BigDecimal> newPackage = FastMap.newInstance();
-                            newPackage.put(productId, partialQty);
-                            packages.add(newPackage);
-                        } else if (weight.compareTo(maxWeight) >= 0) {
-                            Map<String, BigDecimal> newPackage = FastMap.newInstance();
-                            newPackage.put(productId, partialQty);
-                            packages.add(newPackage);
-                        } else if (totalWeight.compareTo(BigDecimal.ZERO) > 0) {
-                            // create the first package
-                            if (packages.size() == 0) {
-                                packages.add(FastMap.<String, BigDecimal>newInstance());
-                            }
-
-                            // package loop
-                            //int packageSize = packages.size();
-                            boolean addedToPackage = false;
-                            for (Map<String, BigDecimal> packageMap: packages) {
-                                if (!addedToPackage) {
-                                    BigDecimal packageWeight = calcPackageWeight(packageMap, shippableItemInfo, weight);
-                                    if (packageWeight.compareTo(maxWeight) <= 0) {
-                                        BigDecimal qty = packageMap.get(productId);
-                                        qty = qty == null ? BigDecimal.ZERO : qty;
-                                        packageMap.put(productId, qty.add(partialQty));
-                                        addedToPackage = true;
-                                    }
-                                }
-                            }
-                            if (!addedToPackage) {
-                                Map<String, BigDecimal> packageMap = FastMap.newInstance();
-                                packageMap.put(productId, partialQty);
-                                packages.add(packageMap);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return packages;
-    }
-
-    private static BigDecimal calcPackageWeight(Map<String, BigDecimal> packageMap, List<Map<String, Object>> shippableItemInfo, BigDecimal additionalWeight) {
-        BigDecimal totalWeight = BigDecimal.ZERO;
-        for (Map.Entry<String, BigDecimal> entry: packageMap.entrySet()) {
-            String productId = entry.getKey();
-            Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
-            BigDecimal productWeight = (BigDecimal) productInfo.get("weight");
-            BigDecimal quantity = (BigDecimal) packageMap.get(productId);
-            totalWeight = totalWeight.add(productWeight.multiply(quantity));
-        }
-        return totalWeight.add(additionalWeight);
-    }
-
-    private static Map<String, Object> getProductItemInfo(List<Map<String, Object>> shippableItemInfo, String productId) {
-        if (shippableItemInfo != null) {
-            for (Map<String, Object> testMap: shippableItemInfo) {
-                String id = (String) testMap.get("productId");
-                if (productId.equals(id)) {
-                    return testMap;
-                }
-            }
-        }
-        return null;
     }
 
     public static Map<String, Object> handleUpsRateInquireResponse(Document rateResponseDocument) {
@@ -2138,7 +2054,7 @@ public class UpsServices {
 
         // Passing in a list of package weights overrides the calculation of same via shippableItemInfo
         if (UtilValidate.isEmpty(packageWeights)) {
-            splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight, minWeight);
+            splitEstimatePackages(dctx, rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight, minWeight);
         } else {
             for (BigDecimal packageWeight: packageWeights) {
                 addPackageElement(rateRequestDoc,  shipmentElement, packageWeight);

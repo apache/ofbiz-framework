@@ -1878,6 +1878,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         Map itemInfo = FastMap.newInstance();
         itemInfo.put("productId", this.getProductId());
         itemInfo.put("weight", this.getWeight());
+        itemInfo.put("weightUomId", this.getProduct().getString("weightUomId"));
         itemInfo.put("size", this.getSize());
         itemInfo.put("piecesIncluded", Long.valueOf(this.getPiecesIncluded()));
         itemInfo.put("featureSet", this.getFeatureSet());
