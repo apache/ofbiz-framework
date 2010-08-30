@@ -80,6 +80,7 @@ under the License.
             <fo:block space-after.optimum="0.3cm"><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block>
 
             <#-- Components   -->
+            <#if productionRunComponentsData?has_content>
             <fo:table width="22cm">
               <fo:table-column column-width="20%"/>
               <fo:table-column column-width="40%"/>
@@ -120,9 +121,11 @@ under the License.
                     </#list>
                 </fo:table-body>
             </fo:table>
+            </#if>
             <fo:block space-after.optimum="0.3cm"><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block>
 
             <#-- Tasks   -->
+            <#if productionRunRoutingTasks?has_content>
             <fo:table width="100%">
               <fo:table-column column-width="20%"/>
               <fo:table-column column-width="30%"/>
@@ -160,6 +163,7 @@ under the License.
                     </#list>
                 </fo:table-body>
             </fo:table>
+            </#if>
             <fo:block space-after.optimum="0.3cm"><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block>
 
             <#if productionRunContents?has_content>
