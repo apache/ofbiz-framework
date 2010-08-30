@@ -265,6 +265,7 @@ under the License.
     <UomConversion uomId="WT_gr" uomIdTo="WT_g" conversionFactor="0.0648"/>
     <UomConversion uomId="WT_kg" uomIdTo="WT_g" conversionFactor="1000"/>
     <UomConversion uomId="WT_kg" uomIdTo="WT_lb" conversionFactor="2.2"/>
+    <UomConversion uomId="WT_g" uomIdTo="WT_kg" conversionFactor="0.001"/>
     <UomConversion uomId="WT_g" uomIdTo="WT_mg" conversionFactor="1000"/>
     <UomConversion uomId="WT_g" uomIdTo="WT_oz" conversionFactor="0.03527"/>
     <UomConversion uomId="WT_g" uomIdTo="WT_lb" conversionFactor="0.00220462247604"/>
