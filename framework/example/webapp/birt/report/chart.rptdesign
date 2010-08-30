@@ -58,7 +58,7 @@ try {
 totalRow = 0;
 countOfRow = 0;
 if (examples) {
-    totalRow = examples.size();
+    totalRow = examples.size() + 1;
 }]]></method>
             <method name="fetch"><![CDATA[if (countOfRow == totalRow - 1) return false;
 
