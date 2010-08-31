@@ -258,7 +258,7 @@ under the License.
     <Uom abbreviation="st" description="Stone" uomId="WT_st" uomTypeId="WEIGHT_MEASURE"/>
     <Uom abbreviation="lt" description="Ton (long or British)" uomId="WT_lt" uomTypeId="WEIGHT_MEASURE"/>
     <Uom abbreviation="mt" description="Ton (metric)" uomId="WT_mt" uomTypeId="WEIGHT_MEASURE"/>
-    <Uom abbreviation="sh t" description="Ton (short)" uomId="WT_sh_t" uomTypeId="WEIGHT_MEASURE"/>
+    <Uom abbreviation="sh t" description="Ton (short or US)" uomId="WT_sh_t" uomTypeId="WEIGHT_MEASURE"/>
 
     <UomConversion uomId="WT_dr_avdp" uomIdTo="WT_oz" conversionFactor="0.0625"/>
     <UomConversion uomId="WT_gr" uomIdTo="WT_oz" conversionFactor="0.00229"/>
