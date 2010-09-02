@@ -84,6 +84,8 @@ under the License.
             <actions>
                 <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/>
+                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+                <set field="title" from-field="portalPage.portalPageName" default-value=""/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
