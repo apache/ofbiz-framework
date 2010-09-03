@@ -688,6 +688,9 @@ under the License.
         <xs:attribute type="xs:string" name="image-location">
             <xs:annotation><xs:documentation>Specifies the image to display.</xs:documentation></xs:annotation>
         </xs:attribute>
+        <xs:attribute type="xs:string" name="default-value">        
+            <xs:annotation><xs:documentation>Specifies a string to be displayed if the field is empty.</xs:documentation></xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="display-entity" substitutionGroup="AllFields">
         <xs:annotation><xs:documentation>This is just like display but looks up a description using the Entity Engine; note that if also-hidden is true then it uses the key as the value, not the shown description.</xs:documentation></xs:annotation>
