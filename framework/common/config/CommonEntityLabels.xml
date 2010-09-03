@@ -6506,6 +6506,14 @@
         <value xml:lang="th">เสร็จสมบูรณ์</value>
         <value xml:lang="zh">已完成</value>
     </property>
+    <property key="StatusItem.description.CRQ_DRAFT">
+        <value xml:lang="en">Draft</value>
+        <value xml:lang="fr">Brouillon</value>
+    </property>
+    <property key="StatusItem.description.CRQ_PENDING">
+        <value xml:lang="en">Pending Cust.</value>
+        <value xml:lang="fr">En attente</value>
+    </property>
     <property key="StatusItem.description.CRQ_REJECTED">
         <value xml:lang="de">Abgelehnt</value>
         <value xml:lang="en">Rejected</value>
