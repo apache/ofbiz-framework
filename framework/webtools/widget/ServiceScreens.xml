@@ -84,9 +84,14 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/service/threads.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.WebtoolsServiceEngineThreads}">
+                            <include-form name="ListJavaThread" location="component://webtools/widget/ServiceForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.WebtoolsGeneralJavaThreads}">
+                            <platform-specific>
+                                <html><html-template location="component://webtools/webapp/webtools/service/threads.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
