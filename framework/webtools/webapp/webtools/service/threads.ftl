@@ -20,44 +20,6 @@ under the License.
 <#assign isJava5 = javaVer.startsWith("1.5")/>
 <#if parameters.maxElements?has_content><#assign maxElements = parameters.maxElements?number/><#else><#assign maxElements = 10/></#if>
 
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.WebtoolsServiceEngineThreads}</h3>
-  </div>
-  <div class="screenlet-body"> 
-    <table class="basic-table hover-bar" cellspacing="0">
-      <tr class="header-row">
-        <td>${uiLabelMap.WebtoolsThread}</td>
-        <td>${uiLabelMap.CommonStatus}</td>
-        <td>${uiLabelMap.WebtoolsJob}</td>
-        <td>${uiLabelMap.WebtoolsService}</td>
-        <td>${uiLabelMap.WebtoolsUsage}</td>
-        <td>${uiLabelMap.WebtoolsTTL} (ms)</td>
-        <td>${uiLabelMap.CommonTime} (ms)</td>
-      </tr>
-      <#assign alt_row = false>
-      <#list threads as thread>
-      <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-        <td>${thread.threadId?if_exists} ${thread.threadName?if_exists}</td>
-        <td>${thread.status?if_exists}</td>
-        <td>${thread.jobName?default("${uiLabelMap.CommonNone}")}</td>
-        <td>${thread.serviceName?default("${uiLabelMap.CommonNone}")}</td>
-        <td>${thread.usage?if_exists}</td>
-        <td>${thread.ttl?if_exists}</td>
-        <td>${thread.runTime?if_exists}</td>
-      </tr>
-      <#-- toggle the row color -->
-      <#assign alt_row = !alt_row>
-      </#list>
-    </table>
-  </div>
-</div>
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.WebtoolsGeneralJavaThreads}</h3>
-  </div>
-  <div class="screenlet-body"> 
-    <br />
     <p>${uiLabelMap.WebtoolsThisThread}<b> ${Static["java.lang.Thread"].currentThread().getName()} (${Static["java.lang.Thread"].currentThread().getId()})</b></p>
     <p>${uiLabelMap.WebtoolsJavaVersionIs5} <#if isJava5> ${uiLabelMap.CommonYes}<#else>${uiLabelMap.CommonNo}</#if></p>
     <br />
@@ -95,5 +57,3 @@ under the License.
       <#assign alt_row = !alt_row>
       </#list>
     </table>
-  </div>
-</div>
