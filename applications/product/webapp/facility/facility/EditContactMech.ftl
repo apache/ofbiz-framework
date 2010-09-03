@@ -65,6 +65,18 @@ under the License.
         <#if contactMechPurposeTypeId?exists><input type='hidden' name='contactMechPurposeTypeId' value='${contactMechPurposeTypeId?if_exists}' /></#if>
 
         <#if paymentMethodId?exists><input type='hidden' name='paymentMethodId' value='${paymentMethodId}' /></#if>
+
+        <tr>
+          <td class="label">${uiLabelMap.PartyContactPurposes}</td>
+          <td>
+            <select name='contactMechPurposeTypeId' class="required">
+              <option></option>
+              <#list mechMap.purposeTypes as contactMechPurposeType>
+                <option value='${contactMechPurposeType.contactMechPurposeTypeId}'>${contactMechPurposeType.get("description",locale)}</option>
+               </#list>
+            </select>
+          *</td>
+        </tr>
     <#else>
       <h1>${title}</h1>
       <div class="button-bar">
