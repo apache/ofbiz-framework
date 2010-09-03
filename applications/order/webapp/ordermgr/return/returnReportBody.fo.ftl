@@ -28,6 +28,7 @@ under the License.
         <#if returnAdjustment.comments?has_content>${returnAdjustment.comments}<#else>${returnAdjustment.description?default("N/A")}</#if>
       </fo:block>
     </fo:table-cell>
+    <fo:table-cell><fo:block></fo:block></fo:table-cell>
     <fo:table-cell padding="1mm" text-align="right"><fo:block><@ofbizCurrency amount=returnAdjustment.amount isoCode=returnHeader.currencyUomId/></fo:block></fo:table-cell>
     </fo:table-row>
     <#if returnAdjustment.amount?has_content>
@@ -40,7 +41,8 @@ under the License.
         <fo:table border-style="solid" border-width="0.2pt" width="7.25in" height="5in">
           <fo:table-column column-width="0.875in"/>
           <fo:table-column column-width="0.875in"/>
-          <fo:table-column column-width="3.25in"/>
+          <fo:table-column column-width="2.25in"/>
+          <fo:table-column column-width="1.0in"/>
           <fo:table-column column-width="0.5in"/>
           <fo:table-column column-width="0.875in"/>
           <fo:table-column column-width="0.875in"/>
@@ -50,6 +52,7 @@ under the License.
               <fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt" display-align="after"><fo:block>${uiLabelMap.OrderOrderId}</fo:block></fo:table-cell>
               <fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt" display-align="after"><fo:block>${uiLabelMap.ProductProductId}</fo:block></fo:table-cell>
               <fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt" display-align="after"><fo:block>${uiLabelMap.CommonDescription}</fo:block></fo:table-cell>
+              <fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt" display-align="after"><fo:block>${uiLabelMap.CommonReason}</fo:block></fo:table-cell>
               <fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt" display-align="after"><fo:block>${uiLabelMap.OrderQty}</fo:block></fo:table-cell>
               <fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt" display-align="after"><fo:block>${uiLabelMap.OrderUnitPrice}</fo:block></fo:table-cell>
               <fo:table-cell padding="1mm" border-style="solid" border-width="0.2pt" display-align="after"><fo:block>${uiLabelMap.OrderAmount}</fo:block></fo:table-cell>
@@ -68,6 +71,7 @@ under the License.
                   </fo:block>
                 </fo:table-cell>
                 <fo:table-cell padding="1mm"><fo:block wrap-option="wrap">${returnItem.description?if_exists}</fo:block></fo:table-cell>
+                <fo:table-cell padding="1mm" font-size="8pt"><fo:block><#if returnItem.returnReasonId?exists>${(returnItem.getRelatedOne("ReturnReason")).get("description",locale)?default(returnItem.returnReasonId)}</#if></fo:block></fo:table-cell>
                 <fo:table-cell padding="1mm" text-align="right"><fo:block>${returnItem.returnQuantity}</fo:block></fo:table-cell>
                 <fo:table-cell padding="1mm" text-align="right"><fo:block><@ofbizCurrency amount=returnItem.returnPrice isoCode=returnHeader.currencyUomId/></fo:block></fo:table-cell>
                 <fo:table-cell padding="1mm" text-align="right"><fo:block><@ofbizCurrency amount=(returnItem.returnPrice * returnItem.returnQuantity) isoCode=returnHeader.currencyUomId/></fo:block></fo:table-cell>
@@ -97,12 +101,14 @@ under the License.
         <fo:table space-before="5mm" font-size="10pt">
           <fo:table-column column-width="0.875in"/>
           <fo:table-column column-width="0.875in"/>
-          <fo:table-column column-width="3.25in"/>
+          <fo:table-column column-width="2.25in"/>
+          <fo:table-column column-width="1.0in"/>
           <fo:table-column column-width="0.5in"/>
           <fo:table-column column-width="0.875in"/>
           <fo:table-column column-width="0.875in"/>
           <fo:table-body>
             <fo:table-row>
+              <fo:table-cell/>
               <fo:table-cell/>
               <fo:table-cell/>
               <fo:table-cell/>
