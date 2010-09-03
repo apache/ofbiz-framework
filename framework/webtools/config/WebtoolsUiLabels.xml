@@ -1254,7 +1254,7 @@
         <value xml:lang="de">Im Level "Fehler" werden Fehlerereignisse geschrieben, wobei die Anwendung noch weiter laufen kann.</value>
         <value xml:lang="en">The Error level designates error events that might still allow the application to continue running.</value>
         <value xml:lang="fr">Le niveau "Error" désigne des événements d'erreur qui pourraient encore permettre à l'application de continuer de fonctionner.</value>
-        <value xml:lang="it">Il livello "Errore" designa eventi di errori che potrebbero ancora permettere all'applicazione di continuare l'esecuzione.</value>
+        <value xml:lang="it">Il livello "Errore" designa eventi di errore che potrebbero ancora permettere all'applicazione di continuare l'esecuzione.</value>
         <value xml:lang="ro">Niveul Eroare prezinta erori care ar putea  sa  permita aplictiei sa continuie executia.</value>
         <value xml:lang="th">เกิดข้อผิดพลาดในการระบุข้อมูลกรุณากดยอมรับเพื่อดำเนินการต่อไป</value>
         <value xml:lang="zh">错误级别会指出那些仍然允许应用程序继续执行的错误事件。</value>
@@ -1333,7 +1333,7 @@
         <value xml:lang="de">Der Level "Fatal" bezeichnet sehr ernste Fehlerereignisse, die zum Absturz der Anwendung führen.</value>
         <value xml:lang="en">The Fatal level designates very severe error events that will presumably lead the application to abort.</value>
         <value xml:lang="fr">Le niveau "Fatal" désigne des événements d'erreur très graves qui forceront vraisemblablement l'application à s'arrêter.</value>
-        <value xml:lang="it">Il livello "Fatale" designa molti eventi di errori che presubibilmente l'applicazione terminerà.</value>
+        <value xml:lang="it">Il livello "Fatale" designa gli eventi di errore molto gravi che presumibilmente termineranno l'applicazione.</value>
         <value xml:lang="ro">Nivelul Fatal prezinta multe erori din care cauza   aplicatia va fi terminata.</value>
         <value xml:lang="th">ข้อผิดพลาดระดับร้ายแรงโดยผลที่เกิดขึ้นนั้นจะเป็นไปได้ที่จะก่อให้เกิดความล้มเหลว</value>
         <value xml:lang="zh">严重错误级别会指出那些可能导致应用程序异常中断的严重错误事件。</value>
@@ -1581,7 +1581,7 @@
         <value xml:lang="de">Der Loglevel "Wichtig" bezeichnet Log-Einträge, die den Fortgang der Anwendung mit geringer Detailtiefe beschreiben.</value>
         <value xml:lang="en">The Important level designates informational messages that highlight the progress of the application at coarse-grained level.</value>
         <value xml:lang="fr">Le niveau "Important" désigne les messages d'information qui reflètent grosso-modo la progression de l'application.</value>
-        <value xml:lang="it">Il livello "Importante" designa messaggi informativi che evidenziano lo stato di esecuzione dell'applicazione a basso livello.</value>
+        <value xml:lang="it">Il livello "Importante" designa messaggi informativi che mostrano lo stato di esecuzione dell'applicazione ad alto livello.</value>
         <value xml:lang="ro">Nivelul Important desemneaza mesaje informative ce evidentiaza statul de executie a aplicatiei de jos nivel.</value>
         <value xml:lang="th">กำหนดระดับความสำคัญของข้อความเทคโนโลยรีสารสนเทศที่เน้นความก้าวหน้าของโปรแกรมที่ระดับหยาบ</value>
         <value xml:lang="zh">重要级别会粗粒地指出那些突出应用程序进行情况的信息。 </value>
@@ -1633,7 +1633,7 @@
         <value xml:lang="de">Der Loglevel "Info" bezeichnet Log-Mitteilungen, die den Fortgang der Anwendung mit einiger Detailtiefe beschreiben.</value>
         <value xml:lang="en">The Info level designates informational messages that highlight the progress of the application at coarse-grained level.</value>
         <value xml:lang="fr">Le niveau "Info" désigne les messages qui montrentla progression de l'application à un niveau de détail assez grossier.</value>
-        <value xml:lang="it">Il livello "Informativo" designa messggi che evidenziano lo stato di esecuzione dell'applicazione a basso livello.</value>
+        <value xml:lang="it">Il livello "Informativo" designa messaggi che mostrano lo stato di esecuzione dell'applicazione a basso livello.</value>
         <value xml:lang="ro">Nivelul Informativ desemneaza mesaje ce evidentiaza statul de executie al aplicatiei de jos nivel.</value>
         <value xml:lang="th">กำหนดระดับความสำคัญของข้อความเทคโนโลยรีสารสนเทศที่เน้นความก้าวหน้าของโปรแกรมที่ระดับหยาบ</value>
         <value xml:lang="zh">信息级别会粗粒地指出那些突出应用程序进行情况的信息。</value>
