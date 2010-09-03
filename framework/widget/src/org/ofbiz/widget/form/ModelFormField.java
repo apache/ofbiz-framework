@@ -2052,6 +2052,7 @@ public class ModelFormField {
         protected FlexibleStringExpander currency;
         protected FlexibleStringExpander date;
         protected InPlaceEditor inPlaceEditor;
+        protected FlexibleStringExpander defaultValue;
 
         protected DisplayField() {
             super();
@@ -2074,6 +2075,7 @@ public class ModelFormField {
             this.setDescription(element.getAttribute("description"));
             this.setDate(element.getAttribute("date"));
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
+            this.setDefaultValue(element.getAttribute("default-value"));
 
             Element inPlaceEditorElement = UtilXml.firstChildElement(element, "in-place-editor");
             if (inPlaceEditorElement != null) {
@@ -2118,7 +2120,7 @@ public class ModelFormField {
                 retVal = this.modelFormField.getEntry(context);
             }
             if (UtilValidate.isEmpty(retVal)) {
-                retVal = "";
+                retVal = this.getDefaultValue(context);
             } else if ("currency".equals(type)) {
                 retVal = retVal.replaceAll("&nbsp;", " "); // FIXME : encoding currency is a problem for some locale, we should not have any &nbsp; in retVal other case may arise in future...
                 Locale locale = (Locale) context.get("locale");
@@ -2191,6 +2193,21 @@ public class ModelFormField {
 
         public void setInPlaceEditor(InPlaceEditor newInPlaceEditor) {
             this.inPlaceEditor = newInPlaceEditor;
+        }
+
+        /**
+         * @param str
+         */
+        public void setDefaultValue(String str) {
+            this.defaultValue = FlexibleStringExpander.getInstance(str);
+        }
+
+        public String getDefaultValue(Map<String, Object> context) {
+            if (this.defaultValue != null) {
+                return this.defaultValue.expandString(context);
+            } else {
+                return "";
+            }
         }
     }
 
