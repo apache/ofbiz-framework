@@ -32,13 +32,27 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
+                            <condition>
+                                <if-has-permission permission="SERVER_STATS" action="_VIEW"/>
+                            </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html>
-                                        <html-template location="component://webtools/webapp/webtools/stats/StatsSinceStart.ftl"/>
-                                    </html>
-                                </platform-specific>
+                                <screenlet title="${uiLabelMap.WebtoolsStatsMainPageTitle}">
+                                    <include-menu name="StatsSinceStart" location="component://webtools/widget/Menus.xml"/>
+                                    <label>${uiLabelMap.WebtoolsStatsCurrentTime} ${nowTimestamp}</label>
+                                    <screenlet title="${uiLabelMap.WebtoolsStatsRequestStats}">
+                                        <include-form name="ListRequestStats" location="component://webtools/widget/StatsForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.WebtoolsStatsEventStats}">
+                                        <include-form name="ListEventStats" location="component://webtools/widget/StatsForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.WebtoolsStatsViewStats}">
+                                        <include-form name="ListViewStats" location="component://webtools/widget/StatsForms.xml"/>
+                                    </screenlet>
+                                </screenlet>
                             </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.WebtoolsStatsPermissionMsg}</label>
+                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
@@ -49,7 +63,7 @@ under the License.
     <screen name="StatBinsHistory">
         <section>
             <actions>
-                <set field="titleProperty" value="WebtoolsStatsMainPageTitle"/>
+                <set field="titleProperty" value="WebtoolsStatsBinsPageTitle"/>
                 <set field="headerItem" value="stats"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatBinsHistory.groovy"/>
             </actions>
@@ -57,12 +71,17 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
+                            <condition>
+                                <if-has-permission permission="SERVER_STATS" action="_VIEW"/>
+                            </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html>
-                                        <html-template location="component://webtools/webapp/webtools/stats/StatBinsHistory.ftl"/>
-                                    </html>
-                                </platform-specific>
+                                <screenlet title="${uiLabelMap.WebtoolsStatsBinsPageTitle}">
+                                    <include-menu name="StatsBinHistory" location="component://webtools/widget/Menus.xml"/>
+                                    <label>${uiLabelMap.WebtoolsStatsCurrentTime} ${nowTimestamp}</label>
+                                    <screenlet title="${uiLabelMap.WebtoolsStatsRequestStats}">
+                                        <include-form name="ListRequestBins" location="component://webtools/widget/StatsForms.xml"/>
+                                    </screenlet>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="ListStats" type="list" paginate-target="StatsSinceStart" separate-columns="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="requestId" title="${uiLabelMap.WebtoolsStatsRequestId}"><display/></field>
+        <field name="startTime" title="${uiLabelMap.WebtoolsStatsStart}"><display/></field>
+        <field name="endTime" title="${uiLabelMap.WebtoolsStatsStop}"><display/></field>
+        <field name="lengthMins" title="${uiLabelMap.WebtoolsStatsMinutes}"><display/></field>
+        <field name="numberHits" title="${uiLabelMap.WebtoolsStatsHits}"><display/></field>
+        <field name="minTime" title="${uiLabelMap.WebtoolsStatsMin}"><display/></field>
+        <field name="avgTime" title="${uiLabelMap.WebtoolsStatsAvg}"><display/></field>
+        <field name="maxTime" title="${uiLabelMap.WebtoolsStatsMax}"><display/></field>
+        <field name="hitsPerMin" title="${uiLabelMap.WebtoolsStatsHitsPerMin}"><display/></field>
+        <field name="viewBins" widget-style="buttontext" title="${uiLabelMap.CommonEmptyHeader}">
+            <hyperlink description="${uiLabelMap.WebtoolsStatsViewBins}" target="StatBinsHistory">
+                <parameter param-name="statsId" from-field="requestId"/>
+                <parameter param-name="type" from-field="requestType"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="ListRequestStats" extends="ListStats" list-name="requestList"/>
+    <form name="ListEventStats" extends="ListStats" list-name="eventList"/>
+    <form name="ListViewStats" extends="ListStats" list-name="viewList"/>
+    <form name="ListRequestBins" extends="ListStats" list-name="requestList">
+        <field name="viewBins"><hidden/></field>
+    </form>
+</forms>
