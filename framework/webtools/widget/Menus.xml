@@ -203,4 +203,27 @@ under the License.
             </link>
         </menu-item>
     </menu>
+
+    <menu name="StatsSinceStart" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="clearStats" title="${uiLabelMap.WebtoolsStatsClearSince}">
+            <link target="StatsSinceStart">
+               <parameter param-name="clear" value="true"/>
+            </link>
+        </menu-item>
+        <menu-item name="refresh" title="${uiLabelMap.CommonRefresh}" widget-style="buttontext refresh">
+            <link target="StatsSinceStart"/>
+        </menu-item>
+    </menu>
+
+    <menu name="StatsBinHistory" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="statsSinceStart" title="${uiLabelMap.WebtoolsStatsMainPageTitle}">
+            <link target="StatsSinceStart"/>
+        </menu-item>
+        <menu-item name="refresh" title="${uiLabelMap.CommonRefresh}" widget-style="buttontext refresh">
+            <link target="StatBinsHistory">
+               <parameter param-name="statsId" from-field="parameters.statsId"/>
+               <parameter param-name="type" from-field="parameters.type"/>
+            </link>
+        </menu-item>
+    </menu>
 </menus>
