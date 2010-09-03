@@ -49,6 +49,11 @@ under the License.
                 <fo:block>${picklistBinInfo.quantity} ${uiLabelMap.CommonTo} #${picklistBinInfo.picklistBin.binLocationNumber}</fo:block>
             </#list>
         </fo:table-cell>
+        <fo:table-cell padding="2pt" background-color="${rowColor}">
+            <#list picklistBinInfoList as picklistBinInfo>
+                <fo:block>${picklistBinInfo.picklistBin.primaryOrderId?if_exists}</fo:block>
+            </#list>
+        </fo:table-cell>
     </fo:table-row>
     <#-- toggle the row color -->
     <#if rowColor == "white">
@@ -134,15 +139,17 @@ under the License.
     <fo:block space-after.optimum="10pt" font-size="10pt">
     <fo:table>
         <fo:table-column column-width="90pt"/>
-        <fo:table-column column-width="220pt"/>
+        <fo:table-column column-width="200pt"/>
         <fo:table-column column-width="50pt"/>
         <fo:table-column column-width="80pt"/>
+        <fo:table-column column-width="100pt"/>
         <fo:table-header>
             <fo:table-row font-weight="bold">
                 <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductLocation}</fo:block></fo:table-cell>
                 <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductProductId}</fo:block></fo:table-cell>
                 <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductToPick}</fo:block></fo:table-cell>
                 <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductQuantityToBin} ${uiLabelMap.CommonNbr}</fo:block></fo:table-cell>
+                <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductOrderId}</fo:block></fo:table-cell>
 
               <#-- Not display details here, just the summary info for the bins
                 <fo:table-cell border-bottom="thin solid grey"><fo:block>${uiLabelMap.ProductOrderItems}</fo:block></fo:table-cell>
