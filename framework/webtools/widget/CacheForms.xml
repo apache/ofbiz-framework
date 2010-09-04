@@ -21,16 +21,16 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListCache" type="list" list-name="cacheList" paginate-target="FindUtilCache" separate-columns="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="cacheName" title="${uiLabelMap.WebtoolsCacheName}"><display/></field>
-        <field name="cacheSize" title="${uiLabelMap.WebtoolsSize}"><display/></field>
-        <field name="hitCount" title="${uiLabelMap.WebtoolsHits}"><display/></field>
-        <field name="misses" title="${uiLabelMap.WebtoolsMisses}"><display description="${missCountTot}/${missCountNotFound}/${missCountExpired}/${missCountSoftRef}"/></field>
-        <field name="removes" title="${uiLabelMap.WebtoolsRemoves}"><display description="${removeHitCount}/${removeMissCount}"/></field>
-        <field name="maxInMemory" title="${uiLabelMap.WebtoolsMaxInMemory}"><display/></field>
-        <field name="expireTime" title="${uiLabelMap.WebtoolsExpireTime}"><display/></field>
-        <field name="useSoftReference" title="${uiLabelMap.WebtoolsUseSoftRef}"><display/></field>
-        <field name="useFileSystemStore" title="${uiLabelMap.WebtoolsUseFileStore}"><display/></field>
+    <form name="ListCache" type="list" list-name="cacheList" paginate-target="FindUtilCache" separate-columns="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <field name="cacheName" title="${uiLabelMap.WebtoolsCacheName}" sort-field="true"><display/></field>
+        <field name="cacheSize" title="${uiLabelMap.WebtoolsSize}" sort-field="true"><display/></field>
+        <field name="hitCount" title="${uiLabelMap.WebtoolsHits}" sort-field="true"><display/></field>
+        <field name="misses" title="${uiLabelMap.WebtoolsMisses}" sort-field="true"><display description="${missCountTot}/${missCountNotFound}/${missCountExpired}/${missCountSoftRef}"/></field>
+        <field name="removes" title="${uiLabelMap.WebtoolsRemoves}" sort-field="true"><display description="${removeHitCount}/${removeMissCount}"/></field>
+        <field name="maxInMemory" title="${uiLabelMap.WebtoolsMaxInMemory}" sort-field="true"><display/></field>
+        <field name="expireTime" title="${uiLabelMap.WebtoolsExpireTime}" sort-field="true"><display/></field>
+        <field name="useSoftReference" title="${uiLabelMap.WebtoolsUseSoftRef}" sort-field="true"><display/></field>
+        <field name="useFileSystemStore" title="${uiLabelMap.WebtoolsUseFileStore}" sort-field="true"><display/></field>
         <field name="administration" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="hasUtilCacheEdit">
             <hyperlink description="${uiLabelMap.WebtoolsElements}" target="FindUtilCacheElements">
                 <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
@@ -48,10 +48,10 @@ under the License.
         </field>
     </form>
 
-    <form name="ListCacheElements" type="list" list-name="cacheElementsList" paginate-target="FindUtilCacheElements" separate-columns="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="elementKey" title="${uiLabelMap.WebtoolsCacheElementKey}"><display/></field>
-        <field name="expireTimeMillis" title="${uiLabelMap.WebtoolsExpireTime}"><display/></field>
-        <field name="lineSize" title="${uiLabelMap.WebtoolsBytes}"><display/></field>
+    <form name="ListCacheElements" type="list" list-name="cacheElementsList" paginate-target="FindUtilCacheElements" separate-columns="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <field name="elementKey" title="${uiLabelMap.WebtoolsCacheElementKey}" sort-field="true"><display/></field>
+        <field name="expireTimeMillis" title="${uiLabelMap.WebtoolsExpireTime}" sort-field="true"><display/></field>
+        <field name="lineSize" title="${uiLabelMap.WebtoolsBytes}" sort-field="true"><display/></field>
 
         <field name="administration" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="hasUtilCacheEdit">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="FindUtilCacheElementsRemoveElement">

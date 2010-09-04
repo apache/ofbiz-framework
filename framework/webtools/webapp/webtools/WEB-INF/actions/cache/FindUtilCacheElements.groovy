@@ -19,6 +19,7 @@
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.cache.CacheLine;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.security.Security;
 
 context.hasUtilCacheEdit = security.hasEntityPermission("UTIL_CACHE", "_EDIT", session);
@@ -44,4 +45,9 @@ if (cacheName) {
     }
 }
 context.totalSize = UtilFormatOut.formatQuantity(totalSize);
-context.cacheElementsList = cacheElementsList;
+sortField = parameters.sortField;
+if (sortField) { 
+    context.cacheElementsList = UtilMisc.sortMaps(cacheElementsList, UtilMisc.toList(sortField));
+} else {
+    context.cacheElementsList = cacheElementsList;
+}

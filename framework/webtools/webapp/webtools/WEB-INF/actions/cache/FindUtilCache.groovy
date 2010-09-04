@@ -18,6 +18,7 @@
  */
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.security.Security;
 
 context.hasUtilCacheEdit = security.hasEntityPermission("UTIL_CACHE", "_EDIT", session);
@@ -50,4 +51,9 @@ names.each { cacheName ->
 
         cacheList.add(cache);
 }
-context.cacheList = cacheList;
+sortField = parameters.sortField;
+if (sortField) { 
+    context.cacheList = UtilMisc.sortMaps(cacheList, UtilMisc.toList(sortField));
+} else {
+    context.cacheList = cacheList;
+}
