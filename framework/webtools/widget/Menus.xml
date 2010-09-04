@@ -226,4 +226,34 @@ under the License.
             </link>
         </menu-item>
     </menu>
+
+    <menu name="FindCache" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="refresh" title="${uiLabelMap.CommonRefresh}" widget-style="buttontext refresh">
+            <link target="FindUtilCache"/>
+        </menu-item>
+        <menu-item name="clearAll" title="${uiLabelMap.WebtoolsClearAllCaches}">
+            <link target="FindUtilCacheClearAll"/>
+        </menu-item>
+        <menu-item name="forceGarbageCollection" title="${uiLabelMap.WebtoolsRunGC}">
+            <link target="ForceGarbageCollection"/>
+        </menu-item>
+    </menu>
+
+    <menu name="CacheElements" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="back" title="${uiLabelMap.WebtoolsBackToCacheMaintenance}">
+            <link target="FindUtilCache"/>
+        </menu-item>
+    </menu>
+
+    <menu name="EditCache" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="clear" title="${uiLabelMap.WebtoolsClearThisCache}">
+            <link target="EditUtilCacheClear">
+               <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
+               <parameter param-name="type" from-field="parameters.type"/>
+            </link>
+        </menu-item>
+        <menu-item name="back" title="${uiLabelMap.WebtoolsBackToCacheMaintenance}">
+            <link target="FindUtilCache"/>
+        </menu-item>
+    </menu>
 </menus>
