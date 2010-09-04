@@ -320,7 +320,9 @@ under the License.
       <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
       <member-entity entity-alias="WEFROM" entity-name="WorkEffort"/>
       <alias-all entity-alias="WEA"/>
-      <alias-all entity-alias="WEFROM"/>
+      <alias-all entity-alias="WEFROM">
+        <exclude field="sequenceNum"/>
+      </alias-all>
       <view-link entity-alias="WEA" rel-entity-alias="WEFROM">
         <key-map field-name="workEffortIdFrom" rel-field-name="workEffortId"/>
       </view-link>
@@ -331,7 +333,9 @@ under the License.
       <member-entity entity-alias="WEA" entity-name="WorkEffortAssoc"/>
       <member-entity entity-alias="WETO" entity-name="WorkEffort"/>
       <alias-all entity-alias="WEA"/>
-      <alias-all entity-alias="WETO"/>
+      <alias-all entity-alias="WETO">
+        <exclude field="sequenceNum"/>
+      </alias-all>
       <view-link entity-alias="WEA" rel-entity-alias="WETO">
         <key-map field-name="workEffortIdTo" rel-field-name="workEffortId"/>
       </view-link>
@@ -512,7 +516,16 @@ under the License.
         <member-entity entity-alias="PROD" entity-name="Product"/>
         <alias-all entity-alias="WE"/>
         <alias-all entity-alias="WEGS"/>
-        <alias-all entity-alias="PROD"/>
+        <alias-all entity-alias="PROD">
+            <exclude field="facilityId"/>
+            <exclude field="description"/>
+            <exclude field="reserv2ndPPPerc"/>
+            <exclude field="reservNthPPPerc"/>
+            <exclude field="createdDate"/>
+            <exclude field="createdByUserLogin"/>
+            <exclude field="lastModifiedDate"/>
+            <exclude field="lastModifiedByUserLogin"/>
+        </alias-all>
         <view-link rel-entity-alias="WEGS" entity-alias="WE">
             <key-map field-name="workEffortId"/>
         </view-link>
