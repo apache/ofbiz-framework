@@ -19,6 +19,36 @@ License.
     xmlns="http://docbook.org/ns/docbook">
     <title>The Webtools Main page.</title>
     <para>
-        The default screen is for the Webtools tab is 'Main'. It list all options are listed.
+        This is the default screen for the Webtools application. Several links are present on this page to access specific tool screens directly. Using the application menu you can select the tool you need.       
     </para>
+    <itemizedlist>
+      <listitem>
+        <para>The <link xl:href="">Logging</link> section is used to view and configure the OFBiz system logs.</para>
+      </listitem>
+      <listitem>
+        <para>The <link xl:href="">Cache &amp; Debug</link> section is used to monitor the OFBiz cache system status. You can even set or clear some cache content or force Garbage collection with this tool.</para>
+      </listitem>
+      <listitem>
+        <para>The <link xl:href="">Artifact Info</link> section is used to navigate through all OFBiz artifact files. When accessing this section the complete OFBiz code base is scanned and a list of all artifacts is offered to the user to be navigated.
+        Please note that the initial scan can take a while to be completed.</para>
+      </listitem>
+      <listitem>
+        <para>The <link xl:href="">Entity Engine</link> section is used to interact with the entities defined in the system. You can view the entity structures, search for entity content, navigate though related entities, etc.</para>
+      </listitem>
+      <listitem>
+        <para>The <link xl:href="">Service Engine</link> section is used to interact with the services defined in the system. You can view all services details, monitor the jobs that are running, the active threads. You can even manually run a service or schedule a periodic/delaied job execution.</para>
+      </listitem>
+      <listitem>
+        <para>The <link xl:href="">Import/Export</link> section is used to transfer entity content from the OFBiz system to external systems and viceversa. Various import/export systems and formats are available.</para>
+      </listitem>
+      <listitem>
+        <para>The <link xl:href="">Configuration</link> section is used to set parameters for the OFBiz system.</para>
+      </listitem>
+      <listitem>
+        <para>The <link xl:href="">Portal Page Admin.</link> section is used to browse and edit all Portal Pages defined in the system.</para>
+      </listitem>
+      <listitem>
+        <para>The <link xl:href="showHelp?helpTopic=WEBTOOLS_selenium">Tests</link> section is used to run system tests.</para>
+      </listitem>
+    </itemizedlist>
 </section>
