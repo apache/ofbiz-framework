@@ -384,6 +384,9 @@ under the License.
     </screen>
     <screen name="EntityPerformanceTest">
         <section>
+            <condition>
+                <if-has-permission permission="ENTITY_MAINT"/>
+            </condition>
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsPerformanceTests"/>
@@ -392,12 +395,16 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/performance/EntityPerformanceTest.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.WebtoolsEntityEnginePerformanceTests}">
+                            <label>${uiLabelMap.WebtoolsNotePerformanceResultsMayVary}</label>
+                            <include-form name="ListPerformanceResults" location="component://webtools/widget/EntityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
+            <fail-widgets>
+                <label style="h3">${uiLabelMap.WebtoolsPermissionMaint}</label>
+            </fail-widgets>
         </section>
     </screen>
     <screen name="xmldsdump">
@@ -440,5 +447,3 @@ under the License.
         </section>
     </screen>
 </screens>
-
-
