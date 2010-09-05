@@ -22,6 +22,10 @@ background:none;
 font-size=105%;
 }
 
+p {
+margin-top:10px;
+}
+
 .left-border {
 float:left;
 width:20em;
