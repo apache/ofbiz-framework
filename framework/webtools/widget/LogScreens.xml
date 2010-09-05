@@ -65,9 +65,9 @@ under the License.
             <widgets>
                 <decorator-screen name="log-decorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://webtools/webapp/webtools/service/services.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.PageTitleServiceList}">
+                            <include-form name="ListServices" location="component://webtools/widget/ServiceForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
