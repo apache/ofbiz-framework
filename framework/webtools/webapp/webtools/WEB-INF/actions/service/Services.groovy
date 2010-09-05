@@ -45,4 +45,9 @@ log.each { rs, value ->
 
     serviceList.add(service);
 }
-context.services = serviceList;
+sortField = parameters.sortField;
+if (sortField) { 
+    context.services = UtilMisc.sortMaps(serviceList, UtilMisc.toList(sortField));
+} else {
+    context.services = serviceList;
+}
