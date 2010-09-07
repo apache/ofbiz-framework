@@ -175,6 +175,12 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyAddToRole}">
+                                    <container>
+                                        <label style="h2">${uiLabelMap.PartyAddToMainRole}</label>
+                                        <include-form name="AddPartyMainRole" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                        <container id="addPartySecondaryRole"/>
+                                    </container>
+                                    <label style="h2">${uiLabelMap.PartyAddToRoleViewAll}</label>
                                     <include-form name="AddPartyRole" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
@@ -197,6 +203,18 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AddPartySecondaryRoles">
+        <section>
+            <actions>
+                <property-map map-name="uiLabelMap" resource="CommonUiLabels"/>
+                <property-map map-name="uiLabelMap" resource="PartyUiLabels"/>
+            </actions>
+            <widgets>
+                <label style="h2">${uiLabelMap.PartyAddToSecondRole}</label>
+                <include-form name="AddPartySecondaryRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
             </widgets>
         </section>
     </screen>
