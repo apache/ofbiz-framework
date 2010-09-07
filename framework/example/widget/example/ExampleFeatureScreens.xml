@@ -106,10 +106,25 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+                
+                <!-- entries needed for lookup ajax auto completer -->
+                <!-- required: entity to search in -->
+                <set field="entityName" value="ExampleFeature"/>
+
+                <!-- required: fields to search a match -->
+                <set field="searchFields" value="[exampleFeatureId, description]"/>
+                
+                <!-- optional: field to return after user selection, default is first element of searchFields -->
+                <!-- return field might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->
+                <!--set field="returnField" value="exampleFeatureId"/-->
+
+                <!-- optional: fields to display, default are searchFields -->
+                <!--set field="displayFields" value="[exampleFeatureId, description]"/-->
+                
             </actions>
 
             <widgets>
-                <decorator-screen name="LookupLayerPopupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
                         <include-form name="LookupFindExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
                     </decorator-section>

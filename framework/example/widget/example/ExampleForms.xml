@@ -236,30 +236,20 @@ under the License.
     <form name="AddExampleFeatureAppl" type="single" target="example_createExampleFeatureAppl" title="">
         <auto-fields-service service-name="createExampleFeatureAppl"/>
         <field name="exampleId"><hidden/></field>
-
-        <!-- a nice combination of the lookup option and the auto-complete, but unfortunately still requires a custom companion controller.xml request to handle AJAX data retreival -->
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}">
-            <lookup presentation="layer" position="center" target-form-name="LookupExampleFeature"/>
-            <on-field-event-update-area event-type="change" area-id="AddExampleFeatureAppl_exampleFeatureId" area-target="findExampleFeatures"/>
+            <lookup target-form-name="LookupExampleFeature"/>
         </field>
-        <!-- basic example of server-side AJAX enabled option, requires use of custom companion request in controller.xml file to get data for drop-down -->
-        <!--
-            <field name="exampleFeatureId">
-            <text/>
-            <on-field-event-update-area event-type="change" area-id="AddExampleFeatureAppl_exampleFeatureId" area-target="findExampleFeatures"/>
-            </field>
-        -->
-        <!-- most feature rich for autocomplete, ie partial text entry searches the full string, doesn't require custom request to function, etc; Note that for usability this is still a bit lame since you can't see the full list, you HAVE to know part of the ID or description in order to see options -->
-        <!--
-        <field name="exampleFeatureId">
+        <!-- most feature rich for autocomplete, ie partial text entry searches the full string, 
+            doesn't require custom request to function, etc; Note that for usability this is still a bit lame since you can't see the full list, 
+            you HAVE to know part of the ID or description in order to see options -->
+        <!--field name="exampleFeatureId">
             <drop-down>
                 <auto-complete/>
                 <entity-options entity-name="ExampleFeature" description="${exampleFeatureId}: ${description}">
                     <entity-order-by field-name="exampleFeatureId"/>
                 </entity-options>
             </drop-down>
-        </field>
-        -->
+        </field-->
 
         <field name="exampleFeatureApplTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
