@@ -34,11 +34,11 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     entityName = parameters.entityName;
 
     if (groupName) {
-        helperName = delegator.getGroupHelperName(groupName);
+        helperInfo = delegator.getGroupHelperInfo(groupName);
 
         messages = [];
         //helper = GenericHelperFactory.getHelper(helperName);
-        dbUtil = new DatabaseUtil(helperName);
+        dbUtil = new DatabaseUtil(helperInfo);
         modelEntities = delegator.getModelEntityMapByGroup(groupName);
         modelEntityNames = new TreeSet(modelEntities.keySet());
 
