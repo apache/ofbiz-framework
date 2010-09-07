@@ -2521,6 +2521,7 @@
     <property key="FormFieldTitle_decoratorContentId">
         <value xml:lang="da">Dekoratør indholds id</value>
         <value xml:lang="en">Decorator Content Id</value>
+        <value xml:lang="fr">Ressource de décorateur</value>
         <value xml:lang="it">Decoratore contenuto</value>
         <value xml:lang="zh">修饰程序内容标识</value>
     </property>
