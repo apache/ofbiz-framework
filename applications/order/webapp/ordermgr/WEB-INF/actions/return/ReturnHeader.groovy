@@ -24,12 +24,21 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.party.contact.*;
 
-
-orderId = parameters.get("orderId");
-partyId = parameters.get("fromPartyId");
-returnId = parameters.get("returnId");
-
+if (parameters.userLogin) {
+    userLogin = parameters.userLogin;
+    context.userLogin = userLogin;
+} 
 returnHeader = null;
+orderId = parameters.orderId;
+
+if (parameters.returnHeader) {
+    returnHeader = parameters.returnHeader;
+    returnId = returnHeader.returnId;
+    partyId = returnHeader.fromPartyId;
+} else {
+    partyId = parameters.fromPartyId;
+    returnId = parameters.returnId;
+}
 if (returnId) {
     returnHeader = delegator.findByPrimaryKey("ReturnHeader", [returnId : returnId]);
     if (returnHeader) {
@@ -95,7 +104,10 @@ context.orderHeader = orderHeader;
 
 
 // from address
-addresses = ContactMechWorker.getPartyPostalAddresses(request, partyId, "_NA_");
+addresses = null;
+if (context.request) {
+    addresses = ContactMechWorker.getPartyPostalAddresses(request, partyId, "_NA_");
+}
 context.addresses = addresses;
 
 if (returnHeader) {
