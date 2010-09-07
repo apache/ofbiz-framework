@@ -232,6 +232,7 @@ function confirmActionFormLink(msg, formName) {
   * @param target The URL to call to update the HTML container
   * @param targetParams The URL parameters
 */
+
 function ajaxUpdateArea(areaId, target, targetParams) {
     waitSpinnerShow();
     new Ajax.Updater(areaId, target, {parameters: targetParams, evalScripts: true,
@@ -377,7 +378,23 @@ function setLookDescription(textFieldId, description) {
     if (description) {
         var start = description.lastIndexOf(' [');
         if (start != -1) {
+            // To allow to set a dependent Id field when using a Name field as a lookup (the fields must have the same prefix, eg: partyName, partyId)
+            // It uses the description (Id) shown with the Name. Hence the Lookup screen must be set in order to show a description in the autocomplete part. 
+            // It seems this is not always easy notably when you need to show at least 2 parts for the Name (eg Person). 
+            // At least it easy to set and it works well for simples case for now (eg PartyGroup)            
+            var dependentId = textFieldId.replace(/Name/, "Id"); // Raw but ok for now, needs safe navigation...
+            // I did not find another way since Ajax.Autocompleter can't update another field
+            // The alternative would be navigation to the next hidden field, at least it would avoid the mandatory Id/Name pair
+            // But it's more difficult to demonstrate in Example component
+            // dependentId = (textFieldId.next('div').down('input[type=hidden]'); 
+            $(dependentId).clear();
+            var dependentIdValue = (description.substring(start + 1, description.length).replace(/\[/g, "")).replace(/\]/g, "");
+            if ($(dependentId)) {            
+                $(dependentId).value = dependentIdValue;
+            }
+             
             description = description.substring(0, start);
+            $(dependentId).value = description;
         }
     }
     var lookupWrapperEl = $(textFieldId).up('.field-lookup');
