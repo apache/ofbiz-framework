@@ -20,7 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="LookupParty">
+    <screen name="LookupPartyName">
         <section>
             <condition>
                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
@@ -64,7 +64,7 @@ under the License.
         </section>
     </screen>
 
-    <screen name="LookupPartyByName">
+    <screen name="LookupPartyGroupByName">
         <section>
             <condition>
                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
@@ -79,15 +79,21 @@ under the License.
 
                 <!-- entries needed for lookup ajax auto completer -->
                 <!-- required: entity to search in -->
-                <set field="entityName" value="PartyNameView"/>
+                <set field="entityName" value="PartyGroup"/>
+
+                <!-- entries needed for lookup ajax auto completer -->
+                <!-- required: entity to search in -->
+                <set field="entityName" value="ViewCustomersList"/>
 
                 <!-- required: fields to search a match -->
-                <!-- the first element from searchFields is returned after user selection -->
-                <!-- it might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->
-                <set field="searchFields" value="[partyId, firstName, middleName, lastName, groupName]"/>
+                <set field="searchFields" value="[groupName, partyId]"/>
 
-                <!-- optional: fields to display in the given order, default is searchFields -->
-                <set field="displayFields" value="[firstName, lastName, groupName]"/>
+                <!-- optional: field to return after user selection, default is first element of searchFields -->
+                <!-- return field might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->
+                <!--set field="returnField" value="groupName"/-->
+
+                <!-- optional: fields to display, default are searchFields -->
+                <set field="displayFields" value="[groupName, partyId]"/>
 
                 <!-- optional: additional entity condition (named andCondition) added to search query -->
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/StatusCondition.groovy"/>
@@ -95,48 +101,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupPartyNameByName" location="component://example/widget/example/FormWidgetExampleLookupForms.xml"/>
+                        <include-form name="lookupPartyGroupByName" location="component://example/widget/example/FormWidgetExampleLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupPartyNameByName" location="component://example/widget/example/FormWidgetExampleLookupForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="LookupPersonByNameExamplePopup">
-        <section>
-            <actions>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PartyLookupPartyPerson}"/>
-                <set field="queryString" from-field="result.queryString"/>
-
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
-
-                <!-- entries needed for lookup ajax auto completer -->
-                <!-- required: entity to search in -->
-                <set field="entityName" value="PartyNameView"/>
-
-                <!-- required: fields to search a match -->
-                <set field="searchFields" value="[partyId, firstName, middleName, lastName]"/>
-
-                <!-- optional: field to return after user selection, default is first element of searchFields -->
-                <!-- return field might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->
-                <set field="returnField" value="partyId"/>
-
-                <!-- optional: fields to display, default are searchFields -->
-                <set field="displayFields" value="[firstName, lastName]"/>
-
-            </actions>
-            <widgets>
-                <decorator-screen name="LookupLayerPopupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="search-options">
-                        <include-form name="lookupPersonByName" location="component://example/widget/example/FormWidgetExampleLookupForms.xml"/>
-                    </decorator-section>
-                    <decorator-section name="search-results">
-                        <include-form name="listLookupPersonByName" location="component://example/widget/example/FormWidgetExampleLookupForms.xml"/>
+                        <include-form name="listLookupPartyGroupByName" location="component://example/widget/example/FormWidgetExampleLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
