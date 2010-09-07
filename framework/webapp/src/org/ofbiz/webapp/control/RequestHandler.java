@@ -928,6 +928,19 @@ public class RequestHandler {
                     queryString.append(value);
                 }
             }
+            for (Map.Entry<String, String> entry: requestResponse.redirectParameterValueMap.entrySet()) {
+                String name = entry.getKey();
+                String value = entry.getValue();
+
+                if (UtilValidate.isNotEmpty(value)) {
+                    if (queryString.length() > 1) {
+                        queryString.append("&");
+                    }
+                    queryString.append(name);
+                    queryString.append("=");
+                    queryString.append(value);
+                }
+            }
             return queryString.toString();
         }
     }
