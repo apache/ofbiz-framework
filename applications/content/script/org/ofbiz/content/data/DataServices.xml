@@ -589,7 +589,7 @@ under the License.
         </if-empty>
 
         <if-compare field="parameters.dataResourceTypeId" value="LOCAL_FILE" operator="equals">
-            <call-simple-method method-name="saveLocalFileDateResource"/>
+            <call-simple-method method-name="saveLocalFileDataResource"/>
             <return/>
         </if-compare>
 
@@ -642,10 +642,15 @@ under the License.
     </simple-method>
 
     <!-- save LOCAL_FILE data -->
-    <simple-method method-name="saveLocalFileDateResource" short-description="Attach an uploaded file to a data resource as LOCAL_FILE">
+    <simple-method method-name="saveLocalFileDataResource" short-description="Attach an uploaded file to a data resource as LOCAL_FILE">
         <entity-one entity-name="DataResource" value-field="dataResource"/>
         <if-empty field="dataResource">
             <add-error><fail-message message="No data resource found for ID: [${parameters.dataResourceId}]"/></add-error>
+            <else>
+                <if-not-empty field="dataResource.objectInfo">
+                    <set field="isUpdate" value="Y"/>
+                </if-not-empty>
+            </else>
         </if-empty>
         <if>
             <condition>
