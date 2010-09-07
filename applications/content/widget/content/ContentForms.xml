@@ -137,6 +137,8 @@ under the License.
             <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" from-field="currentValue.statusId"/>
             </entity-one>
+            <set field="dataResourceId" from-field="currentValue.dataResourceId"/>
+            <set field="templateDataResourceId" from-field="currentValue.templateDataResourceId"/>
         </actions>
         <alt-target use-when="currentValue==null" target="createContent"/>
         <auto-fields-entity entity-name="Content"/>
@@ -150,17 +152,33 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="dataResourceId">
+        <field name="dataResourceId" use-when="dataResourceId != null">
             <lookup target-form-name="LookupDataResource">
                 <sub-hyperlink link-style="buttontext" target="EditDataResource" description="${uiLabelMap.ContentGoToDataResource}">
                     <parameter param-name="dataResourceId" from-field="currentValue.dataResourceId"/>
                 </sub-hyperlink>
             </lookup>
         </field>
-        <field name="templateDataResourceId">
+        <field name="dataResourceId" use-when="dataResourceId == null ">
+            <lookup target-form-name="LookupDataResource">
+                <sub-hyperlink link-style="buttontext" target="AddDataResourceFromContent" description="${uiLabelMap.FormFieldTitle_newDataResourceId}">
+                    <parameter param-name="contentId" from-field="currentValue.contentId"/>
+                    <parameter param-name="template" value="N"/>
+                </sub-hyperlink>
+            </lookup>
+        </field>
+        <field name="templateDataResourceId" use-when="templateDataResourceId != null">
             <lookup target-form-name="LookupDataResource">
                 <sub-hyperlink link-style="buttontext" target="EditDataResource" description="${uiLabelMap.ContentGoToDataResource}">
                     <parameter param-name="dataResourceId" from-field="currentValue.templateDataResourceId"/>
+                </sub-hyperlink>
+            </lookup>
+        </field>
+        <field name="templateDataResourceId"  use-when="templateDataResourceId == null">
+            <lookup target-form-name="LookupDataResource">
+                <sub-hyperlink link-style="buttontext" target="AddDataResourceFromContent"  description="${uiLabelMap.FormFieldTitle_newDataResourceId}">
+                    <parameter param-name="contentId" from-field="currentValue.contentId"/>
+                    <parameter param-name="templateDataResource" value="Y"/>
                 </sub-hyperlink>
             </lookup>
         </field>

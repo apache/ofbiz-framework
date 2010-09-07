@@ -38,6 +38,14 @@
         <attribute name="dataResource" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <override name="objectInfo" allow-html="safe"/>
     </service>
+    <service name="createDataResourceAndAssocToContent" default-entity-name="DataResource" engine="simple"
+            location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createDataResourceAndAssocToContent" auth="true">
+        <description>Create a DataResource and link this data to the content present</description>
+        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
+        <implements service="createDataResource" optional="true"/>
+        <attribute name="contentId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="templateDataResource" type="String" mode="IN" optional="true"/>
+    </service>
     <service name="updateDataResource" engine="simple" default-entity-name="DataResource" auth="true"
             location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="updateDataResource">
         <description>Update a DataResource</description>

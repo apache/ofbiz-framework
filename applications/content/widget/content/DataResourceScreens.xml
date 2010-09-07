@@ -288,6 +288,23 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="AddDataResourceFromContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleAddDataResourceFromContent"/>
+                <set field="labelTitleProperty" value="PageTitleAddDataResourceFromContent"/>
+                <set field="headerItem" value="DataResource"/>
+                <set field="tabButtonItem" value="adddataresource"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="AddDataResourceFromContent" location="component://content/widget/content/DataResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditDataResourceText">
         <section>
             <actions>
