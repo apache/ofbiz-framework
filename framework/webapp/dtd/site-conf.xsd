@@ -323,6 +323,7 @@ under the License.
                     a request attribute or parameter.</xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute type="xs:string" name="value" use="optional"/>
     </xs:attributeGroup>
     <xs:element name="view-map">
         <xs:complexType>
