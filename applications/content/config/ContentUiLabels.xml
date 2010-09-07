@@ -3724,6 +3724,10 @@
         <value xml:lang="th">เพิ่มแหล่งที่มาของข้อมูล</value>
         <value xml:lang="zh">新建数据资源</value>
     </property>
+    <property key="PageTitleAddDataResourceFromContent">
+        <value xml:lang="en">Add DataResource From Content</value>
+        <value xml:lang="fr">Ajouter une ressource de données pour un contenu</value>
+    </property>
     <property key="PageTitleAddDataResourceText">
         <value xml:lang="ar">إضافة نص مورد معلومات</value>
         <value xml:lang="da">Tilføj dataressource tekst</value>

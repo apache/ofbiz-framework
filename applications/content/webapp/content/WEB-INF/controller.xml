@@ -942,6 +942,7 @@ under the License.
     <request-map uri="AddDataResourceText"><security auth="true" https="true"/><response name="success" type="view" value="AddDataResourceText"/></request-map>
     <request-map uri="AddDataResourceUrl"><security auth="true" https="true"/><response name="success" type="view" value="EditDataResourceUrl"/></request-map>
     <request-map uri="AddDataResourceUpload"><security auth="true" https="true"/><response name="success" type="view" value="AddDataResourceUpload"/></request-map>
+    <request-map uri="AddDataResourceFromContent"><security auth="true" https="true"/><response name="success" type="view" value="AddDataResourceFromContent"/></request-map>
     <request-map uri="updateDataResourceText">
         <security auth="true" https="true"/>
         <event invoke="updateDataResource" path="" type="service"/>
@@ -961,6 +962,14 @@ under the License.
         <response name="ELECTRONIC_TEXT" type="view" value="EditElectronicText"/>
         <response name="IMAGE_OBJECT" type="view" value="UploadImage"/>
         <response name="error" type="view" value="AddDataResource"/>
+    </request-map>
+    <request-map uri="createDataResourceAndAssocToContent">
+        <security auth="true" https="true"/>
+        <event invoke="createDataResourceAndAssocToContent" path="" type="service"/>
+        <response name="success" type="view" value="EditContent"/>
+        <response name="ELECTRONIC_TEXT" type="view" value="EditElectronicText"/>
+        <response name="IMAGE_OBJECT" type="view" value="UploadImage"/>
+        <response name="error" type="view" value="AddDataResourceFromContent"/>
     </request-map>
     <request-map uri="createDataResourceUpload">
         <security auth="true" https="true"/>
@@ -1882,6 +1891,7 @@ under the License.
     <view-map name="AddDataResourceText"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceText" type="screen"/>
     <view-map name="AddDataResourceUrl"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceUrl" type="screen"/>
     <view-map name="AddDataResourceUpload"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceUpload" type="screen"/>
+    <view-map name="AddDataResourceFromContent"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceFromContent" type="screen"/>
     <view-map name="EditDataResourceText"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceText" type="screen"/>
     <view-map name="EditDataResourceUrl"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceUrl" type="screen"/>
     <view-map name="EditDataResourceUpload"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceUpload" type="screen"/>

@@ -206,6 +206,12 @@ under the License.
         <field name="createButton" title="${uiLabelMap.CommonCreate}" use-when="currentValue==null" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" use-when="currentValue!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
+    <form name="AddDataResourceFromContent" extends="AddDataResource" target="createDataResourceAndAssocToContent" >
+        <field name="contentId"><hidden value="${parameters.contentId}"/></field>
+        <field name="templateDataResource"><hidden value="${parameters.templateDataResource}"/></field>
+    </form>
+    
     <form name="ListContentsAssociatedToDataResource" type="list" list-name="contentRecords" default-widget-style="display"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
