@@ -640,6 +640,7 @@ under the License.
         <response name="error" type="view" value="ViewSegmentRoles"/>
     </request-map>
 
+    <request-map uri="addsecondaryroles"><security https="true" auth="true"/><response name="success" type="view" value="addsecondaryroles"/></request-map>
     <request-map uri="addrole">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyRole"/>
@@ -1300,6 +1301,7 @@ under the License.
     <view-map name="viewprofile" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewprofile"/>
     <view-map name="partyContentList" type="screen" page="component://party/widget/partymgr/ProfileScreens.xml#ContentList"/>
     <view-map name="viewroles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewroles"/>
+    <view-map name="addsecondaryroles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#AddPartySecondaryRoles"/>
     <view-map name="viewidentifications" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ListPartyIdentifications"/>
     <view-map name="linkparty" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#linkparty"/>
     <view-map name="EditPartyRelationships" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyRelationships"/>

@@ -2636,6 +2636,18 @@
         <value xml:lang="th">เพิ่มสถานะ</value>
         <value xml:lang="zh">添加角色</value>
     </property>
+    <property key="PartyAddToMainRole">
+        <value xml:lang="en">Add To Main Role</value>
+        <value xml:lang="fr">Ajouter le rôle principal</value>
+    </property>
+    <property key="PartyAddToSecondRole">
+        <value xml:lang="en">Add To Second Role</value>
+        <value xml:lang="fr">Ajouter le rôle secondaire</value>
+    </property>
+    <property key="PartyAddToRoleViewAll">
+        <value xml:lang="en">Add To Role : view all</value>
+        <value xml:lang="fr">Ajouter le rôle : vue générale</value>
+    </property>
     <property key="PartyAddToRole">
         <value xml:lang="de">Zur Rolle hinzufügen</value>
         <value xml:lang="en">Add To Role</value>
