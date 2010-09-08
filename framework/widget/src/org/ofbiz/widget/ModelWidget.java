@@ -53,6 +53,9 @@ public class ModelWidget implements Serializable {
     public static final String enableBoundaryCommentsParam = "widgetVerbose";
     protected String name;
     protected boolean enableWidgetBoundaryComments = false;
+    private String systemId;
+    private int startColumn;
+    private int startLine;
 
     protected ModelWidget() {}
 
@@ -62,6 +65,9 @@ public class ModelWidget implements Serializable {
      */
     public ModelWidget(Element widgetElement) {
         this.name = widgetElement.getAttribute("name");
+        this.systemId = (String) widgetElement.getUserData("systemId");
+        this.startColumn = ((Integer) widgetElement.getUserData("startColumn")).intValue();
+        this.startLine = ((Integer) widgetElement.getUserData("startLine")).intValue();
     }
 
     /**
@@ -70,6 +76,35 @@ public class ModelWidget implements Serializable {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Returns the url as a string, from where this widget was defined.
+     * @return url
+     */
+    public String getSystemId() {
+        return systemId;
+    }
+
+    /**
+     * Returns the column where this widget was defined, in it's containing xml file.
+     * @return start column
+     */
+    public int getStartColumn() {
+        return startColumn;
+    }
+
+    /**
+     * Returns the line where this widget was defined, in it's containing xml file.
+     * @return start line
+     */
+    public int getStartLine() {
+        return startLine;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[" + getSystemId() + "#" + getName() + "@" + getStartColumn() + "," + getStartLine() + "]";
     }
 
     /**
