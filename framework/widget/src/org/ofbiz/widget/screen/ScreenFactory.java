@@ -31,7 +31,9 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
@@ -177,5 +179,40 @@ public class ScreenFactory {
             }
         }
         return modelScreenMap;
+    }
+
+    public static void renderReferencedScreen(String name, String location, ModelScreenWidget parentWidget, Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        // check to see if the name is a composite name separated by a #, if so split it up and get it by the full loc#name
+        if (ScreenFactory.isCombinedName(name)) {
+            String combinedName = name;
+            location = ScreenFactory.getResourceNameFromCombined(combinedName);
+            name = ScreenFactory.getScreenNameFromCombined(combinedName);
+        }
+
+        ModelScreen modelScreen = null;
+        if (UtilValidate.isNotEmpty(location)) {
+            try {
+                modelScreen = ScreenFactory.getScreenFromLocation(location, name);
+            } catch (IOException e) {
+                String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg);
+            } catch (SAXException e) {
+                String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg);
+            } catch (ParserConfigurationException e) {
+                String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg);
+            }
+        } else {
+            modelScreen = parentWidget.getModelScreen().modelScreenMap.get(name);
+            if (modelScreen == null) {
+                throw new IllegalArgumentException("Could not find screen with name [" + name + "] in the same file as the screen with name [" + parentWidget.getModelScreen().getName() + "]");
+            }
+        }
+        //Debug.logInfo("parent(" + parentWidget + ") rendering(" + modelScreen + ")", module);
+        modelScreen.renderScreenString(writer, context, screenStringRenderer);
     }
 }
