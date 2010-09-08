@@ -577,8 +577,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
             List<? extends Element> decoratorSectionElementList = UtilXml.childElementList(decoratorScreenElement, "decorator-section");
             for (Element decoratorSectionElement: decoratorSectionElementList) {
-                String name = decoratorSectionElement.getAttribute("name");
-                this.sectionMap.put(name, new DecoratorSection(modelScreen, decoratorSectionElement));
+                DecoratorSection decoratorSection = new DecoratorSection(modelScreen, decoratorSectionElement);
+                this.sectionMap.put(decoratorSection.getName(), decoratorSection);
             }
         }
 
