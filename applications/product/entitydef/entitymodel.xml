@@ -1532,6 +1532,14 @@ under the License.
       <view-link entity-alias="PF" rel-entity-alias="PFA">
         <key-map field-name="productFeatureId"/>
       </view-link>
+      <relation type="one-nofk" rel-entity-name="ProductFeature">
+        <key-map field-name="productFeatureId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ProductFeatureAppl">
+        <key-map field-name="productId"/>
+        <key-map field-name="productFeatureId"/>
+        <key-map field-name="fromDate"/>
+      </relation>
       <relation type="one-nofk" rel-entity-name="ProductFeatureType">
         <key-map field-name="productFeatureTypeId"/>
       </relation>
