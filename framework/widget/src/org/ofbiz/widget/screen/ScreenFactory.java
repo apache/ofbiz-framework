@@ -121,7 +121,7 @@ public class ScreenFactory {
                     if (screenFileUrl == null) {
                         throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
                     }
-                    Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true);
+                    Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true, true);
                     modelScreenMap = readScreenDocument(screenFileDoc, resourceName);
                     screenLocationCache.put(resourceName, modelScreenMap);
                     double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
@@ -150,7 +150,7 @@ public class ScreenFactory {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
 
                     URL screenFileUrl = servletContext.getResource(resourceName);
-                    Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true);
+                    Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true, true);
                     modelScreenMap = readScreenDocument(screenFileDoc, resourceName);
                     screenWebappCache.put(cacheKey, modelScreenMap);
                 }

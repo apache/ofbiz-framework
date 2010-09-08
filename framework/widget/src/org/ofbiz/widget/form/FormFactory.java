@@ -59,7 +59,7 @@ public class FormFactory {
         }
         */
         URL formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
-        Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
+        Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
         return readFormDocument(formFileDoc, entityModelReader, dispatchContext, resourceName);
     }
 
@@ -78,7 +78,7 @@ public class FormFactory {
                     }
                     */
                     URL formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
-                    Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
+                    Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
                     if (formFileDoc == null) {
                         throw new IllegalArgumentException("Could not find resource [" + resourceName + "]");
                     }
@@ -106,7 +106,7 @@ public class FormFactory {
                     Delegator delegator = (Delegator) request.getAttribute("delegator");
                     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
                     URL formFileUrl = servletContext.getResource(resourceName);
-                    Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
+                    Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
                     Element formElement = UtilXml.firstChildElement(formFileDoc.getDocumentElement(), "form", "name", formName);
                     modelForm = new ModelForm(formElement, delegator.getModelReader(), dispatcher.getDispatchContext());
                     modelForm.setFormLocation(resourceName);

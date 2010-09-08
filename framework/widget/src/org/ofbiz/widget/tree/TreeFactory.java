@@ -62,7 +62,7 @@ public class TreeFactory {
 
                     URL treeFileUrl = null;
                     treeFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
-                    Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true);
+                    Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true, true);
                     modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher, resourceName);
                     treeLocationCache.put(resourceName, modelTreeMap);
                 }
@@ -92,7 +92,7 @@ public class TreeFactory {
                     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
                     URL treeFileUrl = servletContext.getResource(resourceName);
-                    Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true);
+                    Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true, true);
                     modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher, cacheKey);
                     treeWebappCache.put(cacheKey, modelTreeMap);
                 }
