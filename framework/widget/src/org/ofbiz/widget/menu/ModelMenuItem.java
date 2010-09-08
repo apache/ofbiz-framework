@@ -315,6 +315,9 @@ public class ModelMenuItem {
         return modelMenu;
     }
 
+    public List<ModelMenuAction> getActions() {
+        return actions;
+    }
 
     public String getEntityName() {
         if (UtilValidate.isNotEmpty(this.entityName)) {
