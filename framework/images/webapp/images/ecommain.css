@@ -303,9 +303,9 @@ margin:0 0 0 10px;
 }
 
 #ecom-mainarea .center {
-margin-left:150px;
-margin-right:150px;
 voice-family:inherit;
+overflow:hidden;
+padding:0px 10px;
 }
 
 #ecom-mainarea .leftonly {
@@ -1037,39 +1037,32 @@ display: inline-block;
 }
 
 #productImageBox {
-width: 770px;
+width:100%;
 border-top: 1px #BBBBBB solid;
 display: inline-block;
 }
 div.additionalImage {
-width: 200px;
 }
 
 #detailImageBox {
 float: left;
-height: 800px;
-width: 272px;
+width:50%;
 }
 #additionalImageBox {
 float: left;
-width: 272px;
 }
 
 #productDetailBox {
 float: right;
-height: 266px;
-padding: 266px 0;
-width: 200px;
+width:50%;
 }
 
 #addItemForm {
 clear: both;
-width : 600px;
 border-top: 1px #BBBBBB solid;
 }
 
 #paginationBox {
-width : 600px;
 border-top: 1px #BBBBBB solid;
 border-bottom: 1px #BBBBBB solid;
 }
