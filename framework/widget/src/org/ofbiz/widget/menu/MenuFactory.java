@@ -62,7 +62,7 @@ public class MenuFactory {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
 
                     URL menuFileUrl = servletContext.getResource(resourceName);
-                    Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true);
+                    Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
                     modelMenuMap = readMenuDocument(menuFileDoc, cacheKey);
                     menuWebappCache.put(cacheKey, modelMenuMap);
                 }
@@ -112,7 +112,7 @@ public class MenuFactory {
 
                     URL menuFileUrl = null;
                     menuFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
-                    Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true);
+                    Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
                     modelMenuMap = readMenuDocument(menuFileDoc, resourceName);
                     menuLocationCache.put(resourceName, modelMenuMap);
                 }
