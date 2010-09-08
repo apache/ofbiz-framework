@@ -2377,6 +2377,7 @@ under the License.
         <field name="destinationFacilityId" type="id"></field>
         <field name="needsInventoryReceive" type="indicator"></field>
         <field name="currencyUomId" type="id-ne"></field>
+        <field name="supplierRmaId" type="id"></field>
         <prim-key field="returnId"/>
         <relation type="one" fk-name="RTN_HEAD_TYPE" rel-entity-name="ReturnHeaderType">
             <key-map field-name="returnHeaderTypeId"/>
