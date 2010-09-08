@@ -93,6 +93,7 @@ under the License.
         <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="recurringAmount" type="BigDecimal" mode="IN" optional="true"/>
     </service>
     <service name="removeFeatureFromProduct" engine="simple"
                 location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeFeatureFromProduct" auth="true">
