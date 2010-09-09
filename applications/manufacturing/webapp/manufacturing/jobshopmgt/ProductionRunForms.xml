@@ -141,6 +141,7 @@ under the License.
     <form name="ListProductionRunInventoryItems" type="list" title="" list-name="inventoryItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
+            <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
             <entity-condition entity-name="InventoryItemDetail" list="inventoryItemDetails">
                 <condition-expr field-name="inventoryItemId" operator="equals" from-field="inventoryItemId"/>
                 <order-by field-name="inventoryItemDetailSeqId"/>
@@ -152,10 +153,11 @@ under the License.
                 <parameter param-name="inventoryItemId"/>
             </hyperlink>
         </field>
-        <field name="lotId" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${lotId} "/></field>
-        <field name="unitCost" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${unitCost} "/></field>
+        <field name="lotId" map-name="inventoryItem"><display/></field>
+        <field name="statusId" map-name="inventoryItem"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="unitCost" map-name="inventoryItem"><display/></field>
         <field name="quantity" entry-name="quantityOnHandDiff"><display/></field>
-        <field name="creationDate" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${datetimeReceived}"/></field>
+        <field name="datetimeReceived" map-name="inventoryItem"><display/></field>
     </form>
 
      <form name="ViewListProductionRunRoutingTasks" type="list" title="" list-name="productionRunRoutingTasks"
