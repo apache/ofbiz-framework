@@ -25,7 +25,7 @@ rem ### Delete the last log
 rem del %OFBIZ_LOG%
 
 rem ###VM args block ####################################################
-rem set MEMIF=-Xms128M -Xmx512M -XX:MaxPermSize=128m
+rem set MEMIF=-Xms128M -Xmx512M -XX:MaxPermSize=512m
 rem # RMI settings
 rem set DEBUG=-Dsun.rmi.server.exceptionTrace=true
 rem # Automatic IP address for Windows
@@ -47,12 +47,12 @@ rem ### start ofbiz with previous set VMARGS
 rem "%JAVA_HOME%\bin\java" %VMARGS% -jar ofbiz.jar > %OFBIZ_LOG%
 
 rem ### This one is for more of a debugging mode
-rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=128m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar ofbiz.jar > runtime\logs\console.log
+rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=512m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar ofbiz.jar > runtime\logs\console.log
 
 rem ### Simple easy to read line
 echo on
-"%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=128m -jar ofbiz.jar -pos
+"%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=512m -jar ofbiz.jar -pos
 echo off
 rem ### If you would prefer the console output to be logged rather than displayed switch out the above line for this one
-rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=128m -jar ofbiz.jar > runtime\logs\console.log
+rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=512m -jar ofbiz.jar > runtime\logs\console.log
  

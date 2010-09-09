@@ -30,7 +30,7 @@ OFBIZ_HOME=/home/ofbiz/ofbiz
 OFBIZ_LOG=$OFBIZ_HOME/runtime/logs/console.log
 
 # VM Options
-JAVA_VMOPTIONS="-Xms128M -Xmx512M -XX:MaxPermSize=128m"
+JAVA_VMOPTIONS="-Xms128M -Xmx512M -XX:MaxPermSize=512m"
 
 # Java arguments
 JAVA_ARGS="-jar ofbiz.jar"
