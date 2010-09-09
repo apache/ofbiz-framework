@@ -49,10 +49,12 @@ under the License.
         <create-value value-field="newValue"/>
         
         <!-- now create the FacilityContactMechPurpose record -->
-        <make-value value-field="facilityContactMechPurpose" entity-name="FacilityContactMechPurpose"/>
-        <set-pk-fields map="newValue" value-field="facilityContactMechPurpose"/>
-        <set field="facilityContactMechPurpose.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
-        <create-value value-field="facilityContactMechPurpose"/>
+        <if-not-empty field="parameters.contactMechPurposeTypeId">        
+            <make-value value-field="facilityContactMechPurpose" entity-name="FacilityContactMechPurpose"/>
+            <set-pk-fields map="newValue" value-field="facilityContactMechPurpose"/>
+            <set field="facilityContactMechPurpose.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
+            <create-value value-field="facilityContactMechPurpose"/>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="updateFacilityContactMech" short-description="Update a FacilityContactMech">
