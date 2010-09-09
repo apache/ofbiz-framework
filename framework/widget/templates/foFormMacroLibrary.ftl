@@ -43,7 +43,7 @@ under the License.
 
 <#macro renderField text><#if text?exists>${text}</#if></#macro>
 
-<#macro renderDisplayField type imageLocation idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
+<#macro renderDisplayField type imageLocation idName description title class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
 <@makeBlock class description />
 </#macro>
 <#macro renderHyperlinkField></#macro>
@@ -102,8 +102,7 @@ under the License.
 <#macro renderFormatItemRowFormCellOpen style><fo:table-cell></#macro>
 <#macro renderFormatItemRowFormCellClose></fo:table-cell></#macro>
 
-<#-- TODO: multi columns (position attribute) in single forms are still not implemented -->
-<#macro renderFormatSingleWrapperOpen formName style><fo:table><fo:table-column column-width="2in"/><fo:table-column/><fo:table-body></#macro>
+<#macro renderFormatSingleWrapperOpen formName style><fo:table><fo:table-column column-width="1.75in"/><fo:table-column column-width="1.75in"/><fo:table-column column-width="1.75in"/><fo:table-column column-width="1.75in"/><fo:table-body></#macro>
 <#macro renderFormatSingleWrapperClose formName></fo:table-body></fo:table></#macro>
 
 <#macro renderFormatFieldRowOpen><fo:table-row></#macro>
@@ -111,7 +110,7 @@ under the License.
 <#macro renderFormatFieldRowTitleCellOpen style><fo:table-cell font-weight="bold" text-align="right" padding="3pt"><fo:block></#macro>
 <#macro renderFormatFieldRowTitleCellClose></fo:block></fo:table-cell></#macro>
 <#macro renderFormatFieldRowSpacerCell></#macro>
-<#macro renderFormatFieldRowWidgetCellOpen positionSpan style><fo:table-cell text-align="left" padding="2pt" padding-left="5pt"></#macro>
+<#macro renderFormatFieldRowWidgetCellOpen positionSpan style><fo:table-cell text-align="left" padding="2pt" padding-left="5pt" <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if>></#macro>
 <#macro renderFormatFieldRowWidgetCellClose></fo:table-cell></#macro>
 
 <#macro renderFormatEmptySpace> </#macro>
