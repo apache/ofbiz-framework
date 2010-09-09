@@ -448,7 +448,19 @@ under the License.
     </request-map>
     <request-map uri="createProductionRun">
         <security https="true" auth="true"/>
+        <event type="simple" path="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunSimpleEvents.xml" invoke="createProductionRun"/>        
+        <response name="createProductionRunsForProductBom" type="request" value="createProductionRunsForProductBom"/>
+        <response name="createProductionRunSingle" type="request" value="createProductionRunSingle"/>
+    </request-map>
+    <request-map uri="createProductionRunsForProductBom">
+        <security https="true" auth="true"/>
         <event type="service" invoke="createProductionRunsForProductBom"/>
+        <response name="success" type="view" value="EditProductionRun"/>
+        <response name="error" type="view" value="CreateProductionRun"/>
+    </request-map>
+    <request-map uri="createProductionRunSingle">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProductionRun"/>
         <response name="success" type="view" value="EditProductionRun"/>
         <response name="error" type="view" value="CreateProductionRun"/>
     </request-map>

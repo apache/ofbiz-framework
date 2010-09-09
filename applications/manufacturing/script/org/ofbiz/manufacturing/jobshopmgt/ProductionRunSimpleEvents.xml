@@ -159,5 +159,16 @@ under the License.
         <call-service service-name="addProductionRunRoutingTask" in-map-name="context">
         </call-service>
     </simple-method>
+    <simple-method method-name="createProductionRun" short-description="Based on selected options, calls one of the specialized services to create a production run.">
+        <if-compare field="parameters.createDependentProductionRuns" operator="equals" value="Y">
+                <return response-code="createProductionRunsForProductBom"/>
+            <else>
+                <set field="parameters.pRQuantity" from-field="parameters.quantity" type="BigDecimal"/>
+                <field-to-request field="parameters.quantity" request-name="pRQuantity"/>
+                <return response-code="createProductionRunSingle"/>
+            </else>
+        </if-compare>
+    </simple-method>
+
 </simple-methods>
 
