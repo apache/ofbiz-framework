@@ -569,10 +569,10 @@
     <screen name="mytasks">
         <section>
             <condition>
-                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <if-compare-field field="parameters.partyId" operator="equals" to-field="userLogin.partyId"/>
             </condition>
             <actions>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <service service-name="getWorkEffortAssignedActivities"/>
                 <service service-name="getWorkEffortAssignedActivitiesByRole"/>
                 <service service-name="getWorkEffortAssignedActivitiesByGroup"/>
