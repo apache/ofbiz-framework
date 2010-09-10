@@ -518,6 +518,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         String paramName = modelFormField.getParameterName(context);
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
+        
+        String event = modelFormField.getEvent();
+        String action = modelFormField.getAction(context);        
 
         Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
@@ -587,6 +590,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(idName);
             writer.append('"');
         }
+        
+        if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
+            writer.append(" ");
+            writer.append(event);
+            writer.append("=\"");
+            writer.append(action);
+            writer.append('"');
+        }        
 
         writer.append("/>");
 
@@ -834,7 +845,6 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(otherFieldName);
                 writer.append(")\" ");
             }
-
 
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
                 writer.append(" ");
