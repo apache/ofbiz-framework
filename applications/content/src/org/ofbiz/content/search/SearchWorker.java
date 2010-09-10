@@ -53,46 +53,46 @@ public class SearchWorker {
 
     public static final String module = SearchWorker.class.getName();
 
-        public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context, String path) throws Exception {
+    public static Map<String, Object> indexTree(LocalDispatcher dispatcher, Delegator delegator, String siteId, Map<String, Object> context, String path) throws Exception {
 
-            Map<String, Object> results = FastMap.newInstance();
-            GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
-                if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId + " content:" + content, module);
-            List<GenericValue> siteList = ContentWorker.getAssociatedContent(content, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK"), null, UtilDateTime.nowTimestamp().toString(), null);
+        Map<String, Object> results = FastMap.newInstance();
+        GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
+        if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId + " content:" + content, module);
+        List<GenericValue> siteList = ContentWorker.getAssociatedContent(content, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK"), null, UtilDateTime.nowTimestamp().toString(), null);
         //if (Debug.infoOn()) Debug.logInfo("in indexTree, siteList:" + siteList, module);
-            if (siteList != null) {
-                Iterator<GenericValue> iter = siteList.iterator();
-                while (iter.hasNext()) {
-                    GenericValue siteContent = iter.next();
-                    String siteContentId = siteContent.getString("contentId");
-                    List<GenericValue> subContentList = ContentWorker.getAssociatedContent(siteContent, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
-              //if (Debug.infoOn()) Debug.logInfo("in indexTree, subContentList:" + subContentList, module);
-                    if (subContentList != null) {
-                        List<String> contentIdList = FastList.newInstance();
-                        Iterator<GenericValue> iter2 = subContentList.iterator();
-                        while (iter2.hasNext()) {
-                            GenericValue subContent = iter2.next();
-                            contentIdList.add(subContent.getString("contentId"));
-                        }
-                  //if (Debug.infoOn()) Debug.logInfo("in indexTree, contentIdList:" + contentIdList, module);
-                        indexContentList(contentIdList, delegator, dispatcher, context);
-
-                        String subSiteId = siteContent.getString("contentId");
-                        indexTree(dispatcher, delegator, subSiteId, context, path);
-                    } else {
-                        List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
-                        badIndexList.add(siteContentId + " had no sub-entities.");
+        if (siteList != null) {
+            Iterator<GenericValue> iter = siteList.iterator();
+            while (iter.hasNext()) {
+                GenericValue siteContent = iter.next();
+                String siteContentId = siteContent.getString("contentId");
+                List<GenericValue> subContentList = ContentWorker.getAssociatedContent(siteContent, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
+                //if (Debug.infoOn()) Debug.logInfo("in indexTree, subContentList:" + subContentList, module);
+                if (subContentList != null) {
+                    List<String> contentIdList = FastList.newInstance();
+                    Iterator<GenericValue> iter2 = subContentList.iterator();
+                    while (iter2.hasNext()) {
+                        GenericValue subContent = iter2.next();
+                        contentIdList.add(subContent.getString("contentId"));
                     }
+                    //if (Debug.infoOn()) Debug.logInfo("in indexTree, contentIdList:" + contentIdList, module);
+                    indexContentList(contentIdList, delegator, dispatcher, context);
+
+                    String subSiteId = siteContent.getString("contentId");
+                    indexTree(dispatcher, delegator, subSiteId, context, path);
+                } else {
+                    List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
+                    badIndexList.add(siteContentId + " had no sub-entities.");
                 }
-            } else {
-                List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
-                badIndexList.add(siteId + " had no sub-entities.");
             }
-            results.put("badIndexList", context.get("badIndexList"));
-            results.put("goodIndexCount", context.get("goodIndexCount"));
-            //if (Debug.infoOn()) Debug.logInfo("in indexTree, results:" + results, module);
-            return results;
+        } else {
+            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
+            badIndexList.add(siteId + " had no sub-entities.");
         }
+        results.put("badIndexList", context.get("badIndexList"));
+        results.put("goodIndexCount", context.get("goodIndexCount"));
+        //if (Debug.infoOn()) Debug.logInfo("in indexTree, results:" + results, module);
+        return results;
+    }
 
     public static void indexContentList(List<String> idList, Delegator delegator, LocalDispatcher dispatcher, Map<String, Object> context) throws Exception {
         String path = null;
@@ -101,8 +101,7 @@ public class SearchWorker {
 
     public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, List<String> idList, String path) throws Exception {
         String indexAllPath = getIndexPath(path);
-        if (Debug.infoOn())
-            Debug.logInfo("in indexContent, indexAllPath:" + indexAllPath, module);
+        if (Debug.infoOn()) Debug.logInfo("in indexContent, indexAllPath:" + indexAllPath, module);
         GenericValue content = null;
         // Delete existing documents
         Iterator<String> iter = null;
@@ -119,8 +118,7 @@ public class SearchWorker {
         iter = idList.iterator();
         while (iter.hasNext()) {
             String id = iter.next();
-            if (Debug.infoOn())
-                Debug.logInfo("in indexContent, id:" + id, module);
+            if (Debug.infoOn()) Debug.logInfo("in indexContent, id:" + id, module);
             try {
                 content = delegator.findByPrimaryKeyCache("Content", UtilMisc .toMap("contentId", id));
                 if (content != null) {
@@ -155,17 +153,16 @@ public class SearchWorker {
         writer.close();
     }
 
-
     public static void deleteContentDocument(GenericValue content, String path) throws Exception {
         String indexAllPath = null;
         indexAllPath = getIndexPath(path);
         IndexReader reader = IndexReader.open(indexAllPath);
-            deleteContentDocument(content, reader);
-            reader.close();
+        deleteContentDocument(content, reader);
+        reader.close();
     }
 
     public static void deleteContentDocument(GenericValue content, IndexReader reader) throws Exception {
-            String contentId = content.getString("contentId");
+        String contentId = content.getString("contentId");
         Term term = new Term("contentId", contentId);
         if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
         int qtyDeleted = reader.deleteDocuments(term);
@@ -174,51 +171,47 @@ public class SearchWorker {
         if (dataResourceId != null) {
             deleteDataResourceDocument(dataResourceId, reader);
         }
-
     }
-
 
     public static void deleteDataResourceDocument(String dataResourceId, IndexReader reader) throws Exception {
         Term term = new Term("dataResourceId", dataResourceId);
         if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
         int qtyDeleted = reader.deleteDocuments(term);
         if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + qtyDeleted, module);
-
     }
 
     public static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, GenericValue content, String path) throws Exception {
         String indexAllPath = getIndexPath(path);
         IndexWriter writer = null;
         try {
-               writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
-                    if (Debug.infoOn()) Debug.logInfo("Used old directory:" + indexAllPath, module);
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
+            if (Debug.infoOn()) Debug.logInfo("Used old directory:" + indexAllPath, module);
         } catch (FileNotFoundException e) {
-               writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
-                    if (Debug.infoOn()) Debug.logInfo("Created new directory:" + indexAllPath, module);
+            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
+            if (Debug.infoOn()) Debug.logInfo("Created new directory:" + indexAllPath, module);
         }
 
         indexContent(dispatcher, delegator, context, content, writer);
-           writer.optimize();
+        writer.optimize();
         writer.close();
     }
 
     public static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, GenericValue content, IndexWriter writer) throws Exception {
         Document doc = ContentDocument.Document(content, context, dispatcher);
         //if (Debug.infoOn()) Debug.logInfo("in indexContent, content:" + content, module);
-            if (doc != null) {
-                writer.addDocument(doc);
-                Integer goodIndexCount = (Integer)context.get("goodIndexCount");
-                int newCount = goodIndexCount.intValue() + 1;
-                Integer newIndexCount = Integer.valueOf(newCount);
-                context.put("goodIndexCount", newIndexCount);
-            }
-            /*
+        if (doc != null) {
+            writer.addDocument(doc);
+            Integer goodIndexCount = (Integer)context.get("goodIndexCount");
+            int newCount = goodIndexCount.intValue() + 1;
+            Integer newIndexCount = Integer.valueOf(newCount);
+            context.put("goodIndexCount", newIndexCount);
+        }
+        /*
             String dataResourceId = content.getString("dataResourceId");
             if (UtilValidate.isNotEmpty(dataResourceId)) {
                 indexDataResource(delegator, context, dataResourceId, writer);
             }
-            */
-
+         */
     }
 
     public static void indexDataResource(Delegator delegator, Map<String, Object> context, String id) throws Exception {
@@ -237,7 +230,6 @@ public class SearchWorker {
         indexDataResource(delegator, context, id, writer);
         writer.optimize();
         writer.close();
-
     }
 
     public static void indexDataResource(Delegator delegator, Map<String, Object> context, String id, IndexWriter writer) throws Exception {
@@ -247,11 +239,12 @@ public class SearchWorker {
 
     public static String getIndexPath(String path) {
         String indexAllPath = path;
-        if (UtilValidate.isEmpty(indexAllPath))
+        if (UtilValidate.isEmpty(indexAllPath)) {
             indexAllPath = UtilProperties.getPropertyValue("search", "defaultIndex");
-        if (UtilValidate.isEmpty(indexAllPath))
+        }
+        if (UtilValidate.isEmpty(indexAllPath)) {
             indexAllPath = "index";
+        }
         return indexAllPath;
-
     }
 }
