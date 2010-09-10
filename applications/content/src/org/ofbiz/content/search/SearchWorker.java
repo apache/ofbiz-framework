@@ -169,7 +169,7 @@ public class SearchWorker {
         Term term = new Term("contentId", contentId);
         if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
         int qtyDeleted = reader.deleteDocuments(term);
-        if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + term, module);
+        if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + qtyDeleted, module);
         String dataResourceId = content.getString("dataResourceId");
         if (dataResourceId != null) {
             deleteDataResourceDocument(dataResourceId, reader);
@@ -182,7 +182,7 @@ public class SearchWorker {
         Term term = new Term("dataResourceId", dataResourceId);
         if (Debug.infoOn()) Debug.logInfo("in indexContent, term:" + term, module);
         int qtyDeleted = reader.deleteDocuments(term);
-        if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + term, module);
+        if (Debug.infoOn()) Debug.logInfo("in indexContent, qtyDeleted:" + qtyDeleted, module);
 
     }
 
