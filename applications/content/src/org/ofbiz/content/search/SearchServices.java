@@ -44,14 +44,14 @@ public class SearchServices {
 
         String siteId = (String) context.get("contentId");
         String path = (String) context.get("path");
-        Map envContext = FastMap.newInstance();
+        Map<String, Object> envContext = FastMap.newInstance();
 
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId, module);
-        List badIndexList = FastList.newInstance();
+        List<String> badIndexList = FastList.newInstance();
         envContext.put("badIndexList", badIndexList);
         envContext.put("goodIndexCount", Integer.valueOf(0));
 
-        Map results;
+        Map<String, Object> results;
         try {
             results = SearchWorker.indexTree(dispatcher, delegator, siteId, envContext, path);
         } catch (Exception e) {

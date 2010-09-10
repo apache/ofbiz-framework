@@ -28,6 +28,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
@@ -46,13 +47,13 @@ public class SearchEvents {
 
     public static String indexTree(HttpServletRequest request, HttpServletResponse response) {
 
-        Map result;
-        Map serviceInMap = FastMap.newInstance();
+        Map<String, Object> result;
+        Map<String, Object> serviceInMap = FastMap.newInstance();
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         serviceInMap.put("userLogin", userLogin);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String siteId = (String)paramMap.get("contentId");
         serviceInMap.put("contentId", siteId);
         try {
@@ -67,7 +68,7 @@ public class SearchEvents {
         if (Debug.infoOn()) Debug.logInfo("errMsg:" + errMsg, module);
         if (Debug.infoOn()) Debug.logInfo("result:" + result, module);
         if (UtilValidate.isEmpty(errMsg)) {
-            List badIndexList = (List)result.get("badIndexList");
+            List<String> badIndexList = UtilGenerics.checkList(result.get("badIndexList"));
             if (Debug.infoOn()) Debug.logInfo("badIndexList:" + badIndexList, module);
             String badIndexMsg = StringUtil.join(badIndexList, "\n") + badIndexList.size() + " entities not indexed";
             Integer goodIndexCount = (Integer)result.get("goodIndexCount");
