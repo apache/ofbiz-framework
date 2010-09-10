@@ -378,6 +378,7 @@ function setLookDescription(textFieldId, description) {
     if (description) {
         var start = description.lastIndexOf(' [');
         if (start != -1) {
+        /* this breaks many existing fields, so commenting for now: assumes main field is the name field and id field is hidden, determines Name/Id fields based on name instead of using description-field-name attribute
             // To allow to set a dependent Id field when using a Name field as a lookup (the fields must have the same prefix, eg: partyName, partyId)
             // It uses the description (Id) shown with the Name. Hence the Lookup screen must be set in order to show a description in the autocomplete part. 
             // It seems this is not always easy notably when you need to show at least 2 parts for the Name (eg Person). 
@@ -392,9 +393,12 @@ function setLookDescription(textFieldId, description) {
             if ($(dependentId)) {            
                 $(dependentId).value = dependentIdValue;
             }
+         */
              
             description = description.substring(0, start);
+        /*
             $(dependentId).value = description;
+         */
         }
     }
     var lookupWrapperEl = $(textFieldId).up('.field-lookup');
