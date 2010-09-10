@@ -747,7 +747,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         return isWhen;
     }
 
-    public static List getAssociatedContent(GenericValue currentContent, String linkDir, List assocTypes, List contentTypes, String fromDate, String thruDate)
+    public static List<GenericValue> getAssociatedContent(GenericValue currentContent, String linkDir, List assocTypes, List contentTypes, String fromDate, String thruDate)
         throws GenericEntityException {
 
         Delegator delegator = currentContent.getDelegator();
