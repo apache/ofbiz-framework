@@ -1705,6 +1705,27 @@ under the License.
         <response name="success" type="view" value="showcart"/>
         <response name="error" type="view" value="showcart"/>
     </request-map>
+
+    <request-map uri="clearSearchOptionsHistoryList">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.product.product.ProductSearchSession" invoke="clearSearchOptionsHistoryList"/>
+        <response name="success" type="view" value="advancedsearch"/>
+        <response name="error" type="view" value="advancedsearch"/>
+    </request-map>
+    <request-map uri="setCurrentSearchFromHistory">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.product.product.ProductSearchSession" invoke="setCurrentSearchFromHistory"/>
+        <response name="success" type="view" value="advancedsearch"/>
+        <response name="error" type="view" value="advancedsearch"/>
+    </request-map>
+    <request-map uri="setCurrentSearchFromHistoryAndSearch">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.product.product.ProductSearchSession" invoke="setCurrentSearchFromHistory"/>
+        <response name="success" type="request" value="keywordsearch"/>
+        <response name="error" type="view" value="advancedsearch"/>
+    </request-map>
+
+
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the
