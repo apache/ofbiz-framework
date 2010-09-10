@@ -59,14 +59,14 @@ public class SearchWorker {
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId + " content:" + content, module);
         List<GenericValue> siteList = ContentWorker.getAssociatedContent(content, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK"), null, UtilDateTime.nowTimestamp().toString(), null);
-        //if (Debug.infoOn()) Debug.logInfo("in indexTree, siteList:" + siteList, module);
+
         if (siteList != null) {
             Iterator<GenericValue> iter = siteList.iterator();
             while (iter.hasNext()) {
                 GenericValue siteContent = iter.next();
                 String siteContentId = siteContent.getString("contentId");
                 List<GenericValue> subContentList = ContentWorker.getAssociatedContent(siteContent, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
-                //if (Debug.infoOn()) Debug.logInfo("in indexTree, subContentList:" + subContentList, module);
+
                 if (subContentList != null) {
                     List<String> contentIdList = FastList.newInstance();
                     Iterator<GenericValue> iter2 = subContentList.iterator();
@@ -74,7 +74,7 @@ public class SearchWorker {
                         GenericValue subContent = iter2.next();
                         contentIdList.add(subContent.getString("contentId"));
                     }
-                    //if (Debug.infoOn()) Debug.logInfo("in indexTree, contentIdList:" + contentIdList, module);
+
                     indexContentList(contentIdList, delegator, dispatcher, context);
 
                     String subSiteId = siteContent.getString("contentId");
@@ -90,7 +90,7 @@ public class SearchWorker {
         }
         results.put("badIndexList", context.get("badIndexList"));
         results.put("goodIndexCount", context.get("goodIndexCount"));
-        //if (Debug.infoOn()) Debug.logInfo("in indexTree, results:" + results, module);
+
         return results;
     }
 
@@ -112,8 +112,7 @@ public class SearchWorker {
         } catch (Exception e) {
             // ignore
         }
-        //if (Debug.infoOn()) Debug.logInfo("in indexContent, reader:" +
-        // reader, module);
+
         contentList = FastList.newInstance();
         iter = idList.iterator();
         while (iter.hasNext()) {
@@ -142,8 +141,7 @@ public class SearchWorker {
         } catch (Exception e) {
             writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
         }
-        //if (Debug.infoOn()) Debug.logInfo("in indexContent, writer:" +
-        // writer, module);
+
         Iterator<GenericValue> contentListIter = contentList.iterator();
         while (contentListIter.hasNext()) {
             content = contentListIter.next();
@@ -198,7 +196,7 @@ public class SearchWorker {
 
     public static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, GenericValue content, IndexWriter writer) throws Exception {
         Document doc = ContentDocument.Document(content, context, dispatcher);
-        //if (Debug.infoOn()) Debug.logInfo("in indexContent, content:" + content, module);
+
         if (doc != null) {
             writer.addDocument(doc);
             Integer goodIndexCount = (Integer)context.get("goodIndexCount");
