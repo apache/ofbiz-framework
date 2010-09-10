@@ -68,6 +68,19 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-service-permission service-name="workEffortManagerPermission" main-action="VIEW"/>
+                                    <not><if-empty field="workEffortId"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="WorkEffortTabBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -81,7 +94,6 @@ under the License.
                                         </not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="WorkEffortTabBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                                         <container style="h1">
                                             <label>${uiLabelMap[titleProperty]} - ${workEffort.workEffortName} [${workEffortId}]</label>
                                         </container>
