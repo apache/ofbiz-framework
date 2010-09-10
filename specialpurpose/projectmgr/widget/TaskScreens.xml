@@ -125,6 +125,7 @@ under the License.
     <screen name="MyTaskList">
         <section>
             <actions>
+                <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <entity-and entity-name="WorkEffortAndPartyAssign" list="tasks" filter-by-date="true">
                     <field-map field-name="partyId" from-field="userLogin.partyId"/>
                     <field-map field-name="workEffortTypeId" value="TASK"/>
