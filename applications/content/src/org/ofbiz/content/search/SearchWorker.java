@@ -240,10 +240,7 @@ public class SearchWorker {
     public static String getIndexPath(String path) {
         String indexAllPath = path;
         if (UtilValidate.isEmpty(indexAllPath)) {
-            indexAllPath = UtilProperties.getPropertyValue("search", "defaultIndex");
-        }
-        if (UtilValidate.isEmpty(indexAllPath)) {
-            indexAllPath = "index";
+            indexAllPath = UtilProperties.getPropertyValue("search", "defaultIndex", "index");
         }
         return indexAllPath;
     }
