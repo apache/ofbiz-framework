@@ -64,6 +64,7 @@ try {
 } catch (java.io.FileNotFoundException e) {
     request.setAttribute("errorMsgReq", "No index file exists.");
     Debug.logError("in search, error:" + e.getMessage(), "");
+    return;
 }
 
 if (queryLine || siteId) {
@@ -117,23 +118,23 @@ if (searchFeature1 || searchFeature2 || searchFeature3 || !featureIdByType.isEmp
         }
         combQuery.add(featureQuery, featuresRequired);
     }
-
-    if (searcher) {
-        Debug.logInfo("in search searchFeature3, combQuery:" + combQuery.toString(), "");
-        Hits hits = searcher.search(combQuery);
-        Debug.logInfo("in search, hits:" + hits.length(), "");
-
-        contentList = [] as ArrayList;
-        hitSet = [:] as HashSet;
-        for (int start = 0; start < hits.length(); start++) {
-             doc = hits.doc(start);
-             contentId = doc.contentId;
-             content = delegator.findOne("Content", [contentId : contentId], true);
-             if (!hitSet.contains(contentId)) {
-                 contentList.add(content);
-                 hitSet.add(contentId);
-             }
-        }
-        context.queryResults = contentList;
-    }
 }
+if (searcher) {
+    Debug.logInfo("in search searchFeature3, combQuery:" + combQuery.toString(), "");
+    Hits hits = searcher.search(combQuery);
+    Debug.logInfo("in search, hits:" + hits.length(), "");
+
+    contentList = [] as ArrayList;
+    hitSet = [:] as HashSet;
+    for (int start = 0; start < hits.length(); start++) {
+         doc = hits.doc(start);
+         contentId = doc.contentId;
+         content = delegator.findOne("Content", [contentId : contentId], true);
+         if (!hitSet.contains(contentId)) {
+             contentList.add(content);
+             hitSet.add(contentId);
+         }
+    }
+    context.queryResults = contentList;
+}
+
