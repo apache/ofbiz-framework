@@ -803,7 +803,7 @@ public class UtilXml {
         if (node != null) {
             do {
                 if (node.getNodeType() == Node.ELEMENT_NODE && (childElementName == null ||
-                        childElementName.equals(node.getNodeName()))) {
+                        childElementName.equals(node.getLocalName()))) {
                     Element childElement = (Element) node;
                     return childElement;
                 }
