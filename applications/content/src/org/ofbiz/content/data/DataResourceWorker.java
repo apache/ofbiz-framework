@@ -870,7 +870,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             } else {
                 out.append(textData);
             }
-        } else if ("text/plain".equals(targetMimeTypeId)) {
+        } else {
             out.append(textData);
         }
     }
