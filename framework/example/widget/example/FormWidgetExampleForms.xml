@@ -296,28 +296,27 @@ under the License.
 
     </form>
 
-    <!-- Lookup Layer Example -->
+    <!-- Lookup Examples -->
     <form name="ExampleLookupFields" type="single" title="">
         <!-- Old style lookup (in a popup window) -->
-        <!-- Using separated labels is not recommended (it's better using sentences than words for translation) -->
-        <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}"><!-- we use partyIdFrom here only to differentiate from the other partyId field we use below, ie partyIdTo-->
-            <lookup target-form-name="LookupPartyExample" presentation="window"/>
+        <field name="partyIdTo"><!-- we use partyIdTo here only to differentiate from the other partyId field we use below-->
+            <lookup target-form-name="LookupPartyName" presentation="window"/>
         </field>
         <!-- Standard lookup (in a layer)-->
-        <!-- passes the name in one and the id in another field -->
+        <!-- passes the name in one field and the id in another -->
         <field name="partyName" title="${uiLabelMap.CommonName}">
-            <lookup target-form-name="LookupPartyExampleByName" description-field-name="partyIdTo"/>
+            <lookup target-form-name="LookupPartyGroupByName" description-field-name="partyId"/>
         </field>
-        <!-- This field may be hidden and the name rendered in partyName using default-value if partyIdTo exists-->
-        <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}"><text/></field><!-- the text field is only used for rendering. In the "real life" you would use the hidden fiels commented below to pass the data to the request  -->
-        <!--field name="partyIdTo"><hidden/></field-->        
+        <!-- This field may be hidden and the name rendered in partyName using default-value if partyId is known when loading the form-->
+        <field name="partyId" title="${uiLabelMap.CommonPartyID}"><text/></field><!-- the text field is only used for rendering. In the "real life" you would use the hidden fiels commented below to pass the data to the request  -->
+        <!--field name="partyId"><hidden/></field-->        
         <sort-order>
             <field-group>
-                <sort-field name="partyIdFrom"/>
+                <sort-field name="partyIdTo"/>
             </field-group>
             <field-group>
                 <sort-field name="partyName"/>
-                <sort-field name="partyIdTo"/>
+                <sort-field name="partyId"/>
             </field-group>
         </sort-order>
     </form>
