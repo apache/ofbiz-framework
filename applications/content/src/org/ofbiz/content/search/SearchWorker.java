@@ -58,7 +58,7 @@ public class SearchWorker {
         Map<String, Object> results = FastMap.newInstance();
         GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId + " content:" + content, module);
-        List<GenericValue> siteList = ContentWorker.getAssociatedContent(content, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK"), null, UtilDateTime.nowTimestamp().toString(), null);
+        List<GenericValue> siteList = ContentWorker.getAssociatedContent(content, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
 
         if (siteList != null) {
             Iterator<GenericValue> iter = siteList.iterator();
