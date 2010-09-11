@@ -56,7 +56,7 @@
                                 </link>
                             </widgets>
                         </section>
-                        <link target="ViewBlogRss=" target-window="_blank">
+                        <link target="ViewBlogRss" target-window="_blank">
                             <parameter param-name="blogContentId" from-field="blogContent.contentId"/>
                             <parameter param-name="mainLinkReq" value="MainBlog"/>
                             <parameter param-name="entryLinkReq" value="ViewBlogArticle"/>
