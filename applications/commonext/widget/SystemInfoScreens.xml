@@ -24,8 +24,8 @@ under the License.
     <screen name="SystemInfoNotes">
         <section>
             <actions>
-                <service service-name="getSystemInfoNotes"
-                    result-map="resultMap"/>
+                <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
+                <service service-name="getSystemInfoNotes" result-map="resultMap"/>
                 <set field="systemInfoNotes" from-field="resultMap.systemInfoNotes"/>
             </actions>
             <widgets>
@@ -55,6 +55,7 @@ under the License.
     <screen name="SystemInfoStatus">
         <section>
             <actions>
+                <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
                 <service service-name="getSystemInfoStatus" result-map="resultMap"/>
                 <set field="systemInfoStatus" from-field="resultMap.systemInfoStatus"/>
             </actions>

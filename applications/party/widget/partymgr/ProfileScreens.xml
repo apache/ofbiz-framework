@@ -159,6 +159,7 @@
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetPaymentMethods.groovy"/>
             </actions>
             <widgets>
@@ -499,6 +500,7 @@
     <screen name="partyRelContacts">
         <section>
             <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <entity-one entity-name="Party" value-field="party"></entity-one>
                 <entity-and list="contacts" entity-name="PartyRelationship" filter-by-date="true">
                     <field-map field-name="partyIdFrom" from-field="parameters.partyId"/>

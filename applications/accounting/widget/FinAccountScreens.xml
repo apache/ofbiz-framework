@@ -280,6 +280,7 @@ under the License.
     <screen name="ListBankAccount">
         <section>
             <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="parameters.finAccountTypeId" value="BANK_ACCOUNT"/>
             </actions>
             <widgets>

@@ -66,6 +66,7 @@ under the License.
     <screen name="ApPastDueInvoices">
         <section>
            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="invoices" from-field="PastDueInvoices"/>
             </actions>
             <widgets>
@@ -78,6 +79,7 @@ under the License.
     <screen name="ApInvoicesDueSoon">
         <section>
             <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="invoices" from-field="InvoicesDueSoon"/>
             </actions>
             <widgets>

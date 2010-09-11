@@ -475,6 +475,7 @@ under the License.
     <screen name="ListCustomerOrders">
         <section>
             <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MyPortalUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="partyId" from-field="userLogin.partyId"/>
                 <set field="statusId" from-field="statusId"/>
@@ -493,6 +494,7 @@ under the License.
     <screen name="ListSalesOrders">
         <section>
             <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="filterDate" type="Timestamp" value="${nowTimestamp}"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderList.groovy"/>
             </actions>

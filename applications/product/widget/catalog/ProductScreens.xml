@@ -1215,6 +1215,7 @@ under the License.
     <screen name="BestSellingProducts">
         <section>
             <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="filterDate" type="Timestamp" from-field="nowTimestamp"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/BestProducts.groovy"/>
             </actions>
