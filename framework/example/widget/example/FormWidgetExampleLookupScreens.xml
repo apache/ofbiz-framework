@@ -79,11 +79,7 @@ under the License.
 
                 <!-- entries needed for lookup ajax auto completer -->
                 <!-- required: entity to search in -->
-                <set field="entityName" value="PartyGroup"/>
-
-                <!-- entries needed for lookup ajax auto completer -->
-                <!-- required: entity to search in -->
-                <set field="entityName" value="ViewCustomersList"/>
+                <set field="entityName" value="PartyAndGroup"/>
 
                 <!-- required: fields to search a match -->
                 <set field="searchFields" value="[groupName, partyId]"/>
