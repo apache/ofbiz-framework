@@ -42,6 +42,11 @@ under the License.
 
     <screen name="OrderReportSalesByStore">
         <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderReportSalesByStore}">
                     <include-form name="SalesByStoreReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
@@ -52,6 +57,10 @@ under the License.
 
     <screen name="OrderReportOpenOrderItems">
         <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderReportOpenOrderItems}">
                     <include-form name="OpenOrderItemsReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
@@ -62,6 +71,10 @@ under the License.
 
     <screen name="OrderReportPurchasesByOrganization">
         <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderReportPurchasesByOrganization}">
                     <include-form name="PurchasesByOrganizationReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
@@ -72,6 +85,10 @@ under the License.
 
     <screen name="OrderReportPurchasesByProduct">
         <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderReportPurchasesByProduct}">
                     <include-form name="OrderPurchaseProductOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
@@ -82,6 +99,10 @@ under the License.
 
     <screen name="OrderReportPurchasesByPaymentMethod">
         <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.OrderReportPurchasesByPaymentMethod}">
                     <include-form name="OrderPurchasePaymentOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
@@ -93,6 +114,9 @@ under the License.
     <!--New Screen-->
     <screen name="SalesReport">
         <section>
+            <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <screenlet title="Sales Report">
                     <include-form name="SalesReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
@@ -103,6 +127,9 @@ under the License.
 
     <screen name="NetBeforeOverheadReport">
         <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <screenlet title="Net Before Overhead Report">
                     <include-form name="NetBeforeOverheadReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
@@ -113,6 +140,9 @@ under the License.
     
     <screen name="ProductDemandReport">
         <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <screenlet title="Product Demand Report">
                     <include-form name="ProductDemandReport" location="component://order/widget/ordermgr/ReportForms.xml"/>

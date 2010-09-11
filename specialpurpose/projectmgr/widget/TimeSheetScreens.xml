@@ -203,6 +203,7 @@ under the License.
     <screen name="CurrentTimesheet">
         <section>
             <actions>
+                <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.groovy"/>
             </actions>
             <widgets>

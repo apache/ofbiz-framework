@@ -1029,6 +1029,7 @@ under the License.
     <screen name="ListCustomerProjects">
         <section>
             <actions>
+                <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/jsgantt.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/jsgantt.css" global="true"/>
                 <entity-condition list="projects" entity-name="WorkEffortPartyAssignByGroup" filter-by-date="true">

@@ -68,6 +68,7 @@ under the License.
     <screen name="ArPastDueInvoices">
         <section>
            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="invoices" from-field="PastDueInvoices"/>
             </actions>
             <widgets>
@@ -80,6 +81,7 @@ under the License.
     <screen name="ArInvoicesDueSoon">
         <section>
             <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="invoices" from-field="InvoicesDueSoon"/>
             </actions>
             <widgets>
