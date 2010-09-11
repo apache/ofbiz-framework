@@ -31,6 +31,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.content.ContentWorker;
@@ -65,12 +66,12 @@ public class ContentDocument {
               return doc;
           }
 
-        Map map = FastMap.newInstance();
+        Map<String, Object> map = FastMap.newInstance();
           doc = Document(content, map, dispatcher);
         return doc;
     }
 
-    public static Document Document(GenericValue content, Map context, LocalDispatcher dispatcher) throws InterruptedException {
+    public static Document Document(GenericValue content, Map<String, Object> context, LocalDispatcher dispatcher) throws InterruptedException {
 
         Document doc;
         // make a new, empty document
@@ -95,7 +96,7 @@ public class ContentDocument {
         String description = content.getString("description");
         if (UtilValidate.isNotEmpty(description))
             doc.add(new Field("description", description, Store.YES, Index.ANALYZED, TermVector.NO));
-        List ancestorList = FastList.newInstance();
+        List<String> ancestorList = FastList.newInstance();
         Delegator delegator = content.getDelegator();
         ContentWorker.getContentAncestryAll(delegator, contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
         String ancestorString = StringUtil.join(ancestorList, " ");
@@ -115,7 +116,7 @@ public class ContentDocument {
         return doc;
     }
 
-    public static boolean indexDataResource(GenericValue content, Document doc, Map context, LocalDispatcher dispatcher) {
+    public static boolean indexDataResource(GenericValue content, Document doc, Map<String, Object> context, LocalDispatcher dispatcher) {
         Delegator delegator = content.getDelegator();
         String contentId = content.getString("contentId");
         //Debug.logInfo("in ContentDocument, contentId:" + contentId,
@@ -127,13 +128,13 @@ public class ContentDocument {
             dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            List badIndexList = (List) context.get("badIndexList");
+            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(contentId + " - " + e.getMessage());
             //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
             return false;
         }
         if (dataResource == null) {
-            List badIndexList = (List) context.get("badIndexList");
+            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(contentId + " - dataResource is null.");
             //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
             return false;
@@ -152,13 +153,13 @@ public class ContentDocument {
             text = ContentWorker.renderContentAsText(dispatcher, delegator, contentId, context, locale, mimeTypeId, true);
         } catch (GeneralException e) {
             Debug.logError(e, module);
-            List badIndexList = (List) context.get("badIndexList");
+            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(contentId + " - " + e.getMessage());
             //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
             return false;
         } catch (IOException e2) {
             Debug.logError(e2, module);
-            List badIndexList = (List) context.get("badIndexList");
+            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(contentId + " - " + e2.getMessage());
             //Debug.logInfo("in DataResourceDocument, badIndexList:" + badIndexList, module);
             return false;
@@ -169,19 +170,19 @@ public class ContentDocument {
             //Debug.logInfo("in ContentDocument, field:" + field.stringValue(), module);
             doc.add(field);
         }
-        List featureDataResourceList;
+        List<GenericValue> featureDataResourceList;
         try {
             featureDataResourceList = content.getRelatedCache("ProductFeatureDataResource");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            List badIndexList = (List) context.get("badIndexList");
+            List<String> badIndexList = UtilGenerics.checkList(context.get("badIndexList"));
             badIndexList.add(contentId + " - " + e.getMessage());
             return false;
         }
-        List featureList = FastList.newInstance();
-        Iterator iter = featureDataResourceList.iterator();
+        List<String> featureList = FastList.newInstance();
+        Iterator<GenericValue> iter = featureDataResourceList.iterator();
         while (iter.hasNext()) {
-            GenericValue productFeatureDataResource = (GenericValue) iter .next();
+            GenericValue productFeatureDataResource = iter .next();
             String feature = productFeatureDataResource.getString("productFeatureId");
             featureList.add(feature);
         }

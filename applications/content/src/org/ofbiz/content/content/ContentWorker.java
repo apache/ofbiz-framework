@@ -944,7 +944,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
     }
 
-    public static void getContentAncestryAll(Delegator delegator, String contentId, String passedContentTypeId, String direction, List contentAncestorList) {
+    public static void getContentAncestryAll(Delegator delegator, String contentId, String passedContentTypeId, String direction, List<String> contentAncestorList) {
         String contentIdField = null;
         String contentIdOtherField = null;
         if (direction != null && direction.equalsIgnoreCase("to")) {
