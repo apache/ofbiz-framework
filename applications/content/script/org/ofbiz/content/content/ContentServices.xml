@@ -979,6 +979,7 @@
         <call-object-method method-name="length" obj-field="parameters.textData" ret-field="textDataLen"/>
         <log level="info" message="textDataLen:${textDataLen}"/>
         <property-to-field resource="forum" property="descriptLen" field="descriptLen"/>
+        <set field="descriptLen" from-field="descriptLen" type="Integer"/>
         <log level="info" message="descriptLen:${descriptLen}"/>
         <call-class-method method-name="min" class-name="java.lang.Math" ret-field="subStringLen">
             <field field="textDataLen" type="int"/>
