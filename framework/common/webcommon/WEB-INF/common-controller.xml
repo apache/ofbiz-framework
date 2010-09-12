@@ -159,10 +159,6 @@ under the License.
         <response name="success" type="view" value="viewBlocked"/>
     </request-map>
 
-    <request-map uri="geoLocation">
-        <response name="success" type="view" value="geoLocation"/>
-    </request-map>
-
     <request-map uri="LookupTimeDuration">
         <response name="success" type="view" value="LookupTimeDuration"/>
     </request-map>
@@ -232,7 +228,6 @@ under the License.
     <view-map name="help" type="screen" page="component://common/widget/CommonScreens.xml#help"/>
     <view-map name="showHelp" type="screen" page="component://common/widget/HelpScreens.xml#ShowHelp"/>
     <view-map name="ShowDocument" type="screen" page="component://common/widget/HelpScreens.xml#showDocument"/>
-    <view-map name="geoLocation" type="screen" page="component://common/widget/CommonScreens.xml#geoLocation"/>
 
     <view-map name="viewBlocked" type="screen" page="component://common/widget/CommonScreens.xml#viewBlocked"/>
 </site-conf>
