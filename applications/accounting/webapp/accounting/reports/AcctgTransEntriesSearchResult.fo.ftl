@@ -82,7 +82,7 @@ under the License.
                                     <fo:block text-align="center" font-size="6pt">${uiLabelMap.FormFieldTitle_shipmentId}</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell border="1pt solid" border-width=".1mm">
-                                    <fo:block text-align="center" font-size="6pt">${uiLabelMap.CommonPartyID}</fo:block>
+                                    <fo:block text-align="center" font-size="6pt">${uiLabelMap.CommonPartyId}</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell border="1pt solid" border-width=".1mm">
                                     <fo:block text-align="center" font-size="6pt">${uiLabelMap.AccountingProductId}</fo:block>
