@@ -913,21 +913,30 @@ under the License.
             </call-bsh>
             <set field="parameters.userLogin" from-field="userLogin"/>
         <else>
-            <if-not-empty field="parameters.currentPassword">
-                <call-map-processor xml-resource="component://securityext/script/org/ofbiz/securityext/login/LoginMapProcs.xml"
-                    processor-name="updatePassword" in-map-name="parameters" out-map-name="passwordMap"/>
-                <check-errors/>
-                <set-service-fields service-name="updatePassword" map="passwordMap" to-map="passwordCtx"/>
-                <call-service service-name="updatePassword" in-map-name="passwordCtx">
-                    <result-to-field result-name="updatedUserLogin"/>
-                </call-service>
-                <set-current-user-login value-field="updatedUserLogin"/>
-                <session-to-field field="userLogin"/>
-                <if-compare field="userLogin.userLoginId" operator="equals" value="${updatedUserLogin.userLoginId}">
-                    <field-to-session field="updatedUserLogin" session-name="userLogin"/>
-                </if-compare>
-                <session-to-field field="userLogin"/>
-            </if-not-empty>
+            <if>
+                <condition>
+                    <or>
+                        <not><if-empty field="parameters.currentPassword"></if-empty></not>
+                        <not><if-empty field="parameters.newPassword"></if-empty></not>
+                        <not><if-empty field="parameters.newPasswordVerify"> </if-empty></not>
+                    </or>
+                </condition>
+                <then>
+                    <call-map-processor xml-resource="component://securityext/script/org/ofbiz/securityext/login/LoginMapProcs.xml"
+                        processor-name="updatePassword" in-map-name="parameters" out-map-name="passwordMap"/>
+                    <check-errors/>
+                    <set-service-fields service-name="updatePassword" map="passwordMap" to-map="passwordCtx"/>
+                    <call-service service-name="updatePassword" in-map-name="passwordCtx">
+                        <result-to-field result-name="updatedUserLogin"/>
+                    </call-service>
+                    <set-current-user-login value-field="updatedUserLogin"/>
+                    <session-to-field field="userLogin"/>
+                    <if-compare field="userLogin.userLoginId" operator="equals" value="${updatedUserLogin.userLoginId}">
+                        <field-to-session field="updatedUserLogin" session-name="userLogin"/>
+                    </if-compare>
+                    <session-to-field field="userLogin"/>
+              </then>
+           </if>
         </else>
         </if-empty>
     </simple-method>
