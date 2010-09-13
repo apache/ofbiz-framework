@@ -680,6 +680,37 @@ under the License.
         <attribute name="attributeMap" type="Map" mode="OUT" optional="true"/>
     </service>
 
+    <!-- Geo services -->
+    <service name="createGeo" default-entity-name="Geo" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Geo</description>
+        <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="geoTypeId" optional="false"/>
+        <override name="geoName" optional="false"/>
+    </service>
+    <service name="updateGeo" default-entity-name="Geo" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Geo</description>
+        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="geoTypeId" optional="false"/>
+        <override name="geoName" optional="false"/>
+    </service>
+    <service name="deleteGeo" default-entity-name="Geo" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Geo</description>
+        <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="linkGeos" engine="simple" auth="true"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="linkGeos">        
+        <description>Link Geos to another Geo</description>
+        <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
+        <attribute name="geoIds" type="List" mode="IN"></attribute>
+        <attribute name="geoId" type="String" mode="IN"></attribute>
+        <attribute name="geoAssocTypeId" type="String" mode="IN"></attribute>
+    </service>
+    
     <!-- GeoPoint services -->
     <service name="createGeoPoint" default-entity-name="GeoPoint" engine="entity-auto" invoke="create" auth="true">
         <description>Create a GeoPoint</description>

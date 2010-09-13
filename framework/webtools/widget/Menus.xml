@@ -45,6 +45,9 @@ under the License.
         <menu-item name="configuration" title="${uiLabelMap.WebtoolsConfiguration}">
             <link target="myCertificates"/>
         </menu-item>
+        <menu-item name="geoManagement" title="${uiLabelMap.WebtoolsGeoManagement}">
+            <link target="FindGeo"/>
+        </menu-item>        
         <menu-item name="portalAdmin" title="${uiLabelMap.WebtoolsAdminPortalPage}">
             <condition><if-has-permission permission="PORTALPAGE_MAINT"/></condition>
             <link target="FindPortalPage"/>
@@ -256,4 +259,18 @@ under the License.
             <link target="FindUtilCache"/>
         </menu-item>
     </menu>
+    
+    <menu name="geoManagement" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <!--menu-container-style="button-bar button-style-2 no-clear"-->
+        <menu-item name="FindGeo" title="${uiLabelMap.WebtoolsGeosFind}">
+            <link target="FindGeo"/>            
+        </menu-item>
+        <menu-item name="EditGeo" title="${uiLabelMap.WebtoolsGeoCreateNew}">
+            <link target="EditGeo"/>
+        </menu-item>
+        <menu-item name="LinkGeos" title="${uiLabelMap.WebtoolsGeosLink}">
+            <link target="LinkGeos"/>
+        </menu-item>
+    </menu>
+    
 </menus>

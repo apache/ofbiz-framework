@@ -111,7 +111,7 @@ under the License.
 
         <field name="segmentGroupId"><hidden/></field>
 
-        <field name="geoId" title="${uiLabelMap.CommonSegmentGroupGeoId}"><lookup target-form-name="LookupGeo"/></field>
+        <field name="geoId" title="${uiLabelMap.CommonGeoId}"><lookup target-form-name="LookupGeo"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="listSegmentGroupGeo" list-name="segmentGroupGeos" target="" title="" type="list" paginate-target="listSegmentGroupGeo"
@@ -122,7 +122,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="segmentGroupId"><hidden/></field>
-        <field name="geoId" title="${uiLabelMap.CommonSegmentGroupGeoId}"><display-entity entity-name="Geo" description="${geoName} [Code:${geoCode}][ID:${geoId}]"/></field>
+        <field name="geoId" title="${uiLabelMap.CommonGeoId}"><display-entity entity-name="Geo" description="${geoName} [Code:${geoCode}][ID:${geoId}]"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteSegmentGroupGeo" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="segmentGroupId"/>

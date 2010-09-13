@@ -268,5 +268,16 @@ under the License.
         </if-empty>
         <field-to-result field="stateList"/>
     </simple-method>
-        
+
+    <simple-method method-name="linkGeos" short-description="Link Geos to another Geo">
+        <iterate list="parameters.geoIds" entry="geoId">
+            <make-value value-field="newGeoAssoc" entity-name="GeoAssoc"/>
+            <set field="newGeoAssoc.geoId" from-field="geoId"/>
+            <set field="newGeoAssoc.geoIdTo" from-field="parameters.geoId"/>
+            <set field="newGeoAssoc.geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>
+            <create-value value-field="newGeoAssoc"/>
+            <check-errors/>            
+        </iterate>
+    </simple-method>
+    
 </simple-methods>

@@ -1482,7 +1482,7 @@
     <property key="WebtoolsGeneralArtifactInfoTools">
         <value xml:lang="de">Allgemeine Info</value>
         <value xml:lang="en">General Artifact Info Tools</value>
-        <value xml:lang="fr">Outils généraux pour les info à propos des éléments d'OFBiz</value>
+        <value xml:lang="fr">Outils généraux pour les informations sur les éléments d'OFBiz</value>
         <value xml:lang="it">Strumento per informazioni generali su artifatti</value>
         <value xml:lang="zh">通用人工程序信息工具</value>
     </property>
@@ -1509,6 +1509,30 @@
         <value xml:lang="it">Nome gruppo</value>
         <value xml:lang="th">ชื่อกลุ่ม</value>
         <value xml:lang="zh">组名称</value>
+    </property>
+    <property key="WebtoolsGeoCreateNew">
+        <value xml:lang="en">Create New Geo</value>
+        <value xml:lang="fr">Créer une zone géographique</value>
+    </property>
+    <property key="WebtoolsGeoEdit">
+        <value xml:lang="en">Edit Geo</value>
+        <value xml:lang="fr">Modifier la zone géographique</value>
+    </property>    
+    <property key="WebtoolsGeoManagement">
+        <value xml:lang="en">Geo Management</value>
+        <value xml:lang="fr">Gestion des zones géographiques</value>
+    </property>
+    <property key="WebtoolsGeosFind">
+        <value xml:lang="en">Find Geos</value>
+        <value xml:lang="fr">Recherche de zones géographiques</value>
+    </property>
+    <property key="WebtoolsGeosLink">
+        <value xml:lang="en">Link Geos</value>
+        <value xml:lang="fr">Lier des zones géographiques</value>
+    </property>
+    <property key="WebtoolsGeosLinkExplained">
+        <value xml:lang="en">Link Geos (associate Geos to a Geo)</value>
+        <value xml:lang="fr">Lier des zones géographiques (association d'une avec plusieurs)</value>
     </property>
     <property key="WebtoolsHits">
         <value xml:lang="de">Besuche</value>
@@ -3534,7 +3558,7 @@
         <value xml:lang="en">Title</value>
         <value xml:lang="fr">Titre</value>
         <value xml:lang="it">Titolo</value>
-        <value xml:lang="nl">Titel</value>		
+        <value xml:lang="nl">Titel</value>    
         <value xml:lang="ro">Titlu</value>
         <value xml:lang="th">หัวเรื่อง</value>
         <value xml:lang="zh">标题</value>
@@ -3775,5 +3799,5 @@
         <value xml:lang="ro">Tu poti crea o Entitate ${entityName} si introducand valorile care le vrei, si click_and tasta Creare.</value>
         <value xml:lang="th">คุณสามารถที่จะสร้าง Entity ได้ ${entityName} โดยการเข้าสู่ค่าที่คุณต้องการและคลิก Create.</value>
         <value xml:lang="zh">创建一个实体 ${entityName} ：输入值，然后点击新建.</value>
-    </property>
+    </property>    
 </resource>
