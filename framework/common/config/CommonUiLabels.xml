@@ -6328,7 +6328,7 @@
         <value xml:lang="it">Gruppo di sicurezza</value>
         <value xml:lang="zh">安全组</value>
     </property>
-    <property key="CommonSegmentGroupGeoAbbr">
+    <property key="CommonGeoAbbr">
         <value xml:lang="en">Abbreviation</value>
         <value xml:lang="es">Abreviación</value>
         <value xml:lang="fr">Abbréviation</value>
@@ -6337,8 +6337,12 @@
         <value xml:lang="ro">Abreviere</value>
         <value xml:lang="th">ชื่อย่อ</value>
         <value xml:lang="zh">缩写</value>
+    </property>    
+    <property key="CommonGeoAssocTypeId">
+        <value xml:lang="en">Geo Assoc Type ID</value>
+        <value xml:lang="fr">Type d'assocation entre zones</value>
     </property>
-    <property key="CommonSegmentGroupGeoCode">
+    <property key="CommonGeoCode">
         <value xml:lang="en">Code</value>
         <value xml:lang="es">Código</value>
         <value xml:lang="fr">Code</value>
@@ -6348,7 +6352,7 @@
         <value xml:lang="th">รหัส</value>
         <value xml:lang="zh">代码</value>
     </property>
-    <property key="CommonSegmentGroupGeoId">
+    <property key="CommonGeoId">
         <value xml:lang="en">Geo ID</value>
         <value xml:lang="es">Código ubicación</value>
         <value xml:lang="fr">Zone géographique</value>
@@ -6358,7 +6362,7 @@
         <value xml:lang="th">รหัสโครงสร้าง</value>
         <value xml:lang="zh">地理标识</value>
     </property>
-    <property key="CommonSegmentGroupGeoName">
+    <property key="CommonGeoName">
         <value xml:lang="en">Name</value>
         <value xml:lang="es">Nombre</value>
         <value xml:lang="fr">Nom</value>
@@ -6368,7 +6372,7 @@
         <value xml:lang="th">ชื่อ</value>
         <value xml:lang="zh">名称</value>
     </property>
-    <property key="CommonSegmentGroupGeoSecCode">
+    <property key="CommonGeoSecCode">
         <value xml:lang="en">Secondary Code</value>
         <value xml:lang="es">Código secundario</value>
         <value xml:lang="fr">Code secondaire</value>
@@ -6378,7 +6382,7 @@
         <value xml:lang="th">รหัสที่สอง</value>
         <value xml:lang="zh">辅助代码</value>
     </property>
-    <property key="CommonSegmentGroupGeoTypeId">
+    <property key="CommonGeoTypeId">
         <value xml:lang="en">Geo Type ID</value>
         <value xml:lang="es">Tipo de ubicación</value>
         <value xml:lang="fr">Type de zone géographique</value>
@@ -6387,6 +6391,10 @@
         <value xml:lang="ro">Tip Geografie</value>
         <value xml:lang="th">รหัสประเภทโครงสร้าง</value>
         <value xml:lang="zh">地理类型标识</value>
+    </property>
+    <property key="CommonGeoWellKnownText">
+        <value xml:lang="en">Well Known Text</value>
+        <value xml:lang="fr">Texte connu</value>
     </property>
     <property key="CommonSelect">
         <value xml:lang="ar">إختر</value>
