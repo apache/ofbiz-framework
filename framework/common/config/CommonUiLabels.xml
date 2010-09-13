@@ -5136,7 +5136,7 @@
         <value xml:lang="it">Padre</value>
         <value xml:lang="zh">上级</value>
     </property>
-    <property key="CommonPartyID">
+    <property key="CommonPartyId">
         <value xml:lang="ar">دليل الطرف</value>
         <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party Id</value>
@@ -5151,6 +5151,37 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
         <value xml:lang="zh_CN">团体标识</value>
+    </property>
+    <property key="CommonPartyGroupName">
+        <value xml:lang="de">Gruppenname</value>
+        <value xml:lang="en">Group Name</value>
+        <value xml:lang="es">Nombre del grupo</value>
+        <value xml:lang="fr">Nom du groupe</value>
+        <value xml:lang="hi_IN">समूह का नाम</value>
+        <value xml:lang="it">Nome gruppo</value>
+        <value xml:lang="nl">Groepnaam</value>
+        <value xml:lang="pt_BR">Nome do grupo</value>
+        <value xml:lang="ro">Nome Grup</value>
+        <value xml:lang="ru">Имя группы</value>
+        <value xml:lang="th">ชื่อกลุ่ม</value>
+        <value xml:lang="zh">组名称</value>
+    </property>
+    <property key="CommonPartyName">
+        <value xml:lang="cs">Jméno</value>
+        <value xml:lang="de">Name</value>
+        <value xml:lang="en">Name</value>
+        <value xml:lang="es">Nombre</value>
+        <value xml:lang="fr">Nom</value>
+        <value xml:lang="hi_IN">नाम</value>
+        <value xml:lang="it">Nome</value>
+        <value xml:lang="ja">Name</value>
+        <value xml:lang="nl">Naam</value>
+        <value xml:lang="pt_BR">Nome</value>
+        <value xml:lang="pt_PT">Nome</value>
+        <value xml:lang="ro">Nume</value>
+        <value xml:lang="ru">Имя</value>
+        <value xml:lang="th">ชื่อ</value>
+        <value xml:lang="zh">名字</value>
     </property>
     <property key="CommonPartySkills">
         <value xml:lang="de">Teilnehmerfähigkeiten</value>
