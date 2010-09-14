@@ -261,6 +261,9 @@ under the License.
                       <td>&nbsp;</td>
                       <td align="center">${uiLabelMap.ProductPackQty}</td>
                       <td align="center">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})</td>
+                      <#if carrierShipmentBoxTypes?has_content>
+                        <td align="center">${uiLabelMap.ProductShipmentBoxType}</td>
+                      </#if>
                       <td align="center">${uiLabelMap.ProductPackage}</td>
                       <td align="right">&nbsp;<b>*</b>&nbsp;${uiLabelMap.ProductPackages}</td>
                     </tr>
@@ -307,6 +310,17 @@ under the License.
                           <td align="center">
                             <input type="text" size="7" name="wgt_${rowKey}" value="" />
                           </td>
+                          <#if carrierShipmentBoxTypes?has_content>
+                            <td align="center">
+                              <select name="boxType_${rowKey}">
+                                <option value=""></option>
+                                <#list carrierShipmentBoxTypes as carrierShipmentBoxType>
+                                  <#assign shipmentBoxType = carrierShipmentBoxType.getRelatedOne("ShipmentBoxType") />
+                                  <option value="${shipmentBoxType.shipmentBoxTypeId}">${shipmentBoxType.description?default(shipmentBoxType.shipmentBoxTypeId)}</option>
+                                </#list>
+                              </select>
+                            </td>
+                          </#if>
                           <td align="center">
                             <select name="pkg_${rowKey}">
                               <#if packingSession.getPackageSeqIds()?exists>

@@ -622,6 +622,7 @@ under the License.
         <attribute name="selInfo" type="Map" string-map-prefix="sel_" mode="IN" optional="true"/>
         <attribute name="iteInfo" type="Map" string-map-prefix="ite_" mode="IN" optional="true"/>
         <attribute name="wgtInfo" type="Map" string-map-prefix="wgt_" mode="IN" optional="true"/>
+        <attribute name="boxTypeInfo" type="Map" string-map-prefix="boxType_" mode="IN" optional="true"/>
         <attribute name="numPackagesInfo" type="Map" string-map-prefix="numPackages_" mode="IN" optional="true"/>
     </service>
 

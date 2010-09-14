@@ -111,6 +111,7 @@ public class PackingServices {
         Map<String, String> pkgInfo = UtilGenerics.checkMap(context.get("pkgInfo"));
         Map<String, String> wgtInfo = UtilGenerics.checkMap(context.get("wgtInfo"));
         Map<String, String> numPackagesInfo = UtilGenerics.checkMap(context.get("numPackagesInfo"));
+        Map<String, String> boxTypeInfo = UtilGenerics.checkMap(context.get("boxTypeInfo"));
 
         if (selInfo != null) {
             for (String rowKey: selInfo.keySet()) {
@@ -125,6 +126,8 @@ public class PackingServices {
                 String pkgStr = pkgInfo.get(rowKey);
                 String qtyStr = qtyInfo.get(rowKey);
                 String wgtStr = wgtInfo.get(rowKey);
+                String boxType = boxTypeInfo.get(rowKey);
+                session.setShipmentBoxTypeId(boxType);
 
                 Debug.log("Item: " + orderItemSeqId + " / Product: " + prdStr + " / Quantity: " + qtyStr + " /  Package: " + pkgStr + " / Weight: " + wgtStr, module);
 

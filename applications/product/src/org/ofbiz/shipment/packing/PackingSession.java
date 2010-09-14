@@ -62,6 +62,7 @@ public class PackingSession implements java.io.Serializable {
     protected String shipmentId = null;
     protected String instructions = null;
     protected String weightUomId = null;
+    protected String shipmentBoxTypeId = null;
     protected BigDecimal additionalShippingCharge = null;
     protected Map<Integer, BigDecimal> packageWeights = null;
     protected List<PackingEvent> packEvents = null;
@@ -794,7 +795,7 @@ public class PackingSession implements java.io.Serializable {
             Map<String, Object> pkgCtx = FastMap.newInstance();
             pkgCtx.put("shipmentId", shipmentId);
             pkgCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
-            //pkgCtx.put("shipmentBoxTypeId", "");
+            pkgCtx.put("shipmentBoxTypeId", this.shipmentBoxTypeId);
             pkgCtx.put("weight", getPackageWeight(i+1));
             pkgCtx.put("weightUomId", getWeightUomId());
             pkgCtx.put("userLogin", userLogin);
@@ -947,6 +948,10 @@ public class PackingSession implements java.io.Serializable {
 
     public void setWeightUomId(String weightUomId) {
         this.weightUomId = weightUomId;
+    }
+
+    public void setShipmentBoxTypeId(String shipmentBoxTypeId) {
+        this.shipmentBoxTypeId = shipmentBoxTypeId;
     }
 
     public List<Integer> getPackageSeqIds() {
