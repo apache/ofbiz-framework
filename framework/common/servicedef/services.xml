@@ -684,17 +684,15 @@ under the License.
     <service name="createGeo" default-entity-name="Geo" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Geo</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="geoTypeId" optional="false"/>
         <override name="geoName" optional="false"/>
     </service>
     <service name="updateGeo" default-entity-name="Geo" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Geo</description>
         <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="geoTypeId" optional="false"/>
         <override name="geoName" optional="false"/>
     </service>
     <service name="deleteGeo" default-entity-name="Geo" engine="entity-auto" invoke="delete" auth="true">
