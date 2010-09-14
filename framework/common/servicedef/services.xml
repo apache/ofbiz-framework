@@ -694,6 +694,8 @@ under the License.
         <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="geoName" optional="false"/>
+        <override name="geoTypeId" optional="false"/>        
     </service>
     <service name="deleteGeo" default-entity-name="Geo" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Geo</description>
