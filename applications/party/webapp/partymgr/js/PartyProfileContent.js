@@ -19,7 +19,7 @@ under the License.
 
 var progressBar;
 
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
   Event.observe('uploadPartyContent', 'submit', uploadPartyContent);
   Event.observe('uploadPartyContent', 'submit', getUploadProgressStatus);
   progressBar = new Control.ProgressBar('progress_bar');

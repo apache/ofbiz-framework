@@ -17,7 +17,7 @@
  * under the License.
  */
 
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     // Autocompleter for shipping panel
     // Preventing getCountryList() from calling and not removed all autocompleter functions so that we can reuse in future.
     //getCountryList();

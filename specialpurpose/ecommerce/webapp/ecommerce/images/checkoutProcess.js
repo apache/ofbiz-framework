@@ -21,7 +21,7 @@ var isShipStepValidate = false;
 var isShipOptionStepValidate = false;
 var isBillStepValidate = false;
 
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     // Cart
     var validateCart = new Validation('cartForm', {immediate: true, onSubmit: false});
     var validateShip = new Validation('shippingForm', {immediate: true, onSubmit: false});
