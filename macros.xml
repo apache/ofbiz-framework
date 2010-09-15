@@ -160,11 +160,13 @@ under the License.
   <attribute name="prefix" default=""/>
   <sequential>
    <if>
-    <not>
-     <uptodate
-      srcfile="@{prefix}src/@{dir}/@{file}.jj"
-      targetfile="@{prefix}build/gen-src/javacc/@{dir}/@{file}.java"/>
-    </not>
+    <condition>
+     <not>
+      <uptodate
+       srcfile="@{prefix}src/@{dir}/@{file}.jj"
+       targetfile="@{prefix}build/gen-src/javacc/@{dir}/@{file}.java"/>
+     </not>
+    </condition>
     <commands>
      <delete dir="@{prefix}build/gen-src/javacc/@{dir}"/>
      <mkdir dir="@{prefix}build/gen-src/javacc/@{dir}"/>
@@ -183,11 +185,13 @@ under the License.
   <attribute name="prefix" default=""/>
   <sequential>
    <if>
-    <not>
-     <uptodate
-      srcfile="@{prefix}src/@{dir}/@{file}.jjt"
-      targetfile="@{prefix}build/gen-src/jjtree/@{dir}/@{file}.jj"/>
-    </not>
+    <condition>
+     <not>
+      <uptodate
+       srcfile="@{prefix}src/@{dir}/@{file}.jjt"
+       targetfile="@{prefix}build/gen-src/jjtree/@{dir}/@{file}.jj"/>
+     </not>
+    </condition>
     <commands>
      <delete dir="@{prefix}build/gen-src/jjtree/@{dir}"/>
      <mkdir dir="@{prefix}build/gen-src/jjtree/@{dir}"/>
@@ -197,11 +201,13 @@ under the License.
     </commands>
    </if>
    <if>
-    <not>
-     <uptodate
-      srcfile="@{prefix}build/gen-src/jjtree/@{dir}/@{file}.jj"
-      targetfile="@{prefix}build/gen-src/javacc/@{dir}/@{file}.java"/>
-    </not>
+    <condition>
+     <not>
+      <uptodate
+       srcfile="@{prefix}build/gen-src/jjtree/@{dir}/@{file}.jj"
+       targetfile="@{prefix}build/gen-src/javacc/@{dir}/@{file}.java"/>
+     </not>
+    </condition>
     <commands>
      <delete dir="@{prefix}build/gen-src/javacc/@{dir}"/>
      <mkdir dir="@{prefix}build/gen-src/javacc/@{dir}"/>

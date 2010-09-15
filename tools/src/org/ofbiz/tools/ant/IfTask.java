@@ -18,16 +18,20 @@
  */
 package org.ofbiz.tools.ant;
 
-import java.util.Enumeration;
-
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.ProjectComponent;
 import org.apache.tools.ant.taskdefs.Sequential;
+import org.apache.tools.ant.taskdefs.condition.And;
 import org.apache.tools.ant.taskdefs.condition.Condition;
-import org.apache.tools.ant.taskdefs.condition.ConditionBase;
 
-public class IfTask extends ConditionBase {
+public class IfTask extends ProjectComponent {
+    protected Condition condition;
     protected Sequential ifCommands;
     protected Sequential elseCommands;
+
+    public Condition createCondition() {
+        return condition = new And();
+    }
 
     public Object createCommands() {
         return ifCommands = new Sequential();
@@ -38,13 +42,8 @@ public class IfTask extends ConditionBase {
     }
 
     public void execute() throws BuildException {
-        Enumeration en = getConditions();
-        if (!en.hasMoreElements()) throw new BuildException("No conditions defined");
-        boolean result = true;
-        while (result && en.hasMoreElements()) {
-            result = ((Condition) en.nextElement()).eval();
-        }
-        if (result) {
+        if (condition == null) throw new BuildException("No condition defined");
+        if (condition.eval()) {
             if (ifCommands != null) ifCommands.execute();
         } else {
             if (elseCommands != null) elseCommands.execute();
