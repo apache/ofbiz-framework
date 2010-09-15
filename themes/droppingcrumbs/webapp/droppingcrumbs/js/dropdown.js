@@ -38,10 +38,6 @@ DropDownMenu.prototype = {
   }
 };
 
-Event.observe(window, "load", function(){
-
-});
-
 document.observe('dom:loaded', function(){
     var mainmenu = new DropDownMenu($('main-navigation'));
     var appmenu = new DropDownMenu($('app-navigation'));
