@@ -53,11 +53,7 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
     public void init(ServletContext context) throws ViewHandlerException {
         this.servletContext = context;
         config.setCacheStorage(new OfbizCacheStorage("unknown"));
-        try {
-            config.setDirectoryForTemplateLoading(new File(servletContext.getRealPath("/")));
-        } catch (IOException e) {
-            throw new ViewHandlerException("Could not create file for webapp root path", e);
-        }
+        config.setServletContextForTemplateLoading(context, "/");
     }
 
     public void render(String name, String page, String info, String contentType, String encoding,
