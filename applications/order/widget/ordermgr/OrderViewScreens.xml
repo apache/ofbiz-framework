@@ -87,15 +87,17 @@ under the License.
                 <not><if-empty field="orderHeader"/></not>
             </condition>
             <widgets>
-                <container style="lefthalf">
-                    <include-screen name="orderinfo"/>
-                    <include-screen name="orderterms"/>
-                    <include-screen name="orderpaymentinfo"/>
-                    <include-screen name="projectAssoOrder"/>
-                </container>
-                <container style="righthalf">
-                    <include-screen name="ordercontactinfo"/>
-                    <include-screen name="ordershippinginfo"/>
+                <container id="split50">
+                    <container style="lefthalf">
+                        <include-screen name="orderinfo"/>
+                        <include-screen name="orderterms"/>
+                        <include-screen name="orderpaymentinfo"/>
+                        <include-screen name="projectAssoOrder"/>
+                    </container>
+                    <container style="righthalf">
+                        <include-screen name="ordercontactinfo"/>
+                        <include-screen name="ordershippinginfo"/>
+                    </container>
                 </container>
             </widgets>
             <fail-widgets>
