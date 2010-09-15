@@ -104,6 +104,9 @@ under the License.
 </#if>
 
 <body>
+  <div id="wait-spinner" style="display:none">
+    <div id="wait-spinner-image"></div>
+  </div>
   <div class="page-container">
     <div class="hidden">
       <a href="#column-container" title="${uiLabelMap.CommonSkipNavigation}" accesskey="2">
@@ -183,11 +186,6 @@ under the License.
               </#if>
             </#if>
             <li class="control-area">
-              <div class="wait-spinner" style="background:none; visibility:hidden">
-                <div id="wait-spinner" style="">
-                  <img src="/images/spinner.gif" alt="" title=""/>
-                </div>
-              </div>
             </li>
           </ul>
         </li>

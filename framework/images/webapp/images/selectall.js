@@ -596,9 +596,39 @@ function toggleLeftColumn(){
 }
 
 function waitSpinnerShow() {
-    document.getElementById("wait-spinner").style.visibility = 'visible';
+    var spinner = document.getElementById("wait-spinner");
+    if (spinner == null) {
+        return;
+    }
+    spinner.style.display = 'block';
+    var bdy = document.body;
+
+    var dimensions = spinner.getDimensions();
+    var lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
+    var scrollOffY = document.viewport.getScrollOffsets().top;
+    var winHeight = document.viewport.getHeight();
+    var lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
+
+    spinner.style.left = lookupLeft + "px";
+    spinner.style.top = lookupTop + "px";
+    Effect.Appear(spinner, {duration: 0.3});
 }
 
 function waitSpinnerHide() {
-    document.getElementById("wait-spinner").style.visibility = 'hidden';
+    var spinner = document.getElementById("wait-spinner");
+    if (spinner == null) {
+        return;
+    }
+    Effect.Fade(spinner, {duration: 0.3});
+    window.setTimeout(function() {
+	spinner.style.display = 'none';
+    }, 400);
 }
+document.observe('dom:loaded', function() {
+	setTimeout(function() {
+		waitSpinnerShow();
+		setTimeout(function() {
+			waitSpinnerHide();
+		}, 5000);
+	}, 2000);
+});

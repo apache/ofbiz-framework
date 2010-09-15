@@ -102,6 +102,9 @@ under the License.
 </head>
 <body>
 <div id="wrap">
+  <div id="wait-spinner" style="display:none">
+    <div id="wait-spinner-image"></div>
+  </div>
   <div id="header">
     <div id="logo"></div>
     <div id="shelf"></div>
@@ -136,10 +139,5 @@ under the License.
                <a href="${layoutSettings.middleTopLink3?if_exists}">${layoutSettings.middleTopMessage3?if_exists}</a>
              </span>
            </#if>
-           <div class="wait-spinner" style="background:none; visibility:hidden">
-             <div id="wait-spinner" style="">
-               <img src="/images/spinner.gif" alt="" title=""/>
-             </div>
-           </div>
     </div>
   </div>

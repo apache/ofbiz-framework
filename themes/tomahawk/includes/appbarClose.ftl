@@ -53,13 +53,6 @@ under the License.
 <div id="control-area">
   <ul id="preferences-menu">
     <#if userLogin?exists>
-      <li>
-        <div class="wait-spinner" style="background:none; visibility:hidden;">
-          <div id="wait-spinner" style="">
-            <img src="/tomahawk/images/spinner.gif" alt="" title=""/>
-          </div>
-        </div>
-      </li>
       <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
         <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;</a>
           <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
