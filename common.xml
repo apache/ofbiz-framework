@@ -58,7 +58,9 @@ under the License.
     <target name="init"/>
 
     <if>
-        <available file="${src.dir}"/>
+        <condition>
+            <available file="${src.dir}"/>
+        </condition>
         <commands>
             <selector id="src-extra-set">
                 <or>
