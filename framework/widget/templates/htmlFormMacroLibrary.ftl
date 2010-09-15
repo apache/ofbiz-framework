@@ -429,11 +429,11 @@ ${item.description}</span>
 <#if presentation?has_content && descriptionFieldName?has_content && presentation == "window">
  <a href="javascript:call_fieldlookup3(document.${formName?html}.${name?html},document.${formName?html}.${descriptionFieldName},'${fieldFormName}'<#rt/>
 <#elseif presentation?has_content && presentation == "window">
- <a href="javascript:call_fieldlookup2(document.${formName}.${name},'${fieldFormName}'<#rt/>
+ <a href="javascript:call_fieldlookup2(<#if ! id?has_content>document.${formName}.${name}<#else>$('${id}')</#if>,'${fieldFormName}'<#rt/>
 <#elseif descriptionFieldName?has_content>
- <a href="javascript:call_fieldlookupLayer3(document.${formName?html}.${name?html},document.${formName?html}.${descriptionFieldName},'${fieldFormName}','${width}','${height}','${position}','${fadeBackground}','${initiallyCollapsed}'<#rt/>
+ <a href="javascript:call_fieldlookupLayer3(<#if ! id?has_content>document.${formName?html}.${name?html}<#else>$('${id}')</#if>,document.${formName?html}.${descriptionFieldName},'${fieldFormName}','${width}','${height}','${position}','${fadeBackground}','${initiallyCollapsed}'<#rt/>
 <#else>
- <a href="javascript:call_fieldlookupLayer(document.${formName?html}.${name?html},'${fieldFormName}','${width}','${height}','${position}','${fadeBackground}','${initiallyCollapsed}'<#rt/>
+ <a href="javascript:call_fieldlookupLayer(<#if ! id?has_content>document.${formName?html}.${name?html}<#else>$('${id}')</#if>,'${fieldFormName}','${width}','${height}','${position}','${fadeBackground}','${initiallyCollapsed}'<#rt/>
 </#if>
 <#if targetParameterIter?has_content>
  <#list targetParameterIter as item>
@@ -475,7 +475,7 @@ ${item.description}</span>
 
 <#macro renderFileField className alert name value size maxlength autocomplete><input type="file" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></#macro>
 <#macro renderPasswordField className alert name value size maxlength id autocomplete><input type="password" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/></#macro>
-<#macro renderImageField value description alternate border width height event action><img<#if value?has_content> src="${value}"</#if><#if description?has_content> title="${description}"</#if> alt="<#if alternate?has_content>${alternate}"</#if>"<#if border?has_content> border="${border}"</#if><#if width?has_content> width="${width}"</#if><#if height?has_content> height="${height}"</#if><#if event?has_content> ${rp.event?html}="${action}" </#if>/></#macro>
+<#macro renderImageField value description alternate border width height event action><img<#if value?has_content> src="${value}"</#if><#if description?has_content> title="${description}"</#if> alt="<#if alternate?has_content>${alternate}"</#if>"<#if border?has_content> border="${border}"</#if><#if width?has_content> width="${width}"</#if><#if height?has_content> height="${height}"</#if><#if event?has_content> ${event?html}="${action}" </#if>/></#macro>
 
 <#macro renderBanner style leftStyle rightStyle leftText text rightText>
 <table width="100%">  <tr><#rt/>
