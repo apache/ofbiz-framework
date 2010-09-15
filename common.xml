@@ -26,7 +26,6 @@ under the License.
     <property name="dtd.dir" value="dtd"/>
     <property name="lib.dir" value="lib"/>
     <property name="build.dir" value="build"/>
-    <taskdef name="if" classname="org.ofbiz.tools.ant.IfTask" classpath="${ofbiz.home.dir}/tools/build/classes"/>
 
     <path id="test.class.path">
         <path refid="local.class.path"/>
