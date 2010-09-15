@@ -17,7 +17,7 @@
  * under the License.
  */
 
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     Event.observe($('costCentersSubmit'), 'click', processCostCenterData);
     // Find all text boxes in form and add a method to list on for on change.
     var categoryShareInputs = $('costCenters').getInputs('text');

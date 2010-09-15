@@ -53,4 +53,4 @@ imgView = {
         }
     }
 }
-Event.observe(window, 'load', imgView.init, false);
+document.observe('dom:loaded', imgView.init, false);

@@ -346,7 +346,9 @@ under the License.
         </form>
       </div>
       <script language="JavaScript" type="text/javascript">
+       document.observe('dom:loaded', function() {
         new Popup('newShippingAddressForm', 'newShippingAddress', {modal: true, position: 'center', trigger: 'click'})
+       });
       </script>
       <table width="100%" border="0" cellpadding="1" cellspacing="0">
         <#if shipGroup.supplierPartyId?has_content>

@@ -108,7 +108,9 @@ under the License.
 
 <#if userLogin?exists>
 <script type="text/javascript">
+ document.observe('dom:loaded', function() {
   var mainmenu = new DropDownMenu($('main-navigation'));
   var appmenu = new DropDownMenu($('app-navigation'));
+ });
 </script>
 </#if>

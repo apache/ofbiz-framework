@@ -20,7 +20,7 @@ under the License.
 var validateNewUser = null;
 var validateEditUser = null;
 var validatePostalAddress = null;
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     if ($('newUserForm')) {
         validateNewUser = new Validation('newUserForm', {immediate: true, onSubmit: false});
         addValidations();

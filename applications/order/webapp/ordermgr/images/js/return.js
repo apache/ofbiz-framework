@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 */
 
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     Event.observe($('returnHeaderTypeId'), 'change', function() {
         changeStatusCorrespondingToHeaderType();
     });

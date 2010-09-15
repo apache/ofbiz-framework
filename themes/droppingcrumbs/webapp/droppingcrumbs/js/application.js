@@ -80,7 +80,7 @@ javascript solution to make form focus style
 consistent cross browser form platforms that
 don't support input:focus (cough, cough, IE, cough)
 *****************************************************/
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     var fields = $$("input, textarea");
     for (var i = 0; i < fields.length; i++) {
       fields[i].onfocus = function() {this.className += ' focused';}
@@ -168,7 +168,7 @@ ModalWindow = Class.create({
 });
 
 //LOAD MODAL PREFERENCE WINDOWS
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     get = new ModalWindow();
     $("language").observe('click',function(e) {
       var locale = new Element('div', {id:'modal-contents'}).update("<img src='/bizznesstime/images/ajax-loader.gif'/>Updating Languages, please wait...");

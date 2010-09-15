@@ -18,7 +18,7 @@ under the License.
 */
 
 var validateNewShippingAdd = null;
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     if ($('addShippingAddress')) {
         validateNewShippingAdd = new Validation('addShippingAddress', {immediate: true, onSubmit: false});
         Event.observe($('countryGeoId'), 'change', function() {
