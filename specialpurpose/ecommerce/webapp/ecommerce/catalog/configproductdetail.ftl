@@ -138,7 +138,7 @@ ${virtualJavaScript?if_exists}
 <script language="JavaScript" type="text/javascript">
 <!--
 
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
   Event.observe($('configFormId'),'change',getConfigDetails);
 });
 

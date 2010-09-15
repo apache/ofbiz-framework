@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script type="text/javascript">
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     if ($('${dependentForm}')) {
         Event.observe($('${dependentForm}_${mainId}'), 'change', function() {
             getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentId}', '${descName}', '', '');
