@@ -398,8 +398,7 @@ public final class UtilIO {
                 sb.append(writer.toString());
                 return;
             }
-        } catch (Exception e) {
-            throw new IOException("Can't write (" + value + ")");            
-        }
+        } catch (Exception e) {} //Empty catch because writeObject() calls encodeObject(), which *always* returns true, unless an error occurs.  
+        throw new IOException("Can't write (" + value + ")");            
     }
 }
