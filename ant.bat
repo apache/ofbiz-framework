@@ -19,5 +19,5 @@ REM # under the License.
 REM #####################################################################
 ECHO ON
 
-"%JAVA_HOME%\bin\java" -jar framework/base/lib/ant-launcher-1.7.1.jar %1 %2 %3 %4 %5 %6
+"%JAVA_HOME%\bin\java" -jar framework/base/lib/ant-launcher-1.7.1.jar -lib framework/base/lib/ant %1 %2 %3 %4 %5 %6
 
