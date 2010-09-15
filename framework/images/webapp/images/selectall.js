@@ -603,7 +603,7 @@ function waitSpinnerShow() {
     spinner.style.display = 'block';
     var bdy = document.body;
 
-    var dimensions = spinner.getDimensions();
+    var dimensions = $(spinner).getDimensions();
     var lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
     var scrollOffY = document.viewport.getScrollOffsets().top;
     var winHeight = document.viewport.getHeight();
