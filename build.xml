@@ -35,10 +35,6 @@ under the License.
 
     <target name="ofbiz-init">
         <property environment="env"/>
-        <mkdir dir="tools/build/classes"/>
-        <javac srcdir="tools/src" debug="on" deprecation="off" destdir="tools/build/classes" compiler="javac1.5" target="1.5" source="1.5"/>
-        <mkdir dir="tools/build/lib"/>
-        <jar jarfile="tools/build/lib/ofbiz-tools.jar" basedir="tools/build/classes"/>
     </target>
 
     <!-- ================================================================== -->
@@ -61,7 +57,6 @@ under the License.
         <antcall target="clean-cache"/>
         <antcall target="clean-tempfiles"/>
         <antcall target="clean"/>
-        <antcall target="clean-tools"/>
     </target>
 
     <target name="clean-data"
@@ -155,10 +150,6 @@ under the License.
         </subant>
         <delete file="ofbiz.jar"/>
         <echo message="[clean] ========== Done Cleaning =========="/>
-    </target>
-
-    <target name="clean-tools">
-        <delete dir="tools/build"/>
     </target>
 
     <target name="svninfo"
