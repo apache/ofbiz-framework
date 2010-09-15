@@ -44,10 +44,6 @@ under the License.
             <param-value>60000</param-value>
         </init-param>
         <init-param>
-            <param-name>ofbiz.mapping.default-file-system-id</param-name>
-            <param-value>1</param-value>
-        </init-param>
-        <init-param>
             <param-name>org.webslinger.servlet.WebslingerServlet.WebslingerServletContextFactory</param-name>
             <param-value>org.ofbiz.webslinger.WebslingerContextMapper</param-value>
         </init-param>
