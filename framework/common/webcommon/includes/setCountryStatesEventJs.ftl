@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script type="text/javascript">
-Event.observe(window, 'load', function() {
+document.observe('dom:loaded', function() {
     if ($('${dependentForm}')) {
         Event.observe($('${dependentForm}_countryGeoId'), 'change', function() {
             getDependentDropdownValues('getAssociatedStateList', 'countryGeoId', '${dependentForm}_countryGeoId', '${dependentForm}_stateProvinceGeoId', 'stateList', 'geoId', 'geoName', '', '');
