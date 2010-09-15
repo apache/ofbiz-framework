@@ -624,11 +624,3 @@ function waitSpinnerHide() {
 	spinner.style.display = 'none';
     }, 400);
 }
-document.observe('dom:loaded', function() {
-	setTimeout(function() {
-		waitSpinnerShow();
-		setTimeout(function() {
-			waitSpinnerHide();
-		}, 5000);
-	}, 2000);
-});
