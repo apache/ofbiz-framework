@@ -20,6 +20,9 @@ under the License.
 <!-- Global IE fix to avoid layout crash when single word size wider than column width -->
 <!--[if IE]><style type="text/css"> body {word-wrap: break-word;}</style><![endif]-->
 
+  <div id="wait-spinner" style="display:none">
+    <div id="wait-spinner-image"></div>
+  </div>
   <div class="page-container">
     <div class="header">
       <div class="header-top">
