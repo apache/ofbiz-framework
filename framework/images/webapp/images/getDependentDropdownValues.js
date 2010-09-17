@@ -27,10 +27,12 @@
 // descName     = name of the dependent dropdown description
 // selected     = optional name of a selected option
 // callback     = optional javascript function called at end
-function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback) {
+// inputField   = optional name of an input field to use instead of a dropdown (this will be extended later to use an of autocompleted dropdown, instead of dropdown or a lookup, when there are too much values to populate)   
+// hide         = optional argument, if true the dependend dropdown field (targetField) will be hidden when no options are available else only disabled. False by default.
+function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback, hide) {
 	// parameters
 	var params = new Array();
-	params[paramKey] = $F(paramField);			
+	params[paramKey] = $F(paramField);
 	
     var optionList = [];
     var requestToSend = request;
@@ -40,6 +42,17 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);                     
             list = data[responseName];
+            // this is to handle a specific case where an input field is needed, uses inputField for the field name
+            if (!list) {
+				$(targetField).hide();
+				$(targetField).insert({after: new Element('input', {name : inputField, id : targetField + '_input', size : 3})}); 
+            	return;
+            } else { 
+            	if ($(targetField + '_input')) { 
+            		$(targetField + '_input').remove();            		
+					$(targetField).show();
+            	}
+            }
             list.each(function(value) {
             	if (typeof value == 'string') {            	
 	                values = value.split(': ');
@@ -57,14 +70,20 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
             	}
             });
             $(targetField).update(optionList);
-            if ((list.size() < 1) || ((list.size() == 1) && list[0].indexOf("_NA_") >=0)) {                
-                if ($(targetField).visible()) {
-                    Effect.Fade(targetField, {duration: 1.5});
-                }
+            if ((list.size() < 1) || ((list.size() == 1) && list[0].indexOf("_NA_") >=0)) {
+            	Form.Element.disable(targetField);
+            	if (hide) {
+					if ($(targetField).visible()) {
+						Effect.Fade(targetField, {duration: 1.5});
+					}
+				}
             } else {
-                if (!$(targetField).visible()) {
-                    Effect.Appear(targetField, {duration: 0.0});
-                }
+            	Form.Element.enable(targetField);
+            	if (hide) {
+	                if (!$(targetField).visible()) {
+	                    Effect.Appear(targetField, {duration: 0.0});
+	                }
+            	}
             }
             if (callback != null)
             	eval(callback);
