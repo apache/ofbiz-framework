@@ -45,7 +45,7 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
             // this is to handle a specific case where an input field is needed, uses inputField for the field name
             if (!list) {
 				$(targetField).hide();
-				$(targetField).insert({after: new Element('input', {name : inputField, id : targetField + '_input', size : 3})}); 
+				$(targetField).insert({after: new Element('input', {name : arguments[9], id : targetField + '_input', size : 3})}); 
             	return;
             } else { 
             	if ($(targetField + '_input')) { 
