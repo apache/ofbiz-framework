@@ -6591,6 +6591,17 @@
         <value xml:lang="th">บัญชี</value>
         <value xml:lang="zh">账户</value>
     </property>
+    <property key="ProductActionType">
+        <value xml:lang="de">Aktionstyp</value>
+        <value xml:lang="en">Action Type</value>
+        <value xml:lang="es">Tipo de Acción</value>
+        <value xml:lang="fr">Type d'action</value>
+        <value xml:lang="it">Tipo Azione</value>
+        <value xml:lang="ro">Tip Actiune</value>
+        <value xml:lang="ru">Тип действия</value>
+        <value xml:lang="th">จำนวนประเภทการทำงาน</value>
+        <value xml:lang="zh">操作类型</value>
+    </property>
     <property key="ProductActionTypeAmount">
         <value xml:lang="de">Aktionstyp Betrag</value>
         <value xml:lang="en">Action Type Amount</value>
@@ -8952,6 +8963,10 @@
         <value xml:lang="th">เงื่อนไข</value>
         <value xml:lang="zh">条件</value>
     </property>
+    <property key="ProductConditionsThenActions">         
+        <value xml:lang="en">If all conditions are true, then actions will be executed (logical conjunction, ie conditions are 'ANDED' between them, so are actions))</value>
+        <value xml:lang="fr">Si toutes les conditions sont vérifiées, alors les actions seront exécutées (conjonction, autrement dit ET logique entre conditions, de même pour les actions)</value>
+    </property>    
     <property key="ProductConfigItem">
         <value xml:lang="de">Konfigurationsposition</value>
         <value xml:lang="en">Config Item</value>
@@ -12104,6 +12119,17 @@
         <value xml:lang="th">สถานะรายการสินค้าคงเหลือเบื้องต้น</value>
         <value xml:lang="zh">初始库存明细状态</value>
     </property>
+    <property key="ProductInput">
+        <value xml:lang="de">Eingang</value>
+        <value xml:lang="en">Input</value>
+        <value xml:lang="es">Entrada</value>
+        <value xml:lang="fr">Donnée</value>
+        <value xml:lang="it">Input</value>
+        <value xml:lang="ro">Input</value>
+        <value xml:lang="ru">Исход. параметр</value>
+        <value xml:lang="th">ข้อมูล</value>
+        <value xml:lang="zh">数据</value>
+    </property>
     <property key="ProductInputOperatorValue">
         <value xml:lang="de">Eingang, Operator, Wert</value>
         <value xml:lang="en">Input, Operator Value</value>
@@ -12114,6 +12140,28 @@
         <value xml:lang="ru">Исход. параметр, оператор и значение</value>
         <value xml:lang="th">ใส่, ผู้ควบคุม และ ค่า</value>
         <value xml:lang="zh">输入、操作符和数值</value>
+    </property>
+    <property key="ProductOperator">
+        <value xml:lang="de">Operator</value>
+        <value xml:lang="en">Operator</value>
+        <value xml:lang="es">Operador</value>
+        <value xml:lang="fr">Opérateur</value>
+        <value xml:lang="it">Operatore</value>
+        <value xml:lang="ro">Operator si Valoare</value>
+        <value xml:lang="ru">оператор</value>
+        <value xml:lang="th">ผู้ประกอบการ</value>
+        <value xml:lang="zh">值</value>
+    </property>
+    <property key="ProductValue">
+        <value xml:lang="de">Wert</value>
+        <value xml:lang="en">Value</value>
+        <value xml:lang="es">Valor</value>
+        <value xml:lang="fr">Valeur</value>
+        <value xml:lang="it">Valore</value>
+        <value xml:lang="ro">Valoare</value>
+        <value xml:lang="ru">значение</value>
+        <value xml:lang="th">มูลค่า</value>
+        <value xml:lang="zh">算子</value>
     </property>
     <property key="ProductInsertDefaultImageUrl">
         <value xml:lang="de">Standart Bild URL einfügen</value>
@@ -15929,6 +15977,18 @@
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงข้อมูลราคาที่รักษาไว้. ("CATALOG_PRICE_MAINT" ต้องการ)</value>
         <value xml:lang="zh">你没有权限维护价格信息。 (需要"CATALOG_PRICE_MAINT")</value>
     </property>
+    <property key="ProductPriceRuleId">
+        <value xml:lang="de">Preisregel [ID]</value>
+        <value xml:lang="en">Edit Price Rule [ID]</value>
+        <value xml:lang="es">Regla de precio [CÓDIGO]</value>
+        <value xml:lang="fr">Modifier la règle de prix [Réf.]</value>
+        <value xml:lang="it">Regola Prezzo [Codice]</value>
+        <value xml:lang="nl">Prijsregel [ID]</value>    
+        <value xml:lang="ro">Regula Pret [Cod]</value>
+        <value xml:lang="ru">правила ценообразования [Код]</value>
+        <value xml:lang="th">ชื่อข้อกำหนดราคา [รหัส]</value>
+        <value xml:lang="zh">价格规则[参考。]</value>
+    </property>
     <property key="ProductPriceRuleNameId">
         <value xml:lang="de">Preisregel Name [ID]</value>
         <value xml:lang="en">Price Rule Name [ID]</value>
@@ -15952,6 +16012,14 @@
         <value xml:lang="ru">Ценообразование</value>
         <value xml:lang="th">ข้อกำหนดราคา</value>
         <value xml:lang="zh">价格规则</value>
+    </property>
+    <property key="ProductPriceRulesNewAction">
+        <value xml:lang="en">Add a New Action</value>
+        <value xml:lang="fr">Ajout d'une action</value>
+    </property>
+    <property key="ProductPriceRulesNewCond">
+        <value xml:lang="en">Add a New Condition</value>
+        <value xml:lang="fr">Ajout d'une condition</value>
     </property>
     <property key="ProductPriceTitle1">
         <value xml:lang="en">Price charge</value>

@@ -89,6 +89,7 @@ under the License.
         <description>Create an ProductPriceCond</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="condValueInput" type="String" mode="IN" optional="true"></attribute>
         <override name="productPriceCondSeqId" mode="OUT"/>
     </service>
     <service name="updateProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
@@ -96,6 +97,7 @@ under the License.
         <description>Update an ProductPriceCond</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="condValueInput" type="String" mode="IN" optional="true"></attribute>
     </service>
     <service name="deleteProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
                 location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="deleteProductPriceCond" auth="true">

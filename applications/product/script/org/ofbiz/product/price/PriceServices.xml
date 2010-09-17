@@ -178,6 +178,9 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
+        <if-not-empty field="parameters.condValueInput">
+            <set field="parameters.condValue" from-field="parameters.condValueInput"/>
+        </if-not-empty>
         <make-value value-field="newEntity" entity-name="ProductPriceCond"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -191,6 +194,9 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
+        <if-not-empty field="parameters.condValueInput">
+            <set field="parameters.condValue" from-field="parameters.condValueInput"/>
+        </if-not-empty>
         <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceCond" map="lookupPKMap" value-field="lookedUpValue"/>

@@ -4599,6 +4599,10 @@
         <value xml:lang="th">ไม่มีรหัสไปรษณีย์</value>
         <value xml:lang="zh">没有邮政地址</value>
     </property>
+    <property key="CommonNoOptions">
+        <value xml:lang="en">No options: _NA_</value>
+        <value xml:lang="fr">Aucun option: _NA_</value>
+    </property>
     <property key="CommonNoStatesProvinces">            
         <value xml:lang="en">No States/Provinces exist: _NA_</value>
         <value xml:lang="fr">Aucun état ou province: _NA_</value>
