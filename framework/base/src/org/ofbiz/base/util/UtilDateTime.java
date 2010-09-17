@@ -76,7 +76,7 @@ public class UtilDateTime {
     }
 
     public static int getIntervalInDays(Timestamp from, Timestamp thru) {
-        return thru != null ? (int) (thru.getTime() - from.getTime()) / (24*60*60*1000) : 0;
+        return thru != null ? (int) ((thru.getTime() - from.getTime()) / (24*60*60*1000)) : 0;
     }
 
     public static Timestamp addDaysToTimestamp(Timestamp start, int days) {
