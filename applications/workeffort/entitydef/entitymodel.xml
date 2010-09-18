@@ -222,12 +222,12 @@ under the License.
       <field name="runtimeDataId" type="id"></field>
       <field name="noteId" type="id"></field>
       <field name="serviceLoaderName" type="name"></field>
-      <field name="quantityToProduce" type="floating-point"></field>
-      <field name="quantityProduced" type="floating-point"></field>
-      <field name="quantityRejected" type="floating-point"></field>
-      <field name="reservPersons" type="floating-point"><description>the number of persons renting the attached asset</description></field>
-      <field name="reserv2ndPPPerc" type="floating-point"><description>reservationSecondPersonPricePercentage: percentage of the end price for the 2nd person renting this asset connected to the workEffort</description></field>
-      <field name="reservNthPPPerc" type="floating-point"><description>reservationNthPersonPricePercentage: percentage of the end price for the Nth (2+) person renting this asset connected to the workEffort</description></field>
+      <field name="quantityToProduce" type="fixed-point"></field>
+      <field name="quantityProduced" type="fixed-point"></field>
+      <field name="quantityRejected" type="fixed-point"></field>
+      <field name="reservPersons" type="fixed-point"><description>the number of persons renting the attached asset</description></field>
+      <field name="reserv2ndPPPerc" type="fixed-point"><description>reservationSecondPersonPricePercentage: percentage of the end price for the 2nd person renting this asset connected to the workEffort</description></field>
+      <field name="reservNthPPPerc" type="fixed-point"><description>reservationNthPersonPricePercentage: percentage of the end price for the Nth (2+) person renting this asset connected to the workEffort</description></field>
       <field name="accommodationMapId" type="id"/>
       <field name="accommodationSpotId" type="id"/>
       <field name="revisionNumber" type="numeric"></field>
