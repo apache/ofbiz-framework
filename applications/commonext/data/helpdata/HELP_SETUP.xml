@@ -29,6 +29,14 @@
     </para>
     <section>
         <title>Why we have OFBiz Setup Application?</title>
+        <warning>
+            <para>
+                The OFBIZ Setup Application is broken!
+            </para>
+            <para>
+                For manual setup instructions, please see the <ulink url="https://cwiki.apache.org/confluence/x/dQB9">Business Setup Guide</ulink> on the wiki.
+           </para>
+        </warning>
         <para>
             If you are the company and also want to use OFBiz for running your business then you easily be able to setting your information for start running 
         the system quickly via The OFBiz Setup Application.
