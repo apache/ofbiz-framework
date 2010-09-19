@@ -186,7 +186,6 @@ ${menuString}
   <#assign columnKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="columnSeqId" value="' + columnSeqId + '" type="hidden"/>'>
   <td style="vertical-align: top; <#if width?has_content> width:${width};</#if>" id="portalColumn_${columnSeqId}">
     <#if editMode == "true">
-      Column:${portalPageId}-${columnSeqId}
       <div class="portal-column-config-title-bar">
         <ul>
           <li>
@@ -196,7 +195,7 @@ ${menuString}
             <a class="buttontext" href="javascript:document.delColumn_${columnKey}.submit()" title="${delColumnHint}">${delColumnLabel}</a>
           </li>
           <li>
-            <form method="post" action="AddPortlet" name="addPortlet_${columnKey}">
+            <form method="post" action="addPortlet" name="addPortlet_${columnKey}">
               ${columnKeyFields}
             </form>
             <a class="buttontext" href="javascript:document.addPortlet_${columnKey}.submit()" title="${addPortletHint}">${addPortletLabel}</a>

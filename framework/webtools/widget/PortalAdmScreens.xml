@@ -150,7 +150,7 @@ under the License.
                                 <widgets>
                                     <container id="portalContainerId">
                                         <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
-                                            <link target="addPortalPageColumnAdm" style="buttontext" text="${uiLabelMap.CommonAddColumn}">
+                                            <link target="addPortalPageColumn" style="buttontext" text="${uiLabelMap.CommonAddColumn}">
                                                 <parameter param-name="portalPageId" from-field="portalPage.portalPageId"/>
                                             </link>
                                             <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
