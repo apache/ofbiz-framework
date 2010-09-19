@@ -62,7 +62,7 @@ under the License.
                   <form method="post" action="<@ofbizUrl>updatePortalPagePortletAjax</@ofbizUrl>" name="freeMove_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumnList[portalPageColumn_index].columnSeqId}" type="hidden"/><input name="mode" value="RIGHT" type="hidden"/></form>
                 <#list portalPages as portalPageList>
                   <#if portalPage.portalPageId != portalPageList.portalPageId>
-                    <form method="post" action="<@ofbizUrl>movePortletToPortalPage${Adm?if_exists}</@ofbizUrl>" name="movePP_${portlet_index}_${portalPageList_index}">
+                    <form method="post" action="<@ofbizUrl>movePortletToPortalPage</@ofbizUrl>" name="movePP_${portlet_index}_${portalPageList_index}">
                       ${portletFields}
                       <input name="newPortalPageId" value="${portalPageList.portalPageId}" type="hidden"/>
                     </form>
@@ -77,10 +77,10 @@ under the License.
                   </#if>
 
                   <#if !firstInColumn>
-                    <li class="move-up"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq${Adm?if_exists}</@ofbizUrl>" name="moveUpPP_${portlet_index}">${portletFields}<input name="mode" value="UP" type="hidden"/></form><a href="javascript:document.moveUpPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-up"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq</@ofbizUrl>" name="moveUpPP_${portlet_index}">${portletFields}<input name="mode" value="UP" type="hidden"/></form><a href="javascript:document.moveUpPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>
                   <#if portlet_has_next>
-                    <li class="move-down"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq${Adm?if_exists}</@ofbizUrl>" name="moveDownPP_${portlet_index}">${portletFields}<input name="mode" value="DOWN" type="hidden"/></form><a href="javascript:document.moveDownPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-down"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq</@ofbizUrl>" name="moveDownPP_${portlet_index}">${portletFields}<input name="mode" value="DOWN" type="hidden"/></form><a href="javascript:document.moveDownPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>
                   <#if portalPageColumn_has_next>
                     <li class="move-right"><form method="post" action="<@ofbizUrl>updatePortalPagePortlet</@ofbizUrl>" name="moveRightPP_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumnList[portalPageColumn_index+1].columnSeqId}" type="hidden"/><input name="mode" value="RIGHT" type="hidden"/></form><a href="javascript:document.moveRightPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
@@ -89,10 +89,10 @@ under the License.
                     <li class="move-left"><form method="post" action="<@ofbizUrl>updatePortalPagePortlet</@ofbizUrl>" name="moveLeftPP_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumnList[portalPageColumn_index-1].columnSeqId}" type="hidden"/><input name="mode" value="LEFT" type="hidden"/></form><a href="javascript:document.moveLeftPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>
                   <#if !firstInColumn>
-                    <li class="move-top"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq${Adm?if_exists}</@ofbizUrl>" name="moveTopPP_${portlet_index}">${portletFields}<input name="mode" value="TOP" type="hidden"/></form><a href="javascript:document.moveTopPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-top"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq</@ofbizUrl>" name="moveTopPP_${portlet_index}">${portletFields}<input name="mode" value="TOP" type="hidden"/></form><a href="javascript:document.moveTopPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>
                   <#if portlet_has_next>
-                    <li class="move-bottom"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq${Adm?if_exists}</@ofbizUrl>" name="moveBottomPP_${portlet_index}">${portletFields}<input name="mode" value="BOTTOM" type="hidden"/></form><a href="javascript:document.moveBottomPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-bottom"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq</@ofbizUrl>" name="moveBottomPP_${portlet_index}">${portletFields}<input name="mode" value="BOTTOM" type="hidden"/></form><a href="javascript:document.moveBottomPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>
                   <#if (portalPages.size() > 1)>
                     <li>
