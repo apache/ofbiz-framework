@@ -307,6 +307,7 @@
     <property key="PageTitleFindPortalPage">
         <value xml:lang="en">Find Portal page</value>
         <value xml:lang="fr">Rech. page portail</value>
+        <value xml:lang="it">Ricerca pagine portale</value>
     </property>
     <property key="PageTitleFindUtilCache">
         <value xml:lang="de">Cache Wartungsseite</value>

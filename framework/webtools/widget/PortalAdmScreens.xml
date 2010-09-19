@@ -28,18 +28,6 @@ under the License.
             <actions>
                 <set field="headerItem" value="portalAdmin"/>
                 <set field="titleProperty" value="PageTitleFindPortalPage"/>
-                <set field="inputFields" from-field="parameters"/>
-                <set field="inputFields.portalPageId" from-field="parameters.portalPageIdSearch"/>
-                <set field="inputFields.portalPageId_op" from-field="parameters.portalPageIdSearch_op"/>
-                <set field="inputFields.portalPageId_ic" from-field="parameters.portalPageIdSearch_ic"/>
-                <set field="inputFields.parentPortalPageId" from-field="parameters.parentPortalPageIdSearch"/>
-                <set field="inputFields.parentPortalPageId_op" from-field="parameters.parentPortalPageIdSearch_op"/>
-                <set field="inputFields.parentPortalPageId_ic" from-field="parameters.parentPortalPageIdSearch_ic"/>
-                <service service-name="performFind" result-map="result" >
-                   <field-map field-name="entityName" value="PortalPage"/>
-                   <field-map field-name="orderBy" from-field="parameters.sortField"/>
-                </service>
-                <set field="pagesList" from-field="result.listIt"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
