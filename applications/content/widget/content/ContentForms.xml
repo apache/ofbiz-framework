@@ -649,7 +649,7 @@ under the License.
         </field>
     </form>
     <form name="EditShowContentPortlet" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
-        <field name="contentId" entry-name="attributeMap.contentId">
+        <field name="contentId">
             <drop-down>
                 <entity-options description="${contentName}" entity-name="Content">
                     <entity-constraint name="contentTypeId" operator="equals" value="DOCUMENT"/>
