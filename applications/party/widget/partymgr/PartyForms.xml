@@ -834,7 +834,7 @@ under the License.
         </field>
         <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
-        <field name="groupId" title="${uiLabelMap.PartySecurityGroupId}">
+        <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SecurityGroup" description="${description}">
                     <entity-order-by field-name="description"/>

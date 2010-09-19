@@ -28,7 +28,7 @@ under the License.
                 <order-by field-name="groupId"/>
             </entity-condition>
         </actions>
-        <field name="groupId" title="${uiLabelMap.PartySecurityGroupId}" widget-style="buttontext">
+        <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${groupId}" target="EditSecurityGroup">
                 <parameter param-name="groupId"/>
             </hyperlink>
@@ -40,9 +40,9 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="securityGroup==null" target="createSecurityGroup"/>
         <auto-fields-service service-name="updateSecurityGroup" map-name="securityGroup"/>
-        <field use-when="securityGroup!=null" name="groupId" title="${uiLabelMap.PartySecurityGroupId}"  tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="securityGroup==null&amp;&amp;groupId==null" name="groupId" title="${uiLabelMap.PartySecurityGroupId}"><text size="20" maxlength="20"/></field>
-        <field use-when="securityGroup==null&amp;&amp;groupId!=null" name="groupId" title="${uiLabelMap.PartySecurityGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${groupId}]"><text size="20" maxlength="20"/></field>
+        <field use-when="securityGroup!=null" name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"  tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="securityGroup==null&amp;&amp;groupId==null" name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"><text size="20" maxlength="20"/></field>
+        <field use-when="securityGroup==null&amp;&amp;groupId!=null" name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${groupId}]"><text size="20" maxlength="20"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
