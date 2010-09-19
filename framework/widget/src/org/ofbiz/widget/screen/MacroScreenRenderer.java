@@ -478,7 +478,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          Map<String, Object> parameters = FastMap.newInstance();
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
          parameters.put("editRequest", content.getEditRequest(context));
-         parameters.put("enableEditValue", enableEditValue);
+         parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
          executeMacro(writer, "renderSubContentBegin", parameters);
     }
 
@@ -562,7 +562,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          parameters.put("editMode", editMode);
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
          parameters.put("editRequest", editRequest);
-         parameters.put("enableEditValue", enableEditValue);
+         parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
          executeMacro(writer, "renderSubContentEnd", parameters);
     }
 
