@@ -21,6 +21,7 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
     <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>
     <include location="component://testtools/webapp/testtools/WEB-INF/controller.xml"/>
     <description>WebTools Site Configuration File</description>
@@ -566,10 +567,6 @@ under the License.
         <response name="success" type="view" value="EditPortalPage"/>
         <response name="error" type="view" value="EditPortalPage"/>
     </request-map>
-    <request-map uri="AddPortletAdm">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="AddPortletAdm"/>
-    </request-map>
     <request-map uri="updatePortalPageColumnAdm">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePortalPageColumn"/>
@@ -735,7 +732,6 @@ under the License.
     <view-map name="FindPortalPage" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#FindPortalPage"/>
     <view-map name="CreatePortalPage" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#CreatePortalPage"/>
     <view-map name="EditPortalPage" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#EditPortalPage"/>
-    <view-map name="AddPortletAdm" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#AddPortletAdm"/>
 
     <!-- Geo Management -->
     <view-map name="FindGeo" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#FindGeo"/>
