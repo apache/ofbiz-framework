@@ -289,7 +289,7 @@
         <value xml:lang="en">Add Sub Task</value>
         <value xml:lang="fr">Ajouter une sous-tâche</value>
         <value xml:lang="it">Aggiungi sotto-compito</value>
-        <value xml:lang="nl">Add Sub Task</value>
+        <value xml:lang="nl">Subtaak toevoegen</value>
         <value xml:lang="th">เพิ่มงานย่อย</value>
         <value xml:lang="zh">增加子任务</value>
     </property>
@@ -1041,7 +1041,7 @@
         <value xml:lang="en">Fri</value>
         <value xml:lang="fr">ven</value>
         <value xml:lang="it">Ven</value>
-        <value xml:lang="nl">Vrij</value>
+        <value xml:lang="nl">Vr</value>
         <value xml:lang="zh">周五</value>
     </property>
     <property key="ProjectMgrGanttChart">
@@ -1080,7 +1080,7 @@
         <value xml:lang="en">Mon</value>
         <value xml:lang="fr">lun</value>
         <value xml:lang="it">Lun</value>
-        <value xml:lang="nl">Maa</value>
+        <value xml:lang="nl">Ma</value>
         <value xml:lang="zh">周一</value>
     </property>
     <property key="ProjectMgrMyRoleForThisTask">
@@ -1482,7 +1482,7 @@
         <value xml:lang="en">Sat</value>
         <value xml:lang="fr">sam</value>
         <value xml:lang="it">Sab</value>
-        <value xml:lang="nl">Zat</value>
+        <value xml:lang="nl">Za</value>
         <value xml:lang="zh">周六</value>
     </property>
     <property key="ProjectMgrSaveAsTemplate">
@@ -1632,7 +1632,7 @@
         <value xml:lang="en">Sun</value>
         <value xml:lang="fr">dim</value>
         <value xml:lang="it">Dom</value>
-        <value xml:lang="nl">Zon</value>
+        <value xml:lang="nl">Zo</value>
         <value xml:lang="zh">周日</value>
     </property>
     <property key="ProjectMgrTaskContentList">
