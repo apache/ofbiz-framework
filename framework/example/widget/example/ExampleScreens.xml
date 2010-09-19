@@ -474,7 +474,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-portal-page id="PartyProfile" edit-mode="${parameters.editmode}"/>
+                        <include-portal-page id="EXAMPLE" edit-mode="${parameters.editmode}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
