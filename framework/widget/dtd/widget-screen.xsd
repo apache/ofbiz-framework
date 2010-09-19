@@ -1088,6 +1088,23 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="include-portal-page" substitutionGroup="AllWidgets">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.include-portal-page"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.include-portal-page">
+        <xs:attribute type="xs:string" name="id"/>
+        <xs:attribute name="edit-mode" default="false">
+            <xs:annotation><xs:documentation>Show the portal in edit mode.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
 
     <xs:element name="sub-content" substitutionGroup="AllWidgets">
         <xs:complexType>

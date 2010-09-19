@@ -44,6 +44,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -58,10 +59,13 @@ import org.ofbiz.widget.html.HtmlScreenRenderer.ScreenletMenuRenderer;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
+import org.ofbiz.widget.WidgetPortalPageWorker;
 
 import freemarker.core.Environment;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.xml.sax.SAXException;
+import javax.xml.parsers.ParserConfigurationException;
 
 public class MacroScreenRenderer implements ScreenStringRenderer {
 
@@ -776,4 +780,149 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderScreenletPaginateMenu", parameters);
     }
 
+    public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+        String portalPageId = portalPage.getId(context);
+        String originalPortalPageId = portalPage.getOriginalPortalPageId();
+        String editMode = portalPage.getEditMode(context);
+
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderPortalPageBegin ");
+        sr.append("originalPortalPageId=\"");
+        sr.append(originalPortalPageId);
+        sr.append("\" portalPageId=\"");
+        sr.append(portalPageId);
+        sr.append("\" editMode=\"");
+        sr.append(editMode);
+        sr.append("\" />");
+        executeMacro(writer, sr.toString());
+    }
+
+    public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+        String editMode = portalPage.getEditMode(context);
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
+
+        String actualRequest = request.getRequestURL().toString();
+        if (actualRequest.indexOf("?") < 0) {
+            actualRequest += "?";
+        } else if (!actualRequest.endsWith("?")) {
+            actualRequest += "&amp;";
+        }
+        String editOnURL = actualRequest+"editmode=true";
+        String editOffURL = actualRequest+"editmode=false";
+        
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderPortalPageEnd ");
+        sr.append("editMode=\"");
+        sr.append(editMode);
+        sr.append("\" editOnURL=\"");
+        sr.append(editOnURL);
+        sr.append("\" editOffURL=\"");
+        sr.append(editOffURL);
+        sr.append("\" />");
+        executeMacro(writer, sr.toString());
+    }
+
+    public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+        String portalPageId = portalPage.getId(context);
+        String originalPortalPageId = portalPage.getOriginalPortalPageId();
+        String columnSeqId = portalPageColumn.getString("columnSeqId");
+        String columnWidthPercentage = portalPageColumn.getString("columnWidthPercentage");
+        String columnWidthPixels = portalPageColumn.getString("columnWidthPixels");
+        String editMode = portalPage.getEditMode(context);
+
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderPortalPageColumnBegin ");
+        sr.append("originalPortalPageId=\"");
+        sr.append(originalPortalPageId);
+        sr.append("\" portalPageId=\"");
+        sr.append(portalPageId);
+        sr.append("\" columnSeqId=\"");
+        sr.append(columnSeqId);
+        sr.append("\" ");
+        if (UtilValidate.isNotEmpty(columnWidthPixels)) {
+            sr.append("width=\"");
+            sr.append(columnWidthPixels);
+            sr.append("px\"");
+        } else if (UtilValidate.isNotEmpty(columnWidthPercentage)) {
+            sr.append("width=\"");
+            sr.append(columnWidthPercentage);
+            sr.append("%\"");
+        }
+        sr.append(" editMode=\"");
+        sr.append(editMode);
+        sr.append("\" />");
+        executeMacro(writer, sr.toString());
+    }   
+
+    public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderPortalPageColumnEnd/>");
+        executeMacro(writer, sr.toString());
+    }
+
+    public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+        String portalPageId = portalPage.getId(context);
+        String originalPortalPageId = portalPage.getOriginalPortalPageId();
+        String portalPortletId = portalPortlet.getString("portalPortletId");
+        String portletSeqId = portalPortlet.getString("portletSeqId");
+        String editMode = portalPage.getEditMode(context);
+        String editFormName = portalPortlet.getString("editFormName");
+        String editFormLocation = portalPortlet.getString("editFormLocation");
+
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderPortalPagePortletBegin ");
+        sr.append("originalPortalPageId=\"");
+        sr.append(originalPortalPageId);
+        sr.append("\" portalPageId=\"");
+        sr.append(portalPageId);
+        sr.append("\" portalPortletId=\"");
+        sr.append(portalPortletId);
+        sr.append("\" portletSeqId=\"");
+        sr.append(portletSeqId);
+        sr.append("\" editMode=\"");
+        sr.append(editMode);
+        sr.append("\"");
+        if (UtilValidate.isNotEmpty(editFormName) && UtilValidate.isNotEmpty(editFormLocation)) {
+            sr.append(" editAttribute=\"true\"");
+        }
+        sr.append("/>");
+        executeMacro(writer, sr.toString());
+    }
+
+    public void renderPortalPagePortletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+        String editMode = portalPage.getEditMode(context);
+
+        StringWriter sr = new StringWriter();
+        sr.append("<@renderPortalPagePortletEnd ");
+        sr.append(" editMode=\"");
+        sr.append(editMode);
+        sr.append("\" />");
+        executeMacro(writer, sr.toString());
+    }
+
+    public void renderPortalPagePortletBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+        String portalPortletId = portalPortlet.getString("portalPortletId");
+        String screenName = portalPortlet.getString("screenName");
+        String screenLocation = portalPortlet.getString("screenLocation");
+
+        ModelScreen modelScreen = null;
+        if (UtilValidate.isNotEmpty(screenName) && UtilValidate.isNotEmpty(screenLocation)) {
+            try {
+                modelScreen = ScreenFactory.getScreenFromLocation(screenLocation, screenName);
+            } catch (IOException e) {
+                String errMsg = "Error rendering portlet ID [" + portalPortletId + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg);
+            } catch (SAXException e) {
+                String errMsg = "Error rendering portlet ID [" + portalPortletId + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg);
+            } catch (ParserConfigurationException e) {
+                String errMsg = "Error rendering portlet ID [" + portalPortletId + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg);
+            }
+        }
+        modelScreen.renderScreenString(writer, context, this);
+    }
 }

@@ -39,6 +39,11 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="showPortletSimpleDecorator"/>
     </request-map>
+    <!-- Portlet editing requests -->
+    <request-map uri="editPortalPortletAttributes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editPortalPortletAttributes" save-last-view="true"/>
+    </request-map>
     <!-- Portal page show requests -->
     <request-map uri="showPortalPage">
         <security https="true" auth="true"/>
@@ -52,13 +57,13 @@ under the License.
     </request-map>
     <request-map uri="AddPortlet">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="AddPortlet"/>
+        <response name="success" type="view" value="AddPortlet" save-last-view="true"/>
     </request-map>
     <request-map uri="createPortalPagePortlet">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPortalPagePortlet"/>
-        <response name="success" type="request" value="ManagePortalPages"/>
-        <response name="error" type="request" value="ManagePortalPages"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
     </request-map>
     <request-map uri="updatePortalPagePortlet">
         <security https="true" auth="true"/>
@@ -75,8 +80,8 @@ under the License.
     <request-map uri="deletePortalPagePortlet">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePortalPagePortlet"/>
-        <response name="success" type="request" value="ManagePortalPages"/>
-        <response name="error" type="request" value="ManagePortalPages"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
     </request-map>
     <request-map uri="movePortletToPortalPage">
         <security https="true" auth="true"/>
@@ -110,32 +115,36 @@ under the License.
     <request-map uri="setPortalPortletAttributes">
         <security https="true" auth="true"/>
         <event type="simple" invoke="setPortalPortletAttributes" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
-        <response name="success" type="request" value="ManagePortalPages"/>
-        <response name="error" type="request" value="ManagePortalPages"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
     </request-map>
     <request-map uri="addPortalPageColumn">
         <security https="true" auth="true"/>
         <event type="service" invoke="addPortalPageColumn"/>
-        <response name="success" type="request" value="ManagePortalPages"/>
-        <response name="error" type="request" value="ManagePortalPages"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
     </request-map>
     <request-map uri="updatePortalPageColumn">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePortalPageColumn"/>
-        <response name="success" type="request" value="ManagePortalPages"/>
-        <response name="error" type="request" value="ManagePortalPages"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
     </request-map>
     <request-map uri="deletePortalPageColumn">
-        <security https="true" auth="true"/>
+        <security https="true" auth="false"/>
         <event type="service" invoke="deletePortalPageColumn"/>
-        <response name="success" type="request" value="ManagePortalPages"/>
-        <response name="error" type="request" value="ManagePortalPages"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
     </request-map>
     <request-map uri="updatePortalPageSeq">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePortalPageSeq"/>
         <response name="success" type="request" value="ManagePortalPages"/>
         <response name="error" type="request" value="ManagePortalPages"/>
+    </request-map>
+    <request-map uri="editPortalPageColumnWidth">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="editPortalPageColumnWidth" save-last-view="true"/>
     </request-map>
     <!-- View Mappings -->
     <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
@@ -145,4 +154,6 @@ under the License.
     <view-map name="showPortletSimpleDecorator" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortletSimpleDecorator"/>
     <view-map name="ManagePortalPages" type="screen" page="component://common/widget/PortalPageScreens.xml#ManagePortalPages"/>
     <view-map name="AddPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#AddPortlet"/>
+    <view-map name="editPortalPortletAttributes" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortalPortletAttributes"/>
+    <view-map name="editPortalPageColumnWidth" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortalPageColumnWidth"/>
 </site-conf>

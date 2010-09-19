@@ -158,3 +158,96 @@ ${menuString}
     <li class="${paginatePreviousStyle?default("nav-previous")}<#if !previousLinkUrl?has_content> disabled</#if>"><#if previousLinkUrl?has_content><a href="${previousLinkUrl}">${paginatePreviousLabel}</a><#else>${paginatePreviousLabel}</#if></li>
     <li class="${paginateFirstStyle?default("nav-first")}<#if !firstLinkUrl?has_content> disabled</#if>"><#if firstLinkUrl?has_content><a href="${firstLinkUrl}">${paginateFirstLabel}</a><#else>${paginateFirstLabel}</#if></li>
 </#macro>
+
+<#macro renderPortalPageBegin originalPortalPageId portalPageId editMode="false" addColumnLabel="Add column" addColumnHint="Add a new column to this portal">
+  <#if editMode == "true">
+    <script src="/images/myportal.js" type="text/javascript"></script>
+    <a class="buttontext" href="javascript:document.addColumn_${portalPageId}.submit()" title="${addColumnHint}">${addColumnLabel}</a> PortalPageId: ${portalPageId}
+    <form method="post" action="addPortalPageColumn" name="addColumn_${portalPageId}">
+      <input name="portalPageId" value="${portalPageId}" type="hidden"/>
+    </form>
+  </#if>
+  <table width="100%">
+    <tr>
+</#macro>
+
+<#macro renderPortalPageEnd editMode="false" editOnURL="#" editOffURL="#" editOnLabel="Edit ON" editOffLabel="Edit OFF" editOnHint="Enable portal page editing" editOffHint="Disable portal page editing">
+    </tr>
+  </table>
+  <#if editMode == "true">
+    <a class="buttontext" href="${editOffURL}" title="${editOffHint}">${editOffLabel}</a>
+  <#else>
+    <a class="buttontext" href="${editOnURL}" title="${editOnHint}">${editOnLabel}</a>
+  </#if>
+</#macro>
+
+<#macro renderPortalPageColumnBegin originalPortalPageId portalPageId columnSeqId editMode="false" width="auto" delColumnLabel="Remove column" delColumnHint="Delete this column" addPortletLabel="Add portlet" addPortletHint="Add a new portlet to this column" setColumnSizeHint="Set column size">
+  <#assign columnKey = portalPageId+columnSeqId>
+  <#assign columnKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="columnSeqId" value="' + columnSeqId + '" type="hidden"/>'>
+  <td style="vertical-align: top; <#if width?has_content> width:${width};</#if>" id="portalColumn_${columnSeqId}">
+    <#if editMode == "true">
+      Column:${portalPageId}-${columnSeqId}
+      <div class="portal-column-config-title-bar">
+        <ul>
+          <li>
+            <form method="post" action="deletePortalPageColumn" name="delColumn_${columnKey}">
+              ${columnKeyFields}
+            </form>
+            <a class="buttontext" href="javascript:document.delColumn_${columnKey}.submit()" title="${delColumnHint}">${delColumnLabel}</a>
+          </li>
+          <li>
+            <form method="post" action="AddPortlet" name="addPortlet_${columnKey}">
+              ${columnKeyFields}
+            </form>
+            <a class="buttontext" href="javascript:document.addPortlet_${columnKey}.submit()" title="${addPortletHint}">${addPortletLabel}</a>
+          </li>
+          <li>
+            <form method="post" action="editPortalPageColumnWidth" name="setColumnSize_${columnKey}">
+              ${columnKeyFields}
+            </form>
+            <a class="buttontext" href="javascript:document.setColumnSize_${columnKey}.submit()" title="${setColumnSizeHint}">${width}</a>
+          </li>
+        </ul>
+      </div>
+    </#if>
+</#macro>
+
+<#macro renderPortalPageColumnEnd>
+  </td>
+</#macro>
+
+<#macro renderPortalPagePortletBegin originalPortalPageId portalPageId portalPortletId portletSeqId editMode="false" delPortletHint="Remove this portlet" editAttribute="false" editAttributeHint="Edit portlet parameters">
+  <#assign portletKey = portalPageId+portalPortletId+portletSeqId>
+  <#assign portletKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portletSeqId  + '" type="hidden"/>'>
+  <div id="PP_${portletKey}" name="portalPortlet" class="noClass">
+    <#if editMode == "true">
+      <div class="portlet-config" id="PPCFG_${portletKey}">
+        <div class="portlet-config-title-bar">
+          <ul>
+            <li class="title">Portlet : [${portalPortletId}]</li>
+            <li class="remove">
+              <form method="post" action="deletePortalPagePortlet" name="delPortlet_${portletKey}">
+                ${portletKeyFields}
+              </form>
+              <a href="javascript:document.delPortlet_${portletKey}.submit()" title="${delPortletHint}">&nbsp;&nbsp;&nbsp;</a>
+            </li>
+            <#if editAttribute == "true">
+              <li class="edit">
+                <form method="post" action="editPortalPortletAttributes" name="editPortlet_${portletKey}">
+                  ${portletKeyFields}
+                </form>
+                <a href="javascript:document.editPortlet_${portletKey}.submit()" title="${editAttributeHint}">&nbsp;&nbsp;&nbsp;</a>
+              </li>
+            </#if>
+          </ul>
+          <br class="clear"/>
+        </div>
+      </#if>
+</#macro>
+
+<#macro renderPortalPagePortletEnd editMode="false">
+  </div>
+  <#if editMode == "true">
+    </div>
+  </#if>
+</#macro>

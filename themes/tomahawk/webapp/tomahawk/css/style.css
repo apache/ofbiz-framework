@@ -2279,15 +2279,24 @@ color: #000000;
 
 /* == Portlet configuration screenlet == */
 .portlet-config {
-background-color: #D4D0C8;
-border: 2px solid #D4D0C8;
+background-color: #FFEC6F;
+border: 2px solid #FFEC6F;
 margin-bottom: 5px;
 }
 
 .portlet-config-title-bar .title {
 color: #555555;
-font-size: 1.2em;
+background-color: #CFC05A;
 float: left;
+}
+
+.portlet-config-title-bar select {
+margin: 0;
+border: none;
+font-size: 10px;
+height: auto;
+padding: 0;
+vertical-align: top;
 }
 
 .portlet-config-title-bar ul {
