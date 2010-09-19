@@ -554,26 +554,6 @@ under the License.
         <response name="error" type="view" value="EditPortalPage"/>
     </request-map>
 
-    <!-- PortalPage detail administration, copy from portal-controller with response target change to EditPortalPage-->
-    <request-map uri="movePortletToPortalPageAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="movePortletToPortalPage"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
-    <request-map uri="updatePortalPagePortletSeqAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePortalPagePortletSeq"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
-    <request-map uri="setPortalPortletAttributesAdm">
-        <security https="true" auth="true"/>
-        <event type="simple" invoke="setPortalPortletAttributes" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
-    
     <!-- Geo Management -->
     <request-map uri="FindGeo"><security https="true" auth="true"/><response name="success" type="view" value="FindGeo" save-home-view="true"/></request-map>
     <request-map uri="EditGeo"><security https="true" auth="true"/><response name="success" type="view" value="EditGeo"/></request-map>

@@ -92,8 +92,8 @@ under the License.
     <request-map uri="movePortletToPortalPage">
         <security https="true" auth="true"/>
         <event type="service" invoke="movePortletToPortalPage"/>
-        <response name="success" type="request" value="ManagePortalPages"/>
-        <response name="error" type="request" value="ManagePortalPages"/>
+        <response name="success" type="view-last" value="main" save-last-view="true"/>
+        <response name="error" type="request" value="main"/>
     </request-map>
     <request-map uri="updatePortalPagePortletSeqAjax">
         <security https="true" auth="true"/>
