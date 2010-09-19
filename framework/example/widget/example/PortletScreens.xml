@@ -25,8 +25,6 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
-                <!-- TODO: figure out why this isn't getting the request object and requestAttributes is not updated either: <script location="component://common/script/org/ofbiz/common/PortalPageMethods.xml#getPortletAttributes"/>-->
-                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
             </actions>
             <widgets>
                 <label text="${uiLabelMap.ExamplePortletFirst}"/>
@@ -50,7 +48,6 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
             </actions>
             <widgets>
                 <container style="leftclear">

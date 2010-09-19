@@ -466,4 +466,18 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="PortalPageWidgetExampleScreen">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="PortalPageWidgetExamples"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-portal-page id="PartyProfile" edit-mode="${parameters.editmode}"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

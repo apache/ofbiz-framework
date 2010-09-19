@@ -39,6 +39,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -879,5 +880,27 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             }
             appendWhitespace(writer);
         }
+    }
+
+    public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPagePortletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPagePortletBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+        // TODO: not implemented
     }
 }

@@ -28,6 +28,7 @@ import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.html.HtmlWidgetRenderer;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
+import org.ofbiz.entity.GenericValue;
 
 /**
  * Widget Library - HTML Form Renderer implementation
@@ -160,6 +161,28 @@ public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenString
     }
 
     public void renderScreenletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Screenlet screenlet) throws IOException {
+        // TODO: not implemented
+    }
+
+    public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPagePortletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+        // TODO: not implemented
+    }
+    public void renderPortalPagePortletBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
         // TODO: not implemented
     }
 }

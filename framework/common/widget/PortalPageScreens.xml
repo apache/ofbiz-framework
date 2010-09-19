@@ -257,4 +257,36 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditPortalPortletAttributes">
+        <section>
+            <actions>
+                <entity-one entity-name="PortalPortlet" value-field="portalPortlet"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}">
+                            <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditPortalPageColumnWidth">
+        <section>
+            <actions>
+                <entity-one entity-name="PortalPageColumn" value-field="portalPageColumn"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Set column width: ${portalPortlet.portletName}">
+                            <include-form name="EditPortalPageColumnWidth" location="component://common/widget/PortalPageForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

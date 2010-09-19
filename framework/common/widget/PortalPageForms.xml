@@ -140,4 +140,12 @@ under the License.
             <hyperlink target="javascript:ajaxUpdateArea('List${entity}Area', 'list${entity}', $(FindGenericEntity).serialize());" target-type="plain"  description="${uiLabelMap.CommonSearch}"/>
         </field>
     </form>
+
+    <form name="EditPortalPageColumnWidth" type="single" target="updatePortalPageColumn" default-map-name="portalPageColumn">
+        <field name="portalPageId"><hidden/></field>
+        <field name="columnSeqId"><hidden/></field>
+        <field name="columnWidthPixels"><text/></field>
+        <field name="columnWidthPercentage"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
 </forms>
