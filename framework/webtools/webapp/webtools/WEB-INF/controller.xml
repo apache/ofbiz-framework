@@ -555,51 +555,15 @@ under the License.
     </request-map>
 
     <!-- PortalPage detail administration, copy from portal-controller with response target change to EditPortalPage-->
-    <request-map uri="addPortalPageColumnAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="addPortalPageColumn"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
-    <request-map uri="deletePortalPageColumnAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deletePortalPageColumn"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
-    <request-map uri="updatePortalPageColumnAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePortalPageColumn"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
     <request-map uri="movePortletToPortalPageAdm">
         <security https="true" auth="true"/>
         <event type="service" invoke="movePortletToPortalPage"/>
         <response name="success" type="view" value="EditPortalPage"/>
         <response name="error" type="view" value="EditPortalPage"/>
     </request-map>
-    <request-map uri="deletePortalPagePortletAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deletePortalPagePortlet"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
     <request-map uri="updatePortalPagePortletSeqAdm">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePortalPagePortletSeq"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
-    <request-map uri="updatePortalPagePortletAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePortalPagePortlet"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
-    <request-map uri="createPortalPagePortletAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createPortalPagePortlet"/>
         <response name="success" type="view" value="EditPortalPage"/>
         <response name="error" type="view" value="EditPortalPage"/>
     </request-map>

@@ -40,7 +40,7 @@ under the License.
 
     <#if configurePortalPage?has_content>
       <li id="add-portlet">
-        <a href="<@ofbizUrl>AddPortlet?portalPageId=${currentPortalPage.portalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonAddAPortlet}</a>
+        <a href="<@ofbizUrl>addPortlet?portalPageId=${currentPortalPage.portalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonAddAPortlet}</a>
       </li>
     </#if>
 
