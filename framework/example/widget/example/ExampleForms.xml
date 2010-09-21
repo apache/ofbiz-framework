@@ -239,18 +239,6 @@ under the License.
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}">
             <lookup target-form-name="LookupExampleFeature"/>
         </field>
-        <!-- most feature rich for autocomplete, ie partial text entry searches the full string, 
-            doesn't require custom request to function, etc; Note that for usability this is still a bit lame since you can't see the full list, 
-            you HAVE to know part of the ID or description in order to see options -->
-        <!--field name="exampleFeatureId">
-            <drop-down>
-                <auto-complete/>
-                <entity-options entity-name="ExampleFeature" description="${exampleFeatureId}: ${description}">
-                    <entity-order-by field-name="exampleFeatureId"/>
-                </entity-options>
-            </drop-down>
-        </field-->
-
         <field name="exampleFeatureApplTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ExampleFeatureApplType" description="${description}">
