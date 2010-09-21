@@ -8963,6 +8963,10 @@
         <value xml:lang="th">เงื่อนไข</value>
         <value xml:lang="zh">条件</value>
     </property>
+    <property key="ProductConditionsActionsRemoveBefore">         
+        <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions (if it's possible, since if one of those is alreay used elsewhere you can't)</value>
+        <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions (si possible car si l'une d'entre elles est déjà utilisé ailleurs vous ne pourrez pas)</value>
+    </property>    
     <property key="ProductConditionsThenActions">         
         <value xml:lang="en">If all conditions are true, then actions will be executed (logical conjunction, ie conditions are 'ANDED' between them, so are actions))</value>
         <value xml:lang="fr">Si toutes les conditions sont vérifiées, alors les actions seront exécutées (conjonction, autrement dit ET logique entre conditions, de même pour les actions)</value>
