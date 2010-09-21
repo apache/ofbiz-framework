@@ -298,18 +298,18 @@ under the License.
 
     <!-- Lookup Examples -->
     <form name="ExampleLookupFields" type="single" title="">
-        <!-- Old style lookup (in a popup window) -->
-        <field name="partyId" title="${uiLabelMap.CommonPartyId}">
-            <lookup target-form-name="LookupPartyName" presentation="window"/>
+        <!-- Old style lookup (in a popup window), geoIdAlone because we have another geoId below -->
+        <field name="geoIdAlone" title="${uiLabelMap.CommonGeoId}">
+            <lookup target-form-name="LookupGeo" presentation="window"/>
         </field>
         <!-- Standard lookup (in a layer)-->
         <!-- passes the name in one field and the id in another, this does not work yet with autcompletion, WIP... -->
-        <field name="partyName" title="${uiLabelMap.CommonPartyGroupName}">
-            <lookup target-form-name="LookupPartyGroupByName" description-field-name="partyGroupId"/>
+        <field name="geoName" title="${uiLabelMap.CommonGeoName}">
+            <lookup target-form-name="LookupGeoName" description-field-name="geoId"/>
         </field>
         <!-- This field may be hidden and the name rendered in partyName using default-value if partyGroupId is known when loading the form-->
-        <field name="partyGroupId" title="${uiLabelMap.CommonPartyId}"><text/></field><!-- the text field is only used for rendering. In the "real life" you would use the hidden field commented below to pass the data to the request  -->
-        <!--field name="partyGroupId"><hidden/></field-->        
+        <field name="geoId" title="${uiLabelMap.CommonGeoId}"><text/></field><!-- the text field is only used for rendering. In the "real life" you would use the hidden field commented below to pass the data to the request  -->
+        <!--field name="geoId"><hidden/></field-->        
         <sort-order>
             <field-group>
                 <sort-field name="partyId"/>
