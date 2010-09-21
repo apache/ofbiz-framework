@@ -234,6 +234,7 @@ under the License.
         <!-- most feature rich for autocomplete, ie partial text entry searches the full string, 
             doesn't require custom request to function, etc; Note that for usability this is still a bit lame since you can't see the full list, 
             you HAVE to know part of the ID or description in order to see options -->
+        <!-- TODO : return only the Id, else you need to edit the field to remove the description -->
         <field name="emptyField1" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="geoId" title="${uiLabelMap.ExampleAutocompleteDropdown}"
             tooltip="${uiLabelMap.ExampleAutocompleteTooltip}">
