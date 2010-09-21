@@ -49,7 +49,7 @@ under the License.
 <#macro renderDropDownField name className alert id multiple formName otherFieldName event action size firstInList currentValue explicitDescription allowEmpty options fieldName otherFieldName otherValue otherFieldSize dDFCurrent ajaxEnabled noCurrentSelectedKey ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch>
 </#macro>
 
-<#macro renderCheckField items className alert allChecked currentValue name event action></#macro>
+<#macro renderCheckField items className alert id allChecked currentValue name event action></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action></#macro>
 
 <#macro renderSubmitField buttonType className alert formName title name event action imgSrc confirmation containerId ajaxUrl></#macro>

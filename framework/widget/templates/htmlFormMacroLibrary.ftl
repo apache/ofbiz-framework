@@ -170,9 +170,9 @@ if(disa && document.styleSheets)
 </#if>
 </#macro>
 
-<#macro renderCheckField items className alert allChecked currentValue name event action>
+<#macro renderCheckField items className alert id allChecked currentValue name event action>
 <#list items as item>
-<input type="checkbox" <@renderClass className alert /><#rt/>
+<input type="checkbox"<#if (item_index == 0)> id="${id}"</#if> <@renderClass className alert /><#rt/>
 <#if allChecked?has_content && allChecked> checked="checked" <#elseif allChecked?has_content && !allChecked><#elseif currentValue?has_content && currentValue==item.value> checked="checked"</#if> name="${name?default("")?html}" value="${item.value?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
 ${item.description?default("")}
 </#list>

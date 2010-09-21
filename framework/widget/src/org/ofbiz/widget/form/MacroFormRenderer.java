@@ -938,6 +938,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
         Boolean allChecked = checkField.isAllChecked(context);
+        String id = modelFormField.getCurrentContainerId(context);
         String className = "";
         String alert = "false";
         String name = modelFormField.getParameterName(context);
@@ -972,6 +973,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(className);
         sr.append("\" alert=\"");
         sr.append(alert);
+        sr.append("\" id=\"");
+        sr.append(id);
         sr.append("\" allChecked=");
         sr.append((allChecked != null? Boolean.toString(allChecked): "\"\""));
         sr.append(" currentValue=\"");
