@@ -40,6 +40,14 @@
         <value xml:lang="ru">Приложение Пример</value>
         <value xml:lang="th">ตัวอย่างโปรแกรมคอมพิวเตอร์</value>
         <value xml:lang="zh">样例应用</value>
+    </property>    
+    <property key="ExampleAutocompleteDropdown">
+        <value xml:lang="en">Autocomplete Dropdown</value>
+        <value xml:lang="fr">Liste déroulante à auto complétion</value>
+    </property>
+    <property key="ExampleAutocompleteTooltip">
+        <value xml:lang="en">GROUP type based example, use Geo.Geoid and Geo.GeoName Entity.fields for completion</value>
+        <value xml:lang="fr">Exemple sur le type GROUP et utilisant Geo.Geoid et Geo.GeoName comme Entité.champs pour la complétion</value>
     </property>
     <property key="ExampleBirtChartReport">
         <value xml:lang="en">HTML chart report</value>
