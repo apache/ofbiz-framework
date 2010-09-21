@@ -4501,7 +4501,7 @@
     </property>
     <property key="AccountingGlAccountAssignments">
         <value xml:lang="ar">تعيينات الحساب المحاسبي</value>
-        <value xml:lang="de">Hauptbuchkonto-Zuordnungen</value>
+        <value xml:lang="de">HB Kontenzuordnungen</value>
         <value xml:lang="en">GL Account Assignments</value>
         <value xml:lang="es">Asignaciones a cuentas de LM</value>
         <value xml:lang="fr">Allocations du compte comptable</value>
@@ -4515,7 +4515,7 @@
     </property>
     <property key="AccountingGlAccountClass">
         <value xml:lang="ar">صنف الحساب المحاسبي</value>
-        <value xml:lang="de">Hauptbuchkonto-Klasse</value>
+        <value xml:lang="de">HB Konto-Klasse</value>
         <value xml:lang="en">GL Account Class</value>
         <value xml:lang="es">Clase de cuenta de LM</value>
         <value xml:lang="fr">Classe du compte comptable</value>
@@ -4533,7 +4533,7 @@
     </property>
     <property key="AccountingGlAccountDefault">
         <value xml:lang="ar">القيم الإفتراضية للحساب المحاسبي</value>
-        <value xml:lang="de">Hauptbuchkonto Voreinstellungun</value>
+        <value xml:lang="de">HB Standard Konto</value>
         <value xml:lang="en">GL Account defaults</value>
         <value xml:lang="es">Valores predeterminados de cuentas de LM</value>
         <value xml:lang="fr">Comptes par défaut</value>
@@ -4547,7 +4547,7 @@
     </property>
     <property key="AccountingGlAccountId">
         <value xml:lang="ar">دليل الحساب المحاسبي</value>
-        <value xml:lang="de">Hauptbuchkonto-Nr.</value>
+        <value xml:lang="de">HB Konto ID</value>
         <value xml:lang="en">GL Account ID</value>
         <value xml:lang="es">Id Cuenta de LM</value>
         <value xml:lang="fr">Réf. compte comptable</value>
@@ -4570,7 +4570,7 @@
         <value xml:lang="hi_IN">जीएल(GL) खाता तलपट(Trial Balance) ब्यौरेवार विवरण</value>
     </property>
     <property key="AccountingGlAccountTypeDefaults">
-        <value xml:lang="de">Kontenarten Voreinstellungen</value>
+        <value xml:lang="de">HB Kontotyp Voreinstellung</value>
         <value xml:lang="en">GL Account Type Defaults</value>
         <value xml:lang="fr">Types par défaut de compte du GL</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता  प्रकार डिफ़ॉल्ट्स</value>
@@ -4581,7 +4581,7 @@
     </property>
     <property key="AccountingGlAccounts">
         <value xml:lang="ar">الحسابات المحاسبية</value>
-        <value xml:lang="de">Hauptbuchkonten</value>
+        <value xml:lang="de">HB Konten</value>
         <value xml:lang="en">GL Accounts</value>
         <value xml:lang="es">Cuentas de LM</value>
         <value xml:lang="fr">Comptes</value>
@@ -4618,7 +4618,7 @@
         <value xml:lang="zh">日记账</value>
     </property>
     <property key="AccountingGlobalGLSettings">
-        <value xml:lang="de">Allgemeine Hauptbucheinstellungen</value>
+        <value xml:lang="de">Hauptbuch-Einstellungen, global</value>
         <value xml:lang="en">Global GL Settings</value>
         <value xml:lang="fr">Configurations globales du GL</value>
         <value xml:lang="hi_IN">सार्विक जीएल(GL) सेटिंग्स</value>
@@ -4672,6 +4672,7 @@
         <value xml:lang="zh">忽略发票明细</value>
     </property>
     <property key="AccountingIgnoringAdditionalShipCharges">
+        <value xml:lang="de">Prorata-Versandgebühren sind nicht 'N' für productStoreId ${productStoreId}: Zusätzliche Gebühren für Versand werden ignoriert</value>
         <value xml:lang="en">prorateShipping is not N for productStoreId ${productStoreId}: Additional shipping charges for shipments are ignored</value>
         <value xml:lang="fr">L'option "Coût des expéditions au prorata" ne vaut pas N pour le centre de profit ${productStoreId} : les frais d'expédition additionnels sont ignorés</value>
         <value xml:lang="hi_IN">productStoreId ${productStoreId} के लिए prorateShipping N नहीं है : माल लदान के लिए अतिरिक्त शुल्क की उपेक्षा कर रहे हैं</value>
@@ -4787,6 +4788,7 @@
     </property>
     <property key="AccountingInvoiceCancelledCannotApplyTo">
         <value xml:lang="ar">الفاتورة  [${invoiceId}] قد ألغيت, لا يمكن تطبيقها على</value>
+        <value xml:lang="de">Rechnung [${invoiceId}] ist storniert und kann nicht zugewiesen werden...</value>
         <value xml:lang="en">Invoice [${invoiceId}] is cancelled, cannot be applied to...</value>
         <value xml:lang="es">Factura [${invoiceId}] esta cancelada, no puede ser aplicada...</value>
         <value xml:lang="fr">Facture  [${invoiceId}] annullée, il ne peut y être alloué de paiement...</value>
@@ -4956,7 +4958,7 @@
     </property>
     <property key="AccountingInvoiceDateAbbr">
         <value xml:lang="ar">تاريخ الفاتورة</value>
-        <value xml:lang="de">Rg-Dat.</value>
+        <value xml:lang="de">Rg-Datum</value>
         <value xml:lang="en">Inv. Date</value>
         <value xml:lang="es">F. Fact</value>
         <value xml:lang="fr">Date fact.</value>
@@ -4970,7 +4972,7 @@
     </property>
     <property key="AccountingInvoiceHeader">
         <value xml:lang="ar">الرأسية</value>
-        <value xml:lang="de">Kopf</value>
+        <value xml:lang="de">Kopfzeile</value>
         <value xml:lang="en">Header</value>
         <value xml:lang="es">Cabecera</value>
         <value xml:lang="fr">En-tête</value>
@@ -4984,7 +4986,7 @@
     </property>
     <property key="AccountingInvoiceHeaderDetailedInformation">
         <value xml:lang="ar">الرأسية بالتفصيل</value>
-        <value xml:lang="de">Detaillierte Kopfinformationen</value>
+        <value xml:lang="de">Kopfzeile Detailinformation</value>
         <value xml:lang="en">Header Detailed Information</value>
         <value xml:lang="es">Información detallada de cabecera</value>
         <value xml:lang="fr">Détails de l'en-tête</value>
@@ -4998,7 +5000,7 @@
     </property>
     <property key="AccountingInvoiceID">
         <value xml:lang="ar">تعريف الفاتورة</value>
-        <value xml:lang="de">Rechnungs-Nr.</value>
+        <value xml:lang="de">Rechnungsnummer</value>
         <value xml:lang="en">InvoiceID</value>
         <value xml:lang="es">IdFactura</value>
         <value xml:lang="fr">Réf. facture</value>
@@ -5030,7 +5032,7 @@
     </property>
     <property key="AccountingInvoiceItemAdd">
         <value xml:lang="ar">إضافة بند فاتورة جديد</value>
-        <value xml:lang="de">Neue Rechnungsposition hinzufügen</value>
+        <value xml:lang="de">Weitere Rechnungsposition hinzufügen</value>
         <value xml:lang="en">Add a new invoice Item</value>
         <value xml:lang="es">Agregar un nuevo elemento de factura</value>
         <value xml:lang="fr">Ajouter une ligne de facturation</value>
@@ -5092,7 +5094,7 @@
     </property>
     <property key="AccountingInvoiceItemSeqId">
         <value xml:lang="ar">رقم البند</value>
-        <value xml:lang="de">Positionsnummer</value>
+        <value xml:lang="de">Pos.Nr.</value>
         <value xml:lang="en">Item Nr</value>
         <value xml:lang="es">Nr Elemento</value>
         <value xml:lang="fr">Ligne de facturation réf.</value>
@@ -5105,7 +5107,7 @@
         <value xml:lang="zh">明细编号</value>
     </property>
     <property key="AccountingInvoiceItemType">
-        <value xml:lang="de">Rechnungspostentyp</value>
+        <value xml:lang="de">Rechnungsposition Typ</value>
         <value xml:lang="en">Invoice Item Type</value>
         <value xml:lang="fr">Type de ligne de facture</value>
         <value xml:lang="hi_IN">चालान मद के प्रकार</value>
@@ -5175,7 +5177,7 @@
     </property>
     <property key="AccountingInvoiceOverview">
         <value xml:lang="ar">نبذة</value>
-        <value xml:lang="de">Überblick</value>
+        <value xml:lang="de">Übersicht</value>
         <value xml:lang="en">Overview</value>
         <value xml:lang="es">Visión general</value>
         <value xml:lang="fr">Aperçu</value>
@@ -6519,7 +6521,7 @@
     </property>
     <property key="AccountingNotModificationRecrationGlAccount">
         <value xml:lang="ar">لا يمكن تعيير هذا دون إعادة إستحداث حساب المحاسبي</value>
-        <value xml:lang="de">Das kann nicht ohne Neuanlage des Kontos geändert werden.</value>
+        <value xml:lang="de">Diese Einstellung kann nicht ohne Neuerstellung des HB Kontos geändert werden</value>
         <value xml:lang="en">This cannot be changed without re-creating the GL Account.</value>
         <value xml:lang="es">Esto no puede ser cambiado sin recrear la cuenta de LM.</value>
         <value xml:lang="fr">Ceci ne peut pas être modifié sans recréer un compte comptable</value>
@@ -6677,7 +6679,7 @@
         <value xml:lang="zh">定单</value>
     </property>
     <property key="AccountingOrgGlSettings">
-        <value xml:lang="de">Hauptbuch-Einstellungen des Unternehmens</value>
+        <value xml:lang="de">Hauptbuch-Einstellungen, Org.</value>    
         <value xml:lang="en">Organization GL Settings</value>
         <value xml:lang="fr">Configurations internes du GL</value>
         <value xml:lang="hi_IN">संगठन जीएल(Gl) सेटिंग्स</value>
@@ -6686,7 +6688,7 @@
     </property>
     <property key="AccountingOrganizationPartyId">
         <value xml:lang="ar">تعريف طرف المؤسسة</value>
-        <value xml:lang="de">Firmen-ID</value>
+        <value xml:lang="de">Akteur ID (Org.)</value>        
         <value xml:lang="en">Organization Party Id</value>
         <value xml:lang="es">Id Grupo de Organización</value>
         <value xml:lang="fr">Réf. acteur de type Organisation</value>
@@ -7250,7 +7252,7 @@
         <value xml:lang="zh">批准</value>
     </property>
     <property key="AccountingPaymentGatewayConfigId">
-        <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Id</value>
+        <value xml:lang="de">Zahlungs-Schnittstellen-Id</value>
         <value xml:lang="en">Payment Gateway Config Id</value>
         <value xml:lang="fr">Réf. config. passerelle de paiement</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास क्रमांक</value>
@@ -7258,7 +7260,7 @@
         <value xml:lang="zh">支付网关配置标识</value>
     </property>
     <property key="AccountingPaymentGatewayConfigDescription">
-        <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Beschreibung</value>
+        <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Payment Gateway Config Description</value>
         <value xml:lang="fr">Description de la configuration de passerelle de paiement</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास वर्णन</value>
@@ -7266,6 +7268,7 @@
         <value xml:lang="zh">支付网关配置描述</value>
     </property>
     <property key="AccountingPaymentGatewayConfigTypeDescription">
+        <value xml:lang="de">Schnittstellentyp, Beschr.</value>
         <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Art-Beschreibung</value>
         <value xml:lang="en">Payment Gateway Config Type Description</value>
         <value xml:lang="fr">Description des types de configuration de passerelle de paiement</value>
@@ -7274,7 +7277,7 @@
         <value xml:lang="zh">支付网关配置类型描述</value>
     </property>
     <property key="AccountingPaymentGatewayConfigTypeId">
-        <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Art-Nr.</value>
+        <value xml:lang="de">Schnittstellentyp</value>    
         <value xml:lang="en">Payment Gateway Config Type Id</value>
         <value xml:lang="fr">Type de configuration de passerelle de paiment</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार क्रमांक</value>
@@ -7290,7 +7293,7 @@
         <value xml:lang="zh">支付网关配置</value>
     </property>
     <property key="AccountingPaymentGatewayConfigTypes">
-        <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Arten</value>
+        <value xml:lang="de">Konfigurationstypen</value>    
         <value xml:lang="en">Payment Gateway Config Types</value>
         <value xml:lang="fr">Types de configuration de passerelle de paiment</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार</value>
@@ -7298,7 +7301,7 @@
         <value xml:lang="zh">支付网关配置类型</value>
     </property>
     <property key="AccountingPaymentGatewayDecline">
-        <value xml:lang="de">Ablehnung</value>
+        <value xml:lang="de">Ablehnen</value>
         <value xml:lang="en">Decline</value>
         <value xml:lang="fr">Décliner</value>
         <value xml:lang="hi_IN">अस्वीकृत</value>
@@ -7314,7 +7317,7 @@
         <value xml:lang="zh">生成</value>
     </property>
     <property key="AccountingPaymentGatewayRandom">
-        <value xml:lang="de">Zufall</value>
+        <value xml:lang="de">Zufällig</value>
         <value xml:lang="en">Random</value>
         <value xml:lang="fr">Aléatoire</value>
         <value xml:lang="hi_IN">क्रमरहित</value>
@@ -8190,6 +8193,9 @@
         <value xml:lang="en">Problem getting ShipmentItemBilling records</value>
         <value xml:lang="hi_IN">ShipmentItemBilling अभिलेखों के लिए समस्या हो रही</value>
     </property>
+    <property key="AccountingProblemGettingShipmentItemBilling">
+        <value xml:lang="en">Problem getting ShipmentItemBilling records</value>
+    </property>
     <property key="AccountingProblemLookingUpOrderItemBilling">
         <value xml:lang="en">Problem looking up OrderItemBilling records for ${billFields}</value>
         <value xml:lang="es">Problema buscando Elemento de orden de facturación para ${billFields}</value>
@@ -8238,7 +8244,7 @@
         <value xml:lang="zh">产品分类总账账户</value>
     </property>
     <property key="AccountingProductGlAccount">
-        <value xml:lang="de">Produkt-Hauptkonto</value>
+        <value xml:lang="de">Buchkonten d. Produkte</value>
         <value xml:lang="en">Product GL Accounts</value>
         <value xml:lang="fr">Comptes de produit</value>
         <value xml:lang="hi_IN">उत्पाद जीएल(Gl) खाता</value>
@@ -8492,6 +8498,7 @@
         <value xml:lang="hi_IN">विक्रय चालान </value>
     </property>
     <property key="AccountingSecurityCodeCard">
+        <value xml:lang="de">Sicherheitscode</value>
         <value xml:lang="en">Card Security Code</value>
         <value xml:lang="es">Código de seguridad de tarjeta</value>
         <value xml:lang="fr">Code de sécurité carte</value>
@@ -8513,6 +8520,7 @@
     </property>
     <property key="AccountingSendChecks">
         <value xml:lang="ar">تعليم الصكوك كمرسلة</value>
+        <value xml:lang="de">Schecks sind eingereicht</value>
         <value xml:lang="en">Mark Checks Sent</value>
         <value xml:lang="es">Marcar cheques como enviados</value>
         <value xml:lang="fr">Marquer les chèques comme envoyés</value>
@@ -8867,6 +8875,7 @@
         <value xml:lang="zh">税务机关地理信息</value>
     </property>
     <property key="AccountingTaxAuthorityGlAccounts">
+        <value xml:lang="de">Steuerbehörde HB-Konten</value>
         <value xml:lang="en">TaxAuthority GL Accounts </value>
         <value xml:lang="fr">Comptes de l'administration fiscale</value>
         <value xml:lang="hi_IN">टैक्स प्राधिकरण जीएल(Gl) लेखा</value>
@@ -8877,6 +8886,7 @@
     </property>
     <property key="AccountingTaxAuthorityParty">
         <value xml:lang="ar">طرف السلطة الضريبية</value>
+        <value xml:lang="de">Steuerbehörde (Akteur)</value>
         <value xml:lang="en">Tax Authority Party</value>
         <value xml:lang="es">Grupo de autoridad fiscal</value>
         <value xml:lang="fr">Réf. d'acteur de l'Administration fiscale</value>
@@ -8889,6 +8899,7 @@
         <value xml:lang="zh">税务机关会员</value>
     </property>
     <property key="AccountingTaxAuthorityRateProductUseCategoryTab">
+        <value xml:lang="de">Verwenden Sie den Kategorien-Tab um weitere Optionen hinzu zu fügen</value>
         <value xml:lang="en">Use the Categories tab to add other category options</value>
         <value xml:lang="fr">Utilisez l'onglet Catégories pour ajouter d'autres options de catégorie</value>
         <value xml:lang="hi_IN">अन्य श्रेणी विकल्पों को जोड़ने के लिए श्रेणियाँ टैब का उपयोग करें</value>
@@ -8904,6 +8915,7 @@
     </property>
     <property key="AccountingTaxSummary">
         <value xml:lang="ar">تقرير ملخص الضريبة</value>
+        <value xml:lang="de">Zusammenfasssung Steuer-Bericht</value>
         <value xml:lang="en">Tax Summary Report</value>
         <value xml:lang="es">Informe resumido de impuestos</value>
         <value xml:lang="fr">Rapport fiscal résumé</value>
@@ -9583,7 +9595,7 @@
     </property>
     <property key="AcctgAssignGlAccount">
         <value xml:lang="ar">تعيين الحساب المحاسبي</value>
-        <value xml:lang="de">zuweisen Hauptbuchkonto</value>
+        <value xml:lang="de">Hauptbuchkonto zuweisen</value>
         <value xml:lang="en">Assign GL Account</value>
         <value xml:lang="es">Asignar Cuenta de LM</value>
         <value xml:lang="fr">Assigner un compte comptable</value>
@@ -9633,6 +9645,7 @@
     </property>
     <property key="AcctgGlAcctLabel">
         <value xml:lang="ar">الحساب المحاسبي :</value>
+        <value xml:lang="de">Hauptbuchkonto : </value>
         <value xml:lang="en">GL Account : </value>
         <value xml:lang="es">Cuenta LM :</value>
         <value xml:lang="fr">Compte: </value>
@@ -9658,6 +9671,7 @@
         <value xml:lang="zh">财务类型 : </value>
     </property>
     <property key="AcctgGlJournalEntry">
+        <value xml:lang="de">Hauptbuch-Journal</value>
         <value xml:lang="en">GL Journal</value>
         <value xml:lang="fr">Journal du Grand Livre</value>
         <value xml:lang="hi_IN">जीएल(Gl) जर्नल :</value>
@@ -9668,6 +9682,7 @@
     </property>
     <property key="AcctgGlJrnlDescLabel">
         <value xml:lang="ar">الوصف :</value>
+        <value xml:lang="de">Beschreibung : </value>
         <value xml:lang="en">Description : </value>
         <value xml:lang="es">Descripción :</value>
         <value xml:lang="fr">Description:</value>
@@ -9680,6 +9695,7 @@
         <value xml:lang="zh">描述 : </value>
     </property>
     <property key="AcctgGlJrnlIdLabel">
+        <value xml:lang="de">HB Journal ID : </value>
         <value xml:lang="en">GL Journal ID : </value>
         <value xml:lang="es">Id diario LM:</value>
         <value xml:lang="fr">Journal:</value>
@@ -9705,6 +9721,7 @@
     </property>
     <property key="AcctgGlPartyLabel">
         <value xml:lang="ar">الطرف المحاسبي :</value>
+        <value xml:lang="de">HB Akteur : </value>
         <value xml:lang="en">GL Party : </value>
         <value xml:lang="es">Grupo LM :</value>
         <value xml:lang="fr">Acteur Grand Livre: </value>
@@ -9718,6 +9735,7 @@
     </property>
     <property key="AcctgListGlAcctOrg">
         <value xml:lang="ar">إدراج المؤسسة المحاسبية</value>
+        <value xml:lang="de">Liste der HB Organisationen</value>
         <value xml:lang="en">List GL Organization</value>
         <value xml:lang="es">Lista de organización de LM</value>
         <value xml:lang="fr">Liste des comptes de l'organisation</value>
@@ -9744,6 +9762,7 @@
         <value xml:lang="zh">浏览账户</value>
     </property>
     <property key="AcctgNewGlJournalEntry">
+        <value xml:lang="de">Neuer Journaleintrag</value>
         <value xml:lang="en">New Journal Entry</value>
         <value xml:lang="fr">Nouvelle écriture comptable</value>
         <value xml:lang="hi_IN">नई जर्नल प्रविष्टि</value>
@@ -10448,7 +10467,7 @@
         <value xml:lang="zh">借方总账账户标识</value>
     </property>
     <property key="FormFieldTitle_defaultGlAccountId">
-        <value xml:lang="de">Standard GL-Konto ID</value>
+        <value xml:lang="de">Standard HB-Konto ID</value>
         <value xml:lang="en">Default Gl Account Id</value>
         <value xml:lang="es">Id Cuenta de LM por omisión</value>
         <value xml:lang="fr">Réf. de compte par défaut</value>
@@ -10465,6 +10484,7 @@
         <value xml:lang="fr">Compte d'amortissment</value>
     </property>
     <property key="FormFieldTitle_depreciation">
+        <value xml:lang="de_DE">Abschreibung</value>
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="hi_IN">मूल्यह्रास</value>
@@ -10758,6 +10778,7 @@
         <value xml:lang="hi_IN">चालान दिनांक से</value>
     </property>
     <property key="FormFieldTitle_gatewayAvsResult">
+    	<value xml:lang="de">Schnittstelle AVS Ergebnis</value>
         <value xml:lang="en">Gateway Avs Result</value>
         <value xml:lang="es">Resultado Puerta Avs</value>
         <value xml:lang="fr">Réponse Avs du terminal de paiement</value>
@@ -10771,6 +10792,7 @@
     </property>
     <property key="FormFieldTitle_gatewayCode">
         <value xml:lang="ar">رمز العبور</value>
+        <value xml:lang="de">Schnittstellencode</value>
         <value xml:lang="en">Gateway Code</value>
         <value xml:lang="es">Código de puerta</value>
         <value xml:lang="fr">Code du terminal de paiement</value>
@@ -10783,6 +10805,7 @@
         <value xml:lang="zh">网关代码</value>
     </property>
     <property key="FormFieldTitle_gatewayCvResult">
+        <value xml:lang="de">Schnittstelle CV Ergebnis</value>    
         <value xml:lang="en">Gateway Cv Result</value>
         <value xml:lang="hi_IN">गेटवे Cv परिणाम</value>
         <value xml:lang="it">Risultato Cv gateway</value>
@@ -10790,6 +10813,7 @@
     </property>
     <property key="FormFieldTitle_gatewayFlag">
         <value xml:lang="ar">علامة العبور</value>
+        <value xml:lang="de">Schnittstellen-Flag</value>
         <value xml:lang="en">Gateway Flag</value>
         <value xml:lang="es">Bandera de puerta</value>
         <value xml:lang="fr">Indicateur du terminal de paiement</value>
@@ -10803,6 +10827,7 @@
     </property>
     <property key="FormFieldTitle_gatewayMessage">
         <value xml:lang="ar">رسالة العبور</value>
+        <value xml:lang="de">Schnittstellen-Mitteilung</value>
         <value xml:lang="en">Gateway Message</value>
         <value xml:lang="es">Mensaje de puerta</value>
         <value xml:lang="fr">Message du terminal de paiement</value>
@@ -10816,6 +10841,7 @@
     </property>
     <property key="FormFieldTitle_gatewayScoreResult">
         <value xml:lang="ar">نتيجة العبور</value>
+        <value xml:lang="de">Schnittstelle Score Ergebnis</value>
         <value xml:lang="en">Gateway Score Result</value>
         <value xml:lang="es">Gateway Score Result</value>
         <value xml:lang="fr">Score du terminal de paiement</value>
@@ -13097,6 +13123,7 @@
         <value xml:lang="zh">编辑固定资产标准费用</value>
     </property>
     <property key="PageTitleEditGlAccount">
+        <value xml:lang="de">HB-Konto bearbeiten</value>
         <value xml:lang="en">Edit GL Account</value>
         <value xml:lang="es">Editar Cuenta de LM</value>
         <value xml:lang="fr">Modifier un compte comptable</value>
@@ -13111,6 +13138,7 @@
         <value xml:lang="zh">编辑总账账户</value>
     </property>
     <property key="PageTitleEditGlobalGlAccount">
+        <value xml:lang="de">Globales HB-Konto bearbeiten</value>
         <value xml:lang="en">Edit Global GL Account</value>
         <value xml:lang="es">Editar Cuenta Global de LM</value>
         <value xml:lang="fr">Modifier un compte comptable global</value>
@@ -13202,6 +13230,7 @@
         <value xml:lang="zh">编辑税务机关产品分类</value>
     </property>
     <property key="PageTitleEditTaxAuthorityGlAccounts">
+        <value xml:lang="de">Steuerbehörde HB-Konten bearbeiten</value>
         <value xml:lang="en">Edit Tax Authority GL Accounts</value>
         <value xml:lang="es">Editar Cuentas de LM de Autoridad Fiscal</value>
         <value xml:lang="fr">Modifier les comptes des administrations fiscales</value>
@@ -13214,6 +13243,7 @@
         <value xml:lang="zh">编辑税务机关总账账户</value>
     </property>
     <property key="PageTitleEditTaxAuthorityPartyInfo">
+        <value xml:lang="de">Steuerbehörde Akteur-Info bearbeiten</value>
         <value xml:lang="en">Edit Tax Authority Party Info</value>
         <value xml:lang="es">Editar Info de Grupo de Autoridad Fiscal</value>
         <value xml:lang="fr">Modifier les informations d'une administration fiscale</value>
@@ -13328,12 +13358,14 @@
         <value xml:lang="en">Find Financial Account Reconciliations for Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
     <property key="PageTitleFindPaymentGatewayConfig">
+        <value xml:lang="de">Bezahl-Schnittstelle-Konfigurationen suchen</value>
         <value xml:lang="en">Find Payment Gateway Config</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास खोजें</value>
         <value xml:lang="it">Ricerca configurazioni gateway pagamenti</value>
         <value xml:lang="zh">查找支付网关配置</value>
     </property>
     <property key="PageTitleFindPaymentGatewayConfigTypes">
+        <value xml:lang="de">Bezahl-Schnittstelle. Konfigurationstypen suchen</value>
         <value xml:lang="en">Find Payment Gateway Config Types</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार खोजें</value>
         <value xml:lang="it">Ricerca tipi configurazioni gateway pagamenti</value>
@@ -13362,6 +13394,7 @@
         <value xml:lang="zh">查找总账账户</value>
     </property>
     <property key="PageTitleFindGlobalGlAccount">
+        <value xml:lang="de">HB-Konto suchen</value>
         <value xml:lang="en">Find Global GL Account</value>
         <value xml:lang="es">Encontrar Cuenta Global de LM</value>
         <value xml:lang="fr">Recherche de comptes globaux</value>
@@ -13374,7 +13407,7 @@
         <value xml:lang="zh">查找全局总账账户</value>
     </property>
     <property key="PageTitleFindInvoice">
-        <value xml:lang="de">Suche Rechnungen</value>
+        <value xml:lang="de">Rechnungen suchen</value>
         <value xml:lang="en">Find Invoice</value>
         <value xml:lang="es">Encontrar Factura</value>
         <value xml:lang="fr">Recherche de factures</value>
@@ -13789,6 +13822,7 @@
         <value xml:lang="zh">查找固定资产</value>
     </property>
     <property key="PageTitleLookupGlAccount">
+        <value xml:lang="de">HB-Konto suchen</value>
         <value xml:lang="en">Lookup GL Account</value>
         <value xml:lang="es">Buscar Cuenta de LM</value>
         <value xml:lang="fr">Consultation de compte</value>
@@ -13867,12 +13901,14 @@
         <value xml:lang="zh">未过户财务交易</value>
     </property>
     <property key="PageTitleUpdatePaymentGatewayConfig">
+        <value xml:lang="de">Bezahl-Schnittstelle aktualisieren</value>
         <value xml:lang="en">Update Payment Gateway Config</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास उन्नत करे</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento</value>
         <value xml:lang="zh">更新支付网关配置</value>
     </property>
     <property key="PageTitleUpdatePaymentGatewayConfigType">
+        <value xml:lang="de">Bezahl-Schnittstellen-Typ aktualisieren</value>
         <value xml:lang="en">Update Payment Gateway Config Type</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास प्रकार उन्नत करे</value>
         <value xml:lang="it">Aggiorna tipo configurazione gateway pagamento</value>
@@ -13884,6 +13920,7 @@
         <value xml:lang="it">Aggiorna configurazione gateway pagamento Authorize Dot Net</value>
     </property>
     <property key="PageTitleUpdatePaymentGatewayConfigClearCommerce">
+        <value xml:lang="de">Bezahl-Schnittstelle Clear Commerce aktualisieren</value>    
         <value xml:lang="en">Update Payment Gateway Config Clear Commerce</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास स्पष्ट वाणिज्य उन्नत करे</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento Clear Commerce</value>
@@ -13895,12 +13932,14 @@
         <value xml:lang="it">Aggiorna configurazione gateway pagamento CyberSource</value>
     </property>
     <property key="PageTitleUpdatePaymentGatewayConfigPayflowPro">
+        <value xml:lang="de">Bezahl-Schnittstelle Payflow Pro aktualisieren</value>
         <value xml:lang="en">Update Payment Gateway Config Payflow Pro</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास Payflow Pro उन्नत करे</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento Payflow Pro</value>
         <value xml:lang="zh">更新Payflow Pro的支付网关配置</value>
     </property>
     <property key="PageTitleUpdatePaymentGatewayConfigPayPal">
+        <value xml:lang="de">Bezahl-Schnittstelle PayPal aktualisieren</value>
         <value xml:lang="en">Update Payment Gateway Config PayPal</value>
         <value xml:lang="hi_IN">भुगतान गेटवे विन्यास PayPal उन्नत करे</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento PayPal</value>
@@ -13924,6 +13963,7 @@
         <value xml:lang="zh">浏览财务交易</value>
     </property>
     <property key="PageTitleViewGatewayResponse">
+        <value xml:lang="de">Bezahl-Schnittstellen-Antwort ansehen</value>
         <value xml:lang="en">View Gateway Response</value>
         <value xml:lang="fr">Voir la réponse du terminal de paiement</value>
         <value xml:lang="hi_IN">गेटवे प्रतिक्रियांए देखें</value>
