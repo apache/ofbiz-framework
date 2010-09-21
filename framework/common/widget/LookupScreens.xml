@@ -44,7 +44,30 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
+    <screen name="LookupGeoName">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.PageTitleLookupGeo}"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="entityName" value="Geo"/>
+                <set field="searchFields" value="[geoName, geoId, geoCode]"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="search-options">
+                        <include-form name="LookupGeoName" location="component://common/widget/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listLookupGeoName" location="component://common/widget/LookupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <!-- Locales Lookup Screen -->
     <screen name="ListLocales">
         <section>

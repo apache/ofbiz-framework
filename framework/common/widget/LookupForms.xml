@@ -59,4 +59,12 @@ under the License.
         <field name="abbreviation" title="${uiLabelMap.CommonGeoAbbr}"><display/></field>
         <field name="wellKnownText" title="${uiLabelMap.CommonGeoWellKnownText}"><display/></field>
     </form>
+    
+    <form name="LookupGeoName" extends="LookupGeo" target="LookupGeoName"/>
+    <form name="listLookupGeoName" extends="listLookupGeo" paginate-target="LookupGeoName">
+        <field name="geoId" widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
+            <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="javascript:set_values('${geoName}', '${geoId}')"/>
+        </field>
+    </form>        
+        
 </forms>

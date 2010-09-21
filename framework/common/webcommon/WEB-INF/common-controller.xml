@@ -209,6 +209,7 @@ under the License.
     </request-map>    
 
     <request-map uri="LookupGeo"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
+    <request-map uri="LookupGeoName"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeoName"/></request-map>
     <!--========================== AJAX events =====================-->
 
 
@@ -234,4 +235,5 @@ under the License.
     <view-map name="viewBlocked" type="screen" page="component://common/widget/CommonScreens.xml#viewBlocked"/>
     
     <view-map name="LookupGeo" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeo"/>
+    <view-map name="LookupGeoName" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeoName"/>    
 </site-conf>
