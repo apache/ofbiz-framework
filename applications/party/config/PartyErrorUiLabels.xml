@@ -61,6 +61,10 @@
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่พบผลการติดต่อสำหรับรหัสผลการติดต่อ</value>
         <value xml:lang="zh">错误：没有找到沟通事件，沟通实践标识</value>
     </property>
+    <property key="commeventservices.communication_event_status">
+        <value xml:lang="en">ERROR: Status is not a valid change; old Status: ${communicationEvent.statusId}, new status: ${parameters.statusId}</value>
+        <value xml:lang="fr">ERREUR : Le changement de ${communicationEvent.statusId} à ${parameters.statusId} n'est pas valide</value>
+    </property>
     <property key="commeventservices.communication_event_to_contact_mech_must_be_email">
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus an" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
         <value xml:lang="en">ERROR: Communication event must have a to contact mech that is an email for comm event Id</value>

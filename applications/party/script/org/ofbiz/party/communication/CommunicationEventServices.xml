@@ -539,7 +539,7 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
-                <add-error><fail-message message="Status is not a valid change; old Status: ${communicationEvent.statusId}, new status: ${parameters.statusId}"/></add-error>
+                <add-error><fail-property resource="PartyErrorUiLabels" property="commeventservices.communication_event_status"/></add-error>
                 <log level="error" message="Cannot change from ${communicationEvent.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>
