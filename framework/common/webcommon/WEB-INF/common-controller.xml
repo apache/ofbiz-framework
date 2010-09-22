@@ -191,6 +191,10 @@ under the License.
         <response name="success" type="view" value="main"/>
     </request-map>
     
+    <!-- Lookup requests -->
+    <request-map uri="LookupGeo"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
+    <request-map uri="LookupGeoName"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeoName"/></request-map>
+    
     <!--========================== AJAX events =====================-->
     <!-- to dynamically get products related to a product category -->
     <request-map uri="getAssociatedProductsList">
@@ -207,9 +211,6 @@ under the License.
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>    
-
-    <request-map uri="LookupGeo"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
-    <request-map uri="LookupGeoName"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeoName"/></request-map>
     <!--========================== AJAX events =====================-->
 
 
