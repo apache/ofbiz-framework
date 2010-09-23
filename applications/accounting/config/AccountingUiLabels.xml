@@ -5674,7 +5674,7 @@
     <property key="AccountingLookupAgreement">
         <value xml:lang="de">Vereinbarung suchen</value>
         <value xml:lang="en">Lookup Agreement</value>
-        <value xml:lang="fr">Consulter l'accord commercial</value>
+        <value xml:lang="fr">Rechercher un ou des accords commerciaux</value>
         <value xml:lang="hi_IN">अनुबंध लुकअप</value>
         <value xml:lang="it">Ricerca contratti</value>
         <value xml:lang="nl">Vind overeenkomst</value>
@@ -5683,7 +5683,7 @@
     <property key="AccountingLookupAgreementItem">
         <value xml:lang="de">Vereinbarungsposition suchen</value>
         <value xml:lang="en">Lookup Agreement Item</value>
-        <value xml:lang="fr">Consulter la ligne d'accord commercial</value>
+        <value xml:lang="fr">Rechercher un ou des lignes d'accord commercial</value>
         <value xml:lang="hi_IN">अनुबंध मद लुकअप</value>
         <value xml:lang="it">Ricerca righe contratti</value>
         <value xml:lang="nl">Vind onderdelen overeenkomst</value>
@@ -10778,7 +10778,7 @@
         <value xml:lang="hi_IN">चालान दिनांक से</value>
     </property>
     <property key="FormFieldTitle_gatewayAvsResult">
-    	<value xml:lang="de">Schnittstelle AVS Ergebnis</value>
+      <value xml:lang="de">Schnittstelle AVS Ergebnis</value>
         <value xml:lang="en">Gateway Avs Result</value>
         <value xml:lang="es">Resultado Puerta Avs</value>
         <value xml:lang="fr">Réponse Avs du terminal de paiement</value>

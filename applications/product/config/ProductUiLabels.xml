@@ -6175,7 +6175,7 @@
         <value xml:lang="de">Einrichtung nachschlagen</value>
         <value xml:lang="en">Lookup Facility</value>
         <value xml:lang="es">Buscar almacén</value>
-        <value xml:lang="fr">Consulter le lieu de stockage</value>
+        <value xml:lang="fr">Rechercher un ou des  lieux de stockage</value>
         <value xml:lang="it">Ricerca Stabilimento</value>
         <value xml:lang="ro">Cauta Compartiment</value>
         <value xml:lang="ru">Искать объект</value>
@@ -6186,7 +6186,7 @@
         <value xml:lang="de">Produkt nachschlagen</value>
         <value xml:lang="en">Lookup Product</value>
         <value xml:lang="es">Buscar Producto</value>
-        <value xml:lang="fr">Consulter l'article</value>
+        <value xml:lang="fr">Rechercher un ou des articles</value>
         <value xml:lang="it">Ricerca prodotti</value>
         <value xml:lang="nl">Produkt zoeken</value>
         <value xml:lang="ro">Cauta Produse</value>
@@ -6198,7 +6198,7 @@
         <value xml:lang="de">Produktkategorie nachschlagen</value>
         <value xml:lang="en">Lookup Product Category</value>
         <value xml:lang="es">Buscar Categoría de productos</value>
-        <value xml:lang="fr">Consulter la catégorie d'article</value>
+        <value xml:lang="fr">Rechercher une ou des catégories d'article</value>
         <value xml:lang="it">Ricerca Categorie Prodotti</value>
         <value xml:lang="ro">Cauta Categorie Produse</value>
         <value xml:lang="ru">Искать категорию продукта</value>
@@ -6209,7 +6209,7 @@
         <value xml:lang="de">Produktmerkmal nachschlagen</value>
         <value xml:lang="en">Lookup Product Feature</value>
         <value xml:lang="es">Buscar Características de Productos</value>
-        <value xml:lang="fr">Consulter les caractéristiques d'article</value>
+        <value xml:lang="fr">Rechercher une ou des caractéristiques d'article</value>
         <value xml:lang="it">Ricerca Caratteristiche Prodotti</value>
         <value xml:lang="ro">Cauta Caracteristici Produse</value>
         <value xml:lang="ru">Искать особенность продукта</value>
@@ -6220,7 +6220,7 @@
         <value xml:lang="de">Produkt und Preis nachschlagen</value>
         <value xml:lang="en">Lookup Product And Price</value>
         <value xml:lang="es">Buscar Producto y precio</value>
-        <value xml:lang="fr">Consulter les prix d'un article</value>
+        <value xml:lang="fr">Rechercher un ou des prix d'un article</value>
         <value xml:lang="it">Ricerca Prodotti e Prezzi</value>
         <value xml:lang="nl">Zoeken productprijs</value>    
         <value xml:lang="ro">Cauta Produse si Preturi</value>
@@ -6232,7 +6232,7 @@
         <value xml:lang="de">Laden nachschlagen</value>
         <value xml:lang="en">Lookup Product Store</value>
         <value xml:lang="es">Buscar tienda de producto</value>
-        <value xml:lang="fr">Consulter le centre de profit</value>
+        <value xml:lang="fr">Rechercher un ou des centres de profit</value>
         <value xml:lang="it">Ricerca Negozi</value>
         <value xml:lang="nl">Zoeken winkel</value>    
         <value xml:lang="ro">Cauta Magazine</value>
@@ -6244,7 +6244,7 @@
         <value xml:lang="de">Produktvariante nachschlagen</value>
         <value xml:lang="en">Lookup Variant Product</value>
         <value xml:lang="es">Buscar producto variante</value>
-        <value xml:lang="fr">Consulter la variante d'article</value>
+        <value xml:lang="fr">Rechercher une ou des variantes d'article</value>
         <value xml:lang="it">Ricerca Prodotti Varianti</value>
         <value xml:lang="ro">Cauta Variante Produse </value>
         <value xml:lang="ru">Искать вариант продукта</value>
@@ -6255,7 +6255,7 @@
         <value xml:lang="de">Virtuelles Produkt nachschlagen</value>
         <value xml:lang="en">Lookup Virtual Product</value>
         <value xml:lang="es">Buscar producto virtual</value>
-        <value xml:lang="fr">Consulter l'article virtuel</value>
+        <value xml:lang="fr">Rechercher un ou des articles virtuel</value>
         <value xml:lang="it">Ricerca Prodotti Virtuali</value>
         <value xml:lang="ro">Cauta Produse Virtuale</value>
         <value xml:lang="ru">Искать виртуальный продукт</value>
@@ -6264,7 +6264,7 @@
     </property>
     <property key="PageTitleLookupSupplierProduct">
         <value xml:lang="en">Lookup Product for supplier:</value>
-        <value xml:lang="fr">Consulter un produit pour le fournisseur : </value>
+        <value xml:lang="fr">Rechercher un ou des produits pour le fournisseur : </value>
         <value xml:lang="it">Ricerca prodotto per fornitore:</value>
         <value xml:lang="zh">查找产品，供货商是</value>
     </property>
@@ -8120,7 +8120,7 @@
         <value xml:lang="de">Kataloge anzeigen</value>
         <value xml:lang="en">Browse Catalogs</value>
         <value xml:lang="es">Examinar Catálogos</value>
-        <value xml:lang="fr">Consulter les catalogues</value>
+        <value xml:lang="fr">Rechercher un ou des catalogues</value>
         <value xml:lang="it">Mostra Cataloghi</value>
     <value xml:lang="nl">Blader door catalogi</value>
         <value xml:lang="ro">Afiseaza Catalog</value>
@@ -13143,7 +13143,7 @@
         <value xml:lang="de">Lieferung(en) suchen</value>
         <value xml:lang="en">Lookup Shipment(s)</value>
         <value xml:lang="es">Buscar envío(s)</value>
-        <value xml:lang="fr">Consulter l'expédition(s)</value>
+        <value xml:lang="fr">Rechercher une ou des expéditions</value>
         <value xml:lang="it">Ricerca Spedizione(i)</value>
         <value xml:lang="ro">Cauta Expediere(i)</value>
         <value xml:lang="ru">Искать поставку(и)</value>

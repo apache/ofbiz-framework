@@ -1512,12 +1512,12 @@
         <value xml:lang="zh">组名称</value>
     </property>
     <property key="WebtoolsGeoCreateNew">
-        <value xml:lang="en">Create New Geo</value>
-        <value xml:lang="fr">Créer une zone géographique</value>
+        <value xml:lang="en">Create/Edit Geo</value>
+        <value xml:lang="fr">Créer/Modifier une zone géographique</value>
     </property>
     <property key="WebtoolsGeoEdit">
-        <value xml:lang="en">Edit Geo</value>
-        <value xml:lang="fr">Modifier la zone géographique</value>
+        <value xml:lang="en">Create/Edit Geo</value>
+        <value xml:lang="fr">Créer/Modifier la zone géographique</value>
     </property>    
     <property key="WebtoolsGeoManagement">
         <value xml:lang="en">Geo Management</value>

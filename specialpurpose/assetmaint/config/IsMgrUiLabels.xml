@@ -99,7 +99,7 @@
     </property>
     <property key="PageTitleLookupComputerHardware">
         <value xml:lang="en">Lookup Computer Hardware</value>
-        <value xml:lang="fr">Consulter le matériel informatique</value>
+        <value xml:lang="fr">Rechercher du matériel informatique</value>
         <value xml:lang="it">Ricerca hardware per computer</value>
         <value xml:lang="zh">查找计算机硬件</value>
     </property>
