@@ -35,8 +35,7 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
 	params[paramKey] = $F(paramField);
 	
     var optionList = [];
-    var requestToSend = request;
-    new Ajax.Request(requestToSend, {
+    new Ajax.Request(request, {
         asynchronous: false,
         parameters: params,
         onSuccess: function(transport) {
