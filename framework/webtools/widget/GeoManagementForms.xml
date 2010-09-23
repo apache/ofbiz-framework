@@ -69,9 +69,7 @@
     
     <form name="LinkGeos" type="single" target="linkGeos" title="" focus-field-name="geoId" 
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="geoIds" title="${uiLabelMap.CommonGeos}"
-            event="onFocus" 
-            action="typeValue = $('${typeField}');selectMultipleRelatedValues('${requestName}', '${paramKey}', '${relatedField}', '${multipleSelect}', '${type}', typeValue, '${responseName}');">
+        <field name="geoIds" title="${uiLabelMap.CommonGeos}">
             <drop-down allow-multiple="true">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
                     <!--entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/--><!-- useful at least to test, else it's long... -->
@@ -89,7 +87,9 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="geoId" title="${uiLabelMap.CommonGeo}">
+        <field name="geoId" title="${uiLabelMap.CommonGeo}"
+            event="onFocus" 
+            action="typeValue = $('${typeField}');selectMultipleRelatedValues('${requestName}', '${paramKey}', '${relatedField}', '${multipleSelect}', '${type}', typeValue, '${responseName}');">            
             <drop-down>
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
                     <entity-order-by field-name="geoName"/>
