@@ -211,6 +211,13 @@ under the License.
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>    
+
+    <request-map uri="getRelatedGeos">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getRelatedGeos"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
     <!--========================== AJAX events =====================-->
 
 

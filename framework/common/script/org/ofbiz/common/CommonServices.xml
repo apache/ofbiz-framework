@@ -263,21 +263,65 @@ under the License.
             <field-to-list list="stateList" field="stateName"/>
         </iterate>
         <if-empty field="stateList">
-            <property-to-field resource="CommonUiLabels" property="CommonNoStatesProvinces" field="noOption"/>
-            <field-to-list list="stateList" field="noOption"/>
+            <property-to-field resource="CommonUiLabels" property="CommonNoStatesProvinces" field="noOptions"/>
+            <field-to-list list="stateList" field="noOptions"/>
         </if-empty>
         <field-to-result field="stateList"/>
     </simple-method>
 
     <simple-method method-name="linkGeos" short-description="Link Geos to another Geo">
-        <iterate list="parameters.geoIds" entry="geoId">
-            <make-value value-field="newGeoAssoc" entity-name="GeoAssoc"/>
-            <set field="newGeoAssoc.geoId" from-field="geoId"/>
-            <set field="newGeoAssoc.geoIdTo" from-field="parameters.geoId"/>
-            <set field="newGeoAssoc.geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>
-            <create-value value-field="newGeoAssoc"/>
-            <check-errors/>            
+        <entity-and entity-name="GeoAssoc" list="geoAssocs">
+            <field-map field-name="geoIdTo" from-field="parameters.geoId"/>
+        </entity-and>
+        <!-- Current list contains old values? -->
+        <iterate list="geoAssocs" entry="geoAssoc">
+            <if-compare-field field="parameters.geoIds" operator="contains" to-field="geoAssoc.geoId">
+                <!-- Yes, nothing to do, it already exists and we keep it -->
+                <else><!-- Remove -->
+                    <entity-one entity-name="GeoAssoc" value-field="oldGeoAssoc">
+                        <field-map field-name="geoId" from-field="geoAssoc.geoId"/>
+                        <field-map field-name="geoIdTo" from-field="parameters.geoId"/>
+                    </entity-one>
+                    <remove-value value-field="oldGeoAssoc"/>
+                </else>                
+            </if-compare-field>
         </iterate>
+        <!-- Old list contains current values -->
+        <iterate list="parameters.geoIds" entry="geoId">            
+            <if-compare-field field="oldGeoIds" operator="contains" to-field="geoId">
+                <!-- Yes, nothing to do, it already exists and we keep it -->
+                <else> 
+                    <entity-one entity-name="GeoAssoc" value-field="oldGeoAssoc">
+                        <field-map field-name="geoId" from-field="geoId"/>
+                        <field-map field-name="geoIdTo" from-field="parameters.geoId"/>
+                    </entity-one>
+                    <if-empty field="oldGeoAssoc">                    
+                        <!-- Add as it does not exist -->
+                        <make-value value-field="newGeoAssoc" entity-name="GeoAssoc"/>
+                        <set field="newGeoAssoc.geoId" from-field="geoId"/>
+                        <set field="newGeoAssoc.geoIdTo" from-field="parameters.geoId"/>
+                        <set field="newGeoAssoc.geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>
+                        <create-value value-field="newGeoAssoc"/>
+                    </if-empty>
+                </else>
+            </if-compare-field>
+        </iterate>
+        <check-errors/>
     </simple-method>
+
+    <simple-method method-name="getRelatedGeos" short-description="get related geos to a geo through a geoAssoc" login-required="false">      
+        <entity-and entity-name="GeoAssoc" list="geoAssoc">
+            <field-map field-name="geoIdTo" from-field="parameters.geoId"/>
+            <field-map field-name="geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>
+        </entity-and>
+        <iterate list="geoAssoc" entry="geo">
+            <field-to-list list="geoList" field="geo.geoId"/>
+        </iterate>
+        <if-empty field="geoList">
+            <property-to-field resource="CommonUiLabels" property="CommonNoOptions" field="noOptions"/>
+            <field-to-list list="geoList" field="noOptions"/>
+        </if-empty>
+        <field-to-result field="geoList"/>
+    </simple-method>    
     
 </simple-methods>

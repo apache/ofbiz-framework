@@ -711,9 +711,9 @@ under the License.
         location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="linkGeos">        
         <description>Link Geos to another Geo</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
-        <attribute name="geoIds" type="List" mode="IN"></attribute>
-        <attribute name="geoId" type="String" mode="IN"></attribute>
-        <attribute name="geoAssocTypeId" type="String" mode="IN"></attribute>
+        <attribute name="geoIds" type="List" mode="IN" optional="true"/>
+        <attribute name="geoId" type="String" mode="IN"/>
+        <attribute name="geoAssocTypeId" type="String" mode="IN"/>
     </service>
     
     <!-- GeoPoint services -->
@@ -753,4 +753,12 @@ under the License.
         <attribute name="listOrderBy" mode="IN" type="String" optional="true"/>
         <attribute name="stateList" mode="OUT" type="java.util.List"/>
     </service>
+    
+    <service name="getRelatedGeos" engine="simple" auth="false"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getRelatedGeos">
+        <attribute name="geoId" mode="IN" type="String"/>
+        <attribute name="geoAssocTypeId" mode="IN" type="String"/>        
+        <attribute name="geoList" mode="OUT" type="java.util.List"/>
+    </service>
+    
 </services>
