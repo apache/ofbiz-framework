@@ -68,6 +68,29 @@
             </widgets>
         </section>
     </screen>
+    <screen name="LookupGeo">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.PageTitleLookupGeo}"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+                <set field="entityName" value="Geo"/>
+                <set field="searchFields" value="[geoId, geoName]"/>
+                <set field="currentUrl" value="LookupGeo"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="search-options">
+                        <include-form name="FindGeo" location="component://webtools/widget/GeoManagementForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="ListLookupGeo" location="component://webtools/widget/GeoManagementForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     
     <screen name="LinkGeos">
         <section>
@@ -78,15 +101,20 @@
                 
                 <set field="noId" value="true"/><!-- see CommonGeoManagementDecorator -->
                 
-                <set field="multipleSelect"  value="geoIds"/>
+                <!-- selectMultipleRelatedValues parameters -->
                 <set field="multipleSelectForm"  value="LinkGeos"/>
-                <set field="formSize" value="422"/>
-                <set field="asmListItemPercentOfForm" value="95"/>
-                <set field="sortable" value="false"/>
+                <set field="multipleSelect"  value="LinkGeos_geoIds"/>
+                <set field="relatedField" value="LinkGeos_geoId"/>
+                <set field="requestName" value="getRelatedGeos"/>                
+                <set field="paramKey" value="geoId"/>
+                <set field="type" value="geoAssocTypeId"/>
+                <set field="typeField" value="LinkGeos_geoAssocTypeId"/>
+                <set field="responseName" value="geoList"/>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonGeoManagementDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://common/webcommon/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
                         <screenlet title="${uiLabelMap.WebtoolsGeosLinkExplained}">
                             <include-form name="LinkGeos" location="component://webtools/widget/GeoManagementForms.xml"/>
                         </screenlet>
