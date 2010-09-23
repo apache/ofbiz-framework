@@ -730,7 +730,7 @@
     </property>
     <property key="PageTitleLookupExampleFeature">
         <value xml:lang="en">Lookup Example Feature</value>
-        <value xml:lang="fr">Consulter la caractéristique exemple</value>
+        <value xml:lang="fr">Rechercher unz ou des caractéristiques exemple</value>
         <value xml:lang="it">Ricerca Caratteristica Esempio</value>
         <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
         <value xml:lang="ru">Искать особенности примера</value>

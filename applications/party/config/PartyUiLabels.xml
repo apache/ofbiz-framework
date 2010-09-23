@@ -6430,7 +6430,7 @@
         <value xml:lang="de">Kontaktmechanismus suchen</value>
         <value xml:lang="en">Lookup Contact Mech</value>
         <value xml:lang="es">Buscar mecanismo de contacto</value>
-        <value xml:lang="fr">Consulter les coordonnées</value>
+        <value xml:lang="fr">Rechercher une ou des coordonnées</value>
         <value xml:lang="hi_IN">संपर्क यांत्रिक लुकअप</value>
         <value xml:lang="it">Ricerca Contatti</value>
         <value xml:lang="nl">Contactmech zoeken</value>
@@ -6468,7 +6468,7 @@
         <value xml:lang="de">Akteur und Benutzeranmeldung suchen</value>
         <value xml:lang="en">Lookup PartyAndUserLoginAndPerson</value>
         <value xml:lang="es">Buscar participante y conexion</value>
-        <value xml:lang="fr">Consulter l'acteur et son identifiant de connexion</value>
+        <value xml:lang="fr">Rechercher un ou des  acteurs et identifiants de connexion</value>
         <value xml:lang="hi_IN">पार्टी/उपयोगकर्तालॉगिन/व्यक्ति लुकअप</value>
         <value xml:lang="it">Ricerca soggetti utenti e persone</value>
         <value xml:lang="nl">Gebruikers zoeken</value>
@@ -6496,7 +6496,7 @@
         <value xml:lang="de">Akteur Klassifizierungsgruppe suchen</value>
         <value xml:lang="en">Lookup Party Classification Group</value>
         <value xml:lang="es">Buscar grupo de clasificación de participante</value>
-        <value xml:lang="fr">Consulter les groupe de classification de l'acteur</value>
+        <value xml:lang="fr">Rechercher un ou des  groupes de classification de l'acteur</value>
         <value xml:lang="hi_IN">पार्टी वर्गीकरण समूह लुकअप</value>
         <value xml:lang="it">Ricerca Gruppi Classificazione Soggetti</value>
         <value xml:lang="nl">Classificatiegroepen zoeken</value>
@@ -6510,7 +6510,7 @@
         <value xml:lang="de">Kommunikationsereignis suchen</value>
         <value xml:lang="en">Lookup Communication Event</value>
         <value xml:lang="es">Buscar evento de comunicación</value>
-        <value xml:lang="fr">Consulter l'évènement de communication</value>
+        <value xml:lang="fr">Rechercher un ou des évènements de communication</value>
         <value xml:lang="hi_IN">संचार घटना(Event) लुकअप</value>
         <value xml:lang="it">Ricerca Eventi Comunicazioni</value>
         <value xml:lang="nl">Communicatie-acties zoekent</value>
@@ -6524,7 +6524,7 @@
         <value xml:lang="de">Gruppe suchen</value>
         <value xml:lang="en">Lookup Group</value>
         <value xml:lang="es">Buscar grupo</value>
-        <value xml:lang="fr">Consulter le groupe</value>
+        <value xml:lang="fr">Rechercher un ou des groupes</value>
         <value xml:lang="hi_IN">समूह लुकअप</value>
         <value xml:lang="it">Ricerca Gruppi</value>
         <value xml:lang="nl">Groep zoeken</value>
@@ -6538,7 +6538,7 @@
         <value xml:lang="de">Person suchen</value>
         <value xml:lang="en">Lookup Person</value>
         <value xml:lang="es">Buscar persona</value>
-        <value xml:lang="fr">Consulter la personne</value>
+        <value xml:lang="fr">Rechercher une ou des  personnes</value>
         <value xml:lang="hi_IN">व्यक्ति(Person) लुकअप</value>
         <value xml:lang="it">Ricerca Persone</value>
         <value xml:lang="nl">Persoon zoeken</value>
@@ -6552,7 +6552,7 @@
         <value xml:lang="de">Benutzeranmeldung und Akteur suchen</value>
         <value xml:lang="en">Lookup UserLoginAndPartyDetails</value>
         <value xml:lang="es">Buscar conexión y detalles de participante</value>
-        <value xml:lang="fr">Consulter l'identifiant de connexion et les détails de l'acteur</value>
+        <value xml:lang="fr">Rechercher un ou des identifiants de connexion et détails de l'acteur</value>
         <value xml:lang="hi_IN">उपयोगकर्तालॉगिन/पार्टीविवरण लुकअप</value>
         <value xml:lang="it">Ricerca soggetti utenti e dettagli</value>
         <value xml:lang="nl">Logingegevens zoeken</value>

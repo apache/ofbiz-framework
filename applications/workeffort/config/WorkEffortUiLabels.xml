@@ -1214,7 +1214,7 @@
     </property>
     <property key="PageTitleLookupTimesheet">
         <value xml:lang="en">Lookup Timesheet by Name</value>
-        <value xml:lang="fr">Consulter les feuilles de présence par nom</value>
+        <value xml:lang="fr">Rechercher une ou des feuilles de présence par nom</value>
         <value xml:lang="it">Ricerca Timbrature per Nome</value>
         <value xml:lang="nl">Lookup Timesheet by Name</value>
         <value xml:lang="ro">Cauta Pontaj pe Nume</value>
@@ -1223,7 +1223,7 @@
     </property>
     <property key="PageTitleLookupWorkEffort">
         <value xml:lang="en">Lookup WorkEffort by Name</value>
-        <value xml:lang="fr">Consulter les tâches par nom</value>
+        <value xml:lang="fr">Rechercher une ou des tâches par nom</value>
         <value xml:lang="it">Ricerca Impegno di Lavoro per Nome</value>
         <value xml:lang="nl">Zoek werk inspanningen op naam</value>
         <value xml:lang="ro">Cauta Sarcina de Lucru dupa Nume</value>

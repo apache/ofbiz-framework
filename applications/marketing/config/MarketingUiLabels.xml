@@ -1855,7 +1855,7 @@
     <property key="PageTitleLookupCommEvent">
         <value xml:lang="en">Lookup Communication Event</value>
         <value xml:lang="es">Buscar evento de comunicación</value>
-        <value xml:lang="fr">Consulter l'évènement de communication</value>
+        <value xml:lang="fr">Rechercher un ou des  évènements de communication</value>
         <value xml:lang="it">Ricerca Evento Comunicazione</value>
         <value xml:lang="pt_BR">Buscar Evento de Comunicação</value>
         <value xml:lang="ro">Cauta Eveniment Comunicatie</value>
@@ -1865,7 +1865,7 @@
     <property key="PageTitleLookupContactList">
         <value xml:lang="en">Lookup Contact List</value>
         <value xml:lang="es">Buscar lista de contactos</value>
-        <value xml:lang="fr">Consulter la liste de contact</value>
+        <value xml:lang="fr">Rechercher une ou des listes de contact</value>
         <value xml:lang="it">Ricerca Lista Contatti</value>
         <value xml:lang="pt_BR">Buscar Lista de Contatos</value>
         <value xml:lang="ro">Cauta Lista Contacte</value>
@@ -1875,14 +1875,14 @@
     <property key="PageTitleLookupSalesForecast">
         <value xml:lang="de">Verkaufsprognosen anschauen</value>
         <value xml:lang="en">Lookup Sales Forecast</value>
-        <value xml:lang="fr">Consulter la prévision de ventes</value>
+        <value xml:lang="fr">Rechercher une ou des prévisions de ventes</value>
         <value xml:lang="it">Ricerca previsioni di vendita</value>
         <value xml:lang="pt_BR">Buscar previsões de venda</value>
         <value xml:lang="zh">查找销售预测</value>
     </property>
     <property key="PageTitleLookupSegmentGroup">
         <value xml:lang="en">Lookup Segment Group</value>
-        <value xml:lang="fr">Consulter le groupe de segment</value>
+        <value xml:lang="fr">Rechercher un ou des groupes de segment</value>
         <value xml:lang="it">Ricerca Gruppi Segmento</value>
         <value xml:lang="pt_BR">Buscar Grupo de segmento</value>
         <value xml:lang="ro">Cauta Grupuri Segment</value>
@@ -1892,7 +1892,7 @@
     <property key="PageTitleLookupTrackingCode">
         <value xml:lang="en">Lookup Tracking Code</value>
         <value xml:lang="es">Buscar seguimiento</value>
-        <value xml:lang="fr">Consulter le code de suivi</value>
+        <value xml:lang="fr">Rechercher un ou des codes de suivi</value>
         <value xml:lang="it">Ricerca Codice Tracciatura</value>
         <value xml:lang="pt_BR">Buscar código de rastreio</value>
         <value xml:lang="ro">Cauta Cod Traseu</value>
@@ -1902,7 +1902,7 @@
     <property key="PageTitleLookupTrackingCodeType">
         <value xml:lang="en">Lookup Tracking Code Type</value>
         <value xml:lang="es">Buscar tipo de seguimiento</value>
-        <value xml:lang="fr">Consulter le type de code de suivi</value>
+        <value xml:lang="fr">Rechercher un ou des types de code de suivi</value>
         <value xml:lang="it">Ricerca tipo tracciatura</value>
         <value xml:lang="pt_BR">Buscar por tipo de código de rastreio</value>
         <value xml:lang="ro">Cauta Tip Traseu</value>
@@ -1913,7 +1913,7 @@
         <value xml:lang="de">Besuche anschauen</value>
         <value xml:lang="en">Lookup Visit</value>
         <value xml:lang="es">Buscar visita</value>
-        <value xml:lang="fr">Consulter la visite</value>
+        <value xml:lang="fr">Rechercher une ou des visites</value>
         <value xml:lang="it">Ricerca Visita</value>
         <value xml:lang="pt_BR">Buscar visita</value>
         <value xml:lang="ro">Cauta Vizita</value>

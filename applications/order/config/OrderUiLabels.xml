@@ -11325,7 +11325,7 @@
         <value xml:lang="de">Kundenanfrage suchen</value>
         <value xml:lang="en">Lookup Customer Request</value>
         <value xml:lang="es">Buscar requisito de cliente</value>
-        <value xml:lang="fr">Consulter la demande du client</value>
+        <value xml:lang="fr">Rechercher une ou des demandes client</value>
         <value xml:lang="it">Ricerca Richieste Clienti</value>
         <value xml:lang="nl">Lookup Customer Request</value>
         <value xml:lang="pt_BR">Buscar solicitações de clientes</value>
@@ -11338,7 +11338,7 @@
         <value xml:lang="de">Kundenanfrage Element suchen</value>
         <value xml:lang="en">Lookup Customer Request Item</value>
         <value xml:lang="es">Buscar ítem de requisito de cliente</value>
-        <value xml:lang="fr">Consulter la ligne de demande du client</value>
+        <value xml:lang="fr">Rechercher une ou des lignes de demande client</value>
         <value xml:lang="it">Ricerca Righe Richieste Clienti</value>
         <value xml:lang="nl">Lookup Customer Request Item</value>
         <value xml:lang="pt_BR">Buscar item de solicitação de cliente</value>
@@ -11351,7 +11351,7 @@
         <value xml:lang="de">Auftragskopf suchen</value>
         <value xml:lang="en">Lookup Order Header</value>
         <value xml:lang="es">Buscar cabecera de pedido</value>
-        <value xml:lang="fr">Consulter l'entête de commande</value>
+        <value xml:lang="fr">Rechercher un ou des entêtes de commande</value>
         <value xml:lang="it">Ricerca Testate Ordini</value>
         <value xml:lang="nl">Lookup Bestelling Header</value>
         <value xml:lang="pt_BR">Buscar cabeçalho de pedido</value>
@@ -11364,7 +11364,7 @@
         <value xml:lang="de">Auftragskopf und Versandinformationen suchen</value>
         <value xml:lang="en">Lookup Order Header and Ship Info</value>
         <value xml:lang="es">Buscar cabecera de pedido e información de envío</value>
-        <value xml:lang="fr">Consulter l'entête de commande et les infos d'expédition</value>
+        <value xml:lang="fr">Rechercher un ou des entêtes de commande et infos d'expédition</value>
         <value xml:lang="it">Ricerca Testate Ordini e Informazioni Spedizioni</value>
         <value xml:lang="nl">Lookup Bestelling Header and Ship Info</value>
         <value xml:lang="pt_BR">Buscar cabeçalho de pedido e informações de envio</value>
@@ -11377,7 +11377,7 @@
         <value xml:lang="de">Beschaffungsauftragskopf und Versandinformationen suchen</value>
         <value xml:lang="en">Lookup Purchase Order Header and Ship Info</value>
         <value xml:lang="es">Buscar cabecera de pedido de compra e información de envío</value>
-        <value xml:lang="fr">Consulter l'entête de la commande d'achat et les infos d'expédition</value>
+        <value xml:lang="fr">Rechercher un ou des entêtes commandes d'achat et infos d'expédition</value>
         <value xml:lang="it">Ricerca Testate Ordini Acquisto e Informazioni Spedizioni</value>
         <value xml:lang="nl">Lookup Purchase Bestelling Header and Ship Info</value>
         <value xml:lang="pt_BR">Buscar cabeçalho de pedido de venda e informação de envio</value>
@@ -11390,7 +11390,7 @@
         <value xml:lang="de">Offerte suchen</value>
         <value xml:lang="en">Lookup Quote</value>
         <value xml:lang="es">Buscar presupuesto</value>
-        <value xml:lang="fr">Consulter le devis</value>
+        <value xml:lang="fr">Rechercher un ou des devis</value>
         <value xml:lang="it">Ricerca Preventivi</value>
         <value xml:lang="nl">Lookup Quote</value>
         <value xml:lang="pt_BR">Buscar cotação</value>
@@ -11403,7 +11403,7 @@
         <value xml:lang="de">Offertelement suchen</value>
         <value xml:lang="en">Lookup Quote Item</value>
         <value xml:lang="es">Buscar ítem de presupuesto</value>
-        <value xml:lang="fr">Consulter la ligne de devis</value>
+        <value xml:lang="fr">Rechercher une ou des lignes de devis</value>
         <value xml:lang="it">Ricerca Righe Preventivi</value>
         <value xml:lang="nl">Lookup Quote Item</value>
         <value xml:lang="pt_BR">Buscar item de cotação</value>
@@ -11416,7 +11416,7 @@
         <value xml:lang="de">Bedarf suchen</value>
         <value xml:lang="en">Lookup Requirement</value>
         <value xml:lang="es">Buscar requisito</value>
-        <value xml:lang="fr">Consulter le besoin</value>
+        <value xml:lang="fr">Rechercher un ou des besoins</value>
         <value xml:lang="it">Ricerca Fabbisogni</value>
         <value xml:lang="nl">Lookup Requirement</value>
         <value xml:lang="pt_BR">Buscar requisito</value>
@@ -11429,7 +11429,7 @@
         <value xml:lang="de">Einkaufsliste suchen</value>
         <value xml:lang="en">Lookup Shopping List</value>
         <value xml:lang="es">Buscar lista de compra</value>
-        <value xml:lang="fr">Consulter la liste d'achat</value>
+        <value xml:lang="fr">Rechercher une ou des  listes d'achat</value>
         <value xml:lang="it">Ricerca Liste di Acquisto</value>
         <value xml:lang="nl">Lookup Shopping List</value>
         <value xml:lang="pt_BR">Buscar lista de compras</value>

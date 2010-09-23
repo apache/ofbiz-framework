@@ -941,7 +941,7 @@
         <value xml:lang="en">Messages</value>
         <value xml:lang="fr">Messages</value>
         <value xml:lang="it">Messaggi</value>
-        <value xml:lang="nl">Berichten</value>		
+        <value xml:lang="nl">Berichten</value>    
         <value xml:lang="th">ข้อความ</value>
         <value xml:lang="zh">消息</value>
     </property>
