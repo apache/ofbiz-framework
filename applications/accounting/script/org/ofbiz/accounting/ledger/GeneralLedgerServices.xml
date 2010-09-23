@@ -579,6 +579,10 @@ under the License.
                             <if-compare field="parameters.debitCreditFlag" operator="equals" value="D"/>
                         </and>
                         <and>
+                            <if-compare field="parameters.acctgTransTypeId" operator="equals" value="CUST_RTN_INVOICE"/>
+                            <if-compare field="parameters.debitCreditFlag" operator="equals" value="D"/>
+                        </and>
+                        <and>
                             <if-compare field="parameters.acctgTransTypeId" operator="equals" value="SALES_INVOICE"/>
                             <if-compare field="parameters.debitCreditFlag" operator="equals" value="C"/>
                         </and>
@@ -594,11 +598,16 @@ under the License.
                         <set field="parameters.glAccountTypeId" value="UNINVOICED_SHIP_RCPT"/>
                         <call-simple-method method-name="getGlAccountTypeDefaultInline"/>
                         <set field="glAccountTypeDefault" from-field="lookedUpValue"/>
-                    <else>
+                    </if-compare>
+                    <if-compare field="parameters.acctgTransTypeId" operator="equals" value="CUST_RTN_INVOICE">
+                        <set field="parameters.glAccountTypeId" value="SALES_RETURNS"/>
+                        <call-simple-method method-name="getGlAccountTypeDefaultInline"/>
+                        <set field="glAccountTypeDefault" from-field="lookedUpValue"/>
+                    </if-compare>
+                    <if-compare field="parameters.acctgTransTypeId" operator="equals" value="SALES_INVOICE">
                         <set field="parameters.glAccountTypeId" value="SALES_ACCOUNT"/>
                         <call-simple-method method-name="getGlAccountTypeDefaultInline"/>
                         <set field="glAccountTypeDefault" from-field="lookedUpValue"/>
-                    </else>
                     </if-compare>
                     <if-not-empty field="glAccountTypeDefault.glAccountId">
                         <field-to-result field="glAccountTypeDefault.glAccountId" result-name="glAccountId"/>
@@ -1874,6 +1883,130 @@ under the License.
                 </call-service>
                 <log level="info" message="Accounting transaction ${acctgTransId} created for payment application ${paymentApplication.paymentApplicationId}"/>                 
             </iterate>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="createAcctgTransForCustomerReturnInvoice" short-description="Create an accounting transaction for a Customer Return Invoice">
+        <!-- retrieve ledger rounding properties -->
+        <call-simple-method method-name="getGlArithmeticSettingsInline"/>
+
+        <entity-one entity-name="Invoice" value-field="invoice"/>
+        <get-related-one value-field="invoice" relation-name="InvoiceType" to-value-field="invoiceType"/>
+        <!-- Check invoiceTypeId. This service works only for CustomerReturns -->
+        <if-compare field="invoiceType.invoiceTypeId" operator="equals" value="CUST_RTN_INVOICE">
+            <set field="totalAmountFromInvoice" type="BigDecimal" value="0"/>
+            <set field="transPartyRoleTypeId" value="BILL_TO_CUSTOMER"/>
+            <set field="acctgTransTypeId" value="CUST_RTN_INVOICE"/>
+            <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
+                <condition-list>
+                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="PINV_SALES_TAX"/>
+                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="PITM_SALES_TAX"/>
+                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId"/>
+                </condition-list>
+            </entity-condition>
+
+            <iterate list="invoiceItems" entry="invoiceItem">
+                <set field="amountFromOrder" type="BigDecimal" value="0"/>
+                <set field="amountFromInvoice" type="BigDecimal" value="0"/>
+                <if-empty field="invoiceItem.quantity">
+                    <set field="invoiceItem.quantity" value="1"/>
+                </if-empty>
+                <!-- This InvoiceItem amount. -->
+                <calculate field="amountFromInvoice"  decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                    <calcop operator="multiply">
+                        <calcop operator="get" field="invoiceItem.quantity"/>
+                        <calcop operator="get" field="invoiceItem.amount"/>
+                    </calcop>
+                </calculate>
+                <!-- Keep building Invoice Total for use in credit entry -->
+                <calculate field="totalAmountFromInvoice" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                    <calcop operator="add">
+                        <calcop operator="get" field="totalAmountFromInvoice"/>
+                        <calcop operator="get" field="amountFromInvoice"/>
+                    </calcop>
+                </calculate>
+                <!-- Debit -->
+                <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
+                <set field="debitEntry.debitCreditFlag" value="D"/>
+                <set field="debitEntry.organizationPartyId" from-field="invoice.partyId"/>
+                <set field="debitEntry.partyId" from-field="invoice.partyIdFrom"/>
+                <set field="debitEntry.roleTypeId" from-field="transPartyRoleTypeId"/>
+                <set field="debitEntry.productId" from-field="invoiceItem.productId"/>
+                <set field="debitEntry.glAccountTypeId" from-field="invoiceItem.invoiceItemTypeId"/>
+                <set field="debitEntry.glAccountId" from-field="invoiceItem.overrideGlAccountId"/>
+                <set field="debitEntry.origAmount" from-field="amountFromInvoice"/>
+                <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+            </iterate>
+            <!-- debit entry for SALES_TAX-->
+            <call-class-method method-name="getInvoiceTaxAuthPartyAndGeos" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                  ret-field="taxAuthPartyAndGeos">
+                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
+            <iterate-map key="taxAuthPartyId" value="taxAuthGeoIds" map="taxAuthPartyAndGeos">
+                <iterate entry="taxAuthGeoId" list="taxAuthGeoIds">
+                    <clear-field field="debitEntry"/>
+                    <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
+                    <set field="debitEntry.debitCreditFlag" value="D"/>
+                    <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+                    <call-class-method method-name="getInvoiceTaxTotalForTaxAuthPartyAndGeo" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                            ret-field="taxAmount">
+                        <field field="invoice" type="GenericValue"/>
+                        <field field="taxAuthPartyId" type="String"/>
+                        <field field="taxAuthGeoId" type="String"/>
+                    </call-class-method>
+                    <set field="debitEntry.origAmount" from-field="taxAmount"/>
+                    <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                    <set field="debitEntry.partyId" from-field="taxAuthPartyId"/>
+                    <set field="debitEntry.roleTypeId" value="TAX_AUTHORITY"/>
+                    <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+                </iterate>
+            </iterate-map>
+            <!-- Another entry for tax not attributed to a taxAuthPartyId -->
+            <clear-field field="debitEntry"/>
+            <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
+            <set field="debitEntry.debitCreditFlag" value="D"/>
+            <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+            <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                    ret-field="taxAmount">
+                <field field="invoice" type="GenericValue"/>
+            </call-class-method>
+            <set field="debitEntry.origAmount" from-field="taxAmount"/>
+            <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+            <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+
+            <!-- Credit -->
+            <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
+            <set field="creditEntry.debitCreditFlag" value="C"/>
+            <set field="creditEntry.organizationPartyId" from-field="invoice.partyId"/>
+            <set field="creditEntry.glAccountTypeId" value="ACCOUNTS_PAYABLE"/>
+            <calculate field="totalAmountFromInvoice" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="add">
+                    <calcop operator="get" field="totalAmountFromInvoice"/>
+                    <calcop operator="get" field="invoiceTaxTotal"/>
+                </calcop>
+            </calculate>
+            <set field="creditEntry.origAmount" from-field="totalAmountFromInvoice"/>
+            <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+            <set field="creditEntry.partyId" from-field="invoice.partyIdFrom"/>
+            <set field="creditEntry.roleTypeId" from-field="transPartyRoleTypeId"/>
+            <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+
+            <!-- Set header fields (AcctgTrans) -->
+            <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
+            <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" from-field="acctgTransTypeId"/>
+            <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="invoice.invoiceId"/>
+            <set field="createAcctgTransAndEntriesInMap.partyId" from-field="invoice.partyIdFrom"/>
+            <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_FROM_VENDOR"/>
+            <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
+            <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
+                <result-to-field result-name="acctgTransId"/>
+            </call-service>
+            <field-to-result field="acctgTransId" result-name="acctgTransId"/>
+        <else>
+            <!-- This invoice is not a Customer Return. Return error -->
+            <add-error><fail-message message="Bad invoiceTypeId [${invoiceType.invoiceTypeId}]. Service createAcctgTransForCustomerReturnInvoice for type CUST_RTN_INVOICE."/></add-error>
+        </else>
         </if-compare>
     </simple-method>
 
