@@ -45,6 +45,7 @@ under the License.
 
     <AcctgTransType acctgTransTypeId="SALES_INVOICE" description="Sales Invoice" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/><!-- FIXME: replace with "SALES" -->
     <AcctgTransType acctgTransTypeId="PURCHASE_INVOICE" description="Purchase Invoice" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/><!-- FIXME: replace with "SALES" -->
+    <AcctgTransType acctgTransTypeId="CUST_RTN_INVOICE" description="Customer Return" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/><!-- FIXME: replace with "SALES" -->
     <AcctgTransType acctgTransTypeId="SALES_SHIPMENT" description="Sales Shipment" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
     <AcctgTransType acctgTransTypeId="SHIPMENT_RECEIPT" description="Shipment Receipt" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
     <AcctgTransType acctgTransTypeId="MANUFACTURING" description="Manufacturing" hasTable="N" parentTypeId=""/>

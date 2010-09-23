@@ -92,6 +92,7 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="statusDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="paidDate" type="Timestamp" mode="IN" optional="true"/> <!-- only relevant for changes to PAID -->
+        <attribute name="invoiceTypeId" type="String" mode="OUT" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="copyInvoiceToTemplate" engine="simple"

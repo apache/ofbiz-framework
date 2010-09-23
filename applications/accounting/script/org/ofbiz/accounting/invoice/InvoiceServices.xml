@@ -455,6 +455,7 @@ under the License.
     <simple-method method-name="setInvoiceStatus" short-description="Set The Invoice Status">
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <field-to-result field="invoice.statusId" result-name="oldStatusId"/>
+        <field-to-result field="invoice.invoiceTypeId" result-name="invoiceTypeId"/>
         <if-compare-field field="invoice.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
                 <field-map field-name="statusId" from-field="invoice.statusId"/>

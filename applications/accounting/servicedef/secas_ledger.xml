@@ -86,11 +86,20 @@ under the License.
     <!-- accounting transactions for Purchase (AP) and Sales Invoices (AR) -->
     <eca service="setInvoiceStatus" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
+        <condition field-name="invoiceTypeId" operator="not-equals" value="CUST_RTN_INVOICE"/>
         <condition field-name="statusId" operator="equals" value="INVOICE_READY"/>
         <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_READY"/>
         <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_PAID"/>
         <action service="createAcctgTransForPurchaseInvoice" mode="sync"/>
         <action service="createAcctgTransForSalesInvoice" mode="sync"/>
+    </eca>
+    <eca service="setInvoiceStatus" event="commit">
+        <condition field-name="invoiceId" operator="is-not-empty"/>
+        <condition field-name="invoiceTypeId" operator="equals" value="CUST_RTN_INVOICE"/>
+        <condition field-name="statusId" operator="equals" value="INVOICE_READY"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_READY"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_PAID"/>
+        <action service="createAcctgTransForCustomerReturnInvoice" mode="sync"/>
     </eca>
     <eca service="setInvoiceStatus" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>

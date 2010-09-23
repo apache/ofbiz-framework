@@ -453,6 +453,14 @@ under the License.
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
 
+    <!-- An automatic GL Posting for Customer Return Invoice-->
+    <service name="createAcctgTransForCustomerReturnInvoice" engine="simple" auth="true"
+        location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForCustomerReturnInvoice">
+        <description>Create an accounting transaction for a Customer Return invoice</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
+    </service>
+
     <!-- An automatic GL Posting for Purchase Invoice-->
     <service name="createAcctgTransForPurchaseInvoice" engine="simple" auth="true"
         location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForPurchaseInvoice">
