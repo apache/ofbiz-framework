@@ -84,7 +84,7 @@ under the License.
         </field>
         <field name="serialNumber"><text-find/></field>
         <field name="softIdentifier"><text/></field>
-        <field name="manufacturerPartyId">
+        <field name="partyId" title="${uiLabelMap.FormFieldTitle_manufacturerPartyId}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
         <field name="lotId" title="${uiLabelMap.ProductLotId}"><text/></field>
