@@ -39,7 +39,15 @@ under the License.
     <process field="lastNameOnCard"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingLastNameOnCardMissing"/></not-empty></process>
     <process field="suffixOnCard"><copy/></process>
     <process field="cardType"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingCardTypeMissing"/></not-empty></process>
-    <process field="cardNumber"><copy/><not-empty><fail-property resource="AccountingUiLabels" property="AccountingCardNumberMissing"/></not-empty></process>
+    <process field="cardNumber">
+        <copy/>
+        <not-empty>
+            <fail-property resource="AccountingUiLabels" property="AccountingCardNumberMissing"/>
+        </not-empty>
+        <validate-method method="isAnyCard" class="org.ofbiz.base.util.UtilValidate">
+            <fail-property resource="AccountingUiLabels" property="AccountingCardNumberIncorrect"/>
+        </validate-method>
+    </process>
     <process field="contactMechId"><copy/></process>
     <process field="description"><copy/></process>
     <process field="expMonth"><not-empty><fail-property resource="AccountingUiLabels" property="AccountingExpirationMonthMissing"/></not-empty></process>

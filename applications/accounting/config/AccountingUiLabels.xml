@@ -108,6 +108,10 @@
         <value xml:lang="en">Account Transaction Id</value>
         <value xml:lang="hi_IN">लेखा गतिविधि क्रमांक</value>
     </property>
+    <property key="AccountingCardNumberIncorrect">
+        <value xml:lang="de">Kartennummer fehlerhaft</value>
+        <value xml:lang="en">Card Number is erroneous</value>
+    </property>
     <property key="AccountingAccountType">
         <value xml:lang="ar">نوع الحساب</value>
         <value xml:lang="cs">Typ účtu</value>
