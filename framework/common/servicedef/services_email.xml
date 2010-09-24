@@ -83,6 +83,8 @@ under the License.
         <attribute name="bodyScreenUri" type="String" mode="IN" optional="true"/>
         <attribute name="xslfoAttachScreenLocation" type="String" mode="IN" optional="true"/>
         <attribute name="attachmentName" type="String" mode="IN" optional="true"/>
+        <attribute name="xslfoAttachScreenLocationList" type="List" mode="IN" optional="true"/>
+        <attribute name="attachmentNameList" type="List" mode="IN" optional="true"/>
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="subject" type="String" mode="OUT" optional="true"/>
