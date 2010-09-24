@@ -414,8 +414,18 @@ public class EmailServices {
         String webSiteId = (String) serviceContext.remove("webSiteId");
         String bodyText = (String) serviceContext.remove("bodyText");
         String bodyScreenUri = (String) serviceContext.remove("bodyScreenUri");
-        String xslfoAttachScreenLocation = (String) serviceContext.remove("xslfoAttachScreenLocation");
-        String attachmentName = (String) serviceContext.remove("attachmentName");
+        String xslfoAttachScreenLocationParam = (String) serviceContext.remove("xslfoAttachScreenLocation");
+        String attachmentNameParam = (String) serviceContext.remove("attachmentName");
+        List<String> xslfoAttachScreenLocationListParam = (List) serviceContext.remove("xslfoAttachScreenLocationList");
+        List<String> attachmentNameListParam = (List) serviceContext.remove("attachmentNameList");
+        
+        List<String> xslfoAttachScreenLocationList = FastList.newInstance();
+        List<String> attachmentNameList = FastList.newInstance();
+        if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationParam)) xslfoAttachScreenLocationList.add(xslfoAttachScreenLocationParam);
+        if (UtilValidate.isNotEmpty(attachmentNameParam)) attachmentNameList.add(attachmentNameParam);
+        if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationListParam)) xslfoAttachScreenLocationList.addAll(xslfoAttachScreenLocationListParam);
+        if (UtilValidate.isNotEmpty(attachmentNameListParam)) attachmentNameList.addAll(attachmentNameListParam);
+        
         Locale locale = (Locale) serviceContext.get("locale");
         Map<String, Object> bodyParameters = UtilGenerics.checkMap(serviceContext.remove("bodyParameters"));
         if (bodyParameters == null) {
@@ -437,9 +447,6 @@ public class EmailServices {
         NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
         String contentType = (String) serviceContext.remove("contentType");
 
-        if (UtilValidate.isEmpty(attachmentName)) {
-            attachmentName = "Details.pdf";
-        }
         StringWriter bodyWriter = new StringWriter();
 
         MapStack<String> screenContext = MapStack.create();
@@ -473,72 +480,82 @@ public class EmailServices {
         boolean isMultiPart = false;
 
         // check if attachment screen location passed in
-        if (UtilValidate.isNotEmpty(xslfoAttachScreenLocation)) {
-            isMultiPart = true;
-            // start processing fo pdf attachment
-            try {
-                Writer writer = new StringWriter();
-                MapStack<String> screenContextAtt = MapStack.create();
-                // substitute the freemarker variables...
-                ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenRenderer);
-                screensAtt.populateContextForService(dctx, bodyParameters);
-                screenContextAtt.putAll(bodyParameters);
-                screensAtt.render(xslfoAttachScreenLocation);
-
-                /*
-                try { // save generated fo file for debugging
-                    String buf = writer.toString();
-                    java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/file1.xml"));
-                    fw.write(buf.toString());
-                    fw.close();
-                } catch (IOException e) {
-                    Debug.logError(e, "Couldn't save xsl-fo xml debug file: " + e.toString(), module);
+        if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationList)) {
+            List<Map<String, ? extends Object>> bodyParts = FastList.newInstance();
+            if (bodyText != null) {
+                bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
+                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", "text/html"));
+            } else {
+                bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", "text/html"));
+            }
+            
+            for (int i = 0; i < xslfoAttachScreenLocationList.size(); i++) {
+                String xslfoAttachScreenLocation = xslfoAttachScreenLocationList.get(i);
+                String attachmentName = attachmentNameList.get(i);
+                if (UtilValidate.isEmpty(attachmentName)) {
+                    attachmentName = "Details" + i + ".pdf";
                 }
-                */
 
-                // create the input stream for the generation
-                StreamSource src = new StreamSource(new StringReader(writer.toString()));
+                isMultiPart = true;
+                // start processing fo pdf attachment
+                try {
+                    Writer writer = new StringWriter();
+                    MapStack<String> screenContextAtt = MapStack.create();
+                    // substitute the freemarker variables...
+                    ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenRenderer);
+                    screensAtt.populateContextForService(dctx, bodyParameters);
+                    screenContextAtt.putAll(bodyParameters);
+                    screensAtt.render(xslfoAttachScreenLocation);
 
-                // create the output stream for the generation
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    /*
+                    try { // save generated fo file for debugging
+                        String buf = writer.toString();
+                        java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/file1.xml"));
+                        fw.write(buf.toString());
+                        fw.close();
+                    } catch (IOException e) {
+                        Debug.logError(e, "Couldn't save xsl-fo xml debug file: " + e.toString(), module);
+                    }
+                    */
 
-                Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
-                ApacheFopWorker.transform(src, null, fop);
+                    // create the input stream for the generation
+                    StreamSource src = new StreamSource(new StringReader(writer.toString()));
 
-                // and generate the PDF
-                baos.flush();
-                baos.close();
+                    // create the output stream for the generation
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-                // store in the list of maps for sendmail....
-                List<Map<String, ? extends Object>> bodyParts = FastList.newInstance();
-                if (bodyText != null) {
-                    bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
-                    bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", "text/html"));
-                } else {
-                    bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyWriter.toString(), "type", "text/html"));
+                    Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
+                    ApacheFopWorker.transform(src, null, fop);
+
+                    // and generate the PDF
+                    baos.flush();
+                    baos.close();
+
+                    // store in the list of maps for sendmail....
+                    bodyParts.add(UtilMisc.<String, Object>toMap("content", baos.toByteArray(), "type", "application/pdf", "filename", attachmentName));
+                } catch (GeneralException ge) {
+                    String errMsg = "Error rendering PDF attachment for email: " + ge.toString();
+                    Debug.logError(ge, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                } catch (IOException ie) {
+                    String errMsg = "Error rendering PDF attachment for email: " + ie.toString();
+                    Debug.logError(ie, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                } catch (FOPException fe) {
+                    String errMsg = "Error rendering PDF attachment for email: " + fe.toString();
+                    Debug.logError(fe, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                } catch (SAXException se) {
+                    String errMsg = "Error rendering PDF attachment for email: " + se.toString();
+                    Debug.logError(se, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                } catch (ParserConfigurationException pe) {
+                    String errMsg = "Error rendering PDF attachment for email: " + pe.toString();
+                    Debug.logError(pe, errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
                 }
-                bodyParts.add(UtilMisc.<String, Object>toMap("content", baos.toByteArray(), "type", "application/pdf", "filename", attachmentName));
+                
                 serviceContext.put("bodyParts", bodyParts);
-            } catch (GeneralException ge) {
-                String errMsg = "Error rendering PDF attachment for email: " + ge.toString();
-                Debug.logError(ge, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-            } catch (IOException ie) {
-                String errMsg = "Error rendering PDF attachment for email: " + ie.toString();
-                Debug.logError(ie, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-            } catch (FOPException fe) {
-                String errMsg = "Error rendering PDF attachment for email: " + fe.toString();
-                Debug.logError(fe, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-            } catch (SAXException se) {
-                String errMsg = "Error rendering PDF attachment for email: " + se.toString();
-                Debug.logError(se, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-            } catch (ParserConfigurationException pe) {
-                String errMsg = "Error rendering PDF attachment for email: " + pe.toString();
-                Debug.logError(pe, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
             }
         } else {
             isMultiPart = false;
