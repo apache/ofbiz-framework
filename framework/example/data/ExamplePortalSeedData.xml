@@ -25,12 +25,6 @@ under the License.
     <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
     <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="EXAMPLE_1" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="EXAMPLE_3" portletSeqId="00001" columnSeqId="00002" sequenceNum="1"/>
-    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="showContent" portletSeqId="00001" columnSeqId="00001"/>
-    <PortletAttribute portalPageId="EXAMPLE" portalPortletId="showContent" portletSeqId="00001" attrName="contentId" attrValue="HELP_BIRT"/>
-    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="showContent" portletSeqId="00002" columnSeqId="00002"/>
-    <PortletAttribute portalPageId="EXAMPLE" portalPortletId="showContent" portletSeqId="00002" attrName="contentId" attrValue="SETUP_firstCatalog"/>
-    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="showContent" portletSeqId="00003" columnSeqId="00002"/>
-    <PortletAttribute portalPageId="EXAMPLE" portalPortletId="showContent" portletSeqId="00003" attrName="contentId" attrValue="HELP_ACCOUNTING"/>
 
     <PortalPage portalPageId="EXAMPLE1" sequenceNum="100" parentPortalPageId="EXAMPLE" portalPageName="Example Portal Page 1" description="Portal page 1" ownerUserLoginId="_NA_"/>
     <PortalPageColumn portalPageId="EXAMPLE1" columnSeqId="00001"/>
