@@ -927,6 +927,17 @@ public class LoginWorker {
 
         GenericValue userLogin = (GenericValue) LoginWorker.externalLoginKeys.get(externalKey);
         if (userLogin != null) {
+            //to check it's the right tenant 
+            //in case username and password are the same in different tenants
+            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
+            String oldDelegatorName = delegator.getDelegatorName();
+            ServletContext servletContext = session.getServletContext();
+            if (!oldDelegatorName.equals(userLogin.getDelegator().getDelegatorName())) {
+                delegator = DelegatorFactory.getDelegator(userLogin.getDelegator().getDelegatorName());
+                dispatcher = ContextFilter.makeWebappDispatcher(servletContext, delegator);
+                setWebContextObjects(request, response, delegator, dispatcher);
+            }
             // found userLogin, do the external login...
 
             // if the user is already logged in and the login is different, logout the other user
