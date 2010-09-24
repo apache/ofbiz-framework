@@ -1899,8 +1899,8 @@ under the License.
             <set field="acctgTransTypeId" value="CUST_RTN_INVOICE"/>
             <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
                 <condition-list>
-                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="PINV_SALES_TAX"/>
-                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="PITM_SALES_TAX"/>
+                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="INV_SALES_TAX"/>
+                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="ITM_SALES_TAX"/>
                     <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId"/>
                 </condition-list>
             </entity-condition>
@@ -1979,7 +1979,7 @@ under the License.
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
             <set field="creditEntry.organizationPartyId" from-field="invoice.partyId"/>
-            <set field="creditEntry.glAccountTypeId" value="ACCOUNTS_PAYABLE"/>
+            <set field="creditEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
             <calculate field="totalAmountFromInvoice" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="add">
                     <calcop operator="get" field="totalAmountFromInvoice"/>
@@ -1997,7 +1997,7 @@ under the License.
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" from-field="acctgTransTypeId"/>
             <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="invoice.invoiceId"/>
             <set field="createAcctgTransAndEntriesInMap.partyId" from-field="invoice.partyIdFrom"/>
-            <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_FROM_VENDOR"/>
+            <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_TO_CUSTOMER"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
             <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
                 <result-to-field result-name="acctgTransId"/>
