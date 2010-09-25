@@ -288,8 +288,18 @@ public class ShipmentServices {
                 return ServiceUtil.returnError("Cannot get shipping address entity");
             }
         } else if (shippingPostalCode != null) {
+            String countryGeoId = null;
+            try {
+                EntityCondition cond =EntityCondition.makeCondition(UtilMisc.toMap("geoTypeId", "COUNTRY", "geoCode", shippingCountryCode));
+                GenericValue countryGeo = EntityUtil.getFirst(delegator.findList("Geo", cond, null, null, null, true));
+                if (countryGeo != null) {
+                    countryGeoId = countryGeo.getString("geoId");
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
             shipAddress = delegator.makeValue("PostalAddress");
-            shipAddress.set("countryGeoId", shippingCountryCode);
+            shipAddress.set("countryGeoId", countryGeoId);
             shipAddress.set("postalCodeGeoId", shippingPostalCode);
         }
         // Get the possible estimates.
