@@ -1421,7 +1421,7 @@ public class ModelForm extends ModelWidget {
             lowIndex = 0;
             highIndex = ((Integer) context.get("viewSize")).intValue();
         }
-
+        
         if (iter != null) {
             // render item rows
             int itemIndex = -1;
@@ -1447,6 +1447,8 @@ public class ModelForm extends ModelWidget {
                     localContext.push(itemMap);
                 }
 
+                // reset/remove the BshInterpreter now as well as later because chances are there is an interpreter at this level of the stack too
+                this.resetBshInterpreter(localContext);
                 localContext.push();
                 localContext.put("previousItem", previousItem);
                 previousItem = FastMap.newInstance();
