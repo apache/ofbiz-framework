@@ -1948,7 +1948,7 @@ under the License.
                     <clear-field field="debitEntry"/>
                     <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
                     <set field="debitEntry.debitCreditFlag" value="D"/>
-                    <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+                    <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdTo"/>
                     <call-class-method method-name="getInvoiceTaxTotalForTaxAuthPartyAndGeo" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
                             ret-field="taxAmount">
                         <field field="invoice" type="GenericValue"/>
