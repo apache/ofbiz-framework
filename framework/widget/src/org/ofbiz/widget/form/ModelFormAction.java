@@ -458,11 +458,17 @@ public abstract class ModelFormAction {
             try {
                 // don't want to do this: context.put("defaultFormResultList", null);
                 finder.runFind(context, WidgetWorker.getDelegator(context));
+                
+                /* NOTE DEJ20100925: this should not be running any more as it causes actions in a list or multi 
+                 * form definition to overwrite the desired list elsewhere, this was the really old way of doing 
+                 * it that was removed a long time ago and needs to stay gone to avoid issues; the form's list 
+                 * should be found by explicitly matching the name:
                 Object obj = context.get(this.actualListName);
                 if (obj != null && ((obj instanceof List) || (obj instanceof EntityListIterator))) {
                     String modelFormListName = modelForm.getListName();
                     context.put(modelFormListName, obj);
                 }
+                 */
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -502,11 +508,17 @@ public abstract class ModelFormAction {
             try {
                 // don't want to do this: context.put("defaultFormResultList", null);
                 finder.runFind(context, WidgetWorker.getDelegator(context));
+                
+                /* NOTE DEJ20100925: this should not be running any more as it causes actions in a list or multi 
+                 * form definition to overwrite the desired list elsewhere, this was the really old way of doing 
+                 * it that was removed a long time ago and needs to stay gone to avoid issues; the form's list 
+                 * should be found by explicitly matching the name:
                 Object obj = context.get(this.actualListName);
                 if (obj != null && ((obj instanceof List) || (obj instanceof EntityListIterator))) {
                     String modelFormListName = modelForm.getListName();
                     context.put(modelFormListName, obj);
                 }
+                 */
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -515,7 +527,3 @@ public abstract class ModelFormAction {
         }
     }
 }
-
-
-
-
