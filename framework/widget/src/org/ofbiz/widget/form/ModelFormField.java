@@ -1156,7 +1156,7 @@ public class ModelFormField {
                     condTrue = boolVal.booleanValue();
                 } else {
                     throw new IllegalArgumentException("Return value from use-when condition eval was not a Boolean: "
-                            + retVal.getClass().getName() + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
+                            + (retVal != null ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
                 }
 
                 return condTrue;
