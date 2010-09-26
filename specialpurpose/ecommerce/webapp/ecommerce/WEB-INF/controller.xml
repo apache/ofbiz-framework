@@ -1349,7 +1349,7 @@ under the License.
 
     <!-- used in blog -->
     <request-map uri="MainBlog">
-        <security https="true" auth="false"/>
+        <security https="false" auth="false"/>
         <response name="success" type="view" value="MainBlog"/>
     </request-map>
 
