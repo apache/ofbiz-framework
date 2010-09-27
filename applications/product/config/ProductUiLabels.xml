@@ -8964,12 +8964,12 @@
         <value xml:lang="zh">条件</value>
     </property>
     <property key="ProductConditionsActionsRemoveBefore">         
-        <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions (if it's possible, since if one of those is alreay used elsewhere you can't)</value>
-        <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions (si possible car si l'une d'entre elles est déjà utilisé ailleurs vous ne pourrez pas)</value>
+        <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions OR disable it by entering a Thru Date</value>
+        <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions. Vous pouvez aussi la désactivée en entrant une date de fin appropriée</value>
     </property>    
     <property key="ProductConditionsThenActions">         
-        <value xml:lang="en">If all conditions are true, then actions will be executed (logical conjunction, ie conditions are 'ANDED' between them, so are actions))</value>
-        <value xml:lang="fr">Si toutes les conditions sont vérifiées, alors les actions seront exécutées (conjonction, autrement dit ET logique entre conditions, de même pour les actions)</value>
+        <value xml:lang="en">If multiple conditions are entered they are tested logically as and AND statement. Therefore all Conditions must be TRUE for the price rule to execute (same for actions)</value>
+        <value xml:lang="fr">Si toutes les conditions sont vérifiées, alors les actions sont exécutées (autrement dit ET logique entre conditions, de même pour les actions)</value>
     </property>    
     <property key="ProductConfigItem">
         <value xml:lang="de">Konfigurationsposition</value>
