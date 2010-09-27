@@ -133,7 +133,13 @@ under the License.
 
     <eca service="createPaymentApplication" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
+        <condition field-name="paymentTypeId" operator="not-equals" value="CUSTOMER_REFUND"/>
         <action service="createAcctgTransAndEntriesForPaymentApplication" mode="sync"/>
+    </eca>
+    <eca service="createPaymentApplication" event="commit">
+        <condition field-name="invoiceId" operator="is-not-empty"/>
+        <condition field-name="paymentTypeId" operator="equals" value="CUSTOMER_REFUND"/>
+        <action service="createAcctgTransAndEntriesForCustomerRefundPaymentApplication" mode="sync"/>
     </eca>
 
     <!-- set GlReconciliation status after creating GlReconciliation Entries -->

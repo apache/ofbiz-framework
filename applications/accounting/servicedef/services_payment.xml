@@ -77,6 +77,7 @@ under the License.
         <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
         <attribute name="amountApplied" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
+        <attribute name="paymentTypeId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updatePaymentApplication" default-entity-name="PaymentApplication" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplication">

@@ -501,6 +501,13 @@ under the License.
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
 
+    <service name="createAcctgTransAndEntriesForCustomerRefundPaymentApplication" engine="simple" auth="true"
+        location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransAndEntriesForCustomerRefundPaymentApplication">
+        <description>Create an accounting transaction for a payment application</description>
+        <attribute name="paymentApplicationId" type="String" mode="IN" optional="false"/>
+        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
+    </service>
+
     <!-- Party GlAccount services -->
     <service name="createPartyGlAccount" default-entity-name="PartyGlAccount" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createPartyGlAccount" auth="true">
