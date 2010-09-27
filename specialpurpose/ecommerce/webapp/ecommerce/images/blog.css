@@ -23,8 +23,6 @@ width: inherit;
 font-size: 100%;
 text-decoration: none;
 font-family: Verdana, Arial, Helvetica, sans-serif;
-padding-right: 210px;
-padding-left: 160px;
 }
 
 .treeHeader, .treeHeaderCurrent {
@@ -165,7 +163,7 @@ display: inline;
 .bloghr {
 border: 0.1em solid #999999;
 color: white;
-background: #000099;
+background: #1C334D;
 padding: 4px;
 height: 13px;
 }
