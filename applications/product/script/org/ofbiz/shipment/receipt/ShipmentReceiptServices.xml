@@ -133,6 +133,18 @@ under the License.
             <clear-field field="serviceInMap"/>
             <clear-field field="currentInventoryItemId"/>
 
+            <!-- Set supplier partyId, if inventory received by purchase order -->
+            <if-not-empty field="parameters.orderId">
+                <entity-and entity-name="OrderRole" list="orderRoles">
+                    <field-map field-name="orderId" from-field="parameters.orderId"/>
+                    <field-map field-name="roleTypeId" value="SUPPLIER_AGENT"/>
+                </entity-and>
+                <if-not-empty field="orderRoles">
+                    <first-from-list list="orderRoles" entry="orderRole"/>
+                    <set field="parameters.partyId" from-field="orderRole.partyId"/>
+                </if-not-empty>
+            </if-not-empty>
+
             <if-empty field="parameters.currentInventoryItemId">
                 <set-service-fields service-name="createInventoryItem" map="parameters" to-map="serviceInMap"/>
                 <call-service service-name="createInventoryItem" in-map-name="serviceInMap">

@@ -123,6 +123,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="internalName"><display/></field>
+        <field name="partyId"><display/></field>
         <field name="locationSeqId" widget-style="buttontext">
             <hyperlink target="EditFacilityLocation" description="${areaId}:${aisleId}:${sectionId}:${levelId}:${positionId} [${locationSeqId}]">
                 <parameter param-name="facilityId"/>

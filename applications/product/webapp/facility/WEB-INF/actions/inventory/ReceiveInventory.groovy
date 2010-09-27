@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.service.ServiceUtil
@@ -58,6 +59,7 @@ if (purchaseOrderId) {
 product = null;
 if (productId) {
     product = delegator.findOne("Product", [productId : productId], false);
+    context.supplierPartyIds = EntityUtil.getFieldListFromEntityList(EntityUtil.filterByDate(delegator.findList("SupplierProduct", EntityCondition.makeCondition([productId : productId]), null, ["partyId"], null, false), nowTimestamp, "availableFromDate", "availableThruDate", true), "partyId", true);
 }
 
 shipments = null;
