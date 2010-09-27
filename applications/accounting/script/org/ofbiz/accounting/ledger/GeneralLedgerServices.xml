@@ -2127,18 +2127,26 @@ under the License.
                 </iterate>
             </iterate-map>
             <!-- Another entry for tax not attributed to a taxAuthPartyId -->
-            <clear-field field="debitEntry"/>
-            <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
-            <set field="debitEntry.debitCreditFlag" value="D"/>
-            <set field="debitEntry.organizationPartyId" from-field="invoice.partyId"/>
             <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
                     ret-field="taxAmount">
                 <field field="invoice" type="GenericValue"/>
             </call-class-method>
-            <set field="debitEntry.origAmount" from-field="taxAmount"/>
-            <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
-            <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
-
+            <if>
+                <condition>
+                    <and>
+                        <if-compare field="taxAmount" operator="greater" value="0" type="BigDecimal"/>
+                    </and>
+                </condition>
+                <then>
+                    <clear-field field="debitEntry"/>
+                    <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
+                    <set field="debitEntry.debitCreditFlag" value="D"/>
+                    <set field="debitEntry.organizationPartyId" from-field="invoice.partyId"/>
+                    <set field="debitEntry.origAmount" from-field="taxAmount"/>
+                    <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                    <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+                </then>
+            </if>               
             <!-- Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
