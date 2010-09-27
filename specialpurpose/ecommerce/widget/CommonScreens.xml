@@ -219,8 +219,7 @@ under the License.
                 <set field="currentMenuItemName" from-field="currentMenuItemName" default-value="all" from-scope="user"/>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="rightbarScreenName" value="rightbar"/>
-                <set field="leftbarScreenLocation" value="component://ecommerce/widget/CommonScreens.xml"/>
-                <set field="rightbarScreenLocation" value="component://ecommerce/widget/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="center"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
