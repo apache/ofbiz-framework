@@ -159,6 +159,23 @@ under the License.
               </tr>
               <tr>
                 <td width="14%">&nbsp;</td>
+                <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductSupplier}</td>
+                <td width="6%">&nbsp;</td>
+                <td width="74%">
+                  <select name="partyId">
+                    <option value=""></option>
+                    <#if supplierPartyIds?has_content>
+                      <#list supplierPartyIds as supplierPartyId>
+                        <option value="${supplierPartyId}" <#if supplierPartyId == parameters.partyId?if_exists> selected="selected"</#if>>
+                          [${supplierPartyId}] ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, supplierPartyId, true)}
+                        </option>
+                      </#list>
+                    </#if>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td width="14%">&nbsp;</td>
                 <td width="6%" align="right" nowrap="nowrap" class="label">${uiLabelMap.ProductDateReceived}</td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
