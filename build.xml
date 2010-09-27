@@ -488,7 +488,7 @@ under the License.
         </java>
     </target>
     <target name="run-single-test" depends="build"
-          description="Run a single test">
+          description="Run a single test, syntax eg: ant run-single-test -Dtest.component=service -Dtest.case=service-soap-tests">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -511,7 +511,7 @@ under the License.
         </fail>
     </target>
     <target name="run-single-test-suite" depends="build"
-            description="Run a single test suite">
+            description="Run a single test suite, syntax eg: ant run-single-test-suite -Dtest.component=mycomponent -Dtest.suiteName=mytests">      
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
