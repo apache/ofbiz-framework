@@ -178,6 +178,9 @@ under the License.
         <field-to-result field="paymentAppl.paymentApplicationId" result-name="paymentApplicationId"/>
 
         <create-value value-field="paymentAppl"/>
+        <entity-one value-field="payment" entity-name="Payment"/>
+        <field-to-result field="payment.paymentTypeId" result-name="paymentTypeId"/>
+        
     </simple-method>
 
     <simple-method method-name="setPaymentStatus" short-description="Set The Payment Status">

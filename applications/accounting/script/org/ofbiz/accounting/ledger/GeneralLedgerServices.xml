@@ -2396,9 +2396,16 @@ under the License.
             </entity-and>
             <iterate list="paymentApplications" entry="paymentApplication">
                 <set field="createAcctgTransAndEntriesForPaymentApplicationInMap.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
-                <call-service service-name="createAcctgTransAndEntriesForPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
-                    <result-to-field result-name="acctgTransId"/>
-                </call-service>
+                <if-compare field="payment.paymentTypeId" operator="equals" value="CUSTOMER_REFUND">
+                    <call-service service-name="createAcctgTransAndEntriesForCustomerRefundPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
+                        <result-to-field result-name="acctgTransId"/>
+                    </call-service>
+                <else>
+                    <call-service service-name="createAcctgTransAndEntriesForPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
+                        <result-to-field result-name="acctgTransId"/>
+                    </call-service>
+                </else>
+                </if-compare>
                 <log level="info" message="Accounting transaction ${acctgTransId} created for payment application ${paymentApplication.paymentApplicationId}"/> 
             </iterate>
         </if-compare>
@@ -2444,7 +2451,64 @@ under the License.
             <call-service service-name="createAcctgTransEntry" in-map-name="createAcctgTransAndEntryInMap"/>
         </iterate>
     </simple-method>
-
+    
+    <!--service to create AcctgTransAndEntries For Customer Refund Payment Application-->
+    <simple-method method-name="createAcctgTransAndEntriesForCustomerRefundPaymentApplication" short-description="create AcctgTransAndEntries For Customer Refund PaymentApplication">
+        <entity-one entity-name="PaymentApplication" value-field="paymentApplication">
+            <field-map field-name="paymentApplicationId" from-field="parameters.paymentApplicationId"/>
+        </entity-one>
+        <get-related-one value-field="paymentApplication" relation-name="Payment" to-value-field="payment"/>
+        <!-- if the payment transaction has not been already posted to gl then don't do nothing; the transaction for the payment application will be posted together with the payment -->
+        <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID">
+            <return/>
+        </if-compare>
+        <!-- if the payment Debited account is already "accounts payable" then don't do nothing -->
+        <entity-one entity-name="PaymentGlAccountTypeMap" value-field="paymentGlAccountTypeMap">
+                <field-map field-name="paymentTypeId" from-field="payment.paymentTypeId"/>
+                <field-map field-name="organizationPartyId" from-field="payment.partyIdFrom"/>
+        </entity-one>
+        <if-compare field="paymentGlAccountTypeMap.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE">
+            <return/>
+        </if-compare>
+        <!--Credit -->
+        <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
+        <set field="creditEntry.debitCreditFlag" value="C"/>
+        <set field="creditEntry.organizationPartyId" from-field="payment.partyIdFrom"/>
+        <set field="creditEntry.partyId" from-field="payment.partyIdTo"/>
+        <set field="creditEntry.roleTypeId" value="BILL_TO_CUSTOMER"/>
+        <set field="creditEntry.origAmount" from-field="paymentApplication.amountApplied"/>
+        <set field="creditEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
+        <set field="creditEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
+        <set field="creditEntry.glAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId"/>
+        <!-- Debit -->
+        <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
+        <set field="debitEntry.debitCreditFlag" value="D"/>
+        <set field="debitEntry.organizationPartyId" from-field="payment.partyIdFrom"/>
+        <set field="debitEntry.partyId" from-field="payment.partyIdTo"/>
+        <set field="debitEntry.roleTypeId" value="BILL_TO_CUSTOMER"/>
+        <set field="debitEntry.origAmount" from-field="paymentApplication.amountApplied"/>
+        <set field="debitEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
+        <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
+        <if-not-empty field="paymentApplication.overrideGlAccountId">
+            <set field="debitEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>
+         </if-not-empty>
+    
+        <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+        <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
+        <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="PAYMENT_APPL"/>
+        <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
+        <set field="createAcctgTransAndEntriesInMap.paymentId" from-field="paymentApplication.paymentId"/>
+        <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="paymentApplication.invoiceId"/>
+        <set field="createAcctgTransAndEntriesInMap.partyId" from-field="payment.partyIdTo"/>
+        <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_TO_CUSTOMER"/>
+        <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
+            <result-to-field result-name="acctgTransId"/>
+        </call-service>
+        <field-to-result field="acctgTransId" result-name="acctgTransId"/>
+    
+    </simple-method>
+    
     <!--service to create AcctgTransAndEntries For Payment Application-->
     <simple-method method-name="createAcctgTransAndEntriesForPaymentApplication" short-description="create AcctgTransAndEntries For PaymentApplication">
         <entity-one entity-name="PaymentApplication" value-field="paymentApplication">
