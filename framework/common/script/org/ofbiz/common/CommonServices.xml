@@ -326,4 +326,17 @@ under the License.
         <field-to-result field="geoList"/>
     </simple-method>    
     
+    <simple-method method-name="checkUomConversion" short-description="Returns true if an UomConversion exists">
+        <entity-one entity-name="UomConversion" value-field="uomConversion">
+            <field-map field-name="uomId" from-field="parameters.uomId"/>
+            <field-map field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+        </entity-one>
+        <if-not-empty field="uomConversion">
+            <set field="exist" value="true" type="Boolean"/>
+            <else>
+                <set field="exist" value="false" type="Boolean"/>                
+            </else>
+        </if-not-empty>
+        <field-to-result field="exist"/>
+    </simple-method>    
 </simple-methods>
