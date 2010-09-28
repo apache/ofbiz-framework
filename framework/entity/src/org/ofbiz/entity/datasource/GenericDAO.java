@@ -752,7 +752,7 @@ public class GenericDAO {
             long queryEndTime = System.currentTimeMillis();
             long queryTotalTime = queryEndTime - queryStartTime;
             if (queryTotalTime > 150) {
-                Debug.logTiming("Ran query in " + queryTotalTime + " milli-seconds: " + sql, module);
+                Debug.logTiming("Ran query in " + queryTotalTime + " milli-seconds: " + " EntityName: " + modelEntity.getEntityName() + " Sql: " + sql + " where clause:" + whereEntityConditionParams, module);
             }
         }
         return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader, this, whereEntityCondition, havingEntityCondition, findOptions.getDistinct());
