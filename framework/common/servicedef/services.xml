@@ -754,6 +754,14 @@ under the License.
         <attribute name="stateList" mode="OUT" type="java.util.List"/>
     </service>
     
+    <service name="checkUomConversion" engine="simple" default-entity-name="UomConversion"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="checkUomConversion">
+        <description>Returns true if an UomConversion exists</description>
+        <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
+        <auto-attributes include="pk" mode="IN"/>
+        <attribute name="exist" mode="OUT" type="Boolean"/>
+    </service>    
+    
     <service name="getRelatedGeos" engine="simple" auth="false"
         location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getRelatedGeos">
         <attribute name="geoId" mode="IN" type="String"/>

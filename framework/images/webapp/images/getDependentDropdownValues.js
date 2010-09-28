@@ -90,7 +90,7 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
     });
 }
 
-// calls any service already mounted as an event
+//*** calls any service already mounted as an event
 function getServiceResult(request, params) {
 	var data;
 	new Ajax.Request(request, {
@@ -101,4 +101,10 @@ function getServiceResult(request, params) {
 		}
 	});
 	return data;
+}
+
+//*** checkUomConversion returns true if an UomConversion exists 
+function checkUomConversion(request, params) {
+    data = getServiceResult(request, params);    
+    return data['exist']; 
 }
