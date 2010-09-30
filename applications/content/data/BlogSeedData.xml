@@ -19,16 +19,24 @@ under the License.
 -->
 
 <entity-engine-xml>
+
+<Content contentId="BLOGROOT" contentTypeId="WEB_SITE_PUB_PT"
+    ownerContentId=""
+    contentName="Blog Root"
+    description="Blog Root"
+    childBranchCount="1"
+    childLeafCount="1"/>
+
     <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="CONTENT_ADMIN" roleTypeId="CONTENT_ADMIN" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
     <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="CONTENT_UPDATE" roleTypeId="CONTENT_ADMIN" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
     <ContentPurposeOperation contentPurposeTypeId="RESPONSE" contentOperationId="CONTENT_CREATE" roleTypeId="_NA_" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
 
-    <DataResource dataResourceId="BLOG_TPL_TOPLEFT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Float left" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" objectInfo="component://ecommerce/widget/blog/BlogTemplates.xml#FloatLeft"/>
-    <DataResource dataResourceId="BLOG_TPL_TOPCENTER" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Top centered" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" objectInfo="component://ecommerce/widget/blog/BlogTemplates.xml#TopCenter"/>
+    <DataResource dataResourceId="BLOG_TPL_TOPLEFT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Float left" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.891" objectInfo="component://ecommerce/widget/blog/BlogTemplates.xml#FloatLeft"/>
+    <DataResource dataResourceId="BLOG_TPL_TOPCENTER" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Top centered" mimeTypeId="text/html" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.891" objectInfo="component://ecommerce/widget/blog/BlogTemplates.xml#TopCenter"/>
 
-    <DataResource dataResourceId="ECOM_BLANK" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Plain Decorator" mimeTypeId="text/html" dataCategoryId="TEMPLATE" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" objectInfo="component://ecommerce/widget/CommonScreens.xml#CommonEmptyDecorator"/>
-    <DataResource dataResourceId="ECOM_LEFT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Left Decorator" mimeTypeId="text/html" dataCategoryId="TEMPLATE" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" objectInfo="component://ecommerce/widget/CommonScreens.xml#CommonLeftDecorator"/>
-    <DataResource dataResourceId="ECOM_RIGHT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Right Decorator" mimeTypeId="text/html" dataCategoryId="TEMPLATE" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" objectInfo="component://ecommerce/widget/CommonScreens.xml#CommonRightDecorator"/>
-    <DataResource dataResourceId="ECOM_LEFTRIGHT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Left/Right Decorator" mimeTypeId="text/html" dataCategoryId="TEMPLATE" createdDate="2004-01-16 01:24:06.522" createdByUserLogin="admin" lastModifiedDate="2004-01-16 19:20:58.891" lastModifiedByUserLogin="admin" objectInfo="component://ecommerce/widget/CommonScreens.xml#CommonLeftRightDecorator"/>
+    <DataResource dataResourceId="ECOM_BLANK" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Plain Decorator" mimeTypeId="text/html" dataCategoryId="TEMPLATE" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.891" objectInfo="component://ecommerce/widget/CommonScreens.xml#CommonEmptyDecorator"/>
+    <DataResource dataResourceId="ECOM_LEFT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Left Decorator" mimeTypeId="text/html" dataCategoryId="TEMPLATE" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.891" objectInfo="component://ecommerce/widget/CommonScreens.xml#CommonLeftDecorator"/>
+    <DataResource dataResourceId="ECOM_RIGHT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Right Decorator" mimeTypeId="text/html" dataCategoryId="TEMPLATE" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.891" objectInfo="component://ecommerce/widget/CommonScreens.xml#CommonRightDecorator"/>
+    <DataResource dataResourceId="ECOM_LEFTRIGHT" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" dataResourceName="Left/Right Decorator" mimeTypeId="text/html" dataCategoryId="TEMPLATE" createdDate="2004-01-16 01:24:06.522" lastModifiedDate="2004-01-16 19:20:58.891" objectInfo="component://ecommerce/widget/CommonScreens.xml#CommonLeftRightDecorator"/>
 
 </entity-engine-xml>
