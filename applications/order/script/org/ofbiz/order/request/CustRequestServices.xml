@@ -341,6 +341,10 @@ under the License.
         <set value="RF_QUOTE" field="createCustRequestInMap.custRequestTypeId"/>
         <set value="CRQ_SUBMITTED" field="createCustRequestInMap.statusId"/>
         <set field="createCustRequestInMap.custRequestName" from-field="parameters.custRequestName"/>
+        <if-empty field="createCustRequestInMap.custRequestName">
+            <property-to-field resource="OrderUiLabels" property="OrderRequestCreatedFromShoppingCart" field="custRequestName"/>
+            <set field="createCustRequestInMap.custRequestName" from-field="custRequestName"/> 
+        </if-empty>
         <call-object-method obj-field="parameters.cart" method-name="getCurrency" ret-field="createCustRequestInMap.maximumAmountUomId"/>
         <call-object-method obj-field="parameters.cart" method-name="getProductStoreId" ret-field="createCustRequestInMap.productStoreId"/>
         <call-object-method obj-field="parameters.cart" method-name="getChannelType" ret-field="createCustRequestInMap.salesChannelEnumId"/>

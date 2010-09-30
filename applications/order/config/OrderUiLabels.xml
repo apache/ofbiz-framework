@@ -8194,7 +8194,7 @@
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="pt_BR">Conteúdo</value>
         <value xml:lang="zh">内容</value>
-    </property>
+    </property>    
     <property key="OrderRequestCreatedDate">
         <value xml:lang="de">Erstellungsdatum</value>
         <value xml:lang="en">Created Date</value>
@@ -8209,6 +8209,10 @@
         <value xml:lang="zh">创建日期</value>
         <value xml:lang="zh_CN">创建日期</value>
     </property>
+    <property key="OrderRequestCreatedFromShoppingCart">
+        <value xml:lang="en">Request created from shopping cart</value>
+        <value xml:lang="fr">Demande de devis créée depuis le panier</value>
+    </property>    
     <property key="OrderRequestDate">
         <value xml:lang="de">Anfragedatum</value>
         <value xml:lang="en">Request Date</value>
