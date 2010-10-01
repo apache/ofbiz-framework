@@ -668,7 +668,7 @@ public class CommunicationEventServices {
             Address[] addressesTo = wrapper.getTo();
             Address[] addressesCC = wrapper.getCc();
             Address[] addressesBCC = wrapper.getBcc();
-            String messageId = wrapper.getMessageId().replaceAll("<|>", "");;
+            String messageId = wrapper.getMessageId().replaceAll("[<>]", "");;
 
             String aboutThisEmail = "message [" + messageId + "] from [" +
                 (addressesFrom[0] == null? "not found" : addressesFrom[0].toString()) + "] to [" +
@@ -794,7 +794,7 @@ public class CommunicationEventServices {
             if (inReplyTo != null && inReplyTo[0] != null) {
                 GenericValue parentCommEvent = null;
                 try {
-                    List<GenericValue> events = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", inReplyTo[0].replaceAll("<|>", "")));
+                    List<GenericValue> events = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", inReplyTo[0].replaceAll("[<>]", "")));
                     parentCommEvent = EntityUtil.getFirst(events);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
@@ -855,7 +855,7 @@ public class CommunicationEventServices {
                 headerString.append(headerLines.nextElement());
             }
             String header = headerString.toString();
-            commEventMap.put("headerString", header.replaceAll("<|>", ""));
+            commEventMap.put("headerString", header.replaceAll("[<>]", ""));
 
             result = dispatcher.runSync("createCommunicationEvent", commEventMap);
             communicationEventId = (String)result.get("communicationEventId");
