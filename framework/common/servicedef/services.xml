@@ -61,6 +61,7 @@ under the License.
         <description>Update a note record</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="noteInfo" allow-html="safe"/>
     </service>
     
     <service name="adjustDebugLevels" engine="java"
