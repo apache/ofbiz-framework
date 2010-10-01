@@ -42,6 +42,7 @@ under the License.
         <field position="2" name="partyIdTo" parameter-name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
         <field name="invoiceDate"><date-find type="date"/></field>
+        <field name="referenceNumber"><text-find/></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -134,6 +135,7 @@ under the License.
         <field position="2" name="dueDate"><display description="${bsh:if(invoice.get(&quot;dueDate&quot;)!=null)return(invoice.getString(&quot;dueDate&quot;).substring(0,10));}"/></field>
         <field position="1" name="total"><display description="${total}" type="currency" currency="${invoice.currencyUomId}"/></field>
         <field position="2" name="paidDate"><display description="${bsh:if(invoice.get(&quot;paidDate&quot;)!=null)return(invoice.getString(&quot;paidDate&quot;).substring(0,10));}"/></field>
+        <field position="1" name="referenceNumber"><display/></field>
         <field name="currencyUomId"><hidden/></field>
     </form>
 
@@ -338,6 +340,7 @@ under the License.
         </field>
         <field position="2" name="recurrenceInfoId"><text size="10"/></field>
         <field position="1" name="invoiceMessage" encode-output="false"><text size="100"/></field>
+        <field position="1" name="referenceNumber"><text/></field>
         <!--field position="2" name="invoiceAmount" use-when="invoiceId!=null"><display/></field-->
         <field position="1" name="updateButton" widget-style="smallSubmit" use-when="invoice!=null&amp;&amp;invoice.getString(&quot;statusId&quot;).equals(&quot;INVOICE_IN_PROCESS&quot;)">
             <submit button-type="button"/>
