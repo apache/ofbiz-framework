@@ -377,20 +377,28 @@ function doPublish() {
             <input type="hidden" name="fromDate" value="${nowTimestampString}"/>
             <input type="hidden" name="productId" value="${product.productId?if_exists}"/>
             <table cellspacing="0" class="basic-table">
-            <tr>
-            <td>
-                <table cellspacing="0" class="basic-table">
-                    <tr>
-                        <td>
-                            <select multiple="multiple" name="categoryId">
-                                <#list allCategories as category>
-                                    <option value="${category.productCategoryId?if_exists}">${category.description?if_exists} ${category.productCategoryId}</option>
-                                </#list>
-                            </select>&nbsp;
-                        </td>
-                    </tr>
-                </table>
-            </td>
+              <tr>
+              <td>
+                  <table cellspacing="0" class="basic-table">
+                      <tr>
+                          <td>
+                              <select multiple="multiple" name="categoryId">
+                                  <#list allCategories as category>
+                                      <option value="${category.productCategoryId?if_exists}">${category.description?if_exists} ${category.productCategoryId}</option>
+                                  </#list>
+                              </select>&nbsp;
+                          </td>
+                      </tr>
+                  </table>
+              </td>
+              </tr>
+              <tr>
+                  <td colspan="2"><input type="submit" value="${uiLabelMap.ProductUpdateCategories}"/></td>
+              </tr>
+            </table>
+        </form>
+        <table>
+          <tr>
             <td valign="top">
                 <table cellspacing="0" class="basic-table">
                     <#assign rowClass = "2">
@@ -398,11 +406,11 @@ function doPublish() {
                         <#assign prodCat = prodCatMemb.getRelatedOne("ProductCategory")/>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                             <td colspan="2">
-                              <form name="quickAdminRemoveProductFromCategory_${prodCat.productCategoryId}" action="<@ofbizUrl>quickAdminRemoveProductFromCategory</@ofbizUrl>" method="post">
+                              <form name="quickAdminRemoveProductFromCategory_${prodCatMemb_index}" action="<@ofbizUrl>quickAdminRemoveProductFromCategory</@ofbizUrl>" method="post">
                                 <input type="hidden" name="productId" value="${prodCatMemb.productId?if_exists}" />
                                 <input type="hidden" name="productCategoryId" value="${prodCatMemb.productCategoryId}" />
                                 <input type="hidden" name="fromDate" value="${prodCatMemb.getString("fromDate")}" />
-                                <a href="javascript:document.quickAdminRemoveProductFromCategory_${prodCat.productCategoryId}.submit();" class="buttontext">x</a>
+                                <a href="javascript:document.quickAdminRemoveProductFromCategory_${prodCatMemb_index}.submit();" class="buttontext">x</a>
                                 ${prodCat.description?if_exists} ${prodCat.productCategoryId}
                               </form>
                             </td>
@@ -416,12 +424,8 @@ function doPublish() {
                     </#list>
                 </table>
             </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="right"><input type="submit" value="${uiLabelMap.ProductUpdateCategories}"/></td>
-            </tr>
-            </table>
-        </form>
+          </tr>
+        </table>
         <!--  **************************************************** end - Categories section -->
     </div>
 </div>
