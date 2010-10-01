@@ -291,7 +291,7 @@ transactionTotals.each { transactionTotal ->
     BigDecimal debitAmount = (BigDecimal)accountMap.get("D");
     BigDecimal creditAmount = (BigDecimal)accountMap.get("C");
     // contra assets are accounts of class CREDIT: the balance is given by credits minus debits
-    BigDecimal balance = creditAmount.subtract(debitAmount);
+    BigDecimal balance = debitAmount.subtract(creditAmount);
     accountMap.put("balance", balance);
     transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
 }
@@ -303,7 +303,9 @@ accountBalanceList.each { accountBalance ->
 context.assetAccountBalanceList.addAll(accountBalanceList);
 context.assetAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL ACCUMULATED DEPRECIATION", "balance", balanceTotal));
 context.contraAssetBalanceTotal = balanceTotal;
-balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingLongTermAssetsAtCost", "balance", (context.longtermAssetBalanceTotal - context.contraAssetBalanceTotal)));
+//balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingLongTermAssetsAtCost", "balance", (context.longtermAssetBalanceTotal - context.contraAssetBalanceTotal)));
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalAccumulatedDepreciation", "balance", balanceTotal));
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalAssets", "balance", (context.currentAssetBalanceTotal + context.longtermAssetBalanceTotal + balanceTotal)));
 
 // LIABILITY
 // account balances
@@ -421,6 +423,7 @@ context.equityAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL EQUITI
 context.equityBalanceTotal = balanceTotal;
 
 context.liabilityEquityBalanceTotal = context.liabilityBalanceTotal + context.equityBalanceTotal
+balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingEquities", "balance", context.equityBalanceTotal));
 balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalLiabilitiesAndEquities", "balance", context.liabilityEquityBalanceTotal));
 
 context.balanceTotalList = balanceTotalList;
