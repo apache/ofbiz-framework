@@ -103,6 +103,12 @@
         <value xml:lang="en">Secondary color</value>
         <value xml:lang="th">สีรอง</value>
     </property>
+    <property key="EbayStoreStoreSelectTransaction">
+        <value xml:lang="en">Import with single transaction</value>
+    </property>
+    <property key="EbayStoreStoreSelectOrder">
+        <value xml:lang="en">Import with order</value>
+    </property>
     <property key="EbayStoreStoreAccentColor">
         <value xml:lang="en">Accent color</value>
         <value xml:lang="th">Accent color</value>

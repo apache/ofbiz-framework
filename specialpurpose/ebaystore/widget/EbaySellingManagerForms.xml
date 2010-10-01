@@ -148,7 +148,7 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
-    </form> 
+    </form>
     <!-- Inventory -->
     <form name="EbayStoreFacilityList" type="single" list-name="productStoreFacilityList"  target="ebayStoreInventory"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -699,5 +699,106 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
             </drop-down>
         </field>
         <field name="updateContactStatus"><submit button-type="button"/></field>
+    </form>
+    <form name="ClosedItemList" type="list"  target="doAction" list-name="closedList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
+        <field name="itemId" title="Item ID" sort-field="true"><display description="${itemId}"/></field>
+        <field name="SKU" title="Product ID"><display description="${SKU}"/></field>
+        <field name="title">
+            <hyperlink target="${viewItemURL}" description="${title}" target-type="plain" target-window="_BLANK"/>
+        </field>
+        <field name="sellingStatus" title="Status"><display description="${sellingStatus}"/></field>
+        <field name="endTime" title="Closing Time"><display description="${endTime}"/></field>
+        <field name="reservePrice" title="Reserve Price"><display description="${reservePrice}"/></field>
+        <field name="bidCount" title="Bids"><display description="${bidCount}"/></field>
+        <field name="hitCount" title="Hits"><display description="${hitCount}"/></field>
+        <field name="listingType" title="Listing Type"><display description="${listingType}"/></field>
+    </form>
+    <form name="TransactionList" type="multi" target="EbayStoreImportTransaction" list-name="transactionsList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
+        <row-actions>
+            <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/CheckOrderStatus.groovy"></script>
+        </row-actions>
+        <field name="_rowSubmit"  position="1" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="productStoreId"><hidden value="${productStoreId}"/></field>
+        <field name="orderId" title="Order ID">
+            <hyperlink target="https://localhost:8443/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="plain" target-window="_BLANK"/>
+        </field>
+        <field name="externalId" title="Transaction ID"><display description="${externalId}"/></field>
+        <field name="ebayUserIdBuyer" title="Winner Bidder"><display description="${ebayUserIdBuyer}"/></field>
+        <field name="productId" title="Product ID"><display description="${productId}"/></field>
+        <field name="title" title="Product Name"><display description="${title}"/></field>
+        <field name="createdDate" title="Listing Close Date"><display description="${createdDate}"/></field>
+        <field name="paymentType"><display description="${paymentMethod}"></display></field>
+        <field name="quantityPurchased" title="Quntity"><display description="${quantityPurchased}"/></field>
+        <field name="transactionPrice" title="Price Order Total"><display description="${transactionPrice}"/></field>
+        <field name="checkoutStatus" title="Checkout Status"><display description="${checkoutStatus}"></display></field>
+        <field name="importStatus" title="Import Status"><display description="${importStatus}"></display></field>
+        <field name="amountPaid"><hidden value="${amountPaid}"/></field>
+        <field name="paidTime"><hidden value="${paidTime}"/></field>
+        <field name="currency"><hidden value="${currency}"></hidden></field>
+        <field name="buyerName"><hidden value="${buyerName}"></hidden></field>
+        <field name="eiasTokenBuyer"><hidden value="${eiasTokenBuyer}"></hidden></field>
+        <field name="emailBuyer"><hidden value="${emailBuyer}"></hidden></field>
+        <field name="shippingService"><hidden value="${shippingService}"></hidden></field>
+        <field name="shippingServiceCost"><hidden value="${shippingServiceCost}"></hidden></field>
+        <field name="shippingTotalAdditionalCost"><hidden value="${shippingTotalAdditionalCost}"></hidden></field>
+        <field name="salesTaxAmount"><hidden value="${salesTaxAmount}"></hidden></field>
+        <field name="salesTaxPercent"><hidden value="${salesTaxPercent}"></hidden></field>
+        <field name="shippingAddressCityName"><hidden value="${shippingAddressCityName}"></hidden></field>
+        <field name="shippingAddressCountry"><hidden value="${shippingAddressCountry}"></hidden></field>
+        <field name="shippingAddressPhone"><hidden value="${shippingAddressPhone}"></hidden></field>
+        <field name="shippingAddressPostalCode"><hidden value="${shippingAddressPostalCode}"></hidden></field>
+        <field name="shippingAddressStateOrProvince"><hidden value="${shippingAddressStateOrProvince}"></hidden></field>
+        <field name="shippingAddressStreet"><hidden value="${shippingAddressStreet}"></hidden></field>
+        <field name="shippingAddressStreet1"><hidden value="${shippingAddressStreet1}"></hidden></field>
+        <field name="shippingAddressStreet2"><hidden value="${shippingAddressStreet2}"></hidden></field>
+        <field name="import" title="Import Orders"><submit button-type="button"/></field>
+    </form>
+    <form name="OrderList" type="multi" target="EbayStoreImportOrder" list-name="orderLists"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
+        <row-actions>
+            <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/OrderListParameters.groovy"/>
+        </row-actions>
+        <field name="productStoreId"><hidden value="${productStoreId}"/></field>
+        <field name="_rowSubmit" position="1" title="${uiLabelMap.CommonSelect}" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><check/></field>
+        <field name="orderId" position="1" title="Order ID" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}">
+            <hyperlink target="https://localhost:8443/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="plain" target-window="_BLANK"/>
+        </field>
+        <field name="externalId" title="External ID" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${externalId}"></display></field>
+        <field name="ebayUserIdBuyer" title="Winning Bidder" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${ebayUserIdBuyer}"></display></field>
+        <field name="dummy4" title=" " position="1"><display></display></field>
+        <field name="dummy5" title=" " position="1"><display></display></field>
+        <field name="createdDate" title="Invoice Date" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${createdDate}"></display></field>
+        <field name="paymentMethodUsed" title="Payment Type" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${paymentMethodUsed}"></display></field>
+        <field name="dummy7" title=" " position="1"><display></display></field>
+        <field name="amountPaid" title="Order Total Price" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${amountPaid}"></display></field>
+
+        <field name="dummy1" title=" " position="2"><display></display></field>
+        <field name="dummy2" title=" " position="2"><display></display></field>
+        <field name="dummy3" title=" " position="2"><display></display></field>
+        <field name="dummy8" title=" " position="2"><display></display></field>
+        <field name="dummy10" title=" " position="2"><display></display></field>
+        <field name="productId" title="SKU" position="2"><display description="${productId}"></display></field>
+        <field name="title" title="Title" position="2"><display description="${title}"></display></field>
+        <field name="dummy9" title=" " position="2"><display></display></field>
+        <field name="dummy6" title=" " position="2"><display></display></field>
+        <field name="quantity" title="Quantity" position="2"><display description="${quantity}"></display></field>
+        <field name="amount" title="Amount price per item" position="2"><display description="${transactionPrice}"></display></field>
+        
+        <field name="paidTime" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${paidTime}"></hidden></field>
+        <field name="shippedTime" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${shippedTime}"></hidden></field>
+        <field name="emailBuyer" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${emailBuyer}"></hidden></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
+    <form name="FindEbayStoreOrders" type="single" target="OrderListing"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productStoreId"><hidden value="${productStoreId}"></hidden></field>
+        <field name="formSelect"><hidden value="${formSelect}"></hidden></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time type="String"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time type="String"/></field>
+        <field name="selectedDate"><hidden value="true"></hidden></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 </forms>
