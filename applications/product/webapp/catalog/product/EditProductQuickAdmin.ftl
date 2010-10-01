@@ -397,8 +397,15 @@ function doPublish() {
                     <#list productCategoryMembers as prodCatMemb>
                         <#assign prodCat = prodCatMemb.getRelatedOne("ProductCategory")/>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                            <td colspan="2"><a href='<@ofbizUrl>quickAdminRemoveProductFromCategory?productId=${prodCatMemb.productId?if_exists}&amp;productCategoryId=${prodCatMemb.productCategoryId}&amp;fromDate=${prodCatMemb.getString("fromDate")}</@ofbizUrl>' class="buttontext">x</a>
-                            ${prodCat.description?if_exists} ${prodCat.productCategoryId}</td>
+                            <td colspan="2">
+                              <form name="quickAdminRemoveProductFromCategory_${prodCat.productCategoryId}" action="<@ofbizUrl>quickAdminRemoveProductFromCategory</@ofbizUrl>" method="post">
+                                <input type="hidden" name="productId" value="${prodCatMemb.productId?if_exists}" />
+                                <input type="hidden" name="productCategoryId" value="${prodCatMemb.productCategoryId}" />
+                                <input type="hidden" name="fromDate" value="${prodCatMemb.getString("fromDate")}" />
+                                <a href="javascript:document.quickAdminRemoveProductFromCategory_${prodCat.productCategoryId}.submit();" class="buttontext">x</a>
+                                ${prodCat.description?if_exists} ${prodCat.productCategoryId}
+                              </form>
+                            </td>
                         </tr>
                         <#-- toggle the row color -->
                         <#if rowClass == "2">
