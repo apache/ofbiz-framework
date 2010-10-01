@@ -81,7 +81,7 @@ under the License.
           </fo:block>
 
           <#if data.phoneNumber?exists>
-            <fo:block>(${data.phoneNumber.areaCode}) ${data.phoneNumber.contactNumber}</fo:block>
+            <fo:block><#if data.phoneNumber.areaCode?exists>(${data.phoneNumber.areaCode}) </#if>${data.phoneNumber.contactNumber}</fo:block>
           </#if>
         </fo:table-cell>
       </fo:table-row>
