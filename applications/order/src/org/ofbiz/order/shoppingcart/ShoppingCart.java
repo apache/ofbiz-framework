@@ -4374,6 +4374,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public List<GenericValue> shipTaxAdj = FastList.newInstance();
         public String orderTypeId = null;
         private String internalContactMechId = null;
+        public String telecomContactMechId = null;
         public String shipmentMethodTypeId = null;
         public String supplierPartyId = null;
         public String carrierRoleTypeId = null;
@@ -4459,6 +4460,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             shipGroup.set("shippingInstructions", shippingInstructions);
             shipGroup.set("giftMessage", giftMessage);
             shipGroup.set("contactMechId", this.internalContactMechId);
+            shipGroup.set("telecomContactMechId", this.telecomContactMechId);
             shipGroup.set("maySplit", maySplit);
             shipGroup.set("isGift", isGift);
             shipGroup.set("shipGroupSeqId", shipGroupSeqId);
