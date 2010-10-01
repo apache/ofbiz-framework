@@ -631,4 +631,131 @@
            </widgets>
         </section>
     </screen>
+    <screen name="EbayclosedListing">
+        <section>
+            <actions>
+                <set field="sellingManagerItem" value="closedListing"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ClosedListing">
+        <section>
+            <actions>
+                <service service-name="geteBayClosedItem" result-map="closedItemMap">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="closedList" from-field="closedItemMap.closedItemList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayclosedListing">
+                    <decorator-section name="body">
+                        <screenlet title="Closed Item Listings">
+                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ItemOption"/>
+                            <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ClosedItemList"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EbayOrderListing">
+        <section>
+            <actions>
+                <set field="sellingManagerItem" value="orderListing"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderListing">
+        <section>
+            <actions>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <set field="check" from-field="parameters.formSelect" default-value="transaction"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayOrderListing">
+                    <decorator-section name="body">
+                    <section>
+                        <condition>
+                            <if-compare operator="equals" value="transaction" field="check"/>
+                        </condition>
+                        <widgets>
+                            <section>
+                                <actions>
+                                    <set field="selectedDate" from-field="parameters.selectedDate" default-value="false"/>
+                                </actions>
+                                <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare operator="equals" value="true" field="selectedDate"/>
+                                    </condition>
+                                    <actions>
+                                        <service service-name="getEbayStoreTransaction" result-map="transactionResult">
+                                            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                                            <field-map field-name="fromDate" from-field="parameters.fromDate"/>
+                                            <field-map field-name="thruDate" from-field="parameters.thruDate"/>
+                                        </service>
+                                        <set field="transactionsList" from-field="transactionResult.transactionsList"/>
+                                        <set field="selectedDate" value="false"/>
+                                    </actions>
+                                    <widgets/>
+                                </section>
+                                    <screenlet title="Order Listings (Import single Transactions)">
+                                        <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayOrderSubBar"/>
+                                        <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="FindEbayStoreOrders"/>
+                                        <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="TransactionList"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                        </widgets>
+                        <fail-widgets>
+                            <section>
+                                <actions>
+                                    <set field="formSelect" from-field="parameters.formSelect"/>
+                                    <set field="selectedDate" from-field="parameters.selectedDate" default-value="false"/>
+                                </actions>
+                                <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare operator="equals" value="true" field="selectedDate"/>
+                                    </condition>
+                                    <actions>
+                                        <service service-name="getEbayStoreOrder" result-map="orderResult">
+                                            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                                            <field-map field-name="fromDate" from-field="parameters.fromDate"/>
+                                            <field-map field-name="thruDate" from-field="parameters.thruDate"/>
+                                        </service>
+                                        <set field="orderList" from-field="orderResult.orderList"/>
+                                        <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/OrderListPrepare.groovy"/>
+                                        <set field="selectedDate" value="false"/>
+                                    </actions>
+                                    <widgets/>
+                                </section>
+                                    <screenlet title="Order Listings (Import many transactions)">
+                                        <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayOrderSubBar"/>
+                                        <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="FindEbayStoreOrders"/>
+                                        <include-form location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="OrderList"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                        </fail-widgets>
+                    </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

@@ -22,6 +22,7 @@ package org.ofbiz.ebaystore;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,6 +47,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -91,6 +93,7 @@ import com.ebay.soap.eBLBaseComponents.ShippingTypeCodeType;
 import com.ebay.soap.eBLBaseComponents.SiteCodeType;
 import com.ebay.soap.eBLBaseComponents.TradingRoleCodeType;
 import com.ebay.soap.eBLBaseComponents.VATDetailsType;
+import com.ibm.icu.text.SimpleDateFormat;
 
 public class EbayStoreHelper {
     private static final String configFileName = "ebayStore.properties";
@@ -735,5 +738,10 @@ public class EbayStoreHelper {
             Debug.log("Error from get eBay Inventory data : "+ ex.getMessage());
         }
         return isReserve;
+    }
+
+    public static String convertDate(Date date, Locale locale) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",locale);
+        return simpleDateFormat.format(date);
     }
 }

@@ -71,13 +71,13 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
-        <menu-item name="soldListing" title="${uiLabelMap.EbaySold}">
-            <link target="soldListing">
+        <menu-item name="closedListing" title="${uiLabelMap.ClosedListing}">
+            <link target="ClosedListing">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
-        <menu-item name="unsoldListing" title="${uiLabelMap.EbayUnsold}">
-            <link target="unsoldListing">
+        <menu-item name="orderListing" title="${uiLabelMap.EbayOrders}">
+            <link target="OrderListing">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
@@ -152,6 +152,22 @@
             <link target="LeaveFeedback">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
                 <parameter param-name="role" value="buyer"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="EbayOrderSubBar" menu-container-style="button-bar button-style-2" selected-menuitem-context-field-name="role">
+        <menu-item name="SelectTransaction" title="${uiLabelMap.EbayStoreStoreSelectTransaction}">
+            <link target="OrderListing">
+                <parameter param-name="formSelect" value="transaction"/>
+                <parameter param-name="selectedDate" value="false"/>
+                <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
+            </link>
+        </menu-item>
+        <menu-item name="SelectOrder" title="${uiLabelMap.EbayStoreStoreSelectOrder}">
+            <link target="OrderListing">
+                <parameter param-name="formSelect" value="order"/>
+                <parameter param-name="selectedDate" value="false"/>
+                <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
             </link>
         </menu-item>
     </menu>
