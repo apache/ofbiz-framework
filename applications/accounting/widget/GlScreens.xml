@@ -195,6 +195,23 @@ under the License.
                                         <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                                         <parameter param-name="paymentId" from-field="parameters.paymentId"/>
                                     </link>
+                                    <link text="${uiLabelMap.AccountingExportWithInvoiceAndPaymentAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsInvoiceAndPaymentPdf.pdf">
+                                        <parameter param-name="organizationPartyId"/>
+                                        <parameter param-name="produtId" from-field="parameters.produtId"/>
+                                        <parameter param-name="isPosted" from-field="parameters.isPosted"/>
+                                        <parameter param-name="invoiceId" from-field="parameters.invoiceId"/>
+                                        <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
+                                        <parameter param-name="glFiscalTypeId" from-field="parameters.glFiscalTypeId"/>
+                                        <parameter param-name="glAccountId" from-field="parameters.glAccountId"/>
+                                        <parameter param-name="shipmentId" from-field="parameters.shipmentId"/>
+                                        <parameter param-name="acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
+                                        <parameter param-name="fromDate" from-field="parameters.fromDate"/>
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                                        <parameter param-name="glJournalId" from-field="parameters.glJournalId"/>
+                                        <parameter param-name="partyId" from-field="parameters.partyId"/>
+                                        <parameter param-name="thruDate" from-field="parameters.thruDate"/>
+                                        <parameter param-name="paymentId" from-field="parameters.paymentId"/>
+                                    </link>
                                     <include-form name="ListFindAcctgTransEntriesByAccount" location="component://accounting/widget/GlForms.xml"/>
                                 </screenlet>
                             </widgets>

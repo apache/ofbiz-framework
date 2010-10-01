@@ -338,6 +338,20 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
+        <menu-item name="acctgTransEntriesPdf" title="Acctg Trans Entries PDF">
+            <condition>
+                <and>
+                    <not><if-empty field="invoice.invoiceId"/></not>
+                    <or>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
+                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_PAID"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="InvoiceAcctgTransEntriesPdf">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="PaymentTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -469,6 +483,20 @@ under the License.
                 </and>
             </condition>
             <link target="voidPayment">
+                <parameter param-name="paymentId" from-field="payment.paymentId"/>
+            </link>
+        </menu-item>
+        <menu-item name="acctgTransEntriesPDF" title="Acctg Trans Entries PDF">
+            <condition>
+                <and>
+                    <not><if-empty field="payment.paymentId"/></not>
+                    <or>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
+                        <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="PaymentAcctgTransEntriesPdf">
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>

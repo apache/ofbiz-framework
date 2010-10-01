@@ -3319,6 +3319,9 @@
         <value xml:lang="en">Export as PDF</value>
         <value xml:lang="hi_IN">पीडीएफ के रूप में करे निर्यात</value>
     </property>
+    <property key="AccountingExportWithInvoiceAndPaymentAsPdf">
+        <value xml:lang="en">Export with Invoice and Payment as PDF</value>
+    </property>
     <property key="AccountingExternalAccountId">
         <value xml:lang="ar">دليل حساب محاسبي خارجي</value>
         <value xml:lang="de">Externe Konten-Nr.</value>
@@ -9117,6 +9120,39 @@
     <property key="AccountingTotalQuantityOnHand">
         <value xml:lang="en">Total Quantity On Hand</value>
         <value xml:lang="hi_IN">कुल मात्रा हाथ पर</value>
+    </property>
+    <property key="AccountingCostOfGoodsSold">
+        <value xml:lang="en">Cost Of Good Sold</value>
+    </property>
+    <property key="AccountingGrossMargin">
+        <value xml:lang="en">Gross Margin</value>
+    </property>
+    <property key="AccountingOperatingExpenses">
+        <value xml:lang="en">Operating Expenses</value>
+    </property>
+    <property key="AccountingDepreciation">
+        <value xml:lang="en">Depreciation</value>
+    </property>
+    <property key="AccountingIncomeFromOperations">
+        <value xml:lang="en">Income From Operations</value>
+    </property>
+    <property key="AccountingCurrentAssets">
+        <value xml:lang="en">Current Assets</value>
+    </property>
+    <property key="AccountingLongTermAssets">
+        <value xml:lang="en">Long Term Assets</value>
+    </property>
+    <property key="AccountingTotalAccumulatedDepreciation">
+        <value xml:lang="en">Total Accumulated Depreciation</value>
+    </property>
+    <property key="AccountingTotalAssets">
+        <value xml:lang="en">Total Assets</value>
+    </property>
+    <property key="AccountingCurrentLiabilities">
+        <value xml:lang="en">Current Liabilities</value>
+    </property>
+    <property key="AccountingTotalLiabilitiesAndEquities">
+        <value xml:lang="en">Total Liabilities and Equities</value>
     </property>
     <property key="AccountingTransactionIsAlreadyReconciled">
         <value xml:lang="en">Transaction Is already Reconciled</value>
