@@ -557,6 +557,9 @@ under the License.
                 <order-by field-name="accountCode"/>
             </entity-condition>
         </actions>
+        <row-actions>
+            <set field="totalEndingBalance" from-field="totalEndingBalance" default-value="${totalPostedDebits - totalPostedCredits}" type="BigDecimal"/>
+        </row-actions>
         <field name="accountCode">
             <hyperlink target="FindAcctgTransEntries" description="${accountCode}">
                 <parameter param-name="glAccountId"/>
