@@ -40,7 +40,7 @@ under the License.
   <!-- ========================================================= -->
 
     <entity entity-name="JobSandbox" package-name="org.ofbiz.service.schedule" title="Job Scheduler Sandbox Entity"
-            sequence-bank-size="100">
+            sequence-bank-size="100" never-cache="true">
         <field name="jobId" type="id-ne"></field>
         <field name="jobName" type="name"></field>
         <field name="runTime" type="date-time"></field>
