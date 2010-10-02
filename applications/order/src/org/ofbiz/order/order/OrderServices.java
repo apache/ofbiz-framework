@@ -1968,7 +1968,7 @@ public class OrderServices {
                             return ServiceUtil.returnError((String)resp.get(ModelService.ERROR_MESSAGE));
                         }
                     }
-                    
+
                     // log an order note
                     try {
                         BigDecimal quantity = thisCancelQty.setScale(1, orderRounding);
@@ -2430,11 +2430,7 @@ public class OrderServices {
             locale = Locale.getDefault();
         }
 
-        ResourceBundleMapWrapper uiLabelMap = (ResourceBundleMapWrapper) UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
-        uiLabelMap.addBottomResourceBundle("OrderUiLabels");
-        uiLabelMap.addBottomResourceBundle("CommonUiLabels");
-
-        Map bodyParameters = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", placingUserLogin, "uiLabelMap", uiLabelMap, "locale", locale);
+        Map bodyParameters = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", placingUserLogin, "locale", locale);
         if (placingParty!= null) {
             bodyParameters.put("partyId", placingParty.get("partyId"));
         }
@@ -3898,7 +3894,7 @@ public class OrderServices {
         toStore.addAll(cart.makeAllOrderPaymentInfos(dispatcher));
         toStore.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.FILLED_ONLY));
 
-        // get the empty order item atrributes from the cart and remove them
+        // get the empty order item attributes from the cart and remove them
         List toRemove = FastList.newInstance();
         toRemove.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.EMPTY_ONLY));
 
