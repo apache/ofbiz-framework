@@ -504,7 +504,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if (sci.equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, features, attributes, prodCatalogId,selectedAmount, configWrapper, itemType, itemGroup, false)) {
                 BigDecimal newQuantity = sci.getQuantity().add(quantity);
                 try {
-                    BigDecimal minQuantity = getMinimumOrderQuantity(delegator,sci.getBasePrice(), productId);
+                    BigDecimal minQuantity = getMinimumOrderQuantity(getDelegator(),sci.getBasePrice(), productId);
                     if(newQuantity.compareTo(minQuantity) < 0) {
                         newQuantity = minQuantity;
                     }
@@ -549,7 +549,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         } else {
             try {
-                BigDecimal minQuantity = getMinimumOrderQuantity(delegator,null, productId);
+                BigDecimal minQuantity = getMinimumOrderQuantity(getDelegator(),null, productId);
                 if(quantity.compareTo(minQuantity) < 0) {
                     quantity = minQuantity;
                 }
