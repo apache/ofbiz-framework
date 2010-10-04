@@ -49,6 +49,8 @@ under the License.
         <override name="workEffortTypeId" optional="false"/>
         <override name="workEffortName" optional="false"/>
         <override name="currentStatusId" optional="false"/>
+        <override name="workEffortName" allow-html="safe" />
+        <override name="description" allow-html="safe" />
     </service>
     <service name="createWorkEffortAndPartyAssign" default-entity-name="WorkEffort" engine="simple"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortAndPartyAssign">
