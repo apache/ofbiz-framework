@@ -70,20 +70,20 @@ under the License.
     <fo:table-column column-width="25mm"/>
 
     <fo:table-header height="14px">
-      <fo:table-row>
-        <fo:table-cell border-bottom-style="solid" border-bottom-width="thin" border-bottom-color="black">
+      <fo:table-row border-bottom-style="solid" border-bottom-width="thin" border-bottom-color="black">
+        <fo:table-cell>
           <fo:block font-weight="bold">${uiLabelMap.AccountingProduct}</fo:block>
         </fo:table-cell>
-        <fo:table-cell border-bottom-style="solid" border-bottom-width="thin" border-bottom-color="black">
+        <fo:table-cell>
           <fo:block font-weight="bold">${uiLabelMap.CommonDescription}</fo:block>
         </fo:table-cell>
-        <fo:table-cell border-bottom-style="solid" border-bottom-width="thin" border-bottom-color="black">
+        <fo:table-cell>
           <fo:block font-weight="bold" text-align="right">${uiLabelMap.CommonQty}</fo:block>
         </fo:table-cell>
-        <fo:table-cell border-bottom-style="solid" border-bottom-width="thin" border-bottom-color="black">
+        <fo:table-cell>
           <fo:block font-weight="bold" text-align="right">${uiLabelMap.AccountingUnitPrice}</fo:block>
         </fo:table-cell>
-        <fo:table-cell border-bottom-style="solid" border-bottom-width="thin" border-bottom-color="black">
+        <fo:table-cell>
           <fo:block font-weight="bold" text-align="right">${uiLabelMap.CommonAmount}</fo:block>
         </fo:table-cell>
       </fo:table-row>
