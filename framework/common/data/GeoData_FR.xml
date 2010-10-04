@@ -116,8 +116,16 @@ under the License.
     <Geo abbreviation="SSD" geoCode="93" geoId="FR-93" geoName="Seine-Saint-Denis" geoTypeId="COUNTY"/>
     <Geo abbreviation="VDM" geoCode="94" geoId="FR-94" geoName="Val-de-Marne" geoTypeId="COUNTY"/>
     <Geo abbreviation="VDO" geoCode="95" geoId="FR-95" geoName="Val-d'Oise" geoTypeId="COUNTY"/>
-    <Geo abbreviation="REU" geoCode="97" geoId="FR-97" geoName="Réunion" geoTypeId="COUNTY"/>
     <Geo abbreviation="MON" geoCode="98" geoId="FR-98" geoName="Monaco" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GUA" geoCode="971" geoId="FR-971" geoName="Guadeloupe" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GUY" geoCode="972" geoId="FR-972" geoName="Guyane" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MAR" geoCode="973" geoId="FR-973" geoName="Martinique" geoTypeId="COUNTY"/>
+    <Geo abbreviation="REU" geoCode="974" geoId="FR-974" geoName="La Réunion" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SPM" geoCode="975" geoId="FR-975" geoName="St Pierre et Miquelon" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MAY" geoCode="976" geoId="FR-976" geoName="Mayotte" geoTypeId="COUNTY"/>
+    <Geo abbreviation="WeF" geoCode="986" geoId="FR-986" geoName="Wallis et Futuna" geoTypeId="COUNTY"/>
+    <Geo abbreviation="POF" geoCode="987" geoId="FR-987" geoName="Polynésie Française" geoTypeId="COUNTY"/>
+    <Geo abbreviation="NOC" geoCode="988" geoId="FR-988" geoName="Nouvelle Calédonie" geoTypeId="COUNTY"/>
 
     <Geo abbreviation="BEB" geoCode="BEB" geoId="FR-BEB01" geoName="Bourg-en-Bresse" geoTypeId="COUNTY_CITY"/>
     <Geo abbreviation="LAO" geoCode="LAO" geoId="FR-LAO02" geoName="Laon" geoTypeId="COUNTY_CITY"/>
@@ -238,6 +246,8 @@ under the License.
     <Geo abbreviation="ALS" geoCode="ALS" geoId="FR-ALS" geoName="Alsace" geoTypeId="REGION"/>
     <Geo abbreviation="NPC" geoCode="NPC" geoId="FR-NPC" geoName="Nord-Pas-de-Calais" geoTypeId="REGION"/>
     <Geo abbreviation="IDF" geoCode="IDF" geoId="FR-IDF" geoName="Ile-de-France" geoTypeId="REGION"/>
+    <Geo abbreviation="DOM" geoCode="DOM" geoId="FR-DOM" geoName="Departement d'outre Mer" geoTypeId="REGION"/>
+    <Geo abbreviation="TOM" geoCode="TOM" geoId="FR-TOM" geoName="Territoire d'outre Mer" geoTypeId="REGION"/>
 
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-01" geoId="FR-RAL"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-02" geoId="FR-PIC"/>
@@ -335,6 +345,15 @@ under the License.
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-93" geoId="FR-IDF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-94" geoId="FR-IDF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-95" geoId="FR-IDF"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-971" geoId="FR-DOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-972" geoId="FR-DOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-973" geoId="FR-DOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-974" geoId="FR-DOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-988" geoId="FR-TOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-987" geoId="FR-TOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-986" geoId="FR-TOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-976" geoId="FR-TOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-975" geoId="FR-TOM"/>
 
     <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BEB01" geoIdTo="FR-01"/>
     <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LAO02" geoIdTo="FR-02"/>
