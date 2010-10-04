@@ -158,6 +158,7 @@ public class FreeMarkerWorker {
         renderTemplate(templateLocation, templateString, context, outWriter, true);
     }
     
+    
     /**
      * Renders a template contained in a String.
      * @param templateLocation A unique ID for this template - used for caching
@@ -186,6 +187,25 @@ public class FreeMarkerWorker {
         renderTemplate(template, context, outWriter);
     }
 
+    /**
+     * @deprecated, replaced by {@link #renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter, boolean useCache)}
+     */    
+    @Deprecated
+    public static Environment renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
+        Template template = cachedTemplates.get(templateLocation);
+        if (template == null) {
+            synchronized (cachedTemplates) {
+                template = cachedTemplates.get(templateLocation);
+                if (template == null) {
+                    Reader templateReader = new StringReader(templateString);
+                    template = new Template(templateLocation, templateReader, defaultOfbizConfig);
+                    templateReader.close();
+                    cachedTemplates.put(templateLocation, template);
+                }
+            }
+        }
+        return renderTemplate(template, context, outWriter);
+    }
 
     public static Environment renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter, boolean useCache) throws TemplateException, IOException {
         Template template = null;
@@ -669,8 +689,6 @@ public class FreeMarkerWorker {
      *
      */
     static class OFBizTemplateExceptionHandler implements TemplateExceptionHandler {
-
-        @Override
         public void handleTemplateException(TemplateException te, Environment env, Writer out) throws TemplateException {
             StringWriter tempWriter = new StringWriter();
             PrintWriter pw = new PrintWriter(tempWriter, true);
