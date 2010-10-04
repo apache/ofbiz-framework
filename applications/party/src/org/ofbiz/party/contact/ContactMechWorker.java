@@ -907,8 +907,14 @@ public class ContactMechWorker {
             GenericValue geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", postalAddress.getString("countryGeoId") + "-" + postalAddress.getString("postalCode")));
             if (geo != null) {
                 // save the value to the database for quicker future reference
-                postalAddress.set("postalCodeGeoId", geo.getString("geoId"));
-                postalAddress.store();
+                if (postalAddress.isMutable()) {
+                    postalAddress.set("postalCodeGeoId", geo.getString("geoId"));
+                    postalAddress.store();
+                } else {
+                    GenericValue mutablePostalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", postalAddress.getString("contactMechId")));
+                    mutablePostalAddress.set("postalCodeGeoId", geo.getString("geoId"));
+                    mutablePostalAddress.store();
+                }
 
                 return geo.getString("geoId");
             }
@@ -919,8 +925,14 @@ public class ContactMechWorker {
             GenericValue geoAssocAndGeoTo = EntityUtil.getFirst(geoAssocAndGeoToList);
             if (geoAssocAndGeoTo != null) {
                 // save the value to the database for quicker future reference
-                postalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
-                postalAddress.store();
+                if (postalAddress.isMutable()) {
+                    postalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
+                    postalAddress.store();
+                } else {
+                    GenericValue mutablePostalAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", postalAddress.getString("contactMechId")));
+                    mutablePostalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
+                    mutablePostalAddress.store();
+                }
 
                 return geoAssocAndGeoTo.getString("geoId");
             }
