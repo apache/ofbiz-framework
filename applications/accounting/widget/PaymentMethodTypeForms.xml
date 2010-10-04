@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ListPaymentMethodType" type="list" target="updatePaymentMethodType" list-name="paymentMethodTypes"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="editPaymentMethodType">
         <field name="paymentMethodTypeId"><display/></field>
         <field name="description"><display/></field>
         <field name="defaultGlAccountId" parameter-name="defaultGlAccountId">
