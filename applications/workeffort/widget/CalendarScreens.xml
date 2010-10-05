@@ -24,7 +24,7 @@ under the License.
     <screen name="Calendar">
         <section>
             <actions>
-                <property-map resource="WorkeffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
                 <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/CreateUrlParam.groovy"/>
