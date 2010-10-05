@@ -220,7 +220,8 @@ under the License.
                                             <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
                                             <get-related-one value-field="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
                                             <if-not-empty field="custRequest">
-                                                <set field="invoiceItemMap.description" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}]"/>
+                                                <set field="invoiceItemDescription" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}] ${custRequest.description}"/>
+                                                <set field="invoiceItemMap.description" value="${groovy:invoiceItemDescription.size()&gt;255?invoiceItemDescription.substring(0,251)+&quot; ...&quot;:invoiceItemDescription}"/>
                                             </if-not-empty>
                                         </if-not-empty>
                                         <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="BigDecimal"/>
