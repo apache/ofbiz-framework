@@ -55,19 +55,6 @@
             <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="WorkEffortAndTimeEntry" package-name="org.ofbiz.specialpurpose.assetmaint"
-        title="WorkEffort and TimeEntry View Entity">
-        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-        <member-entity entity-alias="TE" entity-name="TimeEntry"/>
-        <alias-all entity-alias="WE"/>
-        <alias-all entity-alias="TE"/>
-        <view-link entity-alias="WE" rel-entity-alias="TE">
-            <key-map field-name="workEffortId"/>
-        </view-link>
-        <relation type="many" rel-entity-name="WorkEffortSkillStandard">
-            <key-map field-name="workEffortId"/>
-        </relation>
-    </view-entity>
     <view-entity entity-name="FixedAssetMaintWorkEffortAndPartyAssignment"
         package-name="org.ofbiz.specialpurpose.assetmaint"
         title="View of FixedAssetMaint and WorkEffort and WorkEffortPartyAssignment">
