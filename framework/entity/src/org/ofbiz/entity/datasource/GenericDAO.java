@@ -311,26 +311,26 @@ public class GenericDAO {
             throw new org.ofbiz.entity.GenericNotImplementedException("Operation updateByCondition not supported yet for view entities");
         }
 
-        String sql = "UPDATE " + modelEntity.getTableName(datasourceInfo);
-        sql += " SET ";
+        StringBuilder sql = new StringBuilder("UPDATE ").append(modelEntity.getTableName(datasourceInfo));
+        sql.append(" SET ");
         List<ModelField> fieldList = new LinkedList<ModelField>();
         boolean firstField = true;
         for (String name: fieldsToSet.keySet()) {
             ModelField field = modelEntity.getField(name);
             if (field != null) {
                 if (!firstField) {
-                    sql += ", ";
+                    sql.append(", ");
                 } else {
                     firstField = false;
                 }
-                sql += field.getColName() + " = ?";
+                sql.append(field.getColName()).append(" = ?");
                 fieldList.add(field);
             }
         }
-        sql += " WHERE " + condition.makeWhereString(modelEntity, null, this.datasourceInfo);
+        sql.append(" WHERE ").append(condition.makeWhereString(modelEntity, null, this.datasourceInfo));
 
         try {
-            sqlP.prepareStatement(sql);
+            sqlP.prepareStatement(sql.toString());
             for (ModelField field: fieldList) {
                 Object value = fieldsToSet.get(field.getName());
                 SqlJdbcUtil.setValue(sqlP, field, modelEntity.getEntityName(), value, modelFieldTypeReader);
@@ -1147,15 +1147,15 @@ public class GenericDAO {
             throw new org.ofbiz.entity.GenericNotImplementedException("Operation deleteByCondition not supported yet for view entities");
         }
 
-        String sql = "DELETE FROM " + modelEntity.getTableName(this.datasourceInfo);
+        StringBuilder sql = new StringBuilder("DELETE FROM ").append(modelEntity.getTableName(this.datasourceInfo));
 
         String whereCondition = condition.makeWhereString(modelEntity, null, this.datasourceInfo);
         if (UtilValidate.isNotEmpty(whereCondition)) {
-            sql += " WHERE " + whereCondition;
+            sql.append(" WHERE ").append(whereCondition);
         }
 
         try {
-            sqlP.prepareStatement(sql);
+            sqlP.prepareStatement(sql.toString());
 
             return sqlP.executeUpdate();
         } finally {
