@@ -187,6 +187,16 @@ public class DatabaseUtil {
         int curEnt = 0;
         int totalEnt = modelEntityList.size();
         List<ModelEntity> entitiesAdded = FastList.newInstance();
+        String schemaName;
+        try {
+            DatabaseMetaData dbData = this.getDatabaseMetaData(null, messages);
+            schemaName = getSchemaName(dbData);
+        } catch (SQLException e) {
+            String message = "Could not get schema name the database, aborting.";
+            if (messages != null) messages.add(message);
+            Debug.logError(message, module);
+            return;
+        }
         for (ModelEntity entity: modelEntityList) {
             curEnt++;
 
@@ -198,7 +208,13 @@ public class DatabaseUtil {
                 continue;
             }
 
-            String tableName = entity.getTableName(datasourceInfo);
+            String plainTableName = entity.getPlainTableName();
+            String tableName;
+            if (UtilValidate.isNotEmpty(schemaName)) {
+                tableName = schemaName + "." + plainTableName;
+            } else {
+                tableName = plainTableName;
+            }
             String entMessage = "(" + timer.timeSinceLast() + "ms) Checking #" + curEnt + "/" + totalEnt +
                 " Entity " + entity.getEntityName() + " with table " + tableName;
 
