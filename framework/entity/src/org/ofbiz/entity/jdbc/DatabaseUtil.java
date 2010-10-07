@@ -3034,7 +3034,13 @@ public class DatabaseUtil {
     public String getSchemaName(DatabaseMetaData dbData) throws SQLException {
         if (!isLegacy && this.datasourceInfo.useSchemas && dbData.supportsSchemasInTableDefinitions()) {
             if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
-                return this.datasourceInfo.schemaName;
+                if (dbData.storesLowerCaseIdentifiers()) {
+                    return this.datasourceInfo.schemaName.toLowerCase();
+                } else if (dbData.storesUpperCaseIdentifiers()) {
+                    return this.datasourceInfo.schemaName.toUpperCase();
+                } else {
+                    return this.datasourceInfo.schemaName;
+                }
             } else {
                 return dbData.getUserName();
             }
