@@ -198,15 +198,16 @@ public class DatabaseUtil {
                 continue;
             }
 
+            String tableName = entity.getTableName(datasourceInfo);
             String entMessage = "(" + timer.timeSinceLast() + "ms) Checking #" + curEnt + "/" + totalEnt +
-                " Entity " + entity.getEntityName() + " with table " + entity.getTableName(datasourceInfo);
+                " Entity " + entity.getEntityName() + " with table " + tableName;
 
             Debug.logVerbose(entMessage, module);
             if (messages != null) messages.add(entMessage);
 
             // -make sure all entities have a corresponding table
-            if (tableNames.contains(entity.getTableName(datasourceInfo))) {
-                tableNames.remove(entity.getTableName(datasourceInfo));
+            if (tableNames.contains(tableName)) {
+                tableNames.remove(tableName);
 
                 if (colInfo != null) {
                     Map<String, ModelField> fieldColNames = FastMap.newInstance();
@@ -216,7 +217,7 @@ public class DatabaseUtil {
                         fieldColNames.put(field.getColName(), field);
                     }
 
-                    Map<String, ColumnCheckInfo> colMap = colInfo.get(entity.getTableName(datasourceInfo));
+                    Map<String, ColumnCheckInfo> colMap = colInfo.get(tableName);
                     if (colMap != null) {
                         for (ColumnCheckInfo ccInfo: colMap.values()) {
                             // -list all columns that do not have a corresponding field
@@ -272,14 +273,14 @@ public class DatabaseUtil {
 
                                     // NOTE: this may need a toUpperCase in some cases, keep an eye on it, okay just compare with ignore case
                                     if (!ccInfo.typeName.equalsIgnoreCase(typeName)) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + entity.getTableName(datasourceInfo) + "] of entity [" +
+                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] is of type [" + ccInfo.typeName + "] in the database, but is defined as type [" +
                                             typeName + "] in the entity definition.";
                                         Debug.logError(message, module);
                                         if (messages != null) messages.add(message);
                                     }
                                     if (columnSize != -1 && ccInfo.columnSize != -1 && columnSize != ccInfo.columnSize && (columnSize * 3) != ccInfo.columnSize) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + entity.getTableName(datasourceInfo) + "] of entity [" +
+                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] has a column size of [" + ccInfo.columnSize +
                                             "] in the database, but is defined to have a column size of [" + columnSize + "] in the entity definition.";
                                         Debug.logWarning(message, module);
@@ -290,7 +291,7 @@ public class DatabaseUtil {
                                         }
                                     }
                                     if (decimalDigits != -1 && decimalDigits != ccInfo.decimalDigits) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + entity.getTableName(datasourceInfo) + "] of entity [" +
+                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] has a decimalDigits of [" + ccInfo.decimalDigits +
                                             "] in the database, but is defined to have a decimalDigits of [" + decimalDigits + "] in the entity definition.";
                                         Debug.logWarning(message, module);
@@ -299,25 +300,25 @@ public class DatabaseUtil {
 
                                     // do primary key matching check
                                     if (checkPks && ccInfo.isPk && !field.getIsPk()) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + entity.getTableName(datasourceInfo) + "] of entity [" +
+                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] IS a primary key in the database, but IS NOT a primary key in the entity definition. The primary key for this table needs to be re-created or modified so that this column is NOT part of the primary key.";
                                         Debug.logError(message, module);
                                         if (messages != null) messages.add(message);
                                     }
                                     if (checkPks && !ccInfo.isPk && field.getIsPk()) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + entity.getTableName(datasourceInfo) + "] of entity [" +
+                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] IS NOT a primary key in the database, but IS a primary key in the entity definition. The primary key for this table needs to be re-created or modified to add this column to the primary key. Note that data may need to be added first as a primary key column cannot have an null values.";
                                         Debug.logError(message, module);
                                         if (messages != null) messages.add(message);
                                     }
                                 } else {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + entity.getTableName(datasourceInfo) + "] of entity [" + entity.getEntityName() +
+                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" + entity.getEntityName() +
                                         "] has a field type name of [" + field.getType() + "] which is not found in the field type definitions";
                                     Debug.logError(message, module);
                                     if (messages != null) messages.add(message);
                                 }
                             } else {
-                                String message = "Column [" + ccInfo.columnName + "] of table [" + entity.getTableName(datasourceInfo) + "] of entity [" + entity.getEntityName() + "] exists in the database but has no corresponding field" + ((checkPks && ccInfo.isPk) ? " (and it is a PRIMARY KEY COLUMN)" : "");
+                                String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" + entity.getEntityName() + "] exists in the database but has no corresponding field" + ((checkPks && ccInfo.isPk) ? " (and it is a PRIMARY KEY COLUMN)" : "");
                                 Debug.logWarning(message, module);
                                 if (messages != null) messages.add(message);
                             }
@@ -325,7 +326,7 @@ public class DatabaseUtil {
 
                         // -display message if number of table columns does not match number of entity fields
                         if (colMap.size() != entity.getFieldsSize()) {
-                            String message = "Entity [" + entity.getEntityName() + "] has " + entity.getFieldsSize() + " fields but table [" + entity.getTableName(datasourceInfo) + "] has " + colMap.size() + " columns.";
+                            String message = "Entity [" + entity.getEntityName() + "] has " + entity.getFieldsSize() + " fields but table [" + tableName + "] has " + colMap.size() + " columns.";
                             Debug.logWarning(message, module);
                             if (messages != null) messages.add(message);
                         }
@@ -344,11 +345,11 @@ public class DatabaseUtil {
                             String errMsg = addColumn(entity, field);
 
                             if (UtilValidate.isNotEmpty(errMsg)) {
-                                message = "Could not add column [" + field.getColName() + "] to table [" + entity.getTableName(datasourceInfo) + "]: " + errMsg;
+                                message = "Could not add column [" + field.getColName() + "] to table [" + tableName + "]: " + errMsg;
                                 Debug.logError(message, module);
                                 if (messages != null) messages.add(message);
                             } else {
-                                message = "Added column [" + field.getColName() + "] to table [" + entity.getTableName(datasourceInfo) + "]" + (field.getIsPk() ? " (NOTE: this is a PRIMARY KEY FIELD, but the primary key was not updated automatically (not considered a safe operation), be sure to fill in any needed data and re-create the primary key)" : "");
+                                message = "Added column [" + field.getColName() + "] to table [" + tableName + "]" + (field.getIsPk() ? " (NOTE: this is a PRIMARY KEY FIELD, but the primary key was not updated automatically (not considered a safe operation), be sure to fill in any needed data and re-create the primary key)" : "");
                                 Debug.logImportant(message, module);
                                 if (messages != null) messages.add(message);
                             }
@@ -364,12 +365,12 @@ public class DatabaseUtil {
                     // create the table
                     String errMsg = createTable(entity, modelEntities, false);
                     if (UtilValidate.isNotEmpty(errMsg)) {
-                        message = "Could not create table [" + entity.getTableName(datasourceInfo) + "]: " + errMsg;
+                        message = "Could not create table [" + tableName + "]: " + errMsg;
                         Debug.logError(message, module);
                         if (messages != null) messages.add(message);
                     } else {
                         entitiesAdded.add(entity);
-                        message = "Created table [" + entity.getTableName(datasourceInfo) + "]";
+                        message = "Created table [" + tableName + "]";
                         Debug.logImportant(message, module);
                         if (messages != null) messages.add(message);
                     }
