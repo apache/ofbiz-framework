@@ -1165,16 +1165,8 @@ public class DatabaseUtil {
             if (Debug.infoOn()) Debug.logInfo("Getting Column Info From Database", module);
 
             Map<String, Map<String, ColumnCheckInfo>> colInfo = FastMap.newInstance();
-            String lookupSchemaName = null;
             try {
-                if (dbData.supportsSchemasInTableDefinitions()) {
-                    if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
-                        lookupSchemaName = this.datasourceInfo.schemaName;
-                    } else {
-                        lookupSchemaName = dbData.getUserName();
-                    }
-                }
-
+                String lookupSchemaName = getSchemaName(dbData);
                 boolean needsUpperCase = false;
                 try {
                     needsUpperCase = dbData.storesLowerCaseIdentifiers() || dbData.storesMixedCaseIdentifiers();
@@ -1392,15 +1384,7 @@ public class DatabaseUtil {
 
         try {
             // ResultSet rsCols = dbData.getCrossReference(null, null, null, null, null, null);
-            String lookupSchemaName = null;
-            if (dbData.supportsSchemasInTableDefinitions()) {
-                if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
-                    lookupSchemaName = this.datasourceInfo.schemaName;
-                } else {
-                    lookupSchemaName = dbData.getUserName();
-                }
-            }
-
+            String lookupSchemaName = getSchemaName(dbData);
             boolean needsUpperCase = false;
             try {
                 needsUpperCase = dbData.storesLowerCaseIdentifiers() || dbData.storesMixedCaseIdentifiers();
@@ -1533,14 +1517,7 @@ public class DatabaseUtil {
         Map<String, Set<String>> indexInfo = FastMap.newInstance();
         try {
             int totalIndices = 0;
-            String lookupSchemaName = null;
-            if (dbData.supportsSchemasInTableDefinitions()) {
-                if (UtilValidate.isNotEmpty(this.datasourceInfo.schemaName)) {
-                    lookupSchemaName = this.datasourceInfo.schemaName;
-                } else {
-                    lookupSchemaName = dbData.getUserName();
-                }
-            }
+            String lookupSchemaName = getSchemaName(dbData);
             for (String curTableName: tableNames) {
                 if (lookupSchemaName != null) {
                     curTableName = curTableName.substring(lookupSchemaName.length() + 1);
