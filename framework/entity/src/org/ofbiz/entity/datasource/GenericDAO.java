@@ -314,26 +314,24 @@ public class GenericDAO {
         StringBuilder sql = new StringBuilder("UPDATE ").append(modelEntity.getTableName(datasourceInfo));
         sql.append(" SET ");
         List<ModelField> fieldList = new LinkedList<ModelField>();
-        boolean firstField = true;
-        for (String name: fieldsToSet.keySet()) {
+        List<EntityConditionParam> params = new LinkedList<EntityConditionParam>();
+        for (Map.Entry<String, ? extends Object> entry: fieldsToSet.entrySet()) {
+            String name = entry.getKey();
             ModelField field = modelEntity.getField(name);
             if (field != null) {
-                if (!firstField) {
+                if (!params.isEmpty()) {
                     sql.append(", ");
-                } else {
-                    firstField = false;
                 }
                 sql.append(field.getColName()).append(" = ?");
-                fieldList.add(field);
+                params.add(new EntityConditionParam(field, entry.getValue()));
             }
         }
-        sql.append(" WHERE ").append(condition.makeWhereString(modelEntity, null, this.datasourceInfo));
+        sql.append(" WHERE ").append(condition.makeWhereString(modelEntity, params, this.datasourceInfo));
 
         try {
             sqlP.prepareStatement(sql.toString());
-            for (ModelField field: fieldList) {
-                Object value = fieldsToSet.get(field.getName());
-                SqlJdbcUtil.setValue(sqlP, field, modelEntity.getEntityName(), value, modelFieldTypeReader);
+            for (EntityConditionParam param: params) {
+                SqlJdbcUtil.setValue(sqlP, param.getModelField(), modelEntity.getEntityName(), param.getFieldValue(), modelFieldTypeReader);
             }
 
             return sqlP.executeUpdate();
