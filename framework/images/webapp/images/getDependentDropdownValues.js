@@ -17,20 +17,25 @@
  * under the License.
  */
 
-// *** getDependentDropdownValues allows to dynamically populate a dependent dropdown on change on its parent dropdown, doesn't require any fixed naming convention 
+// *** getDependentDropdownValues allows to dynamically populate a dependent drop-down on change on its parent drop-down, doesn't require any fixed naming convention 
 // request      = request calling the service which retrieve the info from the DB, ex: getAssociatedStateList
 // paramKey     = parameter value used in the called service 
-// paramField   = parent dropdown field Id (mainId)
-// targetField  = dependend dropdown field Id (dependentId)
+// paramField   = parent drop-down field Id (mainId)
+// targetField  = dependent drop-down field Id (dependentId)
 // responseName = result returned by the service (using a standard json response, ie chaining json request)
-// keyName      = keyName of the dependent dropdown  
-// descName     = name of the dependent dropdown description
+// keyName      = keyName of the dependent drop-down  
+// descName     = name of the dependent drop-down description
 // selected     = optional name of a selected option
 // callback     = optional javascript function called at end
-// inputField   = optional name of an input field to use instead of a dropdown (this will be extended later to use an of autocompleted dropdown, instead of dropdown or a lookup, when there are too much values to populate)   
-// hide         = optional argument, if true the dependend dropdown field (targetField) will be hidden when no options are available else only disabled. False by default.
-function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback, hide) {
-	// parameters
+// hide         = optional boolean argument, if true the dependent drop-down field (targetField) will be hidden when no options are available else only disabled. False by default.
+// hideTitle    = optional boolean argument (hide must be set to true), if true the title of the dependent drop-down field (targetField) will be hidden when no options are available else only disabled. False by default.
+// inputField 	= optional boolean argument 
+// 				  this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request
+// 				  this will be maybe extended later to use an auto-completed drop-down or a lookup, instead of straight drop-down currently, when there are too much values to populate
+// 				  this is e.g. currently used in the Product Price Rules screen
+
+
+function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback, hide, hideTitle, inputField) {
 	var params = new Array();
 	params[paramKey] = $F(paramField);
 	
@@ -41,12 +46,13 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);                     
             list = data[responseName];
-            // this is to handle a specific case where an input field is needed, uses inputField for the field name
-            if (!list) {
+            // this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request (else if allow-empty="true" is used autoComplete handle the case)
+            // this will be maybe extended later to use an autocompleted drop-down or a lookup, instead of drop-down currently, when there are too much values to populate
+            if (!list && inputField) {
 				$(targetField).hide();
 				$(targetField).insert({after: new Element('input', {name : arguments[9], id : targetField + '_input', size : 3})}); 
             	return;
-            } else { 
+            } else if (inputField) { 
             	if ($(targetField + '_input')) { 
             		$(targetField + '_input').remove();            		
 					$(targetField).show();
@@ -68,25 +74,34 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
             		}
             	}
             });
-            $(targetField).update(optionList);
             if ((list.size() < 1) || ((list.size() == 1) && list[0].indexOf("_NA_") >=0)) {
             	Form.Element.disable(targetField);
             	if (hide) {
 					if ($(targetField).visible()) {
-						Effect.Fade(targetField, {duration: 1.5});
-					}
+						Effect.Fade(targetField, {duration: 2.5});
+						if (hideTitle) Effect.Fade(targetField + '_title', {duration: 2.5});
+					} else {
+		                Effect.Appear(targetField, {duration: 0.0});
+		                if (hideTitle) Effect.Appear(targetField + '_title', {duration: 0.0});	                    
+						Effect.Fade(targetField, {duration: 2.5});
+						if (hideTitle) Effect.Fade(targetField + '_title', {duration: 2.5});
+		            }            	
 				}
             } else {
             	Form.Element.enable(targetField);
             	if (hide) {
 	                if (!$(targetField).visible()) {
 	                    Effect.Appear(targetField, {duration: 0.0});
+	                    if (hideTitle) Effect.Appear(targetField + '_title', {duration: 0.0});	                    
 	                }
             	}
             }
             if (callback != null)
             	eval(callback);
-        }
+        },
+	    onComplete: function() {
+			$(targetField).update(optionList);
+		}        
     });
 }
 
