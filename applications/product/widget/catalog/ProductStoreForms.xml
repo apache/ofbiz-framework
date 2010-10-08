@@ -659,20 +659,10 @@
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="includeGeoId" title="${uiLabelMap.ProductIncludeGeo}" tooltip="${uiLabelMap.ProductIncludeGeoMessage}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
-                    <entity-order-by field-name="geoTypeId"/>
-                    <entity-order-by field-name="geoName"/>
-                </entity-options>
-            </drop-down>
+            <lookup target-form-name="LookupGeo"/>
         </field>
         <field name="excludeGeoId" title="${uiLabelMap.ProductExcludeGeo}" tooltip="${uiLabelMap.ProductExcludeGeoMessage}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
-                    <entity-order-by field-name="geoTypeId"/>
-                    <entity-order-by field-name="geoName"/>
-                </entity-options>
-            </drop-down>
+            <lookup target-form-name="LookupGeo"/>
         </field>
         <field name="includeFeatureGroup" title="${uiLabelMap.ProductIncludeFeature}" tooltip="${uiLabelMap.ProductIncludeFeatureMessage}"><text/></field>
         <field name="excludeFeatureGroup" title="${uiLabelMap.ProductExcludeFeature}" tooltip="${uiLabelMap.ProductExcludeFeatureMessage}"><text/></field>
@@ -756,20 +746,10 @@
             </drop-down>
         </field>
         <field name="fromGeo" title="${uiLabelMap.ProductFromGeo}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
-                    <entity-order-by field-name="geoTypeId"/>
-                    <entity-order-by field-name="geoName"/>
-                </entity-options>
-            </drop-down>
+            <lookup target-form-name="LookupGeo"/>
         </field>
         <field name="toGeo" title="${uiLabelMap.ProductToGeo}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
-                    <entity-order-by field-name="geoTypeId"/>
-                    <entity-order-by field-name="geoName"/>
-                </entity-options>
-            </drop-down>
+            <lookup target-form-name="LookupGeo"/>
         </field>
         <field name="partyId"><text/></field>
         <field name="roleTypeId"><text/></field>
