@@ -26,6 +26,8 @@ ofbiz (UNRELEASED) unstable; urgency=low
     anymore.
   * Protect sourcing of /etc/default/rcS, it is a conffile that might be
     removed.
+  * Remove Apache-2.0 license text from copyright, instead referring to the
+    shared one in /usr/share/common-licenses.
 
  -- Adam Heath <doogie@brainfood.com>  UNRELEASED
 

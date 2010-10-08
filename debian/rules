@@ -91,7 +91,8 @@ debian/EncryptPassword.class: debian/stamps/build-ofbiz
 	$(JAVAC) -classpath framework/base/build/lib/ofbiz-base.jar:framework/common/build/lib/ofbiz-common.jar -d $(@D) $*.java
 
 debian/copyright: debian/copyright.in LICENSE
-	cat $^ > $@.new
+	cat debian/copyright.in > $@.new
+	sh debian/strip-common-licenses.sh >> $@.new
 	mv $@.new $@
 
 binary-indep: DH_OPTIONS=-i
