@@ -22,6 +22,8 @@ ofbiz (UNRELEASED) unstable; urgency=low
   * Fix description of ofbiz package, so that it says 'meta-package', instead
     of 'pseudo-package'.  The former is used by lintian to skip the no-files
     warning.
+  * Skip rc.ofbiz.for.debian file and .pc dirs, so they don't get installed
+    anymore.
 
  -- Adam Heath <doogie@brainfood.com>  UNRELEASED
 
