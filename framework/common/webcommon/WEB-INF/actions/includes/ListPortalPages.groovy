@@ -106,6 +106,8 @@ if (parameters.userLogin) {
 
     context.portalPages = portalPages;
     context.userLoginSecurityGroupId = userLoginSecurityGroupId;
-    parameters.portalPagesSize = portalPages.get(portalPages.size()-1).sequenceNum;
+    if (portalPages) {
+        parameters.portalPagesSize = portalPages.get(portalPages.size()-1).sequenceNum;
+    }
 }
 
