@@ -52,7 +52,7 @@ Description: An Open Source E-Commerce System
  automation software providing: ERP, CRM, E-Business / E-Commerce,
  SCM, MRP, CMMS/EAM, and more.
  .
- This is a pseudo-package, used to install all of the standard Apache
+ This is a meta-package, used to install all of the standard Apache
  OFBiz components.
 
 Package: ofbiz-specialpurpose
