@@ -14,7 +14,7 @@ ofbiz (UNRELEASED) unstable; urgency=low
   * Set the source format to 3.0 (quilt), to make it easier to have local
     changes that might have binary files.
 
- -- Adam Heath <doogie@brainfood.com>  Fri, 04 Sep 2009 16:41:32 -0500
+ -- Adam Heath <doogie@brainfood.com>  UNRELEASED
 
 ofbiz (684378) unstable; urgency=low
 
