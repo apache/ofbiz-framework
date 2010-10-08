@@ -104,6 +104,7 @@ while (<FIND>) {
 	next if (m,^$appDirsRe/[^/]+/(build/classes|src|testdef)/.*,);
 	next if (m,^$appDirsRe/[^/]+/build/lib/[^/]+-test\.jar$,);
 	next if (m,^runtime/(catalina/work|data/derby|logs)/.*,);
+	next if (m,^framework/appserver/templates(|/.*)$,);
 	next if (m,^\.(hg|pc)(|/.*),);
 	#print("2\n");
 	my $type = undef;

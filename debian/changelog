@@ -28,6 +28,7 @@ ofbiz (UNRELEASED) unstable; urgency=low
     removed.
   * Remove Apache-2.0 license text from copyright, instead referring to the
     shared one in /usr/share/common-licenses.
+  * Skip framework/appserver/templates as well during install.
 
  -- Adam Heath <doogie@brainfood.com>  UNRELEASED
 
