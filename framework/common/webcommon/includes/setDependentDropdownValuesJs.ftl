@@ -20,9 +20,9 @@ under the License.
 document.observe('dom:loaded', function() {
     if ($('${dependentForm}')) {
         Event.observe($('${dependentForm}_${mainId}'), 'change', function() {
-            getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentId}', '${descName}', '', '');
+            getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentId}', '${descName}');
         });
-        getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentId}', '${descName}', '${selectedDependentOption}', '');
+        getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentId}', '${descName}', '${selectedDependentOption}');
     }
 })
 </script>

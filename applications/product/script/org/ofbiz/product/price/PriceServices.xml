@@ -249,4 +249,116 @@ under the License.
         <find-by-primary-key entity-name="ProductPriceAction" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="getAssociatedPriceRulesConds" short-description="Set the Value options for selected Price Rule Condition Input" login-required="false">
+        <if>
+            <condition>
+                <or>
+                    <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_QUANTITY"/>
+                    <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_LIST_PRICE"/>
+                </or>
+            </condition>
+            <then>
+                <return/>
+            </then>
+        </if>
+        
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PRODUCT_ID">
+            <entity-condition entity-name="Product" list="condValues">
+                <!-- May prove more useful rather than an entity-and in custom cases-->
+            </entity-condition>
+            <iterate list="condValues" entry="condValue">
+                <set field="option" value="${condValue.internalName}: ${condValue.productId}"/>
+                <field-to-list list="productPriceRulesCondValues" field="option"/>
+            </iterate>
+        </if-compare>
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PROD_CAT_ID">
+            <entity-condition entity-name="ProductCategory" list="condValues">
+                <!-- May prove more useful rather than an entity-and in custom cases-->
+            </entity-condition>
+            <iterate list="condValues" entry="condValue">
+                <set field="option" value="${condValue.categoryName} ${condValue.description} ${groovy: condValue?.longDescription?.substring(0,10)} [${condValue.productCategoryId}]: ${condValue.productCategoryId}"/>
+                <field-to-list list="productPriceRulesCondValues" field="option"/>
+            </iterate>
+        </if-compare>
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PROD_FEAT_ID">
+            <entity-condition entity-name="ProductFeatureType" list="condValues">
+                <!-- May prove more useful rather than an entity-and in custom cases-->
+            </entity-condition>
+            <iterate list="condValues" entry="condValue">
+                <set field="option" value="${condValue.description}: ${condValue.productFeatureTypeId}"/>
+                <field-to-list list="productPriceRulesCondValues" field="option"/>
+            </iterate>
+        </if-compare>
+        <if>
+            <condition>
+                <or>
+                    <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PARTY_ID"/>
+                    <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PARTY_GRP_MEM"/>
+                </or>
+            </condition>
+            <then>
+                <entity-condition entity-name="PartyNameView" list="condValues"/>
+                <iterate list="condValues" entry="condValue">
+                    <set field="option" value="${condValue.firstName} ${condValue.lastName}${condValue.groupName}: ${condValue.partyId}"/>
+                    <field-to-list list="productPriceRulesCondValues" field="option"/>
+                </iterate>
+            </then>
+        </if>
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PARTY_CLASS">
+            <entity-condition entity-name="PartyClassificationGroup" list="condValues">
+                <!-- May prove more useful rather than an entity-and in custom cases-->
+            </entity-condition>
+            <iterate list="condValues" entry="condValue">
+                <set field="option" value="${condValue.description}: ${condValue.partyClassificationGroupId}"/>
+                <field-to-list list="productPriceRulesCondValues" field="option"/>
+            </iterate>
+        </if-compare>
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_ROLE_TYPE">
+            <entity-condition entity-name="RoleType" list="condValues">
+                <!-- May prove more useful rather than an entity-and in custom cases-->
+            </entity-condition>
+            <iterate list="condValues" entry="condValue">
+                <set field="option" value="${condValue.description}: ${condValue.roleTypeId}"/>
+                <field-to-list list="productPriceRulesCondValues" field="option"/>
+            </iterate>
+        </if-compare>        
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_WEBSITE_ID">
+            <entity-condition entity-name="WebSite" list="condValues"/>
+            <iterate list="condValues" entry="condValue">
+                <set field="option" value="${condValue.siteName}: ${condValue.webSiteId}"/>
+                <field-to-list list="productPriceRulesCondValues" field="option"/>
+            </iterate>
+        </if-compare> 
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PROD_SGRP_ID">
+            <entity-condition entity-name="ProductStoreGroup" list="condValues"/>
+            <iterate list="condValues" entry="condValue">
+                <set field="option" value="${condValue.productStoreGroupName} (${condValue.description}): ${condValue.productStoreGroupId}"/>
+                <field-to-list list="productPriceRulesCondValues" field="option"/>
+            </iterate>
+        </if-compare> 
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_PROD_CLG_ID">
+            <entity-condition entity-name="ProdCatalog" list="condValues"/>
+            <iterate list="condValues" entry="condValue">
+                <set field="option" value="${condValue.catalogName}: ${condValue.prodCatalogId}"/>
+                <field-to-list list="productPriceRulesCondValues" field="option"/>
+            </iterate>
+        </if-compare> 
+        <if-compare field="parameters.inputParamEnumId" operator="equals" value="PRIP_CURRENCY_UOMID">
+            <entity-condition entity-name="Uom" list="condValues">
+                <condition-expr field-name="uomTypeId" value="CURRENCY_MEASURE"/>
+            </entity-condition>
+            <iterate list="condValues" entry="condValue">
+                <set field="option" value="${condValue.description}: ${condValue.uomId}"/>
+                <field-to-list list="productPriceRulesCondValues" field="option"/>
+            </iterate>
+        </if-compare> 
+        
+        <if-empty field="productPriceRulesCondValues">
+            <property-to-field resource="CommonUiLabels" property="CommonNoOptions" field="noOptions"/>
+            <field-to-list list="productPriceRulesCondValues" field="noOptions"/>
+        </if-empty>
+        <field-to-result field="productPriceRulesCondValues"/>
+    </simple-method>
+    
 </simple-methods>

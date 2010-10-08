@@ -29,7 +29,7 @@
 // callback     = optional javascript function called at end
 // hide         = optional boolean argument, if true the dependent drop-down field (targetField) will be hidden when no options are available else only disabled. False by default.
 // hideTitle    = optional boolean argument (hide must be set to true), if true the title of the dependent drop-down field (targetField) will be hidden when no options are available else only disabled. False by default.
-// inputField 	= optional boolean argument 
+// inputField   = optional name of an input field    
 // 				  this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request
 // 				  this will be maybe extended later to use an auto-completed drop-down or a lookup, instead of straight drop-down currently, when there are too much values to populate
 // 				  this is e.g. currently used in the Product Price Rules screen
@@ -46,18 +46,6 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);                     
             list = data[responseName];
-            // this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request (else if allow-empty="true" is used autoComplete handle the case)
-            // this will be maybe extended later to use an autocompleted drop-down or a lookup, instead of drop-down currently, when there are too much values to populate
-            if (!list && inputField) {
-				$(targetField).hide();
-				$(targetField).insert({after: new Element('input', {name : arguments[9], id : targetField + '_input', size : 3})}); 
-            	return;
-            } else if (inputField) { 
-            	if ($(targetField + '_input')) { 
-            		$(targetField + '_input').remove();            		
-					$(targetField).show();
-            	}
-            }
             list.each(function(value) {
             	if (typeof value == 'string') {            	
 	                values = value.split(': ');
@@ -100,7 +88,17 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
             	eval(callback);
         },
 	    onComplete: function() {
-			$(targetField).update(optionList);
+            // this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request (else if allow-empty="true" is used autoComplete handle the case)
+            // this could be extended later to use an autocompleted drop-down or a lookup, instead of drop-down currently, when there are too much values to populate
+            // Another option is to use an input field with Id instead of a drop-down, see setPriceRulesCondEventJs.ftl and top of getAssociatedPriceRulesConds service
+            if (!list && inputField) {
+                $(targetField).hide();
+                $(inputField).show();
+            } else if (inputField) { 
+                $(inputField).hide();
+                $(targetField).show();
+            }
+            $(targetField).update(optionList);
 		}        
     });
 }

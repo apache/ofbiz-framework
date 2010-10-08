@@ -67,6 +67,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- Old screen kept for now, in case some would prefer the old way. Another option is to use an input field with Id instead of a drop-down in the new screen below (see also setPriceRulesCondEventJs.ftl and top of getAssociatedPriceRulesConds service) -->
+    <!--screen name="EditProductPriceRules">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductPriceRules"/>
+                <set field="headerItem" value="pricerules"/>
+
+                <script location="component://product/webapp/catalog/WEB-INF/actions/price/EditProductPriceRules_old.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPriceDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/catalog/price/EditProductPriceRules.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen-->
     <screen name="EditProductPriceRules">
         <section>
             <actions>
@@ -78,10 +98,27 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPriceDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/price/EditProductPriceRules.ftl"/></html>
-                        </platform-specific>
-                    </decorator-section>
+                        <platform-specific><html><html-template location="component://common/webcommon/includes/setPriceRulesCondEventJs.ftl"/></html></platform-specific>
+                        <include-menu name="PriceRulesTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <screenlet title="${uiLabelMap.ProductPriceRuleId} [${parameters.productPriceRuleId}]">
+                            <label style="h6" text="${uiLabelMap.ProductConditionsActionsRemoveBefore}"/>
+                            <horizontal-separator/>
+                            <include-form name="EditProductPriceRule" location="component://product/widget/catalog/PriceForms.xml"/>
+                            <horizontal-separator/>
+                            <label style="h6" text="${uiLabelMap.ProductConditionsThenActions}"/>
+                            <horizontal-separator/>
+                            <screenlet title="${uiLabelMap.ProductConditions}">
+                                <include-form name="EditProductPriceRulesCond" location="component://product/widget/catalog/PriceForms.xml"/>
+                                <horizontal-separator/>
+                                <include-form name="AddProductPriceRulesCond" location="component://product/widget/catalog/PriceForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.ProductActions}">
+                                <include-form name="EditProductPriceRulesAction" location="component://product/widget/catalog/PriceForms.xml"/>
+                                <horizontal-separator/>
+                                <include-form name="AddProductPriceRulesAction" location="component://product/widget/catalog/PriceForms.xml"/>
+                            </screenlet>
+                        </screenlet>
+                    </decorator-section>                    
                 </decorator-screen>
             </widgets>
         </section>

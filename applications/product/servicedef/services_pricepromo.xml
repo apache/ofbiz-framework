@@ -340,4 +340,11 @@ under the License.
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="orderItemPriceInfos" type="java.util.List" mode="OUT" optional="false"/>
     </service>
+    
+    <service name="getAssociatedPriceRulesConds" engine="simple" auth="false"
+        location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="getAssociatedPriceRulesConds">
+        <description>Set the Value options for selected Price Rule Condition Input</description>
+        <attribute name="inputParamEnumId" mode="IN" type="String"/>
+        <attribute name="productPriceRulesCondValues" mode="OUT" type="java.util.List" optional="true"/><!-- optional="true" because of quantity or other kind of fiels needing an input -->
+    </service>    
 </services>
