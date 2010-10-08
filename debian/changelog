@@ -8,11 +8,17 @@ ofbiz (UNRELEASED) unstable; urgency=low
   * Fix bashism in /etc/init.d/ofbiz.
   * Create runtime/uploads correctly.
   * Bump Standards-Version to 3.8.3.
+  * Fix init script stop, to wait for jsvc to actually finish running.  This
+    fixes a race condition that can occur under load, where ofbiz is not
+    listening on the status port, but jsvc is actually still running.  This
+    would cause the pid file to exist, but then get removed by jsvc before the
+    init script could remove it itself.
   * Remove use of openjdk, it has issues compiling some things(generics
     markup), and doesn't handle all https urls.
   * Don't install build/lib/*-test.jar into the packages.
   * Set the source format to 3.0 (quilt), to make it easier to have local
     changes that might have binary files.
+  * Set the umask correctly(defaults to 002, can be overridden in defaults).
 
  -- Adam Heath <doogie@brainfood.com>  UNRELEASED
 
