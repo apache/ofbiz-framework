@@ -19,6 +19,9 @@ ofbiz (UNRELEASED) unstable; urgency=low
   * Set the source format to 3.0 (quilt), to make it easier to have local
     changes that might have binary files.
   * Set the umask correctly(defaults to 002, can be overridden in defaults).
+  * Fix description of ofbiz package, so that it says 'meta-package', instead
+    of 'pseudo-package'.  The former is used by lintian to skip the no-files
+    warning.
 
  -- Adam Heath <doogie@brainfood.com>  UNRELEASED
 
