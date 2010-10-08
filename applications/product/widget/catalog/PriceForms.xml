@@ -51,4 +51,107 @@
         <field name="ruleName" title="${uiLabelMap.ProductName}"><text size="30"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+    
+    <!-- Below, I tried also single forms but lists are better as long as we have not introduced a better way to handle positions -->   
+    <form name="EditProductPriceRule" type="list" target="updateProductPriceRule" title="" list-name="productPriceRules" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
+        <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
+        <field name="ruleName" title="${uiLabelMap.CommonName}"><text size="25"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="timestamp"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
+        <field use-when="org.ofbiz.base.util.UtilValidate.isEmpty(productPriceConds) &amp;&amp; org.ofbiz.base.util.UtilValidate.isEmpty(productPriceActions)"
+            name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteProductPriceRule" description="${uiLabelMap.CommonRemove}">
+                <parameter param-name="productPriceRuleId"/>
+            </hyperlink>
+        </field>        
+    </form>            
+    <form name="EditProductPriceRulesCond" type="list" target="updateProductPriceCond" title="" list-name="productPriceConds" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
+        <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
+        <field name="productPriceCondSeqId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
+        <field name="inputParamEnumId" title="${uiLabelMap.ProductInput}">
+            <drop-down allow-empty="false" current="selected">
+                <list-options list-name="inputParamEnums" key-name="enumId" description="${description}"/>                
+            </drop-down>
+        </field>        
+        <field name="operatorEnumId" title="${uiLabelMap.ProductOperator}">
+            <drop-down allow-empty="false" current="selected">
+                <list-options list-name="condOperEnums" key-name="enumId" description="${description}"/>                
+            </drop-down>
+        </field>        
+        <field use-when="&quot;PRIP_QUANTITY&quot;.equals(inputParamEnumId) || &quot;PRIP_LIST_PRICE&quot;.equals(inputParamEnumId)" 
+            name="condValueInput" title="${uiLabelMap.ProductValue}">
+            <text size="10" default-value="${condValue}"/>
+        </field>                
+        <field 
+            use-when="!&quot;PRIP_QUANTITY&quot;.equals(inputParamEnumId) &amp;&amp; !&quot;PRIP_LIST_PRICE&quot;.equals(inputParamEnumId)" 
+            name="condValue" title="${uiLabelMap.CommonEmptyHeader}">
+            <drop-down allow-empty="false" current="selected">
+                <list-options list-name="productPriceRulesCondValues" key-name="condValue"/>
+            </drop-down>
+        </field>                
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" widget-area-style="align-text">
+            <hyperlink target="deleteProductPriceCond" description="${uiLabelMap.CommonRemove}">
+                <parameter param-name="productPriceRuleId" from-field="productPriceCond.productPriceRuleId"/>
+                <parameter param-name="productPriceCondSeqId" from-field="productPriceCond.productPriceCondSeqId"/>
+            </hyperlink>
+        </field>        
+    </form>
+    <form name="AddProductPriceRulesCond" type="list" target="createProductPriceCond" title="" list-name="productPriceCondAdd" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
+        <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
+        <field name="new"><display default-value="${uiLabelMap.ProductPriceRulesNewCond}"/></field>
+        <field name="inputParamEnumId" title="${uiLabelMap.ProductInput}">
+            <drop-down allow-empty="false">
+                <list-options list-name="inputParamEnums" key-name="enumId" description="${description}"/>                
+            </drop-down>
+        </field>        
+        <field name="operatorEnumId" title="${uiLabelMap.ProductOperator}">
+            <drop-down allow-empty="false">
+                <list-options list-name="condOperEnums" key-name="enumId" description="${description}"/>                
+            </drop-down>
+        </field>        
+        <field name="condValueInput" title="${uiLabelMap.ProductValue}"><text size="10"/></field>
+        <field name="condValue" title="${uiLabelMap.CommonEmptyHeader}">
+            <drop-down allow-empty="false">
+                <list-options list-name="productPriceRulesCondValues" key-name="condValue"/>                
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit/></field>        
+    </form>
+    <form name="EditProductPriceRulesAction" type="list" target="updateProductPriceAction" title="" list-name="productPriceActions" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
+        <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
+        <field name="productPriceActionSeqId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
+        <field name="productPriceActionTypeId" title="${uiLabelMap.ProductActionType}">
+            <drop-down allow-empty="false" current="selected">
+                <list-options list-name="productPriceActionTypes" key-name="productPriceActionTypeId" description="${description}"/>                
+            </drop-down>
+        </field>        
+        <field name="amount" title="${uiLabelMap.ProductValue}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" widget-area-style="align-text">
+            <hyperlink target="deleteProductPriceAction" description="${uiLabelMap.CommonRemove}">
+                <parameter param-name="productPriceRuleId" from-field="productPriceAction.productPriceRuleId"/>
+                <parameter param-name="productPriceActionSeqId" from-field="productPriceAction.productPriceActionSeqId"/>
+            </hyperlink>
+        </field>        
+    </form>        
+    <form name="AddProductPriceRulesAction" type="list" target="createProductPriceAction" title="" list-name="productPriceActionAdd" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">            
+        <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
+        <field name="new"><display default-value="${uiLabelMap.ProductPriceRulesNewAction}"/></field>
+        <field name="productPriceActionTypeId" title="${uiLabelMap.ProductActionType}">
+            <drop-down allow-empty="false">
+                <list-options list-name="productPriceActionTypes" key-name="productPriceActionTypeId" description="${description}"/>                
+            </drop-down>
+        </field>        
+        <field name="amount" title="${uiLabelMap.ProductValue}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit/></field>
+    </form>        
+    
 </forms>

@@ -18,14 +18,44 @@
  */
 
 import org.ofbiz.entity.condition.*
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.util.UtilMisc;
+
+context.inputParamEnums = delegator.findList("Enumeration", EntityCondition.makeCondition([enumTypeId : 'PROD_PRICE_IN_PARAM']), null, ['sequenceId'], null, true);
+context.condOperEnums = delegator.findList("Enumeration", EntityCondition.makeCondition([enumTypeId : 'PROD_PRICE_COND']), null, ['sequenceId'], null, true);
+context.productPriceActionTypes = delegator.findList("ProductPriceActionType", null, null, ['description'], null, true);
 
 String priceRuleId = request.getParameter("productPriceRuleId");
 if (priceRuleId) {
-    context.productPriceRule = delegator.findOne("ProductPriceRule", [productPriceRuleId : priceRuleId], false);
+    productPriceRules = [];
+    productPriceRules.add(delegator.findOne("ProductPriceRule", [productPriceRuleId : priceRuleId], false));
+    productPriceConds = productPriceRules[0].getRelatedCache("ProductPriceCond");
+    productPriceConds = EntityUtil.orderBy(productPriceConds, UtilMisc.toList("productPriceCondSeqId"));
+    productPriceActions = productPriceRules[0].getRelatedCache("ProductPriceAction");
+    productPriceActions = EntityUtil.orderBy(productPriceActions, UtilMisc.toList("productPriceActionSeqId"));
+    
+    productPriceCondAdd = [];
+    productPriceCondAdd.add(delegator.makeValue("ProductPriceCond"));
+    productPriceCondAdd[0].productPriceRuleId = priceRuleId;
+    productPriceCondAdd[0].inputParamEnumId = context.inputParamEnums[0].enumId;
+    productPriceCondAdd[0].operatorEnumId = context.condOperEnums[0].enumId;
+    
+    productPriceActionAdd = [];
+    productPriceActionAdd.add(delegator.makeValue("ProductPriceAction"));
+    productPriceActionAdd[0].productPriceRuleId = priceRuleId;
+    productPriceActionAdd[0].productPriceActionTypeId = context.productPriceActionTypes[0].productPriceActionTypeId;
+    productPriceActionAdd[0].amount = BigDecimal.ZERO;
+    
+    context.productPriceRules = productPriceRules;
+    context.productPriceConds = productPriceConds;
+    context.productPriceActions = productPriceActions;
+    context.productPriceCondAdd = productPriceCondAdd;
+    context.productPriceActionAdd = productPriceActionAdd;
+    
+} else {
+    context.productPriceRules = null;
+    context.productPriceConds = null;
+    context.productPriceActions = null;    
+    context.productPriceCondsAdd = null;
+    context.productPriceActionsAdd = null;    
 }
-
-context.inputParamEnums = delegator.findList("Enumeration", EntityCondition.makeCondition([enumTypeId : 'PROD_PRICE_IN_PARAM']), null, ['sequenceId'], null, true);
-
-context.condOperEnums = delegator.findList("Enumeration", EntityCondition.makeCondition([enumTypeId : 'PROD_PRICE_COND']), null, ['sequenceId'], null, true);
-
-context.productPriceActionTypes = delegator.findList("ProductPriceActionType", null, null, ['description'], null, true);

@@ -1844,7 +1844,15 @@ under the License.
         <response name="success" type="view" value="EditProductPriceRules"/>
         <response name="error" type="view" value="EditProductPriceRules"/>
     </request-map>
-
+    
+    <!-- Get Values options associated with a Price Rule Condition Input -->
+    <request-map uri="getAssociatedPriceRulesConds">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="getAssociatedPriceRulesConds"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
     <!-- ================ ProductPromoCode Requests ================= -->
     <request-map uri="FindProductPromoCode">
         <security https="true" auth="true"/>
