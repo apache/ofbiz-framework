@@ -7,7 +7,6 @@ ofbiz (UNRELEASED) unstable; urgency=low
   * Don't have per-package var folders.
   * Fix bashism in /etc/init.d/ofbiz.
   * Create runtime/uploads correctly.
-  * Bump Standards-Version to 3.8.3.
   * Fix init script stop, to wait for jsvc to actually finish running.  This
     fixes a race condition that can occur under load, where ofbiz is not
     listening on the status port, but jsvc is actually still running.  This
@@ -29,6 +28,7 @@ ofbiz (UNRELEASED) unstable; urgency=low
   * Remove Apache-2.0 license text from copyright, instead referring to the
     shared one in /usr/share/common-licenses.
   * Skip framework/appserver/templates as well during install.
+  * Bump Standards-Version to 3.9.1
 
  -- Adam Heath <doogie@brainfood.com>  UNRELEASED
 
