@@ -24,6 +24,8 @@ ofbiz (UNRELEASED) unstable; urgency=low
     warning.
   * Skip rc.ofbiz.for.debian file and .pc dirs, so they don't get installed
     anymore.
+  * Protect sourcing of /etc/default/rcS, it is a conffile that might be
+    removed.
 
  -- Adam Heath <doogie@brainfood.com>  UNRELEASED
 
