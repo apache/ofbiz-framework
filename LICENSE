@@ -1,4 +1,4 @@
-==========================================================================
+=========================================================================
 The source code that makes up The Apache Open For Business Project
 (Apache OFBiz) and the majority of the libraries distributed with it are
 licensed under the Apache License Version 2.0.
@@ -9,7 +9,7 @@ OFBiz and the full text of the license used for each.
 
 For additional details, see the NOTICE file and:
 http://cwiki.apache.org/confluence/display/OFBADMIN/Libraries+Included+in+OFBiz
-==========================================================================
+=========================================================================
 The following libraries are licensed under the Apache License Version 2.0:
 ofbiz/trunk/framework/base/lib/ant-launcher-1.7.1.jar
 ofbiz/trunk/framework/base/lib/ant-1.7.1.jar
@@ -154,7 +154,7 @@ ofbiz/trunk/framework/webslinger/lib/webslinger-launcher-20091211-3897-7ab22baea
 ofbiz/trunk/applications/content/lib/lucene-core-2.4.1.jar
 ofbiz/trunk/applications/content/lib/poi-3.2-FINAL-20081019.jar
 ofbiz/trunk/specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
-==========================================================================
+=========================================================================
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -1820,7 +1820,7 @@ The Jython library is licensed under the BeOpen/CNRI as follows.
 ofbiz/trunk/framework/base/lib/scripting/jython-nooro.jar
 =========================================================================
 Jython changes Software License.
-================================
+=========================================================================
 
 Copyright (c) 2000, Jython Developers
 All rights reserved.
@@ -1853,7 +1853,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 JPython Software License.
-=========================
+=========================================================================
 
 ______________________________________________________________________
 
@@ -2669,11 +2669,11 @@ Agreement will bring a legal action under this Agreement more than one year
 after the cause of action arose. Each party waives its rights to a jury trial in
 any resulting litigation.
 
-==================================================================================
+=========================================================================
 Apache Ofbiz includes prototype.js from http://www.prototypejs.org licensed under
 the terms of the MIT License
 ofbiz/trunk/framework/images/webapp/images/prototype/prototype.js
-===================================================================================
+=========================================================================
 Apache Ofbiz includes Scriptalous javascript lib from http://script.aculo.us
 licensed under the terms of the MIT License
 ofbiz/trunk/framework/images/webapp/images/prototype/controls.js
@@ -2684,7 +2684,7 @@ ofbiz/trunk/framework/images/webapp/images/prototype/slider.js
 ofbiz/trunk/framework/images/webapp/images/prototype/sound.js
 ofbiz/trunk/framework/images/webapp/images/prototype/unittest.js
 ofbiz/trunk/framework/images/webapp/images/prototype/builder.js
-===================================================================================
+=========================================================================
 Apache Ofbiz includes flotr javascript lib from http://code.google.com/p/flotr/
 licensed under the terms of the MIT License
 ofbiz/trunk/framework/images/webapp/images/flotr/lib/excanvas.js
@@ -2693,17 +2693,17 @@ ofbiz/trunk/framework/images/webapp/images/flotr/lib/canvas2image.js
 ofbiz/trunk/framework/images/webapp/images/flotr/lib/canvastext.js
 ofbiz/trunk/framework/images/webapp/images/flotr/flotr.debug-0.2.0-alpha.js
 ofbiz/trunk/framework/images/webapp/images/flotr/flotr-0.2.0-alpha.js
-===================================================================================
+=========================================================================
 Apache Ofbiz includes LivePipe Control Suite from http://livepipe.net/projects/control_suite/
 licensed under the terms of the MIT License
 ofbiz/trunk/framework/images/webapp/images/prototype/control.progress_bar.js
 ofbiz/trunk/framework/images/webapp/images/prototype/progress_bar.css
-===================================================================================
+=========================================================================
 Apache Ofbiz includes validation.js file from
 http://www.tetlaw.id.au/view/javascript/really-easy-field-validation.
 ofbiz/trunk/framework/images/webapp/images/prototype/validation.js
 validation.js is Licensed as follows
-===================================================================================
+=========================================================================
  Really easy field validation with Prototype
  http://tetlaw.id.au/view/javascript/really-easy-field-validation
  Andrew Tetlaw
@@ -2729,7 +2729,7 @@ validation.js is Licensed as follows
  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
-====================================================================================
+=========================================================================
 Apache Ofbiz includes docbook templates in the /applications/content/template/docbook
 directory with the following licence:
 Copyright
@@ -2779,7 +2779,7 @@ Contacting the Author
 The DocBook XSL stylesheets are maintained by Norman Walsh,
 <ndw@nwalsh.com>, and members of the DocBook Project,
 <docbook-developers@sf.net>
-===============================================================
+=========================================================================
 The docbook schemas in the files docbook.xsd, docbook.dtd xlink.xsd
 and xml.xsd are distributed under the GNU Free Documentation License
 GNU Free Documentation License
