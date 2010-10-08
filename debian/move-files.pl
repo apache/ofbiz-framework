@@ -56,6 +56,7 @@ ij.ofbiz
 KEYS
 APACHE2_HEADER
 rc.ofbiz
+rc.ofbiz.for.debian
 );
 #startofbiz.sh
 
@@ -103,7 +104,7 @@ while (<FIND>) {
 	next if (m,^$appDirsRe/[^/]+/(build/classes|src|testdef)/.*,);
 	next if (m,^$appDirsRe/[^/]+/build/lib/[^/]+-test\.jar$,);
 	next if (m,^runtime/(catalina/work|data/derby|logs)/.*,);
-	next if (m,^\.hg(|/.*),);
+	next if (m,^\.(hg|pc)(|/.*),);
 	#print("2\n");
 	my $type = undef;
 	if ($_ eq 'framework/entity/config/entityengine.xml') {
