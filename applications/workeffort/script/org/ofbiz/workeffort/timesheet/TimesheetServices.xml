@@ -152,6 +152,16 @@ under the License.
         <set field="invoiceItemMap.taxableFlag" value="N"/>
         <set field="invoiceItemMap.invoiceItemTypeId" value="INV_TE_ITEM"/>
         <set field="invoiceItemMap.uomId" value="TF_hr"/>
+        <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
+        <get-related value-field="workEffort" relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts"/>
+        <if-not-empty field="custRequestWorkEfforts">
+            <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
+            <get-related-one value-field="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
+            <if-not-empty field="custRequest">
+                <set field="invoiceItemDescription" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}] ${custRequest.description}"/>
+                <set field="invoiceItemMap.description" value="${groovy:invoiceItemDescription.size()&gt;255?invoiceItemDescription.substring(0,251)+&quot; ...&quot;:invoiceItemDescription}"/>
+            </if-not-empty>
+        </if-not-empty>
         <iterate entry="timeEntry" list="timeEntryList">
             <if>
                 <condition>
@@ -203,27 +213,26 @@ under the License.
                             <call-service service-name="getTimeEntryRate" in-map-name="getTimeEntryRate">
                                 <result-to-field result-name="rateAmount"/>
                             </call-service>
-                            <!--  check if the RateTypeId changed or the first time entry record -->
+                            <!--  check if the RateTypeId changed or the first time entry record and invoice item is not exist with the same amount and description-->
+                            <entity-and list="existAmountAndDescriptionInvoiceItems" entity-name="InvoiceItem">
+                                <field-map field-name="invoiceId" from-field="invoiceItemMap.invoiceId"/>
+                                <field-map field-name="amount" from-field="rateAmount"/>
+                                <field-map field-name="description" from-field="invoiceItemMap.description"/>
+                            </entity-and>
+                            <set field="invoiceItemMap.invoiceItemSeqId" from-field="existAmountAndDescriptionInvoiceItems[0].invoiceItemSeqId"/>
                             <if>
                                 <condition>
-                                    <or>
-                                        <if-empty field="oldRateAmount"/>
-                                        <if-compare-field field="rateAmount" operator="not-equals" to-field="oldRateAmount"/>
-                                    </or>
+                                    <and>
+                                        <or>
+                                            <if-empty field="oldRateAmount"/>
+                                            <if-compare-field field="rateAmount" operator="not-equals" to-field="oldRateAmount"/>
+                                        </or>
+                                        <if-empty field="existAmountAndDescriptionInvoiceItems"/>
+                                    </and>
                                 </condition>
                                 <then>
                                     <set field="invoiceItemMap.amount" from-field="rateAmount" default-value="0.0" type="BigDecimal"/>
                                     <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
-                                        <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
-                                        <get-related value-field="workEffort" relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts"/>
-                                        <if-not-empty field="custRequestWorkEfforts">
-                                            <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
-                                            <get-related-one value-field="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
-                                            <if-not-empty field="custRequest">
-                                                <set field="invoiceItemDescription" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}] ${custRequest.description}"/>
-                                                <set field="invoiceItemMap.description" value="${groovy:invoiceItemDescription.size()&gt;255?invoiceItemDescription.substring(0,251)+&quot; ...&quot;:invoiceItemDescription}"/>
-                                            </if-not-empty>
-                                        </if-not-empty>
                                         <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="BigDecimal"/>
                                         <clear-field field="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
                                         <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
@@ -233,10 +242,11 @@ under the License.
                                 </then>
                                 <else>
                                     <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
-                                        <!-- or combine them when it is the same rate -->
+                                        <!-- or combine them when it is the same rate, amount and description-->
                                         <calculate field="invoiceItemMap.quantity">
                                             <calcop operator="get" field="invoiceItemMap.quantity"/>
                                             <calcop operator="add" field="timeEntry.hours"/>
+                                            <calcop operator="add" field="existAmountAndDescriptionInvoiceItems[0].quantity"/>
                                         </calculate>
                                         <call-service service-name="updateInvoiceItem" in-map-name="invoiceItemMap"/>
                                     </if-compare>
