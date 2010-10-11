@@ -111,9 +111,9 @@ public class ServerHitBin {
     }
 
     protected static void countHit(String baseId, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin, boolean isOriginal) {
-        String delegatorName = (String) request.getSession().getAttribute("delegatorName");
-        Delegator delegator = null;
-        if (UtilValidate.isNotEmpty(delegatorName)) {
+        Delegator delegator = (Delegator)request.getAttribute("delegator");
+        if (delegator == null){
+            String delegatorName = (String)request.getSession().getAttribute("delegatorName");
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
         if (delegator == null) {
