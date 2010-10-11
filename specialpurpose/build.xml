@@ -31,10 +31,10 @@
         ebay/build.xml,
         ebaystore/build.xml,
         projectmgr/build.xml,
-        ldap/build.xml,
         crowd/build.xml,
         googlecheckout/build.xml,
         webpos/build.xml"/>
+    <!-- Not sure why yet, but ldap has been deactivated in component-load. To re-add add "ldap/build.xml," to the list above -->
     <!-- For the old OFBiz Workflow Engine add "workflow/build.xml" to the list above -->
     <!-- For Shark add "shark/build.xml" to the list above, in the specialpurpose-builds list (after workflow) -->
 
