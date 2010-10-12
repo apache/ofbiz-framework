@@ -1070,8 +1070,8 @@
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="templateDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="articleData" type="String" mode="IN" optional="true"/>
-        <attribute name="summaryData" type="String" mode="IN" optional="true"/>
+        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
     <service name="updateBlogEntry" engine="simple" auth="true"
         location="component://content/script/org/ofbiz/content/blog/BlogServices.xml" invoke="updateBlogEntry">
@@ -1083,8 +1083,8 @@
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="templateDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="articleData" type="String" mode="IN" optional="true"/>
-        <attribute name="summaryData" type="String" mode="IN" optional="true"/>
+        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
     <service name="getBlogEntry" engine="simple" auth="true"
         location="component://content/script/org/ofbiz/content/blog/BlogServices.xml" invoke="getBlogEntry">
