@@ -243,10 +243,10 @@ under the License.
                                 <else>
                                     <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
                                         <!-- or combine them when it is the same rate, amount and description-->
+                                        <set field="invoiceItemMap.quantity" from-field="existAmountAndDescriptionInvoiceItems[0].quantity"/>
                                         <calculate field="invoiceItemMap.quantity">
                                             <calcop operator="get" field="invoiceItemMap.quantity"/>
                                             <calcop operator="add" field="timeEntry.hours"/>
-                                            <calcop operator="add" field="existAmountAndDescriptionInvoiceItems[0].quantity"/>
                                         </calculate>
                                         <call-service service-name="updateInvoiceItem" in-map-name="invoiceItemMap"/>
                                     </if-compare>
