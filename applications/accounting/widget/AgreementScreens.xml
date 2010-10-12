@@ -365,6 +365,7 @@ under the License.
                 <entity-and entity-name="AgreementProductAppl" list="agreementProducts">
                     <field-map from-field="agreement.agreementId" field-name="agreementId"/>
                     <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <order-by field-name="productId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -401,6 +402,7 @@ under the License.
                 <entity-and entity-name="AgreementProductAppl" list="agreementProducts">
                     <field-map from-field="agreement.agreementId" field-name="agreementId"/>
                     <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <order-by field-name="productId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -464,6 +466,7 @@ under the License.
                 <entity-and entity-name="SupplierProduct" list="agreementProducts">
                     <field-map from-field="agreement.agreementId" field-name="agreementId"/>
                     <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <order-by field-name="productId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -500,6 +503,7 @@ under the License.
                 <entity-and entity-name="SupplierProduct" list="agreementProducts">
                     <field-map from-field="agreement.agreementId" field-name="agreementId"/>
                     <field-map from-field="agreementItem.agreementItemSeqId" field-name="agreementItemSeqId"/>
+                    <order-by field-name="productId"/>
                 </entity-and>
             </actions>
             <widgets>
