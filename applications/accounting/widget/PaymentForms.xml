@@ -123,18 +123,18 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="partyIdTo" position="2"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
+            <drop-down allow-empty="false">
+                <list-options list-name="paymentTypes" key-name="paymentTypeId" description="${description}"/>
+            </drop-down>
+        </field>
         <field name="paymentMethodId" id-name="paymentMethodId" position="2">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethod" description="${description}">
                     <entity-constraint name="partyId" operator="equals" env-name="paymentPartyId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>
-        </field>
-        <field name="partyIdTo" position="1"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="2">
-            <drop-down allow-empty="false">
-                <list-options list-name="paymentTypes" key-name="paymentTypeId" description="${description}"/>
             </drop-down>
         </field>
         <field name="paymentRefNum" position="1"><text/></field>
@@ -203,12 +203,14 @@ under the License.
             <entity-one entity-name="StatusItem" value-field="currentStatus">
                 <field-map field-name="statusId" from-field="payment.statusId"/>
             </entity-one>
+            <set field="isDisbursement" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment);}" type="Boolean"/>
         </actions>
         <auto-fields-entity entity-name="Payment"/>
         <field name="paymentId"><hidden/></field>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="PaymentType">
+                    <entity-constraint name="parentTypeId" value="${groovy:isDisbursement==true?&quot;DISBURSEMENT&quot;:&quot;RECEIPT&quot;}"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
