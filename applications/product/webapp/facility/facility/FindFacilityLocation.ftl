@@ -36,7 +36,12 @@ under the License.
         <tr>
             <td class="label">${uiLabelMap.ProductLocationSeqId}</td>
             <td>
-                <@htmlTemplate.lookupField formName="findFacilityLocation" name="locationSeqId" id="locationSeqId" fieldFormName="LookupFacilityLocation<#if (facilityId?exists)>?facilityId=${facilityId}</#if>"/>
+                <#if parameters.facilityId?exists>
+                    <#assign LookupFacilityLocationView="LookupFacilityLocation?facilityId=${facilityId}">
+                <#else>
+                    <#assign LookupFacilityLocationView="LookupFacilityLocation">
+                </#if>
+                <@htmlTemplate.lookupField formName="findFacilityLocation" name="locationSeqId" id="locationSeqId" fieldFormName="${LookupFacilityLocationView}"/>
             </td>
         </tr>
         <tr>
