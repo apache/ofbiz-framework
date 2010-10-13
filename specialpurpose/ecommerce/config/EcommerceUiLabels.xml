@@ -262,6 +262,10 @@
         <value xml:lang="th">ข้อมูลบทความ</value>
         <value xml:lang="zh">文章信息</value>
     </property>
+    <property key="EcommerceArticleInformation">
+        <value xml:lang="en">Article Name</value>
+        <value xml:lang="th">ชื่อบทความ</value>
+    </property>
     <property key="EcommerceAssignItems">
         <value xml:lang="da">Tildel emne</value>
         <value xml:lang="en">Assign Items</value>

@@ -257,7 +257,7 @@
         <get-related value-field="content" relation-name="FromContentAssoc" list="rawAssocs"/>
         <filter-list-by-date list="rawAssocs" to-list="assocs"/>
         <iterate entry="assoc" list="assocs">
-            <if-compare field="assoc.mapKey" value="MAIN" operator="equals">
+            <if-compare field="assoc.mapKey" value="ARTICLE" operator="equals">
                 <get-related-one value-field="assoc" relation-name="ToContent" to-value-field="mainContent"/>
                 <get-related-one value-field="mainContent" relation-name="DataResource" to-value-field="dataResource"/>
                 <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="articleText"/>
