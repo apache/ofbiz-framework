@@ -150,7 +150,12 @@ under the License.
                               </select>
                             <#else>
                               <span>
-                                <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId_o_${rowCount}" id="locationSeqId_o_${rowCount}" fieldFormName="LookupFacilityLocation<#if parameters.facilityId?exists>?facilityId=${facilityId}</#if>"/>
+                                <#if parameters.facilityId?exists>
+                                    <#assign LookupFacilityLocationView="LookupFacilityLocation?facilityId=${facilityId}">
+                                <#else>
+                                    <#assign LookupFacilityLocationView="LookupFacilityLocation">
+                                </#if>
+                                <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId_o_${rowCount}" id="locationSeqId_o_${rowCount}" fieldFormName="${LookupFacilityLocationView}"/>
                               </span>
                             </#if>
                           </td>

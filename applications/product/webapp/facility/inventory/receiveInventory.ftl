@@ -202,7 +202,12 @@ under the License.
                       <option value="">${uiLabelMap.ProductNoLocation}</option>
                     </select>
                   <#else>
-                      <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId" id="locationSeqId" fieldFormName="LookupFacilityLocation<#if parameters.facilityId?exists>?facilityId=${facilityId}</#if>"/>
+                    <#if parameters.facilityId?exists>
+                      <#assign LookupFacilityLocationView="LookupFacilityLocation?facilityId=${facilityId}">
+                    <#else>
+                      <#assign LookupFacilityLocationView="LookupFacilityLocation">
+                    </#if>
+                    <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId_o_${rowCount}" id="locationSeqId_o_${rowCount}" fieldFormName="${LookupFacilityLocationView}"/>
                   </#if>
                 </td>
               </tr>
@@ -404,7 +409,12 @@ under the License.
                                 <option value="">${uiLabelMap.ProductNoLocation}</option>
                               </select>
                             <#else>
-                              <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId_o_${rowCount}" id="locationSeqId_o_${rowCount}" fieldFormName="LookupFacilityLocation<#if parameters.facilityId?exists>?facilityId=${facilityId}</#if>"/>
+                              <#if parameters.facilityId?exists>
+                                <#assign LookupFacilityLocationView="LookupFacilityLocation?facilityId=${facilityId}">
+                              <#else>
+                                <#assign LookupFacilityLocationView="LookupFacilityLocation">
+                              </#if>
+                              <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId_o_${rowCount}" id="locationSeqId_o_${rowCount}" fieldFormName="${LookupFacilityLocationView}"/>
                             </#if>
                           </td>
                           <td align="right">${uiLabelMap.ProductQtyReceived} :</td>
