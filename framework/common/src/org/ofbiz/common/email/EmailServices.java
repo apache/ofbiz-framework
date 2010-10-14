@@ -494,8 +494,6 @@ public class EmailServices {
                 String attachmentName = "Details.pdf";
                 if (UtilValidate.isNotEmpty(attachmentNameList) && attachmentNameList.size() >= i) {
                 	attachmentName = attachmentNameList.get(i);
-                } else {
-                    attachmentName = "Details.pdf";
                 }
                 isMultiPart = true;
                 // start processing fo pdf attachment
