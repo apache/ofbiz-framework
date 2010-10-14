@@ -133,8 +133,6 @@ under the License.
                 <make-next-seq-id value-field="newPortalPage" seq-field-name="sequenceNum"/>
             </if-empty>
             <create-value value-field="newPortalPage"/>
-            <set field="newPortalPageColumn.portalPageId" from-field="newPortalPage.portalPageId"/>
-            <call-service service-name="addPortalPageColumn" in-map-name="newPortalPageColumn"/>
             <field-to-result field="newPortalPage.portalPageId" result-name="portalPageId"/>
         </if-not-empty>
     </simple-method>
