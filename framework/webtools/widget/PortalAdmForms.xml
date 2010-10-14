@@ -83,7 +83,10 @@ under the License.
         <field name="portalPageId" use-when="!&quot;${portalPage.portalPageId}&quot;.equals(&quot;&quot;)" position="1"><display/></field>
         <field name="portalPageId" use-when="&quot;${portalPage.portalPageId}&quot;.equals(&quot;&quot;)" position="1"><text/></field>
         <field name="originalPortalPageId" position="2"><text/></field>
-        <field name="ownerUserLoginId" ><lookup target-form-name="LookupUserLoginAndPartyDetails"/></field>
+        <field name="ownerUserLoginId">
+            <!-- <lookup target-form-name="LookupUserLoginAndPartyDetails"/> -->
+            <text/>
+        </field>
         <field name="parentPortalPageId" position="2"><text/></field>
         <field name="portalPageName"><text/></field>
         <field name="description" position="2"><text size="60"/></field>
