@@ -35,7 +35,7 @@ under the License.
     <load-component component-location="myportal"/>
     <load-component component-location="webpos"/>
     <load-component component-location="crowd"/>
-    <!-- load-component component-location="ldap"/>-->
+    <load-component component-location="ldap"/>
     <!-- <load-component component-location="workflow"/> -->
     <!-- <load-component component-location="shark"/> -->
 </component-loader>
