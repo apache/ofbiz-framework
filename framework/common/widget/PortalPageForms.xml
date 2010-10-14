@@ -61,8 +61,8 @@ under the License.
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
-        <field name="portalPageName" use-when="ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
-        <field name="portalPageName" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" id-name="portalPageName" widget-style="tabletext" sort-field="true">
+        <field name="portalPageName" use-when="ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="portalPageName" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" id-name="portalPageName" widget-style="tabletext">
             <display>
                 <in-place-editor url="updatePortalPage" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>
@@ -70,8 +70,8 @@ under the License.
                 </in-place-editor>
             </display>
         </field>
-        <field name="description" use-when="ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonDescription}" widget-style="tabletext" sort-field="true"><display/></field>
-        <field name="description" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonDescription}" id-name="portalDescription" widget-style="tabletext" sort-field="true">
+        <field name="description" use-when="ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonDescription}" widget-style="tabletext"><display/></field>
+        <field name="description" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonDescription}" id-name="portalDescription" widget-style="tabletext">
             <display>
                 <in-place-editor url="updatePortalPage" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
                     <simple-editor/>
