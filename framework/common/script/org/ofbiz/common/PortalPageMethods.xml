@@ -21,23 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <simple-method method-name="getPortletAttributes" short-description="Get Portlet Attribute Values">
-        <call-object-method obj-field="request" method-name="getAttribute" ret-field="portalPageId"><string value="portalPageId"/></call-object-method>
-        <call-object-method obj-field="request" method-name="getAttribute" ret-field="portalPortletId"><string value="portalPortletId"/></call-object-method>
-        <call-object-method obj-field="request" method-name="getAttribute" ret-field="portletSeqId"><string value="portletSeqId"/></call-object-method>
-        <entity-condition entity-name="PortletAttribute" list="portletAttributeList">
-            <condition-list combine="and">
-                <condition-expr field-name="portalPageId" from-field="portalPageId"/>
-                <condition-expr field-name="portalPortletId" from-field="portalPortletId"/>
-                <condition-expr field-name="portletSeqId" from-field="portletSeqId"/>
-            </condition-list>
-        </entity-condition>
-        <log level="info" message="portletAttributeList: ${portletAttributeList}"/>
-        <iterate entry="portletAttributeList" list="portletAttribute">
-            <set field="context.${portletAttribute.attrName}" from-field="portletAttribute.attrValue"/>
-        </iterate>
-    </simple-method>
-
     <simple-method method-name="setPortalPortletAttributes" short-description="Sets a PortalPortlet attributes">
         <if-not-empty field="parameters">
             <iterate-map map="parameters" key="attributeKey" value="attributeValue">
