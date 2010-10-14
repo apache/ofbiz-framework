@@ -70,7 +70,7 @@ under the License.
     </request-map>
     <request-map uri="updateBlog">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createContent"/>
+        <event type="service" invoke="updateContent"/>
         <response name="success" type="view" value="blogMain"/>
         <response name="error" type="view" value="EditBlog"/>
     </request-map>
