@@ -83,6 +83,12 @@ under the License.
         <response name="success" type="view-last" value="main" save-last-view="true"/>
         <response name="error" type="request" value="main"/>
     </request-map>
+    <request-map uri="updatePortletSeqDragDrop">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortletSeqDragDrop"/>
+        <response name="success" type="view-last" value="main" save-last-view="true"/>
+        <response name="error" type="request" value="main"/>
+    </request-map>
     <request-map uri="deletePortalPagePortlet">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePortalPagePortlet"/>
