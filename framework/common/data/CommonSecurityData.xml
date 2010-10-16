@@ -29,6 +29,7 @@
     <SecurityPermission description="Update Visual Themes and Visual Theme Resources." permissionId="VISUALTHEME_UPDATE"/>
     <SecurityPermission description="Delete Visual Themes and Visual Theme Resources." permissionId="VISUALTHEME_DELETE"/>
     <SecurityPermission description="ALL operations on Visual Themes and Visual Theme Resources." permissionId="VISUALTHEME_ADMIN"/>
+    <SecurityPermission description="Admin operations on Portal Pages." permissionId="PORTALPAGE_ADMIN"/>
 
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_DELETE"/>
@@ -37,9 +38,11 @@
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_UPDATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PORTALPAGE_ADMIN"/>
 
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="VISUALTHEME_ADMIN"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="COMMON_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PORTALPAGE_ADMIN"/>
 
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="COMMON_VIEW"/>
 
