@@ -190,61 +190,6 @@ under the License.
             <check-errors/>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="updatePortalPagePortletSeq" short-description="Update the portal page sequence numbers">
-        <call-simple-method method-name="checkOwnerShip"/>
-        <entity-one entity-name="PortalPagePortlet" value-field="portalPagePortlet"/>
-        <if-compare field="parameters.mode" value="UP" operator="equals">
-            <set field="portalPagePortlet.sequenceNum" value="${portalPagePortlet.sequenceNum - 1}" type="Long"/>
-        </if-compare>
-        <if-compare field="parameters.mode" value="DOWN" operator="equals">
-            <set field="portalPagePortlet.sequenceNum" value="${portalPagePortlet.sequenceNum + 1}" type="Long"/>
-        </if-compare>
-        <if-compare field="parameters.mode" value="TOP" operator="equals">
-            <set field="portalPagePortlet.sequenceNum" value="0" type="Long"/>
-        </if-compare>
-        <if-compare field="parameters.mode" value="BOTTOM" operator="equals">
-            <entity-and entity-name="PortalPagePortlet" list="ppList">
-                <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
-                <order-by field-name="-sequenceNum"/>
-            </entity-and>
-            <first-from-list entry="ppEntry" list="ppList"/>
-            <set field="portalPagePortlet.sequenceNum" value="${ppEntry.sequenceNum + 1}" type="Long"/>
-        </if-compare>
-        <!-- update folowing entries in the same column if any -->
-        <if-compare field="parameters.mode" value="BOTTOM" operator="not-equals">
-            <if-compare field="parameters.mode" value="DOWN" operator="equals">
-                <entity-condition entity-name="PortalPagePortlet" list="ppList">
-                    <condition-list combine="and">
-                        <condition-expr field-name="portalPageId" operator="equals" from-field="parameters.portalPageId"/>
-                        <condition-expr field-name="columnSeqId" operator="equals" from-field="portalPagePortlet.columnSeqId"/>
-                        <condition-expr field-name="sequenceNum" operator="greater-equals" from-field="portalPagePortlet.sequenceNum"/>
-                    </condition-list>
-                    <order-by field-name="+sequenceNum"/>
-                </entity-condition>
-                <if-not-empty field="ppList">
-                    <first-from-list entry="ppEntry" list="ppList"/>
-                    <set field="ppEntry.sequenceNum" value="${portalPagePortlet.sequenceNum - 1}" type="Long"/>
-                    <store-value value-field="ppEntry"/>
-                </if-not-empty>
-                <else><!-- this for up and top -->
-                    <entity-condition entity-name="PortalPagePortlet" list="ppList">
-                        <condition-list combine="and">
-                            <condition-expr field-name="portalPageId" operator="equals" from-field="parameters.portalPageId"/>
-                            <condition-expr field-name="columnSeqId" operator="equals" from-field="portalPagePortlet.columnSeqId"/>
-                            <condition-expr field-name="sequenceNum" operator="less-equals" from-field="portalPagePortlet.sequenceNum"/>
-                        </condition-list>
-                        <order-by field-name="-sequenceNum"/>
-                    </entity-condition>
-                    <if-not-empty field="ppList">
-                        <first-from-list entry="ppEntry" list="ppList"/>
-                        <set field="ppEntry.sequenceNum" value="${portalPagePortlet.sequenceNum + 1}" type="Long"/>
-                        <store-value value-field="ppEntry"/>
-                    </if-not-empty>
-                </else>
-            </if-compare>
-        </if-compare>
-        <store-value value-field="portalPagePortlet"/>
-    </simple-method>
     <simple-method method-name="updatePortalPageSeq" short-description="Update the portal page sequence numbers">
         <call-simple-method method-name="checkOwnerShip"/>
         <entity-one entity-name="PortalPage" value-field="getSequenceNum"/>
