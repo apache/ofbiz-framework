@@ -168,6 +168,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="button-bar"><link target="backLast" text="${uiLabelMap.CommonBack}" style="buttontext"/></container>
                         <screenlet title="${uiLabelMap.CommonPortalCategoryPage}: ${parameters.parentPortalPageId}">
                             <include-form name="PortletCategoryAndPortlet" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
@@ -250,6 +251,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="button-bar"><link target="backLast" text="${uiLabelMap.CommonBack}" style="buttontext"/></container>
                         <screenlet title="${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}">
                             <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
                         </screenlet>
@@ -266,6 +268,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="button-bar"><link target="backLast" text="${uiLabelMap.CommonBack}" style="buttontext"/></container>
                         <screenlet title="Set column width: ${portalPortlet.portletName}">
                             <include-form name="EditPortalPageColumnWidth" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
