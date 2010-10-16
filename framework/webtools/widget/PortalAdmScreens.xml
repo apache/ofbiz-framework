@@ -57,24 +57,24 @@ under the License.
     </screen>
 
     <screen name="CreatePortalPage">
-      <section>
+        <section>
         <actions>
           <set field="targetPortalPage" value="createPortalPageAdm"/>
         </actions>
-        <widgets>
-          <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-             <decorator-section name="body">
-               <section>
-                <actions>
-                  <set field="portalPage.portalPageId" value=""/>
-                  <set field="editPortalPageId" value="Y"/>
-                </actions>
-                <widgets><include-form name="EditPortalPage" location="component://webtools/widget/PortalAdmForms.xml"/></widgets>
-               </section>
-             </decorator-section>
-           </decorator-screen>
-        </widgets>
-      </section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="portalPage.portalPageId" value=""/>
+                                <set field="editPortalPageId" value="Y"/>
+                            </actions>
+                            <widgets><include-form name="EditPortalPage" location="component://webtools/widget/PortalAdmForms.xml"/></widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
     </screen>
 
     <screen name="EditPortalPage">
@@ -88,65 +88,25 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="no-clear">
-                            <section>
-                                <condition>
-                                   <not><if-empty field="portalPage"/></not>
-                                </condition>
-                                <actions><set field="targetPortalPage" value="updatePortalPageAdm"/></actions>
-                                <widgets>
-                                    <screenlet title="${uiLabelMap.CommonPortalEditPage}" navigation-menu-name="PortalPageAdmin">
-                                        <include-menu name="PortalPageAdmin" location="component://webtools/widget/Menus.xml"/>
-                                        <include-form name="EditPortalPage" location="component://webtools/widget/PortalAdmForms.xml"/>
-                                    </screenlet>
-                                </widgets>
-                            </section>
-                            <section>
-                                <condition>
-                                    <and>
-                                        <not><if-empty field="portalPage"/></not>
-                                        <not><if-empty field="parameters.editAttributes"/></not>
-                                    </and>
-                                </condition>
-                                <actions>
-                                    <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
-                                    <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
-                                    <entity-one entity-name="PortalPortlet" value-field="portalPortlet"/>
-                                </actions>
-                                <widgets>
-                                    <screenlet title="${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}">
-                                        <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
-                                    </screenlet>
-                                </widgets>
-                            </section>
-                            <section>
-                                <condition>
-                                    <not><if-empty field="portalPage"/></not>
-                                </condition>
-                                <actions>
-                                    <set field="portalPages[]" from-field="portalPage"/>
-                                    <entity-condition entity-name="PortalPageColumn" list="portalPageColumnList">
-                                        <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
-                                        <order-by field-name="columnSeqId"/>
-                                    </entity-condition>
-                                    <entity-condition entity-name="PortalPagePortletView" list="portalPagePortletViewList">
-                                        <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
-                                        <order-by field-name="+columnSeqId"/>
-                                        <order-by field-name="+sequenceNum"/>
-                                    </entity-condition>
-                                </actions>
-                                <widgets>
-                                    <container id="portalContainerId">
-                                        <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
-                                            <link target="addPortalPageColumn" style="buttontext" text="${uiLabelMap.CommonAddColumn}">
-                                                <parameter param-name="portalPageId" from-field="portalPage.portalPageId"/>
-                                            </link>
-                                            <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
-                                        </screenlet>
-                                    </container>
-                                </widgets>
-                            </section>
-                       </container>
+                        <section>
+                            <condition>
+                                <not><if-empty field="portalPage"/></not>
+                            </condition>
+                            <actions><set field="targetPortalPage" value="updatePortalPageAdm"/></actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.CommonPortalEditPage}" navigation-menu-name="PortalPageAdmin">
+                                    <include-menu name="PortalPageAdmin" location="component://webtools/widget/Menus.xml"/>
+                                    <include-form name="EditPortalPage" location="component://webtools/widget/PortalAdmForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
+                                    <include-portal-page id="${portalPage.portalPageId}" conf-mode="true" use-private="false" />
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
