@@ -118,7 +118,7 @@ under the License.
         <field name="productStoreId"><hidden /></field>
         <field name="facilityId">
             <display-entity entity-name="Facility"  description="${facilityName}">
-                <sub-hyperlink link-style="link" description="[${facilityId}]"  target="EditFacility">
+                <sub-hyperlink link-style="link" description="[${facilityId}]"  target="/facility/control/EditFacility" target-type="inter-app">
                     <parameter param-name="facilityId"/>
                 </sub-hyperlink>
             </display-entity>    
