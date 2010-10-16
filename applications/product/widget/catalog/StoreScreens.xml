@@ -593,16 +593,30 @@ under the License.
         </section>
     </screen>
     <screen name="ListProductStoreFacility">
-      <section>
-        <widgets>
-          <decorator-screen name="uiLabelDecorator" location="${parameters.mainDecoratorLocation}">
-            <decorator-section name="body">
-              <container id="ProductStoreFacilityEditArea"/>
-              <include-form name="ListProductStoreFacility" location="component://product/widget/catalog/StoreForms.xml"/>
-            </decorator-section>
-          </decorator-screen>
-        </widgets>
-      </section>
+        <section>
+            <widgets>
+                <screenlet title="${uiLabelMap.ProductStoreFacilityAssocList}" navigation-menu-name="ProductStoreFacility">
+                    <include-menu name="ProductStoreFacility" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    <container id="PrdStoreFacilityMgmtArea">
+                        <decorator-section name="body">
+                            <include-screen name="ListProductStoreFacilityFormOnly"/>
+                        </decorator-section>
+                    </container>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListProductStoreFacilityFormOnly">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <container id="ProductStoreFacilityEditArea"/>
+                <include-form name="ListProductStoreFacility" location="component://product/widget/catalog/StoreForms.xml"/>
+            </widgets>
+        </section>
     </screen>
     <screen name="EditProductStoreFacility">
         <section>
