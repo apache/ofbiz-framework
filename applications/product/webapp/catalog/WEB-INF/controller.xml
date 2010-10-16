@@ -2330,8 +2330,8 @@ under the License.
     <request-map uri="deleteProductStoreFacility">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteProductStoreFacility"/>
-        <response name="success" type="view" value="ListProductStoreFacility"/>
-        <response name="error" type="view" value="ListProductStoreFacility"/>
+        <response name="success" type="view" value="ListProductStoreFacilityFormOnly"/>
+        <response name="error" type="view" value="ListProductStoreFacilityFormOnly"/>
     </request-map>
 
     <!-- ================ Keyword Thesaurus Requests ================= -->
