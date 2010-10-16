@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
  xsi:noNamespaceSchemaLocation="../../widget/dtd/widget-form.xsd">
 
-    <form name="ListPortalPages" type="list" list-name="portalPages" paginate-target="ManagePortalPages" separate-columns="true"
+    <form name="ListPortalPages" type="list" list-name="portalPages" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="portalPageId" title="${uiLabelMap.CommonEdit}">
             <hyperlink description="${uiLabelMap.CommonEdit}" target="ManagePortalPages">
@@ -29,32 +29,32 @@ under the License.
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
-        <field name="top" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(sequenceNum == ${parameters.sequenceNumMin})"><hyperlink target="" description=""/></field>
-        <field name="bot" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(sequenceNum &gt;= ${parameters.sequenceNumMax})"><hyperlink target="" description=""/></field>
-        <field name="up" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(sequenceNum == ${parameters.sequenceNumMin})"><hyperlink target="" description=""/></field>
-        <field name="dwn" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(sequenceNum &gt;= ${parameters.sequenceNumMax})"><hyperlink target="" description=""/></field>
-        <field name="top" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &gt; ${parameters.sequenceNumMin})">
+        <field name="top" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(itemIndex == 0)"><hyperlink target="" description=""/></field>
+        <field name="bot" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(itemIndex == listSize-1)"><hyperlink target="" description=""/></field>
+        <field name="up" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(itemIndex == 0)"><hyperlink target="" description=""/></field>
+        <field name="dwn" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(itemIndex == listSize-1)"><hyperlink target="" description=""/></field>
+        <field name="top" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(itemIndex &gt; 0)">
             <hyperlink target="updatePortalPageSeq" image-location="/images/arrow-end-up-green.png">
                 <parameter param-name="mode" value="TOP"/>
                 <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
-        <field name="bot" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &lt; ${parameters.sequenceNumMax})">
+        <field name="bot" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(itemIndex &lt; listSize-1)">
             <hyperlink target="updatePortalPageSeq" image-location="/images/arrow-end-down-green.png">
                 <parameter param-name="mode" value="BOT"/>
                 <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
-        <field name="up" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &gt; ${parameters.sequenceNumMin})">
+        <field name="up" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(itemIndex &gt; 0)">
             <hyperlink target="updatePortalPageSeq" image-location="/images/arrow-single-up-green.png">
                 <parameter param-name="mode" value="UP"/>
                 <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
-        <field name="dwn" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &lt; ${parameters.sequenceNumMax})">
+        <field name="dwn" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(itemIndex &lt; listSize-1)">
             <hyperlink target="updatePortalPageSeq" image-location="/images/arrow-single-down-green.png">
                 <parameter param-name="mode" value="DWN"/>
                 <parameter param-name="portalPageId"/>
