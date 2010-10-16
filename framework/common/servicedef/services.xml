@@ -624,11 +624,6 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updatePortalPagePortletSeq" engine="simple" default-entity-name="PortalPagePortlet" auth="true"
-        location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="updatePortalPagePortletSeq">
-        <auto-attributes mode="IN" include="pk"/>
-        <attribute name="mode" type="String" mode="IN"/><!-- possible values: TOP, BOTTOM, UP, DOWN -->
-    </service>
     <service name="updatePortalPageSeq" engine="simple" default-entity-name="PortalPage" auth="true"
         location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="updatePortalPageSeq">
         <auto-attributes mode="IN" include="pk"/>
