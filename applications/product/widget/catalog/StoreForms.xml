@@ -151,6 +151,6 @@ under the License.
         <field name="submitButton" title="${groovy: productStoreFacility == null ? uiLabelMap.CommonAdd : uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <on-event-update-area event-type="submit" area-id="PrdStoreFacilityMgmt_refresh" area-target="refreshPortlet?portalPortletId=PrdStoreFacilityMgmt&amp;productStoreId=${parameters.productStoreId}"/>
+        <on-event-update-area event-type="submit" area-id="PrdStoreFacilityMgmtArea" area-target="ListProductStoreFacilityFormOnly?portalPortletId=PrdStoreFacilityMgmt&amp;productStoreId=${parameters.productStoreId}"/>
      </form>
 </forms>
