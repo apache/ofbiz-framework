@@ -107,7 +107,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/>
                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/ListPortalPages.groovy"/>
+                <set field="portalPages" value="${groovy:org.ofbiz.widget.PortalPageWorker.getPortalPages(parameters.parentPortalPageId,context)}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
