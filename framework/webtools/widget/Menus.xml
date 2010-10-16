@@ -49,7 +49,7 @@ under the License.
             <link target="FindGeo"/>
         </menu-item>        
         <menu-item name="portalAdmin" title="${uiLabelMap.WebtoolsAdminPortalPage}">
-            <condition><if-has-permission permission="PORTALPAGE_MAINT"/></condition>
+            <condition><if-has-permission permission="PORTALPAGE_ADMIN"/></condition>
             <link target="FindPortalPage"/>
         </menu-item>
         <menu-item name="tests" title="Tests">
