@@ -2279,14 +2279,11 @@ color: #000000;
 
 /* == Portlet configuration screenlet == */
 .portlet-config {
-background-color: #FFEC6F;
-border: 2px solid #FFEC6F;
+background-color: #FFFF99;
 margin-bottom: 5px;
 }
 
 .portlet-config-title-bar .title {
-color: #555555;
-background-color: #CFC05A;
 float: left;
 }
 
@@ -2364,6 +2361,17 @@ font-weight: bold;
 
 .manage-portal-column-toolbar #add-portlet,.manage-portal-column-toolbar #delete-column,.manage-portal-column-toolbar #column-width {
 float: right;
+}
+
+.portal-column-config-title-bar {
+padding-left: 5px;
+}
+
+.portal-column-config-title-bar ul li {
+float: left;
+}
+.portal-column-config {
+background: #FFFFFF;
 }
 
 /***********************************************

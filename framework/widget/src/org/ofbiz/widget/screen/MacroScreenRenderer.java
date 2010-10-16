@@ -59,7 +59,6 @@ import org.ofbiz.widget.html.HtmlScreenRenderer.ScreenletMenuRenderer;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
-import org.ofbiz.widget.WidgetPortalPageWorker;
 
 import freemarker.core.Environment;
 import freemarker.template.Template;
@@ -781,9 +780,19 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
-        String portalPageId = portalPage.getId(context);
+        String portalPageId = portalPage.getActualPortalPageId();
         String originalPortalPageId = portalPage.getOriginalPortalPageId();
-        String editMode = portalPage.getEditMode(context);
+        String confMode = portalPage.getConfMode(context);
+
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+        String addColumnLabel = "";
+        String addColumnHint = "";
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", module);
+        } else {
+            addColumnLabel = (String) uiLabelMap.get("CommonAddColumn");
+            addColumnHint = (String) uiLabelMap.get("CommonAddAColumnToThisPortalPage");
+        }
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderPortalPageBegin ");
@@ -791,44 +800,49 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append(originalPortalPageId);
         sr.append("\" portalPageId=\"");
         sr.append(portalPageId);
-        sr.append("\" editMode=\"");
-        sr.append(editMode);
+        sr.append("\" confMode=\"");
+        sr.append(confMode);
+        sr.append("\" addColumnLabel=\"");
+        sr.append(addColumnLabel);
+        sr.append("\" addColumnHint=\"");
+        sr.append(addColumnHint);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
     }
 
     public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
-        String editMode = portalPage.getEditMode(context);
-        HttpServletRequest request = (HttpServletRequest) context.get("request");
-
-        String actualRequest = request.getRequestURL().toString();
-        if (actualRequest.indexOf("?") < 0) {
-            actualRequest += "?";
-        } else if (!actualRequest.endsWith("?")) {
-            actualRequest += "&amp;";
-        }
-        String editOnURL = actualRequest+"editmode=true";
-        String editOffURL = actualRequest+"editmode=false";
-        
         StringWriter sr = new StringWriter();
-        sr.append("<@renderPortalPageEnd ");
-        sr.append("editMode=\"");
-        sr.append(editMode);
-        sr.append("\" editOnURL=\"");
-        sr.append(editOnURL);
-        sr.append("\" editOffURL=\"");
-        sr.append(editOffURL);
-        sr.append("\" />");
+        sr.append("<@renderPortalPageEnd/>");
         executeMacro(writer, sr.toString());
     }
 
     public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
-        String portalPageId = portalPage.getId(context);
+        String portalPageId = portalPage.getActualPortalPageId();
         String originalPortalPageId = portalPage.getOriginalPortalPageId();
         String columnSeqId = portalPageColumn.getString("columnSeqId");
         String columnWidthPercentage = portalPageColumn.getString("columnWidthPercentage");
         String columnWidthPixels = portalPageColumn.getString("columnWidthPixels");
-        String editMode = portalPage.getEditMode(context);
+        String confMode = portalPage.getConfMode(context);
+
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+        String delColumnLabel = "";
+        String delColumnHint = "";
+        String addPortletLabel = "";
+        String addPortletHint = "";
+        String colWidthLabel = "";
+        String setColumnSizeHint = "";
+        
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", module);
+        } else {
+            delColumnLabel = (String) uiLabelMap.get("CommonDeleteColumn");
+            delColumnHint = (String) uiLabelMap.get("CommonDeleteThisColumn");
+
+            addPortletLabel = (String) uiLabelMap.get("CommonAddAPortlet");
+            addPortletHint = (String) uiLabelMap.get("CommonAddPortletToPage");
+            colWidthLabel = (String) uiLabelMap.get("CommonWidth");
+            setColumnSizeHint = (String) uiLabelMap.get("CommonSetColumnWidth");
+        }
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderPortalPageColumnBegin ");
@@ -848,8 +862,20 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             sr.append(columnWidthPercentage);
             sr.append("%\"");
         }
-        sr.append(" editMode=\"");
-        sr.append(editMode);
+        sr.append(" confMode=\"");
+        sr.append(confMode);
+        sr.append("\" delColumnLabel=\"");
+        sr.append(delColumnLabel);
+        sr.append("\" delColumnHint=\"");
+        sr.append(delColumnHint);
+        sr.append("\" addPortletLabel=\"");
+        sr.append(addPortletLabel);
+        sr.append("\" addPortletHint=\"");
+        sr.append(addPortletHint);
+        sr.append("\" colWidthLabel=\"");
+        sr.append(colWidthLabel);
+        sr.append("\" setColumnSizeHint=\"");
+        sr.append(setColumnSizeHint);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
     }   
@@ -861,13 +887,30 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
-        String portalPageId = portalPage.getId(context);
+        String portalPageId = portalPage.getActualPortalPageId();
         String originalPortalPageId = portalPage.getOriginalPortalPageId();
         String portalPortletId = portalPortlet.getString("portalPortletId");
         String portletSeqId = portalPortlet.getString("portletSeqId");
-        String editMode = portalPage.getEditMode(context);
+        String confMode = portalPage.getConfMode(context);
         String editFormName = portalPortlet.getString("editFormName");
         String editFormLocation = portalPortlet.getString("editFormLocation");
+        
+        String prevPortletId = (String) context.get("prevPortletId");
+        String prevPortletSeqId = (String) context.get("prevPortletSeqId");
+        String nextPortletId = (String) context.get("nextPortletId");
+        String nextPortletSeqId = (String) context.get("nextPortletSeqId");
+        String prevColumnSeqId = (String) context.get("prevColumnSeqId");
+        String nextColumnSeqId = (String) context.get("nextColumnSeqId");
+        
+        Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
+        String delPortletHint = "";
+        String editAttributeHint = "";
+        if (uiLabelMap == null) {
+            Debug.logWarning("Could not find uiLabelMap in context", module);
+        } else {
+            delPortletHint = (String) uiLabelMap.get("CommonDeleteThisPortlet");
+            editAttributeHint = (String) uiLabelMap.get("CommonEditPortletAttributes");
+        }
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderPortalPagePortletBegin ");
@@ -879,8 +922,24 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append(portalPortletId);
         sr.append("\" portletSeqId=\"");
         sr.append(portletSeqId);
-        sr.append("\" editMode=\"");
-        sr.append(editMode);
+        sr.append("\" prevPortletId=\"");
+        sr.append(prevPortletId);
+        sr.append("\" prevPortletSeqId=\"");
+        sr.append(prevPortletSeqId);
+        sr.append("\" nextPortletId=\"");
+        sr.append(nextPortletId);
+        sr.append("\" nextPortletSeqId=\"");
+        sr.append(nextPortletSeqId);
+        sr.append("\" prevColumnSeqId=\"");
+        sr.append(prevColumnSeqId);
+        sr.append("\" nextColumnSeqId=\"");
+        sr.append(nextColumnSeqId);
+        sr.append("\" delPortletHint=\"");
+        sr.append(delPortletHint);
+        sr.append("\" editAttributeHint=\"");
+        sr.append(editAttributeHint);
+        sr.append("\" confMode=\"");
+        sr.append(confMode);
         sr.append("\"");
         if (UtilValidate.isNotEmpty(editFormName) && UtilValidate.isNotEmpty(editFormLocation)) {
             sr.append(" editAttribute=\"true\"");
@@ -890,12 +949,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderPortalPagePortletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
-        String editMode = portalPage.getEditMode(context);
+        String confMode = portalPage.getConfMode(context);
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderPortalPagePortletEnd ");
-        sr.append(" editMode=\"");
-        sr.append(editMode);
+        sr.append(" confMode=\"");
+        sr.append(confMode);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
     }

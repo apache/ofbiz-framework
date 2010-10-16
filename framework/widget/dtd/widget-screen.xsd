@@ -1095,8 +1095,17 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.include-portal-page">
         <xs:attribute type="xs:string" name="id"/>
-        <xs:attribute name="edit-mode" default="false">
-            <xs:annotation><xs:documentation>Show the portal in edit mode.</xs:documentation></xs:annotation>
+        <xs:attribute name="conf-mode" default="false">
+            <xs:annotation><xs:documentation>Show the portal in configuration mode.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="use-private" default="true">
+            <xs:annotation><xs:documentation>If a derived private PortalPage exists for the actual UserLogin than show the private PortalPage instead of the original.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
