@@ -159,10 +159,9 @@ ${menuString}
     <li class="${paginateFirstStyle?default("nav-first")}<#if !firstLinkUrl?has_content> disabled</#if>"><#if firstLinkUrl?has_content><a href="${firstLinkUrl}">${paginateFirstLabel}</a><#else>${paginateFirstLabel}</#if></li>
 </#macro>
 
-<#macro renderPortalPageBegin originalPortalPageId portalPageId editMode="false" addColumnLabel="Add column" addColumnHint="Add a new column to this portal">
-  <#if editMode == "true">
-    <script src="/images/myportal.js" type="text/javascript"></script>
-    <a class="buttontext" href="javascript:document.addColumn_${portalPageId}.submit()" title="${addColumnHint}">${addColumnLabel}</a> PortalPageId: ${portalPageId}
+<#macro renderPortalPageBegin originalPortalPageId portalPageId confMode="false" addColumnLabel="Add column" addColumnHint="Add a new column to this portal">
+  <#if confMode == "true">
+    <a class="buttontext" href="javascript:document.addColumn_${portalPageId}.submit()" title="${addColumnHint}">${addColumnLabel}</a> <b>PortalPageId: ${portalPageId}</b>
     <form method="post" action="addPortalPageColumn" name="addColumn_${portalPageId}">
       <input name="portalPageId" value="${portalPageId}" type="hidden"/>
     </form>
@@ -171,21 +170,16 @@ ${menuString}
     <tr>
 </#macro>
 
-<#macro renderPortalPageEnd editMode="false" editOnURL="#" editOffURL="#" editOnLabel="Edit ON" editOffLabel="Edit OFF" editOnHint="Enable portal page editing" editOffHint="Disable portal page editing">
+<#macro renderPortalPageEnd>
     </tr>
   </table>
-  <#if editMode == "true">
-    <a class="buttontext" href="${editOffURL}" title="${editOffHint}">${editOffLabel}</a>
-  <#else>
-    <a class="buttontext" href="${editOnURL}" title="${editOnHint}">${editOnLabel}</a>
-  </#if>
 </#macro>
 
-<#macro renderPortalPageColumnBegin originalPortalPageId portalPageId columnSeqId editMode="false" width="auto" delColumnLabel="Remove column" delColumnHint="Delete this column" addPortletLabel="Add portlet" addPortletHint="Add a new portlet to this column" setColumnSizeHint="Set column size">
+<#macro renderPortalPageColumnBegin originalPortalPageId portalPageId columnSeqId confMode="false" width="auto" delColumnLabel="Delete column" delColumnHint="Delete this column" addPortletLabel="Add portlet" addPortletHint="Add a new portlet to this column" colWidthLabel="Col. width:" setColumnSizeHint="Set column size">
   <#assign columnKey = portalPageId+columnSeqId>
   <#assign columnKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="columnSeqId" value="' + columnSeqId + '" type="hidden"/>'>
-  <td style="vertical-align: top; <#if width?has_content> width:${width};</#if>" id="portalColumn_${columnSeqId}">
-    <#if editMode == "true">
+  <td class="portal-column<#if confMode == "true">-config</#if>" style="vertical-align: top; <#if width?has_content> width:${width};</#if>" id="portalColumn_${columnSeqId}">
+    <#if confMode == "true">
       <div class="portal-column-config-title-bar">
         <ul>
           <li>
@@ -204,10 +198,11 @@ ${menuString}
             <form method="post" action="editPortalPageColumnWidth" name="setColumnSize_${columnKey}">
               ${columnKeyFields}
             </form>
-            <a class="buttontext" href="javascript:document.setColumnSize_${columnKey}.submit()" title="${setColumnSizeHint}">${width}</a>
+            <a class="buttontext" href="javascript:document.setColumnSize_${columnKey}.submit()" title="${setColumnSizeHint}">${colWidthLabel}: ${width}</a>
           </li>
         </ul>
       </div>
+      <br class="clear"/>
     </#if>
 </#macro>
 
@@ -215,11 +210,11 @@ ${menuString}
   </td>
 </#macro>
 
-<#macro renderPortalPagePortletBegin originalPortalPageId portalPageId portalPortletId portletSeqId editMode="false" delPortletHint="Remove this portlet" editAttribute="false" editAttributeHint="Edit portlet parameters">
+<#macro renderPortalPagePortletBegin originalPortalPageId portalPageId portalPortletId portletSeqId prevPortletId="" prevPortletSeqId="" nextPortletId="" nextPortletSeqId="" prevColumnSeqId="" nextColumnSeqId="" confMode="false" delPortletHint="Remove this portlet" editAttribute="false" editAttributeHint="Edit portlet parameters">
   <#assign portletKey = portalPageId+portalPortletId+portletSeqId>
   <#assign portletKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portletSeqId  + '" type="hidden"/>'>
   <div id="PP_${portletKey}" name="portalPortlet" class="noClass">
-    <#if editMode == "true">
+    <#if confMode == "true">
       <div class="portlet-config" id="PPCFG_${portletKey}">
         <div class="portlet-config-title-bar">
           <ul>
@@ -238,15 +233,63 @@ ${menuString}
                 <a href="javascript:document.editPortlet_${portletKey}.submit()" title="${editAttributeHint}">&nbsp;&nbsp;&nbsp;</a>
               </li>
             </#if>
+            <#if prevColumnSeqId?has_content>
+              <li class="move-left">
+                <form method="post" action="updatePortletSeqDragDrop" name="movePortletLeft_${portletKey}">
+                  <input name="o_portalPageId" value="${portalPageId}" type="hidden"/>
+                  <input name="o_portalPortletId" value="${portalPortletId}" type="hidden"/>
+                  <input name="o_portletSeqId" value="${portletSeqId}" type="hidden"/>
+                  <input name="destinationColumn" value="${prevColumnSeqId}" type="hidden"/>
+                  <input name="mode" value="DRAGDROPBOTTOM" type="hidden"/>
+                </form>
+                <a href="javascript:document.movePortletLeft_${portletKey}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
+            </#if>            
+            <#if nextColumnSeqId?has_content>
+              <li class="move-right">
+                <form method="post" action="updatePortletSeqDragDrop" name="movePortletRight_${portletKey}">
+                  <input name="o_portalPageId" value="${portalPageId}" type="hidden"/>
+                  <input name="o_portalPortletId" value="${portalPortletId}" type="hidden"/>
+                  <input name="o_portletSeqId" value="${portletSeqId}" type="hidden"/>
+                  <input name="destinationColumn" value="${nextColumnSeqId}" type="hidden"/>
+                  <input name="mode" value="DRAGDROPBOTTOM" type="hidden"/>
+                </form>
+                <a href="javascript:document.movePortletRight_${portletKey}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
+            </#if>            
+            <#if prevPortletId?has_content>
+              <li class="move-up">
+                <form method="post" action="updatePortletSeqDragDrop" name="movePortletUp_${portletKey}">
+                  <input name="o_portalPageId" value="${portalPageId}" type="hidden"/>
+                  <input name="o_portalPortletId" value="${portalPortletId}" type="hidden"/>
+                  <input name="o_portletSeqId" value="${portletSeqId}" type="hidden"/>
+                  <input name="d_portalPageId" value="${portalPageId}" type="hidden"/>
+                  <input name="d_portalPortletId" value="${prevPortletId}" type="hidden"/>
+                  <input name="d_portletSeqId" value="${prevPortletSeqId}" type="hidden"/>
+                  <input name="mode" value="DRAGDROPBEFORE" type="hidden"/>
+                </form>
+                <a href="javascript:document.movePortletUp_${portletKey}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
+            </#if>            
+            <#if nextPortletId?has_content>
+              <li class="move-down">
+                <form method="post" action="updatePortletSeqDragDrop" name="movePortletDown_${portletKey}">
+                  <input name="o_portalPageId" value="${portalPageId}" type="hidden"/>
+                  <input name="o_portalPortletId" value="${portalPortletId}" type="hidden"/>
+                  <input name="o_portletSeqId" value="${portletSeqId}" type="hidden"/>
+                  <input name="d_portalPageId" value="${portalPageId}" type="hidden"/>
+                  <input name="d_portalPortletId" value="${nextPortletId}" type="hidden"/>
+                  <input name="d_portletSeqId" value="${nextPortletSeqId}" type="hidden"/>
+                  <input name="mode" value="DRAGDROPAFTER" type="hidden"/>
+                </form>
+                <a href="javascript:document.movePortletDown_${portletKey}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
+            </#if>            
           </ul>
           <br class="clear"/>
         </div>
       </#if>
 </#macro>
 
-<#macro renderPortalPagePortletEnd editMode="false">
+<#macro renderPortalPagePortletEnd confMode="false">
   </div>
-  <#if editMode == "true">
+  <#if confMode == "true">
     </div>
   </#if>
 </#macro>

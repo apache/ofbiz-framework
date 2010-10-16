@@ -195,6 +195,10 @@
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">添加一个</value>
     </property>
+    <property key="CommonAddAColumnToThisPortalPage">
+        <value xml:lang="en">Add a new column to this portal</value>
+        <value xml:lang="it">Aggiunge una nuova colonna a questa pagina</value>
+    </property>
     <property key="CommonAddAPortlet">
         <value xml:lang="en">Add A Portlet...</value>
         <value xml:lang="fr">Ajouter un portlet...</value>
@@ -264,6 +268,7 @@
     <property key="CommonAddPortletToPage">
         <value xml:lang="en">Add a portlet to portal page</value>
         <value xml:lang="fr">Ajouter une portlet à la page</value>
+        <value xml:lang="it">Aggiunge un portlet in questa colonna</value>
     </property>
     <property key="CommonAddProblem">
         <value xml:lang="ar">مشكل أثناء الإضافة</value>
@@ -1912,6 +1917,18 @@
         <value xml:lang="th">ลบทั้งหมด</value>
         <value xml:lang="zh">删除全部</value>
         <value xml:lang="zh_CN">删除所有</value>
+    </property>
+    <property key="CommonDeleteColumn">
+        <value xml:lang="en">Delete Column</value>
+        <value xml:lang="it">Elimina colonna</value>
+    </property>
+    <property key="CommonDeleteThisColumn">
+        <value xml:lang="en">Delete this column</value>
+        <value xml:lang="it">Elimina questa colonna</value>
+    </property>
+    <property key="CommonDeleteThisPortlet">
+        <value xml:lang="en">Delete this portlet</value>
+        <value xml:lang="it">Elimina questo portlet</value>
     </property>
     <property key="CommonDepth">
         <value xml:lang="ar">عمق</value>
@@ -6685,10 +6702,10 @@
         <value xml:lang="zh">设置为当前</value>
     </property>
     <property key="CommonSetColumnWidth">
-        <value xml:lang="en">Set Column Width...</value>
+        <value xml:lang="en">Set Column Width</value>
         <value xml:lang="fr">Définir la largeur de colonne ...</value>
         <value xml:lang="hi_IN">कॉलम की चौड़ाई स्थापित करे...</value>
-        <value xml:lang="it">Larghezza colonna...</value>
+        <value xml:lang="it">Imposta larghezza colonna</value>
         <value xml:lang="zh">设置列宽度...</value>
     </property>
     <property key="CommonSetNowEmpty">
