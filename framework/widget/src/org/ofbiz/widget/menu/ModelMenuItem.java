@@ -47,6 +47,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.widget.WidgetWorker;
+import org.ofbiz.widget.PortalPageWorker;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -284,24 +285,26 @@ public class ModelMenuItem {
             ModelMenuAction.runSubActions(this.actions, context);
             String parentPortalPageId = this.getParentPortalPageId(context);
             if (UtilValidate.isNotEmpty(parentPortalPageId)) {
-                List<GenericValue> portalPages = this.getPortalPages(context);
-                for (GenericValue portalPage : portalPages) {
-                    if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
-                        ModelMenuItem localItem = new ModelMenuItem(this.getModelMenu());
-                        localItem.name =  portalPage.getString("portalPageId");
-                        localItem.setTitle((String) portalPage.get("portalPageName", locale));
-                        localItem.link = new Link(this);
-                        List<WidgetWorker.Parameter> linkParams = localItem.link.getParameterList();
-                        linkParams.add(new WidgetWorker.Parameter("portalPageId", portalPage.getString("portalPageId"), false));
-                        linkParams.add(new WidgetWorker.Parameter("parentPortalPageId", parentPortalPageId, false));
-                        if (link != null) {
-                            localItem.link.setTarget(link.targetExdr.getOriginal());
-                            linkParams.addAll(link.parameterList);
-                        } else {
-                            localItem.link.setTarget("showPortalPage");
+                List<GenericValue> portalPages = PortalPageWorker.getPortalPages(parentPortalPageId, context);
+                if (UtilValidate.isNotEmpty(portalPages)) {
+                    for (GenericValue portalPage : portalPages) {
+                        if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
+                            ModelMenuItem localItem = new ModelMenuItem(this.getModelMenu());
+                            localItem.name =  portalPage.getString("portalPageId");
+                            localItem.setTitle((String) portalPage.get("portalPageName", locale));
+                            localItem.link = new Link(this);
+                            List<WidgetWorker.Parameter> linkParams = localItem.link.getParameterList();
+                            linkParams.add(new WidgetWorker.Parameter("portalPageId", portalPage.getString("portalPageId"), false));
+                            linkParams.add(new WidgetWorker.Parameter("parentPortalPageId", parentPortalPageId, false));
+                            if (link != null) {
+                                localItem.link.setTarget(link.targetExdr.getOriginal());
+                                linkParams.addAll(link.parameterList);
+                            } else {
+                                localItem.link.setTarget("showPortalPage");
+                            }
+                            localItem.link.setText((String)portalPage.get("portalPageName", locale));
+                            menuStringRenderer.renderMenuItem(writer, context, localItem);
                         }
-                        localItem.link.setText((String)portalPage.get("portalPageName", locale));
-                        menuStringRenderer.renderMenuItem(writer, context, localItem);
                     }
                 }
             } else {
@@ -406,51 +409,6 @@ public class ModelMenuItem {
         return this.parentPortalPageId.expandString(context);
     }
 
-    public List<GenericValue> getPortalPages(Map<String, Object> context) {
-        List<GenericValue> portalPages = null;
-        String parentPortalPageId = this.getParentPortalPageId(context);
-        if (UtilValidate.isNotEmpty(parentPortalPageId)) {
-            Delegator delegator = WidgetWorker.getDelegator(context);
-            try {
-                // first get public pages
-                EntityCondition cond =
-                    EntityCondition.makeCondition(UtilMisc.toList(
-                        EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
-                        EntityCondition.makeCondition(UtilMisc.toList(
-                                EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, parentPortalPageId),
-                                EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
-                                EntityOperator.OR)),
-                        EntityOperator.AND);
-                portalPages = delegator.findList("PortalPage", cond, null, null, null, false);
-                if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
-                    String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
-                    // replace with private pages
-                    for (GenericValue portalPage : portalPages) {
-                        cond = EntityCondition.makeCondition(UtilMisc.toList(
-                                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
-                                EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPage.getString("portalPageId"))),
-                                EntityOperator.AND);
-                        List <GenericValue> privatePortalPages = delegator.findList("PortalPage", cond, null, null, null, false);
-                        if (UtilValidate.isNotEmpty(privatePortalPages)) {
-                            portalPages.remove(portalPage);
-                            portalPages.add(privatePortalPages.get(0));
-                        }
-                    }
-                    // add any other created private pages
-                    cond = EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
-                            EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, null),
-                            EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
-                            EntityOperator.AND);
-                    portalPages.addAll(delegator.findList("PortalPage", cond, null, null, null, false));
-                }
-                portalPages = EntityUtil.orderBy(portalPages, UtilMisc.toList("sequenceNum"));
-            } catch (GenericEntityException e) {
-                Debug.logError("Could not retrieve portalpages in the menu:" + e.getMessage(), module);
-            }
-        }
-        return portalPages;
-    }
     public String getWidgetStyle() {
         if (UtilValidate.isNotEmpty(this.widgetStyle)) {
             return this.widgetStyle;

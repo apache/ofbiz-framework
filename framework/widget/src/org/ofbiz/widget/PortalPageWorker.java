@@ -19,14 +19,26 @@
 package org.ofbiz.widget;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.security.authz.Authorization;
 
 /**
  * PortalPageWorker Class
  */
-public class PortalPageWorker implements org.ofbiz.widget.PortalPageWorkerInterface {
+public class PortalPageWorker {
 
     public static final String module = PortalPageWorker.class.getName();
 
@@ -37,4 +49,129 @@ public class PortalPageWorker implements org.ofbiz.widget.PortalPageWorkerInterf
         return "success";
     }
 
+    /**
+    * Returns a list of PortalPages that have the specified parentPortalPageId as parent.
+    * If a specific PortalPage exists for the current userLogin it is returned instead of the original one.
+    */
+    public static List<GenericValue> getPortalPages(String parentPortalPageId, Map<String, Object> context) {
+        List<GenericValue> portalPages = null;
+        if (UtilValidate.isNotEmpty(parentPortalPageId)) {
+            Delegator delegator = WidgetWorker.getDelegator(context);
+            try {
+                // first get public pages
+                EntityCondition cond =
+                    EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
+                        EntityCondition.makeCondition(UtilMisc.toList(
+                                EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, parentPortalPageId),
+                                EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
+                                EntityOperator.OR)),
+                        EntityOperator.AND);
+                portalPages = delegator.findList("PortalPage", cond, null, null, null, false);
+                if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
+                    String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
+                    // replace with private pages
+                    for (GenericValue portalPage : portalPages) {
+                        cond = EntityCondition.makeCondition(UtilMisc.toList(
+                                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
+                                EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPage.getString("portalPageId"))),
+                                EntityOperator.AND);
+                        List <GenericValue> privatePortalPages = delegator.findList("PortalPage", cond, null, null, null, false);
+                        if (UtilValidate.isNotEmpty(privatePortalPages)) {
+                            portalPages.remove(portalPage);
+                            portalPages.add(privatePortalPages.get(0));
+                        }
+                    }
+                    // add any other created private pages
+                    cond = EntityCondition.makeCondition(UtilMisc.toList(
+                            EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
+                            EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, null),
+                            EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
+                            EntityOperator.AND);
+                    portalPages.addAll(delegator.findList("PortalPage", cond, null, null, null, false));
+                }
+                portalPages = EntityUtil.orderBy(portalPages, UtilMisc.toList("sequenceNum"));
+            } catch (GenericEntityException e) {
+                Debug.logError("Could not retrieve portalpages:" + e.getMessage(), module);
+            }
+        }
+        return portalPages;
+    }
+
+    /**
+    * Returns the PortalPage with the specified portalPageId.
+    * If a specific PortalPage exists for the current userLogin it is returned instead of the original one.
+    */
+    public static GenericValue getPortalPage(String portalPageId, Map<String, Object> context) {
+        GenericValue portalPage = null;
+        if (UtilValidate.isNotEmpty(portalPageId)) {
+            Delegator delegator = WidgetWorker.getDelegator(context);
+            try {
+                // Get the current userLoginId
+                String userLoginId = "_NA_";
+                if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
+                    userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
+                }
+                
+                // Get the PortalPage ensuring that it is either owned by the user or a system page
+                EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityCondition.makeCondition("portalPageId", EntityOperator.EQUALS, portalPageId),
+                    EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
+                        EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId)),
+                        EntityOperator.OR)),
+                    EntityOperator.AND);
+                List <GenericValue> portalPages = delegator.findList("PortalPage", cond, null, null, null, false);
+                if (UtilValidate.isNotEmpty(portalPages)) {
+                    portalPage = EntityUtil.getFirst(portalPages);
+                }
+                
+                // If a derived PortalPage private to the user exists, returns this instead of the system one
+                cond = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPageId),
+                        EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId)),
+                        EntityOperator.AND);
+                List <GenericValue> privateDerivedPortalPages = delegator.findList("PortalPage", cond, null, null, null, false);
+                if (UtilValidate.isNotEmpty(privateDerivedPortalPages)) {
+                    portalPage = EntityUtil.getFirst(privateDerivedPortalPages);
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError("Could not retrieve portalpage:" + e.getMessage(), module);
+            }
+        }
+        return portalPage;
+    }
+
+    /**
+    * Checks if the user is allowed to configure the PortalPage.
+    * PortalPage configuration is allowed if he is the PortalPage owner or he has got the PORTALPAGE_ADMIN permission
+    */   
+    public static Boolean userIsAllowedToConfigure(String portalPageId, Map<String, Object> context) {
+        Boolean userIsAllowed = false;
+
+        if (UtilValidate.isNotEmpty(portalPageId)) {
+            GenericValue userLogin = (GenericValue) context.get("userLogin");
+            if (UtilValidate.isNotEmpty(userLogin)) {
+                String userLoginId = (String) userLogin.get("userLoginId");
+                Authorization authz = (Authorization) context.get("authz");
+
+                Boolean hasPortalAdminPermission = authz.hasPermission(userLoginId, "PORTALPAGE_ADMIN", context);
+                try {
+                    Delegator delegator = WidgetWorker.getDelegator(context);
+                    GenericValue portalPage = delegator.findOne("PortalPage", UtilMisc.toMap("portalPageId", portalPageId),false);
+
+                    if (UtilValidate.isNotEmpty(portalPage)) {
+                        String ownerUserLoginId = (String) portalPage.get("ownerUserLoginId");
+                        // Users with PORTALPAGE_ADMIN permission can configure every Portal Page
+                        userIsAllowed = (ownerUserLoginId.equals(userLoginId) || hasPortalAdminPermission);
+                    }
+                } catch (GenericEntityException e) {
+                    return false;
+                }
+            }
+        }
+
+        return userIsAllowed;       
+    }
+    
 }
