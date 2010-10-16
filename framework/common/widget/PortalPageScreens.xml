@@ -143,25 +143,10 @@ under the License.
                                 <condition>
                                     <not><if-empty field="portalPage"/></not>
                                 </condition>
-                                <actions>
-                                    <set field="portalPages[]" from-field="portalPage"/>
-                                    <entity-condition entity-name="PortalPageColumn" list="portalPageColumnList">
-                                        <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
-                                        <order-by field-name="columnSeqId"/>
-                                    </entity-condition>
-                                    <entity-condition entity-name="PortalPagePortletView" list="portalPagePortletViewList">
-                                        <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
-                                        <order-by field-name="+columnSeqId"/>
-                                        <order-by field-name="+sequenceNum"/>
-                                    </entity-condition>
-                                </actions>
                                 <widgets>
                                     <container id="portalContainerId">
                                         <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
-                                            <link target="addPortalPageColumn" style="buttontext" text="${uiLabelMap.CommonAddColumn}">
-                                                <parameter param-name="portalPageId" from-field="portalPage.portalPageId"/>
-                                            </link>
-                                            <platform-specific><html><html-template location="component://common/webcommon/portal/editPortalPage.ftl"/></html></platform-specific>
+                                            <include-portal-page id="${portalPage.portalPageId}" conf-mode="true"/>                                            
                                         </screenlet>
                                     </container>
                                 </widgets>
