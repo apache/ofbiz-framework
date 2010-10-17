@@ -27,8 +27,19 @@ under the License.
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <label text="${uiLabelMap.ExamplePortletFirst}"/>
-                <label text="...${SpecificTitle}"/>
+                <screenlet title="${uiLabelMap.ExamplePortletFirst}">
+                    <section>
+                        <condition>
+                            <not><if-empty field="SpecificTitle"/></not>
+                        </condition>
+                        <widgets>
+                            <label style="h2">${SpecificTitle}</label>
+                        </widgets>
+                        <fail-widgets>
+                            <label style="h2">${uiLabelMap.ExampleNoAttributeSet}</label>
+                        </fail-widgets>
+                    </section>
+                </screenlet>
             </widgets>
         </section>
     </screen>
@@ -39,7 +50,8 @@ under the License.
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <label text="${uiLabelMap.ExamplePortletSecond}"/>
+                <screenlet title="${uiLabelMap.ExamplePortletSecond}">
+                </screenlet>
             </widgets>
         </section>
     </screen>
@@ -50,15 +62,17 @@ under the License.
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <container style="leftclear">
-                    <label style="h1" text="${uiLabelMap.ExamplePortletThird}"/>
-                </container>
-                <container style="leftclear">
-                    <label style="h2" text="${uiLabelMap.ExamplePortletSpecificTitle}: ${SpecificTitle}"/>
-                </container>
-                <container style="leftclear">
-                    <label style="h2" text="${uiLabelMap.ExamplePortletSpecificSubTitle}: ${SpecificSubTitle}"/>
-                </container>
+                <screenlet title="${uiLabelMap.ExamplePortletThird}">
+                    <container style="leftclear">
+                        <label style="h1" text="${uiLabelMap.ExamplePortletThird}"/>
+                    </container>
+                    <container style="leftclear">
+                        <label style="h2" text="${uiLabelMap.ExamplePortletSpecificTitle}: ${SpecificTitle}"/>
+                    </container>
+                    <container style="leftclear">
+                        <label style="h2" text="${uiLabelMap.ExamplePortletSpecificSubTitle}: ${SpecificSubTitle}"/>
+                    </container>
+                </screenlet>
             </widgets>
         </section>
     </screen>
