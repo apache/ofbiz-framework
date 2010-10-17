@@ -61,6 +61,11 @@ under the License.
         <event  type="simple" invoke="copyIfRequiredSystemPage" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
         <response name="success" type="view" value="ManagePortalPages"/>
     </request-map>
+    <request-map uri="NewPortalPage">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewPortalPage"/>
+        <response name="error" type="request" value="main"/>
+    </request-map>
     <request-map uri="addPortlet">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="addPortlet" save-last-view="true"/>
@@ -168,6 +173,7 @@ under the License.
     <view-map name="showPortletMainDecorator" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortletMainDecorator"/>
     <view-map name="showPortletSimpleDecorator" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortletSimpleDecorator"/>
     <view-map name="ManagePortalPages" type="screen" page="component://common/widget/PortalPageScreens.xml#ManagePortalPages"/>
+    <view-map name="NewPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#NewPortalPage"/>
     <view-map name="addPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#AddPortlet"/>
     <view-map name="editPortalPortletAttributes" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortalPortletAttributes"/>
     <view-map name="editPortalPageColumnWidth" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortalPageColumnWidth"/>

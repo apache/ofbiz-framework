@@ -97,8 +97,8 @@ under the License.
     <form name="NewPortalPage" type="single" target="createPortalPage">
         <field name="parentPortalPageId"><hidden value="${parameters.parentPortalPageId}"/></field>
         <field name="sequenceNum"><hidden value="${parameters.portalPagesSize+1}"/></field>
-        <field name="portalPageName" position="1"><text/></field>
-        <field name="description" position="2"><text/></field>
+        <field name="portalPageName"><text/></field>
+        <field name="description"><text/></field>
         <field name="createButton"><submit button-type="button"/></field>
     </form>
 

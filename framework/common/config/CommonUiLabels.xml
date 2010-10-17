@@ -4413,6 +4413,10 @@
         <value xml:lang="th">ตรวจสอบรหัสผ่านใหม่</value>
         <value xml:lang="zh">新密码验证</value>
     </property>
+    <property key="CommonNewPortalPage">
+        <value xml:lang="en">New Portal Page</value>
+        <value xml:lang="it">Nuova pagina portale</value>
+    </property>
     <property key="CommonNewSelection">
         <value xml:lang="ar">إختيار جديد</value>
         <value xml:lang="de">Neue Auswahl</value>
