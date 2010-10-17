@@ -176,7 +176,7 @@ under the License.
     
     <!-- Forms Specific to portlet -->
     <form name="EditOrderByCustomer" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
-        <field name="statusId" entry-name="attributeMap.statusId">
+        <field name="statusId">
             <drop-down>
                 <option key="ORDER_CREATED" description="${uiLabelMap.CommonCreated}"/>
                 <option key="ORDER_PROCESSING" description="${uiLabelMap.CommonProcessing}"/>
@@ -188,7 +188,7 @@ under the License.
                 <option key="ORDER_CANDELLED" description="${uiLabelMap.CommonCancelled}"/>
             </drop-down>
         </field>
-        <field name="roleTypeId" entry-name="attributeMap.roleTypeId">
+        <field name="roleTypeId">
             <drop-down>
                 <option key="PLACING_CUSTOMER" description="${uiLabelMap.MyPortalPlacingCustomer}"/>
                 <option key="SHIP_TO_CUSTOMER" description="${uiLabelMap.MyPortalShipToCustomer}"/>
