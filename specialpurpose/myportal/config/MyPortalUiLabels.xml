@@ -19,26 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="FormFieldTitle_originalPortalPageId">
-        <value xml:lang="en">original page</value>
-        <value xml:lang="fr">Page d'orig.</value>
-    </property>
-    <property key="FormFieldTitle_ownerUserLoginId">
-        <value xml:lang="en">Owner</value>
-        <value xml:lang="fr">Propri.</value>
-    </property>
-    <property key="FormFieldTitle_parentPortalPageId">
-        <value xml:lang="en">Parent page</value>
-        <value xml:lang="fr">Page père</value>
-    </property>
-    <property key="FormFieldTitle_portalPageName">
-        <value xml:lang="en">Portal page name</value>
-        <value xml:lang="fr">Nom de page</value>
-    </property>
-    <property key="FormFieldTitle_sequenceNum">
-        <value xml:lang="en">Seq.</value>
-        <value xml:lang="fr">Seq.</value>
-    </property>
     <property key="MyPortalAppBar">
         <value xml:lang="en">My Page App Bar</value>
         <value xml:lang="fr">Menu des applications</value>
