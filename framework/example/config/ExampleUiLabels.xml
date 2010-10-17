@@ -512,6 +512,10 @@
         <value xml:lang="th">ลักษณะตัวอย่างใหม่</value>
         <value xml:lang="zh">新建样例特征</value>
     </property>
+    <property key="ExampleNoAttributeSet">
+        <value xml:lang="en">No SpecificTitle attribute set for this portlet. You can use the Portlet attribute editing button to set them.</value>
+        <value xml:lang="it">Non si è specificato nessun valore per l'attributo SpecificTitle in questo Portlet. Utilizza la funzione editing dei parametri per impostarlo.</value>
+    </property>
     <property key="ExampleOriginalExample">
         <value xml:lang="en">Original Example</value>
         <value xml:lang="fr">Exemple original</value>
@@ -532,10 +536,6 @@
     <property key="ExamplePointAddress">
         <value xml:lang="en">Geolocation via address</value>
         <value xml:lang="fr">Géolocalisation par l'adresse</value>
-    </property>
-    <property key="ExamplePortalPageWidgetExamples">
-        <value xml:lang="en">include-portal-page widget example</value>
-        <value xml:lang="it">Esempio widget include-portal-page</value>
     </property>
     <property key="ExamplePortletFirst">
         <value xml:lang="en">Hi, this is a first example of portlet</value>
