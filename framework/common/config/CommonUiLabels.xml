@@ -9005,15 +9005,23 @@
         <value xml:lang="zh">由用户登录标识修改</value>
     </property>
     <property key="FormFieldTitle_originalPortalPageId">
-        <value xml:lang="en">Original Portal Page Id</value>
+        <value xml:lang="en">original page</value>
+        <value xml:lang="fr">Page d'orig.</value>        
         <value xml:lang="it">Codice pagina portale originale</value>
     </property>
     <property key="FormFieldTitle_parentPortalPageId">
-        <value xml:lang="en">Parent Portal Page Id</value>
-        <value xml:lang="it">Codice pagina portale padre</value>
+        <value xml:lang="en">Parent page</value>
+        <value xml:lang="fr">Page père</value>
+        <value xml:lang="it">Pagina portale padre</value>
+    </property>
+    <property key="FormFieldTitle_portalPageName">
+        <value xml:lang="en">Portal page name</value>
+        <value xml:lang="fr">Nom de page</value>
+        <value xml:lang="it">Nome pagina portale</value>
     </property>
     <property key="FormFieldTitle_ownerUserLoginId">
         <value xml:lang="en">Owner User Login ID</value>
+        <value xml:lang="fr">Propri.</value>
         <value xml:lang="it">Codice login proprietario</value>
     </property>
     <property key="FormFieldTitle_price">
