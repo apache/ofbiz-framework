@@ -98,46 +98,20 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="no-clear">
-                            <screenlet title="${uiLabelMap.CommonPortalPagesForApplication}: ${parameters.parentPortalPageId}">
-                                <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
-                            </screenlet>
-                            <section>
-                                <condition>
-                                    <and>
-                                        <not><if-empty field="portalPage"/></not>
-                                        <not><if-empty field="parameters.editAttributes"/></not>
-                                    </and>
-                                </condition>
-                                <actions>
-                                    <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
-                                    <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
-                                    <entity-one entity-name="PortalPortlet" value-field="portalPortlet"/>
-                                </actions>
-                                <widgets>
-                                    <screenlet title="${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}">
-                                        <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
-                                    </screenlet>
-                                </widgets>
-                                <fail-widgets>
-                                    <screenlet title="${uiLabelMap.CommonPortalNewPage}">
-                                        <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
-                                    </screenlet>
-                                </fail-widgets>
-                            </section>
-                            <section>
-                                <condition>
-                                    <not><if-empty field="portalPage"/></not>
-                                </condition>
-                                <widgets>
-                                    <container id="portalContainerId">
-                                        <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
-                                            <include-portal-page id="${portalPage.portalPageId}" conf-mode="true"/>                                            
-                                        </screenlet>
-                                    </container>
-                                </widgets>
-                            </section>
-                       </container>
+                        <screenlet id="PortalPagesList" title="${uiLabelMap.CommonPortalPagesForApplication}: ${parameters.parentPortalPageId}" collapsible="true">
+                            <container style="button-bar"><link target="NewPortalPage" text="${uiLabelMap.CommonNewPortalPage}" style="buttontext create"/></container>
+                            <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <not><if-empty field="portalPage"/></not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
+                                    <include-portal-page id="${portalPage.portalPageId}" conf-mode="true"/>                                            
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -241,6 +215,24 @@ under the License.
                         <container style="button-bar"><link target="backLast" text="${uiLabelMap.CommonBack}" style="buttontext"/></container>
                         <screenlet title="Set column width: ${portalPortlet.portletName}">
                             <include-form name="EditPortalPageColumnWidth" location="component://common/widget/PortalPageForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewPortalPage">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="button-bar">
+                            <link target="ManagePortalPages" text="${uiLabelMap.CommonBack}" style="buttontext">
+                                <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+                            </link>
+                        </container>
+                        <screenlet title="${uiLabelMap.CommonPortalNewPage}">
+                            <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
