@@ -981,10 +981,10 @@ under the License.
         </field>
     </form>
     <form name="EditCommPortletParams" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
-        <field name="communicationPartyId" entry-name="attributeMap.communicationPartyId">
+        <field name="communicationPartyId">
             <lookup target-form-name="LookupPartyName" default-value="${userLogin.partyId}"/>
         </field>
-        <field name="internalNotesOnly" entry-name="attributeMap.internalNotesOnly">
+        <field name="internalNotesOnly">
             <drop-down>
                 <option key="false" description="${uiLabelMap.CommonFalse}"/>
                 <option key="true" description="${uiLabelMap.CommonTrue}"/>

@@ -633,14 +633,14 @@ under the License.
         </field>
     </form>
     <form name="EditCustReqStatusId" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
-        <field name="statusGroup" entry-name="attributeMap.statusGroup">
+        <field name="statusGroup">
             <drop-down>
                 <option key="OPEN" description="Open"/>
                 <option key="COMPLETED" description="Completed"/>
                 <option key="CANCELLED" description="Cancelled"/>
             </drop-down>
         </field>
-        <field name="otherContacts" entry-name="attributeMap.otherContacts"><drop-down allow-empty="false"><option key="Y" description="Yes"/><option key="N" description="No"/></drop-down></field>
+        <field name="otherContacts"><drop-down allow-empty="false"><option key="Y" description="Yes"/><option key="N" description="No"/></drop-down></field>
         <field name="saveButton"><submit/></field>
     </form>
     <form name="ListCustRequests" type="list"  list-name="custRequests" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" target="updaterequest">

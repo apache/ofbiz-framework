@@ -29,11 +29,11 @@ under the License.
     
     <form name="EditSysInfoPortletParams" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
         <field name="dummy" title="BLOCK the following notifications:"><display/></field>
-        <field name="allNotifications" entry-name="attributeMap.allNotifications"><check/></field>
-        <field name="email" entry-name="attributeMap.email"><check/></field>
-        <field name="internalNotes" entry-name="attributeMap.internalNotes"><check/></field>
-        <field name="telephoneForwards" entry-name="attributeMap.telephoneForwards"><check/></field>
-        <field name="taskAssignment" entry-name="attributeMap.taskAssignment"><check/></field>
+        <field name="allNotifications"><check/></field>
+        <field name="email"><check/></field>
+        <field name="internalNotes"><check/></field>
+        <field name="telephoneForwards"><check/></field>
+        <field name="taskAssignment"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>
 
