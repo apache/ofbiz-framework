@@ -619,16 +619,16 @@ under the License.
     </screen>
     <screen name="EditProductStoreFacility">
         <section>
-            <condition><if-has-permission permission="CATALOG" action="_ADMIN"/></condition>
+            <condition>
+                <if-has-permission permission="CATALOG" action="_ADMIN"/>
+            </condition>
             <actions>
                 <entity-one entity-name="ProductStoreFacility" value-field="productStoreFacility"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="uiLabelDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                      <include-form name="EditProductStoreFacility" location="component://product/widget/catalog/StoreForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
+                <include-form name="EditProductStoreFacility" location="component://product/widget/catalog/StoreForms.xml"/>
             </widgets>
             <fail-widgets>
                 <label style="h3">${uiLabelMap.ProductCatalogUpdatePermissionError}</label>
