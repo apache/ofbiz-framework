@@ -25,7 +25,6 @@ under the License.
         <section>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
                 <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/CreateUrlParam.groovy"/>
                 <set field="parentTypeId" from-field="parameters.parentTypeId" default-value="EVENT"/><!-- workeffortTypeId parent to ad events --> 
@@ -127,7 +126,6 @@ under the License.
     <screen name="CalendarWithDecorator"><!-- used within the workeffort component to be able to add and show any workeffort type -->
         <section>
             <actions>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
                 <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/CreateUrlParam.groovy"/>
                 <set field="titleProperty" value="WorkEffortCalendar"/>
