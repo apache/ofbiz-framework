@@ -44,17 +44,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="showPortletUiLabelDecorator">
-        <section>
-            <widgets>
-                <decorator-screen name="uiLabelDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-screen name="showPortlet"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="showPortletMainDecorator">
         <section>
             <widgets>
