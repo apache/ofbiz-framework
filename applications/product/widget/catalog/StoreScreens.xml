@@ -581,12 +581,11 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreFacilities"/>
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
-                <set field="portalPageId" value="ProductStoreFacility"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                      <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                        <include-portal-page id="ProductStoreFacility"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

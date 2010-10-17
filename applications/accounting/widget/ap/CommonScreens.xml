@@ -42,7 +42,6 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="main"></set>
-                <set field="parameters.portalPageId" value="ApPortalPage"/>
                 <set field="invoiceTypeId" value="PURCHASE_INVOICE"/>
             </actions>
             <widgets>
@@ -54,7 +53,7 @@ under the License.
                                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/InvoiceReport.groovy"/>
                             </actions>
                             <widgets>
-                                <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                                <include-portal-page id="ApPortalPage"/>
                             </widgets>
                         </section>
                     </decorator-section>

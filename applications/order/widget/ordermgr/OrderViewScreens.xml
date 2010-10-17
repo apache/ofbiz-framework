@@ -37,12 +37,11 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
-                <set field="parameters.portalPageId" value="OrderPortalPage"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                        <include-portal-page id="OrderPortalPage"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -483,7 +482,6 @@ under the License.
                 <set field="statusId" from-field="statusId"/>
                 <set field="roleTypeId" from-field="roleTypeId"/>
                 <set field="screenletTitle" from-field="uiLabelMap.MyPortalMyOrders"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
             </actions>
             <widgets>
                 <screenlet title="${screenletTitle} ${partyId} ${statusId}" navigation-form-name="ListCustomerOrders" >
@@ -523,7 +521,6 @@ under the License.
             <actions>
                 <set field="partyId" from-field="userLogin.partyId"/>
                 <set field="roleTypeId" value="SUPPLIER_AGENT"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
             </actions>
             <widgets>
                 <section>
