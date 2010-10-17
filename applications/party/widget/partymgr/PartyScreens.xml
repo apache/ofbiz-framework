@@ -59,7 +59,6 @@ under the License.
     <screen name="viewprofile">
         <section>
             <actions>
-                <set field="parameters.portalPageId" value="PartyProfile"/>
                 <set field="titleProperty" value="PageTitleViewPartyProfile"/>
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
@@ -134,7 +133,7 @@ under the License.
                                 </section>
                                 <section>
                                     <widgets>
-                                        <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                                        <include-portal-page id="PartyProfile"/>
                                     </widgets>
                                 </section>
                             </widgets>

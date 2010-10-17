@@ -266,12 +266,11 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="finAccountMain"/>
-                <set field="parameters.portalPageId" value="FinAccountPortalPage"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                        <include-portal-page id="FinAccountPortalPage"/>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>

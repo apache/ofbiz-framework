@@ -24,16 +24,13 @@ under the License.
     <screen name="OrderPurchaseReportOptions">
         <section>
             <actions>
-
                 <set field="titleProperty" value="OrderReports"/>
                 <set field="headerItem" value="reports"/>
-
-                <set field="parameters.portalPageId" value="OrderReportPage"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                        <include-portal-page id="OrderReportPage"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

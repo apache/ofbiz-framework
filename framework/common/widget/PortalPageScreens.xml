@@ -178,12 +178,8 @@ under the License.
 
     <screen name="GenericPortalPage">
         <section>
-            <actions>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
-                <set field="portalPageId" value="${pageId}"/>
-            </actions>
             <widgets>
-                <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                <include-portal-page id="${pageId}"/>
             </widgets>
         </section>
     </screen>

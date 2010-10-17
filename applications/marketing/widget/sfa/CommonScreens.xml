@@ -61,7 +61,7 @@ under the License.
                         <include-screen name="leftbar"/>
                     </decorator-section>                    
                     <decorator-section name="body">
-                        <include-screen name="PortalPageScreen" location="component://common/widget/CommonScreens.xml"/>
+                        <include-portal-page id="${parameters.portalPageId}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
