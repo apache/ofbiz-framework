@@ -184,9 +184,6 @@ under the License.
     </screen>
     <screen name="ShowContentPortlet">
         <section>
-            <actions>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
-            </actions>
             <widgets>
                 <content content-id="${contentId}"/>
             </widgets>
