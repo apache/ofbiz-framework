@@ -26,4 +26,9 @@
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoPaymentTests.xml"/>
     </test-case>
     
+    <!-- enable when sandbox is available and configured -->
+    <!-- test-case case-name="cc-tests">
+        <junit-test-suite class-name="org.ofbiz.accounting.thirdparty.securepay.SecurePayServiceTest"/>
+    </test-case-->
+    
 </test-suite>

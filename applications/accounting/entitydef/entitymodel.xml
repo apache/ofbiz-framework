@@ -3410,6 +3410,20 @@ under the License.
         <key-map field-name="paymentGatewayConfigId"/>
       </relation>
     </entity>
+    <entity entity-name="PaymentGatewaySecurePay"
+            package-name="org.ofbiz.accounting.payment"
+            title="SecurePay Payment Gateway Config">
+      <field name="paymentGatewayConfigId" type="id-ne"></field>
+      <field name="merchantId" type="value"><description>You merchant ID</description></field>
+      <field name="pwd" type="value" encrypt="true"><description>SecurePay Password of account information</description></field>
+      <field name="serverURL" type="value"><description>Server URL of the payment processor</description></field>
+      <field name="processTimeout" type="numeric"><description>Process Timeout</description></field>
+      <field name="enableAmountRound" type="indicator"><description>Enable rounds the currency amount to .00 (Y / N)</description></field>
+      <prim-key field="paymentGatewayConfigId"/>
+      <relation type="one" fk-name="PGSCP_PGC" rel-entity-name="PaymentGatewayConfig">
+        <key-map field-name="paymentGatewayConfigId"/>
+      </relation>
+    </entity>
     
     <entity entity-name="PaymentGatewayRespMsg"
             package-name="org.ofbiz.accounting.payment"

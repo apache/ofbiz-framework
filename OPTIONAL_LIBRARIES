@@ -168,6 +168,14 @@ on the old Undersun SVN server in the specialized/libraries component directory.
     cybssecurity.jar
   TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/cybersource/**
 
+-Securepay
+  applications/accounting/lib/cybersource:
+	Base64.jar
+	securepayxmlapi_obf.jar
+	xercesImpl-2.4.0.jar
+	xmlParserAPIs-2.4.0.jar
+  TO BUILD comment out exclude: applications/accounting/build.xml:org/ofbiz/accounting/thirdparty/securepay/**
+
 -WorldPay
   applications/accounting/lib/worldpay:
     config

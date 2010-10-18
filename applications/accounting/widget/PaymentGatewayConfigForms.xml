@@ -418,4 +418,12 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    
+    <form name="EditPaymentGatewayConfigSecurePay" type="single" target="UpdatePaymentGatewayConfigSecurePay" default-map-name="paymentGatewaySecurePay" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PaymentGatewaySecurePay" default-field-type="edit"/>
+        <field name="paymentGatewayConfigId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
 </forms>
