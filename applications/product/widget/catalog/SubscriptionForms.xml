@@ -62,6 +62,12 @@ under the License.
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
+        <field name="automaticExtend">
+            <drop-down allow-empty="true">
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
 
         <field name="roleTypeId"><ignored/></field>
         <field name="canclAutmExtTimeUomId"><ignored/></field>
