@@ -25,6 +25,7 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
     <classpath type="jar" location="lib/*"/>
+    <classpath type="jar" location="lib/securepay/*"/>
     <classpath type="jar" location="lib/cybersource/*"/>
     <classpath type="jar" location="lib/worldpay/*"/>
     <classpath type="dir" location="lib/worldpay"/>
@@ -78,6 +79,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_valuelink.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_verisign.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_orbital.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_securepay.xml"/>
 
     <!-- Accounting Permission Services -->
     <service-resource type="model" loader="main" location="servicedef/services_perm.xml"/>

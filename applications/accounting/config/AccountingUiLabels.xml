@@ -14134,4 +14134,23 @@
         <value xml:lang="en">Could not update credit card (write failure) : </value>
         <value xml:lang="it">Non è possibile aggiornare la carta di credito (fallimento in scrittura) : </value>
     </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigSecurePay">
+        <value xml:lang="en">Update Payment Gateway Config SecurePay</value>
+        <value xml:lang="hi_IN">भुगतान गेटवे विन्यास SecurePay उन्नत करे</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento SecurePay</value>
+    </property>
+    <property key="AccountingPayWithSecurePay">
+        <value xml:lang="cs">Platba prostřednictvím SecurePay</value>
+        <value xml:lang="de">Bezahlung mit SecurePay</value>
+        <value xml:lang="en">Pay With SecurePay</value>
+        <value xml:lang="es">Pagar con SecurePay</value>
+        <value xml:lang="fr">Paiement avec SecurePay</value>
+        <value xml:lang="it">Paga con SecurePay</value>
+        <value xml:lang="ja">Pay With SecurePay</value>
+        <value xml:lang="nl">Betaal met SecurePay</value>
+        <value xml:lang="pt_PT">Pagar Com SecurePay</value>
+        <value xml:lang="ro">Plateste cu SecurePay</value>
+        <value xml:lang="ru">Платить через SecurePay</value>
+        <value xml:lang="th">ชำระเงินผ่าน SecurePay</value>
+    </property>
 </resource>

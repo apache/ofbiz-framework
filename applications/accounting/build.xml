@@ -48,6 +48,7 @@ under the License.
         <fileset dir="../marketing/build/lib" includes="*.jar"/>
         <fileset dir="../order/build/lib" includes="*.jar"/>
         <!-- <fileset dir="lib/cybersource" includes="*.jar"/> -->
+		<!-- <fileset dir="lib/securepay" includes="*.jar"/> -->
         <fileset dir="lib" includes="*.jar"/>
     </path>
 
@@ -61,6 +62,7 @@ under the License.
             <exclude name="org/ofbiz/accounting/thirdparty/cybersource/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java"/>
             <exclude name="org/ofbiz/accounting/thirdparty/orbital/**"/>
+            <exclude name="org/ofbiz/accounting/thirdparty/securepay/**"/>
         </patternset>
     </target>
 

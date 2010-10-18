@@ -78,4 +78,10 @@ under the License.
         <auto-attributes entity-name="PaymentGatewayConfigType" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewayConfigType" include="nonpk" mode="IN" optional="true"/>
     </service>
+    
+    <service name="updatePaymentGatewayConfigSecurePay" engine="simple" location="component://accounting/script/org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigSecurePay">
+        <description>Update Payment Gateway Config SecurePay</description>
+        <auto-attributes entity-name="PaymentGatewaySecurePay" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="PaymentGatewaySecurePay" include="nonpk" mode="IN" optional="true"/>
+    </service>
 </services>

@@ -560,6 +560,13 @@ under the License.
         <response name="error" type="view" value="EditPaymentGatewayConfigType"/>
     </request-map>
 
+    <request-map uri="UpdatePaymentGatewayConfigSecurePay">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGatewayConfigSecurePay"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
+    </request-map>
+
     <!-- TO BE REMOVED
     <request-map uri="TransactionReports">
         <security https="true" auth="true"/>
@@ -2886,3 +2893,4 @@ under the License.
 
     <!-- end of view mappings -->
 </site-conf>
+
