@@ -36,28 +36,28 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateContactMech" short-description="Update Contact Mechanism">
-        <if-compare field="contactMechTypeId" operator="equals" value="POSTAL_ADDRESS">
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="POSTAL_ADDRESS">
             <add-error><fail-property resource="PartyUiLabels" property="PartyServiceNotForPostalAddress"/></add-error>
         </if-compare>
-        <if-compare field="contactMechTypeId" operator="equals" value="TELECOM_NUMBER">
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="TELECOM_NUMBER">
             <add-error><fail-property resource="PartyUiLabels" property="PartyServiceNotForTelecomNumber"/></add-error>
         </if-compare>
         <check-errors/>
 
         <set field="successMessageProperty" value="PartyContactMechanismSuccessfullyUpdated"/>
-        <if-compare field="context.contactMechTypeId" operator="equals" value="EMAIL_ADDRESS">
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="EMAIL_ADDRESS">
             <set field="successMessageProperty" value="PartyEmailAddressSuccessfullyUpdated"/>
         </if-compare>
-        <if-compare field="context.contactMechTypeId" operator="equals" value="WEB_ADDRESS">
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="WEB_ADDRESS">
             <set field="successMessageProperty" value="PartyWebAddressSuccessfullyUpdated"/>
         </if-compare>
-        <if-compare field="context.contactMechTypeId" operator="equals" value="IP_ADDRESS">
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="IP_ADDRESS">
             <set field="successMessageProperty" value="PartyIpAddressSuccessfullyUpdated"/>
         </if-compare>
-        <if-compare field="context.contactMechTypeId" operator="equals" value="ELECTRONIC_ADDRESS">
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="ELECTRONIC_ADDRESS">
             <set field="successMessageProperty" value="PartyElectronicAddressSuccessfullyUpdated"/>
         </if-compare>
-        <if-compare field="context.contactMechTypeId" operator="equals" value="DOMAIN_NAME">
+        <if-compare field="parameters.contactMechTypeId" operator="equals" value="DOMAIN_NAME">
             <set field="successMessageProperty" value="PartyDomainNameSuccessfullyUpdated"/>
         </if-compare>
 
