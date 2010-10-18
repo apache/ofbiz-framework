@@ -370,7 +370,7 @@ under the License.
             <to-string field="context.contactMechId"/>
             <log level="info" message="Calling generic updateContactMech method"/>
             <call-service service-name="updateContactMech" in-map-name="context">
-                <default-message>Contact Mechanism successfully updated.</default-message>
+                <default-message property="PartyContactMechanismSuccessfullyUpdated" resource="PartyUiLabels"/>
                 <result-to-field result-name="contactMechId" field="newWorkEffortContactMech.contactMechId"/>
             </call-service>
             <else>
