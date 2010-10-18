@@ -83,8 +83,7 @@ under the License.
             <set-service-fields service-name="updateContactMech" map="parameters" to-map="updateContactMechMap"/>
             <set field="updateContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
             <call-service service-name="updateContactMech" in-map-name="updateContactMechMap">
-                <default-message>Contact Mechanism successfully updated.</default-message>
-
+                <default-message property="PartyContactMechanismSuccessfullyUpdated" resource="PartyUiLabels"/>
                 <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId"/>
             </call-service>
             <else>
