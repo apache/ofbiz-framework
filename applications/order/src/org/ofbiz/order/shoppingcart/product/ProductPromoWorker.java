@@ -1716,9 +1716,10 @@ public class ProductPromoWorker {
         amount = amount.setScale(decimals, rounding);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
                 UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, amount,
-                    "productPromoId", productPromoAction.get("productPromoId"),
-                    "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
-                    "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId")));
+                "productPromoId", productPromoAction.get("productPromoId"),
+                "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
+                "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId"),
+                "description", getProductPromoDescription((String) productPromoAction.get("productPromoId"), delegator)));
 
         // if an orderAdjustmentTypeId was included, override the default
         if (UtilValidate.isNotEmpty(productPromoAction.getString("orderAdjustmentTypeId"))) {
@@ -1733,9 +1734,10 @@ public class ProductPromoWorker {
         amount = amount.setScale(decimals, rounding);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
                 UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, amount,
-                    "productPromoId", productPromoAction.get("productPromoId"),
-                    "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
-                    "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId")));
+                "productPromoId", productPromoAction.get("productPromoId"),
+                "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
+                "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId"),
+                "description", getProductPromoDescription((String) productPromoAction.get("productPromoId"), delegator)));
 
         // if an orderAdjustmentTypeId was included, override the default
         if (UtilValidate.isNotEmpty(productPromoAction.getString("orderAdjustmentTypeId"))) {
@@ -1743,6 +1745,23 @@ public class ProductPromoWorker {
         }
 
         cart.addAdjustment(orderAdjustment);
+    }
+
+    private static String getProductPromoDescription(String prodPromoId, Delegator delegator) {
+        // get the promoText / promoName to set as a descr of the orderAdj
+        GenericValue prodPromo;
+        try {
+            prodPromo = delegator.findByPrimaryKeyCache("ProductPromo", UtilMisc.toMap("productPromoId", prodPromoId));
+            if (UtilValidate.isNotEmpty(prodPromo.get("promoText"))) {
+                return (String) prodPromo.get("promoText");
+            }
+            return (String) prodPromo.get("promoName");
+
+        } catch (GenericEntityException e) {
+            Debug.logWarning("Error getting ProductPromo for Id " + prodPromoId, module);
+        }
+
+        return null;
     }
 
     protected static Integer findAdjustment(GenericValue productPromoAction, List adjustments) {
