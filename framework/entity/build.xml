@@ -56,7 +56,7 @@ under the License.
     </target>
 
     <target name="install-PG-JDBC" description="download the JDBC driver for PostgreSQL">
-        <get src="http://jdbc.postgresql.org/download/postgresql-8.4-701.jdbc4.jar"
-            dest="lib/jdbc/postgresql-8.4-701.jdbc4.jar" usetimestamp="true" />
+        <get src="http://jdbc.postgresql.org/download/postgresql-9.0-801.jdbc4.jar"          
+            dest="lib/jdbc/postgresql-9.0-801.jdbc4.jar" usetimestamp="true" />
     </target>
 </project>
