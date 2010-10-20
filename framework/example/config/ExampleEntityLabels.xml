@@ -71,21 +71,21 @@
     </property>
     <property key="FieldDescription.Example.exampleId">
         <value xml:lang="en">A unique Example ID. If you don't assign an ID, one will be generated automatically</value>
-        <value xml:lang="fr">Une réf. unique d'exemple. Si vous n'assignez pas une réf., une sera généré automatiquement</value>
+        <value xml:lang="fr">Une réf. unique d'exemple. Si vous n'assignez pas une réf., elle sera généré automatiquement</value>
         <value xml:lang="it">Un codice esempio univoco. Se tu non assegni un codice, uno verrà generato automaticamente</value>
         <value xml:lang="th">รหัสตัวอย่าง ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
         <value xml:lang="zh">一个唯一的样例表示。如果你没有指定一个标识，那么会自动生成一个</value>
     </property>
     <property key="FieldDescription.ExampleItem.exampleItemSeqId">
         <value xml:lang="en">A unique Example Item sequence ID. If you don't assign an ID, one will be generated automatically</value>
-        <value xml:lang="fr">Une réf. unique d'article exemple. Si vous n'assignez pas une réf., une sera généré automatiquement</value>
+        <value xml:lang="fr">Une réf. unique d'article exemple. Si vous n'assignez pas une réf., elle sera généré automatiquement</value>
         <value xml:lang="it">Un codice riga esempio univoco. Se tu non assegni un codice, uno verrà generato automaticamente</value>
         <value xml:lang="th">รหัสตัวอย่างสินค้า ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
         <value xml:lang="zh">一个唯一的样例明细序号。如果你没有指定一个标识，那么会自动生成一个</value>
     </property>
     <property key="FieldDescription.ExampleType.exampleTypeId">
         <value xml:lang="en">A unique Example Type ID. If you don't assign an ID, one will be generated automatically</value>
-        <value xml:lang="fr">Une réf. unique de type exemple. Si vous n'assignez pas une réf., une sera généré automatiquement</value>
+        <value xml:lang="fr">Une réf. unique de type exemple. Si vous n'assignez pas une réf., elle sera généré automatiquement</value>
         <value xml:lang="it">Un tipo esempio univoco. Se tu non assegni un codice, uno verrà generato automaticamente</value>
         <value xml:lang="th">รหัสตัวอย่างประเภท ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
         <value xml:lang="zh">一个唯一的样例类型序号。如果你没有指定一个标识，那么会自动生成一个</value>
