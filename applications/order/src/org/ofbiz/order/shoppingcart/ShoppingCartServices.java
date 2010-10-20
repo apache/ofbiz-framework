@@ -551,7 +551,6 @@ public class ShoppingCartServices {
             if (UtilValidate.isNotEmpty(orderItems)) {
                 int itemIndex = 0;
                 for (GenericValue item : orderItems) {
-
                     List<GenericValue> orderItemAdjustments = orh.getOrderItemAdjustments(item);
                     // set the item's ship group info
                     List<GenericValue> shipGroupAssocs = orh.getOrderItemShipGroupAssocs(item);
@@ -574,11 +573,16 @@ public class ShoppingCartServices {
 
                         List<GenericValue> shipGroupItemAdjustments = EntityUtil.filterByAnd(orderItemAdjustments, UtilMisc.toMap("shipGroupSeqId", cartShipGroupIndexStr));
                         ShoppingCart.CartShipInfo csi = cart.getShipInfo(cartShipGroupIndex);
-                        List itemTaxAdj = csi.getShipItemInfo(cart.findCartItem(itemIndex)).itemTaxAdj;
-                        for(GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
-                            if ("SALES_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId"))) {
-                                itemTaxAdj.add(shipGroupItemAdjustment);
-                                continue;
+                        ShoppingCartItem cartItem = cart.findCartItem(itemIndex);
+                        if (cartItem == null) {
+                            Debug.logWarning("In loadCartFromOrder could not find cart item for itemIndex=" + itemIndex + ", for orderId=" + orderId, module);
+                        } else {
+                            List itemTaxAdj = csi.getShipItemInfo(cartItem).itemTaxAdj;
+                            for(GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
+                                if ("SALES_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId"))) {
+                                    itemTaxAdj.add(shipGroupItemAdjustment);
+                                    continue;
+                                }
                             }
                         }
                     }
