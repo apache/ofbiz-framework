@@ -264,7 +264,7 @@ public class ShipmentServices {
         if (estimates == null || estimates.size() < 1) {
             if (initialEstimateAmt.compareTo(BigDecimal.ZERO) == 0) {
                 Debug.logWarning("Using the passed context : " + context, module);
-                Debug.logWarning("No shipping estimates found; the shipping amount returned is 0!", module);
+                Debug.logWarning("No shipping estimates found; the shipping amount returned is 0! Condition used was: " + estFieldsCond, module);
             }
 
             Map<String, Object> respNow = ServiceUtil.returnSuccess();
