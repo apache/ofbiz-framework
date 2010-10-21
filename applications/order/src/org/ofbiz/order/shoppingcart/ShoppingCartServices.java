@@ -46,6 +46,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart.CartShipInfo;
+import org.ofbiz.order.shoppingcart.ShoppingCart.CartShipInfo.CartShipItemInfo;
 import org.ofbiz.product.config.ProductConfigWorker;
 import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.service.DispatchContext;
@@ -577,11 +578,16 @@ public class ShoppingCartServices {
                         if (cartItem == null) {
                             Debug.logWarning("In loadCartFromOrder could not find cart item for itemIndex=" + itemIndex + ", for orderId=" + orderId, module);
                         } else {
-                            List itemTaxAdj = csi.getShipItemInfo(cartItem).itemTaxAdj;
-                            for(GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
-                                if ("SALES_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId"))) {
-                                    itemTaxAdj.add(shipGroupItemAdjustment);
-                                    continue;
+                            CartShipItemInfo cartShipItemInfo = csi.getShipItemInfo(cartItem);
+                            if (cartShipItemInfo == null) {
+                                Debug.logWarning("In loadCartFromOrder could not find CartShipItemInfo for itemIndex=" + itemIndex + ", for orderId=" + orderId, module);
+                            } else {
+                                List itemTaxAdj = cartShipItemInfo.itemTaxAdj;
+                                for(GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
+                                    if ("SALES_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId"))) {
+                                        itemTaxAdj.add(shipGroupItemAdjustment);
+                                        continue;
+                                    }
                                 }
                             }
                         }
