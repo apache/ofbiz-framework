@@ -1546,9 +1546,11 @@ public class CheckOutHelper {
 
         // verify the selected payment method amounts will cover the total
         BigDecimal reqAmtPreParse = cart.getGrandTotal().subtract(cart.getBillingAccountAmount());
-        BigDecimal selectedPaymentTotal = cart.getPaymentTotal();
+        BigDecimal selectedPmnt = cart.getPaymentTotal();
 
+        BigDecimal selectedPaymentTotal = selectedPmnt.setScale(scale, rounding);
         BigDecimal requiredAmount = reqAmtPreParse.setScale(scale, rounding);
+        
         if (UtilValidate.isNotEmpty(paymentMethods) && requiredAmount.compareTo(selectedPaymentTotal) > 0) {
             Debug.logError("Required Amount : " + requiredAmount + " / Selected Amount : " + selectedPaymentTotal, module);
             errMsg = UtilProperties.getMessage(resource_error, "checkevents.payment_not_cover_this_order", (cart != null ? cart.getLocale() : Locale.getDefault()));
