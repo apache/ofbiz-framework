@@ -19,9 +19,11 @@
 package org.ofbiz.common.geo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
@@ -85,22 +87,24 @@ public class GeoWorker {
         return geoList;
     }
 
-    public static Set<String> expandGeoRegionDeep(Set<String> geoIdSet, Delegator delegator) throws GenericEntityException {
-        if (UtilValidate.isEmpty(geoIdSet)) {
-            return geoIdSet;
+    public static Map<String, String> expandGeoRegionDeep(Map<String, String> geoIdByTypeMapOrig, Delegator delegator) throws GenericEntityException {
+        if (UtilValidate.isEmpty(geoIdByTypeMapOrig)) {
+            return geoIdByTypeMapOrig;
         }
-        Set<String> geoIdSetTemp = FastSet.newInstance();
-        for (String curGeoId: geoIdSet) {
-            List<GenericValue> geoAssocList = delegator.findByAndCache("GeoAssoc", UtilMisc.toMap("geoIdTo", curGeoId, "geoAssocTypeId", "REGIONS"));
+        Map<String, String> geoIdByTypeMapTemp = FastMap.newInstance();
+        for (Map.Entry<String, String> geoIdByTypeEntry: geoIdByTypeMapOrig.entrySet()) {
+            List<GenericValue> geoAssocList = delegator.findByAndCache("GeoAssoc", UtilMisc.toMap("geoIdTo", geoIdByTypeEntry.getValue(), "geoAssocTypeId", "REGIONS"));
             for (GenericValue geoAssoc: geoAssocList) {
-                geoIdSetTemp.add(geoAssoc.getString("geoId"));
+                GenericValue newGeo = delegator.findOne("Geo", true, "geoId", geoAssoc.getString("geoId"));
+                geoIdByTypeMapTemp.put(newGeo.getString("geoTypeId"), newGeo.getString("geoId"));
             }
         }
-        geoIdSetTemp = expandGeoRegionDeep(geoIdSetTemp, delegator);
-        Set<String> geoIdSetNew = FastSet.newInstance();
-        geoIdSetNew.addAll(geoIdSet);
-        geoIdSetNew.addAll(geoIdSetTemp);
-        return geoIdSetNew;
+        geoIdByTypeMapTemp = expandGeoRegionDeep(geoIdByTypeMapTemp, delegator);
+        Map<String, String> geoIdByTypeMapNew = FastMap.newInstance();
+        // add the temp Map first, then the original over top of it, ie give the original priority over the sub/expanded values
+        geoIdByTypeMapNew.putAll(geoIdByTypeMapTemp);
+        geoIdByTypeMapNew.putAll(geoIdByTypeMapOrig);
+        return geoIdByTypeMapNew;
     }
 
     public static boolean containsGeo(List<GenericValue> geoList, String geoId, Delegator delegator) {

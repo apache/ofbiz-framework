@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
@@ -181,7 +182,12 @@ public class TaxAuthorityServices {
             }
         }
         if (shippingAddress == null || (shippingAddress.get("countryGeoId") == null && shippingAddress.get("stateProvinceGeoId") == null && shippingAddress.get("postalCodeGeoId") == null)) {
-            return ServiceUtil.returnError("The address(es) used for tax calculation did not have State/Province or Country or other tax jurisdiction values set, so we cannot determine the taxes to charge.");
+            String errMsg = "The address(es) used for tax calculation did not have State/Province or Country or other tax jurisdiction values set, so we cannot determine the taxes to charge.";
+            if (shippingAddress != null) {
+                errMsg += " [ID:" + shippingAddress.getString("contactMechId") + ", Address 1: " + shippingAddress.get("address1") + ", Postal Code/ID: " + shippingAddress.get("postalCodeGeoId") + "/" + shippingAddress.get("postalCodeGeoId") + ", State/Province: " + shippingAddress.get("stateProvinceGeoId") + ", Country: " + shippingAddress.get("countryGeoId") + "]";
+                Debug.logError(errMsg, module);
+            }
+            return ServiceUtil.returnError(errMsg);
         }
 
         // without knowing the TaxAuthority parties, just find all TaxAuthories for the set of IDs...
@@ -228,31 +234,31 @@ public class TaxAuthorityServices {
     }
 
     private static void getTaxAuthorities(Delegator delegator, GenericValue shippingAddress, Set taxAuthoritySet) throws GenericEntityException {
-        Set geoIdSet = FastSet.newInstance();
+        Map geoIdByTypeMap = FastMap.newInstance();
         if (shippingAddress != null) {
             if (UtilValidate.isNotEmpty(shippingAddress.getString("countryGeoId"))) {
-                geoIdSet.add(shippingAddress.getString("countryGeoId"));
+                geoIdByTypeMap.put("COUNTRY", shippingAddress.getString("countryGeoId"));
             }
             if (UtilValidate.isNotEmpty(shippingAddress.getString("stateProvinceGeoId"))) {
-                geoIdSet.add(shippingAddress.getString("stateProvinceGeoId"));
+                geoIdByTypeMap.put("STATE", shippingAddress.getString("stateProvinceGeoId"));
             }
             if (UtilValidate.isNotEmpty(shippingAddress.getString("countyGeoId"))) {
-                geoIdSet.add(shippingAddress.getString("countyGeoId"));
+                geoIdByTypeMap.put("COUNTY", shippingAddress.getString("countyGeoId"));
             }
             String postalCodeGeoId = ContactMechWorker.getPostalAddressPostalCodeGeoId(shippingAddress, delegator);
             if (UtilValidate.isNotEmpty(postalCodeGeoId)) {
-                geoIdSet.add(postalCodeGeoId);
+                geoIdByTypeMap.put("POSTAL_CODE", postalCodeGeoId);
             }
         } else {
             Debug.logWarning("shippingAddress was null, adding nothing to taxAuthoritySet", module);
         }
 
-        //Debug.logInfo("Tax calc geoIdSet before expand:" + geoIdSet + "; this is for shippingAddress=" + shippingAddress, module);
+        //Debug.logInfo("Tax calc geoIdByTypeMap before expand:" + geoIdByTypeMap + "; this is for shippingAddress=" + shippingAddress, module);
         // get the most granular, or all available, geoIds and then find parents by GeoAssoc with geoAssocTypeId="REGIONS" and geoIdTo=<granular geoId> and find the GeoAssoc.geoId
-        geoIdSet = GeoWorker.expandGeoRegionDeep(geoIdSet, delegator);
-        //Debug.logInfo("Tax calc geoIdSet after expand:" + geoIdSet, module);
+        geoIdByTypeMap = GeoWorker.expandGeoRegionDeep(geoIdByTypeMap, delegator);
+        //Debug.logInfo("Tax calc geoIdByTypeMap after expand:" + geoIdByTypeMap, module);
 
-        List taxAuthorityRawList = delegator.findList("TaxAuthority", EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.IN, geoIdSet), null, null, null, true);
+        List taxAuthorityRawList = delegator.findList("TaxAuthority", EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.IN, geoIdByTypeMap.values()), null, null, null, true);
         taxAuthoritySet.addAll(taxAuthorityRawList);
         //Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }
