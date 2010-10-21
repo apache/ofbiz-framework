@@ -195,6 +195,16 @@ under the License.
         <key-map field-name="geoAssocTypeId"/>
       </relation>
     </entity>
+    <view-entity entity-name="GeoAssocAndGeoFrom" package-name="org.ofbiz.common.geo">
+        <member-entity entity-alias="GA" entity-name="GeoAssoc"/>
+        <member-entity entity-alias="GFR" entity-name="Geo"/>
+        <alias-all entity-alias="GFR"/>
+        <alias entity-alias="GA" name="geoIdTo"/>
+        <alias entity-alias="GA" name="geoAssocTypeId"/>
+        <view-link entity-alias="GA" rel-entity-alias="GFR">
+            <key-map field-name="geoId"/>
+        </view-link>
+    </view-entity>
     <view-entity entity-name="GeoAssocAndGeoTo" package-name="org.ofbiz.common.geo">
         <member-entity entity-alias="GA" entity-name="GeoAssoc"/>
         <member-entity entity-alias="GTO" entity-name="Geo"/>
