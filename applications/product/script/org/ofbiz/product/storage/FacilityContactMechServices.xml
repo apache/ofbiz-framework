@@ -65,13 +65,13 @@ under the License.
 
         <!-- Find old value -->
 
-        <make-value entity-name="FacilityContactMech" value-field="facilityContactMechMap"/>
-        <set-pk-fields value-field="facilityContactMechMap" map="parameters"/>
-        <find-by-and entity-name="FacilityContactMech" list="facilityContactMechs" map="facilityContactMechMap"/>
-        <filter-list-by-date list="facilityContactMechs" to-list="validFacilityContactMechs"/>
-        <first-from-list entry="facilityContactMech" list="validFacilityContactMechs"/>
+        <entity-and entity-name="FacilityContactMech" list="facilityContactMechs" filter-by-date="true">
+            <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+            <field-map field-name="contactMechId" from-field="parameters.contactMechId"/>
+        </entity-and>
+        <first-from-list entry="facilityContactMech" list="facilityContactMechs"/>
         <if-empty field="facilityContactMech">
-            <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified facility"/></add-error>
+            <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified facility; query map was: ${facilityContactMechMap}"/></add-error>
         </if-empty>
         <check-errors/>
 
