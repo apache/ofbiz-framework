@@ -307,7 +307,7 @@
         <value xml:lang="de">Ausgeschaltet Zeitpunkt</value>
         <value xml:lang="en">Disabled Date Time</value>
         <value xml:lang="es">Fecha/hora deshabilitado</value>
-        <value xml:lang="fr">Invalide depuis</value>
+        <value xml:lang="fr">Désactivé depuis</value>
         <value xml:lang="hi_IN">निष्क्रिय दिनांक समय</value>
         <value xml:lang="it">Data Ora Disabilitazione</value>
         <value xml:lang="nl">Uitgeschakelde datum-tijd</value>
@@ -4924,7 +4924,7 @@
         <value xml:lang="de">Ausgeschaltet</value>
         <value xml:lang="en">DISABLED</value>
         <value xml:lang="es">DESHABILITADO</value>
-        <value xml:lang="fr">INVALIDE</value>
+        <value xml:lang="fr">DESACTIVE</value>
         <value xml:lang="hi_IN">निष्क्रिय</value>
         <value xml:lang="it">DISABILITATO</value>
         <value xml:lang="nl">UITGESCHAKELD</value>
