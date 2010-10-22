@@ -1781,7 +1781,9 @@ public class OrderServices {
             // find the next status to set to (if any)
             String newStatus = null;
             if (allCanceled) {
-                newStatus = "ORDER_CANCELLED";
+                if (!"PURCHASE_ORDER".equals(orderTypeId)) {
+                    newStatus = "ORDER_CANCELLED";
+                }        	                
             } else if (allComplete) {
                 newStatus = "ORDER_COMPLETED";
             } else if (allApproved) {
@@ -3303,6 +3305,10 @@ public class OrderServices {
         Map itemAttributesMap = (Map) context.get("itemAttributesMap");
         String reasonEnumId = (String) context.get("reasonEnumId");
         String changeComments = (String) context.get("changeComments");
+        Boolean calcTax = (Boolean) context.get("calcTax");
+        if (calcTax == null) {
+            calcTax = Boolean.TRUE;
+        }
 
         if (amount == null) {
             amount = BigDecimal.ZERO;
@@ -3377,7 +3383,7 @@ public class OrderServices {
                                         "itemCommentMap", UtilMisc.toMap("changeComments", changeComments));
         // save all the updated information
         try {
-            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap);
+            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap, calcTax);
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -3412,6 +3418,10 @@ public class OrderServices {
         Map itemAttributesMap = (Map) context.get("itemAttributesMap");
         Map<String,String> itemEstimatedShipDateMap  = (Map) context.get("itemShipDateMap");
         Map<String, String> itemEstimatedDeliveryDateMap = (Map) context.get("itemDeliveryDateMap");
+        Boolean calcTax = (Boolean) context.get("calcTax");
+        if (calcTax == null) {
+            calcTax = Boolean.TRUE;
+        }
 
         // obtain a shopping cart object for updating
         ShoppingCart cart = null;
@@ -3578,7 +3588,7 @@ public class OrderServices {
 
         // save all the updated information
         try {
-            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, UtilMisc.toMap("itemReasonMap", itemReasonMap, "itemCommentMap", itemCommentMap));
+            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, UtilMisc.toMap("itemReasonMap", itemReasonMap, "itemCommentMap", itemCommentMap), calcTax);
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -3797,10 +3807,14 @@ public class OrderServices {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         Map changeMap = (Map) context.get("changeMap");
         Locale locale = (Locale) context.get("locale");
+        Boolean calcTax = (Boolean) context.get("calcTax");
+        if (calcTax == null) {
+            calcTax = Boolean.TRUE;
+        }
 
         Map result = null;
         try {
-            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap);
+            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap, calcTax);
             result = ServiceUtil.returnSuccess();
             //result.put("shoppingCart", cart);
         } catch (GeneralException e) {
@@ -3812,7 +3826,7 @@ public class OrderServices {
         return result;
     }
 
-    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map changeMap) throws GeneralException {
+    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map changeMap, boolean calcTax) throws GeneralException {
         // get/set the shipping estimates.  if it's a SALES ORDER, then return an error if there are no ship estimates
         int shipGroups = cart.getShipGroupSize();
         for (int gi = 0; gi < shipGroups; gi++) {
@@ -3832,13 +3846,15 @@ public class OrderServices {
             cart.setItemShipGroupEstimate(shippingTotal, gi);
         }
 
-        // calc the sales tax
+        // calc the sales tax        
         CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
-        try {
-            coh.calcAndAddTax();
-        } catch (GeneralException e) {
-            Debug.logError(e, module);
-            throw new GeneralException(e.getMessage());
+        if (calcTax) {
+            try {
+                coh.calcAndAddTax();
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+                throw new GeneralException(e.getMessage());
+            }
         }
 
         // get the new orderItems, adjustments, shipping info, payments and order item atrributes from the cart
