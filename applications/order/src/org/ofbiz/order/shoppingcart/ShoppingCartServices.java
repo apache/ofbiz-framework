@@ -201,6 +201,7 @@ public class ShoppingCartServices {
         cart.setOrderName(orderHeader.getString("orderName"));
         cart.setOrderStatusId(orderHeader.getString("statusId"));
         cart.setOrderStatusString(currentStatusString);
+        cart.setFacilityId(orderHeader.getString("originFacilityId"));        
 
         try {
             cart.setUserLogin(userLogin, dispatcher);
