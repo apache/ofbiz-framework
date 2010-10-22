@@ -1023,9 +1023,11 @@
     </property>
     <property key="ProjectMgrActualCompletionDateAbbr">
         <value xml:lang="en">Act.Compl.</value>
+        <value xml:lang="fr">Date fin réelle</value>
     </property>
     <property key="ProjectMgrEstimatedCompletionDateAbbr">
         <value xml:lang="en">Est.Compl.</value>
+        <value xml:lang="fr">Date fin est.</value>
     </property>
     <property key="ProjectMgrFilterOn">
         <value xml:lang="de">Filter aktivieren</value>
@@ -1354,7 +1356,7 @@
     <property key="ProjectMgrProjectSummary">
         <value xml:lang="de">Projektzusammenfassung</value>
         <value xml:lang="en">Project Summary</value>
-        <value xml:lang="fr">Résumé des projets</value>
+        <value xml:lang="fr">Résumé du projet</value>
         <value xml:lang="it">Sommario progetto</value>
         <value xml:lang="nl">Samenvatting</value>
         <value xml:lang="th">สรุปโปรเจค</value>
