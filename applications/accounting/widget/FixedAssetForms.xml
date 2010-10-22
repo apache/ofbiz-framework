@@ -27,6 +27,7 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="FixedAsset"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
@@ -36,27 +37,27 @@ under the License.
                 <field-map field-name="fixedAssetId" from-field="fixedAssetId"/>
             </service>
         </row-actions>
-        <field name="fixedAssetId" widget-style="linktext">
+        <field name="fixedAssetId" widget-style="linktext" sort-field="true">
             <hyperlink also-hidden="false" description="${fixedAssetId}" target="EditFixedAsset">
                 <parameter param-name="fixedAssetId"/>
             </hyperlink>
         </field>
-        <field name="fixedAssetName" title="${uiLabelMap.AccountingFixedAssetName}">
+        <field name="fixedAssetName" title="${uiLabelMap.AccountingFixedAssetName}" sort-field="true">
             <display/>
         </field>
-        <field name="fixedAssetTypeId"><display-entity entity-name="FixedAssetType"/></field>
-        <field name="parentFixedAssetId">
+        <field name="fixedAssetTypeId" sort-field="true"><display-entity entity-name="FixedAssetType"/></field>
+        <field name="parentFixedAssetId" sort-field="true">
             <display-entity entity-name="FixedAsset" key-field-name="fixedAssetId" description="${fixedAssetName}">
                 <sub-hyperlink target="EditFixedAsset" description="${parentFixedAssetId}">
                     <parameter param-name="fixedAssetId" from-field="parentFixedAssetId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="dateAcquired"><display/></field>
-        <field name="expectedEndOfLife"><display/></field>
-        <field name="purchaseCost"><display type="currency" currency="${purchaseCostUomId}"/></field>
-        <field name="salvageValue"><display type="currency" currency="${purchaseCostUomId}"/></field>
-        <field name="depreciation"><display type="currency" currency="${purchaseCostUomId}"/></field>
+        <field name="dateAcquired" sort-field="true"><display/></field>
+        <field name="expectedEndOfLife" sort-field="true"><display/></field>
+        <field name="purchaseCost" sort-field="true"><display type="currency" currency="${purchaseCostUomId}"/></field>
+        <field name="salvageValue" sort-field="true"><display type="currency" currency="${purchaseCostUomId}"/></field>
+        <field name="depreciation" sort-field="true"><display type="currency" currency="${purchaseCostUomId}"/></field>
         <field name="plannedPastDepreciationTotal"><display description="${assetDepreciationResultMap.plannedPastDepreciationTotal}"/></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>
     </form>
