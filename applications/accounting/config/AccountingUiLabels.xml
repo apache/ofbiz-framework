@@ -274,7 +274,7 @@
         <value xml:lang="es">Editar Indents de Activo Fijo</value>
         <value xml:lang="fr">Ajouter une identification d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति की पहचान जोड़ें</value>
-        <value xml:lang="it">Aggiorna Identità Cespite</value>
+        <value xml:lang="it">Nuova identificazione cespite</value>
         <value xml:lang="nl">Voeg vaste activa-identificatie toe</value>
         <value xml:lang="ro">Actualizeaza Identitate Mijloc Fix</value>
         <value xml:lang="ru">Редактирование идентификаторов ОС</value>
@@ -286,7 +286,7 @@
         <value xml:lang="en">Add Fixed Asset Maintenance Order</value>
         <value xml:lang="fr">Ajouter une commande de maintenance d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति रखरखाव के आदेश जोड़ें</value>
-        <value xml:lang="it">Aggiorna Manutenzione Cespite Ordine</value>
+        <value xml:lang="it">Nuovo ordine di manutenzione cespite</value>
         <value xml:lang="th">แก้ไขรายการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">添加固定资产维修保养订单</value>
     </property>
@@ -296,7 +296,7 @@
         <value xml:lang="es">Editar Mantenimiento de Activo Fijo</value>
         <value xml:lang="fr">Ajouter une maintenance d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति रखरखाव जोड़ें</value>
-        <value xml:lang="it">Aggiorna Manutenzione Cespite</value>
+        <value xml:lang="it">Nuova manutenzione cespite</value>
         <value xml:lang="nl">Voeg onderhoud vaste activa toe</value>
         <value xml:lang="ro">Actualizeaza Intretinere Mijloc Fix</value>
         <value xml:lang="ru">Изменить обслуживание ОС</value>
@@ -308,7 +308,7 @@
         <value xml:lang="en">Add Fixed Asset Meter Reading</value>
         <value xml:lang="fr">Ajouter une mesure de la maintenance d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति मापक रीडिंग जोड़ें</value>
-        <value xml:lang="it">Aggiorna Manutenzione Cespite Contatori</value>
+        <value xml:lang="it">Nuova misura contatori cespite</value>
         <value xml:lang="nl">Voeg meterwaarde vaste activa toe</value>
         <value xml:lang="th">Add Fixed Asset Maintenance Meter</value>
         <value xml:lang="zh">添加固定资产仪表读数</value>
@@ -318,7 +318,7 @@
         <value xml:lang="en">Add Party Fixed Asset Assignment</value>
         <value xml:lang="fr">Ajouter une tâche d'un acteur à une immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति में नियत कार्य करने के लिए पार्टी जोड़ें</value>
-        <value xml:lang="it">Aggiorna Assegnamenti Cespiti Soggetto</value>
+        <value xml:lang="it">Nuova assegnazione cespite a soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">添加会员固定资产分配</value>
     </property>
@@ -328,7 +328,7 @@
         <value xml:lang="es">Editar Registros de Activo Fijo</value>
         <value xml:lang="fr">Ajouter l'enregistrement d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति के लिए पंजीयन जोड़ें</value>
-        <value xml:lang="it">Aggiorna Registrazioni Cespite</value>
+        <value xml:lang="it">Nuova registrazione cespite</value>
         <value xml:lang="ro">Actualizeaza Inregistrare Mijloc Fix</value>
         <value xml:lang="ru">Изменить регистраций ОС</value>
         <value xml:lang="th">แก้ไขการลงทะเบียนทรัพย์สินไม่หมุนเวียน</value>
@@ -340,7 +340,7 @@
         <value xml:lang="es">Editar Costo Estandar de Activo Fijo</value>
         <value xml:lang="fr">Ajouter un coût standard d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति के लिए मानक लागत</value>
-        <value xml:lang="it">Aggiorna Costi Standard Cespiti</value>
+        <value xml:lang="it">Nuovo costo standard del cespite</value>
         <value xml:lang="nl">Aanpassen vaste kosten vaste activa</value>
         <value xml:lang="ro">Actualizeaza Costuri Standard Mijloace Fixe</value>
         <value xml:lang="ru">Изменить станд. стоимость ОС</value>
@@ -10774,7 +10774,7 @@
         <value xml:lang="es">Código Activo fijo</value>
         <value xml:lang="fr">Réf. immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति क्रमांक</value>
-        <value xml:lang="it">Codice Cespite</value>
+        <value xml:lang="it">Codice cespite</value>
         <value xml:lang="nl">Vast gestelde waarde Id</value>
         <value xml:lang="ro">Cod Mijloc Fix</value>
         <value xml:lang="ru">Код основных фондов</value>
@@ -10788,7 +10788,7 @@
         <value xml:lang="es">Nombre de activo fijo</value>
         <value xml:lang="fr">Nom de l'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति नाम</value>
-        <value xml:lang="it">Nome Cespite</value>
+        <value xml:lang="it">Nome cespite</value>
         <value xml:lang="nl">Naam vaste activa</value>
         <value xml:lang="ro">Nume Mijloc Fix</value>
         <value xml:lang="ru">Название ОС</value>
@@ -13122,7 +13122,7 @@
         <value xml:lang="es">Editar Mantenimiento de Activo Fijo</value>
         <value xml:lang="fr">Modifier la maintenance de l'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति रखरखाव संपादित करें</value>
-        <value xml:lang="it">Aggiorna Manutenzione Cespite</value>
+        <value xml:lang="it">Aggiorna manutenzione cespite</value>
         <value xml:lang="nl">Onderhoud vaste activa aanpassen</value>
         <value xml:lang="ro">Actualizeaza Intretinere Mijloc Fix</value>
         <value xml:lang="ru">Изменить обслуживание ОС</value>
@@ -13133,7 +13133,7 @@
         <value xml:lang="en">Fixed Asset Meter Readings</value>
         <value xml:lang="fr">Lectures de compteur d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति मापक पठन(MeterReadings) संपादित करें</value>
-        <value xml:lang="it">Aggiorna Manutenzione Cespite Contatori</value>
+        <value xml:lang="it">Letture dei contatori cespite</value>
         <value xml:lang="nl">Meterwaarden vaste activa</value>
         <value xml:lang="th">Edit Fixed Asset Maint Meters</value>
         <value xml:lang="zh">固定资产仪表读数</value>
@@ -13683,7 +13683,7 @@
         <value xml:lang="es">Activo Fijo Hijo</value>
         <value xml:lang="fr">Descendants de l'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति चिल्ड्रेन</value>
-        <value xml:lang="it">Figli Cespiti</value>
+        <value xml:lang="it">Cespiti figli</value>
         <value xml:lang="nl">Kinderen vaste activa</value>
         <value xml:lang="ro">Copii Mijloace Fixe</value>
         <value xml:lang="ru">Подчиненные ОС</value>

@@ -44,7 +44,7 @@
     <property key="AssetMaintInvalidPartProductIdError">
         <value xml:lang="en">"Part Id ${productId} provided is invalid please check and try again"</value>
         <value xml:lang="fr">"La réf. de piéce ${productId} fournie n'est pas valable, SVP recommencez"</value>
-        <value xml:lang="it">"Il Codice Parte ${productId} fornito non è valido per favore controllare e provare nuovamente"</value>
+        <value xml:lang="it">"Il Codice parte ${productId} fornito non è valido. Per favore controllare e riprovare"</value>
         <value xml:lang="th">รหัสส่วน ${productId} ใช้ไม่ได้ กรุณาตรวจสอบและลองอีกครั้ง</value>
         <value xml:lang="zh">"提供的零部件标识${productId}无效，请检查重试"</value>
     </property>
@@ -58,7 +58,7 @@
     <property key="AssetMaintLowPartInventoryError">
         <value xml:lang="en">"Available Inventory level for ${productId} is ${quantity}"</value>
         <value xml:lang="fr">"Le niveau de stock disponible pour ${productId} est ${quantity"</value>
-        <value xml:lang="it">"Livello inventario disponibile per ${productId} è ${quantity}"</value>
+        <value xml:lang="it">"La quantità disponibile a magazzino per ${productId} è ${quantity}"</value>
         <value xml:lang="th">รดับสินค้าคงเหลือของ ${productId} คือ ${quantity}</value>
         <value xml:lang="zh">"${productId}的有效的库存级别是${quantity}"</value>
     </property>
@@ -85,27 +85,27 @@
     <property key="AssetMaintProductMaint">
         <value xml:lang="en">Product Maint</value>
         <value xml:lang="fr">Maintenance</value>
-        <value xml:lang="it">Manutenzione prodotto</value>
+        <value xml:lang="it">Manutenzione</value>
         <value xml:lang="zh">产品维护</value>
     </property>
     <property key="AssetMaintViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
         <value xml:lang="fr">Afficher l'erreur d'autorisation</value>
-        <value xml:lang="it">Mostra errore permesso</value>
+        <value xml:lang="it">Mostra errore di autorizzazione</value>
         <value xml:lang="th">แสดงข้อผิดพลาดในการอนุญาต</value>
         <value xml:lang="zh">浏览权限错误</value>
     </property>
     <property key="PageTitleAddItemIssuance">
         <value xml:lang="en">Add Item Issuance</value>
         <value xml:lang="fr">Ajouter une émission d'article</value>
-        <value xml:lang="it">Aggiungi riga prelievo</value>
+        <value xml:lang="it">Aggiungi prelievo articolo</value>
         <value xml:lang="th">เพิ่มรายการที่ออกมา</value>
         <value xml:lang="zh">添加交付明细</value>
     </property>
     <property key="PageTitleChildWorkEfforts">
         <value xml:lang="en">Task Breakdown</value>
         <value xml:lang="fr">Décomposition de tâche</value>
-        <value xml:lang="it">Compito breakdown</value>
+        <value xml:lang="it">Scoposizione compito</value>
         <value xml:lang="th">งานหยุด</value>
         <value xml:lang="zh">任务分解</value>
     </property>
@@ -127,7 +127,7 @@
     <property key="PageTitleListItemIssuance">
         <value xml:lang="en">Parts List</value>
         <value xml:lang="fr">Liste des pièces</value>
-        <value xml:lang="it">Lista soggetti</value>
+        <value xml:lang="it">Lista parti</value>
         <value xml:lang="th">ส่วนหนึ่งของรายการ</value>
         <value xml:lang="zh">零部件列表</value>
     </property>
