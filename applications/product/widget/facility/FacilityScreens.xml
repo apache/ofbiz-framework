@@ -177,7 +177,7 @@ under the License.
                                             </condition>
                                             <widgets>
                                                 <container style="button-bar">
-                                                    <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                                                    <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext create"/>
                                                     <link target="/workeffort/control/calendar" text="${uiLabelMap.CommonViewCalendar}" style="buttontext" url-mode="inter-app">
                                                         <parameter param-name="facilityId"/>
                                                         <parameter param-name="externalLoginKey" from-field="parameters.externalLoginKey"/>
@@ -360,11 +360,11 @@ under the License.
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
                                 <container style="button-bar">
-                                    <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
-                                    <link target="EditInventoryItem" text="${uiLabelMap.ProductNewInventoryItem}" style="buttontext">
+                                    <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext create"/>
+                                    <link target="EditInventoryItem" text="${uiLabelMap.ProductNewInventoryItem}" style="buttontext create">
                                         <parameter param-name="facilityId" from-field="parameters.facilityId"/>
                                     </link>
-                                    <link target="SearchInventoryItemsByLabels" text="${uiLabelMap.ProductSearchInventoryItemsByLabels}" style="buttontext">
+                                    <link target="SearchInventoryItemsByLabels" text="${uiLabelMap.ProductSearchInventoryItemsByLabels}" style="buttontext search">
                                         <parameter param-name="facilityId" from-field="parameters.facilityId"/>
                                     </link>
                                 </container>
@@ -565,8 +565,8 @@ under the License.
                         <container>
                             <label style="h1">${uiLabelMap.ProductInventoryItemsDetailsFor} ${facility.facilityName} [${uiLabelMap.CommonId}:${facility.facilityId}]</label>
                         </container>
-                        <container>
-                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                        <container style="button-bar">
+                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext create"/>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleViewFacilityInventoryItemsDetails}">
                             <include-form name="SearchInventoryItemsDetailsParams" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -729,7 +729,7 @@ under the License.
                             <label>${title}</label>
                         </container>
                         <container style="button-bar">
-                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext create"/>
                         </container>
                         <screenlet id="add-facility-group-member" title="${uiLabelMap.ProductAddFacilityGroupMember}" collapsible="true">
                             <include-form name="addGroupToFacility" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -763,7 +763,7 @@ under the License.
                             <label>${title}</label>
                         </container>
                         <container style="button-bar">
-                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext create"/>
                         </container>
                         <screenlet id="add-facility-party-role" title="${uiLabelMap.ProductAddFacilityPartyRole}" collapsible="true">
                             <include-form name="AddPartyToFacility" location="component://product/widget/facility/FacilityForms.xml"/>
@@ -789,8 +789,8 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="h1">${title}</label>
-                        <container>
-                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
+                        <container style="button-bar">
+                            <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext create"/>
                             <section>
                                 <condition>
                                     <not><if-empty field="facilityId"/></not>
@@ -806,7 +806,7 @@ under the License.
                                             <if-service-permission service-name="facilityGenericPermission" main-action="CREATE"/>
                                         </condition>
                                         <widgets>
-                                            <link target="EditContactMech" text="${uiLabelMap.ProductNewContactMech}" style="buttontext">
+                                            <link target="EditContactMech" text="${uiLabelMap.ProductNewContactMech}" style="buttontext create">
                                                 <parameter param-name="facilityId"/>
                                             </link>
                                         </widgets>

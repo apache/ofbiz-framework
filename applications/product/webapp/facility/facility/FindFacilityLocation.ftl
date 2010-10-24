@@ -18,8 +18,8 @@ under the License.
 -->
 
     <div class="button-bar">
-      <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
-      <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacilityLocation}</a>
+      <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductNewFacility}</a>
+      <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductNewFacilityLocation}</a>
     </div>
 
     <form action="<@ofbizUrl>FindFacilityLocation</@ofbizUrl>" method="get" name="findFacilityLocation">

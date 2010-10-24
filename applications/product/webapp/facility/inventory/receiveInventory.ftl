@@ -24,7 +24,7 @@ under the License.
             <div class="errorMessage">${invalidProductId}</div>
         </#if>
         <div class="button-bar">
-          <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
+          <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductNewFacility}</a>
         </div>
         <#-- Receiving Results -->
         <#if receivedItems?has_content>
