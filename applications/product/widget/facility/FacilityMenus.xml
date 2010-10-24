@@ -252,4 +252,27 @@ under the License.
             </link>
         </menu-item>
     </menu>
+
+    <menu name="FacilityGroupTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="EditFacilityGroup" title="${uiLabelMap.ProductFacilityGroup}">
+            <link target="EditFacilityGroup">
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditFacilityGroupRollup" title="${uiLabelMap.ProductRollups}">
+            <link target="EditFacilityGroupRollup">
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditFacilityGroupMembers" title="${uiLabelMap.ProductFacilities}">
+            <link target="EditFacilityGroupMembers">
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditFacilityGroupRoles" title="${uiLabelMap.PartyRoles}">
+            <link target="EditFacilityGroupRoles">
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+            </link>
+        </menu-item>
+    </menu>
 </menus>
