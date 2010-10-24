@@ -152,7 +152,7 @@ under the License.
     </menu>
     
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}" widget-style="buttontext create">
+        <menu-item name="createNew" title="${uiLabelMap.AccountingCreateNewInvoice}" widget-style="buttontext create">
             <link target="newInvoice"/>
         </menu-item>
         <menu-item name="copyInvoice" title="${uiLabelMap.CommonCopy}">

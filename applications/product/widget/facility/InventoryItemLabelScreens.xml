@@ -32,8 +32,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonInventoryItemLabelsDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <link target="EditInventoryItemLabel" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                        <container style="button-bar">
+                            <link target="EditInventoryItemLabel" text="${uiLabelMap.CommonNew}" style="buttontext create"/>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleFindInventoryItemLabels}">
                             <include-form name="ListInventoryItemLabels" location="component://product/widget/facility/InventoryItemLabelForms.xml"/>

@@ -24,7 +24,7 @@ under the License.
     <screen name="GenericShipmentGatewayConfigDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="shipmentGatewayConfig"/> 
+                <set field="headerItem" value="ShipmentGatewayConfig"/> 
             </actions>
             <widgets>
                 <!-- main defines the regions of the HTML page -->
