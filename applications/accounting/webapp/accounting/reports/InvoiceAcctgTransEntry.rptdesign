@@ -17,6 +17,10 @@ uiLabelMap.putAll(UtilProperties.getResourceBundleMap("AccountingUiLabels", repo
 invoiceId = params["invoiceId"].value;
 userLoginId = params["userLoginId"].value;
 
+parameters = FastMap.newInstance();
+parameters.put("invoiceId", invoiceId);
+parameters.put("userLoginId", userLoginId);
+
 userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
 userLoginNameView = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", userLogin.get("partyId")), false);
 dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy");
@@ -29,6 +33,16 @@ if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE
 } else {
     organizationPartyId = invoice.get("partyIdFrom");
 }
+
+// get company header
+var companyLogoCtx = FastMap.newInstance();
+companyLogoCtx.put("invoice", invoice);
+companyLogoCtx.put("nowTimestamp", UtilDateTime.nowTimestamp());
+companyLogoCtx.put("locale", reportContext.getLocale());
+companyLogoCtx.put("parameters", parameters);
+companyLogoCtx.put("delegator", delegator);
+GroovyUtil.runScriptAtLocation("component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy", companyLogoCtx);
+logoImageUrl = companyLogoCtx.get("logoImageUrl");
 
 // create application list
 var context = FastMap.newInstance();
@@ -584,19 +598,8 @@ return true;]]></method>
                             <image id="28">
                                 <property name="height">43px</property>
                                 <property name="width">238px</property>
-                                <method name="onCreate"><![CDATA[// get organization logo
-partyContents = delegator.findByAnd("PartyContent", UtilMisc.toMap("partyId", organizationPartyId, "partyContentTypeId", "LGOIMGURL"));
-partyContents = EntityUtil.filterByDate(partyContents);
-if (partyContents != null &amp;&amp; partyContents.size() > 0) {
-    var dataResource = partyContents.get(0).getRelatedOne("Content").getRelatedOne("DataResource");
-    var dataResourceTypeId = dataResource.getString("dataResourceTypeId");
-    if ("LOCAL_FILE".equals(dataResourceTypeId)) {
-        this.file = dataResource.get("objectInfo");
-    } else {
-        this.URL = dataResource.get("objectInfo");
-    }
-} else {
-    this.URL = "http://localhost:8080/images/ofbiz_logo.gif";
+                                <method name="onCreate"><![CDATA[if (logoImageUrl) {
+    this.URL = logoImageUrl;
 }]]></method>
                                 <property name="source">url</property>
                                 <property name="fitToContainer">false</property>

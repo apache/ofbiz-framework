@@ -29,6 +29,10 @@ if ("DISBURSEMENT".equals(payment.get("paymentTypeId")) || "DISBURSEMENT".equals
 } else {
     organizationPartyId = payment.get("partyIdTo");
 }
+organizationPartyGroup = delegator.findOne("PartyGroup", UtilMisc.toMap("partyId", organizationPartyId), false);
+
+// set logo image url
+logoImageUrl = organizationPartyGroup.getString("logoImageUrl");
 
 // create debit/credit total variable
 debitTotal = 0;
@@ -571,19 +575,8 @@ return true;]]></method>
                             <image id="28">
                                 <property name="height">43px</property>
                                 <property name="width">238px</property>
-                                <method name="onCreate"><![CDATA[// get organization logo
-partyContents = delegator.findByAnd("PartyContent", UtilMisc.toMap("partyId", organizationPartyId, "partyContentTypeId", "LGOIMGURL"));
-partyContents = EntityUtil.filterByDate(partyContents);
-if (partyContents != null &amp;&amp; partyContents.size() > 0) {
-    var dataResource = partyContents.get(0).getRelatedOne("Content").getRelatedOne("DataResource");
-    var dataResourceTypeId = dataResource.getString("dataResourceTypeId");
-    if ("LOCAL_FILE".equals(dataResourceTypeId)) {
-        this.file = dataResource.get("objectInfo");
-    } else {
-        this.URL = dataResource.get("objectInfo");
-    }
-} else {
-    this.URL = "http://localhost:8080/images/ofbiz_logo.gif";
+                                <method name="onCreate"><![CDATA[if (logoImageUrl) {
+    this.URL = logoImageUrl;
 }]]></method>
                                 <property name="source">url</property>
                                 <property name="fitToContainer">false</property>
