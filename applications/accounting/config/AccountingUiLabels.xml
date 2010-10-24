@@ -1967,12 +1967,14 @@
         <value xml:lang="en">Commission Run</value>
         <value xml:lang="fr">Traitement Commission</value>
         <value xml:lang="hi_IN">दलाली भुगतान</value>
+        <value xml:lang="it">Commissioni correnti</value>
     </property>
     <property key="AccountingCommissionReport">
         <value xml:lang="de">Provisionsbericht</value>
         <value xml:lang="en">Commission Report</value>
         <value xml:lang="fr">Journal Commission</value>
         <value xml:lang="hi_IN">दलाली विवरण</value>
+        <value xml:lang="it">Report commissioni</value>
     </property>
     <property key="AccountingCompanies">
         <value xml:lang="ar">شركات</value>
@@ -2350,7 +2352,7 @@
         <value xml:lang="en">Create New Invoice</value>
         <value xml:lang="fr">Créer une nouvelle facture</value>
         <value xml:lang="hi_IN">नया  चलाना बनाएँ</value>
-        <value xml:lang="it">Creare nuova fattura</value>
+        <value xml:lang="it">Nuova fattura</value>
         <value xml:lang="nl">Maak nieuwe factuur</value>
         <value xml:lang="th">สร้างใบกำกับสินค้าใหม่</value>
         <value xml:lang="zh">新建发票</value>
@@ -3511,6 +3513,7 @@
     <property key="AccountingFindSalesInvoicesForCommissionRun">
         <value xml:lang="en">Find Sales Invoices For Commission Run</value>
         <value xml:lang="hi_IN">दलाली भुगतान के लिए बिक्री चालान खोजें</value>
+        <value xml:lang="it">Ricerca fatture di vendita per commissione</value>
     </property>
     <property key="AccountingFirstNameCard">
         <value xml:lang="ar">الإسم على البطاقة</value>
@@ -4156,7 +4159,7 @@
         <value xml:lang="es">Vincular nuevo producto a activo fijo</value>
         <value xml:lang="fr">Relier le nouveau produit à l'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति के लिए नई उत्पाद की लिंक जोड़ें</value>
-        <value xml:lang="it">Link Nuovo prodotto per Cespite</value>
+        <value xml:lang="it">Associa nuovo prodotto al cespite</value>
         <value xml:lang="nl">Verbind nieuw product aan vaste activa</value>
         <value xml:lang="ro">Link Noul produs - Mijloc Fix</value>
         <value xml:lang="ru">Связать новый продукт с ОС</value>
@@ -4170,7 +4173,7 @@
         <value xml:lang="es">Tipo de producto de activo fijo</value>
         <value xml:lang="fr">Type de produit lié à l'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति के उत्पाद का प्रकार</value>
-        <value xml:lang="it">Tipo Prodotto Cespite</value>
+        <value xml:lang="it">Tipo di prodotto associato al cespite</value>
         <value xml:lang="nl">Produkttype Vaste activa </value>
         <value xml:lang="ro">Tip Produs Mijloc Fix</value>
         <value xml:lang="ru">Тип продукта ОС</value>
@@ -4197,7 +4200,7 @@
         <value xml:lang="es">Actualizar un enlace a un activo fijo</value>
         <value xml:lang="fr">Mettre à jour un lien vers une immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति के लिए लिंक उन्नत करे</value>
-        <value xml:lang="it">Aggiorna un link ad un Cespite</value>
+        <value xml:lang="it">Aggiorna una associazione al cespite</value>
         <value xml:lang="ro">Actualizeaza un link la un Mijloc Fix</value>
         <value xml:lang="ru">Обновить ссылку к ОС</value>
         <value xml:lang="th">อัพเดทการเชื่อมต่อไปยังทรัพย์สินไม่หมุนเวียน</value>
@@ -4224,7 +4227,7 @@
         <value xml:lang="es">Número de Registro</value>
         <value xml:lang="fr">Numéro d'enregistrement</value>
         <value xml:lang="hi_IN">पंजीकरण संख्या</value>
-        <value xml:lang="it">Numero Registrazione</value>
+        <value xml:lang="it">Numero di registrazione</value>
         <value xml:lang="nl">Registratienummer</value>
         <value xml:lang="ro">Nr.Inreg</value>
         <value xml:lang="ru">Регистрационный номер</value>

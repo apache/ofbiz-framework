@@ -4974,7 +4974,7 @@
         <value xml:lang="en">Edit Facility Groups for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Grupos de Almacén</value>
         <value xml:lang="fr">Modification des groupes de lieux de stockage pour ${facility.facilityName} [${facility.facilityId}]</value>
-        <value xml:lang="it">Aggiorna Gruppi Stabilimento</value>
+        <value xml:lang="it">Aggiorna i gruppi di stabilimenti</value>
         <value xml:lang="ro">Actualizeaza Grupuri Compartimente</value>
         <value xml:lang="ru">Изменить группы объектов</value>
         <value xml:lang="th">แก้ไขกลุ่มคลังสินค้า</value>
@@ -5940,7 +5940,7 @@
         <value xml:lang="en">Find Inventory Item Labels</value>
         <value xml:lang="es">Buscar etiquetas de ítems</value>
         <value xml:lang="fr">Rechercher les étiquettes de lignes de stock</value>
-        <value xml:lang="it">Ricerca Etichette Riga Inventario</value>
+        <value xml:lang="it">Ricerca etichette riga inventario</value>
         <value xml:lang="th">Find Inventory Item Labels</value>
         <value xml:lang="zh">查找库存明细标签</value>
     </property>
@@ -10736,7 +10736,7 @@
         <value xml:lang="en">Facility Children for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Sucesores de almacén para ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="fr">Lieu de stockage descendant pour ${facility.facilityName} [${facility.facilityId}]</value>
-        <value xml:lang="it">Stabilimento figlio per ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="it">Stabilimenti figli di ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="zh">${facility.facilityName} [${facility.facilityId}]的下级场所</value>
     </property>
     <property key="ProductFacilityContainer">
@@ -10882,7 +10882,7 @@
         <value xml:lang="en">Facility Groups</value>
         <value xml:lang="es">Grupos de Almacén</value>
         <value xml:lang="fr">Groupes de lieux de stockage</value>
-        <value xml:lang="it">Gruppi Stabilimento</value>
+        <value xml:lang="it">Gruppi di stabilimenti</value>
         <value xml:lang="ro">Grup Compartiment</value>
         <value xml:lang="ru">Группы объектов</value>
         <value xml:lang="th">กลุ่มคลังสินค้า</value>
@@ -12323,7 +12323,7 @@
         <value xml:lang="en">Inventory Item Labels</value>
         <value xml:lang="es">Etiquetas de ítem de inventario</value>
         <value xml:lang="fr">Etiquettes de ligne de stock</value>
-        <value xml:lang="it">Etichette Riga Inventario</value>
+        <value xml:lang="it">Etichette riga inventario</value>
         <value xml:lang="th">แบ่งเป็นประเภทรายการสินค้าคงเหลือ</value>
         <value xml:lang="zh">库存明细标签</value>
     </property>
