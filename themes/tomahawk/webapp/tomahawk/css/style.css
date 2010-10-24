@@ -1442,6 +1442,15 @@ padding:6px 10px 6px 30px;
 background: url(../images/ptrn_hot_create.gif) no-repeat;
 }
 
+.button-bar ul a.delete,.button-bar a.delete {
+background: url(../images/ptrn_delete.jpg) no-repeat;
+padding:6px 10px 6px 30px;
+}
+
+.button-bar ul a.delete:hover,.button-bar a.delete:hover {
+background: url(../images/ptrn_hot_delete.jpg) no-repeat;
+}
+
 .button-bar ul a.refresh,.button-bar a.refresh {
 background: url(../images/ptrn_refresh.png) no-repeat;
 padding:6px 10px 6px 30px;
