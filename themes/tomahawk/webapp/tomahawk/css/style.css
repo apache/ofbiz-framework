@@ -1107,7 +1107,7 @@ overflow:hidden;
 background: url(../images/appbar.png) no-repeat right 0px;
 }
 #app-navigation {
-background: url(../images/appbar.png) no-repeat right -90px;
+background: url(../images/appbar.png) no-repeat right -60px;
 }
 .menu_selected #app-navigation {
 background: url(../images/appbar.png) no-repeat right -30px;
