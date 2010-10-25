@@ -1323,13 +1323,24 @@ margin:0;
 
 /* login screenlet decorator */
 .login-screenlet {
-min-width: 25em;
-width: 25%;
+width: 400px;
+margin: 100px auto 300px;
 }
 
 .login-screenlet .screenlet-title-bar {
 text-align: center;
 }
+
+.login-screenlet form {
+padding: 20px;
+}
+
+.login-screenlet .screenlet-body {
+background-image:url(../images/login_bkgd.jpg);
+border: none;
+font-size:12px;
+}
+
 /***********************************************
 ajax auto complete
 ***********************************************/
