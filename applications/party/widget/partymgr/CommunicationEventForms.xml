@@ -236,7 +236,7 @@ under the License.
         <field name="partyIdFrom" use-when="communicationEvent.get(&quot;partyIdFrom&quot;)!=null">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${contactMechFrom.infoString})">
                 <sub-hyperlink description=" [${communicationEvent.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
-                    <parameter param-name="partyId" from-field="partyIdFrom"/>
+                    <parameter param-name="partyId" from-field="communicationEvent.partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
