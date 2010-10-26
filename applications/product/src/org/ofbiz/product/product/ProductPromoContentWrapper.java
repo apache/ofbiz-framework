@@ -175,7 +175,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         exprs.add(EntityCondition.makeCondition("productPromoContentTypeId", EntityOperator.EQUALS, productPromoContentTypeId));
         List<String> orderBy = UtilMisc.toList("-fromDate");
 
-        List<GenericValue> productPromoContentList = delegator.findList("ProductPromoContent", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, orderBy, null, false);
+        List<GenericValue> productPromoContentList = delegator.findList("ProductPromoContent", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, orderBy, null, true);
         GenericValue productPromoContent = null;
         if (UtilValidate.isNotEmpty(productPromoContentList)) {
             productPromoContent = EntityUtil.getFirst(EntityUtil.filterByDate(productPromoContentList));
@@ -186,7 +186,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = FastMap.newInstance();
             inContext.put("productPromo", productPromo);
             inContext.put("productPromoContent", productPromoContent);
-            ContentWorker.renderContentAsText(dispatcher, delegator, productPromoContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, false);
+            ContentWorker.renderContentAsText(dispatcher, delegator, productPromoContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, true);
         }
     }
 }

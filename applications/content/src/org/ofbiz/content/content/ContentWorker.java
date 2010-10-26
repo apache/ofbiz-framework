@@ -124,7 +124,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         // if the content is a PUBLISH_POINT and the data resource is not defined; get the related content
         if ("WEB_SITE_PUB_PT".equals(content.get("contentTypeId")) && content.get("dataResourceId") == null) {
-            List<GenericValue> relContentIds = delegator.findByAnd("ContentAssocDataResourceViewTo",
+            List<GenericValue> relContentIds = delegator.findByAndCache("ContentAssocDataResourceViewTo",
                     UtilMisc.toMap("contentIdStart", content.get("contentId"),"statusId","CTNT_PUBLISHED",
                     "caContentAssocTypeId", "PUBLISH_LINK"), UtilMisc.toList("caFromDate"));
 
@@ -165,10 +165,10 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Iterator<GenericValue> alternateViewIter = alternateViews.iterator();
             while (alternateViewIter.hasNext()) {
                 GenericValue thisView = alternateViewIter.next();
-                GenericValue altContentRole = EntityUtil.getFirst(EntityUtil.filterByDate(thisView.getRelatedByAnd("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId))));
+                GenericValue altContentRole = EntityUtil.getFirst(EntityUtil.filterByDate(thisView.getRelatedByAndCache("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId))));
                 GenericValue altContent = null;
                 if (UtilValidate.isNotEmpty(altContentRole)) {
-                    altContent = altContentRole.getRelatedOne("Content");
+                    altContent = altContentRole.getRelatedOneCache("Content");
                     if (altContent != null) {
                         content = altContent;
                     }
@@ -288,8 +288,8 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 // This part is using an xml file as the input data and an ftl or xsl file to present it.
                 if (UtilValidate.isNotEmpty(mimeType)) {
                     if (mimeType.toLowerCase().indexOf("xml") >= 0) {
-                        GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-                        GenericValue templateDataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", templateDataResourceId));
+                        GenericValue dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+                        GenericValue templateDataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", templateDataResourceId));
                         if ("FTL".equals(templateDataResource.getString("dataTemplateTypeId"))) {
                             StringReader sr = new StringReader(textData);
                             try {
@@ -373,7 +373,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         List<GenericValue> alternateViews = null;
         try {
-            alternateViews = view.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
+            alternateViews = view.getRelatedCache("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error finding alternate locale content: " + e.toString(), module);
             return contentAssocDataResourceViewFrom;
