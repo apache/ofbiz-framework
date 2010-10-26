@@ -765,6 +765,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (textSize > 0 && UtilValidate.isNotEmpty(explicitDescription) && explicitDescription.length() > textSize) {
             explicitDescription = explicitDescription.substring(0, textSize - 8) + "..." + explicitDescription.substring(explicitDescription.length() - 5);
         }
+        explicitDescription = encode(explicitDescription, modelFormField, context);
         // if allow empty is true, add an empty option
         if (dropDownField.isAllowEmpty()) {
             allowEmpty = "Y";
