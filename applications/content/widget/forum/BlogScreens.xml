@@ -26,7 +26,6 @@ under the License.
             <actions>
                 <set field="headerItem" value="Blog"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="pageTitle" value="${uiLabelMap.${titleProperty}}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -208,7 +207,7 @@ under the License.
                         </decorator-screen>
                     </widgets>
                     <fail-widgets>
-                        <label text="${uiLabelMap.PageTitleEditBlogArticlePermissionError}: ${contentId} ${uiLabelMap.ContentBlog} ${blogContentId}"></label>
+                        <label text="${uiLabelMap.EditBlogArticlePermissionError}: ${contentId} ${uiLabelMap.ContentBlog} ${blogContentId}"></label>
                     </fail-widgets>
                 </section>
             </widgets>
@@ -243,7 +242,7 @@ under the License.
                         <horizontal-separator/>
                         <label style="h3" text="${uiLabelMap.ContentBlogArticle}"/>
                         <container>
-                            <sub-content content-id="${contentId}" map-key="MAIN"/>
+                            <sub-content content-id="${contentId}" map-key="ARTICLE"/>
                         </container>
                         <horizontal-separator/>
                     </decorator-section>
