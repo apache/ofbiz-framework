@@ -283,6 +283,7 @@ under the License.
     <GlAccountClass description="Return of Capital" glAccountClassId="RETURN_OF_CAPITAL" parentClassId="DISTRIBUTION"/>
     <GlAccountClass description="Dividends" glAccountClassId="DIVIDEND" parentClassId="DISTRIBUTION"/>
     <GlAccountClass description="Revenue" glAccountClassId="REVENUE" parentClassId="CREDIT"/>
+    <GlAccountClass description="Contra Revenue" glAccountClassId="CONTRA_REVENUE" parentClassId="DEBIT"/>     
     <GlAccountClass description="Income" glAccountClassId="INCOME" parentClassId="CREDIT"/>
     <GlAccountClass description="Cash Income" glAccountClassId="CASH_INCOME" parentClassId="INCOME"/>
     <GlAccountClass description="Non-Cash Income" glAccountClassId="NON_CASH_INCOME" parentClassId="INCOME"/>

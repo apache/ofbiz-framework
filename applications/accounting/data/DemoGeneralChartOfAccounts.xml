@@ -724,19 +724,19 @@ according to which type of entity.
     accountName="DISCOUNTS ON SALES" description="" postedBalance="0.0"/>
 
   <GlAccount parentGlAccountId="400000" glAccountId="420000" accountCode="420000"
-    glAccountClassId="REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
+    glAccountClassId="CONTRA_REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
     accountName="CUSTOMER RETURNS" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="420000" glAccountId="421000" accountCode="421000"
-    glAccountClassId="REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
+    glAccountClassId="CONTRA_REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
     accountName="CUSTOMER RETURNS - PRODUCTS" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="420000" glAccountId="422000" accountCode="422000"
-    glAccountClassId="REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
+    glAccountClassId="CONTRA_REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
     accountName="CUSTOMER RETURNS - PROMOTIONS" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="420000" glAccountId="423000" accountCode="423000"
-    glAccountClassId="REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
+    glAccountClassId="CONTRA_REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
     accountName="CUSTOMER RETURNS - ADJUSTMENTS" description="" postedBalance="0.0"/>
   <GlAccount parentGlAccountId="420000" glAccountId="424000" accountCode="424000"
-    glAccountClassId="REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
+    glAccountClassId="CONTRA_REVENUE" glAccountTypeId="" glResourceTypeId="MONEY"
     accountName="CUSTOMER RETURNS - WORK OR TIME ENTRY" description="" postedBalance="0.0"/>
 
 <!-- COST OF GOODS SOLD -->
