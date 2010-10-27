@@ -65,10 +65,10 @@ under the License.
 
         <!-- this is an example of how to display different types of contact mech to the user -->
         <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromContactMech}" position="1">
-            <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdFrom"/>
+            <lookup target-form-name="LookupPreferredContactMech" description-field-name="partyIdFrom" target-parameter="partyIdFrom"/>
         </field>
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToContactMech}" position="2">
-            <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdTo"/>
+            <lookup target-form-name="LookupPreferredContactMech" description-field-name="partyIdTo" target-parameter="partyIdTo"/>
         </field>
 
         <field name="roleTypeIdFrom" position="1">
