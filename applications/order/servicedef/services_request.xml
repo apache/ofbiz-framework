@@ -85,6 +85,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="custRequestItemSeqId" optional="true"/>
         <override name="story" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="updateCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestItem" auth="true">
