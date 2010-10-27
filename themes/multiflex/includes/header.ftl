@@ -107,7 +107,7 @@ under the License.
           <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
             <!-- Navigation item -->
             <ul>
-              <li><a href="#">Utente<!--[if IE 7]><!--></a><!--<![endif]-->
+              <li><a href="#">${uiLabelMap.EcommerceMyAccount}<!--[if IE 7]><!--></a><!--<![endif]-->
                 <!--[if lte IE 6]><table><tr><td><![endif]-->
                   <ul>
                     <li id="header-bar-viewprofile"><a href="<@ofbizUrl>viewprofile</@ofbizUrl>">${uiLabelMap.CommonProfile}</a></li>
