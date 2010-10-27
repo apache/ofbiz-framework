@@ -1020,6 +1020,7 @@ public class PayPalServices {
             conditionList.add(EntityCondition.makeCondition("geoTypeId", geoTypeId));
             lookupField = "geoCode";
         }
+        conditionList.add(EntityCondition.makeCondition("geoIdFrom", countryGeoId));
         conditionList.add(EntityCondition.makeCondition(lookupField, payPalShipToState));
         EntityCondition cond = EntityCondition.makeCondition(conditionList);
         GenericValue geoAssocAndGeoTo = null;
