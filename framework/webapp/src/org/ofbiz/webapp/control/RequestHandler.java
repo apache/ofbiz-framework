@@ -900,7 +900,8 @@ public class RequestHandler {
      * @return
      */
     public String makeQueryString(HttpServletRequest request, ConfigXMLReader.RequestResponse requestResponse) {
-        if (requestResponse == null || requestResponse.redirectParameterMap.size() == 0) {
+        if (requestResponse == null || 
+                (requestResponse.redirectParameterMap.size() == 0 && requestResponse.redirectParameterValueMap.size() == 0)) {
             Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
             String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
             if(UtilValidate.isEmpty(queryString)) {
