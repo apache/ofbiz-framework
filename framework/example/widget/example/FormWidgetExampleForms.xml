@@ -330,11 +330,11 @@ under the License.
         <!--field name="geoId"><hidden/></field-->        
         <sort-order>
             <field-group>
-                <sort-field name="partyId"/>
+                <sort-field name="geoId"/>
             </field-group>
             <field-group>
-                <sort-field name="partyName"/>
-                <sort-field name="partyGroupId"/>
+                <sort-field name="geoName"/>
+                <sort-field name="geoGroupId"/>
             </field-group>
         </sort-order>
     </form>
