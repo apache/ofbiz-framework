@@ -327,7 +327,7 @@ under the License.
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="COMMISSION_PAYMENT" glAccountTypeId="COMMISSIONS_PAYABLE"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAY_CHECK" glAccountTypeId="ACCPAYABLE_UNAPPLIED"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="GC_WITHDRAWAL" glAccountTypeId="CUSTOMER_CREDIT"/>
-    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="SALES_TAX_PAYMENT" glAccountTypeId="TAX_ACCOUNT"/>
+    <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="SALES_TAX_PAYMENT" glAccountTypeId="ACCPAYABLE_UNAPPLIED"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAYROL_PAYMENT" glAccountTypeId="OPERATING_EXPENSE"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="PAYROLL_TAX_PAYMENT" glAccountTypeId="TAX_ACCOUNT"/>
     <PaymentGlAccountTypeMap organizationPartyId="Company" paymentTypeId="INCOME_TAX_PAYMENT" glAccountTypeId="TAX_ACCOUNT"/>
