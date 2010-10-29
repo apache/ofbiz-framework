@@ -17,6 +17,9 @@ organizationPartyGroup = delegator.findOne("PartyGroup", UtilMisc.toMap("partyId
 
 // set logo image url
 logoImageUrl = organizationPartyGroup.getString("logoImageUrl");
+if (!logoImageUrl) {
+    logoImageUrl = FileUtil.getFile("component://images/webapp/images/ofbiz_logo.gif").getPath();
+}
 
 dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy");
 
@@ -901,7 +904,7 @@ return true;
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
             <property name="orientation">landscape</property>
-            <property name="headerHeight">2in</property>
+            <property name="headerHeight">2.9in</property>
             <page-header>
                 <grid id="7">
                     <property name="width">10.363636363636363in</property>
@@ -928,10 +931,12 @@ return true;
                             <property name="rowSpan">1</property>
                             <property name="textAlign">left</property>
                             <image id="28">
-                                <property name="height">43px</property>
-                                <property name="width">238px</property>
                                 <method name="onCreate"><![CDATA[if (logoImageUrl) {
-    this.URL = logoImageUrl;
+    if (logoImageUrl.startsWith("http")) {
+        this.URL = logoImageUrl;
+    } else {
+        this.file = logoImageUrl;
+    }
 }]]></method>
                                 <property name="source">url</property>
                                 <property name="fitToContainer">false</property>
