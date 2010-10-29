@@ -27,6 +27,9 @@ partyNameView = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", use
 
 // set logo image url
 logoImageUrl = organizationPartyGroup.getString("logoImageUrl");
+if (!logoImageUrl) {
+    logoImageUrl = FileUtil.getFile("component://images/webapp/images/ofbiz_logo.gif").getPath();
+}
 
 fromDate = null;
 if (params["fromDate"].value) {
@@ -407,10 +410,11 @@ return true;]]></method>
     </styles>
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
-            <property name="headerHeight">2in</property>
+            <property name="leftMargin">0.25in</property>
+            <property name="headerHeight">2.6in</property>
             <page-header>
                 <grid id="8">
-                    <property name="height">2.875in</property>
+                    <property name="height">2.6666666666666665in</property>
                     <property name="width">7.84375in</property>
                     <column id="9">
                         <property name="width">1.2916666666666667in</property>
@@ -434,10 +438,12 @@ return true;]]></method>
                             <property name="rowSpan">1</property>
                             <property name="textAlign">left</property>
                             <image id="28">
-                                <property name="height">43px</property>
-                                <property name="width">238px</property>
                                 <method name="onCreate"><![CDATA[if (logoImageUrl) {
-    this.URL = logoImageUrl;
+    if (logoImageUrl.startsWith("http")) {
+        this.URL = logoImageUrl;
+    } else {
+        this.file = logoImageUrl;
+    }
 }]]></method>
                                 <property name="source">url</property>
                                 <property name="fitToContainer">false</property>
@@ -527,7 +533,7 @@ return true;]]></method>
                         <cell id="26"/>
                     </row>
                     <row id="32">
-                        <property name="height">0.5104166666666666in</property>
+                        <property name="height">0.21212121212121213in</property>
                         <cell id="33">
                             <label id="37">
                                 <property name="fontWeight">bold</property>
