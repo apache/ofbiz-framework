@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <SecurityPermission description="View operations in the HumanRes Manager." permissionId="HUMANRES_ADMIN"/>
+    <SecurityPermission description="All operations in the HumanRes Manager." permissionId="HUMANRES_ADMIN"/>
     <SecurityPermission description="View operations in the HumanRes Manager." permissionId="HUMANRES_VIEW"/>
     <SecurityPermission description="Create operations in the HumanRes Manager." permissionId="HUMANRES_CREATE"/>
     <SecurityPermission description="Update operations in the HumanRes Manager." permissionId="HUMANRES_UPDATE"/>
