@@ -50,15 +50,15 @@ function ShowTab(lname) {
     <h2>${uiLabelMap.WebtoolsWithPk}: ${findByPk}</h2>
     <br />
     <div class="button-bar">
-      <a href='<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>' class="smallSubmit">${uiLabelMap.WebtoolsBackToFindScreen}</a>
+      <a href='<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>' class="buttontext">${uiLabelMap.WebtoolsBackToFindScreen}</a>
       <#if enableEdit = "false">
         <#if hasCreatePermission>
-          <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}&amp;enableEdit=true</@ofbizUrl>' class="smallSubmit">${uiLabelMap.CommonCreateNew}</a>
-          <a href="<@ofbizUrl>ViewGeneric?${curFindString}&amp;enableEdit=true</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonEdit}</a>
+          <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}&amp;enableEdit=true</@ofbizUrl>' class="buttontext create">${uiLabelMap.CommonCreateNew}</a>
+          <a href="<@ofbizUrl>ViewGeneric?${curFindString}&amp;enableEdit=true</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a>
         </#if>
         <#if value?has_content>
           <#if hasDeletePermission>
-            <a href='<@ofbizUrl>UpdateGeneric?UPDATE_MODE=DELETE&amp;${curFindString}</@ofbizUrl>' class="smallSubmit">${uiLabelMap.WebtoolsDeleteThisValue}</a>
+            <a href='<@ofbizUrl>UpdateGeneric?UPDATE_MODE=DELETE&amp;${curFindString}</@ofbizUrl>' class="buttontext delete">${uiLabelMap.WebtoolsDeleteThisValue}</a>
           </#if>
         </#if>
       </#if>
