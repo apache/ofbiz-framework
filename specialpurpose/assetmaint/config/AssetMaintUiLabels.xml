@@ -23,14 +23,14 @@
         <value xml:lang="de">Vermögensverwaltungsanwendung</value>
         <value xml:lang="en">Asset Maintenance Application</value>
         <value xml:lang="fr">Application de maintenance des biens</value>
-        <value xml:lang="it">Applicazione gestione cespiti</value>
+        <value xml:lang="it">Applicazione manutenzione cespiti</value>
         <value xml:lang="th">บำรุงรักษาโปรแกรม</value>
         <value xml:lang="zh">资产维护应用程序</value>
     </property>
     <property key="AssetMaintCompanyName">
         <value xml:lang="en">OFBiz: Asset Maintenance</value>
         <value xml:lang="fr">OFBiz : maintenance des biens</value>
-        <value xml:lang="it">OFBiz: Gestione cespiti</value>
+        <value xml:lang="it">OFBiz: Manutenzione cespiti</value>
         <value xml:lang="th">OFBiz: การบำรุงรักษา</value>
         <value xml:lang="zh">OFBiz：资产维护</value>
     </property>
@@ -66,7 +66,7 @@
         <value xml:lang="de">Vermögensverwaltungsanwendung</value>
         <value xml:lang="en">Asset Maintenance</value>
         <value xml:lang="fr">Application de maintenance des biens</value>
-        <value xml:lang="it">Gestione cespiti</value>
+        <value xml:lang="it">Manutenzione cespiti</value>
         <value xml:lang="th">บำรุงรักษาโปรแกรม</value>
         <value xml:lang="zh">资产维护应用程序</value>
     </property>
