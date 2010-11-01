@@ -262,7 +262,7 @@
         <value xml:lang="th">ข้อมูลบทความ</value>
         <value xml:lang="zh">文章信息</value>
     </property>
-    <property key="EcommerceArticleInformation">
+    <property key="EcommerceArticleName">
         <value xml:lang="en">Article Name</value>
         <value xml:lang="th">ชื่อบทความ</value>
     </property>
@@ -312,6 +312,10 @@
         <value xml:lang="nl">U moet ingelogd zijn om een antwoord toe te kunnen voegen.</value>     
         <value xml:lang="pt_BR">Você deve registrar-se para adicionar uma resposta</value>
         <value xml:lang="zh">你必须登录才能添加一个回答。</value>
+    </property>
+    <property key="EcommerceBlogAddCommentPermissionError">
+        <value xml:lang="en">You do not have permission to add comment.</value>
+        <value xml:lang="th">คุณไม่มีสิทธิ์ในการแสดงความคิดเห็น</value>
     </property>
     <property key="EcommerceBlogAddThread">
         <value xml:lang="da">Tilføj en tråd</value>
