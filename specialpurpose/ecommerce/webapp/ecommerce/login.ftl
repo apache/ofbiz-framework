@@ -19,8 +19,9 @@ under the License.
 
 <h1>${uiLabelMap.CommonLogin}</h1>
 <div class="screenlet">
-  <h3>${uiLabelMap.CommonRegistered}</h3>
-  <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
+  <div class="screenlet-title-bar"><h3>${uiLabelMap.CommonRegistered}</h3></div>
+  <div class="screenlet-body">
+  <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform" class="horizontal">
     <fieldset>
       <div>
         <label for="userName">${uiLabelMap.CommonUsername}</label>
@@ -42,11 +43,13 @@ under the License.
       </div>
     </fieldset>
   </form>
+  </div>
 </div>
 
 <div class="screenlet">
-  <h3>${uiLabelMap.CommonForgotYourPassword}?</h3>
-  <form method="post" action="<@ofbizUrl>forgotpassword</@ofbizUrl>">
+  <div class="screenlet-title-bar"><h3>${uiLabelMap.CommonForgotYourPassword}</h3></div>
+  <div class="screenlet-body">
+  <form method="post" action="<@ofbizUrl>forgotpassword</@ofbizUrl>" class="horizontal">
     <div>
       <label for="forgotpassword_userName">${uiLabelMap.CommonUsername}</label>
       <input type="text" id="forgotpassword_userName" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>"/>
@@ -56,6 +59,7 @@ under the License.
       <input type="submit" class="button" name="EMAIL_PASSWORD" value="${uiLabelMap.CommonEmailPassword}"/>
     </div>
   </form>
+  </div>
 </div>
 <#--    
 <div class="screenlet">
