@@ -374,7 +374,7 @@ function tidyH(d){ //attempt valid xhtml
  .replace(/<[^>]+=[^>]+>/g,qa) //quote all atts
  .replace(/[–]/g,'-') //long –
  .replace(/[‘’]/g, "'") //single smartquotes ‘’ 
- .replace(/[“�?]/g, '"') //double smartquotes “�?
+ .replace(/[““]/g, '"') //double smartquotes ““
  .replace(/<(TABLE|TD|TH|COL)(.*)(WIDTH|HEIGHT)=["'0-9A-Z]*/gi, "<$1$2") //no fixed size tables (%OK) [^A-Za-z>]
  .replace(/<([^>]+)>\s*<\/\1>/gi, "") //empty tag
  .replace(/>(<\/?[C-Z])/gi,">\n$1") //newline adjacent tags
