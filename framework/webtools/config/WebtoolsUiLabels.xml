@@ -865,7 +865,7 @@
         <value xml:lang="de">Defintion: Dateiname oder URL</value>
         <value xml:lang="en">Definition Filename or URL</value>
         <value xml:lang="fr">Définition : nom de fichier ou URL</value>
-        <value xml:lang="it">Definizione: nome file o URL</value>
+        <value xml:lang="it">Nome o URL del file definizioni formato dati</value>
         <value xml:lang="th">คำอธิบายความหมายของชื่อไฟล์หรือ URL</value>
         <value xml:lang="zh">定义文件名或网址</value>
     </property>
@@ -873,7 +873,7 @@
         <value xml:lang="de">Defintion des Datendatei-Namens</value>
         <value xml:lang="en">Data File Definition Name</value>
         <value xml:lang="fr">Définition du nom du fichier de données</value>
-        <value xml:lang="it">Definizione nome file di dati</value>
+        <value xml:lang="it">Nome definizione formato dati</value>
         <value xml:lang="th">กำหนดชื่อไฟล์ข้อมูล</value>
         <value xml:lang="zh">数据文件定义名称</value>
     </property>

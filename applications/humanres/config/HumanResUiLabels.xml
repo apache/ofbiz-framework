@@ -253,15 +253,17 @@
     <property key="FormFieldTitle_experienceMonths">
         <value xml:lang="en">Experience in months</value>
         <value xml:lang="fr">Expérience en mois</value>
+        <value xml:lang="it">Esperienza in mesi</value>
     </property>
     <property key="FormFieldTitle_experienceYears">
         <value xml:lang="en">Experience in years</value>
         <value xml:lang="fr">Expérience en années</value>
+        <value xml:lang="it">Esperienza in anni</value>
     </property>
     <property key="FormFieldTitle_flatAmount">
         <value xml:lang="en">Flat Amount</value>
         <value xml:lang="fr">Montant fixe</value>
-        <value xml:lang="it">Importo Fisso</value>
+        <value xml:lang="it">Importo fisso</value>
         <value xml:lang="pt_BR">Quantia fixa</value>
         <value xml:lang="th">จำนวนระดับ</value>
         <value xml:lang="zh">固定工资</value>
@@ -269,7 +271,7 @@
     <property key="FormFieldTitle_fulltimeFlag">
         <value xml:lang="en">Fulltime Flag</value>
         <value xml:lang="fr">Balise de plein temps</value>
-        <value xml:lang="it">Flag Tempo Pieno</value>
+        <value xml:lang="it">Flag tempo pieno</value>
         <value xml:lang="pt_BR">Sinal de período integral</value>
         <value xml:lang="th">เครื่องหมายเต็มเวลา</value>
         <value xml:lang="zh">是否为全职</value>
@@ -277,14 +279,17 @@
     <property key="FormFieldTitle_jobLocation">
         <value xml:lang="en">Job Location</value>
         <value xml:lang="fr">Lieu de travail</value>
+        <value xml:lang="it">Luogo di lavoro</value>
     </property>
     <property key="FormFieldTitle_jobPostingEnumId">
         <value xml:lang="en">Job Posting Enum Id</value>
         <value xml:lang="fr">Référence d'offre d'emploi</value>
+        <value xml:lang="it">Codice offerta di impiego</value>
     </property>
     <property key="FormFieldTitle_jobPostingTypeEnumId">
         <value xml:lang="en">Job Posting Type</value>
         <value xml:lang="fr">Type d'offre d'emploi</value>
+        <value xml:lang="it">Tipo di offerta di impiego</value>
     </property>
     <property key="FormFieldTitle_jobRequisitionId">
         <value xml:lang="en">Job Requisition Id</value>
@@ -748,7 +753,7 @@
     <property key="HumanResAgreementEmploymentAppl">
         <value xml:lang="en">Agreement Employment Appl</value>
         <value xml:lang="fr">Application d'accord d'emploi</value>
-        <value xml:lang="it">Applicazione impiegato contratto</value>
+        <value xml:lang="it">Applicazione contratti d'impiego</value>
         <value xml:lang="pt_BR">Candidatura ao acordo empregatício</value>
         <value xml:lang="zh">雇佣合同</value>
     </property>
@@ -801,14 +806,14 @@
     <property key="HumanResCurrentEmploymentData">
         <value xml:lang="en">Current Employment information</value>
         <value xml:lang="fr">Information actuelles sur l'emploi</value>
-        <value xml:lang="it">Attuali informazioni impiegato</value>
+        <value xml:lang="it">Informazioni attuali sull'impiego</value>
         <value xml:lang="pt_BR">Informação atual de empregado</value>
         <value xml:lang="zh">当前雇佣关系信息</value>
     </property>
     <property key="HumanResEditAgreementEmploymentAppl">
         <value xml:lang="en">Edit Agreement Employment Appl</value>
         <value xml:lang="fr">Modifier l'accord d'application d'emploi</value>
-        <value xml:lang="it">Aggiorna applicazioni contratti impiegato</value>
+        <value xml:lang="it">Aggiorna applicazione contratto d'impiego</value>
         <value xml:lang="pt_BR">Alterar acordo de candidatura ao emprego</value>
         <value xml:lang="zh">编辑雇佣合同</value>
     </property>
@@ -856,7 +861,7 @@
     <property key="HumanResEditEmployment">
         <value xml:lang="en">Edit Employment</value>
         <value xml:lang="fr">Modifier l'emploi</value>
-        <value xml:lang="it">Aggiorna Impiegato</value>
+        <value xml:lang="it">Aggiorna impiego</value>
         <value xml:lang="pt_BR">Alterar emprego</value>
         <value xml:lang="th">แก้ไขการจ้างงาน</value>
         <value xml:lang="zh">编辑雇佣关系</value>
@@ -864,7 +869,7 @@
     <property key="HumanResEditEmploymentApp">
         <value xml:lang="en">Edit Employment Application</value>
         <value xml:lang="fr">Modifier la demande d'emploi</value>
-        <value xml:lang="it">Aggiorna Applicazione Impiego</value>
+        <value xml:lang="it">Aggiorna la candidatura d'impiego</value>
         <value xml:lang="pt_BR">Alterar candidatura ao emprego</value>
         <value xml:lang="th">แก้ไขโปรแกรมประยุกต์ใช้การจ้างงาน</value>
         <value xml:lang="zh">编辑雇佣关系申请</value>
@@ -1131,7 +1136,7 @@
         <value xml:lang="de">Anstellungen</value>
         <value xml:lang="en">Employments</value>
         <value xml:lang="fr">Emplois</value>
-        <value xml:lang="it">Impiegato</value>
+        <value xml:lang="it">Impieghi</value>
         <value xml:lang="pt_BR">Empregos</value>
         <value xml:lang="th">การจ้างงาน</value>
         <value xml:lang="zh">部门管理</value>
@@ -1141,7 +1146,7 @@
         <value xml:lang="en">Employment Applications</value>
         <value xml:lang="es">Aplicaciones de Empleo</value>
         <value xml:lang="fr">Demandes d'emploi</value>
-        <value xml:lang="it">Applicazione Impiegato</value>
+        <value xml:lang="it">Candidature d'impiego</value>
         <value xml:lang="pt_BR">Candidaturas a emprego</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจ้างงาน</value>
         <value xml:lang="zh">应聘管理</value>
@@ -1149,7 +1154,7 @@
     <property key="HumanResEmploymentPartyIdFrom">
         <value xml:lang="en">Internal Organization</value>
         <value xml:lang="fr">Organisation interne</value>
-        <value xml:lang="it">Codice Soggetto Da</value>
+        <value xml:lang="it">Organizzazione interna</value>
         <value xml:lang="pt_BR">Organização interna</value>
         <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">组织机构</value>
@@ -1189,7 +1194,7 @@
         <value xml:lang="de">Einstellung finden</value>
         <value xml:lang="en">Find Employment</value>
         <value xml:lang="fr">Rechercher un emploi</value>
-        <value xml:lang="it">Ricerca impiegato</value>
+        <value xml:lang="it">Ricerca impieghi</value>
         <value xml:lang="pt_BR">Encontrar emprego</value>
         <value xml:lang="zh">查找雇佣关系</value>
     </property>
@@ -1197,7 +1202,7 @@
         <value xml:lang="de">Bewerbungssuche</value>
         <value xml:lang="en">Find Employment Application</value>
         <value xml:lang="fr">Rechercher la demande d'emploi</value>
-        <value xml:lang="it">Ricerca applicazioni impiegato</value>
+        <value xml:lang="it">Ricerca candidature d'impiego</value>
         <value xml:lang="pt_BR">Encontrar candidatura a emprego</value>
         <value xml:lang="zh">查找求职应聘申请</value>
     </property>
@@ -1300,7 +1305,7 @@
     <property key="HumanResListEmployments">
         <value xml:lang="en">List Employment</value>
         <value xml:lang="fr">Liste d'emplois</value>
-        <value xml:lang="it">Lista Impiegato</value>
+        <value xml:lang="it">Lista impieghi</value>
         <value xml:lang="pt_BR">Listar empregos</value>
         <value xml:lang="th">รายการการจ้างงาน</value>
         <value xml:lang="zh">雇佣关系列表</value>
@@ -1355,7 +1360,7 @@
     <property key="HumanResLookupAgreementEmploymentAppl">
         <value xml:lang="en">Lookup AgreementEmploymentAppl</value>
         <value xml:lang="fr">Consultation d'accord sur demande d'emploi</value>
-        <value xml:lang="it">Ricerca applicazioni contratto impiegato</value>
+        <value xml:lang="it">Ricerca contratti d'impiego</value>
         <value xml:lang="pt_BR">Procurar acordo de candidatura ao emprego</value>
         <value xml:lang="zh">雇佣合同查询</value>
     </property>
@@ -1407,7 +1412,7 @@
     <property key="HumanResLookupEmploymentApp">
         <value xml:lang="en">Lookup EmploymentApp</value>
         <value xml:lang="fr">Consultation des demandes d'emploi</value>
-        <value xml:lang="it">Ricerca applicazioni impiegato</value>
+        <value xml:lang="it">Ricerca candidature d'impiego</value>
         <value xml:lang="pt_BR">Procurar candidatura de emprego</value>
         <value xml:lang="zh">雇佣关系申请查询</value>
     </property>
@@ -1568,7 +1573,7 @@
         <value xml:lang="de">Einstellung</value>
         <value xml:lang="en">New Employment</value>
         <value xml:lang="fr">Nouvel emploi</value>
-        <value xml:lang="it">Nuovo Impiegato</value>
+        <value xml:lang="it">Nuovo impiego</value>
         <value xml:lang="pt_BR">Novo emprego</value>
         <value xml:lang="th">การจ้างงานใหม่</value>
         <value xml:lang="zh">新建部门人员</value>
@@ -1577,7 +1582,7 @@
         <value xml:lang="de">Neue Bewerbung</value>
         <value xml:lang="en">New Employment Application</value>
         <value xml:lang="fr">Nouvelle demande d'emploi</value>
-        <value xml:lang="it">Nuova Applicazione Impiegato</value>
+        <value xml:lang="it">Nuova candidatura d'impiego</value>
         <value xml:lang="pt_BR">Nova candidatura a emprego</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจ้างงานใหม่</value>
         <value xml:lang="zh">新建应聘求职申请</value>
@@ -1870,6 +1875,7 @@
     <property key="HumanResRecruitment">
         <value xml:lang="en">Recruitment</value>
         <value xml:lang="fr">Recrutement</value>
+        <value xml:lang="it">Reclutamento</value>
         <value xml:lang="pt_BR">Recrutamento</value>
     </property>
     <property key="HumanResRelocation">
@@ -2277,7 +2283,7 @@
     <property key="PageTitleViewEmploymentApp">
         <value xml:lang="en">View Employment App</value>
         <value xml:lang="fr">Voir les demandes d'emploi</value>
-        <value xml:lang="it">Mostra applicazioni impiegato</value>
+        <value xml:lang="it">Mostra candidature d'impiego</value>
         <value xml:lang="pt_BR">Visualizar candidatura de emprego</value>
         <value xml:lang="zh">查看应聘求职申请</value>
     </property>
