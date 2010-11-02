@@ -239,14 +239,23 @@ under the License.
     <!-- Product Price Services -->
     <service name="createProductPrice" default-entity-name="ProductPrice" engine="simple"
                 location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="createProductPrice" auth="true">
-        <description>Create an ProductPrice</description>
+        <description>
+            Create an ProductPrice. 
+            Price is always stored without tax. 
+            If a taxAuthGeoId and taxAuthPartyId are (or taxAuthCombinedId is) passed in then the price will be considered a price 
+                with tax included and the tax will be removed before storing to the database 
+                (the priceWithTax, taxAmount, and taxPercentage fields will also be populated).
+        </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="priceWithTax"/>
+            <exclude field-name="taxAmount"/>
             <exclude field-name="createdDate"/>
             <exclude field-name="createdByUserLogin"/>
             <exclude field-name="lastModifiedDate"/>
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
+        <attribute name="taxAuthCombinedId" type="String" mode="IN" optional="true"><!-- if passed in value will be split based on: "${taxAuthGeoId}::${taxAuthPartyId}" --></attribute>
         <override name="fromDate" mode="INOUT" optional="true"/>
         <override name="price" optional="false"/>
     </service>
@@ -255,6 +264,8 @@ under the License.
         <description>Update an ProductPrice</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="priceWithTax"/>
+            <exclude field-name="taxAmount"/>
             <exclude field-name="createdDate"/>
             <exclude field-name="createdByUserLogin"/>
             <exclude field-name="lastModifiedDate"/>
