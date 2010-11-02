@@ -44,7 +44,7 @@ under the License.
                                     <decorator-section name="menu-bar">
                                         <container style="button-bar">
                                             <link target="EditSubscription" text="${uiLabelMap.ProductNewSubscription}" style="buttontext create"/>
-                                            <link target="FindSubscriptionResource" text="${uiLabelMap.PageTitleFindSubscriptionResource}" style="buttontext"/>
+                                            <link target="FindSubscriptionResource" text="${uiLabelMap.PageTitleFindSubscriptionResource}" style="buttontext search"/>
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
@@ -188,7 +188,7 @@ under the License.
                                     <label text="${uiLabelMap.PageTitleFindSubscriptionResource}"/>
                                 </container>
                                 <container style="button-bar">
-                                    <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/>
+                                    <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext create"/>
                                 </container>
                                 <include-form name="ListSubscriptionResources" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                             </widgets>
