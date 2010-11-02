@@ -209,8 +209,12 @@ public class OrderReturnServices {
 
         // get the return items
         List returnItems = null;
+        List<GenericValue> returnAdjustments = FastList.newInstance();
         try {
             returnItems = returnHeader.getRelated("ReturnItem");
+            returnAdjustments = delegator.findList("ReturnAdjustment", EntityCondition.makeCondition(
+                                EntityCondition.makeCondition("returnId", EntityOperator.EQUALS, returnId), EntityOperator.AND,
+                                EntityCondition.makeCondition("returnItemSeqId", EntityOperator.EQUALS, "_NA_")), null, UtilMisc.toList("returnAdjustmentTypeId"), null, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderErrorUnableToGetReturnItemRecordsFromReturnHeader", locale));
@@ -260,7 +264,7 @@ public class OrderReturnServices {
                 uiLabelMap.addBottomResourceBundle("OrderUiLabels");
                 uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
-                Map bodyParameters = UtilMisc.toMap("returnHeader", returnHeader, "returnItems", returnItems, "uiLabelMap", uiLabelMap, "locale", locale, "userLogin", userLogin);
+                Map bodyParameters = UtilMisc.toMap("returnHeader", returnHeader, "returnItems", returnItems, "returnAdjustments", returnAdjustments, "uiLabelMap", uiLabelMap, "locale", locale, "userLogin", userLogin);
                 sendMap.put("bodyParameters", bodyParameters);
 
                 sendMap.put("subject", productStoreEmail.getString("subject"));
