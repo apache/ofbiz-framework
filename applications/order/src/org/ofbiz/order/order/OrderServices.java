@@ -3908,12 +3908,35 @@ public class OrderServices {
         // Creating objects for New Shipping and Handling Charges Adjustment and Sales Tax Adjustment
         toStore.addAll(cart.makeAllShipGroupInfos());
         toStore.addAll(cart.makeAllOrderPaymentInfos(dispatcher));
-        toStore.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.FILLED_ONLY));
+        toStore.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.FILLED_ONLY));        
 
         // get the empty order item atrributes from the cart and remove them
         List toRemove = FastList.newInstance();
         toRemove.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.EMPTY_ONLY));
 
+        // get the promo uses and codes
+        for (String promoCodeEntered : cart.getProductPromoCodesEntered()) {
+            GenericValue orderProductPromoCode = delegator.makeValue("OrderProductPromoCode");                                   
+            orderProductPromoCode.set("orderId", orderId);
+            orderProductPromoCode.set("productPromoCodeId", promoCodeEntered);
+            toStore.add(orderProductPromoCode);                                    
+        }
+        for (GenericValue promoUse : cart.makeProductPromoUses()) {
+            promoUse.set("orderId", orderId);
+            toStore.add(promoUse);
+        }        
+        
+        List<GenericValue> existingPromoCodes = null;
+        List<GenericValue> existingPromoUses = null;
+        try {
+            existingPromoCodes = delegator.findByAnd("OrderProductPromoCode", UtilMisc.toMap("orderId", orderId));
+            existingPromoUses = delegator.findByAnd("ProductPromoUse", UtilMisc.toMap("orderId", orderId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        toRemove.addAll(existingPromoCodes);
+        toRemove.addAll(existingPromoUses);
+        
         // set the orderId & other information on all new value objects
         List dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
         Iterator tsi = toStore.iterator();

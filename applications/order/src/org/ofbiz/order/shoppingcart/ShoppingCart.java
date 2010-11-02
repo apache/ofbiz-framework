@@ -130,7 +130,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Contains a List for each productPromoId (key) containing a productPromoCodeId (or empty string for no code) for each use of the productPromoId */
     private List<ProductPromoUseInfo> productPromoUseInfoList = FastList.newInstance();
     /** Contains the promo codes entered */
-    private Set productPromoCodes = new HashSet();
+    private Set<String> productPromoCodes = new HashSet<String>();
     private List freeShippingProductPromoActions = new ArrayList();
     /** Note that even though this is promotion info, it should NOT be cleared when the promos are cleared, it is a preference that will be used in the next promo calculation */
     private Map desiredAlternateGiftByAction = new HashMap();
@@ -3267,7 +3267,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
-    public Set getProductPromoCodesEntered() {
+    public Set<String> getProductPromoCodesEntered() {
         return this.productPromoCodes;
     }
 
@@ -3775,7 +3775,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return allInfos;
     }
 
-    public List makeProductPromoUses() {
+    public List<GenericValue> makeProductPromoUses() {
         List<GenericValue> productPromoUses = FastList.newInstance();
         String partyId = this.getPartyId();
         int sequenceValue = 0;
