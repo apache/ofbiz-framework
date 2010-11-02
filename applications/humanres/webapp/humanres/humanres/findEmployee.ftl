@@ -18,9 +18,6 @@ under the License.
 -->
 
 <#assign extInfo = parameters.extInfo?default("N")>
-<#assign inventoryItemId = parameters.inventoryItemId?default("")>
-<#assign serialNumber = parameters.serialNumber?default("")>
-<#assign softIdentifier = parameters.softIdentifier?default("")>
 
 <div id="findEmployee" class="screenlet">
     <div class="screenlet-title-bar">
