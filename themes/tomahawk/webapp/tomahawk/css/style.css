@@ -1438,7 +1438,7 @@ float: right;
 .button-bar ul a,.button-bar a {
 background-image:url(../images/tab_normal1.png);
 color:#000000;
-padding:0.6em 1em 0.9em 1em;
+padding: 6px 10px 6px;
 line-height:19px;
 white-space: nowrap;
 text-transform:uppercase;
