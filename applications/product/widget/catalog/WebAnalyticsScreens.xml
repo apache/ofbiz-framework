@@ -35,9 +35,7 @@ under the License.
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
-                                <container>
-                                    <include-menu name="WebAnalyticsConfigTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                </container>
+                                <include-menu name="WebAnalyticsConfigButtonBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                             </decorator-section>
                             <decorator-section name="search-options">
                                 <include-form name="FindWebAnalyticsConfig" location="component://product/widget/catalog/WebAnalyticsForms.xml"/>
@@ -65,7 +63,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWebAnalyticsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="WebAnalyticsConfigTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="WebAnalyticsConfigButtonBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                         <screenlet title="${uiLabelMap.PageTitleEditWebAnalyticsConfig}">
                             <include-form name="EditWebAnalyticsConfig" location="component://product/widget/catalog/WebAnalyticsForms.xml"/>
                         </screenlet>
@@ -91,7 +89,7 @@ under the License.
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
                                 <container>
-                                    <include-menu name="WebAnalyticsTypeTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                    <include-menu name="WebAnalyticsTypeButtonBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
@@ -119,7 +117,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWebAnalyticsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="WebAnalyticsTypeTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                        <include-menu name="WebAnalyticsTypeButtonBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                         <screenlet title="${uiLabelMap.PageTitleEditWebAnalyticsTypes}">
                             <include-form name="EditWebAnalyticsType" location="component://product/widget/catalog/WebAnalyticsForms.xml"/>
                         </screenlet>
