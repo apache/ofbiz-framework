@@ -47,7 +47,7 @@ under the License.
       <input type="hidden" name="originOrderId" value="${parameters.originOrderId?if_exists}"/>
       <input type="hidden" name="finalizeMode" value="type"/>
       <input type="hidden" name="orderMode" value="SALES_ORDER"/>
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td >&nbsp;</td>
           <td width="300" align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.ProductProductStore}</div></td>
@@ -138,7 +138,7 @@ under the License.
       <form method="post" name="poentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
       <input type='hidden' name='finalizeMode' value='type'/>
       <input type='hidden' name='orderMode' value='PURCHASE_ORDER'/>
-      <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
+      <table width="100%" border='0' cellspacing='0' cellpadding='0'>
         <#if partyId?exists>
           <#assign thisPartyId = partyId>
         <#else>
