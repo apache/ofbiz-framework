@@ -116,4 +116,12 @@ if (returnHeader) {
         postalAddressTo = delegator.findOne("PostalAddress", [contactMechId : contactMechTo.contactMechId], true);
         context.postalAddressTo = postalAddressTo;
     }
+    
+    party = delegator.findOne("Party", [partyId : partyId], true);
+    if (party) {
+        shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+        if (shippingContactMechList) {
+            context.postalAddressFrom = delegator.findOne("PostalAddress", [contactMechId : EntityUtil.getFirst(shippingContactMechList).contactMechId], true);
+        }
+    }
 }
