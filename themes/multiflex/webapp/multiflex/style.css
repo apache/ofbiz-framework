@@ -1543,7 +1543,6 @@ border: #999999 solid 1px;
 textarea {
 background: #FFFFFF;
 font-size: 8pt;
-background: white;
 border: #999999 solid 1px;
 margin: 2px;
 }
@@ -1957,7 +1956,6 @@ border-left-width: thin
 .editInputBox {
 font-size: 8pt;
 background: #FFFFFF;
-background: white;
 border: #999999 solid 1px;
 margin: 2px;
 }
