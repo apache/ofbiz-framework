@@ -266,6 +266,10 @@
         <value xml:lang="en">Article Name</value>
         <value xml:lang="th">ชื่อบทความ</value>
     </property>
+    <property key="EcommerceAvailable">
+        <value xml:lang="en">Available:</value>
+        <value xml:lang="fr">Disponible :</value>
+    </property>
     <property key="EcommerceAssignItems">
         <value xml:lang="da">Tildel emne</value>
         <value xml:lang="en">Assign Items</value>
@@ -1551,6 +1555,10 @@
         <value xml:lang="ru">Длина</value>
         <value xml:lang="th">ยาว</value>
         <value xml:lang="zh">长度</value>
+    </property>
+    <property key="EcommerceLimit">
+        <value xml:lang="en">Limit:</value>
+        <value xml:lang="fr">Limite :</value>
     </property>
     <property key="EcommerceLinkCards">
         <value xml:lang="da">Sammenkæd kort</value>
