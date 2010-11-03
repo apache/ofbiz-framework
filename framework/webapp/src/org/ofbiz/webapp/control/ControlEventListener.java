@@ -133,18 +133,20 @@ public class ControlEventListener implements HttpSessionListener {
             Debug.log("Total Passive  : " + ControlEventListener.getTotalPassiveSessions(),  module);
             Debug.log("** note : this session has been counted as destroyed.", module);
             Debug.log("--------------------------------------------------------------------", module);
-            Debug.log("Visit ID       : " + visit.getString("visitId"), module);
-            Debug.log("Party ID       : " + visit.getString("partyId"), module);
-            Debug.log("Client IP      : " + visit.getString("clientIpAddress"), module);
-            Debug.log("Client Host    : " + visit.getString("clientHostName"), module);
-            Debug.log("Client User    : " + visit.getString("clientUser"), module);
-            Debug.log("WebApp         : " + visit.getString("webappName"), module);
-            Debug.log("Locale         : " + visit.getString("initialLocale"), module);
-            Debug.log("UserAgent      : " + visit.getString("initialUserAgent"), module);
-            Debug.log("Referrer       : " + visit.getString("initialReferrer"), module);
-            Debug.log("Initial Req    : " + visit.getString("initialRequest"), module);
-            Debug.log("Visit From     : " + visit.getString("fromDate"), module);
-            Debug.log("Visit Thru     : " + visit.getString("thruDate"), module);
+            if (visit != null) {
+                Debug.log("Visit ID       : " + visit.getString("visitId"), module);
+                Debug.log("Party ID       : " + visit.getString("partyId"), module);
+                Debug.log("Client IP      : " + visit.getString("clientIpAddress"), module);
+                Debug.log("Client Host    : " + visit.getString("clientHostName"), module);
+                Debug.log("Client User    : " + visit.getString("clientUser"), module);
+                Debug.log("WebApp         : " + visit.getString("webappName"), module);
+                Debug.log("Locale         : " + visit.getString("initialLocale"), module);
+                Debug.log("UserAgent      : " + visit.getString("initialUserAgent"), module);
+                Debug.log("Referrer       : " + visit.getString("initialReferrer"), module);
+                Debug.log("Initial Req    : " + visit.getString("initialRequest"), module);
+                Debug.log("Visit From     : " + visit.getString("fromDate"), module);
+                Debug.log("Visit Thru     : " + visit.getString("thruDate"), module);
+            }
             Debug.log("--------------------------------------------------------------------", module);
             Debug.log("--- Start Session Attributes: ---", module);
             Enumeration<String> sesNames = null;
