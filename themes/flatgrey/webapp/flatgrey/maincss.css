@@ -2306,3 +2306,50 @@ height:21px;
 width:56px;
 background-image:url(/images/spinner.gif);
 }
+
+/*=================== For the quickadd page =================================*/
+.quickaddall{
+float:right;
+padding-bottom:1em;
+padding-top:1em;
+}
+
+.quickaddtable{
+display:inline-block;
+clear:both;
+}
+
+.quickaddtable span {
+display:inline;
+float:left;
+border-right:1px solid #999999;
+border-top:1px solid #999999;
+margin:0px;
+padding:3px;
+}
+
+.quickaddtable p {
+clear:left;
+height:100% !important; height:1em;
+}
+
+.quickaddtable span.pid {
+width:10%;
+}
+
+.quickaddtable span.name {
+width:50%;
+text-align:left;
+}
+
+.quickaddtable span.listPrice {
+width:10%
+}
+
+.quickaddtable span.totalPrice {
+width:10%
+}
+
+.quickaddtable span.qty {
+width:10%
+}
