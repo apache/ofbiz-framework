@@ -98,7 +98,7 @@ public class TaxAuthorityServices {
                     throw new IllegalArgumentException("Could not find any Tax Authories for store with ID [" + productStoreId + "] for tax calculation; the store settings may need to be corrected.");
                 }
 
-                List taxAdustmentList = getTaxAdjustments(delegator, product, productStore, null, billToPartyId, taxAuthoritySet, basePrice, amount, shippingPrice, ZERO_BASE);
+                List taxAdustmentList = getTaxAdjustments(delegator, product, productStore, null, billToPartyId, taxAuthoritySet, basePrice, quantity, amount, shippingPrice, ZERO_BASE);
                 if (taxAdustmentList.size() == 0) {
                     // this is something that happens every so often for different products and such, so don't blow up on it...
                     Debug.logWarning("Could not find any Tax Authories Rate Rules for store with ID [" + productStoreId + "], productId [" + productId + "], basePrice [" + basePrice + "], amount [" + amount + "], for tax calculation; the store settings may need to be corrected.", module);
@@ -141,6 +141,7 @@ public class TaxAuthorityServices {
         List itemProductList = (List) context.get("itemProductList");
         List itemAmountList = (List) context.get("itemAmountList");
         List itemPriceList = (List) context.get("itemPriceList");
+        List itemQuantityList = (List) context.get("itemQuantityList");
         List itemShippingList = (List) context.get("itemShippingList");
         BigDecimal orderShippingAmount = (BigDecimal) context.get("orderShippingAmount");
         BigDecimal orderPromotionsAmount = (BigDecimal) context.get("orderPromotionsAmount");
@@ -209,20 +210,21 @@ public class TaxAuthorityServices {
             GenericValue product = (GenericValue) itemProductList.get(i);
             BigDecimal itemAmount = (BigDecimal) itemAmountList.get(i);
             BigDecimal itemPrice = (BigDecimal) itemPriceList.get(i);
+            BigDecimal itemQuantity = itemQuantityList != null ? (BigDecimal) itemQuantityList.get(i) : null;
             BigDecimal shippingAmount = (BigDecimal) itemShippingList.get(i);
             List taxList = null;
             if (shippingAddress != null) {
-                taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, taxAuthoritySet, itemPrice, itemAmount, shippingAmount, ZERO_BASE);
+                taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, ZERO_BASE);
             }
             // this is an add and not an addAll because we want a List of Lists of GenericValues, one List of Adjustments per item
             itemAdjustments.add(taxList);
         }
         if (orderShippingAmount != null && orderShippingAmount.compareTo(BigDecimal.ZERO) > 0) {
-            List taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId, taxAuthoritySet, ZERO_BASE, ZERO_BASE, orderShippingAmount, ZERO_BASE);
+            List taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId, taxAuthoritySet, ZERO_BASE, ZERO_BASE, ZERO_BASE, orderShippingAmount, ZERO_BASE);
             orderAdjustments.addAll(taxList);
         }
         if (orderPromotionsAmount != null && orderPromotionsAmount.compareTo(BigDecimal.ZERO) != 0) {
-            List taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId, taxAuthoritySet, ZERO_BASE, ZERO_BASE, ZERO_BASE, orderPromotionsAmount);
+            List taxList = getTaxAdjustments(delegator, null, productStore, payToPartyId, billToPartyId, taxAuthoritySet, ZERO_BASE, ZERO_BASE, ZERO_BASE, ZERO_BASE, orderPromotionsAmount);
             orderAdjustments.addAll(taxList);
         }
 
@@ -263,7 +265,10 @@ public class TaxAuthorityServices {
         //Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }
 
-    private static List getTaxAdjustments(Delegator delegator, GenericValue product, GenericValue productStore, String payToPartyId, String billToPartyId, Set taxAuthoritySet, BigDecimal itemPrice, BigDecimal itemAmount, BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
+    private static List getTaxAdjustments(Delegator delegator, GenericValue product, GenericValue productStore, 
+            String payToPartyId, String billToPartyId, Set taxAuthoritySet, 
+            BigDecimal itemPrice, BigDecimal itemQuantity, BigDecimal itemAmount, 
+            BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         List adjustments = FastList.newInstance();
 
@@ -384,17 +389,17 @@ public class TaxAuthorityServices {
                     // TODO: what to do if no TaxAuthorityGlAccount found? Use some default, or is that done elsewhere later on?
                 }
 
-                GenericValue adjValue = delegator.makeValue("OrderAdjustment");
-                adjValue.set("taxAuthorityRateSeqId", taxAuthorityRateProduct.getString("taxAuthorityRateSeqId"));
-                adjValue.set("amount", taxAmount);
-                adjValue.set("sourcePercentage", taxRate);
-                adjValue.set("orderAdjustmentTypeId", "SALES_TAX");
+                GenericValue taxAdjValue = delegator.makeValue("OrderAdjustment");
+                taxAdjValue.set("taxAuthorityRateSeqId", taxAuthorityRateProduct.getString("taxAuthorityRateSeqId"));
+                taxAdjValue.set("amount", taxAmount);
+                taxAdjValue.set("sourcePercentage", taxRate);
+                taxAdjValue.set("orderAdjustmentTypeId", "SALES_TAX");
                 // the primary Geo should be the main jurisdiction that the tax is for, and the secondary would just be to define a parent or wrapping jurisdiction of the primary
-                adjValue.set("primaryGeoId", taxAuthGeoId);
-                adjValue.set("comments", taxAuthorityRateProduct.getString("description"));
-                if (taxAuthPartyId != null) adjValue.set("taxAuthPartyId", taxAuthPartyId);
-                if (taxAuthGlAccountId != null) adjValue.set("overrideGlAccountId", taxAuthGlAccountId);
-                if (taxAuthGeoId != null) adjValue.set("taxAuthGeoId", taxAuthGeoId);
+                taxAdjValue.set("primaryGeoId", taxAuthGeoId);
+                taxAdjValue.set("comments", taxAuthorityRateProduct.getString("description"));
+                if (taxAuthPartyId != null) taxAdjValue.set("taxAuthPartyId", taxAuthPartyId);
+                if (taxAuthGlAccountId != null) taxAdjValue.set("overrideGlAccountId", taxAuthGlAccountId);
+                if (taxAuthGeoId != null) taxAdjValue.set("taxAuthGeoId", taxAuthGeoId);
 
                 // check to see if this party has a tax ID for this, and if the party is tax exempt in the primary (most-local) jurisdiction
                 if (UtilValidate.isNotEmpty(billToPartyId) && UtilValidate.isNotEmpty(taxAuthGeoId)) {
@@ -408,12 +413,67 @@ public class TaxAuthorityServices {
                         GenericValue partyRelationship = (GenericValue) partyRelationshipIter.next();
                         billToPartyIdSet.add(partyRelationship.get("partyIdFrom"));
                     }
-                    handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthGeoId, taxAuthPartyId, taxAmount, nowTimestamp, delegator);
+                    handlePartyTaxExempt(taxAdjValue, billToPartyIdSet, taxAuthGeoId, taxAuthPartyId, taxAmount, nowTimestamp, delegator);
                 } else {
                     Debug.logInfo("NOTE: A tax calculation was done without a billToPartyId or taxAuthGeoId, so no tax exemptions or tax IDs considered; billToPartyId=[" + billToPartyId + "] taxAuthGeoId=[" + taxAuthGeoId + "]", module);
                 }
 
-                adjustments.add(adjValue);
+                adjustments.add(taxAdjValue);
+                
+                // for VAT taxes if the calculated total item price plus calculated taxes is different from what would be 
+                // expected based on the original entered price with taxes (if the price was entered this way), then create
+                // an adjustment that corrects for the difference, and this correction will be effectively subtracted from the 
+                // price and not from the tax (the tax is meant to be calculated based on Tax Authority rules and so should
+                // not be shorted)
+                
+                // TODO get this to work with price rules changing the default price (right now only works where itemPrice==defaultPrice
+                // TODO (don't think this is needed, but just to keep it in mind): get this to work with multiple VAT tax authorities instead of just one (right now will get incorrect totals if there are multiple taxes included in the price)
+                // TODO add constraint to ProductPrice lookup by any productStoreGroupId associated with the current productStore
+                
+                Debug.logInfo("=================== itemQuantity=" + itemQuantity, module);
+                Debug.logInfo("=================== taxAuthPartyId=" + taxAuthPartyId, module);
+                Debug.logInfo("=================== taxAuthGeoId=" + taxAuthGeoId, module);
+                if (product != null && itemQuantity != null && taxAuthPartyId != null && taxAuthGeoId != null) {
+                    // find a ProductPrice for the productId and taxAuth* valxues, and see if it has a priceWithTax value
+                    Map<String, String> priceFindMap = UtilMisc.toMap("productId", product.getString("productId"), 
+                            "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, 
+                            "productPriceTypeId", "DEFAULT_PRICE", "productPricePurposeId", "PURCHASE");
+                    List<GenericValue> productPriceList = delegator.findByAnd("ProductPrice", priceFindMap, UtilMisc.toList("-fromDate"));
+                    productPriceList = EntityUtil.filterByDate(productPriceList, true);
+                    GenericValue productPrice = (productPriceList != null && productPriceList.size() > 0) ? productPriceList.get(0): null;
+                    Debug.logInfo("=================== productId=" + product.getString("productId"), module);
+                    Debug.logInfo("=================== productPrice=" + productPrice, module);
+                    
+                    if (productPrice != null && productPrice.getBigDecimal("priceWithTax") != null) {
+                        BigDecimal priceWithTax = productPrice.getBigDecimal("priceWithTax");
+                        BigDecimal enteredTotalPriceWithTax = priceWithTax.multiply(itemQuantity);
+                        BigDecimal calcedTotalPriceWithTax = itemAmount.add(taxAmount);
+                        Debug.logInfo("=================== priceWithTax=" + priceWithTax, module);
+                        Debug.logInfo("=================== enteredTotalPriceWithTax=" + enteredTotalPriceWithTax, module);
+                        Debug.logInfo("=================== calcedTotalPriceWithTax=" + calcedTotalPriceWithTax, module);
+                        
+                        if (!enteredTotalPriceWithTax.equals(calcedTotalPriceWithTax)) {
+                            // if the calced amount is higher than the entered amount we want the value to be negative 
+                            //     to get it down to match the entered amount
+                            // so, subtract the calced amount from the entered amount (ie: correction = entered - calced)
+                            BigDecimal correctionAmount = enteredTotalPriceWithTax.subtract(calcedTotalPriceWithTax);
+                            Debug.logInfo("=================== correctionAmount=" + correctionAmount, module);
+                            
+                            GenericValue correctionAdjValue = delegator.makeValue("OrderAdjustment");
+                            correctionAdjValue.set("taxAuthorityRateSeqId", taxAuthorityRateProduct.getString("taxAuthorityRateSeqId"));
+                            correctionAdjValue.set("amount", correctionAmount);
+                            correctionAdjValue.set("sourcePercentage", taxRate);
+                            correctionAdjValue.set("orderAdjustmentTypeId", "VAT_PRICE_CORRECT");
+                            // the primary Geo should be the main jurisdiction that the tax is for, and the secondary would just be to define a parent or wrapping jurisdiction of the primary
+                            correctionAdjValue.set("primaryGeoId", taxAuthGeoId);
+                            correctionAdjValue.set("comments", taxAuthorityRateProduct.getString("description"));
+                            if (taxAuthPartyId != null) correctionAdjValue.set("taxAuthPartyId", taxAuthPartyId);
+                            if (taxAuthGlAccountId != null) correctionAdjValue.set("overrideGlAccountId", taxAuthGlAccountId);
+                            if (taxAuthGeoId != null) correctionAdjValue.set("taxAuthGeoId", taxAuthGeoId);
+                            adjustments.add(correctionAdjValue);
+                        }
+                    }
+                }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up tax rates", module);

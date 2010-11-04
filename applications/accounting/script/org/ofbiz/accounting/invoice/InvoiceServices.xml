@@ -780,10 +780,11 @@ under the License.
             </else>
             </if-not-empty>
             <set field="itemAmount" from-field="totalAmount" type="BigDecimal"/>
-            <set field="itemPrice" from-field="invoiceItem.amount"/>
+            <set field="itemPrice" from-field="invoiceItem.amount" type="BigDecimal"/>
             <set field="addtaxMap.itemProductList[]" from-field="itemProduct"/>
             <set field="addtaxMap.itemAmountList[]" from-field="itemAmount" type="BigDecimal"/>
-            <set field="addtaxMap.itemPriceList[]" from-field="itemPrice"/>
+            <set field="addtaxMap.itemPriceList[]" from-field="itemPrice" type="BigDecimal"/>
+            <set field="addtaxMap.itemQuantityList[]" from-field="invoiceItem.quantity" type="BigDecimal"/>
             <set field="addtaxMap.itemShippingList[]" type="BigDecimal" value="0"/>
         </iterate>
         <set field="addtaxMap.orderShippingAmount" type="BigDecimal" value="0"/>

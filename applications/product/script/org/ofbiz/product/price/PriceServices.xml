@@ -127,7 +127,7 @@ under the License.
                     <check-errors/>
                 </if-empty>
                 
-                <calculate field="parameters.taxAmount" type="BigDecimal" decimal-scale="3" rounding-mode="HalfEven">
+                <calculate field="parameters.taxAmount" type="BigDecimal" decimal-scale="3" rounding-mode="HalfUp">
                     <calcop operator="subtract">
                         <calcop operator="get" field="parameters.priceWithTax"/>
                         <calcop operator="divide">
@@ -142,7 +142,7 @@ under the License.
                         </calcop>
                     </calcop>
                 </calculate>
-                <calculate field="parameters.price" type="BigDecimal" decimal-scale="3" rounding-mode="HalfEven">
+                <calculate field="parameters.price" type="BigDecimal" decimal-scale="3" rounding-mode="HalfUp">
                     <calcop operator="subtract">
                         <calcop operator="get" field="parameters.priceWithTax"/>
                         <calcop operator="get" field="parameters.taxAmount"></calcop>
