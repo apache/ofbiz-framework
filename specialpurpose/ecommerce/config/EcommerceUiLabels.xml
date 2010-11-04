@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="EcommerceAboutUs">
         <value xml:lang="en">About Us</value>
+        <value xml:lang="fr">A propos</value>
         <value xml:lang="nl">Over ons</value>       
         <value xml:lang="pt_BR">Sobre</value>
     </property>
@@ -2113,7 +2114,7 @@
         <value xml:lang="de">Es gibt noch keine Einkaufslisten, legen Sie eine neue an</value>
         <value xml:lang="en">No shopping lists to select, create a new one</value>
         <value xml:lang="es">No hay lista de compras, cree una nueva</value>
-        <value xml:lang="fr">Aucuneliste d'achats à sélectionner, créez en une</value>
+        <value xml:lang="fr">Aucune liste d'achats à sélectionner, créez en une</value>
         <value xml:lang="hi_IN">कोई सूची चुनने योग्य नहीं, नया बनाऐं</value>
         <value xml:lang="it">Nessuna lista di acquisto da selezionare, crearne una nuova</value>
         <value xml:lang="ja">No shopping lists to select, create a new one</value>
@@ -2677,7 +2678,7 @@
         <value xml:lang="de">Retourenanfrage stellen für folgende Positionen:</value>
         <value xml:lang="en">Return Request</value>
         <value xml:lang="es">Su orden de devolución para los siguientes items :</value>
-        <value xml:lang="fr">Votre demande de retour des articles suivants:</value>
+        <value xml:lang="fr">Votre demande de retour des articles suivants :</value>
         <value xml:lang="hi_IN">सारे सामान का जवाब</value>
         <value xml:lang="it">La tua richiesta di reso per i seguenti articoli:</value>
         <value xml:lang="ja">Your return request for the following items:</value>
@@ -3225,7 +3226,7 @@
         <value xml:lang="de">Leider können Sie diese Seite nicht einem Freund mitteilen. Wählen Sie eine andere Kategorie oder ein anderes Produkt.</value>
         <value xml:lang="en">Tell A Friend Sorry</value>
         <value xml:lang="es">Disculpe, no puede enviar esta página a un amigo. Selecciones otra categoría o producto</value>
-        <value xml:lang="fr">Désolé, vous ne pouvez envoyer cette page à un ami. Choisissez plutôt à partir d'un catégorie ou d'un article</value>
+        <value xml:lang="fr">Désolé, vous ne pouvez envoyer cette page à un ami. Choisissez plutôt à partir d'une catégorie ou d'un article</value>
         <value xml:lang="hi_IN">माफ किजीये: यह पृष्ठ अपने दोस्त को नहीं भेज सकते, किसी प्रकार या सामान में से भेजें</value>
         <value xml:lang="it">Spiacente, non è possibile inviare questa pagina ad un amico. Per favore seleziona una categoria o un prodotto.</value>
         <value xml:lang="ja">Sorry, you cannot send this page to a friend. Please select from either a category or product.</value>
@@ -4504,6 +4505,7 @@
     <property key="PageTitleViewQuote">
         <value xml:lang="da">Vis tilbud</value>
         <value xml:lang="en">View Quote</value>
+        <value xml:lang="fr">Voir les devis</value>
         <value xml:lang="it">Mostra preventivo</value>
         <value xml:lang="nl">Bekijk offerte</value>     
         <value xml:lang="pt_BR">Visualizar citação</value>
