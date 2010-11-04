@@ -60,20 +60,20 @@ under the License.
   <center>
   <form method="post" action="<@ofbizUrl>addtocartbulk</@ofbizUrl>" name="bulkaddform" style='margin: 0;'>
     <input type='hidden' name='category_id' value='${categoryId}' />
-    <div align="right">
-      <a href="javascript:document.bulkaddform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddAllToCart}</span></a>
+    <div class="quickaddall">
+      <a href="javascript:document.bulkaddform.submit()" class="buttontext">${uiLabelMap.OrderAddAllToCart}</a>
     </div>
-    <table border='1' cellpadding='2' cellspacing='0'>
+    <div class="quickaddtable">
       <#list productCategoryMembers as productCategoryMember>
         <#assign product = productCategoryMember.getRelatedOneCache("Product")>
-        <tr>
+        <p>
             ${setRequestAttribute("optProductId", productCategoryMember.productId)}
             ${screens.render(quickaddsummaryScreen)}
-        </tr>
+        </p>
       </#list>
-    </table>
-    <div align="right">
-      <a href="javascript:document.bulkaddform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddAllToCart}</span></a>
+    </div>
+    <div class="quickaddall">
+      <a href="javascript:document.bulkaddform.submit()" class="buttontext">${uiLabelMap.OrderAddAllToCart}</a>
     </div>
   </form>
   </center>
@@ -87,3 +87,4 @@ under the License.
     </tr>
   </table>
 </#if>
+
