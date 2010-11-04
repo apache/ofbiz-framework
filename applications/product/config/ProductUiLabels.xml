@@ -5141,7 +5141,7 @@
         <value xml:lang="en">Edit Product Associations</value>
         <value xml:lang="es">Editar Asociaciones de un Producto</value>
         <value xml:lang="fr">Modification des associations d'articles</value>
-        <value xml:lang="it">Aggiorna Associazioni Prodotto</value>
+        <value xml:lang="it">Aggiorna associazioni prodotto</value>
         <value xml:lang="ro">Actualizeaza Asociatii Produs</value>
         <value xml:lang="ru">Изменить ассоциации продукта</value>
         <value xml:lang="th">แก้ไขกลุ่มสินค้า</value>
@@ -7761,7 +7761,7 @@
         <value xml:lang="en">Association Type</value>
         <value xml:lang="es">Tipo de Asociación</value>
         <value xml:lang="fr">Type d'association</value>
-        <value xml:lang="it">Tipo Associazione</value>
+        <value xml:lang="it">Tipo associazione</value>
         <value xml:lang="ro">Tip Asociatie </value>
         <value xml:lang="ru">Тип ассоциации</value>
         <value xml:lang="th">ประเภทกลุ่ม</value>
@@ -7772,7 +7772,7 @@
         <value xml:lang="en">Association Type ID</value>
         <value xml:lang="es">Código de Tipo de Asociación</value>
         <value xml:lang="fr">Réf. du type d'association</value>
-        <value xml:lang="it">Tipo Associazione</value>
+        <value xml:lang="it">Tipo associazione</value>
         <value xml:lang="ro">Tip Asociatie</value>
         <value xml:lang="ru">Тип ассоциации</value>
         <value xml:lang="th">รหัสประเภทกลุ่ม</value>
@@ -7794,7 +7794,7 @@
         <value xml:lang="en">Associations FROM this Product to</value>
         <value xml:lang="es">Asociaciones DE este Producto a</value>
         <value xml:lang="fr">Articles associés depuis cet article</value>
-        <value xml:lang="it">Associazioni da questo Prodotto a</value>
+        <value xml:lang="it">Associazioni da questo prodotto a</value>
         <value xml:lang="ro">Asociatie De la acest Produs la</value>
         <value xml:lang="ru">Ассоциации от этого продукта к</value>
         <value xml:lang="th">กลุ่มจากสินค้านี้ไปยัง</value>
@@ -7805,7 +7805,7 @@
         <value xml:lang="en">Associations TO this Product from</value>
         <value xml:lang="es">Asociaciones A este Producto de</value>
         <value xml:lang="fr">Articles associés à cet article</value>
-        <value xml:lang="it">Associazioni a questo Prodotto da</value>
+        <value xml:lang="it">Associazioni a questo prodotto da</value>
         <value xml:lang="ro">Asociatii La acest Produs de la</value>
         <value xml:lang="ru">Ассоциации к этому продукту от</value>
         <value xml:lang="th">กลุ่มสินค้านี้จาก</value>
@@ -10201,7 +10201,7 @@
         <value xml:lang="en">Edit Features for Feature Category</value>
         <value xml:lang="es">Editar Características para Categorías de Atributos</value>
         <value xml:lang="fr">Modification des caractéristiques de la catégorie :</value>
-        <value xml:lang="it">Aggiorna Caratteristiche per Categoria Caratteristica</value>
+        <value xml:lang="it">Aggiorna caratteristiche per categoria</value>
         <value xml:lang="ro">Actualizeaza Caracteristica pe Categorie Caracteristica</value>
         <value xml:lang="ru">Изменить особенности для категории</value>
         <value xml:lang="th">แก้ไขลักษณะด้วยรหัสหมวดหมู่</value>
@@ -14375,7 +14375,7 @@
         <value xml:lang="en">No Price Rules found</value>
         <value xml:lang="es">No se encontraron reglas de precio</value>
         <value xml:lang="fr">Règles de prix non trouvées</value>
-        <value xml:lang="it">Nessuna Regola Prezzo trovata</value>
+        <value xml:lang="it">Nessuna regola di prezzo trovata</value>
         <value xml:lang="nl">Geen prijsregels gevonden</value>    
         <value xml:lang="ro">Nici-o regula de Pret Gasita ProductNoProductsInCategory=Nici-un produs in categorie</value>
         <value xml:lang="ru">Не найдены правила ценообразования</value>
@@ -15990,7 +15990,7 @@
         <value xml:lang="en">Edit Price Rule [ID]</value>
         <value xml:lang="es">Regla de precio [CÓDIGO]</value>
         <value xml:lang="fr">Modifier la règle de prix [Réf.]</value>
-        <value xml:lang="it">Regola Prezzo [Codice]</value>
+        <value xml:lang="it">Regola prezzo [Codice]</value>
         <value xml:lang="nl">Prijsregel [ID]</value>    
         <value xml:lang="ro">Regula Pret [Cod]</value>
         <value xml:lang="ru">правила ценообразования [Код]</value>
@@ -16002,7 +16002,7 @@
         <value xml:lang="en">Price Rule Name [ID]</value>
         <value xml:lang="es">Nombre de la regla de precio [CÓDIGO]</value>
         <value xml:lang="fr">Nom de la règle de prix [Réf.]</value>
-        <value xml:lang="it">Nome Regola Prezzo [Codice]</value>
+        <value xml:lang="it">Nome regola prezzo [Codice]</value>
         <value xml:lang="nl">Naam prijsregel [ID]</value>    
         <value xml:lang="ro">Nume Regula Pret [Cod]</value>
         <value xml:lang="ru">Имя правила ценообразования [Код]</value>
@@ -16300,7 +16300,7 @@
         <value xml:lang="en">Product Feature Maintenance</value>
         <value xml:lang="es">Mantenimiento de características de producto</value>
         <value xml:lang="fr">Maintenance de caractéristique de produits</value>
-        <value xml:lang="it">Manutenzione Caratteristica Prodotto</value>
+        <value xml:lang="it">Manutenzione caratteristica prodotto</value>
         <value xml:lang="ro">Intretinere Caracteristica Produs</value>
         <value xml:lang="ru">Поддержка особенностей продукта</value>
         <value xml:lang="th">การรักษาสภาพลักษณะสินค้า</value>
@@ -17681,7 +17681,7 @@
         <value xml:lang="en">(You must re-create the association to change this.)</value>
         <value xml:lang="es">(Debe volver a crear la asociación para cambiar esto)</value>
         <value xml:lang="fr">(Vous devez recréer l'association pour modifier cela.)</value>
-        <value xml:lang="it">(Tu devi ri-creare l'associazione per cambiarla a questo.)</value>
+        <value xml:lang="it">(Non può essere cambiato senza ri-creare l'associazione)</value>
         <value xml:lang="ro">( Pentru a putea schimba,trebuie sa recreezi asociatia.)</value>
         <value xml:lang="ru">(Чтобы это изменить вы должны повторно создать ассоциацию.)</value>
         <value xml:lang="th">(คุณต้องสร้างกลุ่มถึงการเปลี่ยนแปลงนี้อีกครั้ง)</value>
@@ -18728,7 +18728,7 @@
         <value xml:lang="en">Sequence Num</value>
         <value xml:lang="es">Nº de secuencia</value>
         <value xml:lang="fr">N° de séquence</value>
-        <value xml:lang="it">Num Sequenza </value>
+        <value xml:lang="it">Num sequenza</value>
         <value xml:lang="ro">Numar Secventa </value>
         <value xml:lang="ru">Послед. номер</value>
         <value xml:lang="th">หมายเลขรายการ</value>
