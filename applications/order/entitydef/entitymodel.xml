@@ -492,8 +492,8 @@ under the License.
       <field name="quantity" type="fixed-point" enable-audit-log="true"></field>
       <field name="cancelQuantity" type="fixed-point"></field>
       <field name="selectedAmount" type="fixed-point"></field>
-      <field name="unitPrice" type="currency-amount" enable-audit-log="true"></field>
-      <field name="unitListPrice" type="currency-amount"></field>
+      <field name="unitPrice" type="currency-precise" enable-audit-log="true"></field>
+      <field name="unitListPrice" type="currency-precise"></field>
       <field name="unitAverageCost" type="currency-amount"></field>
       <field name="unitRecurringPrice" type="currency-amount"></field>
       <field name="isModifiedPrice" type="indicator"></field>
