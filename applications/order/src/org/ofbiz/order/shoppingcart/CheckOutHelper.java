@@ -794,6 +794,7 @@ public class CheckOutHelper {
         List<GenericValue> product = new ArrayList<GenericValue>(totalItems);
         List<BigDecimal> amount = new ArrayList<BigDecimal>(totalItems);
         List<BigDecimal> price = new ArrayList<BigDecimal>(totalItems);
+        List<BigDecimal> quantity = new ArrayList<BigDecimal>(totalItems);
         List<BigDecimal> shipAmt = new ArrayList<BigDecimal>(totalItems);
 
         // Debug.logInfo("====== makeTaxContext passed in shipAddress=" + shipAddress, module);
@@ -809,6 +810,7 @@ public class CheckOutHelper {
             product.add(i, cartItem.getProduct());
             amount.add(i, cartItem.getItemSubTotal(itemInfo.quantity));
             price.add(i, cartItem.getBasePrice());
+            quantity.add(i, cartItem.getQuantity());
             shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
             shoppingCartItemIndexMap.put(Integer.valueOf(i), cartItem);
         }
@@ -862,6 +864,7 @@ public class CheckOutHelper {
         serviceContext.put("itemProductList", product);
         serviceContext.put("itemAmountList", amount);
         serviceContext.put("itemPriceList", price);
+        serviceContext.put("itemQuantityList", quantity);
         serviceContext.put("itemShippingList", shipAmt);
         serviceContext.put("orderShippingAmount", shipAmount);
         serviceContext.put("shippingAddress", shipAddress);

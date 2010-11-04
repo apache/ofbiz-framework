@@ -1496,6 +1496,7 @@ public class InvoiceServices {
                         calcTaxContext.put("itemProductList", emptyList);
                         calcTaxContext.put("itemAmountList", emptyList);
                         calcTaxContext.put("itemPriceList", emptyList);
+                        calcTaxContext.put("itemQuantityList", emptyList);
                         calcTaxContext.put("itemShippingList", emptyList);
 
                         Map<String, Object> calcTaxResult = null;
