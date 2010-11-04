@@ -29,7 +29,6 @@ under the License.
         <tr valign="middle">
           <td class="label">${uiLabelMap.ProductCategory}</td>
           <td>${(searchCategory.description)?if_exists}</td>
-          <td>&nbsp;</td>
         </tr>
         <tr valign="middle">
           <td class="label">${uiLabelMap.ProductIncludeSubCategories}</td>
