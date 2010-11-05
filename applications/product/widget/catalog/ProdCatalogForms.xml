@@ -23,6 +23,7 @@ under the License.
     <form name="ListProdCatalog" list-name="listIt" target="" title="" type="list" paginate-target="FindProdCatalog"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="prodCatalogId"/>
             <entity-and entity-name="ProdCatalog" use-cache="true" list="listIt">
                 <order-by field-name="${parameters.sortField}"/>
             </entity-and>
