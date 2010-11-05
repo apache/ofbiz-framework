@@ -165,9 +165,9 @@ under the License.
                                 <if-has-permission permission="CATALOG" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://product/webapp/catalog/catalog/FindProdCatalog.ftl"/></html>
-                                </platform-specific>
+                                <screenlet title="${uiLabelMap.ProductProductCatalogsList}">
+                                    <include-form name="ListProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
