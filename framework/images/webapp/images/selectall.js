@@ -410,6 +410,12 @@ function setLookDescription(textFieldId, description) {
         tooltipElement.update(description);
         lookupWrapperEl.appendChild(tooltipElement);
     }
+    
+    // after the description is set; the text field may have been updated 
+    // just in case, call onchange again
+    if ($(textFieldId).onchange != null) {
+    	$(textFieldId).onchange();
+    }
 }
 
 /** Enable auto-completion for drop-down elements.
