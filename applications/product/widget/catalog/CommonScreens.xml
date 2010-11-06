@@ -51,6 +51,7 @@ under the License.
     <screen name="CommonProductDecorator">
         <section>
             <actions>
+                <set field="headerItem" value="products"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="productId" from-field="parameters.productId"/>
@@ -117,9 +118,9 @@ under the License.
                                         </or>
                                     </condition>
                                     <widgets>
-                                        <decorator-section-include name="body"/>
-                                    </widgets>
-                                    <fail-widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
                                         <label style="h3">${uiLabelMap.ProductNoExistingProductsFound}</label>
                                     </fail-widgets>
                                 </section>
