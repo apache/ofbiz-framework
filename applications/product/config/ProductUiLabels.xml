@@ -5946,6 +5946,10 @@
         <value xml:lang="th">Find Inventory Item Labels</value>
         <value xml:lang="zh">查找库存明细标签</value>
     </property>
+    <property key="PageTitleFindProduct">
+        <value xml:lang="en">Find Product</value>
+        <value xml:lang="it">Ricerca prodotti</value>
+    </property>
     <property key="PageTitleFindProductCatalog">
         <value xml:lang="de">Produktkatalog suchen</value>
         <value xml:lang="en">Find Product Catalog</value>

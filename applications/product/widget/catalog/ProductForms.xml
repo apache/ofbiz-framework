@@ -20,12 +20,41 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <!--  UNUSED FORM
-    <form name="EditProductSimpleTest" type="single" target="updateProduct" title=""
+    <form name="FindProduct" type="single" target="FindProduct" title="" default-map-name="product"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="updateProduct" map-name="product"/>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
     </form>
-    -->
+
+    <form name="ListProducts" list-name="listIt" target="" title="" type="list" paginate-target="FindProduct"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <actions>
+            <set field="entityName" value="Product"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="productId" sort-field="true">
+            <hyperlink also-hidden="false" description="${productId}" target="EditProduct">
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+        
+        <field name="internalName" sort-field="true"><display/></field>
+        <field name="brandName" sort-field="true"><display/></field>
+        <field name="productName" sort-field="true"><display/></field>
+        <field name="description" sort-field="true"><display/></field>
+    </form>
+
+
     <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
         header-row-style="header-row" default-table-style="basic-table">
 
