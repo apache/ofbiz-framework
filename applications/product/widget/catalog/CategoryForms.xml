@@ -211,4 +211,13 @@ under the License.
             </hyperlink>
         </field>
     </form>
+    <form name="ListTopCategory" type="list" list-name="noParentCategories" odd-row-style="alternate-row" default-table-style="basic-table">
+        <field name="productCategoryId"  widget-style="buttontext">
+            <hyperlink target="EditCategory" description="${productCategoryId}" also-hidden="false">
+                <parameter param-name="CATALOG_TOP_CATEGORY" value="${productCategoryId}"/>
+                <parameter param-name="productCategoryId" value="${productCategoryId}"/>
+            </hyperlink>
+        </field>
+        <field name="description"><display/></field>
+    </form>
 </forms>
