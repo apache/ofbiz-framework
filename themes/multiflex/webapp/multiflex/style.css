@@ -1745,6 +1745,7 @@ background: white;
 border: #999999 solid 1px;
 margin: 2px 1px 2px 1px;
 padding: 1px 4px 1px 4px;
+line-height: 2em;
 }
 
 A.buttontext {
