@@ -50,10 +50,16 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
@@ -264,6 +270,52 @@ public class ContextFilter implements Filter {
                 }
                 Debug.logWarning(filterMessage, module);
                 return;
+            }
+        }
+        
+        // check if multi tenant is enabled
+        String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
+        if ("Y".equals(useMultitenant)) {
+            // get tenant delegator by domain name
+            String serverName = request.getServerName();
+            try {
+                // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
+                Delegator delegator = getDelegator(config.getServletContext());
+                List<EntityCondition> conds = FastList.newInstance();
+                conds.add(EntityCondition.makeCondition("domainName", serverName));
+                List<GenericValue> tenants = delegator.findList("Tenant", EntityCondition.makeCondition(conds), null, UtilMisc.toList("-createdStamp"), null, false);
+                if (UtilValidate.isNotEmpty(tenants)) {
+                    GenericValue tenant = EntityUtil.getFirst(tenants);
+                    String tenantId = tenant.getString("tenantId");
+                    
+                    // make that tenant active, setup a new delegator and a new dispatcher
+                    String tenantDelegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
+                    httpRequest.getSession().setAttribute("delegatorName", tenantDelegatorName);
+                
+                    // after this line the delegator is replaced with the new per-tenant delegator
+                    delegator = DelegatorFactory.getDelegator(tenantDelegatorName);
+                    config.getServletContext().setAttribute("delegator", delegator);
+                    
+                    // clear web context objects
+                    config.getServletContext().setAttribute("authorization", null);
+                    config.getServletContext().setAttribute("security", null);
+                    config.getServletContext().setAttribute("dispatcher", null);
+                    
+                    // initialize authorizer
+                    getAuthz();
+                    // initialize security
+                    Security security = getSecurity();
+                    // initialize the services dispatcher
+                    LocalDispatcher dispatcher = getDispatcher(config.getServletContext());
+                    
+                    // set web context objects
+                    httpRequest.getSession().setAttribute("dispatcher", dispatcher);
+                    httpRequest.getSession().setAttribute("security", security);
+                    
+                    request.setAttribute("tenantId", tenantId);
+                }
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "Unable to get Tenant", module);
             }
         }
 

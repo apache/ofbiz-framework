@@ -24,10 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.report.context.IContext;
+import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.presentation.aggregation.layout.FramesetFragment;
 import org.eclipse.birt.report.presentation.aggregation.layout.RunFragment;
 import org.eclipse.birt.report.service.BirtReportServiceFactory;
 import org.eclipse.birt.report.servlet.ViewerServlet;
+import org.ofbiz.birt.BirtWorker;
+import org.ofbiz.birt.container.BirtContainer;
 import org.ofbiz.birt.report.context.OFBizBirtContext;
 import org.ofbiz.birt.report.service.OFBizBirtViewerReportService;
 
@@ -56,6 +59,9 @@ public class BirtViewerServlet extends ViewerServlet {
     protected IContext __getContext( HttpServletRequest request,
             HttpServletResponse response ) throws BirtException
     {
+        IReportEngine reportEngine = BirtContainer.getReportEngine();
+        BirtWorker.setWebContextObjects(reportEngine, request, response);
+        
         BirtReportServiceFactory.getReportService( ).setContext(
                 getServletContext( ), null );
         return new OFBizBirtContext( request, response );

@@ -226,39 +226,6 @@ public class ControlServlet extends HttpServlet {
 
         String errorPage = null;
         try {
-            String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
-            if ("Y".equals(useMultitenant) && UtilValidate.isEmpty(delegator.getDelegatorTenantId())) {
-                // get tenant delegator by domain name
-                try {
-                    // if a domain name was specified for tenant, replace delegator with the new per-tenant delegator and set tenantId to session attribute
-                    List<GenericValue> tenants = delegator.findList("Tenant", EntityCondition.makeCondition("domainName", request.getServerName()), null, UtilMisc.toList("-createdStamp"), null, false);
-                    if (UtilValidate.isNotEmpty(tenants)) {
-                        GenericValue tenant = EntityUtil.getFirst(tenants);
-                        String tenantId = tenant.getString("tenantId");
-                        
-                        // make that tenant active, setup a new delegator and a new dispatcher
-                        String tenantDelegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
-                    
-                        // after this line the delegator is replaced with the new per-tenant delegator
-                        delegator = DelegatorFactory.getDelegator(tenantDelegatorName);
-                        session.setAttribute("tenantId", tenantId);
-                        session.setAttribute("delegatorName", tenantDelegatorName);
-                    }
-                } catch (GenericEntityException e) {
-                    String errMsg = "Error getting tenant by domain name: " + request.getServerName();
-                    Debug.logError(e, errMsg, module);
-                    throw new RequestHandlerException(errMsg, e);
-                }
-            }
-            if ("Y".equals(useMultitenant) && UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
-                // re-make dispatcher from tenant delegator and change delegator of security to use tanent delegator
-                dispatcher = ContextFilter.makeWebappDispatcher(session.getServletContext(), delegator);
-                security.setDelegator(delegator);
-                
-                request.setAttribute("delegator", delegator);
-                request.setAttribute("dispatcher", dispatcher);
-            }
-            
             // the ServerHitBin call for the event is done inside the doRequest method
             requestHandler.doRequest(request, response, null, userLogin, delegator);
         } catch (RequestHandlerException e) {
