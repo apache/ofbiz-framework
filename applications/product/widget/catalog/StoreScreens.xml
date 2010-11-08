@@ -27,10 +27,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductStoreList"/>
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreList"/>
-
-                <entity-condition entity-name="ProductStore" list="productStores">
-                    <order-by field-name="storeName"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
@@ -39,7 +35,7 @@ under the License.
                             <container style="button-bar">
                                 <link target="EditProductStore" text="${uiLabelMap.ProductCreateNewProductStore}" style="buttontext create"/>
                             </container>
-                            <include-form name="FindProductStore" location="component://product/widget/catalog/ProductStoreForms.xml"/>
+                            <include-form name="ListProductStore" location="component://product/widget/catalog/ProductStoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
