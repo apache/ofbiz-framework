@@ -33,10 +33,10 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.ProjectMgrCustomerRequestList}">
-                    <label style="h2" text="${uiLabelMap.ProjectMgrAcceptedCustomerRequestList}"/>
+                <screenlet title="${uiLabelMap.ProjectMgrAcceptedCustomerRequestList}">
                     <include-form name="ListRequests" location="component://projectmgr/widget/forms/CustRequestForms.xml"/>
-                    <label style="h2" text="${uiLabelMap.ProjectMgrReviewedCustomerRequestTaskList}"/>
+                </screenlet>
+                <screenlet title="${uiLabelMap.ProjectMgrReviewedCustomerRequestTaskList}">
                     <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/CustRequestForms.xml"/>
                 </screenlet>
             </widgets>
@@ -129,7 +129,7 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="lefthalf">
-                            <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
+                            <screenlet title="${uiLabelMap.OrderRequestInformation}">
                                 <include-form name="requestInfo" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </screenlet>
                         </container>
