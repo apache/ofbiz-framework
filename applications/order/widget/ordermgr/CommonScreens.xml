@@ -62,7 +62,7 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="pre-body">
                         <section>
                             <condition>
                                 <not><if-empty field="custRequest"/></not>
@@ -71,6 +71,8 @@ under the License.
                                 <include-menu name="RequestTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                             </widgets>
                         </section>
+                    </decorator-section>
+                    <decorator-section name="body">
                         <include-menu name="RequestSubTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
                         <container>
                             <section>
