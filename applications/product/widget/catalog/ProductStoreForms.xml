@@ -20,20 +20,22 @@
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindProductStore" type="list" list-name="productStores"
-        odd-row-style="alternate-row" default-table-style="basic-table">
-        <field name="ProductStoreNameId" title="${uiLabelMap.ProductStoreNameId}" widget-style="buttontext">
-            <hyperlink target="EditProductStore" description="${storeName} [${productStoreId}]">
+    <form name="ListProductStore" type="list" list-name="productStores"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <actions>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="storeName"/>
+            <entity-and entity-name="ProductStore" use-cache="true" list="productStores">
+                <order-by field-name="${parameters.sortField}"/>
+            </entity-and>
+        </actions>
+        <field name="productStoreId" title="${uiLabelMap.ProductStoreId}" widget-style="buttontext" sort-field="true">
+            <hyperlink target="EditProductStore" description="${productStoreId}">
                 <parameter param-name="productStoreId"/>
             </hyperlink>
         </field>
-        <field name="title" title="${uiLabelMap.ProductTitle}"><display/></field>
-        <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><display/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditProductStore" description="${uiLabelMap.CommonEdit}">
-                <parameter param-name="productStoreId"/>
-            </hyperlink>
-        </field>
+        <field name="storeName" title="${uiLabelMap.ProductStoreName}" sort-field="true"><display/></field>
+        <field name="title" title="${uiLabelMap.ProductTitle}" sort-field="true"><display/></field>
+        <field name="subtitle" title="${uiLabelMap.ProductSubTitle}" sort-field="true"><display/></field>
     </form>
     <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"
         header-row-style="header-row" default-table-style="basic-table">
