@@ -66,6 +66,7 @@ under the License.
     <entity entity-name="Tenant" package-name="org.ofbiz.entity.tenant">
         <field name="tenantId" type="id-ne"/>
         <field name="tenantName" type="name"/>
+        <field name="domainName" type="long-varchar"/>
         <field name="disabled" type="indicator"><description>Disabled if 'Y', defaults to 'N' (not disabled).</description></field>
         <prim-key field="tenantId"/>
     </entity>

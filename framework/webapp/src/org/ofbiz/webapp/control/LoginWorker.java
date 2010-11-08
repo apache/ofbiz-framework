@@ -371,11 +371,19 @@ public class LoginWorker {
                 ServletContext servletContext = session.getServletContext();
                 
                 // make that tenant active, setup a new delegator and a new dispatcher
-                String delegatorName = delegator.getDelegatorName() + "#" + tenantId;
+                String delegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
                 
-                // after this line the delegator is replaced with the new per-tenant delegator
-                delegator = DelegatorFactory.getDelegator(delegatorName);
-                dispatcher = ContextFilter.makeWebappDispatcher(servletContext, delegator);
+                try {
+                    // after this line the delegator is replaced with the new per-tenant delegator
+                    delegator = DelegatorFactory.getDelegator(delegatorName);
+                    dispatcher = ContextFilter.makeWebappDispatcher(servletContext, delegator);
+                } catch (NullPointerException e) {
+                    Debug.logError(e, "Error getting tenant delegator", module);
+                    Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Tenant [" + tenantId + "]  not found...");
+                    String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                    return "error";
+                }
                 
                 // NOTE: these will be local for now and set in the request and session later, after we've verified that the user
                 setupNewDelegatorEtc = true;

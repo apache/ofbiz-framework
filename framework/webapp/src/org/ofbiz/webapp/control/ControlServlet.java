@@ -20,6 +20,7 @@ package org.ofbiz.webapp.control;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -36,14 +37,19 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilJ2eeCompat;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.LocalDispatcher;
@@ -220,6 +226,39 @@ public class ControlServlet extends HttpServlet {
 
         String errorPage = null;
         try {
+            String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
+            if ("Y".equals(useMultitenant) && UtilValidate.isEmpty(delegator.getDelegatorTenantId())) {
+                // get tenant delegator by domain name
+                try {
+                    // if a domain name was specified for tenant, replace delegator with the new per-tenant delegator and set tenantId to session attribute
+                    List<GenericValue> tenants = delegator.findList("Tenant", EntityCondition.makeCondition("domainName", request.getServerName()), null, UtilMisc.toList("-createdStamp"), null, false);
+                    if (UtilValidate.isNotEmpty(tenants)) {
+                        GenericValue tenant = EntityUtil.getFirst(tenants);
+                        String tenantId = tenant.getString("tenantId");
+                        
+                        // make that tenant active, setup a new delegator and a new dispatcher
+                        String tenantDelegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
+                    
+                        // after this line the delegator is replaced with the new per-tenant delegator
+                        delegator = DelegatorFactory.getDelegator(tenantDelegatorName);
+                        session.setAttribute("tenantId", tenantId);
+                        session.setAttribute("delegatorName", tenantDelegatorName);
+                    }
+                } catch (GenericEntityException e) {
+                    String errMsg = "Error getting tenant by domain name: " + request.getServerName();
+                    Debug.logError(e, errMsg, module);
+                    throw new RequestHandlerException(errMsg, e);
+                }
+            }
+            if ("Y".equals(useMultitenant) && UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
+                // re-make dispatcher from tenant delegator and change delegator of security to use tanent delegator
+                dispatcher = ContextFilter.makeWebappDispatcher(session.getServletContext(), delegator);
+                security.setDelegator(delegator);
+                
+                request.setAttribute("delegator", delegator);
+                request.setAttribute("dispatcher", dispatcher);
+            }
+            
             // the ServerHitBin call for the event is done inside the doRequest method
             requestHandler.doRequest(request, response, null, userLogin, delegator);
         } catch (RequestHandlerException e) {
