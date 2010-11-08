@@ -218,8 +218,7 @@
             </link>
         </menu-item>
     </menu>
-    <menu name="ProjectSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
-          menu-container-style="button-bar button-style-2">
+    <menu name="ProjectButtonBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
             <set field="hasUpdatePermission" value="${bsh:
@@ -230,7 +229,7 @@
                 &quot;projectId&quot;, projectId));
                 return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
         </actions>
-        <menu-item name="newProject" title="${uiLabelMap.ProjectMgrNewProject}">
+        <menu-item name="newProject" title="${uiLabelMap.ProjectMgrNewProject}" widget-style="buttontext create">
             <condition>
                 <and>
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>

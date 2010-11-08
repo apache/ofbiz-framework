@@ -90,7 +90,7 @@ under the License.
                                         </not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="ProjectSubTabBar" location="component://projectmgr/widget/ProjectMenus.xml"/>
+                                        <include-menu name="ProjectButtonBar" location="component://projectmgr/widget/ProjectMenus.xml"/>
                                         <container style="clear"/>
                                         <label style="h1" text="${uiLabelMap.ProjectMgrProjectCurrent}: ${project.workEffortName}[${project.workEffortId}]"/>
                                     </widgets>
