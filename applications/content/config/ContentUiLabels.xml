@@ -586,7 +586,7 @@
         <value xml:lang="da">Opret ny blog</value>
         <value xml:lang="en">Create New Blog</value>
         <value xml:lang="fr">Créer un nouveau blog</value>
-        <value xml:lang="it">Creare nuovo Blog</value>
+        <value xml:lang="it">Nuovo blog</value>
         <value xml:lang="nl">Aanmaken nieuwe blog</value>
         <value xml:lang="zh">新建博客</value>
     </property>
@@ -1512,7 +1512,7 @@
         <value xml:lang="en">Create Survey</value>
         <value xml:lang="es">Crear Encuesta</value>
         <value xml:lang="fr">Créer un sondage</value>
-        <value xml:lang="it">Creare sondaggio</value>
+        <value xml:lang="it">Nuovo sondaggio</value>
         <value xml:lang="ro">Creare Sondaj</value>
         <value xml:lang="th">สร้างการสำรวจ</value>
         <value xml:lang="zh">新建调查</value>
@@ -3855,7 +3855,7 @@
         <value xml:lang="de">Neue Basis CompDoc Vorlage erstellen</value>
         <value xml:lang="en">Create New Root CompDoc Template</value>
         <value xml:lang="fr">Créer un nouveau modèle de racine de document composite</value>
-        <value xml:lang="it">Creare Nuovo Template Radice CompDoc</value>
+        <value xml:lang="it">Nuovo template radice CompDoc</value>
         <value xml:lang="th">สร้างที่มาของ Template เอกสารใหม่</value>
         <value xml:lang="zh">创建新的根合成文档的模板</value>
     </property>
@@ -3866,7 +3866,7 @@
         <value xml:lang="en">Create Survey</value>
         <value xml:lang="es">Crear Encuesta</value>
         <value xml:lang="fr">Créer un sondage</value>
-        <value xml:lang="it">Creare Sondaggio</value>
+        <value xml:lang="it">Nuovo sondaggio</value>
         <value xml:lang="nl">Aanmaken onderzoek</value>
         <value xml:lang="ro">Creare Sondaj</value>
         <value xml:lang="th">สร้างการสำรวจ</value>

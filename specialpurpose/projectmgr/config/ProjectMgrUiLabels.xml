@@ -890,6 +890,7 @@
         <value xml:lang="de">Liste der Kundenanfragen des Projektes</value>
         <value xml:lang="en">Project Customer Request list</value>
         <value xml:lang="fr">Liste des demandes client</value>
+        <value xml:lang="it">Lista richieste cliente</value>
         <value xml:lang="nl">Overzicht verzoeken</value>
     </property>
     <property key="ProjectMgrDependencies">
