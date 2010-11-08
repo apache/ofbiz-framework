@@ -76,7 +76,7 @@ under the License.
           <service service-name="performFind" result-map="result" result-map-list="listIt">
             <field-map field-name="inputFields" from-field="parameters"/>
             <field-map field-name="entityName" from-field="entityName"/>
-            <field-map field-name="orderBy" value="-lastModifiedDate"/>
+            <field-map field-name="orderBy" from-field="parameters.sortField"/>
             <field-map field-name="viewIndex" from-field="viewIndex"/>
             <field-map field-name="viewSize" from-field="viewSize"/>
           </service>
@@ -85,25 +85,25 @@ under the License.
 
     <form name="ListRequestList" type="list" use-row-submit="true" list-name="custRequests" title="List of customer requests"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <field name="custRequestId"><hidden/></field>
-        <field name="custRequestName">
-            <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
+        <field name="custRequestId" sort-field="true">
+            <hyperlink description="${custRequestId}" target="ViewRequest">
                 <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
-        <field name="priority"><display/></field>
-        <field name="responseRequiredDate"><display/></field>
-        <field name="fromPartyId">
+        <field name="custRequestName" sort-field="true"><display/></field>
+        <field name="priority" sort-field="true"><display/></field>
+        <field name="responseRequiredDate" sort-field="true"><display/></field>
+        <field name="fromPartyId" sort-field="true">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink description="[${fromPartyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
                     <parameter param-name="partyId" from-field="fromPartyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="statusId">
+        <field name="statusId" sort-field="true">
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
-        <field name="lastModifiedDate"><display/></field>
+        <field name="lastModifiedDate" sort-field="true"><display/></field>
         <!--field name="statusId"><hidden value="CRQ_REJECTED"/></field-->
         <field name="rejectButton">
             <hyperlink target="setCustRequestStatus" description="${uiLabelMap.FormFieldTitle_rejectButton}">
