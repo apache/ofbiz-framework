@@ -70,6 +70,7 @@ public class BirtViewHandler implements ViewHandler {
     public void render(String name, String page, String info,
             String contentType, String encoding, HttpServletRequest request,
             HttpServletResponse response) throws ViewHandlerException {
+        
         try {
             IReportEngine engine = BirtContainer.getReportEngine();
             // open report design
@@ -80,6 +81,8 @@ public class BirtViewHandler implements ViewHandler {
             } else {
                 design = engine.openReportDesign(servletContext.getRealPath(page));
             }
+            
+            BirtWorker.setWebContextObjects(engine, request, response);
 
             Map<String, Object> context = FastMap.newInstance();
             // set parameters from request
