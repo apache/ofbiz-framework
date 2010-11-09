@@ -288,6 +288,12 @@ public class ContextFilter implements Filter {
                     GenericValue tenant = EntityUtil.getFirst(tenants);
                     String tenantId = tenant.getString("tenantId");
                     
+                    // if the request URI is "/control/main" then redirect to the initial path
+                    if (httpRequest.getRequestURI().startsWith("/control/main")) {
+                        String initialPath = tenant.getString("initialPath");
+                        ((HttpServletResponse)response).sendRedirect(initialPath);
+                    }
+                    
                     // make that tenant active, setup a new delegator and a new dispatcher
                     String tenantDelegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
                     httpRequest.getSession().setAttribute("delegatorName", tenantDelegatorName);
