@@ -621,43 +621,6 @@ public class CatalinaContainer implements Container {
         return context;
     }
 
-    protected Context createTenantContext() throws ContainerException {
-        String server = "default-server";
-        Engine engine = engines.get(server);
-        if (engine == null) {
-            Debug.logWarning("Server with name [" + server + "] not found;", module);
-            return null;
-        }
-        
-        // create the web application context
-        StandardContext context = (StandardContext) embedded.createContext("/", System.getProperty("ofbiz.home"));
-        context.setJ2EEApplication(J2EE_APP);
-        context.setJ2EEServer(J2EE_SERVER);
-        context.setLoader(embedded.createLoader(ClassLoaderContainer.getClassLoader()));
-        context.setReloadable(contextReloadable);
-        context.setDistributable(distribute);
-        context.setCrossContext(crossContext);
-
-        
-        // create the Default Servlet instance to mount
-        StandardWrapper defaultServlet = new StandardWrapper();
-        defaultServlet.setServletClass("org.ofbiz.webapp.control.TenantServlet");
-        defaultServlet.setServletName("default");
-        defaultServlet.setLoadOnStartup(1);
-        defaultServlet.addInitParameter("debug", "0");
-        defaultServlet.addInitParameter("listing", "true");
-        defaultServlet.addMapping("/");
-        context.addChild(defaultServlet);
-        context.addServletMapping("/", "default");
-
-        Host host = hosts.get(engine.getName() + "._DEFAULT");
-        context.setRealm(host.getRealm());
-        host.addChild(context);
-        context.getMapper().setDefaultHostName(host.getName());
-
-        return context;
-    }
-
     protected void loadComponents() throws ContainerException {
         if (embedded == null) {
             throw new ContainerException("Cannot load web applications without Embedded instance!");
@@ -678,12 +641,6 @@ public class CatalinaContainer implements Container {
                     Debug.logInfo("Duplicate webapp mount; not loading : " + appInfo.getName() + " / " + appInfo.getLocation(), module);
                 }
             }
-        }
-
-        // if the multitenant is enabled then create the tenant context
-        String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
-        if ("Y".equals(useMultitenant) && UtilValidate.isEmpty(delegator.getDelegatorTenantId())) {
-            createTenantContext();
         }
     }
 
