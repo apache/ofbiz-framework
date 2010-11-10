@@ -448,8 +448,11 @@ public class TaxAuthorityServices {
                     
                     if (productPrice != null && productPrice.getBigDecimal("priceWithTax") != null) {
                         BigDecimal priceWithTax = productPrice.getBigDecimal("priceWithTax");
+                        BigDecimal price = productPrice.getBigDecimal("price");
+                        BigDecimal baseSubtotal = price.multiply(itemQuantity);
+                        BigDecimal baseTaxAmount = (baseSubtotal.multiply(taxRate)).divide(PERCENT_SCALE, salestaxCalcDecimals, salestaxRounding);
                         BigDecimal enteredTotalPriceWithTax = priceWithTax.multiply(itemQuantity);
-                        BigDecimal calcedTotalPriceWithTax = itemAmount.add(taxAmount);
+                        BigDecimal calcedTotalPriceWithTax = (baseSubtotal).add(baseTaxAmount);
                         //Debug.logInfo("=================== priceWithTax=" + priceWithTax, module);
                         //Debug.logInfo("=================== enteredTotalPriceWithTax=" + enteredTotalPriceWithTax, module);
                         //Debug.logInfo("=================== calcedTotalPriceWithTax=" + calcedTotalPriceWithTax, module);
