@@ -19,140 +19,114 @@
 
 package org.ofbiz.accounting.thirdparty.authorizedotnet;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import org.ofbiz.base.util.UtilValidate;
 
 public class AuthorizeResponse {
 
-    private String rawResp = null;
     private List<String> response = new ArrayList<String>();
-    private String respCode = "";
-    private String reasonCode = "";
-    private String reasonText = "";
-    private String version = "3.0";
-    private int maxPos = 39; //maximum number of field positions in response. there are more, but currently none are used.
-
-    //constant names for response fields
-    public static int RESPONSE_CODE           = 1;
-    public static int RESPONSE_SUBCODE        = 2;
-    public static int RESPONSE_REASON_CODE    = 3;
-    public static int RESPONSE_REASON_TEXT    = 4;
-    public static int APPROVAL_CODE           = 5;
-    public static int AUTHORIZATION_CODE      = 5;
-    public static int AVS_RESULT_CODE         = 6;
-    public static int TRANSACTION_ID          = 7;
-
-    // 8 - 37 echoed from request
-    public static int INVOICE_NUMBER          = 8;
-    public static int DESCRIPTION             = 9;
-    public static int AMOUNT                  = 10;
-    public static int METHOD                  = 11;
-    public static int TRANSACTION_TYPE        = 12;
-    public static int CUSTOMER_ID             = 13;
-    public static int CARDHOLDER_FIRST_NAME   = 14;
-    public static int CARDHOLDER_LAST_NAME    = 15;
-    public static int COMPANY                 = 16;
-    public static int BILLING_ADDRESS         = 17;
-    public static int CITY                    = 18;
-    public static int STATE                   = 19;
-    public static int ZIP                     = 20;
-    public static int COUNTRY                 = 21;
-    public static int PHONE                   = 22;
-    public static int FAX                     = 23;
-    public static int EMAIL                   = 24;
-    public static int SHIP_TO_FIRST_NAME      = 25;
-    public static int SHIP_TO_LAST_NAME       = 26;
-    public static int SHIP_TO_COMPANY         = 27;
-    public static int SHIP_TO_ADDRESS         = 28;
-    public static int SHIP_TO_CITY            = 29;
-    public static int SHIP_TO_STATE           = 30;
-    public static int SHIP_TO_ZIP             = 31;
-    public static int SHIP_TO_COUNTRY         = 32;
-    public static int TAX_AMOUNT              = 33;
-    public static int DUTY_AMOUNT             = 34;
-    public static int FREIGHT_AMOUNT          = 35;
-    public static int TAX_EXEMPT_FLAG         = 36;
-    public static int PO_NUMBER               = 37;
-    public static int MD5_HASH                = 38;
-    public static int CID_RESPONSE_CODE       = 39;
-    //public static int CAVV_RESPONSE_CODE    = 40;
-
-    //some other constants
-    public static String APPROVED = "Approved";
-    public static String DECLINED = "Declined";
-    public static String ERROR    = "Error";
-
-
-    public AuthorizeResponse(String resp) {
-        this(resp, "|");
+    private RespPositions pos;
+    private String rawResp;
+     
+    // response types
+    public static final int AIM_RESPONSE = 1;
+    public static final int CP_RESPONSE = 2;
+    
+    // status constants
+    public static final String APPROVED = "Approved";
+    public static final String DECLINED = "Declined";
+    public static final String ERROR    = "Error";
+    
+    // positions of the result
+    public static final String RESPONSE_CODE = "RESPONSE_CODE";
+    public static final String REASON_CODE = "REASON_CODE";
+    public static final String REASON_TEXT = "REASON_TEXT";
+    public static final String AUTHORIZATION_CODE = "AUTHORIZATION_CODE";
+    public static final String AVS_RESULT_CODE = "AVS_RESULT_CODE";
+    public static final String CVV_RESULT_CODE = "CVV_RESULT_CODE";
+    public static final String TRANSACTION_ID = "TRANSACTION_ID";
+    public static final String AMOUNT = "AMOUNT";    
+    
+    // singletons
+    private static final AIMRespPositions aimPos = new AIMRespPositions();
+    private static final CPRespPositions cpPos = new CPRespPositions();
+    
+    public AuthorizeResponse(String resp, int responseType) {
+        this(resp, "|", responseType);
     }
 
-    public AuthorizeResponse(String resp, String delim) {
+    public AuthorizeResponse(String resp, String delim, int responseType) {
         this.rawResp = resp;
         this.response = splitResp(resp, delim);
-        setApproval();
+        if (responseType == CP_RESPONSE) {
+            pos = cpPos;
+        } else {
+            pos = aimPos;
+        }
     }
-
-    private void setApproval() {
-        String rc = response.get(RESPONSE_CODE);
-
-        if (rc.equals("1")) {
-            this.respCode = APPROVED;
-        }
-
-        if (rc.equals("2")) {
-            this.respCode = DECLINED;
-        }
-
-        if (rc.equals("3")) {
-            this.respCode = ERROR;
-        }
-
-        this.reasonCode = response.get(RESPONSE_REASON_CODE);
-        this.reasonText = response.get(RESPONSE_REASON_TEXT);
-
+        
+    public boolean isApproved() {
+        return pos.getApprovalString().equals(getResponseCode());
     }
-
-    public void setVersion(String version)
-    {
-        if (UtilValidate.isNotEmpty(version))
-        {
-            if (version.equals("3.0") || version.equals("3.1"))
-                this.version = version;
-        }
-
+    
+    public String getTransactionId() {
+        return getResponseField(TRANSACTION_ID);
     }
-
+    
+    public String getAuthorizationCode() {
+        return getResponseField(AUTHORIZATION_CODE);
+    }
+    
     public String getResponseCode() {
-        return this.respCode;
+        return getResponseField(RESPONSE_CODE);
     }
 
     public String getReasonCode() {
-        return this.reasonCode;
+        return getResponseField(REASON_CODE);
     }
 
     public String getReasonText() {
-        return this.reasonText;
+        return getResponseField(REASON_TEXT);
     }
-
-    public String getResponseField(int posNum) {
-
-        if (this.version.equals("3.0"))
-        {
-            if (posNum == CID_RESPONSE_CODE)
-                return "M";
-        }
-        if (posNum < 1 || posNum > maxPos) {
-            return "unknown_field";
-        }
-        return response.get(posNum);
+    
+    public String getAvsResult() {
+        return getResponseField(AVS_RESULT_CODE);
     }
-
+    
+    public String getCvResult() {
+        return getResponseField(CVV_RESULT_CODE);
+    }
+    
+    public BigDecimal getAmount() {
+        BigDecimal amount = BigDecimal.ZERO;
+        String amtStr = getResponseField(AMOUNT);
+        if (UtilValidate.isNotEmpty(amtStr) && !UtilValidate.isAlphabetic(amtStr)) {
+            amount = new BigDecimal(amtStr);
+        }
+        return amount;
+    }
+            
     public String getRawResponse() {
         return this.rawResp;
     }
 
+    private String getResponseField(String field) {
+        int position = pos.getPosition(field);
+        if (position == -1) 
+            return null;
+        return getResponseField(position);
+    }
+    
+    private String getResponseField(int position) {
+        if (response.size() < position) {
+            return null;
+        } else {
+            return response.get(position);
+        }
+    }
+    
     private List<String> splitResp(String r, String delim) {
         int s1=0, s2=-1;
         List<String> out = new ArrayList<String>(40);
@@ -179,5 +153,9 @@ public class AuthorizeResponse {
     public String toString() {
         return response.toString();
     }
-
+    
+    public static abstract class RespPositions {        
+        public abstract int getPosition(String name);
+        public abstract String getApprovalString();
+    }
 }
