@@ -2615,8 +2615,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the total from the cart, including tax/shipping. */
     public BigDecimal getGrandTotal() {
         // sales tax and shipping are not stored as adjustments but rather as part of the ship group
-        // Debug.logInfo("Subtotal:" + this.getSubTotal() + " Shipping:" + this.getTotalShipping() + "SalesTax: "+ this.getTotalSalesTax() + " others: " + this.getOrderOtherAdjustmentTotal(),module);
+        // Debug.logInfo("Subtotal:" + this.getSubTotal() + " Shipping:" + this.getTotalShipping() + "SalesTax: "+ this.getTotalSalesTax() + " others: " + this.getOrderOtherAdjustmentTotal(), module);
         BigDecimal grandTotal = this.getSubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal());
+        // Debug.logInfo("Grand Total before rounding:" + grandTotal, module);
         grandTotal = grandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
         return grandTotal;
     }
