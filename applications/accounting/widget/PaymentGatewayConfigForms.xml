@@ -158,12 +158,21 @@ under the License.
                 <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
                 <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
-        </field>
+        </field>        
         <field name="relayResponse" title="${uiLabelMap.AccountingAuthorizeNetRelayResponse}">
             <drop-down>
                 <option key="TRUE" description="${uiLabelMap.CommonTrue}"/>
                 <option key="FALSE" description="${uiLabelMap.CommonFalse}"/>
             </drop-down>
+        </field>
+        <field name="cpVersion" title="${uiLabelMap.AccountingAuthorizeNetCpVersion}">
+            <text size="10" maxlength="10"/>
+        </field>
+        <field name="cpMarketType" title="${uiLabelMap.AccountingAuthorizeNetCpMarket}">
+            <text size="10" maxlength="10"/>
+        </field>
+        <field name="cpDeviceType" title="${uiLabelMap.AccountingAuthorizeNetCpDevice}">
+            <text size="10" maxlength="10"/>
         </field>
         <field name="tranKey" title="${uiLabelMap.AccountingAuthorizeNetTransKey}">
             <text size="60" maxlength="60"/>

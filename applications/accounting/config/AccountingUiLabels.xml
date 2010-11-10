@@ -1157,6 +1157,15 @@
         <value xml:lang="hi_IN">अधिकृत Dot Net API संस्करणः</value>
         <value xml:lang="it">Versione API Authorize Dot Net</value>
     </property>
+    <property key="AccountingAuthorizeNetCpMarket">
+        <value xml:lang="en">Card Present Market Type</value>        
+    </property>
+    <property key="AccountingAuthorizeNetCpDevice">
+        <value xml:lang="en">Card Present Device Type</value>        
+    </property>
+    <property key="AccountingAuthorizeNetCpVersion">
+        <value xml:lang="en">Card Present API Version</value>        
+    </property>
     <property key="AccountingAuthorizeNetDelimiterChar">
         <value xml:lang="en">Delimited Char</value>
         <value xml:lang="hi_IN">सीमांकित वर्ण</value>

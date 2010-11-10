@@ -304,21 +304,24 @@ public class AIMPaymentServices {
             Debug.logInfo("TEST Authorize.net request string " + request.toString(),module);
             Debug.logInfo("TEST Authorize.net properties string " + props.toString(),module);
         }
+        
+        // card present has a different layout from standard AIM; this determines how to parse the response
+        int apiType = props.get("cpMarketType") == null ? AuthorizeResponse.AIM_RESPONSE : AuthorizeResponse.CP_RESPONSE;
+        
         try {
             HttpClient httpClient = new HttpClient(url, request);
             String certificateAlias = props.getProperty("certificateAlias");
             httpClient.setClientCertificateAlias(certificateAlias);
             String httpResponse = httpClient.post();
             Debug.logInfo("transaction response: " + httpResponse,module);
-            AuthorizeResponse ar = new AuthorizeResponse(httpResponse);
-            String resp = ar.getResponseCode();
-            if (resp.equals(AuthorizeResponse.APPROVED)) {
+            AuthorizeResponse ar = new AuthorizeResponse(httpResponse, apiType);            
+            if (ar.isApproved()) {            
                 result.put("authResult", Boolean.TRUE);
             } else {
                 result.put("authResult", Boolean.FALSE);
-                Debug.logInfo("responseCode:   " + ar.getResponseField(AuthorizeResponse.RESPONSE_CODE),module);
-                Debug.logInfo("responseReason: " + ar.getResponseField(AuthorizeResponse.RESPONSE_REASON_CODE),module);
-                Debug.logInfo("reasonText:     " + ar.getResponseField(AuthorizeResponse.RESPONSE_REASON_TEXT),module);
+                Debug.logInfo("responseCode:   " + ar.getResponseCode(), module);
+                Debug.logInfo("responseReason: " + ar.getReasonCode(), module);
+                Debug.logInfo("reasonText:     " + ar.getReasonText(), module);
             }
             result.put("httpResponse", httpResponse);
             result.put("authorizeResponse", ar);
@@ -345,6 +348,9 @@ public class AIMPaymentServices {
         String ver = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "apiVersion", configStr, "payment.authorizedotnet.version");
         String delimited = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "delimitedData", configStr, "payment.authorizedotnet.delimited");
         String delimiter = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "delimiterChar", configStr, "payment.authorizedotnet.delimiter");
+        String cpVersion = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cpVersion", configStr, "payment.authorizedotnet.cpVersion");
+        String cpMarketType = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cpMarketType", configStr, "payment.authorizedotnet.cpMarketType");
+        String cpDeviceType = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cpDeviceType", configStr, "payment.authorizedotnet.cpDeviceType");
         String method = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "method", configStr, "payment.authorizedotnet.method");
         String emailCustomer = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "emailCustomer", configStr, "payment.authorizedotnet.emailcustomer");
         String emailMerchant = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "emailMerchant", configStr, "payment.authorizedotnet.emailmerchant");
@@ -369,6 +375,10 @@ public class AIMPaymentServices {
                 ver = "3.0";
             }
         }
+        if (UtilValidate.isNotEmpty(cpMarketType) && UtilValidate.isEmpty(cpVersion)) {
+            cpVersion = "1.0";
+        }
+        
         Properties props = new Properties();
         props.put("url", url);
         props.put("certificateAlias", certificateAlias);
@@ -376,6 +386,9 @@ public class AIMPaymentServices {
         props.put("delimited", delimited);
         props.put("delimiter", delimiter);
         props.put("method", method);
+        props.put("cpVersion", cpVersion);
+        props.put("cpMarketType", cpMarketType);
+        props.put("cpDeviceType", cpDeviceType);
         props.put("emailCustomer", emailCustomer);
         props.put("emailMerchant", emailMerchant);
         props.put("testReq", testReq);
@@ -401,13 +414,48 @@ public class AIMPaymentServices {
         String trankey = props.getProperty("trankey");
         if (UtilValidate.isNotEmpty(trankey)) {
             AIMRequest.put("x_Tran_Key", props.getProperty("trankey"));
+        } else {
+            // only send password if no tran key
+            AIMRequest.put("x_Password",props.getProperty("password"));
         }
-        AIMRequest.put("x_Password",props.getProperty("password"));
-        AIMRequest.put("x_Version", props.getProperty("ver"));
+        
+        // api version (non Card Present)
+        String apiVersion = props.getProperty("ver");
+        if (UtilValidate.isNotEmpty(apiVersion)) {
+            AIMRequest.put("x_Version", props.getProperty("ver"));
+        }
+        
+        // CP version
+        String cpVersion = props.getProperty("cpver");
+        if (UtilValidate.isNotEmpty(cpVersion)) {
+            AIMRequest.put("x_cpversion", cpVersion);
+        }
+        
+        // CP market type
+        String cpMarketType = props.getProperty("cpMarketType");
+        if (UtilValidate.isNotEmpty(cpMarketType)) {
+            AIMRequest.put("x_market_type", cpMarketType);
+            
+            // CP test mode
+            if ("true".equalsIgnoreCase(props.getProperty("testReq"))) {
+                AIMRequest.put("x_test_request", props.getProperty("testReq"));                
+            }
+        }
+        
+        // CP device typ
+        String cpDeviceType = props.getProperty("cpDeviceType");
+        if (UtilValidate.isNotEmpty(cpDeviceType)) {
+            AIMRequest.put("x_device_type", cpDeviceType);
+        }                      
     }
 
     private static void buildGatewayResponeConfig(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
-        AIMRequest.put("x_Delim_Data", props.getProperty("delimited"));
+        if (AIMRequest.get("x_market_type") != null) {
+            // card present transaction
+            AIMRequest.put("x_response_format", "true".equalsIgnoreCase(props.getProperty("delimited")) ? "1" : "0");            
+        } else {
+            AIMRequest.put("x_Delim_Data", props.getProperty("delimited"));            
+        }
         AIMRequest.put("x_Delim_Char", props.getProperty("delimiter"));
     }
 
@@ -434,7 +482,7 @@ public class AIMPaymentServices {
                             AIMRequest.put("x_Zip", UtilFormatOut.checkNull(address.getString("postalCode")));
                             AIMRequest.put("x_Country", UtilFormatOut.checkNull(address.getString("countryGeoId")));
                         }
-                    }
+                    }                    
                 } else {
                     Debug.logWarning("Payment preference " + opp + " is not a credit card", module);
                 }
@@ -489,6 +537,9 @@ public class AIMPaymentServices {
         if (UtilValidate.isNotEmpty(cardSecurityCode)) {
             AIMRequest.put("x_card_code", cardSecurityCode);
         }
+        if (AIMRequest.get("x_market_type") != null) {
+            AIMRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
+        }
     }
 
     private static void buildCaptureTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
@@ -506,6 +557,9 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Exp_Date", expDate);
         AIMRequest.put("x_Trans_ID", at.get("referenceNum"));
         AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
+        if (AIMRequest.get("x_market_type") != null) {
+            AIMRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
+        }
     }
 
     private static void buildRefundTransaction(Map<String, Object> params, Properties props, Map<String, Object> AIMRequest) {
@@ -523,6 +577,9 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Exp_Date", expDate);
         AIMRequest.put("x_Trans_ID", at.get("referenceNum"));
         AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
+        if (AIMRequest.get("x_market_type") != null) {
+            AIMRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
+        }
         Debug.logInfo("buildCaptureTransaction. " + at.toString(), module);
     }
 
@@ -550,11 +607,11 @@ public class AIMPaymentServices {
         results.put("authFlag", ar.getReasonCode());
         results.put("authMessage", ar.getReasonText());
         if (authResult.booleanValue()) { //passed
-            results.put("authCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
-            results.put("authRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
-            results.put("cvCode", ar.getResponseField(AuthorizeResponse.CID_RESPONSE_CODE));
-            results.put("avsCode", ar.getResponseField(AuthorizeResponse.AVS_RESULT_CODE));
-            results.put("processAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("authCode", ar.getAuthorizationCode());
+            results.put("authRefNum", ar.getTransactionId());
+            results.put("cvCode", ar.getCvResult());
+            results.put("avsCode", ar.getAvsResult());
+            results.put("processAmount", ar.getAmount());
         } else {
             results.put("authCode", ar.getResponseCode());
             results.put("processAmount", BigDecimal.ZERO);
@@ -569,10 +626,10 @@ public class AIMPaymentServices {
         results.put("captureResult", new Boolean(captureResult.booleanValue()));
         results.put("captureFlag", ar.getReasonCode());
         results.put("captureMessage", ar.getReasonText());
-        results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
+        results.put("captureRefNum", ar.getTransactionId());
         if (captureResult.booleanValue()) { //passed
-            results.put("captureCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
-            results.put("captureAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("captureCode", ar.getAuthorizationCode());
+            results.put("captureAmount", ar.getAmount());
         } else {
             results.put("captureAmount", BigDecimal.ZERO);
         }
@@ -586,10 +643,10 @@ public class AIMPaymentServices {
         results.put("refundResult", new Boolean(captureResult.booleanValue()));
         results.put("refundFlag", ar.getReasonCode());
         results.put("refundMessage", ar.getReasonText());
-        results.put("refundRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
+        results.put("refundRefNum", ar.getTransactionId());
         if (captureResult.booleanValue()) { //passed
-            results.put("refundCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
-            results.put("refundAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("refundCode", ar.getAuthorizationCode());
+            results.put("refundAmount", ar.getAmount());
         } else {
             results.put("refundAmount", BigDecimal.ZERO);
         }
@@ -604,10 +661,10 @@ public class AIMPaymentServices {
         results.put("releaseResult", new Boolean(captureResult.booleanValue()));
         results.put("releaseFlag", ar.getReasonCode());
         results.put("releaseMessage", ar.getReasonText());
-        results.put("releaseRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
+        results.put("releaseRefNum", ar.getTransactionId());
         if (captureResult.booleanValue()) { //passed
-            results.put("releaseCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
-            results.put("releaseAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("releaseCode", ar.getAuthorizationCode());
+            results.put("releaseAmount", ar.getAmount());
         } else {
             results.put("releaseAmount", BigDecimal.ZERO);
         }
@@ -624,13 +681,13 @@ public class AIMPaymentServices {
         results.put("captureResult", new Boolean(authResult.booleanValue()));
         results.put("captureFlag", ar.getReasonCode());
         results.put("captureMessage", ar.getReasonText());
-        results.put("captureRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
+        results.put("captureRefNum", ar.getTransactionId());
         if (authResult.booleanValue()) { //passed
-            results.put("authCode", ar.getResponseField(AuthorizeResponse.AUTHORIZATION_CODE));
-            results.put("authRefNum", ar.getResponseField(AuthorizeResponse.TRANSACTION_ID));
-            results.put("cvCode", ar.getResponseField(AuthorizeResponse.CID_RESPONSE_CODE));
-            results.put("avsCode", ar.getResponseField(AuthorizeResponse.AVS_RESULT_CODE));
-            results.put("processAmount", new BigDecimal(ar.getResponseField(AuthorizeResponse.AMOUNT)));
+            results.put("authCode", ar.getAuthorizationCode());
+            results.put("authRefNum", ar.getTransactionId());
+            results.put("cvCode", ar.getCvResult());
+            results.put("avsCode", ar.getAvsResult());
+            results.put("processAmount", ar.getAmount());
         } else {
             results.put("authCode", ar.getResponseCode());
             results.put("processAmount", BigDecimal.ZERO);
@@ -661,5 +718,15 @@ public class AIMPaymentServices {
             }
         }
         return returnValue;
+    }
+    
+    private static String getCardType(String cardType) {
+        if ((cardType.equalsIgnoreCase("VISA"))) return "V";
+        if ((cardType.equalsIgnoreCase("MASTERCARD"))) return "M";
+        if (((cardType.equalsIgnoreCase("AMERICANEXPRESS")) || (cardType.equalsIgnoreCase("AMEX")))) return "A";
+        if ((cardType.equalsIgnoreCase("DISCOVER"))) return "D";
+        if ((cardType.equalsIgnoreCase("JCB"))) return "J";
+        if (((cardType.equalsIgnoreCase("DINERSCLUB")))) return "C";        
+        return "";
     }
 }

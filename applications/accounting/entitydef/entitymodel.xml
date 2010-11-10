@@ -3254,6 +3254,9 @@ under the License.
       <field name="apiVersion" type="short-varchar"><description>Target Authorize Dot Net API version</description></field>
       <field name="delimitedData" type="short-varchar"><description>Delimited data (TRUE|FALSE)</description></field>
       <field name="delimiterChar" type="short-varchar"><description>Delimited Character - the delimiter to use in the response</description></field>
+      <field name="cpVersion" type="short-varchar"><description>Card Present Version</description></field>
+      <field name="cpMarketType" type="short-varchar"><description>Card Present Market Type</description></field>
+      <field name="cpDeviceType" type="short-varchar"><description>Card Present Device Type</description></field>
       <field name="method" type="short-varchar"><description>Method - CC for credit card processing</description></field>
       <field name="emailCustomer" type="short-varchar"><description>Email Customer? - if should send an email to the customer for each transaction (TRUE|FALSE)</description></field>
       <field name="emailMerchant" type="short-varchar"><description>Email Merchant? - if should send email to the merchant for each transaction (TRUE|FALSE)</description></field>
