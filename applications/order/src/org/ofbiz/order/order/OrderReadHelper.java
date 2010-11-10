@@ -2315,8 +2315,8 @@ public class OrderReadHelper {
         adjustments = EntityUtil.filterByAnd(adjustments, UtilMisc.toList(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.NOT_EQUAL, "SALES_TAX")));
         BigDecimal total = getOrderItemsTotal(orderItems, adjustments);
         BigDecimal adj = getOrderAdjustmentsTotal(orderItems, adjustments);
-        total = total.add(taxGrandTotal).setScale(scale,rounding);
-        return total.add(adj).setScale(scale,rounding);
+        total = ((total.add(taxGrandTotal)).add(adj)).setScale(scale,rounding);
+        return total;
     }
 
     public static List<GenericValue> getOrderHeaderAdjustments(List<GenericValue> adjustments, String shipGroupSeqId) {
@@ -2499,6 +2499,7 @@ public class OrderReadHelper {
         // subtotal also includes non tax and shipping adjustments; tax and shipping will be calculated using this adjusted value
         result = result.add(getOrderItemAdjustmentsTotal(orderItem, adjustments, true, false, false, forTax, forShipping));
 
+        // Debug.logInfo("In getOrderItemSubTotal result=" + result + ", rounded result=" + result.setScale(scale, rounding), module);
         return result.setScale(scale, rounding);
     }
 
@@ -2657,10 +2658,11 @@ public class OrderReadHelper {
     public static BigDecimal calcItemAdjustment(GenericValue itemAdjustment, BigDecimal quantity, BigDecimal unitPrice) {
         BigDecimal adjustment = ZERO;
         if (itemAdjustment.get("amount") != null) {
-            adjustment = adjustment.add(setScaleByType("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")), itemAdjustment.getBigDecimal("amount")));
-        }
-        else if (itemAdjustment.get("sourcePercentage") != null) {
-            adjustment = adjustment.add(setScaleByType("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")), itemAdjustment.getBigDecimal("sourcePercentage").multiply(quantity).multiply(unitPrice).multiply(percentage)));
+            //shouldn't round amounts here, wait until item total is added up otherwise incremental errors are introduced, and there is code that calls this method that does that already: adjustment = adjustment.add(setScaleByType("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")), itemAdjustment.getBigDecimal("amount")));
+            adjustment = adjustment.add(itemAdjustment.getBigDecimal("amount"));
+        } else if (itemAdjustment.get("sourcePercentage") != null) {
+            // see comment above about rounding: adjustment = adjustment.add(setScaleByType("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")), itemAdjustment.getBigDecimal("sourcePercentage").multiply(quantity).multiply(unitPrice).multiply(percentage)));
+            adjustment = adjustment.add(itemAdjustment.getBigDecimal("sourcePercentage").multiply(quantity).multiply(unitPrice).multiply(percentage));
         }
         if (Debug.verboseOn()) Debug.logVerbose("calcItemAdjustment: " + itemAdjustment + ", quantity=" + quantity + ", unitPrice=" + unitPrice + ", adjustment=" + adjustment, module);
         return adjustment;
