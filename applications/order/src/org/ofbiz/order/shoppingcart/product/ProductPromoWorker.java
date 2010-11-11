@@ -1677,8 +1677,8 @@ public class ProductPromoWorker {
                 BigDecimal quantityUsed = cartItem.getPromoQuantityCandidateUseActionAndAllConds(productPromoAction);
                 BigDecimal ratioOfTotal = quantityUsed.multiply(cartItem.getBasePrice()).divide(totalAmount, generalRounding);
                 BigDecimal weightedAmount = ratioOfTotal.multiply(discountAmountTotal);
-                // round the weightedAmount to 2 decimal places, ie a whole number of cents or 2 decimal place monetary units
-                weightedAmount = weightedAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+                // round the weightedAmount to 3 decimal places, we don't want an exact number cents/whatever because this will be added up as part of a subtotal which will be rounded to 2 decimal places
+                weightedAmount = weightedAmount.setScale(3, BigDecimal.ROUND_HALF_UP);
                 discountAmount = discountAmount.subtract(weightedAmount);
                 doOrderItemPromoAction(productPromoAction, cartItem, weightedAmount, "amount", delegator);
             } else {
@@ -1713,7 +1713,8 @@ public class ProductPromoWorker {
 
     public static void doOrderItemPromoAction(GenericValue productPromoAction, ShoppingCartItem cartItem, BigDecimal amount, String amountField, Delegator delegator) {
         // round the amount before setting to make sure we don't get funny numbers in there
-        amount = amount.setScale(decimals, rounding);
+        // only round to 3 places, we need more specific amounts in adjustments so that they add up cleaner as part of the item subtotal, which will then be rounded
+        amount = amount.setScale(3, rounding);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
                 UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, amount,
                 "productPromoId", productPromoAction.get("productPromoId"),
