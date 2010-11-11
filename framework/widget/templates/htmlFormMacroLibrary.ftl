@@ -444,6 +444,11 @@ ${item.description}</span>
 <#if disabled?has_content && disabled><a id="${id}_clear" style="background:none;margin-left:5px;margin-right:15px;" class="clearField" href="javascript:void();" onclick="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></#if>
 </span>
 <#if ajaxEnabled?has_content && ajaxEnabled>
+      <#if parameters?has_content && parameters._LAST_VIEW_NAME_?has_content>
+        <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + parameters._LAST_VIEW_NAME_ />
+      <#else>
+        <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=main"/>
+      </#if>      
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', ${showDescription});</script><#t/>
 </#if>
 </#macro>
