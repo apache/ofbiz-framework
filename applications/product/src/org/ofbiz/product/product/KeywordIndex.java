@@ -32,6 +32,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.KeywordSearchUtil;
 import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.Delegator;
@@ -182,10 +183,11 @@ public class KeywordIndex {
                 }
             }
         }
-
-        for (String str: strings) {
-            // call process keywords method here
-            KeywordSearchUtil.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
+        if (UtilValidate.isNotEmpty(strings)) {
+            for (String str: strings) {
+                // call process keywords method here
+                KeywordSearchUtil.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
+            }
         }
 
         List<GenericValue> toBeStored = FastList.newInstance();
