@@ -117,7 +117,7 @@ transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
 List contraRevenueAndExprs = FastList.newInstance(mainAndExprs);
 contraRevenueAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, contraRevenueAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(cogsExpenseAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(contraRevenueAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;
