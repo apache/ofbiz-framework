@@ -418,12 +418,16 @@ under the License.
                 <set field="getAssoc.productIdTo" from-field="product.productId"/>
                 <set field="getAssoc.productAssocTypeId" value="PRODUCT_VARIANT"/>
                 <find-by-and entity-name="ProductAssoc" map="getAssoc" list="assocs"/>
-                <filter-list-by-date list="assocs" to-list="assocsDate"/>
-                <first-from-list entry="assoc" list="assocsDate"/>
-                <get-related-one value-field="assoc" relation-name="MainProduct" to-value-field="virtProduct"/>
-                <if-empty field="product.salesDiscWhenNotAvail">
-                    <set field="product.salesDiscWhenNotAvail" from-field="virtProduct.salesDiscWhenNotAvail"/>
-                </if-empty>
+                <if-not-empty field="assocs">
+                    <filter-list-by-date list="assocs" to-list="assocsDate"/>
+                    <first-from-list entry="assoc" list="assocsDate"/>
+                    <if-not-empty field="assoc">
+                        <get-related-one value-field="assoc" relation-name="MainProduct" to-value-field="virtProduct"/>
+                        <if-empty field="product.salesDiscWhenNotAvail">
+                            <set field="product.salesDiscWhenNotAvail" from-field="virtProduct.salesDiscWhenNotAvail"/>
+                        </if-empty>
+                    </if-not-empty>
+                </if-not-empty>    
             </if-compare>
         </if-not-empty>
 
