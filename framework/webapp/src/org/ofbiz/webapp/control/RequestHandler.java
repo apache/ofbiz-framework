@@ -750,7 +750,11 @@ public class RequestHandler {
         // add in the attributes as well so everything needed for the rendering context will be in place if/when we get back to this view
         paramMap.putAll(UtilHttp.getAttributeMap(req));
         UtilMisc.makeMapSerializable(paramMap);
-        req.getSession().setAttribute("_LAST_VIEW_NAME_", view);
+        if (paramMap.containsKey("_LAST_VIEW_NAME_")) { // Used by lookups to keep the real view (request)
+            req.getSession().setAttribute("_LAST_VIEW_NAME_", paramMap.get("_LAST_VIEW_NAME_"));
+        } else {
+            req.getSession().setAttribute("_LAST_VIEW_NAME_", view);
+        }
         req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
 
         if ("SAVED".equals(saveName)) {
