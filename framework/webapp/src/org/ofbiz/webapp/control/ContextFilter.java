@@ -196,6 +196,8 @@ public class ContextFilter implements Filter {
         }
 
         // test to see if we have come through the control servlet already, if not do the processing
+        String requestPath = null;
+        String contextUri = null;
         if (request.getAttribute(ContextFilter.FORWARDED_FROM_SERVLET) == null) {
             // Debug.logInfo("In ContextFilter.doFilter, FORWARDED_FROM_SERVLET is NOT set", module);
             String allowedPath = config.getInitParameter("allowedPaths");
@@ -208,7 +210,7 @@ public class ContextFilter implements Filter {
 
             if (debug) Debug.log("[Request]: " + httpRequest.getRequestURI(), module);
 
-            String requestPath = httpRequest.getServletPath();
+            requestPath = httpRequest.getServletPath();
             if (requestPath == null) requestPath = "";
             if (requestPath.lastIndexOf("/") > 0) {
                 if (requestPath.indexOf("/") == 0) {
@@ -234,7 +236,7 @@ public class ContextFilter implements Filter {
             if (httpRequest.getPathInfo() != null) {
                 contextUriBuffer.append(httpRequest.getPathInfo());
             }
-            String contextUri = contextUriBuffer.toString();
+            contextUri = contextUriBuffer.toString();
 
             // Verbose Debugging
             if (Debug.verboseOn()) {
@@ -288,10 +290,11 @@ public class ContextFilter implements Filter {
                     GenericValue tenant = EntityUtil.getFirst(tenants);
                     String tenantId = tenant.getString("tenantId");
                     
-                    // if the request URI is "/control/main" then redirect to the initial path
-                    if (httpRequest.getRequestURI().startsWith("/control/main")) {
+                    // if the request path is a root mount then redirect to the initial path
+                    if (UtilValidate.isNotEmpty(requestPath) && requestPath.equals(contextUri)) {
                         String initialPath = tenant.getString("initialPath");
                         ((HttpServletResponse)response).sendRedirect(initialPath);
+                        return;
                     }
                     
                     // make that tenant active, setup a new delegator and a new dispatcher
