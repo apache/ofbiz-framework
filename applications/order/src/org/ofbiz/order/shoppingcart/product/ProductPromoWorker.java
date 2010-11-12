@@ -834,7 +834,8 @@ public class ProductPromoWorker {
                 // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
                 GenericValue product = cartItem.getProduct();
                 String parentProductId = cartItem.getParentProductId();
-                if (!cartItem.getIsPromo() &&
+                boolean passedItemConds = checkConditionsForItem(productPromoCond, cart, cartItem, delegator, dispatcher, nowTimestamp);
+                if (passedItemConds && !cartItem.getIsPromo() &&
                         (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
                         (product == null || !"N".equals(product.getString("includeInPromotions")))) {
 
@@ -878,7 +879,8 @@ public class ProductPromoWorker {
                     // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
                     GenericValue product = cartItem.getProduct();
                     String parentProductId = cartItem.getParentProductId();
-                    if (!cartItem.getIsPromo() &&
+                    boolean passedItemConds = checkConditionsForItem(productPromoCond, cart, cartItem, delegator, dispatcher, nowTimestamp);
+                    if (passedItemConds && !cartItem.getIsPromo() &&
                             (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
                             (product == null || !"N".equals(product.getString("includeInPromotions")))) {
 
@@ -909,7 +911,8 @@ public class ProductPromoWorker {
                 // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
                 GenericValue product = cartItem.getProduct();
                 String parentProductId = cartItem.getParentProductId();
-                if (!cartItem.getIsPromo() &&
+                boolean passedItemConds = checkConditionsForItem(productPromoCond, cart, cartItem, delegator, dispatcher, nowTimestamp);
+                if (passedItemConds && !cartItem.getIsPromo() &&
                         (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
                         (product == null || !"N".equals(product.getString("includeInPromotions")))) {
                     // reduce quantity still needed to qualify for promo (quantityNeeded)
@@ -1175,6 +1178,12 @@ public class ProductPromoWorker {
                 if (Debug.verboseOn()) { Debug.logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping, module); }
                 compareBase = orderTotalShipping.compareTo(new BigDecimal(condValue));
             }
+        } else if ("PPIP_LPMUP_AMT".equals(inputParamEnumId)) {
+            // does nothing on order level, only checked on item level, so ignore by always considering passed
+            return true;
+        } else if ("PPIP_LPMUP_PER".equals(inputParamEnumId)) {
+            // does nothing on order level, only checked on item level, so ignore by always considering passed
+            return true;
         } else {
             Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondInputParameterLhs", UtilMisc.toMap("inputParamEnumId",productPromoCond.getString("inputParamEnumId")), cart.getLocale()), module);
             return false;
@@ -1203,6 +1212,82 @@ public class ProductPromoWorker {
         }
         // default to not meeting the condition
         return false;
+    }
+
+    protected static boolean checkConditionsForItem(GenericValue productPromoActionOrCond, ShoppingCart cart, ShoppingCartItem cartItem, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
+        GenericValue productPromoRule = productPromoActionOrCond.getRelatedOneCache("ProductPromoRule");
+        
+        List<GenericValue> productPromoConds = delegator.findByAndCache("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromoRule.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"));
+        productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
+        for (GenericValue productPromoCond: productPromoConds) {
+            boolean passed = checkConditionForItem(productPromoCond, cart, cartItem, delegator, dispatcher, nowTimestamp);
+            if (!passed) return false;
+        }
+        return true;
+    }
+
+    protected static boolean checkConditionForItem(GenericValue productPromoCond, ShoppingCart cart, ShoppingCartItem cartItem, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
+        String condValue = productPromoCond.getString("condValue");
+        String otherValue = productPromoCond.getString("otherValue");
+        String inputParamEnumId = productPromoCond.getString("inputParamEnumId");
+        String operatorEnumId = productPromoCond.getString("operatorEnumId");
+
+        // don't get list price from cart because it may have tax included whereas the base price does not: BigDecimal listPrice = cartItem.getListPrice();
+        Map<String, String> priceFindMap = UtilMisc.toMap("productId", cartItem.getProductId(), 
+                "productPriceTypeId", "LIST_PRICE", "productPricePurposeId", "PURCHASE");
+        List<GenericValue> listProductPriceList = delegator.findByAnd("ProductPrice", priceFindMap, UtilMisc.toList("-fromDate"));
+        listProductPriceList = EntityUtil.filterByDate(listProductPriceList, true);
+        GenericValue listProductPrice = (listProductPriceList != null && listProductPriceList.size() > 0) ? listProductPriceList.get(0): null;
+        BigDecimal listPrice = (listProductPrice != null) ? listProductPrice.getBigDecimal("price") : null;
+        
+        if (listPrice == null) {
+            // can't find a list price so this condition is meaningless, consider it passed
+            return true;
+        }
+        
+        BigDecimal basePrice = cartItem.getBasePrice();
+        BigDecimal amountOff = listPrice.subtract(basePrice);
+        BigDecimal percentOff = amountOff.divide(listPrice, 2, BigDecimal.ROUND_HALF_UP).multiply(BigDecimal.valueOf(100L));
+        
+        BigDecimal condValueBigDecimal = new BigDecimal(condValue);
+
+        Integer compareBase = null;
+        
+        if ("PPIP_LPMUP_AMT".equals(inputParamEnumId)) {
+            compareBase = Integer.valueOf(amountOff.compareTo(condValueBigDecimal));
+        } else if ("PPIP_LPMUP_PER".equals(inputParamEnumId)) {
+            compareBase = Integer.valueOf(percentOff.compareTo(condValueBigDecimal));
+        } else {
+            // condition doesn't apply to individual item, always passes
+            return true;
+        }
+
+        Debug.logInfo("Checking condition for item productId=" + cartItem.getProductId() + ", listPrice=" + listPrice + ", basePrice=" + basePrice + ", amountOff=" + amountOff + ", percentOff=" + percentOff + ", condValueBigDecimal=" + condValueBigDecimal + ", compareBase=" + compareBase + ", productPromoCond=" + productPromoCond, module);
+
+        if (compareBase != null) {
+            int compare = compareBase.intValue();
+            if ("PPC_EQ".equals(operatorEnumId)) {
+                if (compare == 0) return true;
+            } else if ("PPC_NEQ".equals(operatorEnumId)) {
+                if (compare != 0) return true;
+            } else if ("PPC_LT".equals(operatorEnumId)) {
+                if (compare < 0) return true;
+            } else if ("PPC_LTE".equals(operatorEnumId)) {
+                if (compare <= 0) return true;
+            } else if ("PPC_GT".equals(operatorEnumId)) {
+                if (compare > 0) return true;
+            } else if ("PPC_GTE".equals(operatorEnumId)) {
+                if (compare >= 0) return true;
+            } else {
+                Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId",operatorEnumId) , cart.getLocale()), module);
+                return false;
+            }
+            // was a compareBase and nothing returned above, so condition didn't pass, return false
+            return false;
+        }
+
+        // no compareBase, this condition doesn't apply
+        return true;
     }
 
     private static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException{
@@ -1451,7 +1536,9 @@ public class ProductPromoWorker {
                 // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
                 GenericValue product = cartItem.getProduct();
                 String parentProductId = cartItem.getParentProductId();
-                if (!cartItem.getIsPromo() &&
+                boolean passedItemConds = checkConditionsForItem(productPromoAction, cart, cartItem, delegator, dispatcher, nowTimestamp);
+                // Debug.logInfo("Running promo action for cartItem " + cartItem.getName() + ", passedItemConds=" + passedItemConds + ", productPromoAction=" + productPromoAction, module);
+                if (passedItemConds && !cartItem.getIsPromo() &&
                         (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
                         (product == null || !"N".equals(product.getString("includeInPromotions")))) {
                     // reduce quantity still needed to qualify for promo (quantityNeeded)
@@ -1496,7 +1583,8 @@ public class ProductPromoWorker {
                 // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
                 String parentProductId = cartItem.getParentProductId();
                 GenericValue product = cartItem.getProduct();
-                if (!cartItem.getIsPromo() &&
+                boolean passedItemConds = checkConditionsForItem(productPromoAction, cart, cartItem, delegator, dispatcher, nowTimestamp);
+                if (passedItemConds && !cartItem.getIsPromo() &&
                         (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
                         (product == null || !"N".equals(product.getString("includeInPromotions")))) {
                     // reduce quantity still needed to qualify for promo (quantityNeeded)
@@ -1542,7 +1630,8 @@ public class ProductPromoWorker {
                 // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
                 String parentProductId = cartItem.getParentProductId();
                 GenericValue product = cartItem.getProduct();
-                if (!cartItem.getIsPromo() && (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
+                boolean passedItemConds = checkConditionsForItem(productPromoAction, cart, cartItem, delegator, dispatcher, nowTimestamp);
+                if (passedItemConds && !cartItem.getIsPromo() && (productIds.contains(cartItem.getProductId()) || (parentProductId != null && productIds.contains(parentProductId))) &&
                         (product == null || !"N".equals(product.getString("includeInPromotions")))) {
                     // reduce quantity still needed to qualify for promo (quantityNeeded)
                     BigDecimal quantityUsed = cartItem.addPromoQuantityCandidateUse(quantityDesired, productPromoAction, false);
