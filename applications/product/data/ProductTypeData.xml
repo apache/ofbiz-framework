@@ -370,8 +370,10 @@ under the License.
     <Enumeration description="Promotion Recurrence" enumCode="PROMO_RECURRENCE" enumId="PPIP_RECURRENCE" sequenceId="11" enumTypeId="PROD_PROMO_IN_PARAM"/>
     <Enumeration description="Order sub-total X since beginning of current year" enumCode="ORST_YEAR" enumId="PPIP_ORST_YEAR" sequenceId="12" enumTypeId="PROD_PROMO_IN_PARAM"/>
     <Enumeration description="Order sub-total X last year" enumCode="ORST_LAST_YEAR" enumId="PPIP_ORST_LAST_YEAR" sequenceId="13" enumTypeId="PROD_PROMO_IN_PARAM"/>
-    <Enumeration description="Shipping Total" enumCode="ORDER_SHIP_TOTAL" enumId="PPIP_ORDER_SHIPTOTAL" sequenceId="14" enumTypeId="PROD_PROMO_IN_PARAM"/>
-    <Enumeration description="Call Service" enumCode="SERVICE" enumId="PPIP_SERVICE" sequenceId="15" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="List Price minus Unit Price (Amount)" enumCode="LPMUP_AMT" enumId="PPIP_LPMUP_AMT" sequenceId="14" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="List Price minus Unit Price (Percent)" enumCode="LPMUP_PER" enumId="PPIP_LPMUP_PER" sequenceId="15" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Shipping Total" enumCode="ORDER_SHIP_TOTAL" enumId="PPIP_ORDER_SHIPTOTAL" sequenceId="16" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Call Service" enumCode="SERVICE" enumId="PPIP_SERVICE" sequenceId="17" enumTypeId="PROD_PROMO_IN_PARAM"/>
 
     <EnumerationType description="Product Promotion Condition" enumTypeId="PROD_PROMO_COND" hasTable="N" parentTypeId="PROD_PROMO"/>
     <!-- old style very technical ...
