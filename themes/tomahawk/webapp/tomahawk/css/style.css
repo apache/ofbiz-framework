@@ -1968,8 +1968,8 @@ margin-bottom: 1em;
 /* Pager */
 .nav-pager {
 background-color: #9F9F9F;
-padding:8px 20px;
-height:21px;
+padding:2px 20px;
+height:23px;
 }
 
 .nav-pager select{
