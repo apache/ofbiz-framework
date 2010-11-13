@@ -71,4 +71,24 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" sort-field="true"><display/></field>
     </form>
 
+    <form name="ListLoggedInUsers" type="list" separate-columns="true" title="Visits List" list-name="listIt" target="" default-entity-name="Visit" paginate-target="listLoggedInUsers"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="-userLoginId"/>
+            <entity-condition entity-name="Visit" list="listIt" distinct="true" filter-by-date="true">
+                <select-field field-name="partyId"/>
+                <select-field field-name="userLoginId"/>
+                <select-field field-name="clientIpAddress"/>
+                <order-by field-name="${parameters.sortField}"/>
+            </entity-condition>
+        </actions>
+        
+        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" sort-field="true"><display/></field>
+        <field name="partyId" widget-style="buttontext" sort-field="true">
+            <hyperlink description="${partyId}" target="viewprofile">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="clientIpAddress" title="${uiLabelMap.PartyClientIP}" sort-field="true"><display/></field>
+    </form>
 </forms>

@@ -56,6 +56,38 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ListLoggedInUsers">
+        <section>
+            <actions>
+                <set field="headerItem" value="loggedinusers"/>
+                <set field="titleProperty" value="PageTitleListLoggedInUsers"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="LoggedInUsersScreen" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="LoggedInUsersScreen">
+        <section>
+            <condition>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
+            </condition>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleListLoggedInUsers}">
+                    <include-form name="ListLoggedInUsers"  location="component://party/widget/partymgr/PartyVisitForms.xml"/>
+                </screenlet>
+            </widgets>
+            <fail-widgets>
+                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    
     <screen name="visitdetail">
         <section>
             <actions>

@@ -131,6 +131,12 @@
         description="Related accounts of an contact"/>
     <PortletPortletCategory portalPortletId="partyRelAccounts" portletCategoryId="PARTY_PROFILE"/>
 
+    <PortalPortlet portalPortletId="partyLoggedIn" portletName="List all logged in users"
+        screenName="LoggedInUsersScreen"
+        screenLocation="component://party/widget/partymgr/VisitScreens.xml"
+        description="A list of all logged in users"/>
+    <PortletPortletCategory portalPortletId="partyLoggedIn" portletCategoryId="PARTY_PROFILE"/>
+
     <!-- communications -->
     <PortletCategory portletCategoryId="COMMUNICATIONS" description="Communication(s)"/>
     <PortalPortlet portalPortletId="MyCommunications" portletName="My Communications"  description="IN and outgoing Communication list of a party"
