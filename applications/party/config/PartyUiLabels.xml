@@ -2142,6 +2142,10 @@
         <value xml:lang="it">Lista comunicazioni dei soggetti relazionati</value>
         <value xml:lang="pt_BR">Lista de comunicações de participantes relacionados</value>
     </property>
+    <property key="PageTitleListLoggedInUsers">
+        <value xml:lang="en">Logged-in Users List</value>
+        <value xml:lang="it">Lista utenti loggati</value>
+    </property>
     <property key="PageTitleListPartyIdentifications">
         <value xml:lang="en">List Identification Number</value>
         <value xml:lang="fr">Liste des numéros d'identification</value>
@@ -6407,6 +6411,10 @@
         <value xml:lang="ru">Тип списка</value>
         <value xml:lang="th">รายการประเภท</value>
         <value xml:lang="zh">类型列表</value>
+    </property>
+    <property key="PartyLoggedInUsers">
+        <value xml:lang="en">Logged-in Users</value>
+        <value xml:lang="it">Utenti loggati</value>
     </property>
     <property key="PartyLookupAccount">
         <value xml:lang="en">Lookup Party with the role Account</value>

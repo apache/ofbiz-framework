@@ -719,6 +719,7 @@ under the License.
 
     <request-map uri="findVisits"><security https="true" auth="true"/><response name="success" type="view" value="findVisits"/></request-map>
     <request-map uri="visitdetail"><security https="true" auth="true"/><response name="success" type="view" value="visitdetail"/></request-map>
+    <request-map uri="listLoggedInUsers"><security https="true" auth="true"/><response name="success" type="view" value="listLoggedInUsers"/></request-map>
     
     <request-map uri="pushPage">
         <security https="true" auth="true"/>
@@ -1372,6 +1373,7 @@ under the License.
 
     <view-map name="findVisits" type="screen" page="component://party/widget/partymgr/VisitScreens.xml#FindVisits"/>
     <view-map name="visitdetail" type="screen" page="component://party/widget/partymgr/VisitScreens.xml#visitdetail"/>
+    <view-map name="listLoggedInUsers" type="screen" page="component://party/widget/partymgr/VisitScreens.xml#ListLoggedInUsers"/>
 
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupPartyEmail" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyEmail"/>

@@ -25,6 +25,7 @@
         <menu-item name="mycomm" title="${uiLabelMap.PartyMyCommunications}"><link target="MyCommunicationEvents"/></menu-item>
         <menu-item name="comm" title="${uiLabelMap.PartyCommunications}"><link target="FindCommunicationEvents"/></menu-item>
         <menu-item name="visits" title="${uiLabelMap.PartyVisits}"><link target="findVisits"/></menu-item>
+        <menu-item name="loggedinusers" title="${uiLabelMap.PartyLoggedInUsers}"><link target="listLoggedInUsers"/></menu-item>
         <menu-item name="classification" title="${uiLabelMap.PartyClassifications}"><link target="showclassgroups"/></menu-item>
         <menu-item name="security" title="${uiLabelMap.CommonSecurity}">
             <condition>
