@@ -3860,7 +3860,7 @@ public class OrderServices {
             }
         }
 
-        // get the new orderItems, adjustments, shipping info, payments and order item atrributes from the cart
+        // get the new orderItems, adjustments, shipping info, payments and order item attributes from the cart
         List<Map> modifiedItems = FastList.newInstance();
         List toStore = new LinkedList();
         List<GenericValue> toAddList = new ArrayList<GenericValue>();
@@ -3959,7 +3959,10 @@ public class OrderServices {
                 if (UtilValidate.isEmpty(valueObj.get("orderItemSeqId"))) {
                     valueObj.set("orderItemSeqId", DataModelConstants.SEQ_ID_NA);
                 }
-                valueObj.set("orderAdjustmentId", delegator.getNextSeqId("OrderAdjustment"));
+                // in order to avoid duplicate adjustments don't set orderAdjustmentId (which is the pk) if there is already one
+                if (UtilValidate.isEmpty(valueObj.getString("orderAdjustmentId"))) {
+                    valueObj.set("orderAdjustmentId", delegator.getNextSeqId("OrderAdjustment"));
+                }
                 valueObj.set("createdDate", UtilDateTime.nowTimestamp());
                 valueObj.set("createdByUserLogin", userLogin.getString("userLoginId"));
             } else if ("OrderPaymentPreference".equals(valueObj.getEntityName())) {
