@@ -105,7 +105,7 @@ under the License.
     <form name= "RemoveFeatureFromProduct_o_${productFeatureAndAppl_index}" method= "post" action= "<@ofbizUrl>RemoveFeatureFromProduct</@ofbizUrl>">
       <input type= "hidden" name= "productId" value= "${(productFeatureAndAppl.productId)?if_exists}"/>
       <input type= "hidden" name= "productFeatureId" value= "${(productFeatureAndAppl.productFeatureId)?if_exists}"/>
-      <input type= "hidden" name= "fromDate" value= "${productFeatureAndAppl.getString("fromDate")}"/>
+      <input type= "hidden" name= "fromDate" value= "${(productFeatureAndAppl.fromDate)?if_exists}"/>
     </form>
   </#list>
   </div>
