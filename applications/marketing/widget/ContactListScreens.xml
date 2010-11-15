@@ -339,7 +339,35 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="FindImportContactListParties">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindImportContactListParties"/>
+                <set field="contactListTabButtonItem" value="ContactListImportParty"/>
+                <set field="labelTitleProperty" value="PageTitleFindImportContactListParties"/>
 
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindImportContactListParties?contactListId=${parameters.contactListId}"/>
+                <set field="contactListId" from-field="parameters.contactListId"/>
+                <entity-one entity-name="ContactList" value-field="contactList"/>
+                <set field="contactMechTypeId" from-field="contactList.contactMechTypeId"/>
+                <set field="selectedFields[+0]" value="partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options">
+                                <include-form name="FindImportContactListParties" location="component://marketing/widget/ContactListForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListImportContactListParties" location="component://marketing/widget/ContactListForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="LookupContactList">
         <section>
             <actions>

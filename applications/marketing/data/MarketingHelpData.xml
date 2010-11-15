@@ -48,6 +48,11 @@ under the License.
     <Content contentId="MARKETING_EditContL" contentTypeId="DOCUMENT" contentName="MARKETING Edit contactlist" templateDataResourceId="HELP_TEMPL" dataResourceId="MARKETING_EditContL" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="MARKETING_ContLsts" contentIdTo="MARKETING_EditContL" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="MARKETING_EditContactList"/>
 
+    <DataResource dataResourceId="MARKETING_ImpoContLP" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/marketing/data/helpdata/HELP_MARKETING_ImportContactListParties.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Marketing Main Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MARKETING_ImpoContLP" contentTypeId="DOCUMENT" contentName="MARKETING Import contactlist Parties" templateDataResourceId="HELP_TEMPL" dataResourceId="MARKETING_ImpoContLP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="MARKETING_ContLsts" contentIdTo="MARKETING_ImpoContLP" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="MARKETING_FindImportContactListParties"/>
+
     <!-- Chapter SFA -->
     <DataResource dataResourceId="HELP_SFA" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/marketing/data/helpdata/HELP_SFA.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"

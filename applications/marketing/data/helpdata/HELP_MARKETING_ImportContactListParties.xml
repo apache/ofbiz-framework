@@ -22,14 +22,20 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Marketing Contact Lists.</title>
+    <title>The import contact list parties screen</title>
     <para>
-        A contactlist is currently an email mailing list to inform a certain number of parties
-        via email. The system however already has a provision to use this facility for calling list or to 
-        create mail and merge list for paper documents.
+        This is the initial screen to find an existing parties and select them for import to the contact list.
     </para>
-    <xi:include href="HELP_MARKETING_FindContactLists.xml" />
-    <xi:include href="HELP_MARKETING_EditContactList.xml" />
-    <xi:include href="HELP_MARKETING_ImportContactListParties.xml" />
+    <section>
+        <title>Find selection fields.</title>
+        <para>Party Id : The unique id of the party</para>
+        <para>Party Type Id : The type of the party</para>
+        <para>Role Type : The role of the party</para>
+        <para>Contact Mech Type Id : the contact type according to the contact meth type's ID of the contact list. There is a sub form for this field according to the contact mech type's ID.</para>
+    </section>
+    <section>
+        <title>Import the parties</title>
+        <para>Select the parties in the search result list.</para>
+        <para>Press the "Submit Query" button</para>
+    </section>
 </section>
-
