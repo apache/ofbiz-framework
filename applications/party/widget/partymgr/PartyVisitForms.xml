@@ -76,6 +76,7 @@ under the License.
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="-userLoginId"/>
             <entity-condition entity-name="Visit" list="listIt" distinct="true" filter-by-date="true">
+                <condition-expr field-name="userLoginId" operator="not-equals" from-field="null"/>
                 <select-field field-name="partyId"/>
                 <select-field field-name="userLoginId"/>
                 <select-field field-name="clientIpAddress"/>
