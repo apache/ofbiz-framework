@@ -69,7 +69,7 @@ under the License.
     <screen name="OrgTree">
         <section>
             <actions>
-                <set field="partyId" value="Company"/>
+                <set field="partyId" from-field="defaultOrganizationPartyId"/>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.FormFieldTitle_company}">
