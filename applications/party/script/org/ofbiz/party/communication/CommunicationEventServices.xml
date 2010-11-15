@@ -340,6 +340,9 @@ under the License.
 
     <simple-method method-name="deleteCommunicationEvent" short-description="Delete a CommunicationEvent">
         <entity-one entity-name="CommunicationEvent" value-field="event"/>
+        <if-empty field="event"><!-- the service can be called multiple times because event can have several recipients-->
+            <return/><!-- ignore if already deleted -->
+        </if-empty>
         <!-- remove related links to content -->
         <get-related value-field="event" relation-name="CommEventContentAssoc" list="contentAssocs"/>
         <if-not-empty field="contentAssocs">
@@ -352,19 +355,26 @@ under the License.
                         <iterate entry="content" list="contents">
                             <remove-related value-field="content" relation-name="ContentRole"/>
                             <remove-value value-field="content"/>
-                            <get-related-one value-field="content" relation-name="DataResource" to-value-field="dataResource"/>
-                            <if-not-empty field="dataResource">
-                                <get-related-one value-field="dataResource" relation-name="ImageDataResource" to-value-field="imageDataResource"/>
-                                <if-not-empty field="imageDataResource">
-                                    <remove-value value-field="imageDataResource"/>
+                            <!-- check first if the content is used on any other communication event if yes, only delete link-->
+                            <entity-and entity-name="CommEventContentAssoc" list="commEvents">
+                                <field-map field-name="contentId" from-field="content.contentId"/>
+                            </entity-and>
+                            <set field="commEventsSize" value="${groovy: return(commEvents.size())}" type="Integer"/>
+                            <if-compare field="commEventsSize" operator="equals" value="1">
+                                <get-related-one value-field="content" relation-name="DataResource" to-value-field="dataResource"/>
+                                <if-not-empty field="dataResource">
+                                    <get-related-one value-field="dataResource" relation-name="ImageDataResource" to-value-field="imageDataResource"/>
+                                    <if-not-empty field="imageDataResource">
+                                        <remove-value value-field="imageDataResource"/>
+                                    </if-not-empty>
+                                    <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="electronicText"/>
+                                    <if-not-empty field="electronicText">
+                                        <remove-value value-field="electronicText"/>
+                                    </if-not-empty>
+                                    <remove-related value-field="dataResource" relation-name="DataResourceRole"/>
+                                    <remove-value value-field="dataResource"/>
                                 </if-not-empty>
-                                <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="electronicText"/>
-                                <if-not-empty field="electronicText">
-                                    <remove-value value-field="electronicText"/>
-                                </if-not-empty>
-                                <remove-related value-field="dataResource" relation-name="DataResourceRole"/>
-                                <remove-value value-field="dataResource"/>
-                            </if-not-empty>
+                            </if-compare>
                         </iterate>
                     </if-not-empty>
                 </if-compare>
