@@ -494,6 +494,10 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
     </property>
+    <property key="MarketingContactListPartiesImport">
+        <value xml:lang="en">Import Parties</value>
+        <value xml:lang="th">นำเข้ากลุ่มผู้ใช้</value>
+    </property>
     <property key="MarketingContactListPreferredContactMech">
         <value xml:lang="en">Preferred Contact Mechanism</value>
         <value xml:lang="es">Mecanismo de contacto</value>
@@ -1656,6 +1660,10 @@
         <value xml:lang="ro">Cauta Lista Contact Parteneri</value>
         <value xml:lang="th">ค้นหารายการติดต่อกลุ่มผู้ใช้</value>
         <value xml:lang="zh">查找联系列表会员</value>
+    </property>
+    <property key="PageTitleFindImportContactListParties">
+        <value xml:lang="en">Find Import Contact List Parties</value>
+        <value xml:lang="th">ค้นหารายการติดต่อกลุ่มผู้ใช้เพื่อการนำเข้า</value>
     </property>
     <property key="PageTitleFindMarketingCampaignRole">
         <value xml:lang="en">Find Marketing Campaign Role</value>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="importContactListParties" short-description="Import an ContactList Parties">
+        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run importContactListParties you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-errors/>
+
+        <now-timestamp field="nowTimestamp"/>
+        <call-class-method method-name="getParameterMap" class-name="org.ofbiz.base.util.UtilHttp" ret-field="parameterMap">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+        </call-class-method>
+        <call-class-method method-name="getMultiFormRowCount" class-name="org.ofbiz.base.util.UtilHttp" ret-field="rowCount">
+            <field field="parameterMap" type="java.util.Map"/>
+        </call-class-method>
+        <loop count="${rowCount}" field="currentRow">
+            <set field="suffix" value="${groovy:org.ofbiz.base.util.UtilHttp.MULTI_ROW_DELIMITER + currentRow}"/>
+            <set field="isSelected" value="${groovy:parameterMap.containsKey(&quot;_rowSubmit&quot; + suffix) &amp;&amp; &quot;Y&quot;.equalsIgnoreCase(parameterMap.get(&quot;_rowSubmit&quot; + suffix))}" type="Boolean"/>
+            <if-compare field="isSelected" operator="equals" value="true">
+                <set field="partyId" value="${groovy:parameterMap[&quot;partyId&quot; + suffix]}"/>
+                
+                <!-- get exist contact list party -->
+                <entity-and list="existContactListParties" entity-name="ContactListParty" filter-by-date="true">
+                    <field-map field-name="partyId" from-field="partyId"/>
+                    <field-map field-name="contactListId" from-field="parameters.contactListId"/>
+                </entity-and>
+                
+                <!-- if there is not exist party in the contact list then create contact list party -->
+                <if-empty field="existContactListParties">
+                    <set field="createContactListPartyInMap.contactListId" from-field="parameters.contactListId"/>
+                    <set field="createContactListPartyInMap.partyId" from-field="partyId"/>
+                    <set field="createContactListPartyInMap.statusId" value="CLPT_ACCEPTED"/>
+                    <set field="createContactListPartyInMap.fromDate" from-field="nowTimestamp"/>
+                    <call-service service-name="createContactListParty" in-map-name="createContactListPartyInMap"/>
+                    <else>
+                        <set field="eventMessageList[+0]" value="Party[${partyId}] already exist."/>
+                    </else>
+                </if-empty>
+            </if-compare>
+        </loop>
+        <set field="eventMessageList[+0]" value="Copying the contact list parties are success..."/>
+        <field-to-request field="eventMessageList" request-name="_EVENT_MESSAGE_LIST_"/>
+    </simple-method>
+</simple-methods>

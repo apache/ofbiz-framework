@@ -36,6 +36,11 @@ under the License.
                 <parameter param-name="contactListId"/>
             </link>
         </menu-item>
+        <menu-item name="ContactListImportParty" title="${uiLabelMap.MarketingContactListPartiesImport}">
+            <link target="FindImportContactListParties">
+                <parameter param-name="contactListId"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="ContactListCommBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
