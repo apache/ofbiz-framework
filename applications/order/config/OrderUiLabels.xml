@@ -158,7 +158,7 @@
     <property key="FormFieldTitle_custRequestId">
         <value xml:lang="en">Cust Request Id</value>
         <value xml:lang="fr">Réf. de demande client</value>
-        <value xml:lang="it">Richiesta soggetto</value>
+        <value xml:lang="it">Codice richiesta</value>
         <value xml:lang="nl">Klantvraag ID</value>
         <value xml:lang="pt_BR">ID de solicitação de cliente</value>
         <value xml:lang="zh">客户请求标识</value>
@@ -168,7 +168,7 @@
         <value xml:lang="en">Cust Request Item Seq Id</value>
         <value xml:lang="es">Nº sec. petición de cliente</value>
         <value xml:lang="fr">Réf. séq. de ligne de demande client</value>
-        <value xml:lang="it">Riga richiesta soggetto</value>
+        <value xml:lang="it">Riga richiesta</value>
         <value xml:lang="nl">Klantvraag nr. ID</value>
         <value xml:lang="pt_BR">ID de sequência de solicitação de cliente</value>
         <value xml:lang="ro">Numar Secvential linie Cerere Subiect</value>
@@ -181,7 +181,7 @@
         <value xml:lang="en">Cust Request Name</value>
         <value xml:lang="es">Nombre de petición</value>
         <value xml:lang="fr">Nom de demande client</value>
-        <value xml:lang="it">Nome richiesta soggetto</value>
+        <value xml:lang="it">Nome richiesta</value>
         <value xml:lang="nl">Klantvraag naam</value>
         <value xml:lang="pt_BR">Nome de solicitação</value>
         <value xml:lang="ro">Nume Cerere Subiect</value>
@@ -194,7 +194,7 @@
         <value xml:lang="en">Cust Request Resolution Id</value>
         <value xml:lang="es">Código Resolución de petición</value>
         <value xml:lang="fr">Réf. de résolution de demande client</value>
-        <value xml:lang="it">Risoluzione Richiesta Soggetto</value>
+        <value xml:lang="it">Risoluzione della richiesta</value>
         <value xml:lang="nl">Klantvraag oplossing ID</value>
         <value xml:lang="pt_BR">ID da resolução da solicitação</value>
         <value xml:lang="ro">Solutionare Cerere Subiect</value>
@@ -207,7 +207,7 @@
         <value xml:lang="en">Cust Request Type Id</value>
         <value xml:lang="es">Código Tipo de petición</value>
         <value xml:lang="fr">Réf. de type de demande client</value>
-        <value xml:lang="it">Tipo richiesta soggetto</value>
+        <value xml:lang="it">Tipo di richiesta</value>
         <value xml:lang="nl">Soort klantvraag ID</value>
         <value xml:lang="pt_BR">ID de tipo de solicitação</value>
         <value xml:lang="ro">Tip Cerere Subiect</value>
@@ -233,7 +233,7 @@
         <value xml:lang="en">Deliverable Id</value>
         <value xml:lang="es">Código de envío</value>
         <value xml:lang="fr">Réf. de livrable</value>
-        <value xml:lang="it">Numero Consegna</value>
+        <value xml:lang="it">Codice consegna</value>
         <value xml:lang="nl">Levering ID</value>
         <value xml:lang="pt_BR">ID (código) de envio</value>
         <value xml:lang="ro">Numar Livrare</value>
@@ -246,7 +246,7 @@
         <value xml:lang="en">Entry Date</value>
         <value xml:lang="es">Fecha de registro</value>
         <value xml:lang="fr">Date d'entrée</value>
-        <value xml:lang="it">Data Inserimento</value>
+        <value xml:lang="it">Data inserimento</value>
         <value xml:lang="nl">Invoerdatum</value>
         <value xml:lang="pt_BR">Data de registro</value>
         <value xml:lang="ro">Data Introducere</value>
@@ -259,7 +259,7 @@
         <value xml:lang="en">Estimated Budget</value>
         <value xml:lang="es">Presupuesto estimado</value>
         <value xml:lang="fr">Budget estimé</value>
-        <value xml:lang="it">Budget Stimato</value>
+        <value xml:lang="it">Budget stimato</value>
         <value xml:lang="nl">Geschat budget</value>
         <value xml:lang="pt_BR">Orçamento previsto</value>
         <value xml:lang="ro">Budget Stimat</value>
@@ -272,7 +272,7 @@
         <value xml:lang="en">Estimated Ready Date</value>
         <value xml:lang="es">Fecha disponible estimada</value>
         <value xml:lang="fr">Date estimée de préparation</value>
-        <value xml:lang="it">Data Attesa Stimata</value>
+        <value xml:lang="it">Data di completamento stimata</value>
         <value xml:lang="nl">Verwachte datum gereedkoming</value>
         <value xml:lang="pt_BR">Data de disponibilidade estimada</value>
         <value xml:lang="ro">Data Asteptsre Stimata</value>
@@ -872,7 +872,7 @@
         <value xml:lang="en">Response Required Date</value>
         <value xml:lang="es">Fecha exigida para respuesta</value>
         <value xml:lang="fr">Date requise de la réponse</value>
-        <value xml:lang="it">Data Richiesta Risposta</value>
+        <value xml:lang="it">Rispondere entro</value>
         <value xml:lang="nl">Antwoord geven voor</value>
         <value xml:lang="ro">Data Cerere Raspuns</value>
         <value xml:lang="ru">Требуемая дата ответа</value>
@@ -3797,7 +3797,7 @@
     <property key="OrderIncomingCustRequests">
         <value xml:lang="en">Incoming customer requests</value>
         <value xml:lang="fr">Nouvelles demandes utilisateur</value>
-        <value xml:lang="it">Richiesta cliente in entrata</value>
+        <value xml:lang="it">Nuove richieste cliente</value>
         <value xml:lang="pt_BR">Novas Solicitações de clientes</value>
         <value xml:lang="th">แสดงรายรับของลูกค้า</value>
         <value xml:lang="zh">输入的客户请求</value>
@@ -4616,7 +4616,7 @@
         <value xml:lang="en">New Request</value>
         <value xml:lang="es">Nueva petición</value>
         <value xml:lang="fr">Nouvelle demande</value>
-        <value xml:lang="it">Nuova Richiesta</value>
+        <value xml:lang="it">Nuova richiesta</value>
         <value xml:lang="nl">Nieuwe vraag</value>
         <value xml:lang="pt_BR">Nova solicitação</value>
         <value xml:lang="ro">Noua Cerere </value>
@@ -4630,7 +4630,7 @@
         <value xml:lang="en">New Request Item</value>
         <value xml:lang="es">Nuevo ítem de petición</value>
         <value xml:lang="fr">Nouvelle demande d'article</value>
-        <value xml:lang="it">Nuova Riga Richiesta</value>
+        <value xml:lang="it">Nuova riga richiesta</value>
         <value xml:lang="nl">Nieuw vraagelement</value>
         <value xml:lang="pt_BR">Novo item de solicitação</value>
         <value xml:lang="ro">Noua Linie Cerere</value>
@@ -4644,7 +4644,7 @@
         <value xml:lang="en">New Requirement</value>
         <value xml:lang="es">Nuevo requisito</value>
         <value xml:lang="fr">Nouveau besoin</value>
-        <value xml:lang="it">Nuovo Fabbisogno</value>
+        <value xml:lang="it">Nuovo fabbisogno</value>
         <value xml:lang="nl">Nieuwe behoefte</value>
         <value xml:lang="pt_BR">Novo requisito</value>
         <value xml:lang="ro">Nou Necesar</value>
@@ -4658,7 +4658,7 @@
         <value xml:lang="en">New Shipment</value>
         <value xml:lang="es">Nuevo envío</value>
         <value xml:lang="fr">Nouvelle expédition</value>
-        <value xml:lang="it">Nuova Spedizione</value>
+        <value xml:lang="it">Nuova spedizione</value>
         <value xml:lang="nl">Nieuwe verzending</value>
         <value xml:lang="pt_BR">Novo envio</value>
         <value xml:lang="ro">Noua Expediere</value>
@@ -8227,6 +8227,10 @@
         <value xml:lang="zh">请求日期</value>
         <value xml:lang="zh_CN">请求日期</value>
     </property>
+    <property key="OrderRequestInformation">
+        <value xml:lang="en">Request Information</value>
+        <value xml:lang="it">Informazioni sulla richiesta</value>
+    </property>
     <property key="OrderRequestItem">
         <value xml:lang="de">Anfrageelement</value>
         <value xml:lang="en">Request Item</value>
@@ -11201,7 +11205,7 @@
         <value xml:lang="en">Edit Request Roles</value>
         <value xml:lang="es">Editar roles de petición</value>
         <value xml:lang="fr">Modifier une demande de rôles</value>
-        <value xml:lang="it">Aggiorna Ruoli Richiesta</value>
+        <value xml:lang="it">Aggiorna i ruoli della richiesta</value>
         <value xml:lang="pt_BR">Alterar papéis de solicitação</value>
         <value xml:lang="th">แก้ไขสถานะการร้องขอ</value>
         <value xml:lang="zh">编辑请求角色</value>
@@ -11533,7 +11537,7 @@
         <value xml:lang="en">Request Items</value>
         <value xml:lang="es">Ítems de petición</value>
         <value xml:lang="fr">Demande d'articles</value>
-        <value xml:lang="it">Righe Richiesta</value>
+        <value xml:lang="it">Righe richiesta</value>
         <value xml:lang="nl">Request Items</value>
         <value xml:lang="pt_BR">Solicitação de itens</value>
         <value xml:lang="ro">Linii Cerere</value>
