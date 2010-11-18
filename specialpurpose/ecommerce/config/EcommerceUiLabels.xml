@@ -4256,7 +4256,7 @@
         <value xml:lang="ro">Revizie Produs</value>
         <value xml:lang="ru">Обзор продукта</value>
         <value xml:lang="th">ตรวจสอบสินค้า</value>
-        <value xml:lang="zh">产品浏览</value>
+        <value xml:lang="zh">产品评价</value>
     </property>
     <property key="PageTitleProfileSurvey">
         <value xml:lang="da">Profil rundspørge</value>

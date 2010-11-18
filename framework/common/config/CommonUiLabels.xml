@@ -6143,7 +6143,7 @@
         <value xml:lang="ro">Recenzie</value>
         <value xml:lang="ru">Просмотреть</value>
         <value xml:lang="th">ตรวจสอบ</value>
-        <value xml:lang="zh">检查</value>
+        <value xml:lang="zh">评价</value>
         <value xml:lang="zh_CN">评论</value>
     </property>
     <property key="CommonRouting">
