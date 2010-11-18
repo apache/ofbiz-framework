@@ -129,6 +129,7 @@
                 <or>
                     <if-compare-field field="parameters.contentName" operator="not-equals" to-field="contentName"/>
                     <if-compare-field field="parameters.description" operator="not-equals" to-field="description"/>
+                    <if-compare-field field="parameters.summaryData" operator="not-equals" to-field="summaryData"/>
                     <if-compare-field field="parameters.templateDataResourceId" operator="not-equals" to-field="templateDataResourceId"/>
                     <if-compare-field field="parameters.statusId" operator="not-equals" to-field="statusId"/>
                 </or>

@@ -196,31 +196,6 @@
         </sort-order>
     </form>
 
-    <form name="EditArticle" target="createBlogArticle" title="" type="upload" skip-end="true" default-map-name="blogEntry"
-        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <alt-target use-when="contentId!=void&amp;&amp;contentId!=null" target="updateBlogArticle"/>
-        <field name="blogContentId"><hidden value="${parameters.blogContentId}"/></field>
-        <field name="contentId" title="${uiLabelMap.EcommerceBlogEntryId}" use-when="contentId!=void&amp;&amp;contentId!=null"><display/></field>
-        <field name="contentName" title="${uiLabelMap.EcommerceArticleName}"><text size="40"/></field>
-        <field name="description"><textarea cols="60" rows="2"/></field>
-        <field name="summaryData" title="${uiLabelMap.EcommerceSummary}" widget-style="inputBox dojo-ResizableTextArea"><textarea cols="60" rows="4"/></field>
-        <field name="articleData" title="${uiLabelMap.EcommerceBlogArticle}" widget-style="inputBox dojo-ResizableTextArea"><textarea cols="100" rows="20" visual-editor-enable="true"/></field>
-        <field name="uploadedFile" title="${uiLabelMap.ContentImage}"><file size="25"/></field>
-        <field name="templateDataResourceId" title="${uiLabelMap.ContentTemplate}">
-            <drop-down>
-                <option key="BLOG_TPL_TOPLEFT" description="${uiLabelMap.EcommerceBlogTopLeft}"/>
-                <option key="BLOG_TPL_TOPCENTER" description="${uiLabelMap.EcommerceBlogTopCenter}"/>
-            </drop-down>
-        </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down no-current-selected-key="CTNT_INITIAL_DRAFT">
-                <option key="CTNT_PUBLISHED" description="${uiLabelMap.EcommerceBlogPublish}"/>
-                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.EcommerceBlogPreview}"/>
-            </drop-down>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-
     <form name="editFormSubmit" target="" title="" type="single" skip-start="true" skip-end="true"
         default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
