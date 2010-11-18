@@ -72,7 +72,7 @@ under the License.
         <h3>${uiLabelMap.EcommerceSummaryInformation}</h3>
     <div class="screenlet-body">
   <table>
-    <tr><td><div class='tabletext'>${uiLabelMap.EcommerceSummary}</div></td><td>&nbsp;</td><td><div class='tabletext'>
+    <tr><td><div class='tabletext'>${uiLabelMap.ContentSummary}</div></td><td>&nbsp;</td><td><div class='tabletext'>
 ${summaryData?if_exists}
 <div></td></tr>
   </table>

@@ -78,6 +78,10 @@
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">关联</value>
     </property>
+    <property key="ContentArticleName">
+        <value xml:lang="en">Article Name</value>
+        <value xml:lang="th">ชื่อบทความ</value>
+    </property>
     <property key="ContentAttribute">
         <value xml:lang="ar">خاصية</value>
         <value xml:lang="da">Attribut</value>
@@ -112,7 +116,8 @@
         <value xml:lang="en">Article</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Articolo</value>
-        <value xml:lang="nl">Artikel</value>
+        <value xml:lang="nl">Artikel</value>        
+        <value xml:lang="pt_BR">Artigo</value>
         <value xml:lang="zh">文章</value>
     </property>
     <property key="ContentBlogArticleList">
@@ -130,6 +135,15 @@
         <value xml:lang="it">Descrizione blog</value>
         <value xml:lang="nl">Beschrijving blog</value>
         <value xml:lang="zh">博客描述</value>
+    </property>
+    <property key="ContentBlogEntryId">
+        <value xml:lang="da">Blog indlæg id</value>
+        <value xml:lang="en">Blog entry Id</value>
+        <value xml:lang="fr">Réf. de note de blog</value>
+        <value xml:lang="it">Voce blog</value>
+        <value xml:lang="nl">Blog ingave ID</value>     
+        <value xml:lang="pt_BR">ID de entrada de blog</value>
+        <value xml:lang="zh">博客记录标识</value>
     </property>
     <property key="ContentBlogEdit">
         <value xml:lang="da">Redigér en blog</value>
@@ -1434,6 +1448,22 @@
         <value xml:lang="ro">SubSituri</value>
         <value xml:lang="th">Sites ย่อย</value>
         <value xml:lang="zh">子站点</value>
+    </property>
+    <property key="ContentSummary">
+        <value xml:lang="da">Resumé</value>
+        <value xml:lang="de">Zusammenfassung</value>
+        <value xml:lang="en">Summary</value>
+        <value xml:lang="es">Resumen</value>
+        <value xml:lang="fr">Résumé</value>
+        <value xml:lang="hi_IN">साराशं</value>
+        <value xml:lang="it">Sommario</value>
+        <value xml:lang="ja">Summary</value>
+        <value xml:lang="nl">Samenvatting</value>
+        <value xml:lang="pt_BR">Resumo</value>
+        <value xml:lang="ro">Breviar</value>
+        <value xml:lang="ru">Итоги</value>
+        <value xml:lang="th">สรุป</value>
+        <value xml:lang="zh">摘要</value>
     </property>
     <property key="ContentSurveryCategory">
         <value xml:lang="ar">فئة</value>
