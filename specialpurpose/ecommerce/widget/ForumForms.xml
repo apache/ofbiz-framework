@@ -65,7 +65,7 @@ under the License.
         <field name="description">
             <text size="60"/>
         </field>
-       <field name="summaryData" title="${uiLabelMap.EcommerceSummary}"
+       <field name="summaryData" title="${uiLabelMap.ContentSummary}"
             use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
             id-name="summaryData">
                 <textarea rows="8" cols="80"/>
@@ -247,7 +247,7 @@ under the License.
         <field name="description">
             <text size="60"/>
         </field>
-       <field name="summaryData" title="${uiLabelMap.EcommerceSummary}"
+       <field name="summaryData" title="${uiLabelMap.ContentSummary}"
             use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
             id-name="summaryData">
                 <textarea rows="8" cols="80"/>
@@ -473,7 +473,7 @@ under the License.
         <field name="description" title="${uiLabelMap.EcommerceLongSubject}">
             <text size="60"/>
         </field>
-       <field name="summaryData" title="${uiLabelMap.EcommerceSummary}"
+       <field name="summaryData" title="${uiLabelMap.ContentSummary}"
             use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
             id-name="summaryData">
                 <textarea rows="8" cols="80"/>

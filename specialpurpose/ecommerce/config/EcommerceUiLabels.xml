@@ -263,10 +263,6 @@
         <value xml:lang="th">ข้อมูลบทความ</value>
         <value xml:lang="zh">文章信息</value>
     </property>
-    <property key="EcommerceArticleName">
-        <value xml:lang="en">Article Name</value>
-        <value xml:lang="th">ชื่อบทความ</value>
-    </property>
     <property key="EcommerceAvailable">
         <value xml:lang="en">Available:</value>
         <value xml:lang="fr">Disponible :</value>
@@ -331,15 +327,6 @@
         <value xml:lang="pt_BR">Adicionar um tópico de discussão</value>
         <value xml:lang="zh">添加一个线索：</value>
     </property>
-    <property key="EcommerceBlogArticle">
-        <value xml:lang="da">Artikel</value>
-        <value xml:lang="en">Article</value>
-        <value xml:lang="fr">Article</value>
-        <value xml:lang="it">Articolo</value>
-        <value xml:lang="nl">Artikel</value>        
-        <value xml:lang="pt_BR">Artigo</value>
-        <value xml:lang="zh">文章</value>
-    </property>
     <property key="EcommerceBlogContentNotFound">
         <value xml:lang="da">Kan ikke finde blog indhold!</value>
         <value xml:lang="en">Unable to find Blog content!</value>
@@ -357,15 +344,6 @@
         <value xml:lang="nl">U moet ingelogd zijn om commentaren te wijzigen.</value>       
         <value xml:lang="pt_BR">Você deve registrar-se para editar comentários</value>
         <value xml:lang="zh">你必须登录以便编辑评论。</value>
-    </property>
-    <property key="EcommerceBlogEntryId">
-        <value xml:lang="da">Blog indlæg id</value>
-        <value xml:lang="en">Blog entry Id</value>
-        <value xml:lang="fr">Réf. de note de blog</value>
-        <value xml:lang="it">Voce blog</value>
-        <value xml:lang="nl">Blog ingave ID</value>     
-        <value xml:lang="pt_BR">ID de entrada de blog</value>
-        <value xml:lang="zh">博客记录标识</value>
     </property>
     <property key="EcommerceBlogFullMessage">
         <value xml:lang="da">Fuld besked</value>
@@ -3140,22 +3118,6 @@
         <value xml:lang="nl">Verificatie aanmelden abonnement</value>       
         <value xml:lang="pt_BR">E-mail de verificação de inscrição</value>
         <value xml:lang="zh">订阅验证电子邮件</value>
-    </property>
-    <property key="EcommerceSummary">
-        <value xml:lang="da">Resumé</value>
-        <value xml:lang="de">Zusammenfassung</value>
-        <value xml:lang="en">Summary</value>
-        <value xml:lang="es">Resumen</value>
-        <value xml:lang="fr">Résumé</value>
-        <value xml:lang="hi_IN">साराशं</value>
-        <value xml:lang="it">Sommario</value>
-        <value xml:lang="ja">Summary</value>
-        <value xml:lang="nl">Samenvatting</value>
-        <value xml:lang="pt_BR">Resumo</value>
-        <value xml:lang="ro">Breviar</value>
-        <value xml:lang="ru">Итоги</value>
-        <value xml:lang="th">สรุป</value>
-        <value xml:lang="zh">摘要</value>
     </property>
     <property key="EcommerceSummaryInformation">
         <value xml:lang="da">Resumé information</value>
