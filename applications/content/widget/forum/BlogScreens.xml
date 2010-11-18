@@ -202,7 +202,7 @@ under the License.
                         <decorator-screen name="blogArtDecorator">
                             <decorator-section name="body">
                                 <sub-content content-id="${contentId}" map-key="IMAGE"/>
-                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>
+                                <include-form name="EditArticle" location="component://content/widget/forum/BlogForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>

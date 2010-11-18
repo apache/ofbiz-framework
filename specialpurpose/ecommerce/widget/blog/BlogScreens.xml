@@ -176,7 +176,7 @@
                     <widgets>
                         <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
-                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>
+                                <include-form name="EditArticle" location="component://content/widget/forum/BlogForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
@@ -209,7 +209,7 @@
                         <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
                                 <sub-content content-id="${parameters.contentId}" map-key="IMAGE"/>
-                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>
+                                <include-form name="EditArticle" location="component://content/widget/forum/BlogForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
