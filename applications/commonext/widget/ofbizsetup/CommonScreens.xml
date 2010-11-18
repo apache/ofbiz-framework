@@ -51,11 +51,21 @@
         </section>
     </screen>
     
+    <screen name="CommonPartyDecorator">
+    	<section>
+    		<widgets>
+                <include-screen name="CommonSetupDecorator"/>
+    		</widgets>
+    	</section>
+    </screen>
+    
     <screen name="CommonSetupDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="init"/>
-                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-condition entity-name="PartyRole" list="parties">
+                    <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                </entity-condition>
+                <set field="partyId" from-field="parties[0].partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>
                 <entity-one entity-name="PartyGroup" value-field="lookupGroup"/>
             </actions>
@@ -66,11 +76,24 @@
                             <condition>
                                 <and>
                                     <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
-                                    <not><if-empty field="party"/></not>
+                                    <if-compare operator="not-equals" value="init" field="headerItem"/>
                                 </and>
                             </condition>
                             <widgets>
                                 <include-menu location="component://commonext/widget/ofbizsetup/Menus.xml" name="SetupSubTabBar"/>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not><if-empty field="partyId"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="OrganizationToComplete" text="${uiLabelMap.SetupSetToComplete}" style="buttontext">
+                                        <parameter param-name="partyId" from-field="organizationPartyId"/>
+                                        <parameter param-name="roleTypeId" value="ORGANIZATION_ROLE"/>
+                                    </link>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>

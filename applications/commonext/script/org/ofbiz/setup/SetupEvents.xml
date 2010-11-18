@@ -338,18 +338,6 @@
         <set field="organizationPartyId" from-field="parameters.partyId"/>
         <set field="personContext.partyId" from-field="parameters.customerPartyId"/>
         <call-simple-method method-name="createUser" xml-resource="component://party/script/org/ofbiz/party/user/UserEvents.xml"/>
-        
-        <!-- Create PartyRelationship -->
-        <set field="lookupValue.partyIdFrom" from-field="tempMap.partyId"/>
-        <set field="lookupValue.partyIdTo" from-field="organizationPartyId"/>
-        <set field="lookupValue.roleTypeIdFrom" value="CUSTOMER"/>
-        <set field="lookupValue.roleTypeIdTo" value="INTERNAL_ORGANIZATIO"/>
-        <set field="lookupValue.partyRelationshipTypeId" value="CUSTOMER_REL"/>
-        <session-to-field field="lookupValue.userLogin" session-name="userLogin"/>
-        <call-service service-name="createPartyRelationship" in-map-name="lookupValue"/>
-
-        <field-to-request field="organizationPartyId" request-name="partyId"/>
-        <field-to-request field="tempMap.partyId" request-name="customerId"/>
     </simple-method>
 
     <simple-method method-name="createFacilityAndContactMech" short-description="create Facility and ContactMech">
