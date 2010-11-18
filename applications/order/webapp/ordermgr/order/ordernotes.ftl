@@ -44,7 +44,7 @@ under the License.
                     <div>&nbsp;<span class="label">${uiLabelMap.CommonAt}</span>&nbsp;${note.noteDateTime?string?if_exists}</div>
                   </td>
                   <td valign="top" width="50%">
-                    ${note.noteInfo?if_exists}
+                    ${note.noteInfo?replace("\n", "<br/>")}
                   </td>
                   <td align="right" valign="top" width="15%">
                     <#if note.internalNote?if_exists == "N">
