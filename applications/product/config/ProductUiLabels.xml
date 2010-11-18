@@ -909,7 +909,7 @@
         <value xml:lang="ro">Aprobare Automatica Recenzii</value>
         <value xml:lang="ru">Одобрять отзывы автоматически</value>
         <value xml:lang="th">อนุมัติการตรวจสอบอัตโนมัติ</value>
-        <value xml:lang="zh">自动批准浏览</value>
+        <value xml:lang="zh">自动批准评价</value>
     </property>
     <property key="FormFieldTitle_autoInvoiceDigitalItems">
         <value xml:lang="de">Automatische Rechnungsstellung Digitaler Produkte</value>
@@ -18160,7 +18160,7 @@
         <value xml:lang="ro">Revedeti Acest Produs!</value>
         <value xml:lang="ru">Напишите отзыв к этому продукту!</value>
         <value xml:lang="th">ตรวจสอบสินค้านี้!</value>
-        <value xml:lang="zh">浏览这个产品！</value>
+        <value xml:lang="zh">评价这个产品！</value>
     </property>
     <property key="ProductReviews">
         <value xml:lang="de">Bewertungen</value>
@@ -18172,7 +18172,7 @@
         <value xml:lang="ro">Recenzii</value>
         <value xml:lang="ru">Отзывы</value>
         <value xml:lang="th">ตรวจสอบ</value>
-        <value xml:lang="zh">浏览</value>
+        <value xml:lang="zh">评价</value>
     </property>
     <property key="ProductReviewsNoPendingApproval">
         <value xml:lang="de">Keine Bewertungen zur Genehmigung vorhanden</value>
@@ -18181,7 +18181,7 @@
         <value xml:lang="fr">Aucune approbation d'avis de client en attente</value>
         <value xml:lang="it">Nessuna recensione in attesa di approvazione</value>
         <value xml:lang="th">ไม่มีการตรวจสอบจนกระทั่งอนุมัติ</value>
-        <value xml:lang="zh">没有等待批准的检查</value>
+        <value xml:lang="zh">没有等待批准的评价</value>
     </property>
     <property key="ProductReviewsPendingApproval">
         <value xml:lang="de">Bewertungen die auf Genehmigung warten</value>
@@ -18192,7 +18192,7 @@
         <value xml:lang="ro">Recenzii in Asteptare de Aprobare</value>
         <value xml:lang="ru">Отзывы ожидающие одобрения</value>
         <value xml:lang="th">ตรวจสอบจนกระทั่งอนุมัติ</value>
-        <value xml:lang="zh">等待批准的检查</value>
+        <value xml:lang="zh">等待批准的评价</value>
     </property>
     <property key="ProductRollup">
         <value xml:lang="de">Kategoriezuordnung</value>

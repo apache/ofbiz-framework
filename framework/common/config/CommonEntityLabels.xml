@@ -9717,7 +9717,7 @@
         <value xml:lang="ro">Cerere Revizionata</value>
         <value xml:lang="ru">Рассмотреть запрос</value>
         <value xml:lang="th">การพิจารณาคำร้อง</value>
-        <value xml:lang="zh">浏览请求</value>
+        <value xml:lang="zh">评价请求</value>
     </property>
     <property key="StatusValidChange.transitionName.CRQ_REVIEWED.CRQ_CANCELLED">
         <value xml:lang="de">Anfrage annullieren</value>
@@ -11159,7 +11159,7 @@
         <value xml:lang="ro">Recenzie Stearsa</value>
         <value xml:lang="ru">Отзыв удален</value>
         <value xml:lang="th">ลบการตรวจสอบ</value>
-        <value xml:lang="zh">浏览已删除</value>
+        <value xml:lang="zh">评价已删除</value>
     </property>
     <property key="StatusValidChange.transitionName.PRR_PENDING.PRR_APPROVED">
         <value xml:lang="de">Überprüfung genehmigen</value>
@@ -11171,7 +11171,7 @@
         <value xml:lang="ro">Recenzie Aprobata</value>
         <value xml:lang="ru">Отзыв утвержден</value>
         <value xml:lang="th">ยอมรับการตรวจสอบ</value>
-        <value xml:lang="zh">浏览已批准</value>
+        <value xml:lang="zh">评价已批准</value>
     </property>
     <property key="StatusValidChange.transitionName.PRR_PENDING.PRR_DELETED">
         <value xml:lang="de">Überprüfung löschen</value>
@@ -11183,7 +11183,7 @@
         <value xml:lang="ro">Recenzie Stearsa</value>
         <value xml:lang="ru">Отзыв удален</value>
         <value xml:lang="th">ลบการตรวจสอบ</value>
-        <value xml:lang="zh">浏览已删除</value>
+        <value xml:lang="zh">评价已删除</value>
     </property>
     <property key="StatusValidChange.transitionName.PURCH_SHIP_CREATED.PURCH_SHIP_RECEIVED">
         <value xml:lang="de">Erhalten</value>
