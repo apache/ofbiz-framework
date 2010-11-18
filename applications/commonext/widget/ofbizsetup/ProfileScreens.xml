@@ -27,21 +27,13 @@
             <actions>
                 <set field="titleProperty" value="PartyCreateNewCustomer"/>
                 <set field="tabButtonItemTop" value="firstcustomer"/>
-                
                 <set field="target" value="createCustomer"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <entity-condition entity-name="PartyRelationship" list="customerRels" filter-by-date="true">
-                    <condition-list>
-                        <condition-expr field-name="partyIdTo" from-field="partyId"/>
-                        <condition-expr field-name="roleTypeIdFrom" value="CUSTOMER"/>
-                        <condition-expr field-name="roleTypeIdTo" value="INTERNAL_ORGANIZATIO"/>
-                        <condition-expr field-name="partyRelationshipTypeId" value="CUSTOMER_REL"/>
-                    </condition-list>
+                <set field="partyId" value="CUST"/>
+                <entity-condition entity-name="PartyRole" list="parties">
+                    <condition-expr field-name="roleTypeId" operator="equals" value="CUSTOMER"/>
                 </entity-condition>
-                <set field="customerRel" from-field="customerRels[0]"/>
-                
+                <set field="partyId" from-field="parties[0].partyId"/>
                 <set field="customerPartyId" from-field="customerRel.partyIdFrom"/>
-                <set field="organizationPartyId" from-field="parameters.partyId"/>
                 <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
@@ -55,16 +47,28 @@
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="customerRel"/></not>
+                                        <if-empty field="parties"/>
                                     </condition>
+                                    <actions>
+                                        <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization but there are still issues. For instance: what if we have 2 couple of dependent dropdowns in the same form? -->
+                                        <set field="dependentForm" value="NewCustomer"/>
+                                        <set field="paramKey" value="countryGeoId"/>                                        
+                                        <set field="mainId" value="USER_COUNTRY"/>
+                                        <set field="dependentId" value="USER_STATE"/>
+                                        <set field="requestName" value="getAssociatedStateList"/>
+                                        <set field="responseName" value="stateList"/>
+                                        <set field="dependentKeyName" value="geoId"/>
+                                        <set field="descName" value="geoName"/>
+                                        <set field="selectedDependentOption" value="_none_"/>
+                                    </actions>
                                     <widgets>
-                                        <include-screen name="Party"/>
-                                        <include-screen name="Contact"/>
-                                    </widgets>
-                                    <fail-widgets>
+                                        <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
                                         <screenlet title="${uiLabelMap.PartyCreateNewCustomer}">
                                             <include-form name="NewCustomer" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
                                         </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <include-screen name="viewprofile"/>
                                     </fail-widgets>
                                 </section>
                             </widgets>
@@ -80,223 +84,14 @@
     
     <screen name="viewprofile">
         <section>
-            <actions>
-                <set field="tabButtonItemTop" value="organization"/>
-                <set field="organizationPartyId" from-field="parameters.partyId"/>
-                <entity-condition entity-name="PartyRole" list="partyRoles">
-                    <condition-list combine="and">
-                        <condition-expr field-name="partyId" operator="equals" from-field="organizationPartyId"/>
-                        <condition-expr field-name="roleTypeId" operator="equals" value="ORGANIZATION_ROLE"/>
-                    </condition-list>
-                </entity-condition>
-                <set field="partyRole" from-field="partyRoles[0]"/>
-            </actions>
+        	<actions>
+        		<set field="parameters.partyId" from-field="partyId"/>
+        	</actions>
             <widgets>
-                <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-empty field="partyRole"/>
-                            </condition>
-                            <widgets>
-                                <container style="button-bar">
-                                    <link target="OrganizationToComplete" text="${uiLabelMap.SetupSetToComplete}" style="buttontext">
-                                        <parameter param-name="partyId" from-field="organizationPartyId"/>
-                                        <parameter param-name="roleTypeId" value="ORGANIZATION_ROLE"/>
-                                    </link>
-                                </container>
-                            </widgets>
-                        </section>
-                        <include-screen name="Party"/>
-                        <include-screen name="Contact"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="Party">
-        <section>
-            <actions>
-                <entity-condition entity-name="PartyRelationship" list="customerRels" filter-by-date="true">
-                    <condition-list>
-                        <condition-expr field-name="partyIdTo" from-field="parameters.partyId"/>
-                        <condition-expr field-name="roleTypeIdFrom" value="CUSTOMER"/>
-                        <condition-expr field-name="roleTypeIdTo" value="INTERNAL_ORGANIZATIO"/>
-                        <condition-expr field-name="partyRelationshipTypeId" value="CUSTOMER_REL"/>
-                    </condition-list>
-                </entity-condition>
-                <set field="customerRel" from-field="customerRels[0]"/>
-                
-                <set field="partyId" from-field="customerPartyId" default-value="${organizationPartyId}"/>
-                <entity-and entity-name="PartyNameHistory" list="partyNameHistoryList">
-                    <field-map field-name="partyId" from-field="partyId"/>
-                    <order-by field-name="-changeDate"/>
-                </entity-and>
-                <entity-one entity-name="PartyAndGroup" value-field="lookupGroup">
-                    <field-map field-name="partyId" from-field="parameters.partyId"/>
-                </entity-one>
-                <entity-one entity-name="PartyAndPerson" value-field="lookupPerson">
-                    <field-map field-name="partyId" from-field="customerPartyId"/>
-                </entity-one>
-            </actions>
-            <widgets>
-                <section>
-                    <condition>
-                        <and>
-                            <if-compare field="tabButtonItemTop" operator="equals" value="firstcustomer"/>
-                            <not><if-empty field="lookupPerson"/></not>
-                        </and>
-                    </condition>
-                    <widgets>
-                        <container>
-                            <label style="h1" text="${uiLabelMap.SetupTheFirstCustomerOf} ${lookupGroup.groupName}"/>
-                        </container>
-                        <container style="clear"/>
-                        <section>
-                            <condition>
-                                <or>
-                                    <if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
-                                    <if-compare-field field="customerPartyId" operator="equals" to-field="userLogin.partyId"/>
-                                </or>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate" id="PartyPersonalInformationPanel">
-                                    <include-menu name="personUpdate" location="component://commonext/widget/ofbizsetup/Menus.xml"/>
-                                    <include-form name="ViewPartyPerson" location="component://party/widget/partymgr/PartyForms.xml"/>
-                                    <section>
-                                        <condition>
-                                            <not><if-empty field="partyNameHistoryList"/></not>
-                                        </condition>
-                                        <widgets>
-                                            <include-form name="ViewPartyPersonHistory" location="component://party/widget/partymgr/PartyForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate" id="PartyPersonalInformationPanel">
-                                    <include-form name="ViewPartyPerson" location="component://party/widget/partymgr/PartyForms.xml"/>
-                                    <section>
-                                        <condition>
-                                            <not><if-empty field="partyNameHistoryList"/></not>
-                                        </condition>
-                                        <widgets>
-                                            <include-form name="ViewPartyPersonHistory" location="component://party/widget/partymgr/PartyForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </screenlet>
-                            </fail-widgets>
-                        </section>
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <and>
-                            <if-compare field="tabButtonItemTop" operator="equals" value="organization"/>
-                            <not><if-empty field="lookupGroup"/></not>
-                        </and>
-                    </condition>
-                    <widgets>
-                        <section>
-                            <condition>
-                                <if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.SetupOrganizationInformation}" navigation-menu-name="groupUpdate" id="PartyGroupInformationPanel">
-                                    <include-menu name="groupUpdate" location="component://commonext/widget/ofbizsetup/Menus.xml"/>
-                                    <include-form name="ViewOrganization" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                    <section>
-                                        <condition>
-                                            <not><if-empty field="partyNameHistoryList"/></not>
-                                        </condition>
-                                        <widgets>
-                                            <include-form name="ViewPartyGroupHistory" location="component://party/widget/partymgr/PartyForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <screenlet title="${uiLabelMap.SetupOrganizationInformation}" navigation-menu-name="groupUpdate" id="PartyGroupInformationPanel">
-                                    <include-form name="ViewOrganization" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                    <section>
-                                        <condition>
-                                            <not><if-empty field="partyNameHistoryList"/></not>
-                                        </condition>
-                                        <widgets>
-                                            <include-form name="ViewPartyGroupHistory" location="component://party/widget/partymgr/PartyForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </screenlet>
-                            </fail-widgets>
-                        </section>
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="Contact">
-        <section>
-            <actions>
-                <set field="partyId" from-field="customerPartyId" default-value="${parameters.partyId}"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetContactMechs.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
-            </actions>
-            <widgets>
-                <platform-specific>
-                    <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Contact.ftl"/>
-                    </html>
-                </platform-specific>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="EditPartyGroup">
-        <section>
-            <actions>
-                <set field="titleProperty" value="SetupEditOrganizationInformation"/>
-                <set field="tabButtonItemTop" value="organization"/>
-                <set field="labelTitleProperty" value="SetupEditOrganizationInformation"/>
-                
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="PartyAndGroup" value-field="partyGroup"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.SetupEditOrganizationInformation}">
-                            <include-form name="EditPartyGroup" location="component://party/widget/partymgr/PartyForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="EditPerson">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleEditPersonalInformation"/>
-                <set field="tabButtonItemTop" value="firstcustomer"/>
-                <set field="labelTitleProperty" value="PageTitleEditPersonalInformation"/>
-                
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="firstcustomer"/>
-                <set field="partyId" from-field="parameters.customerPartyId"/>
-                <entity-one entity-name="PartyAndPerson" value-field="personInfo"/>
-                <set field="parameters.partyId" from-field="parameters.organizationPartyId"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditPersonalInformation}">
-                            <include-form name="EditCustomer" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
+                <include-screen name="Party" location="applications/party/widget/partymgr/ProfileScreens.xml"/>
+                <include-screen name="Contact" location="applications/party/widget/partymgr/ProfileScreens.xml"/>
             </widgets>
         </section>
     </screen>
 </screens>
+    

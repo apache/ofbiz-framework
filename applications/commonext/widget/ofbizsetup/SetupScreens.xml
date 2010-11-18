@@ -24,35 +24,52 @@
     <screen name="InitialSetup">
         <section>
             <actions>
+                <set field="tabButtonItemTop" value="organization"/>
                 <set field="titleProperty" value="SetupCreateNewOrganization"/>
                 <set field="target" value="createOrganization"/>
                 <set field="previousParams" from-field="sessionAttributes._PREVIOUS_PARAMS_"/>
+                <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
                 <entity-condition entity-name="PartyRole" list="parties">
                     <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                 </entity-condition>
-                <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
+                <set field="partyId" from-field="parties[0].partyId"/>
+                <set field="parameters.partyId" from-field="parties[0].partyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.AccountingAvailableInternalOrganizations}">
-                                    <include-form name="ListOrganizations" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
-                                </screenlet>
+                        <decorator-screen name="CommonSetupDecorator" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                <section>
+                    <condition>
+                        <if-empty field="parties"/>
+                    </condition>
+                    <widgets>
+                            <section>
+                                    <actions>
+                                        <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization but there are still issues. For instance: what if we have 2 couple of dependent dropdowns in the same form? -->
+                                        <set field="dependentForm" value="NewOrganization"/>
+                                        <set field="paramKey" value="countryGeoId"/>                                        
+                                        <set field="mainId" value="USER_COUNTRY"/>
+                                        <set field="dependentId" value="USER_STATE"/>
+                                        <set field="requestName" value="getAssociatedStateList"/>
+                                        <set field="responseName" value="stateList"/>
+                                        <set field="dependentKeyName" value="geoId"/>
+                                        <set field="descName" value="geoName"/>
+                                        <set field="selectedDependentOption" value="_none_"/>
+                                    </actions>
+                            		<widgets>
+                                <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
                                 <screenlet title="${uiLabelMap.SetupCreateNewOrganization}">
                                     <include-form name="NewOrganization" location="component://commonext/widget/ofbizsetup/SetupForms.xml"/>
                                 </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.PartyMgrCreatePermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
+                            		</widgets>
+                            </section>
+                    </widgets>
+                    <fail-widgets>
+					    <include-screen name="viewprofile" location="component://commonext/widget/ofbizsetup/ProfileScreens.xml"/> 
+                    </fail-widgets>
+                </section>
+                            </decorator-section>
+                        </decorator-screen>
             </widgets>
         </section>
     </screen>

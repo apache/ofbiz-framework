@@ -21,7 +21,7 @@
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
     <menu name="SetupAppBar" title="${uiLabelMap.SetupApp}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="init" title="${uiLabelMap.SetupInitialSetup}">
+        <menu-item name="main" title="${uiLabelMap.SetupInitialSetup}">
             <link target="initialsetup"/>
         </menu-item>
         <menu-item name="export" title="${uiLabelMap.PageTitleEntityExportAll}">
@@ -32,31 +32,45 @@
     <menu name="SetupSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         selected-menuitem-context-field-name="tabButtonItemTop">
         <menu-item name="organization" title="${uiLabelMap.SetupOrganization}">
-            <link target="viewprofile">
-                <parameter param-name="partyId"/>
-            </link>
+            <condition>
+                <not><if-empty field="partyId"/></not>
+            </condition>
+            <link target="initialsetup"/>
         </menu-item>
         <menu-item name="facility" title="${uiLabelMap.SetupFacility}">
+            <condition>
+                <not><if-empty field="partyId"/></not>
+            </condition>
             <link target="EditFacility">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="productstore" title="${uiLabelMap.SetupProductStore}">
+            <condition>
+                <not><if-empty field="partyId"/></not>
+            </condition>
             <link target="EditProductStore">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="website" title="${uiLabelMap.SetupWebSite}">
+            <condition>
+                <not><if-empty field="partyId"/></not>
+            </condition>
             <link target="EditWebSite">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="firstcustomer" title="${uiLabelMap.SetupFirstCustomer}">
-            <link target="firstcustomer">
-                <parameter param-name="partyId"/>
-            </link>
+            <condition>
+                <not><if-empty field="partyId"/></not>
+            </condition>
+            <link target="firstcustomer"/>
         </menu-item>
         <menu-item name="firstproduct" title="${uiLabelMap.SetupFirstProduct}">
+            <condition>
+                <not><if-empty field="partyId"/></not>
+            </condition>
             <link target="firstproduct">
                 <parameter param-name="partyId"/>
             </link>
