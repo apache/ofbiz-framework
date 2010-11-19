@@ -26,10 +26,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindWebSite"/>
                 <set field="headerItem" value="websites"/>
                 <set field="labelTitleProperty" value="PageTitleFindWebSite"/>
-
-                <entity-condition entity-name="WebSite" list="webSites">
-                    <order-by field-name="webSiteId"/>
-                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">

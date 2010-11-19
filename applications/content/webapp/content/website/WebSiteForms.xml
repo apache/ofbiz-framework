@@ -58,14 +58,20 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     <form name="ListWebSites" target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <actions>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="-webSiteId"/>
+            <entity-condition entity-name="WebSite" list="webSites">
+                <order-by field-name="${parameters.sortField}"/>
+            </entity-condition>
+        </actions>
+        <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext" sort-field="true">
             <hyperlink description="${webSiteId}" target="EditWebSite" also-hidden="false">
                 <parameter param-name="webSiteId"/>
             </hyperlink>
         </field>
-        <field name="siteName" title="${uiLabelMap.CommonName}"><display/></field>
-        <field name="httpHost"><display/></field>
+        <field name="siteName" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
+        <field name="httpHost" sort-field="true"><display/></field>
     </form>
 
     <form name="WebSitePathAlias" target="" title="" type="list" list-name="aliases" paginate-target="WebSiteAliases" paginate="true"
