@@ -334,8 +334,7 @@ public class OrderServices {
 
             if ("SALES_ORDER".equals(orderTypeId)) {
                 boolean salesDiscontinuationFlag = false;
-                // Sometime it happens that you are reading orders info from legacy database. So if orderdate is passed in context then lets handle that case as well and compare the passed date with sales discontinuation date. 
-                //The else condition should handle the previous case when order date is not passed and you wanted to check on sales discontinuation date.
+                // When past orders are imported, they should be imported even if sales discontinuation date is in the past but if the order date was before it
                 if (orderDate != null && product.get("salesDiscontinuationDate") != null) {
                     salesDiscontinuationFlag = orderDate.after(product.getTimestamp("salesDiscontinuationDate")) && nowTimestamp.after(product.getTimestamp("salesDiscontinuationDate"));
                 } else if (product.get("salesDiscontinuationDate") != null) {
