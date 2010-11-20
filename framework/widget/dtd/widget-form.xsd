@@ -155,6 +155,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="group-columns" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute type="xs:integer" name="view-size">
             <xs:annotation><xs:documentation>The number of items to display per page</xs:documentation></xs:annotation>
         </xs:attribute>

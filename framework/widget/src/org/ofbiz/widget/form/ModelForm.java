@@ -112,6 +112,7 @@ public class ModelForm extends ModelWidget {
     protected String paginateTargetAnchor;
     protected String paginateStyle;
     protected boolean separateColumns = false;
+    protected boolean groupColumns = true;
     protected boolean useRowSubmit = false;
     protected FlexibleStringExpander targetWindowExdr;
     protected String defaultRequiredFieldStyle;
@@ -285,6 +286,7 @@ public class ModelForm extends ModelWidget {
                 this.defaultTooltipStyle = parent.defaultTooltipStyle;
                 this.itemIndexSeparator = parent.itemIndexSeparator;
                 this.separateColumns = parent.separateColumns;
+                this.groupColumns = parent.groupColumns;
                 this.targetType = parent.targetType;
                 this.defaultMapName = parent.defaultMapName;
                 this.targetWindowExdr = parent.targetWindowExdr;
@@ -459,6 +461,11 @@ public class ModelForm extends ModelWidget {
             String sepColumns = formElement.getAttribute("separate-columns");
             if (sepColumns != null && sepColumns.equalsIgnoreCase("true"))
                 separateColumns = true;
+        }
+        if (formElement.hasAttribute("group-columns")) {
+            String groupColumnsStr = formElement.getAttribute("group-columns");
+            if (groupColumnsStr != null && groupColumnsStr.equalsIgnoreCase("false"))
+                groupColumns = false;
         }
         if (formElement.hasAttribute("use-row-submit")) {
             String rowSubmit = formElement.getAttribute("use-row-submit");
@@ -1236,7 +1243,8 @@ public class ModelForm extends ModelWidget {
 
             Map<String, List<ModelFormField>> fieldRow = UtilMisc.toMap("displayBefore", innerDisplayHyperlinkFieldsBegin,
                                                    "inputFields", innerFormFields,
-                                                   "displayAfter", innerDisplayHyperlinkFieldsEnd);
+                                                   "displayAfter", innerDisplayHyperlinkFieldsEnd,
+                                                   "mainFieldList", mainFieldList);
             fieldRowsByPosition.add(fieldRow);
         }
         // ===========================
@@ -1246,6 +1254,7 @@ public class ModelForm extends ModelWidget {
             List<ModelFormField> innerDisplayHyperlinkFieldsBegin = listsMap.get("displayBefore");
             List<ModelFormField> innerFormFields = listsMap.get("inputFields");
             List<ModelFormField> innerDisplayHyperlinkFieldsEnd = listsMap.get("displayAfter");
+            List<ModelFormField> mainFieldList = listsMap.get("mainFieldList");
 
             int numOfCells = innerDisplayHyperlinkFieldsBegin.size() +
                              innerDisplayHyperlinkFieldsEnd.size() +
@@ -1257,57 +1266,81 @@ public class ModelForm extends ModelWidget {
 
             if (numOfCells > 0) {
                 formStringRenderer.renderFormatHeaderRowOpen(writer, context, this);
-                Iterator<ModelFormField> innerDisplayHyperlinkFieldsBeginIt = innerDisplayHyperlinkFieldsBegin.iterator();
-                while (innerDisplayHyperlinkFieldsBeginIt.hasNext()) {
-                    ModelFormField modelFormField = innerDisplayHyperlinkFieldsBeginIt.next();
-                    // span columns only if this is the last column in the row (not just in this first list)
-                    if (innerDisplayHyperlinkFieldsBeginIt.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size()) {
-                        formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, 1);
-                    } else {
-                        formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, numOfColumnsToSpan);
-                    }
-                    formStringRenderer.renderFieldTitle(writer, context, modelFormField);
-                    formStringRenderer.renderFormatHeaderRowCellClose(writer, context, this, modelFormField);
-                }
-                if (innerFormFields.size() > 0) {
-                    // TODO: manage colspan
-                    formStringRenderer.renderFormatHeaderRowFormCellOpen(writer, context, this);
-                    Iterator<ModelFormField> innerFormFieldsIt = innerFormFields.iterator();
-                    while (innerFormFieldsIt.hasNext()) {
-                        ModelFormField modelFormField = innerFormFieldsIt.next();
-
-                        if (separateColumns || modelFormField.getSeparateColumn()) {
-                            formStringRenderer.renderFormatItemRowCellOpen(writer, context, this, modelFormField, 1);
+                
+                if (this.groupColumns) {
+                    Iterator<ModelFormField> innerDisplayHyperlinkFieldsBeginIt = innerDisplayHyperlinkFieldsBegin.iterator();
+                    while (innerDisplayHyperlinkFieldsBeginIt.hasNext()) {
+                        ModelFormField modelFormField = innerDisplayHyperlinkFieldsBeginIt.next();
+                        // span columns only if this is the last column in the row (not just in this first list)
+                        if (innerDisplayHyperlinkFieldsBeginIt.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size()) {
+                            formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, 1);
+                        } else {
+                            formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, numOfColumnsToSpan);
                         }
-
-                        // render title (unless this is a submit or a reset field)
                         formStringRenderer.renderFieldTitle(writer, context, modelFormField);
+                        formStringRenderer.renderFormatHeaderRowCellClose(writer, context, this, modelFormField);
+                    }
+                    if (innerFormFields.size() > 0) {
+                        // TODO: manage colspan
+                        formStringRenderer.renderFormatHeaderRowFormCellOpen(writer, context, this);
+                        Iterator<ModelFormField> innerFormFieldsIt = innerFormFields.iterator();
+                        while (innerFormFieldsIt.hasNext()) {
+                            ModelFormField modelFormField = innerFormFieldsIt.next();
 
-                        if (separateColumns || modelFormField.getSeparateColumn()) {
-                            formStringRenderer.renderFormatItemRowCellClose(writer, context, this, modelFormField);
+                            if (separateColumns || modelFormField.getSeparateColumn()) {
+                                formStringRenderer.renderFormatItemRowCellOpen(writer, context, this, modelFormField, 1);
+                            }
+
+                            // render title (unless this is a submit or a reset field)
+                            formStringRenderer.renderFieldTitle(writer, context, modelFormField);
+
+                            if (separateColumns || modelFormField.getSeparateColumn()) {
+                                formStringRenderer.renderFormatItemRowCellClose(writer, context, this, modelFormField);
+                            }
+
+                            if (innerFormFieldsIt.hasNext()) {
+                                // TODO: determine somehow if this is the last one... how?
+                               if (!separateColumns && !modelFormField.getSeparateColumn()) {
+                                    formStringRenderer.renderFormatHeaderRowFormCellTitleSeparator(writer, context, this, modelFormField, false);
+                               }
+                            }
+                        }
+                        formStringRenderer.renderFormatHeaderRowFormCellClose(writer, context, this);
+                    }
+                    Iterator<ModelFormField> innerDisplayHyperlinkFieldsEndIt = innerDisplayHyperlinkFieldsEnd.iterator();
+                    while (innerDisplayHyperlinkFieldsEndIt.hasNext()) {
+                        ModelFormField modelFormField = innerDisplayHyperlinkFieldsEndIt.next();
+                        // span columns only if this is the last column in the row (not just in this first list)
+                        if (innerDisplayHyperlinkFieldsEndIt.hasNext() || numOfCells > innerDisplayHyperlinkFieldsEnd.size()) {
+                            formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, 1);
+                        } else {
+                            formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, numOfColumnsToSpan);
+                        }
+                        formStringRenderer.renderFieldTitle(writer, context, modelFormField);
+                        formStringRenderer.renderFormatHeaderRowCellClose(writer, context, this, modelFormField);
+                    }
+                } else {
+                    Iterator<ModelFormField> mainFieldListIter = mainFieldList.iterator();
+                    while (mainFieldListIter.hasNext()) {
+                        ModelFormField modelFormField = mainFieldListIter.next();
+                        
+                        // don't do any header for hidden or ignored fields
+                        ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
+                        if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+                            continue;
                         }
 
-                        if (innerFormFieldsIt.hasNext()) {
-                            // TODO: determine somehow if this is the last one... how?
-                           if (!separateColumns && !modelFormField.getSeparateColumn()) {
-                                formStringRenderer.renderFormatHeaderRowFormCellTitleSeparator(writer, context, this, modelFormField, false);
-                           }
+                        // span columns only if this is the last column in the row (not just in this first list)
+                        if (mainFieldListIter.hasNext() || numOfCells > mainFieldList.size()) {
+                            formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, 1);
+                        } else {
+                            formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, numOfColumnsToSpan);
                         }
+                        formStringRenderer.renderFieldTitle(writer, context, modelFormField);
+                        formStringRenderer.renderFormatHeaderRowCellClose(writer, context, this, modelFormField);
                     }
-                    formStringRenderer.renderFormatHeaderRowFormCellClose(writer, context, this);
                 }
-                Iterator<ModelFormField> innerDisplayHyperlinkFieldsEndIt = innerDisplayHyperlinkFieldsEnd.iterator();
-                while (innerDisplayHyperlinkFieldsEndIt.hasNext()) {
-                    ModelFormField modelFormField = innerDisplayHyperlinkFieldsEndIt.next();
-                    // span columns only if this is the last column in the row (not just in this first list)
-                    if (innerDisplayHyperlinkFieldsEndIt.hasNext() || numOfCells > innerDisplayHyperlinkFieldsEnd.size()) {
-                        formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, 1);
-                    } else {
-                        formStringRenderer.renderFormatHeaderRowCellOpen(writer, context, this, modelFormField, numOfColumnsToSpan);
-                    }
-                    formStringRenderer.renderFieldTitle(writer, context, modelFormField);
-                    formStringRenderer.renderFormatHeaderRowCellClose(writer, context, this, modelFormField);
-                }
+                
                 formStringRenderer.renderFormatHeaderRowClose(writer, context, this);
             }
         }
@@ -1589,7 +1622,9 @@ public class ModelForm extends ModelWidget {
                     // are now rendered: this will create a visual representation
                     // of one row (for the current position).
                     if (innerDisplayHyperlinkFieldsBegin.size() > 0 || innerFormFields.size() > 0 || innerDisplayHyperlinkFieldsEnd.size() > 0) {
-                        this.renderItemRow(writer, localContext, formStringRenderer, formPerItem, hiddenIgnoredFieldList, innerDisplayHyperlinkFieldsBegin, innerFormFields, innerDisplayHyperlinkFieldsEnd, currentPosition, numOfColumns);
+                        this.renderItemRow(writer, localContext, formStringRenderer, formPerItem, hiddenIgnoredFieldList, 
+                                innerDisplayHyperlinkFieldsBegin, innerFormFields, innerDisplayHyperlinkFieldsEnd, fieldListByPosition, 
+                                currentPosition, numOfColumns);
                     }
                 } // iteration on positions
             } // iteration on items
@@ -1615,7 +1650,10 @@ public class ModelForm extends ModelWidget {
     // The fields in the three lists, usually created in the preprocessing phase
     // of the renderItemRows method are rendered: this will create a visual representation
     // of one row (corresponding to one position).
-    public void renderItemRow(Appendable writer, Map<String, Object> localContext, FormStringRenderer formStringRenderer, boolean formPerItem, List<ModelFormField> hiddenIgnoredFieldList, List<ModelFormField> innerDisplayHyperlinkFieldsBegin, List<ModelFormField> innerFormFields, List<ModelFormField> innerDisplayHyperlinkFieldsEnd, int position, int numOfColumns) throws IOException {
+    public void renderItemRow(Appendable writer, Map<String, Object> localContext, FormStringRenderer formStringRenderer, 
+            boolean formPerItem, List<ModelFormField> hiddenIgnoredFieldList, List<ModelFormField> innerDisplayHyperlinkFieldsBegin, 
+            List<ModelFormField> innerFormFields, List<ModelFormField> innerDisplayHyperlinkFieldsEnd, List<ModelFormField> mainFieldList, 
+            int position, int numOfColumns) throws IOException {
         int numOfCells = innerDisplayHyperlinkFieldsBegin.size() +
                          innerDisplayHyperlinkFieldsEnd.size() +
                          (innerFormFields.size() > 0? 1: 0);
@@ -1638,86 +1676,111 @@ public class ModelForm extends ModelWidget {
             }
         }
 
-        // do the first part of display and hyperlink fields
-        Iterator<ModelFormField> innerDisplayHyperlinkFieldIter = innerDisplayHyperlinkFieldsBegin.iterator();
-        while (innerDisplayHyperlinkFieldIter.hasNext()) {
-            boolean cellOpen = false;
-            ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
-            // span columns only if this is the last column in the row (not just in this first list)
-            if( fieldCount.get(modelFormField.getName()) < 2 ){
-                if ((innerDisplayHyperlinkFieldIter.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size())) {
-                    formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
-                } else {
-                    formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
-                }
-                cellOpen = true;
-            }
-            if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) { 
-                    if(( fieldCount.get(modelFormField.getName()) > 1 )){
-                        if ((innerDisplayHyperlinkFieldIter.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size())) {
-                            formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
-                        } else {
-                            formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
-                        }
-                        cellOpen = true;
+        if (this.groupColumns) {
+            // do the first part of display and hyperlink fields
+            Iterator<ModelFormField> innerDisplayHyperlinkFieldIter = innerDisplayHyperlinkFieldsBegin.iterator();
+            while (innerDisplayHyperlinkFieldIter.hasNext()) {
+                boolean cellOpen = false;
+                ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
+                // span columns only if this is the last column in the row (not just in this first list)
+                if( fieldCount.get(modelFormField.getName()) < 2 ){
+                    if ((innerDisplayHyperlinkFieldIter.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size())) {
+                        formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
+                    } else {
+                        formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
                     }
-                modelFormField.renderFieldString(writer, localContext, formStringRenderer);
-            }
-            if (cellOpen) {
-                formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
-            }
-        }
-
-        // The form cell is rendered only if there is at least an input field
-        if (innerFormFields.size() > 0) {
-            // render the "form" cell
-            formStringRenderer.renderFormatItemRowFormCellOpen(writer, localContext, this); // TODO: colspan
-
-            if (formPerItem) {
-                formStringRenderer.renderFormOpen(writer, localContext, this);
-            }
-
-            // do all of the hidden fields...
-            this.renderHiddenIgnoredFields(writer, localContext, formStringRenderer, hiddenIgnoredFieldList);
-
-            Iterator<ModelFormField> innerFormFieldIter = innerFormFields.iterator();
-            while (innerFormFieldIter.hasNext()) {
-                ModelFormField modelFormField = innerFormFieldIter.next();
-                if (separateColumns || modelFormField.getSeparateColumn()) {
-                    formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
+                    cellOpen = true;
                 }
-                // render field widget
-                if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
+                if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) { 
+                        if(( fieldCount.get(modelFormField.getName()) > 1 )){
+                            if ((innerDisplayHyperlinkFieldIter.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size())) {
+                                formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
+                            } else {
+                                formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
+                            }
+                            cellOpen = true;
+                        }
                     modelFormField.renderFieldString(writer, localContext, formStringRenderer);
                 }
-
-                if (separateColumns || modelFormField.getSeparateColumn()) {
+                if (cellOpen) {
                     formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
                 }
             }
 
-            if (formPerItem) {
-                formStringRenderer.renderFormClose(writer, localContext, this);
+            // The form cell is rendered only if there is at least an input field
+            if (innerFormFields.size() > 0) {
+                // render the "form" cell
+                formStringRenderer.renderFormatItemRowFormCellOpen(writer, localContext, this); // TODO: colspan
+
+                if (formPerItem) {
+                    formStringRenderer.renderFormOpen(writer, localContext, this);
+                }
+
+                // do all of the hidden fields...
+                this.renderHiddenIgnoredFields(writer, localContext, formStringRenderer, hiddenIgnoredFieldList);
+
+                Iterator<ModelFormField> innerFormFieldIter = innerFormFields.iterator();
+                while (innerFormFieldIter.hasNext()) {
+                    ModelFormField modelFormField = innerFormFieldIter.next();
+                    if (separateColumns || modelFormField.getSeparateColumn()) {
+                        formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
+                    }
+                    // render field widget
+                    if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
+                        modelFormField.renderFieldString(writer, localContext, formStringRenderer);
+                    }
+
+                    if (separateColumns || modelFormField.getSeparateColumn()) {
+                        formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
+                    }
+                }
+
+                if (formPerItem) {
+                    formStringRenderer.renderFormClose(writer, localContext, this);
+                }
+
+                formStringRenderer.renderFormatItemRowFormCellClose(writer, localContext, this);
             }
 
-            formStringRenderer.renderFormatItemRowFormCellClose(writer, localContext, this);
-        }
+            // render the rest of the display/hyperlink fields
+            innerDisplayHyperlinkFieldIter = innerDisplayHyperlinkFieldsEnd.iterator();
+            while (innerDisplayHyperlinkFieldIter.hasNext()) {
+                ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
+                // span columns only if this is the last column in the row
+                if (innerDisplayHyperlinkFieldIter.hasNext()) {
+                    formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
+                } else {
+                    formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
+                }
+                if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
+                    modelFormField.renderFieldString(writer, localContext, formStringRenderer);
+                }
+                formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
+            }
+        } else {
+            Iterator<ModelFormField> mainFieldIter = mainFieldList.iterator();
+            while (mainFieldIter.hasNext()) {
+                ModelFormField modelFormField = mainFieldIter.next();
 
-        // render the rest of the display/hyperlink fields
-        innerDisplayHyperlinkFieldIter = innerDisplayHyperlinkFieldsEnd.iterator();
-        while (innerDisplayHyperlinkFieldIter.hasNext()) {
-            ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
-            // span columns only if this is the last column in the row
-            if (innerDisplayHyperlinkFieldIter.hasNext()) {
-                formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
-            } else {
-                formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
+                // don't do any header for hidden or ignored fields
+                ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
+                if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+                    continue;
+                }
+
+                // span columns only if this is the last column in the row
+                if (mainFieldIter.hasNext()) {
+                    formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, 1);
+                } else {
+                    formStringRenderer.renderFormatItemRowCellOpen(writer, localContext, this, modelFormField, numOfColumnsToSpan);
+                }
+                if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
+                    modelFormField.renderFieldString(writer, localContext, formStringRenderer);
+                }
+                formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
             }
-            if ((!"list".equals(this.getType()) && !"multi".equals(this.getType())) || modelFormField.shouldUse(localContext)) {
-                modelFormField.renderFieldString(writer, localContext, formStringRenderer);
-            }
-            formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
         }
+        
 
         // render row formatting close
         formStringRenderer.renderFormatItemRowClose(writer, localContext, this);
