@@ -104,12 +104,14 @@ under the License.
         <check-errors/>
 
         <!-- get party email address if not provided -->
-        <if-empty field="parameters.contactMechId">
-            <set field="partyEmail.partyId" from-field="parameters.partyId"/>
-            <call-service service-name="getPartyEmail" in-map-name="partyEmail">
-                <result-to-field result-name="contactMechId" field="parameters.preferredContactMechId"/>
-            </call-service>        
-        </if-empty>
+        <if-empty field="parameters.preferredContactMechId">
+            <if-empty field="parameters.contactMechId">
+                <set field="partyEmail.partyId" from-field="parameters.partyId"/>
+                <call-service service-name="getPartyEmail" in-map-name="partyEmail">
+                    <result-to-field result-name="contactMechId" field="parameters.preferredContactMechId"/>
+                </call-service>        
+            </if-empty>
+        </if-empty>    
 
         <make-value entity-name="ContactListParty" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
