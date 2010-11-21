@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro showMessage communicationEvent isSentMessage>
+<#macro showMessage communicationEvent isSentMessage index>
   <#if communicationEvent.partyIdFrom?has_content>
     <#assign partyNameFrom = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdFrom, true)>
   <#else/>
@@ -34,12 +34,16 @@ under the License.
                 <td><div class="tabletext">${communicationEvent.subject?default("")}</div></td>
                 <td><div class="tabletext">${communicationEvent.entryDate}</div></td>
                 <td align="right">
-                  <form method="post" action="<@ofbizUrl>readmessage</@ofbizUrl>" name="ecomm_read_mess">
+                  <form method="post" action="<@ofbizUrl>readmessage</@ofbizUrl>" name="ecomm_read_mess${index}">
                     <input name="communicationEventId" value="${communicationEvent.communicationEventId}" type="hidden"/>
                   </form>
-                  <a href="javascript:document.ecomm_read_mess.submit()">${uiLabelMap.EcommerceRead}</a>
+                  <a href="javascript:document.ecomm_read_mess${index}.submit()">${uiLabelMap.EcommerceRead}</a>
+                  
                   <#if isSentMessage>
-                    <a href="<@ofbizUrl>newmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyReply}</a>
+                  <form method="post" action="<@ofbizUrl>newmessage</@ofbizUrl>" name="ecomm_sent_mess${index}">
+                    <input name="communicationEventId" value="${communicationEvent.communicationEventId}" type="hidden"/>
+                  </form>
+                  <a href="javascript:document.ecomm_sent_mess${index}.submit()">${uiLabelMap.PartyReply}</a>
                   </#if>
                 </td>
               </tr>
@@ -70,10 +74,10 @@ under the License.
             </tr>
             <tr><td colspan="5"><hr /></td></tr>
             <#list receivedCommunicationEvents?if_exists as receivedCommunicationEvent>
-              <@showMessage communicationEvent=receivedCommunicationEvent isSentMessage=false/>
+              <@showMessage communicationEvent=receivedCommunicationEvent isSentMessage=false index=receivedCommunicationEvent_index/>
             </#list>
             <#list sentCommunicationEvents?if_exists as sentCommunicationEvent>
-              <@showMessage communicationEvent=sentCommunicationEvent isSentMessage=true/>
+              <@showMessage communicationEvent=sentCommunicationEvent isSentMessage=true index=sentCommunicationEvent_index/>
             </#list>
           </#if>
         </table>
