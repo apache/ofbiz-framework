@@ -89,7 +89,7 @@ under the License.
     <screen name="category">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleCategoryPage"/>
+                <set field="titleProperty" value="PageTitleCategoryPage"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -138,7 +138,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/popup.css" global="true"/>
-                <set field="title-property" value="PageTitleProductPage"/>
+                <set field="titleProperty" value="PageTitleProductPage"/>
                 <set field="configproductdetailScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#configproductdetail"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/Product.groovy"/>
             </actions>
@@ -208,7 +208,7 @@ under the License.
     <screen name="keywordsearch">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleSearchResults"/>
+                <set field="titleProperty" value="PageTitleSearchResults"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/KeywordSearch.groovy"/>
             </actions>
@@ -224,7 +224,7 @@ under the License.
     <screen name="advancedsearch">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleAdvancedSearch"/>
+                <set field="titleProperty" value="PageTitleAdvancedSearch"/>
                 <set field="headerItem" value="Advanced Search"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/AdvancedSearchOptions.groovy"/>
 
@@ -247,7 +247,7 @@ under the License.
     <screen name="quickadd">
         <section>
             <actions>
-                <set field="title-property" value="PageTitleQuickAdd"/>
+                <set field="titleProperty" value="PageTitleQuickAdd"/>
                 <set field="quickaddsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#quickaddsummary"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/QuickAdd.groovy"/>
             </actions>

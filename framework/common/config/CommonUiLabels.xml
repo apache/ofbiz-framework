@@ -9386,6 +9386,41 @@
         <value xml:lang="zh">新建数据源类型</value>
         <value xml:lang="zh_CN">增加新数据源类型</value>
     </property>
+    <property key="PageTitleCategoryPage">
+        <value xml:lang="cs">kategorie strana</value>
+        <value xml:lang="da">Kategori side</value>
+        <value xml:lang="de">Kategorie Seite</value>
+        <value xml:lang="en">Category Page</value>
+        <value xml:lang="es">Página de Categoría</value>
+        <value xml:lang="fr">Page catégorie</value>
+        <value xml:lang="hi_IN">श्रेणी पृष्ठ</value>
+        <value xml:lang="it">Pagina categoria</value>
+        <value xml:lang="ja">カテゴリページ</value>
+        <value xml:lang="nl">Categorie pagina</value>
+        <value xml:lang="pt_BR">Página de categoria</value>
+        <value xml:lang="pt_PT">Página para Categoria</value>
+        <value xml:lang="ro">Pagina Categoria</value>
+        <value xml:lang="ru">Страница категории</value>
+        <value xml:lang="th">หน้าหมวดหมู่สินค้า</value>
+        <value xml:lang="zh">分类页面</value>
+    </property>
+    <property key="PageTitleCheckoutOptions">
+        <value xml:lang="cs">Možnosti objednání</value>
+        <value xml:lang="da">Muligheder for udcheckning</value>
+        <value xml:lang="de">Bestelloptionen</value>
+        <value xml:lang="en">Checkout Options</value>
+        <value xml:lang="es">Opciones De la Comprobación</value>
+        <value xml:lang="fr">Options de paiement</value>
+        <value xml:lang="it">Opzioni pagamento</value>
+        <value xml:lang="ja">チェックアウトオプション</value>
+        <value xml:lang="nl">Bestelopties</value>
+        <value xml:lang="pt_BR">Opções de pagamento</value>
+        <value xml:lang="pt_PT">Opções de Pagamento</value>
+        <value xml:lang="ro">Optiuni Checkout</value>
+        <value xml:lang="ru">Параметры подтверждения</value>
+        <value xml:lang="th">ออกจากการทำรายการนี้</value>
+        <value xml:lang="zh">结账选项</value>
+    </property>    
     <property key="PageTitleCommonGeoLocation">
         <value xml:lang="en">Geo Location of requested element</value>
         <value xml:lang="fr">Géolocalisation de l'élément demandé</value>
@@ -9498,6 +9533,42 @@
         <value xml:lang="ru">Основная страница</value>
         <value xml:lang="th">หน้าหลัก</value>
         <value xml:lang="zh">首页</value>
+    </property>
+    <property key="PageTitleProductPage">
+        <value xml:lang="cs">Výrobek - stránka</value>
+        <value xml:lang="da">Produktside</value>
+        <value xml:lang="de">Produkt Seite</value>
+        <value xml:lang="en">Product Page</value>
+        <value xml:lang="es">Página de Productos</value>
+        <value xml:lang="fr">Page des articles</value>
+        <value xml:lang="hi_IN">सामान पृष्ठ</value>
+        <value xml:lang="it">Pagina prodotto</value>
+        <value xml:lang="ja">Product Page</value>
+        <value xml:lang="nl">Product pagina</value>
+        <value xml:lang="pt_BR">Página de produto</value>
+        <value xml:lang="pt_PT">Página do Produto</value>
+        <value xml:lang="ro">Pagina Produs</value>
+        <value xml:lang="ru">Страница продукта</value>
+        <value xml:lang="th">หน้าสินค้า</value>
+        <value xml:lang="zh">产品页面</value>
+    </property>
+    <property key="PageTitleQuickAdd">
+        <value xml:lang="cs">Zrychlené zadání</value>
+        <value xml:lang="da">Tilføj hurtigt</value>
+        <value xml:lang="de">Schnelleingabe</value>
+        <value xml:lang="en">Quick Add</value>
+        <value xml:lang="es">Añadir Rápido</value>
+        <value xml:lang="fr">Ajout rapide</value>
+        <value xml:lang="hi_IN">जल्द जोड़ें</value>
+        <value xml:lang="it">Aggiunta veloce</value>
+        <value xml:lang="ja">Quick Add</value>
+        <value xml:lang="nl">Snel toevoegen</value>
+        <value xml:lang="pt_BR">Adição rápida</value>
+        <value xml:lang="pt_PT">Compra Expresso</value>
+        <value xml:lang="ro">Adaugare Rapida</value>
+        <value xml:lang="ru">Быстро добавить</value>
+        <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
+        <value xml:lang="zh">快速添加</value>
     </property>
     <property key="PageTitleViewBlocked">
         <value xml:lang="en">View Blocked</value>

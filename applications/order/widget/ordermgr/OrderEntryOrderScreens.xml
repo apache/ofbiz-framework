@@ -49,7 +49,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="orderentry"/>
-                <set field="title-property" value="PageTitleCheckoutOptions"/>
+                <set field="titleProperty" value="PageTitleCheckoutOptions"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutPayment.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutOptions.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>

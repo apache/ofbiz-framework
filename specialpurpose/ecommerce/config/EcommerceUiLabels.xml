@@ -3701,24 +3701,6 @@
         <value xml:lang="th">ข้อมูลใบเสร็จรับเงิน</value>
         <value xml:lang="zh">账单信息</value>
     </property>
-    <property key="PageTitleCategoryPage">
-        <value xml:lang="cs">kategorie strana</value>
-        <value xml:lang="da">Kategori side</value>
-        <value xml:lang="de">Kategorie Seite</value>
-        <value xml:lang="en">Category Page</value>
-        <value xml:lang="es">Página de Categoría</value>
-        <value xml:lang="fr">Page catégorie</value>
-        <value xml:lang="hi_IN">श्रेणी पृष्ठ</value>
-        <value xml:lang="it">Pagina categoria</value>
-        <value xml:lang="ja">カテゴリページ</value>
-        <value xml:lang="nl">Categorie pagina</value>
-        <value xml:lang="pt_BR">Página de categoria</value>
-        <value xml:lang="pt_PT">Página para Categoria</value>
-        <value xml:lang="ro">Pagina Categoria</value>
-        <value xml:lang="ru">Страница категории</value>
-        <value xml:lang="th">หน้าหมวดหมู่สินค้า</value>
-        <value xml:lang="zh">分类页面</value>
-    </property>
     <property key="PageTitleChangePassword">
         <value xml:lang="cs">Změnit heslo</value>
         <value xml:lang="da">Skift kodeord</value>
@@ -3736,23 +3718,6 @@
         <value xml:lang="ru">Изменить пароль</value>
         <value xml:lang="th">เปลี่ยนรหัสผ่าน</value>
         <value xml:lang="zh">修改密码</value>
-    </property>
-    <property key="PageTitleCheckoutOptions">
-        <value xml:lang="cs">Možnosti objednání</value>
-        <value xml:lang="da">Muligheder for udcheckning</value>
-        <value xml:lang="de">Bestelloptionen</value>
-        <value xml:lang="en">Checkout Options</value>
-        <value xml:lang="es">Opciones De la Comprobación</value>
-        <value xml:lang="fr">Options de paiement</value>
-        <value xml:lang="it">Opzioni pagamento</value>
-        <value xml:lang="ja">チェックアウトオプション</value>
-        <value xml:lang="nl">Bestelopties</value>
-        <value xml:lang="pt_BR">Opções de pagamento</value>
-        <value xml:lang="pt_PT">Opções de Pagamento</value>
-        <value xml:lang="ro">Optiuni Checkout</value>
-        <value xml:lang="ru">Параметры подтверждения</value>
-        <value xml:lang="th">ออกจากการทำรายการนี้</value>
-        <value xml:lang="zh">结账选项</value>
     </property>
     <property key="PageTitleCheckoutReview">
         <value xml:lang="cs">Ověřování objednávky</value>
@@ -4223,24 +4188,6 @@
         <value xml:lang="th">สรุปการสั่งซื้อสินค้า - ขอบคุณสำหรับการทำรายการสั่งซื้อสินค้า!</value>
         <value xml:lang="zh">订单摘要 - 谢谢你的惠顾！</value>
     </property>
-    <property key="PageTitleProductPage">
-        <value xml:lang="cs">Výrobek - stránka</value>
-        <value xml:lang="da">Produktside</value>
-        <value xml:lang="de">Produkt Seite</value>
-        <value xml:lang="en">Product Page</value>
-        <value xml:lang="es">Página de Productos</value>
-        <value xml:lang="fr">Page des articles</value>
-        <value xml:lang="hi_IN">सामान पृष्ठ</value>
-        <value xml:lang="it">Pagina prodotto</value>
-        <value xml:lang="ja">Product Page</value>
-        <value xml:lang="nl">Product pagina</value>
-        <value xml:lang="pt_BR">Página de produto</value>
-        <value xml:lang="pt_PT">Página do Produto</value>
-        <value xml:lang="ro">Pagina Produs</value>
-        <value xml:lang="ru">Страница продукта</value>
-        <value xml:lang="th">หน้าสินค้า</value>
-        <value xml:lang="zh">产品页面</value>
-    </property>
     <property key="PageTitleProductReview">
         <value xml:lang="cs">Výrobek - přehled</value>
         <value xml:lang="da">Produktgennemgang</value>
@@ -4272,24 +4219,6 @@
         <value xml:lang="ru">Обзор профиля</value>
         <value xml:lang="th">สำรวจประวัติ</value>
         <value xml:lang="zh">简介调查</value>
-    </property>
-    <property key="PageTitleQuickAdd">
-        <value xml:lang="cs">Zrychlené zadání</value>
-        <value xml:lang="da">Tilføj hurtigt</value>
-        <value xml:lang="de">Schnelleingabe</value>
-        <value xml:lang="en">Quick Add</value>
-        <value xml:lang="es">Añadir Rápido</value>
-        <value xml:lang="fr">Ajout rapide</value>
-        <value xml:lang="hi_IN">जल्द जोड़ें</value>
-        <value xml:lang="it">Aggiunta veloce</value>
-        <value xml:lang="ja">Quick Add</value>
-        <value xml:lang="nl">Snel toevoegen</value>
-        <value xml:lang="pt_BR">Adição rápida</value>
-        <value xml:lang="pt_PT">Compra Expresso</value>
-        <value xml:lang="ro">Adaugare Rapida</value>
-        <value xml:lang="ru">Быстро добавить</value>
-        <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
-        <value xml:lang="zh">快速添加</value>
     </property>
     <property key="PageTitleRequestReturn">
         <value xml:lang="cs">Odpověď na poptávku</value>
