@@ -34,6 +34,7 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.URLName;
 import javax.mail.internet.MimeMessage;
+import javax.mail.search.FlagTerm;
 import javax.mail.event.StoreEvent;
 import javax.mail.event.StoreListener;
 
@@ -301,7 +302,7 @@ public class JavaMailContainer implements Container {
             }
 
             // get all messages
-            Message[] messages = folder.getMessages();
+            Message[] messages = folder.search(new FlagTerm(new Flags(Flags.Flag.SEEN), false));
             FetchProfile profile = new FetchProfile();
             profile.add(FetchProfile.Item.ENVELOPE);
             profile.add(FetchProfile.Item.FLAGS);
