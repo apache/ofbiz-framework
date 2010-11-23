@@ -20,13 +20,12 @@
 package org.ofbiz.accounting.thirdparty.authorizedotnet;
 
 import java.math.BigDecimal;
-import java.util.*;
 
 import org.ofbiz.base.util.UtilValidate;
 
 public class AuthorizeResponse {
 
-    private List<String> response = new ArrayList<String>();
+    private String[] response;
     private RespPositions pos;
     private String rawResp;
      
@@ -54,12 +53,13 @@ public class AuthorizeResponse {
     private static final CPRespPositions cpPos = new CPRespPositions();
     
     public AuthorizeResponse(String resp, int responseType) {
-        this(resp, "|", responseType);
+        this(resp, "\\|", responseType);
     }
 
     public AuthorizeResponse(String resp, String delim, int responseType) {
         this.rawResp = resp;
-        this.response = splitResp(resp, delim);
+        this.response = resp.split(delim);
+                
         if (responseType == CP_RESPONSE) {
             pos = cpPos;
         } else {
@@ -120,35 +120,14 @@ public class AuthorizeResponse {
     }
     
     private String getResponseField(int position) {
-        if (response.size() < position) {
+        if (response.length < position) {
             return null;
         } else {
-            return response.get(position);
+            // positions always start at 1; arrays start at 0
+            return response[position-1];
         }
     }
-    
-    private List<String> splitResp(String r, String delim) {
-        int s1=0, s2=-1;
-        List<String> out = new ArrayList<String>(40);
-        out.add("empty");
-        while (true) {
-            s2 = r.indexOf(delim, s1);
-            if (s2 != -1) {
-                out.add(r.substring(s1, s2));
-            } else {
-                //the end part of the string (string not pattern terminated)
-                String _ = r.substring(s1);
-                if (_ != null && !_.equals("")) {
-                    out.add(_);
-                }
-                break;
-            }
-            s1 = s2;
-            s1 += delim.length();
-        }
-        return out;
-    }
-
+       
     @Override
     public String toString() {
         return response.toString();

@@ -306,7 +306,7 @@ public class AIMPaymentServices {
         }
         
         // card present has a different layout from standard AIM; this determines how to parse the response
-        int apiType = props.get("cpMarketType") == null ? AuthorizeResponse.AIM_RESPONSE : AuthorizeResponse.CP_RESPONSE;
+        int apiType = UtilValidate.isEmpty(props.get("cpMarketType")) ? AuthorizeResponse.AIM_RESPONSE : AuthorizeResponse.CP_RESPONSE;
         
         try {
             HttpClient httpClient = new HttpClient(url, request);
@@ -529,7 +529,7 @@ public class AIMPaymentServices {
         String expDate = UtilFormatOut.checkNull(cc.getString("expireDate"));
         String cardSecurityCode = (String) params.get("cardSecurityCode");
         AIMRequest.put("x_Amount", amount);
-        AIMRequest.put("x_Currency_Code", currency);
+        AIMRequest.put("x_Currency_Code", currency);        
         AIMRequest.put("x_Method", props.getProperty("method"));
         AIMRequest.put("x_Type", props.getProperty("transType"));
         AIMRequest.put("x_Card_Num", number);

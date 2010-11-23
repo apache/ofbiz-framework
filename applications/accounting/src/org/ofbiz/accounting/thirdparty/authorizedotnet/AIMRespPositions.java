@@ -6,6 +6,7 @@ import javolution.util.FastMap;
 
 public class AIMRespPositions extends AuthorizeResponse.RespPositions {
 
+    // AIM v3.1 response positions
     private static Map<String, Integer> positions = FastMap.newInstance();
     static {
         positions.put(AuthorizeResponse.RESPONSE_CODE, 1);
@@ -29,6 +30,6 @@ public class AIMRespPositions extends AuthorizeResponse.RespPositions {
     
     @Override
     public String getApprovalString() {
-        return "APPROVED";
+        return "1";
     }
 }
