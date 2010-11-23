@@ -6,6 +6,7 @@ import javolution.util.FastMap;
 
 public class CPRespPositions extends AuthorizeResponse.RespPositions {
     
+    // Card-Present v1.0 response positions
     private static Map<String, Integer> positions = FastMap.newInstance();
     static {
         positions.put(AuthorizeResponse.RESPONSE_CODE, 2);
