@@ -318,7 +318,7 @@ public class CategoryServices {
                     EntityCondition mainCond = EntityCondition.makeCondition(mainCondList, EntityOperator.AND);
 
                     // set distinct on
-                    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+                    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false);
                     findOpts.setMaxRows(highIndex);
                     // using list iterator
                     EntityListIterator pli = delegator.find(entityName, mainCond, null, null, orderByFields, findOpts);
