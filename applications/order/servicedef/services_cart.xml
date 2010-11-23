@@ -130,6 +130,7 @@ under the License.
         <description>Create a ShoppingCart Object based on an existing shopping list.</description>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
+        <attribute name="orderPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
 

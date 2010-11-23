@@ -892,6 +892,7 @@ public class ShoppingCartServices {
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shoppingListId = (String) context.get("shoppingListId");
+        String orderPartyId = (String) context.get("orderPartyId");
         Locale locale = (Locale) context.get("locale");
 
         // get the shopping list header
@@ -934,7 +935,11 @@ public class ShoppingCartServices {
         }
 
         // set the role information
-        cart.setOrderPartyId(shoppingList.getString("partyId"));
+        if (UtilValidate.isNotEmpty(orderPartyId)) {
+            cart.setOrderPartyId(orderPartyId);
+        } else {
+            cart.setOrderPartyId(shoppingList.getString("partyId"));
+        }
 
         List<GenericValue>shoppingListItems = null;
         try {
