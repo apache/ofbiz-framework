@@ -291,8 +291,10 @@ public class ContextFilter implements Filter {
                     // if the request path is a root mount then redirect to the initial path
                     if (UtilValidate.isNotEmpty(requestPath) && requestPath.equals(contextUri)) {
                         String initialPath = tenant.getString("initialPath");
-                        ((HttpServletResponse)response).sendRedirect(initialPath);
-                        return;
+                        if (UtilValidate.isNotEmpty(initialPath) && !"/".equals(initialPath)) {
+                            ((HttpServletResponse)response).sendRedirect(initialPath);
+                            return;
+                        }
                     }
                     
                     // make that tenant active, setup a new delegator and a new dispatcher

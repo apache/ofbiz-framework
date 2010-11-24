@@ -42,11 +42,15 @@ under the License.
             <td class="label">${uiLabelMap.CommonPassword}</td>
             <td><input type="password" name="PASSWORD" value="" size="20"/></td>
           </tr>
-          <#if ("Y" == useMultitenant)>
-            <tr>
-              <td class="label">${uiLabelMap.CommonTenantId}</td>
-              <td><input type="text" name="tenantId" value="${parameters.tenantId?if_exists}" size="20"/></td>
-            </tr>
+          <#if ("Y" == useMultitenant) >
+              <#if !requestAttributes.tenantId?exists>
+                  <tr>
+                      <td class="label">${uiLabelMap.CommonTenantId}</td>
+                      <td><input type="text" name="tenantId" value="${parameters.tenantId?if_exists}" size="20"/></td>
+                  </tr>
+              <#else>
+                  <input type="hidden" name="tenantId" value="${requestAttributes.tenantId?if_exists}"/>
+              </#if>
           </#if>
           <tr>
             <td colspan="2" align="center">
