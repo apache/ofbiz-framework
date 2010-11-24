@@ -1758,11 +1758,14 @@ public class ModelForm extends ModelWidget {
                 formStringRenderer.renderFormatItemRowCellClose(writer, localContext, this, modelFormField);
             }
         } else {
+            // do all of the hidden fields...
+            this.renderHiddenIgnoredFields(writer, localContext, formStringRenderer, hiddenIgnoredFieldList);
+            
             Iterator<ModelFormField> mainFieldIter = mainFieldList.iterator();
             while (mainFieldIter.hasNext()) {
                 ModelFormField modelFormField = mainFieldIter.next();
 
-                // don't do any header for hidden or ignored fields
+                // don't do any header for hidden or ignored fields inside this loop
                 ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
                 if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
                     continue;
