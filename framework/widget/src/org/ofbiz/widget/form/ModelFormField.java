@@ -779,8 +779,16 @@ public class ModelFormField {
             //Debug.logInfo("Getting Map from default of the form because of no mapAcsr for field " + this.getName(), module);
             return this.modelForm.getDefaultMap(context);
         } else {
-            //Debug.logInfo("Getting Map from mapAcsr for field " + this.getName(), module);
-            return mapAcsr.get(context);
+            // Debug.logInfo("Getting Map from mapAcsr for field " + this.getName() + ", map-name=" + mapAcsr.getOriginalName() + ", context type=" + context.getClass().toString(), module);
+            Map<String, ? extends Object> result = null;
+            try {
+                result = mapAcsr.get(context);
+            } catch (java.lang.ClassCastException e) {
+                String errMsg = "Got an unexpected object type (not a Map) for map-name [" + mapAcsr.getOriginalName() + "] in field with name [" + this.getName() + "]: " + e.getMessage();
+                Debug.logError(errMsg, module);
+                throw new ClassCastException(errMsg);
+            }
+            return result;
         }
     }
 
