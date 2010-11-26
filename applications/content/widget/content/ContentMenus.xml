@@ -190,7 +190,7 @@ under the License.
         <menu-item name="NewBlog" title="${uiLabelMap.ContentCreateNewBlog}" widget-style="buttontext create">
             <link target="editBlog"/>
         </menu-item>
-        <menu-item name="NewBlogArticle" title="${uiLabelMap.ContentCreateNewBlogArticle}">
+        <menu-item name="NewBlogArticle" title="${uiLabelMap.ContentCreateNewBlogArticle}" widget-style="buttontext create">
             <condition>
                 <if-compare field="tabButtonItem" operator="equals" value="Articles"/>
             </condition>
