@@ -61,7 +61,7 @@ under the License.
              <input type="hidden" name="partyId" value="${(productRole.partyId)?if_exists}" />
              <input type="hidden" name="productId" value="${(productRole.productId)?if_exists}" />
              <input type="hidden" name="roleTypeId" value="${(productRole.roleTypeId)?if_exists}" />
-             <input type="hidden" name="fromDate" value="${productRole.getString("fromDate")}" />
+             <input type="hidden" name="fromDate" value="${(productRole.fromDate)?if_exists}" />
              <input type="submit" value="${uiLabelMap.CommonDelete}" />
           </form>
         </td>
