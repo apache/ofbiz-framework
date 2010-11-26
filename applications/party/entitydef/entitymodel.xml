@@ -736,14 +736,14 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="CommunicationEventAndRole" package-name="org.ofbiz.party.communication" title="Communication Event And Role View Entity">
-      <member-entity entity-alias="CR" entity-name="CommunicationEventRole"/>
       <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
+      <member-entity entity-alias="CR" entity-name="CommunicationEventRole"/>
       <alias-all entity-alias="CE"/>
       <alias entity-alias="CR" name="partyId"/>
       <alias entity-alias="CR" name="roleTypeId"/>
       <alias entity-alias="CR" name="roleStatusId" field="statusId"/>
       <alias entity-alias="CR" name="contactMechId"/>
-      <view-link entity-alias="CR" rel-entity-alias="CE">
+      <view-link entity-alias="CE" rel-entity-alias="CR" rel-optional="true">
         <key-map field-name="communicationEventId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="Party">
