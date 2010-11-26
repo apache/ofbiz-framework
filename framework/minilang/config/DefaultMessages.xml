@@ -45,6 +45,7 @@
         <value xml:lang="ru">Действие выполнено успешно.</value>
         <value xml:lang="th">การปฏิบัติหน้าที่เสร็จสมบูรณ์แล้ว</value>
         <value xml:lang="zh">已成功执行本操作。</value>
+        <value xml:lang="zh_TW">已成功執行本操作。</value>
     </property>
     <property key="service.error.prefix">
         <value xml:lang="de">Fehler: </value>

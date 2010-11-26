@@ -28,6 +28,7 @@
         <value xml:lang="ro">Primit Comanda Productie</value>
         <value xml:lang="th">การสร้างใบเสร็จรับเงิน</value>
         <value xml:lang="zh">制造订单收据</value>
+        <value xml:lang="zh_TW">制造訂單收據</value>
     </property>
     <property key="MrpEventType.description.MANUF_ORDER_REQ">
         <value xml:lang="en">Manufacturing Order requirement</value>
@@ -38,6 +39,7 @@
         <value xml:lang="ro">Necesar Comenzi Productie</value>
         <value xml:lang="th">การสร้างรายการสั่งซื้อตามความต้องการ</value>
         <value xml:lang="zh">制造订单需求</value>
+        <value xml:lang="zh_TW">制造訂單需求</value>
     </property>
     <property key="MrpEventType.description.MRP_REQUIREMENT">
         <value xml:lang="en">Mrp requirement</value>
@@ -48,6 +50,7 @@
         <value xml:lang="ro">Necesar Mrp</value>
         <value xml:lang="th">ความต้องการตาม Mrp</value>
         <value xml:lang="zh">材料需求计划的需求</value>
+        <value xml:lang="zh_TW">材料需求計劃的需求</value>
     </property>
     <property key="MrpEventType.description.PROP_MANUF_O_RECP">
         <value xml:lang="en">Proposed Manufacturing Order receipt</value>
@@ -58,6 +61,7 @@
         <value xml:lang="ro">Primit Offerta Comanda Productie</value>
         <value xml:lang="th">การสร้างใบเสร็จรับเงินตามวัตถุประสงค์</value>
         <value xml:lang="zh">已提交的制造订单收据</value>
+        <value xml:lang="zh_TW">已提交的制造訂單收據</value>
     </property>
     <property key="MrpEventType.description.PROP_PUR_O_RECP">
         <value xml:lang="en">Proposed Purchase Order receipt</value>
@@ -68,6 +72,7 @@
         <value xml:lang="ro">Primit Oferta Comanda Cumparare</value>
         <value xml:lang="th">ใบสั่งซื้อสินค้าตามวัตถุประสงค์</value>
         <value xml:lang="zh">已提交的购物订单收据</value>
+        <value xml:lang="zh_TW">已提交的購物訂單收據</value>
     </property>
     <property key="MrpEventType.description.PUR_ORDER_RECP">
         <value xml:lang="en">Purchase Order receipt</value>
@@ -78,6 +83,7 @@
         <value xml:lang="ro">Primit Comanda Cumparare</value>
         <value xml:lang="th">ใบสั่งซื้อสินค้า</value>
         <value xml:lang="zh">购物订单收据</value>
+        <value xml:lang="zh_TW">購物訂單收據</value>
     </property>
     <property key="MrpEventType.description.SALE_ORDER_SHIP">
         <value xml:lang="en">Sales order shipment</value>
@@ -88,6 +94,7 @@
         <value xml:lang="ro">Expediere Comenzi Vanzare</value>
         <value xml:lang="th">การขนส่งสินค้าตามรายการขาย</value>
         <value xml:lang="zh">销售订单运输</value>
+        <value xml:lang="zh_TW">銷售訂單運輸</value>
     </property>
     <property key="TechDataCalendar.description.DEFAULT">
         <value xml:lang="en">Default calendar used when no specific calendar is defined</value>
@@ -98,12 +105,14 @@
         <value xml:lang="ro">Calendar de Default folosit atunci cand nici-un calendar specific nu este definit</value>
         <value xml:lang="th">ปฏิทินมาตรฐานใช้เมื่อไม่มีการระบุปฏิทินโดยเฉพาะ</value>
         <value xml:lang="zh">当没有指定日历时所用的缺省日历</value>
+        <value xml:lang="zh_TW">當沒有指定日歷時所用的缺省日歷</value>
     </property>
     <property key="TechDataCalendar.description.DEMO_CALENDAR">
         <value xml:lang="en">Demo Workcenter Calendar</value>
         <value xml:lang="it">Calendario demo</value>
         <value xml:lang="pt_BR">Calendário de demonstração</value>
         <value xml:lang="zh">演示作业中心日历</value>
+        <value xml:lang="zh_TW">演示作業中心日歷</value>
     </property>
     <property key="TechDataCalendar.description.DRYING">
         <value xml:lang="en">DRYING</value>
@@ -114,6 +123,7 @@
         <value xml:lang="ro">Calendar Atelier Uscatorie</value>
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="zh">烘干车间日历</value>
+        <value xml:lang="zh_TW">烘幹車間日歷</value>
     </property>
     <property key="TechDataCalendar.description.MACHINING">
         <value xml:lang="en">MACHINING</value>
@@ -124,6 +134,7 @@
         <value xml:lang="ro">Calendar Atelier Masini</value>
         <value xml:lang="th">ปฏิทินของระบบการปฎิบัติงาน</value>
         <value xml:lang="zh">加工车间日历</value>
+        <value xml:lang="zh_TW">加工車間日歷</value>
     </property>
     <property key="TechDataCalendar.description.SUPPLIER">
         <value xml:lang="en">Calendar used for Re-Order date calculation for bought product</value>
@@ -134,6 +145,7 @@
         <value xml:lang="ro">Calendar folosit pentru Re-Ordonarea datelor de calcul a produselor cumparate</value>
         <value xml:lang="th">ปฏิทินใช้สำหรับวันที่มีการคำนวณรายการสั่งสินค้าสำหรับซื้อสินค้า</value>
         <value xml:lang="zh">购买产品时计算重新排订单日期所用的日历</value>
+        <value xml:lang="zh_TW">購買產品時計算重新排訂單日期所用的日歷</value>
     </property>
     <property key="TechDataCalendarWeek.description.DEFAULT">
         <value xml:lang="en">8hours/days</value>
@@ -144,12 +156,14 @@
         <value xml:lang="ro">8 ore/zi</value>
         <value xml:lang="th">8 ชั่วโมง/วัน</value>
         <value xml:lang="zh">8小时/天</value>
+        <value xml:lang="zh_TW">8小時/天</value>
     </property>
     <property key="TechDataCalendarWeek.description.DEMO_WEEK">
         <value xml:lang="en">Demo calendar week of 8hours/days 5days/week starting at 8h30 from monday to friday</value>
         <value xml:lang="it">Calendario settimanale demo di 8 ore/giorno 5 giorni/settimana iniziando alle 8:30 dal lunedì al venerdì</value>
         <value xml:lang="pt_BR">Calendário semanal de demonstração de 8 horas/dia 5 dias/semana começando às 8:30h de segunda à sexta-feira</value>
         <value xml:lang="zh">演示每周5天、每天8小时、周一至周五从8:30开始的日历周</value>
+        <value xml:lang="zh_TW">演示每周5天、每天8小時、周一至周五從8:30開始的日歷周</value>
     </property>
     <property key="TechDataCalendarWeek.description.HOLIDAY">
         <value xml:lang="en">HOLIDAY</value>
@@ -160,6 +174,7 @@
         <value xml:lang="ro">Calendar pentru perioada de vacanza, 0 ore/zi 0 zile/saptamana</value>
         <value xml:lang="th">ปฏิทินวันหยุด</value>
         <value xml:lang="zh">节假日日历—— 0小时/天、0天/周</value>
+        <value xml:lang="zh_TW">節假日日歷—— 0小時/天、0天/周</value>
     </property>
     <property key="TechDataCalendarWeek.description.STD24H-7D">
         <value xml:lang="en">STD24H-7D</value>
@@ -170,6 +185,7 @@
         <value xml:lang="ro">Calendar Standard deschis 24 ore pe zi 7 zile pe saptamana</value>
         <value xml:lang="th">ปฏิทินมาตรฐานกำหนดให้เป็น 24 ชั่วโมงหรือ 7 วัน</value>
         <value xml:lang="zh">标准日历——24小时/天、7天/周</value>
+        <value xml:lang="zh_TW">標准日歷——24小時/天、7天/周</value>
     </property>
     <property key="TechDataCalendarWeek.description.STD8H-5D">
         <value xml:lang="en">STD8H-5D</value>
@@ -180,6 +196,7 @@
         <value xml:lang="ro">Calendar Standard 8 ore/zi 5 zile /saptamana de la orele 8:30 de Luni pana Vineri</value>
         <value xml:lang="th">ปฏิทินมาตรฐาน 8 ชั่วโมง/5 วัน/กำหนดให้เริ่ม 8:30</value>
         <value xml:lang="zh">标准日历——8小时/天、5天/周、周一至周五8:30开始</value>
+        <value xml:lang="zh_TW">標准日歷——8小時/天、5天/周、周一至周五8:30開始</value>
     </property>
     <property key="TechDataCalendarWeek.description.SUPPLIER">
         <value xml:lang="en">8hours/days, currently the Re-Order Process convert day to mms with 8h/days</value>
@@ -190,5 +207,6 @@
         <value xml:lang="ro">8 ore/zi, in prezent Procesul de Re-Ordinare converteste ziua in mms cu  8h/zi" mondayStartTime="08:30:00"</value>
         <value xml:lang="th">8 ชั่วโมง/วัน, ขณะนี้รายการสั่งซื้อกำลังประมวลผลในการเปลี่ยนวันไปเป็น mms ด้วย 8 ชั่วโมง/วัน</value>
         <value xml:lang="zh">8小时/天，目前重新排订单过程会把天按8小时/天转换为百万毫秒" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/&gt;</value>
+        <value xml:lang="zh_TW">8小時/天，目前重新排訂單過程會把天按8小時/天轉換為百萬毫秒" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/&gt;</value>
     </property>
 </resource>

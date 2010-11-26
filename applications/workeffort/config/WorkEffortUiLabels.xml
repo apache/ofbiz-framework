@@ -24,12 +24,14 @@
         <value xml:lang="fr">Réf. de plan de logement</value>
         <value xml:lang="it">Mappa alloggio</value>
         <value xml:lang="zh">接待地图标识</value>
+        <value xml:lang="zh_TW">接待地圖示識</value>
     </property>
     <property key="FormFieldTitle_accommodationSpotId">
         <value xml:lang="en">Accommodation Spot Id</value>
         <value xml:lang="fr">Réf. de lieu de logement</value>
         <value xml:lang="it">Luogo alloggio</value>
         <value xml:lang="zh">接待地点标识</value>
+        <value xml:lang="zh_TW">接待處ID</value>
     </property>
     <property key="FormFieldTitle_actualCompletionDate">
         <value xml:lang="de">Tatsächliches Erledigungsdatum</value>
@@ -40,6 +42,7 @@
         <value xml:lang="ro">Data Finalizare Actuala</value>
         <value xml:lang="th">วันที่สำเร็จตามความจริง</value>
         <value xml:lang="zh">实际完成日期</value>
+        <value xml:lang="zh_TW">實際完成日期</value>
     </property>
     <property key="FormFieldTitle_actualEndDate">
         <value xml:lang="de">Tatsächliches End-Datum</value>
@@ -49,6 +52,7 @@
         <value xml:lang="ro">Data Finala Actuala</value>
         <value xml:lang="th">วันสิ้นสุดตามความจริง</value>
         <value xml:lang="zh">实际结束日期</value>
+        <value xml:lang="zh_TW">實際結束日期</value>
     </property>
     <property key="FormFieldTitle_actualMilliSeconds">
         <value xml:lang="de">Tatsächliche Millisekunden</value>
@@ -59,6 +63,7 @@
         <value xml:lang="ro">Millisecunde Actuale</value>
         <value xml:lang="th">พันวินาทีตามความจริง</value>
         <value xml:lang="zh">实际毫秒数</value>
+        <value xml:lang="zh_TW">實際毫秒數</value>
     </property>
     <property key="FormFieldTitle_actualSetupMillis">
         <value xml:lang="de">Ist Konfigurations-Millisekunden</value>
@@ -69,6 +74,7 @@
         <value xml:lang="ro">Configuratie Milisecunde Actuala </value>
         <value xml:lang="th">Actual Setup Millis</value>
         <value xml:lang="zh">实际安装毫秒数</value>
+        <value xml:lang="zh_TW">實際安裝毫秒數</value>
     </property>
     <property key="FormFieldTitle_actualStartDate">
         <value xml:lang="de">Ist-Anfangsdatum</value>
@@ -80,6 +86,7 @@
         <value xml:lang="ro">Data Initiere Actuala</value>
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
         <value xml:lang="zh">实际开始日期</value>
+        <value xml:lang="zh_TW">實際開始日期</value>
     </property>
     <property key="FormFieldTitle_approvedByUserLoginId">
         <value xml:lang="de">Genehmigt von Benutzer ID</value>
@@ -87,6 +94,7 @@
         <value xml:lang="fr">Approuvé par la réf. d'utilisateur de connexion</value>
         <value xml:lang="it">Approvato dall'utente</value>
         <value xml:lang="zh">批准者用户登录标识</value>
+        <value xml:lang="zh_TW">核准使用者登入ID</value>
     </property>
     <property key="FormFieldTitle_availabilityStatusId">
         <value xml:lang="de">Gültigkeit</value>
@@ -94,11 +102,13 @@
         <value xml:lang="fr">Disponibilité</value>
         <value xml:lang="it">Disponibilità</value>
         <value xml:lang="zh">有效性</value>
+        <value xml:lang="zh_TW">可用性</value>
     </property>
     <property key="FormFieldTitle_calendarType">
         <value xml:lang="en">Calendar Type</value>
         <value xml:lang="fr">Type de calendrier</value>
         <value xml:lang="it">Tipo ti calendario</value>
+        <value xml:lang="zh_TW">行事曆形態</value>
     </property>
     <property key="FormFieldTitle_clientPartyId">
         <value xml:lang="de">Klienten Akteur ID</value>
@@ -109,6 +119,7 @@
         <value xml:lang="ro">Client Cod Subiect</value>
         <value xml:lang="th">รหัสกลุ่มลูกข่าย</value>
         <value xml:lang="zh">客户会员标识</value>
+        <value xml:lang="zh_TW">客戶成員ID</value>
     </property>
     <property key="FormFieldTitle_custRequestTypeDescription">
         <value xml:lang="de">Kundenanfragentyp Beschreibung</value>
@@ -119,6 +130,7 @@
         <value xml:lang="ro">Descriere Tip Cerere Client</value>
         <value xml:lang="th">รายละเอียดประเภทคำร้องของลูกค้า</value>
         <value xml:lang="zh">客户请求类型描述</value>
+        <value xml:lang="zh_TW">客戶請求類型描述</value>
     </property>
     <property key="FormFieldTitle_estimatedCompletionDate">
         <value xml:lang="de">Soll-Enddatum</value>
@@ -129,6 +141,7 @@
         <value xml:lang="ro">Data Finalizare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
         <value xml:lang="zh">预计完成日期</value>
+        <value xml:lang="zh_TW">預計完成日期</value>
     </property>
     <property key="FormFieldTitle_estimatedMilliSeconds">
         <value xml:lang="de">Geschätzte Millisekunden</value>
@@ -139,6 +152,7 @@
         <value xml:lang="ro">Milisecunde Stimate</value>
         <value xml:lang="th">ประมาณพันวินาที</value>
         <value xml:lang="zh">预计毫秒数</value>
+        <value xml:lang="zh_TW">預計毫秒數</value>
     </property>
     <property key="FormFieldTitle_estimatedSetupMillis">
         <value xml:lang="de">Geschätzte Konfigurations-Millisekunden</value>
@@ -149,6 +163,7 @@
         <value xml:lang="ro">Configuratie Milisecunde Stimate </value>
         <value xml:lang="th">Estimated Setup Millis</value>
         <value xml:lang="zh">预计安装毫秒数</value>
+        <value xml:lang="zh_TW">預計安裝毫秒數</value>
     </property>
     <property key="FormFieldTitle_estimatedStartDate">
         <value xml:lang="de">Soll-Anfangsdatum</value>
@@ -160,6 +175,7 @@
         <value xml:lang="ro">Data Initiala Stimata</value>
         <value xml:lang="th">เริ่มประมาณวันที่</value>
         <value xml:lang="zh">预计开始日期</value>
+        <value xml:lang="zh_TW">預計開始日期</value>
     </property>
     <property key="FormFieldTitle_finishDateTime">
         <value xml:lang="de">Zeitpunkt des Abschluss</value>
@@ -168,6 +184,7 @@
         <value xml:lang="it">Data/Ora fine</value>
         <value xml:lang="th">วันเวลาที่เสร็จ</value>
         <value xml:lang="zh">完成日期时间</value>
+        <value xml:lang="zh_TW">完成日期時間</value>
     </property>
     <property key="FormFieldTitle_hideEvents">
         <value xml:lang="en">Hide events</value>
@@ -183,6 +200,7 @@
         <value xml:lang="ro">Ore</value>
         <value xml:lang="th">ชั่วโมง</value>
         <value xml:lang="zh">小时</value>
+        <value xml:lang="zh_TW">小時</value>
     </property>
     <property key="FormFieldTitle_infoUrl">
         <value xml:lang="de">Info Url</value>
@@ -193,6 +211,7 @@
         <value xml:lang="ro">Informatie Url</value>
         <value xml:lang="th">ข้อมูล Url</value>
         <value xml:lang="zh">信息链接</value>
+        <value xml:lang="zh_TW">資訊鏈結</value>
     </property>
     <property key="FormFieldTitle_initialView">
         <value xml:lang="de">initiale Ansicht</value>
@@ -208,6 +227,7 @@
         <value xml:lang="ro">Informatii Factura</value>
         <value xml:lang="th">ข้อมูลใบส่งของ</value>
         <value xml:lang="zh">发票信息</value>
+        <value xml:lang="zh_TW">發票資訊</value>
     </property>
     <property key="FormFieldTitle_isPrintable">
         <value xml:lang="de">ist druckbar</value>
@@ -216,6 +236,7 @@
         <value xml:lang="it">E' stampabile</value>
         <value xml:lang="th">ซึ่งเหมาะกับการพิมพ์</value>
         <value xml:lang="zh">可以打印吗</value>
+        <value xml:lang="zh_TW">可以列印嗎</value>
     </property>
     <property key="FormFieldTitle_issueDate">
         <value xml:lang="de">Ausgabedatum</value>
@@ -226,6 +247,7 @@
         <value xml:lang="ro">Data Probleme</value>
         <value xml:lang="th">ฉบับวันที่</value>
         <value xml:lang="zh">发布日期</value>
+        <value xml:lang="zh_TW">發布日期</value>
     </property>
     <property key="FormFieldTitle_lastStatusUpdate">
         <value xml:lang="de">Letzte Statusaktualisierung</value>
@@ -236,6 +258,7 @@
         <value xml:lang="ro">Ultima Stare Actualizata </value>
         <value xml:lang="th">อัพเดทสถานะครั้งสุดท้าย</value>
         <value xml:lang="zh">上次状态更新</value>
+        <value xml:lang="zh_TW">上次狀態更新</value>
     </property>
     <property key="FormFieldTitle_locationDesc">
         <value xml:lang="de">Standortbeschreibung</value>
@@ -246,6 +269,7 @@
         <value xml:lang="ro">Descriere Locatie</value>
         <value xml:lang="th">รายละเอียดที่ตั้ง</value>
         <value xml:lang="zh">地点按降序排列</value>
+        <value xml:lang="zh_TW">地點按降序排列</value>
     </property>
     <property key="FormFieldTitle_mustRsvp">
         <value xml:lang="de">Um Antwort wird gebeten</value>
@@ -256,6 +280,7 @@
         <value xml:lang="ro">Trebuie Rsvp</value>
         <value xml:lang="th">Must Rsvp</value>
         <value xml:lang="zh">必须回复</value>
+        <value xml:lang="zh_TW">必須回複</value>
     </property>
     <property key="FormFieldTitle_orderTypeDescription">
         <value xml:lang="en">Order Type Description</value>
@@ -265,6 +290,7 @@
         <value xml:lang="ro">Descriere Tip Comanda</value>
         <value xml:lang="th">รายละเอียดประเภทรายการสั่งซื้อ</value>
         <value xml:lang="zh">订单类型描述</value>
+        <value xml:lang="zh_TW">訂單類型描述</value>
     </property>
     <property key="FormFieldTitle_postedAnonymous">
         <value xml:lang="de">Anonym geschrieben</value>
@@ -273,6 +299,7 @@
         <value xml:lang="it">Inviato da anonimo</value>
         <value xml:lang="th">ไม่ระบุชื่อการโพสต์</value>
         <value xml:lang="zh">匿名张贴的</value>
+        <value xml:lang="zh_TW">匿名張貼的</value>
     </property>
     <property key="FormFieldTitle_productProductId">
         <value xml:lang="de">Produkt ID</value>
@@ -283,6 +310,7 @@
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
         <value xml:lang="zh">产品标识</value>
+        <value xml:lang="zh_TW">產品ID</value>
     </property>
     <property key="FormFieldTitle_quantityProduced">
         <value xml:lang="de">hergestellte Anzahl</value>
@@ -293,6 +321,7 @@
         <value xml:lang="ro">Cantitatea Produsa</value>
         <value xml:lang="th">จำนวนผลผลิต</value>
         <value xml:lang="zh">已产生的数量</value>
+        <value xml:lang="zh_TW">已產生的數量</value>
     </property>
     <property key="FormFieldTitle_quantityToProduce">
         <value xml:lang="de">Anzahl herzustellen</value>
@@ -303,6 +332,7 @@
         <value xml:lang="ro">Cantitatea De Produs</value>
         <value xml:lang="th">ผลผลิตถึงจำนวน</value>
         <value xml:lang="zh">要产生的数量</value>
+        <value xml:lang="zh_TW">要產生的數量</value>
     </property>
     <property key="FormFieldTitle_quoteName">
         <value xml:lang="de">Offertenname</value>
@@ -313,6 +343,7 @@
         <value xml:lang="ro">Nume Preventiv</value>
         <value xml:lang="th">ชื่อการอ้างอิง</value>
         <value xml:lang="zh">询价名称</value>
+        <value xml:lang="zh_TW">詢價名稱</value>
     </property>
     <property key="FormFieldTitle_rate">
         <value xml:lang="de">Anteil</value>
@@ -323,6 +354,7 @@
         <value xml:lang="ro">Procent</value>
         <value xml:lang="th">อัตราร้อยละ</value>
         <value xml:lang="zh">费率</value>
+        <value xml:lang="zh_TW">費率</value>
     </property>
     <property key="FormFieldTitle_rating">
         <value xml:lang="de">Beurteilung</value>
@@ -331,12 +363,14 @@
         <value xml:lang="it">Classifica</value>
         <value xml:lang="th">การประเมิณ</value>
         <value xml:lang="zh">评级</value>
+        <value xml:lang="zh_TW">評級</value>
     </property>
     <property key="FormFieldTitle_reminderDateTime">
         <value xml:lang="en">Reminder Date Time</value>
         <value xml:lang="fr">Date heure de rappel</value>
         <value xml:lang="it">Data ora promemoria</value>
         <value xml:lang="zh">提醒日期时间</value>
+        <value xml:lang="zh_TW">提醒日期時間</value>
     </property>
     <property key="FormFieldTitle_reminderOffset">
         <value xml:lang="en">Reminder Offset</value>
@@ -349,6 +383,7 @@
         <value xml:lang="fr">Répéter intervalle</value>
         <value xml:lang="it">Ripeti intervallo</value>
         <value xml:lang="zh">重复间隔</value>
+        <value xml:lang="zh_TW">重複間隔</value>
     </property>
     <property key="FormFieldTitle_requirementDescription">
         <value xml:lang="de">Bedarfsbeschreibung</value>
@@ -359,6 +394,7 @@
         <value xml:lang="ro">Descriere Necesar</value>
         <value xml:lang="th">รายละเอียดความต้องการ</value>
         <value xml:lang="zh">需求描述</value>
+        <value xml:lang="zh_TW">需求描述</value>
     </property>
     <property key="FormFieldTitle_reserv2ndPPPerc">
         <value xml:lang="de">% Aufschlag für eine 2. Person</value>
@@ -369,6 +405,7 @@
         <value xml:lang="ro">2 Persoane de Rezerva Procent</value>
         <value xml:lang="th">ร้อยละต่อการจองสองคน</value>
         <value xml:lang="zh">第2个预留人员百分比</value>
+        <value xml:lang="zh_TW">第2個預留人員百分比</value>
     </property>
     <property key="FormFieldTitle_reservNthPPPerc">
         <value xml:lang="de">% Aufschlag für eine weitere Person</value>
@@ -379,6 +416,7 @@
         <value xml:lang="ro">N-a Persoana de Rezerva Procent</value>
         <value xml:lang="th">ร้อยละต่อการจอง Nth</value>
         <value xml:lang="zh">第N个预留人员百分比</value>
+        <value xml:lang="zh_TW">第N個預留人員百分比</value>
     </property>
     <property key="FormFieldTitle_reviewDate">
         <value xml:lang="de">Datum der Überprüfung</value>
@@ -387,6 +425,7 @@
         <value xml:lang="it">Data revisione</value>
         <value xml:lang="th">วันที่ตรวจสอบ</value>
         <value xml:lang="zh">检查日期</value>
+        <value xml:lang="zh_TW">檢查日期</value>
     </property>
     <property key="FormFieldTitle_reviewText">
         <value xml:lang="de">Text der Überprüfung</value>
@@ -395,6 +434,7 @@
         <value xml:lang="it">Testo revisione</value>
         <value xml:lang="th">ข้อความที่ตรวจสอบ</value>
         <value xml:lang="zh">检查文本</value>
+        <value xml:lang="zh_TW">檢查文本</value>
     </property>
     <property key="FormFieldTitle_revisionNumber">
         <value xml:lang="de">Revisionsnummer</value>
@@ -405,6 +445,7 @@
         <value xml:lang="ro">Numar Reviziune</value>
         <value xml:lang="th">หมายเลขการแก้ไขใหม่</value>
         <value xml:lang="zh">修订序号</value>
+        <value xml:lang="zh_TW">修訂序號</value>
     </property>
     <property key="FormFieldTitle_scopeEnumId">
         <value xml:lang="en">Scope</value>
@@ -414,6 +455,7 @@
         <value xml:lang="ro">Scop</value>
         <value xml:lang="th">ขอบเขต</value>
         <value xml:lang="zh">范围</value>
+        <value xml:lang="zh_TW">範圍</value>
     </property>
     <property key="FormFieldTitle_serviceLoaderName">
         <value xml:lang="en">Service Loader Name </value>
@@ -423,6 +465,7 @@
         <value xml:lang="ro">Nume Serviciu Loader</value>
         <value xml:lang="th">ชื่อบริการโหลด</value>
         <value xml:lang="zh">服务加载程序名称 </value>
+        <value xml:lang="zh_TW">服務載入程式名稱 </value>
     </property>
     <property key="FormFieldTitle_showAsEnumId">
         <value xml:lang="de">Zeige als Aufzählungs ID</value>
@@ -430,6 +473,7 @@
         <value xml:lang="fr">Montrer comme une ref. d'énumération </value>
         <value xml:lang="it">Mostra come enumerazione</value>
         <value xml:lang="zh">显示为枚举标识</value>
+        <value xml:lang="zh_TW">顯示列舉ID</value>
     </property>
     <property key="FormFieldTitle_sourceReferenceId">
         <value xml:lang="de">Quellen Referenz ID</value>
@@ -440,6 +484,7 @@
         <value xml:lang="ro">Cod Origine Referiment</value>
         <value xml:lang="th">รหัสข้อมูลแหล่งอ้างอิง</value>
         <value xml:lang="zh">资源引用标识</value>
+        <value xml:lang="zh_TW">資源參考ID</value>
     </property>
     <property key="FormFieldTitle_specialTerms">
         <value xml:lang="de">spezielle Bedingungen</value>
@@ -450,6 +495,7 @@
         <value xml:lang="ro">Termene Speciale</value>
         <value xml:lang="th">ช่วงระยะเวลาพิเศษ</value>
         <value xml:lang="zh">特别条款</value>
+        <value xml:lang="zh_TW">特別條款</value>
     </property>
     <property key="FormFieldTitle_statusDateTime">
         <value xml:lang="en">Status Date Time</value>
@@ -459,6 +505,7 @@
         <value xml:lang="ro">Stat Data Ora </value>
         <value xml:lang="th">สถานะวันเวลา</value>
         <value xml:lang="zh">状态日期时间</value>
+        <value xml:lang="zh_TW">狀態日期時間</value>
     </property>
     <property key="FormFieldTitle_statusItemDescription">
         <value xml:lang="de">Status</value>
@@ -469,6 +516,7 @@
         <value xml:lang="ro">Stare</value>
         <value xml:lang="th">สถานะ</value>
         <value xml:lang="zh">状态</value>
+        <value xml:lang="zh_TW">狀態</value>
     </property>
     <property key="FormFieldTitle_timeTransparency">
         <value xml:lang="de">Zeittransparenz</value>
@@ -479,6 +527,7 @@
         <value xml:lang="ro">Transparenta Timp</value>
         <value xml:lang="th">ภาพเวลา</value>
         <value xml:lang="zh">时间透明</value>
+        <value xml:lang="zh_TW">時間透明</value>
     </property>
     <property key="FormFieldTitle_timesheetId">
         <value xml:lang="de">Zeiterfassungs ID</value>
@@ -489,6 +538,7 @@
         <value xml:lang="ro">Numar Pontaj</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
         <value xml:lang="zh">工单标识</value>
+        <value xml:lang="zh_TW">時間表ID</value>
     </property>
     <property key="FormFieldTitle_totalMilliSecondsAllowed">
         <value xml:lang="de">Gesamtsumme erlaubter Millisekunden</value>
@@ -499,6 +549,7 @@
         <value xml:lang="ro">Total Milisecondi Permise</value>
         <value xml:lang="th">พิจารณาผลรวมพันวินาที</value>
         <value xml:lang="zh">允许的全部毫秒数</value>
+        <value xml:lang="zh_TW">允許的全部毫秒數</value>
     </property>
     <property key="FormFieldTitle_totalMoneyAllowed">
         <value xml:lang="de">Gesamtsumme erlaubt (Geld)</value>
@@ -509,6 +560,7 @@
         <value xml:lang="ro">Total Bani Permisi</value>
         <value xml:lang="th">พิจารณาผลรวมของเงิน</value>
         <value xml:lang="zh">允许的全部金额</value>
+        <value xml:lang="zh_TW">允許的全部金額</value>
     </property>
     <property key="FormFieldTitle_universalId">
         <value xml:lang="de">Universelle ID</value>
@@ -519,6 +571,7 @@
         <value xml:lang="ro">Cod Universal</value>
         <value xml:lang="th">รหัสทั้งหมด</value>
         <value xml:lang="zh">通用标识</value>
+        <value xml:lang="zh_TW">通用ID</value>
     </property>
     <property key="FormFieldTitle_workEffortAssocTypeId">
         <value xml:lang="de">Arbeitseinsatz Zuordnungstyp ID</value>
@@ -529,6 +582,7 @@
         <value xml:lang="ro">Tip Asociere Sarcina de Lucru</value>
         <value xml:lang="th">รหัสประเภกลุ่มงาน</value>
         <value xml:lang="zh">人工服务关联类型标识</value>
+        <value xml:lang="zh_TW">工項關聯類型ID</value>
     </property>
     <property key="FormFieldTitle_workEffortContentTypeId">
         <value xml:lang="de">Arbeitseinsatz Inhaltstyp ID</value>
@@ -537,6 +591,7 @@
         <value xml:lang="it">Tipo di contenuto impegno di lavoro</value>
         <value xml:lang="th">รหัสประเภทหัวข้องาน</value>
         <value xml:lang="zh">人工服务内容类型标识</value>
+        <value xml:lang="zh_TW">工項內容類型ID</value>
     </property>
     <property key="FormFieldTitle_workEffortId">
         <value xml:lang="de">Arbeitseinsatz ID</value>
@@ -549,6 +604,7 @@
         <value xml:lang="ru">Код задачи</value>
         <value xml:lang="th">รหัสงาน</value>
         <value xml:lang="zh">人工服务标识</value>
+        <value xml:lang="zh_TW">工項ID</value>
     </property>
     <property key="FormFieldTitle_workEffortIdFrom">
         <value xml:lang="de">Arbeitseinsatz ID von</value>
@@ -560,6 +616,7 @@
         <value xml:lang="ro">Sarcina de Lucru De la</value>
         <value xml:lang="th">จากรหัสงาน</value>
         <value xml:lang="zh">人工服务标识自</value>
+        <value xml:lang="zh_TW">工項ID自</value>
     </property>
     <property key="FormFieldTitle_workEffortIdTo">
         <value xml:lang="de">Arbeitseinsatz ID bis</value>
@@ -571,6 +628,7 @@
         <value xml:lang="ro">Sarcina de Lucru La</value>
         <value xml:lang="th">ถึงรหัสงาน</value>
         <value xml:lang="zh">人工服务标识到</value>
+        <value xml:lang="zh_TW">工項ID到</value>
     </property>
     <property key="FormFieldTitle_workEffortName">
         <value xml:lang="de">Arbeitseinsatzname</value>
@@ -582,6 +640,7 @@
         <value xml:lang="ro">Nume Sarcina de Lucru </value>
         <value xml:lang="th">ชื่องาน</value>
         <value xml:lang="zh">人工服务名称</value>
+        <value xml:lang="zh_TW">工項名稱</value>
     </property>
     <property key="FormFieldTitle_workEffortParentId">
         <value xml:lang="de">Übergeordnete Arbeitseinsatz ID</value>
@@ -593,6 +652,7 @@
         <value xml:lang="ro">Cod Parinte Sarcina de Lucru</value>
         <value xml:lang="th">รหัสกลุ่มงาน</value>
         <value xml:lang="zh">人工服务上级标识</value>
+        <value xml:lang="zh_TW">工項上級ID</value>
     </property>
     <property key="FormFieldTitle_workEffortPurposeTypeId">
         <value xml:lang="en">Work Effort Purpose Type Id</value>
@@ -602,6 +662,7 @@
         <value xml:lang="ro">Tip Functie Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทเป้าหมายงาน</value>
         <value xml:lang="zh">人工服务目的类型标识</value>
+        <value xml:lang="zh_TW">工項目的類型ID</value>
     </property>
     <property key="FormFieldTitle_workEffortTypeId">
         <value xml:lang="de">Arbeitseinsatz Typ ID</value>
@@ -612,6 +673,7 @@
         <value xml:lang="ro">Tip Sarcina de Lucru </value>
         <value xml:lang="th">รหัสประเภทงาน</value>
         <value xml:lang="zh">人工服务类型标识</value>
+        <value xml:lang="zh_TW">工項類型ID</value>
     </property>
     <property key="FormFieldTitle_workReqFulfTypeDescription">
         <value xml:lang="en">Work Req Fulf Type Description</value>
@@ -621,6 +683,7 @@
         <value xml:lang="ro">Descriere Tip Aprovizionare Sarcina de Lucru Necesar</value>
         <value xml:lang="th">รายละเอียดประเภทรายการงานที่สำเร็จ</value>
         <value xml:lang="zh">工作请求补充类型描述</value>
+        <value xml:lang="zh_TW">工作請求補充類型描述</value>
     </property>
     <property key="FormFieldTitle_workReqFulfTypeId">
         <value xml:lang="en">Work Req Fulf Type Id </value>
@@ -630,6 +693,7 @@
         <value xml:lang="ro">Tip Aprovizionare Sarcina de Lucru Necesar</value>
         <value xml:lang="th">รหัสประเภทรายการงานที่สำเร็จ</value>
         <value xml:lang="zh">工作请求补充类型标识 </value>
+        <value xml:lang="zh_TW">工作要求補充類型ID </value>
     </property>
     <property key="PageTitleAddTimesheet">
         <value xml:lang="de">Zeiterfassung hinzufügen</value>
@@ -641,6 +705,7 @@
         <value xml:lang="ro">Adauga Pontaj</value>
         <value xml:lang="th">เพิ่มตารางการทำงาน</value>
         <value xml:lang="zh">添加工单</value>
+        <value xml:lang="zh_TW">添加工單</value>
     </property>
     <property key="PageTitleAddTimesheetEntries">
         <value xml:lang="de">Zeiterfassungs Einträge hinzufügen</value>
@@ -649,6 +714,7 @@
         <value xml:lang="it">Aggiungi righe timbratura</value>
         <value xml:lang="th">เพิ่มการกรอกข้อมูลตารางการทำงาน</value>
         <value xml:lang="zh">添加工单记录</value>
+        <value xml:lang="zh_TW">添加工單記錄</value>
     </property>
     <property key="PageTitleAddTimesheetRoles">
         <value xml:lang="de">Zeiterfassungs Rollen hinzufügen</value>
@@ -657,6 +723,7 @@
         <value xml:lang="it">Aggiungi ruoli timbrature</value>
         <value xml:lang="th">เพิ่มสถานะตารางการทำงาน</value>
         <value xml:lang="zh">添加工单角色</value>
+        <value xml:lang="zh_TW">添加工單角色</value>
     </property>
     <property key="PageTitleAddTimesheetToInvoice">
         <value xml:lang="de">Zeiterfassung einer Rechnung hinzufügen</value>
@@ -665,6 +732,7 @@
         <value xml:lang="it">Aggiungi timbrature alla fattura</value>
         <value xml:lang="th">เพิ่มตารางการทำงานถึงใบส่งของ</value>
         <value xml:lang="zh">把工单添加到发票</value>
+        <value xml:lang="zh_TW">把工單添加到發票</value>
     </property>
     <property key="PageTitleAddTimesheetToNewInvoice">
         <value xml:lang="de">Zeiterfassung einer neuen Rechnung hinzufügen</value>
@@ -673,6 +741,7 @@
         <value xml:lang="it">Aggiungi timbrature alla nuova fattura</value>
         <value xml:lang="th">เพิ่มตารางการทำงานถึงใบส่งของใหม่</value>
         <value xml:lang="zh">把工单添加到新发票</value>
+        <value xml:lang="zh_TW">把工單添加到新發票</value>
     </property>
     <property key="PageTitleAddWorkEffort">
         <value xml:lang="de">Arbeitseinsatz hinzufügen</value>
@@ -684,6 +753,7 @@
         <value xml:lang="ro">Adauga Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มงาน</value>
         <value xml:lang="zh">添加人工服务</value>
+        <value xml:lang="zh_TW">新增工項</value>
     </property>
     <property key="PageTitleAddWorkEffortAssignmentRate">
         <value xml:lang="en">Add Work Effort Assignment Rate</value>
@@ -694,6 +764,7 @@
         <value xml:lang="ro">Adauga Procent Sarcina de Lucru Atribuire</value>
         <value xml:lang="th">เพิ่มอัตราการมอบหมายงาน</value>
         <value xml:lang="zh">添加人工服务指派费率</value>
+        <value xml:lang="zh_TW">新增工項指派費率</value>
     </property>
     <property key="PageTitleAddWorkEffortCommEvent">
         <value xml:lang="de">Arbeitseinsatz Kommunikationsereignis hinzufügen</value>
@@ -705,6 +776,7 @@
         <value xml:lang="ro">Adauga Sarcina de Lucru Eveniment Comunicatii</value>
         <value xml:lang="th">เพิ่มผลที่ได้จากการติดต่องาน</value>
         <value xml:lang="zh">添加人工服务沟通事件</value>
+        <value xml:lang="zh_TW">新增工項通訊事件</value>
     </property>
     <property key="PageTitleAddWorkEffortEventReminder">
         <value xml:lang="de">Arbeitseinsatz Ereignis-Erinnerung hinzufügen</value>
@@ -712,12 +784,14 @@
         <value xml:lang="fr">Ajouter un rappel d'évènement de tâche</value>
         <value xml:lang="it">Aggiungi promemoria di impegno di lavoro</value>
         <value xml:lang="zh">添加人工服务事件提醒</value>
+        <value xml:lang="zh_TW">新增工項事件提醒</value>
     </property>
     <property key="PageTitleAddWorkEffortFixedAssetAssign">
         <value xml:lang="en">Add Work Effort Fixed Asset Assignment</value>
         <value xml:lang="fr">Ajouter l'affectation d'unetâche à une immobilisation</value>
         <value xml:lang="it">Aggiungi assegnazione impegno di lavoro su cespite</value>
         <value xml:lang="zh">添加人工服务固定资产分配</value>
+        <value xml:lang="zh_TW">新增工項固定資產分配</value>
     </property>
     <property key="PageTitleAddWorkEffortKeyword">
         <value xml:lang="de">Arbeitseinsatz Schlüsselwort hinzufügen</value>
@@ -726,6 +800,7 @@
         <value xml:lang="it">Aggiungi chiave all'impegno di lavoro</value>
         <value xml:lang="th">เพิ่มคีย์เวิร์ดงาน</value>
         <value xml:lang="zh">添加人工服务关键字</value>
+        <value xml:lang="zh_TW">新增工項關鍵字</value>
     </property>
     <property key="PageTitleAddWorkEffortNotes">
         <value xml:lang="de">Arbeitseinsatz Notiz hinzufügen</value>
@@ -734,6 +809,7 @@
         <value xml:lang="it">Aggiungi note all'impegno di lavoro</value>
         <value xml:lang="th">เพิ่มข้อความงาน</value>
         <value xml:lang="zh">添加人工服务便笺</value>
+        <value xml:lang="zh_TW">新增工項註記</value>
     </property>
     <property key="PageTitleAddWorkEffortOrderHeader">
         <value xml:lang="de">Bestellung einen Arbeitseinsatz hinzufügen</value>
@@ -745,6 +821,7 @@
         <value xml:lang="ro">Adauga Comanda Prestare serviciu</value>
         <value xml:lang="th">เพิ่มคำสั่งงาน</value>
         <value xml:lang="zh">添加人工服务订单</value>
+        <value xml:lang="zh_TW">新增工項訂單</value>
     </property>
     <property key="PageTitleAddWorkEffortPartyAssign">
         <value xml:lang="de">Arbeitseinsatz Akteur-Zuweisung hinzufügen</value>
@@ -756,6 +833,7 @@
         <value xml:lang="ro">Adauga Sarcina de Lucru Atribuire Subiect</value>
         <value xml:lang="th">เพิ่มการมอบหมายกลุ่มงาน</value>
         <value xml:lang="zh">添加人工服务会员指派</value>
+        <value xml:lang="zh_TW">新增工項成員指派</value>
     </property>
     <property key="PageTitleAddWorkEffortQuote">
         <value xml:lang="en">Add Work Effort Quote</value>
@@ -765,6 +843,7 @@
         <value xml:lang="nl">Add Activiteit Quote</value>
         <value xml:lang="th">เพิ่มการอ้างอิงงาน</value>
         <value xml:lang="zh">添加人工服务询价</value>
+        <value xml:lang="zh_TW">新增工項詢價</value>
     </property>
     <property key="PageTitleAddWorkEffortQuoteItem">
         <value xml:lang="en">Add Work Effort QuoteItem</value>
@@ -775,6 +854,7 @@
         <value xml:lang="ro">Adauga Sarcina de Lucru Linie Preventiv</value>
         <value xml:lang="th">เพิ่มหัวข้อการอ้างอิงงาน</value>
         <value xml:lang="zh">添加人工服务询价明细</value>
+        <value xml:lang="zh_TW">新增工項詢價明細</value>
     </property>
     <property key="PageTitleAddWorkEffortRequest">
         <value xml:lang="en">Add Work Effort Request</value>
@@ -785,6 +865,7 @@
         <value xml:lang="ro">Adauga Sarcina de Lucru Cerere</value>
         <value xml:lang="th">เพิ่มคำร้องงาน</value>
         <value xml:lang="zh">添加人工服务请求</value>
+        <value xml:lang="zh_TW">新增工項要求</value>
     </property>
     <property key="PageTitleAddWorkEffortRequestItem">
         <value xml:lang="en">Add Work Effort RequestItem</value>
@@ -795,6 +876,7 @@
         <value xml:lang="ro">Adauga Sarcina de Lucru Linie Cerere</value>
         <value xml:lang="th">เพิ่มรายการคำร้องงาน</value>
         <value xml:lang="zh">添加人工服务请求明细</value>
+        <value xml:lang="zh_TW">新增工項要求明細</value>
     </property>
     <property key="PageTitleAddWorkEffortRequirement">
         <value xml:lang="en">Add Work Effort Requirement</value>
@@ -805,6 +887,7 @@
         <value xml:lang="ro">Adauga Sarcina de Lucru Necesar</value>
         <value xml:lang="th">เพิ่มความต้องการงาน</value>
         <value xml:lang="zh">添加人工服务需求</value>
+        <value xml:lang="zh_TW">新增工項要求</value>
     </property>
     <property key="PageTitleAddWorkEffortReviews">
         <value xml:lang="de">Arbeitseinsatz Überprüfungen hinzufügen</value>
@@ -813,6 +896,7 @@
         <value xml:lang="it">Aggiungi revisioni all'impegno di lavoro</value>
         <value xml:lang="th">เพิ่มการตรวจสอบงาน</value>
         <value xml:lang="zh">添加人工服务检查</value>
+        <value xml:lang="zh_TW">新增工項檢查</value>
     </property>
     <property key="PageTitleAddWorkEffortShopList">
         <value xml:lang="de">Arbeitseinsatz Einkaufsliste hinzufügen</value>
@@ -824,6 +908,7 @@
         <value xml:lang="ro">Adauga Listele Cumparari Prestari servicii </value>
         <value xml:lang="th">เพิ่มงานรายการซื้อสินค้า</value>
         <value xml:lang="zh">添加人工服务购买列表</value>
+        <value xml:lang="zh_TW">新增工項購買列表</value>
     </property>
     <property key="PageTitleAddWorkEffortTimeEntry">
         <value xml:lang="de">Zeiteintrag für Arbeitseinsatz hinzufügen</value>
@@ -835,6 +920,7 @@
         <value xml:lang="ro">Adauga Linie Timp pentru Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มตารางเวลาไปยังงาน</value>
         <value xml:lang="zh">添加人工服务时间记录</value>
+        <value xml:lang="zh_TW">新增工項時間記錄</value>
     </property>
     <property key="PageTitleAddWorkEffortTimeToInvoice">
         <value xml:lang="de">Arbeitseinsatz einer Rechnung hinzufügen</value>
@@ -845,6 +931,7 @@
         <value xml:lang="ro">Adauga Timp Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มเวลางานถึงใบส่งของ</value>
         <value xml:lang="zh">添加人工服务时间到发票</value>
+        <value xml:lang="zh_TW">新增工項時間到發票</value>
     </property>
     <property key="PageTitleAddWorkEffortTimeToNewInvoice">
         <value xml:lang="de">Arbeitseinsatz einer neuen Rechnung hinzufügen</value>
@@ -855,6 +942,7 @@
         <value xml:lang="ro">Adauga Timp Sarcina de Lucru</value>
         <value xml:lang="th">เพิ่มเวลางานถึงใบส่งของใหม่</value>
         <value xml:lang="zh">添加人工服务时间到新发票</value>
+        <value xml:lang="zh_TW">新增工項時間到新發票</value>
     </property>
     <property key="PageTitleCalendarDay">
         <value xml:lang="de">Kalendertag</value>
@@ -865,6 +953,7 @@
         <value xml:lang="ro">Calendar Zilier </value>
         <value xml:lang="th">ปฏิทินวัน</value>
         <value xml:lang="zh">日历日</value>
+        <value xml:lang="zh_TW">日歷日</value>
     </property>
     <property key="PageTitleCalendarMonth">
         <value xml:lang="de">Kalendermonat</value>
@@ -875,6 +964,7 @@
         <value xml:lang="ro">Calendar Lunar</value>
         <value xml:lang="th">ปฏิทินเดือน</value>
         <value xml:lang="zh">日历月</value>
+        <value xml:lang="zh_TW">日歷月</value>
     </property>
     <property key="PageTitleCalendarUpcoming">
         <value xml:lang="de">bevorstehender Kalender</value>
@@ -885,6 +975,7 @@
         <value xml:lang="ro">Calendar Urmatoarele Evenimente</value>
         <value xml:lang="th">ปฏิทินล่วงหน้า</value>
         <value xml:lang="zh">日历即将发生</value>
+        <value xml:lang="zh_TW">日歷即將發生</value>
     </property>
     <property key="PageTitleCalendarWeek">
         <value xml:lang="de">Kalenderwoche</value>
@@ -895,6 +986,7 @@
         <value xml:lang="ro">Calendar Saptamanal</value>
         <value xml:lang="th">ปฏิทินสัปดาห์</value>
         <value xml:lang="zh">日历周</value>
+        <value xml:lang="zh_TW">日歷周</value>
     </property>
     <property key="PageTitleCreateWeekTimesheet">
         <value xml:lang="de">Erstelle Zeiterfassung für diese Woche</value>
@@ -905,6 +997,7 @@
         <value xml:lang="ro">Creare Pontaj pentru Saptamana Curenta</value>
         <value xml:lang="th">สร้างตารางการทำงานสำหรับสัปดาห์นี้</value>
         <value xml:lang="zh">为本周新建工单</value>
+        <value xml:lang="zh_TW">為本周新建工單</value>
     </property>
     <property key="PageTitleDisplayTimesheetEntries">
         <value xml:lang="de">Zeiterfassungs Einträge anzeigen</value>
@@ -913,6 +1006,7 @@
         <value xml:lang="it">Visualizza righe timbrature</value>
         <value xml:lang="th">แสดงการกรอกข้อมูลตารางการทำงาน</value>
         <value xml:lang="zh">显示工单记录</value>
+        <value xml:lang="zh_TW">顯示工單記錄</value>
     </property>
     <property key="PageTitleEditTimesheet">
         <value xml:lang="de">Zeiterfassung editieren</value>
@@ -924,6 +1018,7 @@
         <value xml:lang="ro">Actualizeaza Pontaj</value>
         <value xml:lang="th">แก้ไขตารางการทำงาน</value>
         <value xml:lang="zh">编辑工单</value>
+        <value xml:lang="zh_TW">編輯工單</value>
     </property>
     <property key="PageTitleEditTimesheetEntries">
         <value xml:lang="de">Ändere Zeiterfassungseinträge</value>
@@ -935,6 +1030,7 @@
         <value xml:lang="ro">Actualizeaza Linii Pontaj</value>
         <value xml:lang="th">แก้ไขการกรอกข้อมูลตารางการทำงาน</value>
         <value xml:lang="zh">编辑工单记录</value>
+        <value xml:lang="zh_TW">編輯工單記錄</value>
     </property>
     <property key="PageTitleEditTimesheetRoles">
         <value xml:lang="de">Ändere Zeiterfassung Rollen</value>
@@ -946,6 +1042,7 @@
         <value xml:lang="ro">Adauga Roluri Pontaj </value>
         <value xml:lang="th">แก้ไขสถานะตารางการทำงาน</value>
         <value xml:lang="zh">编辑工单角色</value>
+        <value xml:lang="zh_TW">編輯工單角色</value>
     </property>
     <property key="PageTitleEditWorkEffort">
         <value xml:lang="en">Edit Work Effort</value>
@@ -956,6 +1053,7 @@
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru</value>
         <value xml:lang="th">แก้ไขงาน</value>
         <value xml:lang="zh">编辑人工服务</value>
+        <value xml:lang="zh_TW">編輯工項</value>
     </property>
     <property key="PageTitleEditWorkEffortAssoc">
         <value xml:lang="en">Edit Work Effort Assoc</value>
@@ -963,6 +1061,7 @@
         <value xml:lang="it">Aggiorna associazione impegno di lavoro</value>
         <value xml:lang="th">แก้ไขกลุ่มงาน</value>
         <value xml:lang="zh">编辑人工服务关联</value>
+        <value xml:lang="zh_TW">編輯工項關聯</value>
     </property>
     <property key="PageTitleEditWorkEffortCommEvent">
         <value xml:lang="en">Edit Work Effort CommEvent</value>
@@ -973,6 +1072,7 @@
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Eveniment Comunictii </value>
         <value xml:lang="th">แก้ไขผลที่ได้จากการติดต่องาน</value>
         <value xml:lang="zh">编辑人工服务沟通事件</value>
+        <value xml:lang="zh_TW">編輯工項通訊事件</value>
     </property>
     <property key="PageTitleEditWorkEffortContactMechs">
         <value xml:lang="en">Edit Work Effort Contact Mechs</value>
@@ -980,6 +1080,7 @@
         <value xml:lang="it">Aggiorna i contatti dell'impegno di lavoro</value>
         <value xml:lang="th">แก้ไขวิธีการติดต่องาน</value>
         <value xml:lang="zh">编辑人工服务联系方法</value>
+        <value xml:lang="zh_TW">編輯工項聯絡方法</value>
     </property>
     <property key="PageTitleEditWorkEffortContent">
         <value xml:lang="en">Work Effort Content</value>
@@ -987,6 +1088,7 @@
         <value xml:lang="it">Contenuto dell'impegno di lavoro</value>
         <value xml:lang="th">หัวข้องาน</value>
         <value xml:lang="zh">人工服务内容</value>
+        <value xml:lang="zh_TW">工項內容</value>
     </property>
     <property key="PageTitleEditWorkEffortGoodStandards">
         <value xml:lang="en">Work Effort Good Standards </value>
@@ -994,6 +1096,7 @@
         <value xml:lang="it">Beni standard</value>
         <value xml:lang="th">งานมีวามสามาถมาตรฐาน</value>
         <value xml:lang="zh">人工服务良好标准 </value>
+        <value xml:lang="zh_TW">工項成品規範 </value>
     </property>
     <property key="PageTitleEditWorkEffortPartyAssign">
         <value xml:lang="en">Edit Work Effort Party Assignment</value>
@@ -1004,6 +1107,7 @@
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Atribuire Subiect </value>
         <value xml:lang="th">แก้ไขกลุ่มงานที่ได้รับมอบหมาย</value>
         <value xml:lang="zh">编辑人工服务会员指派</value>
+        <value xml:lang="zh_TW">編輯工項成員指派</value>
     </property>
     <property key="PageTitleEditWorkEffortQuote">
         <value xml:lang="en">Edit Work Effort Quote</value>
@@ -1014,6 +1118,7 @@
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Preventiva</value>
         <value xml:lang="th">แก้ไขการอ้างอิงงาน</value>
         <value xml:lang="zh">编辑人工服务询价</value>
+        <value xml:lang="zh_TW">編輯工項詢價</value>
     </property>
     <property key="PageTitleEditWorkEffortQuoteItem">
         <value xml:lang="en">Edit Work Effort QuoteItem</value>
@@ -1024,6 +1129,7 @@
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Linie Preventiv</value>
         <value xml:lang="th">แก้ไขรายการอ้างอิงงาน</value>
         <value xml:lang="zh">编辑人工服务询价明细</value>
+        <value xml:lang="zh_TW">編輯工項詢價明細</value>
     </property>
     <property key="PageTitleEditWorkEffortRequest">
         <value xml:lang="en">Edit Work Effort Request</value>
@@ -1034,6 +1140,7 @@
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Cerere</value>
         <value xml:lang="th">แก้ไขการร้องของาน</value>
         <value xml:lang="zh">编辑人工服务请求</value>
+        <value xml:lang="zh_TW">編輯工項要求</value>
     </property>
     <property key="PageTitleEditWorkEffortRequestItem">
         <value xml:lang="en">Edit Work Effort RequestItem</value>
@@ -1044,6 +1151,7 @@
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Linie  Cerere</value>
         <value xml:lang="th">แก้ไขรายการร้องของาน</value>
         <value xml:lang="zh">编辑人工服务请求明细</value>
+        <value xml:lang="zh_TW">編輯工項要求明細</value>
     </property>
     <property key="PageTitleEditWorkEffortRequirement">
         <value xml:lang="en">Edit Work Effort Requirement</value>
@@ -1054,6 +1162,7 @@
         <value xml:lang="ro">Actualizeaza Sarcina de Lucru Necesar</value>
         <value xml:lang="th">แก้ไขความต้องการงาน</value>
         <value xml:lang="zh">编辑人工服务需求</value>
+        <value xml:lang="zh_TW">編輯工項要求</value>
     </property>
     <property key="PageTitleFindTimesheet">
         <value xml:lang="de">Finde Zeiterfassung</value>
@@ -1065,6 +1174,7 @@
         <value xml:lang="ro">Cauta Pontaj</value>
         <value xml:lang="th">ค้นหาตารางการทำงาน</value>
         <value xml:lang="zh">查找工单</value>
+        <value xml:lang="zh_TW">查詢時間表</value>
     </property>
     <property key="PageTitleFindWorkEffort">
         <value xml:lang="de">Finde Arbeitseinsatz</value>
@@ -1076,6 +1186,7 @@
         <value xml:lang="ro">Cauta Sarcina de Lucru</value>
         <value xml:lang="th">ต้นหางาน</value>
         <value xml:lang="zh">查找人工服务</value>
+        <value xml:lang="zh_TW">查詢工項</value>
     </property>
     <property key="PageTitleListWorkEffortAssignmentRates">
         <value xml:lang="en">Work Effort Assignment Rates</value>
@@ -1086,6 +1197,7 @@
         <value xml:lang="ro">Procent Sarcina de Lucru Atribuire</value>
         <value xml:lang="th">อัตราการมอบหมายงาน</value>
         <value xml:lang="zh">人工服务指派费率</value>
+        <value xml:lang="zh_TW">工項指派費率</value>
     </property>
     <property key="PageTitleListWorkEffortCommEvents">
         <value xml:lang="en">Work Effort Communication Events</value>
@@ -1096,18 +1208,21 @@
         <value xml:lang="ro">Lista Sarcina de Lucru Evenimente Comunicatii</value>
         <value xml:lang="th">ผลที่ได้จากการติดต่องาน</value>
         <value xml:lang="zh">人工服务沟通事件</value>
+        <value xml:lang="zh_TW">工項通訊事件</value>
     </property>
     <property key="PageTitleListWorkEffortEventReminders">
         <value xml:lang="en">Work Effort Event Reminders</value>
         <value xml:lang="fr">Rappels d'évènements de tâche</value>
         <value xml:lang="it">Promemoria impegno di lavoro</value>
         <value xml:lang="zh">人工服务事件提醒</value>
+        <value xml:lang="zh_TW">工項事件提醒</value>
     </property>
     <property key="PageTitleListWorkEffortFixedAssetAssigns">
         <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
         <value xml:lang="fr">Affectations d'une tâche à une immobilisation</value>
         <value xml:lang="it">Assegnazioni impegno di lavoro a cespite</value>
         <value xml:lang="zh">人工服务固定资产分配</value>
+        <value xml:lang="zh_TW">工項固定資產分配</value>
     </property>
     <property key="PageTitleListWorkEffortKeyword">
         <value xml:lang="en">Work Effort Keywords</value>
@@ -1115,6 +1230,7 @@
         <value xml:lang="it">Chiavi dell'impegno di lavoro</value>
         <value xml:lang="th">คีย์เวิร์ดงาน</value>
         <value xml:lang="zh">人工服务关键字</value>
+        <value xml:lang="zh_TW">工項關鍵字</value>
     </property>
     <property key="PageTitleListWorkEffortNotes">
         <value xml:lang="de">Arbeitseinsatz Notizen</value>
@@ -1123,6 +1239,7 @@
         <value xml:lang="it">Note dell'impegno di lavoro</value>
         <value xml:lang="th">ข้อความงาน</value>
         <value xml:lang="zh">人工服务便笺</value>
+        <value xml:lang="zh_TW">工項註記</value>
     </property>
     <property key="PageTitleListWorkEffortOrderHeaders">
         <value xml:lang="de">Arbeitseinsatz Bestellungen</value>
@@ -1134,6 +1251,7 @@
         <value xml:lang="ro">Comenzi Prestari serviciu </value>
         <value xml:lang="th">คำสั่งงาน</value>
         <value xml:lang="zh">人工服务订单</value>
+        <value xml:lang="zh_TW">工項訂單</value>
     </property>
     <property key="PageTitleListWorkEffortPartyAssigns">
         <value xml:lang="en">Work Effort Party Assignments</value>
@@ -1144,6 +1262,7 @@
         <value xml:lang="ro">Lista Sarcina de Lucru Atributie Subiect</value>
         <value xml:lang="th">กลุ่มงานที่ได้รับมอบหมาย</value>
         <value xml:lang="zh">人工服务会员指派</value>
+        <value xml:lang="zh_TW">工項成員指派</value>
     </property>
     <property key="PageTitleListWorkEffortQuotes">
         <value xml:lang="en">Work Effort Quotes</value>
@@ -1154,6 +1273,7 @@
         <value xml:lang="ro">Lista Sarcini de Lucru Preventive</value>
         <value xml:lang="th">การอ้างอิงงาน</value>
         <value xml:lang="zh">人工服务询价</value>
+        <value xml:lang="zh_TW">工項詢價</value>
     </property>
     <property key="PageTitleListWorkEffortRequests">
         <value xml:lang="en">Work Effort Requests</value>
@@ -1164,6 +1284,7 @@
         <value xml:lang="ro">Lista Sarcina de Lucru Cerere</value>
         <value xml:lang="th">คำร้องงาน</value>
         <value xml:lang="zh">人工服务请求</value>
+        <value xml:lang="zh_TW">工項要求</value>
     </property>
     <property key="PageTitleListWorkEffortRequirements">
         <value xml:lang="en">Work Effort Requirements</value>
@@ -1174,6 +1295,7 @@
         <value xml:lang="ro">Lista Sarcini de Lucru Necesar</value>
         <value xml:lang="th">ความต้องการงาน</value>
         <value xml:lang="zh">人工服务需求</value>
+        <value xml:lang="zh_TW">工項要求</value>
     </property>
     <property key="PageTitleListWorkEffortReviews">
         <value xml:lang="de">Arbeitseinsatz Überprüfungen</value>
@@ -1182,6 +1304,7 @@
         <value xml:lang="it">Revisioni dell'impegno di lavoro</value>
         <value xml:lang="th">ตรวจสอบงาน</value>
         <value xml:lang="zh">人工服务检查</value>
+        <value xml:lang="zh_TW">工項檢查</value>
     </property>
     <property key="PageTitleListWorkEffortShopLists">
         <value xml:lang="en">Work Effort Shopping Lists</value>
@@ -1192,6 +1315,7 @@
         <value xml:lang="ro">Lista Listelor de Cumparari Prestari Servicii </value>
         <value xml:lang="th">งานรายการซื้อสินค้า</value>
         <value xml:lang="zh">人工服务购买列表</value>
+        <value xml:lang="zh_TW">工項購買列表</value>
     </property>
     <property key="PageTitleListWorkEffortTimeEntries">
         <value xml:lang="en">Work Effort Time Entries</value>
@@ -1202,6 +1326,7 @@
         <value xml:lang="ro">Introducere Sarcina de Lucru Timp</value>
         <value xml:lang="th">กรอกข้อมูลเวลางาน</value>
         <value xml:lang="zh">人工服务时间记录</value>
+        <value xml:lang="zh_TW">工項時間記錄</value>
     </property>
     <property key="PageTitleListWorkEfforts">
         <value xml:lang="de">Arbeitseinsätze</value>
@@ -1213,6 +1338,7 @@
         <value xml:lang="ro">Lista Sarcina de Lucru </value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">人工服务</value>
+        <value xml:lang="zh_TW">工項</value>
     </property>
     <property key="PageTitleLookupTimesheet">
         <value xml:lang="en">Lookup Timesheet by Name</value>
@@ -1222,6 +1348,7 @@
         <value xml:lang="ro">Cauta Pontaj pe Nume</value>
         <value xml:lang="th">ค้นหาตารางการทำงานโดยชื่อ</value>
         <value xml:lang="zh">通过名称查找工单</value>
+        <value xml:lang="zh_TW">通過名稱查找工單</value>
     </property>
     <property key="PageTitleLookupWorkEffort">
         <value xml:lang="en">Lookup WorkEffort by Name</value>
@@ -1231,6 +1358,7 @@
         <value xml:lang="ro">Cauta Sarcina de Lucru dupa Nume</value>
         <value xml:lang="th">ค้นหางานโดยชื่อ</value>
         <value xml:lang="zh">通过名称查找人工服务</value>
+        <value xml:lang="zh_TW">通過名稱查詢工項</value>
     </property>
     <property key="PageTitleTreeWorkEfforts">
         <value xml:lang="en">Child Work Efforts</value>
@@ -1241,6 +1369,7 @@
         <value xml:lang="ro">Fiu Sarcini de Lucru</value>
         <value xml:lang="th">งานระยะต้น ๆ</value>
         <value xml:lang="zh">下一级人工服务</value>
+        <value xml:lang="zh_TW">下一級工項</value>
     </property>
     <property key="PageTitleViewActivityAndTaskList">
         <value xml:lang="de">Liste der Aufgaben und Aktivitäten ansehen</value>
@@ -1251,6 +1380,7 @@
         <value xml:lang="ro">Afiseaza Activitate si Lista Sarcini</value>
         <value xml:lang="th">แสดงกิจกรรมและรายการงาน</value>
         <value xml:lang="zh">浏览行动和任务列表</value>
+        <value xml:lang="zh_TW">瀏覽行動和任務列表</value>
     </property>
     <property key="PageTitleWorkEffortRelatedSummary">
         <value xml:lang="en">Work Effort Related Summary</value>
@@ -1261,6 +1391,7 @@
         <value xml:lang="ro">Sarcina de Lucru Breviar Relativ</value>
         <value xml:lang="th">สรุปซึ่งเกี่ยวข้องกับงาน</value>
         <value xml:lang="zh">人工服务相关摘要</value>
+        <value xml:lang="zh_TW">工項相關摘要</value>
     </property>
     <property key="PageTitleWorkEffortShopLists">
         <value xml:lang="en">Work Effort Shopping Lists</value>
@@ -1271,6 +1402,7 @@
         <value xml:lang="ro">Liste Cumparari, Prestari Serviciu</value>
         <value xml:lang="th">งานรายการซื้อสินค้า</value>
         <value xml:lang="zh">人工服务购买列表</value>
+        <value xml:lang="zh_TW">工項購買列表</value>
     </property>
     <property key="WorkEffortAcceptAssignment">
         <value xml:lang="de">Zuweisung akzeptieren</value>
@@ -1283,6 +1415,7 @@
         <value xml:lang="ru">Принять назначение</value>
         <value xml:lang="th">ยอมรับการมอบหมายงาน</value>
         <value xml:lang="zh">接受指派</value>
+        <value xml:lang="zh_TW">接受指派</value>
     </property>
     <property key="WorkEffortActivityDetail">
         <value xml:lang="de">Details der Aktivität</value>
@@ -1295,6 +1428,7 @@
         <value xml:lang="ru">Подробности действия</value>
         <value xml:lang="th">รายละเอียดกิจกรรม</value>
         <value xml:lang="zh">行动细节</value>
+        <value xml:lang="zh_TW">行動細節</value>
     </property>
     <property key="WorkEffortActivityName">
         <value xml:lang="de">Aktivitätenname</value>
@@ -1307,6 +1441,7 @@
         <value xml:lang="ru">Название действия</value>
         <value xml:lang="th">ชื่อกิจกรรม</value>
         <value xml:lang="zh">行动名称</value>
+        <value xml:lang="zh_TW">行動名稱</value>
     </property>
     <property key="WorkEffortActivityStatus">
         <value xml:lang="de">Status der Aktivität</value>
@@ -1319,6 +1454,7 @@
         <value xml:lang="ru">Статус действия</value>
         <value xml:lang="th">สถานะกิจกรรม</value>
         <value xml:lang="zh">行动状态</value>
+        <value xml:lang="zh_TW">行動狀態</value>
     </property>
     <property key="WorkEffortAddCalendarEvent">
         <value xml:lang="de">Hinzufügen/Modifizieren eines Kalenderereignisses</value>
@@ -1335,6 +1471,7 @@
         <value xml:lang="ro">Adauga Fiu</value>
         <value xml:lang="th">เพิ่มงานขั้นต้นใหม่</value>
         <value xml:lang="zh">新建下一级人工服务</value>
+        <value xml:lang="zh_TW">新建子工項</value>
     </property>
     <property key="WorkEffortAddExistingTask">
         <value xml:lang="de">Eine existierende Aufgabe(Arbeitseinsatz ID) hinzufügen</value>
@@ -1347,6 +1484,7 @@
         <value xml:lang="ru">Добавить существующее задание (WorkEffortId) </value>
         <value xml:lang="th">เพิ่มงานที่มีอยู่ (รหัสงาน) </value>
         <value xml:lang="zh">添加已存在的任务(人工服务编号) </value>
+        <value xml:lang="zh_TW">新增一個已有任務(工項ID) </value>
     </property>
     <property key="WorkEffortAddExistingWorkEffortChild">
         <value xml:lang="de">Existierenden untergeordneten Arbeitseinsatz hinzufügen</value>
@@ -1356,6 +1494,7 @@
         <value xml:lang="nl">Add Existing WorkEffort Child</value>
         <value xml:lang="th">เพิ่มงานขั้นต้นที่มีอยู่</value>
         <value xml:lang="zh">添加已存在的下一级人工服务</value>
+        <value xml:lang="zh_TW">新增已有子工項</value>
     </property>
     <property key="WorkEffortAddGoodStandard">
         <value xml:lang="en">Add Good Standard</value>
@@ -1363,6 +1502,7 @@
         <value xml:lang="it">Aggiungi bene standard</value>
         <value xml:lang="th">เพิ่มมาตรฐานงานที่เหมาะสม</value>
         <value xml:lang="zh">添加良好标准</value>
+        <value xml:lang="zh_TW">添加成品規範</value>
     </property>
     <property key="WorkEffortAddTask">
         <value xml:lang="de">Aufgabe hinzufügen</value>
@@ -1375,12 +1515,14 @@
         <value xml:lang="ru">Добавить задание</value>
         <value xml:lang="th">เพิ่มภารกิจ</value>
         <value xml:lang="zh">添加任务</value>
+        <value xml:lang="zh_TW">添加任務</value>
     </property>
     <property key="WorkEffortAgreementAppls">
         <value xml:lang="en">Agreement Appls</value>
         <value xml:lang="fr">Applications d'accords</value>
         <value xml:lang="it">Applicazioni contratto</value>
         <value xml:lang="zh">合同用途</value>
+        <value xml:lang="zh_TW">合同用途</value>
     </property>
     <property key="WorkEffortAllPhases">
         <value xml:lang="de">Alle Phasen</value>
@@ -1393,6 +1535,7 @@
         <value xml:lang="ru">Все фазы</value>
         <value xml:lang="th">ขั้นตอนทั้งหมด</value>
         <value xml:lang="zh">全部阶段</value>
+        <value xml:lang="zh_TW">全部階段</value>
     </property>
     <property key="WorkEffortAllTasks">
         <value xml:lang="de">Alle Aufgaben</value>
@@ -1405,6 +1548,7 @@
         <value xml:lang="ru">Все задания </value>
         <value xml:lang="th">ภารกิจทั้งหมด</value>
         <value xml:lang="zh">全部任务 </value>
+        <value xml:lang="zh_TW">全部任務 </value>
     </property>
     <property key="WorkEffortAnyAssocType">
         <value xml:lang="en">Any Assoc Type</value>
@@ -1412,6 +1556,7 @@
         <value xml:lang="it">Tutti i tipo di associazione</value>
         <value xml:lang="th">ทุก ๆ กลุ่มประเภท</value>
         <value xml:lang="zh">任一关联类型</value>
+        <value xml:lang="zh_TW">任一關聯類型</value>
     </property>
     <property key="WorkEffortApplicationEventsTasksWorkflowActivities">
         <value xml:lang="en">This application is meant for those who maintain and use calendar events tasks and workflow activities</value>
@@ -1423,6 +1568,7 @@
         <value xml:lang="ru">Это приложение предназначено для календарного планирования событий и управления работами, заданиями и документами</value>
         <value xml:lang="th">นี่คือโปรแกรมประยุกต์ใช้มีความหมายสำหรับสิ่งเหล่านี้ซึ่งรักษาและใช้ปฏิทินผลที่ได้จากภารกิจและกิจกรรมขั้นตอนการทำงาน</value>
         <value xml:lang="zh">这个应用程序对那些维护和使用日历事件和工作流行动的人有用</value>
+        <value xml:lang="zh_TW">這個應用程式對那些維護和使用日歷事件和工作流行動的人有用</value>
     </property>
     <property key="WorkEffortAssignedTasks">
         <value xml:lang="de">Zugewiesene Aufgaben</value>
@@ -1435,6 +1581,7 @@
         <value xml:lang="ru">Назначенные задания</value>
         <value xml:lang="th">มอบหมายภารกิจ</value>
         <value xml:lang="zh">已指派的任务</value>
+        <value xml:lang="zh_TW">已指派的任務</value>
     </property>
     <property key="WorkEffortAssoc">
         <value xml:lang="en">WorkEffort Association</value>
@@ -1442,6 +1589,7 @@
         <value xml:lang="it">Associazione impegno di lavoro </value>
         <value xml:lang="th">กลุ่มงาน</value>
         <value xml:lang="zh">人工服务关联</value>
+        <value xml:lang="zh_TW">工項關聯</value>
     </property>
     <property key="WorkEffortAssociatedFromParentToChild">
         <value xml:lang="en">(associated from parent to child)</value>
@@ -1451,6 +1599,7 @@
         <value xml:lang="ro">(asociat de la parinte la fiu)</value>
         <value xml:lang="th">(associated from parent to child)</value>
         <value xml:lang="zh">(把上级与下级关联起来)</value>
+        <value xml:lang="zh_TW">(把上級與下級關聯起來)</value>
     </property>
     <property key="WorkEffortAttender">
         <value xml:lang="de">Teilnehmer</value>
@@ -1463,6 +1612,7 @@
         <value xml:lang="ru">Приглашенный</value>
         <value xml:lang="th">ผู้มีส่วนร่วม</value>
         <value xml:lang="zh">参加者</value>
+        <value xml:lang="zh_TW">參加者</value>
     </property>
     <property key="WorkEffortBanner3">
         <value xml:lang="de">Existierende Kommunikationsereignis ID unten eingeben</value>
@@ -1473,6 +1623,7 @@
         <value xml:lang="ro">Introduceti aici dedesubt un eveniment comunicatii</value>
         <value xml:lang="th">เข้าสู่รหัสผลที่ได้จากการติดต่อที่มีอยู่ข้างล่าง</value>
         <value xml:lang="zh">在下面输入已存在的沟通事件</value>
+        <value xml:lang="zh_TW">在下面輸入已存在的溝通事件</value>
     </property>
     <property key="WorkEffortBanner4">
         <value xml:lang="en">OR add new Communication Event data below to create new entity (leave Communication Event Id empty)</value>
@@ -1482,6 +1633,7 @@
         <value xml:lang="ro">sau adaugati un nou eveniment comunicatie mai jos pentru  a crea o noua entitate (lasati gol)</value>
         <value xml:lang="th">หรือเพิ่มข้อมูลผลที่ได้จากการติดต่อใหม่ข้างล่างถึงสร้างเอนทิตีใหม่ (จากรหัสผลที่ได้จากการติดต่อว่าง)</value>
         <value xml:lang="zh">或者在下面新建沟通事件数据以便新建实体 (沟通事件编号保留为空)</value>
+        <value xml:lang="zh_TW">或者在下面新建溝通事件資料以便新建實體 (溝通事件編號保留為空)</value>
     </property>
     <property key="WorkEffortBanner5">
         <value xml:lang="en">Enter existing Requirement Id below</value>
@@ -1491,6 +1643,7 @@
         <value xml:lang="ro">Introduceti mai jos un necesar existent</value>
         <value xml:lang="th">เข้าสู่รหัสความต้องการที่มีอยู่ข้างล่าง</value>
         <value xml:lang="zh">在下面输入已存在的需求标识</value>
+        <value xml:lang="zh_TW">在下面輸入已有要求ID</value>
     </property>
     <property key="WorkEffortBanner6">
         <value xml:lang="en">OR add new Requirement data below to create new entity (leave Requirement Id empty)</value>
@@ -1500,6 +1653,7 @@
         <value xml:lang="ro">Sau adaugati un nou necesar mai jos, pentru a crea o noua entitate (lasati gol)</value>
         <value xml:lang="th">หรือเพิ่มข้อมูลความต้องการใหม่ข้างล่างถึงการสร้างเอนทิตีใหม่ (จากรหัสผลที่ได้จากการติดต่อว่าง)</value>
         <value xml:lang="zh">或者在下面新建需求数据以便新建实体(需求标识保留为空)</value>
+        <value xml:lang="zh_TW">或在下面增新的要求資料以建立新的實體(要求ID保留為空)</value>
     </property>
     <property key="WorkEffortBannerAddWorkEffortAndAssoc1">
         <value xml:lang="en">Enter an existing workEffortId below,</value>
@@ -1509,6 +1663,7 @@
         <value xml:lang="ro">Introduceti aici dedesubt o sarcina de lucru existenta,</value>
         <value xml:lang="th">เข้าสู่รหัสงานที่มีอยู่ข้างล่าง</value>
         <value xml:lang="zh">在下面输入一个已存在的人工服务编号，</value>
+        <value xml:lang="zh_TW">在下面輸入一個已有工項ID,</value>
     </property>
     <property key="WorkEffortBannerAddWorkEffortAndAssoc2">
         <value xml:lang="en">OR enter the WorkEffort Details below</value>
@@ -1518,6 +1673,7 @@
         <value xml:lang="ro">Sau Introduceti dedesubt Sarcina de lucru (lasand gol)</value>
         <value xml:lang="th">หรือเข้าสู่รายละเอียดงานข้างล่าง</value>
         <value xml:lang="zh">或者在下面输入人工服务详细</value>
+        <value xml:lang="zh_TW">或在下面輸入工項細節</value>
     </property>
     <property key="WorkEffortByFacility">
         <value xml:lang="de">Nach Einrichtung</value>
@@ -1530,6 +1686,7 @@
         <value xml:lang="ru">по объектам</value>
         <value xml:lang="th">โดยคลังสินค้า</value>
         <value xml:lang="zh">安场所</value>
+        <value xml:lang="zh_TW">安場所</value>
     </property>
     <property key="WorkEffortByFixedAsset">
         <value xml:lang="de">Nach Anlage</value>
@@ -1541,6 +1698,7 @@
         <value xml:lang="ro">Pentru Mijloc Fix</value>
         <value xml:lang="th">โดยทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">按固定资产</value>
+        <value xml:lang="zh_TW">按固定資產</value>
     </property>
     <property key="WorkEffortByPartyId">
         <value xml:lang="de">Nach Akteur</value>
@@ -1553,6 +1711,7 @@
         <value xml:lang="ru">по ID участника</value>
         <value xml:lang="th">โดยกลุ่มผู้ใช้</value>
         <value xml:lang="zh">按会员</value>
+        <value xml:lang="zh_TW">按會員</value>
     </property>
     <property key="WorkEffortCalendar">
         <value xml:lang="de">Kalender</value>
@@ -1565,6 +1724,7 @@
         <value xml:lang="ru">Календарь</value>
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="zh">日历</value>
+        <value xml:lang="zh_TW">日歷</value>
     </property>
     <property key="WorkEffortCalendarDayView">
         <value xml:lang="de">Kalender Tagesansicht</value>
@@ -1577,6 +1737,7 @@
         <value xml:lang="ru">Просмотр дня</value>
         <value xml:lang="th">แสดงปฏิทินวัน</value>
         <value xml:lang="zh">浏览日历日</value>
+        <value xml:lang="zh_TW">瀏覽日歷日</value>
     </property>
     <property key="WorkEffortCalendarEntries">
         <value xml:lang="de">Kalendereinträge</value>
@@ -1589,6 +1750,7 @@
         <value xml:lang="ru">Список событий</value>
         <value xml:lang="th">การกรอกข้อมูลปฏิทิน</value>
         <value xml:lang="zh">日历记录</value>
+        <value xml:lang="zh_TW">日歷記錄</value>
     </property>
     <property key="WorkEffortCalendarEvent">
         <value xml:lang="de">Kalenderereignis</value>
@@ -1601,6 +1763,7 @@
         <value xml:lang="ru">Событие</value>
         <value xml:lang="th">ผลที่ได้จากปฏิทิน</value>
         <value xml:lang="zh">日历事件</value>
+        <value xml:lang="zh_TW">日歷事件</value>
     </property>
     <property key="WorkEffortCalendarEventContacts">
         <value xml:lang="de">Kalenderereignis Kontakte</value>
@@ -1613,6 +1776,7 @@
         <value xml:lang="ru">Контакты по событию</value>
         <value xml:lang="th">ติดต่อผลที่ได้จากปฏิทิน</value>
         <value xml:lang="zh">日历事件联系</value>
+        <value xml:lang="zh_TW">日歷事件聯系</value>
     </property>
     <property key="WorkEffortCalendarEventDetails">
         <value xml:lang="de">Kalenderereignis Details</value>
@@ -1625,6 +1789,7 @@
         <value xml:lang="ru">Детали события</value>
         <value xml:lang="th">รายละเอียดผลที่ได้จากปฏิทิน</value>
         <value xml:lang="zh">日历事件详细</value>
+        <value xml:lang="zh_TW">日歷事件詳細</value>
     </property>
     <property key="WorkEffortCalendarEventRoles">
         <value xml:lang="de">Kalenderereignis Rollen</value>
@@ -1637,6 +1802,7 @@
         <value xml:lang="ru">Роли по событию</value>
         <value xml:lang="th">สถานะผลที่ได้จากปฏิทิน</value>
         <value xml:lang="zh">日历事件角色</value>
+        <value xml:lang="zh_TW">日歷事件角色</value>
     </property>
     <property key="WorkEffortCalendarFindEntries">
         <value xml:lang="de">Finde Kalendereinträge</value>
@@ -1645,6 +1811,7 @@
         <value xml:lang="it">Ricerca voci di calendario</value>
         <value xml:lang="th">ค้นหาการกรอกข้อมูลปฏิทิน</value>
         <value xml:lang="zh">查找日历记录</value>
+        <value xml:lang="zh_TW">查找日歷記錄</value>
     </property>
     <property key="WorkEffortCalendarMonthView">
         <value xml:lang="de">Kalender Monatsansicht</value>
@@ -1657,6 +1824,7 @@
         <value xml:lang="ru">Просмотр месяца</value>
         <value xml:lang="th">แสดงปฏิทินรายเดือน</value>
         <value xml:lang="zh">浏览日历月</value>
+        <value xml:lang="zh_TW">瀏覽日歷月</value>
     </property>
     <property key="WorkEffortCalendarUpComingEventsView">
         <value xml:lang="de">Bevorstehend Kalender-Ereignisse</value>
@@ -1669,6 +1837,7 @@
         <value xml:lang="ru">Список наступающих событий</value>
         <value xml:lang="th">แสดงผลที่ได้จากปฏิทินล่วงหน้า</value>
         <value xml:lang="zh">浏览日历即将到来的事件</value>
+        <value xml:lang="zh_TW">瀏覽日歷即將到來的事件</value>
     </property>
     <property key="WorkEffortCalendarWeekView">
         <value xml:lang="de">Kalender Wochenansicht</value>
@@ -1681,6 +1850,7 @@
         <value xml:lang="ru">Просмотр недели</value>
         <value xml:lang="th">แสดงปฏิทินรายสัปดาห์</value>
         <value xml:lang="zh">浏览日历周</value>
+        <value xml:lang="zh_TW">瀏覽日歷周</value>
     </property>
     <property key="WorkEffortCancelCalendarEvent">
         <value xml:lang="de">Kalenderereignis annullieren</value>
@@ -1692,6 +1862,7 @@
         <value xml:lang="en">Comm Event Id</value>
         <value xml:lang="it">Evento comunicazioni</value>
         <value xml:lang="zh">沟通事件标识</value>
+        <value xml:lang="zh_TW">通訊事件ID</value>
     </property>
     <property key="WorkEffortCommEvents">
         <value xml:lang="de">Kommunikationen</value>
@@ -1703,6 +1874,7 @@
         <value xml:lang="ro">Evenimente Comunicatii</value>
         <value xml:lang="th">การติดต่อสื่อสาร</value>
         <value xml:lang="zh">通讯</value>
+        <value xml:lang="zh_TW">通訊</value>
     </property>
     <property key="WorkEffortComments">
         <value xml:lang="de">Kommentare</value>
@@ -1715,6 +1887,7 @@
         <value xml:lang="ru">Комментарии</value>
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
+        <value xml:lang="zh_TW">評論</value>
     </property>
     <property key="WorkEffortCompanyName">
         <value xml:lang="de">OFBiz: Arbeitseinsatz Manager</value>
@@ -1727,6 +1900,7 @@
         <value xml:lang="ru">OFBiz: WorkEffort Manager</value>
         <value xml:lang="th">OFBiz: การจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">OFBiz: 人工服务管理程序</value>
+        <value xml:lang="zh_TW">OFBiz: 工項管理程式</value>
     </property>
     <property key="WorkEffortCompanySubtitle">
         <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
@@ -1751,6 +1925,7 @@
         <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
+        <value xml:lang="zh_TW">開源軟件OFBiz家族的一部分</value>
     </property>
     <property key="WorkEffortCompletionDate">
         <value xml:lang="de">Enddatum</value>
@@ -1760,6 +1935,7 @@
         <value xml:lang="it">Data completamento</value>
         <value xml:lang="th">สำเร็จวันที่</value>
         <value xml:lang="zh">完成日期</value>
+        <value xml:lang="zh_TW">完成日期</value>
     </property>
     <property key="WorkEffortContactMech">
         <value xml:lang="de">Kontaktmechanismus</value>
@@ -1768,6 +1944,7 @@
         <value xml:lang="it">Contatto</value>
         <value xml:lang="th">วิธีการติดต่อ</value>
         <value xml:lang="zh">联系方法</value>
+        <value xml:lang="zh_TW">聯系方法</value>
     </property>
     <property key="WorkEffortContactMechs">
         <value xml:lang="de">Kontaktmechanismen</value>
@@ -1776,6 +1953,7 @@
         <value xml:lang="it">Contatti</value>
         <value xml:lang="th">วิธีการติดต่อ</value>
         <value xml:lang="zh">联系方法</value>
+        <value xml:lang="zh_TW">聯系方法</value>
     </property>
     <property key="WorkEffortContactType">
         <value xml:lang="de">Kontakttyp</value>
@@ -1788,6 +1966,7 @@
         <value xml:lang="ru">Тип контакта</value>
         <value xml:lang="th">ประเภทการติดต่อ</value>
         <value xml:lang="zh">联系类型</value>
+        <value xml:lang="zh_TW">聯系類型</value>
     </property>
     <property key="WorkEffortCreate">
         <value xml:lang="de">Erstelle Arbeitseinsatz</value>
@@ -1799,6 +1978,7 @@
         <value xml:lang="ro">Creat Sarcina de Lucru</value>
         <value xml:lang="th">สร้าง</value>
         <value xml:lang="zh">新建人工服务</value>
+        <value xml:lang="zh_TW">新建工項</value>
     </property>
     <property key="WorkEffortCreatePermissionError">
         <value xml:lang="en">Security Error: to run this operation you must have the WORKEFFORTMGR_CREATE or WORKEFFORTMGR_ADMIN permission</value>
@@ -1806,6 +1986,7 @@
         <value xml:lang="it">Errore sicurezza: per eseguire questa operazione devi avere il permesso WORKEFFORTMGR_CREATE o WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการกิจการนี้คุณต้องมี WORKEFFORTMGR_CREATE หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行这个操作你必须具有 WORKEFFORTMGR_CREATE 或 WORKEFFORTMGR_ADMIN 权限</value>
+        <value xml:lang="zh_TW">安全錯誤：要運行這個操作你必須具有 WORKEFFORTMGR_CREATE 或 WORKEFFORTMGR_ADMIN 權限</value>
     </property>
     <property key="WorkEffortCreated">
         <value xml:lang="de">Erstellt</value>
@@ -1818,12 +1999,14 @@
         <value xml:lang="ru">Создано</value>
         <value xml:lang="th">สร้าง</value>
         <value xml:lang="zh">已创建</value>
+        <value xml:lang="zh_TW">已創建</value>
     </property>
     <property key="WorkEffortCustomerRating">
         <value xml:lang="de">Kundenbewertung</value>
         <value xml:lang="en">Customer Rating</value>
         <value xml:lang="it">Posizione cliente</value>
         <value xml:lang="zh">客户评价</value>
+        <value xml:lang="zh_TW">客戶評價</value>
     </property>
     <property key="WorkEffortDayView">
         <value xml:lang="de">Tagesansicht</value>
@@ -1836,12 +2019,14 @@
         <value xml:lang="ru">По дням</value>
         <value xml:lang="th">แสดงวัน</value>
         <value xml:lang="zh">浏览日</value>
+        <value xml:lang="zh_TW">瀏覽日</value>
     </property>
     <property key="WorkEffortDelegateReason">
         <value xml:lang="en">Delegate Reason</value>
         <value xml:lang="fr">Motif de déléguation</value>
         <value xml:lang="it">Motivazione delega</value>
         <value xml:lang="zh">委托原因</value>
+        <value xml:lang="zh_TW">委托原因</value>
     </property>
     <property key="WorkEffortDeletePermissionError">
         <value xml:lang="de">Sicherheitsfehler: Um diese Aktion auszuführen müssen sie WORKEFFORTMGR_DELETE oder WORKEFFORTMGR_ADMIN Rechte besitzen</value>
@@ -1850,6 +2035,7 @@
         <value xml:lang="it">Errore sicurezza: per eseguire questa operazione devi avere il permesso WORKEFFORTMGR_DELETE o WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการกิจการนี้คุณต้องมี WORKEFFORTMGR_DELETE หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行这个操作你必须具有WORKEFFORTMGR_DELETE 或 WORKEFFORTMGR_ADMIN 权限</value>
+        <value xml:lang="zh_TW">安全錯誤：要運行這個操作你必須具有WORKEFFORTMGR_DELETE 或 WORKEFFORTMGR_ADMIN 權限</value>
     </property>
     <property key="WorkEffortDuplicateWorkEffort">
         <value xml:lang="de">Dupliziere Arbeitseinsatz</value>
@@ -1858,6 +2044,7 @@
         <value xml:lang="it">Duplica impegno di lavoro</value>
         <value xml:lang="th">งานที่เหมือนกัน</value>
         <value xml:lang="zh">复制人工服务</value>
+        <value xml:lang="zh_TW">複製工項</value>
     </property>
     <property key="WorkEffortEditAssoc">
         <value xml:lang="de">Zuweisung bearbeiten</value>
@@ -1866,6 +2053,7 @@
         <value xml:lang="it">Aggiorna associazioni</value>
         <value xml:lang="th">แก้ไขกลุ่ม</value>
         <value xml:lang="zh">编辑关联</value>
+        <value xml:lang="zh_TW">編輯關聯</value>
     </property>
     <property key="WorkEffortEditAssocDetail">
         <value xml:lang="de">Zuweisungsdetails bearbeiten</value>
@@ -1874,6 +2062,7 @@
         <value xml:lang="it">Aggiorna i dettagli dell'associazione</value>
         <value xml:lang="th">แก้ไขรายละเอียดกลุ่ม</value>
         <value xml:lang="zh">编辑关联详细信息</value>
+        <value xml:lang="zh_TW">編輯關聯詳細資訊</value>
     </property>
     <property key="WorkEffortEmailAddressIsMissing">
         <value xml:lang="de">Email Adresse fehlt</value>
@@ -1883,6 +2072,7 @@
         <value xml:lang="ro">Adresa Email lipseste </value>
         <value xml:lang="th">ไม่พบที่อยู่อีเมล</value>
         <value xml:lang="zh">缺少电子邮件地址</value>
+        <value xml:lang="zh_TW">缺少電子郵件位址</value>
     </property>
     <property key="WorkEffortEmailAddressNotFormatted">
         <value xml:lang="de">Email Adresse ist nicht korrekt formatiert, Sie muss z.B. wie foo@bar.com aussehen</value>
@@ -1892,6 +2082,7 @@
         <value xml:lang="ro">Adresa Email nu este formatata corect, trebuie sa fie de forma foo@bar.com</value>
         <value xml:lang="th">ที่อยู่อีเมลไม่เป็นรูปแบบที่ถูกต้อง, ต้องเหมือน foo@bar.com</value>
         <value xml:lang="zh">电子邮件格式错误，必须类似foo@bar.com</value>
+        <value xml:lang="zh_TW">電子郵件格式錯誤，必須類似foo@bar.com</value>
     </property>
     <property key="WorkEffortErrorNotFindActivityId">
         <value xml:lang="de">FEHLER: Konnte Activität nicht finden mit ID</value>
@@ -1904,6 +2095,7 @@
         <value xml:lang="ru">ОШИБКА: не могу найти действие с таким ID</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! ไม่สามารถค้นหากิจกรรมด้วยรหัส</value>
         <value xml:lang="zh">错误: 无法找到行动，行动编号</value>
+        <value xml:lang="zh_TW">錯誤: 無法找到行動，行動編號</value>
     </property>
     <property key="WorkEffortErrorNotFindEventId">
         <value xml:lang="de">FEHLER: Konnte Ereignis nicht finden mit ID</value>
@@ -1916,6 +2108,7 @@
         <value xml:lang="ru">ОШИБКА: не могу найти событие с таким ID</value>
         <value xml:lang="th">Error: ความผิดพลาด ! ไม่สามารถค้นหาเหตุการณ์ด้วยรหัส</value>
         <value xml:lang="zh">错误: 无法找到事件，事件标识</value>
+        <value xml:lang="zh_TW">錯誤: 無法找到事件，事件ID</value>
     </property>
     <property key="WorkEffortErrorNotFindTaskId">
         <value xml:lang="de">FEHLER: Konnte Aufgabe nicht finden mit ID</value>
@@ -1928,6 +2121,7 @@
         <value xml:lang="ru">ОШИБКА: не могу найти задание с таким ID</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! ไม่สามารถค้นหาภารกิจด้วยรหัส</value>
         <value xml:lang="zh">错误: 无法找到任务，任务编号</value>
+        <value xml:lang="zh_TW">錯誤: 無法找到任務，任務編號</value>
     </property>
     <property key="WorkEffortErrorPermissionViewActivity">
         <value xml:lang="en">ERROR: You do not have permission to view this activity. This activity must belong to you or you must be an administrator</value>
@@ -1939,6 +2133,7 @@
         <value xml:lang="ru">ОШИБКА: У Вас нет прав на просмотр этого действия. Они есть только у его владельца и администратора</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! คุณไม่มีการอนุญาตให้แสดงถึงกิจกรรมนี้. กิจกรรมนี้ต้องเป็นของคุณหรือคุณต้องเป็นผู้ดูแลระบบ</value>
         <value xml:lang="zh">错误: 你没有浏览这个行动的权限。这个行动必须属于你或者你必须是一个管理员</value>
+        <value xml:lang="zh_TW">錯誤: 你沒有瀏覽這個行動的權限。這個行動必須屬于你或者你必須是一個管理員</value>
     </property>
     <property key="WorkEffortErrorPermissionViewEvent">
         <value xml:lang="en">ERROR: You do not have permission to view this event.This event must be long to you or you must be an administrator</value>
@@ -1950,6 +2145,7 @@
         <value xml:lang="ru">ОШИБКА: У Вас нет прав на просмотр этого события. Они есть только у его владельца и администратора</value>
         <value xml:lang="th">ERROR: ความผิดพลาด ! คุณไม่มีการอนุญาตให้แสดงถึงเหตุการณ์นี้. เหตุการณ์นี้ต้องเป็นของคุณหรือคุณต้องเป็นผู้ดูแลระบบ</value>
         <value xml:lang="zh">错误:你没有浏览这个事件的权限。这个事件必须属于你或者你必须是一个管理员</value>
+        <value xml:lang="zh_TW">錯誤:你沒有瀏覽這個事件的權限。這個事件必須屬于你或者你必須是一個管理員</value>
     </property>
     <property key="WorkEffortEstBudget">
         <value xml:lang="en">Est.Budget</value>
@@ -1961,6 +2157,7 @@
         <value xml:lang="ru">Бюджет</value>
         <value xml:lang="th">งบประมาณ</value>
         <value xml:lang="zh">估计预算</value>
+        <value xml:lang="zh_TW">估計預算</value>
     </property>
     <property key="WorkEffortEstimatedCompletionDate">
         <value xml:lang="de">Soll-Enddatum</value>
@@ -1971,6 +2168,7 @@
         <value xml:lang="ro">Data Terminare Stimata</value>
         <value xml:lang="th">วันที่สำเร็จประมาณ</value>
         <value xml:lang="zh">预计完成日期</value>
+        <value xml:lang="zh_TW">預計完成日期</value>
     </property>
     <property key="WorkEffortEstimatedStartDate">
         <value xml:lang="de">Soll-Anfangsdatum</value>
@@ -1982,6 +2180,7 @@
         <value xml:lang="ro">Data Initiere Stimata</value>
         <value xml:lang="th">วันที่เริ่มประมาณ</value>
         <value xml:lang="zh">预计开始日期</value>
+        <value xml:lang="zh_TW">預計開始日期</value>
     </property>
     <property key="WorkEffortEstmatedBudget">
         <value xml:lang="en">Estimated Budget</value>
@@ -1993,6 +2192,7 @@
         <value xml:lang="ru">Предполагаемый бюджет</value>
         <value xml:lang="th">งบประมาณ</value>
         <value xml:lang="zh">估计预算</value>
+        <value xml:lang="zh_TW">估計預算</value>
     </property>
     <property key="WorkEffortEvent">
         <value xml:lang="en">Event</value>
@@ -2004,6 +2204,7 @@
         <value xml:lang="ru">Событие</value>
         <value xml:lang="th">เหตุการณ์</value>
         <value xml:lang="zh">事件</value>
+        <value xml:lang="zh_TW">事件</value>
     </property>
     <property key="WorkEffortEventName">
         <value xml:lang="en">Event Name</value>
@@ -2015,18 +2216,21 @@
         <value xml:lang="ru">Название события</value>
         <value xml:lang="th">ชื่อเหตุการณ์</value>
         <value xml:lang="zh">事件名称</value>
+        <value xml:lang="zh_TW">事件名稱</value>
     </property>
     <property key="WorkEffortEventReminder">
         <value xml:lang="en">Event Reminder</value>
         <value xml:lang="fr">Evènement de tâche</value>
         <value xml:lang="it">Promemoria evento</value>
         <value xml:lang="zh">事件提醒</value>
+        <value xml:lang="zh_TW">事件提醒</value>
     </property>
     <property key="WorkEffortEventReminders">
         <value xml:lang="en">Event Reminders</value>
         <value xml:lang="fr">Evènements de tâche</value>
         <value xml:lang="it">Promemoria eventi</value>
         <value xml:lang="zh">事件提醒</value>
+        <value xml:lang="zh_TW">事件提醒</value>
     </property>
     <property key="WorkEffortEventStatus">
         <value xml:lang="en">Event Status</value>
@@ -2038,6 +2242,7 @@
         <value xml:lang="ru">Статус события</value>
         <value xml:lang="th">สถานะเหตุการณ์</value>
         <value xml:lang="zh">事件状态</value>
+        <value xml:lang="zh_TW">事件狀態</value>
     </property>
     <property key="WorkEffortExpectation">
         <value xml:lang="en">Expectation</value>
@@ -2049,6 +2254,7 @@
         <value xml:lang="ru">Ожидания</value>
         <value xml:lang="th">สิ่งที่คาดหวัง</value>
         <value xml:lang="zh">期望</value>
+        <value xml:lang="zh_TW">期望</value>
     </property>
     <property key="WorkEffortFailedCalendarEntries">
         <value xml:lang="en">Failed to get calendar entries</value>
@@ -2060,11 +2266,13 @@
         <value xml:lang="ru">Не удалось получить записи из календаря</value>
         <value xml:lang="th">ผิดพลาดถึงการดึงค่าการกรอกข้อมูลปฏิทิน</value>
         <value xml:lang="zh">获取日历记录时失败</value>
+        <value xml:lang="zh_TW">獲取日歷記錄時失敗</value>
     </property>
     <property key="WorkEffortFixedAssetAlreadyExist">
         <value xml:lang="en">Fixed Asset Already Exist</value>
         <value xml:lang="it">Cespite già esistente</value>
         <value xml:lang="zh">固定资产已经存在</value>
+        <value xml:lang="zh_TW">固定資產已經存在</value>
     </property>
     <property key="WorkEffortForRequirement">
         <value xml:lang="en">For Requirement</value>
@@ -2076,6 +2284,7 @@
         <value xml:lang="ru">К требованию</value>
         <value xml:lang="th">สำหรับความต้องการ</value>
         <value xml:lang="zh">对于需求</value>
+        <value xml:lang="zh_TW">對于要求</value>
     </property>
     <property key="WorkEffortFromDateIsNotValid">
         <value xml:lang="en">From Date is not a valid Date-Time.</value>
@@ -2084,6 +2293,7 @@
         <value xml:lang="ro">De La Data nu o data valida.</value>
         <value xml:lang="th">จากวันที่ไม่เป็นผลที่ต้องการวันที่-เวลา</value>
         <value xml:lang="zh">开始日期不是一个有效的日期-时间。</value>
+        <value xml:lang="zh_TW">開始日期不是一個有效的日期-時間。</value>
     </property>
     <property key="WorkEffortGeneral">
         <value xml:lang="en">General</value>
@@ -2093,6 +2303,7 @@
         <value xml:lang="ro">General</value>
         <value xml:lang="th">ทั่วไป</value>
         <value xml:lang="zh">概要</value>
+        <value xml:lang="zh_TW">概要</value>
     </property>
     <property key="WorkEffortGoodStandard">
         <value xml:lang="de">Guter Standard</value>
@@ -2101,6 +2312,7 @@
         <value xml:lang="it">Bene standard</value>
         <value xml:lang="th">มาตรฐานที่ดี</value>
         <value xml:lang="zh">良好标准</value>
+        <value xml:lang="zh_TW">成品規範</value>
     </property>
     <property key="WorkEffortICalendar">
         <value xml:lang="de">iCalendar</value>
@@ -2111,34 +2323,42 @@
         <value xml:lang="de">iCalendar hinzufügen</value>
         <value xml:lang="en">Add iCalendar</value>
         <value xml:lang="it">Aggiungi iCalendar</value>
+        <value xml:lang="zh_TW">新增iCal</value>
     </property>
     <property key="WorkEffortICalendarAddFixedAsset">
         <value xml:lang="de">iCalendar Anlage hinzufügen</value>
         <value xml:lang="en">Add iCalendar Fixed Asset</value>
+        <value xml:lang="zh_TW">新增iCal固定資產</value>
     </property>
     <property key="WorkEffortICalendarAddParty">
         <value xml:lang="de">iCalendar Akteur hinzufügen</value>
         <value xml:lang="en">Add iCalendar Party</value>
+        <value xml:lang="zh_TW">新增iCal成員</value>
     </property>
     <property key="WorkEffortICalendarData">
         <value xml:lang="de">Daten</value>
         <value xml:lang="en">Data</value>
+        <value xml:lang="zh_TW">資料</value>
     </property>
     <property key="WorkEffortICalendarEdit">
         <value xml:lang="de">Editiere iCalendar</value>
         <value xml:lang="en">Edit iCalendar</value>
+        <value xml:lang="zh_TW">編輯iCal</value>
     </property>
     <property key="WorkEffortICalendarEditData">
         <value xml:lang="de">Editiere iCalendar Daten</value>
         <value xml:lang="en">Edit iCalendar Data</value>
+        <value xml:lang="zh_TW">編輯iCal資料</value>
     </property>
     <property key="WorkEffortICalendarFind">
         <value xml:lang="de">Finde iCalendars</value>
         <value xml:lang="en">Find iCalendars</value>
+        <value xml:lang="zh_TW">查詢iCal</value>
     </property>
     <property key="WorkEffortICalendarHelp">
         <value xml:lang="de">iCalendar Hilfe</value>
         <value xml:lang="en">iCalendar Help</value>
+        <value xml:lang="zh_TW">iCal輔助</value>
     </property>
     <property key="WorkEffortICalendarHelpUrl">
         <value xml:lang="en">http://docs.ofbiz.org/x/piE</value>
@@ -2146,18 +2366,22 @@
     <property key="WorkEffortICalendarName">
         <value xml:lang="de">Kalendername</value>
         <value xml:lang="en">Calendar Name</value>
+        <value xml:lang="zh_TW">行事曆名稱</value>
     </property>
     <property key="WorkEffortICalendarOwner">
         <value xml:lang="de">Kalenderbesitzer</value>
         <value xml:lang="en">Calendar Owner</value>
+        <value xml:lang="zh_TW">行事曆擁有者</value>
     </property>
     <property key="WorkEffortICalendarUrl">
         <value xml:lang="de">iCalendar Url</value>
         <value xml:lang="en">iCalendar Url</value>
+        <value xml:lang="zh_TW">iCal網址</value>
     </property>
     <property key="WorkEffortICalendarVisibility">
         <value xml:lang="de">Kalendersichtbarkeit</value>
         <value xml:lang="en">Calendar Visibility</value>
+        <value xml:lang="zh_TW">行事曆檢視</value>
     </property>
     <property key="WorkEffortIdMissing">
         <value xml:lang="de">Arbeitseinsatz ID fehlt.</value>
@@ -2167,6 +2391,7 @@
         <value xml:lang="ro">Sarcina de Lucru lipseste.</value>
         <value xml:lang="th">ไม่พบรหัสงาน</value>
         <value xml:lang="zh">缺少人工服务编号。</value>
+        <value xml:lang="zh_TW">無工項ID。</value>
     </property>
     <property key="WorkEffortIncludeAllSubWorkEfforts">
         <value xml:lang="de">Einschließlich aller Unter-Arbeitseinsätze</value>
@@ -2175,6 +2400,7 @@
         <value xml:lang="it">Includi tutti i sotto-impegni di Lavoro</value>
         <value xml:lang="th">รวมงานย่อยทั้งหมด</value>
         <value xml:lang="zh">包括全部子人工服务</value>
+        <value xml:lang="zh_TW">包括全部子項工項</value>
     </property>
     <property key="WorkEffortInformation">
         <value xml:lang="de">Information</value>
@@ -2187,6 +2413,7 @@
         <value xml:lang="ru">Информация</value>
         <value xml:lang="th">ข้อมูล</value>
         <value xml:lang="zh">信息</value>
+        <value xml:lang="zh_TW">資訊</value>
     </property>
     <property key="WorkEffortInterestingSure">
         <value xml:lang="en">For something interesting make sure, you are logged in try : Username;Admin;Password Ofbiz</value>
@@ -2198,6 +2425,7 @@
         <value xml:lang="ru">Проверьте : Username;Admin;Password Ofbiz</value>
         <value xml:lang="th">สำหรับการสนใจบางสิ่งทำให้มั่นใจ, คุณพยายามลอกอินเข้าสู่ระบบ : ชื่อผู้เข้าใช้;Admin;รหัสผ่าน Ofbiz</value>
         <value xml:lang="zh">如果你对某些内容感兴趣，你需要登录系统，可以尝试用户名：admin;密码：Ofbiz</value>
+        <value xml:lang="zh_TW">如果你對某些內容感興趣, 你需要登錄系統, 可以嘗試用戶名: admin; 密碼: ofbiz</value>
     </property>
     <property key="WorkEffortInternalNote">
         <value xml:lang="de">interne Notiz</value>
@@ -2206,6 +2434,7 @@
         <value xml:lang="it">Nota interna</value>
         <value xml:lang="th">ข้อความภายใน</value>
         <value xml:lang="zh">内部便笺</value>
+        <value xml:lang="zh_TW">內部註記</value>
     </property>
     <property key="WorkEffortItem">
         <value xml:lang="de">Position</value>
@@ -2218,6 +2447,7 @@
         <value xml:lang="ru">Пункт</value>
         <value xml:lang="th">รายการ</value>
         <value xml:lang="zh">明细</value>
+        <value xml:lang="zh_TW">明細</value>
     </property>
     <property key="WorkEffortJobList">
         <value xml:lang="de">Eingereichte Aufgaben</value>
@@ -2226,6 +2456,7 @@
         <value xml:lang="it">Lavori sottomessi</value>
         <value xml:lang="th">เสนองาน</value>
         <value xml:lang="zh">已提交的任务</value>
+        <value xml:lang="zh_TW">已提交的任務</value>
     </property>
     <property key="WorkEffortKeyword">
         <value xml:lang="de">Schlüsselwörter</value>
@@ -2234,6 +2465,7 @@
         <value xml:lang="it">Chiave</value>
         <value xml:lang="th">คีย์เวิร์ด</value>
         <value xml:lang="zh">关键字</value>
+        <value xml:lang="zh_TW">關鍵字</value>
     </property>
     <property key="WorkEffortKeywordAllWordsMatch">
         <value xml:lang="de">alle passenden Wörter</value>
@@ -2242,6 +2474,7 @@
         <value xml:lang="it">tutti le parole corrispondenti</value>
         <value xml:lang="th">คำที่ตรงกันทั้งหมด</value>
         <value xml:lang="zh">全部文字匹配</value>
+        <value xml:lang="zh_TW">全部文字匹配</value>
     </property>
     <property key="WorkEffortKeywordAlreadyExist">
         <value xml:lang="de">Arbeitseinsatz - Schlüsselwort existiert bereits</value>
@@ -2250,6 +2483,7 @@
         <value xml:lang="it">Impegno di lavoro - chiave già esistente</value>
         <value xml:lang="th">งาน - ยังคงมีคีย์เวิร์ดอยู่แล้ว</value>
         <value xml:lang="zh">人工服务 - 关键字已经存在了</value>
+        <value xml:lang="zh_TW">工項 - 關鍵字已經存在了</value>
     </property>
     <property key="WorkEffortKeywordAnyWordMatches">
         <value xml:lang="de">irgendein passendes Wort</value>
@@ -2258,6 +2492,7 @@
         <value xml:lang="it">qualsiasi parola corrispondente</value>
         <value xml:lang="th">ทุก ๆ คีย์เวิร์ดที่ตรงกัน</value>
         <value xml:lang="zh">任一文字匹配</value>
+        <value xml:lang="zh_TW">任一文字匹配</value>
     </property>
     <property key="WorkEffortKeywordRelevancy">
         <value xml:lang="de">Schlüsselwortrelevanz</value>
@@ -2266,6 +2501,7 @@
         <value xml:lang="it">Rilevanza chiave</value>
         <value xml:lang="th">Keyword  Relevancy</value>
         <value xml:lang="zh">关键字关联</value>
+        <value xml:lang="zh_TW">關鍵字關聯</value>
     </property>
     <property key="WorkEffortKeywordWhere">
         <value xml:lang="de">wo</value>
@@ -2274,6 +2510,7 @@
         <value xml:lang="it">dove</value>
         <value xml:lang="th">ซึ่ง</value>
         <value xml:lang="zh">哪里</value>
+        <value xml:lang="zh_TW">哪里</value>
     </property>
     <property key="WorkEffortKeywords">
         <value xml:lang="de">Schlüsselwörter</value>
@@ -2282,6 +2519,7 @@
         <value xml:lang="it">Chiavi</value>
         <value xml:lang="th">คีย์เวิร์ด</value>
         <value xml:lang="zh">关键字</value>
+        <value xml:lang="zh_TW">關鍵字</value>
     </property>
     <property key="WorkEffortLastModified">
         <value xml:lang="de">Zuletzt verändert</value>
@@ -2294,6 +2532,7 @@
         <value xml:lang="ru">Изменено последний раз</value>
         <value xml:lang="th">ปรับปรุงครั้งสุดท้าย</value>
         <value xml:lang="zh">上次修改</value>
+        <value xml:lang="zh_TW">上次修改</value>
     </property>
     <property key="WorkEffortLastUpdatedDateFilter">
         <value xml:lang="de">Zuletzt aktualisiert (Datumsfilter)</value>
@@ -2302,6 +2541,7 @@
         <value xml:lang="it">Filtro per ultima data di aggiornamento</value>
         <value xml:lang="th">ปรับปรุงครั้งสุดท้ายวันที่</value>
         <value xml:lang="zh">上次更新日期过滤</value>
+        <value xml:lang="zh_TW">上次更新日期過濾</value>
     </property>
     <property key="WorkEffortLocation">
         <value xml:lang="de">Standort</value>
@@ -2314,6 +2554,7 @@
         <value xml:lang="ru">Местонахождение</value>
         <value xml:lang="th">ที่ตั้ง</value>
         <value xml:lang="zh">位置</value>
+        <value xml:lang="zh_TW">位置</value>
     </property>
     <property key="WorkEffortLookup">
         <value xml:lang="de">Suchen</value>
@@ -2326,6 +2567,7 @@
         <value xml:lang="ru">Поиск</value>
         <value xml:lang="th">ค้นหา</value>
         <value xml:lang="zh">查找</value>
+        <value xml:lang="zh_TW">查找</value>
     </property>
     <property key="WorkEffortManager">
         <value xml:lang="de">Arbeitseinsatz Manager</value>
@@ -2338,6 +2580,7 @@
         <value xml:lang="ru">WorkEffort: Управление приложением</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">人工服务管理应用</value>
+        <value xml:lang="zh_TW">工項管理應用</value>
     </property>
     <property key="WorkEffortManagerApplication">
         <value xml:lang="de">Arbeitseinsatz Manager Anwendung</value>
@@ -2350,6 +2593,7 @@
         <value xml:lang="ru">WorkEffort: Управление приложением</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">人工服务管理应用</value>
+        <value xml:lang="zh_TW">工項管理應用</value>
     </property>
     <property key="WorkEffortMaxAmount">
         <value xml:lang="de">Maximale Anzahl</value>
@@ -2362,6 +2606,7 @@
         <value xml:lang="ru">Макс. количество</value>
         <value xml:lang="th">จำนวนมาก</value>
         <value xml:lang="zh">最大金额</value>
+        <value xml:lang="zh_TW">最大金額</value>
     </property>
     <property key="WorkEffortMaxNumberOfEvents">
         <value xml:lang="en">Max # of Events</value>
@@ -2382,6 +2627,7 @@
         <value xml:lang="ru">По месяцам</value>
         <value xml:lang="th">แสดงเดือน</value>
         <value xml:lang="zh">浏览月</value>
+        <value xml:lang="zh_TW">瀏覽月</value>
     </property>
     <property key="WorkEffortMustRsvp">
         <value xml:lang="de">Um Antwort wird gebeten</value>
@@ -2394,6 +2640,7 @@
         <value xml:lang="ru">Запросить ответ</value>
         <value xml:lang="th">Must RSVP</value>
         <value xml:lang="zh">必须回复</value>
+        <value xml:lang="zh_TW">必須回覆</value>
     </property>
     <property key="WorkEffortMyCurrentTaskList">
         <value xml:lang="de">Meine aktuelle Aufgabenliste</value>
@@ -2406,6 +2653,7 @@
         <value xml:lang="ru">Список моих текущих заданий</value>
         <value xml:lang="th">รายการภารกิจของฉันซึ่งเกิดขึ้นอยู่ในปัจจุบัน</value>
         <value xml:lang="zh">我现在的任务列表</value>
+        <value xml:lang="zh_TW">我現在的任務列表</value>
     </property>
     <property key="WorkEffortMyCurrentTimesheets">
         <value xml:lang="de">Meine aktuellen Zeiterfassungen</value>
@@ -2414,8 +2662,9 @@
         <value xml:lang="it">Mie timbrature correnti</value>
         <value xml:lang="nl">My Current Timesheets</value>
         <value xml:lang="ro">Pontajul meu Actual</value>
-        <value xml:lang="th">ตารางการทำงานของฉันซึ่งเกิดขึ้นอยู่ในปัจจุบัน</value>
+        <value xml:lang="th">ตารางการทำงานของฉันซึ่งเกิดขึ้นอยู่ในปัจจุัน</value>
         <value xml:lang="zh">我现在的工单</value>
+        <value xml:lang="zh_TW">我現在的時間表</value>
     </property>
     <property key="WorkEffortMyRates">
         <value xml:lang="de">Meine Raten</value>
@@ -2426,6 +2675,7 @@
         <value xml:lang="ro">Procentele Mele</value>
         <value xml:lang="th">อัตราของฉัน</value>
         <value xml:lang="zh">我的费率</value>
+        <value xml:lang="zh_TW">我的費率</value>
     </property>
     <property key="WorkEffortMyRequestList">
         <value xml:lang="de">Meine Liste mit Kundenanfragen</value>
@@ -2438,6 +2688,7 @@
         <value xml:lang="ru">Список моих запросов</value>
         <value xml:lang="th">รายการคำร้องของฉัน</value>
         <value xml:lang="zh">我的请求列表</value>
+        <value xml:lang="zh_TW">我的要求列表</value>
     </property>
     <property key="WorkEffortMyStatus">
         <value xml:lang="de">Mein Status</value>
@@ -2450,6 +2701,7 @@
         <value xml:lang="ru">Мой статус</value>
         <value xml:lang="th">สถานะของฉัน</value>
         <value xml:lang="zh">我的状态</value>
+        <value xml:lang="zh_TW">我的狀態</value>
     </property>
     <property key="WorkEffortMyTasks">
         <value xml:lang="de">Meine Aufgaben</value>
@@ -2459,6 +2711,7 @@
         <value xml:lang="nl">Mijn taken</value>
         <value xml:lang="th">ภารกิจของฉัน</value>
         <value xml:lang="zh">我的任务</value>
+        <value xml:lang="zh_TW">我的任務</value>
     </property>
     <property key="WorkEffortMyTimesheets">
         <value xml:lang="de">Meine Zeitplanung</value>
@@ -2469,6 +2722,7 @@
         <value xml:lang="ro">Pontajul Meu</value>
         <value xml:lang="th">ตารางการทำงานของฉัน</value>
         <value xml:lang="zh">我的工单</value>
+        <value xml:lang="zh_TW">我的時間表</value>
     </property>
     <property key="WorkEffortName">
         <value xml:lang="de">Name</value>
@@ -2481,6 +2735,7 @@
         <value xml:lang="ru">Имя</value>
         <value xml:lang="th">ชื่อ</value>
         <value xml:lang="zh">名称</value>
+        <value xml:lang="zh_TW">名稱</value>
     </property>
     <property key="WorkEffortNameIsMissing">
         <value xml:lang="de">Arbeitseinsatz Name fehlt.</value>
@@ -2490,6 +2745,7 @@
         <value xml:lang="ro">Nume Sarcina de Lucru lipseste.</value>
         <value xml:lang="th">ไม่พบชื่องาน</value>
         <value xml:lang="zh">缺少人工服务名称。</value>
+        <value xml:lang="zh_TW">無工項名稱。</value>
     </property>
     <property key="WorkEffortNewNote">
         <value xml:lang="de">Neue Notiz</value>
@@ -2502,6 +2758,7 @@
         <value xml:lang="ru">Новая заметка</value>
         <value xml:lang="th">ข้อความใหม่</value>
         <value xml:lang="zh">新便笺</value>
+        <value xml:lang="zh_TW">新註記</value>
     </property>
     <property key="WorkEffortNewPhase">
         <value xml:lang="de">Neue Phase</value>
@@ -2514,6 +2771,7 @@
         <value xml:lang="ru">Новая фаза</value>
         <value xml:lang="th">ขั้นตอนการทำงานใหม่</value>
         <value xml:lang="zh">新阶段</value>
+        <value xml:lang="zh_TW">新階段</value>
     </property>
     <property key="WorkEffortNewProject">
         <value xml:lang="de">Neues Projekt</value>
@@ -2526,6 +2784,7 @@
         <value xml:lang="ru">Новый проект</value>
         <value xml:lang="th">โปรเจคใหม่</value>
         <value xml:lang="zh">新项目</value>
+        <value xml:lang="zh_TW">新專案</value>
     </property>
     <property key="WorkEffortNewRequest">
         <value xml:lang="de">Neue Anfrage</value>
@@ -2534,6 +2793,7 @@
         <value xml:lang="it">Nuova richiesta</value>
         <value xml:lang="th">การร้องขอใหม่</value>
         <value xml:lang="zh">新请求</value>
+        <value xml:lang="zh_TW">新請求</value>
     </property>
     <property key="WorkEffortNewRequirement">
         <value xml:lang="en">New Requirement</value>
@@ -2545,6 +2805,7 @@
         <value xml:lang="ru">Новое требование</value>
         <value xml:lang="th">ความต้องการใหม่</value>
         <value xml:lang="zh">新需求</value>
+        <value xml:lang="zh_TW">新需求</value>
     </property>
     <property key="WorkEffortNewTask">
         <value xml:lang="de">Neue Aufgabe</value>
@@ -2557,6 +2818,7 @@
         <value xml:lang="ru">Новое задание</value>
         <value xml:lang="th">ภารกิจใหม่</value>
         <value xml:lang="zh">新任务</value>
+        <value xml:lang="zh_TW">新任務</value>
     </property>
     <property key="WorkEffortNextDay">
         <value xml:lang="de">Nächster Tag</value>
@@ -2569,6 +2831,7 @@
         <value xml:lang="ru">Следующий день</value>
         <value xml:lang="th">วันต่อไป</value>
         <value xml:lang="zh">下一天</value>
+        <value xml:lang="zh_TW">下一天</value>
     </property>
     <property key="WorkEffortNextMonth">
         <value xml:lang="de">Nächster Monat</value>
@@ -2581,6 +2844,7 @@
         <value xml:lang="ru">Следующий месяц</value>
         <value xml:lang="th">เดือนต่อไป</value>
         <value xml:lang="zh">下个月</value>
+        <value xml:lang="zh_TW">下個月</value>
     </property>
     <property key="WorkEffortNextWeek">
         <value xml:lang="de">Nächste Woche</value>
@@ -2593,6 +2857,7 @@
         <value xml:lang="ru">Следующая неделя</value>
         <value xml:lang="th">สัปดาห์ต่อไป</value>
         <value xml:lang="zh">下一周</value>
+        <value xml:lang="zh_TW">下一周</value>
     </property>
     <property key="WorkEffortNoContactInformationOnFile">
         <value xml:lang="en">No Contact Information On File</value>
@@ -2604,6 +2869,7 @@
         <value xml:lang="ru">Контактной информации по файлу не найдено</value>
         <value xml:lang="th">ไม่มีข้อมูลการติดต่อบนไฟล์</value>
         <value xml:lang="zh">档案里没有联系信息</value>
+        <value xml:lang="zh_TW">檔案里沒有聯絡資訊</value>
     </property>
     <property key="WorkEffortNoEventsFound">
         <value xml:lang="en">No Events Found</value>
@@ -2615,6 +2881,7 @@
         <value xml:lang="ru">Событий не найдено</value>
         <value xml:lang="th">ไม่พบเหตุการณ์</value>
         <value xml:lang="zh">没有找到事件</value>
+        <value xml:lang="zh_TW">沒有找到事件</value>
     </property>
     <property key="WorkEffortNoItemsCreated">
         <value xml:lang="en">No Items Created</value>
@@ -2626,6 +2893,7 @@
         <value xml:lang="ru">Пунктов не создано</value>
         <value xml:lang="th">ไม่สร้างรายการ</value>
         <value xml:lang="zh">没有创建明细</value>
+        <value xml:lang="zh_TW">沒有創建明細</value>
     </property>
     <property key="WorkEffortNoNotesForThisRequestItem">
         <value xml:lang="en">No  Notes  For  This  RequestItem</value>
@@ -2633,6 +2901,7 @@
         <value xml:lang="it">Nessuna nota per questa riga richiesta</value>
         <value xml:lang="th">ไม่มีข้อความสำหรับรายการคำร้องนี้</value>
         <value xml:lang="zh">对这个请求明细没有便笺</value>
+        <value xml:lang="zh_TW">對這個請求明細沒有便箋</value>
     </property>
     <property key="WorkEffortNoOpenRequirementsFound">
         <value xml:lang="en">No Open Requirements Found</value>
@@ -2644,6 +2913,7 @@
         <value xml:lang="ru">Открытых требований не найдено</value>
         <value xml:lang="th">ไม่พบการเปิดความต้องการ</value>
         <value xml:lang="zh">没有找到开放状态的需求</value>
+        <value xml:lang="zh_TW">沒有找到開放狀態的要求</value>
     </property>
     <property key="WorkEffortNoRequestFound">
         <value xml:lang="en">No Request Found</value>
@@ -2655,6 +2925,7 @@
         <value xml:lang="ru">Запросов не найдено</value>
         <value xml:lang="th">ไม่พบคำร้อง</value>
         <value xml:lang="zh">没有找到请求</value>
+        <value xml:lang="zh_TW">沒有找到要求</value>
     </property>
     <property key="WorkEffortNoRequirementsCreated">
         <value xml:lang="en">No Requirements Created</value>
@@ -2666,6 +2937,7 @@
         <value xml:lang="ru">Требований не создано</value>
         <value xml:lang="th">ไม่สร้างความต้องการ</value>
         <value xml:lang="zh">没有已创建的需求</value>
+        <value xml:lang="zh_TW">沒有已創建的要求</value>
     </property>
     <property key="WorkEffortNoRolesAssociatedRequest">
         <value xml:lang="en">No  Roles  Associated  Request</value>
@@ -2673,6 +2945,7 @@
         <value xml:lang="it">Nessun ruolo associato alla richiesta</value>
         <value xml:lang="th">ไม่มีสถานะกลุ่มคำร้อง</value>
         <value xml:lang="zh">没有角色关联到请求</value>
+        <value xml:lang="zh_TW">沒有角色關聯到要求</value>
     </property>
     <property key="WorkEffortNoTasksAssociatedRequirement">
         <value xml:lang="en">No Tasks currently associated with this Requirement</value>
@@ -2684,6 +2957,7 @@
         <value xml:lang="ru">С этим требованием не связано никаких заданий</value>
         <value xml:lang="th">ในปัจจุบันไม่มีกลุ่มภารกิจด้วยความต้องการนี้</value>
         <value xml:lang="zh">没有与这个需求关联的任务</value>
+        <value xml:lang="zh_TW">沒有與這個要求關聯的任務</value>
     </property>
     <property key="WorkEffortNoTasksAssociatedWithRequirement">
         <value xml:lang="en">No  Tasks  Associated  With  Requirement</value>
@@ -2691,6 +2965,7 @@
         <value xml:lang="it">Nessun compito associata con i fabbisogni</value>
         <value xml:lang="th">ไม่มีภารกิจด้วยกลุ่มความต้องการ</value>
         <value xml:lang="zh">没有任务关联到需求</value>
+        <value xml:lang="zh_TW">沒有任務關聯到要求</value>
     </property>
     <property key="WorkEffortNotInRolePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must be in ${roleTypeId} role with WorkEffort: ${workEffortId}</value>
@@ -2698,6 +2973,7 @@
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il ruolo ${roleTypeId} con l'impegno di lavoro: ${workEffortId}</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ ${resourceDescription} คุณต้องเป็น ${roleTypeId} สถานะงาน: ${workEffortId}</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须以${roleTypeId}角色做人工服务：${workEffortId}</value>
+        <value xml:lang="zh_TW">安全錯誤：要運行${resourceDescription}，你必須以${roleTypeId}角色做工項：${workEffortId}</value>
     </property>
     <property key="WorkEffortNoteMissing">
         <value xml:lang="de">Notiz fehlt</value>
@@ -2706,6 +2982,7 @@
         <value xml:lang="it">Nota mancante</value>
         <value xml:lang="th">ไม่พบข้อความ</value>
         <value xml:lang="zh">缺少便笺</value>
+        <value xml:lang="zh_TW">缺少註記</value>
     </property>
     <property key="WorkEffortNotes">
         <value xml:lang="de">Notizen</value>
@@ -2718,6 +2995,7 @@
         <value xml:lang="ru">Заметки</value>
         <value xml:lang="th">ข้อความ</value>
         <value xml:lang="zh">便笺</value>
+        <value xml:lang="zh_TW">註記</value>
     </property>
     <property key="WorkEffortNotesForRequestItem">
         <value xml:lang="en">Notes  For  RequestItem</value>
@@ -2725,6 +3003,7 @@
         <value xml:lang="it">Note per la riga richiesta</value>
         <value xml:lang="th">ข้อความสำหรับรายการคำร้อง</value>
         <value xml:lang="zh">便笺用于请求明细</value>
+        <value xml:lang="zh_TW">註記用於邀求明細</value>
     </property>
     <property key="WorkEffortOpenApplication">
         <value xml:lang="en">WorkEffortOpenApplication</value>
@@ -2736,6 +3015,7 @@
         <value xml:lang="ru">WorkEffortOpenApplication</value>
         <value xml:lang="th">WorkEffortOpenApplication</value>
         <value xml:lang="zh">人工服务开放状态任务应用</value>
+        <value xml:lang="zh_TW">工項開放狀態任務應用</value>
     </property>
     <property key="WorkEffortOpenPageInNewWindow">
         <value xml:lang="en">Open Page In New Window</value>
@@ -2747,6 +3027,7 @@
         <value xml:lang="ru">Открыть страницу в новом окне</value>
         <value xml:lang="th">เปิดหน้านี้ในหน้าต่างใหม่</value>
         <value xml:lang="zh">在新窗口中打开页面</value>
+        <value xml:lang="zh_TW">在新視窗中打開頁面</value>
     </property>
     <property key="WorkEffortOrderHeaders">
         <value xml:lang="de">Aufträge</value>
@@ -2758,6 +3039,7 @@
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="th">ลำดับ</value>
         <value xml:lang="zh">订单</value>
+        <value xml:lang="zh_TW">訂單</value>
     </property>
     <property key="WorkEffortOrganizer">
         <value xml:lang="de">Organisator</value>
@@ -2770,17 +3052,20 @@
         <value xml:lang="ru">Организатор</value>
         <value xml:lang="th">องค์กร</value>
         <value xml:lang="zh">组织者</value>
+        <value xml:lang="zh_TW">組織者</value>
     </property>
     <property key="WorkEffortOverrideDefaultRateAmount">
         <value xml:lang="en">override Default Rate amount</value>
         <value xml:lang="it">Sostituisci tasso di default</value>
         <value xml:lang="zh">覆盖缺省费率金额</value>
+        <value xml:lang="zh_TW">覆蓋預設費率金額</value>
     </property>
     <property key="WorkEffortParticipants">
         <value xml:lang="de">Teilnehmer</value>
         <value xml:lang="en">Participants</value>
         <value xml:lang="fr">Participants</value>
         <value xml:lang="it">Partecipanti</value>
+        <value xml:lang="zh_TW">參與者</value>
     </property>
     <property key="WorkEffortParties">
         <value xml:lang="de">Akteure</value>
@@ -2793,12 +3078,14 @@
         <value xml:lang="ru">Участники</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员</value>
+        <value xml:lang="zh_TW">成員</value>
     </property>
     <property key="WorkEffortPartyAssignmentError">
         <value xml:lang="en">Party ${parameters.partyId} with role ${parameters.roleTypeId} is already assigned to work effort Id ${parameters.workEffortId}, not adding again</value>
         <value xml:lang="fr">L'acteur ${parameters.partyId} avec le rôle ${parameters.roleTypeId} est déjà affecté à la tâche de réf. ${parameters.workEffortId}</value>
         <value xml:lang="it">Soggetto ${parameters.partyId} con il ruolo ${parameters.roleTypeId} è già stato assegnato all'impegno di lavoro ${parameters.workEffortId}, non aggiungerlo nuovamente</value>
         <value xml:lang="zh">已经把角色为${parameters.roleTypeId}的会员${parameters.partyId}指派给了人工服务标识${parameters.workEffortId}，所以不再添加了</value>
+        <value xml:lang="zh_TW">已經把角色為${parameters.roleTypeId}的會員${parameters.partyId}指派給了工項ID${parameters.workEffortId}，所以不再添加了</value>
     </property>
     <property key="WorkEffortPartyId">
         <value xml:lang="de">Teilnehmer ID</value>
@@ -2811,6 +3098,7 @@
         <value xml:lang="ru">ID участника</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
+        <value xml:lang="zh_TW">成員ID</value>
     </property>
     <property key="WorkEffortPassword">
         <value xml:lang="en">Password</value>
@@ -2822,6 +3110,7 @@
         <value xml:lang="ru">Пароль</value>
         <value xml:lang="th">รหัสผ่าน</value>
         <value xml:lang="zh">密码</value>
+        <value xml:lang="zh_TW">密碼</value>
     </property>
     <property key="WorkEffortPercentComplete">
         <value xml:lang="de">Prozent abgeschlossene</value>
@@ -2832,6 +3121,7 @@
         <value xml:lang="ro">Procentaj Completat</value>
         <value xml:lang="th">เปอร์เว็นต์ที่สำเร็จ</value>
         <value xml:lang="zh">完成的百分比</value>
+        <value xml:lang="zh_TW">完成的百分比</value>
     </property>
     <property key="WorkEffortPermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the WORKEFFORTMGR_${mainAction} or WORKEFFORTMGR_ADMIN permission</value>
@@ -2839,6 +3129,7 @@
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il permesso WORKEFFORTMGR_${mainAction} o WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! การดำเนินการ ${resourceDescription} คุณต้องมี WORKEFFORTMGR_${mainAction} หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须具有WORKEFFORTMGR_${mainAction}或WORKEFFORTMGR_ADMIN权限</value>
+        <value xml:lang="zh_TW">安全錯誤：要運行${resourceDescription}，你必須具有WORKEFFORTMGR_${mainAction}或WORKEFFORTMGR_ADMIN權限</value>
     </property>
     <property key="WorkEffortPhase">
         <value xml:lang="de">Phase</value>
@@ -2851,6 +3142,7 @@
         <value xml:lang="ru">Фаза</value>
         <value xml:lang="th">ขั้นตอนการทำงาน</value>
         <value xml:lang="zh">阶段</value>
+        <value xml:lang="zh_TW">階段</value>
     </property>
     <property key="WorkEffortPhaseStatus">
         <value xml:lang="de">Phasenstatus</value>
@@ -2863,6 +3155,7 @@
         <value xml:lang="ru">Статус фазы</value>
         <value xml:lang="th">สถานะขั้นตอนการทำงาน</value>
         <value xml:lang="zh">阶段状态</value>
+        <value xml:lang="zh_TW">階段狀態</value>
     </property>
     <property key="WorkEffortPhaseTasks">
         <value xml:lang="de">Phasenaufgaben</value>
@@ -2875,18 +3168,21 @@
         <value xml:lang="ru">Задания фазы</value>
         <value xml:lang="th">ภารกิจขั้นตอนการทำงาน</value>
         <value xml:lang="zh">阶段任务</value>
+        <value xml:lang="zh_TW">階段任務</value>
     </property>
     <property key="WorkEffortPopularityByOrders">
         <value xml:lang="de">Beliebtheit nach Aufträgen</value>
         <value xml:lang="en">Popularity By Orders</value>
         <value xml:lang="it">Popolarità per ordini</value>
         <value xml:lang="zh">按订单的受欢迎程度</value>
+        <value xml:lang="zh_TW">按訂單的受歡迎程度</value>
     </property>
     <property key="WorkEffortPopularityByViews">
         <value xml:lang="de">Beliebtheit nach Anzeigen</value>
         <value xml:lang="en">Popularity By Views</value>
         <value xml:lang="it">Popolarità per visti</value>
         <value xml:lang="zh">按浏览的受欢迎程度</value>
+        <value xml:lang="zh_TW">按瀏覽的受歡迎程度</value>
     </property>
     <property key="WorkEffortPreviousDay">
         <value xml:lang="de">Vorheriger Tag</value>
@@ -2899,6 +3195,7 @@
         <value xml:lang="ru">Предыдущий день</value>
         <value xml:lang="th">กลับไปยังวัน</value>
         <value xml:lang="zh">上一天</value>
+        <value xml:lang="zh_TW">上一天</value>
     </property>
     <property key="WorkEffortPreviousMonth">
         <value xml:lang="de">Vorheriger Monat</value>
@@ -2911,6 +3208,7 @@
         <value xml:lang="ru">Предыдущий месяц</value>
         <value xml:lang="th">กลับไปยังเดือน</value>
         <value xml:lang="zh">上个月</value>
+        <value xml:lang="zh_TW">上個月</value>
     </property>
     <property key="WorkEffortPreviousWeek">
         <value xml:lang="de">Vorherige Woche</value>
@@ -2923,6 +3221,7 @@
         <value xml:lang="ru">Предыдущая неделя</value>
         <value xml:lang="th">กลับไปยังสัปดาห์</value>
         <value xml:lang="zh">上一周</value>
+        <value xml:lang="zh_TW">上一周</value>
     </property>
     <property key="WorkEffortPriority">
         <value xml:lang="de">Dringlichkeit</value>
@@ -2935,6 +3234,7 @@
         <value xml:lang="ru">Приоритет</value>
         <value xml:lang="th">สิทธิพิเศษ</value>
         <value xml:lang="zh">优先级</value>
+        <value xml:lang="zh_TW">優先級</value>
     </property>
     <property key="WorkEffortPriorityEight">
         <value xml:lang="de">8</value>
@@ -2953,6 +3253,7 @@
         <value xml:lang="it">Il formato priorità non è corretto</value>
         <value xml:lang="th">รูปแบบสิทธิพิเศษไม่ถูกต้อง</value>
         <value xml:lang="zh">优先级格式不正确</value>
+        <value xml:lang="zh_TW">優先級格式不正確</value>
     </property>
     <property key="WorkEffortPriorityFour">
         <value xml:lang="de">4</value>
@@ -2968,6 +3269,7 @@
         <value xml:lang="ro">9 (Joasa)</value>
         <value xml:lang="th">9 (ต่ำ)</value>
         <value xml:lang="zh">9 (低)</value>
+        <value xml:lang="zh_TW">9 (低)</value>
     </property>
     <property key="WorkEffortPriorityOne">
         <value xml:lang="de">1 (Hoch)</value>
@@ -2978,6 +3280,7 @@
         <value xml:lang="ro">1 (Inalta)</value>
         <value xml:lang="th">1 (สูง)</value>
         <value xml:lang="zh">1 (高)</value>
+        <value xml:lang="zh_TW">1 (高)</value>
     </property>
     <property key="WorkEffortPrioritySeventh">
         <value xml:lang="de">7</value>
@@ -3006,6 +3309,7 @@
         <value xml:lang="it">Privata/Pubblica</value>
         <value xml:lang="th">ส่วนตัว/สาธารณะ</value>
         <value xml:lang="zh">私有/公开</value>
+        <value xml:lang="zh_TW">私有/公開</value>
     </property>
     <property key="WorkEffortProduct">
         <value xml:lang="de">Produkt</value>
@@ -3018,6 +3322,7 @@
         <value xml:lang="ru">Продукт</value>
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">产品</value>
+        <value xml:lang="zh_TW">產品</value>
     </property>
     <property key="WorkEffortProductId">
         <value xml:lang="de">Produkt ID</value>
@@ -3030,6 +3335,7 @@
         <value xml:lang="ru">ID продукта</value>
         <value xml:lang="th">รหัสสินค้า</value>
         <value xml:lang="zh">产品标识</value>
+        <value xml:lang="zh_TW">產品ID</value>
     </property>
     <property key="WorkEffortProductId1">
         <value xml:lang="de">Produkt ID 1</value>
@@ -3038,6 +3344,7 @@
         <value xml:lang="it">Codice prodotto 1</value>
         <value xml:lang="th">รหัสสินค้า 1</value>
         <value xml:lang="zh">产品标识1</value>
+        <value xml:lang="zh_TW">產品ID1</value>
     </property>
     <property key="WorkEffortProductId2">
         <value xml:lang="de">Produkt ID 2</value>
@@ -3046,6 +3353,7 @@
         <value xml:lang="it">Codice prodotto 2</value>
         <value xml:lang="th">รหัสสินค้า 2</value>
         <value xml:lang="zh">产品标识2</value>
+        <value xml:lang="zh_TW">產品ID2</value>
     </property>
     <property key="WorkEffortProject">
         <value xml:lang="de">Projekt</value>
@@ -3058,6 +3366,7 @@
         <value xml:lang="ru">Проект</value>
         <value xml:lang="th">โปรเจค</value>
         <value xml:lang="zh">项目</value>
+        <value xml:lang="zh_TW">專案</value>
     </property>
     <property key="WorkEffortProjectPhases">
         <value xml:lang="de">Projektphasen</value>
@@ -3070,6 +3379,7 @@
         <value xml:lang="ru">Фазы проекта</value>
         <value xml:lang="th">ขั้นตอนการทำโปรเจค</value>
         <value xml:lang="zh">项目阶段</value>
+        <value xml:lang="zh_TW">專案階段</value>
     </property>
     <property key="WorkEffortProjectStatus">
         <value xml:lang="de">Projektstatus</value>
@@ -3082,6 +3392,7 @@
         <value xml:lang="ru">Статус проекта</value>
         <value xml:lang="th">สถานะโปรเจค</value>
         <value xml:lang="zh">项目状态</value>
+        <value xml:lang="zh_TW">專案狀態</value>
     </property>
     <property key="WorkEffortProjects">
         <value xml:lang="de">Projekte</value>
@@ -3094,6 +3405,7 @@
         <value xml:lang="ru">Проекты</value>
         <value xml:lang="th">โปรเจค</value>
         <value xml:lang="zh">项目</value>
+        <value xml:lang="zh_TW">專案</value>
     </property>
     <property key="WorkEffortQuantity">
         <value xml:lang="de">Anzahl</value>
@@ -3106,6 +3418,7 @@
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
         <value xml:lang="zh">数量</value>
+        <value xml:lang="zh_TW">數量</value>
     </property>
     <property key="WorkEffortQuoteItems">
         <value xml:lang="en">Quote Items</value>
@@ -3116,6 +3429,7 @@
         <value xml:lang="ro">Linii Oferta</value>
         <value xml:lang="th">รายการการอ้างอิง</value>
         <value xml:lang="zh">询价明细</value>
+        <value xml:lang="zh_TW">詢價明細</value>
     </property>
     <property key="WorkEffortQuotes">
         <value xml:lang="en">Quotes</value>
@@ -3126,6 +3440,7 @@
         <value xml:lang="ro">Oferte</value>
         <value xml:lang="th">การอ้างอิง</value>
         <value xml:lang="zh">询价</value>
+        <value xml:lang="zh_TW">詢價</value>
     </property>
     <property key="WorkEffortRegisteredUserLogin">
         <value xml:lang="en">Registered User Login</value>
@@ -3137,6 +3452,7 @@
         <value xml:lang="ru">Login зарегистрированного пользователя</value>
         <value xml:lang="th">การลงทะเบียนลอกอินเข้าสู่ระบบของผู้ใช้</value>
         <value xml:lang="zh">注册用户登录</value>
+        <value xml:lang="zh_TW">注冊用戶登錄</value>
     </property>
     <property key="WorkEffortRelatedSummary">
         <value xml:lang="en">Related Summary</value>
@@ -3147,6 +3463,7 @@
         <value xml:lang="ro">Breviar Relativ</value>
         <value xml:lang="th">โดยสรุปซึ่งเกี่ยวข้องกัน</value>
         <value xml:lang="zh">相关的摘要</value>
+        <value xml:lang="zh_TW">相關的摘要</value>
     </property>
     <property key="WorkEffortRequest">
         <value xml:lang="de">Anfrage</value>
@@ -3155,6 +3472,7 @@
         <value xml:lang="it">Richiesta</value>
         <value xml:lang="th">การร้องขอ</value>
         <value xml:lang="zh">请求</value>
+        <value xml:lang="zh_TW">請求</value>
     </property>
     <property key="WorkEffortRequestItems">
         <value xml:lang="en">Request Items</value>
@@ -3165,6 +3483,7 @@
         <value xml:lang="ro">Linii Cerere</value>
         <value xml:lang="th">รายการการร้องขอ</value>
         <value xml:lang="zh">请求明细</value>
+        <value xml:lang="zh_TW">請求明細</value>
     </property>
     <property key="WorkEffortRequestList">
         <value xml:lang="de">Kundenanfragen</value>
@@ -3177,6 +3496,7 @@
         <value xml:lang="ru">Запросы</value>
         <value xml:lang="th">รายการการร้องขอ</value>
         <value xml:lang="zh">请求列表</value>
+        <value xml:lang="zh_TW">請求列表</value>
     </property>
     <property key="WorkEffortRequestManager">
         <value xml:lang="de">Anfragenmanager</value>
@@ -3189,6 +3509,7 @@
         <value xml:lang="ru">Менеджер запроса</value>
         <value xml:lang="th">การจัดการการร้องขอ</value>
         <value xml:lang="zh">请求管理者</value>
+        <value xml:lang="zh_TW">請求管理者</value>
     </property>
     <property key="WorkEffortRequestName">
         <value xml:lang="de">Anfragenname</value>
@@ -3201,6 +3522,7 @@
         <value xml:lang="ru">Имя запроса</value>
         <value xml:lang="th">ชื่อการร้องขอ</value>
         <value xml:lang="zh">请求名称</value>
+        <value xml:lang="zh_TW">請求名稱</value>
     </property>
     <property key="WorkEffortRequestRoles">
         <value xml:lang="de">Anfragen Rolle</value>
@@ -3209,6 +3531,7 @@
         <value xml:lang="it">Ruoli richiesta</value>
         <value xml:lang="th">สถานะการร้องขอ</value>
         <value xml:lang="zh">请求角色</value>
+        <value xml:lang="zh_TW">請求角色</value>
     </property>
     <property key="WorkEffortRequestTaker">
         <value xml:lang="de">Anfragennehmer</value>
@@ -3221,6 +3544,7 @@
         <value xml:lang="ru">Запрос принял</value>
         <value xml:lang="th">ผู้รับการร้องขอ</value>
         <value xml:lang="zh">请求接受者</value>
+        <value xml:lang="zh_TW">請求接受者</value>
     </property>
     <property key="WorkEffortRequestingParty">
         <value xml:lang="en">Requesting Party</value>
@@ -3230,6 +3554,7 @@
         <value xml:lang="ro">Subiect Cerere</value>
         <value xml:lang="th">กลุ่มการร้องขอ</value>
         <value xml:lang="zh">发出请求的会员</value>
+        <value xml:lang="zh_TW">發出請求的會員</value>
     </property>
     <property key="WorkEffortRequests">
         <value xml:lang="de">Anfragen</value>
@@ -3242,6 +3567,7 @@
         <value xml:lang="ru">Запросы</value>
         <value xml:lang="th">การร้องขอ</value>
         <value xml:lang="zh">请求</value>
+        <value xml:lang="zh_TW">請求</value>
     </property>
     <property key="WorkEffortRequiredBy">
         <value xml:lang="de">Benötigt von</value>
@@ -3254,6 +3580,7 @@
         <value xml:lang="ru">Кем затребовано</value>
         <value xml:lang="th">การร้องขอโดย</value>
         <value xml:lang="zh">提出需求</value>
+        <value xml:lang="zh_TW">提出需求</value>
     </property>
     <property key="WorkEffortRequiredByDate">
         <value xml:lang="en">Required By Date</value>
@@ -3265,6 +3592,7 @@
         <value xml:lang="ru">Требуется к дате</value>
         <value xml:lang="th">การร้องขอโดยวันที่</value>
         <value xml:lang="zh">提出需求的日期</value>
+        <value xml:lang="zh_TW">提出需求的日期</value>
     </property>
     <property key="WorkEffortRequiredDate">
         <value xml:lang="de">Datum benötigt</value>
@@ -3277,6 +3605,7 @@
         <value xml:lang="ru">Дата требования</value>
         <value xml:lang="th">วันที่ร้องขอ</value>
         <value xml:lang="zh">需求日期</value>
+        <value xml:lang="zh_TW">需求日期</value>
     </property>
     <property key="WorkEffortRequirementId">
         <value xml:lang="en">Requirement ID</value>
@@ -3288,6 +3617,7 @@
         <value xml:lang="ru">ID требования</value>
         <value xml:lang="th">รหัสความต้องการ</value>
         <value xml:lang="zh">需求标识</value>
+        <value xml:lang="zh_TW">要求ID</value>
     </property>
     <property key="WorkEffortRequirementList">
         <value xml:lang="en">Requirement List</value>
@@ -3299,6 +3629,7 @@
         <value xml:lang="ru">Список требований</value>
         <value xml:lang="th">รายการความต้องการ</value>
         <value xml:lang="zh">需求列表</value>
+        <value xml:lang="zh_TW">要求列表</value>
     </property>
     <property key="WorkEffortRequirementType">
         <value xml:lang="en">Requirement Type</value>
@@ -3310,6 +3641,7 @@
         <value xml:lang="ru">Тип требований</value>
         <value xml:lang="th">ประเภทความต้องการ</value>
         <value xml:lang="zh">需求类型</value>
+        <value xml:lang="zh_TW">要求類型</value>
     </property>
     <property key="WorkEffortRequirements">
         <value xml:lang="en">Requirements</value>
@@ -3321,6 +3653,7 @@
         <value xml:lang="ru">Требования</value>
         <value xml:lang="th">ความต้องการ</value>
         <value xml:lang="zh">需求</value>
+        <value xml:lang="zh_TW">需求</value>
     </property>
     <property key="WorkEffortRequirementsForRequestItem">
         <value xml:lang="en">Requirements For Request Item</value>
@@ -3332,6 +3665,7 @@
         <value xml:lang="ru">Требования к предмету запроса</value>
         <value xml:lang="th">ความต้องการสำหรับรายการการร้องขอ</value>
         <value xml:lang="zh">用于请求明细的需求</value>
+        <value xml:lang="zh_TW">用于請求明細的需求</value>
     </property>
     <property key="WorkEffortResponseRequiredBy">
         <value xml:lang="en">Response Required By</value>
@@ -3343,6 +3677,7 @@
         <value xml:lang="ru">Кем запрошен ответ</value>
         <value xml:lang="th">การตอบการร้องขอโดย</value>
         <value xml:lang="zh">答复提出需求</value>
+        <value xml:lang="zh_TW">答覆提出需求</value>
     </property>
     <property key="WorkEffortResultOfLookup">
         <value xml:lang="de">Ergebnisse der Suche</value>
@@ -3355,6 +3690,7 @@
         <value xml:lang="ru">Результаты выборки</value>
         <value xml:lang="th">ผลลัพธ์ของการค้นหา</value>
         <value xml:lang="zh">查找结果</value>
+        <value xml:lang="zh_TW">查找結果</value>
     </property>
     <property key="WorkEffortReviews">
         <value xml:lang="de">Überprüfungen</value>
@@ -3363,6 +3699,7 @@
         <value xml:lang="it">Recenzioni</value>
         <value xml:lang="th">ตรวจสอบ</value>
         <value xml:lang="zh">检查</value>
+        <value xml:lang="zh_TW">檢查</value>
     </property>
     <property key="WorkEffortRevision">
         <value xml:lang="de">Revision</value>
@@ -3375,6 +3712,7 @@
         <value xml:lang="ru">Ревизия</value>
         <value xml:lang="th">การปรับปรุงใหม่</value>
         <value xml:lang="zh">修订</value>
+        <value xml:lang="zh_TW">修訂</value>
     </property>
     <property key="WorkEffortSearchWorkEfforts">
         <value xml:lang="de">Suche Arbeitseinsätze</value>
@@ -3383,6 +3721,7 @@
         <value xml:lang="it">Ricerca impegni di lavoro</value>
         <value xml:lang="th">ค้นหางาน</value>
         <value xml:lang="zh">搜索人工服务</value>
+        <value xml:lang="zh_TW">搜詢工項</value>
     </property>
     <property key="WorkEffortSelectContactMechanism">
         <value xml:lang="de">Auswahl eines existierenden Kontaktmechanismus</value>
@@ -3395,6 +3734,7 @@
         <value xml:lang="ru">Выбрать существующий механизм контактов</value>
         <value xml:lang="th">เลือกวิธีการติดต่อที่มีอยู่</value>
         <value xml:lang="zh">选择一个已存在的联系方式</value>
+        <value xml:lang="zh_TW">選擇一個已存在的聯系方式</value>
     </property>
     <property key="WorkEffortSelected">
         <value xml:lang="de">Ausgewählt</value>
@@ -3407,6 +3747,7 @@
         <value xml:lang="ru">Выбрано</value>
         <value xml:lang="th">เลือก</value>
         <value xml:lang="zh">已选</value>
+        <value xml:lang="zh_TW">已選</value>
     </property>
     <property key="WorkEffortShopListId">
         <value xml:lang="en">Shopping List ID</value>
@@ -3417,6 +3758,7 @@
         <value xml:lang="ro">Cod Lista Cumparari</value>
         <value xml:lang="th">รหัสรายการซื้อสินค้า</value>
         <value xml:lang="zh">购物列表标识</value>
+        <value xml:lang="zh_TW">採購列表ID</value>
     </property>
     <property key="WorkEffortShopLists">
         <value xml:lang="en">Shopping Lists</value>
@@ -3427,6 +3769,7 @@
         <value xml:lang="ro">Liste Cumparari</value>
         <value xml:lang="th">รายการซื้อสินค้า</value>
         <value xml:lang="zh">购物列表</value>
+        <value xml:lang="zh_TW">採購列表</value>
     </property>
     <property key="WorkEffortShowActive">
         <value xml:lang="de">Aktive anzeigen</value>
@@ -3439,6 +3782,7 @@
         <value xml:lang="ru">Показать все заметки</value>
         <value xml:lang="th">แสดงการทำงาน</value>
         <value xml:lang="zh">显示有效的</value>
+        <value xml:lang="zh_TW">顯示有效的</value>
     </property>
     <property key="WorkEffortShowAllNotes">
         <value xml:lang="de">Zeige alle Notizen</value>
@@ -3451,6 +3795,7 @@
         <value xml:lang="ru">Показать все заметки</value>
         <value xml:lang="th">แสดงข้อความทั้งหมด</value>
         <value xml:lang="zh">显示全部便笺</value>
+        <value xml:lang="zh_TW">顯示全部便箋</value>
     </property>
     <property key="WorkEffortShowThisItemsNotes">
         <value xml:lang="en">Show This Item's Notes</value>
@@ -3462,6 +3807,7 @@
         <value xml:lang="ru">Показать заметки</value>
         <value xml:lang="th">แสดงรายการข้อความนี้</value>
         <value xml:lang="zh">显示这个明细的便笺</value>
+        <value xml:lang="zh_TW">顯示這個明細的便箋</value>
     </property>
     <property key="WorkEffortStartDate">
         <value xml:lang="de">Anfangsdatum</value>
@@ -3472,6 +3818,7 @@
         <value xml:lang="nl">Datum start</value>
         <value xml:lang="th">เริ่มวันที่</value>
         <value xml:lang="zh">开始日期</value>
+        <value xml:lang="zh_TW">開始日期</value>
     </property>
     <property key="WorkEffortStatus">
         <value xml:lang="de">Status</value>
@@ -3484,6 +3831,7 @@
         <value xml:lang="ru">Статус</value>
         <value xml:lang="th">สถานะ</value>
         <value xml:lang="zh">状态</value>
+        <value xml:lang="zh_TW">狀態</value>
     </property>
     <property key="WorkEffortStatusIdMissing">
         <value xml:lang="en">Current Status ID is missing.</value>
@@ -3492,6 +3840,7 @@
         <value xml:lang="ro">Starea Actuala Lipseste.</value>
         <value xml:lang="th">ไม่พบรหัสสถานะที่ใช้กันอยู่ในปัจจุบัน</value>
         <value xml:lang="zh">缺少当前状态标识。</value>
+        <value xml:lang="zh_TW">無目前狀態ID。</value>
     </property>
     <property key="WorkEffortSummary">
         <value xml:lang="de">Zusammenfassung</value>
@@ -3503,6 +3852,7 @@
         <value xml:lang="ro">Breviar</value>
         <value xml:lang="th">สรุป</value>
         <value xml:lang="zh">摘要</value>
+        <value xml:lang="zh_TW">摘要</value>
     </property>
     <property key="WorkEffortTask">
         <value xml:lang="de">Aufgabe</value>
@@ -3515,6 +3865,7 @@
         <value xml:lang="ru">Задание</value>
         <value xml:lang="th">ภารกิจ</value>
         <value xml:lang="zh">任务</value>
+        <value xml:lang="zh_TW">任務</value>
     </property>
     <property key="WorkEffortTaskDetail">
         <value xml:lang="de">Aufgabendetail</value>
@@ -3527,6 +3878,7 @@
         <value xml:lang="ru">Подробности задания</value>
         <value xml:lang="th">รายละเอียดภารกิจ</value>
         <value xml:lang="zh">任务详细</value>
+        <value xml:lang="zh_TW">任務詳細</value>
     </property>
     <property key="WorkEffortTaskList">
         <value xml:lang="de">Aufgabenliste</value>
@@ -3539,6 +3891,7 @@
         <value xml:lang="ru">Задания</value>
         <value xml:lang="th">รายการภารกิจ</value>
         <value xml:lang="zh">任务列表</value>
+        <value xml:lang="zh_TW">任務列表</value>
     </property>
     <property key="WorkEffortTaskName">
         <value xml:lang="de">Aufgabenname</value>
@@ -3551,6 +3904,7 @@
         <value xml:lang="ru">Имя задания</value>
         <value xml:lang="th">ชื่อภารกิจ</value>
         <value xml:lang="zh">任务名称</value>
+        <value xml:lang="zh_TW">任務名稱</value>
     </property>
     <property key="WorkEffortTaskStatus">
         <value xml:lang="de">Aufgabenstatus</value>
@@ -3563,6 +3917,7 @@
         <value xml:lang="ru">Статус задания</value>
         <value xml:lang="th">สถานะภารกิจ</value>
         <value xml:lang="zh">任务状态</value>
+        <value xml:lang="zh_TW">任務狀態</value>
     </property>
     <property key="WorkEffortTasks">
         <value xml:lang="de">Aufgaben</value>
@@ -3575,6 +3930,7 @@
         <value xml:lang="ru">Задания</value>
         <value xml:lang="th">ภารกิจ</value>
         <value xml:lang="zh">任务</value>
+        <value xml:lang="zh_TW">任務</value>
     </property>
     <property key="WorkEffortThisMonth">
         <value xml:lang="de">Dieser Monat</value>
@@ -3587,6 +3943,7 @@
         <value xml:lang="ru">Текущий месяц</value>
         <value xml:lang="th">เดือนนี้</value>
         <value xml:lang="zh">本月</value>
+        <value xml:lang="zh_TW">本月</value>
     </property>
     <property key="WorkEffortThisWeek">
         <value xml:lang="de">Diese Woche</value>
@@ -3599,6 +3956,7 @@
         <value xml:lang="ru">Текущая неделя</value>
         <value xml:lang="th">สัปดาห์นี้</value>
         <value xml:lang="zh">本周</value>
+        <value xml:lang="zh_TW">本周</value>
     </property>
     <property key="WorkEffortThruDate">
         <value xml:lang="de">Bis Datum</value>
@@ -3607,6 +3965,7 @@
         <value xml:lang="it">Data fine</value>
         <value xml:lang="th">ถึงวันที่</value>
         <value xml:lang="zh">结束日期</value>
+        <value xml:lang="zh_TW">結束日期</value>
     </property>
     <property key="WorkEffortTimeBillFromParty">
         <value xml:lang="de">Rechnung von Akteur</value>
@@ -3617,6 +3976,7 @@
         <value xml:lang="ro">Facturare De La Subiectul</value>
         <value xml:lang="th">ใบเสร็จรับเงินจากกลุ่มผู้ใช้</value>
         <value xml:lang="zh">账单来自会员</value>
+        <value xml:lang="zh_TW">賬單來自會員</value>
     </property>
     <property key="WorkEffortTimeBillToParty">
         <value xml:lang="de">Rechnung an Akteur</value>
@@ -3627,6 +3987,7 @@
         <value xml:lang="ro">Facturare la Subiectul </value>
         <value xml:lang="th">ใบเสร็จรับเงินถึงกลุ่มผู้ใช้</value>
         <value xml:lang="zh">账单到会员</value>
+        <value xml:lang="zh_TW">賬單到會員</value>
     </property>
     <property key="WorkEffortTimesheet">
         <value xml:lang="de">Zeiterfassung</value>
@@ -3638,6 +3999,7 @@
         <value xml:lang="ro">Pontaj</value>
         <value xml:lang="th">ตารางเวลาการทำงาน</value>
         <value xml:lang="zh">工单</value>
+        <value xml:lang="zh_TW">工單</value>
     </property>
     <property key="WorkEffortTimesheetCreate">
         <value xml:lang="de">Erstelle Zeiterfassung</value>
@@ -3649,6 +4011,7 @@
         <value xml:lang="ro">Creare Pontaj</value>
         <value xml:lang="th">สร้างตารางการทำงาน</value>
         <value xml:lang="zh">新建工单</value>
+        <value xml:lang="zh_TW">新建工單</value>
     </property>
     <property key="WorkEffortTimesheetHours">
         <value xml:lang="de">Stunden</value>
@@ -3659,6 +4022,7 @@
         <value xml:lang="ro">Ore</value>
         <value xml:lang="th">ชั่งโมง</value>
         <value xml:lang="zh">小时</value>
+        <value xml:lang="zh_TW">小時</value>
     </property>
     <property key="WorkEffortTimesheetMyTime">
         <value xml:lang="de">Meine Zeiten</value>
@@ -3670,6 +4034,7 @@
         <value xml:lang="ro">Timpul Meu</value>
         <value xml:lang="th">เวลาของฉัน</value>
         <value xml:lang="zh">我的时间</value>
+        <value xml:lang="zh_TW">我的時間</value>
     </property>
     <property key="WorkEffortTimesheetNotInRolePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must be in ${roleTypeId} role with WorkEffort: ${workEffortId}</value>
@@ -3677,6 +4042,7 @@
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} devi avere il ruolo ${roleTypeId} con l'impegno di lavoro: ${workEffortId}</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! การดำเนินการ ${resourceDescription} คุณต้องเป็น ${roleTypeId} ด้วยสถานะงาน: ${workEffortId}</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须以${roleTypeId}角色做人工服务：${workEffortId}</value>
+        <value xml:lang="zh_TW">安全錯誤：要運行${resourceDescription}，你必須以${roleTypeId}角色做工項:${workEffortId}</value>
     </property>
     <property key="WorkEffortTimesheetQuickTimeEntry">
         <value xml:lang="de">Schneller Zeiteintrag</value>
@@ -3687,6 +4053,7 @@
         <value xml:lang="ro">Introducere Rapida Ore</value>
         <value xml:lang="th">กรอกข้อมูลเวลาอย่างรวดเร็ว</value>
         <value xml:lang="zh">快速时间记录</value>
+        <value xml:lang="zh_TW">快速時間記錄</value>
     </property>
     <property key="WorkEffortTimesheetRateType">
         <value xml:lang="de">Raten Typ</value>
@@ -3698,6 +4065,7 @@
         <value xml:lang="ro">Tip Procent</value>
         <value xml:lang="th">ประเภทอัตรา</value>
         <value xml:lang="zh">费率类型</value>
+        <value xml:lang="zh_TW">費率類型</value>
     </property>
     <property key="WorkEffortTimesheetRates">
         <value xml:lang="de">Raten</value>
@@ -3709,6 +4077,7 @@
         <value xml:lang="ro">Procente</value>
         <value xml:lang="th">อัตรา</value>
         <value xml:lang="zh">费率</value>
+        <value xml:lang="zh_TW">費率</value>
     </property>
     <property key="WorkEffortTimesheetTimeEntries">
         <value xml:lang="de">Zeiteinträge</value>
@@ -3720,6 +4089,7 @@
         <value xml:lang="ro">Linie Timp</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="zh">时间记录</value>
+        <value xml:lang="zh_TW">時間記錄</value>
     </property>
     <property key="WorkEffortTimesheetTimeEntry">
         <value xml:lang="de">Zeiteintrag</value>
@@ -3731,6 +4101,7 @@
         <value xml:lang="ro">Linie Timp</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="zh">时间记录</value>
+        <value xml:lang="zh_TW">時間記錄</value>
     </property>
     <property key="WorkEffortTimesheetTimesheetId">
         <value xml:lang="de">Zeiterfassungs ID</value>
@@ -3742,6 +4113,7 @@
         <value xml:lang="ro">Numar Pontaj</value>
         <value xml:lang="th">รหัสตารางเวลาการทำงาน</value>
         <value xml:lang="zh">工单编号</value>
+        <value xml:lang="zh_TW">工單編號</value>
     </property>
     <property key="WorkEffortTimesheetTimsheetEdit">
         <value xml:lang="de">Ändere Zeiterfassung</value>
@@ -3750,6 +4122,7 @@
         <value xml:lang="it">Aggiorna timbratura</value>
         <value xml:lang="th">แก้ไขตารางเวลาการทำงาน</value>
         <value xml:lang="zh">编辑工单</value>
+        <value xml:lang="zh_TW">編輯工單</value>
     </property>
     <property key="WorkEffortUpcomingEvents">
         <value xml:lang="de">Bevorstehende Ereignisse</value>
@@ -3762,6 +4135,7 @@
         <value xml:lang="ru">Наступающие события</value>
         <value xml:lang="th">เหตุการณ์ที่จะเกิดขึ้น</value>
         <value xml:lang="zh">即将发生的事件</value>
+        <value xml:lang="zh_TW">即將發生的事件</value>
     </property>
     <property key="WorkEffortUpdatePermissionError">
         <value xml:lang="en">Security Error: to run this operation you must have the WORKEFFORTMGR_UPDATE or WORKEFFORTMGR_ADMIN permission</value>
@@ -3769,6 +4143,7 @@
         <value xml:lang="it">Errore sicurezza: per eseguire questa operazione devi avere il permesso WORKEFFORTMGR_UPDATE o WORKEFFORTMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ในการดำเนินการเชื่อมต่อนี้คุณต้องมี WORKEFFORTMGR_UPDATE หรือ WORKEFFORTMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行这个操作你必须具有WORKEFFORTMGR_UPDATE 或 WORKEFFORTMGR_ADMIN 权限</value>
+        <value xml:lang="zh_TW">安全錯誤：要運行這個操作你必須具有WORKEFFORTMGR_UPDATE 或 WORKEFFORTMGR_ADMIN 權限</value>
     </property>
     <property key="WorkEffortUsername">
         <value xml:lang="de">Benutzername</value>
@@ -3781,6 +4156,7 @@
         <value xml:lang="ru">Имя пользователя</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้</value>
         <value xml:lang="zh">用户名</value>
+        <value xml:lang="zh_TW">用戶名</value>
     </property>
     <property key="WorkEffortViewPermissionError">
         <value xml:lang="en">You do not have permission to view this screen (WORKEFFORTMGR_VIEW needed)</value>
@@ -3791,6 +4167,7 @@
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta videata (Este necesar permisul WORKEFFORTMGR_VIEW)</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตในการแสดงหน้าจอนี้ (WORKEFFORTMGR_VIEW ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个屏幕的权限(需要WORKEFFORTMGR_VIEW)</value>
+        <value xml:lang="zh_TW">你沒有瀏覽這個螢幕的權限(需要WORKEFFORTMGR_VIEW)</value>
     </property>
     <property key="WorkEffortViewTasksEdit">
         <value xml:lang="de">Aufgaben anzeigen / Bearbeiten</value>
@@ -3803,6 +4180,7 @@
         <value xml:lang="ru">Просмотр/редактирование заданий</value>
         <value xml:lang="th">แสดงภารกิจ / แก้ไข</value>
         <value xml:lang="zh">浏览任务/编辑</value>
+        <value xml:lang="zh_TW">瀏覽任務/編輯</value>
     </property>
     <property key="WorkEffortWeekView">
         <value xml:lang="de">Wochenansicht</value>
@@ -3813,8 +4191,9 @@
         <value xml:lang="nl">Week overzicht</value>
         <value xml:lang="ro">Afiseaza Saptamana</value>
         <value xml:lang="ru">По неделям</value>
-        <value xml:lang="th">แสดงสัปดาห์</value>
+        <value xml:lang="th">แสดงัปดาห์</value>
         <value xml:lang="zh">浏览周</value>
+        <value xml:lang="zh_TW">瀏覽周</value>
     </property>
     <property key="WorkEffortWelcome">
         <value xml:lang="de">Willkommen</value>
@@ -3827,6 +4206,7 @@
         <value xml:lang="ru">Добро пожаловать!</value>
         <value xml:lang="th">ยินดีต้อนรับ</value>
         <value xml:lang="zh">欢迎</value>
+        <value xml:lang="zh_TW">歡迎</value>
     </property>
     <property key="WorkEffortWorkEffort">
         <value xml:lang="de">Arbeitseinsatz</value>
@@ -3838,6 +4218,7 @@
         <value xml:lang="ro">Sarcina de Lucru</value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">人工服务</value>
+        <value xml:lang="zh_TW">工項</value>
     </property>
     <property key="WorkEffortWorkEffortAssocIdAlreadyExist">
         <value xml:lang="en">WorkEffortAssocId already Exist</value>
@@ -3849,6 +4230,7 @@
         <value xml:lang="ru">WorkEffortAssocId уже существует</value>
         <value xml:lang="th">ยังคงมีรหัสกลุ่มงานอยู่แล้ว</value>
         <value xml:lang="zh">人工服务关联标识已经存在</value>
+        <value xml:lang="zh_TW">工項關聯ID已經存在</value>
     </property>
     <property key="WorkEffortWorkEffortGoodStandardAlreadyExist">
         <value xml:lang="en">WorkEffort - GoodStandard association already exist</value>
@@ -3860,6 +4242,7 @@
         <value xml:lang="ru">Ассоциация "WorkEffort - GoodStandard" уже существует</value>
         <value xml:lang="th">งาน - ยังคงมีกลุ่มงานมาตรฐานดีอยู่แล้ว</value>
         <value xml:lang="zh">人工服务 - 良好标准关联已存在</value>
+        <value xml:lang="zh_TW">工項 - 成品規範關聯已存在</value>
     </property>
     <property key="WorkEffortWorkEffortId">
         <value xml:lang="de">Arbeitseinsatz ID</value>
@@ -3871,6 +4254,7 @@
         <value xml:lang="ro">Numar Sarcina de Lucru</value>
         <value xml:lang="th">รหัสงาน</value>
         <value xml:lang="zh">人工服务标识</value>
+        <value xml:lang="zh_TW">工項ID</value>
     </property>
     <property key="WorkEffortWorkEffortIdEmpty">
         <value xml:lang="de">Arbeitseinsatz ID fehlt</value>
@@ -3882,6 +4266,7 @@
         <value xml:lang="ro">Numar Sarcina de lucru este gol</value>
         <value xml:lang="th">รหัสงานว่าง</value>
         <value xml:lang="zh">人工服务标识为空</value>
+        <value xml:lang="zh_TW">工項ID為空</value>
     </property>
     <property key="WorkEffortWorkEffortManagerMainPage">
         <value xml:lang="de">Arbeitseinsatz Manager Startseite</value>
@@ -3894,6 +4279,7 @@
         <value xml:lang="ru">WorkEffort Manager: Главная страница</value>
         <value xml:lang="th">หน้าหลักการจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">人工服务首页</value>
+        <value xml:lang="zh_TW">工項首頁</value>
     </property>
     <property key="WorkEffortWorkEffortReviewAlreadyExist">
         <value xml:lang="de">Arbeitseinsatz - Überprüfung existiert bereits</value>
@@ -3902,6 +4288,7 @@
         <value xml:lang="it">Revisione impegno di lavoro già esistente</value>
         <value xml:lang="th">งาน - ยังคงมีการตรวจสอบอยู่แล้ว</value>
         <value xml:lang="zh">人工服务 - 检查已存在</value>
+        <value xml:lang="zh_TW">工項 - 檢查已存在</value>
     </property>
     <property key="WorkEffortWorkEfforts">
         <value xml:lang="de">Arbeitseinsätze</value>
@@ -3913,6 +4300,7 @@
         <value xml:lang="ro">Sarcini de Lucru </value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">人工服务</value>
+        <value xml:lang="zh_TW">工項</value>
     </property>
     <property key="WorkEffortWorkflowActivitiesUser">
         <value xml:lang="en">Workflow activities assigned to user</value>
@@ -3924,6 +4312,7 @@
         <value xml:lang="ru">Работы, задания и документы, назначенные пользователю</value>
         <value xml:lang="th">กำหนดกิจกรรมขั้นตอนการทำงานถึงผู้ใช้</value>
         <value xml:lang="zh">把工作流行动指派给用户</value>
+        <value xml:lang="zh_TW">把工作流行動指派給用戶</value>
     </property>
     <property key="WorkEffortWorkflowActivitiesUserGroup">
         <value xml:lang="en">Workflow activities assigned to User Group</value>
@@ -3935,6 +4324,7 @@
         <value xml:lang="ru">Работы, задания и документы, назначенные группе пользователя</value>
         <value xml:lang="th">กำหนดกิจกรรมขั้นตอนการทำงานถึงกลุ่มผู้ใช้</value>
         <value xml:lang="zh">把工作流行动指派给用户组</value>
+        <value xml:lang="zh_TW">把工作流行動指派給用戶組</value>
     </property>
     <property key="WorkEffortWorkflowActivitiesUserRole">
         <value xml:lang="en">Workflow activities assigned to User Role</value>
@@ -3946,5 +4336,6 @@
         <value xml:lang="ru">Работы, задания и документы, назначенные роли пользователя</value>
         <value xml:lang="th">กำหนดกิจกรรมขั้นตอนการทำงานถึงสถานะของผู้ใช้</value>
         <value xml:lang="zh">把工作流行动指派给用户角色</value>
+        <value xml:lang="zh_TW">把工作流行動指派給用戶角色</value>
     </property>
 </resource>

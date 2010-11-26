@@ -29,6 +29,7 @@
         <value xml:lang="ru">Действительные трудозатраты</value>
         <value xml:lang="th">ต้นทุนแรงงานโดยแท้จริง</value>
         <value xml:lang="zh">实际劳务费用</value>
+        <value xml:lang="zh_TW">實際勞務費用</value>
     </property>
     <property key="CostComponentType.description.ACTUAL_MAT_COST">
         <value xml:lang="de">Effektive Materialkosten</value>
@@ -40,6 +41,7 @@
         <value xml:lang="ru">Действительная стоимость материалов</value>
         <value xml:lang="th">ต้นทุนวัตถุโดยแท้จริง</value>
         <value xml:lang="zh">实际材料费用</value>
+        <value xml:lang="zh_TW">實際材料費用</value>
     </property>
     <property key="CostComponentType.description.ACTUAL_OTHER_COST">
         <value xml:lang="de">Effektive andere Kosten</value>
@@ -51,6 +53,7 @@
         <value xml:lang="ru">Другие действительные затраты</value>
         <value xml:lang="th">ต้นทุนอื่นๆ โดยแท้จริง</value>
         <value xml:lang="zh">实际其它费用</value>
+        <value xml:lang="zh_TW">實際其他費用</value>
     </property>
     <property key="CostComponentType.description.ACTUAL_ROUTE_COST">
         <value xml:lang="de">Effektive Wegkosten (Anlageverwendung)</value>
@@ -62,6 +65,7 @@
         <value xml:lang="ru">Действительная стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route (การใช้ทัรพย์สินไม่หมุนเวียน) โดยแท้จริง</value>
         <value xml:lang="zh">实际配送 (固定资产使用) 费</value>
+        <value xml:lang="zh_TW">實際配送 (固定資產使用) 費</value>
     </property>
     <property key="CostComponentType.description.ESTIMATED_LABOR_COST">
         <value xml:lang="de">Geschätzte Arbeitskosten</value>
@@ -71,6 +75,7 @@
         <value xml:lang="it">Costo stimato di lavoro</value>
         <value xml:lang="th">ต้นทุนแรงงานโดยประมาณ</value>
         <value xml:lang="zh">预计劳务费用</value>
+        <value xml:lang="zh_TW">預計勞務費用</value>
     </property>
     <property key="CostComponentType.description.ESTIMATED_MATERIALS_">
         <value xml:lang="de">Geschätzte Materialkosten</value>
@@ -80,6 +85,7 @@
         <value xml:lang="it">Materiali stimati</value>
         <value xml:lang="th">วัตถุโดยประมาณ</value>
         <value xml:lang="zh">预计物料</value>
+        <value xml:lang="zh_TW">預計物料</value>
     </property>
     <property key="CostComponentType.description.ESTIMATED_OTHER_COST">
         <value xml:lang="de">Geschätzte andere Kosten</value>
@@ -89,6 +95,7 @@
         <value xml:lang="it">Altro costo stimato</value>
         <value xml:lang="th">ต้นทุนอื่น ๆ โดยประมาณ</value>
         <value xml:lang="zh">预计其它费用</value>
+        <value xml:lang="zh_TW">預計其他費用</value>
     </property>
     <property key="CostComponentType.description.EST_STD_LABOR_COST">
         <value xml:lang="de">Geschätzte Standard-Arbeitskosten</value>
@@ -100,6 +107,7 @@
         <value xml:lang="ru">Оценочные стандартные трудозатраты</value>
         <value xml:lang="th">ต้นทุนแรงงานมาตรฐานโดยประมาณ</value>
         <value xml:lang="zh">预计标准劳务费用</value>
+        <value xml:lang="zh_TW">預計標准勞務費用</value>
     </property>
     <property key="CostComponentType.description.EST_STD_MAT_COST">
         <value xml:lang="de">Geschätzte Standard-Materialkosten</value>
@@ -111,6 +119,7 @@
         <value xml:lang="ru">Оценочная стандартная стоимость материалов</value>
         <value xml:lang="th">ต้นทุนวัตถุมาตรฐานโดยประมาณ</value>
         <value xml:lang="zh">预计标准材料费用</value>
+        <value xml:lang="zh_TW">預計標准材料費用</value>
     </property>
     <property key="CostComponentType.description.EST_STD_OTHER_COST">
         <value xml:lang="de">Geschätzte Standard andere Kosten</value>
@@ -122,6 +131,7 @@
         <value xml:lang="ru">Оценочные стандартные другие затраты</value>
         <value xml:lang="th">ต้นทุนอื่น ๆ มาตรฐานโดยประมาณ</value>
         <value xml:lang="zh">预计标准其它费用</value>
+        <value xml:lang="zh_TW">預計標准其他費用</value>
     </property>
     <property key="CostComponentType.description.EST_STD_ROUTE_COST">
         <value xml:lang="de">Geschätzte Wegkosten (Anlageverwendung)</value>
@@ -133,6 +143,7 @@
         <value xml:lang="ru">Оценочная стандартная стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route  มาตรฐานโดยประมาณ (การใช้ทรัพย์สินไม่ถาวร)</value>
         <value xml:lang="zh">预计标准配送 (固定资产使用) 费</value>
+        <value xml:lang="zh_TW">預計標准配送 (固定資產使用) 費</value>
     </property>
     <property key="CostComponentType.description.LABOR_COST">
         <value xml:lang="de">Arbeitskosten</value>
@@ -144,6 +155,7 @@
         <value xml:lang="ru">Трудозатраты</value>
         <value xml:lang="th">ต้นทุนแรงงาน</value>
         <value xml:lang="zh">劳务费用</value>
+        <value xml:lang="zh_TW">勞務費用</value>
     </property>
     <property key="CostComponentType.description.MAT_COST">
         <value xml:lang="de">Materialkosten</value>
@@ -155,6 +167,7 @@
         <value xml:lang="ru">Стоимость материалов</value>
         <value xml:lang="th">ต้นทุนวัตถุ</value>
         <value xml:lang="zh">材料费用</value>
+        <value xml:lang="zh_TW">材料費用</value>
     </property>
     <property key="CostComponentType.description.OTHER_COST">
         <value xml:lang="de">Andere Kosten</value>
@@ -166,6 +179,7 @@
         <value xml:lang="ru">Другие затраты</value>
         <value xml:lang="th">ต้นทุนอื่นๆ </value>
         <value xml:lang="zh">其它费用</value>
+        <value xml:lang="zh_TW">其他費用</value>
     </property>
     <property key="CostComponentType.description.ROUTE_COST">
         <value xml:lang="de">Wegkosten (Anlageverwendung)</value>
@@ -177,6 +191,7 @@
         <value xml:lang="ru">Стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route (การใช้ทรัพย์สินไม่ถาวร) </value>
         <value xml:lang="zh">配送 (固定资产使用) 费</value>
+        <value xml:lang="zh_TW">配送 (固定資產使用) 費</value>
     </property>
     <property key="FacilityGroupType.description.MGMT_STRUCTURE">
         <value xml:lang="de">Verwaltungsstruktur</value>
@@ -188,6 +203,7 @@
         <value xml:lang="ru">Управляющая структура</value>
         <value xml:lang="th">โครงสร้างการจัดการ</value>
         <value xml:lang="zh">管理结构</value>
+        <value xml:lang="zh_TW">管理結構</value>
     </property>
     <property key="FacilityGroupType.description.PRICING_GROUP">
         <value xml:lang="de">Preisgruppe</value>
@@ -199,6 +215,7 @@
         <value xml:lang="ru">Ценовая группа</value>
         <value xml:lang="th">กลุ่มราคา</value>
         <value xml:lang="zh">价格组</value>
+        <value xml:lang="zh_TW">價格組</value>
     </property>
     <property key="FacilityType.description.BUILDING">
         <value xml:lang="de">Gebäude</value>
@@ -210,6 +227,7 @@
         <value xml:lang="ru">Здание</value>
         <value xml:lang="th">อาคาร</value>
         <value xml:lang="zh">建筑</value>
+        <value xml:lang="zh_TW">建築</value>
     </property>
     <property key="FacilityType.description.CALL_CENTER">
         <value xml:lang="de">Callcenter</value>
@@ -221,6 +239,7 @@
         <value xml:lang="ru">Центр телефонного обслуживания</value>
         <value xml:lang="th">ประชาสัมพันธ์</value>
         <value xml:lang="zh">呼叫中心</value>
+        <value xml:lang="zh_TW">呼叫中心</value>
     </property>
     <property key="FacilityType.description.FLOOR">
         <value xml:lang="de">Stockwerk</value>
@@ -232,6 +251,7 @@
         <value xml:lang="ru">Этаж</value>
         <value xml:lang="th">ชั้นอาคาร</value>
         <value xml:lang="zh">楼层</value>
+        <value xml:lang="zh_TW">樓層</value>
     </property>
     <property key="FacilityType.description.OFFICE">
         <value xml:lang="de">Büro</value>
@@ -243,6 +263,7 @@
         <value xml:lang="ru">Офис</value>
         <value xml:lang="th">ที่ทำงาน</value>
         <value xml:lang="zh">办公室</value>
+        <value xml:lang="zh_TW">辦公室</value>
     </property>
     <property key="FacilityType.description.PLANT">
         <value xml:lang="de">Fabrik</value>
@@ -254,6 +275,7 @@
         <value xml:lang="ru">Завод</value>
         <value xml:lang="th">การเพาะปลูก</value>
         <value xml:lang="zh">工厂</value>
+        <value xml:lang="zh_TW">工廠</value>
     </property>
     <property key="FacilityType.description.RETAIL_STORE">
         <value xml:lang="de">Einzelhandelsgeschäft</value>
@@ -265,6 +287,7 @@
         <value xml:lang="ru">Розничный магазин</value>
         <value xml:lang="th">คลังสินค้าการขายปลีก</value>
         <value xml:lang="zh">零售店</value>
+        <value xml:lang="zh_TW">零售店</value>
     </property>
     <property key="FacilityType.description.ROOM">
         <value xml:lang="de">Raum</value>
@@ -276,6 +299,7 @@
         <value xml:lang="ru">Комната</value>
         <value xml:lang="th">ห้อง</value>
         <value xml:lang="zh">房间</value>
+        <value xml:lang="zh_TW">房間</value>
     </property>
     <property key="FacilityType.description.WAREHOUSE">
         <value xml:lang="de">Warenlager</value>
@@ -287,11 +311,13 @@
         <value xml:lang="ru">Склад</value>
         <value xml:lang="th">คลังข้อมูล</value>
         <value xml:lang="zh">仓库</value>
+        <value xml:lang="zh_TW">倉庫</value>
     </property>
     <property key="GoodIdentificationType.description.GOOGLE_ID">
         <value xml:lang="en">Google Id</value>
         <value xml:lang="it">Codice Google</value>
         <value xml:lang="zh">谷歌用户名</value>
+        <value xml:lang="zh_TW">谷歌用戶名</value>
     </property>
     <property key="GoodIdentificationType.description.ISBN">
         <value xml:lang="de">ISBN</value>
@@ -303,6 +329,7 @@
         <value xml:lang="ru">ISBN</value>
         <value xml:lang="th">ISBN</value>
         <value xml:lang="zh">ISBN</value>
+        <value xml:lang="zh_TW">ISBN</value>
     </property>
     <property key="GoodIdentificationType.description.MANUFACTURER_ID_NO">
         <value xml:lang="de">Hersteller (Modell) Nummer</value>
@@ -314,6 +341,7 @@
         <value xml:lang="ru">Артикул (Модель)</value>
         <value xml:lang="th">หมายเลขการผลิต (Model)</value>
         <value xml:lang="zh">制造商 (款式) 编号</value>
+        <value xml:lang="zh_TW">制造商 (款式) 編號</value>
     </property>
     <property key="GoodIdentificationType.description.MODEL_YEAR">
         <value xml:lang="de">Modelljahr</value>
@@ -325,6 +353,7 @@
         <value xml:lang="ru">Год выпуска модели</value>
         <value xml:lang="th">โมเดลปี</value>
         <value xml:lang="zh">款式年度</value>
+        <value xml:lang="zh_TW">款式年度</value>
     </property>
     <property key="GoodIdentificationType.description.OTHER_ID">
         <value xml:lang="de">Andere</value>
@@ -336,6 +365,7 @@
         <value xml:lang="ru">Другой</value>
         <value xml:lang="th">อื่นๆ</value>
         <value xml:lang="zh">其它</value>
+        <value xml:lang="zh_TW">其他</value>
     </property>
     <property key="GoodIdentificationType.description.SKU">
         <value xml:lang="de">Artikelnummer (SKU - Stock Keeping Unit)</value>
@@ -347,6 +377,7 @@
         <value xml:lang="ru">SKU</value>
         <value xml:lang="th">SKU</value>
         <value xml:lang="zh">最小存货单位</value>
+        <value xml:lang="zh_TW">最小存貨單位</value>
     </property>
     <property key="GoodIdentificationType.description.UPCA">
         <value xml:lang="de">Barcode UPCA</value>
@@ -358,6 +389,7 @@
         <value xml:lang="ru">UPCA</value>
         <value xml:lang="th">UPCA</value>
         <value xml:lang="zh">UPCA条码</value>
+        <value xml:lang="zh_TW">UPCA條碼</value>
     </property>
     <property key="GoodIdentificationType.description.UPCE">
         <value xml:lang="de">Barcode UPCE</value>
@@ -369,6 +401,7 @@
         <value xml:lang="ru">UPCE</value>
         <value xml:lang="th">UPCE</value>
         <value xml:lang="zh">UPCE条码</value>
+        <value xml:lang="zh_TW">UPCE條碼</value>
     </property>
     <property key="InventoryItemType.description.NON_SERIAL_INV_ITEM">
         <value xml:lang="de">ohne Seriennummern</value>
@@ -380,6 +413,7 @@
         <value xml:lang="ru">Не серийный</value>
         <value xml:lang="th">ไม่มีลำดับหมายเลข</value>
         <value xml:lang="zh">非序列化</value>
+        <value xml:lang="zh_TW">非序列化</value>
     </property>
     <property key="InventoryItemType.description.SERIALIZED_INV_ITEM">
         <value xml:lang="de">mit Seriennummern</value>
@@ -391,6 +425,7 @@
         <value xml:lang="ru">Серийный</value>
         <value xml:lang="th">ลำดับหมายเลข</value>
         <value xml:lang="zh">序列化</value>
+        <value xml:lang="zh_TW">序列化</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_ADMIN_ALLW">
         <value xml:lang="de">Administrator erlauben (Eine)</value>
@@ -402,6 +437,7 @@
         <value xml:lang="ru">Администрирование разрешено (Одна)</value>
         <value xml:lang="th">ผู้ดูแลระบบอนุญาต (หนึ่ง)</value>
         <value xml:lang="zh">允许管理 (一个)</value>
+        <value xml:lang="zh_TW">允許管理 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_BROWSE_ROOT">
         <value xml:lang="de">Einstiegspunkt (Eine)</value>
@@ -413,6 +449,7 @@
         <value xml:lang="ru">Для просмотра (Одна)</value>
         <value xml:lang="th">แสดง Root (หนึ่ง)</value>
         <value xml:lang="zh">浏览根 (一个)</value>
+        <value xml:lang="zh_TW">瀏覽根 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_MOST_POPULAR">
         <value xml:lang="de">Am populärsten (Eine)</value>
@@ -424,6 +461,7 @@
         <value xml:lang="ru">Наиболее популярные (Одна)</value>
         <value xml:lang="th">ความนิยมสูงสุด (หนึ่ง)</value>
         <value xml:lang="zh">最具人气 (一个)</value>
+        <value xml:lang="zh_TW">最具人氣 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_OTHER_SEARCH">
         <value xml:lang="de">Andere Suche (Mehrere)</value>
@@ -435,6 +473,7 @@
         <value xml:lang="ru">Другие для поиска (Много)</value>
         <value xml:lang="th">ค้นหาอื่น ๆ (มาก)</value>
         <value xml:lang="zh">其它搜索 (许多)</value>
+        <value xml:lang="zh_TW">其他搜索 (許多)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_PROMOTIONS">
         <value xml:lang="de">Aktionen (Eine)</value>
@@ -446,6 +485,7 @@
         <value xml:lang="ru">Специальные предложения (Одна)</value>
         <value xml:lang="th">โปรโมชัน (หนึ่ง)</value>
         <value xml:lang="zh">促销 (一个)</value>
+        <value xml:lang="zh_TW">促銷 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_PURCH_ALLW">
         <value xml:lang="de">Einkauf erlauben (Eine)</value>
@@ -457,6 +497,7 @@
         <value xml:lang="ru">Приобретение возможно (Одна)</value>
         <value xml:lang="th">การอนุญาตการสั่งซื้อ (หนึ่ง)</value>
         <value xml:lang="zh">允许购买 (一个)</value>
+        <value xml:lang="zh_TW">允許購買 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_QUICK_ADD">
         <value xml:lang="de">Rasches Hinzufügen (mehrere)</value>
@@ -468,6 +509,7 @@
         <value xml:lang="ru">Быстрое добавление (Много)</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็ว (มาก)</value>
         <value xml:lang="zh">快速添加 (许多)</value>
+        <value xml:lang="zh_TW">快速添加 (許多)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_SEARCH">
         <value xml:lang="de">Standard Suche (Eine)</value>
@@ -479,6 +521,7 @@
         <value xml:lang="ru">Поиск по умолчанию (Одна)</value>
         <value xml:lang="th">ค่าเริ่มต้นการค้นหา (หนึ่ง)</value>
         <value xml:lang="zh">缺省搜索 (一个)</value>
+        <value xml:lang="zh_TW">缺省搜索 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_VIEW_ALLW">
         <value xml:lang="de">Anzeige erlauben (Eine)</value>
@@ -490,6 +533,7 @@
         <value xml:lang="ru">Просмотр разрешен (Одна)</value>
         <value xml:lang="th">การอนุญาตการแสดง (หนึ่ง)</value>
         <value xml:lang="zh">允许浏览 (一个)</value>
+        <value xml:lang="zh_TW">允許瀏覽 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_WHATS_NEW">
         <value xml:lang="de">Neuigkeiten (Eine)</value>
@@ -501,6 +545,7 @@
         <value xml:lang="ru">Новые продукты (Одна)</value>
         <value xml:lang="th">อะไรใหม่ (หนึ่ง)</value>
         <value xml:lang="zh">新品 (一个)</value>
+        <value xml:lang="zh_TW">新品 (一個)</value>
     </property>
     <property key="ProdConfItemContentType.description.DESCRIPTION">
         <value xml:lang="de">Beschreibung</value>
@@ -512,6 +557,7 @@
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
         <value xml:lang="zh">描述</value>
+        <value xml:lang="zh_TW">描述</value>
     </property>
     <property key="ProdConfItemContentType.description.IMAGE_URL">
         <value xml:lang="de">Bild</value>
@@ -523,6 +569,7 @@
         <value xml:lang="ru">Изображение</value>
         <value xml:lang="th">รูปภาพ</value>
         <value xml:lang="zh">图像</value>
+        <value xml:lang="zh_TW">圖像</value>
     </property>
     <property key="ProdConfItemContentType.description.INSTRUCTIONS">
         <value xml:lang="de">Instruktionen</value>
@@ -534,6 +581,7 @@
         <value xml:lang="ru">Инструкции</value>
         <value xml:lang="th">คำแนะนำ</value>
         <value xml:lang="zh">说明</value>
+        <value xml:lang="zh_TW">說明</value>
     </property>
     <property key="ProdConfItemContentType.description.LONG_DESCRIPTION">
         <value xml:lang="de">Beschreibung - Lang</value>
@@ -545,6 +593,7 @@
         <value xml:lang="ru">Полное описание</value>
         <value xml:lang="th">การอธิบาย</value>
         <value xml:lang="zh">描述 - 详细</value>
+        <value xml:lang="zh_TW">描述 - 詳細</value>
     </property>
     <property key="ProductAssocType.description.ALSO_BOUGHT">
         <value xml:lang="de">hat ebenfalls eingekauft</value>
@@ -556,6 +605,7 @@
         <value xml:lang="ru">Сопутствующая</value>
         <value xml:lang="th">ดังนั้นซื้อ</value>
         <value xml:lang="zh">同时购买</value>
+        <value xml:lang="zh_TW">同時購買</value>
     </property>
     <property key="ProductAssocType.description.ENGINEER_COMPONENT">
         <value xml:lang="de">Stückliste Engineering</value>
@@ -567,6 +617,7 @@
         <value xml:lang="ru">Конструкторская спецификация материалов</value>
         <value xml:lang="th">วิศวะกรรมศาสตร์รายการวัตถุ</value>
         <value xml:lang="zh">工程材料清单</value>
+        <value xml:lang="zh_TW">工程材料清單</value>
     </property>
     <property key="ProductAssocType.description.MANUF_COMPONENT">
         <value xml:lang="de">Stückliste Produktion</value>
@@ -578,6 +629,7 @@
         <value xml:lang="ru">Производственная спецификация материалов</value>
         <value xml:lang="th">การผลิตรายการวัตถุ</value>
         <value xml:lang="zh">制造材料清单</value>
+        <value xml:lang="zh_TW">制造材料清單</value>
     </property>
     <property key="ProductAssocType.description.MARKETING_PACKAGE">
         <value xml:lang="de">Marketingpaket</value>
@@ -589,6 +641,7 @@
         <value xml:lang="ru">Компонент маркетингового пакета</value>
         <value xml:lang="th">แพคเกจการตลาด</value>
         <value xml:lang="zh">销售包装组件</value>
+        <value xml:lang="zh_TW">銷售包裝元件</value>
     </property>
     <property key="ProductAssocType.description.MARKETING_PKG_AUTO">
         <value xml:lang="de">Marketingpaket automatisch in Einzelpositionen aufteilen</value>
@@ -600,6 +653,7 @@
         <value xml:lang="ru">Компонент автоматически расширяющий маркетинговый пакет</value>
         <value xml:lang="th">MARKETING_PKG_AUTO</value>
         <value xml:lang="zh">销售包装自动分拆组件</value>
+        <value xml:lang="zh_TW">銷售包裝自動分拆元件</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_ACCESSORY">
         <value xml:lang="de">Zubehör</value>
@@ -610,6 +664,7 @@
         <value xml:lang="ru">Аксессуар</value>
         <value xml:lang="th">ส่วนประกอบ</value>
         <value xml:lang="zh">零配件</value>
+        <value xml:lang="zh_TW">零配件</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_AUTORO">
         <value xml:lang="de">Automatische Neubestellung (benötigt Wiederholungsinfo ID)</value>
@@ -619,6 +674,7 @@
         <value xml:lang="it">Riordino automatico</value>
         <value xml:lang="th">การสั่งซื้ออัตโนมัติ (ต้องการรหัสข้อมูลการเกิดขึ้นอีกครั้ง)</value>
         <value xml:lang="zh">自动记录(需要复现信息标识recurrenceInfoId)</value>
+        <value xml:lang="zh_TW">自動重排(需要recurrenceInfoId)</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_COMPLEMENT">
         <value xml:lang="de">Zusatz oder Ergänzende (Cross-Sell)</value>
@@ -630,6 +686,7 @@
         <value xml:lang="ru">Дополнительная и кросс-продажа</value>
         <value xml:lang="th">Complementary or Cross-Sell</value>
         <value xml:lang="zh">补充或交叉销售</value>
+        <value xml:lang="zh_TW">補充或交叉銷售</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_COMPONENT">
         <value xml:lang="de">Effektive Produktkomponente</value>
@@ -641,11 +698,13 @@
         <value xml:lang="ru">Реальный компонент продукта</value>
         <value xml:lang="th">ส่วนประกอบสินค้าโดยแท้จริง</value>
         <value xml:lang="zh">实际产品组件</value>
+        <value xml:lang="zh_TW">實際產品元件</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_CONF">
         <value xml:lang="en">Configurable product instance</value>
         <value xml:lang="it">Prodotto configurabile</value>
         <value xml:lang="zh">可配置产品实例</value>
+        <value xml:lang="zh_TW">可配置產品實例</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_INCOMPATABLE">
         <value xml:lang="de">Inkompatibel</value>
@@ -657,6 +716,7 @@
         <value xml:lang="ru">Несовместимость</value>
         <value xml:lang="th">ขัดแย้งกัน</value>
         <value xml:lang="zh">不兼容</value>
+        <value xml:lang="zh_TW">不相容</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_MANUFACTURED">
         <value xml:lang="de">Produkt hergestellt als</value>
@@ -668,6 +728,7 @@
         <value xml:lang="ru">Продукт произведенный как</value>
         <value xml:lang="th">การผลิตสินค้าเหมือน</value>
         <value xml:lang="zh">生产的产品作为</value>
+        <value xml:lang="zh_TW">生產的產品作為</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_OBSOLESCENCE">
         <value xml:lang="de">Neue Version, Ersatz</value>
@@ -679,6 +740,7 @@
         <value xml:lang="ru">Новая версия, замещение</value>
         <value xml:lang="th">เวอร์ชันใหม่, การแทนที่</value>
         <value xml:lang="zh">新版本，替换</value>
+        <value xml:lang="zh_TW">新版本，替換</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_REFURB">
         <value xml:lang="de">Verbesserter Ersatz</value>
@@ -689,6 +751,7 @@
         <value xml:lang="ru">Замененный эквивалент</value>
         <value xml:lang="th">เท่ากับทำใหม่</value>
         <value xml:lang="zh">翻新品</value>
+        <value xml:lang="zh_TW">翻新品</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_REPAIR_SRV">
         <value xml:lang="de">Reparaturdienstleistung</value>
@@ -699,6 +762,7 @@
         <value xml:lang="ru">Услуги ремонта</value>
         <value xml:lang="th">บริการซ่อมแซม</value>
         <value xml:lang="zh">维修服务</value>
+        <value xml:lang="zh_TW">維修服務</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_REVISION">
         <value xml:lang="de">Revision</value>
@@ -710,6 +774,7 @@
         <value xml:lang="ru">Исправление</value>
         <value xml:lang="th">การปรับปรุงใหม่</value>
         <value xml:lang="zh">改进型</value>
+        <value xml:lang="zh_TW">改進型</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_SUBSTITUTE">
         <value xml:lang="de">Gleich oder Ersatz</value>
@@ -721,6 +786,7 @@
         <value xml:lang="ru">Эквивалент или заменитель</value>
         <value xml:lang="th">เท่ากับหรือแทนที่</value>
         <value xml:lang="zh">等价或替代</value>
+        <value xml:lang="zh_TW">等價或替代</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_UPGRADE">
         <value xml:lang="de">Upgrade oder Up-Sell</value>
@@ -732,6 +798,7 @@
         <value xml:lang="ru">Модернизация или дооснащение</value>
         <value xml:lang="th">Upgrade or Up-Sell</value>
         <value xml:lang="zh">升级或向上销售</value>
+        <value xml:lang="zh_TW">升級或向上銷售</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_VARIANT">
         <value xml:lang="de">Produktvariante</value>
@@ -743,6 +810,7 @@
         <value xml:lang="ru">Вариант продукта</value>
         <value xml:lang="th">การเปลี่ยนแปลงสินค้า</value>
         <value xml:lang="zh">产品变型</value>
+        <value xml:lang="zh_TW">產品變型</value>
     </property>
     <property key="ProductAssocType.description.UNIQUE_ITEM">
         <value xml:lang="de">Unikat</value>
@@ -754,11 +822,13 @@
         <value xml:lang="ru">Уникальная позиция</value>
         <value xml:lang="th">รายการลักษณะเฉพาะ</value>
         <value xml:lang="zh">独有的明细</value>
+        <value xml:lang="zh_TW">獨有的明細</value>
     </property>
     <property key="ProductCategoryContentType.description.CATEGORY_IMAGE_ALT">
         <value xml:lang="en">Category Image Alt Text</value>
         <value xml:lang="it">Testo alternativo immagine categoria</value>
         <value xml:lang="zh">分类图片替代文字</value>
+        <value xml:lang="zh_TW">分類圖片替代文字</value>
     </property>
     <property key="ProductCategoryContentType.description.CATEGORY_IMAGE_URL">
         <value xml:lang="de">Kategorie Bild URL</value>
@@ -770,6 +840,7 @@
         <value xml:lang="ru">URL изображения категории</value>
         <value xml:lang="th">หมวดหมู่รูปภาพ URL</value>
         <value xml:lang="zh">分类图片网址</value>
+        <value xml:lang="zh_TW">分類圖片網址</value>
     </property>
     <property key="ProductCategoryContentType.description.CATEGORY_NAME">
         <value xml:lang="de">Kategorie Name</value>
@@ -781,6 +852,7 @@
         <value xml:lang="ru">Имя категории</value>
         <value xml:lang="th">ชื่อหมวดหมู่</value>
         <value xml:lang="zh">分类名称</value>
+        <value xml:lang="zh_TW">分類名稱</value>
     </property>
     <property key="ProductCategoryContentType.description.DESCRIPTION">
         <value xml:lang="de">Beschreibung</value>
@@ -792,6 +864,7 @@
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
         <value xml:lang="zh">描述</value>
+        <value xml:lang="zh_TW">描述</value>
     </property>
     <property key="ProductCategoryContentType.description.FOOTER">
         <value xml:lang="de">Fusszeile</value>
@@ -803,16 +876,19 @@
         <value xml:lang="ru">Нижняя часть страницы</value>
         <value xml:lang="th">ท้ายกระดาษ</value>
         <value xml:lang="zh">页脚</value>
+        <value xml:lang="zh_TW">頁腳</value>
     </property>
     <property key="ProductCategoryContentType.description.LINK1_ALT_TEXT">
         <value xml:lang="en">Link 1 Alt Text</value>
         <value xml:lang="it">Testo alternativo link 1</value>
         <value xml:lang="zh">链接1替代文字</value>
+        <value xml:lang="zh_TW">鏈結1替代文字</value>
     </property>
     <property key="ProductCategoryContentType.description.LINK2_ALT_TEXT">
         <value xml:lang="en">Link 2 Alt Text</value>
         <value xml:lang="it">Testo alternativo link 2</value>
         <value xml:lang="zh">链接2替代文字</value>
+        <value xml:lang="zh_TW">鏈結2替代文字</value>
     </property>
     <property key="ProductCategoryContentType.description.LONG_DESCRIPTION">
         <value xml:lang="de">Beschreibung - lang</value>
@@ -824,6 +900,7 @@
         <value xml:lang="ru">Полное описание</value>
         <value xml:lang="th">การอธิบาย</value>
         <value xml:lang="zh">描述 - 详细</value>
+        <value xml:lang="zh_TW">描述 - 詳細</value>
     </property>
     <property key="ProductCategoryType.description.CATALOG_CATEGORY">
         <value xml:lang="de">Katalog</value>
@@ -835,6 +912,7 @@
         <value xml:lang="ru">Каталог</value>
         <value xml:lang="th">หมวดหมู่</value>
         <value xml:lang="zh">目录</value>
+        <value xml:lang="zh_TW">目錄</value>
     </property>
     <property key="ProductCategoryType.description.CROSS_SELL_CATEGORY">
         <value xml:lang="de">Cross Sell</value>
@@ -846,6 +924,7 @@
         <value xml:lang="ru">Перекрестные продажи</value>
         <value xml:lang="th">Cross Sell</value>
         <value xml:lang="zh">交叉销售</value>
+        <value xml:lang="zh_TW">交叉銷售</value>
     </property>
     <property key="ProductCategoryType.description.INDUSTRY_CATEGORY">
         <value xml:lang="de">Industrie</value>
@@ -857,6 +936,7 @@
         <value xml:lang="ru">Отраслевая</value>
         <value xml:lang="th">อุตสาหกรรม</value>
         <value xml:lang="zh">产业</value>
+        <value xml:lang="zh_TW">產業</value>
     </property>
     <property key="ProductCategoryType.description.INTERNAL_CATEGORY">
         <value xml:lang="de">Intern</value>
@@ -868,6 +948,7 @@
         <value xml:lang="ru">Внутренняя</value>
         <value xml:lang="th">ภายใน</value>
         <value xml:lang="zh">内部</value>
+        <value xml:lang="zh_TW">內部</value>
     </property>
     <property key="ProductCategoryType.description.MATERIALS_CATEGORY">
         <value xml:lang="de">Materialien</value>
@@ -879,6 +960,7 @@
         <value xml:lang="ru">Материалы</value>
         <value xml:lang="th">วัตถุ</value>
         <value xml:lang="zh">材料</value>
+        <value xml:lang="zh_TW">材料</value>
     </property>
     <property key="ProductCategoryType.description.MIXMATCH_CATEGORY">
         <value xml:lang="de">Austauschbar</value>
@@ -890,6 +972,7 @@
         <value xml:lang="ru">Смешанная</value>
         <value xml:lang="th">รวมและเหมือนกัน</value>
         <value xml:lang="zh">混合和匹配</value>
+        <value xml:lang="zh_TW">混合和匹配</value>
     </property>
     <property key="ProductCategoryType.description.QUICKADD_CATEGORY">
         <value xml:lang="de">Rasches Hinzufügen</value>
@@ -901,6 +984,7 @@
         <value xml:lang="ru">Быстрое добавление</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
         <value xml:lang="zh">快速添加</value>
+        <value xml:lang="zh_TW">快速添加</value>
     </property>
     <property key="ProductCategoryType.description.SEARCH_CATEGORY">
         <value xml:lang="de">Suche</value>
@@ -912,6 +996,7 @@
         <value xml:lang="ru">Поиск</value>
         <value xml:lang="th">การค้นหา</value>
         <value xml:lang="zh">搜索</value>
+        <value xml:lang="zh_TW">搜索</value>
     </property>
     <property key="ProductCategoryType.description.TAX_CATEGORY">
         <value xml:lang="de">Steuern</value>
@@ -923,6 +1008,7 @@
         <value xml:lang="ru">Налогообложение</value>
         <value xml:lang="th">ภาษี</value>
         <value xml:lang="zh">税</value>
+        <value xml:lang="zh_TW">稅</value>
     </property>
     <property key="ProductCategoryType.description.USAGE_CATEGORY">
         <value xml:lang="de">Verwendungszweck</value>
@@ -934,41 +1020,49 @@
         <value xml:lang="ru">Использование</value>
         <value xml:lang="th">วิธีใช้</value>
         <value xml:lang="zh">用途</value>
+        <value xml:lang="zh_TW">用途</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_1">
         <value xml:lang="en">Image - Additional View 1</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1</value>
         <value xml:lang="zh">图像 - 额外检查1</value>
+        <value xml:lang="zh_TW">圖像 - 額外檢查1</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_2">
         <value xml:lang="en">Image - Additional View 2</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2</value>
         <value xml:lang="zh">图像 - 额外检查2</value>
+        <value xml:lang="zh_TW">圖像 - 額外檢查2</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_3">
         <value xml:lang="en">Image - Additional View 3</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3</value>
         <value xml:lang="zh">图像 - 额外检查3</value>
+        <value xml:lang="zh_TW">圖像 - 額外檢查3</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_4">
         <value xml:lang="en">Image - Additional View 4</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4</value>
         <value xml:lang="zh">图像 - 额外检查4</value>
+        <value xml:lang="zh_TW">圖像 - 額外檢查4</value>
     </property>
     <property key="ProductContentType.description.ADDTOCART_IMAGE">
         <value xml:lang="en">Add To Cart Image</value>
         <value xml:lang="it">Aggiungi immagine al carrello</value>
         <value xml:lang="zh">添加到购物车图像</value>
+        <value xml:lang="zh_TW">添加到購物車圖像</value>
     </property>
     <property key="ProductContentType.description.ADDTOCART_LABEL">
         <value xml:lang="en">Add To Cart Label</value>
         <value xml:lang="it">Aggiungi label al carrello</value>
         <value xml:lang="zh">添加到购物车标签</value>
+        <value xml:lang="zh_TW">添加到購物車標簽</value>
     </property>
     <property key="ProductContentType.description.DELIVERY_INFO">
         <value xml:lang="en">Delivery Info</value>
         <value xml:lang="it">Informazioni sulla consegna</value>
         <value xml:lang="zh">投递信息</value>
+        <value xml:lang="zh_TW">投遞資訊</value>
     </property>
     <property key="ProductContentType.description.DESCRIPTION">
         <value xml:lang="de">Beschreibung</value>
@@ -980,6 +1074,7 @@
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
         <value xml:lang="zh">描述</value>
+        <value xml:lang="zh_TW">描述</value>
     </property>
     <property key="ProductContentType.description.DETAIL_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Details</value>
@@ -990,6 +1085,7 @@
         <value xml:lang="ru">Альтер. текст изображения - детальное    </value>
         <value xml:lang="th">ข้อความตัวเลือกรูปภาพ - รายละเอียด    </value>
         <value xml:lang="zh">图像替代文字 - 详细</value>
+        <value xml:lang="zh_TW">圖像替代文字 - 詳細</value>
     </property>
     <property key="ProductContentType.description.DETAIL_IMAGE_URL">
         <value xml:lang="de">Bild - Details</value>
@@ -1001,6 +1097,7 @@
         <value xml:lang="ru">Изображение - детальное</value>
         <value xml:lang="th">รูปภาพ - รายละเอียด</value>
         <value xml:lang="zh">图像 - 详细</value>
+        <value xml:lang="zh_TW">圖像 - 詳細</value>
     </property>
     <property key="ProductContentType.description.DIGITAL_DOWNLOAD">
         <value xml:lang="de">Herunterladen</value>
@@ -1012,6 +1109,7 @@
         <value xml:lang="ru">Загрузка цифрового конт.</value>
         <value xml:lang="th">ดาวน์โหลดดิจิตอล</value>
         <value xml:lang="zh">数字下载</value>
+        <value xml:lang="zh_TW">數字下載</value>
     </property>
     <property key="ProductContentType.description.DIRECTIONS">
         <value xml:lang="de">Anweisungen</value>
@@ -1023,6 +1121,7 @@
         <value xml:lang="ru">Направления</value>
         <value xml:lang="th">คำแนะนำ</value>
         <value xml:lang="zh">方向</value>
+        <value xml:lang="zh_TW">方向</value>
     </property>
     <property key="ProductContentType.description.FULFILLMENT_EMAIL">
         <value xml:lang="de">E-Mail zur Ausführung</value>
@@ -1034,6 +1133,7 @@
         <value xml:lang="ru">Выполнение по эл.почте</value>
         <value xml:lang="th">การทำอีเมลให้สำเร็จ</value>
         <value xml:lang="zh">执行电子邮件</value>
+        <value xml:lang="zh_TW">執行電子郵件</value>
     </property>
     <property key="ProductContentType.description.FULFILLMENT_EXTASYNC">
         <value xml:lang="de">Ausführung Extern (Asynchron)</value>
@@ -1045,6 +1145,7 @@
         <value xml:lang="ru">Выполнение внешнее (Асинхр.)</value>
         <value xml:lang="th">การทำให้สำเร็จภายใน (Async)</value>
         <value xml:lang="zh">执行外部 (异步)</value>
+        <value xml:lang="zh_TW">執行外部 (異步)</value>
     </property>
     <property key="ProductContentType.description.FULFILLMENT_EXTSYNC">
         <value xml:lang="de">Ausführung Extern (Synchron)</value>
@@ -1056,6 +1157,7 @@
         <value xml:lang="ru">Выполнение внешнее (Синхр.)</value>
         <value xml:lang="th">การทำให้สำเร็จภายใน (Async)</value>
         <value xml:lang="zh">执行外部 (同步)</value>
+        <value xml:lang="zh_TW">執行外部 (同步)</value>
     </property>
     <property key="ProductContentType.description.INGREDIENTS">
         <value xml:lang="de">Inhaltsstoffe</value>
@@ -1067,6 +1169,7 @@
         <value xml:lang="ru">Ингредиенты</value>
         <value xml:lang="th">ส่วนประกอบ</value>
         <value xml:lang="zh">成份</value>
+        <value xml:lang="zh_TW">成份</value>
     </property>
     <property key="ProductContentType.description.LARGE_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Long</value>
@@ -1077,6 +1180,7 @@
         <value xml:lang="ru">Альтер. текст изображения - большое</value>
         <value xml:lang="th">ทางเลือกข้อความรูปภาพ - ขนาดใหญ่</value>
         <value xml:lang="zh">图像替代文字 - 大</value>
+        <value xml:lang="zh_TW">圖像替代文字 - 大</value>
     </property>
     <property key="ProductContentType.description.LARGE_IMAGE_URL">
         <value xml:lang="de">Bild - Gross</value>
@@ -1088,6 +1192,7 @@
         <value xml:lang="ru">Изображение - большое</value>
         <value xml:lang="th">รูปภาพ - ใหญ่</value>
         <value xml:lang="zh">图像 - 大</value>
+        <value xml:lang="zh_TW">圖像 - 大</value>
     </property>
     <property key="ProductContentType.description.LONG_DESCRIPTION">
         <value xml:lang="de">Beschreibung - Lang</value>
@@ -1099,6 +1204,7 @@
         <value xml:lang="ru">Полное описание</value>
         <value xml:lang="th">คำอธิบาย - ยาว</value>
         <value xml:lang="zh">描述 - 详细</value>
+        <value xml:lang="zh_TW">描述 - 詳細</value>
     </property>
     <property key="ProductContentType.description.MEDIUM_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Mittel</value>
@@ -1109,6 +1215,7 @@
         <value xml:lang="ru">Альтер. текст изображения - среднее</value>
         <value xml:lang="th">ทางเลือกข้อความรูปภาพ - ขนาดกลาง</value>
         <value xml:lang="zh">图像替代文字 - 中</value>
+        <value xml:lang="zh_TW">圖像替代文字 - 中</value>
     </property>
     <property key="ProductContentType.description.MEDIUM_IMAGE_URL">
         <value xml:lang="de">Bild - Mittel</value>
@@ -1120,6 +1227,7 @@
         <value xml:lang="ru">Изображение - среднее</value>
         <value xml:lang="th">รูปภาพ - กลาง</value>
         <value xml:lang="zh">图像 - 中</value>
+        <value xml:lang="zh_TW">圖像 - 中</value>
     </property>
     <property key="ProductContentType.description.ONLINE_ACCESS">
         <value xml:lang="de">Online Zugriff</value>
@@ -1131,11 +1239,13 @@
         <value xml:lang="ru">Онлайновый доступ</value>
         <value xml:lang="th">สิทธ์ในการออนไลน์</value>
         <value xml:lang="zh">在线访问</value>
+        <value xml:lang="zh_TW">在線訪問</value>
     </property>
     <property key="ProductContentType.description.ORIGINAL_IMAGE_URL">
         <value xml:lang="en">Image - Original</value>
         <value xml:lang="it">Immagine - originale</value>
         <value xml:lang="zh">图像 - 原图</value>
+        <value xml:lang="zh_TW">圖像 - 原圖</value>
     </property>
     <property key="ProductContentType.description.PRICE_DETAIL_TEXT">
         <value xml:lang="de">Preisdetail Text</value>
@@ -1147,6 +1257,7 @@
         <value xml:lang="ru">Детали цены</value>
         <value xml:lang="th">ข้อมูลราคา</value>
         <value xml:lang="zh">价格详细文字</value>
+        <value xml:lang="zh_TW">價格詳細文字</value>
     </property>
     <property key="ProductContentType.description.PRODUCT_NAME">
         <value xml:lang="de">Produktname</value>
@@ -1158,11 +1269,13 @@
         <value xml:lang="ru">Название продукта</value>
         <value xml:lang="th">ชื่อสินค้า</value>
         <value xml:lang="zh">产品名称</value>
+        <value xml:lang="zh_TW">產品名稱</value>
     </property>
     <property key="ProductContentType.description.SHORT_SALES_PITCH">
         <value xml:lang="en">Short Sales Pitch</value>
         <value xml:lang="it">Piccolo discorso di vendita</value>
         <value xml:lang="zh">简短的销售话述</value>
+        <value xml:lang="zh_TW">簡短的銷售話述</value>
     </property>
     <property key="ProductContentType.description.SMALL_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Klein</value>
@@ -1173,6 +1286,7 @@
         <value xml:lang="ru">Альтер. текст изображения - маленькое</value>
         <value xml:lang="th">ทางเลือกข้อความรูปภาพ - เล็ก</value>
         <value xml:lang="zh">图像替代文字 - 小</value>
+        <value xml:lang="zh_TW">圖像替代文字 - 小</value>
     </property>
     <property key="ProductContentType.description.SMALL_IMAGE_URL">
         <value xml:lang="de">Bild - Klein</value>
@@ -1184,6 +1298,7 @@
         <value xml:lang="ru">Изображение - маленькое</value>
         <value xml:lang="th">รูปภาพ - เล็ก</value>
         <value xml:lang="zh">图像 - 小</value>
+        <value xml:lang="zh_TW">圖像 - 小</value>
     </property>
     <property key="ProductContentType.description.SPECIALINSTRUCTIONS">
         <value xml:lang="de">Besondere Instruktionen</value>
@@ -1195,11 +1310,13 @@
         <value xml:lang="ru">Специальные инструкции</value>
         <value xml:lang="th">คำแนะนำพิเศษ</value>
         <value xml:lang="zh">特别说明</value>
+        <value xml:lang="zh_TW">特別說明</value>
     </property>
     <property key="ProductContentType.description.TERMS_AND_CONDS">
         <value xml:lang="en">Terms and Conditions</value>
         <value xml:lang="it">Termini e condizioni</value>
         <value xml:lang="zh">条件</value>
+        <value xml:lang="zh_TW">條件</value>
     </property>
     <property key="ProductContentType.description.UNIQUE_INGREDIENTS">
         <value xml:lang="de">Einzigartige Inhaltsstoffe</value>
@@ -1211,6 +1328,7 @@
         <value xml:lang="ru">Уникальные ингредиенты</value>
         <value xml:lang="th">ส่วนประกอบพิเศษ</value>
         <value xml:lang="zh">独有的成份</value>
+        <value xml:lang="zh_TW">獨有的成份</value>
     </property>
     <property key="ProductContentType.description.WARNINGS">
         <value xml:lang="de">Warnungen</value>
@@ -1222,6 +1340,7 @@
         <value xml:lang="ru">Предупреждения</value>
         <value xml:lang="th">คำเตือน</value>
         <value xml:lang="zh">警告</value>
+        <value xml:lang="zh_TW">警告</value>
     </property>
     <property key="ProductFeature.description.HAZMAT">
         <value xml:lang="de">Gefahrgut</value>
@@ -1231,6 +1350,7 @@
         <value xml:lang="it">Prodotto danneggiato</value>
         <value xml:lang="th">HAZMAT</value>
         <value xml:lang="zh">危险品</value>
+        <value xml:lang="zh_TW">危險品</value>
     </property>
     <property key="ProductFeatureApplType.description.DISTINGUISHING_FEAT">
         <value xml:lang="de">Unterscheidendes Merkmal</value>
@@ -1242,6 +1362,7 @@
         <value xml:lang="ru">Отличительная</value>
         <value xml:lang="th">ลักษณะนิสัย</value>
         <value xml:lang="zh">有区别</value>
+        <value xml:lang="zh_TW">有區別</value>
     </property>
     <property key="ProductFeatureApplType.description.OPTIONAL_FEATURE">
         <value xml:lang="de">Optional</value>
@@ -1253,6 +1374,7 @@
         <value xml:lang="ru">Дополнительная</value>
         <value xml:lang="th">ทางเลือก</value>
         <value xml:lang="zh">可选的</value>
+        <value xml:lang="zh_TW">可選的</value>
     </property>
     <property key="ProductFeatureApplType.description.REQUIRED_FEATURE">
         <value xml:lang="de">Benötigt</value>
@@ -1264,6 +1386,7 @@
         <value xml:lang="ru">Требуемая</value>
         <value xml:lang="th">ต้องการ</value>
         <value xml:lang="zh">必须的</value>
+        <value xml:lang="zh_TW">必須的</value>
     </property>
     <property key="ProductFeatureApplType.description.SELECTABLE_FEATURE">
         <value xml:lang="de">Auswählbar</value>
@@ -1275,6 +1398,7 @@
         <value xml:lang="ru">Выбираемая</value>
         <value xml:lang="th">สามารถเลือกได้</value>
         <value xml:lang="zh">可选择的</value>
+        <value xml:lang="zh_TW">可選擇的</value>
     </property>
     <property key="ProductFeatureApplType.description.STANDARD_FEATURE">
         <value xml:lang="de">Standart</value>
@@ -1286,6 +1410,7 @@
         <value xml:lang="ru">Стандартная</value>
         <value xml:lang="th">มาตรฐาน</value>
         <value xml:lang="zh">标准</value>
+        <value xml:lang="zh_TW">標准</value>
     </property>
     <property key="ProductFeatureCategory.description.1000">
         <value xml:lang="en">Hazmat Features</value>
@@ -1294,41 +1419,49 @@
         <value xml:lang="it">Caratteristiche danneggiate</value>
         <value xml:lang="th">Hazmat Features</value>
         <value xml:lang="zh">危险品特征</value>
+        <value xml:lang="zh_TW">危險品特征</value>
     </property>
     <property key="ProductFeatureCategory.description.1001">
         <value xml:lang="en">Model Year Features</value>
         <value xml:lang="it">Caratteristiche anno modello</value>
         <value xml:lang="zh">年型号特征</value>
+        <value xml:lang="zh_TW">年型號特征</value>
     </property>
     <property key="ProductFeatureCategory.description.1002">
         <value xml:lang="en">Equipment Class Features</value>
         <value xml:lang="it">Caratteristiche classe attrezzatura</value>
         <value xml:lang="zh">设备分类特征</value>
+        <value xml:lang="zh_TW">設備分類特征</value>
     </property>
     <property key="ProductFeatureCategory.description.2000">
         <value xml:lang="en">Gift Card Features</value>
         <value xml:lang="it">Caratteristiche carta regalo</value>
         <value xml:lang="zh">礼品卡特征</value>
+        <value xml:lang="zh_TW">禮品卡特征</value>
     </property>
     <property key="ProductFeatureCategory.description.2100">
         <value xml:lang="en">Account Features</value>
         <value xml:lang="it">Caratteristiche utenza</value>
         <value xml:lang="zh">账户特征</value>
+        <value xml:lang="zh_TW">賬戶特征</value>
     </property>
     <property key="ProductFeatureCategory.description.3000">
         <value xml:lang="en">Taste</value>
         <value xml:lang="it">Caratteristiche gusto</value>
         <value xml:lang="zh">味道</value>
+        <value xml:lang="zh_TW">味道</value>
     </property>
     <property key="ProductFeatureCategory.description.8000">
         <value xml:lang="en">License Features</value>
         <value xml:lang="it">Caratteristiche licenza</value>
         <value xml:lang="zh">版权特征</value>
+        <value xml:lang="zh_TW">版權特征</value>
     </property>
     <property key="ProductFeatureCategory.description.9000">
         <value xml:lang="en">Widget Features</value>
         <value xml:lang="it">Caratteristiche widget</value>
         <value xml:lang="zh">预留名称特征</value>
+        <value xml:lang="zh_TW">預留名稱特征</value>
     </property>
     <property key="ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND">
         <value xml:lang="de">Abhängiges Merkmal</value>
@@ -1338,6 +1471,7 @@
         <value xml:lang="it">Dipendenza</value>
         <value xml:lang="th">FEATURE_IACTN_DEPEND</value>
         <value xml:lang="zh">依赖特征</value>
+        <value xml:lang="zh_TW">依賴特征</value>
     </property>
     <property key="ProductFeatureIactnType.description.FEATURE_IACTN_INCOMP">
         <value xml:lang="de">Inkompatibles Merkmal</value>
@@ -1347,6 +1481,7 @@
         <value xml:lang="it">Incompatibile</value>
         <value xml:lang="th">FEATURE_IACTN_INCOMP</value>
         <value xml:lang="zh">不兼容特征</value>
+        <value xml:lang="zh_TW">不相容特征</value>
     </property>
     <property key="ProductFeatureType.description.ACCESSORY">
         <value xml:lang="de">Zubehör</value>
@@ -1358,6 +1493,7 @@
         <value xml:lang="ru">Принадлежности</value>
         <value xml:lang="th">ส่วนประกอบ</value>
         <value xml:lang="zh">附属品</value>
+        <value xml:lang="zh_TW">附屬品</value>
     </property>
     <property key="ProductFeatureType.description.AMOUNT">
         <value xml:lang="de">Betrag</value>
@@ -1369,6 +1505,7 @@
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
         <value xml:lang="zh">金额</value>
+        <value xml:lang="zh_TW">金額</value>
     </property>
     <property key="ProductFeatureType.description.ARTIST">
         <value xml:lang="de">Künstler</value>
@@ -1380,6 +1517,7 @@
         <value xml:lang="ru">Оформление</value>
         <value xml:lang="th">ศิลปะ</value>
         <value xml:lang="zh">艺术家</value>
+        <value xml:lang="zh_TW">藝術家</value>
     </property>
     <property key="ProductFeatureType.description.BILLING_FEATURE">
         <value xml:lang="de">Verrechnungsmerkmal</value>
@@ -1391,6 +1529,7 @@
         <value xml:lang="ru">Оплата</value>
         <value xml:lang="th">ลักษณะใบเสร็จรับเงิน</value>
         <value xml:lang="zh">账单特征</value>
+        <value xml:lang="zh_TW">賬單特征</value>
     </property>
     <property key="ProductFeatureType.description.BRAND">
         <value xml:lang="de">Marke</value>
@@ -1402,6 +1541,7 @@
         <value xml:lang="ru">Брэнд</value>
         <value xml:lang="th">ยี่ห้อ</value>
         <value xml:lang="zh">品牌</value>
+        <value xml:lang="zh_TW">品牌</value>
     </property>
     <property key="ProductFeatureType.description.CARE">
         <value xml:lang="de">Pflege</value>
@@ -1413,6 +1553,7 @@
         <value xml:lang="ru">Обслуживание</value>
         <value xml:lang="th">การปกป้อง</value>
         <value xml:lang="zh">关心</value>
+        <value xml:lang="zh_TW">關心</value>
     </property>
     <property key="ProductFeatureType.description.COLOR">
         <value xml:lang="de">Farbe</value>
@@ -1424,6 +1565,7 @@
         <value xml:lang="ru">Цвет</value>
         <value xml:lang="th">สี</value>
         <value xml:lang="zh">颜色</value>
+        <value xml:lang="zh_TW">顏色</value>
     </property>
     <property key="ProductFeatureType.description.DIMENSION">
         <value xml:lang="de">Abmessungen</value>
@@ -1435,6 +1577,7 @@
         <value xml:lang="ru">Размеры</value>
         <value xml:lang="th">มิติ</value>
         <value xml:lang="zh">尺寸</value>
+        <value xml:lang="zh_TW">尺寸</value>
     </property>
     <property key="ProductFeatureType.description.EQUIP_CLASS">
         <value xml:lang="de">Ausrüstungsklasse</value>
@@ -1446,6 +1589,7 @@
         <value xml:lang="ru">Класс оборудования</value>
         <value xml:lang="th">ชั้นอุปกรณ์</value>
         <value xml:lang="zh">设备类</value>
+        <value xml:lang="zh_TW">設備類</value>
     </property>
     <property key="ProductFeatureType.description.FABRIC">
         <value xml:lang="de">Stoff/Gewebe</value>
@@ -1457,6 +1601,7 @@
         <value xml:lang="ru">Материал</value>
         <value xml:lang="th">สิ่งทอ</value>
         <value xml:lang="zh">织物</value>
+        <value xml:lang="zh_TW">織物</value>
     </property>
     <property key="ProductFeatureType.description.GENRE">
         <value xml:lang="de">Gattung</value>
@@ -1468,6 +1613,7 @@
         <value xml:lang="ru">Жанр</value>
         <value xml:lang="th">ชนิด</value>
         <value xml:lang="zh">流派</value>
+        <value xml:lang="zh_TW">流派</value>
     </property>
     <property key="ProductFeatureType.description.GIFT_WRAP">
         <value xml:lang="de">Geschenkverpackung</value>
@@ -1479,6 +1625,7 @@
         <value xml:lang="ru">Подарочная упаковка</value>
         <value xml:lang="th">กระดาษห่อของขวัญ</value>
         <value xml:lang="zh">礼品包装</value>
+        <value xml:lang="zh_TW">禮品包裝</value>
     </property>
     <property key="ProductFeatureType.description.HARDWARE_FEATURE">
         <value xml:lang="de">Hardeware-Merkmal</value>
@@ -1490,6 +1637,7 @@
         <value xml:lang="ru">Техническая особенность</value>
         <value xml:lang="th">ลักษณะฮาร์ดแวร์</value>
         <value xml:lang="zh">硬件特征</value>
+        <value xml:lang="zh_TW">硬體特征</value>
     </property>
     <property key="ProductFeatureType.description.HAZMAT">
         <value xml:lang="de">Gefahrengut</value>
@@ -1501,6 +1649,7 @@
         <value xml:lang="ru">Hazmat</value>
         <value xml:lang="th">Hazmat</value>
         <value xml:lang="zh">危险物品</value>
+        <value xml:lang="zh_TW">危險物品</value>
     </property>
     <property key="ProductFeatureType.description.LICENSE">
         <value xml:lang="de">Lizenz</value>
@@ -1512,6 +1661,7 @@
         <value xml:lang="ru">Лицензия</value>
         <value xml:lang="th">ใบอนุญาต</value>
         <value xml:lang="zh">版权</value>
+        <value xml:lang="zh_TW">版權</value>
     </property>
     <property key="ProductFeatureType.description.MODEL_YEAR">
         <value xml:lang="de">Modelljahr</value>
@@ -1523,6 +1673,7 @@
         <value xml:lang="ru">Год выпуска модели</value>
         <value xml:lang="th">ปีโมเดล</value>
         <value xml:lang="zh">年度款式</value>
+        <value xml:lang="zh_TW">年度款式</value>
     </property>
     <property key="ProductFeatureType.description.NET_WEIGHT">
         <value xml:lang="de">Nettogewicht</value>
@@ -1534,6 +1685,7 @@
         <value xml:lang="ru">Вес нетто</value>
         <value xml:lang="th">น้ำหนักสุทธิ</value>
         <value xml:lang="zh">净重</value>
+        <value xml:lang="zh_TW">淨重</value>
     </property>
     <property key="ProductFeatureType.description.ORIGIN">
         <value xml:lang="de">Herkunft</value>
@@ -1545,6 +1697,7 @@
         <value xml:lang="ru">Происхождение</value>
         <value xml:lang="th">ต้นกำเนิด</value>
         <value xml:lang="zh">来源</value>
+        <value xml:lang="zh_TW">來源</value>
     </property>
     <property key="ProductFeatureType.description.OTHER_FEATURE">
         <value xml:lang="de">Anderes Merkmal</value>
@@ -1556,6 +1709,7 @@
         <value xml:lang="ru">Другие особенности</value>
         <value xml:lang="th">ลักษณะอื่นๆ</value>
         <value xml:lang="zh">其它特征</value>
+        <value xml:lang="zh_TW">其他特征</value>
     </property>
     <property key="ProductFeatureType.description.PRODUCT_QUALITY">
         <value xml:lang="de">Produktqualität</value>
@@ -1567,6 +1721,7 @@
         <value xml:lang="ru">Качество продукта</value>
         <value xml:lang="th">คุณภาพสินค้า</value>
         <value xml:lang="zh">产品质量</value>
+        <value xml:lang="zh_TW">產品質量</value>
     </property>
     <property key="ProductFeatureType.description.SIZE">
         <value xml:lang="de">Grösse</value>
@@ -1578,6 +1733,7 @@
         <value xml:lang="ru">Размер</value>
         <value xml:lang="th">ขนาด</value>
         <value xml:lang="zh">大小</value>
+        <value xml:lang="zh_TW">大小</value>
     </property>
     <property key="ProductFeatureType.description.SOFTWARE_FEATURE">
         <value xml:lang="de">Software-Merkmal</value>
@@ -1589,6 +1745,7 @@
         <value xml:lang="ru">Программная особенность</value>
         <value xml:lang="th">ลักษณะซอฟต์แวร์</value>
         <value xml:lang="zh">软件特征</value>
+        <value xml:lang="zh_TW">軟件特征</value>
     </property>
     <property key="ProductFeatureType.description.STYLE">
         <value xml:lang="de">Stil</value>
@@ -1600,6 +1757,7 @@
         <value xml:lang="ru">Стиль</value>
         <value xml:lang="th">สไตล์</value>
         <value xml:lang="zh">样式</value>
+        <value xml:lang="zh_TW">樣式</value>
     </property>
     <property key="ProductFeatureType.description.SYMPTOM">
         <value xml:lang="de">Symptom</value>
@@ -1611,6 +1769,7 @@
         <value xml:lang="ru">Признак</value>
         <value xml:lang="th">อาการ</value>
         <value xml:lang="zh">症状</value>
+        <value xml:lang="zh_TW">症狀</value>
     </property>
     <property key="ProductFeatureType.description.TOPIC">
         <value xml:lang="de">Thema</value>
@@ -1622,6 +1781,7 @@
         <value xml:lang="ru">Тема</value>
         <value xml:lang="th">ใจความ</value>
         <value xml:lang="zh">话题</value>
+        <value xml:lang="zh_TW">話題</value>
     </property>
     <property key="ProductFeatureType.description.TYPE">
         <value xml:lang="de">Typ</value>
@@ -1633,6 +1793,7 @@
         <value xml:lang="ru">Тип</value>
         <value xml:lang="th">ประเภท</value>
         <value xml:lang="zh">类型</value>
+        <value xml:lang="zh_TW">類型</value>
     </property>
     <property key="ProductFeatureType.description.WARRANTY">
         <value xml:lang="de">Gewährleistung</value>
@@ -1644,6 +1805,7 @@
         <value xml:lang="ru">Гарантия</value>
         <value xml:lang="th">การรับประกัน</value>
         <value xml:lang="zh">保修</value>
+        <value xml:lang="zh_TW">保修</value>
     </property>
     <property key="ProductFeatureType.description.YEAR_MADE">
         <value xml:lang="de">Herstellungsjahr</value>
@@ -1655,6 +1817,7 @@
         <value xml:lang="ru">Год изготовления</value>
         <value xml:lang="th">ทำปี</value>
         <value xml:lang="zh">年生产</value>
+        <value xml:lang="zh_TW">年生產</value>
     </property>
     <property key="ProductGlAccountType.description.COGS">
         <value xml:lang="de">Kosten der verkauften Waren (COGS)</value>
@@ -1664,6 +1827,7 @@
         <value xml:lang="it">Costo del venduto</value>
         <value xml:lang="th">COGS</value>
         <value xml:lang="zh">产品销售成本</value>
+        <value xml:lang="zh_TW">產品銷售成本</value>
     </property>
     <property key="ProductGlAccountType.description.INVENTORY">
         <value xml:lang="de">Bestand</value>
@@ -1674,6 +1838,7 @@
         <value xml:lang="nl">Voorraad</value>		
         <value xml:lang="th">สินค้าคงเหลือ</value>
         <value xml:lang="zh">库存</value>
+        <value xml:lang="zh_TW">庫存</value>
     </property>
     <property key="ProductGlAccountType.description.SALES">
         <value xml:lang="de">Verkauf</value>
@@ -1683,31 +1848,37 @@
         <value xml:lang="it">vendite</value>
         <value xml:lang="th">ขาย</value>
         <value xml:lang="zh">销售</value>
+        <value xml:lang="zh_TW">銷售</value>
     </property>
     <property key="ProductMaintType.description.CHASSIS_LUBE">
         <value xml:lang="en">Chassis Lubrication</value>
         <value xml:lang="it">Lubrificazione telaio</value>
         <value xml:lang="zh">底盘润滑</value>
+        <value xml:lang="zh_TW">底盤潤滑</value>
     </property>
     <property key="ProductMaintType.description.CHECK_BATTERY">
         <value xml:lang="en">Check Battery</value>
         <value xml:lang="it">Controllo batteria</value>
         <value xml:lang="zh">检查电池</value>
+        <value xml:lang="zh_TW">檢查電池</value>
     </property>
     <property key="ProductMaintType.description.HVAC_CHECK_REFR">
         <value xml:lang="en">Check/Recharge Refrigerant</value>
         <value xml:lang="it">Controllo/Ricarica refrigerante</value>
         <value xml:lang="zh">检查/补充制冷剂</value>
+        <value xml:lang="zh_TW">檢查/補充制冷劑</value>
     </property>
     <property key="ProductMaintType.description.HVAC_MAINT">
         <value xml:lang="en">HVAC Maintenance</value>
         <value xml:lang="it">Manutenzione HVAC</value>
         <value xml:lang="zh">中央空调维修保养</value>
+        <value xml:lang="zh_TW">中央空調維修保養</value>
     </property>
     <property key="ProductMaintType.description.HVAC_REPLACE_FILTER">
         <value xml:lang="en">Replace Air Filter</value>
         <value xml:lang="it">Sostituzione filtro aria</value>
         <value xml:lang="zh">换空滤</value>
+        <value xml:lang="zh_TW">換空濾</value>
     </property>
     <property key="ProductMaintType.description.OIL_CHANGE">
         <value xml:lang="de">Ölwechsel</value>
@@ -1719,6 +1890,7 @@
         <value xml:lang="ru">Замена масла</value>
         <value xml:lang="th">เปลี่ยนน้ำมัน</value>
         <value xml:lang="zh">换油</value>
+        <value xml:lang="zh_TW">換油</value>
     </property>
     <property key="ProductMaintType.description.REFUEL">
         <value xml:lang="de">Auftanken</value>
@@ -1730,6 +1902,7 @@
         <value xml:lang="ru">Заправка</value>
         <value xml:lang="th">เติมน้ำมัน</value>
         <value xml:lang="zh">加油</value>
+        <value xml:lang="zh_TW">加油</value>
     </property>
     <property key="ProductMaintType.description.REPLACE_BATTERY">
         <value xml:lang="de">Batterie ersetzen</value>
@@ -1741,11 +1914,13 @@
         <value xml:lang="ru">Замена батарей</value>
         <value xml:lang="th">แทนที่แบตเตอรี่</value>
         <value xml:lang="zh">更换电池</value>
+        <value xml:lang="zh_TW">更換電池</value>
     </property>
     <property key="ProductMaintType.description.ROTATE_TIRES">
         <value xml:lang="en">Rotate Tires</value>
         <value xml:lang="it">Invertire le gomme</value>
         <value xml:lang="zh">轮胎轮换</value>
+        <value xml:lang="zh_TW">輪胎輪換</value>
     </property>
     <property key="ProductMaintType.description.SERP_BELT">
         <value xml:lang="de">Keilriemen Ersatz</value>
@@ -1757,11 +1932,13 @@
         <value xml:lang="ru">Замена приводных ремней</value>
         <value xml:lang="th">การแทนที่ทางโค้งคดเคี้ยว</value>
         <value xml:lang="zh">更换平带</value>
+        <value xml:lang="zh_TW">更換平帶</value>
     </property>
     <property key="ProductMaintType.description.TUNE_UP">
         <value xml:lang="en">Tune Up</value>
         <value xml:lang="it">Mettere a punto</value>
         <value xml:lang="zh">调音</value>
+        <value xml:lang="zh_TW">調音</value>
     </property>
     <property key="ProductMaintType.description.VEHICLE_MAINT">
         <value xml:lang="de">Fahrzeug Instandhaltung</value>
@@ -1773,6 +1950,7 @@
         <value xml:lang="ru">Обслуживание транспортных средств</value>
         <value xml:lang="th">การบำรุงรักษายานพาหนะ</value>
         <value xml:lang="zh">车辆维护</value>
+        <value xml:lang="zh_TW">車輛維護</value>
     </property>
     <property key="ProductMaintType.description.WASH">
         <value xml:lang="de">Reinigen</value>
@@ -1784,6 +1962,7 @@
         <value xml:lang="ru">Мойка</value>
         <value xml:lang="th">ล้าง</value>
         <value xml:lang="zh">清洗</value>
+        <value xml:lang="zh_TW">清洗</value>
     </property>
     <property key="ProductMeterType.description.COPY_COUNT">
         <value xml:lang="de">Kopierzähler</value>
@@ -1795,6 +1974,7 @@
         <value xml:lang="ru">Количество копий</value>
         <value xml:lang="th">คัดลอกจำนวนมิเตอร์</value>
         <value xml:lang="zh">复制计数表</value>
+        <value xml:lang="zh_TW">複制計數表</value>
     </property>
     <property key="ProductMeterType.description.DISTANCE">
         <value xml:lang="de">Distanzzähler</value>
@@ -1806,6 +1986,7 @@
         <value xml:lang="ru">Счетчик расстояния</value>
         <value xml:lang="th">มิเตอร์ระยะทาง</value>
         <value xml:lang="zh">里程表</value>
+        <value xml:lang="zh_TW">里程表</value>
     </property>
     <property key="ProductMeterType.description.MOTOR_TIME">
         <value xml:lang="de">Motorstunden Zähler</value>
@@ -1817,12 +1998,14 @@
         <value xml:lang="ru">Счетчик времени наработки двигателя</value>
         <value xml:lang="th">มิเตอร์เวลาเครื่องยนต์</value>
         <value xml:lang="zh">马达计时器</value>
+        <value xml:lang="zh_TW">馬達計時器</value>
     </property>
     <property key="ProductMeterType.description.ODOMETER">
         <value xml:lang="en">Odometer</value>
         <value xml:lang="fr">Odomètre</value>
         <value xml:lang="it">Odometro</value>
         <value xml:lang="zh">里程表</value>
+        <value xml:lang="zh_TW">里程表</value>
     </property>
     <property key="ProductMeterType.description.SPEEDOMETER">
         <value xml:lang="de">Geschwindigkeitsmesser</value>
@@ -1834,6 +2017,7 @@
         <value xml:lang="ru">Спидометр</value>
         <value xml:lang="th">มิเตอร์ความเร็ว</value>
         <value xml:lang="zh">速度表</value>
+        <value xml:lang="zh_TW">速度表</value>
     </property>
     <property key="ProductMeterType.description.TACHOMETER">
         <value xml:lang="de">Tachometer</value>
@@ -1845,6 +2029,7 @@
         <value xml:lang="ru">Тахометр</value>
         <value xml:lang="th">เครื่องวัดความเร็ว</value>
         <value xml:lang="zh">转速表</value>
+        <value xml:lang="zh_TW">轉速表</value>
     </property>
     <property key="ProductMeterType.description.USE_COUNT">
         <value xml:lang="de">Verwendungszähler</value>
@@ -1856,6 +2041,7 @@
         <value xml:lang="ru">Количество использования</value>
         <value xml:lang="th">เครื่องงนับการใช้</value>
         <value xml:lang="zh">使用计数表</value>
+        <value xml:lang="zh_TW">使用計數表</value>
     </property>
     <property key="ProductMeterType.description.TRIP_METER">
         <value xml:lang="en">Use Trip Meter</value>
@@ -1887,6 +2073,7 @@
         <value xml:lang="ru">Замещение фиксированного количества</value>
         <value xml:lang="th">ยกเลิกจำนวนที่ไม่ชัดเจน</value>
         <value xml:lang="zh">替代固定金额</value>
+        <value xml:lang="zh_TW">替代固定金額</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_FOL">
         <value xml:lang="de">Pauschalbetrag ändern</value>
@@ -1898,6 +2085,7 @@
         <value xml:lang="ru">Изменение фиксированного количества</value>
         <value xml:lang="th">ปรับปรุงจำนวนที่ไม่ชัดเจน</value>
         <value xml:lang="zh">修改固定金额</value>
+        <value xml:lang="zh_TW">修改固定金額</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_PFLAT">
         <value xml:lang="de">Aktionspreis übersteuern</value>
@@ -1909,6 +2097,7 @@
         <value xml:lang="ru">Замещение акционного количества</value>
         <value xml:lang="th">ยกเลิกจำนวนโปรโมชัน</value>
         <value xml:lang="zh">替代促销金额</value>
+        <value xml:lang="zh_TW">替代促銷金額</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_POAC">
         <value xml:lang="de">Prozent von Durchschnittskosten</value>
@@ -1920,6 +2109,7 @@
         <value xml:lang="ru">Процент от средней стоимости</value>
         <value xml:lang="th">อัตราร้อยละของถัวเฉลี่ย</value>
         <value xml:lang="zh">平均花费的百分数</value>
+        <value xml:lang="zh_TW">平均花費的百分數</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_POD">
         <value xml:lang="de">Prozent vom Standardpreis</value>
@@ -1931,6 +2121,7 @@
         <value xml:lang="ru">Процент от обычной цены</value>
         <value xml:lang="th">อัตราร้อยละของราคาเริ่มต้น</value>
         <value xml:lang="zh">缺省价格的百分数</value>
+        <value xml:lang="zh_TW">預設價格的百分數</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_POL">
         <value xml:lang="de">Prozent vom Listenpreis</value>
@@ -1942,6 +2133,7 @@
         <value xml:lang="ru">Процент от прейскурантной цены</value>
         <value xml:lang="th">อัตราร้อยละของรายการราคา</value>
         <value xml:lang="zh">标价的百分数</value>
+        <value xml:lang="zh_TW">標價的百分數</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_POM">
         <value xml:lang="de">Prozent von Gewinnmarge</value>
@@ -1953,6 +2145,7 @@
         <value xml:lang="ru">Процент от маржи</value>
         <value xml:lang="th">อัตราร้อยละของผลต่าง</value>
         <value xml:lang="zh">利润百分比</value>
+        <value xml:lang="zh_TW">利潤百分比</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_WFLAT">
         <value xml:lang="de">Grosshandelspreis übersteuern</value>
@@ -1964,6 +2157,7 @@
         <value xml:lang="ru">Замещение оптового количества</value>
         <value xml:lang="th">ยกเลิกจำนวนการขนส่ง</value>
         <value xml:lang="zh">替代总代理金额</value>
+        <value xml:lang="zh_TW">替代總代理金額</value>
     </property>
     <property key="ProductPricePurpose.description.COMPONENT_PRICE">
         <value xml:lang="de">Komponentenpreis</value>
@@ -1975,6 +2169,7 @@
         <value xml:lang="ru">Цена комплектующих</value>
         <value xml:lang="th">ส่วนประกอบราคา</value>
         <value xml:lang="zh">元件价格</value>
+        <value xml:lang="zh_TW">元件價格</value>
     </property>
     <property key="ProductPricePurpose.description.PURCHASE">
         <value xml:lang="de">Einkauf/Initial</value>
@@ -1986,6 +2181,7 @@
         <value xml:lang="ru">Закупка/Начальный</value>
         <value xml:lang="th">การสั่งซื้อ/เริ่มแรก</value>
         <value xml:lang="zh">购买/初始</value>
+        <value xml:lang="zh_TW">購買/初始</value>
     </property>
     <property key="ProductPricePurpose.description.RECURRING_CHARGE">
         <value xml:lang="de">Wiederkehrende Kosten</value>
@@ -1997,6 +2193,7 @@
         <value xml:lang="ru">Периодические платежи</value>
         <value xml:lang="th">Recurring Charge</value>
         <value xml:lang="zh">经常费用</value>
+        <value xml:lang="zh_TW">經常費用</value>
     </property>
     <property key="ProductPricePurpose.description.USAGE_CHARGE">
         <value xml:lang="de">Benützungsgebühr</value>
@@ -2008,6 +2205,7 @@
         <value xml:lang="ru">Оплата использования</value>
         <value xml:lang="th">ค่าธรรมเนียมการใช้</value>
         <value xml:lang="zh">使用费</value>
+        <value xml:lang="zh_TW">使用費</value>
     </property>
     <property key="ProductPriceType.description.AVERAGE_COST">
         <value xml:lang="de">Durchschnittskosten</value>
@@ -2019,6 +2217,7 @@
         <value xml:lang="ru">Средняя стоимость</value>
         <value xml:lang="th">ต้นทุนเฉลี่ย</value>
         <value xml:lang="zh">平均花费</value>
+        <value xml:lang="zh_TW">平均花費</value>
     </property>
     <property key="ProductPriceType.description.COMPETITIVE_PRICE">
         <value xml:lang="de">Konkurrenzfähiger Preis</value>
@@ -2030,6 +2229,7 @@
         <value xml:lang="ru">Конкурентная цена</value>
         <value xml:lang="th">ราคาเปรียบเทียบ</value>
         <value xml:lang="zh">竞争对手价格</value>
+        <value xml:lang="zh_TW">競爭對手價格</value>
     </property>
     <property key="ProductPriceType.description.COMPONENT_PRICE">
         <value xml:lang="de">Komponentenpreis</value>
@@ -2039,6 +2239,7 @@
         <value xml:lang="it">Prezzo componente</value>
         <value xml:lang="th">ส่วนประกอบราคา</value>
         <value xml:lang="zh">组件价格</value>
+        <value xml:lang="zh_TW">元件價格</value>
     </property>
     <property key="ProductPriceType.description.DEFAULT_PRICE">
         <value xml:lang="de">Standardpreis</value>
@@ -2050,6 +2251,7 @@
         <value xml:lang="ru">Обычная цена</value>
         <value xml:lang="th">ราคาเริ่มต้น</value>
         <value xml:lang="zh">缺省价格</value>
+        <value xml:lang="zh_TW">預設價格</value>
     </property>
     <property key="ProductPriceType.description.LIST_PRICE">
         <value xml:lang="de">Listenpreis</value>
@@ -2061,6 +2263,7 @@
         <value xml:lang="ru">Прейскурантная цена</value>
         <value xml:lang="th">รายการราคา</value>
         <value xml:lang="zh">标价</value>
+        <value xml:lang="zh_TW">標價</value>
     </property>
     <property key="ProductPriceType.description.MAXIMUM_PRICE">
         <value xml:lang="de">Maximum Preis</value>
@@ -2072,6 +2275,7 @@
         <value xml:lang="ru">Максимальная цена</value>
         <value xml:lang="th">ราคาสูงสุด</value>
         <value xml:lang="zh">最高价</value>
+        <value xml:lang="zh_TW">最高價</value>
     </property>
     <property key="ProductPriceType.description.MINIMUM_PRICE">
         <value xml:lang="de">Minimum Preis</value>
@@ -2083,6 +2287,7 @@
         <value xml:lang="ru">Минимальная цена</value>
         <value xml:lang="th">ราคาน้อยสุด</value>
         <value xml:lang="zh">最低价</value>
+        <value xml:lang="zh_TW">最低價</value>
     </property>
     <property key="ProductPriceType.description.PROMO_PRICE">
         <value xml:lang="de">Aktionspreis</value>
@@ -2094,6 +2299,7 @@
         <value xml:lang="ru">Акционная цена</value>
         <value xml:lang="th">ราคาโปรโมชัน</value>
         <value xml:lang="zh">促销价</value>
+        <value xml:lang="zh_TW">促銷價</value>
     </property>
     <property key="ProductPriceType.description.RECURRING_CHARGE">
         <value xml:lang="de">Wiederkehrende Kosten</value>
@@ -2103,6 +2309,7 @@
         <value xml:lang="it">Ricarico ricorrente</value>
         <value xml:lang="th">RECURRING_CHARGE</value>
         <value xml:lang="zh">经常性费用</value>
+        <value xml:lang="zh_TW">經常性費用</value>
     </property>
     <property key="ProductPriceType.description.SPECIAL_PROMO_PRICE">
         <value xml:lang="de">Sonderaktionspreis</value>
@@ -2113,6 +2320,7 @@
         <value xml:lang="ru">Специальная цена</value>
         <value xml:lang="th">ราคาโปรโมชันพิเศษ</value>
         <value xml:lang="zh">特别促销价</value>
+        <value xml:lang="zh_TW">特別促銷價</value>
     </property>
     <property key="ProductPriceType.description.USAGE_CHARGE">
         <value xml:lang="de">Benutzungsgebühr</value>
@@ -2122,6 +2330,7 @@
         <value xml:lang="it">Uso Ricarico</value>
         <value xml:lang="th">ค่าธรรมเนียมการใช้</value>
         <value xml:lang="zh">使用费</value>
+        <value xml:lang="zh_TW">使用費</value>
     </property>
     <property key="ProductPriceType.description.WHOLESALE_PRICE">
         <value xml:lang="de">Grosshandelspreis</value>
@@ -2133,6 +2342,7 @@
         <value xml:lang="ru">Оптовая цена</value>
         <value xml:lang="th">ราคาขายส่ง</value>
         <value xml:lang="zh">总代理价</value>
+        <value xml:lang="zh_TW">總代理價</value>
     </property>
     <property key="ProductStoreGroup.description._NA_">
         <value xml:lang="de">Nicht anwendbar</value>
@@ -2144,6 +2354,7 @@
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
         <value xml:lang="zh">不可用</value>
+        <value xml:lang="zh_TW">不可用</value>
     </property>
     <property key="ProductStoreGroup.productStoreGroupName._NA_">
         <value xml:lang="de">Nicht anwendbar</value>
@@ -2154,6 +2365,7 @@
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
         <value xml:lang="zh">不可用</value>
+        <value xml:lang="zh_TW">不可用</value>
     </property>
     <property key="ProductType.description.AGGREGATED">
         <value xml:lang="de">Konfigurierbares Produkt</value>
@@ -2165,11 +2377,13 @@
         <value xml:lang="ru">Товар требующий конфигурации</value>
         <value xml:lang="th">สามารถสร้างสินค้า</value>
         <value xml:lang="zh">可配置商品</value>
+        <value xml:lang="zh_TW">可配置商品</value>
     </property>
     <property key="ProductType.description.AGGREGATED_CONF">
         <value xml:lang="en">Configurable Good Configuration</value>
         <value xml:lang="it">Configurazione beni configurabili</value>
         <value xml:lang="zh">可配置商品配置</value>
+        <value xml:lang="zh_TW">可配置商品配置</value>
     </property>
     <property key="ProductType.description.ASSET_USAGE">
         <value xml:lang="de">Anlageverwendung</value>
@@ -2181,6 +2395,7 @@
         <value xml:lang="ru">Использование ОС</value>
         <value xml:lang="th">วิธีการใช้ทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产用途</value>
+        <value xml:lang="zh_TW">固定資產用途</value>
     </property>
     <property key="ProductType.description.DIGITAL_GOOD">
         <value xml:lang="de">Digitales Produkt</value>
@@ -2192,6 +2407,7 @@
         <value xml:lang="ru">Цифровой товар</value>
         <value xml:lang="th">สินค้าดิจิตอล</value>
         <value xml:lang="zh">数字商品</value>
+        <value xml:lang="zh_TW">數字商品</value>
     </property>
     <property key="ProductType.description.FINDIG_GOOD">
         <value xml:lang="de">Fertigprodukt/Digitales Produkt</value>
@@ -2203,6 +2419,7 @@
         <value xml:lang="ru">Готовый/цифровой товар</value>
         <value xml:lang="th">เสร็จสิ้น/สินค้าดิจิตอล</value>
         <value xml:lang="zh">成品/数字商品</value>
+        <value xml:lang="zh_TW">成品/數字商品</value>
     </property>
     <property key="ProductType.description.FINISHED_GOOD">
         <value xml:lang="de">Fertigprodukt</value>
@@ -2214,6 +2431,7 @@
         <value xml:lang="ru">Готовый товар</value>
         <value xml:lang="th">สินค้าเคลือบเงา</value>
         <value xml:lang="zh">成品</value>
+        <value xml:lang="zh_TW">成品</value>
     </property>
     <property key="ProductType.description.GOOD">
         <value xml:lang="de">Waren</value>
@@ -2225,6 +2443,7 @@
         <value xml:lang="ru">Товар</value>
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">商品</value>
+        <value xml:lang="zh_TW">商品</value>
     </property>
     <property key="ProductType.description.MARKETING_PKG">
         <value xml:lang="en">Marketing Package</value>
@@ -2239,6 +2458,7 @@
         <value xml:lang="ru">Маркетинговый пакет</value>
         <value xml:lang="th">แพคเกจการตลาด</value>
         <value xml:lang="zh">促销包</value>
+        <value xml:lang="zh_TW">促銷包</value>
     </property>
     <property key="ProductType.description.MARKETING_PKG_PICK">
         <value xml:lang="de">Marketingpaket: Zusammensetzung wählen</value>
@@ -2248,6 +2468,7 @@
         <value xml:lang="it">Pacco di vendita: assemblato durante il prelievo</value>
         <value xml:lang="th">แพคเกจการตลาด: การเลือกการรวมกลุ่ม</value>
         <value xml:lang="zh">促销包：分拣组装</value>
+        <value xml:lang="zh_TW">促銷包：分揀組裝</value>
     </property>
     <property key="ProductType.description.RAW_MATERIAL">
         <value xml:lang="de">Rohmaterial</value>
@@ -2259,6 +2480,7 @@
         <value xml:lang="ru">Необработанный материал</value>
         <value xml:lang="th">วัตถุดิบ</value>
         <value xml:lang="zh">原材料</value>
+        <value xml:lang="zh_TW">原材料</value>
     </property>
     <property key="ProductType.description.SERVICE">
         <value xml:lang="de">Dienstleistung</value>
@@ -2270,6 +2492,7 @@
         <value xml:lang="ru">Услуга</value>
         <value xml:lang="th">บริการ</value>
         <value xml:lang="zh">服务</value>
+        <value xml:lang="zh_TW">服務</value>
     </property>
     <property key="ProductType.description.SUBASSEMBLY">
         <value xml:lang="de">Zwischenprodukt</value>
@@ -2281,6 +2504,7 @@
         <value xml:lang="ru">Комплектующие</value>
         <value xml:lang="th">การรวมกลุ่มย่อย</value>
         <value xml:lang="zh">部件</value>
+        <value xml:lang="zh_TW">部件</value>
     </property>
     <property key="ProductType.description.WIP">
         <value xml:lang="de">In Arbeit</value>
@@ -2292,6 +2516,7 @@
         <value xml:lang="ru">Незавершенная работа</value>
         <value xml:lang="th">งานที่ก้าวหน้า</value>
         <value xml:lang="zh">在制品</value>
+        <value xml:lang="zh_TW">在制品</value>
     </property>
     <property key="QuantityBreakType.description.ORDER_VALUE">
         <value xml:lang="de">Preiskomponente Auftragswert Sprung</value>
@@ -2302,6 +2527,7 @@
         <value xml:lang="ru">Порого ценового компонента от объема заказа</value>
         <value xml:lang="th">หยุดค่ารายการส่วนประกอบราคา</value>
         <value xml:lang="zh">组件价格订单价值台阶</value>
+        <value xml:lang="zh_TW">元件價格訂單價值台階</value>
     </property>
     <property key="QuantityBreakType.description.QUANTITY">
         <value xml:lang="de">Preiskomponente Menge Sprung</value>
@@ -2312,6 +2538,7 @@
         <value xml:lang="ru">Количественный порог ценового компонента</value>
         <value xml:lang="th">หยุดค่าจำนวนส่วนประกอบราคา</value>
         <value xml:lang="zh">组件价格数量台阶</value>
+        <value xml:lang="zh_TW">元件價格數量台階</value>
     </property>
     <property key="QuantityBreakType.description.SHIP_PRICE">
         <value xml:lang="de">Lieferpreis Sprung</value>
@@ -2322,6 +2549,7 @@
         <value xml:lang="ru">Ценовый порог поставки</value>
         <value xml:lang="th">หยุดราคาการขนส่ง</value>
         <value xml:lang="zh">运价台阶</value>
+        <value xml:lang="zh_TW">運價台階</value>
     </property>
     <property key="QuantityBreakType.description.SHIP_QUANTITY">
         <value xml:lang="de">Liefermenge Sprung</value>
@@ -2332,6 +2560,7 @@
         <value xml:lang="ru">Количественный порог поставки</value>
         <value xml:lang="th">หยุดจำนวนการขนส่ง</value>
         <value xml:lang="zh">运送数量台阶</value>
+        <value xml:lang="zh_TW">運送數量台階</value>
     </property>
     <property key="QuantityBreakType.description.SHIP_WEIGHT">
         <value xml:lang="de">Liefergewicht Sprung</value>
@@ -2342,6 +2571,7 @@
         <value xml:lang="ru">Весовой порог поставки</value>
         <value xml:lang="th">หยุดน้ำหนักการขนส่ง</value>
         <value xml:lang="zh">运送重量台阶</value>
+        <value xml:lang="zh_TW">運送重量台階</value>
     </property>
     <property key="RejectionReason.description.SRJ_DAMAGED">
         <value xml:lang="de">Beschädigt</value>
@@ -2353,6 +2583,7 @@
         <value xml:lang="ru">Повреждено</value>
         <value xml:lang="th">รายจ่าย</value>
         <value xml:lang="zh">已损坏的</value>
+        <value xml:lang="zh_TW">已損壞的</value>
     </property>
     <property key="RejectionReason.description.SRJ_NOT_ORDERED">
         <value xml:lang="de">Nicht in Auftrag gegeben</value>
@@ -2364,6 +2595,7 @@
         <value xml:lang="ru">Не заказывалось</value>
         <value xml:lang="th">ไม่ใช่รายการสั่งซื้อ</value>
         <value xml:lang="zh">未订购的</value>
+        <value xml:lang="zh_TW">未訂購的</value>
     </property>
     <property key="RejectionReason.description.SRJ_OVER_SHIPPED">
         <value xml:lang="de">Zuviel geliefert</value>
@@ -2375,6 +2607,7 @@
         <value xml:lang="ru">Поставка лишнего</value>
         <value xml:lang="th">การขนส่งมาก</value>
         <value xml:lang="zh">超载</value>
+        <value xml:lang="zh_TW">超載</value>
     </property>
     <property key="ShipmentContactMechType.description.SHIP_FROM_ADDRESS">
         <value xml:lang="de">Lieferung Herkunft</value>
@@ -2384,6 +2617,7 @@
         <value xml:lang="it">Spedisci dall'indirizzo</value>
         <value xml:lang="th">การขนส่งจากที่อยู่</value>
         <value xml:lang="zh">发货地址</value>
+        <value xml:lang="zh_TW">發貨位址</value>
     </property>
     <property key="ShipmentContactMechType.description.SHIP_FROM_TELECOM">
         <value xml:lang="de">Lieferung Herkunft Telefonnummer</value>
@@ -2393,6 +2627,7 @@
         <value xml:lang="it">Spedisci dal numero di telefono</value>
         <value xml:lang="th">การขนส่งจากโทรคมนาคม</value>
         <value xml:lang="zh">发货电话</value>
+        <value xml:lang="zh_TW">發貨電話</value>
     </property>
     <property key="ShipmentContactMechType.description.SHIP_TO_ADDRESS">
         <value xml:lang="de">Lieferung Zieladresse</value>
@@ -2402,6 +2637,7 @@
         <value xml:lang="it">Spedisci all'indirizzo</value>
         <value xml:lang="th">การขนส่งถึงที่อยู่</value>
         <value xml:lang="zh">收货地址</value>
+        <value xml:lang="zh_TW">收貨位址</value>
     </property>
     <property key="ShipmentContactMechType.description.SHIP_TO_EMAIL">
         <value xml:lang="de">Lieferung Ziel E-Mail Adresse</value>
@@ -2411,6 +2647,7 @@
         <value xml:lang="it">Spedisci all'email</value>
         <value xml:lang="th">การขนส่งถึงอีเมล</value>
         <value xml:lang="zh">收货电子邮件</value>
+        <value xml:lang="zh_TW">收貨電子郵件</value>
     </property>
     <property key="ShipmentContactMechType.description.SHIP_TO_TELECOM">
         <value xml:lang="de">Lieferung Ziel Telefonnummer</value>
@@ -2420,6 +2657,7 @@
         <value xml:lang="it">Spedisci al numero di telefono</value>
         <value xml:lang="th">การขนส่งถึงโทรคมนาคม</value>
         <value xml:lang="zh">收货电话</value>
+        <value xml:lang="zh_TW">收貨電話</value>
     </property>
     <property key="ShipmentType.description.DROP_SHIPMENT">
         <value xml:lang="de">Direktlieferung</value>
@@ -2431,6 +2669,7 @@
         <value xml:lang="ru">Прямая поставка</value>
         <value xml:lang="th">หยุดการขนส่ง</value>
         <value xml:lang="zh">直送</value>
+        <value xml:lang="zh_TW">直送</value>
     </property>
     <property key="ShipmentType.description.INCOMING_SHIPMENT">
         <value xml:lang="de">Eingehend</value>
@@ -2442,6 +2681,7 @@
         <value xml:lang="ru">Входящая</value>
         <value xml:lang="th">รายได้</value>
         <value xml:lang="zh">运进</value>
+        <value xml:lang="zh_TW">運進</value>
     </property>
     <property key="ShipmentType.description.MANUFACTURING_SHIP">
         <value xml:lang="de">Fertigung Lieferung</value>
@@ -2451,6 +2691,7 @@
         <value xml:lang="it">Spedizione di produzione</value>
         <value xml:lang="th">การผลิตการขนส่ง</value>
         <value xml:lang="zh">制造中的船舶</value>
+        <value xml:lang="zh_TW">制造中的船舶</value>
     </property>
     <property key="ShipmentType.description.OUTGOING_SHIPMENT">
         <value xml:lang="de">Ausgehend</value>
@@ -2462,6 +2703,7 @@
         <value xml:lang="ru">Исходящая</value>
         <value xml:lang="th">ออกจากสถานที่</value>
         <value xml:lang="zh">运出</value>
+        <value xml:lang="zh_TW">運出</value>
     </property>
     <property key="ShipmentType.description.PURCHASE_RETURN">
         <value xml:lang="de">Einkauf Retoure</value>
@@ -2473,6 +2715,7 @@
         <value xml:lang="ru">Возврат закупленного</value>
         <value xml:lang="th">คืนค่าการสั่งซื้อ</value>
         <value xml:lang="zh">购物退货</value>
+        <value xml:lang="zh_TW">購物退貨</value>
     </property>
     <property key="ShipmentType.description.PURCHASE_SHIPMENT">
         <value xml:lang="de">Einkauf Lieferung</value>
@@ -2484,6 +2727,7 @@
         <value xml:lang="ru">Поставка закупленного</value>
         <value xml:lang="th">การขนส่งการสั่งซื้อ</value>
         <value xml:lang="zh">购物送货</value>
+        <value xml:lang="zh_TW">購物送貨</value>
     </property>
     <property key="ShipmentType.description.SALES_RETURN">
         <value xml:lang="de">Verkauf Retoure</value>
@@ -2495,6 +2739,7 @@
         <value xml:lang="ru">Возврат проданного</value>
         <value xml:lang="th">คืนค่าการขาย</value>
         <value xml:lang="zh">销售退货</value>
+        <value xml:lang="zh_TW">銷售退貨</value>
     </property>
     <property key="ShipmentType.description.SALES_SHIPMENT">
         <value xml:lang="de">Verkauf Lieferung</value>
@@ -2506,6 +2751,7 @@
         <value xml:lang="ru">Поставка проданного</value>
         <value xml:lang="th">การขนส่งการขาย</value>
         <value xml:lang="zh">销售送货</value>
+        <value xml:lang="zh_TW">銷售送貨</value>
     </property>
     <property key="ShipmentType.description.TRANSFER">
         <value xml:lang="de">Transfer</value>
@@ -2517,6 +2763,7 @@
         <value xml:lang="ru">Передача</value>
         <value xml:lang="th">การขนส่ง</value>
         <value xml:lang="zh">传送</value>
+        <value xml:lang="zh_TW">傳送</value>
     </property>
     <property key="SubscriptionType.description.NEWSGROUP_SUBSCR">
         <value xml:lang="de">Newsgruppe</value>
@@ -2528,6 +2775,7 @@
         <value xml:lang="ru">Новости</value>
         <value xml:lang="th">กลุ่มข่าว</value>
         <value xml:lang="zh">新闻组</value>
+        <value xml:lang="zh_TW">新聞組</value>
     </property>
     <property key="SubscriptionType.description.OTHER_SUBSCR">
         <value xml:lang="de">Andere</value>
@@ -2539,6 +2787,7 @@
         <value xml:lang="ru">Друго</value>
         <value xml:lang="th">อื่น ๆ</value>
         <value xml:lang="zh">其它</value>
+        <value xml:lang="zh_TW">其他</value>
     </property>
     <property key="SubscriptionType.description.PRODUCT_INFO_SUBSCR">
         <value xml:lang="de">Produktinformationen</value>
@@ -2550,6 +2799,7 @@
         <value xml:lang="ru">Информация о продукте</value>
         <value xml:lang="th">ข้อมูลสินค้า</value>
         <value xml:lang="zh">产品信息</value>
+        <value xml:lang="zh_TW">產品資訊</value>
     </property>
     <property key="SubscriptionType.description.PRODUCT_SUBSCR">
         <value xml:lang="de">Produkt</value>
@@ -2560,6 +2810,7 @@
         <value xml:lang="ru">Продукт</value>
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">产品</value>
+        <value xml:lang="zh_TW">產品</value>
     </property>
     <property key="VarianceReason.description.VAR_DAMAGED">
         <value xml:lang="de">Beschädigt</value>
@@ -2571,6 +2822,7 @@
         <value xml:lang="ru">Повреждено</value>
         <value xml:lang="th">รายจ่าย</value>
         <value xml:lang="zh">已损坏</value>
+        <value xml:lang="zh_TW">已損壞</value>
     </property>
     <property key="VarianceReason.description.VAR_FOUND">
         <value xml:lang="de">Gefunden</value>
@@ -2582,6 +2834,7 @@
         <value xml:lang="ru">Найдено</value>
         <value xml:lang="th">พบ</value>
         <value xml:lang="zh">已找到</value>
+        <value xml:lang="zh_TW">已找到</value>
     </property>
     <property key="VarianceReason.description.VAR_INTEGR">
         <value xml:lang="de">Integration</value>
@@ -2593,6 +2846,7 @@
         <value xml:lang="ru">Интеграция</value>
         <value xml:lang="th">การรวมเข้าด้วยกัน</value>
         <value xml:lang="zh">完整</value>
+        <value xml:lang="zh_TW">完整</value>
     </property>
     <property key="VarianceReason.description.VAR_LOST">
         <value xml:lang="de">Verloren</value>
@@ -2604,16 +2858,19 @@
         <value xml:lang="ru">Утеряно</value>
         <value xml:lang="th">สูญเสีย</value>
         <value xml:lang="zh">丢失</value>
+        <value xml:lang="zh_TW">丟失</value>
     </property>
     <property key="VarianceReason.description.VAR_MISSHIP_ORDERED">
         <value xml:lang="en">Mis-shipped Item Ordered (+)</value>
         <value xml:lang="it">Riga non-spedita ordinata (+)</value>
         <value xml:lang="zh">已订购的误装明细 (+)</value>
+        <value xml:lang="zh_TW">已訂購的誤裝明細 (+)</value>
     </property>
     <property key="VarianceReason.description.VAR_MISSHIP_SHIPPED">
         <value xml:lang="en">Mis-shipped Item Shipped (-)</value>
         <value xml:lang="it">Riga non-spedita spedita (-)</value>
         <value xml:lang="zh">已装运的误装明细 (-)</value>
+        <value xml:lang="zh_TW">已裝運的誤裝明細 (-)</value>
     </property>
     <property key="VarianceReason.description.VAR_SAMPLE">
         <value xml:lang="de">Muster</value>
@@ -2625,6 +2882,7 @@
         <value xml:lang="ru">Проба (испорчен)</value>
         <value xml:lang="th">ตัวอย่าง (เปิดเผย)</value>
         <value xml:lang="zh">样品 (派送)</value>
+        <value xml:lang="zh_TW">樣品 (派送)</value>
     </property>
     <property key="VarianceReason.description.VAR_STOLEN">
         <value xml:lang="de">Gestohlen</value>
@@ -2636,6 +2894,7 @@
         <value xml:lang="ru">Украдено</value>
         <value xml:lang="th">ของเถื่อน</value>
         <value xml:lang="zh">被盗</value>
+        <value xml:lang="zh_TW">被盜</value>
     </property>
 
     <!-- Field Descriptions -->

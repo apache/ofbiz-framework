@@ -28,6 +28,7 @@
         <value xml:lang="pt_BR">Custo alocado</value>
         <value xml:lang="th">ส่วนแบ่งราคา</value>
         <value xml:lang="zh">已分摊成本</value>
+        <value xml:lang="zh_TW">已分攤成本</value>
     </property>
     <property key="FormFieldTitle_authUserLoginId">
         <value xml:lang="en">Auth User Login Id</value>
@@ -37,6 +38,7 @@
         <value xml:lang="pt_BR">Id de Usuário</value>
         <value xml:lang="th">รับรองรหัสผู้ใช้ระบบ</value>
         <value xml:lang="zh">授权用户登录标识</value>
+        <value xml:lang="zh_TW">授權使用者登入ID</value>
     </property>
     <property key="FormFieldTitle_calendarWeekId">
         <value xml:lang="de">Kalenderwoche</value>
@@ -47,6 +49,7 @@
         <value xml:lang="pt_BR">Id da semana no calendário</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
         <value xml:lang="zh">自然周标识</value>
+        <value xml:lang="zh_TW">行事曆週ID</value>
     </property>
     <property key="FormFieldTitle_cancelDateTime">
         <value xml:lang="de">Zeitpunkt des Abbruchs</value>
@@ -57,6 +60,7 @@
         <value xml:lang="pt_BR">Data e hora de cancelamento</value>
         <value xml:lang="th">ยกเลิกวัน เวลา</value>
         <value xml:lang="zh">取消日期时间</value>
+        <value xml:lang="zh_TW">取消日期時間</value>
     </property>
     <property key="FormFieldTitle_costCustomMethodId">
         <value xml:lang="de">individuelle Kostenmethode</value>
@@ -68,6 +72,7 @@
         <value xml:lang="ro">Metoda Cost Personalizat</value>
         <value xml:lang="th">รหัสวิธีการคำนวณเงินลูกค้า</value>
         <value xml:lang="zh">费用客户方法标识</value>
+        <value xml:lang="zh_TW">費用客戶方法ID</value>
     </property>
     <property key="FormFieldTitle_costGlAccountTypeId">
         <value xml:lang="de">Kontenart für Kosten</value>
@@ -79,12 +84,14 @@
         <value xml:lang="ro">Tip Cont Contabil General</value>
         <value xml:lang="th">รหัสประเภทบัญชีค่าใช้จ่าย GI</value>
         <value xml:lang="zh">费用总账账户类型标识</value>
+        <value xml:lang="zh_TW">費用總賬賬戶類型ID</value>
     </property>
     <property key="FormFieldTitle_creationDate">
         <value xml:lang="en">Creation Date</value>
         <value xml:lang="it">Data creazione</value>
         <value xml:lang="pt_BR">Data de criação</value>
         <value xml:lang="zh">创建日期</value>
+        <value xml:lang="zh_TW">創建日期</value>
     </property>
     <property key="FormFieldTitle_defaultYearsOffset">
         <value xml:lang="de">Kontenart für Kosten</value>
@@ -95,6 +102,7 @@
         <value xml:lang="pt_BR">Deslocamento padrão em anos</value>
         <value xml:lang="th">ค่าชดเชยปีที่ผิดสัญญา</value>
         <value xml:lang="zh">缺省财年损益</value>
+        <value xml:lang="zh_TW">缺省財年損益</value>
     </property>
     <property key="FormFieldTitle_estimatedDuration">
         <value xml:lang="de">Geschätzte Dauer</value>
@@ -105,6 +113,7 @@
         <value xml:lang="pt_BR">Duração estimada</value>
         <value xml:lang="th">ประมาณเวลา</value>
         <value xml:lang="zh">预计用时</value>
+        <value xml:lang="zh_TW">預計用時</value>
     </property>
     <property key="FormFieldTitle_failIfItemsAreNotAvailable">
         <value xml:lang="de">Abbruch falls Komponenten nicht vorhanden</value>
@@ -115,6 +124,7 @@
         <value xml:lang="pt_BR">Falha se os itens não estão disponíveis</value>
         <value xml:lang="th">เกิดความผิดพลาดถ้าไม่มีสินค้าอยู่</value>
         <value xml:lang="zh">如果明细无效时失败</value>
+        <value xml:lang="zh_TW">如果明細無效時失敗</value>
     </property>
     <property key="FormFieldTitle_fixedCost">
         <value xml:lang="de">Fixkosten</value>
@@ -126,6 +136,7 @@
         <value xml:lang="ro">Cost Fix</value>
         <value xml:lang="th">เปลี่ยนแปลงราคา</value>
         <value xml:lang="zh">固定成本</value>
+        <value xml:lang="zh_TW">固定成本</value>
     </property>
     <property key="FormFieldTitle_fridayCapacity">
         <value xml:lang="de">Freitagskapazität</value>
@@ -136,6 +147,7 @@
         <value xml:lang="pt_BR">Capacidade para Sexta-feira</value>
         <value xml:lang="th">การปฎิบัติหน้าที่ในวันศุกร์</value>
         <value xml:lang="zh">星期五产能</value>
+        <value xml:lang="zh_TW">星期五產能</value>
     </property>
     <property key="FormFieldTitle_fridayStartTime">
         <value xml:lang="de">Freitagsstartzeit</value>
@@ -146,6 +158,7 @@
         <value xml:lang="pt_BR">Hora de início para sexta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันศุกร์</value>
         <value xml:lang="zh">星期五开始时间</value>
+        <value xml:lang="zh_TW">星期五開始時間</value>
     </property>
     <property key="FormFieldTitle_issuedQuantity">
         <value xml:lang="de">Ausgegebene Menge</value>
@@ -157,6 +170,7 @@
         <value xml:lang="ro">Cantitate Preluat</value>
         <value xml:lang="th">จำนวน</value>
         <value xml:lang="zh">交付数量</value>
+        <value xml:lang="zh_TW">交付數量</value>
     </property>
     <property key="FormFieldTitle_jobId">
         <value xml:lang="de">Job-Nr.</value>
@@ -167,6 +181,7 @@
         <value xml:lang="pt_BR">Id de emprego</value>
         <value xml:lang="th">รหัสงาน</value>
         <value xml:lang="zh">工作标识</value>
+        <value xml:lang="zh_TW">工作ID</value>
     </property>
     <property key="FormFieldTitle_jobName">
         <value xml:lang="de">Jobname</value>
@@ -177,12 +192,14 @@
         <value xml:lang="pt_BR">Nome do trabalho</value>
         <value xml:lang="th">ชื่องาน</value>
         <value xml:lang="zh">工作名称</value>
+        <value xml:lang="zh_TW">工作名稱</value>
     </property>
     <property key="FormFieldTitle_lotId">
         <value xml:lang="en">Lot Id</value>
         <value xml:lang="it">Numero lotto</value>
         <value xml:lang="pt_BR">Id do lote</value>
         <value xml:lang="zh">批次标识</value>
+        <value xml:lang="zh_TW">貨批ID</value>
     </property>
     <property key="FormFieldTitle_manufacturingTask">
         <value xml:lang="de">Arbeitsgang</value>
@@ -193,6 +210,7 @@
         <value xml:lang="pt_BR">Tarefa de produção</value>
         <value xml:lang="th">การสร้างงาน</value>
         <value xml:lang="zh">生产任务</value>
+        <value xml:lang="zh_TW">生產任務</value>
     </property>
     <property key="FormFieldTitle_maxRetry">
         <value xml:lang="de">Anzahl Wiederholungsversuche</value>
@@ -203,6 +221,7 @@
         <value xml:lang="pt_BR">Número máximo de tentativas</value>
         <value xml:lang="th">ทดสอบใหม่มากสุด</value>
         <value xml:lang="zh">最大重试次数</value>
+        <value xml:lang="zh_TW">最大重試次數</value>
     </property>
     <property key="FormFieldTitle_mondayCapacity">
         <value xml:lang="de">Montagskapazität</value>
@@ -213,6 +232,7 @@
         <value xml:lang="pt_BR">Capacidade de segunda-feira</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันจันทร์</value>
         <value xml:lang="zh">星期一产能</value>
+        <value xml:lang="zh_TW">星期一產能</value>
     </property>
     <property key="FormFieldTitle_mondayStartTime">
         <value xml:lang="de">Montagsstartzeit</value>
@@ -223,6 +243,7 @@
         <value xml:lang="pt_BR">Hora de início de segunda-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันจันทร์</value>
         <value xml:lang="zh">星期一开始时间</value>
+        <value xml:lang="zh_TW">星期一開始時間</value>
     </property>
     <property key="FormFieldTitle_offsettingGlAccountTypeId">
         <value xml:lang="de">Verechnungskontenart</value>
@@ -234,6 +255,7 @@
         <value xml:lang="ro">Tip Interval Cont Contabil General</value>
         <value xml:lang="th">รหัสประเภทบัญชีค่าชดเชยทั่วไป</value>
         <value xml:lang="zh">冲销总账账户类型标识</value>
+        <value xml:lang="zh_TW">沖銷總帳帳戶類型ID</value>
     </property>
     <property key="FormFieldTitle_perMilliSecond">
         <value xml:lang="de">Pro Millisekunde</value>
@@ -245,6 +267,7 @@
         <value xml:lang="ro">Pe Milisecunde</value>
         <value xml:lang="th">ต่อพันวินาที</value>
         <value xml:lang="zh">每毫秒</value>
+        <value xml:lang="zh_TW">每毫秒</value>
     </property>
     <property key="FormFieldTitle_productFeature">
         <value xml:lang="de">Produkt-Merkmal</value>
@@ -256,6 +279,7 @@
         <value xml:lang="ro">Caratteristica Produs</value>
         <value xml:lang="th">ลักษณะสินค้า</value>
         <value xml:lang="zh">产品特性</value>
+        <value xml:lang="zh_TW">產品特性</value>
     </property>
     <property key="FormFieldTitle_productIdFor">
         <value xml:lang="de">Produkt-Nr. für</value>
@@ -267,6 +291,7 @@
         <value xml:lang="ro">Cod Produs De la</value>
         <value xml:lang="th">รหัสสินค้าสำหรับ</value>
         <value xml:lang="zh">产品标识用于</value>
+        <value xml:lang="zh_TW">產品ID用於</value>
     </property>
     <property key="FormFieldTitle_productIdIn">
         <value xml:lang="de">Produkt-Nr. in</value>
@@ -278,6 +303,7 @@
         <value xml:lang="ro">Cod Produs In</value>
         <value xml:lang="th">รหัสสินค้าใน</value>
         <value xml:lang="zh">产品标识来自</value>
+        <value xml:lang="zh_TW">產品ID來自</value>
     </property>
     <property key="FormFieldTitle_productIdInSubst">
         <value xml:lang="en">Product Id In Subst</value>
@@ -288,6 +314,7 @@
         <value xml:lang="ro">Cod Produs In Substitutie</value>
         <value xml:lang="th">รหัสสินค้าในที่มีอยู่จริง</value>
         <value xml:lang="zh">产品标识来自实例</value>
+        <value xml:lang="zh_TW">產品ID來自實例</value>
     </property>
     <property key="FormFieldTitle_productionRuns">
         <value xml:lang="de">Produktionsauftrag</value>
@@ -299,6 +326,7 @@
         <value xml:lang="ro">Comenzi de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
         <value xml:lang="zh">生产运行</value>
+        <value xml:lang="zh_TW">生產運行</value>
     </property>
     <property key="FormFieldTitle_routingId">
         <value xml:lang="de">Arbeitsplan-Nr.</value>
@@ -310,6 +338,7 @@
         <value xml:lang="ro">Id Ciclu</value>
         <value xml:lang="th">รหัส routing</value>
         <value xml:lang="zh">规程标识</value>
+        <value xml:lang="zh_TW">規程ID</value>
     </property>
     <property key="FormFieldTitle_ruleId">
         <value xml:lang="de">Regel-Nr.</value>
@@ -321,6 +350,7 @@
         <value xml:lang="ro">Cod Regula</value>
         <value xml:lang="th">รหัสข้อบังคับ</value>
         <value xml:lang="zh">规则标识</value>
+        <value xml:lang="zh_TW">規則ID</value>
     </property>
     <property key="FormFieldTitle_ruleOperator">
         <value xml:lang="de">Regel-Operator</value>
@@ -332,6 +362,7 @@
         <value xml:lang="ro">Regula Operator</value>
         <value xml:lang="th">ผู้ออกกฎระเบียบ</value>
         <value xml:lang="zh">规则操作符</value>
+        <value xml:lang="zh_TW">規則操作符</value>
     </property>
     <property key="FormFieldTitle_ruleSeqId">
         <value xml:lang="de">Regel-Folgenummer</value>
@@ -343,6 +374,7 @@
         <value xml:lang="ro">Cod Regula Secventa</value>
         <value xml:lang="th">รหัสลำดับข้อบังคับ</value>
         <value xml:lang="zh">规则顺序标识</value>
+        <value xml:lang="zh_TW">規則序列ID</value>
     </property>
     <property key="FormFieldTitle_runTime">
         <value xml:lang="de">Laufzeit</value>
@@ -353,6 +385,7 @@
         <value xml:lang="pt_BR">Tempo de execução</value>
         <value xml:lang="th">ระยะเวลาดำเนินงาน</value>
         <value xml:lang="zh">运行时间</value>
+        <value xml:lang="zh_TW">運行時間</value>
     </property>
     <property key="FormFieldTitle_saturdayCapacity">
         <value xml:lang="de">Samstagskapazität</value>
@@ -363,6 +396,7 @@
         <value xml:lang="pt_BR">Capacidade de sábado</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันเสาร์</value>
         <value xml:lang="zh">星期六产能</value>
+        <value xml:lang="zh_TW">星期六產能</value>
     </property>
     <property key="FormFieldTitle_saturdayStartTime">
         <value xml:lang="de">Samstagstartzeit</value>
@@ -373,6 +407,7 @@
         <value xml:lang="pt_BR">Hora de início do sábados</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันเสาร์</value>
         <value xml:lang="zh">星期六开始时间</value>
+        <value xml:lang="zh_TW">星期六開始時間</value>
     </property>
     <property key="FormFieldTitle_secondaryLocationSeqId">
         <value xml:lang="de">Zusätzlicher Lagerort</value>
@@ -383,6 +418,7 @@
         <value xml:lang="pt_BR">Id de sequência do local secundário</value>
         <value xml:lang="th">รหัสสถานที่ตั้งที่สอง</value>
         <value xml:lang="zh">辅助地点序列号</value>
+        <value xml:lang="zh_TW">輔助地點序列號</value>
     </property>
     <property key="FormFieldTitle_startDateTime">
         <value xml:lang="de">Startzeit</value>
@@ -393,6 +429,7 @@
         <value xml:lang="pt_BR">Data e hora de início</value>
         <value xml:lang="th">วันเวลาเริ่มต้น</value>
         <value xml:lang="zh">开始日期时间</value>
+        <value xml:lang="zh_TW">開始日期時間</value>
     </property>
     <property key="FormFieldTitle_sundayCapacity">
         <value xml:lang="de">Sonntagskapazität</value>
@@ -403,6 +440,7 @@
         <value xml:lang="pt_BR">Capacidade de domingo</value>
         <value xml:lang="th">การปฏิบัติงานในวันอาทิตย์</value>
         <value xml:lang="zh">星期日产能</value>
+        <value xml:lang="zh_TW">星期日產能</value>
     </property>
     <property key="FormFieldTitle_sundayStartTime">
         <value xml:lang="de">Sonntagsstartzeit</value>
@@ -413,6 +451,7 @@
         <value xml:lang="pt_BR">Hora de início do domingo</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอาทิตย์</value>
         <value xml:lang="zh">星期日开始时间</value>
+        <value xml:lang="zh_TW">星期日開始時間</value>
     </property>
     <property key="FormFieldTitle_thursdayCapacity">
         <value xml:lang="de">Donnerstagskapazität</value>
@@ -423,6 +462,7 @@
         <value xml:lang="pt_BR">Capacidade de quinta-feira</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันพฤหัสบดี</value>
         <value xml:lang="zh">星期四产能</value>
+        <value xml:lang="zh_TW">星期四產能</value>
     </property>
     <property key="FormFieldTitle_thursdayStartTime">
         <value xml:lang="de">Donnerstagsstartzeit</value>
@@ -433,6 +473,7 @@
         <value xml:lang="pt_BR">Hora de início da quinta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพฤหัสบดี</value>
         <value xml:lang="zh">星期四开始时间</value>
+        <value xml:lang="zh_TW">星期四開始時間</value>
     </property>
     <property key="FormFieldTitle_totIssuedQuantity">
         <value xml:lang="de">Ausgegebene Menge gesamt</value>
@@ -444,6 +485,7 @@
         <value xml:lang="ro">Total Cantitate Preluata</value>
         <value xml:lang="th">รวมจำนวนประเด็น</value>
         <value xml:lang="zh">全部交付数量</value>
+        <value xml:lang="zh_TW">全部交付數量</value>
     </property>
     <property key="FormFieldTitle_totOrderedQuantity">
         <value xml:lang="de">Bestellmenge gesamt</value>
@@ -455,6 +497,7 @@
         <value xml:lang="ro">Total Cantitate Comandata</value>
         <value xml:lang="th">รวมจำนวนที่สั่งซื้อ</value>
         <value xml:lang="zh">全部订单数量</value>
+        <value xml:lang="zh_TW">全部訂單數量</value>
     </property>
     <property key="FormFieldTitle_totPlannedQuantity">
         <value xml:lang="de">Geplante Menge gesamt</value>
@@ -466,6 +509,7 @@
         <value xml:lang="ro">Total Cantitate Planificata</value>
         <value xml:lang="th">ผลรวมจำนวนที่คาดไว้</value>
         <value xml:lang="zh">全部计划数量</value>
+        <value xml:lang="zh_TW">全部計劃數量</value>
     </property>
     <property key="FormFieldTitle_tuesdayCapacity">
         <value xml:lang="de">Dienstagskapazität</value>
@@ -476,6 +520,7 @@
         <value xml:lang="pt_BR">Capacidade de terça-feira</value>
         <value xml:lang="th">การปฏิบัติงานในวันอังคาร</value>
         <value xml:lang="zh">星期二产能</value>
+        <value xml:lang="zh_TW">星期二產能</value>
     </property>
     <property key="FormFieldTitle_tuesdayStartTime">
         <value xml:lang="de">Dienstagssstartzeit</value>
@@ -486,6 +531,7 @@
         <value xml:lang="pt_BR">Hora de início da terça-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอังคาร</value>
         <value xml:lang="zh">星期二开始时间</value>
+        <value xml:lang="zh_TW">星期二開始時間</value>
     </property>
     <property key="FormFieldTitle_type">
         <value xml:lang="de">Art</value>
@@ -497,6 +543,7 @@
         <value xml:lang="ro">Tip</value>
         <value xml:lang="th">ประเภท</value>
         <value xml:lang="zh">类型</value>
+        <value xml:lang="zh_TW">類型</value>
     </property>
     <property key="FormFieldTitle_variableCost">
         <value xml:lang="de">Variable Kosten</value>
@@ -508,6 +555,7 @@
         <value xml:lang="ro">Cost Variabil</value>
         <value xml:lang="th">ราคาเปลี่ยนแปลงได้</value>
         <value xml:lang="zh">可变成本</value>
+        <value xml:lang="zh_TW">可變成本</value>
     </property>
     <property key="FormFieldTitle_wednesdayCapacity">
         <value xml:lang="de">Mittwochskapazität</value>
@@ -518,6 +566,7 @@
         <value xml:lang="pt_BR">Capacidade de quarta-feira</value>
         <value xml:lang="th">กรปฏิบัติงานในวันพุธ</value>
         <value xml:lang="zh">星期三产能</value>
+        <value xml:lang="zh_TW">星期三產能</value>
     </property>
     <property key="FormFieldTitle_wednesdayStartTime">
         <value xml:lang="de">Mittwochsstartzeit</value>
@@ -528,6 +577,7 @@
         <value xml:lang="pt_BR">Hora de início de quarta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพุธ</value>
         <value xml:lang="zh">星期三开始时间</value>
+        <value xml:lang="zh_TW">星期三開始時間</value>
     </property>
     <property key="ManufacturingATPDate">
         <value xml:lang="de">ATP-Datum</value>
@@ -539,6 +589,7 @@
         <value xml:lang="ro">Data ATP</value>
         <value xml:lang="th">วัน ATP</value>
         <value xml:lang="zh">承诺提供日期</value>
+        <value xml:lang="zh_TW">承諾提供日期</value>
     </property>
     <property key="ManufacturingActualCompletionDate">
         <value xml:lang="de">Ist-Fertigstellungs-Datum</value>
@@ -550,6 +601,7 @@
         <value xml:lang="ro">Data Completament</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
         <value xml:lang="zh">完成日期</value>
+        <value xml:lang="zh_TW">完成日期</value>
     </property>
     <property key="ManufacturingActualCosts">
         <value xml:lang="de">Ist-Kosten</value>
@@ -561,6 +613,7 @@
         <value xml:lang="ro">Costuri Actuali</value>
         <value xml:lang="th">ราคาจริง</value>
         <value xml:lang="zh">实际花费</value>
+        <value xml:lang="zh_TW">實際花費</value>
     </property>
     <property key="ManufacturingActualEndDateTime">
         <value xml:lang="de">Ist-Fertigstellungs-Datum/Zeit</value>
@@ -572,6 +625,7 @@
         <value xml:lang="ro">Data/Ora Sfarsit</value>
         <value xml:lang="th">วัน/เวลา ที่เสร็จจริง</value>
         <value xml:lang="zh">实际结束日期/时间</value>
+        <value xml:lang="zh_TW">實際結束日期/時間</value>
     </property>
     <property key="ManufacturingActualMaterials">
         <value xml:lang="de">Ist-Materialien</value>
@@ -582,6 +636,7 @@
         <value xml:lang="pt_BR">Materiais reais</value>
         <value xml:lang="th">ข้อเท็จจริง</value>
         <value xml:lang="zh">实际材料</value>
+        <value xml:lang="zh_TW">實際材料</value>
     </property>
     <property key="ManufacturingActualStartDateTime">
         <value xml:lang="de">Ist-Start-Zeit</value>
@@ -593,6 +648,7 @@
         <value xml:lang="ro">Data/Ora Initiere</value>
         <value xml:lang="th">วัน/เวลา เริ่มต้นจริง</value>
         <value xml:lang="zh">实际开始日期/时间</value>
+        <value xml:lang="zh_TW">實際開始日期/時間</value>
     </property>
     <property key="ManufacturingAddExistingRoutingTask">
         <value xml:lang="de">Einen bestehenden Arbeitsgang hinzufügen</value>
@@ -604,6 +660,7 @@
         <value xml:lang="ro">Adauga o Operatie existenta</value>
         <value xml:lang="th">เพิ่มการทำงานที่มีอยู่</value>
         <value xml:lang="zh">添加一个已存在的规程任务</value>
+        <value xml:lang="zh_TW">添加一個已存在的規程任務</value>
     </property>
     <property key="ManufacturingAddProductionRunFixedAssetAssign">
         <value xml:lang="de">Anlage zuweisen</value>
@@ -615,6 +672,7 @@
         <value xml:lang="ro">Inregistreaza Mijloc Fix</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">指定固定资产</value>
+        <value xml:lang="zh_TW">指定固定資產</value>
     </property>
     <property key="ManufacturingAddProductionRunProductComponent">
         <value xml:lang="de">Komponente zu Produktionsauftrag hinzufügen</value>
@@ -626,12 +684,14 @@
         <value xml:lang="ro">Adauga Componente Produs la o comanda de Productie</value>
         <value xml:lang="th">เพิ่มส่วนประกอบสินค้าในการผลิตสินค้า</value>
         <value xml:lang="zh">把产品组件添加到生产运行</value>
+        <value xml:lang="zh_TW">把產品元件添加到生產運行</value>
     </property>
     <property key="ManufacturingAddProductionRunRoutingTaskNotCreated">
         <value xml:lang="en">Add Production Run Routing Task Not Created</value>
         <value xml:lang="it">Aggiunta componente prodotto ad un´compito non creato</value>
         <value xml:lang="pt_BR">Adicionar tarefa de execução de produção de roteamento não foi criada</value>
         <value xml:lang="zh">添加没有创建的产品运行规程任务</value>
+        <value xml:lang="zh_TW">添加沒有創建的產品運行規程任務</value>
     </property>
     <property key="ManufacturingAddQuantityProduced">
         <value xml:lang="de">Produzierte Menge hinzufügen</value>
@@ -643,6 +703,7 @@
         <value xml:lang="ro">Adauga Cantitate Produsa</value>
         <value xml:lang="th">เพิ่มจำนวนสินค้า</value>
         <value xml:lang="zh">添加已生产的数量</value>
+        <value xml:lang="zh_TW">添加已生產的數量</value>
     </property>
     <property key="ManufacturingAddQuantityRejected">
         <value xml:lang="de">Ausschuss-Menge hinzufügen</value>
@@ -654,6 +715,7 @@
         <value xml:lang="ro">Adauga Cantitate Rebutata</value>
         <value xml:lang="th">เพิ่มจำนวนการปฏิเสธ</value>
         <value xml:lang="zh">添加已拒绝的数量</value>
+        <value xml:lang="zh_TW">添加已拒絕的數量</value>
     </property>
     <property key="ManufacturingAddRoutingTask">
         <value xml:lang="de">Arbeitsgang hinzufügen</value>
@@ -665,6 +727,7 @@
         <value xml:lang="ro">Adauga o Operatie</value>
         <value xml:lang="th">เพิ่มการทำงาน</value>
         <value xml:lang="zh">添加一个规程任务</value>
+        <value xml:lang="zh_TW">添加一個規程任務</value>
     </property>
     <property key="ManufacturingAddSetupTime">
         <value xml:lang="de">Rüstzeit hinzufügen</value>
@@ -676,6 +739,7 @@
         <value xml:lang="ro">Adauga Timp Actual de Instalare</value>
         <value xml:lang="th">เพิ่มการติดตั้งเวลาจริง</value>
         <value xml:lang="zh">添加实际安装时间</value>
+        <value xml:lang="zh_TW">添加實際安裝時間</value>
     </property>
     <property key="ManufacturingAddTaskTime">
         <value xml:lang="de">Arbeitsgangzeit hinzufügen</value>
@@ -687,6 +751,7 @@
         <value xml:lang="ro">Adauga Timp Actual Sarcina</value>
         <value xml:lang="th">เพิ่มเวลาการทำงานจริง</value>
         <value xml:lang="zh">添加实际任务时间</value>
+        <value xml:lang="zh_TW">添加實際任務時間</value>
     </property>
     <property key="ManufacturingAnyMachineGroup">
         <value xml:lang="de">Beliebige Maschinengruppe</value>
@@ -698,6 +763,7 @@
         <value xml:lang="ro">Orice Grup de Mijloace Fixe</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">任一固定资产组</value>
+        <value xml:lang="zh_TW">任一固定資產組</value>
     </property>
     <property key="ManufacturingApproveRequirements">
         <value xml:lang="de">Bedarfe bestätigen</value>
@@ -708,6 +774,7 @@
         <value xml:lang="pt_BR">Aprovar requisitos</value>
         <value xml:lang="th">ความต้องการที่ตรงกัน</value>
         <value xml:lang="zh">批准需求</value>
+        <value xml:lang="zh_TW">批准需求</value>
     </property>
     <property key="ManufacturingAssociatedProductionRuns">
         <value xml:lang="de">Zugehörige Produktionsaufträge</value>
@@ -718,6 +785,7 @@
         <value xml:lang="pt_BR">Execuções da produção associadas</value>
         <value xml:lang="th">สินค้าที่เกี่ยวข้องกัน</value>
         <value xml:lang="zh">相关的生产运行</value>
+        <value xml:lang="zh_TW">相關的生產運行</value>
     </property>
     <property key="ManufacturingBillOfMaterials">
         <value xml:lang="de">Stückliste</value>
@@ -729,6 +797,7 @@
         <value xml:lang="ro">Lista Repere Produs</value>
         <value xml:lang="th">รายการของสินค้า</value>
         <value xml:lang="zh">物料清单</value>
+        <value xml:lang="zh_TW">物料清單</value>
     </property>
     <property key="ManufacturingBomSimulation">
         <value xml:lang="de">Stücklistensimulation</value>
@@ -740,6 +809,7 @@
         <value xml:lang="ro">Simulare Lista repere</value>
         <value xml:lang="th">รายการของสินค้าที่เลียนแบบ</value>
         <value xml:lang="zh">物料清单仿真</value>
+        <value xml:lang="zh_TW">物料清單模擬</value>
     </property>
     <property key="ManufacturingBomType">
         <value xml:lang="de">Stücklistenart</value>
@@ -751,6 +821,7 @@
         <value xml:lang="ro">Tip Lista repere</value>
         <value xml:lang="th">ประเภทรายการของสินค้า</value>
         <value xml:lang="zh">物料清单类型</value>
+        <value xml:lang="zh_TW">物料清單類型</value>
     </property>
     <property key="ManufacturingCalendar">
         <value xml:lang="de">Kalender</value>
@@ -762,6 +833,7 @@
         <value xml:lang="ro">Calendar</value>
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="zh">日历</value>
+        <value xml:lang="zh_TW">日曆</value>
     </property>
     <property key="ManufacturingCalendarCapacity">
         <value xml:lang="de">Fertigung-Kalender-Kapazität</value>
@@ -773,6 +845,7 @@
         <value xml:lang="ro">Capacitate Productie Calendar</value>
         <value xml:lang="th">การสร้างปฏิทินการทำงาน</value>
         <value xml:lang="zh">工作时间长度(毫秒)</value>
+        <value xml:lang="zh_TW">工作時間長度(毫秒)</value>
     </property>
     <property key="ManufacturingCalendarExceptionDate">
         <value xml:lang="de">Ausnahme-Datum</value>
@@ -784,6 +857,7 @@
         <value xml:lang="ro">Zi Speciala</value>
         <value xml:lang="th">วันที่ยกเว้น</value>
         <value xml:lang="zh">非工作日</value>
+        <value xml:lang="zh_TW">非工作日</value>
     </property>
     <property key="ManufacturingCalendarExceptionDayIdAlreadyExist">
         <value xml:lang="de">Ausnahme-Tag existiert schon</value>
@@ -795,6 +869,7 @@
         <value xml:lang="ro">Cod Capacitate Calendar Productie existenta</value>
         <value xml:lang="th">รหัสวันที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
         <value xml:lang="zh">非工作日标识已存在</value>
+        <value xml:lang="zh_TW">非工作日ID已存在</value>
     </property>
     <property key="ManufacturingCalendarExceptionDayUseCalendar">
         <value xml:lang="de">Es gibt noch einen Ausnahme-Tag für diesen Kalender</value>
@@ -806,6 +881,7 @@
         <value xml:lang="ro">Exista o zi speciala la acest Calendar</value>
         <value xml:lang="th">มีวันที่ยังคงได้รับการยกเว้นสำหรับปฏิทินนี้</value>
         <value xml:lang="zh">这个日历还有一个非工作日</value>
+        <value xml:lang="zh_TW">這個日曆還有一個非工作日</value>
     </property>
     <property key="ManufacturingCalendarExceptionWeek">
         <value xml:lang="de">Ausnahme-Woche</value>
@@ -817,6 +893,7 @@
         <value xml:lang="ro">Saptamana Speciala</value>
         <value xml:lang="th">สัปดาห์ที่ยกเว้น</value>
         <value xml:lang="zh">非工作周</value>
+        <value xml:lang="zh_TW">非工作週</value>
     </property>
     <property key="ManufacturingCalendarExceptionWeekIdAlreadyExist">
         <value xml:lang="de">Es gibt schon eine Ausnahme-Woche für diesen Kalender</value>
@@ -828,6 +905,7 @@
         <value xml:lang="ro">Cod Calendar Saptamana Productie Speciala deja existent</value>
         <value xml:lang="th">รหัสสัปดาห์ที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
         <value xml:lang="zh">非工作周标识已存在</value>
+        <value xml:lang="zh_TW">非工作週ID已存在</value>
     </property>
     <property key="ManufacturingCalendarExceptionWeekUseCalendar">
         <value xml:lang="de">Es gibt noch eine Ausnahme-Woche für diesen Kalender</value>
@@ -839,6 +917,7 @@
         <value xml:lang="ro">Nu exista o saptamana speciala la acest calendar</value>
         <value xml:lang="th">มีสัปดาห์ที่ยังคงได้รับการยกเว้นสำหรับปฏิทินนี้</value>
         <value xml:lang="zh">这个日历还有一个非工作周</value>
+        <value xml:lang="zh_TW">這個日曆還有一個非工作週</value>
     </property>
     <property key="ManufacturingCalendarId">
         <value xml:lang="de">Kalender-Nr.</value>
@@ -850,6 +929,7 @@
         <value xml:lang="ro">Cod Calendar</value>
         <value xml:lang="th">รหัสปฏิทิน</value>
         <value xml:lang="zh">日历标识</value>
+        <value xml:lang="zh_TW">日曆ID</value>
     </property>
     <property key="ManufacturingCalendarIdAlreadyExist">
         <value xml:lang="de">Kalender-Nr. schon vorhanden</value>
@@ -861,6 +941,7 @@
         <value xml:lang="ro">Cod Calendar deja existent</value>
         <value xml:lang="th">รหัสปฏิทินที่มีอยู่ล้ว</value>
         <value xml:lang="zh">日历标识已存在</value>
+        <value xml:lang="zh_TW">日曆ID已存在</value>
     </property>
     <property key="ManufacturingCalendarPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung diese Seite anzuschauen ("MANUFACTURING_VIEW" oder "MANUFACTURING_ADMIN" wird benötigt)</value>
@@ -872,6 +953,7 @@
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta pagina. (Ai nevoie de permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>
         <value xml:lang="zh">你没有权限浏览这个页面。(需要"MANUFACTURING_VIEW"或"MANUFACTURING_ADMIN")</value>
+        <value xml:lang="zh_TW">你沒有權限瀏覽這個頁面。(需要"MANUFACTURING_VIEW"或"MANUFACTURING_ADMIN")</value>
     </property>
     <property key="ManufacturingCalendarUseCalendarWeek">
         <value xml:lang="de">Es gibt noch einen Kalender der diese Woche nutzt</value>
@@ -883,6 +965,7 @@
         <value xml:lang="ro">Esista deja un calendar care foloseste aceasta saptamana</value>
         <value xml:lang="th">ยังมีปฏิทินที่ใช้สำหรับสัปดาห์นี้</value>
         <value xml:lang="zh">还有一个日历使用了这个周</value>
+        <value xml:lang="zh_TW">還有一個日曆使用了這個週</value>
     </property>
     <property key="ManufacturingCalendarWeek">
         <value xml:lang="de">Woche</value>
@@ -894,6 +977,7 @@
         <value xml:lang="ro">Saptamana</value>
         <value xml:lang="th">สัปดาห์</value>
         <value xml:lang="zh">周</value>
+        <value xml:lang="zh_TW">週</value>
     </property>
     <property key="ManufacturingCalendarWeekExceptionUseCalendarWeek">
         <value xml:lang="de">Es gibt noch eine Ausnehme die diese Woche nutzt</value>
@@ -905,6 +989,7 @@
         <value xml:lang="ro">Exista deja o saptamana speciala care foloseste acest calendar</value>
         <value xml:lang="th">ยังคงมีข้อยกเว้นของสัปดาห์ที่ใช้ในสัปดาห์นี้</value>
         <value xml:lang="zh">还有一个非工作周使用了这个周</value>
+        <value xml:lang="zh_TW">還有一個非工作週使用了這個週</value>
     </property>
     <property key="ManufacturingCalendarWeekId">
         <value xml:lang="de">Kalenderwochen-Nr.</value>
@@ -916,6 +1001,7 @@
         <value xml:lang="ro">Cod Calendar Saptamana</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
         <value xml:lang="zh">日历周标识</value>
+        <value xml:lang="zh_TW">日曆週ID</value>
     </property>
     <property key="ManufacturingCalendarWeekIdAlreadyExist">
         <value xml:lang="de">Kalenderwochen-Nr. schon vorhanden</value>
@@ -927,6 +1013,7 @@
         <value xml:lang="ro">Cod Calendar Saptamana existent </value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ยังคงใช้อยู่</value>
         <value xml:lang="zh">日历周标识已存在</value>
+        <value xml:lang="zh_TW">日曆週ID已存在</value>
     </property>
     <property key="ManufacturingCalendarWeekIdNotExisting">
         <value xml:lang="de">Kalenderwochen-Nr. nicht vorhanden</value>
@@ -938,6 +1025,7 @@
         <value xml:lang="ro">Cod Calendar Sptamana nu exista</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ไม่ใช้</value>
         <value xml:lang="zh">日历周标识不存在</value>
+        <value xml:lang="zh_TW">日曆週ID不存在</value>
     </property>
     <property key="ManufacturingCalendarWeeks">
         <value xml:lang="de">Wochen</value>
@@ -948,6 +1036,7 @@
         <value xml:lang="pt_BR">Semanas</value>
         <value xml:lang="th">สัปดาห์</value>
         <value xml:lang="zh">周</value>
+        <value xml:lang="zh_TW">週</value>
     </property>
     <property key="ManufacturingCalendars">
         <value xml:lang="de">Kalender</value>
@@ -958,6 +1047,7 @@
         <value xml:lang="pt_BR">Calendário</value>
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="zh">日历</value>
+        <value xml:lang="zh_TW">日曆</value>
     </property>
     <property key="ManufacturingCancel">
         <value xml:lang="de">Annulliert</value>
@@ -969,6 +1059,7 @@
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="th">ยกเลิก</value>
         <value xml:lang="zh">取消</value>
+        <value xml:lang="zh_TW">取消</value>
     </property>
     <property key="ManufacturingComments">
         <value xml:lang="de">Anmerkungen</value>
@@ -980,6 +1071,7 @@
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
+        <value xml:lang="zh_TW">評論</value>
     </property>
     <property key="ManufacturingCompanyName">
         <value xml:lang="de">OFBiz: Produktionsverwaltung</value>
@@ -991,6 +1083,7 @@
         <value xml:lang="ro">OFBiz: Gestiune Productie</value>
         <value xml:lang="th">OFBiz: การจัดการการผลิต</value>
         <value xml:lang="zh">OFBiz: 生产管理</value>
+        <value xml:lang="zh_TW">OFBiz: 生產管理</value>
     </property>
     <property key="ManufacturingCompanySubtitle">
         <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
@@ -1015,6 +1108,7 @@
         <!--value xml:lang="zh">开源软件OFBiz的组成部分 / 开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
+        <value xml:lang="zh_TW">開源軟件OFBiz家族的一部分</value>
     </property>
     <property key="ManufacturingCompleteProductionRunTask">
         <value xml:lang="de">Abgeschlosen</value>
@@ -1026,12 +1120,14 @@
         <value xml:lang="ro">Completeaza</value>
         <value xml:lang="th">เสร็จสิ้น</value>
         <value xml:lang="zh">完成</value>
+        <value xml:lang="zh_TW">完成</value>
     </property>
     <property key="ManufacturingConfigurationNotAvailable">
         <value xml:lang="en">Configuration Not Available</value>
         <value xml:lang="it">Configurazione non disponibile</value>
         <value xml:lang="pt_BR">Configuração não disponível</value>
         <value xml:lang="zh">配置无效</value>
+        <value xml:lang="zh_TW">配置無效</value>
     </property>
     <property key="ManufacturingConfirmProductionRun">
         <value xml:lang="de">Bestätigen</value>
@@ -1043,6 +1139,7 @@
         <value xml:lang="ro">Confirmare</value>
         <value xml:lang="th">ยืนยัน</value>
         <value xml:lang="zh">确定</value>
+        <value xml:lang="zh_TW">確定</value>
     </property>
     <property key="ManufacturingCopyAndAddRoutingTask">
         <value xml:lang="de">Kopieren eines Arbeitsganges</value>
@@ -1054,6 +1151,7 @@
         <value xml:lang="ro">Copiaza si Adauga o Operatie </value>
         <value xml:lang="th">คัดลอกการทำงานและเพิ่มมัน</value>
         <value xml:lang="zh">复制一个规程任务并添加它</value>
+        <value xml:lang="zh_TW">複制一個規程任務並添加它</value>
     </property>
     <property key="ManufacturingCopyBOMAssocs">
         <value xml:lang="de">Stückliste kopieren</value>
@@ -1065,6 +1163,7 @@
         <value xml:lang="ro">Copiaza Lista repere </value>
         <value xml:lang="th">คัดลอกรายการของสินค้า</value>
         <value xml:lang="zh">复制物料清单</value>
+        <value xml:lang="zh_TW">複制物料清單</value>
     </property>
     <property key="ManufacturingCopyToProductId">
         <value xml:lang="de">An Produkt-Nr.</value>
@@ -1076,6 +1175,7 @@
         <value xml:lang="ro">La Cod Produs</value>
         <value xml:lang="th">ถึงรหัสสินค้า</value>
         <value xml:lang="zh">到产品标识</value>
+        <value xml:lang="zh_TW">到產品ID</value>
     </property>
     <property key="ManufacturingCostCalcs">
         <value xml:lang="de">Kosten</value>
@@ -1087,6 +1187,7 @@
         <value xml:lang="ro">Cost</value>
         <value xml:lang="th">ราคา</value>
         <value xml:lang="zh">费用</value>
+        <value xml:lang="zh_TW">費用</value>
     </property>
     <property key="ManufacturingCreateBom">
         <value xml:lang="en">Create Bom</value>
@@ -1095,6 +1196,7 @@
         <value xml:lang="pt_BR">Criar Estrutura de produtos (BOM)</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
         <value xml:lang="zh">创建物料清单</value>
+        <value xml:lang="zh_TW">創建物料清單</value>
     </property>
     <property key="ManufacturingCreateCalendar">
         <value xml:lang="de">Kalender erstellen</value>
@@ -1106,6 +1208,7 @@
         <value xml:lang="ro">Creare calendar</value>
         <value xml:lang="th">สร้างปฏิทิน</value>
         <value xml:lang="zh">新建日历</value>
+        <value xml:lang="zh_TW">新建日曆</value>
     </property>
     <property key="ManufacturingCreateCalendarWeek">
         <value xml:lang="de">Kalenderwoche erstellen</value>
@@ -1117,6 +1220,7 @@
         <value xml:lang="ro">Creare Calendar Saptamana</value>
         <value xml:lang="th">สร้างปฏิทินประจำสัปดาห์</value>
         <value xml:lang="zh">新建日历周</value>
+        <value xml:lang="zh_TW">新建日曆週</value>
     </property>
     <property key="ManufacturingCreateMachineGroup">
         <value xml:lang="de">Anlagengruppe erstellen</value>
@@ -1128,6 +1232,7 @@
         <value xml:lang="ro">Creare un grup de Mijloace Fixe</value>
         <value xml:lang="th">สร้างกลุ่มของสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">新建一个固定资产组</value>
+        <value xml:lang="zh_TW">新建一個固定資產組</value>
     </property>
     <property key="ManufacturingCreatePermissionError">
         <value xml:lang="de">Sicherheits-Fehler: Um diesen Vorgang auszuführen müssen Sie über die Berechtigung MANUFACTURING_CREATE oder MANUFACTURING_ADMIN verfügen</value>
@@ -1139,6 +1244,7 @@
         <value xml:lang="ro">Eroare Siguranta: pentru executarea acestei operatii trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error:  ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误：要执行这个操作，你必须有MANUFACTURING_CREATE或MANUFACTURING_ADMIN权限</value>
+        <value xml:lang="zh_TW">安全錯誤：要執行這個操作，你必須有MANUFACTURING_CREATE或MANUFACTURING_ADMIN權限</value>
     </property>
     <property key="ManufacturingCreateProductBom">
         <value xml:lang="en">Create Bill Of Material</value>
@@ -1147,6 +1253,7 @@
         <value xml:lang="pt_BR">Criar Estrutura de Materiais (BOM)</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
         <value xml:lang="zh">新建物料清单</value>
+        <value xml:lang="zh_TW">新建物料清單</value>
     </property>
     <property key="ManufacturingCreateProductionRun">
         <value xml:lang="de">Produktionsauftrag erstellen</value>
@@ -1158,6 +1265,7 @@
         <value xml:lang="ro">Creare Comanda de Productie</value>
         <value xml:lang="th">สร้างการผลิตสินค้า</value>
         <value xml:lang="zh">新建一个生产运行</value>
+        <value xml:lang="zh_TW">新建一個生產運行</value>
     </property>
     <property key="ManufacturingCuttingList">
         <value xml:lang="de">Schneideliste</value>
@@ -1169,6 +1277,7 @@
         <value xml:lang="ro">Lista de Montaj</value>
         <value xml:lang="th">ตัดรายการสินค้า</value>
         <value xml:lang="zh">装配列表</value>
+        <value xml:lang="zh_TW">裝配列表</value>
     </property>
     <property key="ManufacturingCuttingListReport">
         <value xml:lang="de">Schneidelistebericht</value>
@@ -1180,6 +1289,7 @@
         <value xml:lang="ro">Tipareste Lista de Montaj</value>
         <value xml:lang="th">รายงานการตัดรายการสินค้า</value>
         <value xml:lang="zh">装配列表报告</value>
+        <value xml:lang="zh_TW">裝配列表報告</value>
     </property>
     <property key="ManufacturingDeclareProductionRunTask">
         <value xml:lang="de">Rückmelden</value>
@@ -1191,6 +1301,7 @@
         <value xml:lang="ro">Declaratii</value>
         <value xml:lang="th">ยืนยัน</value>
         <value xml:lang="zh">说明</value>
+        <value xml:lang="zh_TW">說明</value>
     </property>
     <property key="ManufacturingDeletePermissionError">
         <value xml:lang="de">Sicherheits-Fehler: Um diesen Vorgang auszuführen müssen Sie über die Berechtigung MANUFACTURING_DELETE oder MANUFACTURING_ADMIN verfügen</value>
@@ -1202,6 +1313,7 @@
         <value xml:lang="ro">Eroare de siguranta: pentru executarea acestei operatii trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_DELETE หรือ MANUFACTURING_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误：要运行这个操作，你必须具有 MANUFACTURING_DELETE 或 MANUFACTURING_ADMIN 权限</value>
+        <value xml:lang="zh_TW">安全錯誤：要運行這個操作，你必須具有 MANUFACTURING_DELETE 或 MANUFACTURING_ADMIN 權限</value>
     </property>
     <property key="ManufacturingDeliveryDate">
         <value xml:lang="de">Lieferdatum</value>
@@ -1213,6 +1325,7 @@
         <value xml:lang="ro">Data Livrarii</value>
         <value xml:lang="th">วันส่งสินค้า</value>
         <value xml:lang="zh">交付日期</value>
+        <value xml:lang="zh_TW">交付日期</value>
     </property>
     <property key="ManufacturingDependentWorkEfforts">
         <value xml:lang="de">Abhängige Produktionsaufträge</value>
@@ -1224,6 +1337,7 @@
         <value xml:lang="ro">Comenzi lansate in Productie?</value>
         <value xml:lang="th">ขึ้นอยู่กับการผลิตสินค้า</value>
         <value xml:lang="zh">依赖的生产运行</value>
+        <value xml:lang="zh_TW">依賴的生產運行</value>
     </property>
     <property key="ManufacturingDuplicatedComponentInBOM">
         <value xml:lang="de">Die folgenden Zuordnungen könnten Endlosschleifen verursachen:  {0} --&gt; {1}</value>
@@ -1235,6 +1349,7 @@
         <value xml:lang="ro">Urmatoarele asocieri exista utilizand cauzele: {0} --&gt; {1}</value>
         <value xml:lang="th">ตามการรวมกลุ่มสามารถทำให้เกิดเป็นรอบวงกลมได้</value>
         <value xml:lang="zh">下列关联可能会导致循环： {0} --&gt; {1}</value>
+        <value xml:lang="zh_TW">下列關聯可能會導致迴圈： {0} --&gt; {1}</value>
     </property>
     <property key="ManufacturingEditCalendarExceptionDayFor">
         <value xml:lang="de">Kalender-Ausnahme-Tag für</value>
@@ -1246,6 +1361,7 @@
         <value xml:lang="ro">Actualizare Calendar zile speciale pentru</value>
         <value xml:lang="th">แก้ไขปฏิทินวันที่ยกเว้นสำหรับ</value>
         <value xml:lang="zh">编辑日历非工作日</value>
+        <value xml:lang="zh_TW">編輯日曆非工作日</value>
     </property>
     <property key="ManufacturingEditCalendarExceptionWeekFor">
         <value xml:lang="de">Kalender-Ausnahme-Woche für</value>
@@ -1257,6 +1373,7 @@
         <value xml:lang="ro">Adauga Calendar saptamanal special pentru</value>
         <value xml:lang="th">แก้ไขสัปดาห์ที่ยกเว้นสำหรับ</value>
         <value xml:lang="zh">编辑日历非工作周</value>
+        <value xml:lang="zh_TW">編輯日曆非工作週</value>
     </property>
     <property key="ManufacturingEditCalendarWeek">
         <value xml:lang="de">Woche bearbeiten</value>
@@ -1268,6 +1385,7 @@
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
         <value xml:lang="zh">编辑周</value>
+        <value xml:lang="zh_TW">編輯週</value>
     </property>
     <property key="ManufacturingEditCostComponentCalc">
         <value xml:lang="de">Kosten-Berechnungs-Einträge bearbeiten</value>
@@ -1279,6 +1397,7 @@
         <value xml:lang="ro">Adauga Cost Componente Date Calcul</value>
         <value xml:lang="th">แก้ไขส่วนประกอบของราคาในตารางการคำนวณ</value>
         <value xml:lang="zh">编辑费用组成计算记录</value>
+        <value xml:lang="zh_TW">編輯費用組成計算記錄</value>
     </property>
     <property key="ManufacturingEditMachine">
         <value xml:lang="de">Anlage bearbeiten</value>
@@ -1290,6 +1409,7 @@
         <value xml:lang="ro">Adauga Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">编辑固定资产</value>
+        <value xml:lang="zh_TW">編輯固定資產</value>
     </property>
     <property key="ManufacturingEditMachineGroup">
         <value xml:lang="de">Anlagegruppe bearbeiten</value>
@@ -1301,6 +1421,7 @@
         <value xml:lang="ro">Actualizare Grup Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">编辑固定资产组</value>
+        <value xml:lang="zh_TW">編輯固定資產組</value>
     </property>
     <property key="ManufacturingEditProductBom">
         <value xml:lang="de">Stückliste bearbeiten</value>
@@ -1312,6 +1433,7 @@
         <value xml:lang="ro">Actualizare Lista repere Produs</value>
         <value xml:lang="th">แก้ไขรายการของสินค้า</value>
         <value xml:lang="zh">编辑物料清单</value>
+        <value xml:lang="zh_TW">編輯物料清單</value>
     </property>
     <property key="ManufacturingEditProductionRun">
         <value xml:lang="de">Produktionsauftrag bearbeiten</value>
@@ -1323,6 +1445,7 @@
         <value xml:lang="ro">Actualizare Comenzi de Productie</value>
         <value xml:lang="th">แก้ไขการผลิต</value>
         <value xml:lang="zh">编辑生产运行</value>
+        <value xml:lang="zh_TW">編輯生產運行</value>
     </property>
     <property key="ManufacturingEditRouting">
         <value xml:lang="de">Arbeitsplan bearbeiten</value>
@@ -1334,6 +1457,7 @@
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
         <value xml:lang="zh">编辑规程</value>
+        <value xml:lang="zh_TW">編輯規程</value>
     </property>
     <property key="ManufacturingEditRoutingProductLink">
         <value xml:lang="de">Arbeitsplan-Produkt-Verbindung bearbeiten</value>
@@ -1345,6 +1469,7 @@
         <value xml:lang="ro">Actualizare Link Ciclu Produs </value>
         <value xml:lang="th">แก้ไข Routing การเชื่อมต่อสินค้า</value>
         <value xml:lang="zh">编辑规程产品链接</value>
+        <value xml:lang="zh_TW">編輯規程產品鏈結</value>
     </property>
     <property key="ManufacturingEditRoutingTask">
         <value xml:lang="de">Arbeitsgang bearbeiten</value>
@@ -1356,6 +1481,7 @@
         <value xml:lang="ro">Actualizare Operatie</value>
         <value xml:lang="th">แก้ไขการทำงาน</value>
         <value xml:lang="zh">编辑规程任务</value>
+        <value xml:lang="zh_TW">編輯規程任務</value>
     </property>
     <property key="ManufacturingEditRoutingTaskAssoc">
         <value xml:lang="de">Arbeitsgang-Zuordnung bearbeiten</value>
@@ -1367,6 +1493,7 @@
         <value xml:lang="ro">Actualizare Sarcina Asociatie</value>
         <value xml:lang="th">แก้ไขกลุ่มการทำงาน</value>
         <value xml:lang="zh">编辑规程任务标识</value>
+        <value xml:lang="zh_TW">編輯規程任務ID</value>
     </property>
     <property key="ManufacturingEditRoutingTaskAssocDateValidity">
         <value xml:lang="de">Arbeitsgang-Zuordnung-Gültigkeit bearbeiten</value>
@@ -1378,6 +1505,7 @@
         <value xml:lang="ro">Actualizare Asociere Operatie-data valabilitate</value>
         <value xml:lang="th">แก้ไขการทำงานที่เชื่อมโยงกับวันที่ทำ</value>
         <value xml:lang="zh">编辑规程任务关联日期验证</value>
+        <value xml:lang="zh_TW">編輯規程任務關聯日期驗証</value>
     </property>
     <property key="ManufacturingEditRoutingTaskId">
         <value xml:lang="de">Arbeitsgang-Nr. bearbeiten</value>
@@ -1389,12 +1517,14 @@
         <value xml:lang="ro">Actualizare Cod Operatie</value>
         <value xml:lang="th">แก้ไขรหัสการทำงาน</value>
         <value xml:lang="zh">编辑规程任务 - 标识</value>
+        <value xml:lang="zh_TW">編輯規程任務 - ID</value>
     </property>
     <property key="ManufacturingEngineeringBillOfMaterials">
         <value xml:lang="en">Engineering Bill of Materials</value>
         <value xml:lang="it">Distinta base ingegnerizzata</value>
         <value xml:lang="pt_BR">Estrutura de produtos como desenvolvida (EBOM)</value>
         <value xml:lang="zh">工程物料清单</value>
+        <value xml:lang="zh_TW">工程物料清單</value>
     </property>
     <property key="ManufacturingErrorBomNotExist">
         <value xml:lang="de">Fehler: Stückliste nicht vorhanden</value>
@@ -1406,6 +1536,7 @@
         <value xml:lang="ro">Eroare, Lista repere inexistenta</value>
         <value xml:lang="th">Error: ผิดพลาด ! ไม่มีรายการของสินค้าเหลืออยู่</value>
         <value xml:lang="zh">错误，物料清单不存在</value>
+        <value xml:lang="zh_TW">錯誤，物料清單不存在</value>
     </property>
     <property key="ManufacturingEstimatedCompletionDate">
         <value xml:lang="de">Berechnetes Fertigstellungsdatum</value>
@@ -1417,6 +1548,7 @@
         <value xml:lang="ro">Data Completarii Calculata</value>
         <value xml:lang="th">วันที่คาดว่าจะเสร็จ</value>
         <value xml:lang="zh">计算出的完成日期</value>
+        <value xml:lang="zh_TW">計算出的完成日期</value>
     </property>
     <property key="ManufacturingEstimatedStartDate">
         <value xml:lang="de">Geschätztes Start-Datum</value>
@@ -1428,6 +1560,7 @@
         <value xml:lang="ro">Data Initiala Stimata</value>
         <value xml:lang="th">ประมาณวันที่เริ่มต้น</value>
         <value xml:lang="zh">预计开始日期</value>
+        <value xml:lang="zh_TW">預計開始日期</value>
     </property>
     <property key="ManufacturingExceptionDateStart">
         <value xml:lang="de">Start des Ausnahmedatums</value>
@@ -1439,6 +1572,7 @@
         <value xml:lang="ro">Data speciala Initiala</value>
         <value xml:lang="th">เริ่มต้นของวันที่ยกเว้น</value>
         <value xml:lang="zh">非工作日开始</value>
+        <value xml:lang="zh_TW">非工作日開始</value>
     </property>
     <property key="ManufacturingExceptionDateStartTime">
         <value xml:lang="de">Datum und Zeit des Ausnahmetages</value>
@@ -1450,6 +1584,7 @@
         <value xml:lang="ro">Data si Ora zilei speciale</value>
         <value xml:lang="th">วันและเวลาของวันที่ยกเว้น</value>
         <value xml:lang="zh">非工作日的日期和时间</value>
+        <value xml:lang="zh_TW">非工作日的日期和時間</value>
     </property>
     <property key="ManufacturingExplosion">
         <value xml:lang="de">Auffalten</value>
@@ -1461,6 +1596,7 @@
         <value xml:lang="ro">Explozie</value>
         <value xml:lang="th">อย่างกะทันหัน</value>
         <value xml:lang="zh">扩展</value>
+        <value xml:lang="zh_TW">擴展</value>
     </property>
     <property key="ManufacturingExplosionManufacturing">
         <value xml:lang="de">Auffalten (nur für Produktion benötigte Komponenten)</value>
@@ -1472,6 +1608,7 @@
         <value xml:lang="ro">Explozie (numai pentru produsele din productie)</value>
         <value xml:lang="th">ด่วน (สำหรับสินค้าที่ต้องการผลิตอย่างเดียว)</value>
         <value xml:lang="zh">扩展 (仅用于需要生产的产品)</value>
+        <value xml:lang="zh_TW">擴展 (僅用于需要生產的產品)</value>
     </property>
     <property key="ManufacturingExplosionSingleLevel">
         <value xml:lang="de">Auffalten (nur erste Ebene)</value>
@@ -1483,6 +1620,7 @@
         <value xml:lang="ro">Singurul Nivel de Exsplozie</value>
         <value xml:lang="th">ใช้ระดับความดังครั้งเดียว</value>
         <value xml:lang="zh">单层扩展</value>
+        <value xml:lang="zh_TW">單層擴展</value>
     </property>
     <property key="ManufacturingFacilityNotExist">
         <value xml:lang="de">Lager nicht vorhanden</value>
@@ -1494,6 +1632,7 @@
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
         <value xml:lang="th">ไม่มีตารางคลังสินค้านี้อยู่</value>
         <value xml:lang="zh">场所表不存在</value>
+        <value xml:lang="zh_TW">場所表不存在</value>
     </property>
     <property key="ManufacturingFindBillOfMaterials">
         <value xml:lang="de">Stückliste suchen</value>
@@ -1505,6 +1644,7 @@
         <value xml:lang="ro">Cauta Lista repere Produs</value>
         <value xml:lang="th">ค้นหารายการสินค้า</value>
         <value xml:lang="zh">查找物料清单</value>
+        <value xml:lang="zh_TW">查找物料清單</value>
     </property>
     <property key="ManufacturingFindInventory">
         <value xml:lang="de">Bestand suchen</value>
@@ -1516,6 +1656,7 @@
         <value xml:lang="ro">Cauta Inventar Evenimente Planificate</value>
         <value xml:lang="th">ค้นหาผลของรายการสิ่งของที่ประมาณไว้</value>
         <value xml:lang="zh">查找已计划的库存事件</value>
+        <value xml:lang="zh_TW">查找已計劃的庫存事件</value>
     </property>
     <property key="ManufacturingFindParts">
         <value xml:lang="de">Teile suchen</value>
@@ -1527,6 +1668,7 @@
         <value xml:lang="ro">Cauta Parti</value>
         <value xml:lang="th">ค้นหาส่วนประกอบ</value>
         <value xml:lang="zh">查找零部件</value>
+        <value xml:lang="zh_TW">查找零部件</value>
     </property>
     <property key="ManufacturingFindProductionRun">
         <value xml:lang="de">Produktionsauftrag suchen</value>
@@ -1538,6 +1680,7 @@
         <value xml:lang="ro">Cauta Comanda de Productie</value>
         <value xml:lang="th">ค้นหาการผลิตสินค้า</value>
         <value xml:lang="zh">查找生产运行</value>
+        <value xml:lang="zh_TW">查找生產運行</value>
     </property>
     <property key="ManufacturingFindRouting">
         <value xml:lang="de">Arbeitsplan suchen</value>
@@ -1549,6 +1692,7 @@
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
         <value xml:lang="zh">查找规程</value>
+        <value xml:lang="zh_TW">查找規程</value>
     </property>
     <property key="ManufacturingFindRoutingTasks">
         <value xml:lang="de">Arbeitsgang suchen</value>
@@ -1560,6 +1704,7 @@
         <value xml:lang="ro">Cauta Operatii</value>
         <value xml:lang="th">ค้นหาการทำงาน</value>
         <value xml:lang="zh">查找规程任务</value>
+        <value xml:lang="zh_TW">查找規程任務</value>
     </property>
     <property key="ManufacturingFixedAssetAllocatedCostNotCorrect">
         <value xml:lang="de">Das Feld "Verrechnete Kosten" ist falsch formatiert</value>
@@ -1571,6 +1716,7 @@
         <value xml:lang="ro">Campul Cost alocat nu are un format corect</value>
         <value xml:lang="th">รูปแบบการกำหนดราคาไม่ถูกต้อง</value>
         <value xml:lang="zh">已分配的费用域格式不正确</value>
+        <value xml:lang="zh_TW">已分配的費用域格式不正確</value>
     </property>
     <property key="ManufacturingFixedAssetFromDateMissing">
         <value xml:lang="de">Von-Datum fehlt</value>
@@ -1582,6 +1728,7 @@
         <value xml:lang="ro">Lipseste Data intiala </value>
         <value xml:lang="th">ไม่ได้ใส่จากวันที่</value>
         <value xml:lang="zh">缺少开始日期</value>
+        <value xml:lang="zh_TW">缺少開始日期</value>
     </property>
     <property key="ManufacturingFixedAssetFromDateNotCorrect">
         <value xml:lang="de">Das Feld "Von-Datum" ist falsch formatiert</value>
@@ -1593,6 +1740,7 @@
         <value xml:lang="ro">Campul Data Initiala nu are un format corect</value>
         <value xml:lang="th">รูปแบบจากวันที่ไม่ถูกต้อง</value>
         <value xml:lang="zh">开始日期格式不正确</value>
+        <value xml:lang="zh_TW">開始日期格式不正確</value>
     </property>
     <property key="ManufacturingFixedAssetNotExist">
         <value xml:lang="de">Die Anlage ist nicht vorhanden</value>
@@ -1604,6 +1752,7 @@
         <value xml:lang="ro">Mijloc Fix Inexistent</value>
         <value xml:lang="th">ไม่พบสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产不存在</value>
+        <value xml:lang="zh_TW">固定資產不存在</value>
     </property>
     <property key="ManufacturingFixedAssetThruDateNotCorrect">
         <value xml:lang="de">Das Feld "Bis-Datum" ist falsch formatiert</value>
@@ -1615,6 +1764,7 @@
         <value xml:lang="ro">Campul Data Finala nu are un format corect</value>
         <value xml:lang="th">รูปแบบถึงวันที่ไม่ถูกต้อง</value>
         <value xml:lang="zh">结束日期域格式不正确</value>
+        <value xml:lang="zh_TW">結束日期域格式不正確</value>
     </property>
     <property key="ManufacturingFormula">
         <value xml:lang="de">Formel</value>
@@ -1626,6 +1776,7 @@
         <value xml:lang="ro">Formula</value>
         <value xml:lang="th">วิธีทำ</value>
         <value xml:lang="zh">公式</value>
+        <value xml:lang="zh_TW">公式</value>
     </property>
     <property key="ManufacturingFromDate">
         <value xml:lang="de">Von-Datum</value>
@@ -1637,6 +1788,7 @@
         <value xml:lang="ro">De la Data</value>
         <value xml:lang="th">จากวันที่</value>
         <value xml:lang="zh">开始日期</value>
+        <value xml:lang="zh_TW">開始日期</value>
     </property>
     <property key="ManufacturingGenerateProductionRuns">
         <value xml:lang="en">Generate Production Runs</value>
@@ -1653,6 +1805,7 @@
         <value xml:lang="ro">Implozie</value>
         <value xml:lang="th">เสียงดัง</value>
         <value xml:lang="zh">收敛</value>
+        <value xml:lang="zh_TW">收斂</value>
     </property>
     <property key="ManufacturingInstruction">
         <value xml:lang="de">Anweisung</value>
@@ -1664,6 +1817,7 @@
         <value xml:lang="ro">Instructiune</value>
         <value xml:lang="th">คำแนะนำ</value>
         <value xml:lang="zh">说明</value>
+        <value xml:lang="zh_TW">說明</value>
     </property>
     <property key="ManufacturingInventoryEventPlanned">
         <value xml:lang="de">Geplantes Bestands-Ereigniss</value>
@@ -1675,6 +1829,7 @@
         <value xml:lang="ro">Inventar Eveniment Planificat</value>
         <value xml:lang="th">ประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件</value>
+        <value xml:lang="zh_TW">已計劃的庫存事件</value>
     </property>
     <property key="ManufacturingInventoryEventPlannedCreateError">
         <value xml:lang="de">Fehler bei der Erstellung des Bestands-Ereigniss</value>
@@ -1686,6 +1841,7 @@
         <value xml:lang="ro">Nu este posibila crearea unui record in InventoryEventPlanned</value>
         <value xml:lang="th">เกิดความผิดพลาดในการสร้างการประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">无法在已计划的库存事件中新建记录</value>
+        <value xml:lang="zh_TW">無法在已計劃的庫存事件中新建記錄</value>
     </property>
     <property key="ManufacturingInventoryEventPlannedNotExist">
         <value xml:lang="de">Bestands-Ereigniss</value>
@@ -1697,6 +1853,7 @@
         <value xml:lang="ro">InventoryEventPlanned nu exista</value>
         <value xml:lang="th">ไม่มีการประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件不存在</value>
+        <value xml:lang="zh_TW">已計劃的庫存事件不存在</value>
     </property>
     <property key="ManufacturingInventoryEventPlannedNotUpdate">
         <value xml:lang="de">Bestands-Ereigniss nicht akrualisiert</value>
@@ -1708,6 +1865,7 @@
         <value xml:lang="ro">InventoryEventPlanned nu poate  fi actualizat</value>
         <value xml:lang="th">ไม่มีการเปลี่ยนแปลงการประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件无法更新</value>
+        <value xml:lang="zh_TW">已計劃的庫存事件無法更新</value>
     </property>
     <property key="ManufacturingInventoryEventTypeNotExist">
         <value xml:lang="de">Bestands-Ereigniss-Art nicht vorhanden</value>
@@ -1719,6 +1877,7 @@
         <value xml:lang="ro">Tip Inventar Eveniment inexistent</value>
         <value xml:lang="th">ไม่มีประเภทสินค้าคงเหลือ</value>
         <value xml:lang="zh">库存事件类型不存在</value>
+        <value xml:lang="zh_TW">庫存事件類型不存在</value>
     </property>
     <property key="ManufacturingInventoryItemNotExis">
         <value xml:lang="de">Bestand nicht vorhanden</value>
@@ -1730,6 +1889,7 @@
         <value xml:lang="ro">Linie Fisier Inventar Inexistent</value>
         <value xml:lang="th">ไม่มีตารางรายการสินค้าคงเหลือ</value>
         <value xml:lang="zh">库存明细表不存在</value>
+        <value xml:lang="zh_TW">庫存明細表不存在</value>
     </property>
     <property key="ManufacturingInventoryItemsProduced">
         <value xml:lang="de">Bestände</value>
@@ -1741,6 +1901,7 @@
         <value xml:lang="ro">Linii Inventar</value>
         <value xml:lang="th">สินค้าคงเหลือ</value>
         <value xml:lang="zh">库存明细</value>
+        <value xml:lang="zh_TW">庫存明細</value>
     </property>
     <property key="ManufacturingIssueAvailableProductionRunTask">
         <value xml:lang="de">Komponenten ausgeben (ATP)</value>
@@ -1750,6 +1911,7 @@
         <value xml:lang="it">Preleva i Componenti (ATP)</value>
         <value xml:lang="pt_BR">Emitir componentes (ATP)</value>
         <value xml:lang="zh">交付部件（承诺）</value>
+        <value xml:lang="zh_TW">交付部件（承諾）</value>
     </property>
     <property key="ManufacturingIssueProductionRunTask">
         <value xml:lang="de">Komponenten ausgeben</value>
@@ -1761,6 +1923,7 @@
         <value xml:lang="ro">Componente cu Probleme</value>
         <value xml:lang="th">ส่วนประกอบของปัญหา</value>
         <value xml:lang="zh">交付部件</value>
+        <value xml:lang="zh_TW">交付部件</value>
     </property>
     <property key="ManufacturingIssuedQuantity">
         <value xml:lang="de">Ausgegeben</value>
@@ -1772,6 +1935,7 @@
         <value xml:lang="ro">Cantitate Preluata</value>
         <value xml:lang="th">ปัญหา</value>
         <value xml:lang="zh">交付数量</value>
+        <value xml:lang="zh_TW">交付數量</value>
     </property>
     <property key="ManufacturingJobShop">
         <value xml:lang="de">Produktionsaufträge</value>
@@ -1783,6 +1947,7 @@
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">ที่ทำงาน</value>
         <value xml:lang="zh">任务商店</value>
+        <value xml:lang="zh_TW">任務商店</value>
     </property>
     <property key="ManufacturingLLCInit">
         <value xml:lang="en">Init Low Level Codes</value>
@@ -1793,6 +1958,7 @@
         <value xml:lang="ro">Cod Initial de nivel inferior</value>
         <value xml:lang="th">รหัสระดับเริ่มต้น</value>
         <value xml:lang="zh">初始化低级别代码</value>
+        <value xml:lang="zh_TW">初始化低級別代碼</value>
     </property>
     <property key="ManufacturingListCalendarWeek">
         <value xml:lang="de">Kalenderwochen anzeigen</value>
@@ -1804,6 +1970,7 @@
         <value xml:lang="ro">Lista saptamanilor</value>
         <value xml:lang="th">รายการของสัปดาห์</value>
         <value xml:lang="zh">周列表</value>
+        <value xml:lang="zh_TW">週列表</value>
     </property>
     <property key="ManufacturingListOfProductionRunComponents">
         <value xml:lang="de">Komponenten des Produktionsauftrages anzeigen</value>
@@ -1814,6 +1981,7 @@
         <value xml:lang="pt_BR">Lista de componentes para execução de produção</value>
         <value xml:lang="th">รายการของการผลิตสินค้า</value>
         <value xml:lang="zh">生产运行组件列表</value>
+        <value xml:lang="zh_TW">生產運行元件列表</value>
     </property>
     <property key="ManufacturingListOfProductionRunFixedAssets">
         <value xml:lang="de">Anlagen des Produktionsauftrages anzeigen</value>
@@ -1825,6 +1993,7 @@
         <value xml:lang="ro">Lista Mijloacelor Fixe pentru Comanda de Productie</value>
         <value xml:lang="th">รายการของการผลิตสินค้าจากสินทรัพย์ไม่ถาวร</value>
         <value xml:lang="zh">生产运行固定资产列表</value>
+        <value xml:lang="zh_TW">生產運行固定資產列表</value>
     </property>
     <property key="ManufacturingListOfProductionRunNotes">
         <value xml:lang="en">List Of Production Run Notes</value>
@@ -1832,6 +2001,7 @@
         <value xml:lang="it">Lista note ordine di produzione</value>
         <value xml:lang="pt_BR">Lista de notas da execução de produção</value>
         <value xml:lang="zh">生产运行说明列表</value>
+        <value xml:lang="zh_TW">生產運行說明列表</value>
     </property>
     <property key="ManufacturingListOfProductionRunRoutingTasks">
         <value xml:lang="de">Arbeitsgänge</value>
@@ -1843,6 +2013,7 @@
         <value xml:lang="ro">Lista Operatiilor pe Comanda de Productie</value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">任务</value>
+        <value xml:lang="zh_TW">任務</value>
     </property>
     <property key="ManufacturingListProducts">
         <value xml:lang="de">Produkte auflisten</value>
@@ -1854,6 +2025,7 @@
         <value xml:lang="ro">Produse Livrabile</value>
         <value xml:lang="th">ส่งสินค้า</value>
         <value xml:lang="zh">已交付的产品</value>
+        <value xml:lang="zh_TW">已交付的產品</value>
     </property>
     <property key="ManufacturingListRoutings">
         <value xml:lang="de">Arbeitsgänge auflisten</value>
@@ -1865,6 +2037,7 @@
         <value xml:lang="ro">Lista Cicluri</value>
         <value xml:lang="th">รายการ Routing</value>
         <value xml:lang="zh">规程列表</value>
+        <value xml:lang="zh_TW">規程列表</value>
     </property>
     <property key="ManufacturingListingBomError">
         <value xml:lang="de">Fehler beim anzeigen der Stückliste</value>
@@ -1876,12 +2049,14 @@
         <value xml:lang="ro">Eroare in timpul listarii Listei de repere ManufacturingListOfProductionRunComponents=Lista Componentelor Comenzii de Productie</value>
         <value xml:lang="th">เกิดความผิดพลาดขณะที่ลงรายการของสินค้า</value>
         <value xml:lang="zh">在进行材料清单列表时发生错误</value>
+        <value xml:lang="zh_TW">在進行材料清單列表時發生錯誤</value>
     </property>
     <property key="ManufacturingLotNotExists">
         <value xml:lang="en">Lot Not Exists</value>
         <value xml:lang="it">Lotto non esiste</value>
         <value xml:lang="pt_BR">Lote não existe</value>
         <value xml:lang="zh">批次不存在</value>
+        <value xml:lang="zh_TW">批次不存在</value>
     </property>
     <property key="ManufacturingMachine">
         <value xml:lang="de">Anlage</value>
@@ -1893,6 +2068,7 @@
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="th">สินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产</value>
+        <value xml:lang="zh_TW">固定資產</value>
     </property>
     <property key="ManufacturingMachineGroup">
         <value xml:lang="de">Anlagengruppe</value>
@@ -1904,6 +2080,7 @@
         <value xml:lang="ro">Grup Mijloc Fix</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产组</value>
+        <value xml:lang="zh_TW">固定資產組</value>
     </property>
     <property key="ManufacturingMachineGroupId">
         <value xml:lang="de">Anlagengruppen-Nr.</value>
@@ -1915,6 +2092,7 @@
         <value xml:lang="ro">Cod Grup Mijloc Fix</value>
         <value xml:lang="th">รหัสกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产组标识</value>
+        <value xml:lang="zh_TW">固定資產組ID</value>
     </property>
     <property key="ManufacturingMachineGroupIdAlreadyExist">
         <value xml:lang="de">Anlagengruppen-Nr. existiert schon</value>
@@ -1926,6 +2104,7 @@
         <value xml:lang="ro">Cod Grup Mijloc Fix inexistent</value>
         <value xml:lang="th">ไม่มีรหัสกลุ่มสินทรัพย์ไม่หมุนเวียนอยู่</value>
         <value xml:lang="zh">固定资产组的标识不存在</value>
+        <value xml:lang="zh_TW">固定資產組的ID不存在</value>
     </property>
     <property key="ManufacturingMachineGroupPermissionError">
         <value xml:lang="de">Sicherheits-Fehler: Um eine Anlagengruppe zu bearbeiten müssen Sie über die Berechtigung MANUFACTURING_CREATE oder MANUFACTURING_ADMIN verfügen</value>
@@ -1937,6 +2116,7 @@
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la grupurile de Mijloace Fixe trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนกลุ่มสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要操作固定资产组，你必须具有 MANUFACTURING_CREATE 或 MANUFACTURING_ADMIN 权限</value>
+        <value xml:lang="zh_TW">安全錯誤: 要操作固定資產組，你必須具有 MANUFACTURING_CREATE 或 MANUFACTURING_ADMIN 權限</value>
     </property>
     <property key="ManufacturingMachineId">
         <value xml:lang="de">Anlagen-Nr.</value>
@@ -1948,6 +2128,7 @@
         <value xml:lang="ro">Cod Mijloc Fix</value>
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产标识</value>
+        <value xml:lang="zh_TW">固定資產ID</value>
     </property>
     <property key="ManufacturingMachineIdAlreadyExist">
         <value xml:lang="de">Anlagen-Nr. existiert schon</value>
@@ -1959,6 +2140,7 @@
         <value xml:lang="ro">Cod Mijloc Fix deja existent</value>
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产标识已存在</value>
+        <value xml:lang="zh_TW">固定資產ID已存在</value>
     </property>
     <property key="ManufacturingMachinePermissionError">
         <value xml:lang="de">Sicherheits-Fehler: Um eine Anlage zu bearbeiten müssen Sie über die Berechtigung MANUFACTURING_CREATE oder MANUFACTURING_ADMIN verfügen</value>
@@ -1970,6 +2152,7 @@
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la Mijloace Fixe drebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要操作固定资产，你必须具有 MANUFACTURING_CREATE 或 MANUFACTURING_ADMIN 权限</value>
+        <value xml:lang="zh_TW">安全錯誤: 要操作固定資產，你必須具有 MANUFACTURING_CREATE 或 MANUFACTURING_ADMIN 權限</value>
     </property>
     <property key="ManufacturingMainPage">
         <value xml:lang="de">Produktionsverwaltung: Startseite</value>
@@ -1981,6 +2164,7 @@
         <value xml:lang="ro">Pagina Principala Gestiune Productie</value>
         <value xml:lang="th">หน้าหลักของการจัดการการผลิต</value>
         <value xml:lang="zh">生产管理首页</value>
+        <value xml:lang="zh_TW">生產管理首頁</value>
     </property>
     <property key="ManufacturingMainPageNote">
         <value xml:lang="en">NOTE: This application is currently in development. This page will change.</value>
@@ -1991,6 +2175,7 @@
         <value xml:lang="ro">NOTA: Aceasta aplicatie este in Executie.Aceasta pagina va fi schimbata.</value>
         <value xml:lang="th">NOTE: หมายเหตุ โปรแกรมประยุกต์นี้ได้พัฒนาให้เป็นปัจจุบันแล้ว หน้านี้จึงเปลี่ยนไป</value>
         <value xml:lang="zh">注意: 本应用程序仍在开发中。本页面将发生改变。</value>
+        <value xml:lang="zh_TW">注意: 本應用程式仍在開發中。本頁面將發生改變。</value>
     </property>
     <property key="ManufacturingManageCostComponentCalc">
         <value xml:lang="de">Kosten-Berechnungs-Einträge verwalten</value>
@@ -2002,6 +2187,7 @@
         <value xml:lang="ro">Gestiune Cost Componente Date Calcul</value>
         <value xml:lang="th">เข้าสู่การจัดการคำนวณราคา</value>
         <value xml:lang="zh">管理费用组成计算记录</value>
+        <value xml:lang="zh_TW">管理費用組成計算記錄</value>
     </property>
     <property key="ManufacturingManager">
         <value xml:lang="de">Produktionsverwaltung</value>
@@ -2013,6 +2199,7 @@
         <value xml:lang="ro">Aplicatie Gestiune Productie</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการการผลิต</value>
         <value xml:lang="zh">生产管理应用</value>
+        <value xml:lang="zh_TW">生產管理應用</value>
     </property>
     <property key="ManufacturingManagerApplication">
         <value xml:lang="de">Produktionsverwaltung</value>
@@ -2024,6 +2211,7 @@
         <value xml:lang="ro">Aplicatie Gestiune Productie</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการการผลิต</value>
         <value xml:lang="zh">生产管理应用</value>
+        <value xml:lang="zh_TW">生產管理應用</value>
     </property>
     <property key="ManufacturingMandatoryWorkEfforts">
         <value xml:lang="de">Erforderliche Produktionsaufträge</value>
@@ -2035,6 +2223,7 @@
         <value xml:lang="ro">Cicluri de Productie Obligatorii</value>
         <value xml:lang="th">คำสั่งในการผลิต</value>
         <value xml:lang="zh">强制生产运行</value>
+        <value xml:lang="zh_TW">強制生產運行</value>
     </property>
     <property key="ManufacturingManufacturingRules">
         <value xml:lang="de">Fertigungsregeln</value>
@@ -2046,6 +2235,7 @@
         <value xml:lang="ro">Reguli de Productie</value>
         <value xml:lang="th">ข้อบังคับในการผลิต</value>
         <value xml:lang="zh">生产规则</value>
+        <value xml:lang="zh_TW">生產規則</value>
     </property>
     <property key="ManufacturingMaterials">
         <value xml:lang="de">Materialien</value>
@@ -2056,6 +2246,7 @@
         <value xml:lang="pt_BR">Materiais</value>
         <value xml:lang="th">ข้อมูล</value>
         <value xml:lang="zh">材料</value>
+        <value xml:lang="zh_TW">材料</value>
     </property>
     <property key="ManufacturingMaterialsNotAvailable">
         <value xml:lang="de">Materialien nicht im Lager vorhanden</value>
@@ -2066,6 +2257,7 @@
         <value xml:lang="pt_BR">Materiais não disponíveis no armazém</value>
         <value xml:lang="th">ไม่มีข้อมูลในคลังสินค้า</value>
         <value xml:lang="zh">材料在库房中不可用</value>
+        <value xml:lang="zh_TW">材料在庫房中不可用</value>
     </property>
     <property key="ManufacturingMaterialsRequiredByRunningTask">
         <value xml:lang="de">Materialien werden für aktuellen Arbeitsgang benötigt</value>
@@ -2076,6 +2268,7 @@
         <value xml:lang="pt_BR">Materiais necessário para tarefa em execução</value>
         <value xml:lang="th">ข้อมูลที่ต้องการโดยการทำงานอย่างต่อเนื่อง</value>
         <value xml:lang="zh">生产任务所需的材料</value>
+        <value xml:lang="zh_TW">生產任務所需的材料</value>
     </property>
     <property key="ManufacturingMrp">
         <value xml:lang="de">MRP</value>
@@ -2087,6 +2280,7 @@
         <value xml:lang="ro">MRP</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณ</value>
         <value xml:lang="zh">生产资源计划</value>
+        <value xml:lang="zh_TW">生產資源計劃</value>
     </property>
     <property key="ManufacturingMrpInitialisation">
         <value xml:lang="de">MRP-Initialisierung</value>
@@ -2098,6 +2292,7 @@
         <value xml:lang="ro">IEP init.</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณในเบื้องต้น</value>
         <value xml:lang="zh">生产资源计划初始化</value>
+        <value xml:lang="zh_TW">生產資源計劃初始化</value>
     </property>
     <property key="ManufacturingMrpJobIsRunning">
         <value xml:lang="de">Ein MRP-Lauf ist aktiv</value>
@@ -2108,6 +2303,7 @@
         <value xml:lang="pt_BR">Uma tarefa do MRP está sendo executada</value>
         <value xml:lang="th">งานข้อมูลความต้องการโดยประมาณกำลังทำงาน</value>
         <value xml:lang="zh">正在执行一个生产资源计划工作</value>
+        <value xml:lang="zh_TW">正在執行一個生產資源計劃工作</value>
     </property>
     <property key="ManufacturingMrpJobLastExecuted">
         <value xml:lang="de">Vorheriger MRP-Lauf</value>
@@ -2118,6 +2314,7 @@
         <value xml:lang="pt_BR">Última tarefa</value>
         <value xml:lang="th">งานสุดท้าย</value>
         <value xml:lang="zh">上一个工作</value>
+        <value xml:lang="zh_TW">上一個工作</value>
     </property>
     <property key="ManufacturingMrpJobScheduledOrRunning">
         <value xml:lang="de">Geplanter oder aktiver MRP-Lauf</value>
@@ -2128,6 +2325,7 @@
         <value xml:lang="pt_BR">Tarefas agendadas ou em execução</value>
         <value xml:lang="th">ทำรายการหรือกำลังทำงาน</value>
         <value xml:lang="zh">已计划的或正在执行的工作</value>
+        <value xml:lang="zh_TW">已計劃的或正在執行的工作</value>
     </property>
     <property key="ManufacturingMrpLog">
         <value xml:lang="de">MRP-Log</value>
@@ -2138,6 +2336,7 @@
         <value xml:lang="pt_BR">Relatório MRP</value>
         <value xml:lang="th">บันทึกข้อมูลความต้องการโดยประมาณ</value>
         <value xml:lang="zh">生产资源计划日志</value>
+        <value xml:lang="zh_TW">生產資源計劃日誌</value>
     </property>
     <property key="ManufacturingMrpName">
         <value xml:lang="de">MRP-Name</value>
@@ -2149,6 +2348,7 @@
         <value xml:lang="ro">Nume Mrp</value>
         <value xml:lang="th">ชื่อข้อมูลความต้องการโดยประมาณ</value>
         <value xml:lang="zh">生产资源计划名称</value>
+        <value xml:lang="zh_TW">生產資源計劃名稱</value>
     </property>
     <property key="ManufacturingNewCalendar">
         <value xml:lang="de">Neuer Kalender</value>
@@ -2160,6 +2360,7 @@
         <value xml:lang="ro">Nou Calendar</value>
         <value xml:lang="th">ปฏิทินใหม่</value>
         <value xml:lang="zh">新建日历</value>
+        <value xml:lang="zh_TW">新建日曆</value>
     </property>
     <property key="ManufacturingNewCalendarWeek">
         <value xml:lang="de">Neue Woche</value>
@@ -2171,6 +2372,7 @@
         <value xml:lang="ro">Noua Saptamana</value>
         <value xml:lang="th">สัปดาห์ใหม่</value>
         <value xml:lang="zh">新建周</value>
+        <value xml:lang="zh_TW">新建週</value>
     </property>
     <property key="ManufacturingNewMachineGroup">
         <value xml:lang="de">Neue Anlagen-Gruppe</value>
@@ -2182,6 +2384,7 @@
         <value xml:lang="ro">Nou grup de Mijloace Fixe</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียนใหม่</value>
         <value xml:lang="zh">新建固定资产组</value>
+        <value xml:lang="zh_TW">新建固定資產組</value>
     </property>
     <property key="ManufacturingNewRouting">
         <value xml:lang="de">Neuer Arbeitsplan</value>
@@ -2193,6 +2396,7 @@
         <value xml:lang="ro">Nou Ciclu</value>
         <value xml:lang="th">Routing ใหม่</value>
         <value xml:lang="zh">新建规程</value>
+        <value xml:lang="zh_TW">新建規程</value>
     </property>
     <property key="ManufacturingNewRoutingTask">
         <value xml:lang="de">Neuer Arbeitsgang</value>
@@ -2204,6 +2408,7 @@
         <value xml:lang="ro">Noua Operatie</value>
         <value xml:lang="th">การทำงานใหม่</value>
         <value xml:lang="zh">新建规程任务</value>
+        <value xml:lang="zh_TW">新建規程任務</value>
     </property>
     <property key="ManufacturingNewRoutingTaskProduct">
         <value xml:lang="de">Produkt hinzufügen</value>
@@ -2215,6 +2420,7 @@
         <value xml:lang="ro">Adauga Produse Livrabile</value>
         <value xml:lang="th">เพิ่มการส่งสินค้า</value>
         <value xml:lang="zh">添加交付产品</value>
+        <value xml:lang="zh_TW">添加交付產品</value>
     </property>
     <property key="ManufacturingNoCalendarFound">
         <value xml:lang="de">Kalender nicht vorhanden</value>
@@ -2226,6 +2432,7 @@
         <value xml:lang="ro">Nici-un calendar gasit</value>
         <value xml:lang="th">ไม่พบปฏิทิน</value>
         <value xml:lang="zh">没有找到日历</value>
+        <value xml:lang="zh_TW">沒有找到日曆</value>
     </property>
     <property key="ManufacturingNoDataAvailable">
         <value xml:lang="de">Keine Daten vorhanden</value>
@@ -2236,6 +2443,7 @@
         <value xml:lang="ro">Nici-o Data Disponibila.</value>
         <value xml:lang="th">ไม่มีข้อมูลที่ใช้ได้</value>
         <value xml:lang="zh">没有可用的数据。</value>
+        <value xml:lang="zh_TW">沒有可用的資料。</value>
     </property>
     <property key="ManufacturingNoMachineGroupFound">
         <value xml:lang="de">Anlagengruppe nicht vorhanden</value>
@@ -2247,6 +2455,7 @@
         <value xml:lang="ro">Nici-un Grup de Mijloace Fixe Gasit</value>
         <value xml:lang="th">ไม่พบกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">没有找到固定资产组</value>
+        <value xml:lang="zh_TW">沒有找到固定資產組</value>
     </property>
     <property key="ManufacturingNoProductionRunSelected">
         <value xml:lang="de">Kein Produktionsauftrag ausgewählt</value>
@@ -2258,6 +2467,7 @@
         <value xml:lang="ro">Nici-o Comanda de Productie Selectionata</value>
         <value xml:lang="th">ไม่มีการเลือกการผลิต</value>
         <value xml:lang="zh">没有选中生产运行</value>
+        <value xml:lang="zh_TW">沒有選中生產運行</value>
     </property>
     <property key="ManufacturingNote1">
         <value xml:lang="en">date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is</value>
@@ -2267,6 +2477,7 @@
         <value xml:lang="pt_BR">Entradas de data/hora demonstram que a data atual é menor que a data de início ou posterior à data de fim. Se a data de início é</value>
         <value xml:lang="th">เข้าสู่ วัน/เวลา หมายความว่าเวลาจริง ๆ คือ เวลาก่อน จากวันที่ หรือ หลัง ถึงวันที่ ถ้าจากวันที่คือ</value>
         <value xml:lang="zh">当前时间在开始日期之前或结束日期之后的日期/时间记录</value>
+        <value xml:lang="zh_TW">當前時間在開始日期之前或結束日期之後的日期/時間記錄</value>
     </property>
     <property key="ManufacturingNote2">
         <value xml:lang="en">, association has not started yet; if Thru Date is</value>
@@ -2276,6 +2487,7 @@
         <value xml:lang="pt_BR">, associação não começou ainda; se a data de fim é</value>
         <value xml:lang="th">, ยังไม่มีกลุ่มเริ่มต้น; ถ้า ถึงวันคือ</value>
         <value xml:lang="zh">，那么关联还没有开始；如果结束日期是</value>
+        <value xml:lang="zh_TW">，那麼關聯還沒有開始；如果結束日期是</value>
     </property>
     <property key="ManufacturingNote3">
         <value xml:lang="en">, association has expired (and should probably be deleted).</value>
@@ -2285,6 +2497,7 @@
         <value xml:lang="pt_BR">, associação expirou (e provavelmente deveria ser apagada).</value>
         <value xml:lang="th">, มีกลุ่มที่ไม่เข้าร่วม (และควรจะลบ)</value>
         <value xml:lang="zh">，那么关联已经过期(并且可能被删除了)。</value>
+        <value xml:lang="zh_TW">，那麼關聯已經過期(並且可能被刪除了)。</value>
     </property>
     <property key="ManufacturingOrderItems">
         <value xml:lang="de">Auftragspositionen</value>
@@ -2296,18 +2509,21 @@
         <value xml:lang="ro">Linie Comanda</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订单明细</value>
+        <value xml:lang="zh_TW">訂單明細</value>
     </property>
     <property key="ManufacturingPackageConfiguratorError">
         <value xml:lang="en">Package Configurator Error</value>
         <value xml:lang="it">Errore configurazione pacco</value>
         <value xml:lang="pt_BR">Erro na configuração do pacote</value>
         <value xml:lang="zh">包装配置程序错误</value>
+        <value xml:lang="zh_TW">包裝配置程式錯誤</value>
     </property>
     <property key="ManufacturingPackageContentsAndOrder">
         <value xml:lang="en">Package Contents And Order</value>
         <value xml:lang="it">Pacco contenuti e ordine</value>
         <value xml:lang="pt_BR">Conteúdos do pacote e pedido</value>
         <value xml:lang="zh">包装内容和订单</value>
+        <value xml:lang="zh_TW">包裝內容和訂單</value>
     </property>
     <property key="ManufacturingPackageLabelsReport">
         <value xml:lang="de">Etiketten</value>
@@ -2319,12 +2535,14 @@
         <value xml:lang="ro">Tipareste Etichete Pachet</value>
         <value xml:lang="th">รายงานการติดฉลากหีบห่อ</value>
         <value xml:lang="zh">包装标签报告</value>
+        <value xml:lang="zh_TW">包裝標簽報告</value>
     </property>
     <property key="ManufacturingPackageNumber">
         <value xml:lang="en">Package Number</value>
         <value xml:lang="it">Numero pacco</value>
         <value xml:lang="pt_BR">Número de pacote</value>
         <value xml:lang="zh">包装编号</value>
+        <value xml:lang="zh_TW">包裝編號</value>
     </property>
     <property key="ManufacturingPrintProductionRun">
         <value xml:lang="de">Produktionsauftrag drucken</value>
@@ -2336,6 +2554,7 @@
         <value xml:lang="ro">Tipareste Comanda Productie</value>
         <value xml:lang="th">พิมพ์การผลิตสินค้า</value>
         <value xml:lang="zh">打印生产运行</value>
+        <value xml:lang="zh_TW">列印生產運行</value>
     </property>
     <property key="ManufacturingProduceQuantity">
         <value xml:lang="en">Stock in</value>
@@ -2346,12 +2565,14 @@
         <value xml:lang="ro">Cantitate Stoc</value>
         <value xml:lang="th">คลังสินค้าใน</value>
         <value xml:lang="zh">入库数量</value>
+        <value xml:lang="zh_TW">入庫數量</value>
     </property>
     <property key="ManufacturingProduceQuantityMessage">
         <value xml:lang="en">If required, materials will be issued as well.</value>
         <value xml:lang="it">Se richiesto, i materiali saranno prelevati.</value>
         <value xml:lang="pt_BR">Se requerido, materiais também serão entregues</value>
         <value xml:lang="zh">如果需要，还会交付物料。</value>
+        <value xml:lang="zh_TW">如果需要，還會交付物料。</value>
     </property>
     <property key="ManufacturingProductAssocNotExist">
         <value xml:lang="de">Produkt-Zuordnung nicht vorhanden</value>
@@ -2363,6 +2584,7 @@
         <value xml:lang="ro">Asociere Produs inexistenta</value>
         <value xml:lang="th">ไม่มีกลุ่มสินค้าเหลืออยู่</value>
         <value xml:lang="zh">产品关联不存在</value>
+        <value xml:lang="zh_TW">產品關聯不存在</value>
     </property>
     <property key="ManufacturingProductComponentOf">
         <value xml:lang="de">Dieses Produkt ist eine Komponente von</value>
@@ -2374,6 +2596,7 @@
         <value xml:lang="ro">Acest Produs este un Component al</value>
         <value xml:lang="th">สินค้านี้เป็นส่วนประกอบของ</value>
         <value xml:lang="zh">这个产品是一个组件，用于</value>
+        <value xml:lang="zh_TW">這個產品是一個元件，用于</value>
     </property>
     <property key="ManufacturingProductComponents">
         <value xml:lang="de">Komponenten dieses Produktes</value>
@@ -2385,6 +2608,7 @@
         <value xml:lang="ro">Componentele acestui Produs</value>
         <value xml:lang="th">ส่วนประกอบของสินค้านี้</value>
         <value xml:lang="zh">这个产品的组件</value>
+        <value xml:lang="zh_TW">這個產品的元件</value>
     </property>
     <property key="ManufacturingProductFacilityTableNotExist">
         <value xml:lang="de">Produkt-Lager nicht vorhanden</value>
@@ -2396,6 +2620,7 @@
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
         <value xml:lang="th">ไม่มีตารางคลังสินค้าที่ยืดหยุ่นอยู่</value>
         <value xml:lang="zh">产品场所表不存在</value>
+        <value xml:lang="zh_TW">產品場所表不存在</value>
     </property>
     <property key="ManufacturingProductHasNoBom">
         <value xml:lang="de">Keine Stückliste für Produkt vorhanden</value>
@@ -2407,6 +2632,7 @@
         <value xml:lang="ro">Produsul nu are Lista de Repere</value>
         <value xml:lang="th">ไม่มีสินค้าในใบรายการของสินค้า</value>
         <value xml:lang="zh">产品没有物料清单 </value>
+        <value xml:lang="zh_TW">產品沒有物料清單 </value>
     </property>
     <property key="ManufacturingProductId">
         <value xml:lang="de">Produkt-Nr.</value>
@@ -2418,6 +2644,7 @@
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
         <value xml:lang="zh">产品标识</value>
+        <value xml:lang="zh_TW">產品ID</value>
     </property>
     <property key="ManufacturingProductIdTo">
         <value xml:lang="de">Produkt-Nr. an</value>
@@ -2429,12 +2656,14 @@
         <value xml:lang="ro">Cod Produs A</value>
         <value xml:lang="th">รหัสสินค้าถึง</value>
         <value xml:lang="zh">产品标识到</value>
+        <value xml:lang="zh_TW">產品ID到</value>
     </property>
     <property key="ManufacturingProductIsWIP">
         <value xml:lang="en">Product is WIP</value>
         <value xml:lang="it">Prodotto è di tipo WIP</value>
         <value xml:lang="pt_BR">Produto é do tipo WIP</value>
         <value xml:lang="zh">产品是半成品</value>
+        <value xml:lang="zh_TW">產品是半成品</value>
     </property>
     <property key="ManufacturingProductLevel">
         <value xml:lang="de">Produkt-Ebene</value>
@@ -2446,6 +2675,7 @@
         <value xml:lang="ro">Nivel Produs</value>
         <value xml:lang="th">ระดับสินค้า</value>
         <value xml:lang="zh">产品等级</value>
+        <value xml:lang="zh_TW">產品等級</value>
     </property>
     <property key="ManufacturingProductNotExist">
         <value xml:lang="de">Produkt nicht vorhanden</value>
@@ -2457,6 +2687,7 @@
         <value xml:lang="ro">Produs inexistent</value>
         <value xml:lang="th">ไม่มีสินค้าเหลืออยู่</value>
         <value xml:lang="zh">产品不存在</value>
+        <value xml:lang="zh_TW">產品不存在</value>
     </property>
     <property key="ManufacturingProductRoutingNotExist">
         <value xml:lang="de">Arbeitsplan-Verbindung nicht vorhanden</value>
@@ -2468,6 +2699,7 @@
         <value xml:lang="ro">Link Ciclu Produs inexistent</value>
         <value xml:lang="th">ไม่มีการเชื่อมโยงกับสินค้า</value>
         <value xml:lang="zh">产品规程链接不存在</value>
+        <value xml:lang="zh_TW">產品規程鏈結不存在</value>
     </property>
     <property key="ManufacturingProductTableNotExist">
         <value xml:lang="de">Produkt-Tabelle nicht vorhanden</value>
@@ -2479,6 +2711,7 @@
         <value xml:lang="ro">Fisierul Produse inexistent</value>
         <value xml:lang="th">ไม่มีตารางสินค้าคงอยู่</value>
         <value xml:lang="zh">产品表不存在</value>
+        <value xml:lang="zh_TW">產品表不存在</value>
     </property>
     <property key="ManufacturingProductVirtual">
         <value xml:lang="de">Virtuell</value>
@@ -2489,12 +2722,14 @@
         <value xml:lang="pt_BR">Virtual</value>
         <value xml:lang="th">โดยทั้งหมด</value>
         <value xml:lang="zh">虚拟</value>
+        <value xml:lang="zh_TW">虛擬</value>
     </property>
     <property key="ManufacturingProductionResQtyCalc">
         <value xml:lang="en">Production Res Qty Calc</value>
         <value xml:lang="it">Quantità riservata produzione</value>
         <value xml:lang="pt_BR">Cálculo da quantidade de produção reservada</value>
         <value xml:lang="zh">生产资源数量计算</value>
+        <value xml:lang="zh_TW">生產資源數量計算</value>
     </property>
     <property key="ManufacturingProductionRun">
         <value xml:lang="de">Produktionsauftrag</value>
@@ -2506,6 +2741,7 @@
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
         <value xml:lang="zh">生产运行</value>
+        <value xml:lang="zh_TW">生產運行</value>
     </property>
     <property key="ManufacturingProductionRunActualComponents">
         <value xml:lang="de">Ist-Komponenten des Produktionsauftrages</value>
@@ -2516,6 +2752,7 @@
         <value xml:lang="pt_BR">Componentes efetivos da execução de produção</value>
         <value xml:lang="th">การผลิตสินค้าตามส่วนประกอบที่มีอยู่ในขณะนี้</value>
         <value xml:lang="zh">生产运行实际组件</value>
+        <value xml:lang="zh_TW">生產運行實際元件</value>
     </property>
     <property key="ManufacturingProductionRunAssocs">
         <value xml:lang="de">Zuordnungen</value>
@@ -2527,6 +2764,7 @@
         <value xml:lang="ro">Asociatii </value>
         <value xml:lang="th">กลุ่ม</value>
         <value xml:lang="zh">关联</value>
+        <value xml:lang="zh_TW">關聯</value>
     </property>
     <property key="ManufacturingProductionRunClose">
         <value xml:lang="de">Produktionsauftrag abschließen</value>
@@ -2538,36 +2776,42 @@
         <value xml:lang="ro">Inchide comanda de Productie</value>
         <value xml:lang="th">ปิดการผลิตสินค้า</value>
         <value xml:lang="zh">关闭生产运行</value>
+        <value xml:lang="zh_TW">關閉生產運行</value>
     </property>
     <property key="ManufacturingProductionRunCompletionDateNotCorrect">
         <value xml:lang="en">Production Run Completion Date Not Correct</value>
         <value xml:lang="it">Data completamento ordine di produzione non corretta</value>
         <value xml:lang="pt_BR">Data de encerramento da execução de produção não está correta</value>
         <value xml:lang="zh">生产运行完成时间不正确</value>
+        <value xml:lang="zh_TW">生產運行完成時間不正確</value>
     </property>
     <property key="ManufacturingProductionRunComponentAdded">
         <value xml:lang="en">Production Run Component Added</value>
         <value xml:lang="it">Aggiunta componente ordine di produzione</value>
         <value xml:lang="pt_BR">Componente de execução de produto adicionado</value>
         <value xml:lang="zh">生产运行组件已添加</value>
+        <value xml:lang="zh_TW">生產運行元件已添加</value>
     </property>
     <property key="ManufacturingProductionRunComponentNotAdded">
         <value xml:lang="en">Production Run Component Not Added</value>
         <value xml:lang="it">Componente ordine di produzione non aggiunto</value>
         <value xml:lang="pt_BR">Componente de execução de produto não adicionado</value>
         <value xml:lang="zh">生产运行组件没有添加</value>
+        <value xml:lang="zh_TW">生產運行元件沒有添加</value>
     </property>
     <property key="ManufacturingProductionRunComponentNotExists">
         <value xml:lang="en">Production Run Component Not Exists</value>
         <value xml:lang="it">Componente ordine di produzione non esiste</value>
         <value xml:lang="pt_BR">Componente de execução de produção não existe</value>
         <value xml:lang="zh">生产运行组件不存在</value>
+        <value xml:lang="zh_TW">生產運行元件不存在</value>
     </property>
     <property key="ManufacturingProductionRunComponentUpdated">
         <value xml:lang="en">Production Run Component Updated</value>
         <value xml:lang="it">Componente ordine di produzione aggiornato</value>
         <value xml:lang="pt_BR">Componente de execução de produção atualizado</value>
         <value xml:lang="zh">生产运行组件已更新</value>
+        <value xml:lang="zh_TW">生產運行元件已更新</value>
     </property>
     <property key="ManufacturingProductionRunComponents">
         <value xml:lang="de">Komponenten des Produktionsauftrages</value>
@@ -2578,6 +2822,7 @@
         <value xml:lang="pt_BR">Componentes de execução de produção</value>
         <value xml:lang="th">ส่วนประกอบของการผลิตสินค้า</value>
         <value xml:lang="zh">生产运行组件</value>
+        <value xml:lang="zh_TW">生產運行元件</value>
     </property>
     <property key="ManufacturingProductionRunCosts">
         <value xml:lang="de">Produktionsauftrags-Kosten</value>
@@ -2589,6 +2834,7 @@
         <value xml:lang="ro">Costuri Comenzi de Productie</value>
         <value xml:lang="th">ราคาของผลผลิตที่ได้</value>
         <value xml:lang="zh">生产运行成本</value>
+        <value xml:lang="zh_TW">生產運行成本</value>
     </property>
     <property key="ManufacturingProductionRunCreated">
         <value xml:lang="de">Produktionsauftrag ${productionRunId} erstellt</value>
@@ -2600,6 +2846,7 @@
         <value xml:lang="ro">Comanda de Productie ${productionRunId} creata</value>
         <value xml:lang="th">สร้างการผลิต ${productionRunId}</value>
         <value xml:lang="zh">已创建生产运行 ${productionRunId}</value>
+        <value xml:lang="zh_TW">已創建生產運行 ${productionRunId}</value>
     </property>
     <property key="ManufacturingProductionRunDeclaration">
         <value xml:lang="en">Production Run Declaration</value>
@@ -2610,12 +2857,14 @@
         <value xml:lang="ro">Declaratie Comanda de Productie</value>
         <value xml:lang="th">ยืนยันการผลิต</value>
         <value xml:lang="zh">生产运行情况</value>
+        <value xml:lang="zh_TW">生產運行情況</value>
     </property>
     <property key="ManufacturingProductionRunDeclareAndProduce">
         <value xml:lang="en">Production Run Declare And Produce</value>
         <value xml:lang="it">Ordine di produzione dichiara e produci</value>
         <value xml:lang="pt_BR">Declarar e produzir execução de produção</value>
         <value xml:lang="zh">生产运行说明和产出</value>
+        <value xml:lang="zh_TW">生產運行說明和產出</value>
     </property>
     <property key="ManufacturingProductionRunFixedAssetAssign">
         <value xml:lang="de">Anlage zuweisen</value>
@@ -2627,6 +2876,7 @@
         <value xml:lang="ro">Anexeaza Mijloc Fix Cespite</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产分配</value>
+        <value xml:lang="zh_TW">固定資產分配</value>
     </property>
     <property key="ManufacturingProductionRunFixedAssetIdMissing">
         <value xml:lang="de">Anlage-Nr. fehlt</value>
@@ -2638,6 +2888,7 @@
         <value xml:lang="ro">Mijloc Fix Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่สินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">缺少固定资产标识</value>
+        <value xml:lang="zh_TW">缺少固定資產ID</value>
     </property>
     <property key="ManufacturingProductionRunFixedAssets">
         <value xml:lang="en">Production Run Fixed Assets</value>
@@ -2647,6 +2898,7 @@
         <value xml:lang="pt_BR">Ativos fixos da execução de produção</value>
         <value xml:lang="th">การผลิตสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">生产运行固定资产</value>
+        <value xml:lang="zh_TW">生產運行固定資產</value>
     </property>
     <property key="ManufacturingProductionRunId">
         <value xml:lang="de">Produktionsauftrags-Nr.</value>
@@ -2658,6 +2910,7 @@
         <value xml:lang="ro">Cod Comanda de Productie</value>
         <value xml:lang="th">รหัสการผลิต</value>
         <value xml:lang="zh">生产运行标识</value>
+        <value xml:lang="zh_TW">生產執行ID</value>
     </property>
     <property key="ManufacturingProductionRunName">
         <value xml:lang="de">Produktionsauftrags-Name</value>
@@ -2669,18 +2922,21 @@
         <value xml:lang="ro">Nume Comanda de Productie</value>
         <value xml:lang="th">ชื่อผลิตผล</value>
         <value xml:lang="zh">生产运行名称</value>
+        <value xml:lang="zh_TW">生產運行名稱</value>
     </property>
     <property key="ManufacturingProductionRunNotCreated">
         <value xml:lang="en">Production Run Not Created</value>
         <value xml:lang="it">Ordine di produzione non creato</value>
         <value xml:lang="pt_BR">Execução de produção não foi criada</value>
         <value xml:lang="zh">生产运行没有创建</value>
+        <value xml:lang="zh_TW">生產運行沒有創建</value>
     </property>
     <property key="ManufacturingProductionRunNotExists">
         <value xml:lang="en">Production Run Not Exists</value>
         <value xml:lang="it">Ordine di produzione non esiste</value>
         <value xml:lang="pt_BR">Execução de produção não existe</value>
         <value xml:lang="zh">生产运行不存在</value>
+        <value xml:lang="zh_TW">生產運行不存在</value>
     </property>
     <property key="ManufacturingProductionRunNotUpdated">
         <value xml:lang="de">Aktualisierung des Produktionsauftrages nicht erfolgreich, für weitere Informationen siehe Log</value>
@@ -2692,6 +2948,7 @@
         <value xml:lang="ro">Actualizare Comanda de Productie falita, pentru mai multe informatii vezi log </value>
         <value xml:lang="th">เกิดความผิดพลาดในการเปลี่ยนแปลงการผลิตดูบันทึกสำหรับข้อมูลที่มากมาย</value>
         <value xml:lang="zh">生产运行更新失败，请查看日志了解详细信息</value>
+        <value xml:lang="zh_TW">生產運行更新失敗，請查看日誌了解詳細資訊</value>
     </property>
     <property key="ManufacturingProductionRunPrintDocuments">
         <value xml:lang="de">Dokumente für Produktionsauftrage drucken</value>
@@ -2702,24 +2959,28 @@
         <value xml:lang="pt_BR">Documentos de impressão da execução de produção</value>
         <value xml:lang="th">พิมพ์เอกสารการผลิต</value>
         <value xml:lang="zh">生产运行打印文档</value>
+        <value xml:lang="zh_TW">生產運行列印文檔</value>
     </property>
     <property key="ManufacturingProductionRunPrinted">
         <value xml:lang="en">Production Run Printed</value>
         <value xml:lang="it">Ordine di produzione stampato</value>
         <value xml:lang="pt_BR">Execução de produção impressa</value>
         <value xml:lang="zh">生产运行已打印</value>
+        <value xml:lang="zh_TW">生產運行已列印</value>
     </property>
     <property key="ManufacturingProductionRunPriorityMissing">
         <value xml:lang="en">Production Run Priority Missing</value>
         <value xml:lang="it">Ordine di produzione priorità mancante</value>
         <value xml:lang="pt_BR">Prioridade de execução de produção está faltando</value>
         <value xml:lang="zh">生产运行缺少优先级</value>
+        <value xml:lang="zh_TW">生產運行缺少優先級</value>
     </property>
     <property key="ManufacturingProductionRunProduce">
         <value xml:lang="en">Production Run Produce</value>
         <value xml:lang="it">Ordine di produzione prodotto</value>
         <value xml:lang="pt_BR">Execução de produção produz</value>
         <value xml:lang="zh">生产运行产出</value>
+        <value xml:lang="zh_TW">生產運行產出</value>
     </property>
     <property key="ManufacturingProductionRunProductComponent">
         <value xml:lang="de">Komponente für Produktionsauftrag</value>
@@ -2731,12 +2992,14 @@
         <value xml:lang="ro">Comanda de Productie Produse Componente</value>
         <value xml:lang="th">ส่วนประกอบของสินค้าในการผลิต</value>
         <value xml:lang="zh">生产运行产品组件</value>
+        <value xml:lang="zh_TW">生產運行產品元件</value>
     </property>
     <property key="ManufacturingProductionRunProductProducedNotStillAvailable">
         <value xml:lang="en">Production Run Product Produce Not Still Available</value>
         <value xml:lang="it">Ordine di produzione prodotto da produrre non ancora disponibile</value>
         <value xml:lang="pt_BR">Produto da Execução de produção a produzir ainda não disponível</value>
         <value xml:lang="zh">生产运行产品产出不可用</value>
+        <value xml:lang="zh_TW">生產運行產品產出不可用</value>
     </property>
     <property key="ManufacturingProductionRunQuantityMissing">
         <value xml:lang="de">Menge für Produktionsauftrag fehlt</value>
@@ -2748,6 +3011,7 @@
         <value xml:lang="ro">Comanda de Productie Lipseste Cantitatea</value>
         <value xml:lang="th">ไม่ได้ใส่จำนวนการผลิต</value>
         <value xml:lang="zh">缺少生产运行数量</value>
+        <value xml:lang="zh_TW">缺少生產運行數量</value>
     </property>
     <property key="ManufacturingProductionRunQuantityNotCorrect">
         <value xml:lang="de">Mengenfeld für Produktionsauftrag ist falsch formatiert</value>
@@ -2759,6 +3023,7 @@
         <value xml:lang="ro">Comanda de Productie campul Cantitate are un format incorect</value>
         <value xml:lang="th">รูปแบบการใส่จำนวนการผลิตไม่ถูกต้อง</value>
         <value xml:lang="zh">生产运行数量域格式不正确</value>
+        <value xml:lang="zh_TW">生產運行數量域格式不正確</value>
     </property>
     <property key="ManufacturingProductionRunStartDateMissing">
         <value xml:lang="de">Start-Datum für Produktionsauftrag fehlt</value>
@@ -2770,6 +3035,7 @@
         <value xml:lang="ro">Comanda de Productie Data Initiala Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่วันเริ่มต้นที่ผลิต</value>
         <value xml:lang="zh">缺少生产运行开始日期</value>
+        <value xml:lang="zh_TW">缺少生產運行開始日期</value>
     </property>
     <property key="ManufacturingProductionRunStartDateNotCorrect">
         <value xml:lang="de">Ungültiges Format für Start-Datum</value>
@@ -2781,6 +3047,7 @@
         <value xml:lang="ro">Campul Data Initiala nu este corect, formatul trebbie sa fie de tipul AAAA-ll-zz HH:mm:ss</value>
         <value xml:lang="th">วันเริ่มต้นไม่ถูกต้อง, รูปแบบจะต้องเป็น AAAA-mm-jj HH:mm:ss</value>
         <value xml:lang="zh">开始日期域不正确，格式必须是AAAA-mm-jj HH:mm:ss</value>
+        <value xml:lang="zh_TW">開始日期域不正確，格式必須是AAAA-mm-jj HH:mm:ss</value>
     </property>
     <property key="ManufacturingProductionRunStatusChanged">
         <value xml:lang="de">Status des Produktionsauftrages erfolgreich geändert</value>
@@ -2791,54 +3058,63 @@
         <value xml:lang="pt_BR">O estado da execução de programa foi alterada com sucesso.</value>
         <value xml:lang="th">ได้เปลี่ยนสถานะการผลิตเรียบร้อยแล้ว</value>
         <value xml:lang="zh">生产运行状态修改成功。</value>
+        <value xml:lang="zh_TW">生產運行狀態修改成功。</value>
     </property>
     <property key="ManufacturingProductionRunStatusNotChanged">
         <value xml:lang="en">Production Run Status Not Changed</value>
         <value xml:lang="it">Stato ordine di produzione non cambiato</value>
         <value xml:lang="pt_BR">Estado da execução de produção não mudou</value>
         <value xml:lang="zh">生产运行状态没有改变</value>
+        <value xml:lang="zh_TW">生產運行狀態沒有改變</value>
     </property>
     <property key="ManufacturingProductionRunStatusNotChangedMandatoryProductionRunFound">
         <value xml:lang="en">Production Run Status Not Changed Mandatory Production Run Found</value>
         <value xml:lang="it">Stato ordine di produzione non cambiato per l'ordine di produzione trovato</value>
         <value xml:lang="pt_BR">Estado da execução de produção não mudou para aquela que foi encontrada</value>
         <value xml:lang="zh">生产运行状态没有改变，找到了必要的生产运行</value>
+        <value xml:lang="zh_TW">生產運行狀態沒有改變，找到了必要的生產運行</value>
     </property>
     <property key="ManufacturingProductionRunStatusNotChangedMandatoryProductionRunNotCompleted">
         <value xml:lang="en">Production Run Status Not Changed Mandatory Production Run Not Completed</value>
         <value xml:lang="it">Stato ordine di produzione non cambiato per l'ordine di produzione non completato</value>
         <value xml:lang="pt_BR">Estado de execução de produção não mudou para a execução de produção obrigatória que não terminou</value>
         <value xml:lang="zh">生产运行状态没有改变，没有完成必要的生产运行</value>
+        <value xml:lang="zh_TW">生產運行狀態沒有改變，沒有完成必要的生產運行</value>
     </property>
     <property key="ManufacturingProductionRunTaskCannotStartDocsNotPrinted">
         <value xml:lang="en">Production Run Task Cannot Start Docs Not Printed</value>
         <value xml:lang="it">Compito ordine di produzione non può iniziare con documento non stampato</value>
         <value xml:lang="pt_BR">Tarefa de execução de produção não pode começar pois documentos não foram impressos</value>
         <value xml:lang="zh">生产运行任务无法启动，文档没有打印</value>
+        <value xml:lang="zh_TW">生產運行任務無法啟動，文檔沒有列印</value>
     </property>
     <property key="ManufacturingProductionRunTaskCannotStartPrevTasksNotCompleted">
         <value xml:lang="en">Production Run Task Cannot Start Prev Tasks Not Completed</value>
         <value xml:lang="it">Compito ordine di produzione non può iniziare un precedente compito non completato</value>
         <value xml:lang="pt_BR">Tarefa de execução de produção não pode começar por a anterior não se completou</value>
         <value xml:lang="zh">生产运行任务无法启动，之前的任务没有完成</value>
+        <value xml:lang="zh_TW">生產運行任務無法啟動，之前的任務沒有完成</value>
     </property>
     <property key="ManufacturingProductionRunTaskNotExists">
         <value xml:lang="en">Production Run Task Not Exists</value>
         <value xml:lang="it">Compito ordine di produzione non esiste</value>
         <value xml:lang="pt_BR">Tarefa de execução de produção não existe</value>
         <value xml:lang="zh">生产运行任务不存在</value>
+        <value xml:lang="zh_TW">生產運行任務不存在</value>
     </property>
     <property key="ManufacturingProductionRunTaskNotRunning">
         <value xml:lang="en">Production Run Task Not Running</value>
         <value xml:lang="it">Compito ordine di produzione non in esecuzione</value>
         <value xml:lang="pt_BR">Tarefa de execução de produção não está sendo executada</value>
         <value xml:lang="zh">生产运行任务没有执行</value>
+        <value xml:lang="zh_TW">生產運行任務沒有執行</value>
     </property>
     <property key="ManufacturingProductionRunTaskStatusChanged">
         <value xml:lang="en">Production Run Task Status Changed</value>
         <value xml:lang="it">Compito ordine di produzione stato cambiato</value>
         <value xml:lang="pt_BR">Estado da tarefa de execução de produção não foi alterado</value>
         <value xml:lang="zh">生产运行任务状态已改变</value>
+        <value xml:lang="zh_TW">生產運行任務狀態已改變</value>
     </property>
     <property key="ManufacturingProductionRunTasks">
         <value xml:lang="de">Arbeitsgänge des Produktionsauftrages</value>
@@ -2849,6 +3125,7 @@
         <value xml:lang="pt_BR">Tarefas de execução de produção</value>
         <value xml:lang="th">งานการผลิต</value>
         <value xml:lang="zh">生产运行任务</value>
+        <value xml:lang="zh_TW">生產運行任務</value>
     </property>
     <property key="ManufacturingProposedOrder">
         <value xml:lang="en">Proposed Order</value>
@@ -2859,6 +3136,7 @@
         <value xml:lang="ro">Comanda Propusa</value>
         <value xml:lang="th">วางแผนการสั่งซื้อ</value>
         <value xml:lang="zh">已提交的订单</value>
+        <value xml:lang="zh_TW">已提交的訂單</value>
     </property>
     <property key="ManufacturingQuantity">
         <value xml:lang="de">Menge</value>
@@ -2870,6 +3148,7 @@
         <value xml:lang="ro">Cantitate</value>
         <value xml:lang="th">จำนวน</value>
         <value xml:lang="zh">数量</value>
+        <value xml:lang="zh_TW">數量</value>
     </property>
     <property key="ManufacturingQuantityMinimum">
         <value xml:lang="de">Mindestmenge</value>
@@ -2881,6 +3160,7 @@
         <value xml:lang="ro">Cantitate Minima</value>
         <value xml:lang="th">จำนวนน้อยที่สุด</value>
         <value xml:lang="zh">数量最小值</value>
+        <value xml:lang="zh_TW">數量最小值</value>
     </property>
     <property key="ManufacturingQuantityProduced">
         <value xml:lang="de">Produziert</value>
@@ -2892,6 +3172,7 @@
         <value xml:lang="ro">Cantitate Produsa</value>
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">已生产</value>
+        <value xml:lang="zh_TW">已生產</value>
     </property>
     <property key="ManufacturingQuantityProducedIsHigherThanQuantityDeclared">
         <value xml:lang="en">Quantity produced cannot be greater than the quantity declared.</value>
@@ -2900,6 +3181,7 @@
         <value xml:lang="it">La quantità prodotta non puo' essere maggiore della quantita' dichiarata.</value>
         <value xml:lang="pt_BR">A quantidade produzida não pode ser maior que aquela declarada.</value>
         <value xml:lang="zh">已生产的数量不大于声明的数量。</value>
+        <value xml:lang="zh_TW">已生產的數量不大于聲明的數量。</value>
     </property>
     <property key="ManufacturingQuantityRejected">
         <value xml:lang="de">Abgelehnt</value>
@@ -2911,6 +3193,7 @@
         <value xml:lang="ro">Cantitate Rebutata</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
         <value xml:lang="zh">已拒绝</value>
+        <value xml:lang="zh_TW">已拒絕</value>
     </property>
     <property key="ManufacturingQuantityRemaining">
         <value xml:lang="de">Austehend</value>
@@ -2922,6 +3205,7 @@
         <value xml:lang="ro">Cantitate Ramasa</value>
         <value xml:lang="th">ยังเหลืออยู่</value>
         <value xml:lang="zh">剩余</value>
+        <value xml:lang="zh_TW">剩余</value>
     </property>
     <property key="ManufacturingQuantityToProduce">
         <value xml:lang="de">Zu produzierende Menge</value>
@@ -2933,6 +3217,7 @@
         <value xml:lang="ro">Cantitate de Produs</value>
         <value xml:lang="th">จำนวนสินค้า</value>
         <value xml:lang="zh">要生产的数量</value>
+        <value xml:lang="zh_TW">要生產的數量</value>
     </property>
     <property key="ManufacturingQuickClose">
         <value xml:lang="de">Schnelles Schließen</value>
@@ -2944,6 +3229,7 @@
         <value xml:lang="ro">Inchidere Rapida</value>
         <value xml:lang="th">ปิดอย่างรวดเร็ว</value>
         <value xml:lang="zh">快速关闭</value>
+        <value xml:lang="zh_TW">快速關閉</value>
     </property>
     <property key="ManufacturingQuickComplete">
         <value xml:lang="de">Schneller Abschluß</value>
@@ -2955,6 +3241,7 @@
         <value xml:lang="ro">Completament Rapid</value>
         <value xml:lang="th">เสร็จสิ้นอย่างรวดเร็ว</value>
         <value xml:lang="zh">快速完成</value>
+        <value xml:lang="zh_TW">快速完成</value>
     </property>
     <property key="ManufacturingQuickRunAllTasks">
         <value xml:lang="de">Schnellausführung alle Arbeitsgänge</value>
@@ -2966,6 +3253,7 @@
         <value xml:lang="ro">Executie Rapida Toate Sarcinile</value>
         <value xml:lang="th">ทำงานทั้งหมดอย่างรวดเร็ว</value>
         <value xml:lang="zh">快速运行全部任务</value>
+        <value xml:lang="zh_TW">快速運行全部任務</value>
     </property>
     <property key="ManufacturingQuickRunTask">
         <value xml:lang="de">Schnellausführung Arbeitsgang</value>
@@ -2977,6 +3265,7 @@
         <value xml:lang="ro">Executie Rapida Sarcini</value>
         <value xml:lang="th">ทำงานอย่างรวดเร็ว</value>
         <value xml:lang="zh">全速运行任务</value>
+        <value xml:lang="zh_TW">全速運行任務</value>
     </property>
     <property key="ManufacturingQuickStartAllTasks">
         <value xml:lang="de">Schnellstart alle Arbeitsgänge</value>
@@ -2986,6 +3275,7 @@
         <value xml:lang="it">Avvio Veloce Operazioni</value>
         <value xml:lang="pt_BR">Iniciar rapidamente todas as tarefas</value>
         <value xml:lang="zh">快速启动全部任务</value>
+        <value xml:lang="zh_TW">快速啟動全部任務</value>
     </property>
     <property key="ManufacturingReason">
         <value xml:lang="de">Grund</value>
@@ -2997,6 +3287,7 @@
         <value xml:lang="ro">Societate</value>
         <value xml:lang="th">เหตุผล</value>
         <value xml:lang="zh">原因</value>
+        <value xml:lang="zh_TW">原因</value>
     </property>
     <property key="ManufacturingReports">
         <value xml:lang="de">Berichte</value>
@@ -3008,6 +3299,7 @@
         <value xml:lang="ro">Tipareste</value>
         <value xml:lang="th">รายงาน</value>
         <value xml:lang="zh">报告</value>
+        <value xml:lang="zh_TW">報告</value>
     </property>
     <property key="ManufacturingRequirementByDate">
         <value xml:lang="de">Bedarf nach Datum</value>
@@ -3018,6 +3310,7 @@
         <value xml:lang="pt_BR">Requisitos por data</value>
         <value xml:lang="th">ความต้องการโดยวัน</value>
         <value xml:lang="zh">按日期的需求</value>
+        <value xml:lang="zh_TW">按日期的需求</value>
     </property>
     <property key="ManufacturingRequirementId">
         <value xml:lang="de">Bedarfs-Nr.</value>
@@ -3028,6 +3321,7 @@
         <value xml:lang="pt_BR">Id de requisito</value>
         <value xml:lang="th">รหัสความต้องการ</value>
         <value xml:lang="zh">需求标识</value>
+        <value xml:lang="zh_TW">需求ID</value>
     </property>
     <property key="ManufacturingRequirementNotDeleted">
         <value xml:lang="en">Requirement Non Deleted</value>
@@ -3035,6 +3329,7 @@
         <value xml:lang="it">Fabbisogno non cancellato</value>
         <value xml:lang="pt_BR">Requisito não apagado</value>
         <value xml:lang="zh">没有需求被删除</value>
+        <value xml:lang="zh_TW">沒有需求被刪除</value>
     </property>
     <property key="ManufacturingRequirementNotExists">
         <value xml:lang="en">Requirement Non Exists</value>
@@ -3042,6 +3337,7 @@
         <value xml:lang="it">Fabbisogno non esistente</value>
         <value xml:lang="pt_BR">Requisito não existente</value>
         <value xml:lang="zh">不存在需求</value>
+        <value xml:lang="zh_TW">不存在需求</value>
     </property>
     <property key="ManufacturingRequirementNotUpdated">
         <value xml:lang="en">Requirement Non Updated</value>
@@ -3049,6 +3345,7 @@
         <value xml:lang="it">Fabbisogno non aggiornato</value>
         <value xml:lang="pt_BR">Requisito não atualizado</value>
         <value xml:lang="zh">没有需求被更新</value>
+        <value xml:lang="zh_TW">沒有需求被更新</value>
     </property>
     <property key="ManufacturingRequirementStartDate">
         <value xml:lang="de">Start-Datum Bedarf</value>
@@ -3059,6 +3356,7 @@
         <value xml:lang="pt_BR">Data de início do requisito</value>
         <value xml:lang="th">วันเริ่มต้นของความต้องการ</value>
         <value xml:lang="zh">需求开始日期</value>
+        <value xml:lang="zh_TW">需求開始日期</value>
     </property>
     <property key="ManufacturingReturnMaterials">
         <value xml:lang="de">Unverbrauchtes Material zurück ins Lager</value>
@@ -3069,6 +3367,7 @@
         <value xml:lang="pt_BR">Devolver materiais não utilizados para o armazém</value>
         <value xml:lang="th">แสดงวัสดุที่ยังไม่เคยใช้ในคลังสินค้า</value>
         <value xml:lang="zh">把未用物料归还仓库</value>
+        <value xml:lang="zh_TW">把未用物料歸還倉庫</value>
     </property>
     <property key="ManufacturingReturnedQuantity">
         <value xml:lang="de">Zurückgegeben</value>
@@ -3080,6 +3379,7 @@
         <value xml:lang="ro">Cantitate Returnata</value>
         <value xml:lang="th">แสดง</value>
         <value xml:lang="zh">退货</value>
+        <value xml:lang="zh_TW">退貨</value>
     </property>
     <property key="ManufacturingRouting">
         <value xml:lang="de">Arbeitsplan</value>
@@ -3091,6 +3391,7 @@
         <value xml:lang="ro">Ciclu</value>
         <value xml:lang="th">Routing</value>
         <value xml:lang="zh">规程</value>
+        <value xml:lang="zh_TW">規程</value>
     </property>
     <property key="ManufacturingRoutingHasNoRoutingTask">
         <value xml:lang="de">Arbeitsplan besitzt keinen Arbeitsgang</value>
@@ -3102,6 +3403,7 @@
         <value xml:lang="ro">Ciclul nu are Operatii</value>
         <value xml:lang="th">ไม่มีการทำงาน</value>
         <value xml:lang="zh">规程没有规程任务</value>
+        <value xml:lang="zh_TW">規程沒有規程任務</value>
     </property>
     <property key="ManufacturingRoutingId">
         <value xml:lang="de">Arbeitsplan-Nr.</value>
@@ -3113,6 +3415,7 @@
         <value xml:lang="ro">Cod Ciclu</value>
         <value xml:lang="th">รหัส Routing </value>
         <value xml:lang="zh">规程标识</value>
+        <value xml:lang="zh_TW">規程ID</value>
     </property>
     <property key="ManufacturingRoutingIdMissing">
         <value xml:lang="de">Arbeitsplan-Nr. fehlt</value>
@@ -3124,6 +3427,7 @@
         <value xml:lang="ro">Cod Ciclu lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่ Routing</value>
         <value xml:lang="zh">缺少规程标识</value>
+        <value xml:lang="zh_TW">缺少規程ID</value>
     </property>
     <property key="ManufacturingRoutingName">
         <value xml:lang="de">Arbeitsplan-Name</value>
@@ -3135,6 +3439,7 @@
         <value xml:lang="ro">Nome Ciclu</value>
         <value xml:lang="th">ชื่อ Routing</value>
         <value xml:lang="zh">规程名称</value>
+        <value xml:lang="zh_TW">規程名稱</value>
     </property>
     <property key="ManufacturingRoutingSeqIdFormatNotCorrect">
         <value xml:lang="de">Arbeitsplan-Folgenummer ist falsch</value>
@@ -3146,6 +3451,7 @@
         <value xml:lang="ro">Cod Ciclu Seq format incorect</value>
         <value xml:lang="th">รูปแบบรหัส Routing ไม่ถูกต้อง</value>
         <value xml:lang="zh">规程序号标识格式不正确</value>
+        <value xml:lang="zh_TW">規程序列ID格式不正確</value>
     </property>
     <property key="ManufacturingRoutingSeqIdMissing">
         <value xml:lang="de">Arbeitsplan-Folgenummer fehlt</value>
@@ -3157,6 +3463,7 @@
         <value xml:lang="ro">Cod Ciclu Seq Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสลำดับ Routing</value>
         <value xml:lang="zh">缺少规程序号标识</value>
+        <value xml:lang="zh_TW">缺少規程序列ID</value>
     </property>
     <property key="ManufacturingRoutingTask">
         <value xml:lang="de">Arbeitsgang</value>
@@ -3168,6 +3475,7 @@
         <value xml:lang="ro">Operatie</value>
         <value xml:lang="th">การทำงาน</value>
         <value xml:lang="zh">规程任务</value>
+        <value xml:lang="zh_TW">規程任務</value>
     </property>
     <property key="ManufacturingRoutingTaskAssocCreateSuccessfully">
         <value xml:lang="de">Arbeitsgang-Zuordnung erfolgreich erstellt</value>
@@ -3179,6 +3487,7 @@
         <value xml:lang="ro">Operatie asociatie creata cu succes</value>
         <value xml:lang="th">สร้างการเชื่อมโยงการทำงานเรียบร้อยแล้ว</value>
         <value xml:lang="zh">成功创建规程任务关联</value>
+        <value xml:lang="zh_TW">成功創建規程任務關聯</value>
     </property>
     <property key="ManufacturingRoutingTaskCopiedSuccessfully">
         <value xml:lang="de">Arbeitsgang erfolgreich kopiert</value>
@@ -3190,6 +3499,7 @@
         <value xml:lang="ro">Operatie copiata cu succes</value>
         <value xml:lang="th">คัดลอกการทำงานเรียบร้อยแล้ว</value>
         <value xml:lang="zh">成功复制规程任务</value>
+        <value xml:lang="zh_TW">成功複制規程任務</value>
     </property>
     <property key="ManufacturingRoutingTaskCosts">
         <value xml:lang="de">Arbeitsgang.Kosten</value>
@@ -3201,6 +3511,7 @@
         <value xml:lang="ro">Costuri Operatii</value>
         <value xml:lang="th">ราคาของการทำงาน</value>
         <value xml:lang="zh">规程任务成本</value>
+        <value xml:lang="zh_TW">規程任務成本</value>
     </property>
     <property key="ManufacturingRoutingTaskFixedAssets">
         <value xml:lang="de">Anlagen</value>
@@ -3212,6 +3523,7 @@
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="th">สินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">固定资产</value>
+        <value xml:lang="zh_TW">固定資產</value>
     </property>
     <property key="ManufacturingRoutingTaskId">
         <value xml:lang="de">Arbeitsgang-Nr.</value>
@@ -3223,6 +3535,7 @@
         <value xml:lang="ro">Cod Operatie</value>
         <value xml:lang="th">รหัสการทำงาน</value>
         <value xml:lang="zh">规程任务标识</value>
+        <value xml:lang="zh_TW">規程任務ID</value>
     </property>
     <property key="ManufacturingRoutingTaskIdMissing">
         <value xml:lang="en">Routing Task Id Missing</value>
@@ -3230,6 +3543,7 @@
         <value xml:lang="it">Codice operazione mancante</value>
         <value xml:lang="pt_BR">Id de tarefa de rota está faltando</value>
         <value xml:lang="zh">缺少规程任务标识</value>
+        <value xml:lang="zh_TW">缺少規程任務ID</value>
     </property>
     <property key="ManufacturingRoutingTaskNotExists">
         <value xml:lang="en">Routing Task Not Exists</value>
@@ -3237,6 +3551,7 @@
         <value xml:lang="it">Codice operazione non esiste</value>
         <value xml:lang="pt_BR">Tarefa de rota não existe</value>
         <value xml:lang="zh">规程任务不存在</value>
+        <value xml:lang="zh_TW">規程任務不存在</value>
     </property>
     <property key="ManufacturingRoutingTaskSeqIdAlreadyExist">
         <value xml:lang="en">Routing Task Seq Id Already Exists</value>
@@ -3244,12 +3559,14 @@
         <value xml:lang="it">Codice operazione sequenza già esistente</value>
         <value xml:lang="pt_BR">Sequência de tarefa de rota já existe</value>
         <value xml:lang="zh">规程任务序列号已存在</value>
+        <value xml:lang="zh_TW">規程任務序列號已存在</value>
     </property>
     <property key="ManufacturingRoutingTaskStartDateBeforePRun">
         <value xml:lang="en">Routing Task Start Date Before Production Run</value>
         <value xml:lang="it">Codice operazione data inizio prima dell'ordine di produzione</value>
         <value xml:lang="pt_BR">Data de início da tarefa de rota é anterior à execução de produção</value>
         <value xml:lang="zh">开始日期在生产运行之前的规程任务</value>
+        <value xml:lang="zh_TW">開始日期在生產運行之前的規程任務</value>
     </property>
     <property key="ManufacturingRoutingTaskToMissing">
         <value xml:lang="de">Arbeitsgang An fehlt</value>
@@ -3261,6 +3578,7 @@
         <value xml:lang="ro">Operatia A Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่การทำงานถึง</value>
         <value xml:lang="zh">缺少规程任务到</value>
+        <value xml:lang="zh_TW">缺少規程任務到</value>
     </property>
     <property key="ManufacturingRoutingTasks">
         <value xml:lang="de">Arbeitsgänge</value>
@@ -3272,6 +3590,7 @@
         <value xml:lang="ro">Operatii</value>
         <value xml:lang="th">การทำาน</value>
         <value xml:lang="zh">规程任务</value>
+        <value xml:lang="zh_TW">規程任務</value>
     </property>
     <property key="ManufacturingRoutings">
         <value xml:lang="de">Arbeitspläne</value>
@@ -3283,6 +3602,7 @@
         <value xml:lang="ro">Cicluri</value>
         <value xml:lang="th">Routing</value>
         <value xml:lang="zh">规程</value>
+        <value xml:lang="zh_TW">規程</value>
     </property>
     <property key="ManufacturingRunMrp">
         <value xml:lang="de">MRP ausführen</value>
@@ -3294,6 +3614,7 @@
         <value xml:lang="ro">Executa MRP</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณ</value>
         <value xml:lang="zh">运行生产资源计划</value>
+        <value xml:lang="zh_TW">運行生產資源計劃</value>
     </property>
     <property key="ManufacturingSchedule">
         <value xml:lang="de">Plan</value>
@@ -3304,6 +3625,7 @@
         <value xml:lang="pt_BR">Agendar</value>
         <value xml:lang="th">กำหนดการ</value>
         <value xml:lang="zh">计划</value>
+        <value xml:lang="zh_TW">計劃</value>
     </property>
     <property key="ManufacturingScrapFactor">
         <value xml:lang="de">Ausschuß-Faktor in %</value>
@@ -3315,12 +3637,14 @@
         <value xml:lang="ro">Factor De Rebuturi%</value>
         <value xml:lang="th">ชิ้นส่วนประกอบ %</value>
         <value xml:lang="zh">废品因素 %</value>
+        <value xml:lang="zh_TW">廢品因素 %</value>
     </property>
     <property key="ManufacturingSelectedFeatures">
         <value xml:lang="en">Selected Features</value>
         <value xml:lang="it">Caratteristica selezionata</value>
         <value xml:lang="pt_BR">Característcas selecionadas</value>
         <value xml:lang="zh">选择的特征</value>
+        <value xml:lang="zh_TW">選擇的特征</value>
     </property>
     <property key="ManufacturingShipmentPlanStockReport">
         <value xml:lang="de">Bericht über Bestände für Versand-Plan</value>
@@ -3332,6 +3656,7 @@
         <value xml:lang="ro">Tipareste Planul de Expediere</value>
         <value xml:lang="th">รายงานแผนการขนส่งสินค้าทางเรือในคลังสินค้า</value>
         <value xml:lang="zh">运输计划库存报告 </value>
+        <value xml:lang="zh_TW">運輸計劃庫存報告 </value>
     </property>
     <property key="ManufacturingShipmentPlans">
         <value xml:lang="de">Versand-Pläne</value>
@@ -3343,12 +3668,14 @@
         <value xml:lang="ro">Plan Expedieri</value>
         <value xml:lang="th">แผนการขนส่ง</value>
         <value xml:lang="zh">运输计划</value>
+        <value xml:lang="zh_TW">運輸計劃</value>
     </property>
     <property key="ManufacturingShipmentWorkEffortTasks">
         <value xml:lang="en">Shipment WorkEffort Tasks</value>
         <value xml:lang="it">Compiti impegni di lavoro spedizione</value>
         <value xml:lang="pt_BR">Tarefas da equipe de trabalho de envio</value>
         <value xml:lang="zh">运输人工服务任务</value>
+        <value xml:lang="zh_TW">運輸人工服務任務</value>
     </property>
     <property key="ManufacturingShowBOMAssocs">
         <value xml:lang="de">Stückliste anzeigen</value>
@@ -3360,6 +3687,7 @@
         <value xml:lang="ro">Afiseaza Lista repere</value>
         <value xml:lang="th">แสดงรายการของสินค้า</value>
         <value xml:lang="zh">显示物料清单</value>
+        <value xml:lang="zh_TW">顯示物料清單</value>
     </property>
     <property key="ManufacturingStartDate">
         <value xml:lang="de">Start-Datum</value>
@@ -3371,6 +3699,7 @@
         <value xml:lang="ro">Data Initiala</value>
         <value xml:lang="th">วันเริ่มต้น</value>
         <value xml:lang="zh">开始日期</value>
+        <value xml:lang="zh_TW">開始日期</value>
     </property>
     <property key="ManufacturingStartProductionRunTask">
         <value xml:lang="de">Start</value>
@@ -3382,6 +3711,7 @@
         <value xml:lang="ro">Inceput</value>
         <value xml:lang="th">เริ่มต้น</value>
         <value xml:lang="zh">开始</value>
+        <value xml:lang="zh_TW">開始</value>
     </property>
     <property key="ManufacturingStartTime">
         <value xml:lang="de">Startzeit</value>
@@ -3393,6 +3723,7 @@
         <value xml:lang="ro">Ora Initiala</value>
         <value xml:lang="th">เวลาเริ่มต้น</value>
         <value xml:lang="zh">开始时间</value>
+        <value xml:lang="zh_TW">開始時間</value>
     </property>
     <property key="ManufacturingSummarizedPartBreakdown">
         <value xml:lang="en">Summarized Breakdown</value>
@@ -3403,6 +3734,7 @@
         <value xml:lang="ro">Explozie Scalara Insumata</value>
         <value xml:lang="th">สรุป</value>
         <value xml:lang="zh">故障综述</value>
+        <value xml:lang="zh_TW">故障綜述</value>
     </property>
     <property key="ManufacturingTaskActualMilliSeconds">
         <value xml:lang="de">Ist-Zeit</value>
@@ -3414,6 +3746,7 @@
         <value xml:lang="ro">Timp Actual</value>
         <value xml:lang="th">เวลาจริง</value>
         <value xml:lang="zh">实际时间</value>
+        <value xml:lang="zh_TW">實際時間</value>
     </property>
     <property key="ManufacturingTaskActualSetupMillis">
         <value xml:lang="de">Ist-Rüstzeit</value>
@@ -3425,6 +3758,7 @@
         <value xml:lang="ro">Timp Actual Instalatie</value>
         <value xml:lang="th">เวลาติดตั้งจริง</value>
         <value xml:lang="zh">实际安装时间</value>
+        <value xml:lang="zh_TW">實際安裝時間</value>
     </property>
     <property key="ManufacturingTaskComponents">
         <value xml:lang="de">Arbeitsgang-Komponenten</value>
@@ -3435,6 +3769,7 @@
         <value xml:lang="pt_BR">Componentes de tarefa</value>
         <value xml:lang="th">ส่วนประกอบของงาน</value>
         <value xml:lang="zh">任务组件</value>
+        <value xml:lang="zh_TW">任務元件</value>
     </property>
     <property key="ManufacturingTaskEstimatedMilliSeconds">
         <value xml:lang="de">Geschätzte Ausführungszeit einer Einheit</value>
@@ -3446,6 +3781,7 @@
         <value xml:lang="ro">Timp Stimat in Executie</value>
         <value xml:lang="th">ประมาณเวลา</value>
         <value xml:lang="zh">预计运行时间</value>
+        <value xml:lang="zh_TW">預計運行時間</value>
     </property>
     <property key="ManufacturingTaskEstimatedSetupMillis">
         <value xml:lang="de">Geschätzte Rüstzeit</value>
@@ -3457,6 +3793,7 @@
         <value xml:lang="ro">Timp Stimat Configuratie</value>
         <value xml:lang="th">ประมาณเวลาที่ติดตั้ง</value>
         <value xml:lang="zh">预计安装时间</value>
+        <value xml:lang="zh_TW">預計安裝時間</value>
     </property>
     <property key="ManufacturingTaskEstimatedTotalMilliSeconds">
         <value xml:lang="de">Geschätzte Ausführungszeit</value>
@@ -3467,6 +3804,7 @@
         <value xml:lang="pt_BR">Tempo total estimado da execução</value>
         <value xml:lang="th">ประมาณเวลาทั้งหมด</value>
         <value xml:lang="zh">预计全部运行时间</value>
+        <value xml:lang="zh_TW">預計全部運行時間</value>
     </property>
     <property key="ManufacturingTaskFixedAssets">
         <value xml:lang="de">Anlagen für Arbeitsgang</value>
@@ -3477,6 +3815,7 @@
         <value xml:lang="pt_BR">Ativos fixos da tarefa de rota</value>
         <value xml:lang="th">การทำงานของสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">规程任务固定资产</value>
+        <value xml:lang="zh_TW">規程任務固定資產</value>
     </property>
     <property key="ManufacturingTaskId">
         <value xml:lang="de">Arbeitsgang-Nr.</value>
@@ -3488,6 +3827,7 @@
         <value xml:lang="ro">Cod Sarcina</value>
         <value xml:lang="th">รหัสการทำงาน</value>
         <value xml:lang="zh">任务标识</value>
+        <value xml:lang="zh_TW">任務ID</value>
     </property>
     <property key="ManufacturingTaskName">
         <value xml:lang="de">Arbeitsgang-Name</value>
@@ -3499,6 +3839,7 @@
         <value xml:lang="ro">Nume Operatie</value>
         <value xml:lang="th">ชื่อการทำงาน</value>
         <value xml:lang="zh">规程任务名称</value>
+        <value xml:lang="zh_TW">規程任務名稱</value>
     </property>
     <property key="ManufacturingTaskPurpose">
         <value xml:lang="de">Arbeitsgang-Art</value>
@@ -3510,6 +3851,7 @@
         <value xml:lang="ro">Tip Sarcina</value>
         <value xml:lang="th">ปะเภทงาน</value>
         <value xml:lang="zh">任务类型</value>
+        <value xml:lang="zh_TW">任務類型</value>
     </property>
     <property key="ManufacturingTasksReport">
         <value xml:lang="de">Arbeitsgang-Bericht</value>
@@ -3521,6 +3863,7 @@
         <value xml:lang="ro">Tipareste Sarcini</value>
         <value xml:lang="th">รายงานการทำงาน</value>
         <value xml:lang="zh">任务报告</value>
+        <value xml:lang="zh_TW">任務報告</value>
     </property>
     <property key="ManufacturingTechData">
         <value xml:lang="en">Tech. Data</value>
@@ -3531,6 +3874,7 @@
         <value xml:lang="ro">Tech. Data</value>
         <value xml:lang="th">ข้อมูล</value>
         <value xml:lang="zh">技术数据</value>
+        <value xml:lang="zh_TW">技術資料</value>
     </property>
     <property key="ManufacturingTechDataCalendarNotExist">
         <value xml:lang="en">TechDataCalendar does not exist</value>
@@ -3541,6 +3885,7 @@
         <value xml:lang="ro">TechDataCalendar nu exista</value>
         <value xml:lang="th">ไม่มีข้อมูลปฏิทินอยู่</value>
         <value xml:lang="zh">不存在技术数据日历</value>
+        <value xml:lang="zh_TW">不存在技術資料日曆</value>
     </property>
     <property key="ManufacturingTechDataCalendarWeekNotExist">
         <value xml:lang="en">TechDataCalendarWeek does not exist</value>
@@ -3551,6 +3896,7 @@
         <value xml:lang="ro">TechDataCalendarWeek nu exista</value>
         <value xml:lang="th">ไม่มีข้อมูลปฏิทินของสัปดาห์อยู่</value>
         <value xml:lang="zh">不存在技术数据日历周</value>
+        <value xml:lang="zh_TW">不存在技術資料日曆週</value>
     </property>
     <property key="ManufacturingTimePeriod">
         <value xml:lang="de">Zeitraum</value>
@@ -3561,6 +3907,7 @@
         <value xml:lang="pt_BR">Intervalo de tempo</value>
         <value xml:lang="th">ระยะเวลา</value>
         <value xml:lang="zh">时间段</value>
+        <value xml:lang="zh_TW">時間段</value>
     </property>
     <property key="ManufacturingToDate">
         <value xml:lang="de">Bis Datum</value>
@@ -3572,6 +3919,7 @@
         <value xml:lang="ro">La Data</value>
         <value xml:lang="th">ข้อมูล</value>
         <value xml:lang="zh">结束日期</value>
+        <value xml:lang="zh_TW">結束日期</value>
     </property>
     <property key="ManufacturingTotalQuantity">
         <value xml:lang="de">Gesamtmenge</value>
@@ -3583,6 +3931,7 @@
         <value xml:lang="ro">Total Cantitate</value>
         <value xml:lang="th">จำนวนรวม</value>
         <value xml:lang="zh">全部数量</value>
+        <value xml:lang="zh_TW">全部數量</value>
     </property>
     <property key="ManufacturingTwoRoutingTaskWithSameSeqId">
         <value xml:lang="de">Zwei Arbeitsgänge mit der gleichen Folgenummer und im gleichen Zeitraum</value>
@@ -3594,6 +3943,7 @@
         <value xml:lang="ro">Doua Operatii cu acelasi Cod Seq si aceiasi perioda </value>
         <value xml:lang="th">2 งานกับรหัสลำดับที่เหมือนกันและระยะเวลาที่เหมือนกัน</value>
         <value xml:lang="zh">两个规程任务有同样的序号标识和同样的阶段</value>
+        <value xml:lang="zh_TW">兩個規程任務有同樣的序列ID和同樣的階段</value>
     </property>
     <property key="ManufacturingUpdateCalendar">
         <value xml:lang="de">Kalender aktualisieren</value>
@@ -3605,6 +3955,7 @@
         <value xml:lang="ro">Actualizeaza Calendar</value>
         <value xml:lang="th">เปลี่ยนแปลงปฏิทิน</value>
         <value xml:lang="zh">更新日历</value>
+        <value xml:lang="zh_TW">更新日曆</value>
     </property>
     <property key="ManufacturingUpdateCalendarWeek">
         <value xml:lang="de">Woche aktualisieren</value>
@@ -3616,6 +3967,7 @@
         <value xml:lang="ro">Actualizeaza Saptamana</value>
         <value xml:lang="th">เปลี่ยนแปลงสัปดาห์</value>
         <value xml:lang="zh">更新周</value>
+        <value xml:lang="zh_TW">更新週</value>
     </property>
     <property key="ManufacturingUpdateMachineGroup">
         <value xml:lang="de">Anlagen-Gruppe aktualisieren</value>
@@ -3627,6 +3979,7 @@
         <value xml:lang="ro">Actualizeaza Grup Mijloace Fixe</value>
         <value xml:lang="th">เปลี่ยนแปลงกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">更新固定资产组</value>
+        <value xml:lang="zh_TW">更新固定資產組</value>
     </property>
     <property key="ManufacturingUpdatePermissionError">
         <value xml:lang="de">Sicherheits-Fehler: Um diesen Vorgang auszuführen müssen Sie über die Berechtigung MANUFACTURING_UPDATE oder MANUFACTURING_ADMIN verfügen</value>
@@ -3638,6 +3991,7 @@
         <value xml:lang="ro">Eroare Siguranta: pentru a executa aceasta operatie trebuie sa ai permisul MANUFACTURING_UPDATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการรันการทำงานคุณต้องได้รับอนุญาตจาก MANUFACTURING_UPDATE หรือ MANUFACTURING_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误：要运行这个操作，你必须具有 MANUFACTURING_UPDATE 或 MANUFACTURING_ADMIN 权限</value>
+        <value xml:lang="zh_TW">安全錯誤：要運行這個操作，你必須具有 MANUFACTURING_UPDATE 或 MANUFACTURING_ADMIN 權限</value>
     </property>
     <property key="ManufacturingViewPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung um diese Seite anzuzeigen. ("MANUFACTURING_VIEWW oder WMANUFACTURING_ADMINW wird benötigt)</value>
@@ -3649,6 +4003,7 @@
         <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (este necesar un permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个页面的权限。(需要"MANUFACTURING_VIEW" 或 "MANUFACTURING_ADMIN")</value>
+        <value xml:lang="zh_TW">你沒有瀏覽這個頁面的權限。(需要"MANUFACTURING_VIEW" 或 "MANUFACTURING_ADMIN")</value>
     </property>
     <property key="ManufacturingVisitType">
         <value xml:lang="en">Tree visit Algorithm</value>
@@ -3659,6 +4014,7 @@
         <value xml:lang="ro">Algoritm vizita Arbore</value>
         <value xml:lang="th">อัลกอลิทึมแบบต้นไม้</value>
         <value xml:lang="zh">树状结构访问算法</value>
+        <value xml:lang="zh_TW">樹狀結構訪問演算法</value>
     </property>
     <property key="ManufacturingWillBeSetToNow">
         <value xml:lang="de">Wird auf die aktuelle Zeit gesetzt falls leer</value>
@@ -3670,6 +4026,7 @@
         <value xml:lang="ro">Va fi setat acum daca este gol</value>
         <value xml:lang="th">จะต้องเซ็ตก่อนถ้าเป็นค่าว่าง</value>
         <value xml:lang="zh">如果为空，将设为现在的时间</value>
+        <value xml:lang="zh_TW">如果為空，將設為現在的時間</value>
     </property>
     <property key="ManufacturingWorkEffortAssocNotExist">
         <value xml:lang="de">Wird auf die aktuelle Zeit gesetzt falls leer</value>
@@ -3681,6 +4038,7 @@
         <value xml:lang="ro">WorkEffortAssoc nu exista</value>
         <value xml:lang="th">ไม่มีกลุ่มการทำงาน</value>
         <value xml:lang="zh">人工服务关联不存在</value>
+        <value xml:lang="zh_TW">人工服務關聯不存在</value>
     </property>
     <property key="ManufacturingWorkEffortFixedAssetAsgAlreadyExist">
         <value xml:lang="de">Die ausgewählte Anlage ist schon diesem Arbeitsgang zugeordnet</value>
@@ -3692,6 +4050,7 @@
         <value xml:lang="ro">Mijlocul Fix selectionat este deja asociat la aceasta comanda de productie </value>
         <value xml:lang="th">เลือกกลุ่มสินทรัพย์ไม่หมุนเวียนที่มีอยู่ในกลุ่มงานการผลิตนี้</value>
         <value xml:lang="zh">选择的固定资产已经与这个生产运行任务关联了</value>
+        <value xml:lang="zh_TW">選擇的固定資產已經與這個生產運行任務關聯了</value>
     </property>
     <property key="ManufacturingWorkEffortFixedAssetStdAlreadyExist">
         <value xml:lang="de">Die ausgewählte Anlagen-Art ist schon diesem Arbeitsgang zugeordnet</value>
@@ -3703,6 +4062,7 @@
         <value xml:lang="ro">Tipul de Mijloc Fix Selectionat este deja asociat la acest traseu </value>
         <value xml:lang="th">เลือกประเภทสินทรัพย์ไม่หมุนเวียนที่มีอยู่ในกลุ่มงานการผลิตนี้</value>
         <value xml:lang="zh">选择的固定资产类型已经与这个规程任务关联了</value>
+        <value xml:lang="zh_TW">選擇的固定資產類型已經與這個規程任務關聯了</value>
     </property>
     <property key="ManufacturingWorkEffortGoodStandardNotExist">
         <value xml:lang="en">WorkEffortGoodStandard table does not exist</value>
@@ -3713,6 +4073,7 @@
         <value xml:lang="ro">Fisierul WorkEffortGoodStandard nu exista</value>
         <value xml:lang="th">ไม่มีตารางงานมาตรฐานดีอยู่</value>
         <value xml:lang="zh">人工服务良好标准表不存在</value>
+        <value xml:lang="zh_TW">人工服務良好標准表不存在</value>
     </property>
     <property key="ManufacturingWorkEffortIdFromNotExist">
         <value xml:lang="en">workEffortIdFrom does not exist</value>
@@ -3723,6 +4084,7 @@
         <value xml:lang="ro">workEffortIdFrom nu exista</value>
         <value xml:lang="th">ไม่มีฟอร์มรหัสการทำงานอยู่</value>
         <value xml:lang="zh">不存在人工服务标识来自（workEffortIdFrom）</value>
+        <value xml:lang="zh_TW">不存在工項ID來自（workEffortIdFrom）</value>
     </property>
     <property key="ManufacturingWorkEffortNotExist">
         <value xml:lang="en">WorkEffort does not exist</value>
@@ -3733,6 +4095,7 @@
         <value xml:lang="ro">WorkEffort nu exista</value>
         <value xml:lang="th">ไม่มีงานอยู่</value>
         <value xml:lang="zh">人工服务不存在</value>
+        <value xml:lang="zh_TW">工項不存在</value>
     </property>
     <property key="ManufacturingWorkWithShipmentPlans">
         <value xml:lang="de">Versandpläne</value>
@@ -3744,6 +4107,7 @@
         <value xml:lang="ro">Plan Expedieri</value>
         <value xml:lang="th">แผนการขนส่ง</value>
         <value xml:lang="zh">货运计划</value>
+        <value xml:lang="zh_TW">貨運計劃</value>
     </property>
     <property key="ManufacturingWorker">
         <value xml:lang="de">Arbeiter</value>
@@ -3755,6 +4119,7 @@
         <value xml:lang="ro">Muncitor</value>
         <value xml:lang="th">ผู้ทำงาน</value>
         <value xml:lang="zh">工人</value>
+        <value xml:lang="zh_TW">工作者</value>
     </property>
     <property key="PageTitleAddCalendarExceptionWeek">
         <value xml:lang="de">Kalender-Ausnahme-Woche hinzufügen</value>
@@ -3765,6 +4130,7 @@
         <value xml:lang="pt_BR">Adicionar semana de exceção ao calendário</value>
         <value xml:lang="th">เพิ่มปฏิทินสัปดาห์ที่ยกเว้น</value>
         <value xml:lang="zh">添加日历非工作周</value>
+        <value xml:lang="zh_TW">添加日曆非工作週</value>
     </property>
     <property key="PageTitleEditCalendar">
         <value xml:lang="de">Kalender bearbeiten</value>
@@ -3776,6 +4142,7 @@
         <value xml:lang="ro">Actualizare Calendar</value>
         <value xml:lang="th">แก้ไขปฏิทิน</value>
         <value xml:lang="zh">编辑日历</value>
+        <value xml:lang="zh_TW">編輯日曆</value>
     </property>
     <property key="PageTitleEditCalendarExceptionDay">
         <value xml:lang="de">Kalender-Ausnahme-Tag bearbeiten</value>
@@ -3787,6 +4154,7 @@
         <value xml:lang="ro">Actualizare Zi Calendar Special</value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นวัน</value>
         <value xml:lang="zh">编辑日历非工作日</value>
+        <value xml:lang="zh_TW">編輯日曆非工作日</value>
     </property>
     <property key="PageTitleEditCalendarExceptionWeek">
         <value xml:lang="de">Kalender-Ausnahme-Woche bearbeiten</value>
@@ -3798,6 +4166,7 @@
         <value xml:lang="ro">Actualizare Saptamana Calendar Special </value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นสัปดาห์</value>
         <value xml:lang="zh">编辑日历非工作周</value>
+        <value xml:lang="zh_TW">編輯日曆非工作週</value>
     </property>
     <property key="PageTitleEditCalendarWeek">
         <value xml:lang="de">Woche bearbeiten</value>
@@ -3809,6 +4178,7 @@
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
         <value xml:lang="zh">编辑周</value>
+        <value xml:lang="zh_TW">編輯週</value>
     </property>
     <property key="PageTitleEditCostCalcs">
         <value xml:lang="de">Kosten bearbeiten</value>
@@ -3820,6 +4190,7 @@
         <value xml:lang="ro">Actualizare Calcul Cost</value>
         <value xml:lang="th">แก้ไขการคำนวณราคา</value>
         <value xml:lang="zh">编辑费用计算</value>
+        <value xml:lang="zh_TW">編輯費用計算</value>
     </property>
     <property key="PageTitleEditMachine">
         <value xml:lang="de">Anlagen bearbeiten</value>
@@ -3831,6 +4202,7 @@
         <value xml:lang="ro">Actualizare Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">编辑固定资产</value>
+        <value xml:lang="zh_TW">編輯固定資產</value>
     </property>
     <property key="PageTitleEditMachineGroup">
         <value xml:lang="de">Anlagen bearbeiten</value>
@@ -3842,6 +4214,7 @@
         <value xml:lang="ro">Actualizare Grup Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">编辑固定资产组</value>
+        <value xml:lang="zh_TW">編輯固定資產組</value>
     </property>
     <property key="PageTitleEditProductBom">
         <value xml:lang="de">Produktionsstückliste bearbeiten</value>
@@ -3853,6 +4226,7 @@
         <value xml:lang="ro">Actualizare Lista repere Produs</value>
         <value xml:lang="th">แก้ไขสินค้าในรายการของสินค้า</value>
         <value xml:lang="zh">编辑产品物料清单</value>
+        <value xml:lang="zh_TW">編輯產品物料清單</value>
     </property>
     <property key="PageTitleEditProductManufacturingRules">
         <value xml:lang="de">Fertigungs-Regeln bearbeiten</value>
@@ -3864,6 +4238,7 @@
         <value xml:lang="ro">Reguli de Productie Produs</value>
         <value xml:lang="th">ข้อบังคับของการผลิตสินค้า</value>
         <value xml:lang="zh">产品生产规则</value>
+        <value xml:lang="zh_TW">產品生產規則</value>
     </property>
     <property key="PageTitleEditRouting">
         <value xml:lang="de">Arbeitsplan bearbeiten</value>
@@ -3875,6 +4250,7 @@
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
         <value xml:lang="zh">编辑规程</value>
+        <value xml:lang="zh_TW">編輯規程</value>
     </property>
     <property key="PageTitleEditRoutingProductLink">
         <value xml:lang="de">Arbeitsplan-Produkt-Verbindung bearbeiten</value>
@@ -3886,6 +4262,7 @@
         <value xml:lang="ro">Actualizare Link Ciclu-Produs</value>
         <value xml:lang="th">แก้ไข Routing การเชื่อมโยงสินค้า</value>
         <value xml:lang="zh">编辑规程-产品链接</value>
+        <value xml:lang="zh_TW">編輯規程-產品鏈結</value>
     </property>
     <property key="PageTitleEditRoutingTask">
         <value xml:lang="de">Arbeitsgang bearbeiten</value>
@@ -3897,6 +4274,7 @@
         <value xml:lang="ro">Actualizare Operatie</value>
         <value xml:lang="th">แก้ไขการทำงาน</value>
         <value xml:lang="zh">编辑规程任务</value>
+        <value xml:lang="zh_TW">編輯規程任務</value>
     </property>
     <property key="PageTitleEditRoutingTaskAssoc">
         <value xml:lang="de">Arbeitsgang-Zuordnung bearbeiten</value>
@@ -3908,6 +4286,7 @@
         <value xml:lang="ro">Actualizare Asociatie Operatie</value>
         <value xml:lang="th">แก้ไขกลุ่มการทำงาน</value>
         <value xml:lang="zh">编辑规程任务链接</value>
+        <value xml:lang="zh_TW">編輯規程任務鏈結</value>
     </property>
     <property key="PageTitleEditRoutingTaskCosts">
         <value xml:lang="de">Arbeitsgang-Kosten bearbeiten</value>
@@ -3919,6 +4298,7 @@
         <value xml:lang="ro">Actualizare Cost Operatie</value>
         <value xml:lang="th">แก้ไขราคาการทำงาน</value>
         <value xml:lang="zh">编辑规程任务的费用</value>
+        <value xml:lang="zh_TW">編輯規程任務的費用</value>
     </property>
     <property key="PageTitleEditRoutingTaskFixedAsset">
         <value xml:lang="de">Arbeitsgang-Anlagen-Zuordnung bearbeiten</value>
@@ -3930,6 +4310,7 @@
         <value xml:lang="ro">Actualizare Traseu Asociere Sarcina-Mijloc Fix</value>
         <value xml:lang="th">แก้ไขกลุ่มงานสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">编辑规程任务-固定资产关联</value>
+        <value xml:lang="zh_TW">編輯規程任務-固定資產關聯</value>
     </property>
     <property key="PageTitleEditRoutingTaskProduct">
         <value xml:lang="de">Arbeitsgang-Produkt bearbeiten</value>
@@ -3941,6 +4322,7 @@
         <value xml:lang="ro">Actualizare Operatie Produs</value>
         <value xml:lang="th">แก้ไขงานของสินค้า</value>
         <value xml:lang="zh">编辑规程任务的产品</value>
+        <value xml:lang="zh_TW">編輯規程任務的產品</value>
     </property>
     <property key="PageTitleFieldLookup">
         <value xml:lang="de">Feldsuche</value>
@@ -3952,6 +4334,7 @@
         <value xml:lang="ro">Camp de Cautare</value>
         <value xml:lang="th">การค้นหา</value>
         <value xml:lang="zh">查找域</value>
+        <value xml:lang="zh_TW">查找域</value>
     </property>
     <property key="PageTitleFindBom">
         <value xml:lang="en">Find Bill Of Materials</value>
@@ -3960,6 +4343,7 @@
         <value xml:lang="pt_BR">Buscar estrutura de materiais (BOM)</value>
         <value xml:lang="th">ค้นหารายการสินค้า</value>
         <value xml:lang="zh">填写物料清单</value>
+        <value xml:lang="zh_TW">填寫物料清單</value>
     </property>
     <property key="PageTitleFindCalendar">
         <value xml:lang="de">Kalender suchen</value>
@@ -3971,6 +4355,7 @@
         <value xml:lang="ro">Cauta Calendar</value>
         <value xml:lang="th">ค้นหาปฏิทิน</value>
         <value xml:lang="zh">查找日历</value>
+        <value xml:lang="zh_TW">查找日曆</value>
     </property>
     <property key="PageTitleFindInventoryEventPlan">
         <value xml:lang="de">Geplantes Bestands-Ereigniss suchen</value>
@@ -3982,6 +4367,7 @@
         <value xml:lang="ro">Cauta Eveniment Inventar Planificat</value>
         <value xml:lang="th">ค้นหาสินค้าคงเหลือ</value>
         <value xml:lang="zh">查找已计划的库存事件</value>
+        <value xml:lang="zh_TW">查找已計劃的庫存事件</value>
     </property>
     <property key="PageTitleFindMachineGroup">
         <value xml:lang="de">Anlagen-Gruppe suchen</value>
@@ -3993,6 +4379,7 @@
         <value xml:lang="ro">Cauta Grup Mijloace Fixe</value>
         <value xml:lang="th">ค้นหากลุ่มสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">查找固定资产组</value>
+        <value xml:lang="zh_TW">查找固定資產組</value>
     </property>
     <property key="PageTitleFindRequirements">
         <value xml:lang="de">Bedarfe suchen</value>
@@ -4004,6 +4391,7 @@
         <value xml:lang="ro">Cauta Necesar</value>
         <value xml:lang="th">ค้นหาความต้องการ</value>
         <value xml:lang="zh">查找需求</value>
+        <value xml:lang="zh_TW">查找需求</value>
     </property>
     <property key="PageTitleFindRouting">
         <value xml:lang="de">Arbeitsplan suchen</value>
@@ -4015,6 +4403,7 @@
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
         <value xml:lang="zh">查找规程</value>
+        <value xml:lang="zh_TW">查找規程</value>
     </property>
     <property key="PageTitleFindRoutingTask">
         <value xml:lang="de">Arbeitsgang suchen</value>
@@ -4026,6 +4415,7 @@
         <value xml:lang="ro">Cauta - Actualizare Operatie</value>
         <value xml:lang="th">ค้นหา - แก้ไข งาน</value>
         <value xml:lang="zh">查找 - 编辑规程任务</value>
+        <value xml:lang="zh_TW">查找 - 編輯規程任務</value>
     </property>
     <property key="PageTitleListCalendarWeek">
         <value xml:lang="de">Wochen auflisten</value>
@@ -4037,6 +4427,7 @@
         <value xml:lang="ro">Lista saptamanilor</value>
         <value xml:lang="th">รายการของสัปดาห์</value>
         <value xml:lang="zh">周列表</value>
+        <value xml:lang="zh_TW">週列表</value>
     </property>
     <property key="PageTitleListRoutingTaskAssoc">
         <value xml:lang="de">Arbeitsgang-Zuordnung suchen</value>
@@ -4047,6 +4438,7 @@
         <value xml:lang="pt_BR">Listar associações de tarefas de rota</value>
         <value xml:lang="th">รายการกลลุ่มของงาน</value>
         <value xml:lang="zh">规程任务关联列表</value>
+        <value xml:lang="zh_TW">規程任務關聯列表</value>
     </property>
     <property key="PageTitleListRoutingTaskProducts">
         <value xml:lang="de">Arbeitsgang-Produkt bearbeiten</value>
@@ -4058,6 +4450,7 @@
         <value xml:lang="ro">Actualizare Operatii Produse</value>
         <value xml:lang="th">แก้ไขงานด้านสินค้า</value>
         <value xml:lang="zh">编辑规程任务的产品</value>
+        <value xml:lang="zh_TW">編輯規程任務的產品</value>
     </property>
     <property key="PageTitleListRoutingTaskRoutings">
         <value xml:lang="de">Arbeitpläne zum Arbeitsgang bearbeiten</value>
@@ -4069,6 +4462,7 @@
         <value xml:lang="ro">Actualizare Cicluri Asociate la Operatie</value>
         <value xml:lang="th">แก้ไขเส้นทางการทำงาน</value>
         <value xml:lang="zh">编辑规程任务的规程</value>
+        <value xml:lang="zh_TW">編輯規程任務的規程</value>
     </property>
     <property key="PageTitleLookupRouting">
         <value xml:lang="de">Arbeitsplansuche</value>
@@ -4080,6 +4474,7 @@
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
         <value xml:lang="zh">产找规程</value>
+        <value xml:lang="zh_TW">產找規程</value>
     </property>
     <property key="PageTitleLookupRoutingTask">
         <value xml:lang="de">Arbeitsgangsuche</value>
@@ -4091,6 +4486,7 @@
         <value xml:lang="ro">Cauta Operatie</value>
         <value xml:lang="th">ค้นหา Routing ของทำงาน</value>
         <value xml:lang="zh">查找规程任务</value>
+        <value xml:lang="zh_TW">查找規程任務</value>
     </property>
     <property key="PageTitleLookupVirtualProducts">
         <value xml:lang="de">Virtuelle Produkte suchen</value>
@@ -4102,5 +4498,6 @@
         <value xml:lang="ro">Cauta Produse Virtuale</value>
         <value xml:lang="th">ค้นหาสินค้าที่มีอยู่จริง</value>
         <value xml:lang="zh">查找虚拟产品</value>
+        <value xml:lang="zh_TW">查找虛擬產品</value>
     </property>
 </resource>

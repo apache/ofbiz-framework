@@ -29,6 +29,7 @@
         <value xml:lang="ro">Parametrul Cerut lipseste:</value>
         <value xml:lang="th">กรุณากรอกข้อมูลให้ครบถ้วน</value>
         <value xml:lang="zh">找不到下列必须的参数：</value>
+        <value xml:lang="zh_TW">找不到下列必須的參數：</value>
     </property>
     <property key="serviceUtil.no_permission_to_operation">
         <value xml:lang="de">Sie haben keine Berechtigung, diese Aktion für diesen Akteur auszuführen</value>
@@ -40,6 +41,7 @@
         <value xml:lang="ro">Tu nu ai dreptul sa executi aceasta operatie pentru acest Subiect.</value>
         <value xml:lang="th">ไม่ได้รับการอนุญาติให้จัดการข้อมูลในส่วนของกลุ่มผู้ใช้นี้</value>
         <value xml:lang="zh">你没有执行这个操作所需的权限</value>
+        <value xml:lang="zh_TW">你沒有執行這個操作所需的權限</value>
     </property>
     <property key="serviceUtil.no_permission_to_run">
         <value xml:lang="de">Sie haben keine Berechtigung, diesen Service auszuführen</value>
@@ -51,6 +53,7 @@
         <value xml:lang="ro">Nu ai dreptul sa folosesti acest serviciu.</value>
         <value xml:lang="th">ไม่ได้รับอนุญาติให้ดำเนินการในส่วนของ service นี้</value>
         <value xml:lang="zh">你没有运行这个服务所需的权限</value>
+        <value xml:lang="zh_TW">你沒有執行這個服務所需的權限</value>
     </property>
     <property key="serviceUtil.party_id_missing">
         <value xml:lang="de">Akteur ID fehlt</value>
@@ -62,6 +65,7 @@
         <value xml:lang="ro">Cod Subiect Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">找不到会员标识</value>
+        <value xml:lang="zh_TW">無該成員ID</value>
     </property>
     <property key="serviceUtil.unable_to_cancel_job">
         <value xml:lang="de">Job kann nicht abgebrochen werden</value>
@@ -73,6 +77,7 @@
         <value xml:lang="ro">Nu este posibila stergerea Lucrului</value>
         <value xml:lang="th">ไม่สามารถยกเลิกงานได้</value>
         <value xml:lang="zh">无法取消任务</value>
+        <value xml:lang="zh_TW">無法取消工作</value>
     </property>
     <property key="serviceUtil.unable_to_cancel_job_retries">
         <value xml:lang="de">Job Wiederholungen können nicht abgebrochen werden</value>
@@ -84,5 +89,6 @@
         <value xml:lang="ro">Nu este posibila stergerea noilor tentative de lucru</value>
         <value xml:lang="th">ไม่สามารถยกเลิกงานได้ กรุณาลองอีกครั้ง</value>
         <value xml:lang="zh">无法取消任务重试</value>
+        <value xml:lang="zh_TW">無法取消工作重試</value>
     </property>
 </resource>

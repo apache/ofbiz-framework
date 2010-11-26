@@ -27,6 +27,7 @@
         <value xml:lang="it">Errore accaduti durante il parsing</value>
         <value xml:lang="nl">Er zijn fouten opgetreden tijdens het parsen</value>       
         <value xml:lang="zh">解析时发生错误</value>
+        <value xml:lang="zh_TW">解析時發生錯誤</value>
     </property>
     <property key="ImageTransform.error_occurs_during_reading">
         <value xml:lang="da">Der opstår en fejl under læsning</value>
@@ -36,6 +37,7 @@
         <value xml:lang="it">E' successo un'errore durante la lettura</value>
         <value xml:lang="nl">Er is een fout opgetreden tijdens het lezen</value>        
         <value xml:lang="zh">读取时发生了一个错误</value>
+        <value xml:lang="zh_TW">讀取時發生了一個錯誤</value>
     </property>
     <property key="ImageTransform.final_scale_factor_is_null">
         <value xml:lang="da">Endelig skala faktor er null</value>
@@ -45,6 +47,7 @@
         <value xml:lang="it">Fattore di scala finale è nullo</value>
         <value xml:lang="nl">De definitieve schaalfactor is leeg</value>        
         <value xml:lang="zh">最终的缩放因子是null</value>
+        <value xml:lang="zh_TW">最終的縮放因數是null</value>
     </property>
     <property key="ImageTransform.height_scale_factor_is_null">
         <value xml:lang="da">Høj skala faktor er null</value>
@@ -54,6 +57,7 @@
         <value xml:lang="it">Fattore di scala altezza è nullo</value>
         <value xml:lang="nl">Schaalfactor hoogte is leeg</value>        
         <value xml:lang="zh">高度缩放因子是null</value>
+        <value xml:lang="zh_TW">高度縮放因數是null</value>
     </property>
     <property key="ImageTransform.input_is_null">
         <value xml:lang="da">Input er null</value>
@@ -63,6 +67,7 @@
         <value xml:lang="it">Input è nullo</value>
         <value xml:lang="nl">De ingave is leeg</value>      
         <value xml:lang="zh">输入是null</value>
+        <value xml:lang="zh_TW">輸入是null</value>
     </property>
     <property key="ImageTransform.error_prevents_the document_from_being_fully_parsed">
         <value xml:lang="da">Fejl forhinder dokumentet i at blive fuldt ud oversat</value>
@@ -72,6 +77,7 @@
         <value xml:lang="it">Errore previene il documento da essere completamente parsato</value>
         <value xml:lang="nl">Een fout verhinderd het volledig parsen van het document</value>       
         <value xml:lang="zh">发生错误阻止了文档完全解析</value>
+        <value xml:lang="zh_TW">發生錯誤阻止了文檔完全解析</value>
     </property>
     <property key="ImageTransform.one_default_dimension_is_null">
         <value xml:lang="da">En standard dimension er null</value>
@@ -81,6 +87,7 @@
         <value xml:lang="it">Dimensione uno di default è nullo</value>
         <value xml:lang="nl">Een standaad dimensie is leeg</value>      
         <value xml:lang="zh">一个缺省的纬度是null</value>
+        <value xml:lang="zh_TW">一個缺省的緯度是null</value>
     </property>
     <property key="ImageTransform.root_element_has_not_been_set">
         <value xml:lang="da">Rod element er ikke sat</value>
@@ -90,6 +97,7 @@
         <value xml:lang="it">Elemento root non è stato impostato</value>
         <value xml:lang="nl">Root element is niet ingesteld</value>     
         <value xml:lang="zh">已经设置了根元素</value>
+        <value xml:lang="zh_TW">已經設置了根元素</value>
     </property>
     <property key="ImageTransform.unknown_buffered_image_type">
         <value xml:lang="da">Ukendt buffered billedtype</value>
@@ -99,6 +107,7 @@
         <value xml:lang="it">Tipo di immagine sconosciuta bufferizzata</value>
         <value xml:lang="nl">Onbekend gebufferde afbeeldingsoort</value>        
         <value xml:lang="zh">未知的缓冲的图片类型</value>
+        <value xml:lang="zh_TW">未知的緩衝的圖片類型</value>
     </property>
     <property key="ImageTransform.width_scale_factor_is_null">
         <value xml:lang="da">Bredde skala faktor er null</value>
@@ -108,6 +117,7 @@
         <value xml:lang="it">Fattore di scala altezza è nullo</value>
         <value xml:lang="nl">Schaalfactor breedte is leeg</value>       
         <value xml:lang="zh">宽度缩放因子是null</value>
+        <value xml:lang="zh_TW">寬度縮放因數是null</value>
     </property>
 </resource>
 
