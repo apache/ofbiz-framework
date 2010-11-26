@@ -62,7 +62,7 @@ under the License.
                         <form method="post" action="<@ofbizUrl>removeProductFeatureCatGrpAppl</@ofbizUrl>" name="removeProductFeatureCatGrpApplForm_${productFeatureCatGrpAppl_index}">
                             <input type="hidden" name="productFeatureGroupId" value="${(productFeatureCatGrpAppl.productFeatureGroupId)?if_exists}" />
                             <input type="hidden" name="productCategoryId" value="${(productFeatureCatGrpAppl.productCategoryId)?if_exists}" />
-                            <input type="hidden" name="fromDate" value="${productFeatureCatGrpAppl.getString("fromDate")}" />
+                            <input type="hidden" name="fromDate" value="${(productFeatureCatGrpAppl.fromDate)?if_exists}" />
                         </form>
                     </td>
                 </tr>
@@ -142,7 +142,7 @@ under the License.
                     <form method="post" action="<@ofbizUrl>removeProductFeatureCategoryAppl</@ofbizUrl>" name="removeProductFeatureCategoryApplForm_${productFeatureCategoryAppl_index}">
                         <input type="hidden" name="productFeatureCategoryId" value="${(productFeatureCategoryAppl.productFeatureCategoryId)?if_exists}" />
                         <input type="hidden" name="productCategoryId" value="${(productFeatureCategoryAppl.productCategoryId)?if_exists}" />
-                        <input type="hidden" name="fromDate" value="${productFeatureCategoryAppl.getString("fromDate")}" />
+                        <input type="hidden" name="fromDate" value="${(productFeatureCategoryAppl.fromDate)?if_exists}" />
                     </form>
                     </td>
                 </tr>

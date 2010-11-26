@@ -118,7 +118,7 @@ under the License.
               <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
               <input type="hidden" name="productId" value="${(productCategoryMember.productId)?if_exists}" />
               <input type="hidden" name="productCategoryId" value="${(productCategoryMember.productCategoryId)?if_exists}"/>
-              <input type="hidden" name="fromDate" value="${productCategoryMember.getString("fromDate")?if_exists}"/>
+              <input type="hidden" name="fromDate" value="${(productCategoryMember.fromDate)?if_exists}"/>
               <input type="hidden" name="activeOnly" value="${activeOnly.toString()}"/>
            </form>
            <#assign rowCount = rowCount + 1>

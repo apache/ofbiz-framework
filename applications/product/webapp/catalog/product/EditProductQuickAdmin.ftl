@@ -329,7 +329,7 @@ function doPublish() {
                 <#list standardFeatureAppls as standardFeatureAppl>
                     <#assign featureId = standardFeatureAppl.productFeatureId/>
                     <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                        <td colspan="2"><a href='<@ofbizUrl>quickAdminRemoveFeatureFromProduct?productId=${standardFeatureAppl.productId?if_exists}&amp;productFeatureId=${featureId?if_exists}&amp;fromDate=${standardFeatureAppl.getString("fromDate")}</@ofbizUrl>' class="buttontext">x</a>
+                        <td colspan="2"><a href='<@ofbizUrl>quickAdminRemoveFeatureFromProduct?productId=${standardFeatureAppl.productId?if_exists}&amp;productFeatureId=${featureId?if_exists}&amp;fromDate=${(standardFeatureAppl.fromDate)?if_exists}</@ofbizUrl>' class="buttontext">x</a>
                         ${productFeatureTypeLookup.get(featureId).description}: ${standardFeatureLookup.get(featureId).description}
                         </td>
                     </tr>
@@ -409,7 +409,7 @@ function doPublish() {
                               <form name="quickAdminRemoveProductFromCategory_${prodCatMemb_index}" action="<@ofbizUrl>quickAdminRemoveProductFromCategory</@ofbizUrl>" method="post">
                                 <input type="hidden" name="productId" value="${prodCatMemb.productId?if_exists}" />
                                 <input type="hidden" name="productCategoryId" value="${prodCatMemb.productCategoryId}" />
-                                <input type="hidden" name="fromDate" value="${prodCatMemb.getString("fromDate")}" />
+                                <input type="hidden" name="fromDate" value="${(prodCatMemb.fromDate)?if_exists}" />
                                 <a href="javascript:document.quickAdminRemoveProductFromCategory_${prodCatMemb_index}.submit();" class="buttontext">x</a>
                                 ${prodCat.description?if_exists} ${prodCat.productCategoryId}
                               </form>
