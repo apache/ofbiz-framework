@@ -24,9 +24,9 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="storeName"/>
-            <entity-and entity-name="ProductStore" use-cache="true" list="productStores">
+            <entity-condition entity-name="ProductStore" use-cache="true" list="productStores">
                 <order-by field-name="${parameters.sortField}"/>
-            </entity-and>
+            </entity-condition>
         </actions>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}" widget-style="buttontext" sort-field="true">
             <hyperlink target="EditProductStore" description="${productStoreId}">
