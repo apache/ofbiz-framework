@@ -135,6 +135,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
             OMElement payload = factory.createOMElement(serviceName);
             payload.addChild(parameterSer.getFirstElement());
             OMElement respOMElement = client.sendReceive(payload);
+            client.cleanupTransport();
             results = UtilGenerics.cast(SoapSerializer.deserialize(respOMElement.toString(), delegator));
         } catch (Exception e) {
             Debug.logError(e, module);
