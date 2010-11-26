@@ -43,5 +43,6 @@
         <value xml:lang="th">คลังสินค้า</value>
         <value xml:lang="zh">场所</value>
         <value xml:lang="zh_CN">仓储设施</value>
+        <value xml:lang="zh_TW">場所</value>
     </property>
 </resource>

@@ -25,9 +25,11 @@
         <value xml:lang="it">Mia pagina</value>
         <value xml:lang="th">แอปพริเคชันของฉัน</value>
         <value xml:lang="zh">我的页面应用程序栏</value>
+        <value xml:lang="zh_TW">個人網頁應用程式列</value>
     </property>
     <property key="MyPortalBillToCustomer">
         <value xml:lang="en">Bill To Customer</value>
+        <value xml:lang="zh_TW">發送帳單給客戶</value>
     </property>
     <property key="MyPortalCaptchaMissingError">
         <value xml:lang="en">Verify code captcha is missing or wrong</value>
@@ -35,9 +37,11 @@
         <value xml:lang="it">Verifica il codice captcha, è mancante o errato</value>
         <value xml:lang="th">รหัสตัวเลขที่ท่านกรอกมีข้อผิดพลาด</value>
         <value xml:lang="zh">缺少验证码或验证码错误</value>
+        <value xml:lang="zh_TW">沒有驗證碼或是錯誤</value>
     </property>
     <property key="MyPortalEndUserCustomer">
         <value xml:lang="en">End User Customer</value>
+        <value xml:lang="zh_TW">最終使用客戶</value>
     </property>    
     <property key="MyPortalFirstNameMissing">
         <value xml:lang="en">Your firstName is missing</value>
@@ -45,6 +49,7 @@
         <value xml:lang="it">Nome mancante</value>
         <value xml:lang="th">กรุณากรอกชื่อของท่าน</value>
         <value xml:lang="zh">缺少你的名</value>
+        <value xml:lang="zh_TW">缺少名字(Firstname)</value>
     </property>
     <property key="MyPortalInformation">
         <value xml:lang="en">My Information</value>
@@ -52,6 +57,7 @@
         <value xml:lang="it">Mie informazioni</value>
         <value xml:lang="th">ข้อมูลของฉัน</value>
         <value xml:lang="zh">我的信息</value>
+        <value xml:lang="zh_TW">入口網站</value>
     </property>
     <property key="MyPortalLastNameMissing">
         <value xml:lang="en">Your lastname is missing</value>
@@ -59,16 +65,22 @@
         <value xml:lang="it">Cognome mancante</value>
         <value xml:lang="th">กรุณากรอกนามสกุลของท่าน</value>
         <value xml:lang="zh">缺少你的姓</value>
+        <value xml:lang="zh_TW">缺少姓氏(Lastname)</value>
     </property>
     <property key="MyPortalMyOrders">
         <value xml:lang="en">My Orders</value>
+        <value xml:lang="zh_TW">我的訂單</value>
     </property>
+        <value xml:lang="zh_TW">我的任務</value>
+        <value xml:lang="zh_TW">我的時間</value>
+        <value xml:lang="zh_TW">新的訊息</value>
     <property key="MyPortalNewRegistration">
         <value xml:lang="en">New Registration </value>
         <value xml:lang="fr">Nouvel enregistrement</value>
         <value xml:lang="it">Nuovo utente</value>
         <value xml:lang="th">ลงทะเบียน </value>
         <value xml:lang="zh">新注册</value>
+        <value xml:lang="zh_TW">新的註冊</value>
     </property>
     <property key="MyPortalPicCaptcha">
         <value xml:lang="en">Code Captcha</value>
@@ -76,9 +88,11 @@
         <value xml:lang="it">Codice captcha</value>
         <value xml:lang="th">รหัสตรวจสอบ</value>
         <value xml:lang="zh">验证码</value>
+        <value xml:lang="zh_TW">驗證碼</value>
     </property>
     <property key="MyPortalPlacingCustomer">
         <value xml:lang="en">Placing Customer</value>
+        <value xml:lang="zh_TW">安排客戶</value>
     </property>
     <property key="MyPortalRegisterComplete">
         <value xml:lang="en">Register of new person is complete...Please </value>
@@ -86,14 +100,18 @@
         <value xml:lang="it">Creazione nuovo utente completata...prego </value>
         <value xml:lang="th">การลงทะเบียนใหม่สำหรับบุคคลได้ทำการเสร็จสิ้นสมบูรณ์แล้ว...สามารถเข้าสู่ระบบได้ </value>
         <value xml:lang="zh">完成新人员注册...请</value>
+        <value xml:lang="zh_TW">註冊新的使用者完成...請</value>
     </property>
     <property key="MyPortalReloadImage">
         <value xml:lang="en">reload image</value>
         <value xml:lang="it">Ricarica immagine</value>
         <value xml:lang="zh">刷新图片</value>
+        <value xml:lang="zh_TW">重載圖片</value>
     </property>
+        <value xml:lang="zh_TW">發送電子郵件給所有客戶要求變更</value>
     <property key="MyPortalShipToCustomer">
         <value xml:lang="en">Ship To Customer</value>
+        <value xml:lang="zh_TW">寄送給客戶</value>
     </property>
     <property key="MyPortalTaskActEndDate">
         <value xml:lang="en">Task Act End</value>
@@ -101,6 +119,7 @@
         <value xml:lang="it">Fine compito effettiva</value>
         <value xml:lang="th">เสร็จสิ้นการทำ</value>
         <value xml:lang="zh">任务操作结束</value>
+        <value xml:lang="zh_TW">任務作業結束</value>
     </property>
     <property key="MyPortalTaskActStartDate">
         <value xml:lang="en">Task Act Start</value>
@@ -108,6 +127,7 @@
         <value xml:lang="it">Inizio compito effettivo</value>
         <value xml:lang="th">เรื่มต้นการทำ</value>
         <value xml:lang="zh">任务操作开始</value>
+        <value xml:lang="zh_TW">任務作業開始</value>
     </property>
     <property key="MyPortalTaskPlanEndDate">
         <value xml:lang="en">Task Plan End</value>
@@ -115,6 +135,7 @@
         <value xml:lang="it">Fine compito pianificata</value>
         <value xml:lang="th">สิ้นสุดชิ้นงาน</value>
         <value xml:lang="zh">任务计划结束</value>
+        <value xml:lang="zh_TW">任務計畫結束</value>
     </property>
     <property key="MyPortalTaskPlanStartDate">
         <value xml:lang="en">Task Plan Start</value>
@@ -122,6 +143,7 @@
         <value xml:lang="it">Inizio compito pianificato</value>
         <value xml:lang="th">เริ่มต้นชิ้นงาน</value>
         <value xml:lang="zh">任务计划开始</value>
+        <value xml:lang="zh_TW">任務計畫開始</value>
     </property>
     <property key="MyPortalTaskStatus">
         <value xml:lang="en">Task Status</value>
@@ -129,6 +151,7 @@
         <value xml:lang="it">Stato compito</value>
         <value xml:lang="th">สถานะของงาน</value>
         <value xml:lang="zh">任务状态</value>
+        <value xml:lang="zh_TW">任務狀態</value>
     </property>
     <property key="MyPortalTasks">
         <value xml:lang="en">My Tasks</value>
@@ -136,6 +159,7 @@
         <value xml:lang="it">Miei compiti</value>
         <value xml:lang="th">งานของฉัน</value>
         <value xml:lang="zh">我的任务</value>
+        <value xml:lang="zh_TW">我的任務</value>
     </property>
     <property key="MyPortalUserLogin">
         <value xml:lang="en">User Login</value>
@@ -143,6 +167,7 @@
         <value xml:lang="it">Login utente</value>
         <value xml:lang="th">ข้อมูลการลงทะเบียน</value>
         <value xml:lang="zh">用户登录</value>
+        <value xml:lang="zh_TW">使用者登入</value>
     </property>
     <property key="MyPortalVerifyCaptcha">
         <value xml:lang="en">Verify captcha code</value>
@@ -150,10 +175,12 @@
         <value xml:lang="it">Verifica codice captcha</value>
         <value xml:lang="th">ใส่รหัสตามรูป</value>
         <value xml:lang="zh">验证验证码</value>
+        <value xml:lang="zh_TW">驗證碼</value>
     </property>
     <property key="PageTitleFindPortalPage">
         <value xml:lang="en">Find Portal page</value>
         <value xml:lang="fr">Rech. page portail</value>
+        <value xml:lang="zh_TW">查找入口網頁</value>
     </property>
     <property key="PageTitleMyPortal">
         <value xml:lang="en">My Portal for : </value>
@@ -161,6 +188,7 @@
         <value xml:lang="it">Mio portale per : </value>
         <value xml:lang="th">ส่วนตัวสำหรับ </value>
         <value xml:lang="zh">我的门户用于：</value>
+        <value xml:lang="zh_TW">入口網站使用者:</value>
     </property>
     <property key="PageTitleMyPortalForNoLogin">
         <value xml:lang="en">My Portal Page</value>
@@ -168,5 +196,6 @@
         <value xml:lang="it">Pagina mio portale</value>
         <value xml:lang="th">หน้าส่วนตัวของฉัน</value>
         <value xml:lang="zh">我的门户页面</value>
+        <value xml:lang="zh_TW">入口網頁</value>
     </property>
 </resource>

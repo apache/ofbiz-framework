@@ -29,6 +29,7 @@
         <value xml:lang="ru">Сущность</value>
         <value xml:lang="th">เอกลักษณ์</value>
         <value xml:lang="zh">实体</value>
+        <value xml:lang="zh_TW">實體</value>
     </property>
     <property key="ServerHitType.description.EVENT">
         <value xml:lang="de">Event</value>
@@ -40,6 +41,7 @@
         <value xml:lang="ru">Событие</value>
         <value xml:lang="th">เหตุการณ์</value>
         <value xml:lang="zh">事件</value>
+        <value xml:lang="zh_TW">事件</value>
     </property>
     <property key="ServerHitType.description.REQUEST">
         <value xml:lang="de">Request</value>
@@ -51,6 +53,7 @@
         <value xml:lang="ru">Запрос</value>
         <value xml:lang="th">คำร้อง</value>
         <value xml:lang="zh">访问请求</value>
+        <value xml:lang="zh_TW">訪問請求</value>
     </property>
     <property key="ServerHitType.description.SERVICE">
         <value xml:lang="de">Service</value>
@@ -62,6 +65,7 @@
         <value xml:lang="ru">Служба</value>
         <value xml:lang="th">บริการ</value>
         <value xml:lang="zh">服务</value>
+        <value xml:lang="zh_TW">服務</value>
     </property>
     <property key="ServerHitType.description.VIEW">
         <value xml:lang="de">Ansicht</value>
@@ -73,5 +77,6 @@
         <value xml:lang="ru">Представление</value>
         <value xml:lang="th">ข้อคิดเห็น</value>
         <value xml:lang="zh">浏览</value>
+        <value xml:lang="zh_TW">瀏覽</value>
     </property>
 </resource>

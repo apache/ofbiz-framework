@@ -24,18 +24,21 @@
         <value xml:lang="en">date1</value>
         <value xml:lang="it">data 1</value>
         <value xml:lang="zh">日期1</value>
+        <value xml:lang="zh_TW">日期1</value>
     </property>
     <property key="FormFieldTitle_date2">
         <value xml:lang="de">Datum2</value>
         <value xml:lang="en">date2</value>
         <value xml:lang="it">data 2</value>
         <value xml:lang="zh">日期2</value>
+        <value xml:lang="zh_TW">日期2</value>
     </property>
     <property key="FormFieldTitle_entityGroupId">
         <value xml:lang="de">Entität Gruppen ID</value>
         <value xml:lang="en">Entity Group Id</value>
         <value xml:lang="it">Gruppo entità</value>
         <value xml:lang="zh">实体组标识</value>
+        <value xml:lang="zh_TW">實體組ID</value>
     </property>
     <property key="FormFieldTitle_entitySyncId">
         <value xml:lang="de">Entität Synch. ID</value>
@@ -45,18 +48,21 @@
         <value xml:lang="ro">Cod Entitate Sincr.</value>
         <value xml:lang="th">รหัสสิ่งที่เกิดขึ้นพร้อมกัน</value>
         <value xml:lang="zh">实体同步标识</value>
+        <value xml:lang="zh_TW">實體同步ID</value>
     </property>
     <property key="FormFieldTitle_eomodeldFullPath">
         <value xml:lang="de">EoModell abs. Pfad</value>
         <value xml:lang="en">EoModel Full Path</value>
         <value xml:lang="it">Path completo EoModel</value>
         <value xml:lang="zh">EoModel完整路径</value>
+        <value xml:lang="zh_TW">EoModel完整路徑</value>
     </property>
     <property key="FormFieldTitle_exprAssocType">
         <value xml:lang="de">Ausdruck Verknüpfungstyp</value>
         <value xml:lang="en">Expr Assoc Type</value>
         <value xml:lang="it">Tipo associazione espressione</value>
         <value xml:lang="zh">表达式关联类型</value>
+        <value xml:lang="zh_TW">運算式關聯類型</value>
     </property>
     <property key="FormFieldTitle_forPullOnly">
         <value xml:lang="de">Nur für Pull-Betrieb</value>
@@ -66,6 +72,7 @@
         <value xml:lang="ro">Numai Pentru Preluarea </value>
         <value xml:lang="th">สำหรับการดึงเท่านั้น</value>
         <value xml:lang="zh">仅用于拉取</value>
+        <value xml:lang="zh_TW">僅用于拉取</value>
     </property>
     <property key="FormFieldTitle_forPushOnly">
         <value xml:lang="de">Nur für Push-Betrieb</value>
@@ -75,18 +82,21 @@
         <value xml:lang="ro">Numai pentru Incarcare</value>
         <value xml:lang="th">สำหรับการผลักเท่านั้น</value>
         <value xml:lang="zh">仅用于推送</value>
+        <value xml:lang="zh_TW">僅用于推送</value>
     </property>
     <property key="FormFieldTitle_integer1">
         <value xml:lang="de">Integer1</value>
         <value xml:lang="en">integer1</value>
         <value xml:lang="it">intero 1</value>
         <value xml:lang="zh">整数1</value>
+        <value xml:lang="zh_TW">整數1</value>
     </property>
     <property key="FormFieldTitle_integer2">
         <value xml:lang="de">Integer2</value>
         <value xml:lang="en">integer2</value>
         <value xml:lang="it">intero 2</value>
         <value xml:lang="zh">整数2</value>
+        <value xml:lang="zh_TW">整數2</value>
     </property>
     <property key="FormFieldTitle_keepRemoveInfoHours">
         <value xml:lang="en">Keep Remove Info Hours</value>
@@ -96,6 +106,7 @@
         <value xml:lang="ro">Mentine Orariul  Informatii Sterse </value>
         <value xml:lang="th">เก็บข้อมูลการลบชั่วโมง</value>
         <value xml:lang="zh">保持删除信息小时数</value>
+        <value xml:lang="zh_TW">保持刪除資訊小時數</value>
     </property>
     <property key="FormFieldTitle_lastHistoryStartDate">
         <value xml:lang="de">Letztes Startdatum Historie</value>
@@ -105,6 +116,7 @@
         <value xml:lang="ro">Ultima Data Inceput Istoric</value>
         <value xml:lang="th">เหตุการณ์สุดท้ายของวันที่เริ่มต้น</value>
         <value xml:lang="zh">上次历史记录启动日期</value>
+        <value xml:lang="zh_TW">上次歷史記錄啟動日期</value>
     </property>
     <property key="FormFieldTitle_lastSuccessfulSynchTime">
         <value xml:lang="de">Letzte erfolgreiche Synchronisierung</value>
@@ -114,6 +126,7 @@
         <value xml:lang="ro">Ultimul Orariu Sincr. cu Succes</value>
         <value xml:lang="th">ผลสำเร็จสุดท้ายของเวลาที่เกิดขึ้นพร้อมกัน</value>
         <value xml:lang="zh">上次成功同步时间</value>
+        <value xml:lang="zh_TW">上次成功同步時間</value>
     </property>
     <property key="FormFieldTitle_maxRunningNoUpdateMillis">
         <value xml:lang="de">Maximale Zeit ohne Update</value>
@@ -123,6 +136,7 @@
         <value xml:lang="ro">Maxima Executie cu Nici-o Actualizare Millis</value>
         <value xml:lang="th">การดำเนินการสูงสุดไม่มีการเปลี่ยนแปลงตามหนึ่งในพันของหนึ่งวินาที</value>
         <value xml:lang="zh">最大运行不更新毫秒数</value>
+        <value xml:lang="zh_TW">最大運行不更新毫秒數</value>
     </property>
     <property key="FormFieldTitle_offlineSyncSplitMillis">
         <value xml:lang="de">Offline Synchronisationssplit [ms]</value>
@@ -132,6 +146,7 @@
         <value xml:lang="ro">Sincr. Offline Split Millis</value>
         <value xml:lang="th">ไม่สามารถติดต่อสิ่งที่เกิดขึ้นพร้อกันตามหนึ่งในพันของหนึ่งวินาทีได้</value>
         <value xml:lang="zh">离线同步分离毫秒数</value>
+        <value xml:lang="zh_TW">離線同步分離毫秒數</value>
     </property>
     <property key="FormFieldTitle_preOfflineSynchTime">
         <value xml:lang="de">Synchzeit vor Offline</value>
@@ -141,6 +156,7 @@
         <value xml:lang="ro">Pre Offline Timp Sincr.</value>
         <value xml:lang="th">ก่อนเวลาที่ไม่สามารถติดต่อสิ่งที่เกิดขึ้นได้</value>
         <value xml:lang="zh">上次离线同步时间</value>
+        <value xml:lang="zh_TW">上次離線同步時間</value>
     </property>
     <property key="FormFieldTitle_runStatusId">
         <value xml:lang="de">Laufzeitstatus ID</value>
@@ -150,18 +166,21 @@
         <value xml:lang="ro">Stat Executie</value>
         <value xml:lang="th">ดำเนินการรหัสสถานะ</value>
         <value xml:lang="zh">运行状态标识</value>
+        <value xml:lang="zh_TW">執行狀態ID</value>
     </property>
     <property key="FormFieldTitle_string1">
         <value xml:lang="de">String1</value>
         <value xml:lang="en">string1</value>
         <value xml:lang="it">stringa 1</value>
         <value xml:lang="zh">字符串1</value>
+        <value xml:lang="zh_TW">字串1</value>
     </property>
     <property key="FormFieldTitle_string2">
         <value xml:lang="de">String2</value>
         <value xml:lang="en">string2</value>
         <value xml:lang="it">stringa 2</value>
         <value xml:lang="zh">字符串2</value>
+        <value xml:lang="zh_TW">字串2</value>
     </property>
     <property key="FormFieldTitle_syncEndBufferMillis">
         <value xml:lang="de">Synch Endpuffer Millis.</value>
@@ -171,6 +190,7 @@
         <value xml:lang="ro">Fine Sincr. End Buffer Millis</value>
         <value xml:lang="th">สิ่งที่เกิดขึ้นเสร็จสิ้นหนึ่งในพันของหนึ่งวินาที</value>
         <value xml:lang="zh">同步结束缓冲区毫秒数</value>
+        <value xml:lang="zh_TW">同步結束緩衝區毫秒數</value>
     </property>
     <property key="FormFieldTitle_syncSplitMillis">
         <value xml:lang="de">Synch Split Millis</value>
@@ -180,6 +200,7 @@
         <value xml:lang="ro">Sincr. Split Millis</value>
         <value xml:lang="th">สิ่งที่เกิดขึ้นพร้อมกันแบ่งตามหนึ่งในพันของหนึ่งวินาที</value>
         <value xml:lang="zh">同步分离毫秒数</value>
+        <value xml:lang="zh_TW">同步分離毫秒數</value>
     </property>
     <property key="FormFieldTitle_targetDelegatorName">
         <value xml:lang="de">Name Ziel-Delegator</value>
@@ -189,6 +210,7 @@
         <value xml:lang="ro">Nume Delegator Destinatie</value>
         <value xml:lang="th">ชื่อตัวแทนเป้าหมาย</value>
         <value xml:lang="zh">目标代表名称</value>
+        <value xml:lang="zh_TW">目標代表名稱</value>
     </property>
     <property key="FormFieldTitle_targetServiceName">
         <value xml:lang="de">Name Ziel-Service</value>
@@ -198,6 +220,7 @@
         <value xml:lang="ro">Nume Serviciu Destinatie</value>
         <value xml:lang="th">ชื่อบริการเป้าหมาย</value>
         <value xml:lang="zh">目标服务名称</value>
+        <value xml:lang="zh_TW">目標服務名稱</value>
     </property>
     <property key="FormFieldTitle_xmlFileName">
         <value xml:lang="de">XML Dateiname</value>
@@ -207,6 +230,7 @@
         <value xml:lang="ro">Nume File Xml</value>
         <value xml:lang="th">ชื่อไฟล์ XML</value>
         <value xml:lang="zh">XML文件名</value>
+        <value xml:lang="zh_TW">XML文件名</value>
     </property>
     <property key="FrameworkWebTools">
         <value xml:lang="de">Web Tools Framework</value>
@@ -217,6 +241,7 @@
         <value xml:lang="ro">Aplicatie Instrumente Web</value>
         <value xml:lang="th">โครงสร้างของเครื่องมือเว็บ</value>
         <value xml:lang="zh">Web工具</value>
+        <value xml:lang="zh_TW">Web工具</value>
     </property>
     <property key="PageTitleEditUtilCache">
         <value xml:lang="de">Util Cache bearbeiten</value>
@@ -226,12 +251,14 @@
         <value xml:lang="ro">Actualizeaza Cache</value>
         <value xml:lang="th">ซ่อนการแก้ไขข้อมูล</value>
         <value xml:lang="zh">编辑缓存</value>
+        <value xml:lang="zh_TW">編輯緩存</value>
     </property>
     <property key="PageTitleEntityEoModelBundle">
         <value xml:lang="de">Entity Eo Modell-Bundle</value>
         <value xml:lang="en">Entity Eo Model Bundle</value>
         <value xml:lang="it">Entità Eo Model Bundle</value>
         <value xml:lang="zh">实体EoModel绑定</value>
+        <value xml:lang="zh_TW">實體EoModel綁定</value>
     </property>
     <property key="PageTitleEntityExport">
         <value xml:lang="de">XML-Daten exportieren</value>
@@ -241,6 +268,7 @@
         <value xml:lang="ro">Exporta Date in XML</value>
         <value xml:lang="th">ส่งออกข้อมูล xml</value>
         <value xml:lang="zh">XML数据导出</value>
+        <value xml:lang="zh_TW">XML資料導出</value>
     </property>
     <property key="PageTitleEntityExportAll">
         <value xml:lang="de">Alle XML-Daten exportieren</value>
@@ -250,6 +278,7 @@
         <value xml:lang="ro">Exporta Toate Datele in XML</value>
         <value xml:lang="th">ส่งออกข้อมูล xml ทั้งหมด</value>
         <value xml:lang="zh">XML数据导出全部</value>
+        <value xml:lang="zh_TW">XML資料導出全部</value>
     </property>
     <property key="PageTitleEntityImport">
         <value xml:lang="de">XML-Daten importieren</value>
@@ -259,6 +288,7 @@
         <value xml:lang="ro">Importa Datele din XML</value>
         <value xml:lang="th">นำเข้าข้อมูล xml</value>
         <value xml:lang="zh">XML数据导入</value>
+        <value xml:lang="zh_TW">XML資料導入</value>
     </property>
     <property key="PageTitleEntityImportDir">
         <value xml:lang="de">XML Datenimport aus Verzeichnis</value>
@@ -268,6 +298,7 @@
         <value xml:lang="ro">Importa Datele din XML in Directory</value>
         <value xml:lang="th">นำเข้าข้อมูล xml ใน Directory</value>
         <value xml:lang="zh">XML数据导入目录 </value>
+        <value xml:lang="zh_TW">XML資料導入目錄 </value>
     </property>
     <property key="PageTitleEntityImportReaders">
         <value xml:lang="de">Leser für XML Datenimport</value>
@@ -276,6 +307,7 @@
         <value xml:lang="it">Importa dati XML mediante reader</value>
         <value xml:lang="th">นำเข้าข้อมูลผู้ตรวจ</value>
         <value xml:lang="zh">XML数据导入读取程序</value>
+        <value xml:lang="zh_TW">XML資料導入讀取程式</value>
     </property>
     <property key="PageTitleEntitySQLProcessor">
         <value xml:lang="de">Entitäten SQL Prozessor</value>
@@ -285,6 +317,7 @@
         <value xml:lang="ro">Procesor Entitate SQL </value>
         <value xml:lang="th">ประมวลผลสิ่งที่มีใน SQL</value>
         <value xml:lang="zh">实体SQL处理程序</value>
+        <value xml:lang="zh_TW">實體SQL處理程式</value>
     </property>
     <property key="PageTitleEntitySyncStatus">
         <value xml:lang="de">Entitäten Synch Status</value>
@@ -295,6 +328,7 @@
         <value xml:lang="ro">Stat Sincronizat Entitate</value>
         <value xml:lang="th">สถานะสิ่งที่มีอยู่</value>
         <value xml:lang="zh">实体同步状态</value>
+        <value xml:lang="zh_TW">實體同步狀態</value>
     </property>
     <property key="PageTitleFindJob">
         <value xml:lang="de">Job suchen</value>
@@ -303,6 +337,7 @@
         <value xml:lang="it">Ricerca lavori</value>
         <value xml:lang="th">ค้นหางาน</value>
         <value xml:lang="zh">查找任务</value>
+        <value xml:lang="zh_TW">查找任務</value>
     </property>
     <property key="PageTitleFindPortalPage">
         <value xml:lang="en">Find Portal page</value>
@@ -317,6 +352,7 @@
         <value xml:lang="ro">Pagina Intretinere Cache</value>
         <value xml:lang="th">หน้าของการดูแลรักษา</value>
         <value xml:lang="zh">缓存维护页面</value>
+        <value xml:lang="zh_TW">緩存維護頁面</value>
     </property>
     <property key="PageTitleFindUtilCacheElements">
         <value xml:lang="de">Cache Elemente Wartungsseite</value>
@@ -326,6 +362,7 @@
         <value xml:lang="ro">Pagina Intretinere Elemente Cache</value>
         <value xml:lang="th">หน้าของการดูแลรักษาอย่างละเอียด</value>
         <value xml:lang="zh">缓存元素维护页面</value>
+        <value xml:lang="zh_TW">緩存元素維護頁面</value>
     </property>
     <property key="PageTitleJobList">
         <value xml:lang="de">Job Liste</value>
@@ -335,6 +372,7 @@
         <value xml:lang="ro">Lista Lucrari</value>
         <value xml:lang="th">รายชื่องาน</value>
         <value xml:lang="zh">任务列表</value>
+        <value xml:lang="zh_TW">任務列表</value>
     </property>
     <property key="PageTitleLogConfiguration">
         <value xml:lang="de">Log Konfiguration</value>
@@ -344,6 +382,7 @@
         <value xml:lang="ro">Nivel de Debugging</value>
         <value xml:lang="th">โครงร่างของบันทึกข้อมูล</value>
         <value xml:lang="zh">调试级别</value>
+        <value xml:lang="zh_TW">調試級別</value>
     </property>
     <property key="PageTitleLogView">
         <value xml:lang="de">Log ansehen</value>
@@ -353,6 +392,7 @@
         <value xml:lang="ro">Afiseaza Log</value>
         <value xml:lang="th">ดูข้อมูลการบันทึก</value>
         <value xml:lang="zh">浏览日志</value>
+        <value xml:lang="zh_TW">瀏覽日誌</value>
     </property>
     <property key="PageTitleRunService">
         <value xml:lang="de">Dienst starten</value>
@@ -361,6 +401,7 @@
         <value xml:lang="it">Esegui servizio</value>
         <value xml:lang="th">ดำเนินงานบริการ</value>
         <value xml:lang="zh">运行服务</value>
+        <value xml:lang="zh_TW">運行服務</value>
     </property>
     <property key="PageTitleScheduleJob">
         <value xml:lang="de">Job anlegen</value>
@@ -370,6 +411,7 @@
         <value xml:lang="ro">Planificare Lucrari</value>
         <value xml:lang="th">ตารางเวลางาน</value>
         <value xml:lang="zh">任务计划</value>
+        <value xml:lang="zh_TW">任務計劃</value>
     </property>
     <property key="PageTitleServiceList">
         <value xml:lang="de">Dienst-Liste</value>
@@ -379,6 +421,7 @@
         <value xml:lang="ro">Lista Servicii</value>
         <value xml:lang="th">รายชื่อบริการ</value>
         <value xml:lang="zh">服务列表</value>
+        <value xml:lang="zh_TW">服務列表</value>
     </property>
     <property key="PageTitleThreadList">
         <value xml:lang="de">Thread-Liste</value>
@@ -388,6 +431,7 @@
         <value xml:lang="ro">Lista Thread</value>
         <value xml:lang="th">รายงานเหตุการณ์ที่เกิดขึ้นต่อเนื่องกัน</value>
         <value xml:lang="zh">线程列表</value>
+        <value xml:lang="zh_TW">線程列表</value>
     </property>
     <property key="WebtoolsAbsoluteFTLFilename">
         <value xml:lang="de">Absoluter Dateiname der FreeMarker Vorlagedatei für den Datenfilter (optional)</value>
@@ -397,6 +441,7 @@
         <value xml:lang="ro">Nume file absolut al unui file template FreeMarker pentru filtrarea datelor dupa (optional)</value>
         <value xml:lang="th">ชื่อไฟล์ทั้งหมดของไฟล์ FreeMarker template มีการกรองข้อมูลโดย(ทางเลือก)</value>
         <value xml:lang="zh">用于过滤数据的FreeMarker模板文件的绝对文件名（可选）</value>
+        <value xml:lang="zh_TW">用于過濾資料的FreeMarker範本文件的絕對文件名（可選）</value>
     </property>
     <property key="WebtoolsAbsoluteFileNameOrUrl">
         <value xml:lang="de">Absoluter Dateiname oder URL</value>
@@ -406,6 +451,7 @@
         <value xml:lang="ro">Nume file absolut sau URL</value>
         <value xml:lang="th">ชื่อไฟล์ที่สมบูรณ์หรือ URL</value>
         <value xml:lang="zh">绝对文件名或网址</value>
+        <value xml:lang="zh_TW">絕對文件名或網址</value>
     </property>
     <property key="WebtoolsAbsolutePath">
         <value xml:lang="de">Absoluter Verzeichnispfad</value>
@@ -415,6 +461,7 @@
         <value xml:lang="ro">Path absolut directory</value>
         <value xml:lang="th">สมุดรายชื่อทั้งหมด</value>
         <value xml:lang="zh">绝对路径</value>
+        <value xml:lang="zh_TW">絕對路徑</value>
     </property>
     <property key="WebtoolsAction">
         <value xml:lang="de">Aktion</value>
@@ -424,6 +471,7 @@
         <value xml:lang="ro">Actiune</value>
         <value xml:lang="th">ขั้นตอน</value>
         <value xml:lang="zh">操作</value>
+        <value xml:lang="zh_TW">操作</value>
     </property>
     <property key="WebtoolsActions">
         <value xml:lang="de">Aktionen</value>
@@ -433,6 +481,7 @@
         <value xml:lang="ro">Actiuni</value>
         <value xml:lang="th">ขั้นตอน</value>
         <value xml:lang="zh">操作</value>
+        <value xml:lang="zh_TW">操作</value>
     </property>
     <property key="WebtoolsAddLoggerFormDescription">
         <value xml:lang="de">Dieses Formular ermöglicht die Aktivierung für ein bestimmtes Java-Package oder eine Java-Klasse</value>
@@ -442,6 +491,7 @@
         <value xml:lang="ro">Acest form iti permite sa abilitezi un logger pentru un package specific sau clasa.</value>
         <value xml:lang="th">ฟอร์มนี้อนุญาติให้คุณสามารถเข้าใช้งานเฉพาะในส่วนของแพ็คเกจหรือคลาส</value>
         <value xml:lang="zh">这个表单允许你为指定的Java包或Java类启用一个日志记录。</value>
+        <value xml:lang="zh_TW">這個表單允許你為指定的Java包或Java類啟用一個日誌記錄。</value>
     </property>
     <property key="WebtoolsAddMissing">
         <value xml:lang="de">Fehlende hinzufügen</value>
@@ -450,6 +500,7 @@
         <value xml:lang="it">Aggiungi mancanti</value>
         <value xml:lang="th">การเพิ่มผิดพลาด</value>
         <value xml:lang="zh">添加错失</value>
+        <value xml:lang="zh_TW">添加錯失</value>
     </property>
     <property key="WebtoolsAdjustDebuggingLevels">
         <value xml:lang="de">Debugging-Levels anpassen</value>
@@ -459,6 +510,7 @@
         <value xml:lang="ro">Modificare Nivel de Debugging</value>
         <value xml:lang="th">ปรับระดับการแก้ไขจุดบกพร่อง</value>
         <value xml:lang="zh">调整调试级别</value>
+        <value xml:lang="zh_TW">調整調試級別</value>
     </property>
     <property key="WebtoolsAdministration">
         <value xml:lang="de">Administration</value>
@@ -468,6 +520,7 @@
         <value xml:lang="ro">Administreaza</value>
         <value xml:lang="th">ผู้ดูแลระบบ</value>
         <value xml:lang="zh">管理</value>
+        <value xml:lang="zh_TW">管理</value>
     </property>
     <property key="WebtoolsAdminPortalPage">
         <value xml:lang="en">Portal page Admin.</value>
@@ -481,6 +534,7 @@
         <value xml:lang="ro">Tot</value>
         <value xml:lang="th">ทั้งหมด</value>
         <value xml:lang="zh">全部</value>
+        <value xml:lang="zh_TW">全部</value>
     </property>
     <property key="WebtoolsArtifactInfo">
         <value xml:lang="de">OFBiz Elemente-Info</value>
@@ -488,6 +542,7 @@
         <value xml:lang="fr">Info. sur les éléments d'OFBiz</value>
         <value xml:lang="it">Informazioni sugli artefatti</value>
         <value xml:lang="zh">人工程序信息</value>
+        <value xml:lang="zh_TW">人工程式資訊</value>
     </property>
     <property key="WebtoolsAsync">
         <value xml:lang="de">Asynchron</value>
@@ -497,6 +552,7 @@
         <value xml:lang="ro">Asincron</value>
         <value xml:lang="th">ASYNC</value>
         <value xml:lang="zh">异步</value>
+        <value xml:lang="zh_TW">異步</value>
     </property>
     <property key="WebtoolsBackToCacheMaintenance">
         <value xml:lang="de">Zurück zur Cache-Wartung</value>
@@ -506,6 +562,7 @@
         <value xml:lang="ro">Intoarcete inapoi la Pagina Intretinere Cache</value>
         <value xml:lang="th">ย้อนกลับไปที่ข้อมูลการดูแลรักษา</value>
         <value xml:lang="zh">返回缓存维护</value>
+        <value xml:lang="zh_TW">返回緩存維護</value>
     </property>
     <property key="WebtoolsBackToEntityList">
         <value xml:lang="de">Zurück zur Entitätenliste</value>
@@ -515,6 +572,7 @@
         <value xml:lang="ro">Intoarcete inapoi la Lista Entitate</value>
         <value xml:lang="th">ย้อนกลับดูรายชื่อเอนติตี้</value>
         <value xml:lang="zh">返回实体列表</value>
+        <value xml:lang="zh_TW">返回實體列表</value>
     </property>
     <property key="WebtoolsBackToFindScreen">
         <value xml:lang="de">Zurück zur Bildschirmsuche</value>
@@ -524,6 +582,7 @@
         <value xml:lang="ro">Intoarcete inapoi la Cautare</value>
         <value xml:lang="th">ย้อนกลับไปหน้าจอค้นหา</value>
         <value xml:lang="zh">返回查找页面</value>
+        <value xml:lang="zh_TW">返回查找頁面</value>
     </property>
     <property key="WebtoolsBytes">
         <value xml:lang="de">Bytes</value>
@@ -533,6 +592,7 @@
         <value xml:lang="ro">Bytes</value>
         <value xml:lang="th">ไบต์</value>
         <value xml:lang="zh">字节</value>
+        <value xml:lang="zh_TW">位元組</value>
     </property>
     <property key="WebtoolsCacheDebugTools">
         <value xml:lang="de">Cache &amp; Debug Tools</value>
@@ -542,6 +602,7 @@
         <value xml:lang="ro">Instrumente de Debug si Cache</value>
         <value xml:lang="th">Cache &amp; เครื่องมือตรวจสอบจุดบกพร่อง</value>
         <value xml:lang="zh">缓存和调试工具</value>
+        <value xml:lang="zh_TW">緩存和調試工具</value>
     </property>
     <property key="WebtoolsCacheElementKey">
         <value xml:lang="de">Cache-Element Schlüssel</value>
@@ -551,6 +612,7 @@
         <value xml:lang="ro">Cheie Element Cache</value>
         <value xml:lang="th">ซ่อนองค์ประกอบสำคัญ</value>
         <value xml:lang="zh">缓存元素键</value>
+        <value xml:lang="zh_TW">緩存元素鍵</value>
     </property>
     <property key="WebtoolsCacheMaintenance">
         <value xml:lang="de">Cache Wartung</value>
@@ -560,6 +622,7 @@
         <value xml:lang="ro">Intretinere Cache</value>
         <value xml:lang="th">การดูแลรักษา Cache</value>
         <value xml:lang="zh">缓存维护</value>
+        <value xml:lang="zh_TW">緩存維護</value>
     </property>
     <property key="WebtoolsCacheName">
         <value xml:lang="de">Cache Name</value>
@@ -569,6 +632,7 @@
         <value xml:lang="ro">Nume Cache</value>
         <value xml:lang="th">ชื่อ Cache</value>
         <value xml:lang="zh">缓存名称</value>
+        <value xml:lang="zh_TW">緩存名稱</value>
     </property>
     <property key="WebtoolsCancelJob">
         <value xml:lang="de">Job abbrechen</value>
@@ -578,6 +642,7 @@
         <value xml:lang="ro">Sterge Lucru</value>
         <value xml:lang="th">ยกเลิกงาน</value>
         <value xml:lang="zh">取消任务</value>
+        <value xml:lang="zh_TW">取消任務</value>
     </property>
     <property key="WebtoolsCannotViewArtifactInfoPages">
         <value xml:lang="de">Für den Zugriff zu den OFBiz Elementinfo-Seiten wird die ARTIFACT_INFO_VIEW Berechtigung benötigt.</value>
@@ -585,6 +650,7 @@
         <value xml:lang="fr">Impossible de voir les pages sur les info à propos des éléments d'OFBiz sans l'autorisation ARTIFACT_INFO_VIEW.</value>
         <value xml:lang="it">Non è possibile visualizzare le pagine senza avere il permesso ARTIFACT_INFO_VIEW.</value>
         <value xml:lang="zh">没有ARTIFACT_INFO_VIEW权限，无法浏览人工程序页面。</value>
+        <value xml:lang="zh_TW">沒有ARTIFACT_INFO_VIEW權限，無法瀏覽人工程式頁面。</value>
     </property>
     <property key="WebtoolsCertsCert">
         <value xml:lang="de">Zertifikat</value>
@@ -593,6 +659,7 @@
         <value xml:lang="it">Certificato</value>
         <value xml:lang="th">สิ่งที่เกิดขึ้นอย่างแน่นอน</value>
         <value xml:lang="zh">证书</value>
+        <value xml:lang="zh_TW">証書</value>
     </property>
     <property key="WebtoolsCertsNotFound">
         <value xml:lang="de">Es wurde kein Client-Zertifikat gefunden</value>
@@ -601,6 +668,7 @@
         <value xml:lang="it">Nessun certificato client trovato</value>
         <value xml:lang="th">ไม่พบการรับรองในส่วนของลูกค้า</value>
         <value xml:lang="zh">没有找到客户端证书</value>
+        <value xml:lang="zh_TW">沒有找到客戶端証書</value>
     </property>
     <property key="WebtoolsCertsRequiresSSL">
         <value xml:lang="de">Die Anfrage kann nur Zertifikate erhalten, wenn sie über SSL gestellt wird</value>
@@ -610,6 +678,7 @@
         <value xml:lang="th">คำร้องสามารถรับรองความสำเร็จได้เมื่อใช้วิธีการ SSL
         </value>
         <value xml:lang="zh">当通过SSL访问时，才能从请求中得到证书</value>
+        <value xml:lang="zh_TW">當通過SSL訪問時，才能從請求中得到証書</value>
     </property>
     <property key="WebtoolsCertsSerialNum">
         <value xml:lang="de">Seriennummer</value>
@@ -618,6 +687,7 @@
         <value xml:lang="it">Numero di serie</value>
         <value xml:lang="th">หมายเลขลำดับที่ต่อเนื่องกัน</value>
         <value xml:lang="zh">序列号</value>
+        <value xml:lang="zh_TW">序列號</value>
     </property>
     <property key="WebtoolsCertsX509">
         <value xml:lang="de">x.509 Zertifikate</value>
@@ -626,6 +696,7 @@
         <value xml:lang="it">Certificati x.509</value>
         <value xml:lang="th">ใบรับรอง x.509 </value>
         <value xml:lang="zh">x.509证书</value>
+        <value xml:lang="zh_TW">x.509証書</value>
     </property>
     <property key="WebtoolsCheckAll">
         <value xml:lang="de">Alle auswählen</value>
@@ -634,6 +705,7 @@
         <value xml:lang="it">Seleziona tutto</value>
         <value xml:lang="th">ตรวจสอบทั้งหมด</value>
         <value xml:lang="zh">检查全部</value>
+        <value xml:lang="zh_TW">檢查全部</value>
     </property>
     <property key="WebtoolsCheckDataOnly">
         <value xml:lang="de">Nur Datencheck (keine Änderungen in der Datenbank)</value>
@@ -642,6 +714,7 @@
         <value xml:lang="it">Controlla i dati (nessuna modifica al database)</value>
         <value xml:lang="th">ตรวจสอบเฉพาะข้อมูล (ไม่มีการเปลี่ยนแปลงในฐานข้อมูล)</value>
         <value xml:lang="zh">仅检查数据(不修改数据库)</value>
+        <value xml:lang="zh_TW">僅檢查資料(不修改資料庫)</value>
     </property>
     <property key="WebtoolsCheckUpdateDatabase">
         <value xml:lang="de">Datenbank checken/aktualisieren</value>
@@ -651,6 +724,7 @@
         <value xml:lang="ro">Control/Actualizare Database</value>
         <value xml:lang="th">ตรวจสอบ/เปลี่ยนแปลง ฐานข้อมูล</value>
         <value xml:lang="zh">检查/更新数据库</value>
+        <value xml:lang="zh_TW">檢查/更新資料庫</value>
     </property>
     <property key="WebtoolsClearAllCaches">
         <value xml:lang="de">Alle Caches leeren</value>
@@ -660,6 +734,7 @@
         <value xml:lang="ro">Curata Toate Cache</value>
         <value xml:lang="th">ลบค่า Caches ทั้งหมด</value>
         <value xml:lang="zh">清除全部缓存</value>
+        <value xml:lang="zh_TW">清除全部緩存</value>
     </property>
     <property key="WebtoolsClearExpiredFromAll">
         <value xml:lang="de">Abgelaufene aus Allen löschen</value>
@@ -669,6 +744,7 @@
         <value xml:lang="ro">Curata pe cele expirate de Toate</value>
         <value xml:lang="th">ล้างข้อมูลที่หมดอายุทั้งหมด</value>
         <value xml:lang="zh">清除全部过期缓存</value>
+        <value xml:lang="zh_TW">清除全部過期緩存</value>
     </property>
     <property key="WebtoolsClearThisCache">
         <value xml:lang="de">Diesen Cache klären</value>
@@ -678,6 +754,7 @@
         <value xml:lang="ro">Curata aceasta Cache</value>
         <value xml:lang="th">ลบ Cache นี้</value>
         <value xml:lang="zh">清除这个缓存</value>
+        <value xml:lang="zh_TW">清除這個緩存</value>
     </property>
     <property key="WebtoolsCompanyName">
         <value xml:lang="de">OFBiz: Web Tools</value>
@@ -688,6 +765,7 @@
         <value xml:lang="ro">OFBiz: Instrumente Web</value>
         <value xml:lang="th">OFBiz: เครื่องมือจัดการเว็บไซต์</value>
         <value xml:lang="zh">OFBiz: Web工具</value>
+        <value xml:lang="zh_TW">OFBiz: Web工具</value>
     </property>
     <property key="WebtoolsCompanySubtitle">
         <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
@@ -712,6 +790,7 @@
         <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
+        <value xml:lang="zh_TW">開源軟件OFBiz家族的一部分</value>
     </property>
     <property key="WebtoolsCompareType">
         <value xml:lang="de">Typ vergleichen</value>
@@ -721,6 +800,7 @@
         <value xml:lang="ro">Tip Confront</value>
         <value xml:lang="th">รูปแบบการเปรียบเทียบ</value>
         <value xml:lang="zh">比较类型</value>
+        <value xml:lang="zh_TW">比較類型</value>
     </property>
     <property key="WebtoolsCompleteXMLDocument">
         <value xml:lang="de">Vollständiges XML dokument (root tag: entity-engine-xml)</value>
@@ -730,6 +810,7 @@
         <value xml:lang="ro">Completeaza documentul XML (root tag: entity-engine-xml)</value>
         <value xml:lang="th">เอกสาร XML เสร็จเรียบร้อยแล้ว (root tag: entity-engine-xml)</value>
         <value xml:lang="zh">完成XML文档 (根标签: entity-engine-xml)</value>
+        <value xml:lang="zh_TW">完成XML文檔 (根標簽: entity-engine-xml)</value>
     </property>
     <property key="WebtoolsComponentsLoaded">
         <value xml:lang="de">Komponenten geladen</value>
@@ -738,6 +819,7 @@
         <value xml:lang="it">Componenti attivati</value>
         <value xml:lang="th">โหลดข้อมูลส่วนประกอบ</value>
         <value xml:lang="zh">已加载的组件</value>
+        <value xml:lang="zh_TW">已載入的元件</value>
     </property>
     <property key="WebtoolsComponentsNoComponents">
         <value xml:lang="de">Keine Komponenten geladen</value>
@@ -746,6 +828,7 @@
         <value xml:lang="it">Nessun componente attivato</value>
         <value xml:lang="th">ไม่มีการโหลดข้อมูลส่วนประกอบ</value>
         <value xml:lang="zh">没有加载的组件</value>
+        <value xml:lang="zh_TW">沒有載入的元件</value>
     </property>
     <property key="WebtoolsComponentsPath">
         <value xml:lang="de">Pfad</value>
@@ -754,6 +837,7 @@
         <value xml:lang="it">Percorso</value>
         <value xml:lang="th">Path</value>
         <value xml:lang="zh">路径</value>
+        <value xml:lang="zh_TW">路徑</value>
     </property>
     <property key="WebtoolsComponentsWebApps">
         <value xml:lang="de">Web-Applikationen (Name, Mountpoint, Pfad)</value>
@@ -762,6 +846,7 @@
         <value xml:lang="it">Applicazione web (nome, mount, percorso)</value>
         <value xml:lang="th">โปรแกรมประยุกต์ (ชื่อ, Mount, Path)</value>
         <value xml:lang="zh">Web应用程序(名称、装载、路径)</value>
+        <value xml:lang="zh_TW">Web應用程式(名稱、裝載、路徑)</value>
     </property>
     <property key="WebtoolsConditionService">
         <value xml:lang="de">Bedingungs-Service</value>
@@ -771,6 +856,7 @@
         <value xml:lang="ro">Conditie serviciu</value>
         <value xml:lang="th">เงื่อนไข Service</value>
         <value xml:lang="zh">条件服务</value>
+        <value xml:lang="zh_TW">條件服務</value>
     </property>
     <property key="WebtoolsConditions">
         <value xml:lang="de">Bedingungen</value>
@@ -780,6 +866,7 @@
         <value xml:lang="ro">Conditii</value>
         <value xml:lang="th">เงื่อนไข</value>
         <value xml:lang="zh">条件</value>
+        <value xml:lang="zh_TW">條件</value>
     </property>
     <property key="WebtoolsConfiguration">
         <value xml:lang="de">Konfiguration</value>
@@ -794,6 +881,7 @@
         <value xml:lang="ro">Numara</value>
         <value xml:lang="th">จำนวนรวม</value>
         <value xml:lang="zh">计数</value>
+        <value xml:lang="zh_TW">計數</value>
     </property>
     <property key="WebtoolsCreate">
         <value xml:lang="de">Erstellen</value>
@@ -803,6 +891,7 @@
         <value xml:lang="ro">Creaza</value>
         <value xml:lang="th">สร้าง</value>
         <value xml:lang="zh">新</value>
+        <value xml:lang="zh_TW">新</value>
     </property>
     <property key="WebtoolsCreateDummyFks">
         <value xml:lang="de">"Dummy" FKs erstellen</value>
@@ -812,6 +901,7 @@
         <value xml:lang="ro">Creaza "Dummy" FKs</value>
         <value xml:lang="th">สร้าง "Dummy" FKs</value>
         <value xml:lang="zh">新建伪外键</value>
+        <value xml:lang="zh_TW">新建偽外鍵</value>
     </property>
     <property key="WebtoolsCreateRemoveAllDeclaredIndices">
         <value xml:lang="de">Alle deklarierten Indices erstellen/löschen</value>
@@ -820,6 +910,7 @@
         <value xml:lang="it">Creare/rimuovere tutti gli indici dichiarati</value>
         <value xml:lang="th">สร้าง/ลบ ดัชนีที่เปิดเผยทั้งหมด</value>
         <value xml:lang="zh">新建/删除全部已声明的索引</value>
+        <value xml:lang="zh_TW">新建/刪除全部已聲明的索引</value>
     </property>
     <property key="WebtoolsCreateRemoveAllForeignKeyIndices">
         <value xml:lang="de">Alle Fremdschlüssel-Indices erstellen/löschen</value>
@@ -828,6 +919,7 @@
         <value xml:lang="it">Creare/rimuovere tutti gli indici di chiave esterna</value>
         <value xml:lang="th">สร้าง/ลบ Foreign Key Indices ทั้งหมด</value>
         <value xml:lang="zh">新建/删除全部外键索引</value>
+        <value xml:lang="zh_TW">新建/刪除全部外鍵索引</value>
     </property>
     <property key="WebtoolsCreateRemoveAllForeignKeys">
         <value xml:lang="de">Alle Fremdschlüssel erstellen/löschen</value>
@@ -836,6 +928,7 @@
         <value xml:lang="it">Creare/rimuovere tutte le chiavi esterne</value>
         <value xml:lang="th">ล้าง/ลบ Foreign Key ทั้งหมด</value>
         <value xml:lang="zh">新建/删除全部外键</value>
+        <value xml:lang="zh_TW">新建/刪除全部外鍵</value>
     </property>
     <property key="WebtoolsCreateRemoveAllPrimaryKeys">
         <value xml:lang="de">Alle Primärschlüssel erstellen/löschen</value>
@@ -844,6 +937,7 @@
         <value xml:lang="it">Creare/rimuovere tutte le chiave primarie</value>
         <value xml:lang="th">ล้าง/ลบ Primary Keys ทั้งหมด</value>
         <value xml:lang="zh">新建/删除全部主键</value>
+        <value xml:lang="zh_TW">新建/刪除全部主鍵</value>
     </property>
     <property key="WebtoolsCreateRemovePrimaryKey">
         <value xml:lang="de">Primärschlüssel erstellen/löschen</value>
@@ -852,6 +946,7 @@
         <value xml:lang="it">Creare/rimuovere chiave primaria</value>
         <value xml:lang="th">ล้าง/ลบ Primary Keys</value>
         <value xml:lang="zh">创建/删除主键</value>
+        <value xml:lang="zh_TW">創建/刪除主鍵</value>
     </property>
     <property key="WebtoolsDaemon">
         <value xml:lang="de">Daemon</value>
@@ -860,6 +955,7 @@
         <value xml:lang="it">Demone</value>
         <value xml:lang="th">Daemon</value>
         <value xml:lang="zh">后台程序</value>
+        <value xml:lang="zh_TW">後台程式</value>
     </property>
     <property key="WebtoolsDataDefinitionFileName">
         <value xml:lang="de">Defintion: Dateiname oder URL</value>
@@ -868,6 +964,7 @@
         <value xml:lang="it">Nome o URL del file definizioni formato dati</value>
         <value xml:lang="th">คำอธิบายความหมายของชื่อไฟล์หรือ URL</value>
         <value xml:lang="zh">定义文件名或网址</value>
+        <value xml:lang="zh_TW">定義文件名或網址</value>
     </property>
     <property key="WebtoolsDataDefinitionName">
         <value xml:lang="de">Defintion des Datendatei-Namens</value>
@@ -876,6 +973,7 @@
         <value xml:lang="it">Nome definizione formato dati</value>
         <value xml:lang="th">กำหนดชื่อไฟล์ข้อมูล</value>
         <value xml:lang="zh">数据文件定义名称</value>
+        <value xml:lang="zh_TW">資料文件定義名稱</value>
     </property>
     <property key="WebtoolsDataEntityFileSavedTo">
         <value xml:lang="de">Entitätendatei gespeichert als: </value>
@@ -884,6 +982,7 @@
         <value xml:lang="it">File entità salvati in: </value>
         <value xml:lang="th">ไฟล์ที่บันทึก:</value>
         <value xml:lang="zh">实体文件保存到：</value>
+        <value xml:lang="zh_TW">實體文件保存到：</value>
     </property>
     <property key="WebtoolsDataFileMainTitle">
         <value xml:lang="de">Arbeiten mit Datendateien</value>
@@ -892,6 +991,7 @@
         <value xml:lang="it">Lavora con files di dati</value>
         <value xml:lang="th">ทำงานด้วยไฟล์ข้อมูล</value>
         <value xml:lang="zh">数据文件</value>
+        <value xml:lang="zh_TW">資料文件</value>
     </property>
     <property key="WebtoolsDataFileMessage1">
         <value xml:lang="de">Auf dieser Seite können Sie Daten aus Datendateien ansehen und exportieren, die mit der konfigurierbaren Dateianalyse bearbeitet wurden</value>
@@ -900,6 +1000,7 @@
         <value xml:lang="it">Questa pagina è usata per visualizzare ed esportare dati su file mediante il parser di dati configurabile</value>
         <value xml:lang="th">หน้านี้ใช้ตรวจสอบและส่งออกข้อมูลจากการวิเคราะห์ไฟล์ข้อมูลโดยวิเคราะห์โครงสร้างประโยคขององค์ประกอบของไฟล์</value>
         <value xml:lang="zh">这个页面是通过配置的数据文件解析程序从数据文件浏览和导出数据</value>
+        <value xml:lang="zh_TW">這個頁面是通過配置的資料文件解析程式從資料文件瀏覽和導出資料</value>
     </property>
     <property key="WebtoolsDataFileName">
         <value xml:lang="de">Dateiname oder URL</value>
@@ -908,6 +1009,7 @@
         <value xml:lang="it">Nome file dati o URL</value>
         <value xml:lang="th">ไฟล์ข้อมูลชื่อหรือ URL</value>
         <value xml:lang="zh">数据文件名称或网址</value>
+        <value xml:lang="zh_TW">資料文件名稱或網址</value>
     </property>
     <property key="WebtoolsDataFileSavedTo">
         <value xml:lang="de">Datendatei gespeichert in:</value>
@@ -916,6 +1018,7 @@
         <value xml:lang="it">File dati salvati in: </value>
         <value xml:lang="th">บันทึกไฟล์: </value>
         <value xml:lang="zh">数据文件保存到：</value>
+        <value xml:lang="zh_TW">資料文件保存到：</value>
     </property>
     <property key="WebtoolsDataFileTools">
         <value xml:lang="de">Datendatei Tools</value>
@@ -925,6 +1028,7 @@
         <value xml:lang="ro">Instrumente pentru File Dati</value>
         <value xml:lang="th">เครื่องมือไฟล์ข้อมูล</value>
         <value xml:lang="zh">数据文件工具</value>
+        <value xml:lang="zh_TW">資料文件工具</value>
     </property>
     <property key="WebtoolsDataIsUrl">
         <value xml:lang="de">Ist URI/URL?</value>
@@ -933,6 +1037,7 @@
         <value xml:lang="it">è una URL?</value>
         <value xml:lang="th">เป็น URL?</value>
         <value xml:lang="zh">是网址吗？</value>
+        <value xml:lang="zh_TW">是網址嗎？</value>
     </property>
     <property key="WebtoolsDataSaveToFile">
         <value xml:lang="de">Speichern in eine Datei</value>
@@ -941,6 +1046,7 @@
         <value xml:lang="it">Salva su file</value>
         <value xml:lang="th">บันทึกที่ไฟล์</value>
         <value xml:lang="zh">保存到文件</value>
+        <value xml:lang="zh_TW">保存到文件</value>
     </property>
     <property key="WebtoolsDataSaveToXml">
         <value xml:lang="de">Speichern in eine Entity-XML-Datei</value>
@@ -949,6 +1055,7 @@
         <value xml:lang="it">Salva su file entità XML</value>
         <value xml:lang="th">บันทึกที่ไฟล์ Entity XML</value>
         <value xml:lang="zh">保存到实体XML文件</value>
+        <value xml:lang="zh_TW">保存到實體XML文件</value>
     </property>
     <property key="WebtoolsDbName">
         <value xml:lang="de">DB-Name</value>
@@ -957,6 +1064,7 @@
         <value xml:lang="it">Nome DB</value>
         <value xml:lang="th">ชื่อฐานข้อมูล</value>
         <value xml:lang="zh">数据库名</value>
+        <value xml:lang="zh_TW">資料庫名</value>
     </property>
     <property key="WebtoolsDebuggingLevelFormDescription">
         <value xml:lang="de">Dieses Formular erlaubt Ihnen, die Debugging-Level einer Anwendung zu ändern.</value>
@@ -966,6 +1074,7 @@
         <value xml:lang="ro">Acest form iti permite sa schimbi nivelele de debug ale aplicatiei.</value>
         <value xml:lang="th">ฟอร์มนี้อนุญาติให้คุณเปลี่ยนแปลงระดับของ application debugging</value>
         <value xml:lang="zh">这个表单允许你修改应用程序的调试级别。</value>
+        <value xml:lang="zh_TW">這個表單允許你修改應用程式的調試級別。</value>
     </property>
     <property key="WebtoolsDefaultEntityName">
         <value xml:lang="de">Standard Entitätsname</value>
@@ -975,6 +1084,7 @@
         <value xml:lang="ro">Nume Entitate Default</value>
         <value xml:lang="th">ชื่อเรื่มต้นของ Entity</value>
         <value xml:lang="zh">缺省实体名称</value>
+        <value xml:lang="zh_TW">缺省實體名稱</value>
     </property>
     <property key="WebtoolsDeleteFiles">
         <value xml:lang="de">Dateien nachher löschen?</value>
@@ -984,6 +1094,7 @@
         <value xml:lang="ro">Stergere Files in Continuare?</value>
         <value xml:lang="th">คุณต้องการลบไฟล์ในครั้งต่อไป?</value>
         <value xml:lang="zh">删除后面的文件?</value>
+        <value xml:lang="zh_TW">刪除後面的文件?</value>
     </property>
     <property key="WebtoolsDeleteThisValue">
         <value xml:lang="de">Diesen Wert löschen</value>
@@ -993,6 +1104,7 @@
         <value xml:lang="ro">Sterge Aceasta Valore</value>
         <value xml:lang="th">ลบค่านี้</value>
         <value xml:lang="zh">删除这个值</value>
+        <value xml:lang="zh_TW">刪除這個值</value>
     </property>
     <property key="WebtoolsDispatcherName">
         <value xml:lang="de">Dispatcher-Name</value>
@@ -1002,6 +1114,7 @@
         <value xml:lang="ro">Nume Dispatcher</value>
         <value xml:lang="th">ชื่อ Dispatcher</value>
         <value xml:lang="zh">执行程序名称</value>
+        <value xml:lang="zh_TW">執行程式名稱</value>
     </property>
     <property key="WebtoolsElements">
         <value xml:lang="de">Elemente</value>
@@ -1011,6 +1124,7 @@
         <value xml:lang="ro">Elemente</value>
         <value xml:lang="th">ส่วนประกอบ</value>
         <value xml:lang="zh">元素</value>
+        <value xml:lang="zh_TW">元素</value>
     </property>
     <property key="WebtoolsEnable">
         <value xml:lang="de">Erlauben</value>
@@ -1019,6 +1133,7 @@
         <value xml:lang="it">Abilita</value>
         <value xml:lang="th">เป็นไปได้</value>
         <value xml:lang="zh">恢复</value>
+        <value xml:lang="zh_TW">恢複</value>
     </property>
     <property key="WebtoolsEncrypted">
         <value xml:lang="de">Verschlüsselt</value>
@@ -1026,6 +1141,7 @@
         <value xml:lang="fr">Encrypté</value>
         <value xml:lang="it">Criptato</value>
         <value xml:lang="zh">加密</value>
+        <value xml:lang="zh_TW">加密</value>
     </property>
     <property key="WebtoolsEngineName">
         <value xml:lang="de">Engine-Name</value>
@@ -1035,6 +1151,7 @@
         <value xml:lang="ro">Nume Engine</value>
         <value xml:lang="th">ชื่อ Engine</value>
         <value xml:lang="zh">引擎名称</value>
+        <value xml:lang="zh_TW">引擎名稱</value>
     </property>
     <property key="WebtoolsEntities">
         <value xml:lang="de">Entitäten</value>
@@ -1043,6 +1160,7 @@
         <value xml:lang="it">entità</value>
         <value xml:lang="th">entities</value>
         <value xml:lang="zh">实体</value>
+        <value xml:lang="zh_TW">實體</value>
     </property>
     <property key="WebtoolsEntitiesAlpha">
         <value xml:lang="de">Entitäten - alphabetisch</value>
@@ -1051,6 +1169,7 @@
         <value xml:lang="it">Entità - Ordine alfabetico</value>
         <value xml:lang="th">Entities - ที่เรียงตามลำดับอักษร</value>
         <value xml:lang="zh">实体 - 按字母顺序</value>
+        <value xml:lang="zh_TW">實體 - 按字母順序</value>
     </property>
     <property key="WebtoolsEntity">
         <value xml:lang="de">ENTITÄT</value>
@@ -1059,12 +1178,14 @@
         <value xml:lang="it">ENTITA'</value>
         <value xml:lang="th">ENTITY</value>
         <value xml:lang="zh">实体</value>
+        <value xml:lang="zh_TW">實體</value>
     </property>
     <property key="WebtoolsEntityCretePermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung, eine Entität zu erstellen</value>
         <value xml:lang="en">You do not have permission to create a entity</value>
         <value xml:lang="it">Non hai il permesso di creare un'entità</value>
         <value xml:lang="zh">你没有创建实体的权限</value>
+        <value xml:lang="zh_TW">你沒有創建實體的權限</value>
     </property>
     <property key="WebtoolsEntityCurrentValue">
         <value xml:lang="de">Aktueller Wert der Entität</value>
@@ -1073,6 +1194,7 @@
         <value xml:lang="it">Valore attuale entità</value>
         <value xml:lang="th">ค่า Entity ในปัจจุบัน </value>
         <value xml:lang="zh">实体当前值</value>
+        <value xml:lang="zh_TW">實體當前值</value>
     </property>
     <property key="WebtoolsEntityDataMaintenance">
         <value xml:lang="de">Entitäten Datenwartung</value>
@@ -1082,6 +1204,7 @@
         <value xml:lang="ro">Intretinere Date Entitate</value>
         <value xml:lang="th">การดูแลรักษาข้อมูล Entity</value>
         <value xml:lang="zh">实体数据维护</value>
+        <value xml:lang="zh_TW">實體資料維護</value>
     </property>
     <property key="WebtoolsEntityDisplayed">
         <value xml:lang="de">Angezeigt</value>
@@ -1090,6 +1213,7 @@
         <value xml:lang="it">Visualizzate</value>
         <value xml:lang="th">แสดงผล</value>
         <value xml:lang="zh">已显示</value>
+        <value xml:lang="zh_TW">已顯示</value>
     </property>
     <property key="WebtoolsEntityEditValue">
         <value xml:lang="de">Wert ändern</value>
@@ -1098,6 +1222,7 @@
         <value xml:lang="it">Aggiorna valore</value>
         <value xml:lang="th">แก้ไขค่า </value>
         <value xml:lang="zh">编辑值</value>
+        <value xml:lang="zh_TW">編輯值</value>
     </property>
     <property key="WebtoolsEntityEngine">
         <value xml:lang="de">"Daten-Maschine"</value>
@@ -1107,6 +1232,7 @@
         <value xml:lang="ro">Engine Entitate</value>
         <value xml:lang="th">Entity Engine</value>
         <value xml:lang="zh">实体引擎</value>
+        <value xml:lang="zh_TW">實體引擎</value>
     </property>
     <property key="WebtoolsEntityEnginePerformanceTests">
         <value xml:lang="de">Performancetests für die "Daten-Maschine"</value>
@@ -1115,6 +1241,7 @@
         <value xml:lang="it">Test prestazioni engine entità</value>
         <value xml:lang="th">ทดสอบการดำเนินการ Entity Engine </value>
         <value xml:lang="zh">实体引擎性能测试</value>
+        <value xml:lang="zh_TW">實體引擎性能測試</value>
     </property>
     <property key="WebtoolsEntityEngineTools">
         <value xml:lang="de">"Daten Maschine"</value>
@@ -1124,6 +1251,7 @@
         <value xml:lang="ro">Instrumente pentru Entitate Engine </value>
         <value xml:lang="th">เครื่องมือของ Entity Engine</value>
         <value xml:lang="zh">实体引擎工具</value>
+        <value xml:lang="zh_TW">實體引擎工具</value>
     </property>
     <property key="WebtoolsEntityName">
         <value xml:lang="de">Entität</value>
@@ -1133,6 +1261,7 @@
         <value xml:lang="ro">Nume Entitate</value>
         <value xml:lang="th">ชื่อ Entity</value>
         <value xml:lang="zh">实体名称</value>
+        <value xml:lang="zh_TW">實體名稱</value>
     </property>
     <property key="WebtoolsEntityNames">
         <value xml:lang="de">Entitäten</value>
@@ -1141,6 +1270,7 @@
         <value xml:lang="it">Nomi entità</value>
         <value xml:lang="th">ชื่อ Entity</value>
         <value xml:lang="zh">实体名称</value>
+        <value xml:lang="zh_TW">實體名稱</value>
     </property>
     <property key="WebtoolsEntityPackages">
         <value xml:lang="de">Entitätenpakete</value>
@@ -1149,6 +1279,7 @@
         <value xml:lang="it">Pacchetti entità</value>
         <value xml:lang="th">Entity Packages</value>
         <value xml:lang="zh">实体包</value>
+        <value xml:lang="zh_TW">實體包</value>
     </property>
     <property key="WebtoolsEntityReference">
         <value xml:lang="de">Entitätenreferenz</value>
@@ -1157,6 +1288,7 @@
         <value xml:lang="it">Riferimenti entità</value>
         <value xml:lang="th">อ้างอิง Entity </value>
         <value xml:lang="zh">实体引用</value>
+        <value xml:lang="zh_TW">實體引用</value>
     </property>
     <property key="WebtoolsEntityReferenceChart">
         <value xml:lang="de">Diagramm Entitätenreferenz</value>
@@ -1165,6 +1297,7 @@
         <value xml:lang="it">Diagramma riferimenti entità</value>
         <value xml:lang="th">ตารางอ้างอิง Entity </value>
         <value xml:lang="zh">实体引用图表</value>
+        <value xml:lang="zh_TW">實體引用圖表</value>
     </property>
     <property key="WebtoolsEntityReferenceInteractiveVersion">
         <value xml:lang="de">Interaktive Version</value>
@@ -1172,6 +1305,7 @@
         <value xml:lang="fr">Version interactive</value>
         <value xml:lang="it">Versione interattiva</value>
         <value xml:lang="zh">交互版本</value>
+        <value xml:lang="zh_TW">交互版本</value>
     </property>
     <property key="WebtoolsEntityReferenceMainPage">
         <value xml:lang="de">Entitätenreferenz Hauptseite</value>
@@ -1180,6 +1314,7 @@
         <value xml:lang="it">Pagina principale riferimenti entità</value>
         <value xml:lang="th">หน้าหลัก Entity Reference</value>
         <value xml:lang="zh">实体引用首页</value>
+        <value xml:lang="zh_TW">實體引用首頁</value>
     </property>
     <property key="WebtoolsEntityReferencePdf">
         <value xml:lang="de">Entitätenreferenz - PDF</value>
@@ -1188,6 +1323,7 @@
         <value xml:lang="it">Lista entità - PDF</value>
         <value xml:lang="th">Entity อ้างอิง - PDF</value>
         <value xml:lang="zh">实体引用 - PDF</value>
+        <value xml:lang="zh_TW">實體引用 - PDF</value>
     </property>
     <property key="WebtoolsEntityReferenceStaticVersion">
         <value xml:lang="de">Statische Version</value>
@@ -1196,6 +1332,7 @@
         <value xml:lang="it">Versione statica</value>
         <value xml:lang="th">เวอร์ชั่นคงที่</value>
         <value xml:lang="zh">静态版本</value>
+        <value xml:lang="zh_TW">靜態版本</value>
     </property>
     <property key="WebtoolsEntitySyncDump">
         <value xml:lang="de">Dump der Entitätensynchronisierung</value>
@@ -1204,6 +1341,7 @@
         <value xml:lang="it">Dump Sincronizzazioni Entità</value>
         <value xml:lang="th">Entity Sync Dump</value>
         <value xml:lang="zh">实体同步堆栈</value>
+        <value xml:lang="zh_TW">實體同步堆疊</value>
     </property>
     <property key="WebtoolsEntitySyncStatus">
         <value xml:lang="de">Status der Entitätensynchronisierung</value>
@@ -1213,6 +1351,7 @@
         <value xml:lang="ro">Stat Sincronizatii Entitate</value>
         <value xml:lang="th">สถานะของ Entity Sync </value>
         <value xml:lang="zh">实体同步状态</value>
+        <value xml:lang="zh_TW">實體同步狀態</value>
     </property>
     <property key="WebtoolsEntityView">
         <value xml:lang="de">Entität ansehen</value>
@@ -1222,6 +1361,7 @@
         <value xml:lang="ro">Entitate Vedere</value>
         <value xml:lang="th">แสดง Entity </value>
         <value xml:lang="zh">浏览实体 </value>
+        <value xml:lang="zh_TW">瀏覽實體 </value>
     </property>
     <property key="WebtoolsEntityXMLRepresentation">
         <value xml:lang="de">XML Repräsentation der Entität</value>
@@ -1235,6 +1375,7 @@
         <value xml:lang="ro">Instrumente pentru Entitatea XML</value>
         <value xml:lang="th">เครื่องมือ Entity XML </value>
         <value xml:lang="zh">实体XML工具</value>
+        <value xml:lang="zh_TW">實體XML工具</value>
     </property>
     <property key="WebtoolsEnvName">
         <value xml:lang="de">Umgebungsname</value>
@@ -1250,6 +1391,7 @@
         <value xml:lang="ro">Eroare</value>
         <value xml:lang="th">ข้อผิดพลาด</value>
         <value xml:lang="zh">错误</value>
+        <value xml:lang="zh_TW">錯誤</value>
     </property>
     <property key="WebtoolsErrorLogLevelTooltip">
         <value xml:lang="de">Im Level "Fehler" werden Fehlerereignisse geschrieben, wobei die Anwendung noch weiter laufen kann.</value>
@@ -1259,6 +1401,7 @@
         <value xml:lang="ro">Niveul Eroare prezinta erori care ar putea  sa  permita aplictiei sa continuie executia.</value>
         <value xml:lang="th">เกิดข้อผิดพลาดในการระบุข้อมูลกรุณากดยอมรับเพื่อดำเนินการต่อไป</value>
         <value xml:lang="zh">错误级别会指出那些仍然允许应用程序继续执行的错误事件。</value>
+        <value xml:lang="zh_TW">錯誤級別會指出那些仍然允許應用程式繼續執行的錯誤事件。</value>
     </property>
     <property key="WebtoolsEventName">
         <value xml:lang="de">Ereignisname</value>
@@ -1268,6 +1411,7 @@
         <value xml:lang="ro">Nume Eveniment</value>
         <value xml:lang="th">ชื่อเหตุการณ์</value>
         <value xml:lang="zh">事件名称</value>
+        <value xml:lang="zh_TW">事件名稱</value>
     </property>
     <property key="WebtoolsExpireTime">
         <value xml:lang="de">Ablaufzeitpunkt</value>
@@ -1277,6 +1421,7 @@
         <value xml:lang="ro">Timp Expirat</value>
         <value xml:lang="th">เวลาที่หมดอายุ</value>
         <value xml:lang="zh">过期时间</value>
+        <value xml:lang="zh_TW">過期時間</value>
     </property>
     <property key="WebtoolsExport">
         <value xml:lang="de">Export</value>
@@ -1286,6 +1431,7 @@
         <value xml:lang="ro">Exportare </value>
         <value xml:lang="th">ส่งออก</value>
         <value xml:lang="zh">导出</value>
+        <value xml:lang="zh_TW">導出</value>
     </property>
     <property key="WebtoolsExportEntityEoModelBundle">
         <value xml:lang="de">Entitäten EOModellBundle Export</value>
@@ -1294,6 +1440,7 @@
         <value xml:lang="it">Esporta entità EOModelBundle</value>
         <value xml:lang="th">ส่งออก Entity EOModelBundle</value>
         <value xml:lang="zh">导出实体EOModelBundle</value>
+        <value xml:lang="zh_TW">導出實體EOModelBundle</value>
     </property>
     <property key="WebtoolsExportFromDataSource">
         <value xml:lang="de">XML Export aus der Datenquelle</value>
@@ -1303,6 +1450,7 @@
         <value xml:lang="ro">Exporta Sursa Date in XML</value>
         <value xml:lang="th">XML ที่มาจากแหล่งข้อมูล</value>
         <value xml:lang="zh">从数据源导出XML</value>
+        <value xml:lang="zh_TW">從資料源導出XML</value>
     </property>
     <property key="WebtoolsExportable">
         <value xml:lang="de">Exportierbar</value>
@@ -1311,6 +1459,7 @@
         <value xml:lang="it">Esportabile</value>
         <value xml:lang="th">การส่งออก</value>
         <value xml:lang="zh">可导出</value>
+        <value xml:lang="zh_TW">可導出</value>
     </property>
     <property key="WebtoolsFKName">
         <value xml:lang="de">FK Name</value>
@@ -1320,6 +1469,7 @@
         <value xml:lang="ro">Nume Cheie Externa</value>
         <value xml:lang="th">ชื่อ FK</value>
         <value xml:lang="zh">外键名称</value>
+        <value xml:lang="zh_TW">外鍵名稱</value>
     </property>
     <property key="WebtoolsFatalLogLevel">
         <value xml:lang="de">Fatal</value>
@@ -1329,6 +1479,7 @@
         <value xml:lang="ro">Fatale</value>
         <value xml:lang="th">เป็นอันตราย</value>
         <value xml:lang="zh">严重错误</value>
+        <value xml:lang="zh_TW">嚴重錯誤</value>
     </property>
     <property key="WebtoolsFatalLogLevelTooltip">
         <value xml:lang="de">Der Level "Fatal" bezeichnet sehr ernste Fehlerereignisse, die zum Absturz der Anwendung führen.</value>
@@ -1338,6 +1489,7 @@
         <value xml:lang="ro">Nivelul Fatal prezinta multe erori din care cauza   aplicatia va fi terminata.</value>
         <value xml:lang="th">ข้อผิดพลาดระดับร้ายแรงโดยผลที่เกิดขึ้นนั้นจะเป็นไปได้ที่จะก่อให้เกิดความล้มเหลว</value>
         <value xml:lang="zh">严重错误级别会指出那些可能导致应用程序异常中断的严重错误事件。</value>
+        <value xml:lang="zh_TW">嚴重錯誤級別會指出那些可能導致應用程式異常中斷的嚴重錯誤事件。</value>
     </property>
     <property key="WebtoolsFieldName">
         <value xml:lang="de">Feldname</value>
@@ -1347,6 +1499,7 @@
         <value xml:lang="ro">Nume Camp</value>
         <value xml:lang="th">ชื่อฟิลด์</value>
         <value xml:lang="zh">域名称</value>
+        <value xml:lang="zh_TW">域名稱</value>
     </property>
     <property key="WebtoolsFieldType">
         <value xml:lang="de">Feldtyp</value>
@@ -1356,6 +1509,7 @@
         <value xml:lang="ro">Tip Camp</value>
         <value xml:lang="th">ประเภทฟิลด์</value>
         <value xml:lang="zh">域类型</value>
+        <value xml:lang="zh_TW">域類型</value>
     </property>
     <property key="WebtoolsFieldsList">
         <value xml:lang="de">Felder</value>
@@ -1365,6 +1519,7 @@
         <value xml:lang="ro">Camp</value>
         <value xml:lang="th">Fields</value>
         <value xml:lang="zh">域</value>
+        <value xml:lang="zh_TW">域</value>
     </property>
     <property key="WebtoolsFind">
         <value xml:lang="de">Suchen</value>
@@ -1374,6 +1529,7 @@
         <value xml:lang="ro">Cautare</value>
         <value xml:lang="th">ค้นหา</value>
         <value xml:lang="zh">找</value>
+        <value xml:lang="zh_TW">找</value>
     </property>
     <property key="WebtoolsFindAllRecords">
         <value xml:lang="de">In allen Datensätzen suchen</value>
@@ -1383,6 +1539,7 @@
         <value xml:lang="ro">Cauta Toate Recordurile</value>
         <value xml:lang="th">ค้นหาข้อความที่บันทึกไว้ทั้งหมด</value>
         <value xml:lang="zh">查找全部记录</value>
+        <value xml:lang="zh_TW">查找全部記錄</value>
     </property>
     <property key="WebtoolsFindRecord">
         <value xml:lang="de">Datensatz suchen</value>
@@ -1392,6 +1549,7 @@
         <value xml:lang="ro">Cauta Record</value>
         <value xml:lang="th">ค้นหาข้อมูลที่บันทึก</value>
         <value xml:lang="zh">查找记录</value>
+        <value xml:lang="zh_TW">查找記錄</value>
     </property>
     <property key="WebtoolsFindValues">
         <value xml:lang="de">Werte suchen</value>
@@ -1401,6 +1559,7 @@
         <value xml:lang="ro">Cauta Valori</value>
         <value xml:lang="th">ค้นหาค่า</value>
         <value xml:lang="zh">查找值</value>
+        <value xml:lang="zh_TW">查找值</value>
     </property>
     <property key="WebtoolsFindValuesResults">
         <value xml:lang="de">Suchergebnisse aus Werten</value>
@@ -1409,6 +1568,7 @@
         <value xml:lang="it">Risultati della ricerca</value>
         <value xml:lang="th">ผลลัพธ์ของการค้นหา</value>
         <value xml:lang="zh">搜索结果</value>
+        <value xml:lang="zh_TW">搜索結果</value>
     </property>
     <property key="WebtoolsFkIdx">
         <value xml:lang="de">Fremdschlüssel-Index</value>
@@ -1417,6 +1577,7 @@
         <value xml:lang="it">Indice-chiave esterna</value>
         <value xml:lang="th">Fk-Idx</value>
         <value xml:lang="zh">外键-索引</value>
+        <value xml:lang="zh_TW">外鍵-索引</value>
     </property>
     <property key="WebtoolsFks">
         <value xml:lang="de">Fremdschlüssel</value>
@@ -1425,6 +1586,7 @@
         <value xml:lang="it">Chiave esterne</value>
         <value xml:lang="th">Fks</value>
         <value xml:lang="zh">外键</value>
+        <value xml:lang="zh_TW">外鍵</value>
     </property>
     <property key="WebtoolsForEntity">
         <value xml:lang="de">Für Entitäten</value>
@@ -1434,6 +1596,7 @@
         <value xml:lang="ro">Pentru Entitati</value>
         <value xml:lang="th">สำหรับ Entity</value>
         <value xml:lang="zh">实体</value>
+        <value xml:lang="zh_TW">實體</value>
     </property>
     <property key="WebtoolsForSomethingInteresting">
         <value xml:lang="de">Um etwas Interessantes zu sehen sollten Sie sich anmelden; versuchen Sie: admin, Passwort: ofbiz</value>
@@ -1443,6 +1606,7 @@
         <value xml:lang="ro">Daca  esti interesat, trebuie sa ai autentificare, incearca cu cu Nume utilizator :admin, Pasword :ofbiz</value>
         <value xml:lang="th">เพื่อความแน่ใจคุณควรเข้าสู่ระบบโดยใช้ ชื่อผูใช้: admin, รหัสผ่าน: ofbiz</value>
         <value xml:lang="zh">如果你对其中的某些功能感兴趣，请先登录，可以尝试使用用户名：admin、密码：ofbiz登录</value>
+        <value xml:lang="zh_TW">如果你對其中的某些功能感興趣，請先登錄，可以嘗試使用用戶名：admin、密碼：ofbiz登錄</value>
     </property>
     <property key="WebtoolsForUseWithFrequency">
         <value xml:lang="de">mit der Frequenz nutzen</value>
@@ -1452,6 +1616,7 @@
         <value xml:lang="ro">pentru folosirea cu frecventa</value>
         <value xml:lang="th">สำหรับใช้กับความบ่อย</value>
         <value xml:lang="zh">使用频率</value>
+        <value xml:lang="zh_TW">使用頻率</value>
     </property>
     <property key="WebtoolsFormat">
         <value xml:lang="de">Format</value>
@@ -1461,6 +1626,7 @@
         <value xml:lang="ro">Format</value>
         <value xml:lang="th">รูปแบบ</value>
         <value xml:lang="zh">格式</value>
+        <value xml:lang="zh_TW">格式</value>
     </property>
     <property key="WebtoolsFreeMemory">
         <value xml:lang="de">FREI</value>
@@ -1470,6 +1636,7 @@
         <value xml:lang="ro">LIBERA</value>
         <value xml:lang="th">ฟรี</value>
         <value xml:lang="zh">空闲</value>
+        <value xml:lang="zh_TW">空閒</value>
     </property>
     <property key="WebtoolsFrequency">
         <value xml:lang="de">Frequenz</value>
@@ -1479,6 +1646,7 @@
         <value xml:lang="ro">Frecventa</value>
         <value xml:lang="th">ความบ่อย</value>
         <value xml:lang="zh">频率</value>
+        <value xml:lang="zh_TW">頻率</value>
     </property>
     <property key="WebtoolsGeneralArtifactInfoTools">
         <value xml:lang="de">Allgemeine Info</value>
@@ -1486,6 +1654,7 @@
         <value xml:lang="fr">Outils généraux pour les informations sur les éléments d'OFBiz</value>
         <value xml:lang="it">Strumento per informazioni generali su artifatti</value>
         <value xml:lang="zh">通用人工程序信息工具</value>
+        <value xml:lang="zh_TW">通用人工程式資訊工具</value>
     </property>
     <property key="WebtoolsGeneralJavaThreads">
         <value xml:lang="de">Allgemeine Java Threads</value>
@@ -1494,6 +1663,7 @@
         <value xml:lang="it">Threads Java generali</value>
         <value xml:lang="th">General Java Threads</value>
         <value xml:lang="zh">通用Java线程</value>
+        <value xml:lang="zh_TW">通用Java線程</value>
     </property>
     <property key="WebtoolsGroup">
         <value xml:lang="de">Gruppe</value>
@@ -1502,6 +1672,7 @@
         <value xml:lang="it">Gruppo</value>
         <value xml:lang="th">กลุ่ม</value>
         <value xml:lang="zh">组</value>
+        <value xml:lang="zh_TW">組</value>
     </property>
     <property key="WebtoolsGroupName">
         <value xml:lang="de">Gruppenname</value>
@@ -1510,6 +1681,7 @@
         <value xml:lang="it">Nome gruppo</value>
         <value xml:lang="th">ชื่อกลุ่ม</value>
         <value xml:lang="zh">组名称</value>
+        <value xml:lang="zh_TW">組名稱</value>
     </property>
     <property key="WebtoolsGeoCreateNew">
         <value xml:lang="en">Create/Edit Geo</value>
@@ -1543,6 +1715,7 @@
         <value xml:lang="ro">Tentative</value>
         <value xml:lang="th">Hits</value>
         <value xml:lang="zh">击中</value>
+        <value xml:lang="zh_TW">擊中</value>
     </property>
     <property key="WebtoolsImplementedServices">
         <value xml:lang="de">Implementierte Dienste</value>
@@ -1552,6 +1725,7 @@
         <value xml:lang="ro">Servicii Implementate</value>
         <value xml:lang="th">เครื่องมือ Services</value>
         <value xml:lang="zh">已实现的服务</value>
+        <value xml:lang="zh_TW">已實現的服務</value>
     </property>
     <property key="WebtoolsImport">
         <value xml:lang="de">Import</value>
@@ -1561,6 +1735,7 @@
         <value xml:lang="ro">Import</value>
         <value xml:lang="th">นำเข้า</value>
         <value xml:lang="zh">导入</value>
+        <value xml:lang="zh_TW">導入</value>
     </property>
     <property key="WebtoolsImportExport">
         <value xml:lang="en">Import/Export</value>
@@ -1574,6 +1749,7 @@
         <value xml:lang="ro">Importa File</value>
         <value xml:lang="th">นำเข้าไฟล์</value>
         <value xml:lang="zh">导入文件</value>
+        <value xml:lang="zh_TW">導入文件</value>
     </property>
     <property key="WebtoolsImportText">
         <value xml:lang="de">Text importieren</value>
@@ -1583,6 +1759,7 @@
         <value xml:lang="ro">Importa Text</value>
         <value xml:lang="th">นำเข้าข้อความ</value>
         <value xml:lang="zh">导入文本</value>
+        <value xml:lang="zh_TW">導入文本</value>
     </property>
     <property key="WebtoolsImportToDataSource">
         <value xml:lang="de">XML-Import in DataSource(n)</value>
@@ -1592,6 +1769,7 @@
         <value xml:lang="ro">Importa Sursa de Date din XML</value>
         <value xml:lang="th">นำเข้า XML ไปยังแหล่งข้อมูล</value>
         <value xml:lang="zh">把XML导入到数据源</value>
+        <value xml:lang="zh_TW">把XML導入到資料源</value>
     </property>
     <property key="WebtoolsImportantLogLevel">
         <value xml:lang="de">Wichtig</value>
@@ -1601,6 +1779,7 @@
         <value xml:lang="ro">Important</value>
         <value xml:lang="th">สำคัญ</value>
         <value xml:lang="zh">重要</value>
+        <value xml:lang="zh_TW">重要</value>
     </property>
     <property key="WebtoolsImportantLogLevelTooltip">
         <value xml:lang="de">Der Loglevel "Wichtig" bezeichnet Log-Einträge, die den Fortgang der Anwendung mit geringer Detailtiefe beschreiben.</value>
@@ -1610,6 +1789,7 @@
         <value xml:lang="ro">Nivelul Important desemneaza mesaje informative ce evidentiaza statul de executie a aplicatiei de jos nivel.</value>
         <value xml:lang="th">กำหนดระดับความสำคัญของข้อความเทคโนโลยรีสารสนเทศที่เน้นความก้าวหน้าของโปรแกรมที่ระดับหยาบ</value>
         <value xml:lang="zh">重要级别会粗粒地指出那些突出应用程序进行情况的信息。 </value>
+        <value xml:lang="zh_TW">重要級別會粗粒地指出那些突出應用程式進行情況的資訊。 </value>
     </property>
     <property key="WebtoolsInParameters">
         <value xml:lang="de">Eingangswerte</value>
@@ -1619,6 +1799,7 @@
         <value xml:lang="ro">Parametri de Intrare</value>
         <value xml:lang="th">ค่าตัวแปร</value>
         <value xml:lang="zh">在参数中</value>
+        <value xml:lang="zh_TW">在參數中</value>
     </property>
     <property key="WebtoolsIndexFieldList">
         <value xml:lang="de">Index Feldliste</value>
@@ -1627,6 +1808,7 @@
         <value xml:lang="it">Lista campo indice</value>
         <value xml:lang="th">รายการตัววัด</value>
         <value xml:lang="zh">索引数据项列表</value>
+        <value xml:lang="zh_TW">索引資料項列表</value>
     </property>
     <property key="WebtoolsIndexName">
         <value xml:lang="de">Indexname</value>
@@ -1635,6 +1817,7 @@
         <value xml:lang="it">Nome indice</value>
         <value xml:lang="th">ชื่อตัววัด</value>
         <value xml:lang="zh">索引名称</value>
+        <value xml:lang="zh_TW">索引名稱</value>
     </property>
     <property key="WebtoolsInduceModelXMLFromDatabase">
         <value xml:lang="de">Modell-XML aus der Datenbank indizieren</value>
@@ -1644,6 +1827,7 @@
         <value xml:lang="ro">Induce Modelul XML din Database</value>
         <value xml:lang="th">การดึง Model XML จากฐานข้อมูล</value>
         <value xml:lang="zh">从数据库引出模型XML</value>
+        <value xml:lang="zh_TW">從資料庫引出模型XML</value>
     </property>
     <property key="WebtoolsInfoLogLevel">
         <value xml:lang="de">Info</value>
@@ -1653,6 +1837,7 @@
         <value xml:lang="ro">Informativ</value>
         <value xml:lang="th">ข้อมูล</value>
         <value xml:lang="zh">信息</value>
+        <value xml:lang="zh_TW">資訊</value>
     </property>
     <property key="WebtoolsInfoLogLevelTooltip">
         <value xml:lang="de">Der Loglevel "Info" bezeichnet Log-Mitteilungen, die den Fortgang der Anwendung mit einiger Detailtiefe beschreiben.</value>
@@ -1662,6 +1847,7 @@
         <value xml:lang="ro">Nivelul Informativ desemneaza mesaje ce evidentiaza statul de executie al aplicatiei de jos nivel.</value>
         <value xml:lang="th">กำหนดระดับความสำคัญของข้อความเทคโนโลยรีสารสนเทศที่เน้นความก้าวหน้าของโปรแกรมที่ระดับหยาบ</value>
         <value xml:lang="zh">信息级别会粗粒地指出那些突出应用程序进行情况的信息。</value>
+        <value xml:lang="zh_TW">資訊級別會粗粒地指出那些突出應用程式進行情況的資訊。</value>
     </property>
     <property key="WebtoolsInterval">
         <value xml:lang="de">Intervall</value>
@@ -1671,6 +1857,7 @@
         <value xml:lang="ro">Interval</value>
         <value xml:lang="th">ช่วงเวลา</value>
         <value xml:lang="zh">间隔</value>
+        <value xml:lang="zh_TW">間隔</value>
     </property>
     <property key="WebtoolsInvoke">
         <value xml:lang="de">Aufrufen</value>
@@ -1680,6 +1867,7 @@
         <value xml:lang="ro">Invoca</value>
         <value xml:lang="th">อ้างถึง</value>
         <value xml:lang="zh">调用</value>
+        <value xml:lang="zh_TW">調用</value>
     </property>
     <property key="WebtoolsIsConstant">
         <value xml:lang="de">Konstante?</value>
@@ -1689,6 +1877,7 @@
         <value xml:lang="ro">Este o constanta</value>
         <value xml:lang="th">ความคงที่</value>
         <value xml:lang="zh">是常量</value>
+        <value xml:lang="zh_TW">是常量</value>
     </property>
     <property key="WebtoolsIsService">
         <value xml:lang="de">Dienst?</value>
@@ -1698,6 +1887,7 @@
         <value xml:lang="ro">Este un serviciu</value>
         <value xml:lang="th">การบริการ</value>
         <value xml:lang="zh">是服务</value>
+        <value xml:lang="zh_TW">是服務</value>
     </property>
     <property key="WebtoolsIsSetInternally">
         <value xml:lang="de">Intern gesetzt?</value>
@@ -1707,6 +1897,7 @@
         <value xml:lang="ro">Este setata in totalitate</value>
         <value xml:lang="th">ตั้งอยู่ภายใน</value>
         <value xml:lang="zh">设为内部</value>
+        <value xml:lang="zh_TW">設為內部</value>
     </property>
     <property key="WebtoolsIsURL">
         <value xml:lang="de">URL?</value>
@@ -1716,6 +1907,7 @@
         <value xml:lang="ro">Este un URL?</value>
         <value xml:lang="th">เป็น URL?</value>
         <value xml:lang="zh">是网址吗？</value>
+        <value xml:lang="zh_TW">是網址嗎？</value>
     </property>
     <property key="WebtoolsJavaName">
         <value xml:lang="de">Java Name</value>
@@ -1724,6 +1916,7 @@
         <value xml:lang="it">Nome Java</value>
         <value xml:lang="th">ชื่อจาวา</value>
         <value xml:lang="zh">Java名称</value>
+        <value xml:lang="zh_TW">Java名稱</value>
     </property>
     <property key="WebtoolsJavaType">
         <value xml:lang="de">Java Typ</value>
@@ -1732,6 +1925,7 @@
         <value xml:lang="it">Tipo Java</value>
         <value xml:lang="th">ประเภทจาวา</value>
         <value xml:lang="zh">Java类型</value>
+        <value xml:lang="zh_TW">Java類型</value>
     </property>
     <property key="WebtoolsJavaVersionIs5">
         <value xml:lang="de">Hinweis: Einige Funktionen benötigen Java 5; ist die Java-Version [${javaVer}] tatsächlich 5 oder höher?</value>
@@ -1740,6 +1934,7 @@
         <value xml:lang="it">Nota: certe cose funzionano solo con Java 5. Versione Java è ${javaVer}; è Java 5 ?</value>
         <value xml:lang="th">หมายเหตุ: การทำงานบางอย่างจะต้องทำใน Java 5. Java เวอร์ชันที่${javaVer};  Java 5 ?</value>
         <value xml:lang="zh">注意：某些程序只能运行在Java 5下。Java版本是${javaVer}；是Java 5吗？</value>
+        <value xml:lang="zh_TW">注意：某些程式只能運行在Java 5下。Java版本是${javaVer}；是Java 5嗎？</value>
     </property>
     <property key="WebtoolsJob">
         <value xml:lang="de">Job</value>
@@ -1749,6 +1944,7 @@
         <value xml:lang="ro">Lucru</value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">任务</value>
+        <value xml:lang="zh_TW">任務</value>
     </property>
     <property key="WebtoolsJobList">
         <value xml:lang="de">Jobliste</value>
@@ -1758,6 +1954,7 @@
         <value xml:lang="ro">Lista Lucrari </value>
         <value xml:lang="th">รายชื่องาน</value>
         <value xml:lang="zh">任务列表</value>
+        <value xml:lang="zh_TW">任務列表</value>
     </property>
     <property key="WebtoolsJobLog">
         <value xml:lang="de">Job-Logdatei</value>
@@ -1765,6 +1962,7 @@
         <value xml:lang="fr">Fichier de Log</value>
         <value xml:lang="it">File di log</value>
         <value xml:lang="zh">日志文件</value>
+        <value xml:lang="zh_TW">日誌文件</value>
     </property>
     <property key="WebtoolsLHSMapName">
         <value xml:lang="de">Name der LHS-Map</value>
@@ -1774,6 +1972,7 @@
         <value xml:lang="ro">Nume mapa LHS</value>
         <value xml:lang="th">ชื่อแผนที่ LHS </value>
         <value xml:lang="zh">左手选择变换名称</value>
+        <value xml:lang="zh_TW">左手選擇變換名稱</value>
     </property>
     <property key="WebtoolsLHSValueName">
         <value xml:lang="de">LHS Wert-Bezeichnung</value>
@@ -1783,6 +1982,7 @@
         <value xml:lang="ro">Nume valoare LHS</value>
         <value xml:lang="th">ชื่อค่า LHS </value>
         <value xml:lang="zh">左手选择值名称</value>
+        <value xml:lang="zh_TW">左手選擇值名稱</value>
     </property>
     <property key="WebtoolsLabelManager">
         <value xml:lang="de">Label Manager</value>
@@ -1790,6 +1990,7 @@
         <value xml:lang="fr">Gestionnaire de traduction</value>
         <value xml:lang="it">Gestione delle label</value>
         <value xml:lang="zh">标签管理</value>
+        <value xml:lang="zh_TW">標簽管理</value>
     </property>
     <property key="WebtoolsLabelManagerAddNew">
         <value xml:lang="de">Neues Label hinzufügen</value>
@@ -1797,6 +1998,7 @@
         <value xml:lang="fr">Ajouter une nouvelle traduction</value>
         <value xml:lang="it">Aggiungi nuova label</value>
         <value xml:lang="zh">添加新标签</value>
+        <value xml:lang="zh_TW">添加新標簽</value>
     </property>
     <property key="WebtoolsLabelManagerAllComponents">
         <value xml:lang="de">alle Komponenten</value>
@@ -1804,6 +2006,7 @@
         <value xml:lang="fr">Tous les composants</value>
         <value xml:lang="it">Tutti i componenti</value>
         <value xml:lang="zh">全部组件</value>
+        <value xml:lang="zh_TW">全部元件</value>
     </property>
     <property key="WebtoolsLabelManagerAllFiles">
         <value xml:lang="de">alle Dateien</value>
@@ -1811,6 +2014,7 @@
         <value xml:lang="fr">Tous les fichiers</value>
         <value xml:lang="it">Tutti i files</value>
         <value xml:lang="zh">全部文件</value>
+        <value xml:lang="zh_TW">全部文件</value>
     </property>
     <property key="WebtoolsLabelManagerAllLocales">
         <value xml:lang="de">alle Localen</value>
@@ -1818,6 +2022,7 @@
         <value xml:lang="fr">Tous les langages</value>
         <value xml:lang="it">Tutte le lingue</value>
         <value xml:lang="zh">全部语言</value>
+        <value xml:lang="zh_TW">全部語言</value>
     </property>
     <property key="WebtoolsLabelManagerClearCacheAfterFixingDuplicateLabels">
         <value xml:lang="de">Cache nach der Korrektur der Label-Dubletten löschen</value>
@@ -1825,6 +2030,7 @@
         <value xml:lang="fr">Purgez les caches après avoir supprimé les traductions dupliquées</value>
         <value xml:lang="it">Pulire le cache dopo l'eliminazione delle label duplicate</value>
         <value xml:lang="zh">解决重复标签后清除缓存</value>
+        <value xml:lang="zh_TW">解決重複標簽後清除緩存</value>
     </property>
     <property key="WebtoolsLabelManagerComponentName">
         <value xml:lang="de">OFBiz Komponente</value>
@@ -1832,6 +2038,7 @@
         <value xml:lang="fr">Nom de composant</value>
         <value xml:lang="it">Nome componente</value>
         <value xml:lang="zh">组件名称</value>
+        <value xml:lang="zh_TW">元件名稱</value>
     </property>
     <property key="WebtoolsLabelManagerFileName">
         <value xml:lang="de">Label-Datei</value>
@@ -1839,6 +2046,7 @@
         <value xml:lang="fr">Nom de fichier</value>
         <value xml:lang="it">Nome file</value>
         <value xml:lang="zh">文件名</value>
+        <value xml:lang="zh_TW">文件名</value>
     </property>
     <property key="WebtoolsLabelManagerFindLabels">
         <value xml:lang="de">Labels Suchen</value>
@@ -1851,6 +2059,7 @@
         <value xml:lang="en">Hardcoded labels</value>
         <value xml:lang="it">Label non traducibili</value>
         <value xml:lang="zh">硬编码的标签</value>
+        <value xml:lang="zh_TW">硬編碼的標簽</value>
     </property>
     <property key="WebtoolsLabelManagerKey">
         <value xml:lang="de">Schlüssel</value>
@@ -1858,6 +2067,7 @@
         <value xml:lang="fr">Clef</value>
         <value xml:lang="it">Chiave</value>
         <value xml:lang="zh">键</value>
+        <value xml:lang="zh_TW">鍵</value>
     </property>
     <property key="WebtoolsLabelManagerKeyComment">
         <value xml:lang="de">Kommentar</value>
@@ -1865,6 +2075,7 @@
         <value xml:lang="fr">Commentaire</value>
         <value xml:lang="it">Commento</value>
         <value xml:lang="zh">评论</value>
+        <value xml:lang="zh_TW">評論</value>
     </property>
     <property key="WebtoolsLabelManagerLocale">
         <value xml:lang="de">Locale</value>
@@ -1872,6 +2083,7 @@
         <value xml:lang="fr">Langage</value>
         <value xml:lang="it">Lingua</value>
         <value xml:lang="zh">语言</value>
+        <value xml:lang="zh_TW">語言</value>
     </property>
     <property key="WebtoolsLabelManagerNewLabelEmpty">
         <value xml:lang="de">Bitte fügen Sie mindestens ein übersetztes Label ein</value>
@@ -1879,6 +2091,7 @@
         <value xml:lang="fr">SVP, insérez au moins une nouvelle traduction</value>
         <value xml:lang="it">Prego inserire almeno una label tradotta</value>
         <value xml:lang="zh">请插入至少一个翻译过的标签</value>
+        <value xml:lang="zh_TW">請插入至少一個翻譯過的標簽</value>
     </property>
     <property key="WebtoolsLabelManagerNewLabelEmptyKey">
         <value xml:lang="de">Bitte geben Sie einen Schlüssel an</value>
@@ -1886,6 +2099,7 @@
         <value xml:lang="fr">SVP, insérez une nouvelle clef</value>
         <value xml:lang="it">Prego inserire una chiave per la label</value>
         <value xml:lang="zh">请插入一个标签键</value>
+        <value xml:lang="zh_TW">請插入一個標簽鍵</value>
     </property>
     <property key="WebtoolsLabelManagerNewLabelExisting">
         <value xml:lang="de">Der Schlüssel ${key} ist in der Datei ${fileName} bereits enthalten</value>
@@ -1893,24 +2107,28 @@
         <value xml:lang="fr">La traduction ${key} existe déjà dans le fichier ${fileName}</value>
         <value xml:lang="it">La label ${key} esiste gi‚àö‚Ä† nel file ${fileName}</value>
         <value xml:lang="zh">在文件${fileName}中已经存在标签${key}</value>
+        <value xml:lang="zh_TW">在文件${fileName}中已經存在標簽${key}</value>
     </property>
     <property key="WebtoolsLabelManagerOnlyMissingTranslations">
         <value xml:lang="de">Nur fehlende Übersetzungen</value>
         <value xml:lang="en">Only Missing Translations</value>
         <value xml:lang="it">Solo traduzioni mancanti</value>
         <value xml:lang="zh">仅限缺少的翻译</value>
+        <value xml:lang="zh_TW">僅限缺少的翻譯</value>
     </property>
     <property key="WebtoolsLabelManagerOnlyNotUsedLabels">
         <value xml:lang="de">Nur ungenutzte Labels</value>
         <value xml:lang="en">Only Not Used Labels</value>
         <value xml:lang="it">Solo traduzioni non usate</value>
         <value xml:lang="zh">仅限没有使用过的标签</value>
+        <value xml:lang="zh_TW">僅限沒有使用過的標簽</value>
     </property>
     <property key="WebtoolsLabelManagerReferences">
         <value xml:lang="de">Referenzen</value>
         <value xml:lang="en">References</value>
         <value xml:lang="it">Referenze</value>
         <value xml:lang="zh">引用</value>
+        <value xml:lang="zh_TW">引用</value>
     </property>
     <property key="WebtoolsLabelManagerRemove">
         <value xml:lang="de">Label entfernen</value>
@@ -1918,12 +2136,14 @@
         <value xml:lang="fr">Supprimer la traduction</value>
         <value xml:lang="it">Rimuovi label</value>
         <value xml:lang="zh">删除标签</value>
+        <value xml:lang="zh_TW">刪除標簽</value>
     </property>
     <property key="WebtoolsLabelManagerRow">
         <value xml:lang="de">Zeile N</value>
         <value xml:lang="en">Row n.</value>
         <value xml:lang="it">N.riga</value>
         <value xml:lang="zh">行号</value>
+        <value xml:lang="zh_TW">行號</value>
     </property>
     <property key="WebtoolsLabelManagerSearchBy">
         <value xml:lang="de">Label-Info filtern nach</value>
@@ -1931,6 +2151,7 @@
         <value xml:lang="fr">Filtrer les traductions</value>
         <value xml:lang="it">Ricerca informazioni sulle labels</value>
         <value xml:lang="zh">过滤标签信息</value>
+        <value xml:lang="zh_TW">過濾標簽資訊</value>
     </property>
     <property key="WebtoolsLabelManagerSecuryError">
         <value xml:lang="de">Sie haben keine Berechtigung für den Label Manager (Sie benötigen LABEL_MANAGER_VIEW)</value>
@@ -1938,6 +2159,7 @@
         <value xml:lang="fr">Impossible d'accèder à la page de gestion des traductions sans l'autorisation LABEL_MANAGER_VIEW.</value>
         <value xml:lang="it">Non è posssibile visualizzare la pagina Gestione delle Label senza il permesso LABEL_MANAGER_VIEW.</value>
         <value xml:lang="zh">没有LABEL_MANAGER_VIEW权限，不能浏览标签信息页面。</value>
+        <value xml:lang="zh_TW">沒有LABEL_MANAGER_VIEW權限，不能瀏覽標簽資訊頁面。</value>
     </property>
     <property key="WebtoolsLabelManagerTemporarySearchTitle">
         <value xml:lang="de">Um zu beginnen, wählen Sie eine Datei aus; danach werden alle Optionen aktiviert. Sofern kein Button erscheint, setzen Sie den Cursor in ein Feld und validieren Sie mit 'Enter'.</value>
@@ -1950,12 +2172,14 @@
         <value xml:lang="fr">Mettre à jour la traduction</value>
         <value xml:lang="it">Aggiorna label</value>
         <value xml:lang="zh">更新标签</value>
+        <value xml:lang="zh_TW">更新標簽</value>
     </property>
     <property key="WebtoolsLabelManagerUpdateAndSave">
         <value xml:lang="en">Update and Save to xml file the label</value>
         <value xml:lang="fr">Mettre à jour et sauver la  traduction dans le fichier XML</value>
         <value xml:lang="it">Aggiorna e salva la label</value>
         <value xml:lang="zh">更新和保存到XML文件的标签</value>
+        <value xml:lang="zh_TW">更新和保存到XML文件的標簽</value>
     </property>
     <property key="WebtoolsLabelManagerUpdateFile">
         <value xml:lang="de">Datei ansehen</value>
@@ -1963,17 +2187,20 @@
         <value xml:lang="fr">Mettre à jour les fichiers de traduction</value>
         <value xml:lang="it">Aggiorna files delle labels</value>
         <value xml:lang="zh">更新标签文件</value>
+        <value xml:lang="zh_TW">更新標簽文件</value>
     </property>
     <property key="WebtoolsLabelManagerViewFile">
         <value xml:lang="en">View file</value>
         <value xml:lang="it">Mostra file</value>
         <value xml:lang="zh">浏览文件</value>
+        <value xml:lang="zh_TW">瀏覽文件</value>
     </property>
     <property key="WebtoolsLabelManagerViewReferences">
         <value xml:lang="de">Labelreferenzen ansehen</value>
         <value xml:lang="en">View Labels References</value>
         <value xml:lang="it">Mostra referenze labels</value>
         <value xml:lang="zh">浏览标签引用</value>
+        <value xml:lang="zh_TW">瀏覽標簽引用</value>
     </property>
     <property key="WebtoolsLabelManagerWarningMessage">
         <value xml:lang="de">Einige der Labels haben mehr als eine Übersetzung für eine Sprache</value>
@@ -1981,6 +2208,7 @@
         <value xml:lang="fr">Il y a des traduction dupliquées pour le même langage</value>
         <value xml:lang="it">Ci sono alcune label con più di una traduzione per la stessa lingua</value>
         <value xml:lang="zh">有些标签对同一个语言有多个翻译</value>
+        <value xml:lang="zh_TW">有些標簽對同一個語言有多個翻譯</value>
     </property>
     <property key="WebtoolsLabelStatsExist">
         <value xml:lang="de">Vorhandene Labels in Locale</value>
@@ -2005,6 +2233,7 @@
         <value xml:lang="ro">lasa toate campurile goale</value>
         <value xml:lang="th">ออกจากช่องว่าง entries ทั้งหมด</value>
         <value xml:lang="zh">请让全部输入框为空白</value>
+        <value xml:lang="zh_TW">請讓全部輸入框為空白</value>
     </property>
     <property key="WebtoolsLimitRowsTo">
         <value xml:lang="de">Zeilen begrenzen auf</value>
@@ -2014,6 +2243,7 @@
         <value xml:lang="ro">Limita Linie la</value>
         <value xml:lang="th">จำนวนแถวที่กำหนด</value>
         <value xml:lang="zh">把行数限制为</value>
+        <value xml:lang="zh_TW">把行數限制為</value>
     </property>
     <property key="WebtoolsLoadOfflineData">
         <value xml:lang="de">Offline-Daten laden</value>
@@ -2023,6 +2253,7 @@
         <value xml:lang="ro">Incarca Date Oflin</value>
         <value xml:lang="th">โหลดข้อมูลออฟไลน์</value>
         <value xml:lang="zh">载入离线数据</value>
+        <value xml:lang="zh_TW">載入離線資料</value>
     </property>
     <property key="WebtoolsLocation">
         <value xml:lang="de">Ort</value>
@@ -2032,6 +2263,7 @@
         <value xml:lang="ro">Dislocat in</value>
         <value xml:lang="th">ตำแหน่ง</value>
         <value xml:lang="zh">地址</value>
+        <value xml:lang="zh_TW">位址</value>
     </property>
     <property key="WebtoolsLogFileName">
         <value xml:lang="de">Logdatei-Name</value>
@@ -2041,6 +2273,7 @@
         <value xml:lang="ro">Nume File de Log</value>
         <value xml:lang="th">ชื่อไฟล์ที่ใช้บันทึก</value>
         <value xml:lang="zh">日志文件名</value>
+        <value xml:lang="zh_TW">日誌檔案名稱</value>
     </property>
     <property key="WebtoolsLoggerAdditivity">
         <value xml:lang="de">Additivität</value>
@@ -2050,6 +2283,7 @@
         <value xml:lang="ro">Aditivitate</value>
         <value xml:lang="th">สิ่งที่เพิ่มเข้าไป</value>
         <value xml:lang="zh">添加</value>
+        <value xml:lang="zh_TW">添加</value>
     </property>
     <property key="WebtoolsLoggerLevel">
         <value xml:lang="de">Loglevel</value>
@@ -2059,6 +2293,7 @@
         <value xml:lang="ro">Nivel</value>
         <value xml:lang="th">ลำดับ</value>
         <value xml:lang="zh">级别</value>
+        <value xml:lang="zh_TW">級別</value>
     </property>
     <property key="WebtoolsLoggerListFormDescription">
         <value xml:lang="de">Diese Seite zeigt alle aktivierten Logger.</value>
@@ -2069,6 +2304,7 @@
         <value xml:lang="th">รูปแบบนี้เป็นการแสดง loggers ทั้งหมดที่เป็นไปได้
             This form shows all enabled loggers.</value>
         <value xml:lang="zh">这个表单显示了全部在用的日志记录。</value>
+        <value xml:lang="zh_TW">這個表單顯示了全部在用的日誌記錄。</value>
     </property>
     <property key="WebtoolsLoggerName">
         <value xml:lang="de">Name</value>
@@ -2078,6 +2314,7 @@
         <value xml:lang="ro">Nume</value>
         <value xml:lang="th">ชื่อ</value>
         <value xml:lang="zh">名称</value>
+        <value xml:lang="zh_TW">名稱</value>
     </property>
     <property key="WebtoolsLogging">
         <value xml:lang="de">Logging</value>
@@ -2086,6 +2323,7 @@
         <value xml:lang="it">Log</value>
         <value xml:lang="th">Logging</value>
         <value xml:lang="zh">日志记录</value>
+        <value xml:lang="zh_TW">日誌記錄</value>
     </property>
     <property key="WebtoolsMainPage">
         <value xml:lang="de">WebTools Startseite</value>
@@ -2095,6 +2333,7 @@
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลัก WebTools</value>
         <value xml:lang="zh">Web工具首页</value>
+        <value xml:lang="zh_TW">Web工具首頁</value>
     </property>
     <property key="WebtoolsMaintainTimestamps">
         <value xml:lang="de">Timestamps erhalten?</value>
@@ -2104,6 +2343,7 @@
         <value xml:lang="ro">Mentii Timestamps?</value>
         <value xml:lang="th">ดูแลรักษาตารางเวลา?</value>
         <value xml:lang="zh">维护时间戳？</value>
+        <value xml:lang="zh_TW">維護時間戳？</value>
     </property>
     <property key="WebtoolsMaxMemory">
         <value xml:lang="de">Max. Speicher</value>
@@ -2113,6 +2353,7 @@
         <value xml:lang="ro">MAXIMA</value>
         <value xml:lang="th">หน่วยความจำสูงสุด</value>
         <value xml:lang="zh">最大</value>
+        <value xml:lang="zh_TW">最大</value>
     </property>
     <property key="WebtoolsMaxRecordsPerFile">
         <value xml:lang="de">Max Einträge je Datei</value>
@@ -2121,6 +2362,7 @@
         <value xml:lang="it">Nr. max di records per file</value>
         <value xml:lang="th">จำนวนสูงสุดในการบันทึกต่อไฟล์</value>
         <value xml:lang="zh">每个文件的最大记录数</value>
+        <value xml:lang="zh_TW">每個文件的最大記錄數</value>
     </property>
     <property key="WebtoolsMaxRetries">
         <value xml:lang="de">Max Versuche</value>
@@ -2130,6 +2372,7 @@
         <value xml:lang="ro">Tentative Maxime</value>
         <value xml:lang="th">ค่าสูงสุดในการทดสอบใหม่</value>
         <value xml:lang="zh">最大重试</value>
+        <value xml:lang="zh_TW">最大重試</value>
     </property>
     <property key="WebtoolsMaxRetry">
         <value xml:lang="de">Max Versuche</value>
@@ -2139,6 +2382,7 @@
         <value xml:lang="ro">Tentativa Maxima</value>
         <value xml:lang="th">ค่าสูงสุดในการทดสอบใหม่</value>
         <value xml:lang="zh">最大重试</value>
+        <value xml:lang="zh_TW">最大重試</value>
     </property>
     <property key="WebtoolsMaxSize">
         <value xml:lang="de">Max Größe</value>
@@ -2148,6 +2392,7 @@
         <value xml:lang="ro">Marime Maxima</value>
         <value xml:lang="th">ขนาดสูงสุด</value>
         <value xml:lang="zh">最大大小</value>
+        <value xml:lang="zh_TW">最大大小</value>
     </property>
     <property key="WebtoolsMaxInMemory">
         <value xml:lang="en">Max In Memory</value>
@@ -2160,12 +2405,14 @@
         <value xml:lang="ro">Memorie</value>
         <value xml:lang="th">หน่วยความจำ</value>
         <value xml:lang="zh">内存</value>
+        <value xml:lang="zh_TW">記憶體</value>
     </property>
     <property key="WebtoolsMinervaConnectionObjects">
         <value xml:lang="de">Minerva Verbindungsobjekte</value>
         <value xml:lang="en">Minerva Connection Objects</value>
         <value xml:lang="it">Oggetti connessione Minerva</value>
         <value xml:lang="zh">智能连接对象</value>
+        <value xml:lang="zh_TW">智慧連接物件</value>
     </property>
     <property key="WebtoolsMiscSetupTools">
         <value xml:lang="de">Versch. Setup Tools</value>
@@ -2175,6 +2422,7 @@
         <value xml:lang="ro">Instrumente Varii de Configurare</value>
         <value xml:lang="th">Misc. เครื่องมือติดตั้ง</value>
         <value xml:lang="zh">其它安装工具</value>
+        <value xml:lang="zh_TW">其他安裝工具</value>
     </property>
     <property key="WebtoolsMisses">
         <value xml:lang="de">Fehler/nicht gefunden/Abgelaufen/Referenz</value>
@@ -2184,6 +2432,7 @@
         <value xml:lang="ro">Pierdute, negasite, Expirate Curatirea Referinte </value>
         <value xml:lang="th">Misses/NF/EXP/SR</value>
         <value xml:lang="zh">错失/未找到/过期/软引用</value>
+        <value xml:lang="zh_TW">錯失/未找到/過期/軟引用</value>
     </property>
     <property key="WebtoolsMissesExpire">
         <value xml:lang="de">Abgelaufen</value>
@@ -2193,6 +2442,7 @@
         <value xml:lang="ro">Expirare</value>
         <value xml:lang="th">หมดอายุ</value>
         <value xml:lang="zh">过期</value>
+        <value xml:lang="zh_TW">過期</value>
     </property>
     <property key="WebtoolsMissesNotFound">
         <value xml:lang="de">Nicht gefunden</value>
@@ -2202,6 +2452,7 @@
         <value xml:lang="ro">Ne Gasite</value>
         <value xml:lang="th">ไม่พบ</value>
         <value xml:lang="zh">未找到</value>
+        <value xml:lang="zh_TW">未找到</value>
     </property>
     <property key="WebtoolsMissesSoftReference">
         <value xml:lang="de">Referenz</value>
@@ -2211,6 +2462,7 @@
         <value xml:lang="ro">Curatirea Referinte</value>
         <value xml:lang="th">Soft Reference</value>
         <value xml:lang="zh">软引用</value>
+        <value xml:lang="zh_TW">軟引用</value>
     </property>
     <property key="WebtoolsMissesTotal">
         <value xml:lang="de">Fehler</value>
@@ -2220,6 +2472,7 @@
         <value xml:lang="ro">Pierdute</value>
         <value xml:lang="th">พลาด</value>
         <value xml:lang="zh">错失</value>
+        <value xml:lang="zh_TW">錯失</value>
     </property>
     <property key="WebtoolsMode">
         <value xml:lang="de">Modus</value>
@@ -2229,6 +2482,7 @@
         <value xml:lang="ro">Mod</value>
         <value xml:lang="th">โหมด</value>
         <value xml:lang="zh">方法</value>
+        <value xml:lang="zh_TW">方法</value>
     </property>
     <property key="WebtoolsMostlyInserts">
         <value xml:lang="de">Meistens Einfügungen?</value>
@@ -2238,6 +2492,7 @@
         <value xml:lang="ro">Principalele Intrari?</value>
         <value xml:lang="th">ส่วนใหญ่แทรก?</value>
         <value xml:lang="zh">大部分是插入？</value>
+        <value xml:lang="zh_TW">大部分是插入？</value>
     </property>
     <property key="WebtoolsMyCertificates">
         <value xml:lang="de">Meine Zertifikate</value>
@@ -2246,6 +2501,7 @@
         <value xml:lang="it">Miei certificati</value>
         <value xml:lang="th">หนังสือรับรอง</value>
         <value xml:lang="zh">我的证书</value>
+        <value xml:lang="zh_TW">我的証書</value>
     </property>
     <property key="WebtoolsNameOrRole">
         <value xml:lang="de">Name oder Rolle</value>
@@ -2255,6 +2511,7 @@
         <value xml:lang="ro">Noume sau Rol</value>
         <value xml:lang="th">ชื่อหรือหน้าที่</value>
         <value xml:lang="zh">名称或角色</value>
+        <value xml:lang="zh_TW">名稱或角色</value>
     </property>
     <property key="WebtoolsNoEntitiesRead">
         <value xml:lang="de">Keine Entität eingelesen</value>
@@ -2263,6 +2520,7 @@
         <value xml:lang="it">Nessuna entità letta</value>
         <value xml:lang="th">ไม่มี entities</value>
         <value xml:lang="zh">没有实体读</value>
+        <value xml:lang="zh_TW">沒有實體讀</value>
     </property>
     <property key="WebtoolsNoFilenameSpecified">
         <value xml:lang="de">Kein Dateiname oder keine Entitätennamen angegeben</value>
@@ -2271,6 +2529,7 @@
         <value xml:lang="it">Nessun nome di file o nome di entità specificato, non verrà fatto nulla.</value>
         <value xml:lang="th">ไม่มีชื่อไฟล์ที่ระบุหรือไม่มีชื่อเอนติตี้ที่ระบุหรือไม่มีอะไร</value>
         <value xml:lang="zh">没有指定文件名或实体名，什么也不做。</value>
+        <value xml:lang="zh_TW">沒有指定文件名或實體名，什麼也不做。</value>
     </property>
     <property key="WebtoolsNoParametersDefined">
         <value xml:lang="de">Es wurden keine Parameter angegeben</value>
@@ -2280,6 +2539,7 @@
         <value xml:lang="ro">Nici-un parametru definit</value>
         <value xml:lang="th">ไม่ระบุค่าตัวแปร</value>
         <value xml:lang="zh">没有定义参数</value>
+        <value xml:lang="zh_TW">沒有定義參數</value>
     </property>
     <property key="WebtoolsNoEntityRecordsFound">
         <value xml:lang="de">Für die Entität wurden keine Datensätze gefunden</value>
@@ -2289,6 +2549,7 @@
         <value xml:lang="ro">Nici-un Record gasit pentru Entitatea WebtoolsNoUtilCacheFound=Nici-o instanta de Cache gasita</value>
         <value xml:lang="th">ไม่พบข้อมูลที่บันทึกสำหรับเอนติตี้</value>
         <value xml:lang="zh">没有找到实体记录</value>
+        <value xml:lang="zh_TW">沒有找到實體記錄</value>
     </property>
     <property key="WebtoolsNoRunningProcesses">
         <value xml:lang="de">Es laufen keine Prozesse</value>
@@ -2297,6 +2558,7 @@
         <value xml:lang="it">Nessun processo in esecuzione</value>
         <value xml:lang="th">ไม่มีการดำเนินการ</value>
         <value xml:lang="zh">没有运行中的进程</value>
+        <value xml:lang="zh_TW">沒有運行中的進程</value>
     </property>
     <property key="WebtoolsNoServicesFound">
         <value xml:lang="de">Es wurden keine Dienste gefunden</value>
@@ -2306,6 +2568,7 @@
         <value xml:lang="ro">Nici-un serviciu gasit</value>
         <value xml:lang="th">ไม่พบ services</value>
         <value xml:lang="zh">找不到服务</value>
+        <value xml:lang="zh_TW">找不到服務</value>
     </property>
     <property key="WebtoolsNoUtilCacheElementsFound">
         <value xml:lang="de">Im UtilCache wurden keine Elemente gefunden</value>
@@ -2315,6 +2578,7 @@
         <value xml:lang="ro">Nici-un element de Cache gasit</value>
         <value xml:lang="th">No UtilCache elements found</value>
         <value xml:lang="zh">没有找到缓存元素</value>
+        <value xml:lang="zh_TW">沒有找到緩存元素</value>
     </property>
     <property key="WebtoolsNoUtilCacheFound">
         <value xml:lang="de">Es konnte keine UtilCache-Instanz gefunden</value>
@@ -2323,6 +2587,7 @@
         <value xml:lang="it">Nessuna istanza di cache trovata</value>
         <value xml:lang="th">No UtilCache instances found</value>
         <value xml:lang="zh">没有找到缓存实例</value>
+        <value xml:lang="zh_TW">沒有找到緩存實例</value>
     </property>
     <property key="WebtoolsNoUtilCacheSpecified">
         <value xml:lang="de">Es wurde keine UtilCache-Name angegeben</value>
@@ -2332,6 +2597,7 @@
         <value xml:lang="ro">Nici-un Nume de Cache Specificat</value>
         <value xml:lang="th">No Cache Name Specified</value>
         <value xml:lang="zh">没有指定缓存名称</value>
+        <value xml:lang="zh_TW">沒有指定緩存名稱</value>
     </property>
     <property key="WebtoolsNoValueFoundFor">
         <value xml:lang="de">Kein Wert gefunden für</value>
@@ -2340,6 +2606,7 @@
         <value xml:lang="it">Nessun valore trovato per</value>
         <value xml:lang="th">ไม่พบค่าสำหรับ</value>
         <value xml:lang="zh">没有找到值</value>
+        <value xml:lang="zh_TW">沒有找到值</value>
     </property>
     <property key="WebtoolsNotFound">
         <value xml:lang="de">NICHT GEFUNDEN</value>
@@ -2348,6 +2615,7 @@
         <value xml:lang="it">NON TROVATO</value>
         <value xml:lang="th">ไม่พบ</value>
         <value xml:lang="zh">没有找到</value>
+        <value xml:lang="zh_TW">沒有找到</value>
     </property>
     <property key="WebtoolsNotPresent">
         <value xml:lang="de">N/A</value>
@@ -2357,6 +2625,7 @@
         <value xml:lang="ro">Nu este Prezent</value>
         <value xml:lang="th">ไม่มีการนำเสนอ</value>
         <value xml:lang="zh">没有出现</value>
+        <value xml:lang="zh_TW">沒有出現</value>
     </property>
     <property key="WebtoolsNoteAntRunInstall">
         <value xml:lang="de">HINWEIS: Sofern Sie das Installationsskript zum Daten lagen noch nicht haben laufen lassen, geben Sie bitte im OFBIZ_HOME Verzeichnis "ant run-install" oder "java -jar ofbiz.jar install" ein.</value>
@@ -2366,6 +2635,7 @@
         <value xml:lang="ro">NOTA: Daca inca nu ai executat script_ul de instalare incarcare date, executa de la home directory ofbiz "ant run-install" sau "java -jar ofbiz.jar install"</value>
         <value xml:lang="th">หมายเหตุ: ถ้าคุณไม่ได้ทำการดำเนินงานติดตั้ง data loading script จาก ofbiz home directory ให้ใช้คำสั่ง "ant run-install" หรือ "java -jar ofbiz.jar install"</value>
         <value xml:lang="zh">注意：如果你还没有运行安装数据载入脚本，那么你可以在OFBiz目录下运行"ant run-install"或"java -jar ofbiz.jar install"</value>
+        <value xml:lang="zh_TW">注意：如果你還沒有運行安裝資料載入腳本，那麼你可以在OFBiz目錄下運行"ant run-install"或"java -jar ofbiz.jar install"</value>
     </property>
     <property key="WebtoolsNoteForeighKeysMayAlsoBeCreated">
         <value xml:lang="de">HINWEIS: Fremdschlüssel können mit der Datenbank-Check/-Update Funktion ebenfalls generiert werden, sofern die check-fks-on-start und andere Optionen auf der Datensource entsprechend gesetzt sind.</value>
@@ -2374,6 +2644,7 @@
         <value xml:lang="it">NOTA: Nell' operazione di Controlla/Aggiorna Database potrebbero essere create delle chiavi esterne se check-fks-on-start e altre opzioni sull'elemento datasource sono state configurate per fare questo.</value>
         <value xml:lang="th">หมายเหตุ: Foreign keys อาจจะสร้างเฉพาะในการ ตรวจสอบ/อัพเดท ฐานข้อมูล การดำเนินการถ้า check-fks-on-start และทางเลือกอื่นๆในแหล่งข้อมูลที่ติดตั้งในการทำ</value>
         <value xml:lang="zh">注意：如果设置了数据源元素的check-fks-on-start（启动时检查外键）和其它选项，可能会创建外键。</value>
+        <value xml:lang="zh_TW">注意：如果設置了資料源元素的check-fks-on-start（啟動時檢查外鍵）和其他選項，可能會創建外鍵。</value>
     </property>
     <property key="WebtoolsNotePerformanceResultsMayVary">
         <value xml:lang="de">HINWEIS: Diese Performance-Ergebnisse können für verschiedene Datenbankmanagementsysteme, JDBC-Treiber, JTA-Implementierungen (Transaktionsmanager), Connection-Pools, Deployment-Ansätze (local, remote) sowie Hardware (Anwendungs- und Datenbankserver, Netzwerk-Verbindugen) stark variieren.</value>
@@ -2382,6 +2653,7 @@
         <value xml:lang="it">NOTA: I risultati delle prestazioni potrebbero variare in base ai differenti database, drivers JDBC, implementazioni JTA (gestore delle transazioni), pool di connessioni, configurazioni locali/remote, e hardware (app server hardware, database server, connessioni di rete).</value>
         <value xml:lang="th">หมายเหตุ:การกระทำเหล่านี้อาจจะเป็นผลให้เกิดการซื้อขายที่ดีสำหรับความแตกต่าง ฐานขอมูล,JDBC drivers, JTA implementations  (การจัดการดำเนินการ), connection poolslocal vs. องค์ประกอบของรีโมทเคลื่อนที่,และฮาร์ดแวร์ (app server hardware, ฐานข้อมูลserver ฮาร์ดแวร์,เชื่อมโยงเครือข่าย).</value>
         <value xml:lang="zh">注意：这些性能结果对不同的数据库、JDBC驱动程序、JTA实现(交易管理)、连接池、本地/远程部署配置以及硬件(应用服务器硬件、数据库服务器硬件、网络连接)会变化很大。</value>
+        <value xml:lang="zh_TW">注意：這些性能結果對不同的資料庫、JDBC驅動程式、JTA實現(交易管理)、連接池、本地/遠端部署配置以及硬體(應用伺服器硬體、資料庫伺服器硬體、網路連接)會變化很大。</value>
     </property>
     <property key="WebtoolsNoteUseAtYourOwnRisk">
         <value xml:lang="de">HINWEIS: Benutzen Sie diese Funktion auf eigenes Risiko; stellen Sie sicher, dass Sie wissen, was Sie tun, BEVOR Sie diese Funktionen nutzen.</value>
@@ -2390,6 +2662,7 @@
         <value xml:lang="it">NOTA: Usare quanto segue a proprio rischio; devi essere sicuro di sapere cosa stai facendo prima di eseguirli...</value>
         <value xml:lang="th">หมายเหตุ: ใช้ตามความเสี่ยงของคุณ; สร้างความแน่ใจว่าคุณควรทำอะไรก่อนดำเนินการสิ่งนี้...</value>
         <value xml:lang="zh">注意：使用下列的功能，风险自行承担；运行前请确信你知道你在做什么</value>
+        <value xml:lang="zh_TW">注意：使用下列的功能，風險自行承擔；運行前請確信你知道你在做什麼</value>
     </property>
     <property key="WebtoolsNumberOfJobRetry">
         <value xml:lang="de">Anzahl der Wiederholungsversuche im Fehlerfall; setzen Sie -1 für unbegrenzte Wiederholungsversuche oder lassen Sie das Feld leer für die Voreinstellung</value>
@@ -2399,6 +2672,7 @@
         <value xml:lang="ro">numar de ori ca lucrul va reincerca eroarea; folositi -1 fara nici-o limita sau lasati gol pentru serviciul de default</value>
         <value xml:lang="th">จำนวนของเวลางานจะทดสอบใหม่เมื่อเกิดข้อผิดพลาด; ใช้ -1 เพื่อทำให้ไม่มีขีดจำกัดหรือปล่อยให้เป็นค่าว่างสำหรับค่าเริ่มต้น</value>
         <value xml:lang="zh">任务出错时的重试次数；-1表示没有限制，或空白表示使用服务缺省设置</value>
+        <value xml:lang="zh_TW">任務出錯時的重試次數；-1表示沒有限制，或空白表示使用服務缺省設置</value>
     </property>
     <property key="WebtoolsNumberOfTimeTheJobWillRun">
         <value xml:lang="de">Anzahl der Job-Wiederholungen; setzen Sie -1 für unbegrenzte Wiederholungen, d.h. für immer</value>
@@ -2408,6 +2682,7 @@
         <value xml:lang="ro">numar de ori lucrul va fi executat; folositi -1 fara nici-o  limita (in acest exemplu infinit)</value>
         <value xml:lang="th">จำนวนของเวลางานจะดำเนินงานเมื่อ; ใช้ -1 เพื่อทำให้ไม่มีขีดจำกัด i.e. ตลอดไป</value>
         <value xml:lang="zh">任务将执行的次数；-1表示没有限制即会一直执行下去</value>
+        <value xml:lang="zh_TW">任務將執行的次數；-1表示沒有限制即會一直執行下去</value>
     </property>
     <property key="WebtoolsOperator">
         <value xml:lang="de">Operateur</value>
@@ -2417,6 +2692,7 @@
         <value xml:lang="ro">Operator</value>
         <value xml:lang="th">ผู้ควบคุม</value>
         <value xml:lang="zh">操作员</value>
+        <value xml:lang="zh_TW">操作員</value>
     </property>
     <property key="WebtoolsOptional">
         <value xml:lang="de">Optional</value>
@@ -2426,6 +2702,7 @@
         <value xml:lang="ro">Optional</value>
         <value xml:lang="th">ทางเลือก</value>
         <value xml:lang="zh">可选</value>
+        <value xml:lang="zh_TW">可選</value>
     </property>
     <property key="WebtoolsOutParameters">
         <value xml:lang="de">Ausgangswerte</value>
@@ -2435,6 +2712,7 @@
         <value xml:lang="ro">Parametri Iesire</value>
         <value xml:lang="th">พารามิเตอร์ออก</value>
         <value xml:lang="zh">外传参数</value>
+        <value xml:lang="zh_TW">外傳參數</value>
     </property>
     <property key="WebtoolsOutToBrowser">
         <value xml:lang="de">ODER Browserausgabe</value>
@@ -2443,6 +2721,7 @@
         <value xml:lang="it">O output al browser</value>
         <value xml:lang="th">หรืออกไปสู่ Browser</value>
         <value xml:lang="zh">或者输出到浏览器</value>
+        <value xml:lang="zh_TW">或者輸出到瀏覽器</value>
     </property>
     <property key="WebtoolsOutputDirectory">
         <value xml:lang="de">Ausgabe-Verzeichnis</value>
@@ -2452,6 +2731,7 @@
         <value xml:lang="ro">Directory de Iesire </value>
         <value xml:lang="th">Output Directory</value>
         <value xml:lang="zh">输出目录</value>
+        <value xml:lang="zh_TW">輸出目錄</value>
     </property>
     <property key="WebtoolsOwnLogfile">
         <value xml:lang="de">Eigene Logdatei</value>
@@ -2459,6 +2739,7 @@
         <value xml:lang="fr">Utiliser une fichier de log séparé</value>
         <value xml:lang="it">Utilizzare un file di log separato</value>
         <value xml:lang="zh">使用单独的日志文件</value>
+        <value xml:lang="zh_TW">使用單獨的日誌文件</value>
     </property>
     <property key="WebtoolsParameterName">
         <value xml:lang="de">Parametername</value>
@@ -2468,6 +2749,7 @@
         <value xml:lang="ro">Nume Parametru</value>
         <value xml:lang="th">ชื่อตัวแปร</value>
         <value xml:lang="zh">参数名称</value>
+        <value xml:lang="zh_TW">參數名稱</value>
     </property>
     <property key="WebtoolsParameterValue">
         <value xml:lang="de">Parameterwert</value>
@@ -2476,6 +2758,7 @@
         <value xml:lang="it">Valore parametro</value>
         <value xml:lang="th">ค่าตัวแปร</value>
         <value xml:lang="zh">参数值</value>
+        <value xml:lang="zh_TW">參數值</value>
     </property>
     <property key="WebtoolsParent">
         <value xml:lang="de">Elternreferenz</value>
@@ -2484,6 +2767,7 @@
         <value xml:lang="it">Padre</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">上级标识</value>
+        <value xml:lang="zh_TW">上級ID</value>
     </property>
     <property key="WebtoolsPause">
         <value xml:lang="de">Pause (sec) zwischen Dateien</value>
@@ -2493,6 +2777,7 @@
         <value xml:lang="ro">Pausa (secunde) intre fisiere</value>
         <value xml:lang="th">หยุด (secs) ระหว่างไฟล์</value>
         <value xml:lang="zh">文件间暂停 (秒)</value>
+        <value xml:lang="zh_TW">文件間暫停 (秒)</value>
     </property>
     <property key="WebtoolsPerformanceCalls">
         <value xml:lang="de">Aufrufe</value>
@@ -2501,6 +2786,7 @@
         <value xml:lang="it">Chiamate</value>
         <value xml:lang="th">Calls</value>
         <value xml:lang="zh">调用次数</value>
+        <value xml:lang="zh_TW">調用次數</value>
     </property>
     <property key="WebtoolsPerformanceCallsSecond">
         <value xml:lang="de">Aufrufe/Sekunde</value>
@@ -2509,6 +2795,7 @@
         <value xml:lang="it">Chiamate/Secondo</value>
         <value xml:lang="th">เรียก/วินาที</value>
         <value xml:lang="zh">次调用/秒</value>
+        <value xml:lang="zh_TW">次調用/秒</value>
     </property>
     <property key="WebtoolsPerformanceNotFound">
         <value xml:lang="de">Es wurden keine Performance-Tests gefunden</value>
@@ -2517,6 +2804,7 @@
         <value xml:lang="it">Nessun test prestazioni trovato</value>
         <value xml:lang="th">ไม่พบการทดสอบ</value>
         <value xml:lang="zh">没有找到性能测试</value>
+        <value xml:lang="zh_TW">沒有找到性能測試</value>
     </property>
     <property key="WebtoolsPerformanceOperation">
         <value xml:lang="de">Funktion</value>
@@ -2525,6 +2813,7 @@
         <value xml:lang="it">Operazione</value>
         <value xml:lang="th">การดำเนินการ</value>
         <value xml:lang="zh">操作</value>
+        <value xml:lang="zh_TW">操作</value>
     </property>
     <property key="WebtoolsPerformanceSeconds">
         <value xml:lang="de">Sekunden</value>
@@ -2533,6 +2822,7 @@
         <value xml:lang="it">Secondi</value>
         <value xml:lang="th">วินาที</value>
         <value xml:lang="zh">秒</value>
+        <value xml:lang="zh_TW">秒</value>
     </property>
     <property key="WebtoolsPerformanceSecondsCall">
         <value xml:lang="de">Sekunden/Aufruf</value>
@@ -2541,6 +2831,7 @@
         <value xml:lang="it">Secondi/Chiamata</value>
         <value xml:lang="th">วินาที/เรียก</value>
         <value xml:lang="zh">秒/调用</value>
+        <value xml:lang="zh_TW">秒/調用</value>
     </property>
     <property key="WebtoolsPerformanceTests">
         <value xml:lang="de">Performance-Tests</value>
@@ -2550,6 +2841,7 @@
         <value xml:lang="ro">Testul Prestarilor</value>
         <value xml:lang="th">การดำเนินการทดสอบ</value>
         <value xml:lang="zh">性能测试</value>
+        <value xml:lang="zh_TW">性能測試</value>
     </property>
     <property key="WebtoolsPermissionError">
         <value xml:lang="de">WebTools Autorisierungsfehler</value>
@@ -2559,6 +2851,7 @@
         <value xml:lang="ro">Eroare Permisa Intrumente Web</value>
         <value xml:lang="th">ข้อผิดพลาดเกี่ยวกับการอนุญาตเข้าใช้งานในส่วนของ Webtools</value>
         <value xml:lang="zh">Web工具权限错误</value>
+        <value xml:lang="zh_TW">Web工具權限錯誤</value>
     </property>
     <property key="WebtoolsPermissionMaint">
         <value xml:lang="de">Sie haben keine Berechtigung um diese Seite aufzurufen (Die ENTITY_MAINT Berechtigung ist erforderlich)</value>
@@ -2567,6 +2860,7 @@
         <value xml:lang="it">Non hai il l'autorizzazione per usare questa pagina (necessario ENTITY_MAINT)</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในหน้านี้ (ENTITY_MAINT ที่ต้องการ)</value>
         <value xml:lang="zh">你没有使用这个页面的权限(需要ENTITY_MAINT)</value>
+        <value xml:lang="zh_TW">你沒有使用這個頁面的權限(需要ENTITY_MAINT)</value>
     </property>
     <property key="WebtoolsPermissionType">
         <value xml:lang="de">Berechtigungs-Typ</value>
@@ -2576,6 +2870,7 @@
         <value xml:lang="ro">Tip Permis</value>
         <value xml:lang="th">ประเภทของการอนุญาต</value>
         <value xml:lang="zh">权限类型</value>
+        <value xml:lang="zh_TW">權限類型</value>
     </property>
     <property key="WebtoolsPk">
         <value xml:lang="de">Primärschlüssel</value>
@@ -2585,6 +2880,7 @@
         <value xml:lang="ro">Cheie Primarie</value>
         <value xml:lang="th">Primary Key</value>
         <value xml:lang="zh">主键</value>
+        <value xml:lang="zh_TW">主鍵</value>
     </property>
     <property key="WebtoolsPks">
         <value xml:lang="de">Primärschlüssel</value>
@@ -2593,6 +2889,7 @@
         <value xml:lang="it">Chiavi primarie</value>
         <value xml:lang="th">Pks</value>
         <value xml:lang="zh">主键</value>
+        <value xml:lang="zh_TW">主鍵</value>
     </property>
     <property key="WebtoolsPool">
         <value xml:lang="de">Pool</value>
@@ -2602,6 +2899,7 @@
         <value xml:lang="ro">Pool</value>
         <value xml:lang="th">Pool</value>
         <value xml:lang="zh">池</value>
+        <value xml:lang="zh_TW">池</value>
     </property>
     <property key="WebtoolsPopupWebToolsMain">
         <value xml:lang="de">Pop-Up WebTools Hauptseite</value>
@@ -2610,6 +2908,7 @@
         <value xml:lang="it">Pop up pagina principale strumenti del Framework</value>
         <value xml:lang="th">Pop up หน้าหลักเครื่องมือพัฒนาเว็บ</value>
         <value xml:lang="zh">弹出Web工具首页</value>
+        <value xml:lang="zh_TW">彈出Web工具首頁</value>
     </property>
     <property key="WebtoolsPreConfiguredSet">
         <value xml:lang="de">Vorderfinierter Satz</value>
@@ -2618,6 +2917,7 @@
         <value xml:lang="it">Impostazioni pre-configurate</value>
         <value xml:lang="th">ตั้งค่าก่อนการสร้าง</value>
         <value xml:lang="zh">预设的集合</value>
+        <value xml:lang="zh_TW">預設的集合</value>
     </property>
     <property key="WebtoolsPreConfiguredSet1">
         <value xml:lang="de">Katalogexport</value>
@@ -2626,6 +2926,7 @@
         <value xml:lang="it">Esporta catalogo</value>
         <value xml:lang="th">รายชื่อการส่งออก</value>
         <value xml:lang="zh">目录导出</value>
+        <value xml:lang="zh_TW">目錄導出</value>
     </property>
     <property key="WebtoolsPreConfiguredSet2">
         <value xml:lang="de">Produkt, Teil 1</value>
@@ -2634,6 +2935,7 @@
         <value xml:lang="it">Prodotti Parte 1</value>
         <value xml:lang="th">สินค้าส่วนที่ 1</value>
         <value xml:lang="zh">产品部分1</value>
+        <value xml:lang="zh_TW">產品部分1</value>
     </property>
     <property key="WebtoolsPreConfiguredSet3">
         <value xml:lang="de">Produkt, Teil 2</value>
@@ -2642,6 +2944,7 @@
         <value xml:lang="it">Prodotti Parte 2</value>
         <value xml:lang="th">สินค้าส่วนที่ 2</value>
         <value xml:lang="zh">产品部分2</value>
+        <value xml:lang="zh_TW">產品部分2</value>
     </property>
     <property key="WebtoolsPreConfiguredSet4">
         <value xml:lang="de">Produkt, Teil 3</value>
@@ -2650,6 +2953,7 @@
         <value xml:lang="it">Prodotti Parte 3</value>
         <value xml:lang="th">สินค้าส่วนที่ 3</value>
         <value xml:lang="zh">产品部分3</value>
+        <value xml:lang="zh_TW">產品部分3</value>
     </property>
     <property key="WebtoolsPreConfiguredSet5">
         <value xml:lang="de">Produkt, Teil 4</value>
@@ -2658,6 +2962,7 @@
         <value xml:lang="it">Prodotti Parte 4</value>
         <value xml:lang="th">สินค้าส่วนที่ 4</value>
         <value xml:lang="zh">产品部分4</value>
+        <value xml:lang="zh_TW">產品部分4</value>
     </property>
     <property key="WebtoolsPriority">
         <value xml:lang="de">Dringlichkeit</value>
@@ -2666,6 +2971,7 @@
         <value xml:lang="it">Priorità</value>
         <value xml:lang="th">สิทธิพิเศษ</value>
         <value xml:lang="zh">优先级</value>
+        <value xml:lang="zh_TW">優先級</value>
     </property>
     <property key="WebtoolsRHSMapName">
         <value xml:lang="de">RHS-Karten-Name</value>
@@ -2675,6 +2981,7 @@
         <value xml:lang="ro">Nume mapa RHS</value>
         <value xml:lang="th">ชื่อแผนที่ RHS</value>
         <value xml:lang="zh">右手选择变换名称</value>
+        <value xml:lang="zh_TW">右手選擇變換名稱</value>
     </property>
     <property key="WebtoolsRHSValueName">
         <value xml:lang="de">RHS-Wert-Name</value>
@@ -2684,6 +2991,7 @@
         <value xml:lang="ro">Nume valoare RHS</value>
         <value xml:lang="th">ชื่อค่า RHS</value>
         <value xml:lang="zh">右手选择值名称</value>
+        <value xml:lang="zh_TW">右手選擇值名稱</value>
     </property>
     <property key="WebtoolsReadAndPrintedNEntities">
         <value xml:lang="de">Es wurden $ÜtoBeStored.size()* Entitäten gelesen und ausgedruckt.</value>
@@ -2692,6 +3000,7 @@
         <value xml:lang="it">Lette e stampate ${toBeStored.size()} entità.</value>
         <value xml:lang="th">อ่านและพิมพ์ ${toBeStored.size()} entities.</value>
         <value xml:lang="zh">已读取和打印的${toBeStored.size()}个实体。</value>
+        <value xml:lang="zh_TW">已讀取和列印的${toBeStored.size()}個實體。</value>
     </property>
     <property key="WebtoolsRecordsUpdatedBefore">
         <value xml:lang="de">Datensätze aktualisiert vor</value>
@@ -2700,6 +3009,7 @@
         <value xml:lang="it">Records aggiornati prima</value>
         <value xml:lang="th">บันทึกข้อมูลก่อนทำการอัพเดท</value>
         <value xml:lang="zh">已更新的记录早于</value>
+        <value xml:lang="zh_TW">已更新的記錄早于</value>
     </property>
     <property key="WebtoolsRecordsUpdatedSince">
         <value xml:lang="de">Datensätze aktualisiert seit</value>
@@ -2708,6 +3018,7 @@
         <value xml:lang="it">Records aggiornati fino a</value>
         <value xml:lang="th">บันทึกข้อมูลตั้งแต่ทำการอัพเดท</value>
         <value xml:lang="zh">已更新的记录始自</value>
+        <value xml:lang="zh_TW">已更新的記錄始自</value>
     </property>
     <property key="WebtoolsRelatedEntity">
         <value xml:lang="de">Verknüpfte Entität</value>
@@ -2717,6 +3028,7 @@
         <value xml:lang="ro">Entitate Relationata</value>
         <value xml:lang="th">ความสัมพันธ์ของ Entity</value>
         <value xml:lang="zh">相关的实体</value>
+        <value xml:lang="zh_TW">相關的實體</value>
     </property>
     <property key="WebtoolsRelation">
         <value xml:lang="de">Verknüpfung</value>
@@ -2725,6 +3037,7 @@
         <value xml:lang="it">Relazione</value>
         <value xml:lang="th">ความสัมพันธ์</value>
         <value xml:lang="zh">关系</value>
+        <value xml:lang="zh_TW">關系</value>
     </property>
     <property key="WebtoolsRelationType">
         <value xml:lang="de">Verknüpfungstyp</value>
@@ -2734,6 +3047,7 @@
         <value xml:lang="ro">Tip Relatii</value>
         <value xml:lang="th">ประเภทของความสัมพันธ์</value>
         <value xml:lang="zh">关系类型</value>
+        <value xml:lang="zh_TW">關系類型</value>
     </property>
     <property key="WebtoolsRelations">
         <value xml:lang="de">Verknüpfungen</value>
@@ -2743,6 +3057,7 @@
         <value xml:lang="ro">Relatii</value>
         <value xml:lang="th">ความสัมพันธ์</value>
         <value xml:lang="zh">关系</value>
+        <value xml:lang="zh_TW">關系</value>
     </property>
     <property key="WebtoolsReln">
         <value xml:lang="de">Verkn.</value>
@@ -2752,6 +3067,7 @@
         <value xml:lang="ro">Rel</value>
         <value xml:lang="th">Reln</value>
         <value xml:lang="zh">关系</value>
+        <value xml:lang="zh_TW">關系</value>
     </property>
     <property key="WebtoolsReloadCacheList">
         <value xml:lang="de">Cacheliste neu laden</value>
@@ -2761,6 +3077,7 @@
         <value xml:lang="ro">Incarcare lista cache</value>
         <value xml:lang="th">โหลด Cache อีกครั้ง</value>
         <value xml:lang="zh">重载缓存列表</value>
+        <value xml:lang="zh_TW">重載緩存列表</value>
     </property>
     <property key="WebtoolsRemoveAllTables">
         <value xml:lang="de">Alle Tabellen entfernen</value>
@@ -2769,6 +3086,7 @@
         <value xml:lang="it">Rimuovi tutte le tabelle</value>
         <value xml:lang="th">ลบตารางทั้งหมด</value>
         <value xml:lang="zh">删除全部数据库表</value>
+        <value xml:lang="zh_TW">刪除全部資料庫表</value>
     </property>
     <property key="WebtoolsRemoves">
         <value xml:lang="de">Entfernt: Besuche/Fehler</value>
@@ -2778,6 +3096,7 @@
         <value xml:lang="ro">Stergeri: Tentative Pierdute</value>
         <value xml:lang="th">ลบ:H/M</value>
         <value xml:lang="zh">删除：击中/错失</value>
+        <value xml:lang="zh_TW">刪除：擊中/錯失</value>
     </property>
     <property key="WebtoolsRemovesHit">
         <value xml:lang="de">Entfernt: Abrufe</value>
@@ -2787,6 +3106,7 @@
         <value xml:lang="ro">Stergeri: Tentative</value>
         <value xml:lang="th">ลบ:Hit</value>
         <value xml:lang="zh">删除：击中</value>
+        <value xml:lang="zh_TW">刪除：擊中</value>
     </property>
     <property key="WebtoolsRemovesMisses">
         <value xml:lang="de">Entfernt: Fehler</value>
@@ -2796,6 +3116,7 @@
         <value xml:lang="ro">Stergeri: Pierdute</value>
         <value xml:lang="th">ลบ:Misses</value>
         <value xml:lang="zh">删除：错失</value>
+        <value xml:lang="zh_TW">刪除：錯失</value>
     </property>
     <property key="WebtoolsRepairColumnSizes">
         <value xml:lang="de">Spaltenbreiten reparieren</value>
@@ -2804,6 +3125,7 @@
         <value xml:lang="it">Ripara ampiezza colonna</value>
         <value xml:lang="th">แก้ไขขนาดของแถว</value>
         <value xml:lang="zh">修复列大小</value>
+        <value xml:lang="zh_TW">修複列大小</value>
     </property>
     <property key="WebtoolsRequireNewTransaction">
         <value xml:lang="de">Neue Transaktion anfragen</value>
@@ -2813,6 +3135,7 @@
         <value xml:lang="ro">Cerere noua tranzactie</value>
         <value xml:lang="th">กำหนด transaction ใหม่</value>
         <value xml:lang="zh">请求新的交易</value>
+        <value xml:lang="zh_TW">請求新的交易</value>
     </property>
     <property key="WebtoolsResetJob">
         <value xml:lang="de">Job zurücksetzen</value>
@@ -2821,6 +3144,7 @@
         <value xml:lang="it">Resettare il lavoro</value>
         <value xml:lang="th">เปลี่ยนงาน</value>
         <value xml:lang="zh">重置任务</value>
+        <value xml:lang="zh_TW">重置任務</value>
     </property>
     <property key="WebtoolsResults">
         <value xml:lang="de">Ergebnisse</value>
@@ -2830,6 +3154,7 @@
         <value xml:lang="ro">Rezultate</value>
         <value xml:lang="th">ผลลัพธ์</value>
         <value xml:lang="zh">结果</value>
+        <value xml:lang="zh_TW">結果</value>
     </property>
     <property key="WebtoolsRunGC">
         <value xml:lang="de">GC starten</value>
@@ -2839,6 +3164,7 @@
         <value xml:lang="ro">Executa GC</value>
         <value xml:lang="th">Run GC</value>
         <value xml:lang="zh">运行GC</value>
+        <value xml:lang="zh_TW">運行GC</value>
     </property>
     <property key="WebtoolsRunOnError">
         <value xml:lang="de">Im Fehlerfall starten</value>
@@ -2848,6 +3174,7 @@
         <value xml:lang="ro">Executa pe eroare</value>
         <value xml:lang="th">ดำเนินการบนข้อผิดพลาด</value>
         <value xml:lang="zh">在出错时运行</value>
+        <value xml:lang="zh_TW">在出錯時運行</value>
     </property>
     <property key="WebtoolsRunOnFailure">
         <value xml:lang="de">Im Abbruchsfall starten</value>
@@ -2857,6 +3184,7 @@
         <value xml:lang="ro">Executa pe faliment</value>
         <value xml:lang="th">ดำเนินการบนความล้มเหลว</value>
         <value xml:lang="zh">在失败时运行</value>
+        <value xml:lang="zh_TW">在失敗時運行</value>
     </property>
     <property key="WebtoolsRunTime">
         <value xml:lang="de">Laufzeit</value>
@@ -2866,6 +3194,7 @@
         <value xml:lang="ro">Timp de Executie</value>
         <value xml:lang="th">เวลาดำเนินงาน</value>
         <value xml:lang="zh">运行时间</value>
+        <value xml:lang="zh_TW">運行時間</value>
     </property>
     <property key="WebtoolsSchedule">
         <value xml:lang="de">Einplanen</value>
@@ -2875,6 +3204,7 @@
         <value xml:lang="ro">Planificare</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="zh">日程安排</value>
+        <value xml:lang="zh_TW">日程安排</value>
     </property>
     <property key="WebtoolsScheduleJob">
         <value xml:lang="de">Job aufsetzen</value>
@@ -2884,6 +3214,7 @@
         <value xml:lang="ro">Planificare Lucru</value>
         <value xml:lang="th">ตารางเวลางาน</value>
         <value xml:lang="zh">任务计划</value>
+        <value xml:lang="zh_TW">任務計劃</value>
     </property>
     <property key="WebtoolsSecasIgnoreError">
         <value xml:lang="de">Fehler ignorieren</value>
@@ -2892,6 +3223,7 @@
         <value xml:lang="it">Ignora errore</value>
         <value xml:lang="th">มองข้ามข้อผิดพลาด</value>
         <value xml:lang="zh">忽略错误</value>
+        <value xml:lang="zh_TW">忽略錯誤</value>
     </property>
     <property key="WebtoolsSecasIgnoreFailure">
         <value xml:lang="de">Abbruch ignorieren</value>
@@ -2900,6 +3232,7 @@
         <value xml:lang="it">Ignora fallimento</value>
         <value xml:lang="th">ละเลยความล้มเหลว</value>
         <value xml:lang="zh">忽略失败</value>
+        <value xml:lang="zh_TW">忽略失敗</value>
     </property>
     <property key="WebtoolsSecasPersist">
         <value xml:lang="de">Persistieren</value>
@@ -2908,6 +3241,7 @@
         <value xml:lang="it">Rendere persistente</value>
         <value xml:lang="th">ยังคงอยู่</value>
         <value xml:lang="zh">持续</value>
+        <value xml:lang="zh_TW">持續</value>
     </property>
     <property key="WebtoolsSecasResultMapName">
         <value xml:lang="de">Ergebnis-Matrix-Name</value>
@@ -2916,6 +3250,7 @@
         <value xml:lang="it">Risultato nome mappa</value>
         <value xml:lang="th">ผลลัพธ์ของชื่อแผนที่</value>
         <value xml:lang="zh">结果键值表名称</value>
+        <value xml:lang="zh_TW">結果鍵值表名稱</value>
     </property>
     <property key="WebtoolsSecasResultToContext">
         <value xml:lang="de">Ergebnis in den Kontext</value>
@@ -2924,6 +3259,7 @@
         <value xml:lang="it">Risultato nel contesto</value>
         <value xml:lang="th">ผลลัพธ์สำหรับ Context</value>
         <value xml:lang="zh">结果到Context</value>
+        <value xml:lang="zh_TW">結果到Context</value>
     </property>
     <property key="WebtoolsSecasResultToResult">
         <value xml:lang="de">Ergebnis zum Ergebnis</value>
@@ -2932,6 +3268,7 @@
         <value xml:lang="it">Risultato in Result</value>
         <value xml:lang="th">ผลลัพธ์สำหรับผลที่ได้</value>
         <value xml:lang="zh">结果到结果</value>
+        <value xml:lang="zh_TW">結果到結果</value>
     </property>
     <property key="WebtoolsSecasServiceMode">
         <value xml:lang="de">Dienst-Modus</value>
@@ -2940,6 +3277,7 @@
         <value xml:lang="it">Modo servizio</value>
         <value xml:lang="th">โหมด Service</value>
         <value xml:lang="zh">服务状态</value>
+        <value xml:lang="zh_TW">服務狀態</value>
     </property>
     <property key="WebtoolsSelectDispatcher">
         <value xml:lang="de">Verteiler auswählen</value>
@@ -2949,6 +3287,7 @@
         <value xml:lang="ro">Selectioneaza Dispatcher</value>
         <value xml:lang="th">เลือกการส่งของ</value>
         <value xml:lang="zh">选择执行程序</value>
+        <value xml:lang="zh_TW">選擇執行程式</value>
     </property>
     <property key="WebtoolsServerHitStatisticsTools">
         <value xml:lang="de">Statistik-Tools für Server-Besuche</value>
@@ -2958,6 +3297,7 @@
         <value xml:lang="ro">Instrumente pentru Statistica Server Hit</value>
         <value xml:lang="th">เครื่องมือการให้บริการทางสถิติ</value>
         <value xml:lang="zh">服务器击中统计工具</value>
+        <value xml:lang="zh_TW">伺服器擊中統計工具</value>
     </property>
     <property key="WebtoolsService">
         <value xml:lang="de">Dienst</value>
@@ -2967,6 +3307,7 @@
         <value xml:lang="ro">Serviciu</value>
         <value xml:lang="th">Service</value>
         <value xml:lang="zh">服务</value>
+        <value xml:lang="zh_TW">服務</value>
     </property>
     <property key="WebtoolsServiceClearPreviousParams">
         <value xml:lang="de">Vorige Parameter löschen</value>
@@ -2975,6 +3316,7 @@
         <value xml:lang="it">Azzera parametri precedenti</value>
         <value xml:lang="th">ยกเลิกตัวแปรก่อนหน้านี้</value>
         <value xml:lang="zh">清除以前的参数</value>
+        <value xml:lang="zh_TW">清除以前的參數</value>
     </property>
     <property key="WebtoolsServiceDefault">
         <value xml:lang="de">Voreinstellung</value>
@@ -2983,6 +3325,7 @@
         <value xml:lang="it">Default</value>
         <value xml:lang="th">ค่าที่เลือก</value>
         <value xml:lang="zh">缺省</value>
+        <value xml:lang="zh_TW">缺省</value>
     </property>
     <property key="WebtoolsServiceECA">
         <value xml:lang="de">ECA-Dienste</value>
@@ -2992,6 +3335,7 @@
         <value xml:lang="ro">Serviciu ECA</value>
         <value xml:lang="th">Service ECAs</value>
         <value xml:lang="zh">服务ECA's</value>
+        <value xml:lang="zh_TW">服務ECA's</value>
     </property>
     <property key="WebtoolsServiceEngineThreads">
         <value xml:lang="de">Dienste-Engine Threads</value>
@@ -3000,6 +3344,7 @@
         <value xml:lang="it">Threads dell' Engine Servizi</value>
         <value xml:lang="th">Service Engine Threads</value>
         <value xml:lang="zh">服务引擎线程</value>
+        <value xml:lang="zh_TW">服務引擎線程</value>
     </property>
     <property key="WebtoolsServiceEngineTools">
         <value xml:lang="de">"Dienste-Engine"</value>
@@ -3009,6 +3354,7 @@
         <value xml:lang="ro">Instrumente pentru Engin Service</value>
         <value xml:lang="th">เครื่องมือ Service Engine </value>
         <value xml:lang="zh">服务引擎工具</value>
+        <value xml:lang="zh_TW">服務引擎工具</value>
     </property>
     <property key="WebtoolsServiceList">
         <value xml:lang="de">Dienstliste</value>
@@ -3018,6 +3364,7 @@
         <value xml:lang="ro">Lista Service</value>
         <value xml:lang="th">Service List</value>
         <value xml:lang="zh">服务列表</value>
+        <value xml:lang="zh_TW">服務列表</value>
     </property>
     <property key="WebtoolsServiceLog">
         <value xml:lang="de">Dienstelog</value>
@@ -3027,6 +3374,7 @@
         <value xml:lang="ro">Log Serviciu</value>
         <value xml:lang="th">Service Log</value>
         <value xml:lang="zh">服务日志</value>
+        <value xml:lang="zh_TW">服務日誌</value>
     </property>
     <property key="WebtoolsServiceName">
         <value xml:lang="de">Dienstname</value>
@@ -3036,6 +3384,7 @@
         <value xml:lang="ro">Nume Serviciu </value>
         <value xml:lang="th">ชื่อ Service</value>
         <value xml:lang="zh">服务名称</value>
+        <value xml:lang="zh_TW">服務名稱</value>
     </property>
     <property key="WebtoolsServiceReference">
         <value xml:lang="de">Dienste-Referenz</value>
@@ -3045,6 +3394,7 @@
         <value xml:lang="ro">Referinte Serviciu</value>
         <value xml:lang="th">อ้างอิง Service </value>
         <value xml:lang="zh">服务引用</value>
+        <value xml:lang="zh_TW">服務引用</value>
     </property>
     <property key="WebtoolsServiceSaveValue">
         <value xml:lang="de">Wert speichern</value>
@@ -3053,6 +3403,7 @@
         <value xml:lang="it">Salva valore</value>
         <value xml:lang="th">บันทึกค่า</value>
         <value xml:lang="zh">保存值</value>
+        <value xml:lang="zh_TW">保存值</value>
     </property>
     <property key="WebtoolsServiceWSDL">
         <value xml:lang="de">WSDL Dienstdefinition</value>
@@ -3062,6 +3413,7 @@
         <value xml:lang="ro">Definitie Serviciu WSDL</value>
         <value xml:lang="th">รายละเอียด WSDL Service </value>
         <value xml:lang="zh">WSDL服务定义</value>
+        <value xml:lang="zh_TW">WSDL服務定義</value>
     </property>
     <property key="WebtoolsServicesFound">
         <value xml:lang="de">Gefunden Dienste</value>
@@ -3070,6 +3422,7 @@
         <value xml:lang="it">Servizio trovato</value>
         <value xml:lang="th">พบ Services</value>
         <value xml:lang="zh">找到的服务</value>
+        <value xml:lang="zh_TW">找到的服務</value>
     </property>
     <property key="WebtoolsServicesListFor">
         <value xml:lang="de">Dienstliste für</value>
@@ -3079,6 +3432,7 @@
         <value xml:lang="ro">Lista servizi per</value>
         <value xml:lang="th">รายการ Services สำหรับ</value>
         <value xml:lang="zh">服务列表：</value>
+        <value xml:lang="zh_TW">服務列表：</value>
     </property>
     <property key="WebtoolsSet">
         <value xml:lang="de">Satz</value>
@@ -3094,6 +3448,7 @@
         <value xml:lang="ro">Afiseaza wsdl</value>
         <value xml:lang="th">แสดง wsdl</value>
         <value xml:lang="zh">显示WSDL</value>
+        <value xml:lang="zh_TW">顯示WSDL</value>
     </property>
     <property key="WebtoolsSingleFilename">
         <value xml:lang="de">Einzelner Dateiname</value>
@@ -3102,6 +3457,7 @@
         <value xml:lang="it">Nome di file singolo</value>
         <value xml:lang="th">ชื่อไฟล์เฉพาะ</value>
         <value xml:lang="zh">单个文件名</value>
+        <value xml:lang="zh_TW">單個文件名</value>
     </property>
     <property key="WebtoolsSize">
         <value xml:lang="de">Größe</value>
@@ -3111,6 +3467,7 @@
         <value xml:lang="ro">Marime</value>
         <value xml:lang="th">ขนาด</value>
         <value xml:lang="zh">大小</value>
+        <value xml:lang="zh_TW">大小</value>
     </property>
     <property key="WebtoolsSizeTotal">
         <value xml:lang="de">Gesamtgröße</value>
@@ -3120,6 +3477,7 @@
         <value xml:lang="ro">Marime Totala</value>
         <value xml:lang="th">ขนาดรวม</value>
         <value xml:lang="zh">大小总计</value>
+        <value xml:lang="zh_TW">大小總計</value>
     </property>
     <property key="WebtoolsSpecifiedEntity1">
         <value xml:lang="de">Entität 1</value>
@@ -3129,6 +3487,7 @@
         <value xml:lang="ro">Entitate specificata</value>
         <value xml:lang="th">Entity 1</value>
         <value xml:lang="zh">指定的实体</value>
+        <value xml:lang="zh_TW">指定的實體</value>
     </property>
     <property key="WebtoolsSpecifiedEntity2">
         <value xml:lang="de">Entität 2</value>
@@ -3138,6 +3497,7 @@
         <value xml:lang="ro">negasita</value>
         <value xml:lang="th">Entity2</value>
         <value xml:lang="zh">没有找到</value>
+        <value xml:lang="zh_TW">沒有找到</value>
     </property>
     <property key="WebtoolsSqlCommand">
         <value xml:lang="de">SQL Ausdruck</value>
@@ -3147,6 +3507,7 @@
         <value xml:lang="ro">Comanda SQL</value>
         <value xml:lang="th">คำสั่ง SQL</value>
         <value xml:lang="zh">SQL命令</value>
+        <value xml:lang="zh_TW">SQL命令</value>
     </property>
     <property key="WebtoolsSqlProcessor">
         <value xml:lang="de">SQL Prozessor</value>
@@ -3156,6 +3517,7 @@
         <value xml:lang="ro">Executa SQL</value>
         <value xml:lang="th">การประมวลผลของ SQL</value>
         <value xml:lang="zh">SQL处理程序</value>
+        <value xml:lang="zh_TW">SQL處理程式</value>
     </property>
     <property key="WebtoolsSqlType">
         <value xml:lang="de">SQL-Typ</value>
@@ -3164,6 +3526,7 @@
         <value xml:lang="it">Tipo SQL</value>
         <value xml:lang="th">ประเภทของ SQL</value>
         <value xml:lang="zh">SQL类型</value>
+        <value xml:lang="zh_TW">SQL類型</value>
     </property>
     <property key="WebtoolsStatistics">
         <value xml:lang="de">Statistiken</value>
@@ -3177,6 +3540,7 @@
         <value xml:lang="it">Med.</value>
         <value xml:lang="th">Avg</value>
         <value xml:lang="zh">平均</value>
+        <value xml:lang="zh_TW">平均</value>
     </property>
     <property key="WebtoolsStatsBinsErrorMsg">
         <value xml:lang="de">Der angegebene Typ ist ungültig.</value>
@@ -3185,6 +3549,7 @@
         <value xml:lang="it">Il tipo specificato non è valido</value>
         <value xml:lang="th">ประเภทของรูปแบบเฉพาะไม่ถูกต้อง</value>
         <value xml:lang="zh">指定的类型无效。</value>
+        <value xml:lang="zh_TW">指定的類型無效。</value>
     </property>
     <property key="WebtoolsStatsBinsPageTitle">
         <value xml:lang="de">Serverstatistik Historie</value>
@@ -3193,6 +3558,7 @@
         <value xml:lang="it">Pagina storia statistiche server bins</value>
         <value xml:lang="th">หน้าข้อมูลสถิติขยะ</value>
         <value xml:lang="zh">服务器统计二进制历史记录页面</value>
+        <value xml:lang="zh_TW">伺服器統計二進制歷史記錄頁面</value>
     </property>
     <property key="WebtoolsStatsClearSince">
         <value xml:lang="de">Statistiken (seit Start) zurücksetzen</value>
@@ -3201,6 +3567,7 @@
         <value xml:lang="it">Pulisce fino dall'avvio statistiche</value>
         <value xml:lang="th">ยกเลิกตั้งแต่เริ่มต้น</value>
         <value xml:lang="zh">清除启动以来的统计</value>
+        <value xml:lang="zh_TW">清除啟動以來的統計</value>
     </property>
     <property key="WebtoolsStatsCurrentTime">
         <value xml:lang="de">Aktuelle Zeit</value>
@@ -3209,6 +3576,7 @@
         <value xml:lang="it">Ora attuale</value>
         <value xml:lang="th">ช่วงเวลา</value>
         <value xml:lang="zh">当前时间</value>
+        <value xml:lang="zh_TW">當前時間</value>
     </property>
     <property key="WebtoolsStatsEventStats">
         <value xml:lang="de">Ereignisstatistik</value>
@@ -3217,6 +3585,7 @@
         <value xml:lang="it">Evento statistiche</value>
         <value xml:lang="th">สถิติเหตุการณ์</value>
         <value xml:lang="zh">事件统计</value>
+        <value xml:lang="zh_TW">事件統計</value>
     </property>
     <property key="WebtoolsStatsHits">
         <value xml:lang="de">Besuche</value>
@@ -3225,6 +3594,7 @@
         <value xml:lang="it">Colpi</value>
         <value xml:lang="th">Hits</value>
         <value xml:lang="zh">击中</value>
+        <value xml:lang="zh_TW">擊中</value>
     </property>
     <property key="WebtoolsStatsHitsPerMin">
         <value xml:lang="de">Besuche/Minute</value>
@@ -3233,6 +3603,7 @@
         <value xml:lang="it">Colpi/Minuto</value>
         <value xml:lang="th">Hits/นาที</value>
         <value xml:lang="zh">击中/分钟</value>
+        <value xml:lang="zh_TW">擊中/分鐘</value>
     </property>
     <property key="WebtoolsStatsMainPageTitle">
         <value xml:lang="de">Serverstatistiken seit Serverstart</value>
@@ -3241,6 +3612,7 @@
         <value xml:lang="it">Statistiche da quanto il Server è Avviato</value>
         <value xml:lang="th">สถิติตั้งแต่เริ่มต้น</value>
         <value xml:lang="zh">自启动以来的服务器统计</value>
+        <value xml:lang="zh_TW">自啟動以來的伺服器統計</value>
     </property>
     <property key="WebtoolsStatsMax">
         <value xml:lang="de">Maximalwert</value>
@@ -3249,6 +3621,7 @@
         <value xml:lang="it">Mas.</value>
         <value xml:lang="th">ค่าสูงสุด</value>
         <value xml:lang="zh">最大</value>
+        <value xml:lang="zh_TW">最大</value>
     </property>
     <property key="WebtoolsStatsMin">
         <value xml:lang="de">Minimalwert</value>
@@ -3257,6 +3630,7 @@
         <value xml:lang="it">Min.</value>
         <value xml:lang="th">ค่าต่ำสุด</value>
         <value xml:lang="zh">最小</value>
+        <value xml:lang="zh_TW">最小</value>
     </property>
     <property key="WebtoolsStatsMinutes">
         <value xml:lang="de">Minuten</value>
@@ -3265,6 +3639,7 @@
         <value xml:lang="it">Minuti</value>
         <value xml:lang="th">นาที</value>
         <value xml:lang="zh">分钟</value>
+        <value xml:lang="zh_TW">分鐘</value>
     </property>
     <property key="WebtoolsStatsNoEvents">
         <value xml:lang="de">Es wurden keine Ereignisstatistiken gefunden.</value>
@@ -3273,6 +3648,7 @@
         <value xml:lang="it">Nessun evento statistiche trovato.</value>
         <value xml:lang="th">ไม่พบสถิติของเหตุการณ์</value>
         <value xml:lang="zh">没有找到事件统计。</value>
+        <value xml:lang="zh_TW">沒有找到事件統計。</value>
     </property>
     <property key="WebtoolsStatsNoRequests">
         <value xml:lang="de">Es wurden keine Anfragestatistiken gefunden.</value>
@@ -3281,6 +3657,7 @@
         <value xml:lang="it">Nessuna statistica delle request trovata.</value>
         <value xml:lang="th">ไม่พบการส่งข้อมูลสถิติ</value>
         <value xml:lang="zh">没有找到请求统计。</value>
+        <value xml:lang="zh_TW">沒有找到請求統計。</value>
     </property>
     <property key="WebtoolsStatsNoViews">
         <value xml:lang="de">Es wurden keine Besuchsstatistiken gefunden.</value>
@@ -3289,6 +3666,7 @@
         <value xml:lang="it">Nessuna statistica delle view trovata.</value>
         <value xml:lang="th">ไม่พบสถิติการตรวจสอบ</value>
         <value xml:lang="zh">没有找到浏览统计。</value>
+        <value xml:lang="zh_TW">沒有找到瀏覽統計。</value>
     </property>
     <property key="WebtoolsStatsPermissionMsg">
         <value xml:lang="de">Sie haben keine Berechtigung, diese Seite aufzurufen (Sie benötigen die SERVER_STATS_VIEW Berechtigung).</value>
@@ -3297,6 +3675,7 @@
         <value xml:lang="it">Non hai l'autorizzazione per vedere questa pagina (necessario permesso SERVER_STATS_VIEW).</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในส่วนนี้ (SERVER_STATS_VIEW ที่ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个页面的权限(需要SERVER_STATS_VIEW)。</value>
+        <value xml:lang="zh_TW">你沒有瀏覽這個頁面的權限(需要SERVER_STATS_VIEW)。</value>
     </property>
     <property key="WebtoolsStatsReloadPage">
         <value xml:lang="de">Seite neu laden</value>
@@ -3305,6 +3684,7 @@
         <value xml:lang="it">Ricarica la pagina</value>
         <value xml:lang="th">ใส่หน้าเพิ่ม</value>
         <value xml:lang="zh">刷新页面</value>
+        <value xml:lang="zh_TW">刷新頁面</value>
     </property>
     <property key="WebtoolsStatsRequestId">
         <value xml:lang="de">Anfrage ID</value>
@@ -3313,6 +3693,7 @@
         <value xml:lang="it">Richiesta</value>
         <value xml:lang="th">รหัสคำร้อง</value>
         <value xml:lang="zh">请求标识</value>
+        <value xml:lang="zh_TW">要求ID</value>
     </property>
     <property key="WebtoolsStatsRequestStats">
         <value xml:lang="de">Anfragestatistik</value>
@@ -3321,6 +3702,7 @@
         <value xml:lang="it">Statistica richieste</value>
         <value xml:lang="th">สถิติคำร้อง</value>
         <value xml:lang="zh">请求统计</value>
+        <value xml:lang="zh_TW">請求統計</value>
     </property>
     <property key="WebtoolsStatsSinceServerStart">
         <value xml:lang="de">Serverstatistik (seit Start)</value>
@@ -3330,6 +3712,7 @@
         <value xml:lang="ro">Statistici de cand serverul a fost Deschis</value>
         <value xml:lang="th">สถิติตั้งแต่เริ่มต้น</value>
         <value xml:lang="zh">服务器启动以来的统计</value>
+        <value xml:lang="zh_TW">伺服器啟動以來的統計</value>
     </property>
     <property key="WebtoolsStatsStart">
         <value xml:lang="de">Starten</value>
@@ -3338,6 +3721,7 @@
         <value xml:lang="it">Inizio</value>
         <value xml:lang="th">เริ่ม</value>
         <value xml:lang="zh">开始</value>
+        <value xml:lang="zh_TW">開始</value>
     </property>
     <property key="WebtoolsStatsStop">
         <value xml:lang="de">Anhalten</value>
@@ -3346,6 +3730,7 @@
         <value xml:lang="it">Fine</value>
         <value xml:lang="th">หยุด</value>
         <value xml:lang="zh">停止</value>
+        <value xml:lang="zh_TW">停止</value>
     </property>
     <property key="WebtoolsStatsViewBins">
         <value xml:lang="de">Blöcke ansehen</value>
@@ -3354,6 +3739,7 @@
         <value xml:lang="it">Mostra bins</value>
         <value xml:lang="th">ดูถังขยะ</value>
         <value xml:lang="zh">浏览二进制文件</value>
+        <value xml:lang="zh_TW">瀏覽二進制文件</value>
     </property>
     <property key="WebtoolsStatsViewStats">
         <value xml:lang="de">Statistiken ansehen</value>
@@ -3362,6 +3748,7 @@
         <value xml:lang="it">Mostra statistiche</value>
         <value xml:lang="th">แสดงสถิติ</value>
         <value xml:lang="zh">浏览统计</value>
+        <value xml:lang="zh_TW">瀏覽統計</value>
     </property>
     <property key="WebtoolsStatusInvalid">
         <value xml:lang="de">Ungültiger Status</value>
@@ -3371,6 +3758,7 @@
         <value xml:lang="ro">Stat Invalid</value>
         <value xml:lang="th">สถานะไม่ถูกต้อง</value>
         <value xml:lang="zh">无效的状态</value>
+        <value xml:lang="zh_TW">無效的狀態</value>
     </property>
     <property key="WebtoolsStatusRunning">
         <value xml:lang="de">Eingeschaltet</value>
@@ -3380,6 +3768,7 @@
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="th">ดำเนินการ</value>
         <value xml:lang="zh">正在运行</value>
+        <value xml:lang="zh_TW">正在運行</value>
     </property>
     <property key="WebtoolsStatusShuttingDown">
         <value xml:lang="de">Im Herunterfahren</value>
@@ -3389,6 +3778,7 @@
         <value xml:lang="ro">In Inchidere</value>
         <value xml:lang="th">ปิด</value>
         <value xml:lang="zh">正在关闭</value>
+        <value xml:lang="zh_TW">正在關閉</value>
     </property>
     <property key="WebtoolsStatusSleeping">
         <value xml:lang="de">Inaktiv</value>
@@ -3398,6 +3788,7 @@
         <value xml:lang="ro">Asteptare</value>
         <value xml:lang="th">พัก</value>
         <value xml:lang="zh">睡眠中</value>
+        <value xml:lang="zh_TW">睡眠中</value>
     </property>
     <property key="WebtoolsStep1ServiceAndRecurrenceInfo">
         <value xml:lang="de">Schritt 1: Dienst und Laufzeit (##recurrence##) Informationen</value>
@@ -3407,6 +3798,7 @@
         <value xml:lang="ro">Passo 1: Serviciu si Informatii Recurente</value>
         <value xml:lang="th">ขั้นตอนที่ 1: ข้อมูลของเซอร์วิสและการนำกลับขึ้นมาพิจารณาอีก</value>
         <value xml:lang="zh">步骤一：服务和循环信息</value>
+        <value xml:lang="zh_TW">步驟一：服務和迴圈資訊</value>
     </property>
     <property key="WebtoolsStep2ServiceParameters">
         <value xml:lang="de">Schritt 2: Dienstparameter</value>
@@ -3416,6 +3808,7 @@
         <value xml:lang="ro">Passo 2: Servizio Parametri</value>
         <value xml:lang="th">ขั้นตอนที่ 2: ค่าตัวแปรเซอร์วิส</value>
         <value xml:lang="zh">步骤二：服务参数</value>
+        <value xml:lang="zh_TW">步驟二：服務參數</value>
     </property>
     <property key="WebtoolsSync">
         <value xml:lang="de">SYNCH</value>
@@ -3425,6 +3818,7 @@
         <value xml:lang="ro">SINCRON</value>
         <value xml:lang="th">SYNC</value>
         <value xml:lang="zh">同步</value>
+        <value xml:lang="zh_TW">同步</value>
     </property>
     <property key="WebtoolsSyncAcceptOffline">
         <value xml:lang="de">Offline Synchronisierung erlauben</value>
@@ -3434,6 +3828,7 @@
         <value xml:lang="ro">Accepta Sincronizare Offline</value>
         <value xml:lang="th">ยอมรับการไม่สามารถติดต่อได้</value>
         <value xml:lang="zh">接受离线同步</value>
+        <value xml:lang="zh_TW">接受離線同步</value>
     </property>
     <property key="WebtoolsSyncRejectOffline">
         <value xml:lang="de">Offline Synchroinisierung ablehen</value>
@@ -3443,6 +3838,7 @@
         <value xml:lang="ro">Refuza Sincronizarea Offline</value>
         <value xml:lang="th">ปฏิเสธการไม่สามารถติดต่อได้</value>
         <value xml:lang="zh">拒绝离线同步</value>
+        <value xml:lang="zh_TW">拒絕離線同步</value>
     </property>
     <property key="WebtoolsSyncResetRunStatus">
         <value xml:lang="de">Laufstatus zurücksetzen</value>
@@ -3452,6 +3848,7 @@
         <value xml:lang="ro">Executa Azerarea Stat</value>
         <value xml:lang="th">เปลี่ยนสถานะการทำงาน</value>
         <value xml:lang="zh">重置运行状态</value>
+        <value xml:lang="zh_TW">重置運行狀態</value>
     </property>
     <property key="WebtoolsSyncRunOffline">
         <value xml:lang="de">Offline Synchronisierung starten</value>
@@ -3461,6 +3858,7 @@
         <value xml:lang="ro">Executa Sincronizarea Offline</value>
         <value xml:lang="th">ดำเนินการไม่สามารถติดต่อได้</value>
         <value xml:lang="zh">运行离线同步</value>
+        <value xml:lang="zh_TW">運行離線同步</value>
     </property>
     <property key="WebtoolsTTL">
         <value xml:lang="de">TTL</value>
@@ -3476,6 +3874,7 @@
         <value xml:lang="it">TABELLA</value>
         <value xml:lang="th">ตาราง</value>
         <value xml:lang="zh">数据库表</value>
+        <value xml:lang="zh_TW">資料庫表</value>
     </property>
     <property key="WebtoolsTemporalExpression">
         <value xml:lang="de">Zeitausdrücke</value>
@@ -3483,6 +3882,7 @@
         <value xml:lang="fr">Expression temporelle</value>
         <value xml:lang="it">Espressione temporale</value>
         <value xml:lang="zh">时间表达式</value>
+        <value xml:lang="zh_TW">時間運算式</value>
     </property>
     <property key="WebtoolsTestResults">
         <value xml:lang="de">Testergebnisse</value>
@@ -3491,6 +3891,7 @@
         <value xml:lang="it">Risultati test</value>
         <value xml:lang="th">ผลการทดสอบ</value>
         <value xml:lang="zh">测试结果</value>
+        <value xml:lang="zh_TW">測試結果</value>
     </property>
     <property key="WebtoolsThisThread">
         <value xml:lang="de">Dieser Thread</value>
@@ -3500,6 +3901,7 @@
         <value xml:lang="ro">Thread</value>
         <value xml:lang="th">Thread</value>
         <value xml:lang="zh">线程</value>
+        <value xml:lang="zh_TW">線程</value>
     </property>
     <property key="WebtoolsThread">
         <value xml:lang="de">Thread</value>
@@ -3509,6 +3911,7 @@
         <value xml:lang="ro">Thread</value>
         <value xml:lang="th">Thread</value>
         <value xml:lang="zh">线程</value>
+        <value xml:lang="zh_TW">線程</value>
     </property>
     <property key="WebtoolsThreadId">
         <value xml:lang="de">ThreadID</value>
@@ -3517,6 +3920,7 @@
         <value xml:lang="it">ID</value>
         <value xml:lang="th">รหัส</value>
         <value xml:lang="zh">标识</value>
+        <value xml:lang="zh_TW">ID</value>
     </property>
     <property key="WebtoolsThreadList">
         <value xml:lang="de">Thread Liste</value>
@@ -3526,6 +3930,7 @@
         <value xml:lang="ro">Lista Thread</value>
         <value xml:lang="th">รายชื่อ thread</value>
         <value xml:lang="zh">线程列表</value>
+        <value xml:lang="zh_TW">線程列表</value>
     </property>
     <property key="WebtoolsTimeoutSeconds">
         <value xml:lang="de">TX Timeout in Sekunden (je Entität / Datei)</value>
@@ -3535,6 +3940,7 @@
         <value xml:lang="ro">TX Timeout in Secunde (pentru orice entitate)</value>
         <value xml:lang="th">TX Timeout Seconds (สำหรับตัวอย่าง entity หรือ file)</value>
         <value xml:lang="zh">TX超时秒数(对每个实体)</value>
+        <value xml:lang="zh_TW">TX超時秒數(對每個實體)</value>
     </property>
     <property key="WebtoolsTimingLogLevel">
         <value xml:lang="de">Steuerung</value>
@@ -3544,6 +3950,7 @@
         <value xml:lang="ro">Timp</value>
         <value xml:lang="th">Timing</value>
         <value xml:lang="zh">定时</value>
+        <value xml:lang="zh_TW">定時</value>
     </property>
     <property key="WebtoolsTimingLogLevelTooltip">
         <value xml:lang="de">Der Grad der Steuerung bestimmt die Granularität der Informationen in den Logdateien; dies ist sehr nützlich um Anwendungen zu debuggen.</value>
@@ -3553,6 +3960,7 @@
         <value xml:lang="ro">Nivel Timp desemneaza evenimente informative care sunt utile pentru debug_ul aplicatiei.</value>
         <value xml:lang="th">การเลือกระดับในการกำหนดเวลาที่เหมาะสมที่สุดโดยข้อมูลจำนวนมากผลลัพธ์ที่ได้จะใช้แก้ไขข้อผิดพลาดของแอพพลิเคชั่น</value>
         <value xml:lang="zh">定时级别会细颗粒地指出应用程序进行情况的信息，适于调试程序。</value>
+        <value xml:lang="zh_TW">定時級別會細顆粒地指出應用程式進行情況的資訊，適于調試程式。</value>
     </property>
     <property key="WebtoolsTitle">
         <value xml:lang="de">Titel</value>
@@ -3563,6 +3971,7 @@
         <value xml:lang="ro">Titlu</value>
         <value xml:lang="th">หัวเรื่อง</value>
         <value xml:lang="zh">标题</value>
+        <value xml:lang="zh_TW">標題</value>
     </property>
     <property key="WebtoolsToFindAll">
         <value xml:lang="de">Um ALLES über die Entität zu finden</value>
@@ -3572,6 +3981,7 @@
         <value xml:lang="ro">Pentru recautare TOTUL in entitatea </value>
         <value xml:lang="th">ทำการค้นหาเอนติตี้ทั้งหมด</value>
         <value xml:lang="zh">查找所有实体</value>
+        <value xml:lang="zh_TW">查找所有實體</value>
     </property>
     <property key="WebtoolsTotalEntities">
         <value xml:lang="de">Gesamtzahl Entitäten</value>
@@ -3580,6 +3990,7 @@
         <value xml:lang="it">Totale entità</value>
         <value xml:lang="th">ผลรวมของเอนติตี้</value>
         <value xml:lang="zh">全部实体</value>
+        <value xml:lang="zh_TW">全部實體</value>
     </property>
     <property key="WebtoolsTotalMemory">
         <value xml:lang="de">GESAMT</value>
@@ -3589,6 +4000,7 @@
         <value xml:lang="ro">TOTAL</value>
         <value xml:lang="th">ผลรวม</value>
         <value xml:lang="zh">全部</value>
+        <value xml:lang="zh_TW">全部</value>
     </property>
     <property key="WebtoolsUnCheckAll">
         <value xml:lang="de">Keine auswählen</value>
@@ -3597,6 +4009,7 @@
         <value xml:lang="it">De-seleziona tutto</value>
         <value xml:lang="th">ยกเลิกการเช็คทั้งหมด</value>
         <value xml:lang="zh">全部不选</value>
+        <value xml:lang="zh_TW">全部不選</value>
     </property>
     <property key="WebtoolsUpdateCharacterSetAndCollate">
         <value xml:lang="de">Zeichensatz ändern und zusammensetzen (auf der Basis der Einstellungen für datasource in entityengine.xml)</value>
@@ -3605,6 +4018,7 @@
         <value xml:lang="it">Aggiorna set di caratteri e collate (basato sulle impostazioni del datasource in entityengine.xml)</value>
         <value xml:lang="th">เปลี่ยนแปลงการเซ็ตตัวอักษรและเปรียบเทียบ (พื้นฐานบนการติดตั้ง บนแหล่งข้อมูลใน entityengine.xml)</value>
         <value xml:lang="zh">更新character-set（字符集）和 collate（校对） (基于entityengine.xml中关于数据源的设置)</value>
+        <value xml:lang="zh_TW">更新character-set（字符集）和 collate（校對） (基于entityengine.xml中關于資料源的設置)</value>
     </property>
     <property key="WebtoolsUsage">
         <value xml:lang="de">Nutzung</value>
@@ -3613,6 +4027,7 @@
         <value xml:lang="it">Uso</value>
         <value xml:lang="th">วิธีใช้</value>
         <value xml:lang="zh">使用</value>
+        <value xml:lang="zh_TW">使用</value>
     </property>
     <property key="WebtoolsUseFileStore">
         <value xml:lang="de">Dateisystem benutzen?</value>
@@ -3622,6 +4037,7 @@
         <value xml:lang="ro">Foloseste File Memorizat ?</value>
         <value xml:lang="th">ใช้ไฟล์เก็บข้อมูล?</value>
         <value xml:lang="zh">使用文件存储吗？</value>
+        <value xml:lang="zh_TW">使用文件存儲嗎？</value>
     </property>
     <property key="WebtoolsUseSoftRef">
         <value xml:lang="de">Referenzen benutzen ?</value>
@@ -3631,6 +4047,7 @@
         <value xml:lang="ro">Foloseste Referiment Soft ?</value>
         <value xml:lang="th">ใช้ในการอ้างอิง ?</value>
         <value xml:lang="zh">使用软引用吗？</value>
+        <value xml:lang="zh_TW">使用軟引用嗎？</value>
     </property>
     <property key="WebtoolsUseTransaction">
         <value xml:lang="de">Transaktion benutzen</value>
@@ -3640,6 +4057,7 @@
         <value xml:lang="ro">Foloseste transactie</value>
         <value xml:lang="th">ใช้ในการดำเนินงาน</value>
         <value xml:lang="zh">使用交易</value>
+        <value xml:lang="zh_TW">使用交易</value>
     </property>
     <property key="WebtoolsUsedMemory">
         <value xml:lang="de">BELEGT</value>
@@ -3649,6 +4067,7 @@
         <value xml:lang="ro">UZATA</value>
         <value xml:lang="th">ใช้</value>
         <value xml:lang="zh">已用</value>
+        <value xml:lang="zh_TW">已用</value>
     </property>
     <property key="WebtoolsVerboseLogLevel">
         <value xml:lang="de">Detailliert</value>
@@ -3658,6 +4077,7 @@
         <value xml:lang="ro">Detaliu</value>
         <value xml:lang="th">ใช้คำมากเกินไป</value>
         <value xml:lang="zh">冗长</value>
+        <value xml:lang="zh_TW">冗長</value>
     </property>
     <property key="WebtoolsVerboseLogLevelTooltip">
         <value xml:lang="de">Der Grad "Detailliert" legt fein-granulare Informationsereignisse fest, die sehr nützlich sind um eine Anwendung zu debuggen.</value>
@@ -3668,6 +4088,7 @@
         <value xml:lang="th">มีการใช้ถ้อยคำละเอียดมากเกินไปในแอพลิเคชันนี้
         </value>
         <value xml:lang="zh">冗长级别会细颗粒地指出应用程序进行情况的信息，适于调试程序。</value>
+        <value xml:lang="zh_TW">冗長級別會細顆粒地指出應用程式進行情況的資訊，適于調試程式。</value>
     </property>
     <property key="WebtoolsViewComponents">
         <value xml:lang="de">Komponenten ansehen</value>
@@ -3676,6 +4097,7 @@
         <value xml:lang="it">Mostra componenti</value>
         <value xml:lang="th">ส่วนประกอบ</value>
         <value xml:lang="zh">浏览组件</value>
+        <value xml:lang="zh_TW">瀏覽元件</value>
     </property>
     <property key="WebtoolsViewData">
         <value xml:lang="de">Daten ansehen</value>
@@ -3684,6 +4106,7 @@
         <value xml:lang="it">Mostra dati</value>
         <value xml:lang="th">ข้อมูล</value>
         <value xml:lang="zh">浏览数据</value>
+        <value xml:lang="zh_TW">瀏覽資料</value>
     </property>
     <property key="WebtoolsViewLog">
         <value xml:lang="de">Logdatei ansehen</value>
@@ -3693,6 +4116,7 @@
         <value xml:lang="ro">Afiseaza Log</value>
         <value xml:lang="th">ดูข้อมูลการจดบันทึก</value>
         <value xml:lang="zh">浏览日志</value>
+        <value xml:lang="zh_TW">瀏覽日誌</value>
     </property>
     <property key="WebtoolsViewPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung um diesen Bereich anzusehen (Sie benötigen OFBTOOLS_VIEW oder OFBIZTOOLS_ADMIN Berechtigung)</value>
@@ -3703,6 +4127,7 @@
         <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (необходимы права "OFBTOOLS_VIEW" или "OFBTOOLS_ADMIN")</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้เข้าดูหน้านี้ได้ (หน้า "OFBTOOLS_VIEW" หรือ "OFBTOOLS_ADMIN" ที่ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个页面的权限。(需要"OFBTOOLS_VIEW"或"OFBTOOLS_ADMIN")</value>
+        <value xml:lang="zh_TW">你沒有瀏覽這個頁面的權限。(需要"OFBTOOLS_VIEW"或"OFBTOOLS_ADMIN")</value>
     </property>
     <property key="WebtoolsViewRelations">
         <value xml:lang="de">Beziehungen ansehen</value>
@@ -3712,6 +4137,7 @@
         <value xml:lang="ro">Afiseaza Relatii</value>
         <value xml:lang="th">ความสัมพันธ์</value>
         <value xml:lang="zh">浏览关系</value>
+        <value xml:lang="zh_TW">瀏覽關系</value>
     </property>
     <property key="WebtoolsViewValue">
         <value xml:lang="de">Wert ansehen</value>
@@ -3721,6 +4147,7 @@
         <value xml:lang="ro">Afiseaza Valoare</value>
         <value xml:lang="th">แสดงค่า</value>
         <value xml:lang="zh">浏览值</value>
+        <value xml:lang="zh_TW">瀏覽值</value>
     </property>
     <property key="WebtoolsWarningLogLevel">
         <value xml:lang="de">Warnung</value>
@@ -3730,6 +4157,7 @@
         <value xml:lang="ro">Avertiment</value>
         <value xml:lang="th">คำเตือน</value>
         <value xml:lang="zh">警告</value>
+        <value xml:lang="zh_TW">警告</value>
     </property>
     <property key="WebtoolsWarningLogLevelTooltip">
         <value xml:lang="de">Bei "Warnung" werden nur möglicherweise schädliche Eregnisse gelistet.</value>
@@ -3739,6 +4167,7 @@
         <value xml:lang="ro">Nivelul de Avertiment desemneaza potentiale  situatii anormale.</value>
         <value xml:lang="th">กำหนดคำเตือนระดับที่เป็นไปได้มีสถานภาพซึ่งเป็นอันตราย</value>
         <value xml:lang="zh">警告级别指出重要的有害情形。</value>
+        <value xml:lang="zh_TW">警告級別指出重要的有害情形。</value>
     </property>
     <property key="WebtoolsWithPk">
         <value xml:lang="de">Mit Primärschlüssel</value>
@@ -3748,6 +4177,7 @@
         <value xml:lang="ro">Cu Cheia Primara</value>
         <value xml:lang="th">กับ PK</value>
         <value xml:lang="zh">主键</value>
+        <value xml:lang="zh_TW">主鍵</value>
     </property>
     <property key="WebtoolsWorkWithDataFiles">
         <value xml:lang="de">Mit Datendateien arbeiten</value>
@@ -3757,6 +4187,7 @@
         <value xml:lang="ro">Lucreaza cu Fisierele de Date</value>
         <value xml:lang="th">ทำงานกับข้อมูลไฟล์</value>
         <value xml:lang="zh">数据文件</value>
+        <value xml:lang="zh_TW">資料文件</value>
     </property>
     <property key="WebtoolsWroteNRecordsToXMLFile">
         <value xml:lang="de">Es wurden ${numberWritten} Datensätze in die Datei ${parameters.filename} geschrieben.</value>
@@ -3765,6 +4196,7 @@
         <value xml:lang="it">Scritti ${numberWritten} records su file XML ${parameters.filename}.</value>
         <value xml:lang="th">เขียน ${numberWritten} บันทึกมูล XML ไฟล์ ${parameters.filename}.</value>
         <value xml:lang="zh">把${numberWritten}个记录写到XML文件${parameters.filename}。</value>
+        <value xml:lang="zh_TW">把${numberWritten}個記錄寫到XML文件${parameters.filename}。</value>
     </property>
     <property key="WebtoolsWroteXMLForAllDataIn">
         <value xml:lang="de">Es wurde XML für alle Daten in ${numberofEntities} Entitäten geschrieben.</value>
@@ -3773,6 +4205,7 @@
         <value xml:lang="it">Scritti XML per tutti i dati in ${numberOfEntities} entità.</value>
         <value xml:lang="th">เขียน XML สำหรับข้อมูลทั้งหมดใน ${numberOfEntities} entities.</value>
         <value xml:lang="zh">为${numberOfEntities}个实体中的全部数据写到XML。</value>
+        <value xml:lang="zh_TW">為${numberOfEntities}個實體中的全部資料寫到XML。</value>
     </property>
     <property key="WebtoolsXMLExportInfo">
         <value xml:lang="de">Hier Seite können Daten aus der Datenbank exportiert werden. Die exportierten Dokumente werden in einem XML-root-tag "&lt;entity-engine-xml&gt;" enthalten sein. Es wird für jede Entität in dem für diese webapp konfigurierten Delegator eine eigene Datei erstellt.</value>
@@ -3782,6 +4215,7 @@
         <value xml:lang="ro">Aceasta pagina poate fi folosita pentru exportarea datelor din  database. Documentele exportate vor avea un root tag "&lt;entity-engine-xml&gt;". Exista un file pentru orice Entitate din delegatorul configurat pentru aceasta aplicatie web.</value>
         <value xml:lang="th">หน้านี้ใช้การส่งออกข้อมูลจากฐานข้อมูลการส่งเอกสารจะต้องใช้รูทแท็กของ "&lt;entity-engine-xml&gt;"มี 1 ไฟล์สำหรับตัวอย่าง Entity ในการสร้างตัวแทนสำหรับโปรแกรมประยุกต์นี้</value>
         <value xml:lang="zh">本页面用于从数据库导出数据 导出的文档会有一个"&lt;entity-engine-xml&gt;"的根标签在为这个应用配置的代表中，会对每个实体有一个文件。</value>
+        <value xml:lang="zh_TW">本頁面用于從資料庫導出資料 導出的文檔會有一個"&lt;entity-engine-xml&gt;"的根標簽在為這個應用配置的代表中，會對每個實體有一個文件。</value>
     </property>
     <property key="WebtoolsXMLImportInfo">
         <value xml:lang="de">Hier können zuvor exportierte Entitäten XML Dateien wieder in die Datenbank importiert werden. Diese Dokumente haben eine XML-root-tag "&lt;entity-engine-xml&gt;".</value>
@@ -3791,6 +4225,7 @@
         <value xml:lang="ro">Aceasta pagina nu poate fi folosita pentru importarea exportarea documentelor XML de Entity Engine. Toate aceste documente au un root tag "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="th">หน้านี้ใช้การนำเข้าข้อมูลที่มีการส่งออกเอนติตี้เอนจินเอกสาร XML โดยใช้คำสั่ง "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;".</value>
+        <value xml:lang="zh_TW">本頁面用于導入導出的實體引擎XML文檔。這些文檔都有一個根標簽 "&lt;entity-engine-xml&gt;".</value>
     </property>
     <property key="WebtoolsYouMayCreateAnEntity">
         <value xml:lang="de">You may create an Entity ${entityName} by entering the values you want, and clicking Create.</value>
@@ -3800,5 +4235,6 @@
         <value xml:lang="ro">Tu poti crea o Entitate ${entityName} si introducand valorile care le vrei, si click_and tasta Creare.</value>
         <value xml:lang="th">คุณสามารถที่จะสร้าง Entity ได้ ${entityName} โดยการเข้าสู่ค่าที่คุณต้องการและคลิก Create.</value>
         <value xml:lang="zh">创建一个实体 ${entityName} ：输入值，然后点击新建.</value>
+        <value xml:lang="zh_TW">創建一個實體 ${entityName} ：輸入值，然後點擊新建.</value>
     </property>    
 </resource>
