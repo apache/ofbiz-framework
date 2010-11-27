@@ -2305,9 +2305,6 @@ public class ModelFormField {
         public void setSubHyperlink(SubHyperlink newSubHyperlink) {
             this.subHyperlink = newSubHyperlink;
         }
-        public String getSize(){
-            return this.size;
-        }
     }
 
     public static class HyperlinkField extends FieldInfo {
