@@ -3901,6 +3901,7 @@ public class ModelFormField {
     }
 
     public static class ContainerField extends FieldInfo {
+        @Deprecated
         protected String id;
 
         public ContainerField() {
@@ -3909,7 +3910,6 @@ public class ModelFormField {
 
         public ContainerField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
-            this.setId(modelFormField.getIdName());
         }
 
         public ContainerField(int fieldSource, int fieldType,
@@ -3924,10 +3924,12 @@ public class ModelFormField {
             formStringRenderer.renderContainerFindField(writer, context, this);
         }
 
+        @Deprecated
         public String getId() {
             return id;
         }
 
+        @Deprecated
         public void setId(String id) {
             this.id = id;
         }

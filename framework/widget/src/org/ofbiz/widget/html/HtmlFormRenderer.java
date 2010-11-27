@@ -2919,7 +2919,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     
     public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
         writer.append("<div ");
-        String id = containerField.getId();
+        String id = containerField.getModelFormField().getIdName();
         if (UtilValidate.isNotEmpty(id)) {
             writer.append("id=\"");
             writer.append(id);
