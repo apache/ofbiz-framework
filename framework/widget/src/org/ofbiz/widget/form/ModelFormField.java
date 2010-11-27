@@ -1115,7 +1115,7 @@ public class ModelFormField {
         ModelForm modelForm = this.getModelForm();
         if (modelForm != null) {
             Integer itemIndex = (Integer) context.get("itemIndex");
-            if (modelForm != null && ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType() ))) {
+            if ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType() )) {
                 if (itemIndex != null) {
                     return this.getIdName() + modelForm.getItemIndexSeparator() + itemIndex.intValue();
                 }
