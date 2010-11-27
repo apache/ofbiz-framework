@@ -3912,15 +3912,12 @@ public class ModelFormField {
             super(element, modelFormField);
         }
 
-        public ContainerField(int fieldSource, int fieldType,
-                ModelFormField modelFormField) {
+        public ContainerField(int fieldSource, int fieldType, ModelFormField modelFormField) {
             super(fieldSource, fieldType, modelFormField);
         }
 
         @Override
-        public void renderFieldString(Appendable writer,
-                Map<String, Object> context,
-                FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderContainerFindField(writer, context, this);
         }
 

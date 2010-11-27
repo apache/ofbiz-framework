@@ -3101,9 +3101,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
-    public void renderContainerFindField(Appendable writer,
-            Map<String, Object> context, ContainerField containerField)
-            throws IOException {
+    public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
         String id = containerField.getModelFormField().getIdName();
         String className = UtilFormatOut.checkNull(containerField.getModelFormField().getWidgetStyle());
 
