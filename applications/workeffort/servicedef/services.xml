@@ -734,6 +734,12 @@ under the License.
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="processWorkEffortEventReminders" auth="true">
         <description>Process work effort event reminders. This service is run by the job scheduler.</description>
     </service>
+    <service name="processWorkEffortEventReminder" engine="java"
+            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="processWorkEffortEventReminder" auth="true">
+        <description>Send a work effort event reminder</description>
+        <attribute name="reminder" mode="IN" type="GenericValue"/>
+        <attribute name="bodyParameters" mode="IN" type="Map"/>
+    </service>
     <service name="migrateWorkEffortEventReminders" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="migrateWorkEffortEventReminders" auth="true">
         <description>Migrate work effort event reminders. Run this service to update work effort reminders.</description>

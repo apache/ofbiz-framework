@@ -56,6 +56,7 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.calendar.TemporalExpression;
@@ -879,6 +880,7 @@ public class WorkEffortServices {
      */
     public static Map<String, Object> processWorkEffortEventReminders(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = new Timestamp(System.currentTimeMillis());
         List<GenericValue> eventReminders = null;
         try {
@@ -909,6 +911,9 @@ public class WorkEffortServices {
             Locale locale = reminder.getString("localeId") == null ? Locale.getDefault() : new Locale(reminder.getString("localeId"));
             TimeZone timeZone = reminder.getString("timeZoneId") == null ? TimeZone.getDefault() : TimeZone.getTimeZone(reminder.getString("timeZoneId"));
             Map<String, Object> parameters = UtilMisc.toMap("locale", locale, "timeZone", timeZone, "workEffortId", reminder.get("workEffortId"));
+
+            Map<String, Object> processCtx = UtilMisc.toMap("reminder", reminder, "bodyParameters", parameters, "userLogin", context.get("userLogin"));
+
             Calendar cal = UtilDateTime.toCalendar(now, timeZone, locale);
             Timestamp reminderStamp = reminder.getTimestamp("reminderDateTime");
             Date eventDateTime = workEffort.getTimestamp("estimatedStartDate");
@@ -939,7 +944,8 @@ public class WorkEffortServices {
                     if (reminderDateTime.before(now) && reminderStamp != null) {
                         try {
                             parameters.put("eventDateTime", new Timestamp(eventDateTime.getTime()));
-                            processEventReminder(ctx, reminder, parameters);
+
+                            dispatcher.runSync("processWorkEffortEventReminder", processCtx);
                             if (repeatCount != 0 && currentCount + 1 >= repeatCount) {
                                 reminder.remove();
                             } else {
@@ -961,6 +967,8 @@ public class WorkEffortServices {
                             }
                         } catch (GenericEntityException e) {
                             Debug.logWarning("Error while processing temporal expression reminder, id = " + tempExprId + ": " + e, module);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
                         }
                     } else if (reminderStamp == null) {
                         try {
@@ -978,7 +986,7 @@ public class WorkEffortServices {
                 if (reminderDateTime.before(now)) {
                     try {
                         parameters.put("eventDateTime", eventDateTime);
-                        processEventReminder(ctx, reminder, parameters);
+                        dispatcher.runSync("processWorkEffortEventReminder", processCtx);
                         TimeDuration duration = TimeDuration.fromNumber(reminder.getLong("repeatInterval"));
                         if ((repeatCount != 0 && currentCount + 1 >= repeatCount) || duration.isZero()) {
                             reminder.remove();
@@ -992,6 +1000,8 @@ public class WorkEffortServices {
                         }
                     } catch (GenericEntityException e) {
                         Debug.logWarning("Error while processing event reminder: " + e, module);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
                     }
                 }
             }
@@ -999,6 +1009,35 @@ public class WorkEffortServices {
         return ServiceUtil.returnSuccess();
     }
 
+    public static Map<String, Object> processWorkEffortEventReminder(DispatchContext ctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        Map<String, Object> parameters = UtilGenerics.checkMap(context.get("bodyParameters"));
+        GenericValue reminder = (GenericValue) context.get("reminder");
+        GenericValue contactMech = null;
+        try {
+            contactMech = reminder.getRelatedOne("ContactMech");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        if (contactMech != null && "EMAIL_ADDRESS".equals(contactMech.get("contactMechTypeId"))) {
+            String screenLocation = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailScreenWidgetLocation");
+            String fromAddress = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailFromAddress");
+            String toAddress = contactMech.getString("infoString");
+            String subject = UtilProperties.getMessage("WorkEffortUiLabels", "WorkEffortEventReminder", (Locale) parameters.get("locale"));
+            Map<String, Object> emailCtx = UtilMisc.toMap("sendFrom", fromAddress, "sendTo", toAddress, "subject", subject, "bodyParameters", parameters, "bodyScreenUri", screenLocation);
+            try {
+                dispatcher.runAsync("sendMailFromScreen", emailCtx);
+            } catch (Exception e) {
+                Debug.logWarning("Error while emailing event reminder - workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId") + ": " + e, module);
+            }
+            return ServiceUtil.returnSuccess();
+        }
+        // TODO: Other contact mechanism types
+        Debug.logWarning("Invalid event reminder contact mech, workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId"), module);
+        return ServiceUtil.returnSuccess();
+    }
+
+    @Deprecated
     protected static void processEventReminder(DispatchContext ctx, GenericValue reminder, Map<String, Object> parameters) throws GenericEntityException {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue contactMech = reminder.getRelatedOne("ContactMech");
