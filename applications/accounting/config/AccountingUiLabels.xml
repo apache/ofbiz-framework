@@ -7846,7 +7846,7 @@
         <value xml:lang="zh_TW">支付閘道配置描述</value>
     </property>
     <property key="AccountingPaymentGatewayConfigTypeDescription">
-        <value xml:lang="de">Schnittstellentyp, Beschr.</value>
+        <!--value xml:lang="de">Schnittstellentyp, Beschr.</value--> <!-- duplicate -->
         <value xml:lang="de">Zahlungs-Gateway-Konfigurations-Art-Beschreibung</value>
         <value xml:lang="en">Payment Gateway Config Type Description</value>
         <value xml:lang="fr">Description des types de configuration de passerelle de paiement</value>
@@ -8845,9 +8845,6 @@
     <property key="AccountingProblemGettingShipmentItemBilling">
         <value xml:lang="en">Problem getting ShipmentItemBilling records</value>
         <value xml:lang="hi_IN">ShipmentItemBilling अभिलेखों के लिए समस्या हो रही</value>
-    </property>
-    <property key="AccountingProblemGettingShipmentItemBilling">
-        <value xml:lang="en">Problem getting ShipmentItemBilling records</value>
     </property>
     <property key="AccountingProblemLookingUpOrderItemBilling">
         <value xml:lang="en">Problem looking up OrderItemBilling records for ${billFields}</value>

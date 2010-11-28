@@ -4494,7 +4494,7 @@
         <value xml:lang="th">ตรวจสอบสินค้า</value>
         <value xml:lang="zh">产品评价</value>
         <value xml:lang="zh_TW">產品評論</value>
-        <value xml:lang="zh_TW">產品評價</value>
+        <!--value xml:lang="zh_TW">產品評價</value--> <!-- duplicate -->
     </property>
     <property key="PageTitleProfileSurvey">
         <value xml:lang="da">Profil rundspørge</value>
@@ -4511,7 +4511,7 @@
         <value xml:lang="th">สำรวจประวัติ</value>
         <value xml:lang="zh">简介调查</value>
         <value xml:lang="zh_TW">問卷簡介</value>
-        <value xml:lang="zh_TW">快速增加</value>
+        <!--value xml:lang="zh_TW">快速增加</value--> <!-- duplicate -->
     </property>
     <property key="PageTitleRequestReturn">
         <value xml:lang="cs">Odpověď na poptávku</value>

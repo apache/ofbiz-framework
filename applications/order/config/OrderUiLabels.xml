@@ -4723,7 +4723,7 @@
     <property key="OrderMarketingPackageComposedBy">
         <value xml:lang="en">Marketing Package Composed by:</value>
         <value xml:lang="pt_BR">Pacote de marketing composto por:</value>
-        <value xml:lang="en">行銷包裝組合者:</value>
+        <value xml:lang="zh">行銷包裝組合者:</value>
     </property>
     <property key="OrderMethod">
         <value xml:lang="cs">Způsob</value>
