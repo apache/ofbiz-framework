@@ -71,9 +71,9 @@
         <value xml:lang="en">My Orders</value>
         <value xml:lang="zh_TW">我的訂單</value>
     </property>
-        <value xml:lang="zh_TW">我的任務</value>
+        <!--value xml:lang="zh_TW">我的任務</value> MyPortalTasks duplicate 
         <value xml:lang="zh_TW">我的時間</value>
-        <value xml:lang="zh_TW">新的訊息</value>
+        <value xml:lang="zh_TW">新的訊息</value--> <!-- error introduced with 1039574, OFBIZ-4031 -->
     <property key="MyPortalNewRegistration">
         <value xml:lang="en">New Registration </value>
         <value xml:lang="fr">Nouvel enregistrement</value>
@@ -108,7 +108,7 @@
         <value xml:lang="zh">刷新图片</value>
         <value xml:lang="zh_TW">重載圖片</value>
     </property>
-        <value xml:lang="zh_TW">發送電子郵件給所有客戶要求變更</value>
+    <!--value xml:lang="zh_TW">發送電子郵件給所有客戶要求變更</value--> <!-- error introduced with 1039574, OFBIZ-4031 -->
     <property key="MyPortalShipToCustomer">
         <value xml:lang="en">Ship To Customer</value>
         <value xml:lang="zh_TW">寄送給客戶</value>
