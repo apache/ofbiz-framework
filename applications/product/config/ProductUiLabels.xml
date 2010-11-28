@@ -6372,7 +6372,7 @@
     </property>
     <property key="PageTitleEditWebAnalyticsTypes">
         <value xml:lang="en">Edit Web Analytics Types</value>
-        <value xml:lang="en">Aggiorna tipi di analisi Web</value>
+        <value xml:lang="it">Aggiorna tipi di analisi Web</value>
     </property>
     <property key="PageTitleFacilityLocationGeoLocation">
         <value xml:lang="en">Facility Location GeoLocation</value>

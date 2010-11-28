@@ -336,7 +336,7 @@
         <value xml:lang="ru">Пользователь с именем "${username}" заблокирован.</value>
         <value xml:lang="th">บัญชีสำหรับรหัสการลอกอินเข้าสู่ระบบของผู้ใช้ "${username}" ไม่สามารถ.</value>
         <value xml:lang="zh">用户登录标识为"${username}"的账户已被禁用。</value>
-        <value xml:lang="zh">使用者帳戶 "${username}" 已被停用。</value>
+        <value xml:lang="zh_TW">使用者帳戶 "${username}" 已被停用。</value>
     </property>
     <property key="loginservices.could_not_change_password_read_failure">
         <value xml:lang="de">Das Passwort konnte nicht geändert werden (Lesefehler): ${errorMessage}.</value>
