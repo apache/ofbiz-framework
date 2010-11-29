@@ -4476,7 +4476,6 @@
         <value xml:lang="zh">订单摘要 - 谢谢你的惠顾！</value>
         <value xml:lang="zh_TW">訂單摘要 - 謝謝你的惠顧！</value>
     </property>
-    <!--value xml:lang="zh_TW">產品頁面</value--> <!-- error introduced with 1039574, OFBIZ-4031 -->
     <property key="PageTitleProductReview">
         <value xml:lang="cs">Výrobek - přehled</value>
         <value xml:lang="da">Produktgennemgang</value>
