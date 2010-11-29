@@ -155,7 +155,7 @@
         <value xml:lang="nl">Blog ingave ID</value>     
         <value xml:lang="pt_BR">ID de entrada de blog</value>
         <value xml:lang="zh">博客记录标识</value>
-        <!--value xml:lang="zh">部落格文章ID</value--> <!-- duplicate -->
+        <value xml:lang="zh_TW">部落格文章ID</value>
     </property>
     <property key="ContentBlogEdit">
         <value xml:lang="da">Redigér en blog</value>
