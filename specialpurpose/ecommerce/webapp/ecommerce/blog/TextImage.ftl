@@ -88,7 +88,7 @@
         <div class="inputBox"><input type="checkBox" ${text_check} name="drMimeTypeId_TEXT" value="Y"/>Text</div>
         </td>
         <td>&nbsp;</td>
-        <td width="60%"
+        <td width="60%">
         <textarea class="textAreaBox" class="inputBox" name="textData" cols="60" rows="24">${textData?if_exists}</textarea>
         </td>
         <td width="10%" align="right">
