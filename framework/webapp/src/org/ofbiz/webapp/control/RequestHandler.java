@@ -221,6 +221,7 @@ public class RequestHandler {
                     if (newUrl.toUpperCase().startsWith("HTTPS")) {
                         // if we are supposed to be secure, redirect secure.
                         callRedirect(newUrl, response, request);
+                        return;
                     }
                 }
             // if this is a new session and forceHttpSession is true and the request is secure but does not
@@ -235,6 +236,7 @@ public class RequestHandler {
                 String newUrl = RequestHandler.makeUrl(request, response, urlBuf.toString(), true, false, false);
                 if (newUrl.toUpperCase().startsWith("HTTP")) {
                     callRedirect(newUrl, response, request);
+                    return;
                 }
             }
 
