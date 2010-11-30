@@ -133,10 +133,7 @@ under the License.
     </select>
   <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "COUNTRY"/>
     <select name="${questionFieldName}">
-    <#assign countries = Static["org.ofbiz.common.CommonWorkers"].getCountryList(delegator)>
-    <#list countries as country>
-        <option value='${country.geoId}'>${country.get("geoName",locale)?default(country.geoId)}</option>
-    </#list>
+      ${screens.render("component://common/widget/CommonScreens.xml#countries")}
     </select>
   <#else/>
     <div class="tabletext">Unsupported question type : ${surveyQuestionAndAppl.surveyQuestionTypeId}</div>
