@@ -71,12 +71,14 @@ under the License.
                           <input type="hidden" name="productReviewId_o_${rowCount}" value="${review.productReviewId}" />
                           ${review.postedDateTime?if_exists}
                       </td>
+                      <td>
                       <#if postedPerson?has_content>
                       <#if postedPerson.firstName?has_content && postedPerson.lastName?has_content>
-                          <td>${postedPerson.firstName} ${postedPerson.lastName}</td>
+                          ${postedPerson.firstName} ${postedPerson.lastName}
                       <#else>
-                          <td>${postedPerson.groupName}</td>
+                          ${postedPerson.groupName}
                       </#if>
+                      </td>
                       </#if>
                       <td>
                           <select name='postedAnonymous_o_${rowCount}'>
