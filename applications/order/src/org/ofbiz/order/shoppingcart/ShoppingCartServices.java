@@ -337,7 +337,7 @@ public class ShoppingCartServices {
             cartShipInfo.shipTaxAdj.addAll(orh.getOrderHeaderAdjustmentsTax(orderItemShipGroup.getString("shipGroupSeqId")));
         }
 
-        List<GenericValue> orderItems = orh.getValidOrderItems();
+        List<GenericValue> orderItems = orh.getOrderItems();
         long nextItemSeq = 0;
         if (UtilValidate.isNotEmpty(orderItems)) {
             for (GenericValue item : orderItems) {
@@ -349,6 +349,16 @@ public class ShoppingCartServices {
                 GenericValue product = null;
                 // creates survey responses for Gift cards same as last Order created
                 Map surveyResponseResult = null;
+                try {
+                    long seq = Long.parseLong(orderItemSeqId);
+                    if (seq > nextItemSeq) {
+                        nextItemSeq = seq;
+                    }
+                } catch (NumberFormatException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                if ("ITEM_REJECTED".equals(item.getString("statusId")) || "ITEM_CANCELLED".equals(item.getString("statusId"))) continue;
                 try {
                     product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                     if ("DIGITAL_GOOD".equals(product.getString("productTypeId"))) {
@@ -371,15 +381,6 @@ public class ShoppingCartServices {
                 } catch (GenericServiceException e) {
                     Debug.logError(e.toString(), module);
                     return ServiceUtil.returnError(e.toString());
-                }
-                try {
-                    long seq = Long.parseLong(orderItemSeqId);
-                    if (seq > nextItemSeq) {
-                        nextItemSeq = seq;
-                    }
-                } catch (NumberFormatException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError(e.getMessage());
                 }
 
                 // do not include PROMO items
