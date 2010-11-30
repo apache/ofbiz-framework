@@ -72,7 +72,7 @@ under the License.
  </presetdef>
 
  <presetdef name="javac16">
-  <default-javac compiler="javac1.6" target="1.6" source="1.6" encoding="UTF-8" sourcepathref="src-path">
+  <default-javac compiler="javac1.6" target="1.6" source="1.6" encoding="UTF-8" sourcepathref="src-path" includeantruntime="false">
    <!--
    <compilerarg value="-Xlint:unchecked"/>
    -->
