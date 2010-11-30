@@ -321,6 +321,7 @@ under the License.
             <set field="createShoppingListInMap.partyId" from-field="orderRole.partyId"/>
             <set field="createShoppingListInMap.listName" value="Auto Suggestions"/>
             <set field="createShoppingListInMap.shoppingListTypeId" value="SLT_WISH_LIST"/>
+            <set field="createShoppingListInMap.productStoreId" from-field="parameters.productStoreId"/>
             <call-service service-name="createShoppingList" in-map-name="createShoppingListInMap">
                 <result-to-field result-name="shoppingListId"/>
             </call-service>
