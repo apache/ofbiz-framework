@@ -272,7 +272,7 @@ stop() {
 	esac
 	wait_for_stop
 	if [ -e "$PIDFILE" ]; then
-		rm "$PIDFILE"
+		rm -f "$PIDFILE"
 	fi
 }
 
