@@ -63,6 +63,7 @@ under the License.
                 each Map in the List will also contain a field called "quantityProductPriceRule" with the GenericValue object representing the ProductPriceRule with the quantity condition that the List entry is based on
             -->
         </attribute>
+        <attribute name="optimizeForLargeRuleSet" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="createProductPriceRule" default-entity-name="ProductPriceRule" engine="simple"
