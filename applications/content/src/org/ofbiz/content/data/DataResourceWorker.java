@@ -56,6 +56,7 @@ import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilIO;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -895,11 +896,8 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
-            int c;
             FileReader in = new FileReader(file);
-            while ((c = in.read()) != -1) {
-                out.append((char)c);
-            }
+            UtilIO.copy(in, true, out);
         } else if (dataResourceTypeId.equals("OFBIZ_FILE")) {
             String prefix = System.getProperty("ofbiz.home");
             String sep = "";
@@ -907,10 +905,8 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
-            int c;
             FileReader in = new FileReader(file);
-            while ((c = in.read()) != -1)
-                out.append((char)c);
+            UtilIO.copy(in, true, out);
         } else if (dataResourceTypeId.equals("CONTEXT_FILE")) {
             String prefix = rootDir;
             String sep = "";
@@ -918,7 +914,6 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
-            int c;
             FileReader in = null;
             try {
                 in = new FileReader(file);
@@ -931,9 +926,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             } catch (Exception e) {
                 Debug.logError(" in renderDataResourceAsHtml(CONTEXT_FILE), got exception:" + e.getMessage(), module);
             }
-            while ((c = in.read()) != -1) {
-                out.append((char)c);
-            }
+            UtilIO.copy(in, true, out);
             //out.flush();
         }
     }
@@ -1112,19 +1105,13 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                     url = new URL(s2);
                 }
                 InputStream in = url.openStream();
-                int c;
-                while ((c = in.read()) != -1) {
-                    os.write(c);
-                }
+                UtilIO.copy(in, true, os, false);
             } else if (dataResourceTypeId.indexOf("_FILE") >= 0) {
                 String objectInfo = dataResource.getString("objectInfo");
                 File inputFile = getContentFile(dataResourceTypeId, objectInfo, rootDir);
                 //long fileSize = inputFile.length();
                 FileInputStream fis = new FileInputStream(inputFile);
-                int c;
-                while ((c = fis.read()) != -1) {
-                    os.write(c);
-                }
+                UtilIO.copy(fis, true, os, false);
             } else {
                 throw new GeneralException("The dataResourceTypeId [" + dataResourceTypeId + "] is not supported in streamDataResource");
             }
