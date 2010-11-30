@@ -620,7 +620,7 @@ under the License.
         <if-empty field="productCalculatedInfo">
             <!-- go ahead and create it -->
             <make-value value-field="productCalculatedInfo" entity-name="ProductCalculatedInfo"/>
-            <set from-field="parameters.productId" field="productCalculatedInfo.productId"/>
+            <set from-field="productId" field="productCalculatedInfo.productId"/>
             <set from-field="averageCustomerRating" field="productCalculatedInfo.averageCustomerRating"/>
             <create-value value-field="productCalculatedInfo"/>
         <else>
