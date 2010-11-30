@@ -76,8 +76,6 @@ public class PriceServices {
      * </ul>
      */
     public static Map<String, Object> calculateProductPrice(DispatchContext dctx, Map<String, ? extends Object> context) {
-        boolean optimizeForLargeRuleSet = false;
-
         // UtilTimer utilTimer = new UtilTimer();
         // utilTimer.timerString("Starting price calc", module);
         // utilTimer.setLog(false);
@@ -97,6 +95,7 @@ public class PriceServices {
 
         String findAllQuantityPricesStr = (String) context.get("findAllQuantityPrices");
         boolean findAllQuantityPrices = "Y".equals(findAllQuantityPricesStr);
+        boolean optimizeForLargeRuleSet = "Y".equals(context.get("optimizeForLargeRuleSet"));
 
         String agreementId = (String) context.get("agreementId");
 
