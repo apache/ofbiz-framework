@@ -58,12 +58,14 @@ under the License.
                 <#list pendingReviews as review>
                 <#if review.userLoginId?has_content>
                 <#assign postedUserLogin = review.getRelatedOne("UserLogin")>
+                <#if postedUserLogin.partyId?has_content>
                 <#assign party = postedUserLogin.getRelatedOne("Party")>
                 <#assign partyTypeId = party.get("partyTypeId")>
                 <#if partyTypeId == "PERSON">
                     <#assign postedPerson = postedUserLogin.getRelatedOne("Person")>
                 <#else>
                     <#assign postedPerson = postedUserLogin.getRelatedOne("PartyGroup")>
+                </#if>
                 </#if>
                 </#if>
                   <tr id="review_tableRow_${rowCount}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
