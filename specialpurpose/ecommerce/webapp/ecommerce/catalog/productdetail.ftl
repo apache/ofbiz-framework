@@ -483,13 +483,13 @@ ${virtualJavaScript?if_exists}
                 </div>
             </#list>
               <input type="hidden" name="add_product_id" value="${product.productId}" />
-            <div id="addCart1" style="display:none;>
+            <div id="addCart1" style="display:none;">
               <span style="white-space: nowrap;"><strong>${uiLabelMap.CommonQuantity}:</strong></span>&nbsp;
               <input type="text" size="5" name="quantity" value="1" />
               <a href="javascript:javascript:addItem();" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
             </div>
-            <div id="addCart2" style="display:block;>
+            <div id="addCart2" style="display:block;">
               <span style="white-space: nowrap;"><strong>${uiLabelMap.CommonQuantity}:</strong></span>&nbsp;
               <input type="text" size="5" value="1" disabled="disabled" />
               <a href="javascript:alert('Please select all features first');" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
