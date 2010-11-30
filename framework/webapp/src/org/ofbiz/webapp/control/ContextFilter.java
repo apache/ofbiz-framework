@@ -299,6 +299,7 @@ public class ContextFilter implements Filter {
                     
                     // make that tenant active, setup a new delegator and a new dispatcher
                     String tenantDelegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
+                    httpRequest.getSession().setAttribute("delegatorName", tenantDelegatorName);
                 
                     // after this line the delegator is replaced with the new per-tenant delegator
                     delegator = DelegatorFactory.getDelegator(tenantDelegatorName);
@@ -323,8 +324,11 @@ public class ContextFilter implements Filter {
                     request.setAttribute("tenantId", tenantId);
                 }
                 
-                // always put delegator's name to the session
-                httpRequest.getSession().setAttribute("delegatorName", delegator.getDelegatorName());
+                // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may 
+                // have logged in and specified a tenant, and even if no Tenant record with a matching domainName field 
+                // is found this will change the user's delegator back to the base one instead of the one for the 
+                // tenant specified on login 
+                // httpRequest.getSession().setAttribute("delegatorName", delegator.getDelegatorName());
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Unable to get Tenant", module);
             }
