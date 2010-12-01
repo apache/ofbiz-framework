@@ -315,4 +315,6 @@ under the License.
 
     <Uom abbreviation="ea" description="Each" uomId="OTH_ea" uomTypeId="OTHER_MEASURE"/>
     <Uom abbreviation="pp" description="Per Person" uomId="OTH_pp" uomTypeId="OTHER_MEASURE"/>
+    <Uom abbreviation="bx" description="Box" uomId="OTH_box" uomTypeId="OTHER_MEASURE"/>
+    <Uom abbreviation="pk" description="Package" uomId="OTH_pk" uomTypeId="OTHER_MEASURE"/>
 </entity-engine-xml>

@@ -26,6 +26,7 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.*;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.product.ProductContentWrapper;
+import org.ofbiz.entity.util.EntityUtil;
 
 contentPathPrefix = CatalogWorker.getContentPathPrefix(request);
 catalogName = CatalogWorker.getCatalogName(request);
@@ -54,6 +55,16 @@ if (productId) {
 if (productId) {
     product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
 
+    // first make sure this isn't a virtual-variant that has an associated virtual product, if it does show that instead of the variant
+    if("Y".equals(product.isVirtual) && "Y".equals(product.isVariant)){
+        virtualVariantProductAssocs = delegator.findByAndCache("ProductAssoc", ["productId": productId, "productAssocTypeId": "ALTERNATIVE_PACKAGE"], ["-fromDate"]);
+        virtualVariantProductAssocs = EntityUtil.filterByDate(virtualVariantProductAssocs);
+        if (virtualVariantProductAssocs) {
+            productAssoc = EntityUtil.getFirst(virtualVariantProductAssocs);
+            product = productAssoc.getRelatedOneCache("AssocProduct");
+        }
+    }
+    
     // first make sure this isn't a variant that has an associated virtual product, if it does show that instead of the variant
     virtualProductId = ProductWorker.getVariantVirtualId(product);
     if (virtualProductId) {

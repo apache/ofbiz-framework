@@ -20,6 +20,7 @@ package org.ofbiz.order.shoppingcart;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1112,9 +1113,21 @@ public class ShoppingCartItem implements java.io.Serializable {
                 if (partyId != null) {
                     priceContext.put("partyId", partyId);
                 }
+                // check alternative packaging
+                boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, this.productId , this.getParentProductId());
+                BigDecimal pieces = BigDecimal.ONE;
+                if(isAlternativePacking){
+                    GenericValue originalProduct = this.getParentProduct();
+                    if (originalProduct != null) pieces = new BigDecimal(originalProduct.getLong("piecesIncluded"));
+                    priceContext.put("product", originalProduct);
+                    this._parentProduct = null;
+                }else{
+                    priceContext.put("product", this.getProduct());
+                }
+                
                 priceContext.put("quantity", this.getQuantity());
                 priceContext.put("amount", this.getSelectedAmount());
-                priceContext.put("product", this.getProduct());
+                
                 if (cart.getOrderType().equals("PURCHASE_ORDER")) {
                     Map priceResult = dispatcher.runSync("calculatePurchasePrice", priceContext);
                     if (ServiceUtil.isError(priceResult)) {
@@ -1124,8 +1137,13 @@ public class ShoppingCartItem implements java.io.Serializable {
                     if (!validPriceFound.booleanValue()) {
                         throw new CartItemModifyException("Could not find a valid price for the product with ID [" + this.getProductId() + "] and supplier with ID [" + partyId + "], not adding to cart.");
                     }
-
-                    this.setBasePrice(((BigDecimal) priceResult.get("price")));
+                    
+                    if(isAlternativePacking){
+                        this.setBasePrice(((BigDecimal) priceResult.get("price")).divide(pieces, RoundingMode.HALF_UP));
+                    }else{
+                        this.setBasePrice(((BigDecimal) priceResult.get("price")));
+                    }
+                    
                     this.setDisplayPrice(this.basePrice);
                     this.orderItemPriceInfos = (List) priceResult.get("orderItemPriceInfos");
                 } else {
@@ -1169,21 +1187,41 @@ public class ShoppingCartItem implements java.io.Serializable {
                     if (Boolean.FALSE.equals(validPriceFound)) {
                         throw new CartItemModifyException("Could not find a valid price for the product with ID [" + this.getProductId() + "], not adding to cart.");
                     }
+                    
+                    //set alternative product price
+                    if(isAlternativePacking){
+                        int decimals = 2;
+                        if (priceResult.get("listPrice") != null) {
+                            this.listPrice = ((BigDecimal) priceResult.get("listPrice")).divide(pieces, decimals, RoundingMode.HALF_UP);
+                        }
 
-                    if (priceResult.get("listPrice") != null) {
-                        this.listPrice = ((BigDecimal) priceResult.get("listPrice"));
+                        if (priceResult.get("basePrice") != null) {
+                            this.setBasePrice(((BigDecimal) priceResult.get("basePrice")).divide(pieces, decimals, RoundingMode.HALF_UP));
+                        }
+
+                        if (priceResult.get("price") != null) {
+                            this.setDisplayPrice(((BigDecimal) priceResult.get("price")).divide(pieces, decimals, RoundingMode.HALF_UP));
+                        }
+
+                        if (priceResult.get("specialPromoPrice") != null) {
+                            this.setSpecialPromoPrice(((BigDecimal) priceResult.get("specialPromoPrice")).divide(pieces, decimals, RoundingMode.HALF_UP));
+                        }
+                    }else{
+                        if (priceResult.get("listPrice") != null) {
+                            this.listPrice = ((BigDecimal) priceResult.get("listPrice"));
+                        }
+
+                        if (priceResult.get("basePrice") != null) {
+                            this.setBasePrice(((BigDecimal) priceResult.get("basePrice")));
+                        }
+
+                        if (priceResult.get("price") != null) {
+                            this.setDisplayPrice(((BigDecimal) priceResult.get("price")));
+                        }
+                        
+                        this.setSpecialPromoPrice((BigDecimal) priceResult.get("specialPromoPrice"));
                     }
-
-                    if (priceResult.get("basePrice") != null) {
-                        this.setBasePrice(((BigDecimal) priceResult.get("basePrice")));
-                    }
-
-                    if (priceResult.get("price") != null) {
-                        this.setDisplayPrice(((BigDecimal) priceResult.get("price")));
-                    }
-
-                    this.setSpecialPromoPrice((BigDecimal) priceResult.get("specialPromoPrice"));
-
+                    
                     this.orderItemPriceInfos = (List) priceResult.get("orderItemPriceInfos");
 
                     // If product is configurable, the price is taken from the configWrapper.

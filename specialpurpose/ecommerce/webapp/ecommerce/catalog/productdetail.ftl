@@ -170,6 +170,9 @@ ${virtualJavaScript?if_exists}
 
             // using the selected index locate the sku
             var sku = document.forms["addform"].elements[name].options[indexSelected].value;
+            
+            // display alternative packaging dropdown
+            ajaxUpdateArea("product_uom", "<@ofbizUrl>ProductUomDropDownOnly</@ofbizUrl>", "productId=" + sku);
 
             // set the product ID
             setAddProductId(sku);
@@ -259,6 +262,18 @@ ${virtualJavaScript?if_exists}
             block2.style.display = "none";
         }
     </#if>
+    
+    function displayProductVirtualVariantId(variantId) {
+        document.addform.product_id.value = variantId;
+        var elem = document.getElementById('product_id_display');
+        var txt = document.createTextNode(variantId);
+        if(elem.hasChildNodes()) {
+            elem.replaceChild(txt, elem.firstChild);
+        } else {
+            elem.appendChild(txt);
+        }
+        setVariantPrice(variantId);
+    }
 //]]>
  </script>
 
@@ -505,6 +520,8 @@ ${virtualJavaScript?if_exists}
                 </select>
               </div>
             </#list>
+            <span id="product_uom"></span>
+            <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
             <div>
               <strong><span id="product_id_display"> </span></strong>

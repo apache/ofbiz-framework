@@ -1725,7 +1725,11 @@ under the License.
         <response name="error" type="view" value="advancedsearch"/>
     </request-map>
 
-
+    <request-map uri="ProductUomDropDownOnly">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ProductUomDropDownOnly" save-last-view="true"/>
+    </request-map>
+    
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the
@@ -1920,5 +1924,6 @@ under the License.
     <view-map name="SendConfirmationMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderConfirmation"/>
     <view-map name="SendCompletionMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderCompletion"/>
     <view-map name="ReturnHistory" type="screen" page="component://order/widget/ordermgr/OrderReturnScreens.xml#OrderReturnHistory"/>
+    <view-map name="ProductUomDropDownOnly" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#ProductUomDropDownOnly"/>
     <!-- end of view mappings -->
 </site-conf>

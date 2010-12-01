@@ -195,6 +195,7 @@ under the License.
     <ProductAssocType description="Engineering Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="ENGINEER_COMPONENT"/>
     <ProductAssocType description="Product Manufactured As" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_MANUFACTURED"/>
     <ProductAssocType description="Configurable product instance" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_CONF"/>
+    <ProductAssocType description="Alternative Packaging" hasTable="N" parentTypeId="" productAssocTypeId="ALTERNATIVE_PACKAGE"/>
 
     <ProductCategoryType description="Catalog" hasTable="N" parentTypeId="" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategoryType description="Industry" hasTable="N" parentTypeId="" productCategoryTypeId="INDUSTRY_CATEGORY"/>
