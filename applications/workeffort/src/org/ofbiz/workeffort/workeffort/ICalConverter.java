@@ -509,7 +509,7 @@ public class ICalConverter {
         if (UtilValidate.isEmpty(property.getValue())) {
             try {
                 // RFC 2445 4.8.4.1 and 4.8.4.3 Value must be a URL
-                property.setValue("MAILTO:ofbiz-test@yahoo.com");
+                property.setValue("MAILTO:ofbiz-test@example.com");
             } catch (Exception e) {
                 Debug.logError(e, "Error while setting Property value: ", module);
             }

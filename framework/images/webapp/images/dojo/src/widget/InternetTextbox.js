@@ -143,7 +143,7 @@ dojo.widget.defineWidget(
 		// 		Can use all markup attributes/properties of UrlTextbox except scheme.
 
 		// allowCruft: Boolean:
-		//		Allow address like <mailto:foo@yahoo.com>.  Default is false.
+		//		Allow address like <mailto:foo@example.com>.  Default is false.
 
 		mixInProperties: function(/*Object*/localProperties){
 			// summary: see dojo.widget.Widget
