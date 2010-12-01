@@ -88,7 +88,7 @@ under the License.
                     <DataType>
                         <BasicType Type="STRING"/>
                     </DataType>
-                    <InitialValue>ofbiztest@yahoo.com</InitialValue>
+                    <InitialValue>ofbiztest@example.com</InitialValue>
                 </DataField>
             </DataFields>
 

@@ -54,7 +54,7 @@ dojo.validate.isEmailAddress = function(/*String*/value, /*Object?*/flags) {
 	//
 	// value: A string
 	// flags: An object
-	//    flags.allowCruft  Allow address like <mailto:foo@yahoo.com>.  Default is false.
+	//    flags.allowCruft  Allow address like <mailto:foo@example.com>.  Default is false.
 	//    flags in regexp.host can be applied.
 	//    flags in regexp.ipAddress can be applied.
 	//    flags in regexp.tld can be applied.

@@ -241,6 +241,6 @@ under the License.
     <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="WEB_ADDRESS"/>
 
     <!-- WorkEffort Email Template Settings -->
-    <EmailTemplateSetting emailTemplateSettingId="WEFF_EVENT_REMINDER" description="" fromAddress="ofbiztest@yahoo.com" subject="Event Reminder"
+    <EmailTemplateSetting emailTemplateSettingId="WEFF_EVENT_REMINDER" description="" fromAddress="ofbiztest@example.com" subject="Event Reminder"
             bodyScreenLocation="component://workeffort/widget/WorkEffortScreens.xml#WorkEffortEventReminderEmail"/>
 </entity-engine-xml>
