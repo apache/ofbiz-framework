@@ -187,9 +187,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/shipment/EditShipment.ftl"/></html>
-                        </platform-specific>
+                        <include-form name="EditShipment" location="component://product/widget/facility/ShipmentForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
