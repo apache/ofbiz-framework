@@ -417,6 +417,50 @@ if (product) {
                             if (variantPriceMap && variantPriceMap.basePrice) {
                                 variantPriceJS.append("  if (sku == \"" + variant.productId + "\") return \"" + numberFormat.format(variantPriceMap.basePrice) + "\"; ");
                             }
+                            
+                            // make a list of virtual variants sku with requireAmount
+                            virtualVariantsRes = dispatcher.runSync("getAssociatedProducts", [productIdTo : variant.productId, type : "ALTERNATIVE_PACKAGE", checkViewAllow : true, prodCatalogId : currentCatalogId]);
+                            virtualVariants = virtualVariantsRes.assocProducts;
+                            
+                            if(virtualVariants){
+                                virtualVariants.each { virtualAssoc ->
+                                    virtual = virtualAssoc.getRelatedOne("MainProduct");
+                                    // Get price from a virtual product
+                                    priceContext.product = virtual;
+                                    if (cart.isSalesOrder()) {
+                                        // sales order: run the "calculateProductPrice" service
+                                        virtualPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+                                        BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get("price");
+                                        // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
+                                        virtualPriceMap.put("minimumQuantity", ShoppingCart.getMinimumOrderQuantity(delegator, calculatedPrice, virtual.get("productId")));
+                                        Iterator treeMapIter = variantTree.entrySet().iterator();
+                                        while (treeMapIter.hasNext()) {
+                                            Map.Entry entry = treeMapIter.next();
+                                            if (entry.getValue() instanceof  Map) {
+                                                Iterator entryIter = entry.getValue().entrySet().iterator();
+                                                while (entryIter.hasNext()) {
+                                                    Map.Entry innerentry = entryIter.next();
+                                                    if (virtual.get("productId").equals(innerentry.getValue().get(0))) {
+                                                        virtualPriceMap.put("variantName", innerentry.getKey());
+                                                        virtualPriceMap.put("secondVariantName", entry.getKey());
+                                                        break;
+                                                    }
+                                                }
+                                            } else if (UtilValidate.isNotEmpty(entry.getValue())) { 
+                                                if (virtual.get("productId").equals(entry.getValue().get(0))) {
+                                                    virtualPriceMap.put("variantName", entry.getKey());
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        variantPriceList.add(virtualPriceMap);
+                                    } else {
+                                        virtualPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
+                                    }
+                                    variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
+                                }
+                                
+                            }
                         }
                         amt.append(" } ");
                         variantPriceJS.append(" } ");

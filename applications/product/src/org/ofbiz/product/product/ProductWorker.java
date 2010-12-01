@@ -1124,4 +1124,18 @@ nextProd:
 
         return variantProductId;
     }
+    
+    public static boolean isAlternativePacking(Delegator delegator, String productId, String originalVirtualProductId) {
+        boolean isAlternativePacking = false;
+        if(productId != null && originalVirtualProductId != null){
+            List<GenericValue> alternativePackingProds = null;
+            try {
+                alternativePackingProds = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productId", originalVirtualProductId , "productIdTo", productId, "productAssocTypeId", "ALTERNATIVE_PACKAGE"));
+                if(UtilValidate.isNotEmpty(alternativePackingProds)) isAlternativePacking = true;
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "Could not found alternative product: " + e.getMessage(), module);
+            }
+        }
+        return isAlternativePacking;
+    }
 }

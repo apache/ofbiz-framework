@@ -549,6 +549,21 @@ public class ShoppingCartEvents {
                 Debug.logError(e.getMessage(), module);
             }
         }
+        
+        // check for alternative packing
+        if(ProductWorker.isAlternativePacking(delegator, productId , parentProductId)){
+            GenericValue parentProduct = null;
+            try {
+                parentProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", parentProductId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error getting parent product", module);
+            }
+            BigDecimal piecesIncluded = BigDecimal.ZERO;
+            if(parentProduct != null){
+                piecesIncluded = new BigDecimal(parentProduct.getLong("piecesIncluded"));
+                quantity = quantity.multiply(piecesIncluded);
+            }
+        }
 
         // Translate the parameters and add to the cart
         result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, productCategoryId,

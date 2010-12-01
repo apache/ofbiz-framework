@@ -291,4 +291,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="ProductUomDropDownOnly">
+        <section>
+            <actions>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductUomDropDownOnly.groovy"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not><if-empty field="product"/></not>
+                    </condition>
+                    <widgets>
+                        <platform-specific>
+                            <html><html-template location="component://order/webapp/ordermgr/entry/catalog/ProductUomDropDownOnly.ftl"/></html>
+                        </platform-specific>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
 </screens>
