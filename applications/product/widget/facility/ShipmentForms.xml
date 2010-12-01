@@ -38,7 +38,7 @@ under the License.
         <field use-when="shipment==null" name="statusId" title="${uiLabelMap.ProductStatusId}">
             <drop-down allow-empty="false" current="first-in-list">
                 <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="${statusItemType}"/>
+                    <entity-constraint name="statusTypeId" value="${statusItemTypeId}"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
@@ -116,9 +116,8 @@ under the License.
         <field name="destinationTelecomNumberId" title="${uiLabelMap.ProductDestinationPhoneNumberId}"
                 tooltip="${destinationTelecomNumber.countryCode}  ${destinationTelecomNumber.areaCode} ${destinationTelecomNumber.contactNumber}">
         </field>
-
-        <field name="partyIdTo" title="${uiLabelMap.ProductToParty}" tooltip="${toPerson.firstName} ${toPerson.middleName} ${toPerson.lastName} ${toPartyGroup.groupName}"/>
-        <field name="partyIdFrom" title="${uiLabelMap.ProductFromParty}" tooltip="${fromPerson.firstName} ${fromPerson.middleName} ${fromPerson.lastName} ${fromPartyGroup.groupName}"/>
+        <field name="partyIdTo" title="${uiLabelMap.ProductToParty}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.ProductFromParty}"><lookup target-form-name="LookupPartyName"/></field> 
 
         <field name="additionalShippingCharge" title="${uiLabelMap.ProductAdditionalShippingCharge}"><text/></field>
 
