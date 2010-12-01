@@ -80,8 +80,8 @@ under the License.
                       <#else>
                           ${postedPerson.groupName}
                       </#if>
-                      </td>
                       </#if>
+                      </td>
                       <td>
                           <select name='postedAnonymous_o_${rowCount}'>
                               <option>${review.postedAnonymous?default("N")}</option>
