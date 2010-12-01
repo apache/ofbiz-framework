@@ -4441,6 +4441,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
+        public void clearAllTaxInfo() {
+            this.shipTaxAdj.clear();
+            Iterator i = shipItemInfo.values().iterator();
+            while (i.hasNext()) {
+                CartShipItemInfo itemInfo = (CartShipItemInfo) i.next();
+                itemInfo.itemTaxAdj.clear();
+            }
+        }
 
         public List makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, long groupIndex) {
             shipGroupSeqId = UtilFormatOut.formatPaddedNumber(groupIndex, 5);
