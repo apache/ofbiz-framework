@@ -1003,6 +1003,7 @@ under the License.
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getPartyEmail" auth="false">
         <description>Get the main party Email address</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false" default-value="PRIMARY_EMAIL"/>
         <attribute name="emailAddress" type="String" mode="OUT" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
     </service>
