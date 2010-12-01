@@ -1806,10 +1806,10 @@ public class ProductPromoWorker {
         amount = amount.setScale(3, rounding);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
                 UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, amount,
-                "productPromoId", productPromoAction.get("productPromoId"),
-                "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
-                "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId"),
-                "description", getProductPromoDescription((String) productPromoAction.get("productPromoId"), delegator)));
+                        "productPromoId", productPromoAction.get("productPromoId"),
+                        "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
+                        "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId"),
+                        "description", getProductPromoDescription((String) productPromoAction.get("productPromoId"), delegator)));
 
         // if an orderAdjustmentTypeId was included, override the default
         if (UtilValidate.isNotEmpty(productPromoAction.getString("orderAdjustmentTypeId"))) {
@@ -1824,10 +1824,10 @@ public class ProductPromoWorker {
         amount = amount.setScale(decimals, rounding);
         GenericValue orderAdjustment = delegator.makeValue("OrderAdjustment",
                 UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", amountField, amount,
-                "productPromoId", productPromoAction.get("productPromoId"),
-                "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
-                "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId"),
-                "description", getProductPromoDescription((String) productPromoAction.get("productPromoId"), delegator)));
+                        "productPromoId", productPromoAction.get("productPromoId"),
+                        "productPromoRuleId", productPromoAction.get("productPromoRuleId"),
+                        "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId"),
+                        "description", getProductPromoDescription((String) productPromoAction.get("productPromoId"), delegator)));
 
         // if an orderAdjustmentTypeId was included, override the default
         if (UtilValidate.isNotEmpty(productPromoAction.getString("orderAdjustmentTypeId"))) {
