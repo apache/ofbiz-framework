@@ -749,22 +749,34 @@ public class CheckOutHelper {
     }
 
     public void calcAndAddTax() throws GeneralException {
-        calcAndAddTax(null);
+        calcAndAddTax(null, false);
+    }
+
+    public void calcAndAddTax(boolean skipEmptyAddresses) throws GeneralException {
+        calcAndAddTax(null, skipEmptyAddresses);
     }
 
     public void calcAndAddTax(GenericValue shipAddress) throws GeneralException {
+        calcAndAddTax(shipAddress, false);
+    }
+
+    public void calcAndAddTax(GenericValue shipAddress, boolean skipEmptyAddresses) throws GeneralException {
         if (UtilValidate.isEmpty(cart.getShippingContactMechId()) && cart.getBillingAddress() == null && shipAddress == null) {
             return;
         }
 
         int shipGroups = this.cart.getShipGroupSize();
         for (int i = 0; i < shipGroups; i++) {
+            ShoppingCart.CartShipInfo csi = cart.getShipInfo(i);
             Map<Integer, ShoppingCartItem> shoppingCartItemIndexMap = new HashMap<Integer, ShoppingCartItem>();
-            Map<String, Object> serviceContext = this.makeTaxContext(i, shipAddress, shoppingCartItemIndexMap, cart.getFacilityId());
+            Map<String, Object> serviceContext = this.makeTaxContext(i, shipAddress, shoppingCartItemIndexMap, cart.getFacilityId(), skipEmptyAddresses);
+            if (skipEmptyAddresses && serviceContext == null) {
+                csi.clearAllTaxInfo();
+                continue;
+            }
             List<List<? extends Object>> taxReturn = this.getTaxAdjustments(dispatcher, "calcTax", serviceContext);
 
             if (Debug.verboseOn()) Debug.logVerbose("ReturnList: " + taxReturn, module);
-            ShoppingCart.CartShipInfo csi = cart.getShipInfo(i);
             List<GenericValue> orderAdj = UtilGenerics.checkList(taxReturn.get(0));
             List<List<GenericValue>> itemAdj = UtilGenerics.checkList(taxReturn.get(1));
 
@@ -787,7 +799,7 @@ public class CheckOutHelper {
         }
     }
 
-    private Map<String, Object> makeTaxContext(int shipGroup, GenericValue shipAddress, Map<Integer, ShoppingCartItem> shoppingCartItemIndexMap, String originFacilityId) {
+    private Map<String, Object> makeTaxContext(int shipGroup, GenericValue shipAddress, Map<Integer, ShoppingCartItem> shoppingCartItemIndexMap, String originFacilityId, boolean skipEmptyAddresses) {
         ShoppingCart.CartShipInfo csi = cart.getShipInfo(shipGroup);
         int totalItems = csi.shipItemInfo.size();
 
@@ -823,6 +835,10 @@ public class CheckOutHelper {
         if (shipAddress == null) {
             shipAddress = cart.getShippingAddress(shipGroup);
             // Debug.logInfo("====== makeTaxContext set shipAddress to cart.getShippingAddress(shipGroup): " + shipAddress, module);
+        }
+
+        if (shipAddress == null && skipEmptyAddresses) {
+            return null;
         }
 
         // no shipping address; try the billing address
