@@ -31,6 +31,9 @@ under the License.
     <ContactMech contactMechId="Company" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="Company" contactMechId="Company" fromDate="2000-01-01 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="Company" contactMechId="Company" fromDate="2003-01-01 00:00:00.000"/>
+    <ContactMech contactMechId="CompanySupport" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizsupport@yahoo.com"/>
+    <PartyContactMech partyId="Company" contactMechId="CompanySupport" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="SUPPORT_EMAIL" partyId="Company" contactMechId="CompanySupport" fromDate="2003-01-01 00:00:00.0"/>
     <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="Company" contactMechId="9000" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
