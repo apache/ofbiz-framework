@@ -33,6 +33,11 @@ under the License.
         <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
         <input type="hidden" name="partyId" value="${partyId}" id="contentPartyId"/>
         <input type="file" name="uploadedFile" size="20"/>
+        <div class="label">${uiLabelMap.PartyIsPublic}</div>
+        <select name="isPublic">
+            <option value="N">${uiLabelMap.CommonNo}</option>
+            <option value="Y">${uiLabelMap.CommonYes}</option>
+        </select>
         <select name="partyContentTypeId">
           <option value="">${uiLabelMap.PartySelectPurpose}</option>
           <#list partyContentTypes as partyContentType>
