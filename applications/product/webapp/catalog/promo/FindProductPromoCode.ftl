@@ -24,8 +24,16 @@ under the License.
         <div class="screenlet-body">
             <form method="post" action="<@ofbizUrl>createBulkProductPromoCode</@ofbizUrl>" enctype="multipart/form-data">
                 <input type="hidden" name="productPromoId" value="${productPromoId}"/>
-                <span class="label">${uiLabelMap.ProductPromoUserEntered}:</span><select name="userEntered"><option>N</option><option>Y</option></select>
-                <span class="label">${uiLabelMap.ProductPromotionReqEmailOrParty}:</span><select name="requireEmailOrParty"><option>N</option><option>Y</option></select>
+                <span class="label">${uiLabelMap.ProductPromoUserEntered}:</span>
+                    <select name="userEntered">
+                        <option value="Y">${uiLabelMap.CommonY}</option>
+                        <option value="N">${uiLabelMap.CommonN}</option>
+                    </select>
+                <span class="label">${uiLabelMap.ProductPromotionReqEmailOrParty}:</span>
+                    <select name="requireEmailOrParty">
+                        <option value="N">${uiLabelMap.CommonN}</option>
+                        <option value="Y">${uiLabelMap.CommonY}</option>
+                    </select>
                 <span class="label">${uiLabelMap.ProductPromotionUseLimits}:
                 ${uiLabelMap.ProductPromotionPerCode}</span><input type="text" size="5" name="useLimitPerCode" />
                 <span class="label">${uiLabelMap.ProductPromotionPerCustomer}</span><input type="text" size="5" name="useLimitPerCustomer" />
@@ -45,8 +53,16 @@ under the License.
             <form method="post" action="<@ofbizUrl>createProductPromoCodeSet</@ofbizUrl>">
                 <input type="hidden" name="productPromoId" value="${productPromoId}"/>
                 <span class="label">${uiLabelMap.CommonQuantity}:</span><input type="text" size="5" name="quantity" />
-                <span class="label">${uiLabelMap.ProductPromoUserEntered}:</span><select name="userEntered"><option>N</option><option>Y</option></select>
-                <span class="label">${uiLabelMap.ProductPromotionReqEmailOrParty}:</span><select name="requireEmailOrParty"><option>N</option><option>Y</option></select>
+                <span class="label">${uiLabelMap.ProductPromoUserEntered}:</span>
+                    <select name="userEntered">
+                        <option value="Y">${uiLabelMap.CommonY}</option>
+                        <option value="N">${uiLabelMap.CommonN}</option>
+                    </select>
+                <span class="label">${uiLabelMap.ProductPromotionReqEmailOrParty}:</span>
+                    <select name="requireEmailOrParty">
+                        <option value="N">${uiLabelMap.CommonN}</option>
+                        <option value="Y">${uiLabelMap.CommonY}</option>
+                    </select>
                 <span class="label">${uiLabelMap.ProductPromotionUseLimits}:
                 ${uiLabelMap.ProductPromotionPerCode}</span><input type="text" size="5" name="useLimitPerCode" />
                 <span class="label">${uiLabelMap.ProductPromotionPerCustomer}</span><input type="text" size="5" name="useLimitPerCustomer" />
