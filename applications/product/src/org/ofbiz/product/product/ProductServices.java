@@ -955,7 +955,6 @@ public class ProductServices {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
         String productContentTypeId = (String) context.get("productContentTypeId");
         ByteBuffer imageData = (ByteBuffer) context.get("uploadedFile");
@@ -1018,113 +1017,139 @@ public class ProductServices {
             }
 
             String imageUrl = imageUrlPrefix + "/" + filePathPrefix + filenameToUse;
+            /* store the imageUrl version of the image, for backwards compatibility with code that does not use scaled versions */
+            Map<String, Object> result = addImageResource(dispatcher, delegator, context, imageUrl, productContentTypeId);
 
-            if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
-                String contentId = (String) context.get("contentId");
+            if( ServiceUtil.isError(result)) {
+                return result;
+            }
 
-                Map<String, Object> dataResourceCtx = FastMap.newInstance();
-                dataResourceCtx.put("objectInfo", imageUrl);
-                dataResourceCtx.put("dataResourceName", (String) context.get("_uploadedFile_fileName"));
-                dataResourceCtx.put("userLogin", userLogin);
+            /* now store the image versions created by ScaleImage.scaleImageInAllSize */
+            /* have to shrink length of productContentTypeId, as otherwise value is too long for database field */
+            Map<String,String> imageUrlMap = (Map<String, String>)resultResize.get("imageUrlMap");
+            for( String sizeType : ScaleImage.sizeTypeList ) {
+                imageUrl = imageUrlMap.get(sizeType);
+                if( UtilValidate.isNotEmpty(imageUrl)) {
+                    result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase());
+                    if( ServiceUtil.isError(result)) {
+                        return result;
+                    }
+                }
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
 
-                Map<String, Object> productContentCtx = FastMap.newInstance();
-                productContentCtx.put("productId", productId);
-                productContentCtx.put("productContentTypeId", productContentTypeId);
-                productContentCtx.put("fromDate", (Timestamp) context.get("fromDate"));
-                productContentCtx.put("thruDate", (Timestamp) context.get("thruDate"));
-                productContentCtx.put("userLogin", userLogin);
+    private static Map<String,Object> addImageResource( LocalDispatcher dispatcher, Delegator delegator, Map<String, ? extends Object> context, 
+            String imageUrl, String productContentTypeId ) {
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String productId = (String) context.get("productId");
 
-                if (UtilValidate.isNotEmpty(contentId)) {
-                    GenericValue content = null;
+        if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
+            String contentId = (String) context.get("contentId");
+
+            Map<String, Object> dataResourceCtx = FastMap.newInstance();
+            dataResourceCtx.put("objectInfo", imageUrl);
+            dataResourceCtx.put("dataResourceName", (String) context.get("_uploadedFile_fileName"));
+            dataResourceCtx.put("userLogin", userLogin);
+
+            Map<String, Object> productContentCtx = FastMap.newInstance();
+            productContentCtx.put("productId", productId);
+            productContentCtx.put("productContentTypeId", productContentTypeId);
+            productContentCtx.put("fromDate", (Timestamp) context.get("fromDate"));
+            productContentCtx.put("thruDate", (Timestamp) context.get("thruDate"));
+            productContentCtx.put("userLogin", userLogin);
+
+            if (UtilValidate.isNotEmpty(contentId)) {
+                GenericValue content = null;
+                try {
+                    content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+
+                if (content != null) {
+                    GenericValue dataResource = null;
                     try {
-                        content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                        dataResource = content.getRelatedOne("DataResource");
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
                     }
 
-                    if (content != null) {
-                        GenericValue dataResource = null;
+                    if (dataResource != null) {
+                        dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                         try {
-                            dataResource = content.getRelatedOne("DataResource");
-                        } catch (GenericEntityException e) {
+                            dispatcher.runSync("updateDataResource", dataResourceCtx);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                    } else {
+                        dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
+                        dataResourceCtx.put("mimeTypeId", "text/html");
+                        Map<String, Object> dataResourceResult = FastMap.newInstance();
+                        try {
+                            dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+                        } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
                         }
 
-                        if (dataResource != null) {
-                            dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
-                            try {
-                                dispatcher.runSync("updateDataResource", dataResourceCtx);
-                            } catch (GenericServiceException e) {
-                                Debug.logError(e, module);
-                                return ServiceUtil.returnError(e.getMessage());
-                            }
-                        } else {
-                            dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
-                            dataResourceCtx.put("mimeTypeId", "text/html");
-                            Map<String, Object> dataResourceResult = FastMap.newInstance();
-                            try {
-                                dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
-                            } catch (GenericServiceException e) {
-                                Debug.logError(e, module);
-                                return ServiceUtil.returnError(e.getMessage());
-                            }
-
-                            Map<String, Object> contentCtx = FastMap.newInstance();
-                            contentCtx.put("contentId", contentId);
-                            contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
-                            contentCtx.put("userLogin", userLogin);
-                            try {
-                                dispatcher.runSync("updateContent", contentCtx);
-                            } catch (GenericServiceException e) {
-                                Debug.logError(e, module);
-                                return ServiceUtil.returnError(e.getMessage());
-                            }
-                        }
-
-                        productContentCtx.put("contentId", contentId);
+                        Map<String, Object> contentCtx = FastMap.newInstance();
+                        contentCtx.put("contentId", contentId);
+                        contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
+                        contentCtx.put("userLogin", userLogin);
                         try {
-                            dispatcher.runSync("updateProductContent", productContentCtx);
+                            dispatcher.runSync("updateContent", contentCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
                         }
                     }
-                } else {
-                    dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
-                    dataResourceCtx.put("mimeTypeId", "text/html");
-                    Map<String, Object> dataResourceResult = FastMap.newInstance();
-                    try {
-                        dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        return ServiceUtil.returnError(e.getMessage());
-                    }
 
-                    Map<String, Object> contentCtx = FastMap.newInstance();
-                    contentCtx.put("contentTypeId", "DOCUMENT");
-                    contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
-                    contentCtx.put("userLogin", userLogin);
-                    Map<String, Object> contentResult = FastMap.newInstance();
+                    productContentCtx.put("contentId", contentId);
                     try {
-                        contentResult = dispatcher.runSync("createContent", contentCtx);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        return ServiceUtil.returnError(e.getMessage());
-                    }
-
-                    productContentCtx.put("contentId", contentResult.get("contentId"));
-                    try {
-                        dispatcher.runSync("createProductContent", productContentCtx);
+                        dispatcher.runSync("updateProductContent", productContentCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
                     }
                 }
+            } else {
+                dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
+                dataResourceCtx.put("mimeTypeId", "text/html");
+                Map<String, Object> dataResourceResult = FastMap.newInstance();
+                try {
+                    dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+
+                Map<String, Object> contentCtx = FastMap.newInstance();
+                contentCtx.put("contentTypeId", "DOCUMENT");
+                contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
+                contentCtx.put("userLogin", userLogin);
+                Map<String, Object> contentResult = FastMap.newInstance();
+                try {
+                    contentResult = dispatcher.runSync("createContent", contentCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+
+                productContentCtx.put("contentId", contentResult.get("contentId"));
+                try {
+                    dispatcher.runSync("createProductContent", productContentCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
             }
         }
-           return ServiceUtil.returnSuccess();
+       return ServiceUtil.returnSuccess();
     }
 
     /**

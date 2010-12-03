@@ -1028,11 +1028,43 @@
         <value xml:lang="zh">图像 - 额外检查1</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查1</value>
     </property>
+    <property key="ProductContentType.description.XTRA_IMG_1_SMALL">
+        <value xml:lang="en">Image - Additional View 1 Small</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 1 piccola</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_1_MEDIUM">
+        <value xml:lang="en">Image - Additional View 1 Medium</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 1 media</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_1_LARGE">
+        <value xml:lang="en">Image - Additional View 1 Large</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 1 grande</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_1_DETAIL">
+        <value xml:lang="en">Image - Additional View 1 Detail</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 1 dettaglio</value>
+    </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_2">
         <value xml:lang="en">Image - Additional View 2</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2</value>
         <value xml:lang="zh">图像 - 额外检查2</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查2</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_2_SMALL">
+        <value xml:lang="en">Image - Additional View 2 Small</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 2 piccola</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_2_MEDIUM">
+        <value xml:lang="en">Image - Additional View 2 Medium</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 2 media</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_2_LARGE">
+        <value xml:lang="en">Image - Additional View 2 Large</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 2 grande</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_2_DETAIL">
+        <value xml:lang="en">Image - Additional View 2 Detail</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 2 dettaglio</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_3">
         <value xml:lang="en">Image - Additional View 3</value>
@@ -1040,11 +1072,43 @@
         <value xml:lang="zh">图像 - 额外检查3</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查3</value>
     </property>
+    <property key="ProductContentType.description.XTRA_IMG_3_SMALL">
+        <value xml:lang="en">Image - Additional View 3 Small</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 3 piccola</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_3_MEDIUM">
+        <value xml:lang="en">Image - Additional View 3 Medium</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 3 media</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_3_LARGE">
+        <value xml:lang="en">Image - Additional View 3 Large</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 3 grande</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_3_DETAIL">
+        <value xml:lang="en">Image - Additional View 3 Detail</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 3 dettaglio</value>
+    </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_4">
         <value xml:lang="en">Image - Additional View 4</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4</value>
         <value xml:lang="zh">图像 - 额外检查4</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查4</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_4_SMALL">
+        <value xml:lang="en">Image - Additional View 4 Small</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 4 piccola</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_4_MEDIUM">
+        <value xml:lang="en">Image - Additional View 4 Medium</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 4 media</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_4_LARGE">
+        <value xml:lang="en">Image - Additional View 4 Large</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 4 grande</value>
+    </property>
+    <property key="ProductContentType.description.XTRA_IMG_4_DETAIL">
+        <value xml:lang="en">Image - Additional View 4 Detail</value>
+        <value xml:lang="it">Immagine - Vista adggiuntiva 4 dettaglio</value>
     </property>
     <property key="ProductContentType.description.ADDTOCART_IMAGE">
         <value xml:lang="en">Add To Cart Image</value>
