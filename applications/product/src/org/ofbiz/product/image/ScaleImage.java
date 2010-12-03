@@ -50,6 +50,9 @@ public class ScaleImage {
 
     public static final String module = ScaleImage.class.getName();
     public static final String resource = "ProductErrorUiLabels";
+    /* public so that other code can easily use the imageUrlMap returned by scaleImageInAllSize */
+    public static final List<String> sizeTypeList = UtilMisc.toList("small", "medium", "large", "detail");
+
 
     public ScaleImage() {
     }
@@ -74,7 +77,6 @@ public class ScaleImage {
 
         /* VARIABLES */
         Locale locale = (Locale) context.get("locale");
-        List<String> sizeTypeList = UtilMisc.toList("small", "medium", "large", "detail");
         int index;
         Map<String, Map<String, String>> imgPropertyMap = FastMap.newInstance();
         BufferedImage bufImg, bufNewImg;

@@ -20,19 +20,19 @@ under the License.
 <imageSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <format name="extension" value="jpg"/>
     <size name="small">
+        <dimension name="height" value="50"/>
+        <dimension name="width" value="50"/>
+    </size>
+    <size name="medium">
         <dimension name="height" value="100"/>
         <dimension name="width" value="100"/>
     </size>
-    <size name="medium">
+    <size name="large">
         <dimension name="height" value="200"/>
         <dimension name="width" value="200"/>
     </size>
-    <size name="large">
+    <size name="detail">
         <dimension name="height" value="600"/>
         <dimension name="width" value="600"/>
-    </size>
-    <size name="detail">
-        <dimension name="height" value="1500"/>
-        <dimension name="width" value="1500"/>
     </size>
 </imageSize>
