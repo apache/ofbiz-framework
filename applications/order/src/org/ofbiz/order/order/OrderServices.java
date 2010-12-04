@@ -2134,8 +2134,8 @@ public class OrderServices {
             String newItemStatusId = null;
             if ("ORDER_APPROVED".equals(statusId)) {
                 newItemStatusId = "ITEM_APPROVED";
-            } else if ("ORDER_COMPLETE".equals(statusId)) {
-                newItemStatusId = "ITEM_COMPLETE";
+            } else if ("ORDER_COMPLETED".equals(statusId)) {
+                newItemStatusId = "ITEM_COMPLETED";
             } else if ("ORDER_CANCELLED".equals(statusId)) {
                 newItemStatusId = "ITEM_CANCELLED";
             }
