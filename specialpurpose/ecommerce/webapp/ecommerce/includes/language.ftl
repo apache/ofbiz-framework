@@ -18,7 +18,12 @@ under the License.
 -->
 
 <div id="choose-language" class="screenlet">
-    <h3>${uiLabelMap.CommonLanguageTitle}</h3>
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="h3">${uiLabelMap.CommonLanguageTitle}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
     <div class="screenlet-body">
         <form method="post" name="chooseLanguage" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>">
           <select name="newLocale" class="selectBox" style="width:95%" onchange="submit()">

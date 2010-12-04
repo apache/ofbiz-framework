@@ -24,11 +24,16 @@ under the License.
 
 <#if randomSurvey?has_content>
 <div id="minipoll" class="screenlet">
-    <h3>${randomSurvey.getSurveyName()?if_exists}</h3>
-    <div class="screenlet-body">
-        <form method="post" action="<@ofbizUrl>minipoll<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" style="margin: 0;">
-          ${randomSurvey.render()}
-        </form>
-    </div>
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="h3">${randomSurvey.getSurveyName()?if_exists}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
+  <div class="screenlet-body">
+    <form method="post" action="<@ofbizUrl>minipoll<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" style="margin: 0;">
+      ${randomSurvey.render()}
+    </form>
+  </div>
 </div>
 </#if>

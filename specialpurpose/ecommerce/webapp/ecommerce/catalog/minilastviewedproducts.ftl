@@ -21,23 +21,28 @@ under the License.
 <#assign lastViewedProducts = sessionAttributes.lastViewedProducts?if_exists/>
 <#if lastViewedProducts?has_content>
   <#if (lastViewedProducts?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(lastViewedProducts?size-1)/></#if>
-  <div id="minilastviewedproducts" class="screenlet">
-    <div class="boxlink">
-      <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>
-      <#if (lastViewedProducts?size > maxToShow)>
-        <a href="<@ofbizUrl>lastviewedproducts</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonMore}]</a>
-      </#if>
+  <div id="minilastviewedproducts" class="screenlet">  
+    <div class="screenlet-title-bar">
+      <ul>
+        <li class="h3">${uiLabelMap.EcommerceLastProducts}</li>
+        <li><a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>">[${uiLabelMap.CommonClear}]</a></li>
+        <#if (lastViewedProducts?size > maxToShow)>
+          <li><a href="<@ofbizUrl>lastviewedproducts</@ofbizUrl>">[${uiLabelMap.CommonMore}]</a></li>
+        </#if>
+      </ul>
+      <br class="clear"/>
     </div>
-    <h3>${uiLabelMap.EcommerceLastProducts}</h3>
-    <ul>
-      <#list lastViewedProducts[0..limit] as productId>
-        <li>
-          ${setRequestAttribute("miniProdQuantity", "1")}
-          ${setRequestAttribute("optProductId", productId)}
-          ${setRequestAttribute("miniProdFormName", "lastviewed" + productId_index + "form")}
-          ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
-        </li>
-      </#list>
-    </ul>
+    <div class="screenlet-body">
+      <ul>
+        <#list lastViewedProducts[0..limit] as productId>
+          <li>
+            ${setRequestAttribute("miniProdQuantity", "1")}
+            ${setRequestAttribute("optProductId", productId)}
+            ${setRequestAttribute("miniProdFormName", "lastviewed" + productId_index + "form")}
+            ${screens.render("component://ecommerce/widget/CatalogScreens.xml#miniproductsummary")}
+          </li>
+        </#list>
+      </ul>
+    </div>
   </div>
 </#if>

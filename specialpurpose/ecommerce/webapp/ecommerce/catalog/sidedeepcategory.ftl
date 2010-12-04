@@ -39,7 +39,12 @@ under the License.
   </#if>
   <#if wrapInBox == "Y">
   <div  id="sidedeepcategory" class="screenlet">
-    <h3><#if categoryDescription?has_content>${categoryDescription}<#else>${categoryName?default("")}</#if></h3>
+    <div class="screenlet-title-bar">
+      <ul>
+        <li class="h3"><#if categoryDescription?has_content>${categoryDescription}<#else>${categoryName?default("")}</#if></li>
+      </ul>
+      <br class="clear"/>
+    </div>
     <div class="screenlet-body">
       <div class="browsecategorylist">
   </#if>
@@ -71,13 +76,18 @@ under the License.
 
 <#if topLevelList?has_content>
 <div id="sidedeepcategory" class="screenlet">
-    <h3>${uiLabelMap.ProductBrowseCategories}</h3>
-    <div class="screenlet-body">
-        <ul class="browsecategorylist">
-          <#list topLevelList as category>
-            <@categoryList parentCategory="" category=category wrapInBox="N"/>
-          </#list>
-        </ul>
-    </div>
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="h3">${uiLabelMap.ProductBrowseCategories}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
+  <div class="screenlet-body">
+    <ul class="browsecategorylist">
+      <#list topLevelList as category>
+        <@categoryList parentCategory="" category=category wrapInBox="N"/>
+      </#list>
+    </ul>
+  </div>
 </div>
 </#if>

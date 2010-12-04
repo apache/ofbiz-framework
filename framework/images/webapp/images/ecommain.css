@@ -1114,3 +1114,118 @@ width:10%
 .quickaddtable span.qty {
 width:10%
 }
+
+/* ================================ */
+/* ===== Used to clear floats ===== */
+/* ================================ */
+
+.clear {
+clear: both;
+height: 0;
+visibility: hidden;
+}
+
+.no-clear .clear {
+/* Used in container elements to override the clear class
+in contained elements. */
+clear: none;
+}
+
+/* ================================================= */
+/* ===== Screenlet Title Bar/Navigation Styles ===== */
+/* ================================================= */
+
+.screenlet-title-bar {
+background-color: #000099;
+background-image: url(/images/gradient_sub_uns.gif);
+background-repeat: repeat-x;
+color: #ffffff;
+height: 1%; /* IE fix */
+min-height: 1.5em;
+}
+
+.screenlet-title-bar .h1,
+.screenlet-title-bar .h2,
+.screenlet-title-bar .h3,
+.screenlet-title-bar h1,
+.screenlet-title-bar h2,
+.screenlet-title-bar h3 {
+background: none;
+color: #ffffff;
+font-weight: bold;
+padding: 0.1em 0.5em 0.2em 0.5em;
+}
+
+.screenlet-title-bar ul {
+display: inline; /* IE Fix */
+}
+
+.screenlet-title-bar ul li {
+background: none;
+color: #ffffff;
+float: right;
+font-size: 1em;
+font-weight: bold;
+padding: 0.1em 0.5em 0.2em 0.5em;
+}
+
+.screenlet-title-bar ul h1,
+.screenlet-title-bar ul h2,
+.screenlet-title-bar ul h3,
+.screenlet-title-bar ul .h1,
+.screenlet-title-bar ul .h2,
+.screenlet-title-bar ul .h3 {
+border-left: none;
+float: left;
+}
+
+.screenlet-title-bar .h1 {
+font-size: 1.6em;
+}
+
+.screenlet-title-bar .h2 {
+font-size: 1.3em;
+}
+
+.screenlet-title-bar .h3,
+.screenlet-title-bar .head4 {
+font-size: 1.2em;
+}
+
+.screenlet-title-bar .h3 a {
+color: #ffff66;
+display: inline;
+}
+
+.screenlet-title-bar ul a {
+color: #ffff66;
+display: block;
+}
+
+.screenlet-title-bar ul a:visited {
+color: #ffff66;
+}
+
+.screenlet-title-bar ul .disabled {
+color: #CCCCCC;
+}
+
+.screenlet-title-bar ul .collapsed,
+.screenlet-title-bar ul .collapsed:hover {
+background: url(/images/expand.gif) no-repeat center center;
+min-height: 1.1em;
+min-width: 1.1em;
+}
+
+.screenlet-title-bar ul .expanded,
+.screenlet-title-bar ul .expanded:hover {
+background: url(/images/collapse.gif) no-repeat center center;
+min-height: 1.1em;
+min-width: 1.1em;
+}
+
+.screenlet-title-bar ul .collapsed a,
+.screenlet-title-bar ul .expanded a {
+/* IE fix */
+cursor: default;
+}

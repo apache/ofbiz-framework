@@ -18,7 +18,10 @@ under the License.
 -->
 <div id="productcomparelist" class="screenlet">
   <div class="screenlet-title-bar">
-    <div class="h3">${uiLabelMap.ProductCompareProducts}</div>
+    <ul>
+      <li class="h3">${uiLabelMap.ProductCompareProducts}</li>
+    </ul>
+    <br class="clear"/>
   </div>
   <div class="screenlet-body">
 <#assign productCompareList = Static["org.ofbiz.product.product.ProductEvents"].getProductCompareList(request)/>
