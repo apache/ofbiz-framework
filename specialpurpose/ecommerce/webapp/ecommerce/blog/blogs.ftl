@@ -24,13 +24,13 @@ under the License.
     </ul>
     <br class="clear"/>
   </div>
-    <div class="screenlet-body">
-      <ul class="browsecategorylist">
-        <#list blogs as blog>
-            <li class="browsecategorytext">
-                <a href="<@ofbizUrl>MainBlog?blogContentId=${blog.contentId}</@ofbizUrl>" class="browsecategorybutton">${blog.contentName}</a>
-            </li>
-        </#list>
-      </ul>
-    </div>
+  <div class="screenlet-body">
+    <ul class="browsecategorylist">
+      <#list blogs as blog>
+        <li class="browsecategorytext">
+          <a href="<@ofbizUrl>MainBlog?blogContentId=${blog.contentId}</@ofbizUrl>" class="browsecategorybutton">${blog.contentName}</a>
+        </li>
+      </#list>
+    </ul>
+  </div>
 </div>

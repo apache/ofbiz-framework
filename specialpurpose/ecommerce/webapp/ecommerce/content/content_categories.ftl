@@ -37,15 +37,15 @@ under the License.
     </ul>
     <br class="clear"/>
   </div>
-    <div class="screenlet-body">
-      <ul class="browsecategorylist">
-        <#assign count_1=0/>
-        <@loopSubContent contentId=contentRootId viewIndex=0 viewSize=9999 orderBy="contentName">
-            <li class="browsecategorytext">
-               <a href="<@ofbizUrl>showcontenttree?contentId=${subContentId}&amp;nodeTrailCsv=${subContentId}</@ofbizUrl>" class="browsecategorybutton">${content.contentName}</a>
-            </li>
-            <#assign count_1=(count_1 + 1)/>
-        </@loopSubContent>
-      </ul>
-    </div>
+  <div class="screenlet-body">
+    <ul class="browsecategorylist">
+      <#assign count_1=0/>
+      <@loopSubContent contentId=contentRootId viewIndex=0 viewSize=9999 orderBy="contentName">
+        <li class="browsecategorytext">
+          <a href="<@ofbizUrl>showcontenttree?contentId=${subContentId}&amp;nodeTrailCsv=${subContentId}</@ofbizUrl>" class="browsecategorybutton">${content.contentName}</a>
+        </li>
+        <#assign count_1=(count_1 + 1)/>
+      </@loopSubContent>
+    </ul>
+  </div>
 </div>

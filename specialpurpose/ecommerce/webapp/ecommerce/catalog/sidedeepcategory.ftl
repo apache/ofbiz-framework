@@ -23,30 +23,30 @@ under the License.
 <#-- looping macro -->
 <#macro categoryList parentCategory category wrapInBox>
   <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
-      <#assign categoryName = catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")>
+    <#assign categoryName = catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")>
   <#else>
-      <#assign categoryName = category.categoryName?if_exists>
+    <#assign categoryName = category.categoryName?if_exists>
   </#if>
   <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>
-      <#assign categoryDescription = catContentWrappers[category.productCategoryId].get("DESCRIPTION")>
+    <#assign categoryDescription = catContentWrappers[category.productCategoryId].get("DESCRIPTION")>
   <#else>
-      <#assign categoryDescription = category.description?if_exists>
+    <#assign categoryDescription = category.description?if_exists>
   </#if>
   <#if curCategoryId?exists && curCategoryId == category.productCategoryId>
-      <#assign browseCategoryButtonClass = "browsecategorybuttondisabled">
+    <#assign browseCategoryButtonClass = "browsecategorybuttondisabled">
   <#else>
-      <#assign browseCategoryButtonClass = "browsecategorybutton">
+    <#assign browseCategoryButtonClass = "browsecategorybutton">
   </#if>
   <#if wrapInBox == "Y">
-  <div  id="sidedeepcategory" class="screenlet">
-    <div class="screenlet-title-bar">
-      <ul>
-        <li class="h3"><#if categoryDescription?has_content>${categoryDescription}<#else>${categoryName?default("")}</#if></li>
-      </ul>
-      <br class="clear"/>
-    </div>
-    <div class="screenlet-body">
-      <div class="browsecategorylist">
+    <div  id="sidedeepcategory" class="screenlet">
+      <div class="screenlet-title-bar">
+        <ul>
+          <li class="h3"><#if categoryDescription?has_content>${categoryDescription}<#else>${categoryName?default("")}</#if></li>
+        </ul>
+        <br class="clear"/>
+      </div>
+      <div class="screenlet-body">
+        <div class="browsecategorylist">
   </#if>
         <li class="browsecategorytext">
           <#if parentCategory?has_content>

@@ -24,8 +24,8 @@ under the License.
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-<#assign productCompareList = Static["org.ofbiz.product.product.ProductEvents"].getProductCompareList(request)/>
-<#if productCompareList?has_content>
+  <#assign productCompareList = Static["org.ofbiz.product.product.ProductEvents"].getProductCompareList(request)/>
+  <#if productCompareList?has_content>
     <table>
     <#list productCompareList as product>
       <tr>

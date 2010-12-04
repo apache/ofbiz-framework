@@ -18,19 +18,19 @@ under the License.
 -->
 
 <#if mrvList?has_content>
-    <div id="recentlyviewed" class="screenlet">
-  <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${uiLabelMap.EcommerceLastContent}</li>
-    </ul>
-    <br class="clear"/>
-  </div>
-        <div class="screenlet-body">
-            <#list mrvList as mrvArr>
-                <div class="browsecategorytext">
-                  <a href="<@ofbizUrl>viewcontent?contentId=${mrvArr[0]}</@ofbizUrl>" class="browsecategorybutton">${mrvArr[1]}</a>
-                </div>
-            </#list>
-        </div>
+  <div id="recentlyviewed" class="screenlet">
+    <div class="screenlet-title-bar">
+      <ul>
+        <li class="h3">${uiLabelMap.EcommerceLastContent}</li>
+      </ul>
+      <br class="clear"/>
     </div>
+    <div class="screenlet-body">
+      <#list mrvList as mrvArr>
+        <div class="browsecategorytext">
+          <a href="<@ofbizUrl>viewcontent?contentId=${mrvArr[0]}</@ofbizUrl>" class="browsecategorybutton">${mrvArr[1]}</a>
+        </div>
+      </#list>
+    </div>
+  </div>
 </#if>
