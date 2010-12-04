@@ -1108,14 +1108,6 @@
         <value xml:lang="zh">无法找到</value>
         <value xml:lang="zh_TW">無法找到</value>
     </property>
-    <property key="CommonCaptchaMissingError">
-        <value xml:lang="en">Verify code captcha is missing or wrong</value>
-        <value xml:lang="fr">Vérifier le code captcha, il est absent ou erroné</value>
-        <value xml:lang="it">Verifica il codice captcha, è mancante o errato</value>
-        <value xml:lang="th">รหัสตัวเลขที่ท่านกรอกมีข้อผิดพลาด</value>
-        <value xml:lang="zh">缺少验证码或验证码错误</value>
-        <value xml:lang="zh_TW">沒有驗證碼或是錯誤</value>
-    </property>
     <property key="CommonChange">
         <value xml:lang="ar">تغيير</value>
         <value xml:lang="de">Verändern</value>
@@ -2869,25 +2861,6 @@
         <value xml:lang="zh">第一个</value>
         <value xml:lang="zh_TW">第一個</value>
     </property>
-    <property key="CommonFirstName">
-        <value xml:lang="cs">Jméno</value>
-        <value xml:lang="de">Vorname</value>
-        <value xml:lang="en">First name</value>
-        <value xml:lang="en_GB">Forename</value>
-        <value xml:lang="es">Nombre</value>
-        <value xml:lang="fr">Prénom</value>
-        <value xml:lang="hi_IN">पहला नाम</value>
-        <value xml:lang="it">Nome</value>
-        <value xml:lang="ja">First name</value>
-        <value xml:lang="nl">Voornaam</value>
-        <value xml:lang="pt_BR">Nome</value>
-        <value xml:lang="pt_PT">Primeiro Nome</value>
-        <value xml:lang="ro">Nume </value>
-        <value xml:lang="ru">Имя</value>
-        <value xml:lang="th">ชื่อ</value>
-        <value xml:lang="zh">名字</value>
-        <value xml:lang="zh_TW">名字</value>
-    </property>
     <property key="CommonFollowingErrorsOccurred">
         <value xml:lang="ar">الأخطاء التالية حدثت</value>
         <value xml:lang="de">Folgende Fehler sind aufgetreten</value>
@@ -3890,25 +3863,6 @@
         <value xml:lang="zh">最近的</value>
         <value xml:lang="zh_TW">最近的</value>
     </property>
-    <property key="CommonLastName">
-        <value xml:lang="cs">Příjmení</value>
-        <value xml:lang="de">Nachname</value>
-        <value xml:lang="en">Last name</value>
-        <value xml:lang="en_GB">Surname</value>
-        <value xml:lang="es">Apellidos</value>
-        <value xml:lang="fr">Nom</value>
-        <value xml:lang="hi_IN">अन्त नाम</value>
-        <value xml:lang="it">Cognome</value>
-        <value xml:lang="ja">Last name</value>
-        <value xml:lang="nl">Familienaam</value>
-        <value xml:lang="pt_BR">Segundo nome</value>
-        <value xml:lang="pt_PT">Apelido</value>
-        <value xml:lang="ro">Nume de Familie</value>
-        <value xml:lang="ru">Фамилия</value>
-        <value xml:lang="th">นามสกุล</value>
-        <value xml:lang="zh">姓氏</value>
-        <value xml:lang="zh_TW">姓氏</value>
-    </property>
     <property key="CommonLastSytemNotes">
         <value xml:lang="en">Last system notes</value>
         <value xml:lang="fr">Dernières tâches affectées</value>
@@ -4415,21 +4369,6 @@
         <value xml:lang="zh_CN">方法</value>
         <value xml:lang="zh_TW">方法</value>
     </property>
-    <property key="CommonMiddleName">
-        <value xml:lang="de">Zweiter Vorname</value>
-        <value xml:lang="en">Middle Name</value>
-        <value xml:lang="es">Segundo nombre</value>
-        <value xml:lang="fr">Nom intermédiaire</value>
-        <value xml:lang="hi_IN">मध्य नाम</value>
-        <value xml:lang="it">Nome centrale</value>
-        <value xml:lang="nl">Tussenvoegsel</value>
-        <value xml:lang="pt_BR">Nome do meio</value>
-        <value xml:lang="ro">Nume Central</value>
-        <value xml:lang="ru">Отчество</value>
-        <value xml:lang="th">ชื่อกลาง</value>
-        <value xml:lang="zh">中间名</value>
-        <value xml:lang="zh_TW">中間名</value>
-    </property>
     <property key="CommonMilliSecond">
         <value xml:lang="de">Millisekunde</value>
         <value xml:lang="en">Millisecond</value>
@@ -4778,13 +4717,6 @@
     <property key="CommonNewPortalPage">
         <value xml:lang="en">New Portal Page</value>
         <value xml:lang="it">Nuova pagina portale</value>
-    </property>
-    <property key="CommonNewRegistration">
-        <value xml:lang="en">New Registration </value>
-        <value xml:lang="fr">Nouvel enregistrement</value>
-        <value xml:lang="it">Nuovo utente</value>
-        <value xml:lang="th">ลงทะเบียน </value>
-        <value xml:lang="zh">新注册</value>
     </property>
     <property key="CommonNewSelection">
         <value xml:lang="ar">إختيار جديد</value>
@@ -5669,10 +5601,6 @@
         <value xml:lang="zh">请修改你的密码</value>
         <value xml:lang="zh_TW">請修改你的密碼</value>
     </property>
-    <property key="CommonPasswordVerify">
-        <value xml:lang="en">Confirm Password</value>
-        <value xml:lang="it">Conferma password</value>
-    </property>
     <property key="CommonPaymentMethodType">
         <value xml:lang="ar">نوع طريقة التسديد</value>
         <value xml:lang="de">Zahlungsmethode Typ</value>
@@ -6386,13 +6314,6 @@
         <value xml:lang="zh_CN">刷新</value>
         <value xml:lang="zh_TW">更新</value>
     </property>
-    <property key="CommonRegisterComplete">
-        <value xml:lang="en">Register of new person is complete...Please </value>
-        <value xml:lang="fr">L'enregistrement de la nouvelle personne est complet...SVP</value>
-        <value xml:lang="it">Creazione nuovo utente completata...prego </value>
-        <value xml:lang="th">การลงทะเบียนใหม่สำหรับบุคคลได้ทำการเสร็จสิ้นสมบูรณ์แล้ว...สามารถเข้าสู่ระบบได้ </value>
-        <value xml:lang="zh">完成新人员注册...请</value>
-    </property>
     <property key="CommonRegistered">
         <value xml:lang="ar">مستخدم مسجل</value>
         <value xml:lang="cs">Registrovaný uživatel</value>
@@ -6448,11 +6369,6 @@
         <value xml:lang="th">เวอร์ชันใหม่</value>
         <value xml:lang="zh">发布版本</value>
         <value xml:lang="zh_TW">發佈版本</value>
-    </property>
-    <property key="CommonReloadImage">
-        <value xml:lang="en">reload image</value>
-        <value xml:lang="it">Ricarica immagine</value>
-        <value xml:lang="zh">刷新图片</value>
     </property>
     <property key="CommonRemove">
         <value xml:lang="ar">نزع</value>
@@ -8686,13 +8602,6 @@
         <value xml:lang="zh_CN">值</value>
         <value xml:lang="zh_TW">數值</value>
     </property>
-    <property key="CommonVerifyCaptcha">
-        <value xml:lang="en">Verify code</value>
-        <value xml:lang="fr">Vérifier le code captcha</value>
-        <value xml:lang="it">Verifica codice</value>
-        <value xml:lang="th">ใส่รหัสตามรูป</value>
-        <value xml:lang="zh">验证验证码</value>
-    </property>
     <property key="CommonView">
         <value xml:lang="ar">مشهد</value>
         <value xml:lang="cs">Náhled</value>
@@ -8976,10 +8885,6 @@
         <value xml:lang="zh">哪里</value>
         <value xml:lang="zh_CN">哪里</value>
         <value xml:lang="zh_TW">哪里</value>
-    </property>
-    <property key="CommonWhyRegister">
-        <value xml:lang="en">Why would you like to register?</value>
-        <value xml:lang="it">Perche' desideri registrarti?</value>
     </property>
     <property key="CommonWidth">
         <value xml:lang="ar">العرض</value>

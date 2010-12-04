@@ -61,6 +61,7 @@ under the License.
         <input type="hidden" name="JavaScriptEnabled" value="N"/>
         <br />
         <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}?</a>
+        <a href="<@ofbizUrl>newRegisterLogin</@ofbizUrl>">${uiLabelMap.MyPortalNewRegistration}</a>
       </form>
     </div>
   </div>
