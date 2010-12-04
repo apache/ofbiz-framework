@@ -986,7 +986,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     protected void setQuantity(BigDecimal quantity, LocalDispatcher dispatcher, ShoppingCart cart, boolean triggerExternalOps, boolean resetShipGroup, boolean updateProductPrice, boolean skipInventoryChecks) throws CartItemModifyException {
-        if (this.quantity == quantity) {
+        if (this.quantity.compareTo(quantity) == 0) {
             return;
         }
 
