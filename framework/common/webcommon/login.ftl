@@ -19,6 +19,7 @@ under the License.
 
 <#if requestAttributes.uiLabelMap?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 <#assign useMultitenant = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "multitenant")>
+<#assign allowNewRegistration = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "login.newRegistration.allow")>
 
 <#assign username = requestParameters.USERNAME?default((sessionAttributes.autoUserLogin.userLoginId)?default(""))>
 <#if username != "">
@@ -26,7 +27,6 @@ under the License.
 <#else>
   <#assign focusName = true>
 </#if>
-<center>
   <div class="screenlet login-screenlet">
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.CommonRegistered}</h3>
@@ -59,12 +59,16 @@ under the License.
           </tr>
         </table>
         <input type="hidden" name="JavaScriptEnabled" value="N"/>
-        <br />
-        <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}?</a>
+        <br/>
+        <center>
+          <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}?</a>
+          <#if ("Y" == allowNewRegistration)>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="<@ofbizUrl>newRegisterLogin</@ofbizUrl>">${uiLabelMap.CommonNewRegistration}</a>
+          </#if>
+        </center>
       </form>
     </div>
   </div>
-</center>
 
 <script language="JavaScript" type="text/javascript">
   document.loginform.JavaScriptEnabled.value = "Y";

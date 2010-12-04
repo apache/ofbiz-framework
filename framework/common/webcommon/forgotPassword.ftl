@@ -31,11 +31,11 @@ under the License.
           </tr>
           <tr>
             <td colspan="2" align="center">
-              <input type="submit" name="GET_PASSWORD_HINT" class="smallSubmit" value="${uiLabelMap.CommonGetPasswordHint}"/>&nbsp;<input type="submit" name="EMAIL_PASSWORD" class="smallSubmit" value="${uiLabelMap.CommonEmailPassword}"/>
+              <input type="submit" name="GET_PASSWORD_HINT" value="${uiLabelMap.CommonGetPasswordHint}"/>&nbsp;<input type="submit" name="EMAIL_PASSWORD" value="${uiLabelMap.CommonEmailPassword}"/>
             </td>
           </tr>
         </table>
-        <a href='<@ofbizUrl>authview</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
+        <a href='<@ofbizUrl>authview</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonGoBack}</a>
         <input type="hidden" name="JavaScriptEnabled" value="N"/>
       </form>
     </div>

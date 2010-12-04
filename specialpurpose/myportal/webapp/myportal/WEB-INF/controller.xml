@@ -36,25 +36,6 @@
         <security https="true" auth="true"/>
         <response name="success" type="request" value="showPortalPage"/>
     </request-map>
-    <request-map uri="newRegisterLogin">
-        <security https="true" auth="false"/>
-        <event type="java" invoke="getCodeCaptcha" path="org.ofbiz.common.Captcha"/>
-        <response name="success" type="view" value="newRegisterLogin"/>
-    </request-map>
-    <request-map uri="createRegister">
-        <security https="true" auth="false"/>
-        <event type="simple" invoke="createRegister" path="component://myportal/script/org/ofbiz/myportal/Events.xml"/>
-        <response name="error" type="view" value="newRegisterLogin"/>
-        <response name="resultPage" type="view" value="newRegisterLogin"/>
-    </request-map>
-    <request-map uri="reloadCaptchaImage">
-        <security https="true" auth="false"/>        
-        <response name="success" type="view" value="reloadCaptchaImage"/>
-    </request-map>
-    <request-map uri="reloadCaptchaCode">
-        <security https="true" auth="false"/>
-        <response name="success" type="view" value="reloadCaptchaCode"/>
-    </request-map>
 
     <request-map uri="LookupUserLoginAndPartyDetails">
         <security https="true" auth="true"/>
@@ -62,10 +43,6 @@
     </request-map>
     
     <view-map name="main" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
-    <view-map name="login" type="screen" page="component://myportal/widget/CommonScreens.xml#login"/>
-    <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>  
-    <view-map name="reloadCaptchaImage" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaImage"/>
-    <view-map name="reloadCaptchaCode" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaCode"/>
 
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>
 
