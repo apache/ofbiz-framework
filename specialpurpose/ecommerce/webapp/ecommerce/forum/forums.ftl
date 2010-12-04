@@ -18,14 +18,19 @@ under the License.
 -->
 
 <div id="browse-forums" class="screenlet">
-    <h3>${uiLabelMap.ProductBrowseForums}</h3>
-    <div class="screenlet-body">
-          <ul class="browsecategorylist">
-            <#list forums as forum>
-            <li class="browsecategorytext">
-               <a href="<@ofbizUrl>showforum?forumId=${forum.contentId}</@ofbizUrl>" class="browsecategorybutton">${forum.contentName!forum.contentId}</a>
-            </li>
-            </#list>
-          </ul>
-    </div>
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="h3">${uiLabelMap.ProductBrowseForums}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
+  <div class="screenlet-body">
+    <ul class="browsecategorylist">
+      <#list forums as forum>
+        <li class="browsecategorytext">
+           <a href="<@ofbizUrl>showforum?forumId=${forum.contentId}</@ofbizUrl>" class="browsecategorybutton">${forum.contentName!forum.contentId}</a>
+        </li>
+      </#list>
+    </ul>
+  </div>
 </div>

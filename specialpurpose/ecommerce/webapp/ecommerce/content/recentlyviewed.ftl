@@ -19,7 +19,12 @@ under the License.
 
 <#if mrvList?has_content>
     <div id="recentlyviewed" class="screenlet">
-        <h3>${uiLabelMap.EcommerceLastContent}</h3>
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="h3">${uiLabelMap.EcommerceLastContent}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
         <div class="screenlet-body">
             <#list mrvList as mrvArr>
                 <div class="browsecategorytext">

@@ -31,7 +31,12 @@ under the License.
 </#if>
 
 <div id="content_catagories" class="screenlet">
-    <h3>${uiLabelMap.ProductBrowseContent}</h3>
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="h3">${uiLabelMap.ProductBrowseContent}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
     <div class="screenlet-body">
       <ul class="browsecategorylist">
         <#assign count_1=0/>

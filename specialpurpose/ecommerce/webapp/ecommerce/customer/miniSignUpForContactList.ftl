@@ -28,7 +28,13 @@ under the License.
 </#macro>
 
 <div id="miniSignUpForContactList" class="screenlet">
-  <h3>${uiLabelMap.EcommerceSignUpForContactList}</h3>
+  <div class="screenlet-title-bar">
+    <ul>
+      <li class="h3">${uiLabelMap.EcommerceSignUpForContactList}</li>
+    </ul>
+    <br class="clear"/>
+  </div>
+  <div class="screenlet-body">
   <#if sessionAttributes.autoName?has_content>
   <#-- The visitor potentially has an account and party id -->
     <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
@@ -76,6 +82,7 @@ under the License.
       </fieldset>
     </form>
   </#if>
+  </div>
 </div>
 
 
