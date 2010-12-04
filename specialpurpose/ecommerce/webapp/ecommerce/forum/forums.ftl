@@ -28,7 +28,7 @@ under the License.
     <ul class="browsecategorylist">
       <#list forums as forum>
         <li class="browsecategorytext">
-           <a href="<@ofbizUrl>showforum?forumId=${forum.contentId}</@ofbizUrl>" class="browsecategorybutton">${forum.contentName!forum.contentId}</a>
+          <a href="<@ofbizUrl>showforum?forumId=${forum.contentId}</@ofbizUrl>" class="browsecategorybutton">${forum.contentName!forum.contentId}</a>
         </li>
       </#list>
     </ul>
