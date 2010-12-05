@@ -498,7 +498,7 @@
         <field name="emailType" title="${uiLabelMap.CommonEmailType}">
             <drop-down>
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
-                    <entity-constraint name="enumTypeId" value="PRDS_EMAIL"/>
+                    <entity-constraint name="enumTypeId" operator="in" value="PRDS_EMAIL,PARTY_EMAIL"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
