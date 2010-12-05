@@ -266,7 +266,7 @@ public class FindServices {
             if (fieldValue == null) {
                 fieldValue = parameters.get(fieldName);
             }
-            if (ObjectType.isEmpty(fieldValue)) {
+            if (ObjectType.isEmpty(fieldValue) && !"empty".equals(operation)) {
                 continue;
             }
             result.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
@@ -372,10 +372,11 @@ public class FindServices {
             }
             subMap2 = subMap.get("fld0");
             fieldValue = subMap2.get("value");
-            if (fieldValue == null) {
+            opString = (String) subMap2.get("op");
+            // null fieldValue is OK if operator is "empty"
+            if (fieldValue == null && !"empty".equals(opString)) {
                 continue;
             }
-            opString = (String) subMap2.get("op");
             ignoreCase = "Y".equals(subMap2.get("ic"));
             cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context); 
             tmpList.add(cond);
@@ -384,10 +385,10 @@ public class FindServices {
                 continue;
             }
             fieldValue = subMap2.get("value");
-            if (fieldValue == null) {
+            opString = (String) subMap2.get("op");
+            if (fieldValue == null && !"empty".equals(opString)) {
                 continue;
             }
-            opString = (String) subMap2.get("op");
             ignoreCase = "Y".equals(subMap2.get("ic"));
             cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context); 
             tmpList.add(cond);
