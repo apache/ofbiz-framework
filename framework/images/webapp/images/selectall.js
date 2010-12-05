@@ -444,16 +444,18 @@ function ajaxAutoCompleteDropDown(descriptionElement, hiddenElement, data, optio
 function toggleCollapsiblePanel(link, areaId, expandTxt, collapseTxt){
     var container = $(areaId);
     var liElement = $(link).up('li');
-    if(container.visible()){
-        liElement.removeClassName('expanded');
-        liElement.addClassName('collapsed');
-        link.title = expandTxt;
-    } else {
-        liElement.removeClassName('collapsed');
-        liElement.addClassName('expanded');
-        link.title = collapseTxt;
+    if (liElement){
+        if(container.visible()){
+            liElement.removeClassName('expanded');
+            liElement.addClassName('collapsed');
+            link.title = expandTxt;
+        } else {
+            liElement.removeClassName('collapsed');
+            liElement.addClassName('expanded');
+            link.title = collapseTxt;
+        }
+        Effect.toggle(container, 'appear');
     }
-    Effect.toggle(container, 'appear');
 }
 
 /** Toggle screenlet visibility on/off.
