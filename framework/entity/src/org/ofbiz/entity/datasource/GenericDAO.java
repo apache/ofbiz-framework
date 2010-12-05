@@ -650,12 +650,13 @@ public class GenericDAO {
         if (UtilValidate.isNotEmpty(fieldsToSelect)) {
             Set<String> tempKeys = FastSet.newInstance();
             tempKeys.addAll(fieldsToSelect);
-            Iterator<ModelField> fieldIter = modelEntity.getFieldsIterator();
-            while (fieldIter.hasNext()) {
-                ModelField curField = fieldIter.next();
-                if (tempKeys.contains(curField.getName())) {
-                    selectFields.add(curField);
-                    tempKeys.remove(curField.getName());
+            for (String fieldToSelect : fieldsToSelect) {
+                if (tempKeys.contains(fieldToSelect)) {
+                    ModelField curField = modelEntity.getField(fieldToSelect);
+                    if (curField != null) {
+                        selectFields.add(curField);
+                        tempKeys.remove(fieldToSelect);
+                    }
                 }
             }
 
