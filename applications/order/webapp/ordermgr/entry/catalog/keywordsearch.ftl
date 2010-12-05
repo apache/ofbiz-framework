@@ -21,7 +21,7 @@ under the License.
 <br />
 <ul>
 <#list searchConstraintStrings as searchConstraintString>
-    <li><a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&amp;clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&amp;nbsp;${searchConstraintString}</li>
+    <li><a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&amp;clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</li>
 </#list>
 </ul>
 <br />
