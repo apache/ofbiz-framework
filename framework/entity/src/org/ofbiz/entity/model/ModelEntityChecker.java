@@ -94,6 +94,12 @@ public class ModelEntityChecker {
                 if (entity.getPlainTableName() != null && reservedWords.contains(entity.getPlainTableName().toUpperCase())) {
                         warningList.add("[TableNameRW] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName() + " is a reserved word.");
                 }
+                
+                // don't check columns/relations/keys when never-check is set to "true"
+                if (entity.getNeverCheck()) {
+                    continue;
+                }
+                
                 TreeSet<String> ufields = new TreeSet<String>();
                 Iterator<ModelField> fieldIter = entity.getFieldsIterator();
                 while (fieldIter.hasNext()) {

@@ -205,6 +205,12 @@ public class DatabaseUtil {
                 String entMessage = "(" + timer.timeSinceLast() + "ms) NOT Checking #" + curEnt + "/" + totalEnt + " View Entity " + entity.getEntityName();
                 Debug.logVerbose(entMessage, module);
                 if (messages != null) messages.add(entMessage);
+                continue;                
+            // if never-check is set then don't check it either
+            } else if (entity.getNeverCheck()) {
+                String entMessage = "(" + timer.timeSinceLast() + "ms) NOT Checking #" + curEnt + "/" + totalEnt + " Entity " + entity.getEntityName();
+                Debug.logVerbose(entMessage, module);
+                if (messages != null) messages.add(entMessage);
                 continue;
             }
 
