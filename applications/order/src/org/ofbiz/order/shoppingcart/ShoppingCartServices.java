@@ -543,6 +543,7 @@ public class ShoppingCartServices {
                 if (itemAdjustments != null) {
                     for(GenericValue itemAdjustment : itemAdjustments) {
                         if ("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")) ||
+                                "VAT_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")) ||
                                 "VAT_PRICE_CORRECT".equals(itemAdjustment.get("orderAdjustmentTypeId"))) {
                             continue;
                         }
