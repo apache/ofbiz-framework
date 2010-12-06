@@ -90,6 +90,7 @@ under the License.
         <xs:attribute name="enable-lock" default="false" type="boolean"/>
         <xs:attribute name="no-auto-stamp" default="false" type="boolean"/>
         <xs:attribute name="never-cache" default="false" type="boolean"/>
+        <xs:attribute name="never-check" default="false" type="boolean"/>
         <xs:attribute name="auto-clear-cache" default="true" type="boolean"/>
         <xs:attribute name="title" type="xs:string"/>
         <xs:attribute name="copyright" type="xs:string"/>

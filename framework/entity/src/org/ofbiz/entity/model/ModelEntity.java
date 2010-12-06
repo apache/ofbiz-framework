@@ -123,6 +123,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * from cache on read showing a warning messages to that effect
      */
     protected boolean neverCache = false;
+    protected boolean neverCheck = false;
 
     protected boolean autoClearCache = true;
 
@@ -257,6 +258,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         this.doLock = UtilXml.checkBoolean(entityElement.getAttribute("enable-lock"), false);
         this.noAutoStamp = UtilXml.checkBoolean(entityElement.getAttribute("no-auto-stamp"), false);
         this.neverCache = UtilXml.checkBoolean(entityElement.getAttribute("never-cache"), false);
+        this.neverCheck = UtilXml.checkBoolean(entityElement.getAttribute("never-check"), false);
         this.autoClearCache = UtilXml.checkBoolean(entityElement.getAttribute("auto-clear-cache"), true);
 
         String sequenceBankSizeStr = UtilXml.checkEmpty(entityElement.getAttribute("sequence-bank-size"));
@@ -408,7 +410,20 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public void setNeverCache(boolean neverCache) {
         this.neverCache = neverCache;
     }
-
+    
+    /**
+     * An indicator to specific if this entity should ignore automatic DB checks.
+     * This should be set when the entity is mapped to a database view to prevent
+     * warnings and attempts to modify the schema.     
+     */
+    public boolean getNeverCheck() {
+        return neverCheck;
+    }
+    
+    public void setNeverCheck(boolean neverCheck) {
+        this.neverCheck = neverCheck;
+    }
+        
     public boolean getAutoClearCache() {
         return this.autoClearCache;
     }
@@ -1409,6 +1424,10 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
         if (this.getNeverCache()) {
             root.setAttribute("never-cache", "true");
+        }
+        
+        if (this.getNeverCheck()) {
+            root.setAttribute("never-check", "true");
         }
 
         if (!this.getAutoClearCache()) {
