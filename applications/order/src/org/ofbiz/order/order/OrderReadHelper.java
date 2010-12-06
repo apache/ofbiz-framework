@@ -2920,4 +2920,62 @@ public class OrderReadHelper {
        result.put("taxGrandTotal", taxGrandTotal);
        return result;
    }
+
+   public static Map<String, Object> getOrderTaxByTaxAuthGeoAndPartyForDisplay(List<GenericValue> orderAdjustmentsOriginal) {
+       BigDecimal taxGrandTotal = BigDecimal.ZERO;
+       List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = FastList.newInstance();
+       List<GenericValue> orderAdjustmentsToUse = FastList.newInstance();
+       if (UtilValidate.isNotEmpty(orderAdjustmentsOriginal)) {
+           // get orderAdjustment where orderAdjustmentTypeId is SALES_TAX.
+           orderAdjustmentsToUse.addAll(EntityUtil.filterByAnd(orderAdjustmentsOriginal, UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX")));
+           orderAdjustmentsToUse.addAll(EntityUtil.filterByAnd(orderAdjustmentsOriginal, UtilMisc.toMap("orderAdjustmentTypeId", "VAT_TAX")));
+           orderAdjustmentsToUse = EntityUtil.orderBy(orderAdjustmentsToUse, UtilMisc.toList("taxAuthGeoId","taxAuthPartyId"));
+
+           // get the list of all distinct taxAuthGeoId and taxAuthPartyId. It is for getting the number of taxAuthGeo and taxAuthPartyId in adjustments.
+           List<String> distinctTaxAuthGeoIdList = EntityUtil.getFieldListFromEntityList(orderAdjustmentsToUse, "taxAuthGeoId", true);
+           List<String> distinctTaxAuthPartyIdList = EntityUtil.getFieldListFromEntityList(orderAdjustmentsToUse, "taxAuthPartyId", true);
+
+           // Keep a list of amount that have been added to make sure none are missed (if taxAuth* information is missing)
+           List<GenericValue> processedAdjustments = FastList.newInstance();
+           // For each taxAuthGeoId get and add amount from orderAdjustment
+           for (String taxAuthGeoId : distinctTaxAuthGeoIdList) {
+               for (String taxAuthPartyId : distinctTaxAuthPartyIdList) {
+                   //get all records for orderAdjustments filtered by taxAuthGeoId and taxAurhPartyId
+                   List<GenericValue> orderAdjByTaxAuthGeoAndPartyIds = EntityUtil.filterByAnd(orderAdjustmentsToUse, UtilMisc.toMap("taxAuthGeoId", taxAuthGeoId, "taxAuthPartyId", taxAuthPartyId));
+                   if (UtilValidate.isNotEmpty(orderAdjByTaxAuthGeoAndPartyIds)) {
+                       BigDecimal totalAmount = BigDecimal.ZERO;
+                       //Now for each orderAdjustment record get and add amount.
+                       for (GenericValue orderAdjustment : orderAdjByTaxAuthGeoAndPartyIds) {
+                           BigDecimal amount = orderAdjustment.getBigDecimal("amount");
+                           if (amount != null) {
+                               totalAmount = totalAmount.add(amount);
+                           }
+                           if ("VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) && 
+                                   orderAdjustment.get("amountAlreadyIncluded") != null) {
+                               // this is the only case where the VAT_TAX amountAlreadyIncluded should be added in, and should just be for display and not to calculate the order grandTotal
+                               totalAmount = totalAmount.add(orderAdjustment.getBigDecimal("amountAlreadyIncluded"));
+                           }
+                           totalAmount = totalAmount.setScale(taxCalcScale, taxRounding);
+                           processedAdjustments.add(orderAdjustment);
+                       }
+                       totalAmount = totalAmount.setScale(taxFinalScale, taxRounding);
+                       taxByTaxAuthGeoAndPartyList.add(UtilMisc.<String, Object>toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "totalAmount", totalAmount));
+                       taxGrandTotal = taxGrandTotal.add(totalAmount);
+                   }
+               }
+           }
+           // Process any adjustments that got missed
+           List<GenericValue> missedAdjustments = FastList.newInstance();
+           missedAdjustments.addAll(orderAdjustmentsToUse);
+           missedAdjustments.removeAll(processedAdjustments);
+           for (GenericValue orderAdjustment : missedAdjustments) {
+               taxGrandTotal = taxGrandTotal.add(orderAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding));
+           }
+           taxGrandTotal = taxGrandTotal.setScale(taxFinalScale, taxRounding);
+       }
+       Map<String, Object> result = FastMap.newInstance();
+       result.put("taxByTaxAuthGeoAndPartyList", taxByTaxAuthGeoAndPartyList);
+       result.put("taxGrandTotal", taxGrandTotal);
+       return result;
+   }
 }
