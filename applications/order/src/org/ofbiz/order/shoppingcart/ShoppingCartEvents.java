@@ -1357,6 +1357,7 @@ public class ShoppingCartEvents {
             cart = (ShoppingCart) outMap.get("shoppingCart");
 
             cart.removeAdjustmentByType("SALES_TAX");
+            cart.removeAdjustmentByType("VAT_TAX");
             cart.removeAdjustmentByType("VAT_PRICE_CORRECT");
             cart.removeAdjustmentByType("PROMOTION_ADJUSTMENT");
             String shipGroupSeqId = null;
