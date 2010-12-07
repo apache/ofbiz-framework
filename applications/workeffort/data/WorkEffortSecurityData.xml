@@ -43,9 +43,11 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
 
     <SecurityGroup groupId="WORKEFFORT_USER" description="WorkEffort user group; all limited workeffort permissions."/>
+    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_VIEW"/>
     <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="OFBTOOLS_VIEW"/>
 
 </entity-engine-xml>
