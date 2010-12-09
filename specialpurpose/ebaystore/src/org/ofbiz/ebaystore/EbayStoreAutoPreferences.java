@@ -1269,7 +1269,6 @@ public class EbayStoreAutoPreferences {
                         } else if (priceType.equals("RETAIL_PRICE")) {
                             //ignore
                         } else if (priceType.equals("SELLER_COST")) {
-                            // FIXME
                             List<GenericValue> supplierProduct = delegator.findByAnd("SupplierProduct", UtilMisc.toMap("productId", SKUItem), UtilMisc.toList("availableFromDate DESC"));
                             String lastPrice = supplierProduct.get(0).getString("lastPrice");
                             doBasePrice = Double.parseDouble(lastPrice);
