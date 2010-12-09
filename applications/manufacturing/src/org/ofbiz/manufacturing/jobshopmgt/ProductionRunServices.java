@@ -1823,6 +1823,9 @@ public class ProductionRunServices {
                         serviceContext.put("componentsLocationMap", componentsLocationMap);
                         serviceContext.put("userLogin", userLogin);
                         Map resultService = dispatcher.runSync("updateProductionRunTask", serviceContext);
+                        if (ServiceUtil.isError(resultService)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resultService));
+                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Problem calling the changeProductionRunTaskStatus service", module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
@@ -2125,7 +2128,10 @@ public class ProductionRunServices {
                             }
                             serviceContext.put("userLogin", userLogin);
                             Map resultService = dispatcher.runSync("issueProductionRunTaskComponent", serviceContext);
-                        }
+                            if (ServiceUtil.isError(resultService)) {
+                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resultService));
+                            }
+                       }
                     }
                 } catch (GenericEntityException gee) {
 

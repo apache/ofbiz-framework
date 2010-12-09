@@ -163,7 +163,7 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunDeclaration.groovy"/>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/productionRunAllFixedAssets.groovy"/>
 
-                <set field="productionRunId" from-field="parameters.productionRunId"/>
+                <set field="productionRunId" from-field="parameters.productionRunId" default-value="${parameters.workEffortId}"/>
                 <entity-one entity-name="WorkEffort" value-field="productionRun">
                     <field-map field-name="workEffortId" from-field="productionRunId"/>
                 </entity-one>

@@ -262,6 +262,9 @@ under the License.
     <!-- Production Run Declaration -->
     <form name="ShowProductionRun" type="single" target="productionRunProduce" title="" default-map-name="productionRunData"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="useRequestParameters" value="false" type="Boolean"/>
+        </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="productId" title="${uiLabelMap.ProductProductName}">
             <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
