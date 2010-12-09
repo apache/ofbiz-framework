@@ -280,7 +280,7 @@ In order ta make this service active add the following to the service definition
                     if (contentName.length()>100) {
                         contentName = contentName.substring(0,100);
                     }
-                    List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName",contentName),null,"-contentId");
+                    List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName",contentName),UtilMisc.toList("-contentId"));
                     if (contents!=null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
                         while (contentCheck.hasNext() && contentNameMatch==false) {
