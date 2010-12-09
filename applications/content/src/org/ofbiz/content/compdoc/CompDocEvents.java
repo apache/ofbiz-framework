@@ -125,7 +125,7 @@ public class CompDocEvents {
             iter = keySet.iterator();
             while (iter.hasNext()) {
                 Object obj = iter.next();
-                Object val = persistResult.get(obj);
+                Object val = result.get(obj);
                 request.setAttribute(obj.toString(), val);
             }
             String errorMsg = ServiceUtil.getErrorMessage(result);
