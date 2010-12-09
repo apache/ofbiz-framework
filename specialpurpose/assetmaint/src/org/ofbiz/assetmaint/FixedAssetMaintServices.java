@@ -84,7 +84,6 @@ public class FixedAssetMaintServices {
                     EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
                     EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.GREATER_THAN, "0")),
                     EntityOperator.AND);
-            // FIXME: broken findByAnd
             List<GenericValue> inventoryItems = delegator.findList("InventoryItem", ecl, null, null, null, false);   //&& inventoryItems.size() > 0
             Iterator<GenericValue> itr = inventoryItems.iterator();
             while (requestedQty > 0 && itr.hasNext()) {
