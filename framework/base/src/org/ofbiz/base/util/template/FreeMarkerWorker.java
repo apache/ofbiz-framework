@@ -324,10 +324,10 @@ public class FreeMarkerWorker {
     }
 
     public static Template getTemplate(String templateLocation, UtilCache<String, Template> cache, Configuration config) throws TemplateException, IOException {
-        Template template = (Template) cache.get(templateLocation);
+        Template template = cache.get(templateLocation);
         if (template == null) {
             synchronized (cache) {
-                template = (Template) cache.get(templateLocation);
+                template = cache.get(templateLocation);
                 if (template == null) {
                     // only make the reader if we need it, and then close it right after!
                     Reader templateReader = makeReader(templateLocation);
