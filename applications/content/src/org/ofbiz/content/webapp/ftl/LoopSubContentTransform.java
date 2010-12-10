@@ -55,16 +55,26 @@ public class LoopSubContentTransform implements TemplateTransformModel {
     public static final String[] removeKeyNames = {"wrapTemplateId", "entityList", "entityIndex", "textData", "dataResourceId","drDataResourceId", "subContentIdSub", "parentContent", "wrappedFTL"};
 
     /**
+     * @deprecated use FreeMarkerWorker.getWrappedObject()
      * A wrapper for the FreeMarkerWorker version.
      */
+    @Deprecated
     public static Object getWrappedObject(String varName, Environment env) {
         return FreeMarkerWorker.getWrappedObject(varName, env);
     }
 
+    /**
+     * @deprecated use FreeMarkerWorker.getArg()
+     */
+    @Deprecated
     public static String getArg(Map args, String key, Environment env) {
         return FreeMarkerWorker.getArg(args, key, env);
     }
 
+    /**
+     * @deprecated use FreeMarkerWorker.getArg()
+     */
+    @Deprecated
     public static String getArg(Map args, String key, Map ctx) {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }

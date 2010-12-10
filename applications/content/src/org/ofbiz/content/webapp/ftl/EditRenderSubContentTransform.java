@@ -50,16 +50,26 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
     public static final String module = EditRenderSubContentTransform.class.getName();
 
     /**
+     * @deprecated use FreeMarkerWorker.getWrappedObject()
      * A wrapper for the FreeMarkerWorker version.
      */
+    @Deprecated
     public static Object getWrappedObject(String varName, Environment env) {
         return FreeMarkerWorker.getWrappedObject(varName, env);
     }
 
+    /**
+     * @deprecated use FreeMarkerWorker.getArg()
+     */
+    @Deprecated
     public static String getArg(Map args, String key, Environment env) {
         return FreeMarkerWorker.getArg(args, key, env);
     }
 
+    /**
+     * @deprecated use FreeMarkerWorker.getArg()
+     */
+    @Deprecated
     public static String getArg(Map args, String key, Map ctx) {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
@@ -68,20 +78,20 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         Map ctx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
-        final String editTemplate = getArg(args, "editTemplate", ctx);
-        final String wrapTemplateId = getArg(args, "wrapTemplateId", ctx);
-        final String mapKey = getArg(args, "mapKey", ctx);
-        final String templateContentId = getArg(args, "templateContentId", ctx);
-        final String subContentId = getArg(args, "subContentId", ctx);
-        String subDataResourceTypeIdTemp = getArg(args, "subDataResourceTypeId", ctx);
-        final String contentId = getArg(args, "contentId", ctx);
+        final String editTemplate = FreeMarkerWorker.getArg(args, "editTemplate", ctx);
+        final String wrapTemplateId = FreeMarkerWorker.getArg(args, "wrapTemplateId", ctx);
+        final String mapKey = FreeMarkerWorker.getArg(args, "mapKey", ctx);
+        final String templateContentId = FreeMarkerWorker.getArg(args, "templateContentId", ctx);
+        final String subContentId = FreeMarkerWorker.getArg(args, "subContentId", ctx);
+        String subDataResourceTypeIdTemp = FreeMarkerWorker.getArg(args, "subDataResourceTypeId", ctx);
+        final String contentId = FreeMarkerWorker.getArg(args, "contentId", ctx);
 
 
         final Locale locale = (Locale) FreeMarkerWorker.getWrappedObject("locale", env);
-        String mimeTypeIdTemp = getArg(args, "mimeTypeId", ctx);
-        final String rootDir = getArg(args, "rootDir", ctx);
-        final String webSiteId = getArg(args, "webSiteId", ctx);
-        final String https = getArg(args, "https", ctx);
+        String mimeTypeIdTemp = FreeMarkerWorker.getArg(args, "mimeTypeId", ctx);
+        final String rootDir = FreeMarkerWorker.getArg(args, "rootDir", ctx);
+        final String webSiteId = FreeMarkerWorker.getArg(args, "webSiteId", ctx);
+        final String https = FreeMarkerWorker.getArg(args, "https", ctx);
         final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);

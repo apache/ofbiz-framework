@@ -52,16 +52,22 @@ public class RenderSubContentTransform implements TemplateTransformModel {
     public static final String module = RenderSubContentTransform.class.getName();
 
     /**
+     * @deprecated use FreeMarkerWorker.getArg()
      * Does a conditional search to return a value for a parameter with the passed name. Looks first to see if it was passed as an argument to the transform.
      * Secondly, it looks to see if it is passed as a parameter in the template context object.
      * <p/>
      * Note that this is different from the getArg method of EditRenderDataResourceTransform, which checks the request object instead of the template context
      * object.
      */
+    @Deprecated
     public static String getArg(Map args, String key, Environment env) {
         return FreeMarkerWorker.getArg(args, key, env);
     }
 
+    /**
+     * @deprecated use FreeMarkerWorker.getArg()
+     */
+    @Deprecated
     public static String getArg(Map args, String key, Map ctx) {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
@@ -73,12 +79,12 @@ public class RenderSubContentTransform implements TemplateTransformModel {
         if (ctx == null) {
             ctx = FastMap.newInstance();
         }
-        final String mapKey = getArg(args, "mapKey", ctx);
-        final String subContentId = getArg(args, "subContentId", ctx);
-        final String subDataResourceTypeId = getArg(args, "subDataResourceTypeId", ctx);
-        final String contentId = getArg(args, "contentId", ctx);
-        final String mimeTypeId = getArg(args, "mimeTypeId", ctx);
-        final String throwExceptionOnError = getArg(args, "throwExceptionOnError", ctx);
+        final String mapKey = FreeMarkerWorker.getArg(args, "mapKey", ctx);
+        final String subContentId = FreeMarkerWorker.getArg(args, "subContentId", ctx);
+        final String subDataResourceTypeId = FreeMarkerWorker.getArg(args, "subDataResourceTypeId", ctx);
+        final String contentId = FreeMarkerWorker.getArg(args, "contentId", ctx);
+        final String mimeTypeId = FreeMarkerWorker.getArg(args, "mimeTypeId", ctx);
+        final String throwExceptionOnError = FreeMarkerWorker.getArg(args, "throwExceptionOnError", ctx);
         final Locale locale = (Locale) FreeMarkerWorker.getWrappedObject("locale", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
