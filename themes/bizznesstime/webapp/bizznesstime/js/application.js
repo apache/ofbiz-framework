@@ -28,51 +28,50 @@ adds functionality to style layout elements
 **************************************************/
 //ADD CLEARFIX STYLING TO MAIN CONTENT AREA
 OFBIZ.clearFix = function(){
-    if($$('.contentarea')){
-        $$('.contentarea').each(function(elm) {
-            $(elm).addClassName('clearfix');
+    if(jQuery('.contentarea')){
+        jQuery('.contentarea').each(function(elm) {
+            jQuery(this).addClass('clearfix');
         });
     }
 }
 
 //GLOBAL FUNCTION FOR APP DROP-DROWN SECTIONS
 OFBIZ.initExpansion = function() {
-    if($$('.contracted')){
-        $$('.contracted').each(function(elm) {
-            $(elm).next().style.display = 'none';
+    if(jQuery('.contracted')){
+        jQuery('.contracted').each(function(elm) {
+            jQuery(this).next().css({'display': 'none'});
         });    
     }
-    if($$('.expanded, .contracted')) {
-        $$('.expanded, .contracted').each(function(elm) {
-            $(elm).onclick = function() {
-                Effect.toggle($(elm).next(),'blind',{
-                    duration : .2,
-                    afterFinish: function() {
-                        if($(elm).next().visible()) {
-                            $(elm).removeClassName('contracted');
-                            $(elm).addClassName('expanded');
+    if(jQuery('.expanded, .contracted')) {
+        jQuery('.expanded, .contracted').each(function(elm) {
+            var menu = jQuery(this);
+            menu.click( function() {
+                menu.next().toggle( function () {
+                       if(menu.next().is(':visible')) {
+                            menu.removeClass('contracted');
+                            menu.addClass('expanded');
                         } else {
-                            $(elm).removeClassName('expanded');
-                            $(elm).addClassName('contracted');
+                            menu.removeClass('expanded');
+                            menu.addClass('contracted');
                         }
-                    }
+                    });
                 });
-            }
-        });
-    }
+            });
+    };
 }
 
-
-OFBIZ.Effect = Object.extend({}, Effect);
-Object.extend(Element,{
-    findElement: function(element, tagName) {
-        var element = $(element);
-        while (element.parentNode && (!element.tagName || 
-            (element.tagName.toUpperCase() != tagName.toUpperCase())))
-            element = element.parentNode;
-            return $(element);
-    }
-});
+OFBIZ.hideExpanded = function() {
+    if(jQuery('.expanded').length) {
+        jQuery('.expanded').each(function(elm) {
+               var menu = jQuery(this);
+               if(menu.next().is(':visible')) {
+                   menu.removeClass('expanded');
+                   menu.addClass('contracted');
+                   menu.next().fadeOut('fast');
+               }
+            });
+    };
+}
 
 /*****************************************************
 FORM FOCUS AND BLUR
@@ -80,11 +79,11 @@ javascript solution to make form focus style
 consistent cross browser form platforms that
 don't support input:focus (cough, cough, IE, cough)
 *****************************************************/
-document.observe('dom:loaded', function() {
-    var fields = $$("input, textarea");
+jQuery('document').ready(function () {
+    var fields = jQuery("input, textarea");
     for (var i = 0; i < fields.length; i++) {
-      fields[i].onfocus = function() {this.className += ' focused';}
-      fields[i].onblur = function() {this.className = this.className.replace('focused', '');}
+      fields[i].focus (function() {this.className += ' focused';});
+      fields[i].blur (function() {this.className = this.className.replace('focused', '');});
     }
 });
 
@@ -99,17 +98,17 @@ message automatically fades on keypress, click mousemove
 var humanMsg = {
     setup: function(appendTo, msgOpacity) {
       humanMsg.msgID = 'humanMsg';
-      appendTo = appendTo || $$('body')[0];
+      appendTo = appendTo || jQuery('body')[0];
       humanMsg.msgOpacity = 0.5;
       if (msgOpacity !== undefined) {
         humanMsg.msgOpacity = parseFloat(msgOpacity);
       }
-      var myTemplate = new Template(
+      /*var myTemplate = new Template(
         '<div id="#{msgID}" class="humanMsg" style="display:none;">'+
           '<div></div>'+
          '</div> ');
-      var show = {msgID: humanMsg.msgID};
-      appendTo.insert(myTemplate.evaluate(show));
+      var show = {msgID: humanMsg.msgID};*/
+      jQuery('<div id="' + humanMsg.msgID + '" class="humanMsg" style="display:none;"><div></div></div>').appendTo(appendTo);
     },
     displayMsg: function(msg) {
       if (msg === '') {
@@ -117,25 +116,23 @@ var humanMsg = {
       }
       clearTimeout(humanMsg.t2);
       // Inject message
-      var msgElement = $(humanMsg.msgID);;
-      msgElement.down('div').update(msg);
-      msgElement.appear({ duration: 0.2 });
-      //humanMsg.t1 = setTimeout("humanMsg.bindEvents()", 700)
-      //humanMsg.t2 = setTimeout("humanMsg.removeMsg()", 5000)
-      msgElement.observe('click', humanMsg.removeMsg);
+      var msgElement = jQuery("#" + humanMsg.msgID);;
+      msgElement.find('div:first').html(msg);
+      msgElement.fadeIn('slow');
+      msgElement.click(humanMsg.removeMsg);
     },
     // Remove message if mouse is moved or key is pressed
     bindEvents: function() {
-      document.observe('mousemove', humanMsg.removeMsg)
-              .observe('click', humanMsg.removeMsg)
-              .observe('keypress', humanMsg.removeMsg);
+      jQuery(document).mousemove(humanMsg.removeMsg)
+              .click(humanMsg.removeMsg)
+              .keypress(humanMsg.removeMsg);
     },
     // Unbind mouse & keyboard
     removeMsg: function() {
-      document.stopObserving('mousemove', humanMsg.removeMsg)
-              .stopObserving('click', humanMsg.removeMsg)
-              .stopObserving('keypress', humanMsg.removeMsg);
-      $(humanMsg.msgID).fade({ duration: 0.5, delay:0.5 });
+      jQuery(document).unbind('mousemove', humanMsg.removeMsg)
+              .unbind('click', humanMsg.removeMsg)
+              .unbind('keypress', humanMsg.removeMsg);
+      jQuery("#" + humanMsg.msgID).fadeOut('slow');
     }
 };
 
@@ -144,46 +141,63 @@ MODAL WINDOWS
 displays preferences (language, theme, timezone)
 in modal window instead of popup/new window
 **************************************************/
-//PREFERENCES POPUPS
-ModalWindow = Class.create({
-    initialize: function(){
-        this.cont = "";
-        this.overlay = "";
-        this.win = "";
-        this.container = new Element('div', {id:'modal-container'});
-        var container = this.container;
-        $(document.body).insert({bottom:container});
-    },
-    show: function(element, overlay){
-        this.close();
-        this.cont = element;
-        if(overlay) this.overlay = this.container.appendChild(new Element('div', {'class':'modal-overlay'}));
-        this.win = this.container.appendChild(new Element('div', {'class':'modal-window'}));
-        this.win.insert({bottom:this.cont});
-    },
-    close: function(e){
-        if(e) e.stop();
-        this.container.childElements().invoke('remove');
+ModalWindow = function(){};
+
+ModalWindow.openModalWindow = function(url, dialogId, width, height) {
+    
+    // if element doesn't exists create otherwise just open
+    if (!document.getElementById('dialog-container_' + dialogId)) {
+        var modalContainer = jQuery("<div id='dialog-container_" + dialogId + "' style='display:none'></div>");
+        jQuery('body').append(modalContainer);
+        modalContainer = jQuery('#dialog-container_' + dialogId)
+        modalContainer.dialog({
+            modal: true,
+            zIndex: 10000,
+            height: height,
+            width: width,
+            open: function() {
+                    modalContainer.append(jQuery("<img id='dialog-ajax-spinner' src='/bizznesstime/images/ajax-loader.gif'/>"));
+                    modalContainer.load(url, function () {jQuery("#dialog-ajax-spinner").remove();});
+                    // make sure the other possible opened dialogs will be closed
+                    ModalWindow.closeOtherModalWindows(dialogId);
+                    // close the open menu
+                    OFBIZ.hideExpanded();
+                }
+        });
+    } else {
+        jQuery('#dialog-container_' + dialogId).dialog('open');
     }
-});
+}
+
+ModalWindow.closeOtherModalWindows = function(currentOpen) {
+    if (currentOpen == 'listLanguage') {
+        jQuery('#dialog-container_listTheme').dialog('close');
+        jQuery('#dialog-container_listTimezone').dialog('close');
+    } else if (currentOpen == 'listTheme') {
+        jQuery('#dialog-container_listTimezone').dialog('close');
+        jQuery('#dialog-container_listLanguage').dialog('close');
+    } else if (currentOpen == 'listTimezone') {
+        jQuery('#dialog-container_listTheme').dialog('close');
+        jQuery('#dialog-container_listLanguage').dialog('close');
+    }
+}
 
 //LOAD MODAL PREFERENCE WINDOWS
-document.observe('dom:loaded', function() {
-    get = new ModalWindow();
-    $("language").observe('click',function(e) {
-      var locale = new Element('div', {id:'modal-contents'}).update("<img src='/bizznesstime/images/ajax-loader.gif'/>Updating Languages, please wait...");
-      var localeUpdate = new Ajax.Updater('modal-contents', this.rel, {method: 'get'});
-      get.show(locale,true);
+jQuery('document').ready (function () {
+    jQuery("#language").click (function(e) {
+        var url = this.href;
+        this.href = "javascript:void(0);"
+        ModalWindow.openModalWindow(url, 'listLanguage', 340, 400);    
     });
-    $("theme").observe('click',function(e) {
-          var look = new Element('div', {id:'modal-contents'}).update("<img src='/bizznesstime/images/ajax-loader.gif'/>Updating Themes, please wait...");
-          var lookUpdate = new Ajax.Updater('modal-contents', this.rel, {method: 'get'});
-          get.show(look,true);
+    jQuery("#theme").click (function(e) {
+        var url = this.href;
+        this.href = "javascript:void(0);"
+            ModalWindow.openModalWindow(url, 'listTheme', 600, 400);  
     });
-    $("timezone").observe('click',function(e) {
-          var time = new Element('div', {id:'modal-contents'}).update("<img src='/bizznesstime/images/ajax-loader.gif'/>Updating Timezones, please wait...");
-          var timeUpdate = new Ajax.Updater('modal-contents', this.rel, {method: 'get'});
-          get.show(time,true);
+    jQuery("#timezone").click (function(e) {
+        var url = this.href;
+        this.href = "javascript:void(0);"
+            ModalWindow.openModalWindow(url, 'listTimezone', 430, 400);  
     });
 });
 
@@ -191,7 +205,7 @@ document.observe('dom:loaded', function() {
 LOAD 'EM UP
 **************************************************/
 //LOAD GLOBAL APP FUNCTIONS
-document.observe('dom:loaded', function(){
+jQuery('document').ready(function () {
     OFBIZ.clearFix();
     OFBIZ.initExpansion();
     humanMsg.setup();

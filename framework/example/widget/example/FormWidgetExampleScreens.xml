@@ -64,11 +64,20 @@ under the License.
                                             <set field="dependentKeyName" value="geoId"/>
                                             <set field="descName" value="geoName"/>
                                             <set field="selectedDependentOption" from-field="postalAddress.stateProvinceGeoId" default-value="_none_"/><!-- postalAddress.stateProvinceGeoId does not make much sense here, only to get the idea -->
+                                            
+                                            <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
+                                            <set field="asm_multipleSelectForm" value="DropDownMultipleFieldExampleForm"/>
+                                            <set field="asm_multipleSelect"  value="DropDownMultipleFieldExampleForm_countryGeoIdMultiple"/>
+                                            <set field="asm_formSize" value="600"/>
+                                            <set field="asm_asmListItemPercentOfForm" value="95"/>
+                                            <set field="asm_sortable" value="false"/>                                            
                                         </actions>
                                         <widgets>
                                             <!--platform-specific><html><html-template location="component://common/webcommon/includes/setCountryStatesEventJs.ftl"/></html></platform-specific-->
                                             <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                            <platform-specific><html><html-template location="component://common/webcommon/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
                                             <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                            <include-form name="DropDownMultipleFieldExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                         </widgets>
                                     </section>
                                 </container>

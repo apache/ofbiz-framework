@@ -138,16 +138,16 @@ ${virtualJavaScript?if_exists}
 <script language="JavaScript" type="text/javascript">
 <!--
 
-document.observe('dom:loaded', function() {
-  Event.observe($('configFormId'),'change',getConfigDetails);
+jQuery(document).ready(function () {
+    jQuery('#configFormId').change(getConfigDetails)
 });
 
 function getConfigDetails(event) {
-        new Ajax.Request('<@ofbizUrl>getConfigDetailsEvent</@ofbizUrl>',{parameters: $('configFormId').serialize(),  requestHeaders: {Accept: 'application/json'},
-
-           onSuccess: function(transport){
-                var data = transport.responseText.evalJSON(true);
-
+        jQuery.ajax({
+            url: '<@ofbizUrl>getConfigDetailsEvent</@ofbizUrl>',
+            type: 'POST',
+            data: jQuery('#configFormId').serialize(),
+            success: function(data) {
                 if (data._ERROR_MESSAGE_LIST_ != undefined) {
                    //console.log(data._ERROR_MESSAGE_LIST_);
                    //alert(data._ERROR_MESSAGE_LIST_);
@@ -162,13 +162,7 @@ function getConfigDetails(event) {
                   document.getElementById('totalPrice').innerHTML = totalPrice;
                   document.addToShoppingList.configId.value = configId;
                   event.stop();
-                }
-            },
-
-           onFailure: function(transport) {
-             var data = transport.responseText.evalJSON(true);
-             //console.log('Failure');
-           }
+            }
         });
 }
 

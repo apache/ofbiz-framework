@@ -74,10 +74,10 @@ function submitForm(form, mode, value) {
             <div>
                 <label>${uiLabelMap.CommonAdd}:</label>
                 <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
-                  <a href="javascript:submitForm($('checkoutInfoForm'), 'NC', '');" class="button">${uiLabelMap.AccountingCreditCard}</a>
+                  <a href="javascript:submitForm(document.getElementById('checkoutInfoForm'), 'NC', '');" class="button">${uiLabelMap.AccountingCreditCard}</a>
                 </#if>
                 <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
-                  <a href="javascript:submitForm($('checkoutInfoForm'), 'NE', '');" class="button">${uiLabelMap.AccountingEFTAccount}</a>
+                  <a href="javascript:submitForm(document.getElementById('checkoutInfoForm'), 'NE', '');" class="button">${uiLabelMap.AccountingEFTAccount}</a>
                 </#if>
               <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE?exists>
               </div>
@@ -134,7 +134,7 @@ function submitForm(form, mode, value) {
                       <input type="checkbox" id="checkOutPayment_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if cart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if> />
                       <label for="checkOutPayment_${paymentMethod.paymentMethodId}">${uiLabelMap.AccountingGift}:${giftCardNumber}</label>
                         <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
-                        <a href="javascript:submitForm($('checkoutInfoForm'), 'EG', '${paymentMethod.paymentMethodId}');" class="button">${uiLabelMap.CommonUpdate}</a>
+                        <a href="javascript:submitForm(document.getElementById('checkoutInfoForm'), 'EG', '${paymentMethod.paymentMethodId}');" class="button">${uiLabelMap.CommonUpdate}</a>
                         <strong>${uiLabelMap.OrderBillUpTo}:</strong> <input type="text" size="5" class="inputBox" name="amount_${paymentMethod.paymentMethodId}" value="<#if (cart.getPaymentAmount(paymentMethod.paymentMethodId)?default(0) > 0)>${cart.getPaymentAmount(paymentMethod.paymentMethodId)?string("##0.00")}</#if>" />
                   </div>
                  </#if>
@@ -145,7 +145,7 @@ function submitForm(form, mode, value) {
                       <input type="checkbox" id="checkOutPayment_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if cart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if> />
                       <label for="checkOutPayment_${paymentMethod.paymentMethodId}">CC:${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}</label>
                         <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
-                        <a href="javascript:submitForm($('checkoutInfoForm'), 'EC', '${paymentMethod.paymentMethodId}');" class="button">${uiLabelMap.CommonUpdate}</a>
+                        <a href="javascript:submitForm(document.getElementById('checkoutInfoForm'), 'EC', '${paymentMethod.paymentMethodId}');" class="button">${uiLabelMap.CommonUpdate}</a>
                         <label for="amount_${paymentMethod.paymentMethodId}"><strong>${uiLabelMap.OrderBillUpTo}:</strong></label><input type="text" size="5" class="inputBox" id="amount_${paymentMethod.paymentMethodId}" name="amount_${paymentMethod.paymentMethodId}" value="<#if (cart.getPaymentAmount(paymentMethod.paymentMethodId)?default(0) > 0)>${cart.getPaymentAmount(paymentMethod.paymentMethodId)?string("##0.00")}</#if>" />
                   </div>
                  </#if>
@@ -156,7 +156,7 @@ function submitForm(form, mode, value) {
                       <input type="radio" id="checkOutPayment_${paymentMethod.paymentMethodId}" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if> />
                       <label for="checkOutPayment_${paymentMethod.paymentMethodId}">${uiLabelMap.AccountingEFTAccount}:${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</label>
                         <#if paymentMethod.description?has_content><p>(${paymentMethod.description})</p></#if>
-                      <a href="javascript:submitForm($('checkoutInfoForm'), 'EE', '${paymentMethod.paymentMethodId}');" class="button">${uiLabelMap.CommonUpdate}</a>
+                      <a href="javascript:submitForm(document.getElementById('checkoutInfoForm'), 'EE', '${paymentMethod.paymentMethodId}');" class="button">${uiLabelMap.CommonUpdate}</a>
                   </div>
                  </#if>
                 </#if>
@@ -193,17 +193,17 @@ function submitForm(form, mode, value) {
               </div>
               <div>
                   <label for="giftCardNumber">${uiLabelMap.AccountingNumber}</label>
-                  <input type="text" size="15" class="inputBox" id="giftCardNumber" name="giftCardNumber" value="${(requestParameters.giftCardNumber)?if_exists}" onfocus="$('addGiftCard').checked=true;" />
+                  <input type="text" size="15" class="inputBox" id="giftCardNumber" name="giftCardNumber" value="${(requestParameters.giftCardNumber)?if_exists}" onfocus="document.getElementById('addGiftCard').checked=true;" />
               </div>
               <#if cart.isPinRequiredForGC(delegator)>
               <div>
                   <label for="giftCardPin">${uiLabelMap.AccountingPIN}</label>
-                  <input type="text" size="10" class="inputBox" id="giftCardPin" name="giftCardPin" value="${(requestParameters.giftCardPin)?if_exists}" onfocus="$('addGiftCard').checked=true;" />
+                  <input type="text" size="10" class="inputBox" id="giftCardPin" name="giftCardPin" value="${(requestParameters.giftCardPin)?if_exists}" onfocus="document.getElementById('addGiftCard').checked=true;" />
               </div>
               </#if>
               <div>
                   <label for="giftCardAmount">${uiLabelMap.AccountingAmount}</label>
-                  <input type="text" size="6" class="inputBox" id="giftCardAmount" name="giftCardAmount" value="${(requestParameters.giftCardAmount)?if_exists}" onfocus="$('addGiftCard').checked=true;" />
+                  <input type="text" size="6" class="inputBox" id="giftCardAmount" name="giftCardAmount" value="${(requestParameters.giftCardAmount)?if_exists}" onfocus="document.getElementById('addGiftCard').checked=true;" />
               </div>
             </#if>
 
@@ -219,6 +219,6 @@ function submitForm(form, mode, value) {
 </form>
 
 <div>
-  <a href="javascript:submitForm($('checkoutInfoForm'), 'CS', '');" class="buttontextbig">${uiLabelMap.OrderBacktoShoppingCart}</a>
-  <a href="javascript:submitForm($('checkoutInfoForm'), 'DN', '');" class="buttontextbig">${uiLabelMap.OrderContinueToFinalOrderReview}</a>
+  <a href="javascript:submitForm(document.getElementById('checkoutInfoForm'), 'CS', '');" class="buttontextbig">${uiLabelMap.OrderBacktoShoppingCart}</a>
+  <a href="javascript:submitForm(document.getElementById('checkoutInfoForm'), 'DN', '');" class="buttontextbig">${uiLabelMap.OrderContinueToFinalOrderReview}</a>
 </div>

@@ -145,7 +145,6 @@ under the License.
     <screen name="navigateHelp">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
                 <set field="titleProperty" value="PageTitleNavigateContent"/>
                 <entity-and entity-name="ContentAssoc" list="contentAssoc">
                     <field-map field-name="contentId" value="HELP_ROOT"/>

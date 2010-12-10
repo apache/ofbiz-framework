@@ -101,15 +101,21 @@
                 
                 <set field="noId" value="true"/><!-- see CommonGeoManagementDecorator -->
                 
+                <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
+                <set field="asm_multipleSelectForm"  value="LinkGeos"/>
+                <set field="asm_multipleSelect"  value="LinkGeos_geoIds"/>
+                <set field="asm_formSize" value="700"/>
+                <set field="asm_asmListItemPercentOfForm" value="95"/>
+                <set field="asm_sortable" value="false"/>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>                
+                <set field="asm_title" value="${uiLabelMap.WebtoolsGeosSelect}"/>
                 <!-- selectMultipleRelatedValues parameters -->
-                <set field="multipleSelectForm"  value="LinkGeos"/>
-                <set field="multipleSelect"  value="LinkGeos_geoIds"/>
-                <set field="relatedField" value="LinkGeos_geoId"/>
-                <set field="requestName" value="getRelatedGeos"/>                
-                <set field="paramKey" value="geoId"/>
-                <set field="type" value="geoAssocTypeId"/>
-                <set field="typeField" value="LinkGeos_geoAssocTypeId"/>
-                <set field="responseName" value="geoList"/>                
+                <set field="asm_relatedField" value="LinkGeos_geoId"/>
+                <set field="asm_requestName" value="getRelatedGeos"/>                
+                <set field="asm_paramKey" value="geoId"/>
+                <set field="asm_type" value="geoAssocTypeId"/>
+                <set field="asm_typeField" value="LinkGeos_geoAssocTypeId"/>
+                <set field="asm_responseName" value="geoList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGeoManagementDecorator" location="component://webtools/widget/CommonScreens.xml">

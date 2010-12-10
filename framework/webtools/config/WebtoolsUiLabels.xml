@@ -1707,6 +1707,10 @@
         <value xml:lang="en">Link Geos (associate Geos to a Geo)</value>
         <value xml:lang="fr">Lier des zones géographiques (association d'une avec plusieurs)</value>
     </property>
+    <property key="WebtoolsGeosSelect">
+        <value xml:lang="en">Select Geos to associate</value>
+        <value xml:lang="fr">Sélectionner les zones géographiques à associer</value>
+    </property>
     <property key="WebtoolsHits">
         <value xml:lang="de">Besuche</value>
         <value xml:lang="en">Hits</value>

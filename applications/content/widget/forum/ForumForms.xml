@@ -219,7 +219,7 @@ under the License.
         <field name="ownerContentId"><hidden value="${parameters.forumId}"/></field>
         <field name="caContentId"><hidden value="${parameters.forumMessageIdTo}"/></field>
         <field name="caContentAssocTypeId"><hidden value="RESPONSE"/></field>
-        <field name="forumMessageText" parameter-name="textData"><textarea rows="10" visual-editor-enable="true" visual-editor-buttons="undo redo bold italic underline bullet indent outdent link"/></field>
+        <field name="forumMessageText" parameter-name="textData"><textarea rows="10" visual-editor-enable="true" visual-editor-buttons="compact"/></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddForumThreadMessage" type="single" extends="AddForumMessage" target="updateForumThreadMessage"

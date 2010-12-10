@@ -137,11 +137,9 @@ function ShowTab(lname) {
                         <td class="label">${field.name}</td>
                         <td>
                           <#if field.fieldType == 'DateTime'>
-                            DateTime(YYYY-MM-DD HH:mm:SS.sss):<input type="text" name="${field.name}" size="24" value="${field.value}" />
-                            <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' /></a>
+                            DateTime(YYYY-MM-DD HH:mm:SS.sss):<@htmlTemplate.renderDateTimeField name="${field.name}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${field.value}" size="25" maxlength="30" id="${field.name}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                           <#elseif field.fieldType == 'Date'>
-                            Date(YYYY-MM-DD):<input type="text" name="${field.name}" size="11" value="${field.value}" />
-                            <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' /></a>
+                            Date(YYYY-MM-DD):<@htmlTemplate.renderDateTimeField name="${field.name}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${field.value}" size="25" maxlength="30" id="${field.name}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                           <#elseif field.fieldType == 'Time'>
                             Time(HH:mm:SS.sss):<input type="text" size="6" maxlength="10" name="${field.name}" value="${field.value}" />
                           <#elseif field.fieldType == 'Integer'>
@@ -179,11 +177,9 @@ function ShowTab(lname) {
                       <td class="label">${field.name}</td>
                       <td>
                         <#if field.fieldType == 'DateTime'>
-                          DateTime(YYYY-MM-DD HH:mm:SS.sss):<input type="text" name="${field.name}" size="24" value="${field.value}" />
-                          <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' /></a>
+                          DateTime(YYYY-MM-DD HH:mm:SS.sss):<@htmlTemplate.renderDateTimeField name="${field.name}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${field.value}" size="25" maxlength="30" id="${field.name}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <#elseif field.fieldType == 'Date'>
-                          Date(YYYY-MM-DD):<input type="text" name="${field.name}" size="11" value="${field.value}" />
-                          <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' /></a>
+                          Date(YYYY-MM-DD):<@htmlTemplate.renderDateTimeField name="${field.name}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${field.value}" size="25" maxlength="30" id="${field.name}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <#elseif field.fieldType == 'Time'>
                           Time(HH:mm:SS.sss):<input type="text" size="6" maxlength="10" name="${field.name}" value="${field.value}" />
                         <#elseif field.fieldType == 'Integer'>

@@ -17,97 +17,97 @@ specific language governing permissions and limitations
 under the License.
 */
 
-var validateNewUser = null;
-var validateEditUser = null;
-var validatePostalAddress = null;
-document.observe('dom:loaded', function() {
-    if ($('newUserForm')) {
-        validateNewUser = new Validation('newUserForm', {immediate: true, onSubmit: false});
-        addValidations();
-        Event.observe($('emailAddress'), 'change', setUserNameFromEmail);
+jQuery(document).ready( function() {
+    
+    // register a new user/customer
+    if (document.getElementById('newUserForm')) {
+        jQuery("#newUserForm").validate();
+        
+        jQuery("#emailAddress").change(setUserNameFromEmail);
         useShippingAddressAsBillingToggle();
-        Event.observe('useShippingAddressForBilling', 'click', useShippingAddressAsBillingToggle);
-        Event.observe($('submitNewUserForm'), 'click', submitValidNewUser);
+        
+        jQuery("#useShippingAddressForBilling").click(useShippingAddressAsBillingToggle);
+        jQuery("#submitNewUserForm").click(submitValidNewUser);
         // Get associate states for Shipping Information
-        Event.observe($('shipToCountryGeoId'), 'change', function(){
+        jQuery("#shipToCountryGeoId").change( function(){
             getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
         });
         // Get associate states for Billing Information
-        Event.observe($('billToCountryGeoId'), 'change', function() {
+        jQuery("#billToCountryGeoId").change( function(){
             getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
         });
         getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
         getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
     }
-    if ($('editUserForm')) {
-        validateEditUser = new Validation('editUserForm', {immediate: true, onSubmit: false});
-        Event.observe($('submitEditUserForm'), 'click', submitValidEditUser);
+    
+    // edit user information form validation
+    if (document.getElementById('editUserForm')) {
+        jQuery("#editUserForm").validate();
     }
-    if (!$('newUserForm') && !$('editUserForm')) {
-        if ($('emailAddress')) {
-            inPlaceEditEmail('emailAddress');
-        }
-    }
-    if ($('addAddress')) {
-        validatePostalAddress = new Validation('createPostalAddressForm', {immediate: true, onSubmit: false});
-    }
-    if ($('submitPostalAddressForm')) {
-        Event.observe($('submitPostalAddressForm'), 'click', submitValidPostalAddress);
+    
+    // add Address validation
+    if (document.getElementById('addAddress')) {
+        jQuery("#createPostalAddressForm").validate();
     }
 
-    if ($('shipToPhoneRequired')) {
-        Event.observe($('shipToCountryCode'), 'blur', function() {
+    // special validation on blur for phone number fields
+    if (document.getElementById('shipToPhoneRequired')) {
+        jQuery("#shipToCountryCode").blur( function() {
             validatePhoneNumber('shipToPhoneRequired', 'shipToCountryCode', 'shipToAreaCode', 'shipToContactNumber');
         });
-        Event.observe($('shipToAreaCode'), 'blur', function() {
+        jQuery("#shipToAreaCode").blur( function() {
             validatePhoneNumber('shipToPhoneRequired', 'shipToAreaCode', 'shipToCountryCode', 'shipToContactNumber');
         });
-        Event.observe($('shipToContactNumber'), 'blur', function() {
+        jQuery("#shipToContactNumber").blur( function() {
             validatePhoneNumber('shipToPhoneRequired', 'shipToContactNumber', 'shipToCountryCode', 'shipToAreaCode');
         });
     }
-    if ($('billToPhoneRequired')) {
-        Event.observe($('billToCountryCode'), 'blur', function() {
+    if (document.getElementById('billToPhoneRequired')) {
+        jQuery("#billToCountryCode").blur( function() {
             validatePhoneNumber('billToPhoneRequired', 'billToCountryCode', 'billToAreaCode', 'billToContactNumber');
         });
-        Event.observe($('billToAreaCode'), 'blur', function() {
+        jQuery("#billToAreaCode").blur( function() {
             validatePhoneNumber('billToPhoneRequired', 'billToAreaCode', 'billToCountryCode', 'billToContactNumber');
         });
-        Event.observe($('billToContactNumber'), 'blur', function() {
+        jQuery("#billToContactNumber").blur( function() {
             validatePhoneNumber('billToPhoneRequired', 'billToContactNumber', 'billToCountryCode', 'billToAreaCode');
         });
     }
-    if ($('createPostalAddressForm')) {
+    
+    // postal address validation and geo autocomplete
+    if (document.getElementById('createPostalAddressForm')) {
+        jQuery("#createPostalAddressForm").validate();
+        
         // Get associate states for Postal Address Information
-        Event.observe($('countryGeoId'), 'change', function() {
+        jQuery("#countryGeoId").change( function() {
             getAssociatedStateList('countryGeoId', 'stateProvinceGeoId', 'advice-required-stateProvinceGeoId', 'states');
         });
         getAssociatedStateList('countryGeoId', 'stateProvinceGeoId', 'advice-required-stateProvinceGeoId', 'states');
     }
-    if ($('editBillToPostalAddress')) {
+    if (document.getElementById('editBillToPostalAddress')) {
         // Get associate states for Billing Information
-        Event.observe($('billToCountryGeoId'), 'change', function() {
+        jQuery("#billToCountryGeoId").change( function() {
             getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
         });
-        if($('billToStateProvinceGeoId').value == "_NA_"){
+        if(document.getElementById('billToStateProvinceGeoId').value == "_NA_"){
             getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
         } else {
-            stateValue = $('billToStateProvinceGeoId').value;
+            stateValue = document.getElementById('billToStateProvinceGeoId').value;
             getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
-            $('billToStateProvinceGeoId').value = stateValue;
+            document.getElementById('billToStateProvinceGeoId').value = stateValue;
         }
     }
-    if ($('editShipToPostalAddress')) {
+    if (document.getElementById ('editShipToPostalAddress')) {
         // Get associate states for Shipping Information
-        Event.observe($('shipToCountryGeoId'), 'change', function(){
+        jQuery("#shipToCountryGeoId").change( function() {
             getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
         });
-        if($('shipToStateProvinceGeoId').value == "_NA_"){
+        if(document.getElementById('shipToStateProvinceGeoId').value == "_NA_"){
             getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
         } else {
-            var stateValue = $('shipToStateProvinceGeoId').value;
+            var stateValue = document.getElementById('shipToStateProvinceGeoId').value;
             getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
-            $('shipToStateProvinceGeoId').value = stateValue;
+            document.getElementById('shipToStateProvinceGeoId').value = stateValue;
         }
     }
 });
@@ -120,66 +120,62 @@ document.observe('dom:loaded', function() {
  * 3) textToCheck1, textToCheck2 : Other text boxes to be check.
  */
 function validatePhoneNumber(errorDivId, focusedTextId, textToCheck1, textToCheck2) {
-    if (($(focusedTextId).value == "")) {
-        Effect.Appear(errorDivId, {duration: 0.5});
-    } else if (($(textToCheck1).value != "") && ($(textToCheck2).value != "" )) {
-       Effect.Fade(errorDivId, {duration: 0.5});
+    if ((document.getElementById(focusedTextId).value == "")) {
+        jQuery("#" + errorDivId).fadeIn("fast");
+    } else if ((document.getElementById(textToCheck1).value != "") && (document.getElementById(textToCheck2).value != "" )) {
+        jQuery("#" + errorDivId).fadeOut("fast");
     }
 }
 
 function submitValidNewUser() {
+   
     validatePhoneNumber('shipToPhoneRequired', 'shipToContactNumber', 'shipToCountryCode', 'shipToAreaCode');
     validatePhoneNumber('billToPhoneRequired', 'billToContactNumber', 'billToCountryCode', 'billToAreaCode');
-    if (validateNewUser.validate()) {
-        $('newUserForm').submit();
+    if (jQuery("#newUserForm").valid()) {
+        document.getElementById('newUserForm').submit();
     }
 }
 
 function submitValidEditUser() {
-    if (validateEditUser.validate()) {
-        $('editUserForm').submit();
-    }
+        document.getElementById('editUserForm').submit();
 }
 
 function submitValidPostalAddress() {
-    if (validatePostalAddress.validate()) {
-        $('createPostalAddressForm').submit();
-    }
+        document.getElementById('createPostalAddressForm').submit();
 }
 
 function setUserNameFromEmail() {
-    if ($('username').value == "") {
-        $('username').value = $F('emailAddress');
+    if (document.getElementById('username').value == "") {
+        document.getElementById('username').value = document.getElementById('emailAddress').value;
     }
 }
 
 function useShippingAddressAsBillingToggle() {
-    if ($('useShippingAddressForBilling').checked) {
-        $('billToAddress1').value = $F('shipToAddress1');
-        $('billToAddress2').value = $F('shipToAddress2');
-        $('billToCity').value = $F('shipToCity');
-        $('billToCountryGeoId').value = $F('shipToCountryGeoId');
+    if (document.getElementById('useShippingAddressForBilling').checked) {
+        document.getElementById('billToAddress1').value = document.getElementById('shipToAddress1').value;
+        document.getElementById('billToAddress2').value = document.getElementById('shipToAddress2').value;
+        document.getElementById('billToCity').value = document.getElementById('shipToCity').value;
+        document.getElementById('billToCountryGeoId').value = document.getElementById('shipToCountryGeoId').value;
         getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
-        $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId');
-        $('billToPostalCode').value = $F('shipToPostalCode');
+        document.getElementById('billToStateProvinceGeoId').value = document.getElementById('shipToStateProvinceGeoId').value;
+        document.getElementById('billToPostalCode').value = document.getElementById('shipToPostalCode').value;
 
-        $('billToAddress1').disabled = true ;
-        $('billToAddress2').disabled = true ;
-        $('billToCity').disabled = true ;
-        $('billToCountryGeoId').disabled = true ;
-        $('billToStateProvinceGeoId').disabled = true ;
-        $('billToPostalCode').disabled = true;
+        document.getElementById('billToAddress1').disabled = true ;
+        document.getElementById('billToAddress2').disabled = true ;
+        document.getElementById('billToCity').disabled = true ;
+        document.getElementById('billToCountryGeoId').disabled = true ;
+        document.getElementById('billToStateProvinceGeoId').disabled = true ;
+        document.getElementById('billToPostalCode').disabled = true;
         copyShipToBillAddress();
         hideErrorMessage();
     } else {
-        validBillingAddress();
         stopObservingShipToBillAddress();
-        $('billToAddress1').disabled = false ;
-        $('billToAddress2').disabled = false ;
-        $('billToCity').disabled = false ;
-        $('billToCountryGeoId').disabled = false ;
-        $('billToStateProvinceGeoId').disabled = false ;
-        $('billToPostalCode').disabled = false;
+        document.getElementById('billToAddress1').disabled = false ;
+        document.getElementById('billToAddress2').disabled = false ;
+        document.getElementById('billToCity').disabled = false ;
+        document.getElementById('billToCountryGeoId').disabled = false ;
+        document.getElementById('billToStateProvinceGeoId').disabled = false ;
+        document.getElementById('billToPostalCode').disabled = false;
     }
 }
 
@@ -189,11 +185,13 @@ function getServerError(data) {
     if (data._ERROR_MESSAGE_LIST_ != undefined) {
         serverErrorHash = data._ERROR_MESSAGE_LIST_;
 
-        serverErrorHash.each(function(error) {
-            if (error.message != undefined) {
-                serverError += error.message;
+        alert(serverErrorHash);
+        jQuery.each(serverErrorHash, function(error, message){
+            if (error != undefined) {
+                serverError += message;
             }
         });
+        
         if (serverError == "") {
             serverError = serverErrorHash;
         }
@@ -204,112 +202,59 @@ function getServerError(data) {
     return serverError;
 }
 
-function inPlaceEditEmail(e) {
-    if ($('updatedEmailContactMechId')) {
-        var url = 'updatePartyEmailAddress?contactMechId='+ $('updatedEmailContactMechId').value;
-        var errorId = 'serverError_' + $('updatedEmailContactMechId').value;
-        var oldEmailAddress = $('updatedEmailAddress').value;
-        var editor = new Ajax.InPlaceEditor(e, url, {clickToEditText: 'click here to change your email', paramName: 'emailAddress', htmlResponse: false, updateAfterRequestCall: true,
-            onComplete: function (transport) {
-                if (transport != undefined) {
-                    var data = transport.responseText.evalJSON(true);
-                    var serverError = getServerError(data);
-                    if (serverError != "") {
-                        Effect.Appear(errorId);
-                        $(errorId).update(serverError);
-                        $('emailAddress').update(oldEmailAddress);
-                    } else {
-                        Effect.Fade(errorId);
-                        if (data.contactMechId != undefined) {
-                            $('updatedEmailContactMechId').value = data.contactMechId;
-                            $('updatedEmailAddress').value = data.emailAddress;
-                        } else  {
-                            $('emailAddress').update(oldEmailAddress);
-                        }
-                        inPlaceEditEmail('emailAddress');
-                        $(errorId).id = 'serverError_' + $('updatedEmailContactMechId').value;
-                        editor.dispose();
-                    }
+function doAjaxRequest(formId, errorId, popupId, requestUrl) {
+    if (jQuery("#" + formId).valid()) {    
+        jQuery.ajax({
+            url: requestUrl,
+            type: 'POST',
+            async: false,
+            data: jQuery("#" + formId).serialize(),
+            success: function(data) {
+                var serverError = getServerError(data);
+                if (serverError != "") {
+                    jQuery("#" + errorId).fadeIn("fast");
+                    jQuery("#" + popupId).fadeIn("fast");
+                    jQuery("#" + errorId).html(serverError);
+                } else {
+                    jQuery("#" + errorId).fadeIn("slow");
+                    jQuery("#" + popupId).fadeIn("slow");
+                    document.getElementById('refreshRequestForm').submit();
                 }
             }
+            
         });
+        
     }
 }
 
 function createPartyPostalAddress(e) {
     formId = 'createPostalAddressForm';
-    var validateEditPostalAddress = new Validation(formId, {immediate: true, onSubmit: false});
     errorId = 'serverError';
     popupId = 'displayCreateAddressForm';
-    if (validateEditPostalAddress.validate()) {
-        new Ajax.Request('createPartyPostalAddress', {
-            asynchronous: false,
-            onSuccess: function(transport) {
-                var data = transport.responseText.evalJSON(true);
-                var serverError = getServerError(data);
-                if (serverError != "") {
-                    Effect.Appear(errorId);
-                    Effect.Appear(popupId);
-                    $(errorId).update(serverError);
-                } else {
-                    Effect.Fade(popupId);
-                    Effect.Fade(errorId);
-                    $('refreshRequestForm').submit();
-                }
-            }, parameters: $(formId).serialize(), requestHeaders: {Accept: 'application/json'}
-        });
-    }
+    requestUrl = 'createPartyPostalAddress';
+    
+    doAjaxRequest(formId, errorId, popupId, requestUrl);
+    
+    
 }
 
 function updatePartyPostalAddress(e) {
     contactMechId = e.split('_')[1];
     formId = 'editPostalAddress_' + contactMechId;
-    var validateEditPostalAddress = new Validation(formId, {immediate: true, onSubmit: false});
     errorId = 'serverError_' + contactMechId;
     popupId = 'displayEditAddressForm_' + contactMechId;
-    if (validateEditPostalAddress.validate()) {
-        new Ajax.Request('updatePartyPostalAddress', {
-            asynchronous: false,
-            onSuccess: function(transport) {
-                var data = transport.responseText.evalJSON(true);
-                var serverError = getServerError(data);
-                if (serverError != "") {
-                    Effect.Appear(errorId);
-                    Effect.Appear(popupId);
-                    $(errorId).update(serverError);
-                } else {
-                    Effect.Fade(popupId);
-                    Effect.Fade(errorId);
-                    $('refreshRequestForm').submit();
-                }
-            }, parameters: $(formId).serialize(), requestHeaders: {Accept: 'application/json'}
-        });
-    }
+    requestUrl = 'updatePartyPostalAddress';
+    
+    doAjaxRequest(formId, errorId, popupId, requestUrl);
 }
 
 function updatePartyShipToPostalAddress(e) {
     formId = 'editShipToPostalAddress';
-    var validateEditPostalAddress = new Validation(formId, {immediate: true, onSubmit: false});
     errorId = 'shipToServerError';
     popupId = 'displayEditShipToPostalAddress';
-    if (validateEditPostalAddress.validate()) {
-        new Ajax.Request('updatePartyPostalAddress', {
-            asynchronous: false,
-            onSuccess: function(transport) {
-                var data = transport.responseText.evalJSON(true);
-                var serverError = getServerError(data);
-                if (serverError != "") {
-                    Effect.Appear(errorId);
-                    Effect.Appear(popupId);
-                    $(errorId).update(serverError);
-                } else {
-                    Effect.Fade(popupId);
-                    Effect.Fade(errorId);
-                    $('refreshRequestForm').submit();
-                }
-            }, parameters: $(formId).serialize(), requestHeaders: {Accept: 'application/json'}
-        });
-    }
+    requestUrl = 'updatePartyPostalAddress';
+    
+    doAjaxRequest(formId, errorId, popupId, requestUrl);
 }
 
 function updatePartyBillToPostalAddress(e) {
@@ -317,119 +262,67 @@ function updatePartyBillToPostalAddress(e) {
     var validateEditPostalAddress = new Validation(formId, {immediate: true, onSubmit: false});
     errorId = 'billToServerError';
     popupId = 'displayEditBillToPostalAddress';
-    if (validateEditPostalAddress.validate()) {
-        new Ajax.Request('updatePartyPostalAddress', {
-            asynchronous: false,
-            onSuccess: function(transport) {
-                var data = transport.responseText.evalJSON(true);
-                var serverError = getServerError(data);
-                if (serverError != "") {
-                    Effect.Appear(errorId);
-                    Effect.Appear(popupId);
-                    $(errorId).update(serverError);
-                } else {
-                    Effect.Fade(popupId);
-                    Effect.Fade(errorId);
-                    $('refreshRequestForm').submit();
-                }
-            }, parameters: $(formId).serialize(), requestHeaders: {Accept: 'application/json'}
-        });
-    }
-}
-
-function validBillingAddress () {
-    Event.observe($('billToAddress1'), 'blur', function() {
-        if ($('billToAddress1').value == "") {
-            Effect.Appear('advice-required-billToAddress1');
-        }
-    });
-    Event.observe($('billToStateProvinceGeoId'), 'blur', function() {
-        if ($('billToStateProvinceGeoId').value == "") {
-            Effect.Appear('advice-required-billToStateProvinceGeoId');
-        }
-    });
-    Event.observe($('billToCity'), 'blur', function() {
-        if ($('billToCity').value == "") {
-            Effect.Appear('advice-required-billToCity');
-        }
-    });
-    Event.observe($('billToPostalCode'), 'blur', function() {
-        if ($('billToPostalCode').value == "") {
-            Effect.Appear('advice-required-billToPostalCode');
-        }
-    });
-    Event.observe($('billToCountryGeoId'), 'blur', function() {
-        if ($('billToCountryGeoId').value == "") {
-            Effect.Appear('advice-required-billToCountryGeoId');
-        }
-    });
+    requestUrl = 'updatePartyPostalAddress';
+    
+    doAjaxRequest(formId, errorId, popupId, requestUrl);
 }
 
 function hideErrorMessage() {
-    Effect.Fade('advice-required-billToAddress1');
-    Effect.Fade('advice-required-billToStateProvinceGeoId');
-    Effect.Fade('advice-required-billToCity');
-    Effect.Fade('advice-required-billToPostalCode');
-    Effect.Fade('advice-required-billToCountryGeoId');
-    Effect.Fade('billToPhoneRequired');
+    jQuery('#advice-required-billToAddress1').fadeOut("fast");
+    jQuery('#advice-required-billToStateProvinceGeoId').fadeOut("fast");
+    jQuery('#advice-required-billToCity').fadeOut("fast");
+    jQuery('#advice-required-billToPostalCode').fadeOut("fast");;
+    jQuery('#advice-required-billToCountryGeoId').fadeOut("fast");
+    jQuery('#billToPhoneRequired').fadeOut("fast");
 }
 
 function copyShipToBillAddress() {
-    Event.observe($('shipToAddress1'), 'change', function() {
-        $('billToAddress1').value = $F('shipToAddress1')
+    jQuery("#shipToAddress1").change( function() {
+         document.getElementById('billToAddress1').value = document.getElementById('shipToAddress1').value;
     });
-    Event.observe($('shipToAddress2'), 'change', function() {
-        $('billToAddress2').value = $F('shipToAddress2')
+    jQuery("#shipToAddress2").change( function() {
+        document.getElementById('billToAddress2').value = document.getElementById('shipToAddress2').value;
     });
-    Event.observe($('shipToCity'), 'change', function() {
-        $('billToCity').value = $F('shipToCity')
+    jQuery("#shipToCity").change( function() {
+        document.getElementById('billToCity').value = document.getElementById('shipToCity').value;
     });
-    Event.observe($('shipToStateProvinceGeoId'), 'change', function() {
-        $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId')
+    jQuery("#shipToStateProvinceGeoId").change( function() {
+        document.getElementById('billToStateProvinceGeoId').value = document.getElementById('shipToStateProvinceGeoId').value;
     });
-    Event.observe($('shipToCountryGeoId'), 'change', copyShipToCountryToBillToCountry);
-    Event.observe($('shipToPostalCode'), 'change', function() {
-        $('billToPostalCode').value = $F('shipToPostalCode')
+    
+    jQuery("#shipToCountryGeoId").change(copyShipToCountryToBillToCountry);
+    jQuery("#shipToPostalCode").change( function() {
+        document.getElementById('billToPostalCode').value = document.getElementById('shipToPostalCode').value;
     });
 }
 
 function stopObservingShipToBillAddress() {
-    Event.stopObserving($('shipToAddress1'), 'change', "");
-    Event.stopObserving($('shipToAddress2'), 'change', "");
-    Event.stopObserving($('shipToCity'), 'change', "");
-    Event.stopObserving($('shipToStateProvinceGeoId'), 'change', "");
-    Event.stopObserving($('shipToCountryGeoId'), 'change', copyShipToCountryToBillToCountry);
-    Event.stopObserving($('shipToPostalCode'), 'change', "");
-}
-
-function addValidations() {
-    Validation.add('validate-password', "", {
-        minLength : 5,
-        notOneOf : ['password','PASSWORD'],
-        notEqualToField : 'username'
-    });
-    Validation.add('validate-passwordVerify', "", {
-        equalToField : 'password'
-    });
+    jQuery('#shipToAddress1').unbind('change');
+    jQuery('shipToAddress2').unbind('change');
+    jQuery('shipToCity').unbind('change');
+    jQuery('shipToStateProvinceGeoId').unbind('change');
+    jQuery('shipToCountryGeoId').unbind('change', copyShipToCountryToBillToCountry);
+    jQuery('shipToPostalCode').unbind('change');
 }
 
 function showState(id) {
-    if ($('editPostalAddress_'+id)) {
+    if (document.getElementById('editPostalAddress_' + id)) {
         // Get associate states for Postal Address Information
-        Event.observe($('countryGeoId_'+id), 'change', function() {
+        jQuery("#countryGeoId_" + id).change( function() {
             getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);
         });
-        if ($('stateProvinceGeoId_'+id).value == "_NA_") {
+        
+        if (document.getElementById('stateProvinceGeoId_'+id).value == "_NA_") {
             getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);
         } else {
-            var stateValue = $('stateProvinceGeoId_'+id).value;
+            var stateValue = document.getElementById('stateProvinceGeoId_'+id).value;
             getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);
-            $('stateProvinceGeoId_'+id).value = stateValue;
+            document.getElementById('stateProvinceGeoId_'+id).value = stateValue;
         }
     }
 }
 
 function copyShipToCountryToBillToCountry(){
-    $('billToCountryGeoId').value = $F('shipToCountryGeoId');
+    document.getElementById('billToCountryGeoId').value = document.getElementById('shipToCountryGeoId').value;
     getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
 }

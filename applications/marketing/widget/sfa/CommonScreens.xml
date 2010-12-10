@@ -198,9 +198,6 @@ under the License.
                 <set field="tabButtonItem" value="profile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
 
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>
-                <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>
 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>

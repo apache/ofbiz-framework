@@ -25,7 +25,9 @@ var NS6 = (document.getElementById && navigator.appName.indexOf("Netscape") >= 0
 var mx, my;
 var ACTIVATED_LOOKUP = null;
 var LOOKUP_DIV = null;
-INITIALLY_COLLAPSED = null;
+var INITIALLY_COLLAPSED = null;
+var SHOW_DESCRIPTION = false;
+
 
 function moveobj(evt) {
     if (NS4 || NS6) {
@@ -69,18 +71,19 @@ function call_fieldlookupLayer3(target, target2, viewName, lookupWidth, lookupHe
     this.target2 = target2;
 }
 
-function call_fieldlookup2(target, viewName) {
-    var fieldLookup = new fieldLookup1(target, arguments);
+function call_fieldlookup2(target, viewName, presentation) {
+    var fieldLookup = new fieldLookup1(target, arguments, presentation);
     fieldLookup.popup2(viewName);
 }
 
-function call_fieldlookup3(target, target2, viewName) {
-    var fieldLookup = new fieldLookup2(target, target2, arguments);
+function call_fieldlookup3(target, target2, viewName, presentation) {
+    var fieldLookup = new fieldLookup2(target, target2, arguments, presentation);
     fieldLookup.popup2(viewName);
 }
 
-function fieldLookup1(obj_target, args) {
+function fieldLookup1(obj_target, args, presentation) {
     this.args = args;
+    this.presentation = presentation;
     // passing methods
     this.popup = lookup_popup1;
     this.popup2 = lookup_popup2;
@@ -88,15 +91,12 @@ function fieldLookup1(obj_target, args) {
     // validate input parameters
     if (! obj_target) return lookup_error("Error calling the field lookup: no target control specified");
     if (obj_target.value == null) return lookup_error("Error calling the field lookup: parameter specified is not valid target control");
-    //this.target = obj_target;
     targetW = obj_target;
-    
-    // register in global collections
-    //this.id = lookups.length;
-    //lookups[this.id] = this;
 }
-function fieldLookup2(obj_target, obj_target2, args) {
+
+function fieldLookup2(obj_target, obj_target2, args, presentation) {
     this.args = args;
+    this.presentation = presentation;
     // passing methods
     this.popup = lookup_popup1;
     this.popup2 = lookup_popup2;
@@ -109,14 +109,10 @@ function fieldLookup2(obj_target, obj_target2, args) {
     if (obj_target2.value == null) return lookup_error("Error calling the field lookup: parameter specified is not valid target2 control");
     target2 = obj_target2;
     
-    
-    // register in global collections
-    //this.id = lookups.length;
-    //lookups[this.id] = this;
 }
 
 function lookup_popup1(view_name, form_name, viewWidth, viewheight) {
-    var obj_lookupwindow = window.open(view_name + '?formName=' + form_name + '&id=' + this.id, '_blank', 'width=' + viewWidth + ',height=' + viewheight + ',scrollbars=yes,status=no,resizable=yes,top=' + my + ',left=' + mx + ',dependent=yes,alwaysRaised=yes');
+    var obj_lookupwindow = window.open(view_name + '?formName=' + form_name + '&presentation=' + this.presentation + '&id=' + this.id, '_blank', 'width=' + viewWidth + ',height=' + viewheight + ',scrollbars=yes,status=no,resizable=yes,top=' + my + ',left=' + mx + ',dependent=yes,alwaysRaised=yes');
     obj_lookupwindow.opener = window;
     obj_lookupwindow.focus();
 }
@@ -133,7 +129,7 @@ function lookup_popup2(view_name) {
     if (view_name.indexOf("?") >= 0) {
         sep = "&";
     }
-    var obj_lookupwindow = window.open(view_name + sep + 'id=' + this.id + argString, '_blank', 'width=700,height=550,scrollbars=yes,status=no,resizable=yes,top=' + my + ',left=' + mx + ',dependent=yes,alwaysRaised=yes');
+    var obj_lookupwindow = window.open(view_name + sep + 'presentation=' + this.presentation + '&id=' + this.id + argString, '_blank', 'width=700,height=550,scrollbars=yes,status=no,resizable=yes,top=' + my + ',left=' + mx + ',dependent=yes,alwaysRaised=yes');
     obj_lookupwindow.opener = window;
     obj_lookupwindow.focus();
 }
@@ -178,397 +174,181 @@ function initiallyCollapseDelayed() {
 /*************************************
 * Fieldlookup Class & Methods
 *************************************/
-
-var FieldLookupCounter = Class.create({
-    initialize: function () {
-        this.refArr = {};
-    },
+function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalTarget, formName, width, height, position, modal, ajaxUrl, showDescription, presentation) {
     
-    setReference: function (key, ref) {
+    // add the presentation attribute to the request url to let the request know which decorator should be loaded
+    if(!presentation) {
+      var presentation = "layer"
+    }    
+    requestUrl = requestUrl + "?presentation=" + presentation;
+    
+    // create Link Element with unique Key
+    var lookupId = GLOBAL_LOOKUP_REF.createNextKey();
+    var inputBox = document.getElementById(inputFieldId);
+    newInputBoxId = lookupId + "_" + inputFieldId;
+    inputBox.id = newInputBoxId;
+    var parent = inputBox.parentNode;
+
+    var link = document.createElement('A');
+    link.href = "javascript:void(0);";
+    link.id = lookupId + "_button";
+
+    parent.appendChild(link);
+
+    var hiddenDiv = document.createElement("DIV");
+    hiddenDiv.id = lookupId;
+    hiddenDiv.css = "{display: none;}";
+    hiddenDiv.title = "";
+
+    parent.appendChild(hiddenDiv);
+
+    // createAjax autocomplete
+    if (ajaxUrl != "" && showDescription != "") {
+         SHOW_DESCRIPTION = showDescription;
+        //write the new input box id in the ajaxUrl Array
+        ajaxUrl = ajaxUrl.replace(ajaxUrl.substring(0, ajaxUrl.indexOf(",")), newInputBoxId);
+        new ajaxAutoCompleter(ajaxUrl, showDescription, formName);
+    }
+    
+    var positioning = null;
+    if (position == "topleft") {
+        positioning = ['left', 'top'];
+    } else if (position == "topcenter") {
+        positioning = ['center', 'top'];
+    } else if (position == "topright") {
+        positioning = ['right', 'top'];
+    } else if (position == "center") {
+        positioning = 'center';
+    } else if (position == "left") {
+        positioning = 'left';
+    } else if (position == "right") {
+        positioning = 'right';
+    } else {
+        positioning = ['left', 'top'];
+    }
+    
+    // Lookup Configuration
+    var dialogOpts = {
+        modal: (modal == "true") ? true : false,
+        bgiframe: true,
+        autoOpen: false,
+        height: (height != "") ? parseInt(height) : 500,
+        width: (width != "") ? parseInt(width) : 620,
+        position: positioning,
+        draggable: true,
+        resizeable: true,
+        open: function() {
+            jQuery("#" + lookupId).load(requestUrl, function(data){ 
+                modifySubmitButton(lookupId);
+                // set up the window chaining
+                // if the ACTIVATED_LOOKUP var is set there have to be more than one lookup,
+                // before registrating the new lookup we store the id of the old lookup in the
+                // preLookup variable of the new lookup object. I.e. lookup_1 calls lookup_8, the lookup_8
+                // object need a reference to lookup_1, this reference is set here
+                var prevLookup = null
+                if (ACTIVATED_LOOKUP) {
+                    prevLookup = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+                }
+                identifyLookup(lookupId);
+                
+                if (prevLookup) {
+                    GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).prevLookup = prevLookup;
+                }
+            });
+        },
+        close: function() {
+            //when the window is closed the prev Lookup get the focus (if exists)
+            if (ACTIVATED_LOOKUP) {
+                var prevLookup = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).prevLookup;
+            }
+            if (prevLookup) {
+                identifyLookup(prevLookup);
+            }
+        }
+
+    };
+    
+    // init Dialog and register
+    // create an object with all Lookup Informationes that are needed
+    var dialogRef = jQuery("#" + lookupId).dialog(dialogOpts);
+    
+    //setting up global variabels, for external access
+    this.inputBoxId = inputBox.id;
+    this.lookupId = lookupId;
+    this.formName = formName;
+    this.target = null;
+    this.presentation = presentation;
+    if (dialogOptionalTarget != null) {
+        this.target2 = null;
+    }
+    this.prevLookup = null;
+    this.dialogRef = dialogRef;
+    //write external settings in global window manager
+    GLOBAL_LOOKUP_REF.setReference(lookupId, this);
+    
+    // bind click Event to Dialog button
+    jQuery("#" + lookupId + "_button").live('click',   
+        function (){
+            jQuery("#" + lookupId).dialog("open");
+            jQuery("#" + lookupId).dialog(dialogOpts);
+            GLOBAL_LOOKUP_REF.getReference(lookupId).target = jQuery(dialogTarget);
+            if (dialogOptionalTarget != null) {
+                //the target2 have to be set here, because the input field is not created before
+                GLOBAL_LOOKUP_REF.getReference(lookupId).target2 = jQuery(dialogOptionalTarget);
+            }
+            return false;
+        }
+    );
+    
+    // close the dialog when clicking outside the dialog area
+    jQuery(".ui-widget-overlay").live("click", function() {  jQuery("#" + lookupId).dialog("close"); } );
+    
+}
+
+function FieldLookupCounter() {
+	this.refArr = {};
+    
+    this.setReference = function (key, ref) {
         //if key doesn't exist in the array and
         for (itm in this.refArr) {
             if (itm == key) {
                 prefix = key.substring(0, key.indexOf("_"));
                 key = prefix + "_" + key; 
-                this.refArr[key] = ref;
+                this.refArr[""+ key + ""] = ref;
                 return this.refArr[key];
             }
         }
-        this.refArr[key] = ref;
+        this.refArr[""+ key + ""] = ref;
         return this.refArr[key];
-    },
+    };
     
-    getReference: function (key) {
+    this.getReference = function (key) {
         // when key does not exist return null?
         return this.refArr[key] != null ? this.refArr[key] : null;
-    },
+    };
     
-    createNextKey: function () {
-        return this.countFields() + "_lookupId";
-    },
+    this.getLastReference = function () {
+        return (this.countFields() -1) + "_lookupId";
+    }
     
-    countFields: function () {
+    this.createNextKey = function () {
+        return this.countFields() + "_lookupId";       
+    };
+    
+    this.countFields = function () {
         var count = 0;
-        for (itm in this.refArr) {
-            count++;
-        }
+        jQuery.each(this.refArr, function (itm) {count++;});
         return count;
-    },
+    };
     
-    removeReference: function (key) {
+    this.removeReference = function (key) {
         // deletes the Array entry (doesn't effect the array length)
         delete this.refArr[key];
-        
-        // if all lookups closed, kill the referenze
-        if (this.countFields() == 0) {
-            ACTIVATED_LOOKUP = null;
-        }
-    }
+    };
     
-});
+};
 var GLOBAL_LOOKUP_REF = new FieldLookupCounter;
 
-/**
-* Class to create a lookup layer
-* target - target where the value should be passed
-* viewName - view name which will be opened
-* lookupWidth - layer width i.e. 500px, 27% ... [default: 700px]
-* lookupHeight - layer height i.e. 500px, 27% ... [default: 550px]
-* position - normal (under the target field), center (layer is centered), etc. (see widget-form.xsd), default: top-left 
-* fadeBackGround - boolean, true by default 
-* initiallyCollapsed - boolean, false by default 
-*/
-var FieldLookupPopup = Class.create({
-    initialize: function (target, viewName, lookupWidth, lookupHeight, position, fadeBackground, initiallyCollapsed, args) {
-        if (args != null) {
-            var argString = "";
-            if (args.length > 7) {
-                for (var i = 7; i < args.length; i++) {
-                    if ((viewName.indexOf("?") == -1) && (i - 7) == 0) {
-                        sep = "?";
-                    } else {
-                        sep = "&";
-                    }
-                    argString += sep + "parm" + (i - 7) + "=" + args[i];
-                }
-            viewName += argString;
-            }
-        }
-
-        //fade the background if the flag is set
-        if (fadeBackground != "false") {
-            this.createFadedBackground();
-        }
-        //set dimension isn't set, set default parameters
-        if (isEmpty(lookupWidth)) {
-            lookupWidth = '700px';
-        }
-        this.lookupWidth = lookupWidth;
-
-        if (isEmpty(lookupHeight)) {
-            lookupHeight = '550px';
-        }
-        this.lookupHeight = lookupHeight;
-
-        //set the parent target to create later the lookup as child of this element
-        this.parentTarget = target;
-        this.viewName = viewName;
-        this.position = position;
-        INITIALLY_COLLAPSED = initiallyCollapsed;
-        
-        this.createElement();
-        
-        //set observe events for mouse and keypress
-        Event.observe(document, "keypress", this.key_event = this.key_event.bindAsEventListener(this));
-        Event.observe(document, "mousedown", this.close_on_click = this.close_on_click.bindAsEventListener(this));
-    },
-
-    showLookup: function () {
-        if (this.divRef != null) {
-            Effect.Appear(this.divRef, {duration: 0.3});
-        }
-    },
-
-    closeLookup: function () {
-        if (this.divRef != null) {
-            Effect.Fade(this.divRef, {duration: 0.3});
-        }
-        // removes the layer after fading
-        window.setTimeout('' + this.removeLayer() + '', 400);
-        
-        //identify the next lookup
-        lastLookup = GLOBAL_LOOKUP_REF.getReference((GLOBAL_LOOKUP_REF.countFields() - 1) + "_lookupId");
-        if (lastLookup != null) {
-            identifyLookup(lastLookup.globalRef);
-        }
-    },
-
-    createElement: function () {
-        var parent = this.parentTarget;
-        
-        var that = this;
-        
-        //set global reference
-        this.globalRef = GLOBAL_LOOKUP_REF.createNextKey();
-        if (GLOBAL_LOOKUP_REF.setReference(this.globalRef, this) == null){
-            alert("Sorry this Reference: " + this.globalRef + " still exist. Can't create lookup");
-        }
-        
-        //creates the lookup dom element
-        var lookupDiv = new Element('DIV', {
-            id: this.globalRef + "_fieldLookup",
-            style: "width: " + this.lookupWidth + "; height: " + this.lookupHeight + ""
-        });
-        lookupDiv.setAttribute("class", "fieldLookup");
-        lookupDiv.setAttribute("className", "fieldLookup");
-        //IE7 Hack
-        
-        //creates lookupHeader
-        var headerDiv = new Element('DIV', {
-            id: "fieldLookupHeader"
-        });
-        headerDiv.setAttribute("class", "fieldLookupHeader");
-        headerDiv.setAttribute("className", "fieldLookupHeader");
-        // IE 7 Hack
-        
-        //create close Button
-        var closeButton = new Element('SPAN', {
-        });
-        var closeButtonImg = new Element('DIV', {
-            onClick: "GLOBAL_LOOKUP_REF.getReference('" + this.globalRef + "').closeLookup()"
-        });
-        closeButtonImg.onclick = function () {
-            hideLookup();
-        };
-        
-        closeButton.appendChild(closeButtonImg);
-        headerDiv.appendChild(closeButton);
-        lookupDiv.appendChild(headerDiv);
-        
-        //get the lookup from an anjax request
-        this.contentRef = this.loadContent(lookupDiv);
-        
-        lookupDiv.style.display = "none";
-        //creates the div as child of the form element (parent --> input field; parentNode --> form)
-        this.pn = parent.parentNode;
-
-        //set the layer position
-        this.setPosition(lookupDiv);
-
-        this.divRef = lookupDiv;
-
-        //make layer draggable
-        this.makeDraggable(lookupDiv);
-
-        //make the window resiable
-        this.makeResizeable(lookupDiv);
-                
-        identifyLookup(this.globalRef);
-        
-        //Collapse the search screenlet if the flag is set
-        LOOKUP_DIV = lookupDiv;
-        initiallyCollapseDelayed();
-        
-    },
-
-    close_on_click: function (evt) {
-        if (this.divRef.previousSiblings().member(Event.element(evt))) {
-            this.closeLookup(this);
-        }
-    },
-
-    key_event: function (evt) {
-        if (evt.keyCode == 27) {
-            //removes the hover div after the portlet is moved to another position
-            this.closeLookup(this);
-        }
-    },
-
-    loadContent: function (lookupDiv) {
-        var lookupCont = new Element('DIV', {
-            id: "fieldLookupContent"
-        });
-        new Ajax.Request(this.viewName, {
-            parameters: { presentation : "layer" },
-            onSuccess: function (transport) {
-                var lookupContent = transport.responseText;
-                //if the return screen contains the login page, the whole page have do be redirected
-                if (lookupContent.search(/loginform/) != -1) {
-                    window.location.href = window.location.href;
-                    return;
-                }
-                lookupDiv.appendChild(lookupCont);
-                lookupCont.insert({
-                    bottom: "" + lookupContent + ""
-                });
-
-                //modify the submit button
-                modifySubmitButton(lookupDiv);
-            }
-        });
-        
-        return lookupCont
-    },
-         
-    createFadedBackground: function (){
-        var pageSize = this.getPageSize();
-        var fadedBackground = new Element ('DIV', {
-            id: GLOBAL_LOOKUP_REF.createNextKey() + "_fadedBackground",
-            style: "width: " + pageSize[0] + "px; height: " + pageSize[1] + "px;"
-            });
-        fadedBackground.setAttribute("class", "fadedBackground");
-        fadedBackground.setAttribute("className", "fadedBackground");
-        
-        document.body.appendChild(fadedBackground);
-    },
-    
-    setPosition: function (lookupDiv) {
-        //set layer position
-        var bdy = document.body;
-        if (this.position == "center") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
-            var scrollOffY = document.viewport.getScrollOffsets().top;
-            var winHeight = document.viewport.getHeight();
-            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
-            
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "right") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
-            var scrollOffY = document.viewport.getScrollOffsets().top;
-            var winHeight = document.viewport.getHeight();
-            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "left") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = 5;
-            var scrollOffY = document.viewport.getScrollOffsets().top;
-            var winHeight = document.viewport.getHeight();
-            lookupTop = (scrollOffY + winHeight / 2) - (dimensions.height / 2);
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "topright") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth) - (dimensions.width + 5);
-            var scrollOffY = document.viewport.getScrollOffsets().top;
-            lookupTop = 5 + scrollOffY;
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "topleft") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = 5;
-            var scrollOffY = document.viewport.getScrollOffsets().top;
-            lookupTop = 5 + scrollOffY;
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else if (this.position == "topcenter") {
-            bdy.appendChild(lookupDiv);
-            var dimensions = lookupDiv.getDimensions();
-            lookupLeft = (bdy.offsetWidth / 2) - (dimensions.width / 2);
-            var scrollOffY = document.viewport.getScrollOffsets().top;
-            lookupTop = 5 + scrollOffY;
-            lookupDiv.style.left = lookupLeft + "px";
-            lookupDiv.style.top = lookupTop + "px";
-        } else {
-            //for 'normal', empty etc.
-            if (this.pn != null) {
-                // IE Fix
-                this.pn.appendChild(lookupDiv);
-            }
-        }
-    },
-
-    makeDraggable: function (lookupDiv) {
-        this.loopupDrag = new Draggable(lookupDiv, {
-            handle: 'fieldLookupHeader', revert: false, ghosting: false
-        });
-    },
-
-    makeResizeable: function (lookupDiv) {
-        new Resizeable(lookupDiv, {
-            top: 0,
-            left: 50,
-            resize: function (el) {
-                $('fieldLookupContent').setStyle({
-                    width: "100%",
-                    height: "90%"
-                });
-            }
-        });
-    },
-
-    removeLayer: function () {
-        this.loopupDrag.destroy();
-        Element.stopObserving(document, "keypress", this.key_event);
-        Element.stopObserving(document, "mousedown", this.close_on_click);
-        this.divRef.parentNode.removeChild(this.divRef);
-        //remove the faded Background if exists
-        var fb = $(this.globalRef + '_fadedBackground')
-        if (fb != null){
-            fb.parentNode.removeChild(fb);
-        }
-        this.target = null;
-        GLOBAL_LOOKUP_REF.removeReference(this.globalRef);
-    },
-
-    getPageSize: function () {
-        var xScroll, yScroll;
-
-        if (window.innerHeight && window.scrollMaxY) {
-            xScroll = window.innerWidth + window.scrollMaxX;
-            yScroll = window.innerHeight + window.scrollMaxY;
-        } else if (document.body.scrollHeight > document.body.offsetHeight){ // all but Explorer Mac
-            xScroll = document.body.scrollWidth;
-            yScroll = document.body.scrollHeight;
-        } else { // Explorer Mac...would also work in Explorer 6 Strict, Mozilla and Safari
-            xScroll = document.body.offsetWidth;
-            yScroll = document.body.offsetHeight;
-        }
-
-        var windowWidth, windowHeight;
-
-        if (self.innerHeight) {    // all except Explorer
-            if (document.documentElement.clientWidth){
-                windowWidth = document.documentElement.clientWidth;
-            } else {
-                windowWidth = self.innerWidth;
-            }
-            windowHeight = self.innerHeight;
-        } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
-            windowWidth = document.documentElement.clientWidth;
-            windowHeight = document.documentElement.clientHeight;
-        } else if (document.body) { // other Explorers
-            windowWidth = document.body.clientWidth;
-            windowHeight = document.body.clientHeight;
-        }
-
-        // for small pages with total height less then height of the viewport
-        if (yScroll < windowHeight){
-            pageHeight = windowHeight;
-        } else {
-            pageHeight = yScroll;
-        }
-
-        // for small pages with total width less then width of the viewport
-        if (xScroll < windowWidth){
-            pageWidth = xScroll;
-        } else {
-            pageWidth = windowWidth;
-        }
-
-        return [pageWidth,pageHeight];
-    }
-
-
-});
 
 /**
 * returns true if a String is empty
@@ -588,11 +368,6 @@ function identifyLookup (newAl) {
     }
 }
 
-function hideLookup() {
-        obj = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP);
-        obj.closeLookup();
-    }
-
 //global expand/col button var
 var COLLAPSE = 1999;
 function getNextCollapseSeq() {
@@ -605,18 +380,17 @@ function modifyCollapseable(lookupDiv){
     if (!lookupDiv) {
         return;
     }
+    var slTitleBars = jQuery("#" + lookupDiv + " .screenlet-title-bar");
+    //jQuery("#" + lookupDiv + " li.expanded");
     
-    var slTitleBars = lookupDiv.getElementsByClassName('screenlet-title-bar');
-    for (i in slTitleBars) {
-        var slTitleBar = slTitleBars[i];
-        
-        var ul = slTitleBar.firstChild;
-
+    jQuery.each(slTitleBars, function(i) {
+    	var slTitleBar = slTitleBars[i];
+    	var ul = slTitleBar.firstChild;
         if ((typeof ul) != 'object') {
-            continue;
+            return true;
         }
-
         var childElements = ul.childNodes;
+
         for (j in childElements) {
             if (childElements[j].className == 'expanded' || childElements[j].className == 'collapsed') {
                 break;
@@ -628,139 +402,106 @@ function modifyCollapseable(lookupDiv){
         
         childEle.setAttribute('onclick', "javascript:toggleScreenlet(this, 'lec" + COLLAPSE +"', 'true', 'Expand', 'Collapse');");
         childEle.href = "javascript:void(0);"
-        slTitleBar.next('div').setAttribute('id', 'lec' + COLLAPSE);
-    } 
+        jQuery(slTitleBar).next('div').attr('id', 'lec' + COLLAPSE);
+    
+    });
 }
 
 function modifySubmitButton (lookupDiv) {
-    /* changes form/submit behavior for Lookup Layer */
+	/* changes form/submit behavior for Lookup Layer */
     if (lookupDiv) {
         modifyCollapseable(lookupDiv);
         
-        //find the lookup form
-        var forms = lookupDiv.getElementsByTagName('form');
-        
-        var lookupForm = null;
-        for (var i = 0; i < forms.length; i++) {
-            if (! isEmpty(forms[i].getAttribute('id'))) {
-                lookupForm = $(forms[i]);
-            }
-        }
-        
-        if (lookupForm == null) {
-            return;
-        }
-
-        //set new form name and id
-        oldFormName = lookupForm.getAttribute('name');
-        lookupForm.setAttribute('name', 'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
-        lookupForm.setAttribute('id', 'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
-        lookupForm = $('form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
-        
-        
-        
+        //find the lookup form and input button
+    	var lookupForm = jQuery("#" + lookupDiv + " form:first");
+    	
+    	//set new form name and id
+        oldFormName = lookupForm.attr("name");
+        lookupForm.attr("name", "form_" + lookupDiv);
+        lookupForm.attr("id", "form_" + lookupDiv);
+        lookupForm = jQuery("#form_" + lookupDiv);
         //set new links for lookups
-        var newLookups = $A(lookupDiv.getElementsByClassName('field-lookup'));
-        newLookups.each(function(newLookup){
-            var link = newLookup.getElementsByTagName('a')[0].href;
-            var replaced = new  RegExp('document.' + oldFormName, 'g');
-            newLookup.getElementsByTagName('a')[0].href = link.replace(replaced, 'document.'+'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
+        var newLookups = jQuery("#" + lookupDiv + " .field-lookup");
+        
+    	var formAction = lookupForm.attr("action");
+    	// remove the form action
+    	lookupForm.attr("action", "");
+    	var input = jQuery("#" + lookupDiv + " input[type=submit]").css({display: "block"});
+        
+    	// remove the original input button and replace with a new one
+        
+    	var txt = input.attr("value");
+        (input.parent()).append(jQuery("<button/>", {
+        	id: "lookupSubmitButton",
+        	href: "javascript:void(0);",
+        	click: function () {
+                lookupFormAjaxRequest(formAction, lookupForm.attr("id"));
+	            return false;
+	        },
+	        text: txt
+        }));
+        
+        input.remove();
+        
+        jQuery(document).bind("keypress", function (event) {
+            if (event.which == 13) {
+            	lookupFormAjaxRequest(formAction, lookupForm.attr("id"));
+            	return false;
+            }
         });
         
-        //set new calendar links
-        newLookups = $A(lookupDiv.getElementsByClassName('view-calendar'));
-        newLookups.each(function(newLookup){
-            link = $A(newLookup.getElementsByTagName('a'));
-            link.each(function(cal){
-                cal.href = cal.href.replace('document.' + oldFormName, 'document.'+'form_' + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).globalRef);
-            });
+        //modify nav-pager
+        var navPagers = jQuery("#" + lookupDiv + " .nav-pager a");
+        jQuery.each(navPagers, function(navPager) {
+        	jQuery(navPagers[navPager]).attr("href", "javascript:lookupPaginationAjaxRequest('" + jQuery(navPagers[navPager]).attr("href") + "', '" + lookupForm.id + "', 'link')");
         });
-
-        //disable the form action
-        var formAction = lookupForm.getAttribute('action');
-        lookupForm.setAttribute('action', '');
         
-        //modify the form submit button
-        for (var i = 0; i < lookupForm.length; i++) {
-            var ele = lookupForm.elements[i];
-            if ((ele.getAttribute('type')) == "submit") {
+        var navPagersSelect = jQuery("#" + lookupDiv + " .nav-pager select");
+        jQuery.each(navPagersSelect, function(navPager) {
+        	// that's quiet wierd maybe someone have a better idea ... that's where the magic happens
+        	try {
+                  var oc = jQuery(navPagersSelect[navPager]).attr("onchange");
+                  if((typeof oc) == "function"){ // IE6/7 Fix
+                    oc = oc.toString();
+                    var ocSub = oc.substring((oc.indexOf('=') + 3),(oc.length - 4));
+                    // define search pattern we must seperate between IE and Other Browser
+                    var searchPattern = /" \+ this.value \+ "/g;
+                    var searchPattern_IE = /'\+this.value\+'/g;
+                    var searchPattern2 = /" \+ this.valu/g;
+                    var searchPattern2_IE = /'\+this.valu/g;
 
-                ele.style.display = "none";
-                var txt = ele.value;
-                var submit = new Element('A', {
-                    id: 'lookupSubmitButton'
-                });
-                submit.onclick = function () {
-                    lookupFormAjaxRequest(formAction, lookupForm.id);
-                    return false;
-                };
-                submit.setAttribute("class", "smallSubmit");
-                submit.setAttribute("className", "smallSubmit"); // IE 7 Hack
-                submit.href = "";
-
-                var textNode = document.createTextNode(txt);
-                submit.appendChild(textNode);
-                ele.parentNode.appendChild(submit);
-                Event.observe(document, "keypress", function (evt) {
-                    if (Event.KEY_RETURN == evt.keyCode) {
-                        lookupFormAjaxRequest(formAction, lookupForm.id);
-                    }
-                });
-                ele.parentNode.removeChild(ele);
-                // modify nav-pager
-                var navPager = null;
-                navPager = lookupDiv.getElementsByClassName("nav-pager");
-                if (navPager.length > 0) {
-
-                    for (var j = 0; j < navPager.length; j++) {
-                        var eleChild = navPager[j].getElementsByTagName("ul")[0].getElementsByTagName("li");
-                        for (var k = 0; k < eleChild.length; k++) {
-                            var link = eleChild[k].getElementsByTagName("A");
-                            var select = eleChild[k].getElementsByTagName("SELECT");
-
-                            if (link.length > 0) {
-                                link[0].href = "javascript:lookupPaginationAjaxRequest('" + link[0].href + "', '" + lookupForm.id + "', 'link')";
-                            } else if (select.length > 0) {
-                                try {
-                                    var oc = select[0].getAttribute("onchange");
-                                      if((typeof oc) == "function"){ // IE6/7 Fix
-                                        oc = oc.toString();
-                                        var ocSub = oc.substring((oc.indexOf('=') + 2),(oc.length - 4));
-                                        var searchPattern = /'\+this.value\+'/g;
-                                        var searchPattern2 = /'\+this.valu/g;
-
-                                        if (searchPattern.test(ocSub)) {
-                                            var viewSize = select[0].value;
-                                            var spl = ocSub.split(searchPattern);
-                                            select[0].onchange = function () {
-                                                lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], lookupForm.id, 'select');
-                                            };
-                                        } else if (searchPattern2.test(ocSub)) {
-                                            ocSub = ocSub.replace(searchPattern2, "");
-                                            if (searchPattern.test(ocSub)) {
-                                                ocSub.replace(searchPattern, viewSize);
-                                            }
-                                            select[0].onchange = function () {
-                                                lookupPaginationAjaxRequest(ocSub + this.value, lookupForm.id, 'select');
-                                            };
-                                        }
-                                    } else {
-                                        var ocSub = oc.substring((oc.indexOf('=') + 1),(oc.length - 1));
-                                        select[0].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ", '" + lookupForm.id +"')");
-                                    }
-                                }
-                                catch (ex) {
-                                }
-                            }
+                    if (searchPattern.test(ocSub)) {
+                        var viewSize = navPagersSelect[navPager].value;
+                        var spl = ocSub.split(searchPattern);
+                        navPagersSelect[navPager].onchange = function () {
+                            lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], lookupForm.id, 'select');
+                        };
+                    } else if (searchPattern_IE.test(ocSub)) {
+                        var viewSize = navPagersSelect[navPager].value;
+                        var spl = ocSub.split(searchPattern_IE);
+                        navPagersSelect[navPager].onchange = function () {
+                            lookupPaginationAjaxRequest("/" + spl[0] + this.value + spl[1], lookupForm.id, 'select');
+                        };
+                    } else if (searchPattern2.test(ocSub)) {
+                        ocSub = ocSub.replace(searchPattern2, "");
+                        if (searchPattern.test(ocSub)) {
+                            ocSub.replace(searchPattern, viewSize);
                         }
+                        navPagersSelect[navPager].onchange = function () {
+                            lookupPaginationAjaxRequest(ocSub + this.value, lookupForm.id, 'select');
+                        };
+                    } else if (searchPattern2_IE.test(ocSub)) {
+                        ocSub = ocSub.replace(searchPattern2_IE, "");
+                        if (searchPattern_IE.test(ocSub)) {
+                            ocSub.replace(searchPattern_IE, viewSize);
+                        }
+                        navPagersSelect[navPager].onchange = function () {
+                            lookupPaginationAjaxRequest("/" + ocSub + this.value, lookupForm.id, 'select');
+                        };
                     }
-                }
-                // modify links in result table
-                var resultTable = null;
-                if (navPager.length > 0) {
-                    resultTable =  navPager[0].next('table');
                 } else {
-                    resultTable= $('search-results').firstDescendant();
+                    var ocSub = oc.substring((oc.indexOf('=') + 1),(oc.length - 1));
+                    navPagersSelect[navPager].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ", '" + lookupForm.id +"')");
                 }
 
                 if (resultTable == null) {
@@ -796,43 +537,47 @@ function modifySubmitButton (lookupDiv) {
                     }
                 }                
             }
-        }
+            catch (ex) {
+            }
+        });
+        // modify links in result table ...
+        var resultTable= jQuery("#" + lookupDiv + " #search-results table:first tbody");
+        var tableChildren = resultTable.children();
+        jQuery.each(tableChildren, function(tableChild){
+        	var childElements = jQuery(tableChildren[tableChild]);
+        	var tableRow = childElements.children();
+        	jQuery.each(tableRow, function(cell){
+        		//to skip the first Entry of the row, because it's the normal id link
+        		if (cell == 0) return true;
+        		
+        		var cellChild = null;
+                cellChild = jQuery(tableRow[cell]).children();
+                jQuery.each(cellChild, function (child) {
+                	if (cellChild[child].tagName == "A"){
+                		var link = cellChild[child].href;
+                        var liSub = link.substring(link.lastIndexOf('/')+1,(link.length));
+                        cellChild[child].href = "javascript:lookupAjaxRequest('" + liSub + "')";
+                	}
+                });
+                
+        	});
+        	
+        });
     }
 }
 /**
  * Create an ajax Request
  */
 function lookupAjaxRequest(request) {
-    lookupDiv = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).divRef);
-    lookupContent = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef);
-    
     // get request arguments
-    var arg = request.substring(request.indexOf('?')+1,(request.length));    
-
-    new Ajax.Request(request, {
-        method: 'post',
-        parameters: arg, requestHeaders: {
-            Accept: 'application/json'
-        },
-        onSuccess: function (transport) {
-            var formRequest = transport.responseText;
-            //if the return screen contains the login page, the whole page have do be redirected
-            if (formRequest.search(/loginform/) != -1) {
-                window.location.href = window.location.href;
-                return;
-            }
-            lookupContent.remove();
-            var lookupCont = new Element('DIV', {
-                id: "fieldLookupContent"
-            });
-            lookupDiv.appendChild(lookupCont);
-
-            lookupCont.insert({
-                bottom: "" + formRequest + ""
-            });
-            GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef = lookupCont;
-            modifySubmitButton(lookupDiv);
+    var arg = request.substring(request.indexOf('?')+1,(request.length));
+    lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+    jQuery("#" + lookupId).load(request, arg, function(data) { 
+        if (data.search(/loginform/) != -1) {
+            window.location.href = window.location.href;
+            return;
         }
+        modifySubmitButton(lookupId);
     });
 }
 
@@ -843,33 +588,15 @@ function lookupAjaxRequest(request) {
 * @return
 */
 function lookupFormAjaxRequest(formAction, form) {
-    lookupDiv = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).divRef);
-    lookupContent = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef);
-    
-    new Ajax.Request(formAction, {
-        method: 'post',
-        parameters: $(form).serialize(), requestHeaders: {
-            Accept: 'application/json'
-        },
-        onSuccess: function (transport) {
-            var formRequest = transport.responseText;
-            //if the return screen contains the login page, the whole page have do be redirected
-            if (formRequest.search(/loginform/) != -1) {
-                window.location.href = window.location.href;
-                return;
-            }
-            lookupContent.remove();
-            var lookupCont = new Element('DIV', {
-                id: "fieldLookupContent"
-            });
-            lookupDiv.appendChild(lookupCont);
-
-            lookupCont.insert({
-                bottom: "" + formRequest + ""
-            });           
-            GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef = lookupCont;
-            modifySubmitButton(lookupDiv);
+	  lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+    var data = jQuery("#" + form).serialize();
+    data = data + "&presentation=" + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).presentation;
+    jQuery("#" + lookupId).load(formAction, data, function(data) { 
+        if (data.search(/loginform/) != -1) {
+            window.location.href = window.location.href;
+            return;
         }
+        modifySubmitButton(lookupId);
     });
 }
 
@@ -880,31 +607,14 @@ function lookupPaginationAjaxRequest(navAction, form, type) {
     if (type == 'link') {
         navAction = navAction.substring(0, navAction.length - 1);
     }
-    navAction = navAction + "&presentation=layer";
-    new Ajax.Request(navAction, {
-        method: 'get',
-        requestHeaders: {
-            Accept: 'application/json'
-        },
-        onSuccess: function (transport) {
-            var formRequest = transport.responseText;
-            //if the return screen contains the login page, the whole page have do be redirected
-            if (formRequest.search(/loginform/) != -1) {
-                window.location.href = window.location.href;
-                return;
-            }
-            lookupContent.remove();
-            var lookupCont = new Element('DIV', {
-                id: "fieldLookupContent"
-            });
-            lookupDiv.appendChild(lookupCont);
-
-            lookupCont.insert({
-                bottom: "" + formRequest + ""
-            });
-            GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef = lookupCont;
-            modifySubmitButton(lookupDiv);
+    
+    lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+    jQuery("#" + lookupId).load(navAction, function(data) { 
+        if (data.search(/loginform/) != -1) {
+            window.location.href = window.location.href;
+            return;
         }
+        modifySubmitButton(lookupId);
     });
 }
 
@@ -920,55 +630,74 @@ if (obj_caller == null && window.opener != null) {
     obj_caller = parent;
 }
 
-var bkColor = "yellow";
 function setSourceColor(src) {
-    if (src != null)
-    src.style.backgroundColor = bkColor;
+    if (target && target != null) {
+        src.css("background-color", "yellow");
+    }
+}
+// function passing selected value to calling window, using only in the TimeDuration case
+function set_duration_value (value) {
+    if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
+        obj_caller.target = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).target;
+    }
+    else{
+        obj_caller.target = jQuery(obj_caller.targetW);
+    }    
+    var target = obj_caller.target;
+
+    write_value(value, target);
+    closeLookup();
 }
 // function passing selected value to calling window
 function set_value (value) {
     if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
-        obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget);
+        obj_caller.target = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).target;
     }
     else{
-        obj_caller.target = obj_caller.targetW;
+        obj_caller.target = jQuery(obj_caller.targetW);
     }    
     var target = obj_caller.target;
-    
+
     write_value(value, target);
+    field = jQuery("#" + target.attr('id'));
+    field.trigger("lookup:changed");
     
     closeLookup();
 }
 // function passing selected value to calling window
 function set_values (value, value2) {
     if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
-        obj_caller.target = $(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).parentTarget.id);
+        obj_caller.target = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).target;
+        obj_caller.target2 = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).target2;
     }
     else{
-        obj_caller.target = obj_caller.targetW;        
+        obj_caller.target = jQuery(obj_caller.targetW);        
     }
     var target = obj_caller.target;
     var target2 = obj_caller.target2;
     write_value(value, target);
     write_value(value2, target2)
+    if (SHOW_DESCRIPTION) setLookDescription(target.attr("id"), value + " " + value2, "", "");
     
     closeLookup();
 }
 
 function write_value (value, target) {
-    if (! target) return;
-    if (target == null) return;
-    
-    setSourceColor(target);
-    target.value = value;
-    target.fire("lookup:changed");
-    if (target.onchange != null) {     
-        target.onchange();                    
+    if (target && target != null) {
+        setSourceColor(target);
+        target.val(value);
     }
 }
+
 function set_multivalues(value) {
     obj_caller.target.value = value;
-    obj_caller.target.fire("lookup:changed");
+    field = jQuery("#" + target.attr('id')); // TODO: Not tested (should be ok)we need to fix 1st the window lookup (see OFBIZ-3933)
+    field.trigger("lookup:changed"); //  If we decide to keep it (only used in Example, though it's needed also for Themes and Languages but not the same way)
+    if (field.change != null) {
+        field.click().change()
+    }
+     
+
     var thisForm = obj_caller.target.form;
     var evalString = "";
     
@@ -982,48 +711,60 @@ function set_multivalues(value) {
     }
     closeLookup();
 }
+
 //close the window after passing the value
 function closeLookup() {
     if (window.opener != null && GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP) == null) {
         window.close();
     } else {
-        obj = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP);
-        obj.closeLookup();
+        obj = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+        jQuery("#" + obj).dialog("close");
     }
 }
 
 //load description for lookup fields 
-var lookupDescriptionLoaded = Class.create({
-    initialize: function(fieldId, url, params) {
-        this.fieldId = fieldId;
-        this.url = url;
-        this.params = params;
-        this.updateLookup();
-        $(fieldId).observe('change', this.updateLookup.bind(this));
-        $(fieldId).observe('lookup:changed', this.updateLookup.bind(this));
-    },
+var lookupDescriptionLoaded = function(fieldId, url, params, formName) {
+  this.init(fieldId, url, params, formName);
+}
 
-    updateLookup: function() {
-        var tooltipElement = $(this.fieldId + '_lookupDescription');
-        if (tooltipElement) {//first remove current description
-            tooltipElement.remove();
+if (typeof jQuery != 'undefined') {
+  jQuery.extend(lookupDescriptionLoaded.prototype, {
+  
+    init: function(fieldId, url, params, formName){
+      this.fieldId = fieldId;
+      this.url = url;
+      this.params = params;
+      this.formName = formName;
+    },
+    update: function(){
+      var tooltipElement = jQuery("#" + this.fieldId + '_lookupDescription');
+      if (tooltipElement.length) {//first remove current description
+        tooltipElement.remove();
+      }
+      //actual server call
+      var fieldName = this.params.substring(this.params.indexOf("searchValueFieldName"));
+      fieldName = fieldName.substring(fieldName.indexOf("=") + 1);
+      var fieldSerialized = jQuery("input[name=" + fieldName + "]", jQuery("form[name=" + this.formName + "]")).serialize();
+      this.allParams = this.params + '&' + fieldSerialized + '&' + 'searchType=EQUALS';
+      _fieldId = this.fieldId;
+      
+      jQuery.ajax({
+        url: this.url,
+        type: "POST",
+        data: this.allParams,
+        async: false,
+        success: function(result){
+          // This would be far more reliable if we would remove the widget boundaries in LookupDecorator using widgetVerbose in context
+          if (result.split("ajaxAutocompleteOptions.ftl -->")[1]) {
+            setLookDescription(_fieldId, result.split("ajaxAutocompleteOptions.ftl -->")[1].trim().split("<!--")[0].trim(), "", "");
+          }
         }
-        if (!$F(this.fieldId)) {
-            return;
-        }
-        //actual server call
-        var allParams = this.params + '&' + $(this.fieldId).serialize() + '&' + 'searchType=EQUALS'
-        new Ajax.Request(this.url,{parameters: allParams, onSuccess: this.updateFunction.bind(this)});
-    }, 
-    
-    updateFunction: function(transport) {
-        var wrapperElement = new Element('div').insert(transport.responseText);
-        if('UL'!= wrapperElement.firstDescendant().tagName || (wrapperElement.firstDescendant().childElements().length != 1)) {    
-            //alert(transport.responseText); response is error or more than one entries are found
-            return;
-        }
-        Element.cleanWhitespace(wrapperElement);
-        Element.cleanWhitespace(wrapperElement.down());
-        setLookDescription(this.fieldId, wrapperElement.firstDescendant().firstDescendant().innerHTML);
-    }            
-});
+      });
+    }
+  });
+}
+if(typeof String.prototype.trim !== 'function') { // Needed because IE8 does not implement trim yet
+  String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, ''); 
+  }
+}

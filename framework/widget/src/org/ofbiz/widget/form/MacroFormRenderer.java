@@ -230,81 +230,58 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         if (ajaxEnabled) {
             String url = inPlaceEditor.getUrl(context);
+            String extraParameter = "{";
             Map<String, Object> fieldMap = inPlaceEditor.getFieldMap(context);
             if (fieldMap != null) {
-                url += '?';
                 Set<Entry<String, Object>> fieldSet = fieldMap.entrySet();
                 Iterator<Entry<String, Object>> fieldIterator = fieldSet.iterator();
                 int count = 0;
                 while (fieldIterator.hasNext()) {
                     count++;
                     Entry<String, Object> field = fieldIterator.next();
-                    url += (String) field.getKey() + '=' + (String) field.getValue();
+                    extraParameter += (String) field.getKey() + ":'" + (String) field.getValue() + "'";
                     if (count < fieldSet.size()) {
-                        url += '&';
+                        extraParameter += ',';
                     }
                 }
+
             }
+            extraParameter += "}";
             sr.append("\" inPlaceEditorUrl=\"");
             sr.append(url);
             sr.append("\" inPlaceEditorParams=\"");
             StringWriter inPlaceEditorParams = new StringWriter();
-            inPlaceEditorParams.append("{paramName: '");
+            inPlaceEditorParams.append("{name: '");
             if (UtilValidate.isNotEmpty(inPlaceEditor.getParamName())) {
                 inPlaceEditorParams.append(inPlaceEditor.getParamName());
             } else {
                 inPlaceEditorParams.append(modelFormField.getFieldName());
             }
             inPlaceEditorParams.append("'");
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelControl())) {
-                inPlaceEditorParams.append(", cancelControl: ");
-                if (!"false".equals(inPlaceEditor.getCancelControl())) {
-                    inPlaceEditorParams.append("'");
-                }
-                inPlaceEditorParams.append(inPlaceEditor.getCancelControl());
-                if (!"false".equals(inPlaceEditor.getCancelControl())) {
-                    inPlaceEditorParams.append("'");
-                }
-            }
+            inPlaceEditorParams.append(", method: 'POST'");
+            inPlaceEditorParams.append(", submitdata: " + extraParameter);
+            inPlaceEditorParams.append(", type: 'textarea'");
+            inPlaceEditorParams.append(", select: 'true'");
+            inPlaceEditorParams.append(", onreset: function(){jQuery('#cc_" + idName + "').css('background-color', 'transparent');}");
+
             if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelText())) {
-                inPlaceEditorParams.append(", cancelText: '" +inPlaceEditor.getCancelText()+ "'");
+                inPlaceEditorParams.append(", cancel: '" +inPlaceEditor.getCancelText()+ "'");
+            } else {
+                inPlaceEditorParams.append(", cancel: 'Cancel'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getClickToEditText())) {
-                inPlaceEditorParams.append(", clickToEditText: '" +inPlaceEditor.getClickToEditText()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getFieldPostCreation())) {
-                inPlaceEditorParams.append(", fieldPostCreation: ");
-                if (!"false".equals(inPlaceEditor.getFieldPostCreation())) {
-                    inPlaceEditorParams.append("'");
-                }
-                inPlaceEditorParams.append(inPlaceEditor.getFieldPostCreation());
-                if (!"false".equals(inPlaceEditor.getFieldPostCreation())) {
-                    inPlaceEditorParams.append("'");
-                }
+                inPlaceEditorParams.append(", tooltip: '" +inPlaceEditor.getClickToEditText()+ "'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getFormClassName())) {
-                inPlaceEditorParams.append(", formClassName: '" +inPlaceEditor.getFormClassName()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getHighlightColor())) {
-                inPlaceEditorParams.append(", highlightColor: '" +inPlaceEditor.getHighlightColor()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getHighlightEndColor())) {
-                inPlaceEditorParams.append(", highlightEndColor: '" +inPlaceEditor.getHighlightEndColor()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getHoverClassName())) {
-                inPlaceEditorParams.append(", hoverClassName: '" +inPlaceEditor.getHoverClassName()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getHtmlResponse())) {
-                inPlaceEditorParams.append(", htmlResponse: " +inPlaceEditor.getHtmlResponse());
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getLoadingClassName())) {
-                inPlaceEditorParams.append(", loadingClassName: '" +inPlaceEditor.getLoadingClassName()+ "'");
+                inPlaceEditorParams.append(", cssclass: '" + inPlaceEditor.getFormClassName()+ "'");
+            } else {
+                inPlaceEditorParams.append(", cssclass: 'inplaceeditor-form'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getLoadingText())) {
-                inPlaceEditorParams.append(", loadingText: '" +inPlaceEditor.getLoadingText()+ "'");
+                inPlaceEditorParams.append(", indicator: '" +inPlaceEditor.getLoadingText()+ "'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getOkControl())) {
-                inPlaceEditorParams.append(", okControl: ");
+                inPlaceEditorParams.append(", submit: ");
                 if (!"false".equals(inPlaceEditor.getOkControl())) {
                     inPlaceEditorParams.append("'");
                 }
@@ -312,30 +289,8 @@ public class MacroFormRenderer implements FormStringRenderer {
                 if (!"false".equals(inPlaceEditor.getOkControl())) {
                     inPlaceEditorParams.append("'");
                 }
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getOkText())) {
-                inPlaceEditorParams.append(", okText: '" +inPlaceEditor.getOkText()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getSavingClassName())) {
-                inPlaceEditorParams.append(", savingClassName: '" +inPlaceEditor.getSavingClassName()+ "', ");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getSavingText())) {
-                inPlaceEditorParams.append(", savingText: '" +inPlaceEditor.getSavingText()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getSubmitOnBlur())) {
-                inPlaceEditorParams.append(", submitOnBlur: " +inPlaceEditor.getSubmitOnBlur());
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getTextBeforeControls())) {
-                inPlaceEditorParams.append(", textBeforeControls: '" +inPlaceEditor.getTextBeforeControls()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getTextAfterControls())) {
-                inPlaceEditorParams.append(", textAfterControls: '" +inPlaceEditor.getTextAfterControls()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getTextBetweenControls())) {
-                inPlaceEditorParams.append(", textBetweenControls: '" +inPlaceEditor.getTextBetweenControls()+ "'");
-            }
-            if (UtilValidate.isNotEmpty(inPlaceEditor.getUpdateAfterRequestCall())) {
-                inPlaceEditorParams.append(", updateAfterRequestCall: " +inPlaceEditor.getUpdateAfterRequestCall());
+            } else {
+                inPlaceEditorParams.append(", submit: 'OK'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getRows())) {
                 inPlaceEditorParams.append(", rows: '" +inPlaceEditor.getRows()+ "'");
@@ -469,12 +424,17 @@ public class MacroFormRenderer implements FormStringRenderer {
             visualEdtiorEnalble = "true";
             buttons = textareaField.getVisualEditorButtons(context);
             if (UtilValidate.isEmpty(buttons)) {
-                buttons = "all";
+                buttons = "maxi";
             }
         }
         String readonly = "";
         if (textareaField.isReadOnly()) {
             readonly = "readonly";
+        }
+        Map<String, Object> userLogin = UtilGenerics.checkMap(context.get("userLogin"));
+        String language = "en";
+        if (userLogin != null) {
+            language = UtilValidate.isEmpty((String) userLogin.get("lastLocale")) ? "en" : (String) userLogin.get("lastLocale");
         }
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
         StringWriter sr = new StringWriter();
@@ -497,6 +457,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(readonly);
         sr.append("\" visualEdtiorEnalble=\"");
         sr.append(visualEdtiorEnalble);
+        sr.append("\" language=\"");
+        sr.append(language);
         sr.append("\" buttons=\"");
         sr.append(buttons);
         sr.append("\" />");
@@ -2013,7 +1975,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             } else {
                 autoCompleterTarget = lookupFieldFormName + "&amp;amp;";
             }
-            autoCompleterTarget = autoCompleterTarget + "ajaxLookup=Y&amp;amp;searchValueField=" + lookupField.getModelFormField().getParameterName(context);
+            autoCompleterTarget = autoCompleterTarget + "ajaxLookup=Y";
             updateAreas = FastList.newInstance();
             updateAreas.add(new ModelForm.UpdateArea("change", id, autoCompleterTarget));
         }

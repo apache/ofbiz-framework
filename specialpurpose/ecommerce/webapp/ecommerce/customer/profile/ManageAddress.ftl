@@ -26,7 +26,7 @@ under the License.
   <div class="screenlet-body">
     <#-- Add address -->
     <a class="button" id="addAddress" href="javascript:void(0)">${uiLabelMap.EcommerceAddNewAddress}</a>
-    <div id="displayCreateAddressForm" class="popup" style="display: none;">
+    <div id="displayCreateAddressForm" style="display: none;">
       <div id="serverError" class="errorMessage"></div>
       <form id="createPostalAddressForm" method="post" action="">
         <fieldset>
@@ -68,7 +68,7 @@ under the License.
           <div id="states">
             <label for="stateProvinceGeoId">${uiLabelMap.PartyState}*
               <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
-            </label>  
+            </label>
               <select name="stateProvinceGeoId" id="stateProvinceGeoId" style="width: 70%">
               <#if stateProvinceGeoId?has_content>
                 <option value="${stateProvinceGeoId}">${stateProvinceGeoId}</option>
@@ -85,16 +85,24 @@ under the License.
             <label for="setShippingPurpose">${uiLabelMap.EcommerceMyDefaultShippingAddress}</label>
             <input type="checkbox" name="setShippingPurpose" id="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked="checked"</#if> />
           </div>
-          <div>
-            <a href="javascript:void(0);" id="submitPostalAddressForm" class="button" onclick="createPartyPostalAddress('submitPostalAddressForm')">${uiLabelMap.CommonSubmit}</a>
-            <a href="javascript:void(0);" class="popup_closebox button" >${uiLabelMap.CommonClose}</a>
-          </div>
         </fieldset>
       </form>
     </div>
     <script type="text/javascript">
       //<![CDATA[
-        new Popup('displayCreateAddressForm','addAddress', {modal: true, position: 'center', trigger: 'click'})
+        jQuery("#displayCreateAddressForm").dialog({autoOpen: false, modal: true,
+                buttons: {
+                '${uiLabelMap.CommonSubmit}': function() {
+                    var createAddressForm = jQuery("#displayCreateAddressForm");
+                    jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
+                    createPartyPostalAddress();
+                },
+                '${uiLabelMap.CommonClose}': function() {
+                    jQuery(this).dialog('close');
+                    }
+                }
+        });
+        jQuery("#addAddress").click(function(){jQuery("#displayCreateAddressForm").dialog("open")});
       //]]>
     </script>
   </div>
@@ -130,12 +138,24 @@ under the License.
         <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
       </#if>
       </ul>
-      <div id="displayEditBillToPostalAddress" class="popup" style="display: none;">
+      <div id="displayEditBillToPostalAddress" style="display: none;">
         <#include "EditBillToAddress.ftl" />
       </div>
       <script type="text/javascript">
         //<![CDATA[
-        new Popup('displayEditBillToPostalAddress', 'updateBillToPostalAddress', {modal: true, position: 'center', trigger: 'click'})
+        jQuery("#displayEditBillToPostalAddress").dialog({autoOpen: false, modal: true,
+            buttons: {
+            '${uiLabelMap.CommonSubmit}': function() {
+                var createAddressForm = jQuery("#displayEditBillToPostalAddress");
+                jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
+                updatePartyBillToPostalAddress();
+            },
+            '${uiLabelMap.CommonClose}': function() {
+                jQuery(this).dialog('close');
+                }
+            }
+        });
+        jQuery("#updateBillToPostalAddress").click(function(){jQuery("#displayEditBillToPostalAddress").dialog("open")});
         //]]>
       </script>
 
@@ -166,12 +186,24 @@ under the License.
         <li>${uiLabelMap.PartyPostalInformationNotFound}</li>
       </#if>
       </ul>
-      <div id="displayEditShipToPostalAddress" class="popup" style="display: none;">
+      <div id="displayEditShipToPostalAddress" style="display: none;">
         <#include "EditShipToAddress.ftl" />
       </div>
       <script type="text/javascript">
          //<![CDATA[
-          new Popup('displayEditShipToPostalAddress','updateShipToPostalAddress', {modal: true, position: 'center', trigger: 'click'})
+          jQuery("#displayEditShipToPostalAddress").dialog({autoOpen: false, modal: true,
+            buttons: {
+            '${uiLabelMap.CommonSubmit}': function() {
+                var createAddressForm = jQuery("#displayEditShipToPostalAddress");
+                jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
+                updatePartyShipToPostalAddress('submitEditShipToPostalAddress');
+            },
+            '${uiLabelMap.CommonClose}': function() {
+                jQuery(this).dialog('close');
+                }
+            }
+          });
+          jQuery("#updateShipToPostalAddress").click(function(){jQuery("#displayEditShipToPostalAddress").dialog("open")});
           //]]>
       </script>
     </div>
@@ -190,7 +222,7 @@ under the License.
           <#if !(partyContactMechValueMap.partyContactMechPurposes?has_content)>
             <#assign postalAddressFlag = "Y" />
             <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists />
-            <div id="displayEditAddressForm_${contactMech.contactMechId}" class="popup" style="display: none;">
+            <div id="displayEditAddressForm_${contactMech.contactMechId}" style="display: none;">
               <#include "EditPostalAddress.ftl" />
             </div>
             <#if postalAddress?exists>
@@ -222,13 +254,24 @@ under the License.
                   <form id="deletePostalAddress_${contactMech.contactMechId}" method= "post" action= "<@ofbizUrl>deletePostalAddress</@ofbizUrl>">
                     <fieldset>
                       <input type= "hidden" name= "contactMechId" value= "${contactMech.contactMechId}" />
-                      <a href="javascript:$('deletePostalAddress_${contactMech.contactMechId}').submit()" class='button'>${uiLabelMap.CommonDelete}</a>
                     </fieldset>
-                  </form> 
+                  </form>
               </div>
               <script type="text/javascript">
                 //<![CDATA[
-                new Popup('displayEditAddressForm_${contactMech.contactMechId}','update_${contactMech.contactMechId}', {modal: true, position: 'center', trigger: 'click'})
+                jQuery("#displayEditAddressForm_${contactMech.contactMechId}").dialog({autoOpen: false, modal: true,
+                    buttons: {
+                    '${uiLabelMap.CommonSubmit}': function() {
+                        var createAddressForm = jQuery("#displayEditAddressForm_${contactMech.contactMechId}");
+                        jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
+                        updatePartyPostalAddress('submitEditPostalAddress_${contactMech.contactMechId}');
+                    },
+                    '${uiLabelMap.CommonClose}': function() {
+                        jQuery(this).dialog('close');
+                        }
+                    }
+                });
+                jQuery("#update_${contactMech.contactMechId}").click(function(){jQuery("#displayEditAddressForm_${contactMech.contactMechId}").dialog("open")});
                 //]]>
               </script>
             <#else>

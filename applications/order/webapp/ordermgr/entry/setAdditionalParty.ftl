@@ -107,11 +107,11 @@ under the License.
   <tr>
     <td width="100%">
       <table border="0" cellspacing="0" cellpadding="0" class="boxbottom">
-        <form method="post" action="<@ofbizUrl>addAdditionalParty</@ofbizUrl>">
+        <form method="post" action="<@ofbizUrl>addAdditionalParty</@ofbizUrl>" name="addAdditionalPartyForm" id="addAdditionalPartyForm">
         <tr>
           <td>&nbsp;</td>
           <td>
-            <select name="additionalRoleTypeId" size="5" multiple="multiple">
+            <select name="additionalRoleTypeId" id="additionalRoleTypeId" size="5" multiple="multiple">
               <#list roles as role>
               <option value="${role.roleTypeId}">${role.get("description",locale)}</option>
               </#list>

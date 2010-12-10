@@ -4942,6 +4942,10 @@
         <value xml:lang="en">No States/Provinces exist: _NA_</value>
         <value xml:lang="fr">Aucun état ou province: _NA_</value>
     </property>
+    <property key="CommonNoStatesProvincesExists">            
+        <value xml:lang="en">No States/Provinces exist</value>
+        <value xml:lang="fr">Aucun état ou province</value>
+    </property>
     <property key="CommonNoTaskAssigned">
         <value xml:lang="ar">لا مهام حالية تستوجب إهتمامكم</value>
         <value xml:lang="de">Zur Zeit sind keine Aufgabe vorhanden.</value>
@@ -10628,5 +10632,25 @@
         <value xml:lang="zh">中文</value>
         <value xml:lang="zh_CN">中文</value>
         <value xml:lang="zh_TW">中文</value>
+    </property>
+    <property key="CommonCharactorsLeft">
+        <value xml:lang="de">Zeichen übrig.</value>
+        <value xml:lang="en">charactors left.</value>
+    </property>
+    <property key="CommonPleaseWait">
+        <value xml:lang="de">Bitte warten Sie ...</value>
+        <value xml:lang="en">please wait ...</value>
+    </property>
+    <property key="CommonPleaseSelect">
+        <value xml:lang="de">Bitte wählen</value>
+        <value xml:lang="en">please select</value>
+    </property>
+    <property key="CommonLoading">
+        <value xml:lang="de">Empfange Daten ...</value>
+        <value xml:lang="en">Loading ...</value>
+    </property>
+    <property key="CommonDownloaded">
+        <value xml:lang="de">Daten empfangen.</value>
+        <value xml:lang="en">Downloaded.</value>
     </property>
 </resource>

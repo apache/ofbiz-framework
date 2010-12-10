@@ -20,270 +20,146 @@
 //Drag & Drop Functions for myPortal
 
 //global Var for controlling hover Boxes
-var hoverDivBefore = -1;
-var hoverColumnBefore = -1;
+var SORTABLE_COLUMN_LIST = null;
+var IS_UPDATED = false;
+var DESTINATION_COLUMN_ID = null;
 
 //init KeyListener
-window.onload=function(){
-    //Observe
-    Event.observe(document, "keypress", key_event);
-
-    //set a column droppable when it's empty
-    checkIfTabelsContainsDivs();
-}
-
-//if ESC is pressed, remove draged portlet + hoverDiv
-function key_event(evt)
-{
-    if(evt.keyCode == 27)  {
-        //removes the hover div after the portlet is moved to another position
-        if((hd = document.getElementById('hoverDiv')) != null){
-            Droppables.remove(hd);
-            hd.parentNode.removeChild(hd);
-            //the global var must disabled
-            hoverColumnBefore = -1;
-            hoverDivBefore = -1;
-        }
-    }
-}
-
-//makes portlets dragable
-function makeDragable(portletId){
-    drag = document.getElementById(portletId);
-    new Draggable(drag,
-            {revert: true, ghosting: false, reverteffect :
-            function(drag, top_offset, left_offset){
-                    new Effect.MoveBy(drag, -top_offset, -left_offset, {duration:0});
-                    var hd = document.getElementById('hoverDiv');
-                    if(hd != null){
-                        Droppables.remove(hd);
-                        hd.parentNode.removeChild(hd);
-                    }
+jQuery(document).ready( function() {
+    // initializ the d_n_d jQuery functions
+    jQuery("" + SORTABLE_COLUMN_LIST + "").sortable({
+        connectWith: ".connectedSortable",
+        tolerance: "pointer",
+        dropOnEmpty: true,
+        cursor: "move",
+        revert: true,
+        placeholder: "ui-state-highlight",
+        forcePlaceholderSize: true,
+        update: function(event, ui) {
+                    IS_UPDATED = true;
+                    DESTINATION_COLUMN_ID = jQuery(this).attr("id");
+                },
+        stop: function(event, ui) {
+                    preparePortletBackgroundOrderChange(jQuery("" + SORTABLE_COLUMN_LIST+ "").sortable("toArray", {connected: true}), jQuery(ui.item).attr("id"), DESTINATION_COLUMN_ID);
+                    // reset the flags
+                    IS_UPDATED = false;
+                    DESTINATION_COLUMN_ID = null;
                 }
-            });
-}
-
-//makes columns and portlets droppable
-function makeDroppable(id){
-    //DragDrop mode
-    var mode = null;
-    var drop = document.getElementById(id);
-    if(drop.nodeName == "DIV"){
-        Droppables.add(drop, {
-            accept: ['portlet-config','noClass'],
-            //Hover effekt
-            onHover: function(element){
-
-                //vertical overlapping position
-                var pos = Position.overlap('vertical', drop);
-                //gets the position of the droppable element
-                var hd = document.getElementById('hoverDiv');
-
-                if(pos >= 0.5){
-                    mode = "DRAGDROPBEFORE";
-                    //if the previous DIV is the hoverDiv do nothing
-                    try {
-                        var previous = (drop.previous('DIV')).getAttribute('id');
-                    } catch (ex) {
-                        previous = 'undi';
-                    }
-
-                    if(previous != 'hoverDiv' && previous != element.id){
-                        if(hd != null){
-                            Droppables.remove(hd);
-                            hd.parentNode.removeChild(hd);
-                        }
-
-                        //create previewDiv
-                        var divTopOffset = document.getElementById(element.id).offsetHeight;
-                        var hoverDiv = document.createElement('DIV');
-                        hoverDiv.setAttribute('style', 'height: ' + divTopOffset + 'px; border: 1px dashed #aaa; background:#ffffff; margin-bottom: 5px;')
-                        hoverDiv.setAttribute('id', 'hoverDiv');
-                        var elem = document.getElementById(id);
-
-                        //inseret Before
-                        elem.parentNode.insertBefore(hoverDiv, elem);
-                        hoverDivBefore = id;
-
-                        //the new div have to be droppable
-                        Droppables.add(hoverDiv, {
-                            onDrop: function(element) {
-                                getDestinationInformationPortlets(element.id, id, mode);
-                            }
-                        });
-                    }
-                }else if(pos < 0.5){
-                    mode = "DRAGDROPAFTER";
-                    //if the next DIV is the hoverDiv do nothing
-                    try {
-                        var next = (drop.next('DIV')).getAttribute('id');
-                    }catch (ex){
-                        next = 'undi';
-                    }
-
-                    if(next != 'hoverDiv' && next != element.id){
-                        if(hd != null){
-                            Droppables.remove(hd);
-                            hd.parentNode.removeChild(hd);
-                        }
-
-                        //create previewDiv
-                        var divTopOffset = document.getElementById(element.id).offsetHeight;
-                        var hoverDiv = document.createElement('DIV');
-                        hoverDiv.setAttribute('style', 'height: ' + divTopOffset + 'px; border: 1px dashed #aaa; background:#ffffff; margin-bottom: 5px;')
-                        hoverDiv.setAttribute('id', 'hoverDiv');
-                        var elem = document.getElementById(id);
-
-                        //insert After
-                        elem.parentNode.insertBefore(hoverDiv, elem.nextSibling);
-                        hoverDivBefore = id;
-
-                        //the new div have to be droppable
-                        Droppables.add(hoverDiv, {
-                            onDrop: function(element) {
-                                getDestinationInformationPortlets(element.id, id, mode);
-                            }
-                        });
-                    }
-                }
-            },
-            onDrop: function(element) {
-                getDestinationInformationPortlets(element.id, id, mode);
-            }
-        });
-    }else{
-        mode = "DRAGDROPBOTTOM";
-        //Makes ColumnDroppable
-        Droppables.add(drop, {
-            accept: ['portlet-config','noClass'],
-            //Hover effekt
-            onHover: function(element){
-                var hd = document.getElementById('hoverDiv');
-                if(hd != null){
-                    hd.parentNode.removeChild(hd);
-                }
-
-                //create previewDiv
-                var divTopOffset = document.getElementById(element.id).offsetHeight;
-                var hoverDiv = document.createElement('DIV');
-                hoverDiv.setAttribute('style', 'height: ' + divTopOffset + 'px; border: 1px dashed #aaa; background:#ffffff; margin-bottom: 5px;')
-                hoverDiv.setAttribute('id', 'hoverDiv');
-                var elem = document.getElementById(id);
-
-                //insert After
-                elem.appendChild(hoverDiv);
-                hoverDivBefore = id;
-
-                //the new div have to be droppable
-                Droppables.add(hoverDiv, {
-                    onDrop: function(element) {
-                        getDestinationInformationColumn(element.id, id);
-                    }
-                });
-            },
-
-            onDrop: function(element) {
-                getDestinationInformationColumn(element.id, id);
-            }
-            });
-    }
-
-}
-
-//calls ajax request for dropping container on a portlet
-function getDestinationInformationPortlets(originId, destinationId, mode){
-    loadingImage();
- 
-    // extract integer part of arguments for freeMove_<id>
-    var destId = destinationId.replace(/.*_([0-9]+)/, "\$1");
-    var origId = originId.replace(/.*_([0-9]+)/, "\$1");
+    }).disableSelection();
     
-    var move = document.forms['freeMove_' + destId];
-    var d_portalPageId = move.elements['portalPageId'].value;
-    var d_portalPortletId = move.elements['portalPortletId'].value;
-    var d_portletSeqId =  move.elements['portletSeqId'].value;
+});
 
-    var move = document.forms['freeMove_' + origId];
-    var o_portalPageId = move.elements['portalPageId'].value;
-    var o_portalPortletId = move.elements['portalPortletId'].value;
-    var o_portletSeqId =  move.elements['portletSeqId'].value;
-
-    new Ajax.Request('/myportal/control/updatePortalPagePortletSeqAjax',{
-        method: "post",
-        parameters: {o_portalPageId: o_portalPageId, o_portalPortletId: o_portalPortletId, o_portletSeqId: o_portletSeqId,
-        d_portalPageId: d_portalPageId, d_portalPortletId: d_portalPortletId, d_portletSeqId: d_portletSeqId, mode: mode },
-
-        onLoading: function(transport){
-        },
-
-        onSuccess: function(transport){
-            var destination = document.getElementById(destinationId);
-            var origin = document.getElementById(originId);
-
-            if(mode == 'DRAGDROPBEFORE'){
-                destination.parentNode.insertBefore(origin, destination);
-            }else if(mode == 'DRAGDROPAFTER'){
-                destination.parentNode.insertBefore(origin, destination.nextSibling);
-            }
-            //Fix for layout Bug
-            origin.style.left = destination.style.left;
-            origin.style.top = 0;
-        },
-
-        onComplete: function(transport){
-            onCompleteRequest();
+function preparePortletBackgroundOrderChange(serializedDate, dragedItemId, destinationColumnId) {
+    if (!IS_UPDATED) {
+        return;
+    } 
+    
+    // split the portal column id
+    destinationColumnId = destinationColumnId.split("_")[1];
+    
+    // make clean array and remove all fields with empty values
+    var dataArray = []
+    jQuery.each(serializedDate, function(index, value) {
+        if (value.length) {
+            dataArray.push(value);
         }
     });
+
+    // find the new position of the moved element in the array
+    var beforeItem = null;
+    var afterItem = null;
+    var currentItem = null;
+    
+    jQuery.each(dataArray, function(index, value) {
+        if (dragedItemId == value) {
+            // create object for the item before the current dropped object if not undefined
+            var dataArrayValue = dataArray[index-1];
+            if (dataArrayValue != undefined) {
+                beforeItem = jQuery("#" + dataArrayValue);
+            }
+            
+            // create object for the item after the current dropped object if not undefined                         
+            dataArrayValue = dataArray[index+1];
+            if (dataArrayValue != undefined) {                          
+                afterItem = jQuery("#" + dataArrayValue);
+            }
+            
+            // create object for the current dropped object
+            currentItem = jQuery("#" + value);
+            
+            // break the jQuery.each loop
+            return false;
+        } 
+    });
+    
+    // check if the before or after Item is still in the new column to get a reference Object in this column
+    var nextObjectToDroppedItem = null;
+    
+    // check if the item is moved to another column
+    if (destinationColumnId != null && destinationColumnId != currentItem.attr("columnseqid") ) {
+        //mode can be "BEFORE" (for adding the item before the nextObjectToDroppedItem), "AFTER" (for adding the item after the nextObjectToDroppedItem) or "NEW" (when the item is the first one in the list and should be added to the top)
+        var mode = null;
+        if ((beforeItem == null || destinationColumnId != beforeItem.attr("columnseqid")) && (afterItem == null || destinationColumnId != afterItem.attr("columnseqid"))) {
+            // the moved object entered an empty list
+            mode = "NEW";
+        } else if (beforeItem != null && destinationColumnId == beforeItem.attr("columnseqid")) {
+            // the moved object entered in a new list and should be moved after this beforeItem
+            nextObjectToDroppedItem = beforeItem;
+            mode = "AFTER";
+        } else if (afterItem != null && destinationColumnId == afterItem.attr("columnseqid")) {
+            // the moved object entered in a new list and should be moved before this beforeItem
+            nextObjectToDroppedItem = afterItem;
+            mode = "BEFORE";
+        }
+        
+    } else {
+        // if the item is moved in the same column get the before and/or after element
+        if (beforeItem.attr("id") != null) {
+            mode = "AFTER";
+            nextObjectToDroppedItem = beforeItem;
+        } else if (afterItem.attr("id") != null){
+            mode = "BEFORE";
+            nextObjectToDroppedItem = afterItem;
+        }
+    }
+    
+    // call the update service
+    updatePortletOrder(currentItem, nextObjectToDroppedItem, mode, destinationColumnId);
+    
+    // change the html attributes after the move
+    currentItem.attr({"columnseqid": destinationColumnId});
+    
+
 }
 
-//calls ajax request for dropping container on a column
-function getDestinationInformationColumn(id, destination){
-    loadingImage();
-
-    var destiCol = destination;
-    var move = document.forms['freeMove_' + id];
-    var portalPageId = move.elements['portalPageId'].value;
-    var portalPortletId = move.elements['portalPortletId'].value;
-    var portletSeqId =  move.elements['portletSeqId'].value;
-    var mode = move.elements['mode'].value;
-
-    new Ajax.Request('/myportal/control/updatePortalPagePortletSeqAjax',{
-            method: "post",
-            parameters: {destinationColumn: destination, o_portalPageId: portalPageId, o_portalPortletId: portalPortletId, o_portletSeqId: portletSeqId, mode: "DRAGDROPBOTTOM"},
-
-        onLoading: function(transport){
-        },
-
-        onSuccess: function(transport){
-            //loadingImage();
-            var destination = document.getElementById(destiCol);
-            var origin = document.getElementById(id);
-            destination.appendChild(origin);
-
-            origin.style.left = destination.style.left;
-            origin.style.top = 0;
-        },
-
-        onComplete: function(transport){
+function updatePortletOrder(currentItem, nextObjectToDroppedItem, mode, destinationColumn) {
+    onStartRequest();
+    // create a JSON request object with the needed information
+    var requestData = {
+            mode: mode,
+            destinationColumn: destinationColumn,
+            o_portalPageId: currentItem.attr("portalpageid"),
+            o_portalPortletId: currentItem.attr("portalportletid"),
+            o_portletSeqId: currentItem.attr("portletseqid"),
+            d_portalPageId: (nextObjectToDroppedItem != null) ? nextObjectToDroppedItem.attr("portalpageid") : null,
+            d_portalPortletId: (nextObjectToDroppedItem != null) ? nextObjectToDroppedItem.attr("portalportletid") : null,
+            d_portletSeqId: (nextObjectToDroppedItem != null) ? nextObjectToDroppedItem.attr("portletseqid") : null
+    };
+    
+    jQuery.ajax({
+        url: "/myportal/control/updatePortalPagePortletSeqAjax",
+        data: requestData,
+        dataType: "JSON",
+        type: "POST",
+        success: function(data){
             onCompleteRequest();
         }
     });
+    
 }
 
 //removes the loading image
 function onCompleteRequest() {
-
-    //removes the hover div after the portlet is moved to another position
-    if((hd = document.getElementById('hoverDiv')) != null){
-        hd.parentNode.removeChild(hd);
-        //the global var must disabled
-        hoverColumnBefore = -1;
-        hoverDivBefore = -1;
-    }
-
-    //set a column droppable when it's empty
-    checkIfTabelsContainsDivs()
-
     var loading = document.getElementById("loading");
     if(loading != null){
         //IE Fix (IE treats DOM objects and Javascript objects separately, and you can't extend the DOM objects using Object.prototype)
@@ -302,7 +178,7 @@ function getDocHeight() {
 }
 
 //displays the loading image
-function loadingImage() {	
+function onStartRequest() {    
     var p = document.createElement("div");
     p.setAttribute("id", "loading");    
     p.setAttribute("style", "height: " + getDocHeight() + "px;" )
@@ -311,55 +187,8 @@ function loadingImage() {
     img.setAttribute("src", "/images/loader.gif");
     img.setAttribute("id", "loaderImg");
 
-    //place loader image somwhere in the middle of the viewport
-    img.setAttribute("style", "top: " + (document.viewport.getHeight() / 2 + document.viewport.getScrollOffsets().top - 50) + "px;");    
-    
     p.appendChild(img);
     
     var container = document.getElementById("portalContainerId");
     container.appendChild(p);
-}
-
-//set the MousePointer
-function setMousePointer(elem){
-    var elements = document.getElementById(elem).getElementsByTagName('div');
-    for(i=0; i<elements.length; i++){
-        att = elements[i].getAttribute("class");
-        if(att == 'screenlet-title-bar'){
-            elements[i].setAttribute('onMouseOver','javascript:this.style.cursor="move";');
-            break;
-        }
-    }
-}
-
-//checked if a Tabel contains a portlet, if not make it Droppable
-function checkIfTabelsContainsDivs(){
-    var td = new Array();
-    td = getElementsByName_iefix('TD', 'portalColumn');
-    for(var i=0; i<td.length; i++){
-        //if the next DIV is the hoverDiv do nothing
-
-            var next = td[i].getElementsByTagName('DIV');
-            if(next.length == 0){
-                //make a column droppable when it's empty
-                makeDroppable(td[i].getAttribute('id'));
-            }else{
-                //removes the column droppable attribute when it's not empty
-                Droppables.remove(td[i]);
-            }
-    }
-}
-
-//Workaround for IE getElementsByName Bug
-function getElementsByName_iefix(tag, name) {
-    var elem = document.getElementsByTagName(tag);
-    var arr = new Array();
-    for(i = 0,iarr = 0; i < elem.length; i++) {
-         att = elem[i].getAttribute("name");
-         if(att == name) {
-              arr[iarr] = elem[i];
-              iarr++;
-         }
-    }
-    return arr;
 }

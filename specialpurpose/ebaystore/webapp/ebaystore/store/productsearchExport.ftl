@@ -71,61 +71,63 @@ under the License.
         if (cateId.indexOf(':')!= -1) {
             cateId = cateId.substring(0,cateId.indexOf(':'));
         }
-        var pars = 'ebayCategoryId='+cateId+'&productStoreId='+productStoreId; 
-        var myAjax = new Ajax.Request( url, {
-        method: 'get', 
-        parameters: pars,
-        onLoading: function loading(){
-                            $('loading').innerHTML = '<b>Please wait...</b>';
-                   } ,
-        onComplete: function writeCategoryList(originalRequest){
-                            $('loading').innerHTML = '';
-                            if(originalRequest.responseJSON!=null){
-                                removeOptions($(id));
-                                var resp = eval("("+originalRequest.responseText+")");
-                                var leng = resp.size();
-                                for (i=0;i<leng;i++) {
-                                    if (i == 0) {
-                                        $(id).options[0] = new Option("Please select","");
-                                    } 
-                                    var optVal = resp[i].CategoryCode;
-                                    var optName = resp[i].CategoryName;
-                                    var isLeaf = resp[i].IsLeafCategory;
-                                    $(id).options[i+1] = new Option(optName,optVal+":"+isLeaf);
-                                }
-                            } 
-                    }        
-        } );
+        var pars = 'ebayCategoryId='+cateId+'&productStoreId='+productStoreId;
+        jQuery.ajax({
+            url: url,
+            type: "GET",
+            data: pars,
+            beforeStart: function({document.getElementById('loading').innerHTML = '<b>${uiLabel.CommonPleaseWait}</b>';}),
+            success: function(data) {
+                document.getElementById('loading').innerHTML = '';
+                if(data != null){
+                    removeOptions(document.getElementById(id));
+                    var resp = eval("("+data+")");
+                    var leng = resp.size();
+                    for (i=0;i<leng;i++) {
+                        if (i == 0) {
+                            document.getElementById(id).options[0] = new Option("${uiLabel.CommonPleaseSelect}","");
+                        }
+                        var optVal = resp[i].CategoryCode;
+                        var optName = resp[i].CategoryName;
+                        var isLeaf = resp[i].IsLeafCategory;
+                        document.getElementById(id).options[i+1] = new Option(optName,optVal+":"+isLeaf);
+                    }
+                }
+            }
+        });
     }
 
      function retrieveTemplateByTemGroupId(templateGroupId,productStoreId,pkCategoryId){
-        var pars = 'templateGroupId='+templateGroupId+'&productStoreId='+productStoreId+'&pkCategoryId='+pkCategoryId; 
+        var pars = 'templateGroupId='+templateGroupId+'&productStoreId='+productStoreId+'&pkCategoryId='+pkCategoryId;
         var url = '<@ofbizUrl>ebayAdItemTemplate</@ofbizUrl>';
-        var myAjax = new Ajax.Request( url, {
-        method: 'get', 
-        parameters: pars, 
-        onComplete: function writeItemTemplates(originalRequest){
-                            removeOptions('theme');
-                            previewPic(":http://pics.ebay.com/aw/pics/vit/None2_sample_100x120.gif");
-                            if(originalRequest.responseJSON!=null){
-                                var resp = eval("("+originalRequest.responseText+")");
-                                var leng = resp.size();
-                                var j = 0;
-                                for (i=0;i<leng+1;i++) {
-                                    if (i == 0) {
-                                        $('theme').options[0] = new Option("Please select","_NA_");
-                                    } else {
-                                        var optVal = resp[i].TemplateId+":"+resp[i].TemplateImageURL;
-                                        $('theme').options[i] = new Option(resp[i].TemplateName,optVal);
-                                        j++;
-                                    }
-                                }
-                            } 
+
+        jQuery.ajax({
+            url: url,
+            type: "GET",
+            data: pars,
+            success: function(data){
+                removeOptions('theme');
+                previewPic(":http://pics.ebay.com/aw/pics/vit/None2_sample_100x120.gif");
+                if(data!=null){
+                    var resp = eval("("+data+")");
+                    var leng = resp.size();
+                    var j = 0;
+                    for (i=0;i<leng+1;i++) {
+                        if (i == 0) {
+                            document.getElementById('theme').options[0] = new Option("${uiLabel.CommonPleaseSelect}","_NA_");
+                        } else {
+                            var optVal = resp[i].TemplateId+":"+resp[i].TemplateImageURL;
+                            document.getElementById('theme').options[i] = new Option(resp[i].TemplateName,optVal);
+                            j++;
+                        }
                     }
-        } );
+                }
+            }
+        });
      }
+
      function removeOptions(id){
-       var elSel = $(id);
+       var elSel = jQuery("#" + id);
        var i;
        for (i = elSel.length - 1; i>=0; i--) {
                elSel.remove(i);
@@ -133,21 +135,21 @@ under the License.
      }
      function enabledItemTemplate(val){
         var field = "enabledTheme";
-        if ($(field).checked) {
-            $('themeGroup').disabled = false;
-            $('theme').disabled = false;
+        if (document.getElementById(field).checked) {
+            document.getElementById('themeGroup').disabled = false;
+            document.getElementById('theme').disabled = false;
         } else {
-            $('themeGroup').disabled = true;
-            $('theme').disabled = true;
+            document.getElementById('themeGroup').disabled = true;
+            document.getElementById('theme').disabled = true;
         }
      }
      function previewPic(val) {
         if (val != null) val = val.substr(val.indexOf(":")+1);
-        $('themeImg').src = val;
+        document.getElementById('themeImg').src = val;
      }
     function toggleDisp() {
         for (var i=0;i<arguments.length;i++){
-            var d = $(arguments[i]);
+            var d = document.getElementById(arguments[i]);
             if (d.style.display == 'none')
                 d.style.display = 'block';
             else
@@ -155,34 +157,34 @@ under the License.
         }
     }
     function toggleTab(num,numelems,opennum,animate) {
-        if ($('tabContent'+num).style.display == 'none'){
+        if (document.getElementById('tabContent'+num).style.display == 'none'){
             for (var i=1;i<=numelems;i++){
                 if ((opennum == null) || (opennum != i)){
                     var temph = 'tabHeader_'+i;
-                    var h = $(temph);
+                    var h = document.getElementById(temph);
                     if (!h){
-                        var h = $('tabHeaderActive_');
+                        var h = document.getElementById('tabHeaderActive_');
                         h.id = temph;
                     }
                     var tempc = 'tabContent'+i;
-                    var c = $(tempc);
+                    var c = document.getElementById(tempc);
                     if(c.style.display != 'none'){
                         if (animate || typeof animate == 'undefined')
-                            Effect.toggle(tempc,'blind',{duration:0.2, queue:{scope:'menus', limit: 3}});
+                            jQuery("#" + tempc).animate({opacity: 'toggle', height: 'toggle'}, "slow");
                         else
                             toggleDisp(tempc);
                     }
                 }
             }
-            var h = $('tabHeader_'+num);
+            var h = document.getElementById('tabHeader_'+num);
             if (h){
                 h.id = 'tabHeaderActive_';
             }
             h.blur();
-            var c = $('tabContent'+num);
+            var c = document.getElementById('tabContent'+num);
             c.style.marginTop = '2px';
             if (animate || typeof animate == 'undefined'){
-                Effect.toggle('tabContent'+num,'blind',{duration:0.2, queue:{scope:'menus', position:'end', limit: 3}});
+                jQuery("#tabContent" + num).animate({opacity: 'toggle', height: 'toggle'}, "slow");
             }else{
                 toggleDisp('tabContent'+num);
             }
@@ -211,9 +213,9 @@ under the License.
                        <#if contentList?has_content>
                            <#list contentList as content>
                                  <#if !isProductId?has_content>
-                                    <li <#if id == 1>class="selected" <#assign isProductId = content.product.productId?if_exists><#else>id="tabHeader${id}"</#if>><a href="javascript:$('ProductsExportToEbay').action = '<@ofbizUrl>exportProductListing</@ofbizUrl>?isProductId=${content.product.productId?if_exists}';$('ProductsExportToEbay').submit();">${content.product.productName?if_exists}[${content.product.productId}]</a></li>
+                                    <li <#if id == 1>class="selected" <#assign isProductId = content.product.productId?if_exists><#else>id="tabHeader${id}"</#if>><a href="javascript:document.getElementById('ProductsExportToEbay').action = '<@ofbizUrl>exportProductListing</@ofbizUrl>?isProductId=${content.product.productId?if_exists}';document.getElementById('ProductsExportToEbay').submit();">${content.product.productName?if_exists}[${content.product.productId}]</a></li>
                                  <#else>
-                                    <li <#if isProductId?exists && isProductId?if_exists == content.product.productId?if_exists >class="selected" <#assign isProductId = content.product.productId?if_exists><#else>id="tabHeader${id}"</#if>><a href="javascript:$('ProductsExportToEbay').action = '<@ofbizUrl>exportProductListing</@ofbizUrl>?isProductId=${content.product.productId?if_exists}';$('ProductsExportToEbay').submit();">${content.product.productName?if_exists}[${content.product.productId}]</a></li>
+                                    <li <#if isProductId?exists && isProductId?if_exists == content.product.productId?if_exists >class="selected" <#assign isProductId = content.product.productId?if_exists><#else>id="tabHeader${id}"</#if>><a href="javascript:document.getElementById('ProductsExportToEbay').action = '<@ofbizUrl>exportProductListing</@ofbizUrl>?isProductId=${content.product.productId?if_exists}';document.getElementById('ProductsExportToEbay').submit();">${content.product.productName?if_exists}[${content.product.productId}]</a></li>
                                  </#if>
                                  <#assign id = id+1>
                            </#list>
@@ -305,7 +307,7 @@ under the License.
                                                             </#if>
                                                         </#if>
                                                   </select>
-                                                  <a class="buttontext" href="javascript:retrieveEbayCategoryByParent('<@ofbizUrl>retrieveEbayCategoryByParent</@ofbizUrl>','CH_<#if primaryCate?has_content>${primaryCate.getCategoryID()?if_exists}</#if>','${productStoreId}','ebayCategory')">${uiLabelMap.EbayChangeCategory}</a> <a class="buttontext" href="javascript:$('ProductsExportToEbay').action = '<@ofbizUrl>setSelectedCategory</@ofbizUrl>?isProductId=${isProductId?if_exists}';$('ProductsExportToEbay').submit();">${uiLabelMap.EbaySet}</a>
+                                                  <a class="buttontext" href="javascript:retrieveEbayCategoryByParent('<@ofbizUrl>retrieveEbayCategoryByParent</@ofbizUrl>','CH_<#if primaryCate?has_content>${primaryCate.getCategoryID()?if_exists}</#if>','${productStoreId}','ebayCategory')">${uiLabelMap.EbayChangeCategory}</a> <a class="buttontext" href="javascript:document.getElementById('ProductsExportToEbay').action = '<@ofbizUrl>setSelectedCategory</@ofbizUrl>?isProductId=${isProductId?if_exists}';document.getElementById('ProductsExportToEbay').submit();">${uiLabelMap.EbaySet}</a>
                                               </div>
                                               <input type="hidden" name="primaryCateId" value="${primaryCateId?if_exists}"/>
                                               <div id="ebayCategory_Name">${priCateName?if_exists}</div>
@@ -491,17 +493,25 @@ under the License.
                                             <td width="60%" valign="top">
                                                  <table cellspacing="0">
                                                     <tr><td>
-                                                        <script language="javascript" src="/images/htmledit/whizzywig.js" type="text/javascript"></script>
-                                                        <script language="javascript" type="text/javascript"> buttonPath = "/images/htmledit/"; cssFile="/images/htmledit/simple.css";</script>                                    
+                                                        <script language="javascript" src="/images/jquery/plugins/elrteEditor/elrte.min.js" type="text/javascript"></script>
+                                                        <link href="/images/jquery/plugins/elrteEditor/css/elrte.full.css" rel="stylesheet" type="text/css">
+                                                        <script language="javascript" type="text/javascript">
+                                                                var opts = {
+                                                                    cssClass : 'el-rte',
+                                                                    toolbar  : 'maxi',
+                                                                    doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
+                                                                    cssfiles : ['/images/jquery/plugins/elrteEditor/css/elrte-inner.css']
+                                                                }
+                                                        </script>
                                                         <textarea id="description" name="description" style="width:800px; height:300px">
                                                             <#if item.getDescription()?exists>description<#else>${item.getDescription()?if_exists}</#if>
                                                         </textarea>
                                                         <script type="text/javascript">
-                                                              makeWhizzyWig("description", "all");
+                                                              jQuery('#description').elrte(opts);
                                                         </script>
                                                     </td></tr>
                                                  </table>
-                                            </td>    
+                                            </td>
                                             <td width="30%" valign="top">
                                                 <table align="left" width="60%"  height="100%" cellspacing="0">
                                                     <tr>
@@ -535,7 +545,7 @@ under the License.
                                                         <td valign="top">
                                                             <script type="text/javascript">
                                                               function popUpImg(){
-                                                                //popUp($('themeImg').src, 'themeImgBig', '400', '550');
+                                                                //popUp(document.getElementById('themeImg').src, 'themeImgBig', '400', '550');
                                                               }
                                                             </script>
                                                             <a id="themeImgUrl" href="javascript:popUpImg();"><img hspace="5" height="120" border="0" align="top" width="100" id="themeImg" name="themeImg" src="http://pics.ebay.com/aw/pics/vit/None2_sample_100x120.gif" alt="" /></a>

@@ -28,18 +28,14 @@ these reports and helping to improve them.</div>
 <table>
 <tr>
 <td><div>From Date:</div></td>
-<td><input type="text" name="fromDate" tabindex="10"  size="22" maxlength="25" align="middle">
- <a tabindex="10" target="_self" href="javascript:call_cal(document.orderreportform.fromDate, '${fromStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
-  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' />
- </a>
+<td>
+ <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="22" maxlength="25" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
 </td>
 </tr>
 <tr>
 <td><div>To Date:</div></td>
-<td><input type="text" name="toDate" tabindex="12"  size="22" maxlength="25" align="middle">
- <a tabindex="12" target="_self" href="javascript:call_cal(document.orderreportform.toDate, '${toStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
-  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' />
- </a>
+<td>
+ <@htmlTemplate.renderDateTimeField name="toDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="22" maxlength="25" id="t" oDate1dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
 </td>
 </tr>
 <#--
@@ -66,18 +62,14 @@ these reports and helping to improve them.</div>
 <table>
 <tr>
 <td><div>From Date:</div></td>
-<td><input type="text" name="fromDate" tabindex="10"  size="22" maxlength="25" align="middle">
- <a tabindex="10" target="_self" href="javascript:call_cal(document.itemreportform.fromDate, '${fromStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
-  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' />
- </a>
+<td>
+ <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="22" maxlength="25" id="fromDate2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
 </td>
 </tr>
 <tr>
 <td><div>To Date:</div></td>
-<td><input type="text" name="toDate" tabindex="12"  size="22" maxlength="25" align="middle">
- <a tabindex="12" target="_self" href="javascript:call_cal(document.itemreportform.toDate, '${toStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
-  <img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar' />
- </a>
+<td>
+ <@htmlTemplate.renderDateTimeField name="toDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="22" maxlength="25" id="toDate2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
 </td>
 </tr>
 <#--

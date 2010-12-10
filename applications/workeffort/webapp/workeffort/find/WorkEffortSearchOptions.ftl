@@ -109,15 +109,13 @@ under the License.
             <table class="basic-table" cellspacing="0">
                <tr>
                   <td nowrap="nowrap">
-                    <input type='text' size='25' name='fromDate' value='${requestParameters.fromDate?if_exists}'/>
-                      <a href="javascript:call_cal(document.advToKeyWordSearchForm.fromDate,'${fromDateStr}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
-                        <span>${uiLabelMap.CommonFrom}</span>
+                    <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.fromDate?if_exists}" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                    <span>${uiLabelMap.CommonFrom}</span>
                   </td>
                </tr>
                <tr>
                   <td nowrap="nowrap">
-                    <input type='text' size='25' name='thruDate' value='${requestParameters.thruDate?if_exists}'/>
-                    <a href="javascript:call_cal(document.advToKeyWordSearchForm.thruDate,'${thruDateStr}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
+                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.thruDate?if_exists}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <span>${uiLabelMap.CommonThru}</span>
                   </td>
                </tr>

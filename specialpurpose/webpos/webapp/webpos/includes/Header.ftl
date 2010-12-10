@@ -53,12 +53,6 @@ under the License.
     <#if metaKeywords?exists>
         <meta name="keywords" content="${metaKeywords}"/>
     </#if>
-
-    <#if requireDojo?exists>
-        <script type="text/javascript">
-          dojo.require("dojo.widget.*");
-        </script>
-    </#if>
 </head>
 
 <body>

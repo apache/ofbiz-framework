@@ -24,11 +24,10 @@ under the License.
          document.forms["keywordsearchform"].elements["SEARCH_CATEGORY_ID"].value=document.forms["advancedsearchform"].elements["DUMMYCAT"].value;
          document.forms["advancedsearchform"].elements["SEARCH_CATEGORY_ID"].value=document.forms["advancedsearchform"].elements["DUMMYCAT"].value;
      }
-     function submitProductJump() {
-         productId = $('productJumpFormProductId').value;
-         $('productJumpFormProductId').value = productId.replace(" ","");
-         $('productJumpForm').action = $('dummyPage').value;
-         $('productJumpForm').submit();
+     function submitProductJump(that) {
+         jQuery('#productJumpForm input[name=productId]').val(jQuery('#productJumpForm input[name=productId]').val().replace(" ",""));
+         jQuery('#productJumpForm').attr('action', jQuery('#dummyPage').val());
+         jQuery('#productJumpForm').submit();
      }
 //]]>
  </script>
@@ -63,7 +62,7 @@ under the License.
       <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="advancedsearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
     </div>
     <div>
-    <a href="javascript:$('advancedSearchForm').submit()" class="buttontext">${uiLabelMap.ProductAdvancedSearch}</a>
+    <a href="javascript:document.getElementById('advancedSearchForm').submit()" class="buttontext">${uiLabelMap.ProductAdvancedSearch}</a>
     </div>
   </fieldset>
 </form>

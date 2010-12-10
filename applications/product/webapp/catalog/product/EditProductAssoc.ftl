@@ -62,8 +62,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td>
                     <div>
-                        <input type="text" name="FROM_DATE" size="25" maxlength="40" value="${fromDate?if_exists}" />
-                        <a href="javascript:call_cal(document.editProductAssocForm.FROM_DATE, '${fromDate?default(nowTimestampString)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                        <@htmlTemplate.renderDateTimeField name="FROM_DATE" event="" action="" value="${fromDate?if_exists}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         ${uiLabelMap.CommonSetNowEmpty}
                     </div>
                 </td>
@@ -100,8 +99,8 @@ under the License.
                 <td>&nbsp;</td>
                 <td>
                     <div>
-                        <input type="text" name="FROM_DATE" size="25" maxlength="40" value="" />
-                        <a href="javascript:call_cal(document.editProductAssocForm.FROM_DATE, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                        ${fromDate?if_exists}
+                        <@htmlTemplate.renderDateTimeField name="FROM_DATE" event="" action="" value="${fromDate?if_exists}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="fromDate2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         ${uiLabelMap.CommonSetNowEmpty}
                     </div>
                 </td>
@@ -142,8 +141,7 @@ under the License.
             <td>&nbsp;</td>
             <td width="74%">
             <div>
-                <input type="text" name="THRU_DATE" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("THRU_DATE"))?if_exists}"</#if> size="30" maxlength="30" />
-                <a href="javascript:call_cal(document.editProductAssocForm.THRU_DATE, <#if useValues>'${productAssoc.thruDate?if_exists}'<#elseif (request.getParameter("THRU_DATE"))?exists>'${request.getParameter("THRU_DATE")}'<#else>'${nowTimestampString}'</#if>);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                <@htmlTemplate.renderDateTimeField name="THRU_DATE" event="" action="" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("THRU_DATE"))?if_exists}"</#if> className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
             </div>
             </td>
         </tr>

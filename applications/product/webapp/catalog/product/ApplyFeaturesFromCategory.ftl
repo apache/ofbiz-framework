@@ -84,8 +84,12 @@ under the License.
             </#list>
           </select>
         </td>
-        <td><input type="text" size="25" name="fromDate_o_${rowCount}" /><a href="javascript:call_cal(document.selectAllForm.fromDate_o_${rowCount}, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a></td>
-        <td><input type="text" size="25" name="thruDate_o_${rowCount}" /><a href="javascript:call_cal(document.selectAllForm.thruDate_o_${rowCount}, '${nowTimestampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a></td>
+        <td>
+            <@htmlTemplate.renderDateTimeField name="fromDate_o_${rowCount}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate_o_${rowCount}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+        </td>
+        <td>
+           <@htmlTemplate.renderDateTimeField name="thruDate_o_${rowCount}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="thruDate_o_${rowCount}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+        </td>
         <td><input type="text" size="6" name="amount_o_${rowCount}" value="${productFeature.defaultAmount?if_exists}" /></td>
         <td><input type="text" size="5" name="sequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum?if_exists}" /></td>
         <td align="right">

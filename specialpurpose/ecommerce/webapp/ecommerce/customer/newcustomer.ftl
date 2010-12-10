@@ -25,35 +25,35 @@ under the License.
          lastFocusedName = formElement.name;
      }
      function clickUsername() {
-         if ($('UNUSEEMAIL').checked) {
+         if (document.getElementById('UNUSEEMAIL').checked) {
              if (lastFocusedName == "UNUSEEMAIL") {
-                 $('PASSWORD').focus();
+                 jQuery('#PASSWORD').focus();
              } else if (lastFocusedName == "PASSWORD") {
-                 $('UNUSEEMAIL').focus();
+                 jQuery('#UNUSEEMAIL').focus();
              } else {
-                 $('PASSWORD').focus();
+                 jQuery('#PASSWORD').focus();
              }
          }
      }
      function changeEmail() {
-         if ($('UNUSEEMAIL').checked) {
-             $('USERNAME').value = $F('CUSTOMER_EMAIL');
+         if (document.getElementById('UNUSEEMAIL').checked) {
+             document.getElementById('USERNAME').value = jQuery('#CUSTOMER_EMAIL').val();
          }
      }
      function setEmailUsername() {
-         if ($('UNUSEEMAIL').checked) {
-             $('USERNAME').value = $F('CUSTOMER_EMAIL');
-             // don't disable, make the browser not submit the field: $('USERNAME').disabled=true;
+         if (document.getElementById('UNUSEEMAIL').checked) {
+             document.getElementById('USERNAME').value = jQuery('#CUSTOMER_EMAIL').val();
+             // don't disable, make the browser not submit the field: document.getElementById('USERNAME').disabled=true;
          } else {
-             $('USERNAME').value='';
-             // $('USERNAME').disabled=false;
+             document.getElementById('USERNAME').value='';
+             // document.getElementById('USERNAME').disabled=false;
          }
      }
      function hideShowUsaStates() {
-         if ($('customerCountry').value == "USA" || $('customerCountry').value == "UMI") {
-             $('customerState').style.display = "block";
+         if (document.getElementById('customerCountry').value == "USA" || document.getElementById('customerCountry').value == "UMI") {
+             document.getElementById('customerState').style.display = "block";
          } else {
-             $('customerState').style.display = "none";
+             document.getElementById('customerState').style.display = "none";
          }
      }
    //]]>
@@ -390,7 +390,7 @@ class name of "button". No other class names should be used to style
 button actions.
 ------------------------------------------------------------------------------->
 <div class="buttons">
-  <a href="javascript:$('newuserform').submit()">${uiLabelMap.CommonSave}</a>
+  <a href="javascript:document.getElementById('newuserform').submit()">${uiLabelMap.CommonSave}</a>
   <a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="reset">${uiLabelMap.CommonBack}</a>
 </div>
 

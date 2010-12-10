@@ -17,12 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script type="text/javascript">
-document.observe('dom:loaded', function() {
-    if ($('${dependentForm}')) {
-        Event.observe($('${dependentForm}_countryGeoId'), 'change', function() {
+jQuery(document).load ( function() {
+    if (jQuery('#${dependentForm}').length) {
+        jQuery('#${dependentForm}_countryGeoId').change( function() {
             getDependentDropdownValues('getAssociatedStateList', 'countryGeoId', '${dependentForm}_countryGeoId', '${dependentForm}_stateProvinceGeoId', 'stateList', 'geoId', 'geoName', '', '', 'true', 'true');
         });
         getDependentDropdownValues('getAssociatedStateList', 'countryGeoId', '${dependentForm}_countryGeoId', '${dependentForm}_stateProvinceGeoId', 'stateList', 'geoId', 'geoName', '${selectedStateProvinceGeoId}', '', 'true', 'true');
     }
-})
+});
 </script>

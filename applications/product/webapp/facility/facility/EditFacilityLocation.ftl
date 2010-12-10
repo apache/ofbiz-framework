@@ -121,7 +121,7 @@ under the License.
                         <input type="text" size="10" name="minimumStock" value="${(productFacilityLocation.minimumStock)?if_exists}"/>
                         <input type="text" size="10" name="moveQuantity" value="${(productFacilityLocation.moveQuantity)?if_exists}"/>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
-                        <a href="javascript:$('lineForm${productFacilityLocation_index}').action='<@ofbizUrl>deleteProductFacilityLocation</@ofbizUrl>';$('lineForm${productFacilityLocation_index}').submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                        <a href="javascript:document.getElementById('lineForm${productFacilityLocation_index}').action='<@ofbizUrl>deleteProductFacilityLocation</@ofbizUrl>';document.getElementById('lineForm${productFacilityLocation_index}').submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     </form>
                 </td>
             </tr>

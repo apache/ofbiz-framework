@@ -197,14 +197,12 @@ under the License.
                 <td>&nbsp;</td>
                 <td><div class="tableheadtext">${uiLabelMap.CommonStartDate}</div></td>
                 <td>
-                  <input type="text" class="textBox" name="startDateTime" size="22" value="${(recurrenceInfo.startDateTime)?if_exists}" />
-                  <a href="javascript:call_cal(document.reorderinfo.startDateTime, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                  <@htmlTemplate.renderDateTimeField name="startDateTime" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(recurrenceInfo.startDateTime)?if_exists}" size="25" maxlength="30" id="startDateTime1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                 </td>
                 <td>&nbsp;</td>
                 <td><div class="tableheadtext">${uiLabelMap.CommonEndDate}</div></td>
                 <td>
-                  <input type="text" class="textBox" name="endDateTime" size="22" value="${(recurrenceRule.untilDateTime)?if_exists}" />
-                  <a href="javascript:call_cal(document.reorderinfo.endDateTime, '${nowTimestamp.toString()}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                  <@htmlTemplate.renderDateTimeField name="endDateTime" className="textBox" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(recurrenceRule.untilDateTime)?if_exists}" size="25" maxlength="30" id="endDateTime1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                 </td>
                 <td>&nbsp;</td>
               </tr>

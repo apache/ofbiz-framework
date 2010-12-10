@@ -495,9 +495,6 @@ ofbiz/trunk/framework/base/lib/scripting/asm-analysis-3.2.jar
 ofbiz/trunk/framework/base/lib/scripting/asm-tree-3.2.jar
 ofbiz/trunk/framework/base/lib/scripting/asm-util-3.2.jar
 ofbiz/trunk/framework/base/lib/scripting/janino-2.5.15.jar
-ofbiz/trunk/framework/images/webapp/images/jsgantt.css
-ofbiz/trunk/framework/images/webapp/images/jsgantt.js
-ofbiz/trunk/framework/images/webapp/images/dojo/*
 ofbiz/trunk/specialpurpose/ldap/lib/cas-server-core-3.3.jar
 ofbiz/trunk/specialpurpose/pos/lib/looks-2.0.2.jar
 
@@ -1260,8 +1257,7 @@ ofbiz/trunk/framework/entity/lib/ofbiz-minerva.jar
 ofbiz/trunk/framework/jetty/lib/jcl104-over-slf4j-1.3.1.jar
 ofbiz/trunk/framework/jetty/lib/slf4j-api-1.3.1.jar
 ofbiz/trunk/framework/jetty/lib/slf4j-log4j12-1.3.1.jar
-ofbiz/trunk/framework/images/webapp/images/htmledit/whizzywig_v55i.js
-ofbiz/trunk/framework/images/webapp/images/calendarDateSelect/calendar_date_select.js
+ofbiz/trunk/framework/images/webapp/images/jquery/*
 =========================================================================
 The MIT License
 
@@ -2669,66 +2665,6 @@ Agreement will bring a legal action under this Agreement more than one year
 after the cause of action arose. Each party waives its rights to a jury trial in
 any resulting litigation.
 
-=========================================================================
-Apache Ofbiz includes prototype.js from http://www.prototypejs.org licensed under
-the terms of the MIT License
-ofbiz/trunk/framework/images/webapp/images/prototype/prototype.js
-=========================================================================
-Apache Ofbiz includes Scriptalous javascript lib from http://script.aculo.us
-licensed under the terms of the MIT License
-ofbiz/trunk/framework/images/webapp/images/prototype/controls.js
-ofbiz/trunk/framework/images/webapp/images/prototype/dragdrop.js
-ofbiz/trunk/framework/images/webapp/images/prototype/effects.js
-ofbiz/trunk/framework/images/webapp/images/prototype/scriptaculous.js
-ofbiz/trunk/framework/images/webapp/images/prototype/slider.js
-ofbiz/trunk/framework/images/webapp/images/prototype/sound.js
-ofbiz/trunk/framework/images/webapp/images/prototype/unittest.js
-ofbiz/trunk/framework/images/webapp/images/prototype/builder.js
-=========================================================================
-Apache Ofbiz includes flotr javascript lib from http://code.google.com/p/flotr/
-licensed under the terms of the MIT License
-ofbiz/trunk/framework/images/webapp/images/flotr/lib/excanvas.js
-ofbiz/trunk/framework/images/webapp/images/flotr/lib/base64.js
-ofbiz/trunk/framework/images/webapp/images/flotr/lib/canvas2image.js
-ofbiz/trunk/framework/images/webapp/images/flotr/lib/canvastext.js
-ofbiz/trunk/framework/images/webapp/images/flotr/flotr.debug-0.2.0-alpha.js
-ofbiz/trunk/framework/images/webapp/images/flotr/flotr-0.2.0-alpha.js
-=========================================================================
-Apache Ofbiz includes LivePipe Control Suite from http://livepipe.net/projects/control_suite/
-licensed under the terms of the MIT License
-ofbiz/trunk/framework/images/webapp/images/prototype/control.progress_bar.js
-ofbiz/trunk/framework/images/webapp/images/prototype/progress_bar.css
-=========================================================================
-Apache Ofbiz includes validation.js file from
-http://www.tetlaw.id.au/view/javascript/really-easy-field-validation.
-ofbiz/trunk/framework/images/webapp/images/prototype/validation.js
-validation.js is Licensed as follows
-=========================================================================
- Really easy field validation with Prototype
- http://tetlaw.id.au/view/javascript/really-easy-field-validation
- Andrew Tetlaw
- Version 1.5.4.1 (2007-01-05)
-
- Copyright (c) 2007 Andrew Tetlaw
- Permission is hereby granted, free of charge, to any person
- obtaining a copy of this software and associated documentation
- files (the "Software"), to deal in the Software without
- restriction, including without limitation the rights to use, copy,
- modify, merge, publish, distribute, sublicense, and/or sell copies
- of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be
- included in all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
- BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
 =========================================================================
 Apache Ofbiz includes docbook templates in the /applications/content/template/docbook
 directory with the following licence:

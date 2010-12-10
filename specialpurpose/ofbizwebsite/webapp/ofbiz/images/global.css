@@ -812,6 +812,7 @@ body#home #header #slides {
     position: absolute;
     top: 128px;
     left: 10px;
+    overflow: hidden;
     background: url(/ofbiz/images/slideshow-bg.jpg) top center no-repeat;
     width: 923px;
     height: 260px;
@@ -825,7 +826,7 @@ body#home #header #slides .slideshow {
 }
 
 body#home #header #slides .callout {
-    position: absolute;
+    position: relative;
     top: 35px;
     left: 30px;
     font-size: 30px;
@@ -834,8 +835,8 @@ body#home #header #slides .callout {
 }
 
 body#home #header #slides .description {
-    position: absolute;
-    top: 175px;
+    position: relative;
+    top: 110px;
     left: 30px;
     font-size: 14px;
     line-height: 15px;
@@ -896,9 +897,21 @@ body#home #header #slides .controls a img {
 }
 
 body#home #header #slides .mantle{
-    position:absolute;
-    top:58px;
+    position:relative;
+    top:-80px;
     left:385px;
+    float:right;
+}
+
+#mantleSlides{
+    width: 20000em;
+    height: 260px;
+    position: absolute;
+}
+
+#mantleSlides div {
+    float:left;
+    width: 923px;
 }
 
 body#home #col1 {

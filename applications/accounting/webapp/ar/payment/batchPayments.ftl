@@ -20,66 +20,97 @@ under the License.
 <script type="text/javascript">
 //<![CDATA[
 function togglePaymentId(master) {
-    var payments = $('paymentBatchForm').getInputs('checkbox','paymentIds');
-    payments.each(function(payment){
-        payment.checked = master.checked;
+    var payments = jQuery("#paymentBatchForm :checkbox[name='paymentIds']");
+
+    jQuery.each(payments, function() {
+        this.checked = master.checked;
     });
     getPaymentRunningTotal();
 }
 function getPaymentRunningTotal() {
-    var payments = $('paymentBatchForm').getInputs('checkbox','paymentIds');
-    if(payments.pluck('checked').all()) {
-        $('checkAllPayments').checked = true;
+    var payments = jQuery("#paymentBatchForm :checkbox[name='paymentIds']");
+
+    //test if all checkboxes are checked
+    var allChecked = true;
+    jQuery.each(payments, function() {
+        if (!jQuery(this).is(':checked')) {
+            allChecked = false;
+            return false;
+        }
+    });
+
+    if(allChecked) {
+        jQuery('#checkAllPayments').attr('checked', true);
     } else {
-        $('checkAllPayments').checked = false;
+        jQuery('#checkAllPayments').attr('checked', false);
     }
 
-    if(payments.pluck('checked').any()) {
-        new Ajax.Request('getPaymentRunningTotal', {
-            asynchronous: false,
-            onSuccess: function(transport) {
-                var data = transport.responseText.evalJSON(true);
-                $('showPaymentRunningTotal').update(data.paymentRunningTotal);
-            }, 
-            parameters: $('paymentBatchForm').serialize(), 
-            requestHeaders: {Accept: 'application/json'}
-        });
-        if($F('serviceName') != "") {
-            $('submitButton').disabled = false;
+    // check if any checkbox is checked
+    var anyChecked = false;
+    jQuery.each(payments, function() {
+        if (jQuery(this).is(':checked')) {
+            anyChecked = true;
+            return false;
         }
-        
+    });
+
+    if(anyChecked) {
+        jQuery({
+            url: 'getPaymentRunningTotal',
+            async: true,
+            data: jQuery('#paymentBatchForm').serialize(),
+            success: function(data) {
+                jQuery('#showPaymentRunningTotal').html(data.paymentRunningTotal);
+            }
+        });
+
+        if(jQuery('#serviceName').val() != "") {
+            jQuery('#submitButton').attr('disabled', '');
+        }
+
     } else {
-        $('submitButton').disabled = true;
-        $('showPaymentRunningTotal').update("");
+        jQuery('#submitButton').attr('disabled', 'disabled');
+        jQuery('#showPaymentRunningTotal').html("");
     }
 }
 function setServiceName(selection) {
     if (selection.value == 'massPaymentsToNotPaid' || selection.value == 'massPaymentsToReceived' || selection.value == 'massPaymentsToConfirmed' || selection.value == 'massPaymentsToCancelled' || selection.value == 'massPaymentsToVoid') {
-        $('paymentBatchForm').action = $('paymentStatusChange').value;
+        jQuery('#paymentBatchForm').attr('action', jQuery('#paymentStatusChange').val());
     }
     else {
-        $('paymentBatchForm').action = selection.value;
+        jQuery('#paymentBatchForm').attr('action', selection.value);
     }
     if (selection.value == 'massPaymentsToNotPaid') {
-        $('statusId').value = "PMNT_NOT_PAID";
+        jQuery('#statusId').val("PMNT_NOT_PAID");
     } else if (selection.value == 'massPaymentsToReceived') {
-        $('statusId').value = "PMNT_RECEIVED";
+        jQuery('#statusId').val("PMNT_RECEIVED");
     }else if (selection.value == 'massPaymentsToConfirmed') {
-        $('statusId').value = "PMNT_CONFIRMED";
+        jQuery('#statusId').val("PMNT_CONFIRMED");
     }else if (selection.value == 'massPaymentsToCancelled') {
-        $('statusId').value = "PMNT_CANCELLED";
+        jQuery('#statusId').val("PMNT_CANCELLED");
     }else if (selection.value == 'massPaymentsToVoid') {
-        $('statusId').value = "PMNT_VOID";
+        jQuery('#statusId').val("PMNT_VOID");
     }
-    if ($('processBatchPayment').selected) {
-        Effect.BlindDown('createPaymentBatch');
+    if (jQuery('#processBatchPayment').is(':selected')) {
+        jQuery('#createPaymentBatch').fadeOut('slow');
     } else {
-        Effect.BlindUp('createPaymentBatch');
+        jQuery('#createPaymentBatch').fadeIn('slow');
     }
-    if($('paymentBatchForm').getInputs('checkbox','paymentIds').pluck('checked').any() && ($F('serviceName') != "")) {
-            $('submitButton').disabled = false;
+
+    var payments = jQuery("#paymentBatchForm :checkbox[name='paymentIds']");
+    // check if any checkbox is checked
+    var anyChecked = false;
+    jQuery.each(payments, function() {
+        if (jQuery(this).is(':checked')) {
+            anyChecked = true;
+            return false;
+        }
+    });
+
+    if(anyChecked && (jQuery('#serviceName').val() != "")) {
+        jQuery('#submitButton').attr('disabled' , '');
     } else {
-        $('submitButton').disabled = true;
+       jQuery('#submitButton').attr('disabled' , 'disabled');
     }
 
 }
@@ -105,7 +136,7 @@ function setServiceName(selection) {
                         <option value="massPaymentsToCancelled">${uiLabelMap.AccountingPaymentTabStatusToCancelled}</option>
                         <option value="massPaymentsToVoid">${uiLabelMap.AccountingPaymentTabStatusToVoid}</option>
                     </select>
-                    <input id="submitButton" type="button" onclick="javascript:$('paymentBatchForm').submit();" value="${uiLabelMap.CommonRun}" disabled="disabled" />
+                    <input id="submitButton" type="button" onclick="javascript:jQuery('#paymentBatchForm').submit();" value="${uiLabelMap.CommonRun}" disabled="disabled" />
                     <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}" />
                     <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT" />
                     <input type="hidden" name="groupInOneTransaction" value="Y" />

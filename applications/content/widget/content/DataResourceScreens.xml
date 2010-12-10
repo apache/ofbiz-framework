@@ -66,7 +66,6 @@ under the License.
     <screen name="navigateDataResource">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
                 <set field="titleProperty" value="PageTitleNavigateDataResources"/>
                 <set field="tabButtonItem" value="navigateDataResource"/>
                 <set field="labelTitleProperty" value="PageTitleNavigateDataResources"/>
@@ -80,7 +79,7 @@ under the License.
                         <section>
                             <widgets>
                                 <container id="cmsnav" style="left">
-                                    <screenlet title="${uiLabelMap.PageTitleNavigateDataResources}'">
+                                    <screenlet title="${uiLabelMap.PageTitleNavigateDataResources}">
                                         <include-screen name="navigateMenu"/>
                                     </screenlet>
                                 </container>

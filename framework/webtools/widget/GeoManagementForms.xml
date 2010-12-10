@@ -71,32 +71,30 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="geoIds" title="${uiLabelMap.CommonGeos}">
             <drop-down allow-multiple="true">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
-                    <!--entity-constraint name="geoTypeId" operator="equals" value="COUNTRY"/--><!-- useful at least to test, else it's long... -->
-                    <entity-order-by field-name="geoName"/>
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} (${geoId})">
+<!--                    <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE,REGIONS"/><!-\- useful to quickly test -\->-->
+                    <entity-order-by field-name="geoId"/>
                 </entity-options>
             </drop-down>
         </field>        
-        <field name="dummy" title="${uiLabelMap.CommonEmptyHeader}" position="2"><display/></field>
-        <field name="geoAssocTypeId" title="${uiLabelMap.CommonGeoAssocTypeId}" position="3"
+        <field name="dummy" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="geoAssocTypeId" title="${uiLabelMap.CommonGeoAssocTypeId}"
             event="onChange" 
-            action="typeValue = $('${typeField}');selectMultipleRelatedValues('${requestName}', '${paramKey}', '${relatedField}', '${multipleSelect}', '${type}', typeValue, '${responseName}');">
+            action="typeValue = jQuery('#${asm_typeField}').val(); selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');">
             <drop-down>
                 <entity-options key-field-name="geoAssocTypeId" entity-name="GeoAssocType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="geoId" title="${uiLabelMap.CommonGeo}"
-            event="onFocus" 
-            action="typeValue = $('${typeField}');selectMultipleRelatedValues('${requestName}', '${paramKey}', '${relatedField}', '${multipleSelect}', '${type}', typeValue, '${responseName}');">            
-            <drop-down>
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
-                    <entity-order-by field-name="geoName"/>
+        <field name="geoId" title="${uiLabelMap.CommonGeo}">
+            <drop-down current="selected">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} (${geoId})">
+                    <entity-order-by field-name="geoId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit" ><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
         
 </forms>

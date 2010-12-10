@@ -48,8 +48,7 @@ function addRoutingTask() {
                 ${uiLabelMap.CommonFromDate}
             </th>
             <td>
-                <input type="text" name="fromDate" size="25"/>
-                <a href="javascript:call_cal(document.addtaskassocform.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar" /></a>
+                <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate_1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
             </td>
             <td align="center" width="40%">&nbsp;</td>
         </tr>
@@ -64,8 +63,7 @@ function addRoutingTask() {
                 ${uiLabelMap.CommonThruDate}
             </th>
             <td>
-                <input type="text" name="thruDate" size="25"/>
-                <a href="javascript:call_cal(document.addtaskassocform.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Click here For Calendar" /></a>
+                <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="thruDate_1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
             </td>
             <td>&nbsp;</td>
         </tr>

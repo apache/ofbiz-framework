@@ -72,13 +72,15 @@ under the License.
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WebtoolsRecordsUpdatedSince}</td>
-        <td><input type="text" size="25" name="entityFrom" />
-        <a href="javascript:call_cal(document.entityExport.entityFrom, null);" title="View Calendar"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="View Calendar"/></a></td>
+        <td>
+        <@htmlTemplate.renderDateTimeField name="entityFrom" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="entityFrom1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+        </td>
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WebtoolsRecordsUpdatedBefore} </td>
-        <td><input type="text" size="25" name="entityThru" />
-        <a href="javascript:call_cal(document.entityExport.entityThru, null);" title="View Calendar"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="View Calendar"/></a></td>
+        <td>
+            <@htmlTemplate.renderDateTimeField name="entityThru" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="entityThru1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+        </td>
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WebtoolsOutToBrowser}</td>

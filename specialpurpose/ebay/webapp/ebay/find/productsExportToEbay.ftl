@@ -107,7 +107,7 @@ under the License.
                 <td align="right" class="label">${uiLabelMap.CommonWebsite}</td>
                 <td>&nbsp;</td>
                 <td>
-                  <select name="webSiteId" onchange="javascript:changeWebSite($('ProductsExportToEbay'));">
+                  <select name="webSiteId" onchange="javascript:changeWebSite(document.getElementById('ProductsExportToEbay'));">
                     <#list webSiteList as webSite>
                       <#assign displayDesc = webSite.siteName?default("${uiLabelMap.ProductNoDescription}")>
                       <#if (18 < displayDesc?length)>

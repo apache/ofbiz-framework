@@ -66,50 +66,50 @@ under the License.
           </td>
         </tr>
       </table>
-<script type="text/javascript"> 
+<script type="text/javascript">
     var progressBar;
     // click start load call servlet & new progressBar
     function clickDownLoad(url){
          startDownLoad(url);
-         $('progress_bar').style.display = "";
-         $('filesize').style.display = "";
-         progressBar = new Control.ProgressBar('progress_bar');
+         document.getElementById('progress_bar').style.display = "";
+         document.getElementById('filesize').style.display = "";
+         progressBar = jQuery("#progress_bar").progressbar({value: 0});
     }
-    
+
     function startDownLoad(url){
-        var pars = '';
-        var myAjax = new Ajax.Request( url, {
-                method: 'post', 
-                parameters: pars, 
-                onLoading:getProgressDownloadStatus,
-                onComplete : $('download').innerHTML = 'loading....'
-            } );            
+        jQuery.ajax({
+            url: url,
+            type: "POST",
+            beforeSend: getProgressDownloadStatus,
+            complete: function(data) {document.getElementById('download').innerHTML = '${uiLabelMap.CommonLoading}'}
+        });
     }
-    
+
     //function PeriodicalExecuter check download status
     function getProgressDownloadStatus(){
-        new PeriodicalExecuter(function(event){
-            var pars = '';
-            var myAjax = new Ajax.Request( '<@ofbizUrl>progressDownloadStatus</@ofbizUrl>', {
-                    method: 'get', 
-                    parameters: pars, 
-                    onSuccess:function check(transfer){
-                       var data = transfer.responseText.evalJSON(true);
-                       if( data != null ){
-                           if(data.contentLength != null && data.loadPercent != null){
-                               var loadPercent = data.loadPercent;
-                               $('loadpercent').innerHTML = ''+loadPercent+'%';
-                               var contentLength  = data.contentLength;
-                               //$('filesize').innerHTML = '&lt;b&gt;'+contentLength/1000 + ' k&lt;/b&gt;';
-                               progressBar.setProgress(loadPercent);
-                               if(loadPercent > 99){
-                                    $('download').innerHTML = 'download';
-                                    event.stop();
+        jQuery.fjTimer({
+            interval: 1000,
+            repeat: true,
+            tick: function(counter, timerId) {
+                jQuery.ajax({
+                    url: "<@ofbizUrl>progressDownloadStatus</@ofbizUrl>",
+                    type: "GET",
+                    succuess: function(data) {
+                        if( data != null ){
+                               if(data.contentLength != null && data.loadPercent != null){
+                                   var loadPercent = data.loadPercent;
+                                   document.getElementById('loadpercent').innerHTML = ''+loadPercent+'%';
+                                   var contentLength  = data.contentLength;
+                                   progressBar.progressbar("option", "value", loadPercent);
+                                   if(loadPercent > 99){
+                                        document.getElementById('download').innerHTML = '${uiLabelMap.CommonDownloaded}';
+                                        timerId.stop();
+                                   }
                                }
-                           }
-                       }
+                        }
                     }
-            } );
-        },1);
+                });
+            }
+        });
     }
 </script>

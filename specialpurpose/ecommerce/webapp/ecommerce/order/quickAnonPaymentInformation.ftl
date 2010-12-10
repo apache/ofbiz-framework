@@ -21,14 +21,10 @@ under the License.
 </#if>
 <script language="JavaScript" type="text/javascript">
 
-dojo.require("dojo.event.*");
-dojo.require("dojo.io.*");
-
-dojo.addOnLoad(init);
+jQuery(document).ready(init);
 
 function init() {
     getPaymentInformation();
-    dojo.event.connect("around", "processOrder", "aroundSubmitOrder");
     var paymentForm = document.setPaymentInformation;
 }
 
@@ -39,35 +35,31 @@ function aroundSubmitOrder(invocation) {
         document.setPaymentInformation.action = "<@ofbizUrl>quickAnonAddGiftCardToCart</@ofbizUrl>";
     }
 
-    dojo.io.bind({ url: formToSubmit.action, load: function(type, evaldObj){
-       if(type == "load"){
-           if(paymentMethodTypeOption == "EXT_OFFLINE"){
-               var result = invocation.proceed();
-               return result;
-           }else {
-               if(paymentMethodTypeOption == "none"){
-                   document.getElementById("noPaymentMethodSelectedError").innerHTML = "${uiLabelMap.EcommerceMessagePleaseSelectPaymentMethod}";
-                   return result;
-               } else {
-                   document.getElementById("paymentInfoSection").innerHTML = evaldObj;
-               }
-               if(formToSubmit.paymentMethodTypeId.value != "") {
-                   var result = invocation.proceed();
-                   return result;
-               }
-           }
-       }
-    },formNode: document.setPaymentInformation});
+    jQuery.ajax({
+        url: formToSubmit.action,
+        type: "POST",
+        data: jQuery("#setPaymentInformation").serialize(),
+        success: function(data) {
+            if (paymentMethodTypeOption != "EXT_OFFLINE"){
+                   if(paymentMethodTypeOption == "none"){
+                       document.getElementById("noPaymentMethodSelectedError").innerHTML = "${uiLabelMap.EcommerceMessagePleaseSelectPaymentMethod}";
+                   } else {
+                       document.getElementById("paymentInfoSection").innerHTML = data;
+                   }
+            }
+        }
+    });
 }
 
 function getGCInfo() {
     if (document.setPaymentInformation.addGiftCard.checked) {
-      dojo.io.bind({url: "<@ofbizUrl>quickAnonGcInfo</@ofbizUrl>",
-        load: function(type, data, evt){
-          if(type == "load"){
-            document.getElementById("giftCardSection").innerHTML = data;
+      jQuery.ajax({
+          url: "<@ofbizUrl>quickAnonGcInfo</@ofbizUrl>",
+          type: "POST",
+          success: function(data) {
+              document.getElementById("giftCardSection").innerHTML = data;
           }
-        },mimetype: "text/html"});
+      });
     } else {
         document.getElementById("giftCardSection").innerHTML = "";
     }
@@ -77,22 +69,32 @@ function getPaymentInformation() {
   document.getElementById("noPaymentMethodSelectedError").innerHTML = "";
   var paymentMethodTypeOption = document.setPaymentInformation.paymentMethodTypeOptionList.options[document.setPaymentInformation.paymentMethodTypeOptionList.selectedIndex].value;
   var connectionObject;
-   if(paymentMethodTypeOption.length > 0){
+   if (paymentMethodTypeOption.length > 0){
       if(paymentMethodTypeOption == "CREDIT_CARD"){
-        dojo.io.bind({url: "<@ofbizUrl>quickAnonCcInfo</@ofbizUrl>",
-          load: function(type, data, evt){
-            if(type == "load"){document.getElementById("paymentInfoSection").innerHTML = data;}
-          },mimetype: "text/html"});
+
+        jQuery.ajax({
+            url: "<@ofbizUrl>quickAnonCcInfo</@ofbizUrl>",
+            type: "POST",
+            success: function(data) {
+                document.getElementById("paymentInfoSection").innerHTML = data;
+            }
+        });
+
         document.setPaymentInformation.paymentMethodTypeId.value = "CREDIT_CARD";
         document.setPaymentInformation.action = "<@ofbizUrl>quickAnonEnterCreditCard</@ofbizUrl>";
-      } else if(paymentMethodTypeOption == "EFT_ACCOUNT"){
-        dojo.io.bind({url: "<@ofbizUrl>quickAnonEftInfo</@ofbizUrl>",
-          load: function(type, data, evt){
-            if(type == "load"){document.getElementById("paymentInfoSection").innerHTML = data;}
-          },mimetype: "text/html"});
-         document.setPaymentInformation.paymentMethodTypeId.value = "EFT_ACCOUNT";
+      } else if (paymentMethodTypeOption == "EFT_ACCOUNT"){
+
+       jQuery.ajax({
+            url: "<@ofbizUrl>quickAnonEftInfo</@ofbizUrl>",
+            type: "POST",
+            success: function(data) {
+                document.getElementById("paymentInfoSection").innerHTML = data;
+            }
+        });
+
+        document.setPaymentInformation.paymentMethodTypeId.value = "EFT_ACCOUNT";
         document.setPaymentInformation.action = "<@ofbizUrl>quickAnonEnterEftAccount</@ofbizUrl>";
-      } else if(paymentMethodTypeOption == "EXT_OFFLINE"){
+      } else if (paymentMethodTypeOption == "EXT_OFFLINE"){
         document.setPaymentInformation.paymentMethodTypeId.value = "EXT_OFFLINE";
         document.getElementById("paymentInfoSection").innerHTML = "";
         document.setPaymentInformation.action = "<@ofbizUrl>quickAnonEnterExtOffline</@ofbizUrl>";

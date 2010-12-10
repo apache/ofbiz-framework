@@ -27,17 +27,9 @@
 // responseName = result returned by the service (using a standard json response, ie chaining json request)
 
 function selectMultipleRelatedValues(request, paramKey, paramField, targetField, type, typeValue, responseName) {
-    var params = new Array();
-    params[paramKey] = $F(paramField); // get requested value from parent dropdown field
-    params[type] = $F(typeValue);
-    
-    new Ajax.Request(request, {
-        asynchronous: false,
-        parameters: params,
-        onSuccess: function(transport) {
-            var data = transport.responseText.evalJSON(true);                     
-            selectedOptions = data[responseName];
-            $(targetField).setValue(selectedOptions);
-        }
-    });
+    data = [ { name: paramKey, value: jQuery('#' + paramField).val()}, { name: type, value: typeValue} ];  // get requested value from parent dropdown field 
+    list = jQuery.post(request, data, function(result) {
+        selectedOptions = result[responseName];
+        jQuery("#" + targetField).val(selectedOptions).click().change(); // .change() for asmselect, .click() specifically for IE8 
+    }, 'json');
 }

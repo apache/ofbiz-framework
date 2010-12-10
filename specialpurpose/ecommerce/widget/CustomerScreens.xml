@@ -39,43 +39,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <screen name="newcustomer">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleNewCustomer"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/NewCustomer.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/newcustomer.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="viewprofile">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleViewProfile"/>
-
-                <set field="partyId" from-field="userLogin.partyId"/>
-                <entity-one entity-name="Party" value-field="party"/>
-                <entity-one entity-name="Person" value-field="person"/>
-                <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
-
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/ViewProfile.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/viewprofile.ftl"/></html></platform-specific>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="editcontactmech">
         <section>
             <actions>
@@ -514,7 +477,7 @@ under the License.
         </section>
     </screen>
     <!-- To use new pages uncomment following screens i.e. newcustomer and viewprofile and comment existing newcustomer and viewprofile screens above -->
-    <!--
+
     <screen name="newcustomer">
         <section>
             <actions>
@@ -543,7 +506,6 @@ under the License.
                 <entity-one entity-name="Person" value-field="person"/>
                 <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
 
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/controls.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditShippingAddress.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditBillingAddress.groovy"/>
@@ -558,7 +520,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    -->
+
 
     <screen name="EditProfile">
         <section>
@@ -585,7 +547,6 @@ under the License.
                 <set field="titleProperty" value="EcommerceManageAddresses"/>
                 <set field="partyId" from-field="userLogin.partyId"/>
 
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/controls.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ordermgr/images/js/geoAutoCompleter.js" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditShippingAddress.groovy"/>

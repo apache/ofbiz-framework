@@ -46,22 +46,24 @@ function getPaymentRunningTotal() {
         }
     }
     if (isAllSelected) {
-        $('checkAllPayments').checked = true;
+        jQuery('#checkAllPayments').attr('checked', true);
     } else {
-        $('checkAllPayments').checked = false;
+        jQuery('#checkAllPayments').attr('checked', false);
     }
     if (!isSingle) {
-        $('submitButton').disabled = false;
-        new Ajax.Request('getPaymentRunningTotal', {
-            asynchronous: false,
-            onSuccess: function(transport) {
-                var data = transport.responseText.evalJSON(true);
-                $('showPaymentRunningTotal').update(data.paymentRunningTotal);
-            }, parameters: $('depositWithdrawPaymentsForm').serialize(), requestHeaders: {Accept: 'application/json'}
+        jQuery('#submitButton').attr('disabled', '');
+        jQuery.ajax({
+            url: 'getPaymentRunningTotal',
+            async: false,
+            type: 'POST',
+            data: jQuery('#depositWithdrawPaymentsForm').serialize(),
+            success: function(data) {
+                jQuery('#showPaymentRunningTotal').html(data.paymentRunningTotal);
+            }
         });
     } else {
-        $('showPaymentRunningTotal').update("");
-        $('submitButton').disabled = true;
+        jQuery('#showPaymentRunningTotal').html("");
+        jQuery('#submitButton').attr('disabled', '');
     }
 }
 // -->

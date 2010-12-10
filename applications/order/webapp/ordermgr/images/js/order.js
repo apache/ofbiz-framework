@@ -18,10 +18,13 @@ under the License.
 */
 
 function markOrderViewed() {
-    new Ajax.Request('markOrderViewed',{parameters: $('orderViewed').serialize(), requestHeaders: {Accept: 'application/json'},
-        onSuccess: function() {
-            Effect.Fade('isViewed', {duration: 0.0});
-            Effect.Appear('viewed', {duration: 0.3});
+    jQuery.ajax({
+        url: 'markOrderViewed',
+        type: "POST",
+        data: jQuery('#orderViewed').serialize(),
+        succes: function(data) {
+            jQuery("#isViewed").fadeOut('fast');
+            jQuery("#viewed").fadeIn('fast');
         }
     });
 }

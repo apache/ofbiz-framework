@@ -38,8 +38,8 @@ under the License.
                     <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}" />
                     <input type="text" size="15" name="ruleName" value="${productPriceRule.ruleName}" />
                     <input type="text" size="15" name="description" value="${productPriceRule.description?if_exists}" />
-                    <input type="text" size="22" name="fromDate" value="${productPriceRule.fromDate?if_exists}" /><a href="javascript:call_cal(document.updateProductPriceRule.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
-                    <input type="text" size="22" name="thruDate" value="${productPriceRule.thruDate?if_exists}" /><a href="javascript:call_cal(document.updateProductPriceRule.thruDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
+                    <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${productPriceRule.fromDate?if_exists}" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${productPriceRule.thruDate?if_exists}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     &nbsp;&nbsp;
                     <#assign saleRule = productPriceRule.isSale?exists && productPriceRule.isSale == "Y">
                     <div>

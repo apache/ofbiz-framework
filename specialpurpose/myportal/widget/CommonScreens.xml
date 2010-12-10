@@ -137,9 +137,6 @@ under the License.
     <!--New Register Person-->
     <screen name="newRegisterLogin">
         <section>
-            <actions>
-                <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/>
-            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">

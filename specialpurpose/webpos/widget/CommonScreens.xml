@@ -42,8 +42,14 @@ under the License.
                 <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: -->
                 <set field="layoutSettings.javaScripts[+0]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/selectall.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/calendar1.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
+
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.7.2.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery-ui-1.8.6.custom.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/jquery.ui.datepicker.js" global="true"/>
+                <set field="initialLocale" type="String" value="${parameters.userLogin.lastLocale}" default-value="${groovy:locale.toString()}"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-${initialLocale}.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.4.2.min.js" global="true"/>
 
                 <script location="component://webpos/widget/WebPosSetup.groovy"/>
 

@@ -50,8 +50,8 @@ under the License.
             <input type="hidden" name="partyId" value="${(productRole.partyId)?if_exists}" />
             <input type="hidden" name="roleTypeId" value="${(productRole.roleTypeId)?if_exists}" />
             <input type="hidden" name="fromDate" value="${(productRole.getTimestamp("fromDate"))?if_exists}" />
-            <input type="text" size="25" name="thruDate" value="${(productRole. getTimestamp("thruDate"))?if_exists}"<#if hasExpired> class="alert"</#if> />
-            <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(productRole.getTimestamp("thruDate"))?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+            <#if hasExpired><#assign class="alert"></#if>
+            <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productRole.getTimestamp('thruDate'))?if_exists}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
           </td>
           <td><input type="submit" value="${uiLabelMap.CommonUpdate}" /></td>
         </form>

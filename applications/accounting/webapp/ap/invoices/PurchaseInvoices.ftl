@@ -19,73 +19,106 @@ under the License.
 <script language="JavaScript" type="text/javascript">
 <!--
 function toggleInvoiceId(master) {
-    var invoices = $('listPurchaseInvoices').getInputs('checkbox','invoiceIds');
-    invoices.each(function(invoice){
-        invoice.checked = master.checked;
+    var invoices = jQuery("#listPurchaseInvoices :checkbox[name='invoiceIds']");
+
+    jQuery.each(invoices, function() {
+        // this a normal html object (not a jquery object)
+        this.checked = master.checked;
     });
     getInvoiceRunningTotal();
 }
 
 function getInvoiceRunningTotal() {
-    var invoices = $('listPurchaseInvoices').getInputs('checkbox','invoiceIds');
-    if(invoices.pluck('checked').all()) {
-        $('checkAllInvoices').checked = true;
-    } else {
-        $('checkAllInvoices').checked = false;
-    }
-    if(invoices.pluck('checked').any()) {
-        new Ajax.Request('getInvoiceRunningTotal', {
-            asynchronous: false,
-            onSuccess: function(transport) {
-                var data = transport.responseText.evalJSON(true);
-                $('showInvoiceRunningTotal').update(data.invoiceRunningTotal);
-            }, 
-            parameters: $('listPurchaseInvoices').serialize(), 
-            requestHeaders: {Accept: 'application/json'}
-        });
-        if($F('serviceName') != "") {
-            $('submitButton').disabled = false;
+    var invoices = jQuery("#listPurchaseInvoices: checkbox[name='invoiceIds']");
+
+    //test if all checkboxes are checked
+    var allChecked = true;
+    jQuery.each(invoices, function() {
+        if (!jQuery(this).is(':checked')) {
+            allChecked = false;
+            return false;
         }
-        
+    });
+
+    if(allChecked) {
+        jQuery('#checkAllInvoices').attr('checked', true);
     } else {
-        $('submitButton').disabled = true;
-        $('showInvoiceRunningTotal').update("");
+        jQuery('#checkAllInvoices').attr('checked', false);
+    }
+
+    // check if any checkbox is checked
+    var anyChecked = false;
+    jQuery.each(invoices, function() {
+        if (jQuery(this).is(':checked')) {
+            anyChecked = true;
+            return false;
+        }
+    });
+
+    if(anyChecked) {
+        jQuery.ajax({
+            url: 'getInvoiceRunningTotal',
+            type: 'POST',
+            data: jQuery('#listPurchaseInvoices').serialize(),
+            async: false,
+            succes: function(data) {
+                jQuery('#showInvoiceRunningTotal').html(data.invoiceRunningTotal);
+            }
+        });
+
+        if(jQuery('#serviceName').val() != "") {
+            jQuery('#submitButton').attr('disabled', '');
+        }
+
+    } else {
+        jQuery('#submitButton').attr('disabled', 'disabled');
+        jQuery('#showInvoiceRunningTotal').html("");
     }
 }
 
 function setServiceName(selection) {
     if ( selection.value == 'massInvoicesToApprove' || selection.value == 'massInvoicesToReceive' || selection.value == 'massInvoicesToReady' || selection.value == 'massInvoicesToPaid' || selection.value == 'massInvoicesToWriteoff' || selection.value == 'massInvoicesToCancel') {
-        document.listPurchaseInvoices.action = $('invoiceStatusChange').value;
+        document.listPurchaseInvoices.action = jQuery('#invoiceStatusChange').value;
     }
     else {
         document.listPurchaseInvoices.action = selection.value;
     }
     if (selection.value == 'massInvoicesToApprove') {
-        $('statusId').value = "INVOICE_APPROVED";
+        jQuery('#statusId').val("INVOICE_APPROVED");
     } else if (selection.value == 'massInvoicesToReceive') {
-        $('statusId').value = "INVOICE_RECEIVED";
+        jQuery('#statusId').val("INVOICE_RECEIVED");
     }else if (selection.value == 'massInvoicesToReady') {
-        $('statusId').value = "INVOICE_READY";
+        jQuery('#statusId').val("INVOICE_READY");
     }else if (selection.value == 'massInvoicesToPaid') {
-        $('statusId').value = "INVOICE_PAID";
+        jQuery('#statusId').val("INVOICE_PAID");
     }else if (selection.value == 'massInvoicesToWriteoff') {
-        $('statusId').value = "INVOICE_WRITEOFF";
+        jQuery('#statusId').val("INVOICE_WRITEOFF");
     }else if (selection.value == 'massInvoicesToCancel') {
-        $('statusId').value = "INVOICE_CANCELLED";
+        jQuery('#statusId').val("INVOICE_CANCELLED");
     }
-    if ($('processMassCheckRun').selected) {
-        Effect.BlindDown('issueChecks');
+    if (jQuery('#processMassCheckRun').is(':selected')) {
+        jQuery('#issueChecks').fadeOut('slow');
     } else {
-        Effect.BlindUp('issueChecks');
-    }
-    if($('listPurchaseInvoices').getInputs('checkbox','invoiceIds').pluck('checked').any() && ($F('serviceName') != "")) {
-            $('submitButton').disabled = false;
+        jQuery('#issueChecks').fadeIn('slow');
     }
 
+    var invoices = jQuery("#listPurchaseInvoices :checkbox[name='invoiceIds']");
+    // check if any checkbox is checked
+    var anyChecked = false;
+    jQuery.each(invoices, function() {
+        if (jQuery(this).is(':checked')) {
+            anyChecked = true;
+            return false;
+        }
+    });
+
+    if(anyChecked && (jQuery('#serviceName').val() != "")) {
+            jQuery('#submitButton').attr('disabled', '');
+    }
 }
 
 function runAction() {
-    $('listPurchaseInvoices').submit();
+    jQuery('#listPurchaseInvoices').submit();
 }
 
 -->

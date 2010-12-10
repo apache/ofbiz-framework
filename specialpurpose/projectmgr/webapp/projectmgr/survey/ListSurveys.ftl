@@ -44,8 +44,7 @@ under the License.
                   <td><a href="/content/control/EditSurvey?surveyId=${workEffortSurveyAppl.surveyId?if_exists}" class="buttontext">${workEffortSurveyAppl.surveyId?if_exists} - ${survey.surveyName?if_exists}</a></td>
                   <td>${workEffortSurveyAppl.fromDate?if_exists}</td>
                   <td>
-                    <input type="text" size="20" name="thruDate" value="${(workEffortSurveyAppl.thruDate)?if_exists}" <#if isReadable?exists> readonly="readonly"</#if> />
-                    <a href="javascript:call_cal(document.editWorkEffortSurveyAppl_${workEffortSurveyAppl_index}.thruDate, '${nowTimeStampString}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(workEffortSurveyAppl.thruDate)?if_exists}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     </td>
                   <td><a href="<@ofbizUrl>testWorkEffortSurvey?productStoreSurveyId=${productStoreSurveyAppl.productStoreSurveyId?if_exists}&amp;workEffortId=${workEffortSurveyAppl.workEffortId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceTakeSurvey}</a></td>
                   <#if !isReadable?exists>
@@ -59,7 +58,7 @@ under the License.
                         <input type="hidden" name="surveyId" value="${workEffortSurveyAppl.surveyId?if_exists}" />
                         <input type="hidden" name="workEffortId" value="${workEffortSurveyAppl.workEffortId?if_exists}" />
                         <input type="hidden" name="fromDate" value="${workEffortSurveyAppl.fromDate?if_exists}" />
-                        <a href="javascript:$('deleteWorkEffortSurveyAppl_${workEffortSurveyAppl_index}').submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                        <a href="javascript:document.getElementById('deleteWorkEffortSurveyAppl_${workEffortSurveyAppl_index}').submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                       </form>
                     </td>
                   </#if>

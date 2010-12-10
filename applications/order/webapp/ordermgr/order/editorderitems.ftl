@@ -196,11 +196,9 @@ under the License.
                             <input type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/>
                             <#if (orderHeader.orderTypeId == 'PURCHASE_ORDER')>
                               <span class="label">${uiLabelMap.OrderEstimatedShipDate}</span>
-                              <input type="text" name="isdm_${orderItem.orderItemSeqId}" value="${orderItem.estimatedShipDate?if_exists}" size="25" maxlength="30"/>
-                              <a href="javascript:call_cal(document.updateItemInfo.isdm_${orderItem.orderItemSeqId},'${todayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                              <@htmlTemplate.renderDateTimeField name="isdm_${orderItem.orderItemSeqId}" value="${orderItem.estimatedShipDate?if_exists}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="isdm_${orderItem.orderItemSeqId}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                               <span class="label">${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>
-                              <input type="text" name="iddm_${orderItem.orderItemSeqId}" value="${orderItem.estimatedDeliveryDate?if_exists}" size="25" maxlength="30"/>
-                              <a href="javascript:call_cal(document.updateItemInfo.iddm_${orderItem.orderItemSeqId},'${todayDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                              <@htmlTemplate.renderDateTimeField name="iddm_${orderItem.orderItemSeqId}" value="${orderItem.estimatedDeliveryDate?if_exists}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="iddm_${orderItem.orderItemSeqId}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                             </#if>
                             </td>
                         </tr>

@@ -224,7 +224,7 @@ under the License.
         <response name="success" type="view" value="BirtMain"/>
     </request-map>
 
-    <!--flotr example requests-->
+    <!--flot example requests-->
     <request-map uri="ExampleBarChart">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ExampleBarChart"/>
@@ -274,7 +274,7 @@ under the License.
     <!-- Birt example View Mappings -->
     <view-map name="BirtMain" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
 
-    <!-- Flotr view mapping -->
+    <!-- Flot view mapping -->
     <view-map name="ExampleBarChart" page="component://example/widget/example/ExampleScreens.xml#ExampleBarChart" type="screen"/>
     <view-map name="ExamplePieChart" page="component://example/widget/example/ExampleScreens.xml#ExamplePieChart" type="screen"/>
 

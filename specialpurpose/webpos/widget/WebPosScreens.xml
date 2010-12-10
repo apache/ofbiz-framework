@@ -25,10 +25,6 @@ under the License.
         <section>
             <actions>
                 <set field="MainColumnStyle" value="rightonly"/>
-
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/scriptaculous.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/effects.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/controls.js" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -33,7 +33,7 @@ under the License.
     duration += minutes == null ? 0 : minutes * 60000;
     duration += seconds == null ? 0 : seconds * 1000;
     duration += millis == null ? 0 : millis;
-    set_value(duration);
+    set_duration_value(duration);
   }
 </script>
 <form name="TimeDuration" action="javascript:setTimeDuration()">

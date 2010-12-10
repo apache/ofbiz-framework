@@ -60,7 +60,7 @@ function toggleOrderIdList() {
         if (element.name == "orderIdList" && !element.checked)
             isAllSelected = false;
     }
-    $('checkAllOrders').checked = isAllSelected;
+    jQuery('#checkAllOrders').attr("checked", isAllSelected);
 }
 
 // -->
@@ -115,7 +115,7 @@ function toggleOrderIdList() {
   <input type='hidden' name='gatewayScoreResult' value='${requestParameters.gatewayScoreResult?if_exists}'/>
 </form>
 </#if>
-<form method="post" name="lookuporder" action="<@ofbizUrl>searchorders</@ofbizUrl>" onsubmit="javascript:lookupOrders();">
+<form method="post" name="lookuporder" id="lookuporder" action="<@ofbizUrl>searchorders</@ofbizUrl>" onsubmit="javascript:lookupOrders();">
 <input type="hidden" name="lookupFlag" value="Y"/>
 <input type="hidden" name="hideFields" value="Y"/>
 <input type="hidden" name="viewSize" value="${viewSize}"/>
@@ -185,7 +185,7 @@ function toggleOrderIdList() {
                 <td width='25%' align='right' class='label'>${uiLabelMap.PartyRoleType}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
-                  <select name='roleTypeId' multiple="multiple">
+                  <select name='roleTypeId' id='roleTypeId' multiple="multiple">
                     <#if currentRole?has_content>
                     <option value="${currentRole.roleTypeId}">${currentRole.get("description", locale)}</option>
                     <option value="${currentRole.roleTypeId}">---</option>
@@ -363,15 +363,13 @@ function toggleOrderIdList() {
                   <table class="basic-table" cellspacing='0'>
                     <tr>
                       <td nowrap="nowrap">
-                        <input type='text' size='25' name='minDate' value='${requestParameters.minDate?if_exists}'/>
-                        <a href="javascript:call_cal(document.lookuporder.minDate,'${fromDateStr}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
+                        <@htmlTemplate.renderDateTimeField name="minDate" event="" action="" value="${requestParameters.minDate?if_exists}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="minDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <span class='label'>${uiLabelMap.CommonFrom}</span>
                       </td>
                     </tr>
                     <tr>
                       <td nowrap="nowrap">
-                        <input type='text' size='25' name='maxDate' value='${requestParameters.maxDate?if_exists}'/>
-                        <a href="javascript:call_cal(document.lookuporder.maxDate,'${thruDateStr}');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/></a>
+                        <@htmlTemplate.renderDateTimeField name="maxDate" event="" action="" value="${requestParameters.maxDate?if_exists}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="maxDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <span class='label'>${uiLabelMap.CommonThru}</span>
                       </td>
                     </tr>

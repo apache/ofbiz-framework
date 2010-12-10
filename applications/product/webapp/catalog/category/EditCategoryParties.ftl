@@ -50,8 +50,8 @@ under the License.
                     <input type="hidden" name="partyId" value="${(productCategoryRole.partyId)?if_exists}" />
                     <input type="hidden" name="roleTypeId" value="${(productCategoryRole.roleTypeId)?if_exists}" />
                     <input type="hidden" name="fromDate" value="${(productCategoryRole.getTimestamp("fromDate"))?if_exists}" />
-                    <input type="text" size="25" name="thruDate" value="${(productCategoryRole. getTimestamp("thruDate"))?if_exists}" <#if hasExpired> style="color: red;"</#if> />
-                    <a href="javascript:call_cal(document.lineForm_update${line}.thruDate, '${(productCategoryRole.getTimestamp("thruDate"))?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                    <#if hasExpired><#assign class="alert"></#if>
+                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productCategoryRole. getTimestamp('thruDate'))?if_exists}" size="25" maxlength="30" id="thruDate_1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <input type="submit" value="${uiLabelMap.CommonUpdate}" style="font-size: x-small;" />
                 </form>
             </td>
@@ -92,8 +92,8 @@ under the License.
                                 <option value="${(roleType.roleTypeId)?if_exists}" <#if roleType.roleTypeId.equals("_NA_")> selected="selected"</#if>>${(roleType.get("description",locale))?if_exists}</option>
                             </#list>
                             </select>
-                            <input type="text" size="25" name="fromDate" />
-                            <a href="javascript:call_cal(document.addNewForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+
+                            <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate_1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                             <input type="submit" value="${uiLabelMap.CommonAdd}" />
                         </form>
                     </td>

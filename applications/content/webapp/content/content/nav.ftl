@@ -16,80 +16,75 @@
   specific language governing permissions and limitations
   under the License.
   -->
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 
-<script type="text/javascript">
-
-    dojo.require("dojo.widget.*");
-    dojo.require("dojo.event.*");
-    dojo.require("dojo.io.*");
-
-    var treeSelected = false;
-
-    dojo.addOnLoad(function() {
-            dojo.event.topic.subscribe("showDataResources",
-             function(message) {
-                treeSelected = true;
-                var ctx = new Array();
-                ctx['dataCategoryId'] = message.node.widgetId;
-                callOfbiz('<@ofbizUrl>listDataResources</@ofbizUrl>', ctx);
-             }
-        );
-        var cmsdata = dojo.byId("cmsdata");
-    });
-
-
-    function callOfbiz(url, ctx) {
-        var bindArgs = {
-            url: url,
-            method: 'POST',
-            mimetype: 'text/html',
-            content: ctx,
-            error: function(type, data, evt) {
-                alert("An error occured loading content! : " + data);
-            },
-            load: function(type, data, evt) {
-                var innerPage = dojo.byId('cmscontent');
-                innerPage.innerHTML = data;
-            }
-        };
-        dojo.io.bind(bindArgs);
-    }
-</script>
-
-<style type="text/css">
-.dojoContextMenu {
-    background-color: #ccc;
-    font-size: 10px;
+<script type="application/javascript">
+<#-- some labels are not unescaped in the JSON object so we have to do this manuely -->
+function unescapeHtmlText(text) {
+    return jQuery('<div />').html(text).text()
 }
-</style>
 
-<#-- looping macro -->
-<#macro fillTree assocList>
-  <#if (assocList?has_content)>
-    <#list assocList as assoc>
-        <div dojoType="TreeNode" title="${assoc.categoryName?default(assoc.dataCategoryId)}" widgetId="${assoc.dataCategoryId}"
-                object="${assoc.dataCategoryId}">
-            <#assign assocs = assoc.getRelated("ChildDataCategory")?if_exists/>
-            <#if (assocs?has_content)>
-                <@fillTree assocList = assocs/>
-            </#if>
-        </div>
-    </#list>
-  </#if>
-</#macro>
+jQuery(document).ready(createTree());
 
-<!--dl dojoType="TreeContextMenu" id="contextMenu" style="font-size: 1em; color: #ccc;">
-    <dt dojoType="TreeMenuItem" id="newCat" caption="New Category"/>
-    <dt dojoType="TreeMenuItem" id="delCat" caption="Remove Category"/>
-    <dt dojoType="TreeMenuItem" id="editCat" caption="Edit Category"/>
-    <dt dojoType="TreeMenuItem" id="upLoad" caption="Upload file"/>
-</dl-->
-
-<dojo:TreeSelector widgetId="webCmsTreeSelector" eventNames="select:showDataResources"></dojo:TreeSelector>
-<div dojoType="Tree" widgetId="webCmsTree" selector="webCmsTreeSelector" toggler="fade" toggleDuration="500">
+<#-- creating the JSON Data -->
+var rawdata = [
     <#if (subCategories?has_content)>
         <@fillTree assocList = subCategories/>
     </#if>
-</div>
 
+      <#macro fillTree assocList>
+          <#if (assocList?has_content)>
+            <#list assocList as assoc>
+                {
+                "data": {"title" : unescapeHtmlText("${assoc.categoryName!assoc.dataCategoryId!}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.dataCategoryId!}');"}},
+                <#assign assocs = assoc.getRelated("ChildDataCategory")?if_exists/>
+                <#if assocChilds?has_content>
+                    "children": [
+                        <@fillTree assocList = assocChilds/>
+                    ]
+                </#if>
+                <#if assoc_has_next>
+                },
+                <#else>
+                }
+                </#if>
+            </#list>
+          </#if>
+        </#macro>
+     ];
 
+ <#-------------------------------------------------------------------------------------define Requests-->
+  var listDocument =  '<@ofbizUrl>listDataResources</@ofbizUrl>';
+
+ <#-------------------------------------------------------------------------------------create Tree-->
+  function createTree() {
+    jQuery(function () {
+        jQuery("#tree").jstree({
+            "plugins" : [ "themes", "json_data", "ui", "crrm"],
+            "json_data" : {
+                "data" : rawdata,
+                "progressive_render" : false
+            }
+        });
+    });
+  }
+
+<#-------------------------------------------------------------------------------------callDocument function-->
+    function callDocument(dataCategoryId) {
+        //jQuerry Ajax Request
+        jQuery.ajax({
+            url: listDocument,
+            type: 'POST',
+            data: {"dataCategoryId" : dataCategoryId},
+            error: function(msg) {
+                alert("An error occured loading content! : " + msg);
+            },
+            success: function(msg) {
+                jQuery('#cmscontent').html(msg);
+            }
+        });
+     }
+
+</script>
+
+<div id="tree"></div>
