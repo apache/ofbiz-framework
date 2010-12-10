@@ -347,10 +347,8 @@ public class FreeMarkerWorker {
 
     public static String getArg(Map<String, ? extends Object> args, String key, Map<String, ? extends Object> templateContext) {
         //SimpleScalar s = null;
-        Object o = null;
-        String returnVal = null;
-        o = args.get(key);
-        returnVal = (String) unwrap(o);
+        Object o = args.get(key);
+        String returnVal = (String) unwrap(o);
         if (returnVal == null) {
             try {
                 if (templateContext != null) {
@@ -365,10 +363,8 @@ public class FreeMarkerWorker {
 
     public static Object getArgObject(Map<String, ? extends Object> args, String key, Map<String, ? extends Object> templateContext) {
         //SimpleScalar s = null;
-        Object o = null;
-        Object returnVal = null;
-        o = args.get(key);
-        returnVal = unwrap(o);
+        Object o = args.get(key);
+        Object returnVal = unwrap(o);
         if (returnVal == null) {
             try {
                 if (templateContext != null) {
@@ -422,16 +418,15 @@ public class FreeMarkerWorker {
     }
 
     public static Object get(SimpleHash args, String key) {
-        Object returnObj = null;
         Object o = null;
         try {
             o = args.get(key);
         } catch (TemplateModelException e) {
             Debug.logVerbose(e.getMessage(), module);
-            return returnObj;
+            return null;
         }
 
-        returnObj = unwrap(o);
+        Object returnObj = unwrap(o);
 
         if (returnObj == null) {
             Object ctxObj = null;
