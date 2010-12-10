@@ -86,7 +86,7 @@ under the License.
                                 <#list acctgTransList as acctgTrans>
                                     <fo:table-row>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
-                                            <fo:block text-align="center" font-size="5pt">${(acctgTrans.acctgTransId)!}</fo:block>        
+                                            <fo:block text-align="center" font-size="5pt">${(acctgTrans.acctgTransId)!}</fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">
@@ -101,7 +101,7 @@ under the License.
                                                     <#assign acctgTransType = (delegator.findOne("AcctgTransType", {"acctgTransTypeId" : (acctgTrans.acctgTransTypeId)!}, false))!/>
                                                     <#if acctgTransType?has_content>${acctgTransType.description}</#if>
                                                 </#if>
-                                            </fo:block>        
+                                            </fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">
@@ -114,7 +114,7 @@ under the License.
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">
                                                 ${(acctgTrans.invoiceId)!}
-                                            </fo:block>        
+                                            </fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">
@@ -122,22 +122,22 @@ under the License.
                                                     <#assign paymentType = (delegator.findOne("Payment", {"paymentId" : (acctgTrans.paymentId)!}, false)).getRelatedOne("PaymentType")/>
                                                     ${(acctgTrans.paymentId)!}<#if (paymentType?has_content)> -(${(paymentType.description)!})</#if>
                                                 </#if>
-                                            </fo:block>        
+                                            </fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">
                                                 ${(acctgTrans.workEffortId)!}
-                                            </fo:block>        
+                                            </fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">
                                                 ${(acctgTrans.shipmentId)!}
-                                            </fo:block>        
+                                            </fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">
                                                 ${(acctgTrans.isPosted)!}
-                                            </fo:block>        
+                                            </fo:block>
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">

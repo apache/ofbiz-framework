@@ -38,7 +38,7 @@ if (productId != null) {
                     String productIdTo = product.getString("productIdTo");
                     prodAssocRecord = delegator.findByAnd("Product", [productId : productIdTo]);
                     productList.add(EntityUtil.getFirst(prodAssocRecord));
-                } 
+                }
             }
             context.put("productList",productList);
         }

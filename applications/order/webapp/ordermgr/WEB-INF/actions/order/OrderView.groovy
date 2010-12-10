@@ -60,7 +60,7 @@ if (orderId) {
     orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
 }
 
-if (orderHeader) {    
+if (orderHeader) {
     // note these are overridden in the OrderViewWebSecure.groovy script if run
     context.hasPermission = true;
     context.canViewInternalDetails = true;
@@ -116,7 +116,7 @@ if (orderHeader) {
 
     canceledPromoOrderItem = [:];
     orderItemList = orderReadHelper.getOrderItems();
-    orderItemList.each { orderItem -> 
+    orderItemList.each { orderItem ->
         if("Y".equals(orderItem.get("isPromo")) && "ITEM_CANCELLED".equals(orderItem.get("statusId"))) {
             canceledPromoOrderItem = orderItem;
         }
@@ -441,7 +441,7 @@ if (orderItems) {
 // This case comes when order's shipping amount is  more then or less than default percentage (defined in shipment.properties) of online UPS shipping amount.
 
     condn = EntityCondition.makeCondition([
-                                      EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, orderId), 
+                                      EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, orderId),
                                       EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SHIPMENT_PICKED")],
                                   EntityOperator.AND);
     shipments = delegator.findList("Shipment", condn, null, null, null, false);
@@ -473,7 +473,7 @@ if (orderItems) {
             }
         }
     }
-      
+
     // get orderAdjustmentId for SHIPPING_CHARGES
     orderAdjustmentId = null;
     orderAdjustments.each { orderAdjustment ->

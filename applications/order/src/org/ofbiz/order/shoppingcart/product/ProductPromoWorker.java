@@ -1216,7 +1216,7 @@ public class ProductPromoWorker {
 
     protected static boolean checkConditionsForItem(GenericValue productPromoActionOrCond, ShoppingCart cart, ShoppingCartItem cartItem, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
         GenericValue productPromoRule = productPromoActionOrCond.getRelatedOneCache("ProductPromoRule");
-        
+
         List<GenericValue> productPromoConds = delegator.findByAndCache("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromoRule.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"));
         productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
         for (GenericValue productPromoCond: productPromoConds) {
@@ -1233,26 +1233,26 @@ public class ProductPromoWorker {
         String operatorEnumId = productPromoCond.getString("operatorEnumId");
 
         // don't get list price from cart because it may have tax included whereas the base price does not: BigDecimal listPrice = cartItem.getListPrice();
-        Map<String, String> priceFindMap = UtilMisc.toMap("productId", cartItem.getProductId(), 
+        Map<String, String> priceFindMap = UtilMisc.toMap("productId", cartItem.getProductId(),
                 "productPriceTypeId", "LIST_PRICE", "productPricePurposeId", "PURCHASE");
         List<GenericValue> listProductPriceList = delegator.findByAnd("ProductPrice", priceFindMap, UtilMisc.toList("-fromDate"));
         listProductPriceList = EntityUtil.filterByDate(listProductPriceList, true);
         GenericValue listProductPrice = (listProductPriceList != null && listProductPriceList.size() > 0) ? listProductPriceList.get(0): null;
         BigDecimal listPrice = (listProductPrice != null) ? listProductPrice.getBigDecimal("price") : null;
-        
+
         if (listPrice == null) {
             // can't find a list price so this condition is meaningless, consider it passed
             return true;
         }
-        
+
         BigDecimal basePrice = cartItem.getBasePrice();
         BigDecimal amountOff = listPrice.subtract(basePrice);
         BigDecimal percentOff = amountOff.divide(listPrice, 2, BigDecimal.ROUND_HALF_UP).multiply(BigDecimal.valueOf(100L));
-        
+
         BigDecimal condValueBigDecimal = new BigDecimal(condValue);
 
         Integer compareBase = null;
-        
+
         if ("PPIP_LPMUP_AMT".equals(inputParamEnumId)) {
             compareBase = Integer.valueOf(amountOff.compareTo(condValueBigDecimal));
         } else if ("PPIP_LPMUP_PER".equals(inputParamEnumId)) {
@@ -1301,7 +1301,7 @@ public class ProductPromoWorker {
             if (0 == checkConditionPartyHierarchy(delegator, nowTimestamp, groupPartyId, partyIdFrom)) {
                 return 0;
             }
-        }        
+        }
         return 1;
     }
 

@@ -84,7 +84,7 @@ public class EbayStoreInventoryServices {
 
             String productId = (String)context.get("productId");
             String folderId = (String)context.get("folderId");
-            // start upload/update products which selected  to an ebay inventory 
+            // start upload/update products which selected  to an ebay inventory
             if (folderId != null) {
                 GetSellingManagerInventoryCall invenCall = new GetSellingManagerInventoryCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
                 invenReq = new GetSellingManagerInventoryRequestType();
@@ -125,7 +125,7 @@ public class EbayStoreInventoryServices {
             result = ServiceUtil.returnFailure(e.getMessage());
         } catch (GenericEntityException e) {
             result = ServiceUtil.returnFailure(e.getMessage());
-        } 
+        }
         result.put("productStoreId", context.get("productStoreId"));
         result.put("facilityId", context.get("facilityId"));
         result.put("folderId", context.get("folderId"));
@@ -155,7 +155,7 @@ public class EbayStoreInventoryServices {
                 //Must keep productId in SKU NUMBER because ebay allow productId field only long value.
                 sellingManagerProductDetailsType.setCustomLabel(productId);
                 if (ebayProductStoreInventory!=null) sellingManagerProductDetailsType.setQuantityAvailable(ebayProductStoreInventory.getBigDecimal("availableToPromiseListing").intValue());
-                
+
                 productReq.setSellingManagerProductDetails(sellingManagerProductDetailsType);
                 productResp = (AddSellingManagerProductResponseType) productCall.execute(productReq);
                 if (productResp != null && "SUCCESS".equals(productResp.getAck().toString())) {
@@ -208,7 +208,7 @@ public class EbayStoreInventoryServices {
                 sellingManagerProductDetailsType.setProductID(ebayProductId);
 
                 sellingManagerProductDetailsType.setProductName((delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId))).getString("internalName"));
-                //Must keep productId in SKU NUMBER because ebay allow productId field only long value. 
+                //Must keep productId in SKU NUMBER because ebay allow productId field only long value.
                 sellingManagerProductDetailsType.setCustomLabel(productId);
                 if (ebayProductStoreInventory!=null) sellingManagerProductDetailsType.setQuantityAvailable(ebayProductStoreInventory.getBigDecimal("availableToPromiseListing").intValue());
 
@@ -243,7 +243,7 @@ public class EbayStoreInventoryServices {
         Delegator delegator = dctx.getDelegator();
         GetSellingManagerInventoryFolderRequestType req = null;
         GetSellingManagerInventoryFolderResponseType resp = null;
-        boolean flag = false; 
+        boolean flag = false;
 
         try {
             if (context.get("productStoreId") != null) {

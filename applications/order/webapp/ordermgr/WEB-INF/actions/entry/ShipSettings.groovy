@@ -87,14 +87,14 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
         facilityMaps = FastList.newInstance();
         facilities = delegator.findByAndCache("Facility", [ownerPartyId : companyId]);
 
-        // if facilites is null then check the PartyRelationship where there is a relationship set for Parent & Child organization. Then also fetch the value of companyId from there. 
+        // if facilites is null then check the PartyRelationship where there is a relationship set for Parent & Child organization. Then also fetch the value of companyId from there.
         if (UtilValidate.isEmpty(facilities)) {
             partyRelationship = EntityUtil.getFirst(delegator.findList("PartyRelationship", EntityCondition.makeCondition(["roleTypeIdFrom": "PARENT_ORGANIZATION", "partyIdTo": companyId]), null, null, null, false));
             if (UtilValidate.isNotEmpty(partyRelationship)) {
                 companyId = partyRelationship.partyIdFrom;
                 facilities = delegator.findByAndCache("Facility", [ownerPartyId : companyId]);
             }
-        }     
+        }
         facilities.each { facility ->
             facilityMap = FastMap.newInstance();
             facilityContactMechValueMaps = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facility.facilityId, false, null);

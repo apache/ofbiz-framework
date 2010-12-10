@@ -78,9 +78,9 @@ public class ClientProfile extends XPage implements ActionListener {
     protected static PosTransaction m_trans = null;
     protected String m_type = null;
     protected boolean cancelled = false;
-    private static final Boolean SWIP_WITH_CARD = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "SwipWithCard", "Y");    
-    private static final String START_SENTINEL = UtilProperties.getPropertyValue("parameters", "StartSentinel", ";");    
-    private static final String END_SENTINEL = UtilProperties.getPropertyValue("parameters", "EndSentinel", "?");    
+    private static final Boolean SWIP_WITH_CARD = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "SwipWithCard", "Y");
+    private static final String START_SENTINEL = UtilProperties.getPropertyValue("parameters", "StartSentinel", ";");
+    private static final String END_SENTINEL = UtilProperties.getPropertyValue("parameters", "EndSentinel", "?");
     private static Locale locale = Locale.getDefault();
     private String m_partyId = null;
 
@@ -100,7 +100,7 @@ public class ClientProfile extends XPage implements ActionListener {
         m_nameRadioEquals.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "PosTipNameRadioEquals", locale));
         m_nameRadioContains = (XRadioButton) m_dialog.findComponent("NameRadioContain");
         m_nameRadioContains.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "PosTipNameRadioContains", locale));
-        
+
         m_emailLabel = (XLabel) m_dialog.findComponent("emailLabel");
         m_emailEdit = (XEdit) m_dialog.findComponent("emailEdit");
         m_phoneLabel = (XLabel) m_dialog.findComponent("phoneLabel");
@@ -144,7 +144,7 @@ public class ClientProfile extends XPage implements ActionListener {
                 person = m_trans.getSession().getDelegator().findByPrimaryKey("Person", UtilMisc.toMap("partyId", m_partyId));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
-            }   
+            }
             if (UtilValidate.isNotEmpty(person)) {
                 String cardId = person.getString("cardId");
                 if (UtilValidate.isNotEmpty(cardId)) {
@@ -213,7 +213,7 @@ public class ClientProfile extends XPage implements ActionListener {
         }
         return;
     }
-    
+
 
 
     public synchronized void editCard() {
@@ -232,10 +232,10 @@ public class ClientProfile extends XPage implements ActionListener {
             String card = m_cardEdit.getText();
             if (SWIP_WITH_CARD && UtilValidate.isNotEmpty(m_cardEdit.getText())
                     && (card.startsWith(START_SENTINEL) && card.endsWith(END_SENTINEL))) {
-                m_cardEdit.setText(card.substring(1, card.length() - 1));                
+                m_cardEdit.setText(card.substring(1, card.length() - 1));
             }
         }
-        
+
         return;
     }
 
@@ -258,7 +258,7 @@ public class ClientProfile extends XPage implements ActionListener {
             if (UtilValidate.isNotEmpty(name)) {
                 if (UtilValidate.isNotEmpty(card) && SWIP_WITH_CARD &&  card.startsWith(START_SENTINEL) && card.endsWith(END_SENTINEL)) {
                     card = card.substring(1, card.length() - 1);
-                }                    
+                }
                 editClientProfile(name, email, phone, card, editType, m_partyId);
             } else {
                 m_pos.showDialog("dialog/error/exception", UtilProperties.getMessage(PosTransaction.resource, "PosFieldsRequired", locale));
@@ -311,7 +311,7 @@ public class ClientProfile extends XPage implements ActionListener {
             String card = clientInfos.length > 3 ? clientInfos[3] : "";
             if (UtilValidate.isNotEmpty(card) && SWIP_WITH_CARD &&  card.startsWith(START_SENTINEL) && card.endsWith(END_SENTINEL)) {
                 card = card.substring(1, card.length() - 1);
-            }                    
+            }
             m_nameEdit.setText(name);
             m_emailEdit.setText(email);
             m_phoneEdit.setText(phone);
