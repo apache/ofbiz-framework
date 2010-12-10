@@ -16,21 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<style type="text/css">
-.screenlet {
-margin-left: 25%;
-margin-right: 25%;
-margin-top: 1em;
-}
-.basic-table tr td {
-text-align: center;
-}
-.basic-table tr td a {
-display: block;
-}
-</style>
-
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>

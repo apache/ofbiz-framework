@@ -33,9 +33,14 @@ def entityName = context.entityName;
 def searchFields = context.searchFields;
 def displayFields = context.displayFields ?: searchFields;
 
-def searchValueFieldName = parameters.searchValueField;
+def searchValueFieldName = parameters.term;
 def fieldValue = null;
-if (searchValueFieldName) fieldValue = parameters.get(searchValueFieldName);
+if (searchValueFieldName) {
+    fieldValue = searchValueFieldName; 
+} else if (parameters.searchValueFieldName) { // This is to find the description of a lookup value on initialization.
+    fieldValue = parameters.get(parameters.searchValueFieldName);
+    context.description = "true";
+}
 
 def searchType = context.searchType;
 def displayFieldsSet = null;
@@ -43,8 +48,12 @@ def displayFieldsSet = null;
 if (searchFields && fieldValue) {
     def searchFieldsList = StringUtil.toList(searchFields);
     displayFieldsSet = StringUtil.toSet(displayFields);
-    returnField = searchFieldsList[0]; //default to first element of searchFields
-    displayFieldsSet.add(returnField); //add it to select fields, in case it is missing
+    if (context.description && fieldValue instanceof java.lang.String) {
+        returnField = parameters.searchValueFieldName;
+    } else {
+        returnField = searchFieldsList[0]; //default to first element of searchFields
+        displayFieldsSet.add(returnField); //add it to select fields, in case it is missing
+    }
     context.returnField = returnField;
     context.displayFieldsSet = displayFieldsSet;
     if ("STARTS_WITH".equals(searchType)) {
@@ -56,7 +65,7 @@ if (searchFields && fieldValue) {
     }
     searchFieldsList.each { fieldName ->
         if ("EQUALS".equals(searchType)) {
-            orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(returnField), EntityOperator.EQUALS, searchValue));    
+            orExprs.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(searchFieldsList[0]), EntityOperator.EQUALS, searchValue));    
             return;//in case of EQUALS, we search only a match for the returned field
         } else {
             orExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)), EntityOperator.LIKE, searchValue));

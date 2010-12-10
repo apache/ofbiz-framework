@@ -624,6 +624,7 @@ under the License.
                           </div>
                         </div>
                     </fieldset>
+                    <br style="clear:both;"/>
                     <fieldset>
                       <a href="javascript:void(0);" class="button" id="savePaymentAndBillingContact">${uiLabelMap.EcommerceContinueToStep} 5</a>
                       <a href="javascript:void(0);" class="button" style="display: none;" id="processingOrderSubmitPanel">${uiLabelMap.EcommercePleaseWait}....</a>

@@ -442,10 +442,7 @@ function doPublish() {
         <table cellspacing="0" class="basic-table">
             <tr>
                 <td>
-                    <input type="text" size="25" name="fromDate"/>
-                    <a href="javascript:call_cal(document.publish.fromDate,'${nowTimestampString}');">
-                        <img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/>
-                    </a>
+                    <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <input type="button" value="${uiLabelMap.ProductPublishAndView}" onclick="doPublish();"/>
                 </td>
             </tr>
@@ -458,10 +455,7 @@ function doPublish() {
         <table cellspacing="0" class="basic-table">
             <tr>
                 <td>
-                    <input type="text" size="25" name="thruDate"/>
-                    <a href="javascript:call_cal(document.unpublish.thruDate,'${nowTimestampString}');">
-                        <img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/>
-                    </a>
+                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <input type="submit" value="${uiLabelMap.ProductRemoveFromSite}"/>
                 </td>
             </tr>

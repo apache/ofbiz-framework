@@ -20,61 +20,91 @@ under the License.
 //<![CDATA[
 
     function toggleInvoiceId(master) {
-        var invoices = $('listInvoices').getInputs('checkbox','invoiceIds');
-        invoices.each(function(invoice){
-            invoice.checked = master.checked;
+        var invoices = jQuery("#listInvoices :checkbox[name='invoiceIds']");
+
+        jQuery.each(invoices, function() {
+            this.checked = master.checked;
         });
         getInvoiceRunningTotal();
     }
 
     function getInvoiceRunningTotal() {
-        var invoices = $('listInvoices').getInputs('checkbox','invoiceIds');
-        if(invoices.pluck('checked').all()) {
-            $('checkAllInvoices').checked = true;
-        } else {
-            $('checkAllInvoices').checked = false;
-        }
-        if(invoices.pluck('checked').any()) {
-            new Ajax.Request('getInvoiceRunningTotal', {
-                asynchronous: false,
-                onSuccess: function(transport) {
-                    var data = transport.responseText.evalJSON(true);
-                    $('showInvoiceRunningTotal').update(data.invoiceRunningTotal);
-                }, 
-                parameters: $('listInvoices').serialize(), 
-                requestHeaders: {Accept: 'application/json'}
-            });
-            if($F('serviceName') != "") {
-                $('submitButton').disabled = false;
+        var invoices = jQuery("#listInvoices :checkbox[name='invoiceIds']");
+
+        //test if all checkboxes are checked
+        var allChecked = true;
+        jQuery.each(invoices, function() {
+            if (!jQuery(this).is(':checked')) {
+                allChecked = false;
+                return false;
             }
-            
+        });
+
+        if(allChecked) {
+            jQuery('#checkAllInvoices').attr('checked', true);
         } else {
-            $('submitButton').disabled = true;
-            $('showInvoiceRunningTotal').update("");
+            jQuery('#checkAllInvoices').attr('checked', false);
+        }
+
+        // check if any checkbox is checked
+        var anyChecked = false;
+        jQuery.each(invoices, function() {
+            if (jQuery(this).is(':checked')) {
+                anyChecked = true;
+                return false;
+            }
+        });
+        if(anyChecked) {
+            jQuery.ajax({
+                url: 'getInvoiceRunningTotal',
+                type: 'POST',
+                async: true,
+                data: jQuery('#listInvoices').serialize(),
+                success: function(data) { jQuery('#showInvoiceRunningTotal').html(data.invoiceRunningTotal) }
+            });
+
+            if(jQuery('#serviceName').val() != "") {
+                jQuery('#submitButton').attr('disabled', '');
+            }
+
+        } else {
+            jQuery('#submitButton').attr('disabled', 'disabled');
+            jQuery('#showInvoiceRunningTotal').html("");
         }
     }
 
     function setServiceName(selection) {
         if ( selection.value == 'massInvoicesToApprove' || selection.value == 'massInvoicesToSent' || selection.value == 'massInvoicesToReady' || selection.value == 'massInvoicesToPaid' || selection.value == 'massInvoicesToWriteoff' || selection.value == 'massInvoicesToCancel') {
-            $('listInvoices').action = $('invoiceStatusChange').value;
+            jQuery('#listInvoices').attr('action', jQuery('#invoiceStatusChange').val());
         } else {
-            $('listInvoices').action = selection.value;
+            jQuery('#listInvoices').attr('action', selection.value);
         }
         if (selection.value == 'massInvoicesToApprove') {
-            $('statusId').value = "INVOICE_APPROVED";
+            jQuery('#statusId').val("INVOICE_APPROVED");
         } else if (selection.value == 'massInvoicesToSent') {
-            $('statusId').value = "INVOICE_SENT";
+            jQuery('#statusId').val("INVOICE_SENT");
         } else if (selection.value == 'massInvoicesToReady') {
-            $('statusId').value = "INVOICE_READY";
+            jQuery('#statusId').val("INVOICE_READY");
         } else if (selection.value == 'massInvoicesToPaid') {
-            $('statusId').value = "INVOICE_PAID";
+            jQuery('#statusId').val("INVOICE_PAID");
         } else if (selection.value == 'massInvoicesToWriteoff') {
-            $('statusId').value = "INVOICE_WRITEOFF";
+            jQuery('#statusId').val("INVOICE_WRITEOFF");
         } else if (selection.value == 'massInvoicesToCancel') {
-            $('statusId').value = "INVOICE_CANCELLED";
+            jQuery('#statusId').val("INVOICE_CANCELLED");
         }
-        if($('listInvoices').getInputs('checkbox','invoiceIds').pluck('checked').any() && ($F('serviceName') != "")) {
-                $('submitButton').disabled = false;
+
+        var invoices = jQuery("#listInvoices :checkbox[name='invoiceIds']");
+        // check if any checkbox is checked
+        var anyChecked = false;
+        jQuery.each(invoices, function() {
+            if (jQuery(this).is(':checked')) {
+                anyChecked = true;
+                return false;
+            }
+        });
+
+        if(anyChecked && (jQuery('#serviceName').val() != "")) {
+            jQuery('#submitButton').attr('disabled' , '');
         }
     }
 //]]>
@@ -100,7 +130,7 @@ under the License.
         <option value="massInvoicesToWriteoff">${uiLabelMap.AccountingInvoiceStatusToWriteoff}</option>
         <option value="massInvoicesToCancel">${uiLabelMap.AccountingInvoiceStatusToCancelled}</option>
       </select>
-      <input id="submitButton" type="button"  onclick="javascript:$('listInvoices').submit();" value="${uiLabelMap.CommonRun}" disabled="disabled" />
+      <input id="submitButton" type="button"  onclick="javascript:jQuery('#listInvoices').submit();" value="${uiLabelMap.CommonRun}" disabled="disabled" />
       <input type="hidden" name="organizationPartyId" value="${defaultOrganizationPartyId}"/>
       <input type="hidden" name="partyIdFrom" value="${parameters.partyIdFrom?if_exists}"/>
       <input type="hidden" name="statusId" id="statusId" value="${parameters.statusId?if_exists}"/>

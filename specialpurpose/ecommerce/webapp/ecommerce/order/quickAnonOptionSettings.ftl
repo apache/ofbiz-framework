@@ -18,13 +18,9 @@ under the License.
 -->
 <script language="JavaScript" type="text/javascript">
 
-dojo.require("dojo.event.*");
-dojo.require("dojo.io.*");
-
-dojo.addOnLoad(init);
+jQuery(document).ready(init);
 
 function init() {
-    dojo.event.connect("around", "processOrder", "aroundOptSubmitOrder");
     var optForm = document.quickAnonOptSetupForm;
     document.getElementById("noShippingMethodSelectedError").innerHTML = "";
 }
@@ -38,12 +34,14 @@ function aroundOptSubmitOrder(invocation) {
         }
     }
     if (shipMethodOption != "none") {
-        dojo.io.bind({ url: formToSubmit.action, load: function(type, evaldObj){
-           document.getElementById("optInfoSection").innerHTML = evaldObj;
-
-           var result = invocation.proceed();
-           return result;
-        },formNode: document.quickAnonOptSetupForm});
+        jQuery.ajax({
+            url: formToSubmit.action,
+            type: "POST",
+            data: jQuery("#quickAnonOptSetupForm").serialize(),
+            success: function(data) {
+               document.getElementById("optInfoSection").innerHTML = data;
+            }
+        });
     } else {
         document.getElementById("noShippingMethodSelectedError").innerHTML = "${uiLabelMap.EcommerceMessagePleaseSelectShippingMethod}";
     }

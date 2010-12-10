@@ -231,9 +231,6 @@ under the License.
         <!-- ****************************** -->
         <!-- *** Autocomplete dropdown *** -->
         <!-- ****************************** -->        
-        <!-- most feature rich for autocomplete, ie partial text entry searches the full string, 
-            doesn't require custom request to function, etc; Note that for usability this is still a bit lame since you can't see the full list, 
-            you HAVE to know part of the ID or description in order to see options -->
         <!-- TODO : return only the Id, else you need to edit the field to remove the description -->
         <field name="emptyField1" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="geoId" title="${uiLabelMap.ExampleAutocompleteDropdown}"
@@ -241,7 +238,7 @@ under the License.
             <drop-down>
                 <auto-complete/>
                 <entity-options entity-name="Geo" description="${geoId}: ${geoName}">
-                    <entity-constraint name="geoTypeId" value="GROUP"/>
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
                     <entity-order-by field-name="geoName"/>
                 </entity-options>
             </drop-down>
@@ -262,6 +259,25 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+    </form>
+    
+        <!-- ****************************** -->
+        <!-- ***   Multiple Dropdown    *** -->
+        <!-- ****************************** -->
+        <!-- See why this is used here http://www.ryancramer.com/journal/entries/select_multiple/ -->
+    <form name="DropDownMultipleFieldExampleForm" type="single" title="">
+        <field name="emptyField1" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
+        <field name="multipleDropDownFields" title="${uiLabelMap.ExampleMultipleDropDowns}">
+            <display description="${uiLabelMap.ExampleMultipleDropDownTooltip}"/>
+        </field>
+        <field name="countryGeoIdMultiple" title="${uiLabelMap.CommonCountry}">
+            <drop-down no-current-selected-key="USA">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
+                    <entity-order-by field-name="geoName"/>
+                </entity-options>
+            </drop-down>
+        </field>        
     </form>
 
     <!-- Simple form to print a FOP PDF file with the  fonts available in OFBiz Project -->
@@ -316,25 +332,25 @@ under the License.
 
     <!-- Lookup Examples -->
     <form name="ExampleLookupFields" type="single" title="">
-        <!-- Old style lookup (in a popup window), geoIdAlone because we have another geoId below -->
+        <!-- Old style lookup (in a popup window without autocompletion), geoIdAlone because we have another geoId below -->
         <field name="geoIdAlone" title="${uiLabelMap.CommonGeoId}">
             <lookup target-form-name="LookupGeo" presentation="window"/>
         </field>
-        <!-- Standard lookup (in a layer)-->
-        <!-- passes the name in one field and the id in another, this does not work yet with autcompletion, WIP... -->
+        <!-- Standard lookup (in a layer with autocompletion) -->
+        <!-- passes the name in one field and the id in another, passing the id in the other field does not work yet with autocompletion, WIP... -->
         <field name="geoName" title="${uiLabelMap.CommonGeoName}">
             <lookup target-form-name="LookupGeoName" description-field-name="geoId"/>
         </field>
-        <!-- This field may be hidden and the name rendered in partyName using default-value if partyGroupId is known when loading the form-->
+        <!-- This field may be hidden and the name rendered in geoName using default-value if geoId is known when loading the form-->
         <field name="geoId" title="${uiLabelMap.CommonGeoId}"><text/></field><!-- the text field is only used for rendering. In the "real life" you would use the hidden field commented below to pass the data to the request  -->
         <!--field name="geoId"><hidden/></field-->        
         <sort-order>
             <field-group>
-                <sort-field name="geoId"/>
+                <sort-field name="geoIdAlone"/>
             </field-group>
             <field-group>
                 <sort-field name="geoName"/>
-                <sort-field name="geoGroupId"/>
+                <sort-field name="geoId"/>
             </field-group>
         </sort-order>
     </form>

@@ -36,7 +36,7 @@ under the License.
                 <span id="${productInfoLinkId}" class="popup_link"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/></span>
             </a>
         </div>
-        <div id="${productDetailId}" class="popup" >
+        <div id="${productDetailId}" class="popup" style="display:none;">
           <table>
             <tr valign="top">
               <td>
@@ -49,7 +49,11 @@ under the License.
           </table>
         </div>
         <script type="text/javascript">
-          new Popup('${productDetailId}','${productInfoLinkId}', {position: 'none'})
+          jQuery("#${productInfoLinkId}").hover(function() {
+                  jQuery("#${productDetailId}").fadeIn("slow");
+              }, function () {
+                  jQuery("#${productDetailId}").fadeOut("fast");
+              });
         </script>
         <div class="productbuy">
           <#-- check to see if introductionDate hasn't passed yet -->

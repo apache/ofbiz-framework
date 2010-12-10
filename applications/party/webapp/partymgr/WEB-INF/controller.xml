@@ -1073,13 +1073,6 @@ under the License.
         <response name="success" type="view" value="partyContentList"/>
     </request-map>
 
-    <request-map uri="getFileUploadProgressStatus">
-        <security https="true" auth="false"/>
-        <event type="service" invoke="getFileUploadProgressStatus"/>
-        <response name="success" type="request" value="json"/>
-        <response name="error" type="request" value="json"/>
-    </request-map>
-
     <request-map uri="img">
         <security auth="false" https="false"/>
         <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveImage"/>

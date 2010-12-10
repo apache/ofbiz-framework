@@ -82,7 +82,7 @@ under the License.
     <screen name="navigateContent">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.4.2.min.js" global="true"/>
                 <set field="titleProperty" value="PageTitleNavigateContent"/>
                 <set field="tabButtonItem" value="navigateContent"/>
                 <set field="labelTitleProperty" value="PageTitleNavigateContent"/>
@@ -461,11 +461,10 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ListContentTree">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="tabButtonItem" value="ListContentTree"/>
@@ -486,11 +485,10 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="LookupContentTree">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupContent}"/>
@@ -521,15 +519,14 @@ under the License.
                             </widgets>
                         </section>
                     </decorator-section>
-                </decorator-screen>     
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="LookupDetailContentTree">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupContent}"/>
@@ -566,7 +563,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ViewContentDetail">
         <section>
             <actions>

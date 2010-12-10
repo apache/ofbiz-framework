@@ -16,22 +16,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-
 var validateNewShippingAdd = null;
-document.observe('dom:loaded', function() {
-    if ($('addShippingAddress')) {
-        validateNewShippingAdd = new Validation('addShippingAddress', {immediate: true, onSubmit: false});
-        Event.observe($('countryGeoId'), 'change', function() {
+jQuery(document).ready( function() {
+
+    var addShippingAddress = jQuery('#addShippingAddress');
+    if (addShippingAddress.length) {
+        // add the form validator
+        addShippingAddress.validate();
+       
+       jQuery('#countryGeoId').change( function() {
             getAssociatedStateList('countryGeoId', 'stateProvinceGeoId', 'advice-required-stateProvinceGeoId', 'states');
         });
-        getAssociatedStateList('countryGeoId', 'stateProvinceGeoId', 'advice-required-stateProvinceGeoId', 'states');
     }
-    if ($('submitAddShippingAddress')) {
-        Event.observe($('submitAddShippingAddress'), 'click', submitValidNewShippingAddressForm);
-    }
-})
-function submitValidNewShippingAddressForm() {
-    if (validateNewShippingAdd.validate()) {
-        $('addShippingAddress').submit();
-    }
-}
+});

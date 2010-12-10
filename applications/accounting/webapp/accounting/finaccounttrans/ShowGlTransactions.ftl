@@ -17,10 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div id="displayGlTransactions_${finAccountTrans.finAccountTransId}" class="popup" style="display: none;width: 1150px;">
-  <div align="right">
-    <input class="popup_closebox buttontext" type="button" value="X"/>
-  </div>
+<div id="displayGlTransactions_${finAccountTrans.finAccountTransId}" style="display: none;width: 1150px;">
   <#assign acctgTransAndEntries = dispatcher.runSync("getAssociatedAcctgTransEntriesWithFinAccountTrans", Static["org.ofbiz.base.util.UtilMisc"].toMap("finAccountTransId", finAccountTrans.finAccountTransId, "userLogin", userLogin))/>
   <#assign acctgTransAndEntries = acctgTransAndEntries.acctgTransAndEntries>
    <table class="basic-table hover-bar" cellspacing="0" style"width :">

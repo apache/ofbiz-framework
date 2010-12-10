@@ -23,17 +23,16 @@ under the License.
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <title>${uiLabelMap.OfbizTitle}</title>
     <link rel="shortcut icon" href="/ofbiz/images/favicon.ico">
-    <script language="javascript" src="/images/prototypejs/prototype.js" type="text/javascript"></script>
+    <script language="javascript" src="/images/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
     <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>
     <script language="javascript" src="/images/selectall.js" type="text/javascript"></script>
-    <script language="javascript" src="/images/calendar_date_select.js" type="text/javascript"></script>
-    <script language="javascript" src="/images/calendarDateSelect/locale/${(parameters.userLogin.lastLocale?substring(0,2))!initialLocale?substring(0,2)!'en'}.js" type="text/javascript"></script>
-    <script language="javascript" src="/ofbiz/script/effects.js" type="text/javascript"></script>
     <script language="javascript" src="/ofbiz/script/search.js" type="text/javascript"></script>
-    <script language="javascript" src="/ofbiz/script/slides.js" type="text/javascript"></script>
+    <script language="javascript" src="/images/jquery/plugins/jcarousel/jquery.jcarousel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/images/jquery/plugins/jcarousel/skins/tango/skin.css" />
+
 
     <link rel="stylesheet" href="/ofbiz/images/global.css" type="text/css"/>
-    
+
     <meta content="OFBiz_Thai for Thai user" name="Description"/>
     <meta content="Open Source ERP,Open Source CRM,Open Source E-Commerce,Open Source eCommerce,Open Source POS,Open Source SCM,Open Source MRP,Open Source CMMS,Open Source EAM,web services,workflow,ebusiness,e-business,ecommerce,e-commerce,automation,enterprise software,open source,entity engine,service engine,erp,crm,party,accounting,facility,supply,chain,management,catalog,order,project,task,work effort,financial,ledger,content management,customer,inventory" name="keywords"/>
 </head>

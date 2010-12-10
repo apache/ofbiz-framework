@@ -46,8 +46,8 @@
         <value xml:lang="fr">Liste déroulante à auto complétion</value>
     </property>
     <property key="ExampleAutocompleteTooltip">
-        <value xml:lang="en">GROUP type based example, use Geo.Geoid and Geo.GeoName Entity.fields for completion</value>
-        <value xml:lang="fr">Exemple sur le type GROUP et utilisant Geo.Geoid et Geo.GeoName comme Entité.champs pour la complétion</value>
+        <value xml:lang="en">COUNTRY type based example, use Geo.Geoid and Geo.GeoName Entity.fields for completion</value>
+        <value xml:lang="fr">Exemple sur le type COUNTRY et utilisant Geo.Geoid et Geo.GeoName comme Entité.champs pour la complétion</value>
     </property>
     <property key="ExampleBirtChartReport">
         <value xml:lang="en">HTML chart report</value>
@@ -494,6 +494,14 @@
         <value xml:lang="th">สำหรับท่านที่สนใจสามารถเข้าสู่ระบบได้, โดยใช้ ชื่อผู้ใช้:admin, รหัสผ่าน:ofbiz</value>
         <value xml:lang="zh">如果对某部分感兴趣，请先确信你已登录，可以尝试用 用户名:admin、密码:ofbiz登录。</value>
     </property>
+    <property key="ExampleMultipleDropDowns">
+        <value xml:lang="en">Multiple drop-downs</value>
+        <value xml:lang="fr">liste déroulante avec choix multiples</value>
+    </property>    
+    <property key="ExampleMultipleDropDownTooltip">
+        <value xml:lang="en">Needs some fields to be set, see in FormWidgetExampleScreens.xml (begins with multipleSelect)</value>
+        <value xml:lang="fr">Nécessite de définir certains champs, voir dans FormWidgetExampleScreens.xml (commence avec multipleSelect)</value>
+    </property>    
     <property key="ExampleNewExample">
         <value xml:lang="en">New Example</value>
         <value xml:lang="fr">Nouvel exemple</value>
@@ -730,7 +738,7 @@
     </property>
     <property key="PageTitleLookupExampleFeature">
         <value xml:lang="en">Lookup Example Feature</value>
-        <value xml:lang="fr">Rechercher unz ou des caractéristiques exemple</value>
+        <value xml:lang="fr">Rechercher une ou des caractéristiques exemple</value>
         <value xml:lang="it">Ricerca Caratteristica Esempio</value>
         <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
         <value xml:lang="ru">Искать особенности примера</value>

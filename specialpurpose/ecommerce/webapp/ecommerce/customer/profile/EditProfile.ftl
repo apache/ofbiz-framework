@@ -61,7 +61,7 @@ under the License.
         </div>
     </fieldset>
     <div>
-      <a id="submitEditUserForm" href="javascript:void(0);" class="button">${uiLabelMap.CommonSubmit}</a>
+      <input type="submit" id="submitEditUserForm" class="button" vlaue="${uiLabelMap.CommonSubmit}">
       <a id="cancelEditUserForm" href="<@ofbizUrl>viewprofile</@ofbizUrl>" class="button">${uiLabelMap.CommonCancel}</a>
     </div>
   </form>

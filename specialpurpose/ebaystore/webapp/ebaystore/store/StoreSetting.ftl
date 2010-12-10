@@ -17,104 +17,106 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script language="Javascript" type="text/javascript">
-    function countAreaChars(areaName,limit,charleft)
+    function countAreaChars(areaName, limit, charleft)
     {
-        if (areaName.value.length>limit){
+        if (areaName.value.length > limit){
            areaName.value=areaName.value.substring(0,limit);
         }else{
-          charleft.innerHTML = (limit - areaName.value.length) + " charactors left.";
+          charleft.innerHTML = (limit - areaName.value.length) + " ${uiLabel.CommonCharactorsLeft}";
         }
     }
-    function retrieveThemeColorSchemeByThemeId(url,themeId,productStoreId){
-    var pars = 'themeId='+themeId+'&amp;productStoreId='+productStoreId; 
-    var myAjax = new Ajax.Request( url, {
-        method: 'get', 
-        parameters: pars, 
-        onLoading: function loading(){
-                        $('loading').innerHTML = ' Please wait...';
-                   },
-        onComplete: function retrieveThemeColorSchemeByThemeId(originalRequest){
-                            if(originalRequest.responseJSON!=null){
-                                var resp = eval("("+originalRequest.responseText+")");
-                                if(resp.storeColorPrimary!=null)$('storePrimaryColor').value =  resp.storeColorPrimary;
-                                if(resp.storeColorAccent!=null)$('storeSecondaryColor').value = resp.storeColorAccent;
-                                if(resp.storeColorSecondary!=null)$('storeAccentColor').value = resp.storeColorSecondary;
-                                
-                                if(resp.storeFontTypeFontFaceValue!=null) selectOption($('storeNameFont'),resp.storeFontTypeFontFaceValue);
-                                if(resp.storeFontTypeNameFaceColor!=null)$('storeNameFontColor').value = resp.storeFontTypeNameFaceColor;
-                                if(resp.storeFontTypeSizeFaceValue!=null) selectOption($('storeNameFontSize'), resp.storeFontTypeSizeFaceValue);
+    function retrieveThemeColorSchemeByThemeId(url, themeId, productStoreId){
+        var pars = 'themeId='+themeId+'&amp;productStoreId='+productStoreId;
 
-                                if(resp.storeFontTypeTitleColor!=null)$('storeTitleFontColor').value = resp.storeFontTypeTitleColor;
-                                if(resp.storeFontTypeFontTitleValue!=null)selectOption($('storeTitleFont'),resp.storeFontTypeFontTitleValue);
-                                if(resp.storeFontSizeTitleValue!=null)selectOption($('storeTitleFontSize'),resp.storeFontSizeTitleValue);
+        jQuery.ajax({
+         url: url,
+         type: "GET",
+         data: pars,
+         beforeStart: function() {document.getElementById('loading').innerHTML = ' ${uiLabel.CommonPleaseWait}';},
+             success: function(data) {
+                if (data != null){
+                    var resp = eval("("+data+")");
+                    if (resp.storeColorPrimary!=null) document.getElementById('storePrimaryColor').value =  resp.storeColorPrimary;
+                    if (resp.storeColorAccent!=null) document.getElementById('storeSecondaryColor').value = resp.storeColorAccent;
+                    if (resp.storeColorSecondary!=null) document.getElementById('storeAccentColor').value = resp.storeColorSecondary;
 
-                                if(resp.storeFontTypeDescColor!=null)$('storeDescFontColor').value = resp.storeFontTypeDescColor;
-                                if(resp.storeFontTypeFontDescValue!=null) selectOption($('storeDescFont'),resp.storeFontTypeFontDescValue);
-                                if(resp.storeDescSizeValue!=null) selectOption($('storeDescFontSize'),resp.storeDescSizeValue);
-                            } 
-                            $('loading').innerHTML = '';
-                    }        
-        } );
+                    if (resp.storeFontTypeFontFaceValue!=null) selectOption( document.getElementById('storeNameFont'),resp.storeFontTypeFontFaceValue);
+                    if (resp.storeFontTypeNameFaceColor!=null) document.getElementById('storeNameFontColor').value = resp.storeFontTypeNameFaceColor;
+                    if (resp.storeFontTypeSizeFaceValue!=null) selectOption( document.getElementById('storeNameFontSize'), resp.storeFontTypeSizeFaceValue);
+
+                    if (resp.storeFontTypeTitleColor!=null) document.getElementById('storeTitleFontColor').value = resp.storeFontTypeTitleColor;
+                    if (resp.storeFontTypeFontTitleValue!=null) selectOption( document.getElementById('storeTitleFont'),resp.storeFontTypeFontTitleValue);
+                    if (resp.storeFontSizeTitleValue!=null) selectOption( document.getElementById('storeTitleFontSize'),resp.storeFontSizeTitleValue);
+
+                    if (resp.storeFontTypeDescColor!=null) document.getElementById('storeDescFontColor').value = resp.storeFontTypeDescColor;
+                    if (resp.storeFontTypeFontDescValue!=null) selectOption( document.getElementById('storeDescFont'),resp.storeFontTypeFontDescValue);
+                    if (resp.storeDescSizeValue!=null) selectOption( document.getElementById('storeDescFontSize'),resp.storeDescSizeValue);
+                }
+                 document.getElementById('loading').innerHTML = '';
+         }
+        });
     }
-    function selectOption(myselect,val){
+
+    function selectOption(myselect, val){
         for (var i=0; i<myselect.options.length; i++){
              if ( myselect.options[i].value == val){
                  myselect.options[i].selected=true;
                  break;
              }
-             
+
         }
     }
-    function switchTheme(url,themeId,productStoreId){
+    function switchTheme(url, themeId, productStoreId){
         var size = document.StoreSettingForm.storeThemeType.length;
         var selectTheme = '';
         for(i=0;i<size;i++){
-            if(document.StoreSettingForm.storeThemeType[i].checked){
+            if (document.StoreSettingForm.storeThemeType[i].checked){
                 selectTheme = document.StoreSettingForm.storeThemeType[i].value;
                 break;
             }
         }
-        if(selectTheme=='Basic'){
-            //retrieve basic theme by ajax then print new select list 
+        if (selectTheme == 'Basic') {
+            //retrieve basic theme by ajax then print new select list
             document.StoreSettingForm.storeAdvancedTheme.disabled = true;
             document.StoreSettingForm.storeAdvancedThemeColor.disabled = true;
-            
+
             document.StoreSettingForm.storeBasicTheme.disabled = false;
             document.StoreSettingForm.storePrimaryColor.disabled = false;
             document.StoreSettingForm.storeSecondaryColor.disabled = false;
             document.StoreSettingForm.storeAccentColor.disabled = false;
-            
+
             document.StoreSettingForm.storeNameFont.disabled = false;
             document.StoreSettingForm.storeNameFontSize.disabled = false;
             document.StoreSettingForm.storeNameFontColor.disabled = false;
-            
+
             document.StoreSettingForm.storeTitleFont.disabled = false;
             document.StoreSettingForm.storeTitleFontSize.disabled = false;
             document.StoreSettingForm.storeTitleFontColor.disabled = false;
-            
+
             document.StoreSettingForm.storeDescFont.disabled = false;
             document.StoreSettingForm.storeDescFontSize.disabled = false;
             document.StoreSettingForm.storeDescFontColor.disabled = false;
             document.StoreSettingForm.themeType.value = "Basic";
-        }else if(selectTheme=='Advanced'){
+
+        } else if (selectTheme == 'Advanced') {
             document.StoreSettingForm.themeType.value = "Advanced";
             document.StoreSettingForm.storeBasicTheme.disabled = true;
             document.StoreSettingForm.storePrimaryColor.disabled = true;
             document.StoreSettingForm.storeSecondaryColor.disabled = true;
             document.StoreSettingForm.storeAccentColor.disabled = true;
-            
+
             document.StoreSettingForm.storeNameFont.disabled = true;
             document.StoreSettingForm.storeNameFontSize.disabled = true;
             document.StoreSettingForm.storeNameFontColor.disabled = true;
-            
+
             document.StoreSettingForm.storeTitleFont.disabled = true;
             document.StoreSettingForm.storeTitleFontSize.disabled = true;
             document.StoreSettingForm.storeTitleFontColor.disabled = true;
-            
+
             document.StoreSettingForm.storeDescFont.disabled = true;
             document.StoreSettingForm.storeDescFontSize.disabled = true;
             document.StoreSettingForm.storeDescFontColor.disabled = true;
-            
+
             document.StoreSettingForm.storeAdvancedTheme.disabled = false;
             document.StoreSettingForm.storeAdvancedThemeColor.disabled = false;
         }

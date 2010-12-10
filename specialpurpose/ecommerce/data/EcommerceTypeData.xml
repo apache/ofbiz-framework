@@ -23,11 +23,10 @@ under the License.
     <VisualTheme visualThemeId="EC_DEFAULT" visualThemeSetId="ECOMMERCE" description="OFBiz Ecommerce Standard Floating Layout"/>
     <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/ecommerce/images/blog.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/images/ecommain.css" sequenceId="02"/>
-    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/images/prototypejs/popup.css" sequenceId="03"/>
-    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/content/images/contentForum.css" sequenceId="04"/>
-    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://ecommerce/webapp/ecommerce/includes/header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://ecommerce/webapp/ecommerce/includes/footer.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/images/ecdefaulttheme.jpg" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/content/images/contentForum.css" sequenceId="03"/>
+    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="04"/>
+    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="05"/>
+    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://ecommerce/webapp/ecommerce/includes/header.ftl" sequenceId="06"/>
+    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://ecommerce/webapp/ecommerce/includes/footer.ftl" sequenceId="07"/>
+    <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/images/ecdefaulttheme.jpg" sequenceId="08"/>
 </entity-engine-xml>

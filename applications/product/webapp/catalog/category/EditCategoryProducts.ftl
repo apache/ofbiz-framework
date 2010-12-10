@@ -84,8 +84,8 @@ under the License.
                         <input type="hidden" name="productId${suffix}" value="${(productCategoryMember.productId)?if_exists}" />
                         <input type="hidden" name="productCategoryId${suffix}" value="${(productCategoryMember.productCategoryId)?if_exists}" />
                         <input type="hidden" name="fromDate${suffix}" value="${(productCategoryMember.fromDate)?if_exists}" />
-                        <input type="text" size="25" name="thruDate${suffix}" value="${(productCategoryMember.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if> />
-                        <a href="javascript:call_cal(document.updateCategoryProductForm.thruDate${suffix}, '${(productCategoryMember.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                        <#if hasExpired><#assign class="alert"></#if>
+                        <@htmlTemplate.renderDateTimeField name="thruDate${suffix}" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productCategoryMember.thruDate)?if_exists}" size="25" maxlength="30" id="thruDate${suffix}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)?if_exists}" />
                         <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)?if_exists}" />
                         <br />
@@ -158,8 +158,8 @@ under the License.
                         <span class="label">${uiLabelMap.ProductProductId}</span>
                         <@htmlTemplate.lookupField formName="addProductCategoryMemberForm" name="productId" id="productId" fieldFormName="LookupProduct"/>
                         <br/>
-                        <span class="label">${uiLabelMap.CommonFromDate}</span> <input type="text" size="22" name="fromDate" />
-                        <a href="javascript:call_cal(document.addProductCategoryMemberForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                        <span class="label">${uiLabelMap.CommonFromDate}</span>
+                        <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                           <br />
                           <span class="label">${uiLabelMap.CommonComments}</span> <textarea name="comments" rows="2" cols="40"></textarea>
                           <input type="submit" value="${uiLabelMap.CommonAdd}" />
@@ -183,8 +183,8 @@ under the License.
                         <span class="label">${uiLabelMap.ProductTargetProductCategory}</span>
                         <@htmlTemplate.lookupField formName="copyCategoryProductMembersForm" name="productCategoryIdTo" id="productCategoryIdTo" fieldFormName="LookupProductCategory"/>
                         <br />
-                        <span class="label">${uiLabelMap.ProductOptionalFilterWithDate}</span> <input type="text" size="20" name="validDate" />
-                        <a href="javascript:call_cal(document.copyCategoryProductMembersForm.validDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                        <span class="label">${uiLabelMap.ProductOptionalFilterWithDate}</span>
+                        <@htmlTemplate.renderDateTimeField name="validDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="validDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <br />
                         <span class="label">${uiLabelMap.ProductIncludeSubCategories}?</span>
                         <select name="recurse">
@@ -209,8 +209,8 @@ under the License.
                     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}" />
                     <div>
-                        <span class="label">${uiLabelMap.ProductOptionalExpirationDate}</span> <input type="text" size="20" name="thruDate" />
-                        <a href="javascript:call_cal(document.expireAllCategoryProductMembersForm.thruDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                        <span class="label">${uiLabelMap.ProductOptionalExpirationDate}</span>
+                        <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="thruDate2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         &nbsp;&nbsp;<input type="submit" value="${uiLabelMap.CommonExpireAll}" />
                     </div>
                 </form>
@@ -229,8 +229,8 @@ under the License.
                     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}" />
                     <div>
-                        <span class="label">${uiLabelMap.ProductOptionalExpiredBeforeDate}</span> <input type="text" size="20" name="validDate" />
-                        <a href="javascript:call_cal(document.removeExpiredCategoryProductMembersForm.validDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                        <span class="label">${uiLabelMap.ProductOptionalExpiredBeforeDate}</span>
+                        <@htmlTemplate.renderDateTimeField name="validDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="validDate2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         &nbsp;&nbsp;<input type="submit" value="${uiLabelMap.CommonRemoveExpired}" />
                     </div>
                 </form>

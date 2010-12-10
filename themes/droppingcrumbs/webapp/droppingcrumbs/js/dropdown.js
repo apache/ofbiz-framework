@@ -17,29 +17,30 @@ specific language governing permissions and limitations
 under the License.
 */
 
-var DropDownMenu = Class.create();
-DropDownMenu.prototype = {
- initialize: function(menuElement) {
-    var menuTitle = $A(menuElement.getElementsByTagName("h2")).first();
-    menuElement.childElements().each(function(node){
-        // if there is a submenu
-        var submenu = $A(node.getElementsByTagName("ul")).first();
-        if(submenu != null){
-            // make sub-menu invisible
-            Element.extend(submenu).setStyle({display: 'none'});
-            // toggle the visibility of the submenu
-            if (menuTitle != null) {
-                menuTitle.onmouseover = menuTitle.onmouseout = function(){Element.toggle(submenu);};
-                menuTitle = null;
-            }
-            node.onmouseover = node.onmouseout = function(){Element.toggle(submenu);};
+var DropDownMenu =  (
+  function(menuElement) {
+    var menuTitle = menuElement.find("h2:first");
+    menuElement.children().each(function(node){
+      // if there is a submenu
+      var submenu = jQuery(this).find("ul:first");
+
+      if(submenu != null){
+        // make sub-menu invisible
+        submenu.hide();
+        // toggle the visibility of the submenu
+        if (menuTitle != null) {
+          menuTitle.mouseover (function(){ submenu.css({'display': 'block'});});
+          menuTitle.mouseout (function(){submenu.hide();});
         }
+        jQuery(this).mouseover (function(){submenu.css({'display': 'block'});});
+        jQuery(this).mouseout (function(){submenu.hide();});
+      }
     });
   }
-};
+);
 
-document.observe('dom:loaded', function(){
-    var mainmenu = new DropDownMenu($('main-navigation'));
-    var appmenu = new DropDownMenu($('app-navigation'));
+jQuery("document").ready(function(){
+    var mainmenu = new DropDownMenu(jQuery('#main-navigation'));
+    var appmenu = new DropDownMenu(jQuery('#app-navigation'));
 });
 

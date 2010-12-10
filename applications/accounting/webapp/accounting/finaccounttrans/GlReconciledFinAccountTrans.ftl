@@ -197,7 +197,16 @@ under the License.
                   <a id="toggleGlTransactions_${finAccountTrans.finAccountTransId}" href="javascript:void(0)" class="buttontext">${uiLabelMap.FormFieldTitle_glTransactions}</a>
                   <#include "ShowGlTransactions.ftl"/>
                   <script type="text/javascript">
-                    new Popup('displayGlTransactions_${finAccountTrans.finAccountTransId}','toggleGlTransactions_${finAccountTrans.finAccountTransId}', {modal: true, position: 'none', trigger: 'click', cursor_margin:0})
+                       jQuery(document).ready( function() {
+                            jQuery("#displayGlTransactions_${finAccountTrans.finAccountTransId}").dialog({autoOpen: false, modal: true,
+                                    buttons: {
+                                    '${uiLabelMap.CommonClose}': function() {
+                                        jQuery(this).dialog('close');
+                                        }
+                                    }
+                               });
+                       jQuery("#toggleGlTransactions_${finAccountTrans.finAccountTransId}").click(function(){jQuery("#displayGlTransactions_${finAccountTrans.finAccountTransId}").dialog("open")});
+                       });
                   </script>
                 </td>
               </#if>

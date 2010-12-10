@@ -17,40 +17,41 @@
  * under the License.
  */
 
-document.observe('dom:loaded', function() {
-    Event.observe($('costCentersSubmit'), 'click', processCostCenterData);
+jQuery(document).ready( function() {
+    jQuery('#costCentersSubmit').click(processCostCenterData);
     // Find all text boxes in form and add a method to list on for on change.
-    var categoryShareInputs = $('costCenters').getInputs('text');
-    categoryShareInputs.each(function (element) {
-        Event.observe(element, 'change', function(){
-            var textIdSplit = element.id.split('|');
+    var categoryShareInputs = jQuery('#costCenters [type=text]');
+
+    jQuery.each(categoryShareInputs, function (element) {
+        jQuery(this).change( function() {
+            var textIdSplit = jQuery(this).attr('id').split('|');
             var tableRowId = 'row_' + textIdSplit[0];
-            var tableRow = $(tableRowId);
+            var tableRow = jQuery("#" + tableRowId);
             // get all text inputs
-            var rowInputs = $(tableRowId).select('input[type="text"]');
+            var rowInputs = jQuery("#" + tableRowId + " [type=text]");
             var totalPercentage = 0;
-            rowInputs.each(function (inputElement) {
-                var inputElementIdSplit = inputElement.id.split("|");
-                if (inputElement.value) {
-                    totalPercentage = totalPercentage + parseFloat(inputElement.value) 
+            jQuery.each( rowInputs, function (inputElement) {
+                var inputElementIdSplit = jQuery(this).attr('id').split("|");
+                if (jquery(this).val()) {
+                    totalPercentage = totalPercentage + parseFloat(jquery(this).val()) 
                 }
             });
             if (totalPercentage == 100 || totalPercentage == 0 ) {
-                if ( $(tableRowId).hasClassName('alternate-rowWarn')){
-                    $(tableRowId).removeClassName('alternate-rowWarn');
+                if ( jQuery("#" + tableRowId).hasClass('alternate-rowWarn')){
+                     jQuery("#" +tableRowId).removeClass('alternate-rowWarn');
                 }
-                if ($$('tr.alternate-rowWarn').size() == 0) {
-                    $('costCentersSubmit').removeClassName('buttontextdisabled')
-                    $('costCentersSubmit').disabled = false;
+                if (jQuery('tr.alternate-rowWarn').length == 0) {
+                    jQuery("#" + 'costCentersSubmit').removeClass('buttontextdisabled')
+                    jQuery("#" + 'costCentersSubmit').attr("disabled", false);
                 }
 
             } else {
-                if ( !$(tableRowId).hasClassName('alternate-rowWarn')){
-                    $(tableRowId).addClassName('alternate-rowWarn');
+                if ( !jQuery("#" + tableRowId).hasClass('alternate-rowWarn')){
+                    jQuery("#" + tableRowId).addClass('alternate-rowWarn');
                 }
-                if (!$('costCentersSubmit').hasClassName('buttontextdisabled')) {
-                    $('costCentersSubmit').addClassName('buttontextdisabled')
-                    $('costCentersSubmit').disabled = true;
+                if (!jQuery("#" + 'costCentersSubmit').hasClass('buttontextdisabled')) {
+                    jQuery("#" + 'costCentersSubmit').addClass('buttontextdisabled')
+                    jQuery("#" + 'costCentersSubmit').attr("disabled", true);;
                 }
             }
         });
@@ -58,16 +59,19 @@ document.observe('dom:loaded', function() {
 });
 
 function processCostCenterData() {
-    new Ajax.Request($('costCenters').action, {
-        asynchronous: false,
-        onSuccess: function(transport) {
-            if (transport.responseText == "") {
-                Effect.Appear('errorMessage', {duration: 0.0});
-                Effect.Fade('errorMessage', {duration: 0.0, delay: 3.0});
+    jQuery.ajax({
+        url: jQuery("#costCenters").attr('action'),
+        data: jQuery("#costCenters").serialize(),
+        async: false,
+        type: 'POST',
+        success: function(data){
+            if (data == "") {
+                jQuery("#errorMessage").show();
+                jQuery("#errorMessage").fadeOut('slow');
             } else {
-                Effect.Appear('eventMessage', {duration: 0.0});
-                Effect.Fade('eventMessage', {duration: 0.0, delay: 3.0});
+                jQuery("#eventMessage").show();
+                jQuery("#eventMessage").fadeOut('slow');
             }
-        }, parameters: $('costCenters').serialize(), requestHeaders: {Accept: 'application/json'}
+        }
     });
-}
+};

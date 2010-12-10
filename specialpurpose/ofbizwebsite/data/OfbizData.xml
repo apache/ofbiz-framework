@@ -96,33 +96,33 @@ under the License.
            </form>
         </div>
         <div id="slides">
-            <div class="slideshow" id="mantleSlides">
-                <div style="display: none;" id="slide1">
+            <ul class="jcarousel-skin-tango" id="mantleSlides">
+                <li>
                     <div class="callout">${uiLabelMap.OfbizCallout1}</div>
                     <div class="description">${uiLabelMap.OfbizMantle1}</div>
                     <div class="mantle"><img src="/ofbiz/images/mantle.png"></div>
-                </div>
-                <div id="slide2" style="display: none;">
+                </li>
+                <li>
                     <div class="callout">${uiLabelMap.OfbizCallout2}</div>
                     <div class="description">${uiLabelMap.OfbizMantle2}</div>
                     <div class="mantle"><img src="/ofbiz/images/mantle2.png"></div>
-                </div>
-                <div id="slide3" style="">
+                </li>
+                <li>
                     <div class="callout">${uiLabelMap.OfbizCallout3}</div>
                     <div class="description">${uiLabelMap.OfbizMantle3}</div>
                     <div class="mantle"><img src="/ofbiz/images/mantle3.png"></div>
-                </div>
-                <div id="slide4" style="display: none;">
+                </li>
+                <li>
                     <div class="callout">${uiLabelMap.OfbizCallout4}</div>
                     <div class="description">${uiLabelMap.OfbizMantle4}</div>
                     <div class="mantle"><img src="/ofbiz/images/mantle4.png"></div>
-                </div>
-                <div id="slide5" style="display: none;">
+                </li>
+                <li>
                     <div class="callout">${uiLabelMap.OfbizCallout5}</div>
                     <div class="description">${uiLabelMap.OfbizMantle5}</div>
                     <div class="mantle"><img src="/ofbiz/images/mantle5.png"></div>
-                </div>
-            </div>
+                </li>
+            </ul>
             <div class="controls">
               <a class="next" id="next" title="Next" href="#">Next</a>
               <a class="previous" id="previous" title="Previous" href="#">Previous</a>
@@ -132,9 +132,48 @@ under the License.
         </div>
         <script type="text/javascript">
           function StartSlides() {
-            new Slides('mantleSlides');
+            // casrousel scrolling interval set to 2 sec
+            var carouselScrollInterval = 2;
+
+            jQuery('#mantleSlides').jcarousel({
+                auto: carouselScrollInterval,
+                wrap: "circular",
+                initCallback: mycarousel_initCallback,
+                buttonNextHTML: null,
+                buttonPrevHTML: null
+            });
+
+            // create functions for the controll menu
+            function mycarousel_initCallback(carousel) {
+                jQuery('#stop').bind('click', function() {
+                    carousel.options.auto = 0;
+                    jQuery('#start').css({"display": ""});
+                    jQuery('#stop').css({"display": "none"});
+                    return false;
+                });
+
+                jQuery('#start').bind('click', function() {
+                    carousel.options.auto = carouselScrollInterval;
+                    carousel.next();
+                    jQuery('#stop').css({"display": ""});
+                    jQuery('#start').css({"display": "none"});
+                    return false;
+                });
+
+                jQuery('#next').bind('click', function() {
+                    carousel.next();
+                    return false;
+                });
+
+                jQuery('#previous').bind('click', function() {
+                    carousel.prev();
+                    return false;
+                });
+            };
+
           }
-          document.observe ('dom:loaded', StartSlides);
+
+          jQuery(document).ready(StartSlides);
         </script>
     </div>
     <div id="content-wrap" class="clearfix">
@@ -330,8 +369,8 @@ under the License.
            </form>
         </div>
         <div id="slides">
-            <div class="slideshow" id="mantleSlides">
-                <div id="slide1">
+            <ul class="jcarousel-skin-tango" id="mantleSlides">
+                <li>
                     <div class="callout">
                         The best things in life<br />
                         are FREE.<br />
@@ -343,8 +382,8 @@ under the License.
                     <div class="mantle">
                         <img src="/ofbiz/images/mantle.png" />
                     </div>
-                </div>
-                <div id="slide2" style="display:none">
+                </li>
+                <li>
                     <div class="callout">
                         Lower Costs,<br />
                         Higher Margins.<br />
@@ -357,8 +396,8 @@ under the License.
                     <div class="mantle">
                         <img src="/ofbiz/images/mantle2.png" />
                     </div>
-                </div>
-                <div id="slide3" style="display:none">
+                </li>
+                <li>
                     <div class="callout">
                         OPEN yourself up to all<br />
                         of the possibilities<br />
@@ -371,8 +410,8 @@ under the License.
                     <div class="mantle">
                         <img src="/ofbiz/images/mantle3.png" />
                     </div>
-                </div>
-                <div id="slide4" style="display:none">
+                </li>
+                <li>
                     <div class="callout">
                         We have<br />
                         street cred.<br />
@@ -384,11 +423,11 @@ under the License.
                     <div class="mantle">
                         <img src="/ofbiz/images/mantle4.png" />
                     </div>
-                </div>
-                <div id="slide5" style="display:none">
+                </li>
+                <li>
                     <div class="callout">
                         Just like muscles,<br />
-                        e-commerce should<br />
+                        e-commerce should
                         be flexible.
                     </div>
                     <div class="description">
@@ -398,21 +437,60 @@ under the License.
                     <div class="mantle">
                         <img src="/ofbiz/images/mantle5.png" />
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
             <div class="controls">
               <a class="next" id="next" title="Next" href="#">Next</a>
               <a class="previous" id="previous" title="Previous" href="#">Previous</a>
-              <a class="start" id="start" title="Start" href="#">Start</a>
+              <a class="start" id="start" style="display:none;" title="Start" href="#">Start</a>
               <a class="stop" id="stop" title="Stop" href="#">Stop</a>
             </div>
         </div>
 
         <script type="text/javascript">
           function StartSlides() {
-            new Slides('mantleSlides');
+            // casrousel scrolling interval set to 2 sec
+            var carouselScrollInterval = 2;
+
+            jQuery('#mantleSlides').jcarousel({
+                auto: carouselScrollInterval,
+                wrap: "circular",
+                initCallback: mycarousel_initCallback,
+                buttonNextHTML: null,
+                buttonPrevHTML: null
+            });
+
+            // create functions for the controll menu
+            function mycarousel_initCallback(carousel) {
+                jQuery('#stop').bind('click', function() {
+                    carousel.options.auto = 0;
+                    jQuery('#start').css({"display": ""});
+                    jQuery('#stop').css({"display": "none"});
+                    return false;
+                });
+
+                jQuery('#start').bind('click', function() {
+                    carousel.options.auto = carouselScrollInterval;
+                    carousel.next();
+                    jQuery('#stop').css({"display": ""});
+                    jQuery('#start').css({"display": "none"});
+                    return false;
+                });
+
+                jQuery('#next').bind('click', function() {
+                    carousel.next();
+                    return false;
+                });
+
+                jQuery('#previous').bind('click', function() {
+                    carousel.prev();
+                    return false;
+                });
+            };
+
           }
-          document.observe ('dom:loaded', StartSlides);
+
+          jQuery(document).ready(StartSlides);
         </script>
 
     </div>

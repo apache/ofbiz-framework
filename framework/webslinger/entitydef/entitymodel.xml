@@ -19,12 +19,6 @@ under the License.
 -->
 <entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
-    <title></title>
-    <description></description>
-    <copyright></copyright>
-    <author>Adam Heath</author>
-    <version>0.0</version>
-
     <entity entity-name="WebslingerServer"
             package-name="org.ofbiz.webslinger"
             title="Webslinger Server">

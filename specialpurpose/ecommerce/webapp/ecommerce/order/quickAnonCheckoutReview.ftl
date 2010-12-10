@@ -34,12 +34,13 @@ under the License.
 
     function shippingMethodChanged(shippingMethod) {
         var submitToUri = "<@ofbizUrl>quickAnonProcessShipOptionsUpdateOrderItems</@ofbizUrl>?shipping_method=" + shippingMethod;
-        dojo.io.bind({url: submitToUri,
-            load: function(type, data, evt){
-            if(type == "load"){
+        jQuery.ajax({
+            url: submitToUri,
+            type: "POST",
+            success: function(data) {
                 document.getElementById("orderItemsSection").innerHTML = data;
             }
-          },mimetype: "text/html"});
+        });
     }
 
 // -->

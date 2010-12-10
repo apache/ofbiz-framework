@@ -16,250 +16,222 @@
   specific language governing permissions and limitations
   under the License.
   -->
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 
-<script type="text/javascript">
+<script type="application/javascript">
+<#-- some labels are not unescaped in the JSON object so we have to do this manuely -->
+function unescapeHtmlText(text) {
+    return jQuery('<div />').html(text).text()
+}
 
-    dojo.require("dojo.widget.*");
-    dojo.require("dojo.event.*");
-    dojo.require("dojo.io.*");
+jQuery(document).ready(createTree());
 
-    var treeSelected = false;
-    var editDocumentTreeUrl = '<@ofbizUrl>/views/EditDocumentTree</@ofbizUrl>';
-    var listDocument =  '<@ofbizUrl>/views/ListDocument</@ofbizUrl>';
-    var editDocumentUrl = '<@ofbizUrl>/views/EditDocument</@ofbizUrl>';
-    var deleteDocumentUrl = '<@ofbizUrl>removeDocumentFromTree</@ofbizUrl>';
-<#-------------------------------------------------------------------------------------Load function-->
-    dojo.addOnLoad(function() {
-        dojo.event.topic.subscribe("showDocument",
-            function(message) {
-                   treeSelected = true;
-                   var ctx = new Array();
-                   ctx['contentId'] = message.node.widgetId;
-                   callDocument(ctx);
+<#-- creating the JSON Data -->
+var rawdata = [
+      <#if (contentAssoc?has_content)>
+          <@fillTree assocList = contentAssoc/>
+      </#if>
+
+      <#macro fillTree assocList>
+          <#if (assocList?has_content)>
+            <#list assocList as assoc>
+                <#assign content  = delegator.findByPrimaryKey("Content",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo))/>
+                {
+                "data": {"title" : unescapeHtmlText("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
+                <#assign assocChilds  = delegator.findByAnd("ContentAssoc",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo,"contentAssocTypeId", "TREE_CHILD"))/>
+                    "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "AssocType" : "${assoc.contentAssocTypeId}", "fromDate" : "${assoc.fromDate}"},
+                <#if assocChilds?has_content>
+                    "children": [
+                        <@fillTree assocList = assocChilds/>
+                    ]
+                </#if>
+                <#if assoc_has_next>
+                },
+                <#else>
+                }
+                </#if>
+            </#list>
+          </#if>
+        </#macro>
+     ];
+
+ <#-------------------------------------------------------------------------------------define Requests-->
+  var editDocumentTreeUrl = '<@ofbizUrl>/views/EditDocumentTree</@ofbizUrl>';
+  var listDocument =  '<@ofbizUrl>/views/ListDocument</@ofbizUrl>';
+  var editDocumentUrl = '<@ofbizUrl>/views/EditDocument</@ofbizUrl>';
+  var deleteDocumentUrl = '<@ofbizUrl>removeDocumentFromTree</@ofbizUrl>';
+
+ <#-------------------------------------------------------------------------------------create Tree-->
+  function createTree() {
+    jQuery(function () {
+        jQuery("#tree").jstree({
+            "plugins" : [ "themes", "json_data", "ui", "contextmenu", "crrm"],
+            "json_data" : {
+                "data" : rawdata,
+                "progressive_render" : false
+            },
+            'contextmenu': {
+                'items': {
+                    'ccp' : false,
+                    'create' : false,
+                    'rename' : false,
+                    'remove' : false,
+                    'create1' : {
+                        'label' : "New Folder",
+                        'action' : function(obj) {
+                            callCreateDocumentTree(obj.attr('id'));
+                        }
+                    },
+                    'create2' : {
+                        'label' : "New Content in Folder",
+                        'action' : function(obj) {
+                            callCreateDocument(obj.attr('id'));
+                        }
+                    },
+                    'rename1' : {
+                        'label' : "Rename Folder",
+                        'action' : function(obj) {
+                            callRenameDocumentTree(obj.attr('id'));
+                        }
+                    },
+                    'delete1' : {
+                        'label' : "Delete Folder",
+                        'action' : function(obj) {
+                            callDeleteDocument(obj.attr('id'), obj.attr('contentId'), obj.attr('AssocType'), obj.attr('fromDate'));
+                        }
+                    },
+                }
             }
+        });
+    });
+  }
 
-        );
-        dojo.event.topic.subscribe("NewDocumentTree/engage",
-            function (menuItem) {
-                var node = menuItem.getTreeNode();
-                callCreateDocumentTree(node.widgetId);
-            }
-
-        );
-        dojo.event.topic.subscribe("NewDocument/engage",
-            function (menuItem) {
-                var node = menuItem.getTreeNode();
-                callCreateDocument(node.widgetId);
-            }
-
-        );
-        dojo.event.topic.subscribe("EditDocument/engage",
-            function (menuItem) {
-                var node = menuItem.getTreeNode();
-                callEditDocument(node.widgetId);
-            }
-        );
-       dojo.event.topic.subscribe("RenameDocumentTree/engage",
-            function (menuItem) {
-                var node = menuItem.getTreeNode();
-                callRenameDocumentTree(node.widgetId);
-            }
-
-        );
-        dojo.event.topic.subscribe("DeleteDocument/engage",
-            function (menuItem) {
-                var node = menuItem.getTreeNode();
-                callDeleteDocument(node.widgetId, node.object);
-            }
-        );
-        }
-    );
-
-<#-------------------------------------------------------------------------------------call ofbiz function-->
-    function callDocument(ctx) {
+<#-------------------------------------------------------------------------------------callDocument function-->
+    function callDocument(contentId) {
         var tabitem='${tabButtonItem?if_exists}';
-        if(tabitem=="navigateContent")
-            listDocument='<@ofbizUrl>/views/ListDocument</@ofbizUrl>';
-        if(tabitem=="LookupContentTree")
-            listDocument='<@ofbizUrl>/views/ListContentTree</@ofbizUrl>';
-        if(tabitem=="LookupDetailContentTree")
-            listDocument='<@ofbizUrl>/views/ViewContentDetail</@ofbizUrl>';
-        var bindArgs = {
+        if (tabitem=="navigateContent")
+            listDocument = '<@ofbizUrl>/views/ListDocument</@ofbizUrl>';
+        if (tabitem=="LookupContentTree")
+            listDocument = '<@ofbizUrl>/views/ListContentTree</@ofbizUrl>';
+        if (tabitem=="LookupDetailContentTree")
+            listDocument = '<@ofbizUrl>/views/ViewContentDetail</@ofbizUrl>';
+
+        //jQuerry Ajax Request
+        jQuery.ajax({
             url: listDocument,
-            method: 'POST',
-            mimetype: 'text/html',
-            content: ctx,
-            error: function(type, data, evt) {
-                alert("An error occured loading content! : " + data);
+            type: 'POST',
+            data: {"contentId" : contentId},
+            error: function(msg) {
+                alert("An error occured loading content! : " + msg);
             },
-            load: function(type, data, evt) {
-                var innerPage = dojo.byId('Document');
-                innerPage.innerHTML = data; 
+            success: function(msg) {
+                jQuery('#Document').html(msg);
             }
-        };
-        dojo.io.bind(bindArgs);
-    }
-<#-------------------------------------------------------------------------------------callCreateFolder function-->
-    function callCreateDocumentTree(contentId) {
-        var bindArgs = {
+        });
+     }
+<#-------------------------------------------------------------------------------------callCreateDocumentTree function-->
+      function callCreateDocumentTree(contentId) {
+        jQuery.ajax({
             url: editDocumentTreeUrl,
-            method: 'POST',
-            mimetype: 'text/html',
-            content: {  contentId: contentId,
-                        contentAssocTypeId:'TREE_CHILD'},
-            error: function(type, data, evt) {
-                alert("An error occured loading content! : " + data);
+            type: 'POST',
+            data: {contentId: contentId,
+                        contentAssocTypeId: 'TREE_CHILD'},
+            error: function(msg) {
+                alert("An error occured loading content! : " + msg);
             },
-             load: function(type, data, evt) {
-                var innerPage = dojo.byId('EditDocumentTree');
-                innerPage.innerHTML = data;
+            success: function(msg) {
+                jQuery('#Document').html(msg);
             }
-        };
-        dojo.io.bind(bindArgs);
+        });
     }
 <#-------------------------------------------------------------------------------------callCreateSection function-->
-    function callCreateDocument(ctx) {
-        var bindArgs = {
+    function callCreateDocument(contentId) {
+        jQuery.ajax({
             url: editDocumentUrl,
-            method: 'POST',
-            mimetype: 'text/html',
-            content: {contentId: ctx},
-            error: function(type, data, evt) {
-                alert("An error occured loading content! : " + data);
+            type: 'POST',
+            data: {contentId: contentId},
+            error: function(msg) {
+                alert("An error occured loading content! : " + msg);
             },
-            load: function(type, data, evt) {
-                var innerPage = dojo.byId('Document');
-                innerPage.innerHTML = data;
+            success: function(msg) {
+                jQuery('#Document').html(msg);
             }
-        };
-        dojo.io.bind(bindArgs);
+        });
     }
 <#-------------------------------------------------------------------------------------callEditSection function-->
-    function callEditDocument(ctx) {
-
-        var bindArgs = {
+    function callEditDocument(contentIdTo) {
+        jQuery.ajax({
             url: editDocumentUrl,
-            method: 'POST',
-            mimetype: 'text/html',
-            content: {contentIdTo: ctx},
-            error: function(type, data, evt) {
-                alert("An error occured loading content! : " + data);
+            type: 'POST',
+            data: {contentIdTo: contentIdTo},
+            error: function(msg) {
+                alert("An error occured loading content! : " + msg);
             },
-            load: function(type, data, evt) {
-                var innerPage = dojo.byId('Document');
-                innerPage.innerHTML = data;
+            success: function(msg) {
+                jQuery('#Document').html(msg);
             }
-        };
-        dojo.io.bind(bindArgs);
+        });
 
     }
 <#-------------------------------------------------------------------------------------callDeleteItem function-->
-    function callDeleteDocument(contentIdTo,objstr) {
-        var ctx = new Array();
-        if (objstr != null && objstr.length > 0) {
-            var obj = objstr.split("|");
-            ctx['contentId'] = obj[0];
-            ctx['contentAssocTypeId'] = obj[1];
-            ctx['fromDate'] = obj[2];
-        }
-        ctx['contentIdTo']=contentIdTo;
-        var bindArgs = {
+    function callDeleteDocument(contentId, contentIdTo, contentAssocTypeId, fromDate) {
+        jQuery.ajax({
             url: deleteDocumentUrl,
-            method: 'POST',
-            mimetype: 'text/html',
-            content: ctx,
-            error: function(type, data, evt) {
-                alert("An error occured loading content! : " + data);
+            type: 'POST',
+            data: {contentId : contentId, contentIdTo : contentIdTo, contentAssocTypeId : contentAssocTypeId, fromDate : fromDate},
+            error: function(msg) {
+                alert("An error occured loading content! : " + msg);
             },
-            load: function(type, data, evt) {
+            success: function(msg) {
                 location.reload();
             }
-        };
-        dojo.io.bind(bindArgs);
+        });
     }
  <#-------------------------------------------------------------------------------------callRename function-->
     function callRenameDocumentTree(contentId) {
-        var bindArgs = {
+        jQuery.ajax({
             url: editDocumentTreeUrl,
-            method: 'POST',
-            mimetype: 'text/html',
-            content: {  contentId: contentId,
-                        contentAssocTypeId:'TREE_CHILD',
-                        rename: 'Y'
+            type: 'POST',
+            data: {  contentId: contentId,
+                     contentAssocTypeId:'TREE_CHILD',
+                     rename: 'Y'
                      },
-            error: function(type, data, evt) {
-                alert("An error occured loading content! : " + data);
+            error: function(msg) {
+                alert("An error occured loading content! : " + msg);
             },
-             load: function(type, data, evt) {
-                var innerPage = dojo.byId('EditDocumentTree');
-                innerPage.innerHTML = data;
+            success: function(msg) {
+                jQuery('#Document').html(msg);
             }
-        };
-        dojo.io.bind(bindArgs);
+        });
     }
  <#------------------------------------------------------pagination function -->
     function nextPrevDocumentList(url){
         url= '<@ofbizUrl>'+url+'</@ofbizUrl>';
-         var bindArgs = {
+         jQuery.ajax({
             url: url,
-            method: 'POST',
-            mimetype: 'text/html',
-            error: function(type, data, evt) {
-                alert("An error occured loading content! : " + data);
+            type: 'POST',
+            error: function(msg) {
+                alert("An error occured loading content! : " + msg);
             },
-            load: function(type, data, evt) { 
-                var innerPage = dojo.byId('Document');
-                innerPage.innerHTML = data;
+            success: function(msg) {
+                jQuery('#Document').html(msg);
             }
-        };
-        dojo.io.bind(bindArgs);
+        });
     }
+
 </script>
 
-<style type="text/css">
-.dojoContextMenu {
-    background-color: #ccc;
-    font-size: 10px;
-}
+<style>
 <#if tabButtonItem?has_content>
     <#if tabButtonItem=="LookupContentTree"||tabButtonItem=="LookupDetailContentTree">
-body{background:none;}
-.left-border{float:left;width:25%;}
-.contentarea{margin: 0 0 0 0.5em;padding:0 0 0 0.5em;}
-.leftonly{float:none;min-height:25em;}
+        body{background:none;}
+        .left-border{float:left;width:25%;}
+        .contentarea{margin: 0 0 0 0.5em;padding:0 0 0 0.5em;}
+        .leftonly{float:none;min-height:25em;}
     </#if>
 </#if>
 </style>
 
-<#-- looping macro -->
-<#macro fillTree assocList>
-  <#if (assocList?has_content)>
-    <#list assocList as assoc>
-        <#assign content  = delegator.findByPrimaryKey("Content",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo))/>
-        <div dojoType="TreeNode" title="${content.contentName?default(assoc.contentIdTo)}" widgetId="${assoc.contentIdTo}"
-             object="${assoc.contentId}|${assoc.contentAssocTypeId}|${assoc.fromDate}">
-            <#assign assocChilds  = delegator.findByAnd("ContentAssoc",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo,"contentAssocTypeId", "TREE_CHILD"))/>
-            <#if assocChilds?has_content>
-                <@fillTree assocList = assocChilds/>
-            </#if>
-        </div>
-    </#list>
-  </#if>
-</#macro>
+<div id="tree"></div>
 
-<dl dojoType="TreeContextMenu" id="contentContextMenu" style="font-size: 1em; color: #ccc;">
-    <dt dojoType="TreeMenuItem" id="NewDocumentTree" caption="${uiLabelMap.ContentNewFolder}"/>
-    <dt dojoType="TreeMenuItem" id="NewDocument" caption="${uiLabelMap.ContentNewContentInFolder}"/>
-    <#--<dt dojoType="TreeMenuItem" id="EditDocument" caption="Edit Document"/> -->
-    <dt dojoType="TreeMenuItem" id="RenameDocumentTree" caption="${uiLabelMap.ContentRenameFolder}"/>
-    <dt dojoType="TreeMenuItem" id="DeleteDocument" caption="${uiLabelMap.ContentDeleteFolder}"/>
-</dl>
-
-
-<dojo:TreeSelector widgetId="contentTreeSelector" eventNames="select:showDocument"></dojo:TreeSelector>
-<div dojoType="Tree" menu="contentContextMenu" widgetId="contentTree" selector="contentTreeSelector" toggler="fade" toggleDuration="500">
-    <#if (contentAssoc?has_content)>
-        <@fillTree assocList = contentAssoc/>
-    </#if>
-</div>
 

@@ -439,8 +439,6 @@ under the License.
     <screen name="quickAnonCheckoutDecorator">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/>
-                <set field="requireDojo" value="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonCheckoutLinks.groovy"/>
             </actions>
             <widgets>
@@ -613,10 +611,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="EcommerceOnePageCheckout"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/scriptaculouscontrols.css" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/scriptaculous.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/effects.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/controls.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/checkoutProcess.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ordermgr/images/js/geoAutoCompleter.js" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/ShowCart.groovy"/>

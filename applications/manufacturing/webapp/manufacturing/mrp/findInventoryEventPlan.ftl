@@ -72,10 +72,7 @@ function lookupInventory() {
                     <td width='20%' align='right' class="label">${uiLabelMap.CommonFromDate}</td>
                     <td width='5%'>&nbsp;</td>
                     <td>
-                      <input type='text' size='25' name='eventDate' value='${requestParameters.eventDate?if_exists}'/>
-                        <a href="javascript:call_cal(document.lookupinventory.eventDate,'');">
-                           <img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/>
-                         </a>
+                      <@htmlTemplate.renderDateTimeField name="eventDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.eventDate?if_exists}" size="25" maxlength="30" id="fromDate_2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     </td>
                   </tr>
                   <tr>

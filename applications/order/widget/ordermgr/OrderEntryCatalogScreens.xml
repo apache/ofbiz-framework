@@ -135,9 +135,6 @@ under the License.
     <screen name="product">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
-                <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/popup.css" global="true"/>
                 <set field="titleProperty" value="PageTitleProductPage"/>
                 <set field="configproductdetailScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#configproductdetail"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/Product.groovy"/>

@@ -62,14 +62,11 @@
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="selenium">
         <section>
             <actions>
-                <set field="tabButtonItem" value="selenium"/> 
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>
-                <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
+                <set field="tabButtonItem" value="selenium"/>
                 <entity-one entity-name="SeleniumTestSuitePath"  value-field="testSuitePath">
                     <field-map field-name="testSuiteId" value="${parameters.testSuiteId}"/>
                 </entity-one>

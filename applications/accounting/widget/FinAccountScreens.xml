@@ -418,8 +418,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindFinAccountTrans"/>
                 <set field="tabButtonItem" value="FinAccountTrans"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/popup.css" global="true"/>
                 <service service-name="getFinAccountTransListAndTotals" result-map="finAccountTransListAndTotals" auto-field-map="true"/>
                 <set field="finAccountTransList" type="List" from-field="finAccountTransListAndTotals.finAccountTransList"/>
                 <set field="searchedNumberOfRecords" type="Integer" from-field="finAccountTransListAndTotals.searchedNumberOfRecords"/>
@@ -472,8 +470,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingBankReconciliation"/>
                 <set field="tabButtonItem" value="FinAccountTrans"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/popup.css" global="true"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
             </actions>
@@ -619,8 +615,6 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="FindFinAccountReconciliations"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/popup.js" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/popup.css" global="true"/>
                 <set field="titleProperty" value="AccountingEditFinAccountReconciliations"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <set field="glReconciliationId" from-field="parameters.glReconciliationId"/>

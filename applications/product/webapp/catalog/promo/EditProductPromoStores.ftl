@@ -46,8 +46,8 @@ under the License.
                             <input type="hidden" name="productStoreId" value="${productStorePromoAppl.productStoreId}" />
                             <input type="hidden" name="productPromoId" value="${productStorePromoAppl.productPromoId}" />
                             <input type="hidden" name="fromDate" value="${productStorePromoAppl.fromDate}" />
-                            <input type="text" size="20" name="thruDate" value="${(productStorePromoAppl.thruDate)?if_exists}" <#if hasExpired>style="color: red;"</#if> />
-                            <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${nowTimestamp}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                            <#if hasExpired><#assign class="alert"></#if>
+                            <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productStorePromoAppl.thruDate)?if_exists}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                             <input type="text" size="5" name="sequenceNum" value="${(productStorePromoAppl.sequenceNum)?if_exists}" />
                             <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                         </form>
@@ -84,8 +84,7 @@ under the License.
                     <option value="${(productStore.productStoreId)?if_exists}">${(productStore.storeName)?if_exists} [${(productStore.productStoreId)?if_exists}]</option>
                 </#list>
                 </select>
-                <input type="text" size="20" name="fromDate"/>
-                <a href="javascript:call_cal(document.addProductPromoToCatalog.fromDate, '${nowTimestamp}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar" /></a>
+                <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                 <input type="submit" value="${uiLabelMap.CommonAdd}"/>
             </form>
         </div>

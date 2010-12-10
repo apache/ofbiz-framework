@@ -294,7 +294,7 @@ under the License.
                     </decorator-section>
                     <decorator-section name="body">
                         <container style="clear" />
-                        <include-screen name="FlotrChart" location="component://common/widget/flotrScreens.xml"/>
+                        <include-screen name="FlotChart" location="component://common/widget/flotScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

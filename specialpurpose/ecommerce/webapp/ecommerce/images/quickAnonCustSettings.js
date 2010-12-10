@@ -17,41 +17,41 @@ specific language governing permissions and limitations
 under the License.
 */
 
-document.observe('dom:loaded', isValidElement);
+jQuery(document).ready(isValidElement);
 
 function isValidElement(element){
-    var validator = new Validation('quickAnonProcessCustomer',  {immediate : true});
+    jQuery('#quickAnonProcessCustomer').validate(); 
  }
 
-document.observe('dom:loaded', function() {
-    Event.observe('useShippingPostalAddressForBilling', 'click', changeText2);
+jQuery(document).ready(function() {
+    jQuery('#useShippingPostalAddressForBilling').click(changeText2);
 });
 function changeText2(){
-    if($('useShippingPostalAddressForBilling').checked) {
-        $('billToName').value = $F('shipToName');
-        $('billToAttnName').value = $F('shipToAttnName');
-        $('billToAddress1').value = $F('shipToAddress1');
-        $('billToAddress2').value = $F('shipToAddress2');
-        $('billToCity').value = $F('shipToCity');
-        $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId');
-        $('billToPostalCode').value = $F('shipToPostalCode');
-        $('billToCountryGeoId').value = $F('shipToCountryGeoId');
-        $('billToName').disabled = true;
-        $('billToAttnName').disabled = true;
-        $('billToAddress1').disabled = true;
-        $('billToAddress2').disabled = true;
-        $('billToCity').disabled = true;
-        $('billToStateProvinceGeoId').disabled = true;
-        $('billToPostalCode').disabled = true;
-        $('billToCountryGeoId').disabled = true;
+    if(document.getElementById('useShippingPostalAddressForBilling').checked) {
+        document.getElementById('billToName').value = document.getElementById('shipToName').value;
+        document.getElementById('billToAttnName').value = document.getElementById('shipToAttnName').value;
+        document.getElementById('billToAddress1').value = document.getElementById('shipToAddress1').value;
+        document.getElementById('billToAddress2').value = document.getElementById('shipToAddress2').value;
+        document.getElementById('billToCity').value = document.getElementById('shipToCity').value;
+        document.getElementById('billToStateProvinceGeoId').value = document.getElementById('shipToStateProvinceGeoId').value;
+        document.getElementById('billToPostalCode').value = document.getElementById('shipToPostalCode').value;
+        document.getElementById('billToCountryGeoId').value = document.getElementById('shipToCountryGeoId').value;
+        document.getElementById('billToName').disabled = true;
+        document.getElementById('billToAttnName').disabled = true;
+        document.getElementById('billToAddress1').disabled = true;
+        document.getElementById('billToAddress2').disabled = true;
+        document.getElementById('billToCity').disabled = true;
+        document.getElementById('billToStateProvinceGeoId').disabled = true;
+        document.getElementById('billToPostalCode').disabled = true;
+        document.getElementById('billToCountryGeoId').disabled = true;
     } else {
-        $('billToName').disabled = false;
-        $('billToAttnName').disabled = false;
-        $('billToAddress1').disabled = false;
-        $('billToAddress2').disabled = false;
-        $('billToCity').disabled = false;
-        $('billToStateProvinceGeoId').disabled = false;
-        $('billToPostalCode').disabled = false;
-        $('billToCountryGeoId').disabled = false;
+        document.getElementById('billToName').disabled = false;
+        document.getElementById('billToAttnName').disabled = false;
+        document.getElementById('billToAddress1').disabled = false;
+        document.getElementById('billToAddress2').disabled = false;
+        document.getElementById('billToCity').disabled = false;
+        document.getElementById('billToStateProvinceGeoId').disabled = false;
+        document.getElementById('billToPostalCode').disabled = false;
+        document.getElementById('billToCountryGeoId').disabled = false;
     }
 }

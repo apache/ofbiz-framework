@@ -17,26 +17,25 @@ specific language governing permissions and limitations
 under the License.
 */
 
-var DropDownMenu = Class.create();
 
-DropDownMenu.prototype = {
-  initialize: function(menuElement) {
-    var menuTitle = $A(menuElement.getElementsByTagName("h2")).first();
-
-    menuElement.childElements().each(function(node){
+var DropDownMenu = (
+    function(menuElement) {
+    var menuTitle = menuElement.find("h2:first");
+    menuElement.children().each(function(node){
       // if there is a submenu
-      var submenu = $A(node.getElementsByTagName("ul")).first();
+      var submenu = jQuery(this).find("ul:first");
+
       if(submenu != null){
         // make sub-menu invisible
-        Element.hide(submenu);
+        submenu.hide();
         // toggle the visibility of the submenu
         if (menuTitle != null) {
-          menuTitle.onmouseover = function(){Element.extend(submenu).setStyle({display: 'block'});};
-          menuTitle.onmouseout = function(){Element.hide(submenu);};
+          menuTitle.mouseover (function(){ submenu.css({'display': 'block'});});
+          menuTitle.mouseout (function(){submenu.hide();});
         }
-        node.onmouseover = function(){Element.extend(submenu).setStyle({display: 'block'});};
-        node.onmouseout = function(){Element.hide(submenu);};
+        jQuery(this).mouseover (function(){submenu.css({'display': 'block'});});
+        jQuery(this).mouseout (function(){submenu.hide();});
       }
     });
   }
-};
+);

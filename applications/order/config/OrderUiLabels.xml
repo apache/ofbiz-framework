@@ -7362,9 +7362,9 @@
     </property>
     <property key="OrderPartySelectRoleForParty">
         <value xml:lang="de">Rolle für Akteur wählen</value>
-        <value xml:lang="en">Select Role For Party</value>
+        <value xml:lang="en">Select Role(s) For Party</value>
         <value xml:lang="es">Elija rol para el participante</value>
-        <value xml:lang="fr">Choisir le rôle pour l'acteur</value>
+        <value xml:lang="fr">Choisir le ou les rôles pour l'acteur</value>
         <value xml:lang="it">Seleziona Ruolo Per Soggetto</value>
         <value xml:lang="nl">Rol voor relatie selecteren</value>
         <value xml:lang="pt_BR">Selecionar papel para o participante</value>
@@ -8029,7 +8029,7 @@
         <value xml:lang="de">Beschaffungsauftrag</value>
         <value xml:lang="en">Purchase Order</value>
         <value xml:lang="es">Pedido de compra</value>
-        <value xml:lang="fr">une commande d'achat</value>
+        <value xml:lang="fr">Commande d'achat</value>
         <value xml:lang="it">Ordine Acquisto</value>
         <value xml:lang="nl">Inkoopbestelling</value>
         <value xml:lang="pt_BR">Pedido de compra</value>

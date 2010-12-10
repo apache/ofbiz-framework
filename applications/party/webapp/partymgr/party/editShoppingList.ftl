@@ -25,9 +25,9 @@ under the License.
       <li>
         <form id="createEmptyShoppingList" action="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>" method="post">
           <input type="hidden" name="partyId" value="${partyId?if_exists}" />
-          <a href="javascript:$('createEmptyShoppingList').submit();" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
+          <a href="javascript:document.getElementById('createEmptyShoppingList').submit();" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
         </form>
-      </li>      
+      </li>
     </ul>
     <br class="clear"/>
   </div>

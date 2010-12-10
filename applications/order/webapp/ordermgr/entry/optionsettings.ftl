@@ -149,8 +149,7 @@ under the License.
                 <tr>
                     <td colspan="2">
                     <div>
-                      <input type="text" size="25" maxlength="30" name="sgi${shipGroupIndex?default('0')}_shipBeforeDate"/>
-                      <a href="javascript:call_cal(document.checkoutsetupform.sgi${shipGroupIndex?default("0")}_shipBeforeDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                      <@htmlTemplate.renderDateTimeField name="sgi${shipGroupIndex?default('0')}_shipBeforeDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="sgi${shipGroupIndex?default('0')}_shipBeforeDate" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     </div>
                     </td>
                 </tr>
@@ -162,8 +161,7 @@ under the License.
                 <tr>
                     <td colspan="2">
                     <div>
-                      <input type="text" size="25" maxlength="30" name="sgi${shipGroupIndex?default('0')}_shipAfterDate"/>
-                      <a href="javascript:call_cal(document.checkoutsetupform.sgi${shipGroupIndex?default("0")}_shipAfterDate,'');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                      <@htmlTemplate.renderDateTimeField name="sgi${shipGroupIndex?default('0')}_shipAfterDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="sgi${shipGroupIndex?default('0')}_shipAfterDate" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     </div>
                     </td>
                 </tr>

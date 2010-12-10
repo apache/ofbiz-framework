@@ -62,7 +62,6 @@ under the License.
     <screen name="EditExample">
         <section>
             <actions>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/scriptaculouscontrols.css" global="true"/>
                 <set field="titleProperty" value="PageTitleEditExample"/>
                 <set field="tabButtonItem" value="EditExample"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
@@ -117,9 +116,6 @@ under the License.
     <screen name="EditExampleFeatureAppls">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/scriptaculous.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/scriptaculouscontrols.css" global="true"/>
                 <set field="titleProperty" value="PageTitleEditExampleFeatureAppls"/>
                 <set field="tabButtonItem" value="EditExampleFeatureAppls"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>

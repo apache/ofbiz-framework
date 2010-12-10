@@ -1,0 +1,11 @@
+/*** fjTimer
+ *   Version: 1.3  http://www.foxjunior.eu/ 
+ *
+ *   Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+**/
+jQuery.extend({fjFunctionQueue:function(a){if(a==null){if(jQuery.fjFunctionQueue.queue!=null&&jQuery.fjFunctionQueue.queue.queue.length>0)if(jQuery.fjFunctionQueue.queue.running)jQuery.fjTimer({interval:jQuery.fjFunctionQueue.queue.properties.interval,tick:function(){var d=jQuery.fjFunctionQueue.queue.queue.shift();try{jQuery.fjFunctionQueue.queue.properties.onTick(jQuery.fjFunctionQueue.queue.index,d);jQuery.fjFunctionQueue.queue.index++}catch(e){jQuery.fjFunctionQueue();throw e;}if(jQuery.fjFunctionQueue.queue.queue.length>
+0)jQuery.fjFunctionQueue();else{jQuery.fjFunctionQueue.queue.running=false;jQuery.fjFunctionQueue.queue.index=0;jQuery.fjFunctionQueue.queue.properties.onComplete()}}});else{jQuery.fjFunctionQueue.queue.running=true;jQuery.fjFunctionQueue()}}else{if(jQuery.fjFunctionQueue.queue==null)jQuery.fjFunctionQueue.queue={index:0,running:false,queue:[],properties:{interval:1,onComplete:function(){},onStart:function(){},autoStart:true,onTick:function(d,e){e()}}};var b=jQuery.fjFunctionQueue.queue.queue.length==
+0;if(jQuery.isFunction(a))jQuery.fjFunctionQueue.queue.queue.push(a);else if(jQuery.isArray(a))for(var c=0;c<a.length;c++)jQuery.fjFunctionQueue.queue.queue.push(a[c]);else jQuery.fjFunctionQueue.queue.properties=jQuery.extend(jQuery.fjFunctionQueue.queue.properties,a);if(b&&jQuery.fjFunctionQueue.queue.queue.length>0&&!jQuery.fjFunctionQueue.queue.running&&jQuery.fjFunctionQueue.queue.properties.autoStart){jQuery.fjFunctionQueue.queue.running=true;jQuery.fjFunctionQueue.queue.properties.onStart();
+jQuery.fjFunctionQueue.queue.running=false;jQuery.fjFunctionQueue()}}},fjTimer:function(a){a=jQuery.extend({interval:10,tick:function(){},repeat:false,random:false,onComplete:function(){},step:1},a);var b=0,c=new (function(){this.timerId=null;this.stop=function(){clearInterval(this.timerId)}});c.timerId=setInterval(function(){try{a.tick(b,c);b+=a.step}catch(d){alert(d)}if(a.repeat!==true&&(a.repeat*a.step<=b||a.repeat===false)){c.stop();a.onComplete()}},a.interval)},fjTimerEach:function(a){var b=
+a.array,c=a.tick;a.repeat=b.length;if(a.step!=null)a.repeat=Math.ceil(b.length/parseInt(a.step,10));a.tick=function(d){c(d,b[d])};jQuery.fjTimer(a)}});

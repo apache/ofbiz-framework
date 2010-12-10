@@ -75,9 +75,11 @@ under the License.
         <label for="setShippingPurposeForPostalAddress">${uiLabelMap.EcommerceMyDefaultShippingAddress}</label>
         <input type="checkbox" name="setShippingPurpose" id="setShippingPurposeForPostalAddress" value="Y" <#if setShippingPurpose?exists>checked="checked"</#if> />
       </div>
+        <#--
       <div>
         <a name="submitEditPostalAddress_${contactMech.contactMechId}" id="submitEditPostalAddress_${contactMech.contactMechId}" class="button" onclick="updatePartyPostalAddress('submitEditPostalAddress_${contactMech.contactMechId}')">${uiLabelMap.CommonSubmit}</a>
         <a href="javascript:void(0);" class="popup_closebox button">${uiLabelMap.CommonClose}</a>
       </div>
+        -->
   </fieldset>
 </form>

@@ -17,23 +17,26 @@ specific language governing permissions and limitations
 under the License.
 */
 
-document.observe('dom:loaded', function() {
-    Event.observe($('returnHeaderTypeId'), 'change', function() {
+jQuery(document).ready( function() {
+    jQuery('#returnHeaderTypeId').change( function() {
         changeStatusCorrespondingToHeaderType();
     });
 });
 
 function changeStatusCorrespondingToHeaderType() {
     var listOptions = [];
-    new Ajax.Request('/ordermgr/control/getStatusItemsForReturn', {
-        asynchronous: false,
-        onSuccess: function(transport) {
-            var data = transport.responseText.evalJSON(true);
+    jQuery.ajax({
+        url: '/ordermgr/control/getStatusItemsForReturn',
+        async: false,
+        type: 'POST',
+        data: {returnHeaderTypeId: jQuery('#returnHeaderTypeId').val()},
+        success: function (data) {
             var statusItems = data.statusItems;
+            var status = jQuery('#statusId');
+            status.find("option").remove();
             statusItems.each( function(statusItem) {
-                listOptions.push("<option value = " + statusItem.statusId + " > " + statusItem.description + " </option>");
+                status.append(jQuery("<option value = " + statusItem.statusId + " > " + statusItem.description + " </option>"));
             });
-            $('statusId').update(listOptions);
-        }, parameters: {returnHeaderTypeId: $F('returnHeaderTypeId')}, requestHeaders: {Accept: 'application/json'}
+        }
     });
 }

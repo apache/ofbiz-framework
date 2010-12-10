@@ -61,14 +61,14 @@ function enableSubmitButton() {
         }
     }
     if (isAllSelected) {
-        $('checkAllInvoices').checked = true;
+        jQuery('#checkAllInvoices').attr('checked', true);
     } else {
-        $('checkAllInvoices').checked = false;
+        jQuery('#checkAllInvoices').attr('checked', false);
     }
-    if (!isSingle && $('serviceName').value != "")
-        $('submitButton').disabled = false;
+    if (!isSingle && jQuery('#serviceName').val() != "")
+        jQuery('#submitButton').attr('disabled', '');
     else
-        $('submitButton').disabled = true;
+        jQuery('#submitButton').attr('disabled', 'disabled');
 }
 
 -->

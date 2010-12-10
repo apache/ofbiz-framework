@@ -172,7 +172,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             str.append(modelFormField.getWidgetStyle());
             // add a style of red if this is a date/time field and redWhen is true
             if (modelFormField.shouldBeRed(context)) {
-            	str.append(" alert");
+                str.append(" alert");
             }
             str.append('"');
             if (UtilValidate.isNotEmpty(idName)) {
@@ -221,9 +221,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("ajaxInPlaceEditDisplayField('");
             writer.append(idName).append("', '").append(url).append("', {");
             if (UtilValidate.isNotEmpty(inPlaceEditor.getParamName())) {
-                writer.append("paramName: '").append(inPlaceEditor.getParamName()).append("'");
+                writer.append("name: '").append(inPlaceEditor.getParamName()).append("'");
             } else {
-                writer.append("paramName: '").append(modelFormField.getFieldName()).append("'");
+                writer.append("name: '").append(modelFormField.getFieldName()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelControl())) {
                 writer.append(", cancelControl: ");
@@ -236,10 +236,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 }
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelText())) {
-                writer.append(", cancelText: '").append(inPlaceEditor.getCancelText()).append("'");
+                writer.append(", cancel: '").append(inPlaceEditor.getCancelText()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getClickToEditText())) {
-                writer.append(", clickToEditText: '").append(inPlaceEditor.getClickToEditText()).append("'");
+                writer.append(", tooltip: '").append(inPlaceEditor.getClickToEditText()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getFieldPostCreation())) {
                 writer.append(", fieldPostCreation: ");
@@ -252,7 +252,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 }
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getFormClassName())) {
-                writer.append(", formClassName: '").append(inPlaceEditor.getFormClassName()).append("'");
+                writer.append(", cssclass: '").append(inPlaceEditor.getFormClassName()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getHighlightColor())) {
                 writer.append(", highlightColor: '").append(inPlaceEditor.getHighlightColor()).append("'");
@@ -270,10 +270,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(", loadingClassName: '").append(inPlaceEditor.getLoadingClassName()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getLoadingText())) {
-                writer.append(", loadingText: '").append(inPlaceEditor.getLoadingText()).append("'");
+                writer.append(", indicator: '").append(inPlaceEditor.getLoadingText()).append("'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getOkControl())) {
-                writer.append(", okControl: ");
+                writer.append(", submit: ");
                 if (!"false".equals(inPlaceEditor.getOkControl())) {
                     writer.append("'");
                 }
@@ -487,21 +487,28 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append("</textarea>");
 
         if (textareaField.getVisualEditorEnable()) {
-            writer.append("<script language=\"javascript\" src=\"/images/htmledit/whizzywig.js\" type=\"text/javascript\"></script>");
-            writer.append("<script language=\"javascript\" type=\"text/javascript\"> buttonPath = \"/images/htmledit/\"; cssFile=\"/images/htmledit/simple.css\";makeWhizzyWig(\"");
+            writer.append("<script language=\"javascript\" src=\"/images/jquery/plugins/elrteEditor/elrte.min.js\" type=\"text/javascript\"></script>");
+            writer.append("<link href=\"/images/jquery/plugins/elrteEditor/css/elrte.full.css\" rel=\"stylesheet\" type=\"text/css\">");
+            writer.append("<script language=\"javascript\" type=\"text/javascript\"> var opts = { cssClass : 'el-rte', toolbar : ");
+            // define the toolsbar
+            String buttons = textareaField.getVisualEditorButtons(context);
+            if (UtilValidate.isNotEmpty(buttons)) {
+                writer.append(buttons);
+            } else {
+                writer.append("maxi");
+            }
+            writer.append(", doctype  : '<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">', //'<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">'");
+            writer.append(", cssfiles : ['/images/jquery/plugins/elrteEditor/css/elrte-inner.css'] ");
+            writer.append("}");
+            // load the wysiwyg editor
+            writer.append("jQuery('#");
             if (UtilValidate.isNotEmpty(idName)) {
                 writer.append(idName);
             } else {
                 writer.append("htmlEditArea");
             }
-            writer.append("\",\"");
-            String buttons = textareaField.getVisualEditorButtons(context);
-            if (UtilValidate.isNotEmpty(buttons)) {
-                writer.append(buttons);
-            } else {
-                writer.append("all");
-            }
-            writer.append("\") </script>");
+            writer.append("').elrte(opts);");
+            writer.append("</script>");
         }
 
         this.addAsterisks(writer, context, modelFormField);

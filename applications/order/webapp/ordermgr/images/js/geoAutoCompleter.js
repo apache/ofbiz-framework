@@ -17,109 +17,102 @@
  * under the License.
  */
 
-document.observe('dom:loaded', function() {
-    // Autocompleter for shipping panel
-    // Preventing getCountryList() from calling and not removed all autocompleter functions so that we can reuse in future.
-    //getCountryList();
-});
-
 function getCountryList() {
-    countryTargetField = $('shipToCountryGeo');
-    countryDivToPopulate = $('shipToCountries');
-    countryHiddenTarget = $('shipToCountryGeoId');
-    new Ajax.Request("getCountryList", {
-        asynchronous: false,
-        onSuccess: callCountryAutocompleter
+    countryTargetField = jQuery('#shipToCountryGeo');
+    countryDivToPopulate = jQuery('#shipToCountries');
+    countryHiddenTarget = jQuery('#shipToCountryGeoId');
+    jQuery.ajax({
+        url: "getCountryList",
+        type: "POST",
+        async: false,
+        success: callCountryAutocompleter
     });
 }
 
-function callCountryAutocompleter(transport) {
-    var geos = new Hash();
-    var data = transport.responseText.evalJSON(true);
+function callCountryAutocompleter(data) {
     countryList = data.countryList;
-    countryList.each(function(country) {
-        var countryName = country.split(': ');
-        geos.set(countryName[1], countryName[0]);
-    });
-    new Autocompleter.Local(countryTargetField, countryDivToPopulate, $H(geos), { partialSearch: false, afterUpdateElement: setKeyAsParameterAndGetStateList});
+    countryTargetField.autcomplete({source: countryList, select: setKeyAsParameterAndGetStateList});
 }
 
-function setKeyAsParameterAndGetStateList(text, li) {
-    countryHiddenTarget.value = li.id;
+function setKeyAsParameterAndGetStateList(event, ui) {
+    countryHiddenTarget.value = ui.item;
     getAssociatedStateListForAutoComplete();
 }
 
 function getAssociatedStateListForAutoComplete() {
-    stateTargetField = $('shipToStateProvinceGeo');
-    stateDivToPopulate = $('shipToStates');
-    stateHiddenTarget = $('shipToStateProvinceGeoId');
-    new Ajax.Request("getAssociatedStateList", {
-        asynchronous: false,
-        parameters: $('shippingForm').serialize(),
-        onSuccess: callStateAutocompleter
+    stateTargetField = jQuery('#shipToStateProvinceGeo');
+    stateDivToPopulate = jQuery('#shipToStates');
+    stateHiddenTarget = jQuery('#shipToStateProvinceGeoId');
+    jQuery.ajax({
+        url: "getAssociatedStateList",
+        type: "POST",
+        data: jQuery('#shippingForm').serialize(),
+        async: false,
+        success: function(data) {callStateAutocompleter(data); }
     });
 }
 
-function callStateAutocompleter(transport) {
-    var geos = new Hash();
-    var data = transport.responseText.evalJSON(true);
+function callStateAutocompleter(data){
     stateList = data.stateList;
-    stateList.each(function(state) {
-        var stateName = state.split(': ');
-        geos.set(stateName[1], stateName[0]);
-    });
     if (stateList.size() <= 1) {
-        $('shipToStateProvinceGeo').value = "No States/Provinces exists";
-        $('shipToStateProvinceGeoId').value = "_NA_";
-        Effect.Fade('shipStates', {duration: 0.0});
-        Effect.Fade('advice-required-shipToStateProvinceGeo', {duration: 0.0});
-        Event.stopObserving($('shipToStateProvinceGeo'), 'blur');
+        jQuery('#shipToStateProvinceGeo').value = "No States/Provinces exists";
+        jQuery('#shipToStateProvinceGeoId').value = "_NA_";
+        jQuery("#shipStates").fadeOut("fast");
+        jQuery("#advice-required-shipToStateProvinceGeo").fadeOut("fast");
+        jQuery("#shipToStateProvinceGeo").unbind("blur");
     } else {
-        $('shipToStateProvinceGeo').value = "";
-        $('shipToStateProvinceGeoId').value = "";
-        Effect.Appear('shipStates', {duration: 0.0});
-        Event.observe($('shipToStateProvinceGeo'), 'blur', function() {
-            if ($('shipToStateProvinceGeo').value == "") {
-                Effect.Appear('advice-required-shipToStateProvinceGeo', {duration: 0.0});
+        jQuery('#shipToStateProvinceGeo').value = "";
+        jQuery('#shipToStateProvinceGeoId').value = "";
+        jQuery("#shipStates").fadeIn("fast");
+        jQuery("#shipToStateProvinceGeo").bind("blur", function() {
+            if (jQuery('#shipToStateProvinceGeo').val() == "") {
+                jQuery("#advice-required-shipToStateProvinceGeo").fadeIn("fast");
             }
         });
     }
-    new Autocompleter.Local(stateTargetField, stateDivToPopulate, $H(geos), { partialSearch: false, afterUpdateElement: setKeyAsParameter });
+    stateTargetField.autocomplete({source: stateList, select: setKeyAsParameter});
 }
 
-function setKeyAsParameter(text, li) {
-    stateHiddenTarget.value = li.id;
+function setKeyAsParameter(event, ui) {
+    stateHiddenTarget.value = ui.item;
 }
 
 //Generic function for fetching country's associated state list.
 function getAssociatedStateList(countryId, stateId, errorId, divId) {
-    var optionList = [];
+    var countryGeoId = jQuery("#" + countryId).val();
     var requestToSend = "getAssociatedStateList";
-    if ($('orderViewed')) {
+    if (jQuery('#orderViewed')) {
         requestToSend = "/ordermgr/control/getAssociatedStateList"
     }
-    new Ajax.Request(requestToSend, {
-        asynchronous: false,
-        parameters: {countryGeoId:$F(countryId)},
-        onSuccess: function(transport) {
-            var data = transport.responseText.evalJSON(true);
+    jQuery.ajax({
+        url: requestToSend,
+        sync: false,
+        type: "POST",
+        data: {countryGeoId: countryGeoId},
+        success: function(data) {
+            if (data._ERROR_MESSAGE_ ) {
+                // no data found/ error occured
+                return;
+            }
             stateList = data.stateList;
-            stateList.each(function(state) {
-                geoValues = state.split(': ');
-                optionList.push("<option value = "+geoValues[1]+" >"+geoValues[0]+"</option>");
+            var stateSelect = jQuery("#" + stateId);
+            stateSelect.find("option").remove();
+            jQuery.each(stateList, function(state) {
+                geoValues = this.split(': ');
+                stateSelect.append(jQuery('<option value = '+geoValues[1]+' >'+geoValues[0]+'</option>'));
             });
-            $(stateId).update(optionList);
-            if (stateList.size() <= 1) {
-                if ($(divId).visible() || $(errorId).visible()) {
-                    Effect.Fade(divId, {duration: 0.0});
-                    Effect.Fade(errorId, {duration: 0.0});
-                    Event.stopObserving(stateId, 'blur');
+
+            if (stateList.length <= 1) {
+                if (jQuery("#" + divId).is(':visible') || jQuery("#" + errorId).is(':visible')) {
+                    jQuery("#divId").fadeOut("fast");
+                    jQuery("#errorId").fadeOut("fast");
+                    jQuery("#stateId").unbind("blur");
                 }
             } else {
-                Effect.Appear(divId, {duration: 0.0});
-                Event.observe(stateId, 'blur', function() {
-                    if ($F(stateId) == "") {
-                        Effect.Appear(errorId, {duration: 0.0});
+                jQuery("#divId").fadeIn("fast");
+                jQuery("#stateId").bind("blur", function() {
+                    if (jQuery("#" + stateId).val() == "") {
+                        jQuery("#errorId").fadeIn("fast")
                     }
                 });
             }

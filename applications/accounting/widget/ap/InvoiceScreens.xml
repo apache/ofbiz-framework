@@ -167,10 +167,20 @@ under the License.
                 <set field="tabButtonItem" value="commissionRun"/>
                 <set field="salesRepPartyList" type="List" from-field="parameters.partyIds"/>
                 <script location="component://accounting/webapp/ap/WEB-INF/actions/invoices/CommissionRun.groovy"/>
+                
+                <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
+                <set field="asm_multipleSelectForm"  value="CommissionRun"/>
+                <set field="asm_multipleSelect"  value="CommissionRun_partyId"/>
+                <set field="asm_formSize" value="700"/>
+                <set field="asm_listItemPercentOfForm" value="95"/>
+                <set field="asm_sortable" value="false"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="asm_title" value="${uiLabelMap.AccountingSelectPartiesForCommissionInvoice}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="body">                        
+                        <platform-specific><html><html-template location="component://common/webcommon/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">

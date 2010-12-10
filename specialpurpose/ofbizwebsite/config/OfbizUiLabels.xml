@@ -45,9 +45,9 @@
         <value xml:lang="nl">We have&lt;br/&gt; street cred</value>
     </property>
     <property key="OfbizCallout5">
-        <value xml:lang="en">Just like muscles,&lt;br/&gt; e-commerce should&lt;br/&gt;be flexible.</value>
-        <value xml:lang="fr">Just like muscles,&lt;br/&gt; e-commerce should&lt;br/&gt;be flexible.</value>
-        <value xml:lang="nl">Just like muscles,&lt;br/&gt; e-commerce should&lt;br/&gt;be flexible.</value>
+        <value xml:lang="en">Just like muscles,&lt;br/&gt; e-commerce should be flexible.</value>
+        <value xml:lang="fr">Just like muscles,&lt;br/&gt; e-commerce should be flexible.</value>
+        <value xml:lang="nl">Just like muscles,&lt;br/&gt; e-commerce should be flexible.</value>
     </property>
     <property key="OfbizCommunity">
         <value xml:lang="en">Community</value>

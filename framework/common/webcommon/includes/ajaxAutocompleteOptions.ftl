@@ -16,28 +16,49 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<ul>
+<#if description?exists>
     <#if autocompleteOptions?exists>
-        <#assign displayReturnField = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.displayReturnField")>
         <#list autocompleteOptions as autocompleteOption>
             <#assign displayString = ""/>
-            <#assign returnField = ""/>
-            <#-- <#list autocompleteOption.keySet() as key> instead use the field order of display fields -->
-                <#list context.displayFieldsSet as key>
+            <#list displayFieldsSet as key>
                 <#assign field = autocompleteOption.get(key)?if_exists>
                 <#if field?has_content>
-                    <#if (key == context.returnField)>
-                        <#assign returnField = field/>
-                    <#else>
+                    <#if (key != context.returnField)>
                         <#assign displayString = displayString + field + " ">
                     </#if>
                 </#if>
             </#list>
-            <#if ("Y" == displayReturnField)>
-                <#assign displayString = displayString +  "[" + returnField + "]">
-            </#if>            
-            <li id="${returnField}"><#if (displayString?trim?has_content )>${displayString?trim}<#else>${returnField}</#if></li>
+            <#if (displayString?trim?has_content )>${displayString?trim}</#if>
         </#list>
     </#if>
-</ul>
+<#else>
+<script type="text/javascript">
+    <#if autocompleteOptions?exists>
+  var autocomp = [
+        <#assign displayReturnField = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.displayReturnField")>
+        <#list autocompleteOptions as autocompleteOption>
+            {
+            <#assign displayString = ""/>
+            <#assign returnField = ""/>
+            <#list displayFieldsSet as key>
+              <#assign field = autocompleteOption.get(key)?if_exists>
+              <#if field?has_content>
+                  <#if (key == context.returnField)>
+                      <#assign returnField = field/>
+                  <#else>
+                      <#assign displayString = displayString + field + " ">
+                  </#if>
+              </#if>
+            </#list>
+            <#if ("Y" == displayReturnField)>
+                <#assign displayString = displayString +  "[" + returnField + "]">
+            </#if>
+            "id": " ${returnField}",
+            "label": "<#if (displayString?trim?has_content )>${displayString?trim}<#else>${returnField}</#if>",
+            "value": "${returnField}"
+            }<#if autocompleteOption_has_next>,</#if>
+        </#list>
+  ];
+    </#if>
+</script>
+</#if>

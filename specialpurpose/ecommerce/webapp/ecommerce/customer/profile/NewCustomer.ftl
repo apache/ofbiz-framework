@@ -107,9 +107,9 @@ under the License.
             <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"></span>
             <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"></span>
             <span id="shipToPhoneRequired" style="display: none;" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
-            <input type="text" name="shipToCountryCode" id="shipToCountryCode" class="required" value="${parameters.shipToCountryCode?if_exists}" size="3" maxlength="3" />
-            - <input type="text" name="shipToAreaCode" id="shipToAreaCode" class="required" value="${parameters.shipToAreaCode?if_exists}" size="3" maxlength="3" />
-            - <input type="text" name="shipToContactNumber" id="shipToContactNumber" class="required" value="${contactNumber?default("${parameters.shipToContactNumber?if_exists}")}" size="6" maxlength="7" />
+            <input type="text" name="shipToCountryCode" id="shipToCountryCode" value="${parameters.shipToCountryCode?if_exists}" size="3" maxlength="3" />
+            - <input type="text" name="shipToAreaCode" id="shipToAreaCode" value="${parameters.shipToAreaCode?if_exists}" size="3" maxlength="3" />
+            - <input type="text" name="shipToContactNumber" id="shipToContactNumber" value="${contactNumber?default("${parameters.shipToContactNumber?if_exists}")}" size="6" maxlength="7" />
             - <input type="text" name="shipToExtension" id="shipToExtension" value="${extension?default("${parameters.shipToExtension?if_exists}")}" size="3" maxlength="3" />
           </div>
           <div class="inline">
@@ -162,9 +162,9 @@ under the License.
               <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"></span>
               <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"></span>
               <span id="billToPhoneRequired" style="display: none;" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
-              <input type="text" name="billToCountryCode" id="billToCountryCode" class="required" value="${parameters.billToCountryCode?if_exists}" size="3" maxlength="3"/>
-              - <input type="text" name="billToAreaCode" id="billToAreaCode" class="required" value="${parameters.billToAreaCode?if_exists}" size="3" maxlength="3"/>
-              - <input type="text" name="billToContactNumber" id="billToContactNumber" class="required" value="${contactNumber?default("${parameters.billToContactNumber?if_exists}")}" size="6" maxlength="7"/>
+              <input type="text" name="billToCountryCode" id="billToCountryCode" value="${parameters.billToCountryCode?if_exists}" size="3" maxlength="3"/>
+              - <input type="text" name="billToAreaCode" id="billToAreaCode" value="${parameters.billToAreaCode?if_exists}" size="3" maxlength="3"/>
+              - <input type="text" name="billToContactNumber" id="billToContactNumber" value="${contactNumber?default("${parameters.billToContactNumber?if_exists}")}" size="6" maxlength="7"/>
               - <input type="text" name="billToExtension" id="billToExtension" value="${extension?default("${parameters.billToExtension?if_exists}")}" size="3" maxlength="3"/>
             </div>
       </fieldset>

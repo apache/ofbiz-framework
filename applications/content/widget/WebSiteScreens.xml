@@ -142,7 +142,6 @@ under the License.
     <screen name="WebSiteCMS">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
                 <set field="titleProperty" value="PageTitleEditWebSiteCMS"/>
                 <set field="tabButtonItem" value="WebSiteCMS"/>
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteCMS"/>
@@ -217,6 +216,8 @@ under the License.
                 <entity-one entity-name="ElectronicText" value-field="dataText">
                     <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
+                
+               <set field="dummy" value="${groovy: print('dataText'============== + dataText)"/>
                 <set field="parameters.fromDate" type="Timestamp" from-field="parameters.fromDate"/>
                 <entity-one entity-name="ContentAssoc" value-field="assoc">
                     <field-map field-name="contentId" from-field="parameters.contentIdFrom"/>

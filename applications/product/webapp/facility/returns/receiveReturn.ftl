@@ -267,6 +267,12 @@ under the License.
 <script language="JavaScript" type="text/javascript">
     function setInventoryItemStatus(selection,index) {
         var statusId = "statusId_o_" + index;
-        new Ajax.Updater($(statusId), 'UpdatedInventoryItemStatus',{parameters: {inventoryItemType:selection.value,inventoryItemStatus:$(statusId).value}});
+        jObjectStatusId = jQuery("#" + statusId);
+        jQuery.ajax({
+            url: 'UpdatedInventoryItemStatus',
+            data: {inventoryItemType: selection.value, inventoryItemStatus: jObjectStatusId.val()},
+            type: "POST",
+            success: function(data){jObjectStatusId.html(data);}
+        });
     }
 </script>

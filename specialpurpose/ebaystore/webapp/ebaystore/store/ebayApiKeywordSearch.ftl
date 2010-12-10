@@ -21,10 +21,10 @@ under the License.
 //<![CDATA[
     function selectChange(formId, elementId) {
         if (elementId.id == 'searchCatalogId') {
-            if ($('searchCategoryId').selectedIndex) {
-               $('searchCategoryId')[$('searchCategoryId').selectedIndex].value = "";
+            if (document.getElementById('searchCategoryId').selectedIndex) {
+               document.getElementById('searchCategoryId')[document.getElementById('searchCategoryId').selectedIndex].value = "";
            } else {
-               $('searchCategoryId').value = "";
+               document.getElementById('searchCategoryId').value = "";
            }
         }
         formId.action="<@ofbizUrl>main</@ofbizUrl>";
@@ -32,11 +32,11 @@ under the License.
     }
     function submit (id) {
       var formId = id;
-      if(!$('searchCatalogId').empty()){
-          $(formId).submit();
+      if(!jQuery('#searchCatalogId').is(":empty")){
+          document.getElementById(formId).submit();
       } else {
-          if($('searchCatalogId').empty()) {
-             $('catalogErrorMessage').show();
+          if(jQuery('#searchCatalogId').is(":empty")) {
+             jQuery('#catalogErrorMessage').fadeIn("fast");
           }
       }
     }
@@ -60,7 +60,7 @@ under the License.
               </td>
               <td valign="middle">
                 <div>
-                  <select name="SEARCH_CATALOG_ID" id="searchCatalogId" onchange="javascript:selectChange($('advToKeywordSearchform'), $('searchCatalogId'));" class="required">
+                  <select name="SEARCH_CATALOG_ID" id="searchCatalogId" onchange="javascript:selectChange(document.getElementById('advToKeywordSearchform'), document.getElementById('searchCatalogId'));" class="required">
                     <#list prodCatalogList as prodCatalog>
                       <#assign displayDesc = prodCatalog.catalogName?default("${uiLabelMap.ProductNoDescription}") />
                       <#if (18 < displayDesc?length)>
@@ -132,7 +132,7 @@ under the License.
           <tr>
             <td align="center" colspan="2">
               <hr />
-              <a href="javascript:submit($('productSearchform'));" class="buttontext">${uiLabelMap.CommonFind}</a>
+              <a href="javascript:submit(document.getElementById('productSearchform'));" class="buttontext">${uiLabelMap.CommonFind}</a>
             </td>
           </tr>
         </table>

@@ -47,33 +47,35 @@ function getFinAccountTransRunningTotalAndBalances() {
         }
     }
     if (isAllSelected) {
-        $('checkAllTransactions').checked = true;
+        jQuery('#checkAllTransactions').attr('checked', true);
     } else {
-        $('checkAllTransactions').checked = false;
+        jQuery('#checkAllTransactions').attr('checked', false);
     }
     if (!isSingle) {
-        $('submitButton').disabled = false;
-        if ($('showFinAccountTransRunningTotal')) {
-            new Ajax.Request('getFinAccountTransRunningTotalAndBalances', {
-                asynchronous: false,
-                onSuccess: function(transport) {
-                    var data = transport.responseText.evalJSON(true);
-                    $('showFinAccountTransRunningTotal').update(data.finAccountTransRunningTotal);
-                    $('finAccountTransRunningTotal').update(data.finAccountTransRunningTotal);
-                    $('numberOfFinAccountTransaction').update(data.numberOfTransactions);
-                    $('endingBalance').update(data.endingBalance);
-                }, parameters: $('listFinAccTra').serialize(), requestHeaders: {Accept: 'application/json'}
+        jQuery('#submitButton').attr('disabled', '');
+        if (jQuery('#showFinAccountTransRunningTotal').length) {
+            jQuery.ajax({
+                url: 'getFinAccountTransRunningTotalAndBalances',
+                async: false,
+                type: 'POST',
+                data: jQuery('#listFinAccTra').serialize(),
+                success: function(data) {
+                    jQuery('#showFinAccountTransRunningTotal').html(data.finAccountTransRunningTotal);
+                    jQuery('#finAccountTransRunningTotal').html(data.finAccountTransRunningTotal);
+                    jQuery('#numberOfFinAccountTransaction').html(data.numberOfTransactions);
+                    jQuery('#endingBalance').html(data.endingBalance);
+                }
             });
         }
     } else {
-        if ($('showFinAccountTransRunningTotal')) {
-            $('showFinAccountTransRunningTotal').update("");
-            $('finAccountTransRunningTotal').update("");
-            $('numberOfFinAccountTransaction').update("");
-            $('endingBalance').update($('endingBalanceInput').value);
-            
+        if (jQuery('#showFinAccountTransRunningTotal').length) {
+            jQuery('#showFinAccountTransRunningTotal').html("");
+            jQuery('#finAccountTransRunningTotal').html("");
+            jQuery('#numberOfFinAccountTransaction').html("");
+            jQuery('#endingBalance').html(jQuery('#endingBalanceInput').val());
+
         }
-        $('submitButton').disabled = true;
+        jQuery('#submitButton').attr('disabled', '');
     }
 }
 -->
@@ -178,10 +180,7 @@ function getFinAccountTransRunningTotalAndBalances() {
             <td>
               <#if payments?has_content>
                 <a id="togglePayment_${finAccountTrans.finAccountTransId}" href="javascript:void(0)"><img src="<@ofbizContentUrl>/images/expand.gif</@ofbizContentUrl>" alt=""/></a> ${finAccountTrans.finAccountTransId}
-                <div id="displayPayments_${finAccountTrans.finAccountTransId}" class="popup" style="display: none;width: 650px;">
-                  <div align="right">
-                    <input class="popup_closebox buttontext" type="button" value="X"/>
-                  </div>
+                <div id="displayPayments_${finAccountTrans.finAccountTransId}" style="display: none;width: 650px;">
                   <table class="basic-table hover-bar" cellspacing="0" style"width :">
                     <tr class="header-row-2">
                       <th>${uiLabelMap.AccountingDepositSlipId}</th>
@@ -222,7 +221,16 @@ function getFinAccountTransRunningTotalAndBalances() {
                   </table>
                 </div>
                 <script type="text/javascript">
-                  new Popup('displayPayments_${finAccountTrans.finAccountTransId}','togglePayment_${finAccountTrans.finAccountTransId}', {modal: true, position: 'center', trigger: 'click'})
+                   jQuery(document).ready( function() {
+                        jQuery("#displayPayments_${finAccountTrans.finAccountTransId}").dialog({autoOpen: false, modal: true,
+                                buttons: {
+                                '${uiLabelMap.CommonClose}': function() {
+                                    jQuery(this).dialog('close');
+                                    }
+                                }
+                           });
+                   jQuery("#togglePayment_${finAccountTrans.finAccountTransId}").click(function(){jQuery("#displayPayments_${finAccountTrans.finAccountTransId}").dialog("open")});
+                   });
                 </script>
                 <a href="<@ofbizUrl>DepositSlip.pdf?finAccountTransId=${finAccountTrans.finAccountTransId}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingDepositSlip}</a>
               <#else>

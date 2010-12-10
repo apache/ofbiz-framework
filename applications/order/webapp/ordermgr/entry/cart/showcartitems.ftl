@@ -196,24 +196,20 @@ under the License.
                <tr>
                 <td>
                   <div>${uiLabelMap.OrderShipAfterDate}
-                    <input type="text" size="20" maxlength="30" name="shipAfterDate_${cartLineIndex}"
-                      value="${cartLine.getShipAfterDate()?default("")}"/>
-                    <a href="javascript:call_cal(document.cartform.shipAfterDate_${cartLineIndex},'${shoppingCart.getShipAfterDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                    <@htmlTemplate.renderDateTimeField name="shipAfterDate_${cartLineIndex}" value="${cartLine.getShipAfterDate()?default('')}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="shipAfterDate_${cartLineIndex}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                   </div>
                 </td>
                 <td>&nbsp;</td>
                 <td>
                   <div>${uiLabelMap.OrderShipBeforeDate}
-                    <input type="text" size="20" maxlength="30" name="shipBeforeDate_${cartLineIndex}"
-                      value="${cartLine.getShipBeforeDate()?default("")}"/>
-                    <a href="javascript:call_cal(document.cartform.shipBeforeDate_${cartLineIndex},'${shoppingCart.getShipBeforeDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
+                    <@htmlTemplate.renderDateTimeField name="shipBeforeDate_${cartLineIndex}" value="${cartLine.getShipBeforeDate()?default('')}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="shipBeforeDate_${cartLineIndex}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                   </div>
                 </td>
                </tr>
                </table>
               </td>
             </tr>
-            
+
             <#-- Show Associated Products (not for Variants) -->
             <#assign itemProductAssocList = cartLine.getProduct().getRelated("MainProductAssoc",
                 Static["org.ofbiz.base.util.UtilMisc"].toList("productAssocTypeId", "sequenceNum"))?if_exists/>
