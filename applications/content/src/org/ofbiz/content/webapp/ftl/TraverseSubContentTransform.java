@@ -83,11 +83,11 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
-        final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+        final Map templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
         //FreeMarkerWorker.convertContext(templateCtx);
         final Map savedValues = FreeMarkerWorker.saveValues(templateCtx, saveKeyNames);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
-        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
 /*
         final String editTemplate = FreeMarkerWorker.getArg(args, "editTemplate", ctx);
         final String wrapTemplateId = FreeMarkerWorker.getArg(args, "wrapTemplateId", ctx);
@@ -105,12 +105,12 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         final String highIndex = FreeMarkerWorker.getArg(args, "highIndex", ctx);
         final String lowIndex = FreeMarkerWorker.getArg(args, "lowIndex", ctx);
         final String queryString = FreeMarkerWorker.getArg(args, "queryString", ctx);
-        final Locale locale = (Locale) FreeMarkerWorker.getWrappedObject("locale", env);
+        final Locale locale = FreeMarkerWorker.getWrappedObject("locale", env);
         final String mimeTypeId = FreeMarkerWorker.getArg(args, "mimeTypeId", ctx);
 */
-        final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
-        //final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
-        GenericValue view = (GenericValue) FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
+        final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
+        //final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
+        GenericValue view = FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
         final Integer indent = (templateCtx.get("indent") == null) ? Integer.valueOf(0) : (Integer)templateCtx.get("indent");
 
         String contentId = (String)templateCtx.get("contentId");
@@ -272,7 +272,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                         throw new IOException("Error rendering content" + e.toString());
                     }
 /*
-                    Map resultsCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+                    Map resultsCtx = FreeMarkerWorker.getWrappedObject("context", env);
                     templateContext.put("contentId", contentId);
                     templateContext.put("locale", locale);
                     templateContext.put("mapKey", null);

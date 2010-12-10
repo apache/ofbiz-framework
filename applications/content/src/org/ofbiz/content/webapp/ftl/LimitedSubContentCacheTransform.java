@@ -90,8 +90,8 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
-        final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
+        final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final Map savedValuesUp = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
@@ -135,7 +135,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         final int returnLimit = Integer.parseInt(limitSize);
         // limitMode will be "random" to begin with
         String limitMode = (String) templateRoot.get("limitMode");
-        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
+        final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         List globalNodeTrail = (List) templateRoot.get("globalNodeTrail");
         String strNullThruDatesOnly = (String) templateRoot.get("nullThruDatesOnly");
         String orderBy = (String) templateRoot.get("orderBy");

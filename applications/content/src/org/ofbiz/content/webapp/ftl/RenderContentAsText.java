@@ -58,12 +58,12 @@ public class RenderContentAsText implements TemplateTransformModel {
 
     public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
-        //final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+        //final Map templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
         //final Map templateCtx = FastMap.newInstance();
-        final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
-        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
-        final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
-        final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
+        final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
+        final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
+        final HttpServletResponse response = FreeMarkerWorker.getWrappedObject("response", env);
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
@@ -71,7 +71,7 @@ public class RenderContentAsText implements TemplateTransformModel {
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
-        // not used yet: final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
+        // not used yet: final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         // not used yet: List trail = (List)templateRoot.get("globalNodeTrail");
         //if (Debug.infoOn()) Debug.logInfo("in Render(0), globalNodeTrail ." + trail , module);
         // not used yet: String contentAssocPredicateId = (String)templateRoot.get("contentAssocPredicateId");
