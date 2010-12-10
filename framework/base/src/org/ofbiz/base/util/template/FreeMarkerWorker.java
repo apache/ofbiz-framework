@@ -341,7 +341,7 @@ public class FreeMarkerWorker {
     }
 
     public static String getArg(Map<String, ? extends Object> args, String key, Environment env) {
-        Map<String, ? extends Object> templateContext = UtilGenerics.checkMap(FreeMarkerWorker.getWrappedObject("context", env));
+        Map<String, ? extends Object> templateContext = FreeMarkerWorker.getWrappedObject("context", env);
         return getArg(args, key, templateContext);
     }
 
@@ -382,7 +382,7 @@ public class FreeMarkerWorker {
     * @param varName the name of the variable in the FreeMarker context.
     * @param env the FreeMarker Environment
     */
-    public static Object getWrappedObject(String varName, Environment env) {
+    public static <T> T getWrappedObject(String varName, Environment env) {
         Object obj = null;
         try {
             obj = env.getVariable(varName);
@@ -399,7 +399,7 @@ public class FreeMarkerWorker {
         } catch (TemplateModelException e) {
             Debug.logInfo(e.getMessage(), module);
         }
-        return obj;
+        return UtilGenerics.<T>cast(obj);
     }
 
    /**
@@ -687,7 +687,7 @@ public class FreeMarkerWorker {
             te.printStackTrace(pw);
             String stackTrace = tempWriter.toString();
 
-            StringUtil.SimpleEncoder simpleEncoder = (SimpleEncoder) FreeMarkerWorker.getWrappedObject("simpleEncoder", env);
+            StringUtil.SimpleEncoder simpleEncoder = FreeMarkerWorker.getWrappedObject("simpleEncoder", env);
             if (simpleEncoder != null) {
                 stackTrace = simpleEncoder.encode(stackTrace);
             }

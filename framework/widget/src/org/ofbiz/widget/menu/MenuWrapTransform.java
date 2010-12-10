@@ -73,13 +73,13 @@ public class MenuWrapTransform implements TemplateTransformModel {
     @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
-        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
-        final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
-        final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
-        final HttpSession session = (HttpSession) FreeMarkerWorker.getWrappedObject("session", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
+        final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
+        final HttpServletResponse response = FreeMarkerWorker.getWrappedObject("response", env);
+        final HttpSession session = FreeMarkerWorker.getWrappedObject("session", env);
 
-        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
-        final Map<String, Object> templateCtx = UtilGenerics.checkMap(FreeMarkerWorker.getWrappedObject("context", env));
+        final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
+        final Map<String, Object> templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
 
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
 

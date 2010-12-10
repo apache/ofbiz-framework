@@ -81,7 +81,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
-        //final Map templateRoot = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+        //final Map templateRoot = FreeMarkerWorker.getWrappedObject("context", env);
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         //FreeMarkerWorker.convertContext(templateRoot);
         final Map savedValuesUp = FastMap.newInstance();
@@ -90,10 +90,10 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         String startContentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
             //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, startContentAssocTypeId:" + startContentAssocTypeId, module);
-        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
-        final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
+        final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
+        final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         Object obj = templateRoot.get("globalNodeTrail");
         List globalNodeTrail = (List)obj;
         //List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");

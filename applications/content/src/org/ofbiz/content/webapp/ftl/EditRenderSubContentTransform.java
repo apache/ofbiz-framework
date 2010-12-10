@@ -77,7 +77,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
-        Map ctx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+        Map ctx = FreeMarkerWorker.getWrappedObject("context", env);
         final String editTemplate = FreeMarkerWorker.getArg(args, "editTemplate", ctx);
         final String wrapTemplateId = FreeMarkerWorker.getArg(args, "wrapTemplateId", ctx);
         final String mapKey = FreeMarkerWorker.getArg(args, "mapKey", ctx);
@@ -87,16 +87,16 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         final String contentId = FreeMarkerWorker.getArg(args, "contentId", ctx);
 
 
-        final Locale locale = (Locale) FreeMarkerWorker.getWrappedObject("locale", env);
+        final Locale locale = FreeMarkerWorker.getWrappedObject("locale", env);
         String mimeTypeIdTemp = FreeMarkerWorker.getArg(args, "mimeTypeId", ctx);
         final String rootDir = FreeMarkerWorker.getArg(args, "rootDir", ctx);
         final String webSiteId = FreeMarkerWorker.getArg(args, "webSiteId", ctx);
         final String https = FreeMarkerWorker.getArg(args, "https", ctx);
-        final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
-        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
-        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
-        GenericValue subContentDataResourceViewTemp = (GenericValue) FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
-        //final HttpServletRequest request = (HttpServletRequest)FreeMarkerWorker.getWrappedObject("request", env);
+        final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
+        final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
+        GenericValue subContentDataResourceViewTemp = FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
+        //final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
 
         ctx.put("mapKey", mapKey);
         ctx.put("subDataResourceTypeIdTemp", subDataResourceTypeIdTemp);
@@ -213,7 +213,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                             throw new IOException("Error rendering content" + e2.toString());
                         }
 
-                        Map ctx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+                        Map ctx = FreeMarkerWorker.getWrappedObject("context", env);
                         templateContext.put("contentId", contentId);
                         templateContext.put("locale", locale);
                         templateContext.put("mapKey", null);

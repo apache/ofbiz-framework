@@ -82,13 +82,13 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
-        final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
-        final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
-        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
-        final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
+        final Map templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
+        final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
+        final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
-        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
+        final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         List trail = (List)templateCtx.get("globalNodeTrail");
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");

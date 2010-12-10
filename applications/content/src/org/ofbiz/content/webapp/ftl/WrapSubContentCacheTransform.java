@@ -81,16 +81,16 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
-        Map envContext = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+        Map envContext = FreeMarkerWorker.getWrappedObject("context", env);
         final Map templateCtx;
         if (envContext == null) {
             templateCtx = FreeMarkerWorker.createEnvironmentMap(env);
         } else {
             templateCtx = envContext;
         }
-        final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
-        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
-        final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
+        final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
+        final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
         final Map savedValuesUp = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateCtx, upSaveKeyNames, savedValuesUp);
@@ -99,7 +99,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
         //if (Debug.infoOn()) Debug.logInfo("in Wrap(0b), savedValuesUp ." + savedValuesUp , module);
         final String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
         //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, wrapTemplateId(1):" + wrapTemplateId, module);
-        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
+        final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         List trail = (List)templateCtx.get("globalNodeTrail");
                 //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, trail(0):" + trail, "");
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");

@@ -78,11 +78,11 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
-        final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+        final Map templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
         //FreeMarkerWorker.convertContext(templateCtx);
-        final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
-        final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
-        final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
+        final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
+        final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
 
