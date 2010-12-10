@@ -358,7 +358,7 @@ public class ProductionRunServices {
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem calling the createWorkEffortAssoc service", module);
                 }
-                
+
                 // clone associated objects from the routing task to the run task
                 String routingTaskId = routingTaskAssoc.getString("workEffortIdTo");
                 cloneWorkEffortPartyAssignments(ctx, userLogin, routingTaskId, productionRunTaskId);
@@ -451,7 +451,7 @@ public class ProductionRunServices {
             }
         }
     }
-    
+
     /**
      * Make a copy of the cost calc entities that were defined on the template routing task to the new production run task.
      */
@@ -463,7 +463,7 @@ public class ProductionRunServices {
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(),  module);
         }
-        
+
         if (workEffortCostCalcs != null) {
             for (GenericValue costCalc : workEffortCostCalcs) {
                 Map<String, Object> createCostCalc = UtilMisc.toMap(
@@ -484,7 +484,7 @@ public class ProductionRunServices {
             }
         }
     }
-    
+
     /**
      * Update a Production Run.
      *  <li> update field and after recalculate the entire ProductionRun data (routingTask and productComponent)
@@ -1081,9 +1081,9 @@ public class ProductionRunServices {
             if (UtilValidate.isNotEmpty(routingTaskAssoc)) {
                 routingTask = routingTaskAssoc.getRelatedOne("FromWorkEffort");
             }
-            
+
             // Get all the valid CostComponentCalc entries
-            List workEffortCostCalcs = workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", productionRunTaskId)); 
+            List workEffortCostCalcs = workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", UtilMisc.toMap("workEffortId", productionRunTaskId));
             workEffortCostCalcs = EntityUtil.filterByDate(workEffortCostCalcs);
 
             Iterator workEffortCostCalcsIt = workEffortCostCalcs.iterator();
@@ -1125,7 +1125,7 @@ public class ProductionRunServices {
                     dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
                 }
             }
-            
+
             // Now get the cost information associated to the fixed asset and compute the costs
             GenericValue fixedAsset = workEffort.getRelatedOne("FixedAsset");
             if (UtilValidate.isEmpty(fixedAsset) && UtilValidate.isNotEmpty(routingTask)) {

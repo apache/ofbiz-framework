@@ -325,7 +325,7 @@ function toggleOrderIdList() {
                     </#if>
                     <option value="">${uiLabelMap.OrderSelectShippingMethod}</option>
                     <#list carrierShipmentMethods as carrierShipmentMethod>
-                      <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType")> 
+                      <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType")>
                       <option value="${carrierShipmentMethod.partyId}@${carrierShipmentMethod.shipmentMethodTypeId}">${carrierShipmentMethod.partyId?if_exists} ${shipmentMethodType.description?if_exists}</option>
                     </#list>
                   </select>
@@ -454,7 +454,7 @@ function toggleOrderIdList() {
                        <#assign includeCountry = requestParameters.includeCountry>
                        <option value="${includeCountry}"><#if "Y" == includeCountry>${uiLabelMap.OrderOnlyInclude}<#elseif "N" == includeCountry>${uiLabelMap.OrderDoNotInclude}</#if></option>
                        <option value="${includeCountry}">---</option>
-                    </#if>  
+                    </#if>
                     <option value="Y">${uiLabelMap.OrderOnlyInclude}</option>
                     <option value="N">${uiLabelMap.OrderDoNotInclude}</option>
                   </select>

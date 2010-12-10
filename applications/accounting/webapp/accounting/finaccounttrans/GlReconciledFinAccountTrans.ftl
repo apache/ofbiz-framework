@@ -21,7 +21,7 @@ under the License.
   <input name="_useRowSubmit" type="hidden" value="Y"/>
   <input name="finAccountId" type="hidden" value="${finAccountId}"/>
   <input name="glReconciliationId" type="hidden" value="${glReconciliationId}"/>
-  <div class="screenlet"> 
+  <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
         <li class="h3">${uiLabelMap.AccountingCurrentBankReconciliation}</li>
@@ -43,7 +43,7 @@ under the License.
           <#if currentGlReconciliation.statusId?exists>
             <tr>
               <td><span class="label">${uiLabelMap.CommonStatus}</span></td>
-              <#assign currentStatus = currentGlReconciliation.getRelatedOneCache("StatusItem")>  
+              <#assign currentStatus = currentGlReconciliation.getRelatedOneCache("StatusItem")>
               <td>${currentStatus.description?if_exists}</td>
             </tr>
           </#if>
@@ -71,7 +71,7 @@ under the License.
       </#if>
     </div>
   </div>
-  <div class="screenlet"> 
+  <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
         <li class="h3">${uiLabelMap.AccountingPreviousBankReconciliation}</li>
@@ -88,7 +88,7 @@ under the License.
           <#if previousGlReconciliation.statusId?exists>
             <tr>
               <td><span class="label">${uiLabelMap.CommonStatus}</span></td>
-              <#assign previousStatus = previousGlReconciliation.getRelatedOneCache("StatusItem")> 
+              <#assign previousStatus = previousGlReconciliation.getRelatedOneCache("StatusItem")>
               <td>${previousStatus.description?if_exists}</td>
             </tr>
           </#if>
@@ -116,7 +116,7 @@ under the License.
       </#if>
     </div>
   </div>
-  <div class="screenlet"> 
+  <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
         <li class="h3">${uiLabelMap.AccountingFinAcctTransAssociatedToGlReconciliation}</li>
@@ -208,7 +208,7 @@ under the License.
       </#if>
     </div>
     <div class="right">
-      <span class="label">${uiLabelMap.AccountingTotalCapital} </span><@ofbizCurrency amount=transactionTotalAmount.grandTotal isoCode=defaultOrganizationPartyCurrencyUomId/> 
+      <span class="label">${uiLabelMap.AccountingTotalCapital} </span><@ofbizCurrency amount=transactionTotalAmount.grandTotal isoCode=defaultOrganizationPartyCurrencyUomId/>
       <#if isReconciled == false>
         <input type="submit" value="${uiLabelMap.AccountingReconcile}"/>
       </#if>
