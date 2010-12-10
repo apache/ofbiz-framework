@@ -418,10 +418,10 @@ public class MacroFormRenderer implements FormStringRenderer {
                 alert = "true";
             }
         }
-        String visualEdtiorEnalble = "";
+        String visualEditorEnable = "";
         String buttons = "";
         if (textareaField.getVisualEditorEnable()) {
-            visualEdtiorEnalble = "true";
+            visualEditorEnable = "true";
             buttons = textareaField.getVisualEditorButtons(context);
             if (UtilValidate.isEmpty(buttons)) {
                 buttons = "maxi";
@@ -455,8 +455,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(id);
         sr.append("\" readonly=\"");
         sr.append(readonly);
-        sr.append("\" visualEdtiorEnalble=\"");
-        sr.append(visualEdtiorEnalble);
+        sr.append("\" visualEditorEnable=\"");
+        sr.append(visualEditorEnable);
         sr.append("\" language=\"");
         sr.append(language);
         sr.append("\" buttons=\"");
