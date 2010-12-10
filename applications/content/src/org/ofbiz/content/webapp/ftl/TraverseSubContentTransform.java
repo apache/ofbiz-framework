@@ -56,16 +56,26 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
     public static final String [] removeKeyNames = {"templateContentId", "subDataResourceTypeId", "mapKey", "wrappedFTL", "nodeTrail"};
 
     /**
+     * @deprecated use FreeMarkerWorker.getWrappedObject()
      * A wrapper for the FreeMarkerWorker version.
      */
+    @Deprecated
     public static Object getWrappedObject(String varName, Environment env) {
         return FreeMarkerWorker.getWrappedObject(varName, env);
     }
 
+    /**
+     * @deprecated use FreeMarkerWorker.getArg()
+     */
+    @Deprecated
     public static String getArg(Map args, String key, Environment env) {
         return FreeMarkerWorker.getArg(args, key, env);
     }
 
+    /**
+     * @deprecated use FreeMarkerWorker.getArg()
+     */
+    @Deprecated
     public static String getArg(Map args, String key, Map ctx) {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
@@ -79,24 +89,24 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
         final Delegator delegator = (Delegator) FreeMarkerWorker.getWrappedObject("delegator", env);
 /*
-        final String editTemplate = getArg(args, "editTemplate", ctx);
-        final String wrapTemplateId = getArg(args, "wrapTemplateId", ctx);
-        //final String mapKey = getArg(args, "mapKey", ctx);
-        final String templateContentId = getArg(args, "templateContentId", ctx);
-        final String subDataResourceTypeId = getArg(args, "subDataResourceTypeId", ctx);
-        final String contentId = getArg(args, "contentId", ctx);
-        final String subContentId = getArg(args, "subContentId", ctx);
-        final String rootDir = getArg(args, "rootDir", ctx);
-        final String webSiteId = getArg(args, "webSiteId", ctx);
-        final String https = getArg(args, "https", ctx);
-        final String viewSize = getArg(args, "viewSize", ctx);
-        final String viewIndex = getArg(args, "viewIndex", ctx);
-        final String listSize = getArg(args, "listSize", ctx);
-        final String highIndex = getArg(args, "highIndex", ctx);
-        final String lowIndex = getArg(args, "lowIndex", ctx);
-        final String queryString = getArg(args, "queryString", ctx);
+        final String editTemplate = FreeMarkerWorker.getArg(args, "editTemplate", ctx);
+        final String wrapTemplateId = FreeMarkerWorker.getArg(args, "wrapTemplateId", ctx);
+        //final String mapKey = FreeMarkerWorker.getArg(args, "mapKey", ctx);
+        final String templateContentId = FreeMarkerWorker.getArg(args, "templateContentId", ctx);
+        final String subDataResourceTypeId = FreeMarkerWorker.getArg(args, "subDataResourceTypeId", ctx);
+        final String contentId = FreeMarkerWorker.getArg(args, "contentId", ctx);
+        final String subContentId = FreeMarkerWorker.getArg(args, "subContentId", ctx);
+        final String rootDir = FreeMarkerWorker.getArg(args, "rootDir", ctx);
+        final String webSiteId = FreeMarkerWorker.getArg(args, "webSiteId", ctx);
+        final String https = FreeMarkerWorker.getArg(args, "https", ctx);
+        final String viewSize = FreeMarkerWorker.getArg(args, "viewSize", ctx);
+        final String viewIndex = FreeMarkerWorker.getArg(args, "viewIndex", ctx);
+        final String listSize = FreeMarkerWorker.getArg(args, "listSize", ctx);
+        final String highIndex = FreeMarkerWorker.getArg(args, "highIndex", ctx);
+        final String lowIndex = FreeMarkerWorker.getArg(args, "lowIndex", ctx);
+        final String queryString = FreeMarkerWorker.getArg(args, "queryString", ctx);
         final Locale locale = (Locale) FreeMarkerWorker.getWrappedObject("locale", env);
-        final String mimeTypeId = getArg(args, "mimeTypeId", ctx);
+        final String mimeTypeId = FreeMarkerWorker.getArg(args, "mimeTypeId", ctx);
 */
         final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
         //final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
