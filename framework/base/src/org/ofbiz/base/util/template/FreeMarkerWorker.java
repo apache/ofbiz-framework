@@ -157,8 +157,7 @@ public class FreeMarkerWorker {
     public static void renderTemplate(String templateLocation, String templateString, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         renderTemplate(templateLocation, templateString, context, outWriter, true);
     }
-    
-    
+
     /**
      * Renders a template contained in a String.
      * @param templateLocation A unique ID for this template - used for caching
@@ -189,7 +188,7 @@ public class FreeMarkerWorker {
 
     /**
      * @deprecated, replaced by {@link #renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter, boolean useCache)}
-     */    
+     */
     @Deprecated
     public static Environment renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         Template template = cachedTemplates.get(templateLocation);
@@ -381,7 +380,6 @@ public class FreeMarkerWorker {
         }
         return returnVal;
     }
-
 
    /**
     * Gets BeanModel from FreeMarker context and returns the object that it wraps.
@@ -686,7 +684,6 @@ public class FreeMarkerWorker {
     /**
      * OFBiz specific TemplateExceptionHandler.  Sanitizes any error messages present in
      * the stack trace prior to printing to the output writer.
-     *
      */
     static class OFBizTemplateExceptionHandler implements TemplateExceptionHandler {
         public void handleTemplateException(TemplateException te, Environment env, Writer out) throws TemplateException {
