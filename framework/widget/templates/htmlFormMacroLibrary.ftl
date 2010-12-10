@@ -64,7 +64,7 @@ under the License.
     </#if>
 </#macro>
 
-<#macro renderTextareaField name className alert cols rows id readonly value visualEdtiorEnalble language buttons>
+<#macro renderTextareaField name className alert cols rows id readonly value visualEditorEnable buttons language="">
     <textarea name="${name}"<#t/>
     <@renderClass className alert />
     <#if cols?has_content> cols="${cols}"</#if><#rt/>
@@ -75,7 +75,7 @@ under the License.
     ><#t/>
     <#if value?has_content>${value}</#if><#t/>
     </textarea><#lt/>
-    <#if visualEdtiorEnalble?has_content>
+    <#if visualEditorEnable?has_content>
         <script language="javascript" src="/images/jquery/plugins/elrteEditor/elrte.min.js" type="text/javascript"></script><#rt/>
         <#if language?has_content && language != "en">
             <script language="javascript" src="/images/jquery/plugins/elrteEditor/i18n/elrte.${language!"en"}.js" type="text/javascript"></script><#rt/>
