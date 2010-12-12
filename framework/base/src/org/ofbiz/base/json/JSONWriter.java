@@ -113,7 +113,7 @@ public class JSONWriter {
                 writer.write(c);
             } else {
                 writer.write("\\u");
-                String n = Integer.toString((int) c, 16);
+                String n = Integer.toString(c, 16);
                 for (int j = 4 - n.length(); j > 0; j--) writer.write('0');
                 writer.write(n);
             }

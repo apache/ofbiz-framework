@@ -462,9 +462,9 @@ public class EbayStore {
                     productStore = delegator.findByPrimaryKey("ProductStore",UtilMisc.toMap("productStoreId", context.get("productStoreId").toString()));
                 }
                 Element itemElem = UtilXml.addChildElement(storeRequestElem, "Store", storeDocument);
-                UtilXml.addChildElementValue(itemElem, "Name", (String) productStore.getString("storeName"), storeDocument);
+                UtilXml.addChildElementValue(itemElem, "Name", productStore.getString("storeName"), storeDocument);
                 UtilXml.addChildElementValue(itemElem, "SubscriptionLevel", "Basic", storeDocument);
-                UtilXml.addChildElementValue(itemElem, "Description", (String) productStore.getString("title"), storeDocument);
+                UtilXml.addChildElementValue(itemElem, "Description", productStore.getString("title"), storeDocument);
                 dataStoreXml.append(UtilXml.writeXmlDocument(storeDocument));
 
             } catch (Exception e) {
@@ -939,7 +939,7 @@ public class EbayStore {
 
                     Map<String,Object> storeColorSchemeMap = null;
                     while (i < storeBasicTheme.length) {
-                        StoreThemeType storeThemeType = (StoreThemeType) storeBasicTheme[i];
+                        StoreThemeType storeThemeType = storeBasicTheme[i];
                         if (themeId.equals(storeThemeType.getThemeID().toString())) {
                             StoreColorSchemeType colorSchemeType = storeThemeType.getColorScheme();
                             if (colorSchemeType != null) {
@@ -998,7 +998,7 @@ public class EbayStore {
                     List<Map<String,Object>> logoList = FastList.newInstance();
                     while (i < returnedLogoArray.getLogoLength()) {
                         Map<String,Object> logo  = FastMap.newInstance();
-                        StoreLogoType storeLogoType = (StoreLogoType) returnedLogoArray.getLogo(i);
+                        StoreLogoType storeLogoType = returnedLogoArray.getLogo(i);
                         logo.put("storeLogoId", storeLogoType.getLogoID());
                         logo.put("storeLogoName", storeLogoType.getName());
                         logo.put("storeLogoURL", storeLogoType.getURL());
@@ -1043,7 +1043,7 @@ public class EbayStore {
                     List<Map<String,Object>> themeList = FastList.newInstance();
                     while (i < returnedBasicThemeArray.getThemeLength()) {
                         Map<String,Object> basictheme  = FastMap.newInstance();
-                        StoreThemeType storeBasicThemeType = (StoreThemeType) returnedBasicThemeArray.getTheme(i);
+                        StoreThemeType storeBasicThemeType = returnedBasicThemeArray.getTheme(i);
                         basictheme.put("storeThemeId", storeBasicThemeType.getThemeID());
                         basictheme.put("storeThemeName", storeBasicThemeType.getName());
 
@@ -1109,7 +1109,7 @@ public class EbayStore {
                     List<Map<String,Object>> themeColorList = FastList.newInstance();
                     while (j < storeColorSchemeTypes.length) {
                         Map<String,Object> advanceColorTheme = FastMap.newInstance();
-                        StoreColorSchemeType storeColorSchemeType = (StoreColorSchemeType) storeColorSchemeTypes[j];
+                        StoreColorSchemeType storeColorSchemeType = storeColorSchemeTypes[j];
                         advanceColorTheme.put("storeColorSchemeId", storeColorSchemeType.getColorSchemeID());
                         advanceColorTheme.put("storeColorName", storeColorSchemeType.getName());
                         themeColorList.add(advanceColorTheme);
@@ -1156,7 +1156,7 @@ public class EbayStore {
                     StoreColorSchemeType[] storeColorSchemeTypes = returnedThemeArray.getGenericColorSchemeArray().getColorScheme();
                     while (i < storeColorSchemeTypes.length) {
 
-                        StoreColorSchemeType storeColorSchemeType = (StoreColorSchemeType) storeColorSchemeTypes[i];
+                        StoreColorSchemeType storeColorSchemeType = storeColorSchemeTypes[i];
                         StoreFontType storeFontType =  storeColorSchemeType.getFont();
                         advanceFontTheme.put("storeFontTypeNameFaceColor",storeFontType.getNameColor());
                         int j = 0;
@@ -1165,7 +1165,7 @@ public class EbayStore {
                         List<Map<String,Object>> nameFaces = FastList.newInstance();
                         while (j < storeFontNameFaceCodeTypes.length) {
                             Map<String,Object> storeFontNameFaceCodeTypeMap = FastMap.newInstance();
-                            StoreFontFaceCodeType storeFontNameFaceCodeType = (StoreFontFaceCodeType) storeFontNameFaceCodeTypes[j];
+                            StoreFontFaceCodeType storeFontNameFaceCodeType = storeFontNameFaceCodeTypes[j];
                             storeFontNameFaceCodeTypeMap.put("storeFontValue", storeFontNameFaceCodeType.value());
                             storeFontNameFaceCodeTypeMap.put("storeFontName", storeFontNameFaceCodeType.name());
                             nameFaces.add(storeFontNameFaceCodeTypeMap);
@@ -1178,7 +1178,7 @@ public class EbayStore {
                         List<Map<String,Object>> sizeFaces = FastList.newInstance();
                         while (j < storeFontSizeCodeTypes.length) {
                             Map<String,Object> storeFontSizeCodeTypeMap = FastMap.newInstance();
-                            StoreFontSizeCodeType storeFontSizeCodeType = (StoreFontSizeCodeType) storeFontSizeCodeTypes[j];
+                            StoreFontSizeCodeType storeFontSizeCodeType = storeFontSizeCodeTypes[j];
                             storeFontSizeCodeTypeMap.put("storeFontSizeValue", storeFontSizeCodeType.value());
                             storeFontSizeCodeTypeMap.put("storeFontSizeName", storeFontSizeCodeType.name());
                             sizeFaces.add(storeFontSizeCodeTypeMap);
@@ -1193,7 +1193,7 @@ public class EbayStore {
                         List<Map<String,Object>> titleFaces = FastList.newInstance();
                         while (j < storeFontTypeTitleFaces.length) {
                             Map<String,Object> storeFontTypeTitleFaceMap = FastMap.newInstance();
-                            StoreFontFaceCodeType storeFontTypeTitleFace = (StoreFontFaceCodeType) storeFontTypeTitleFaces[j];
+                            StoreFontFaceCodeType storeFontTypeTitleFace = storeFontTypeTitleFaces[j];
                             storeFontTypeTitleFaceMap.put("storeFontValue", storeFontTypeTitleFace.value());
                             storeFontTypeTitleFaceMap.put("storeFontName", storeFontTypeTitleFace.name());
                             titleFaces.add(storeFontTypeTitleFaceMap);
@@ -1207,7 +1207,7 @@ public class EbayStore {
                         List<Map<String,Object>> titleSizes = FastList.newInstance();
                         while (j < storeTitleSizeCodeTypes.length) {
                             Map<String,Object> storeFontSizeCodeTypeMap = FastMap.newInstance();
-                            StoreFontSizeCodeType storeFontSizeCodeType = (StoreFontSizeCodeType) storeTitleSizeCodeTypes[j];
+                            StoreFontSizeCodeType storeFontSizeCodeType = storeTitleSizeCodeTypes[j];
                             storeFontSizeCodeTypeMap.put("storeFontSizeValue", storeFontSizeCodeType.value());
                             storeFontSizeCodeTypeMap.put("storeFontSizeName", storeFontSizeCodeType.name());
                             titleSizes.add(storeFontSizeCodeTypeMap);
@@ -1223,7 +1223,7 @@ public class EbayStore {
                         List<Map<String,Object>> descFaces = FastList.newInstance();
                         while (j < storeFontTypeDescFaces.length) {
                             Map<String,Object> storeFontTypeDescFaceMap = FastMap.newInstance();
-                            StoreFontFaceCodeType storeFontTypeDescFace = (StoreFontFaceCodeType) storeFontTypeDescFaces[j];
+                            StoreFontFaceCodeType storeFontTypeDescFace = storeFontTypeDescFaces[j];
                             storeFontTypeDescFaceMap.put("storeFontValue", storeFontTypeDescFace.value());
                             storeFontTypeDescFaceMap.put("storeFontName", storeFontTypeDescFace.name());
                             descFaces.add(storeFontTypeDescFaceMap);
@@ -1237,7 +1237,7 @@ public class EbayStore {
                         List<Map<String,Object>> descSizes = FastList.newInstance();
                         while (j < storeDescSizeCodeTypes.length) {
                             Map<String,Object> storeFontSizeCodeTypeMap = FastMap.newInstance();
-                            StoreFontSizeCodeType storeFontSizeCodeType = (StoreFontSizeCodeType) storeDescSizeCodeTypes[j];
+                            StoreFontSizeCodeType storeFontSizeCodeType = storeDescSizeCodeTypes[j];
                             storeFontSizeCodeTypeMap.put("storeFontSizeValue", storeFontSizeCodeType.value());
                             storeFontSizeCodeTypeMap.put("storeFontSizeName", storeFontSizeCodeType.name());
                             descSizes.add(storeFontSizeCodeTypeMap);

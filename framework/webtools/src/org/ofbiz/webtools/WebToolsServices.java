@@ -319,10 +319,10 @@ public class WebToolsServices {
         String readers = (String) context.get("readers");
         String overrideDelegator = (String) context.get("overrideDelegator");
         String overrideGroup = (String) context.get("overrideGroup");
-        boolean useDummyFks = "true".equals((String) context.get("createDummyFks"));
-        boolean maintainTxs = "true".equals((String) context.get("maintainTimeStamps"));
-        boolean tryInserts = "true".equals((String) context.get("mostlyInserts"));
-        boolean checkDataOnly = "true".equals((String) context.get("checkDataOnly"));
+        boolean useDummyFks = "true".equals(context.get("createDummyFks"));
+        boolean maintainTxs = "true".equals(context.get("maintainTimeStamps"));
+        boolean tryInserts = "true".equals(context.get("mostlyInserts"));
+        boolean checkDataOnly = "true".equals(context.get("checkDataOnly"));
 
         Integer txTimeoutInt = (Integer) context.get("txTimeout");
         int txTimeout = txTimeoutInt != null ? txTimeoutInt.intValue() : -1;
@@ -513,7 +513,7 @@ public class WebToolsServices {
 
                         //Don't bother writing the file if there's nothing
                         //to put into it
-                        GenericValue value = (GenericValue) values.next();
+                        GenericValue value = values.next();
                         if (value != null) {
                             PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, curEntityName +".xml")), "UTF-8")));
                             writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -526,7 +526,7 @@ public class WebToolsServices {
                                     TransactionUtil.commit(beganTx);
                                     beganTx = TransactionUtil.begin();
                                 }
-                            } while ((value = (GenericValue) values.next()) != null);
+                            } while ((value = values.next()) != null);
                             writer.println("</entity-engine-xml>");
                             writer.close();
                             results.add("["+fileNumber +"] [" + numberWritten + "] " + curEntityName + " wrote " + numberWritten + " records");

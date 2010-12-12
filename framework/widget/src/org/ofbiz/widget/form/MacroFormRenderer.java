@@ -239,7 +239,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 while (fieldIterator.hasNext()) {
                     count++;
                     Entry<String, Object> field = fieldIterator.next();
-                    extraParameter += (String) field.getKey() + ":'" + (String) field.getValue() + "'";
+                    extraParameter += field.getKey() + ":'" + (String) field.getValue() + "'";
                     if (count < fieldSet.size()) {
                         extraParameter += ',';
                     }

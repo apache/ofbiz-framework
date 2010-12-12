@@ -171,7 +171,7 @@ public class RecurrenceRule {
         Debug.logVerbose("Stamp value: " + stamp, module);
 
         if (stamp != null) {
-            long nanos = (long) stamp.getNanos();
+            long nanos = stamp.getNanos();
             time = stamp.getTime();
             time += (nanos / 1000000);
         }

@@ -336,7 +336,7 @@ public class EntityDataLoadContainer implements Container {
 
         // add in the defined extra files
         for (String fileName: this.files) {
-            URL fileUrl = UtilURL.fromResource((String) fileName);
+            URL fileUrl = UtilURL.fromResource(fileName);
             if (fileUrl != null) {
                 urlList.add(fileUrl);
             }

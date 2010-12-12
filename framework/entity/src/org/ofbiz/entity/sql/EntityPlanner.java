@@ -121,7 +121,7 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         if (value instanceof FieldValue) {
             addFieldDef(dve, groupBy, fieldDef.getAlias(), (FieldValue) value, null);
         } else if (value instanceof ConstantValue) {
-            addFieldDef(dve, groupBy, fieldDef.getAlias(), (ConstantValue) value);
+            addFieldDef(dve, groupBy, fieldDef.getAlias(), value);
         } else {
             throw new UnsupportedOperationException(alias + "[" + fieldDef + "]:" + fieldDef.getClass());
         }

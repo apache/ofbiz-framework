@@ -48,13 +48,13 @@ public class IndentingWriterTests extends GenericTestCaseBase {
         } else {
             iw = new IndentingWriter(sw);
         }
-        iw.write((int) 'a');
+        iw.write('a');
         iw.push();
         iw.write("b\nm");
         iw.newline();
         iw.write(new char[] {'1', '\n', '2'});
         iw.space();
-        iw.write((int) '\n');
+        iw.write('\n');
         iw.pop();
         iw.write("e");
         iw.close();

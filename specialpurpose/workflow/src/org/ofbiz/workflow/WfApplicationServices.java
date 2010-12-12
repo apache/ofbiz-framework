@@ -316,7 +316,7 @@ public class WfApplicationServices {
             }
             if (assigments.size() != 1)
                 Debug.logWarning("More than one accepted activities found for the workEffortId=" + workEffortId, module);
-            return (GenericValue) assigments.iterator().next();
+            return assigments.iterator().next();
         } catch (GenericEntityException ee) {
             throw new GenericServiceException(ee.getMessage(), ee);
         }

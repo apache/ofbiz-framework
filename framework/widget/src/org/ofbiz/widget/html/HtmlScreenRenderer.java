@@ -287,7 +287,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
-            ofLabel = (String) uiLabelMap.get("CommonOf");
+            ofLabel = uiLabelMap.get("CommonOf");
             ofLabel = ofLabel.toLowerCase();
         }
 

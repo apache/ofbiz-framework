@@ -212,7 +212,7 @@ public class ProductSearchEvents {
 
                GenericValue searchResultView = null;
                int numAdded = 0;
-               while ((searchResultView = (GenericValue) eli.next()) != null) {
+               while ((searchResultView = eli.next()) != null) {
                    String productId = searchResultView.getString("mainProductId");
 
                    GenericValue pcm=delegator.makeValue("ProductCategoryMember");
@@ -301,7 +301,7 @@ public class ProductSearchEvents {
 
                 GenericValue searchResultView = null;
                 int numAdded = 0;
-                while ((searchResultView = (GenericValue) eli.next()) != null) {
+                while ((searchResultView = eli.next()) != null) {
                     String productId = searchResultView.getString("mainProductId");
                     GenericValue pfa=delegator.makeValue("ProductFeatureAppl");
                     pfa.set("productId", productId);
@@ -360,7 +360,7 @@ public class ProductSearchEvents {
 
                 GenericValue searchResultView = null;
                 int numRemoved = 0;
-                while ((searchResultView = (GenericValue) eli.next()) != null) {
+                while ((searchResultView = eli.next()) != null) {
                     String productId = searchResultView.getString("mainProductId");
                     numRemoved += delegator.removeByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId, "productFeatureId", productFeatureId));
                 }

@@ -452,7 +452,7 @@ public class CommonServices {
         Map<String, String> mapOfStrings = checkMap(context.get("mapOfStrings"), String.class, String.class);
 
         for (String str: listOfStrings) {
-            String v = (String) mapOfStrings.get(str);
+            String v = mapOfStrings.get(str);
             Debug.log("SimpleMapListTest: " + str + " -> " + v, module);
         }
 

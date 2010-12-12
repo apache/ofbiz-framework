@@ -498,7 +498,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         GenericValue supplierProduct = null;
         // Check for existing cart item.
         for (int i = 0; i < this.cartLines.size(); i++) {
-            ShoppingCartItem sci = (ShoppingCartItem) cartLines.get(i);
+            ShoppingCartItem sci = cartLines.get(i);
 
 
             if (sci.equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, features, attributes, prodCatalogId,selectedAmount, configWrapper, itemType, itemGroup, false)) {
@@ -651,7 +651,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public ShoppingCartItem findCartItem(String productId, Map features, Map attributes, String prodCatalogId, BigDecimal selectedAmount) {
         // Check for existing cart item.
         for (int i = 0; i < this.cartLines.size(); i++) {
-            ShoppingCartItem cartItem = (ShoppingCartItem) cartLines.get(i);
+            ShoppingCartItem cartItem = cartLines.get(i);
 
             if (cartItem.equals(productId, features, attributes, prodCatalogId, selectedAmount)) {
                 return cartItem;
@@ -713,7 +713,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public void removeEmptyCartItems() {
         // Check for existing cart item.
         for (int i = 0; i < this.cartLines.size();) {
-            ShoppingCartItem cartItem = (ShoppingCartItem) cartLines.get(i);
+            ShoppingCartItem cartItem = cartLines.get(i);
 
             if (cartItem.getQuantity().compareTo(BigDecimal.ZERO) == 0) {
                 this.clearItemShipInfo(cartItem);
@@ -806,7 +806,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public boolean containAnyWorkEffortCartItems() {
         // Check for existing cart item.
         for (int i = 0; i < this.cartLines.size(); i++) {
-            ShoppingCartItem cartItem = (ShoppingCartItem) cartLines.get(i);
+            ShoppingCartItem cartItem = cartLines.get(i);
             if (cartItem.getItemType().equals("RENTAL_ORDER_ITEM")) {  // create workeffort items?
                 return true;
             }
@@ -817,7 +817,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public boolean containAllWorkEffortCartItems() {
         // Check for existing cart item.
         for (int i = 0; i < this.cartLines.size(); i++) {
-            ShoppingCartItem cartItem = (ShoppingCartItem) cartLines.get(i);
+            ShoppingCartItem cartItem = cartLines.get(i);
             if (!cartItem.getItemType().equals("RENTAL_ORDER_ITEM")) { // not a item to create workefforts?
                 return false;
             }
@@ -831,7 +831,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      */
     public boolean containOnlyDigitalGoods() {
         for (int i = 0; i < this.cartLines.size(); i++) {
-            ShoppingCartItem cartItem = (ShoppingCartItem) cartLines.get(i);
+            ShoppingCartItem cartItem = cartLines.get(i);
             GenericValue product = cartItem.getProduct();
             try {
                 GenericValue productType = product.getRelatedOneCache("ProductType");
@@ -879,14 +879,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (cartLines.size() <= index) {
             return null;
         }
-        return (ShoppingCartItem) cartLines.get(index);
+        return cartLines.get(index);
 
     }
 
     public ShoppingCartItem findCartItem(String orderItemSeqId) {
         if (orderItemSeqId != null) {
             for (int i = 0; i < this.cartLines.size(); i++) {
-                ShoppingCartItem cartItem = (ShoppingCartItem) cartLines.get(i);
+                ShoppingCartItem cartItem = cartLines.get(i);
                 String itemSeqId = cartItem.getOrderItemSeqId();
                 if (itemSeqId != null && orderItemSeqId.equals(itemSeqId)) {
                     return cartItem;
@@ -908,7 +908,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         if (index < 0) return;
         if (cartLines.size() <= index) return;
-        ShoppingCartItem item = (ShoppingCartItem) cartLines.remove(index);
+        ShoppingCartItem item = cartLines.remove(index);
 
         // set quantity to 0 to trigger necessary events
         item.setQuantity(BigDecimal.ZERO, dispatcher, this);

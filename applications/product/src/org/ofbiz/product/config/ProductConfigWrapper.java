@@ -242,7 +242,7 @@ public class ProductConfigWrapper implements Serializable {
         List<ConfigOption> avalOptions = ci.getOptions();
         if (ci.isSingleChoice()) {
             for (int j = 0; j < avalOptions.size(); j++) {
-                ConfigOption oneOption = (ConfigOption)avalOptions.get(j);
+                ConfigOption oneOption = avalOptions.get(j);
                 oneOption.setSelected(false);
                 oneOption.setComments(null);
             }

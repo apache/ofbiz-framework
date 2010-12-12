@@ -117,7 +117,7 @@ public class RegionManager {
             newRegion = new Region(idAttr, templateAttr, null);
         } else {
             if (UtilValidate.isNotEmpty(regionAttr)) {
-                Region parentRegion = (Region) regions.get(regionAttr);
+                Region parentRegion = regions.get(regionAttr);
 
                 if (parentRegion == null) {
                     throw new IllegalArgumentException("can't find page definition attribute with this key: " + regionAttr);

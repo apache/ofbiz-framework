@@ -261,7 +261,7 @@ public class ProductServices {
                     Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", BigDecimal.ONE));
                     if (ServiceUtil.isError(invReqResult)) {
                         return ServiceUtil.returnError("Error calling the isStoreInventoryRequired when building the variant product tree.", null, null, invReqResult);
-                    } else if ("Y".equals((String) invReqResult.get("availableOrNotRequired"))) {
+                    } else if ("Y".equals(invReqResult.get("availableOrNotRequired"))) {
                         items.add(productIdTo);
                         if (productTo.getString("isVirtual") != null && productTo.getString("isVirtual").equals("Y")) {
                             virtualVariant.add(productIdTo);
@@ -542,7 +542,7 @@ public class ProductServices {
         //List featureKey = FastList.newInstance();
         Map<String, List<String>> tempGroup = FastMap.newInstance();
         Map<String, Object> group = new LinkedHashMap<String, Object>();
-        String orderKey = (String) order.get(index);
+        String orderKey = order.get(index);
 
         if (featureList == null) {
             throw new IllegalArgumentException("Cannot build feature tree: featureList is null");
@@ -1050,14 +1050,14 @@ public class ProductServices {
 
             Map<String, Object> dataResourceCtx = FastMap.newInstance();
             dataResourceCtx.put("objectInfo", imageUrl);
-            dataResourceCtx.put("dataResourceName", (String) context.get("_uploadedFile_fileName"));
+            dataResourceCtx.put("dataResourceName", context.get("_uploadedFile_fileName"));
             dataResourceCtx.put("userLogin", userLogin);
 
             Map<String, Object> productContentCtx = FastMap.newInstance();
             productContentCtx.put("productId", productId);
             productContentCtx.put("productContentTypeId", productContentTypeId);
-            productContentCtx.put("fromDate", (Timestamp) context.get("fromDate"));
-            productContentCtx.put("thruDate", (Timestamp) context.get("thruDate"));
+            productContentCtx.put("fromDate", context.get("fromDate"));
+            productContentCtx.put("thruDate", context.get("thruDate"));
             productContentCtx.put("userLogin", userLogin);
 
             if (UtilValidate.isNotEmpty(contentId)) {
@@ -1254,14 +1254,14 @@ public class ProductServices {
             if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
                 Map<String, Object> dataResourceCtx = FastMap.newInstance();
                 dataResourceCtx.put("objectInfo", imageUrl);
-                dataResourceCtx.put("dataResourceName", (String) context.get("_uploadedFile_fileName"));
+                dataResourceCtx.put("dataResourceName", context.get("_uploadedFile_fileName"));
                 dataResourceCtx.put("userLogin", userLogin);
 
                 Map<String, Object> productPromoContentCtx = FastMap.newInstance();
                 productPromoContentCtx.put("productPromoId", productPromoId);
                 productPromoContentCtx.put("productPromoContentTypeId", productPromoContentTypeId);
-                productPromoContentCtx.put("fromDate", (Timestamp) context.get("fromDate"));
-                productPromoContentCtx.put("thruDate", (Timestamp) context.get("thruDate"));
+                productPromoContentCtx.put("fromDate", context.get("fromDate"));
+                productPromoContentCtx.put("thruDate", context.get("thruDate"));
                 productPromoContentCtx.put("userLogin", userLogin);
 
                 if (UtilValidate.isNotEmpty(contentId)) {
@@ -1358,8 +1358,8 @@ public class ProductServices {
             productPromoContentCtx.put("productPromoId", productPromoId);
             productPromoContentCtx.put("productPromoContentTypeId", productPromoContentTypeId);
             productPromoContentCtx.put("contentId", contentId);
-            productPromoContentCtx.put("fromDate", (Timestamp) context.get("fromDate"));
-            productPromoContentCtx.put("thruDate", (Timestamp) context.get("thruDate"));
+            productPromoContentCtx.put("fromDate", context.get("fromDate"));
+            productPromoContentCtx.put("thruDate", context.get("thruDate"));
             productPromoContentCtx.put("userLogin", userLogin);
             try {
                 dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);

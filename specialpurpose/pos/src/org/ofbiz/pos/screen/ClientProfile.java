@@ -276,12 +276,12 @@ public class ClientProfile extends XPage implements ActionListener {
         m_clientListBidingCombo.clear();
         if (UtilValidate.isNotEmpty(partyList)) {
             for (Map<String, String> party : partyList) {
-                name = (String) party.get("lastName");
-                email = (String) party.get("infoString");
-                phone = (String) party.get("contactNumber");
-                String partyId = (String) party.get("partyId");
+                name = party.get("lastName");
+                email = party.get("infoString");
+                phone = party.get("contactNumber");
+                String partyId = party.get("partyId");
                 m_clientListBidingCombo.add(partyId);
-                card = (String) party.get("cardId");
+                card = party.get("cardId");
                 name = name == null ? "" : name;
                 email = email == null ? "" : email;
                 phone = phone == null ? "" : phone;

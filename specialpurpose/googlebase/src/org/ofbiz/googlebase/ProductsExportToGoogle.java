@@ -362,7 +362,7 @@ public class ProductsExportToGoogle {
             GenericValue googleProduct;
             while (productsListItr.hasNext()) {
                 itemActionType = actionType;
-                GenericValue prod = (GenericValue)productsListItr.next();
+                GenericValue prod = productsListItr.next();
                 String price = getProductPrice(dispatcher, prod);
                 if (price == null) {
                     Debug.logInfo("Price not found for product [" + prod.getString("productId")+ "]; product will not be exported.", module);
@@ -445,7 +445,7 @@ public class ProductsExportToGoogle {
 
                 Iterator<GenericValue> productCategoryMembersIter = productCategoryMembers.iterator();
                 while (productCategoryMembersIter.hasNext()) {
-                    GenericValue productCategoryMember = (GenericValue) productCategoryMembersIter.next();
+                    GenericValue productCategoryMember = productCategoryMembersIter.next();
                     GenericValue productCategory = productCategoryMember.getRelatedOne("ProductCategory");
                     String productCategoryTypeId = productCategory.getString("productCategoryTypeId");
                     if (UtilValidate.isNotEmpty(productCategoryTypeId) && "GOOGLE_BASE_CATEGORY".equals(productCategoryTypeId)) {
@@ -544,10 +544,10 @@ public class ProductsExportToGoogle {
             Iterator<? extends Element> atomEntryElemIter = atomEntryList.iterator();
             int index = 0;
             while (atomEntryElemIter.hasNext()) {
-                Element atomEntryElement = (Element)atomEntryElemIter.next();
+                Element atomEntryElement = atomEntryElemIter.next();
                 String id = UtilXml.childElementValue(atomEntryElement, "atom:id", "");
                 if (UtilValidate.isNotEmpty(id) && newProductsInGoogle.get(index) != null) {
-                    String productId = (String)newProductsInGoogle.get(index);
+                    String productId = newProductsInGoogle.get(index);
                     try {
                         GenericValue googleProductId = delegator.makeValue("GoodIdentification");
                         googleProductId.set("goodIdentificationTypeId", "GOOGLE_ID");
@@ -559,7 +559,7 @@ public class ProductsExportToGoogle {
                     }
                 }
                 if (UtilValidate.isNotEmpty(id) && productsRemovedFromGoogle.get(index) != null) {
-                    String productId = (String)productsRemovedFromGoogle.get(index);
+                    String productId = productsRemovedFromGoogle.get(index);
                     try {
                         delegator.removeByAnd("GoodIdentification", UtilMisc.toMap("goodIdentificationTypeId", "GOOGLE_ID", "productId", productId));
                     } catch (GenericEntityException gee) {
@@ -570,7 +570,7 @@ public class ProductsExportToGoogle {
                 List<? extends Element> batchStatusList = UtilXml.childElementList(atomEntryElement, "batch:status");
                 Iterator<? extends Element> batchStatusEntryElemIter = batchStatusList.iterator();
                 while (batchStatusEntryElemIter.hasNext()) {
-                    Element batchStatusEntryElement = (Element)batchStatusEntryElemIter.next();
+                    Element batchStatusEntryElement = batchStatusEntryElemIter.next();
                     if (UtilValidate.isNotEmpty(batchStatusEntryElement.getAttribute("reason"))) {
                         message.add(title + " " + batchStatusEntryElement.getAttribute("reason"));
                     }

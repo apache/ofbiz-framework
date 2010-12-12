@@ -153,7 +153,7 @@ public class PackingServices {
                 if (qtyStr == null) {
                     quantities = new String[packages.length];
                     for (int p = 0; p < packages.length; p++) {
-                        quantities[p] = (String) qtyInfo.get(rowKey + ":" + packages[p]);
+                        quantities[p] = qtyInfo.get(rowKey + ":" + packages[p]);
                     }
                     if (quantities.length != packages.length) {
                         return ServiceUtil.returnError("Packages and quantities do not match.");
@@ -316,7 +316,7 @@ public class PackingServices {
                 String packageSeqId = entry.getKey();
                 String packageWeightStr = entry.getValue();
                 if (UtilValidate.isNotEmpty(packageWeightStr)) {
-                    BigDecimal packageWeight = new BigDecimal((String)packageWeights.get(packageSeqId));
+                    BigDecimal packageWeight = new BigDecimal(packageWeights.get(packageSeqId));
                     session.setPackageWeight(Integer.parseInt(packageSeqId), packageWeight);
                     shippableWeight = shippableWeight.add(packageWeight);
                 } else {

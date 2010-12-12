@@ -357,7 +357,7 @@ public class OrderServices {
                     if (ServiceUtil.isError(invReqResult)) {
                         errorMessages.add(invReqResult.get(ModelService.ERROR_MESSAGE));
                         errorMessages.addAll((List) invReqResult.get(ModelService.ERROR_MESSAGE_LIST));
-                    } else if (!"Y".equals((String) invReqResult.get("availableOrNotRequired"))) {
+                    } else if (!"Y".equals(invReqResult.get("availableOrNotRequired"))) {
                         String invErrMsg = UtilProperties.getMessage(resource_error, "product.out_of_stock",
                                 new Object[] { getProductName(product, itemName), currentProductId }, locale);
                         Debug.logWarning(invErrMsg, module);

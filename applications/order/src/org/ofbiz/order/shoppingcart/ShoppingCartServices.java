@@ -276,7 +276,7 @@ public class ShoppingCartServices {
         if (UtilValidate.isNotEmpty(orderPaymentPrefs)) {
             Iterator<GenericValue> oppi = orderPaymentPrefs.iterator();
             while (oppi.hasNext()) {
-                GenericValue opp = (GenericValue) oppi.next();
+                GenericValue opp = oppi.next();
                 String paymentId = opp.getString("paymentMethodId");
                 if (paymentId == null) {
                     paymentId = opp.getString("paymentMethodTypeId");
@@ -560,7 +560,7 @@ public class ShoppingCartServices {
                     // set the item's ship group info
                     List<GenericValue> shipGroupAssocs = orh.getOrderItemShipGroupAssocs(item);
                     for (int g = 0; g < shipGroupAssocs.size(); g++) {
-                        GenericValue sgAssoc = (GenericValue) shipGroupAssocs.get(g);
+                        GenericValue sgAssoc = shipGroupAssocs.get(g);
                         BigDecimal shipGroupQty = OrderReadHelper.getOrderItemShipGroupQuantity(sgAssoc);
                         if (shipGroupQty == null) {
                             shipGroupQty = BigDecimal.ZERO;
@@ -720,7 +720,7 @@ public class ShoppingCartServices {
         // put them in a map: the key/values pairs are quoteItemSeqId/List of adjs
         Map<String, List<GenericValue>> orderAdjsMap = FastMap.newInstance() ;
         for (GenericValue quoteAdj : quoteAdjs) {
-            List<GenericValue> orderAdjs = (List<GenericValue>)orderAdjsMap.get(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId);
+            List<GenericValue> orderAdjs = orderAdjsMap.get(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId);
             if (orderAdjs == null) {
                 orderAdjs = FastList.newInstance();
                 orderAdjsMap.put(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId, orderAdjs);
@@ -852,7 +852,7 @@ public class ShoppingCartServices {
         // If applyQuoteAdjustments is set to false then standard cart adjustments are used.
         if (applyQuoteAdjustments) {
             // The cart adjustments, derived from quote adjustments, are added to the cart
-            List<GenericValue> adjs = (List<GenericValue>)orderAdjsMap.get(quoteId);
+            List<GenericValue> adjs = orderAdjsMap.get(quoteId);
             if (adjs != null) {
                 cart.getAdjustments().addAll(adjs);
             }
@@ -863,7 +863,7 @@ public class ShoppingCartServices {
                     ShoppingCartItem item = (ShoppingCartItem) i.next();
                     String orderItemSeqId = item.getOrderItemSeqId();
                     if (orderItemSeqId != null) {
-                        adjs = (List)orderAdjsMap.get(orderItemSeqId);
+                        adjs = orderAdjsMap.get(orderItemSeqId);
                     } else {
                         adjs = null;
                     }

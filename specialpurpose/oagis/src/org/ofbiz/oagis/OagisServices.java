@@ -450,7 +450,7 @@ public class OagisServices {
                 // try looking up by just the referenceId, those alone are often unique, return error if there is more than one result
                 List<GenericValue> oagisMessageInfoList = delegator.findByAnd("OagisMessageInfo", UtilMisc.toMap("referenceId", referenceId));
                 if (oagisMessageInfoList.size() == 1) {
-                    oagisMessageInfo = (GenericValue) oagisMessageInfoList.get(0);
+                    oagisMessageInfo = oagisMessageInfoList.get(0);
                 } else if (oagisMessageInfoList.size() > 1) {
                     return ServiceUtil.returnError("Looked up by referenceId because logicalId, component, or task were not passed in but found more than one [" + oagisMessageInfoList.size() + "] record with referenceId [" + referenceId + "]");
                 }

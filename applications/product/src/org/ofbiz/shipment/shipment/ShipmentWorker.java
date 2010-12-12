@@ -138,7 +138,7 @@ public class ShipmentWorker {
                                 if (!addedToPackage) {
                                     BigDecimal packageWeight = calcPackageWeight(dctx, packageMap, shippableItemInfo, weight);
                                     if (packageWeight.compareTo(maxWeight) <= 0) {
-                                        BigDecimal qty = (BigDecimal) packageMap.get(productId);
+                                        BigDecimal qty = packageMap.get(productId);
                                         qty = UtilValidate.isEmpty(qty) ? BigDecimal.ZERO : qty;
                                         packageMap.put(productId, qty.add(partialQty));
                                         addedToPackage = true;
@@ -168,7 +168,7 @@ public class ShipmentWorker {
             String productId = entry.getKey();
             Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
             BigDecimal productWeight = (BigDecimal) productInfo.get("weight");
-            BigDecimal quantity = (BigDecimal) packageMap.get(productId);
+            BigDecimal quantity = packageMap.get(productId);
 
             String weightUomId = (String) productInfo.get("weightUomId");
 

@@ -511,7 +511,7 @@ public class InvoiceWorker {
             // check if the invoice is posted and get the conversion from there
             List<GenericValue> acctgTransEntries = invoice.getRelated("AcctgTrans");
             if (UtilValidate.isNotEmpty(acctgTransEntries)) {
-                GenericValue acctgTransEntry = ((GenericValue) acctgTransEntries.get(0)).getRelated("AcctgTransEntry").get(0);
+                GenericValue acctgTransEntry = (acctgTransEntries.get(0)).getRelated("AcctgTransEntry").get(0);
                 conversionRate = acctgTransEntry.getBigDecimal("amount").divide(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100)).setScale(decimals,rounding);
             }
             // check if a payment is applied and use the currency conversion from there
@@ -532,7 +532,7 @@ public class InvoiceWorker {
             if (UtilValidate.isEmpty(conversionRate)) {
                 List<GenericValue> rates = EntityUtil.filterByDate(delegator.findByAnd("UomConversionDated", UtilMisc.toMap("uomIdTo", invoice.getString("currencyUomId"), "uomId", otherCurrencyUomId)), invoice.getTimestamp("invoiceDate"));
                 if (UtilValidate.isNotEmpty(rates)) {
-                    conversionRate = (BigDecimal.ONE).divide(((GenericValue) rates.get(0)).getBigDecimal("conversionFactor"), new MathContext(100)).setScale(decimals,rounding);
+                    conversionRate = (BigDecimal.ONE).divide((rates.get(0)).getBigDecimal("conversionFactor"), new MathContext(100)).setScale(decimals,rounding);
                 } else {
                     Debug.logError("Could not find conversionrate for invoice: " + invoice.getString("invoiceId"), module);
                     return new BigDecimal("1");

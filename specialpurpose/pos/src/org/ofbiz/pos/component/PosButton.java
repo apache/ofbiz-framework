@@ -92,7 +92,7 @@ public class PosButton {
     }
 
     public void setLock(String buttonName, boolean lock) {
-        PosButtonWrapper button = (PosButtonWrapper) loadedXButtons.get(buttonName);
+        PosButtonWrapper button = loadedXButtons.get(buttonName);
         button.setEnabled(!lock);
     }
 

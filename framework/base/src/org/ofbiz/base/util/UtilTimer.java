@@ -124,14 +124,14 @@ public class UtilTimer {
      * @return The number of seconds since the timer started
      */
     public double secondsSinceStart() {
-        return ((double) timeSinceStart()) / 1000.0;
+        return (timeSinceStart()) / 1000.0;
     }
 
     /** Returns the number of seconds since the last time timerString was called
      * @return The number of seconds since the last time timerString was called
      */
     public double secondsSinceLast() {
-        return ((double) timeSinceLast()) / 1000.0;
+        return (timeSinceLast()) / 1000.0;
     }
 
     /** Returns the number of milliseconds since the timer started

@@ -172,7 +172,7 @@ public class EbayOrderServices {
                  Element orderIdArrayElem = UtilXml.addChildElement(transElem, "OrderIDArray", transDoc);
                  Iterator<String> orderIdListIter = getSellerTransactionsContainingOrderList.iterator();
                  while (orderIdListIter.hasNext()) {
-                     String orderId = (String) orderIdListIter.next();
+                     String orderId = orderIdListIter.next();
                      UtilXml.addChildElementValue(orderIdArrayElem, "OrderID", orderId, transDoc);
                  }
              } else {
@@ -285,7 +285,7 @@ public class EbayOrderServices {
                 Debug.logInfo("The value of getMyeBaySellingList" + eBayDeletedOrdersAndTransactionList, module);
                 Iterator<Map<String, Object>> orderListIter = orderList.iterator();
                 while (orderListIter.hasNext()) {
-                    Map<String, Object> orderCtx = (Map<String, Object>) orderListIter.next();
+                    Map<String, Object> orderCtx = orderListIter.next();
                     if (eBayDeletedOrdersAndTransactionList.contains(orderCtx.get("externalId"))) {
                          // Now finally exclude orders & transaction that has been deleted from sold list.
                         orderList.remove(orderCtx);
@@ -442,7 +442,7 @@ public class EbayOrderServices {
                     // retrieve transaction array
                     Iterator<? extends Element> orderArraysElemIter = orderArrays.iterator();
                     while (orderArraysElemIter.hasNext()) {
-                        Element orderArraysElement = (Element) orderArraysElemIter.next();
+                        Element orderArraysElement = orderArraysElemIter.next();
 
                         // retrieve transaction
                         List<? extends Element> orders = UtilXml.childElementList(orderArraysElement, "Order");
@@ -450,12 +450,12 @@ public class EbayOrderServices {
 
                         while (ordersElemIter.hasNext()) {
                             Map<String, Object> orderCtx = FastMap.newInstance();
-                            Element ordersElement = (Element) ordersElemIter.next();
+                            Element ordersElement = ordersElemIter.next();
                             String externalOrderId = UtilXml.childElementValue(ordersElement, "OrderID");
                             orderCtx.put("externalId", "EBO_" + externalOrderId);
                             GenericValue orderExist = externalOrderExists(delegator, (String)orderCtx.get("externalId"));
                             if (orderExist != null) {
-                                orderCtx.put("orderId", (String)orderExist.get("orderId"));
+                                orderCtx.put("orderId", orderExist.get("orderId"));
                             } else {
                                 orderCtx.put("orderId", "");
                             }
@@ -476,7 +476,7 @@ public class EbayOrderServices {
                             List<? extends Element> shippingAddressList = UtilXml.childElementList(ordersElement, "ShippingAddress");
                             Iterator<? extends Element> shippingAddressElemIter = shippingAddressList.iterator();
                             while (shippingAddressElemIter.hasNext()) {
-                                Element shippingAddressElement = (Element)shippingAddressElemIter.next();
+                                Element shippingAddressElement = shippingAddressElemIter.next();
                                 shippingAddressCtx.put("buyerName", UtilXml.childElementValue(shippingAddressElement, "Name"));
                                 shippingAddressCtx.put("shippingAddressStreet1", UtilXml.childElementValue(shippingAddressElement, "Street1"));
                                 shippingAddressCtx.put("shippingAddressStreet2", UtilXml.childElementValue(shippingAddressElement, "Street2"));
@@ -499,7 +499,7 @@ public class EbayOrderServices {
                             List<? extends Element> shippingServiceSelectedList = UtilXml.childElementList(ordersElement, "ShippingServiceSelected");
                             Iterator<? extends Element> shippingServiceSelectedElemIter = shippingServiceSelectedList.iterator();
                             while (shippingServiceSelectedElemIter.hasNext()) {
-                                Element shippingServiceSelectedElement = (Element)shippingServiceSelectedElemIter.next();
+                                Element shippingServiceSelectedElement = shippingServiceSelectedElemIter.next();
                                 shippingServiceSelectedCtx.put("shippingService", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingService"));
                                 shippingServiceSelectedCtx.put("shippingServiceCost", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingServiceCost", "0"));
                                 String insuranceCost = UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingInsuranceCost", "0");
@@ -519,7 +519,7 @@ public class EbayOrderServices {
                             List<? extends Element> shippingDetailsList = UtilXml.childElementList(ordersElement, "ShippingDetails");
                             Iterator<? extends Element> shippingDetailsElemIter = shippingDetailsList.iterator();
                             while (shippingDetailsElemIter.hasNext()) {
-                                Element shippingDetailsElement = (Element) shippingDetailsElemIter.next();
+                                Element shippingDetailsElement = shippingDetailsElemIter.next();
                                 shippingDetailsCtx.put("insuranceFee", UtilXml.childElementValue(shippingDetailsElement, "InsuranceFee", "0"));
                                 shippingDetailsCtx.put("insuranceOption", UtilXml.childElementValue(shippingDetailsElement, "InsuranceOption"));
                                 shippingDetailsCtx.put("insuranceWanted", UtilXml.childElementValue(shippingDetailsElement, "InsuranceWanted", "false"));
@@ -528,7 +528,7 @@ public class EbayOrderServices {
                                 List<? extends Element> salesTaxList = UtilXml.childElementList(shippingDetailsElement, "SalesTax");
                                 Iterator<? extends Element> salesTaxElemIter = salesTaxList.iterator();
                                 while (salesTaxElemIter.hasNext()) {
-                                    Element salesTaxElement = (Element) salesTaxElemIter.next();
+                                    Element salesTaxElement = salesTaxElemIter.next();
                                     shippingDetailsCtx.put("salesTaxAmount", UtilXml.childElementValue(salesTaxElement, "SalesTaxAmount", "0"));
                                     shippingDetailsCtx.put("salesTaxPercent", UtilXml.childElementValue(salesTaxElement, "SalesTaxPercent", "0"));
                                     shippingDetailsCtx.put("salesTaxState", UtilXml.childElementValue(salesTaxElement, "SalesTaxState", "0"));
@@ -542,7 +542,7 @@ public class EbayOrderServices {
                             List<? extends Element> checkoutStatusList = UtilXml.childElementList(ordersElement, "CheckoutStatus");
                             Iterator<? extends Element> checkoutStatusElemIter = checkoutStatusList.iterator();
                             while (checkoutStatusElemIter.hasNext()) {
-                                Element statusElement = (Element) checkoutStatusElemIter.next();
+                                Element statusElement = checkoutStatusElemIter.next();
                                 checkoutStatusCtx.put("eBayPaymentStatus", UtilXml.childElementValue(statusElement, "eBayPaymentStatus"));
                                 checkoutStatusCtx.put("paymentMethodUsed", UtilXml.childElementValue(statusElement, "PaymentMethod"));
                                 checkoutStatusCtx.put("completeStatus", UtilXml.childElementValue(statusElement, "Status"));
@@ -554,7 +554,7 @@ public class EbayOrderServices {
                             List<? extends Element> externalTransactionList = UtilXml.childElementList(ordersElement, "ExternalTransaction");
                             Iterator<? extends Element> externalTransactionElemIter = externalTransactionList.iterator();
                             while (externalTransactionElemIter.hasNext()) {
-                                Element externalTransactionElement = (Element) externalTransactionElemIter.next();
+                                Element externalTransactionElement = externalTransactionElemIter.next();
                                 externalTransactionCtx.put("externalTransactionID", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionID"));
                                 externalTransactionCtx.put("externalTransactionTime", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionTime"));
                                 externalTransactionCtx.put("feeOrCreditAmount", UtilXml.childElementValue(externalTransactionElement, "FeeOrCreditAmount", "0"));
@@ -568,21 +568,21 @@ public class EbayOrderServices {
                             List<? extends Element> transactionArrayList = UtilXml.childElementList(ordersElement, "TransactionArray");
                             Iterator<? extends Element> transactionArrayElemIter = transactionArrayList.iterator();
                             while (transactionArrayElemIter.hasNext()) {
-                                Element transactionArrayElement = (Element) transactionArrayElemIter.next();
+                                Element transactionArrayElement = transactionArrayElemIter.next();
 
                                 boolean buyerEmailExists = false;
                                 List<? extends Element> transactionList = UtilXml.childElementList(transactionArrayElement, "Transaction");
                                 Iterator<? extends Element> transactionElemIter = transactionList.iterator();
                                 while (transactionElemIter.hasNext()) {
                                     Map<String, Object> transactionCtx = FastMap.newInstance();
-                                    Element transactionElement = (Element) transactionElemIter.next();
+                                    Element transactionElement = transactionElemIter.next();
 
                                     // Retrieve Buyer email
                                     if (!buyerEmailExists) {
                                         List<? extends Element> buyerList = UtilXml.childElementList(transactionElement, "Buyer");
                                         Iterator<? extends Element> buyerElemIter = buyerList.iterator();
                                         while (buyerElemIter.hasNext()) {
-                                            Element buyerElement = (Element) buyerElemIter.next();
+                                            Element buyerElement = buyerElemIter.next();
                                             buyersEmailId = UtilXml.childElementValue(buyerElement, "Email");
                                             if (UtilValidate.isNotEmpty(buyersEmailId)) {
                                                 buyerEmailExists = true;
@@ -594,7 +594,7 @@ public class EbayOrderServices {
                                     List<? extends Element> itemList = UtilXml.childElementList(transactionElement, "Item");
                                     Iterator<? extends Element> itemElemIter = itemList.iterator();
                                     while (itemElemIter.hasNext()) {
-                                        Element itemElement = (Element) itemElemIter.next();
+                                        Element itemElement = itemElemIter.next();
                                         transactionCtx.put("goodIdentificationIdValue", UtilXml.childElementValue(itemElement, "ItemID"));
                                         transactionCtx.put("productId", UtilXml.childElementValue(itemElement, "SKU"));
                                     }
@@ -622,7 +622,7 @@ public class EbayOrderServices {
                 List<? extends Element> errorList = UtilXml.childElementList(elemResponse, "Errors");
                 Iterator<? extends Element> errorElemIter = errorList.iterator();
                 while (errorElemIter.hasNext()) {
-                    Element errorElement = (Element) errorElemIter.next();
+                    Element errorElement = errorElemIter.next();
                     errorMessage.append(UtilXml.childElementValue(errorElement, "ShortMessage", ""));
                 }
             }
@@ -644,7 +644,7 @@ public class EbayOrderServices {
             int totalOrders = 0;
             Iterator<? extends Element> paginationElemIter = paginationList.iterator();
             while (paginationElemIter.hasNext()) {
-                Element paginationElement = (Element) paginationElemIter.next();
+                Element paginationElement = paginationElemIter.next();
                 String totalNumberOfEntries = UtilXml.childElementValue(paginationElement, "TotalNumberOfEntries", "0");
                 totalOrders = Integer.valueOf(totalNumberOfEntries);
             }
@@ -655,13 +655,13 @@ public class EbayOrderServices {
                     List<? extends Element> transactions = UtilXml.childElementList(elemResponse, "TransactionArray");
                     Iterator<? extends Element> transactionsElemIter = transactions.iterator();
                     while (transactionsElemIter.hasNext()) {
-                        Element transactionsElement = (Element) transactionsElemIter.next();
+                        Element transactionsElement = transactionsElemIter.next();
 
                         // retrieve transaction
                         List<? extends Element> transaction = UtilXml.childElementList(transactionsElement, "Transaction");
                         Iterator<? extends Element> transactionElemIter = transaction.iterator();
                         while (transactionElemIter.hasNext()) {
-                            Element transactionElement = (Element) transactionElemIter.next();
+                            Element transactionElement = transactionElemIter.next();
                             Map<String, Object> orderCtx = FastMap.newInstance();
 
                             orderCtx.put("amountPaid", UtilXml.childElementValue(transactionElement, "AmountPaid", "0"));
@@ -678,7 +678,7 @@ public class EbayOrderServices {
                             List<? extends Element> containingOrders = UtilXml.childElementList(transactionElement, "ContainingOrder");
                             Iterator<? extends Element> containingOrdersIter = containingOrders.iterator();
                             while (containingOrdersIter.hasNext()) {
-                                Element containingOrdersElement = (Element) containingOrdersIter.next();
+                                Element containingOrdersElement = containingOrdersIter.next();
                                 String orderId = UtilXml.childElementValue(containingOrdersElement, "OrderID");
                                 if (getSellerTransactionsContainingOrderList != null && ! getSellerTransactionsContainingOrderList.contains(orderId)) {
                                     getSellerTransactionsContainingOrderList.add(orderId);
@@ -694,7 +694,7 @@ public class EbayOrderServices {
                             List<? extends Element> buyer = UtilXml.childElementList(transactionElement, "Buyer");
                             Iterator<? extends Element> buyerElemIter = buyer.iterator();
                             while (buyerElemIter.hasNext()) {
-                                Element buyerElement = (Element)buyerElemIter.next();
+                                Element buyerElement = buyerElemIter.next();
                                 buyerCtx.put("emailBuyer", UtilXml.childElementValue(buyerElement, "Email", ""));
                                 buyerCtx.put("eiasTokenBuyer", UtilXml.childElementValue(buyerElement, "EIASToken", ""));
                                 buyerCtx.put("ebayUserIdBuyer", UtilXml.childElementValue(buyerElement, "UserID", ""));
@@ -703,13 +703,13 @@ public class EbayOrderServices {
                                 List<? extends Element> buyerInfo = UtilXml.childElementList(buyerElement, "BuyerInfo");
                                 Iterator<? extends Element> buyerInfoElemIter = buyerInfo.iterator();
                                 while (buyerInfoElemIter.hasNext()) {
-                                    Element buyerInfoElement = (Element)buyerInfoElemIter.next();
+                                    Element buyerInfoElement = buyerInfoElemIter.next();
 
                                     // retrieve shipping address
                                     List<? extends Element> shippingAddressInfo = UtilXml.childElementList(buyerInfoElement, "ShippingAddress");
                                     Iterator<? extends Element> shippingAddressElemIter = shippingAddressInfo.iterator();
                                     while (shippingAddressElemIter.hasNext()) {
-                                        Element shippingAddressElement = (Element)shippingAddressElemIter.next();
+                                        Element shippingAddressElement = shippingAddressElemIter.next();
                                         shippingAddressCtx.put("buyerName", UtilXml.childElementValue(shippingAddressElement, "Name", ""));
                                         shippingAddressCtx.put("shippingAddressStreet", UtilXml.childElementValue(shippingAddressElement, "Street", ""));
                                         shippingAddressCtx.put("shippingAddressStreet1", UtilXml.childElementValue(shippingAddressElement, "Street1", ""));
@@ -731,7 +731,7 @@ public class EbayOrderServices {
                             List<? extends Element> shippingServiceSelected = UtilXml.childElementList(transactionElement, "ShippingServiceSelected");
                             Iterator<? extends Element> shippingServiceSelectedElemIter = shippingServiceSelected.iterator();
                             while (shippingServiceSelectedElemIter.hasNext()) {
-                                Element shippingServiceSelectedElement = (Element)shippingServiceSelectedElemIter.next();
+                                Element shippingServiceSelectedElement = shippingServiceSelectedElemIter.next();
                                 shippingServiceSelectedCtx.put("shippingService", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingService", ""));
                                 shippingServiceSelectedCtx.put("shippingServiceCost", UtilXml.childElementValue(shippingServiceSelectedElement, "ShippingServiceCost", "0"));
 
@@ -763,7 +763,7 @@ public class EbayOrderServices {
                             List<? extends Element> shippingDetails = UtilXml.childElementList(transactionElement, "ShippingDetails");
                             Iterator<? extends Element> shippingDetailsElemIter = shippingDetails.iterator();
                             while (shippingDetailsElemIter.hasNext()) {
-                                Element shippingDetailsElement = (Element)shippingDetailsElemIter.next();
+                                Element shippingDetailsElement = shippingDetailsElemIter.next();
                                 shippingDetailsCtx.put("insuranceFee", UtilXml.childElementValue(shippingDetailsElement, "InsuranceFee", "0"));
                                 shippingDetailsCtx.put("insuranceOption", UtilXml.childElementValue(shippingDetailsElement, "InsuranceOption", ""));
                                 shippingDetailsCtx.put("insuranceWanted", UtilXml.childElementValue(shippingDetailsElement, "InsuranceWanted", "false"));
@@ -772,7 +772,7 @@ public class EbayOrderServices {
                                 List<? extends Element> salesTax = UtilXml.childElementList(shippingDetailsElement, "SalesTax");
                                 Iterator<? extends Element> salesTaxElemIter = salesTax.iterator();
                                 while (salesTaxElemIter.hasNext()) {
-                                    Element salesTaxElement = (Element)salesTaxElemIter.next();
+                                    Element salesTaxElement = salesTaxElemIter.next();
                                     shippingDetailsCtx.put("salesTaxAmount", UtilXml.childElementValue(salesTaxElement, "SalesTaxAmount", "0"));
                                     shippingDetailsCtx.put("salesTaxPercent", UtilXml.childElementValue(salesTaxElement, "SalesTaxPercent", "0"));
                                     shippingDetailsCtx.put("salesTaxState", UtilXml.childElementValue(salesTaxElement, "SalesTaxState", "0"));
@@ -783,12 +783,12 @@ public class EbayOrderServices {
                                 List<? extends Element> taxTable = UtilXml.childElementList(shippingDetailsElement, "TaxTable");
                                 Iterator<? extends Element> taxTableElemIter = taxTable.iterator();
                                 while (taxTableElemIter.hasNext()) {
-                                    Element taxTableElement = (Element)taxTableElemIter.next();
+                                    Element taxTableElement = taxTableElemIter.next();
 
                                     List<? extends Element> taxJurisdiction = UtilXml.childElementList(taxTableElement, "TaxJurisdiction");
                                     Iterator<? extends Element> taxJurisdictionElemIter = taxJurisdiction.iterator();
                                     while (taxJurisdictionElemIter.hasNext()) {
-                                        Element taxJurisdictionElement = (Element)taxJurisdictionElemIter.next();
+                                        Element taxJurisdictionElement = taxJurisdictionElemIter.next();
 
                                         shippingDetailsCtx.put("jurisdictionID", UtilXml.childElementValue(taxJurisdictionElement, "JurisdictionID", ""));
                                         shippingDetailsCtx.put("jurisdictionSalesTaxPercent", UtilXml.childElementValue(taxJurisdictionElement, "SalesTaxPercent", "0"));
@@ -803,7 +803,7 @@ public class EbayOrderServices {
                             List<? extends Element> status = UtilXml.childElementList(transactionElement, "Status");
                             Iterator<? extends Element> statusElemIter = status.iterator();
                             while (statusElemIter.hasNext()) {
-                                Element statusElement = (Element)statusElemIter.next();
+                                Element statusElement = statusElemIter.next();
                                 checkoutStatusCtx.put("eBayPaymentStatus", UtilXml.childElementValue(statusElement, "eBayPaymentStatus", ""));
                                 checkoutStatusCtx.put("checkoutStatus", UtilXml.childElementValue(statusElement, "CheckoutStatus", ""));
                                 checkoutStatusCtx.put("paymentMethodUsed", UtilXml.childElementValue(statusElement, "PaymentMethodUsed", ""));
@@ -817,7 +817,7 @@ public class EbayOrderServices {
                             List<? extends Element> externalTransaction = UtilXml.childElementList(transactionElement, "ExternalTransaction");
                             Iterator<? extends Element> externalTransactionElemIter = externalTransaction.iterator();
                             while (externalTransactionElemIter.hasNext()) {
-                                Element externalTransactionElement = (Element)externalTransactionElemIter.next();
+                                Element externalTransactionElement = externalTransactionElemIter.next();
                                 externalTransactionCtx.put("externalTransactionID", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionID", ""));
                                 externalTransactionCtx.put("externalTransactionTime", UtilXml.childElementValue(externalTransactionElement, "ExternalTransactionTime", ""));
                                 externalTransactionCtx.put("feeOrCreditAmount", UtilXml.childElementValue(externalTransactionElement, "FeeOrCreditAmount", "0"));
@@ -833,7 +833,7 @@ public class EbayOrderServices {
                             Iterator<? extends Element> itemElemIter = item.iterator();
                             while (itemElemIter.hasNext()) {
                                 Map<String, Object> orderItemCtx = FastMap.newInstance();
-                                Element itemElement = (Element)itemElemIter.next();
+                                Element itemElement = itemElemIter.next();
                                 itemId = UtilXml.childElementValue(itemElement, "ItemID", "");
                                 orderItemCtx.put("paymentMethods", UtilXml.childElementValue(itemElement, "PaymentMethods", ""));
                                 orderItemCtx.put("quantity", quantityPurchased);
@@ -852,7 +852,7 @@ public class EbayOrderServices {
                                 List<? extends Element> sellingStatus = UtilXml.childElementList(itemElement, "SellingStatus");
                                 Iterator<? extends Element> sellingStatusitemElemIter = sellingStatus.iterator();
                                 while (sellingStatusitemElemIter.hasNext()) {
-                                    Element sellingStatusElement = (Element)sellingStatusitemElemIter.next();
+                                    Element sellingStatusElement = sellingStatusitemElemIter.next();
                                     orderItemCtx.put("amount", UtilXml.childElementValue(sellingStatusElement, "CurrentPrice", "0"));
                                     orderItemCtx.put("quantitySold", UtilXml.childElementValue(sellingStatusElement, "QuantitySold", "0"));
                                     orderItemCtx.put("listingStatus", UtilXml.childElementValue(sellingStatusElement, "ListingStatus", ""));
@@ -874,7 +874,7 @@ public class EbayOrderServices {
 
                             GenericValue orderExist = externalOrderExists(delegator, (String)orderCtx.get("externalId"));
                             if (orderExist != null) {
-                                orderCtx.put("orderId", (String) orderExist.get("orderId"));
+                                orderCtx.put("orderId", orderExist.get("orderId"));
                             } else {
                                 orderCtx.put("orderId", "");
                             }
@@ -904,7 +904,7 @@ public class EbayOrderServices {
                 List<? extends Element> errorList = UtilXml.childElementList(elemResponse, "Errors");
                 Iterator<? extends Element> errorElemIter = errorList.iterator();
                 while (errorElemIter.hasNext()) {
-                    Element errorElement = (Element) errorElemIter.next();
+                    Element errorElement = errorElemIter.next();
                     errorMessage.append(UtilXml.childElementValue(errorElement, "ShortMessage", ""));
                 }
             }
@@ -927,21 +927,21 @@ public class EbayOrderServices {
                 List<? extends Element> deletedFromSoldList = UtilXml.childElementList(elemResponse, "DeletedFromSoldList");
                 Iterator<? extends Element> deletedFromSoldElemIter = deletedFromSoldList.iterator();
                 while (deletedFromSoldElemIter.hasNext()) {
-                    Element deletedFromSoldElement = (Element) deletedFromSoldElemIter.next();
+                    Element deletedFromSoldElement = deletedFromSoldElemIter.next();
                     // retrieve transaction
                     List<? extends Element> orderTransactionArrayList = UtilXml.childElementList(deletedFromSoldElement, "OrderTransactionArray");
                     Iterator<? extends Element> orderTransactionArrayElemIter = orderTransactionArrayList.iterator();
                     while (orderTransactionArrayElemIter.hasNext()) {
-                        Element orderTransactionArrayElement = (Element) orderTransactionArrayElemIter.next();
+                        Element orderTransactionArrayElement = orderTransactionArrayElemIter.next();
                         List<? extends Element> orderTransactionList = UtilXml.childElementList(orderTransactionArrayElement, "OrderTransaction");
                         Iterator<? extends Element> orderTransactionElemIter = orderTransactionList.iterator();
                         while (orderTransactionElemIter.hasNext()) {
-                            Element orderTransactionElement = (Element) orderTransactionElemIter.next();
+                            Element orderTransactionElement = orderTransactionElemIter.next();
 
                             List<? extends Element> sellerOrderList = UtilXml.childElementList(orderTransactionElement, "Order");
                             Iterator<? extends Element> sellerOrderElemIter = sellerOrderList.iterator();
                             while (sellerOrderElemIter.hasNext()) {
-                                Element sellerOrderElement = (Element) sellerOrderElemIter.next();
+                                Element sellerOrderElement = sellerOrderElemIter.next();
                                 String orderId = UtilXml.childElementValue(sellerOrderElement, "OrderID");
                                 if (UtilValidate.isNotEmpty(orderId)) {
                                     fetchDeletedOrdersAndTransactions.add(orderId);
@@ -950,12 +950,12 @@ public class EbayOrderServices {
                             List<? extends Element> transactionList = UtilXml.childElementList(orderTransactionElement, "Transaction");
                             Iterator<? extends Element> transactionElemIter = transactionList.iterator();
                             while (transactionElemIter.hasNext()) {
-                                Element transactionElement = (Element) transactionElemIter.next();
+                                Element transactionElement = transactionElemIter.next();
 
                                 List<? extends Element> itemList = UtilXml.childElementList(transactionElement, "Item");
                                 Iterator<? extends Element> itemElemIter = itemList.iterator();
                                 while (itemElemIter.hasNext()) {
-                                    Element itemElement = (Element) itemElemIter.next();
+                                    Element itemElement = itemElemIter.next();
                                     String itemId = UtilXml.childElementValue(itemElement, "ItemID");
                                     if (UtilValidate.isNotEmpty(itemId)) {
                                         fetchDeletedOrdersAndTransactions.add(itemId);
@@ -969,7 +969,7 @@ public class EbayOrderServices {
                 List<? extends Element> errorList = UtilXml.childElementList(elemResponse, "Errors");
                 Iterator<? extends Element> errorElemIter = errorList.iterator();
                 while (errorElemIter.hasNext()) {
-                    Element errorElement = (Element) errorElemIter.next();
+                    Element errorElement = errorElemIter.next();
                     errorMessage.append(UtilXml.childElementValue(errorElement, "ShortMessage", ""));
                 }
             }
@@ -1048,7 +1048,7 @@ public class EbayOrderServices {
             List<Map<String, Object>> orderItemList = UtilGenerics.checkList(context.get("orderItemList"));
             Iterator<Map<String, Object>> orderItemIter = orderItemList.iterator();
             while (orderItemIter.hasNext()) {
-                Map<String, Object> orderItem = (Map<String, Object>) orderItemIter.next();
+                Map<String, Object> orderItem = orderItemIter.next();
                 addItem(cart, orderItem, dispatcher, delegator, 0);
             }
 
@@ -1107,8 +1107,8 @@ public class EbayOrderServices {
                 Map<String, Object> shippingAddressCtx = UtilGenerics.checkMap(context.get("shippingAddressCtx"));
                 if (UtilValidate.isNotEmpty(shippingAddressCtx)) {
                     String buyerName = (String) shippingAddressCtx.get("buyerName");
-                    String firstName = (String) buyerName.substring(0, buyerName.indexOf(" "));
-                    String lastName = (String) buyerName.substring(buyerName.indexOf(" ")+1);
+                    String firstName = buyerName.substring(0, buyerName.indexOf(" "));
+                    String lastName = buyerName.substring(buyerName.indexOf(" ")+1);
 
                     String country = (String) shippingAddressCtx.get("shippingAddressCountry");
                     String state = (String) shippingAddressCtx.get("shippingAddressStateOrProvince");

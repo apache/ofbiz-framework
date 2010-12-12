@@ -250,7 +250,7 @@ public class PayPalEvents {
         Set <String> keySet = parametersMap.keySet();
         Iterator <String> i = keySet.iterator();
         while (i.hasNext()) {
-            String name = (String) i.next();
+            String name = i.next();
             String value = request.getParameter(name);
             Debug.logError("### Param: " + name + " => " + value, module);
             if (UtilValidate.isNotEmpty(name) && "payer_status".equalsIgnoreCase(name) &&
@@ -419,7 +419,7 @@ public class PayPalEvents {
         if (paymentPrefs.size() > 0) {
             Iterator <GenericValue> i = paymentPrefs.iterator();
             while (i.hasNext()) {
-                GenericValue pref = (GenericValue) i.next();
+                GenericValue pref = i.next();
                 boolean okay = setPaymentPreference(dispatcher, userLogin, pref, request);
                 if (!okay)
                     return false;
@@ -504,7 +504,7 @@ public class PayPalEvents {
 
         if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
             Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
-            request.setAttribute("_ERROR_MESSAGE_", (String) results.get(ModelService.ERROR_MESSAGE));
+            request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
             return false;
         }
 

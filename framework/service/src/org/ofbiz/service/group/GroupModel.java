@@ -127,7 +127,7 @@ public class GroupModel {
         } else if (this.getSendMode().equals("round-robin")) {
             return runIndex(dispatcher, localName, context, (++lastServiceRan % services.size()));
         } else if (this.getSendMode().equals("random")) {
-            int randomIndex = (int) (Math.random() * (double) (services.size()));
+            int randomIndex = (int) (Math.random() * (services.size()));
             return runIndex(dispatcher, localName, context, randomIndex);
         } else if (this.getSendMode().equals("first-available")) {
             return runOne(dispatcher, localName, context);

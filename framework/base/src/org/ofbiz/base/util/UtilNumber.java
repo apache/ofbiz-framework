@@ -213,7 +213,7 @@ public class UtilNumber {
      * @return  formatted string or an empty string if there was an error
      */
     public static String formatRuleBasedAmount(double amount, String rule, Locale locale) {
-        String ruleSet = (String) rbnfRuleSets.get(locale);
+        String ruleSet = rbnfRuleSets.get(locale);
         if (ruleSet == null) {
             Debug.logWarning("Cannot format rule based amount for locale " + locale.toString() + " because rule set for that locale does not exist", module);
             return "";

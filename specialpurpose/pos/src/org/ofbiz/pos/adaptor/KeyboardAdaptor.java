@@ -134,10 +134,10 @@ public class KeyboardAdaptor {
             if (chars.length == 0) {
                 // non-character data from keyboard interface (i.e. FN keys, enter, esc, etc)
                 return KEYBOARD_DATA;
-            } else if (((int) chars[0]) == 2 && ((int) chars[chars.length - 1]) == 10) {
+            } else if ((chars[0]) == 2 && (chars[chars.length - 1]) == 10) {
                 // test for scanner data
                 return SCANNER_DATA;
-            } else if (((int) chars[0]) == 37 && ((int) chars[chars.length - 1]) == 10) {
+            } else if ((chars[0]) == 37 && (chars[chars.length - 1]) == 10) {
                 // test for MSR data
                 return MSR_DATA;
             } else {
@@ -164,17 +164,17 @@ public class KeyboardAdaptor {
                     int[] codes = new int[keyCodeData.size()];
 
                     for (int i = 0; i < codes.length; i++) {
-                        Integer itg = (Integer) keyCodeData.get(i);
+                        Integer itg = keyCodeData.get(i);
                         codes[i] = itg.intValue();
                     }
 
                     for (int i = 0; i < chars.length; i++) {
-                        Character ch = (Character) keyCharData.get(i);
+                        Character ch = keyCharData.get(i);
                         chars[i] = ch.charValue();
                     }
 
                     for (KeyboardReceiver receiver : receivers.keySet()) {
-                        int receiverType = ((Integer) receivers.get(receiver)).intValue();
+                        int receiverType = (receivers.get(receiver)).intValue();
                         int thisDataType = this.checkDataType(chars);
                         if (receiverType == ALL_DATA || receiverType == thisDataType) {
                             receiver.receiveData(codes, chars);

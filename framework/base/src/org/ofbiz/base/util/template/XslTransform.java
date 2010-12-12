@@ -123,7 +123,7 @@ public final class XslTransform {
             Transformer transformer = translet.newTransformer();
             if (params != null) {
                 for (Map.Entry<String, Object> entry: params.entrySet()) {
-                       String key = (String)entry.getKey();
+                       String key = entry.getKey();
                     Object val = entry.getValue();
                     transformer.setParameter(key, val);
                }

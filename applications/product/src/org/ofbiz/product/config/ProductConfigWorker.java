@@ -112,7 +112,7 @@ public class ProductConfigWorker {
                 try {
                     cnt = Integer.parseInt(opt);
                     String comments = null;
-                    ProductConfigWrapper.ConfigItem question = (ProductConfigWrapper.ConfigItem) configWrapper.getQuestions().get(k);
+                    ProductConfigWrapper.ConfigItem question = configWrapper.getQuestions().get(k);
                     if (question.isSingleChoice()) {
                         comments = request.getParameter("comments_" + k + "_" + "0");
                     } else {
@@ -142,7 +142,7 @@ public class ProductConfigWorker {
                                             List<String> selectedFeatures = FastList.newInstance();
                                             Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
                                             while (paramNames.hasMoreElements()) {
-                                                String paramName = (String)paramNames.nextElement();
+                                                String paramName = paramNames.nextElement();
                                                 if (paramName.startsWith("FT" + k + "_" + cnt + "_" + variantIndex)) {
                                                     selectedFeatures.add(request.getParameterValues(paramName)[0]);
                                                 }
@@ -342,7 +342,7 @@ public class ProductConfigWorker {
                         List<GenericValue> components = oneOption.getComponents();
                         for (GenericValue component: components) {
                             if (oneOption.isVirtualComponent(component)) {
-                                String componentOption = (String)oneOption.componentOptions.get(component.getString("productId"));
+                                String componentOption = oneOption.componentOptions.get(component.getString("productId"));
                                 GenericValue configOptionProductOption = delegator.makeValue("ConfigOptionProductOption");
                                 configOptionProductOption.put("configId", configId);
                                 configOptionProductOption.put("configItemId", configItemId);

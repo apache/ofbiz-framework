@@ -230,7 +230,7 @@ public class ModelTree extends ModelWidget {
     public void renderTreeString(StringBuffer buf, Map<String, Object> context, TreeStringRenderer treeStringRenderer) throws GeneralException {
         Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
 
-        ModelNode node = (ModelNode)nodeMap.get(rootNodeName);
+        ModelNode node = nodeMap.get(rootNodeName);
 
         String trailName = trailNameExdr.expandString(context);
         String treeString = (String)context.get(trailName);
@@ -548,7 +548,7 @@ public class ModelTree extends ModelWidget {
              this.subNodeValues = FastList.newInstance();
              for (ModelSubNode subNode: subNodeList) {
                  String nodeName = subNode.getNodeName(context);
-                 ModelNode node = (ModelNode)modelTree.nodeMap.get(nodeName);
+                 ModelNode node = modelTree.nodeMap.get(nodeName);
                  List<ModelTreeAction> subNodeActions = subNode.getActions();
                  //if (Debug.infoOn()) Debug.logInfo(" context.currentValue:" + context.get("currentValue"), module);
                  ModelTreeAction.runSubActions(subNodeActions, context);

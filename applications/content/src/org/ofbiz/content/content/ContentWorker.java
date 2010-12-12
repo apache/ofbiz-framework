@@ -437,19 +437,19 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             List<GenericValue> topicList = content.getRelatedByAnd("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "TOPIC"));
             List<String> topics = FastList.newInstance();
             for (int i = 0; i < topicList.size(); i++) {
-                GenericValue assoc = (GenericValue) topicList.get(i);
+                GenericValue assoc = topicList.get(i);
                 topics.add(assoc.getString("contentId"));
             }
             List<GenericValue> keywordList = content.getRelatedByAnd("ToContentAssoc", UtilMisc.toMap("contentAssocTypeId", "KEYWORD"));
             List<String> keywords = FastList.newInstance();
             for (int i = 0; i < keywordList.size(); i++) {
-                GenericValue assoc = (GenericValue) keywordList.get(i);
+                GenericValue assoc = keywordList.get(i);
                 keywords.add(assoc.getString("contentId"));
             }
             List<GenericValue> purposeValueList = content.getRelatedCache("ContentPurpose");
             List<String> purposes = FastList.newInstance();
             for (int i = 0; i < purposeValueList.size(); i++) {
-                GenericValue purposeValue = (GenericValue) purposeValueList.get(i);
+                GenericValue purposeValue = purposeValueList.get(i);
                 purposes.add(purposeValue.getString("contentPurposeTypeId"));
             }
             List<GenericValue> contentTypeAncestry = FastList.newInstance();
@@ -490,7 +490,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 Map<String, Object> assocContext = FastMap.newInstance();
                 assocContext.put("related", relatedAssocs);
                 while (it.hasNext()) {
-                    GenericValue assocValue = (GenericValue) it.next();
+                    GenericValue assocValue = it.next();
                     contentAssocTypeId = (String) assocValue.get("contentAssocTypeId");
                     assocContext.put("contentAssocTypeId", contentAssocTypeId);
                     //assocContext.put("contentTypeId", assocValue.get("contentTypeId"));
@@ -530,7 +530,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             return false;
         }
 
-        Map<String, Object> currentNode = (Map<String, Object>)nodeTrail.get(sz - 1);
+        Map<String, Object> currentNode = nodeTrail.get(sz - 1);
         Boolean isReturnAfter = (Boolean)currentNode.get("isReturnAfter");
         if (isReturnAfter != null && isReturnAfter.booleanValue()) {
             return false;
@@ -540,7 +540,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (UtilValidate.isNotEmpty(kids)) {
             int idx = 0;
             while (idx < kids.size()) {
-                currentNode = (Map<String, Object>)kids.get(idx);
+                currentNode = kids.get(idx);
                 ContentWorker.traceNodeTrail("12",nodeTrail);
                 Boolean isPick = (Boolean)currentNode.get("isPick");
 
@@ -568,9 +568,9 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (!inProgress) {
             // look for next sibling
             while (sz > 1) {
-                currentNode = (Map<String, Object>)nodeTrail.remove(--sz);
+                currentNode = nodeTrail.remove(--sz);
                 ContentWorker.traceNodeTrail("15",nodeTrail);
-                Map<String, Object> parentNode = (Map<String, Object>) nodeTrail.get(sz - 1);
+                Map<String, Object> parentNode = nodeTrail.get(sz - 1);
                 kids = (List<Map <String, Object>>)parentNode.get("kids");
                 if (kids == null) {
                     continue;
@@ -578,7 +578,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
                 int idx = kids.indexOf(currentNode);
                 while (idx < (kids.size() - 1)) {
-                    currentNode = (Map<String, Object>)kids.get(idx + 1);
+                    currentNode = kids.get(idx + 1);
                     Boolean isFollow = (Boolean)currentNode.get("isFollow");
                     if (isFollow == null || !isFollow.booleanValue()) {
                         idx++;

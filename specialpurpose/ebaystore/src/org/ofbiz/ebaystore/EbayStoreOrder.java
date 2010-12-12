@@ -369,7 +369,7 @@ public class EbayStoreOrder {
             List<Map<String, Object>> orderItemList = UtilGenerics.checkList(context.get("orderItemList"));
             Iterator<Map<String, Object>> orderItemIter = orderItemList.iterator();
             while (orderItemIter.hasNext()) {
-                Map<String, Object> orderItem = (Map<String, Object>) orderItemIter.next();
+                Map<String, Object> orderItem = orderItemIter.next();
                 addItem(cart, orderItem, dispatcher, delegator, 0);
             }
 
@@ -424,8 +424,8 @@ public class EbayStoreOrder {
             Map<String, Object> shippingAddressCtx = UtilGenerics.checkMap(context.get("shippingAddressCtx"));
             if (UtilValidate.isNotEmpty(shippingAddressCtx)) {
                 String buyerName = (String) shippingAddressCtx.get("buyerName");
-                String firstName = (String) buyerName.substring(0, buyerName.indexOf(" "));
-                String lastName = (String) buyerName.substring(buyerName.indexOf(" ")+1);
+                String firstName = buyerName.substring(0, buyerName.indexOf(" "));
+                String lastName = buyerName.substring(buyerName.indexOf(" ")+1);
 
                 String country = (String) shippingAddressCtx.get("shippingAddressCountry");
                 String state = (String) shippingAddressCtx.get("shippingAddressStateOrProvince");

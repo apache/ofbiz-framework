@@ -117,10 +117,10 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         final Map traverseContext = FastMap.newInstance();
         traverseContext.put("delegator", delegator);
         Map whenMap = FastMap.newInstance();
-        whenMap.put("followWhen", (String)templateRoot.get("followWhen"));
-        whenMap.put("pickWhen", (String)templateRoot.get("pickWhen"));
-        whenMap.put("returnBeforePickWhen", (String)templateRoot.get("returnBeforePickWhen"));
-        whenMap.put("returnAfterPickWhen", (String)templateRoot.get("returnAfterPickWhen"));
+        whenMap.put("followWhen", templateRoot.get("followWhen"));
+        whenMap.put("pickWhen", templateRoot.get("pickWhen"));
+        whenMap.put("returnBeforePickWhen", templateRoot.get("returnBeforePickWhen"));
+        whenMap.put("returnAfterPickWhen", templateRoot.get("returnAfterPickWhen"));
         traverseContext.put("whenMap", whenMap);
         env.setVariable("whenMap", FreeMarkerWorker.autoWrap(whenMap, env));
         String fromDateStr = (String)templateRoot.get("fromDateStr");

@@ -610,7 +610,7 @@ public class ProductStoreWorker {
                     Debug.logError("Error calling isStoreInventoryRequired service, result is: " + invReqResult, module);
                     return false;
                 }
-                requiredOkay = Boolean.valueOf(wantRequired.booleanValue() == "Y".equals((String) invReqResult.get("requireInventory")));
+                requiredOkay = Boolean.valueOf(wantRequired.booleanValue() == "Y".equals(invReqResult.get("requireInventory")));
             }
 
             Boolean availableOkay = null;
@@ -620,7 +620,7 @@ public class ProductStoreWorker {
                     Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invAvailResult, module);
                     return false;
                 }
-                availableOkay = Boolean.valueOf(wantAvailable.booleanValue() == "Y".equals((String) invAvailResult.get("available")));
+                availableOkay = Boolean.valueOf(wantAvailable.booleanValue() == "Y".equals(invAvailResult.get("available")));
             }
 
             if ((requiredOkay == null || requiredOkay.booleanValue()) && (availableOkay == null || availableOkay.booleanValue())) {

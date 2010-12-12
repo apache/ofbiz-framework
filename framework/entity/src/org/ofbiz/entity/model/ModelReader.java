@@ -259,7 +259,7 @@ public class ModelReader implements Serializable {
                     // all entity elements in, now go through extend-entity elements and add their stuff
                     for (Element extendEntityElement: tempExtendEntityElementList) {
                         String entityName = UtilXml.checkEmpty(extendEntityElement.getAttribute("entity-name"));
-                        ModelEntity modelEntity = (ModelEntity) entityCache.get(entityName);
+                        ModelEntity modelEntity = entityCache.get(entityName);
                         if (modelEntity == null) throw new GenericEntityConfException("Entity to extend does not exist: " + entityName);
                         modelEntity.addExtendEntity(this, extendEntityElement);
                     }
@@ -271,7 +271,7 @@ public class ModelReader implements Serializable {
                         curViewEntity.populateFields(this);
                         for (ModelViewEntity.ModelMemberEntity mve: curViewEntity.getAllModelMemberEntities()) {
 
-                            ModelEntity me = (ModelEntity) entityCache.get(mve.getEntityName());
+                            ModelEntity me = entityCache.get(mve.getEntityName());
                             if (me == null) throw new GenericEntityConfException("View " + curViewEntity.getEntityName() + " references non-existant entity: " + mve.getEntityName());
                             me.addViewEntity(curViewEntity);
                         }
@@ -498,7 +498,7 @@ public class ModelReader implements Serializable {
         //put the entityNames TreeSets in a HashMap by packageName
         Iterator<String> ecIter = this.getEntityNames().iterator();
         while (ecIter.hasNext()) {
-            String entityName = (String) ecIter.next();
+            String entityName = ecIter.next();
             ModelEntity entity = this.getModelEntity(entityName);
             String packageName = entity.getPackageName();
 

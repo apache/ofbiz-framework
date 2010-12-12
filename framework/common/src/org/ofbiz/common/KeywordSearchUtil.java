@@ -164,7 +164,7 @@ public class KeywordSearchUtil {
             }
 
             // group by word, add up weight
-            Long curWeight = (Long) keywords.get(token);
+            Long curWeight = keywords.get(token);
             if (curWeight == null) {
                 keywords.put(token, Long.valueOf(1));
             } else {

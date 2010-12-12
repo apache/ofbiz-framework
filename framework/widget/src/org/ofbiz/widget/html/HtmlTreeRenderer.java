@@ -77,7 +77,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             String targetEntityId = null;
             List<String> targetNodeTrail = UtilGenerics.toList(context.get("targetNodeTrail"));
             if (depth < targetNodeTrail.size()) {
-                targetEntityId = (String)targetNodeTrail.get(depth);
+                targetEntityId = targetNodeTrail.get(depth);
             }
 
             int openDepth = node.getModelTree().getOpenDepth();
@@ -102,7 +102,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             } else {
                 context.put("processChildren", Boolean.TRUE);
                 //expandCollapseLink.setText("&nbsp;-&nbsp;");
-                String lastContentId = (String)currentNodeTrail.remove(currentNodeTrail.size() - 1);
+                String lastContentId = currentNodeTrail.remove(currentNodeTrail.size() - 1);
                 currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
                 if (currentNodeTrailPiped == null) {
                     currentNodeTrailPiped = "";

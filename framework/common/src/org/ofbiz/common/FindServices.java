@@ -593,8 +593,8 @@ public class FindServices {
         String entityName = (String) context.get("entityName");
         EntityConditionList entityConditionList = (EntityConditionList) context.get("entityConditionList");
         List<String> orderByList = checkList(context.get("orderByList"), String.class);
-        boolean noConditionFind = "Y".equals((String) context.get("noConditionFind"));
-        boolean distinct = "Y".equals((String) context.get("distinct"));
+        boolean noConditionFind = "Y".equals(context.get("noConditionFind"));
+        boolean distinct = "Y".equals(context.get("distinct"));
         List<String> fieldList =  UtilGenerics.checkList(context.get("fieldList"));
         Set<String> fieldSet = null;
         if (fieldList != null) {

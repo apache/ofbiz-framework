@@ -221,7 +221,7 @@ public class PaymentGatewayServices {
                                     if (UtilValidate.isNotEmpty(otherPaymentMethodAndCreditCardList)) {
                                         Iterator<GenericValue> otherPaymentMethodAndCreditCardIter = otherPaymentMethodAndCreditCardList.iterator();
                                         while (otherPaymentMethodAndCreditCardIter.hasNext()) {
-                                            GenericValue otherPaymentMethodAndCreditCard = (GenericValue) otherPaymentMethodAndCreditCardIter.next();
+                                            GenericValue otherPaymentMethodAndCreditCard = otherPaymentMethodAndCreditCardIter.next();
 
                                             // change OrderPaymentPreference in memory only and call auth service
                                             orderPaymentPreference.set("paymentMethodId", otherPaymentMethodAndCreditCard.getString("paymentMethodId"));
@@ -348,7 +348,7 @@ public class PaymentGatewayServices {
         List<String> messages = FastList.newInstance();
         Iterator<GenericValue> payments = paymentPrefs.iterator();
         while (payments.hasNext()) {
-            GenericValue paymentPref = (GenericValue) payments.next();
+            GenericValue paymentPref = payments.next();
             if (reAuth && "PAYMENT_AUTHORIZED".equals(paymentPref.getString("statusId"))) {
                 String paymentConfig = null;
                 // get the payment settings i.e. serviceName and config properties file name
@@ -524,7 +524,7 @@ public class PaymentGatewayServices {
             }
 
             // try other expire dates if the expireDate is not after today, or if we called the auth service and resultBadExpire = true
-            if (tryOtherExpDates && (!UtilValidate.isDateAfterToday(creditCard.getString("expireDate")) || (processorResult != null && Boolean.TRUE.equals((Boolean) processorResult.get("resultBadExpire"))))) {
+            if (tryOtherExpDates && (!UtilValidate.isDateAfterToday(creditCard.getString("expireDate")) || (processorResult != null && Boolean.TRUE.equals(processorResult.get("resultBadExpire"))))) {
                 // try adding 2, 3, 4 years later with the same month
                 String expireDate = creditCard.getString("expireDate");
                 int dateSlash1 = expireDate.indexOf("/");
@@ -539,14 +539,14 @@ public class PaymentGatewayServices {
                 processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
 
                 // note that these additional tries will only be done if the service return is not an error, in that case we let it pass through to the normal error handling
-                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals((Boolean) processorResult.get("resultBadExpire"))) {
+                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals(processorResult.get("resultBadExpire"))) {
                     // okay, try one more year...
                     year = StringUtil.addToNumberString(year, 1);
                     creditCard.set("expireDate", month + "/" + year);
                     processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
                 }
 
-                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals((Boolean) processorResult.get("resultBadExpire"))) {
+                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals(processorResult.get("resultBadExpire"))) {
                     // okay, try one more year... and this is the last try
                     year = StringUtil.addToNumberString(year, 1);
                     creditCard.set("expireDate", month + "/" + year);
@@ -554,7 +554,7 @@ public class PaymentGatewayServices {
                 }
 
                 // at this point if we have a successful result, let's save the new creditCard expireDate
-                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals((Boolean) processorResult.get("authResult"))) {
+                if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals(processorResult.get("authResult"))) {
                     // TODO: this is bad; we should be expiring the old card and creating a new one instead of editing it
                     creditCard.store();
                 }
@@ -662,7 +662,7 @@ public class PaymentGatewayServices {
         Collection<GenericValue> emails = ContactHelper.getContactMech(billToPersonOrGroup.getRelatedOne("Party"), "PRIMARY_EMAIL", "EMAIL_ADDRESS", false);
 
         if (UtilValidate.isNotEmpty(emails)) {
-            billToEmail = (GenericValue) emails.iterator().next();
+            billToEmail = emails.iterator().next();
         }
 
         toContext.put("billToParty", billToPersonOrGroup);
@@ -733,7 +733,7 @@ public class PaymentGatewayServices {
         List<GenericValue> finished = FastList.newInstance();
         Iterator<GenericValue> payments = paymentPrefs.iterator();
         while (payments.hasNext()) {
-            paymentPref = (GenericValue) payments.next();
+            paymentPref = payments.next();
             Map<String, Object> releaseContext = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreferenceId", paymentPref.getString("orderPaymentPreferenceId"));
             Map<String, Object> releaseResult = null;
             try {
@@ -794,7 +794,7 @@ public class PaymentGatewayServices {
             while (i.hasNext()) {
                 GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                 String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                String message = (String) i.next();
+                String message = i.next();
                 respMsg.set("paymentGatewayRespMsgId", respMsgId);
                 respMsg.set("paymentGatewayResponseId", responseId);
                 respMsg.set("pgrMessage", message);
@@ -819,7 +819,7 @@ public class PaymentGatewayServices {
             if (paymentList != null) {
                 Iterator<GenericValue> pi = paymentList.iterator();
                 while (pi.hasNext()) {
-                    GenericValue pay = (GenericValue) pi.next();
+                    GenericValue pay = pi.next();
                     try {
                         Map<String, Object> cancelResults = dispatcher.runSync("setPaymentStatus", UtilMisc.toMap("userLogin", userLogin, "paymentId", pay.get("paymentId"), "statusId", "PMNT_CANCELLED"));
                         if (ServiceUtil.isError(cancelResults)) {
@@ -985,7 +985,7 @@ public class PaymentGatewayServices {
             while (i.hasNext()) {
                 GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                 String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                String message = (String) i.next();
+                String message = i.next();
                 respMsg.set("paymentGatewayRespMsgId", respMsgId);
                 respMsg.set("paymentGatewayResponseId", responseId);
                 respMsg.set("pgrMessage", message);
@@ -1011,7 +1011,7 @@ public class PaymentGatewayServices {
             if (paymentList != null) {
                 Iterator<GenericValue> pi = paymentList.iterator();
                 while (pi.hasNext()) {
-                    GenericValue pay = (GenericValue) pi.next();
+                    GenericValue pay = pi.next();
                     try {
                         Map<String, Object> cancelResults = dispatcher.runSync("setPaymentStatus", UtilMisc.toMap("userLogin", userLogin, "paymentId", pay.get("paymentId"), "statusId", "PMNT_CANCELLED"));
                         if (ServiceUtil.isError(cancelResults)) {
@@ -1072,7 +1072,7 @@ public class PaymentGatewayServices {
         if (orderItemBillings != null) {
             Iterator<GenericValue> oii = orderItemBillings.iterator();
             while (oii.hasNext()) {
-                GenericValue oib = (GenericValue) oii.next();
+                GenericValue oib = oii.next();
                 String orderId = oib.getString("orderId");
                 if (testOrderId == null) {
                     testOrderId = orderId;
@@ -1169,7 +1169,7 @@ public class PaymentGatewayServices {
         if (UtilValidate.isNotEmpty(paymentPrefsBa)) {
             Iterator<GenericValue> paymentsBa = paymentPrefsBa.iterator();
             while (paymentsBa.hasNext()) {
-                GenericValue paymentPref = (GenericValue) paymentsBa.next();
+                GenericValue paymentPref = paymentsBa.next();
 
                 BigDecimal authAmount = paymentPref.getBigDecimal("maxAmount");
                 if (authAmount == null) authAmount = ZERO;
@@ -1539,7 +1539,7 @@ public class PaymentGatewayServices {
                         // we have captured all the amount required
                         break;
                     }
-                    GenericValue paymentApplication = (GenericValue)paymentApplicationsIt.next();
+                    GenericValue paymentApplication = paymentApplicationsIt.next();
                     GenericValue payment = paymentApplication.getRelatedOne("Payment");
                     if (payment.getString("paymentPreferenceId") != null) {
                         // if the payment is reserved for a specific OrderPaymentPreference,
@@ -1866,10 +1866,10 @@ public class PaymentGatewayServices {
             response.set("gatewayMessage", context.get("authMessage"));
             response.set("transactionDate", UtilDateTime.nowTimestamp());
 
-            if (Boolean.TRUE.equals((Boolean) context.get("resultDeclined"))) response.set("resultDeclined", "Y");
-            if (Boolean.TRUE.equals((Boolean) context.get("resultNsf"))) response.set("resultNsf", "Y");
-            if (Boolean.TRUE.equals((Boolean) context.get("resultBadExpire"))) response.set("resultBadExpire", "Y");
-            if (Boolean.TRUE.equals((Boolean) context.get("resultBadCardNumber"))) response.set("resultBadCardNumber", "Y");
+            if (Boolean.TRUE.equals(context.get("resultDeclined"))) response.set("resultDeclined", "Y");
+            if (Boolean.TRUE.equals(context.get("resultNsf"))) response.set("resultNsf", "Y");
+            if (Boolean.TRUE.equals(context.get("resultBadExpire"))) response.set("resultBadExpire", "Y");
+            if (Boolean.TRUE.equals(context.get("resultBadCardNumber"))) response.set("resultBadCardNumber", "Y");
 
             // save the response
             savePgr(dctx, response);
@@ -1881,7 +1881,7 @@ public class PaymentGatewayServices {
                 while (i.hasNext()) {
                     GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                     String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                    String message = (String) i.next();
+                    String message = i.next();
                     respMsg.set("paymentGatewayRespMsgId", respMsgId);
                     respMsg.set("paymentGatewayResponseId", responseId);
                     respMsg.set("pgrMessage", message);
@@ -1926,7 +1926,7 @@ public class PaymentGatewayServices {
                     }
                     creditCard.set("lastFailedAuthDate", nowTimestamp);
 
-                    if (Boolean.TRUE.equals((Boolean) context.get("resultNsf"))) {
+                    if (Boolean.TRUE.equals(context.get("resultNsf"))) {
                         Long consecutiveFailedNsf = creditCard.getLong("consecutiveFailedNsf");
                         if (consecutiveFailedNsf == null) {
                             creditCard.set("consecutiveFailedNsf", Long.valueOf(1));
@@ -1960,7 +1960,7 @@ public class PaymentGatewayServices {
 
     private static boolean needsNsfRetry(GenericValue orderPaymentPreference, Map<String, ? extends Object> processContext, Delegator delegator) throws GenericEntityException {
         boolean needsNsfRetry = false;
-        if (Boolean.TRUE.equals((Boolean) processContext.get("resultNsf"))) {
+        if (Boolean.TRUE.equals(processContext.get("resultNsf"))) {
             // only track this for auto-orders, since we will only not fail and re-try on those
             GenericValue orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader");
             if (UtilValidate.isNotEmpty(orderHeader.getString("autoOrderShoppingListId"))) {
@@ -2190,7 +2190,7 @@ public class PaymentGatewayServices {
                 while (i.hasNext()) {
                     GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                     String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                    String message = (String) i.next();
+                    String message = i.next();
                     respMsg.set("paymentGatewayRespMsgId", respMsgId);
                     respMsg.set("paymentGatewayResponseId", responseId);
                     respMsg.set("pgrMessage", message);
@@ -2469,7 +2469,7 @@ public class PaymentGatewayServices {
             while (i.hasNext()) {
                 GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                 String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                String message = (String) i.next();
+                String message = i.next();
                 respMsg.set("paymentGatewayRespMsgId", respMsgId);
                 respMsg.set("paymentGatewayResponseId", responseId);
                 respMsg.set("pgrMessage", message);
@@ -2613,7 +2613,7 @@ public class PaymentGatewayServices {
             if (eli != null) {
                 Debug.logInfo("Processing failed order re-auth(s)", module);
                 GenericValue value = null;
-                while (((value = (GenericValue) eli.next()) != null)) {
+                while (((value = eli.next()) != null)) {
                     String orderId = value.getString("orderId");
                     if (!processList.contains(orderId)) { // just try each order once
                         try {
@@ -2662,7 +2662,7 @@ public class PaymentGatewayServices {
             if (eli != null) {
                 Debug.logInfo("Processing failed order re-auth(s)", module);
                 GenericValue value = null;
-                while (((value = (GenericValue) eli.next()) != null)) {
+                while (((value = eli.next()) != null)) {
                     String orderId = value.getString("orderId");
                     if (!processList.contains(orderId)) { // just try each order once
                         try {
@@ -3382,7 +3382,7 @@ public class PaymentGatewayServices {
         String lastNumberStr = expireDate.substring(expireDate.length() - 1);
         int lastNumber = Integer.parseInt(lastNumberStr);
 
-        if ((float) lastNumber / 2.0 == 0.0) {
+        if (lastNumber / 2.0 == 0.0) {
             return alwaysBadExpireProcessor(dctx, context);
         } else {
             return alwaysApproveProcessor(dctx, context);

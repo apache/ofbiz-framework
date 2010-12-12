@@ -55,7 +55,7 @@ public class GoogleBaseSearchEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Locale locale = UtilHttp.getLocale(request);
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        String selectResult = (String) request.getParameter("selectResult");
+        String selectResult = request.getParameter("selectResult");
         List<String> productExportList = FastList.newInstance();
         String errMsg = null;
 
@@ -73,7 +73,7 @@ public class GoogleBaseSearchEvents {
                     }
 
                     GenericValue searchResultView = null;
-                    while ((searchResultView = (GenericValue) eli.next()) != null) {
+                    while ((searchResultView = eli.next()) != null) {
                         productExportList.add(searchResultView.getString("mainProductId"));
                     }
                     eli.close();
@@ -84,15 +84,15 @@ public class GoogleBaseSearchEvents {
                         productExportList.add(selectResult);
                     }
                 }
-                String webSiteUrl = (String) request.getParameter("webSiteUrl");
-                String imageUrl = (String) request.getParameter("imageUrl");
-                String actionType = (String) request.getParameter("actionType");
-                String statusId = (String) request.getParameter("statusId");
-                String testMode = (String) request.getParameter("testMode");
-                String trackingCodeId = (String) request.getParameter("trackingCodeId");
-                String webSiteMountPoint = (String) request.getParameter("webSiteMountPoint");
-                String countryCode = (String) request.getParameter("countryCode");
-                String productStoreId = (String) request.getParameter("productStoreId");
+                String webSiteUrl = request.getParameter("webSiteUrl");
+                String imageUrl = request.getParameter("imageUrl");
+                String actionType = request.getParameter("actionType");
+                String statusId = request.getParameter("statusId");
+                String testMode = request.getParameter("testMode");
+                String trackingCodeId = request.getParameter("trackingCodeId");
+                String webSiteMountPoint = request.getParameter("webSiteMountPoint");
+                String countryCode = request.getParameter("countryCode");
+                String productStoreId = request.getParameter("productStoreId");
 
                 // Export all or selected products to Google Base
                 try {

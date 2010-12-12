@@ -82,7 +82,7 @@ public final class OFBizLdapAuthenticationHandler extends AbstractOFBizAuthentic
                     "(&(" + filter + ") (" + attribute +"))",
                     controls);
             if (answer.hasMoreElements()) {
-                result = (SearchResult) answer.next();
+                result = answer.next();
                 if (bindRequired) {
                     env.put(Context.SECURITY_AUTHENTICATION, authenType);
                     // specify the username

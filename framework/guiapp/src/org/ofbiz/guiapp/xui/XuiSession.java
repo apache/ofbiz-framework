@@ -47,7 +47,7 @@ public class XuiSession {
     protected Map<String, Object> attributes = FastMap.newInstance();
     protected String id = null;
     protected final boolean IS_SAME_LOGIN = UtilProperties.propertyValueEqualsIgnoreCase("xui.properties", "isSameLogin", "true");
-    private Locale locale = (Locale) Locale.getDefault();
+    private Locale locale = Locale.getDefault();
 
     public XuiSession(String id, Delegator delegator, LocalDispatcher dispatcher, XuiContainer container) {
         this.id = id;

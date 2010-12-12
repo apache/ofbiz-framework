@@ -159,7 +159,7 @@ public class ScreenFactory {
             }
         }
 
-        ModelScreen modelScreen = (ModelScreen) modelScreenMap.get(screenName);
+        ModelScreen modelScreen = modelScreenMap.get(screenName);
         if (modelScreen == null) {
             throw new IllegalArgumentException("Could not find screen with name [" + screenName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }

@@ -278,8 +278,8 @@ public class OrderLookupServices {
         // Shipment Method
         String shipmentMethod = (String) context.get("shipmentMethod");
         if (UtilValidate.isNotEmpty(shipmentMethod)) {
-            String carrierPartyId = (String) shipmentMethod.substring(0, shipmentMethod.indexOf("@"));
-            String ShippingMethodTypeId = (String) shipmentMethod.substring(shipmentMethod.indexOf("@")+1);
+            String carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf("@"));
+            String ShippingMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf("@")+1);
             dve.addMemberEntity("OISG", "OrderItemShipGroup");
             dve.addAlias("OISG", "shipmentMethodTypeId");
             dve.addAlias("OISG", "carrierPartyId");

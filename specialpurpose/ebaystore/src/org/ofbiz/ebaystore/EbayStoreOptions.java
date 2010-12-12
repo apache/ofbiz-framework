@@ -92,7 +92,7 @@ public class EbayStoreOptions {
                     Map<String,Object> storeColorSchemeMap = FastMap.newInstance();
                     while (i < storeBasicTheme.length) {
 
-                        StoreThemeType storeThemeType = (StoreThemeType)storeBasicTheme[i];
+                        StoreThemeType storeThemeType = storeBasicTheme[i];
                         if (themeId.equals(storeThemeType.getThemeID().toString())) {
                             StoreColorSchemeType colorSchemeType = storeThemeType.getColorScheme();
                             if (colorSchemeType != null) {

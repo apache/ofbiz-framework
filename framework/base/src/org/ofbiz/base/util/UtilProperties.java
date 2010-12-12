@@ -448,7 +448,7 @@ public class UtilProperties implements Serializable {
 
         String value = null;
         try {
-            value = (String) bundle.getString(name);
+            value = bundle.getString(name);
         } catch (Exception e) {
             //Debug.log(e, module);
         }

@@ -74,7 +74,7 @@ public class TaskEvents {
                     "fromDate", fromDate, "result", parameterMap, "userLogin", userLogin);
             result = dispatcher.runSync("wfCompleteAssignment", context);
             if (result.containsKey(ModelService.RESPOND_ERROR)) {
-                request.setAttribute("_ERROR_MESSAGE_", (String) result.get(ModelService.ERROR_MESSAGE));
+                request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
                 return "error";
             }
         } catch (GenericServiceException e) {

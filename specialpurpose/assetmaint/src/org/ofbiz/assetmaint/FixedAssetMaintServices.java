@@ -87,7 +87,7 @@ public class FixedAssetMaintServices {
             List<GenericValue> inventoryItems = delegator.findList("InventoryItem", ecl, null, null, null, false);   //&& inventoryItems.size() > 0
             Iterator<GenericValue> itr = inventoryItems.iterator();
             while (requestedQty > 0 && itr.hasNext()) {
-                GenericValue inventoryItem = (GenericValue)itr.next();
+                GenericValue inventoryItem = itr.next();
                 String inventoryItemId = inventoryItem.getString("inventoryItemId");
                 atp = inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
                 findCurrInventoryParams = UtilMisc.toMap("inventoryItemId", inventoryItemId);

@@ -121,7 +121,7 @@ public final class UtilObject {
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj);
         oos.flush();
-        long size = (long) bos.size();
+        long size = bos.size();
         bos.close();
         return size;
     }

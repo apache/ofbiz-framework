@@ -247,23 +247,23 @@ public class ServerHitBin {
         // save in global, and try to get bin by id
         switch (type) {
         case REQUEST:
-            bin = (ServerHitBin) requestSinceStarted.get(id);
+            bin = requestSinceStarted.get(id);
             break;
 
         case EVENT:
-            bin = (ServerHitBin) eventSinceStarted.get(id);
+            bin = eventSinceStarted.get(id);
             break;
 
         case VIEW:
-            bin = (ServerHitBin) viewSinceStarted.get(id);
+            bin = viewSinceStarted.get(id);
             break;
 
         case ENTITY:
-            bin = (ServerHitBin) entitySinceStarted.get(id);
+            bin = entitySinceStarted.get(id);
             break;
 
         case SERVICE:
-            bin = (ServerHitBin) serviceSinceStarted.get(id);
+            bin = serviceSinceStarted.get(id);
             break;
         }
 
@@ -271,23 +271,23 @@ public class ServerHitBin {
             synchronized (ServerHitBin.class) {
                 switch (type) {
                 case REQUEST:
-                    bin = (ServerHitBin) requestSinceStarted.get(id);
+                    bin = requestSinceStarted.get(id);
                     break;
 
                 case EVENT:
-                    bin = (ServerHitBin) eventSinceStarted.get(id);
+                    bin = eventSinceStarted.get(id);
                     break;
 
                 case VIEW:
-                    bin = (ServerHitBin) viewSinceStarted.get(id);
+                    bin = viewSinceStarted.get(id);
                     break;
 
                 case ENTITY:
-                    bin = (ServerHitBin) entitySinceStarted.get(id);
+                    bin = entitySinceStarted.get(id);
                     break;
 
                 case SERVICE:
-                    bin = (ServerHitBin) serviceSinceStarted.get(id);
+                    bin = serviceSinceStarted.get(id);
                     break;
                 }
 
@@ -477,7 +477,7 @@ public class ServerHitBin {
 
     /** returns (endTime - startTime)/60000 */
     public double getBinLengthMinutes() {
-        return ((double) this.getBinLength()) / 60000.0;
+        return (this.getBinLength()) / 60000.0;
     }
 
     public long getNumberHits() {
@@ -493,7 +493,7 @@ public class ServerHitBin {
     }
 
     public double getMinTimeSeconds() {
-        return ((double) this.minTime) / 1000.0;
+        return (this.minTime) / 1000.0;
     }
 
     public long getMaxTime() {
@@ -501,7 +501,7 @@ public class ServerHitBin {
     }
 
     public double getMaxTimeSeconds() {
-        return ((double) this.maxTime) / 1000.0;
+        return (this.maxTime) / 1000.0;
     }
 
     public double getAvgTime() {
@@ -514,7 +514,7 @@ public class ServerHitBin {
 
     /** return the hits per minute using the entire length of the bin as returned by getBinLengthMinutes() */
     public double getHitsPerMinute() {
-        return ((double) this.numberHits) / this.getBinLengthMinutes();
+        return (this.numberHits) / this.getBinLengthMinutes();
     }
 
     synchronized void addHit(long startTime, long runningTime) {

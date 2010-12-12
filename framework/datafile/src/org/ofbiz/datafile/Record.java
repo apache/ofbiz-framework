@@ -199,7 +199,7 @@ public class Record implements Serializable {
     (long)(byteArray[3]&0xff) << 24 |
     (long)(byteArray[2]&0xff) << 16 |
     (long)(byteArray[1]&0xff) <<  8 |
-    (long)(byteArray[0]&0xff);
+    (byteArray[0]&0xff);
     }
 
     /** Sets the named field to the passed value, converting the value from a String to the current type using <code>Type.valueOf()</code>

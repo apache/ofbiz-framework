@@ -679,7 +679,7 @@ public class PriceServices {
                     return ServiceUtil.returnError("Error calculating VAT tax (with calcTaxForDisplay service)", null, null, calcTaxForDisplayResult);
                 }
                 // taxTotal, taxPercentage, priceWithTax
-                result.put("price", (BigDecimal) calcTaxForDisplayResult.get("priceWithTax"));
+                result.put("price", calcTaxForDisplayResult.get("priceWithTax"));
 
                 // based on the taxPercentage calculate the other amounts, including: listPrice, defaultPrice, averageCost, promoPrice, competitivePrice
                 BigDecimal taxPercentage = (BigDecimal) calcTaxForDisplayResult.get("taxPercentage");

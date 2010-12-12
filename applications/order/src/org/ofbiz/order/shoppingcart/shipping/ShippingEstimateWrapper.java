@@ -116,7 +116,7 @@ public class ShippingEstimateWrapper {
     }
 
     public BigDecimal getShippingEstimate(GenericValue storeCarrierShipMethod) {
-        return (BigDecimal) shippingEstimates.get(storeCarrierShipMethod);
+        return shippingEstimates.get(storeCarrierShipMethod);
     }
 
 }

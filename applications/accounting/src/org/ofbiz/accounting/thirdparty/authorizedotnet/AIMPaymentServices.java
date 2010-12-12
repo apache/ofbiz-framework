@@ -125,7 +125,7 @@ public class AIMPaymentServices {
         // CAPTURE_ONLY is a "force" transaction to be used if there is no prior authorization
         props.put("transType", "PRIOR_AUTH_CAPTURE");
         //props.put("transType","CAPTURE_ONLY");
-        props.put("cardtype", (String)creditCard.get("cardType"));
+        props.put("cardtype", creditCard.get("cardType"));
         buildCaptureTransaction(context,props,request);
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
@@ -165,7 +165,7 @@ public class AIMPaymentServices {
         buildGatewayResponeConfig(context, props, request);
         buildEmailSettings(context, props, request);
         props.put("transType", "CREDIT");
-        props.put("cardtype", (String)creditCard.get("cardType"));
+        props.put("cardtype", creditCard.get("cardType"));
         buildRefundTransaction(context, props, request);
         Map<String, Object> validateResults = validateRequest(context, props, request);
         String respMsg = (String)validateResults.get(ModelService.RESPONSE_MESSAGE);
@@ -398,7 +398,7 @@ public class AIMPaymentServices {
         props.put("password", password);
         props.put("trankey", tranKey);
         if (cc != null) {
-            props.put("cardtype", (String)cc.get("cardType"));
+            props.put("cardtype", cc.get("cardType"));
         }
         if (AIMProperties == null) {
             AIMProperties = props;

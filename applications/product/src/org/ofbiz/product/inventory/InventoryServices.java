@@ -581,8 +581,8 @@ public class InventoryServices {
                     List<GenericValue> toBeStored = FastList.newInstance();
                     for (GenericValue orderItem: orderItems) {
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
-                        Timestamp shipDate = (Timestamp) backOrderedItems.get(orderItemSeqId);
-                        Timestamp cancelDate = (Timestamp) cancelItems.get(orderItemSeqId);
+                        Timestamp shipDate = backOrderedItems.get(orderItemSeqId);
+                        Timestamp cancelDate = cancelItems.get(orderItemSeqId);
                         Timestamp currentCancelDate = orderItem.getTimestamp("autoCancelDate");
 
                         Debug.logError("OI: " + orderId + " SEQID: "+ orderItemSeqId + " cancelAll: " + cancelAll + " cancelDate: " + cancelDate, module);

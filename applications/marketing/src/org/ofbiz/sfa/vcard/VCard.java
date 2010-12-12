@@ -72,8 +72,8 @@ public class VCard {
     public static final String module = VCard.class.getName();
 
     public static Map<String, Object> importVCard(DispatchContext dctx, Map<String, ? extends Object> context) {
-        LocalDispatcher dispatcher = (LocalDispatcher) dctx.getDispatcher();
-        Delegator delegator = (Delegator) dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Address workAddress = null;
         String email = null;
@@ -213,7 +213,7 @@ public class VCard {
     }
 
     public static Map<String, Object> exportVCard(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Delegator delegator = (Delegator) dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String partyId = (String) context.get("partyId");
         File file = null;
         try {

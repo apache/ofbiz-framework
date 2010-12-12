@@ -137,7 +137,7 @@ public class CommonEvents {
             String followSessionId = request.getParameter("followSid");
             Map<String, String> follow = appletSessions.get(followSessionId);
             if (follow == null) follow = FastMap.newInstance();
-            String followerListStr = (String) follow.get("followers");
+            String followerListStr = follow.get("followers");
             if (followerListStr == null) {
                 followerListStr = followerSessionId;
             } else {

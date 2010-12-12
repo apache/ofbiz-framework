@@ -329,7 +329,7 @@ public class EbayEvents {
             Debug.logError("Required productStoreId for get ebay API config data.", module);
             return null;
         }
-        ApiContext apiContext = EbayStoreHelper.getApiContext((String)request.getParameter("productStoreId") != null ? request.getParameter("productStoreId"):(String)request.getAttribute("productStoreId"), locale, delegator);
+        ApiContext apiContext = EbayStoreHelper.getApiContext(request.getParameter("productStoreId") != null ? request.getParameter("productStoreId"):(String)request.getAttribute("productStoreId"), locale, delegator);
         return apiContext;
     }
 
@@ -376,7 +376,7 @@ public class EbayEvents {
             return categories;
         }
         if (request.getParameter("categoryId") != null || request.getAttribute("categoryId") != null) {
-            categoryId = (String) request.getParameter("categoryId") != null ? request.getParameter("categoryId") : (String) request.getAttribute("categoryId");
+            categoryId = request.getParameter("categoryId") != null ? request.getParameter("categoryId") : (String) request.getAttribute("categoryId");
             Debug.logInfo("Load child categories from session following site id and categoryId is ".concat(categoryId), module);
         } else {
             Debug.logWarning("No categoryId to get child categories.", module);
@@ -434,7 +434,7 @@ public class EbayEvents {
             return categories;
         }
         if (UtilValidate.isNotEmpty(request.getParameter("categoryId")) || UtilValidate.isNotEmpty(request.getAttribute("categoryId"))) {
-            categoryId = (String) request.getParameter("categoryId") != null ? request.getParameter("categoryId") : (String) request.getAttribute("categoryId");
+            categoryId = request.getParameter("categoryId") != null ? request.getParameter("categoryId") : (String) request.getAttribute("categoryId");
             Debug.logInfo("Load child categories from session following site id and categoryId is ".concat(categoryId), module);
         } else {
             Debug.logWarning("No categoryId to get child categories.", module);
@@ -488,7 +488,7 @@ public class EbayEvents {
             return null;
         }
         if (request.getParameter("categoryId") != null || request.getAttribute("categoryId") != null) {
-            categoryId = (String)request.getParameter("categoryId") != null ? request.getParameter("categoryId") : (String)request.getAttribute("categoryId");
+            categoryId = request.getParameter("categoryId") != null ? request.getParameter("categoryId") : (String)request.getAttribute("categoryId");
             Debug.logInfo("Load child categories from session following site id and categoryId is ".concat(categoryId), module);
         } else {
             Debug.logWarning("No categoryId to get child categories.", module);
@@ -710,8 +710,8 @@ public class EbayEvents {
                             NameValueListArrayType nameValueListArray = new NameValueListArrayType();
                             NameValueListType[] nameValueListTypes = new NameValueListType[nameSpecificList.size()];
                             for (int i = 0; i < itemSpecificsSize; i++) {
-                                String name = (String) nameSpecificList.get(i);
-                                String value = (String) valueSpecificList.get(i);
+                                String name = nameSpecificList.get(i);
+                                String value = valueSpecificList.get(i);
                                 String[] valueArray = new String[] { value };
                                 
                                 // set Name value list type.
@@ -972,7 +972,7 @@ public class EbayEvents {
                         resp = (VerifyAddItemResponseType) verifyCall.execute(req);
                         if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
                             itemObj.put("isVerify", "Y");
-                            FeesType feest = (FeesType) resp.getFees();
+                            FeesType feest = resp.getFees();
                             FeeType[] fees = feest.getFee();
                             for (FeeType fee : fees) {
                                 double dfee = fee.getFee().getValue();

@@ -87,13 +87,13 @@ public class ProtectViewWorker {
                     }
                     GenericValue protectedView = protectedViews.get(0);
                     // 1st hit ?
-                    Long curMaxHits = (Long) hitsByViewAccessed.get(viewNameUserLoginId);
+                    Long curMaxHits = hitsByViewAccessed.get(viewNameUserLoginId);
                     if (UtilValidate.isEmpty(curMaxHits)) {
                         hitsByViewAccessed.put(viewNameUserLoginId, one);
                         Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000;
                         durationByViewAccessed.put(viewNameUserLoginId, now + maxHitsDuration);
                     } else {
-                        Long maxDuration = (Long) durationByViewAccessed.get(viewNameUserLoginId);
+                        Long maxDuration = durationByViewAccessed.get(viewNameUserLoginId);
                         Long newMaxHits = (Long) curMaxHits + one;
                         hitsByViewAccessed.put(viewNameUserLoginId, newMaxHits);
                         // Are we in a period of time where we need to check if there was too much hits ?

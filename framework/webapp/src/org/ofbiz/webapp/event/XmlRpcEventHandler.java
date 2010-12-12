@@ -300,7 +300,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                         context = checkMap(param, String.class, Object.class);
                     } else {
                         if (model.getDefinedInCount() == 1) {
-                            String paramName = (String) model.getInParamNames().iterator().next();
+                            String paramName = model.getInParamNames().iterator().next();
                             context.put(paramName, xmlRpcReq.getParameter(0));
                         } else {
                             throw new XmlRpcException("More than one parameter defined on service; cannot call via RPC with parameter list");

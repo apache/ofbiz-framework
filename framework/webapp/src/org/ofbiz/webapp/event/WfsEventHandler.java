@@ -88,10 +88,10 @@ public class WfsEventHandler implements EventHandler {
         Element queryElem = null;
 
         try {
-            typeName = (String)request.getParameter("typename");
+            typeName = request.getParameter("typename");
             //determine if "get" or "post" and get "filter" param accordingly
             if (UtilValidate.isNotEmpty(typeName)) {
-                String queryFieldCoded = (String)request.getParameter("filter");
+                String queryFieldCoded = request.getParameter("filter");
                 String queryFieldDecoded = UtilFormatOut.decodeQueryValue(queryFieldCoded);
                 Document doc = UtilXml.readXmlDocument(queryFieldDecoded);
                 queryElem = doc.getDocumentElement();
