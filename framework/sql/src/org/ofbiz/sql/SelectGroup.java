@@ -71,6 +71,7 @@ public final class SelectGroup extends Atom {
         return groupBy;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof SelectGroup)) {
             return false;

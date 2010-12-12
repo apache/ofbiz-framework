@@ -22,6 +22,7 @@ public abstract class Value extends Atom {
     public static final class Null extends Value {
         private Null() {
         }
+        @Override
         public void accept(Visitor visitor) {
             visitor.visit(this);
         }

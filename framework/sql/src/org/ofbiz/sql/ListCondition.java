@@ -35,6 +35,7 @@ public final class ListCondition extends Condition {
         this.values = values;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -51,6 +52,7 @@ public final class ListCondition extends Condition {
         return values;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof ListCondition) {
             ListCondition other = (ListCondition) o;

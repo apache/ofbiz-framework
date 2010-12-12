@@ -39,6 +39,7 @@ public final class Table extends Atom {
         return joined;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof Table) {
             Table other = (Table) o;

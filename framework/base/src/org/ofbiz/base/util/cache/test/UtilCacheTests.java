@@ -48,10 +48,12 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             this.oldValue = oldValue;
         }
 
+        @Override
         public int hashCode() {
             return UtilObject.doHashCode(oldValue);
         }
 
+        @Override
         public boolean equals(Object o) {
             if (o instanceof Removal) {
                 Removal other = (Removal) o;
@@ -68,10 +70,12 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             this.newValue = newValue;
         }
 
+        @Override
         public int hashCode() {
             return UtilObject.doHashCode(newValue);
         }
 
+        @Override
         public boolean equals(Object o) {
             if (o instanceof Addition) {
                 Addition other = (Addition) o;
@@ -90,10 +94,12 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             this.oldValue = oldValue;
         }
 
+        @Override
         public int hashCode() {
             return UtilObject.doHashCode(newValue) ^ UtilObject.doHashCode(oldValue);
         }
 
+        @Override
         public boolean equals(Object o) {
             if (o instanceof Update) {
                 Update other = (Update) o;
@@ -136,6 +142,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             add(key, new Update<V>(newValue, oldValue));
         }
 
+        @Override
         public boolean equals(Object o) {
             Listener other = (Listener) o;
             return changeMap.equals(other.changeMap);

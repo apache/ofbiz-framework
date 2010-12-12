@@ -37,10 +37,12 @@ public class TTLCachedObjectTest extends TTLObjectTest {
         protected long dataTimestamp = NOT_EXISTANT_TIMESTAMP;
         protected String data = "first";
 
+        @Override
         protected long getTimestamp(String old) throws Exception {
             return dataTimestamp;
         }
 
+        @Override
         protected GeneratedResult<String> generate(String old, int serial) throws Exception {
             return new GeneratedResult<String>(dataTimestamp, data);
         }

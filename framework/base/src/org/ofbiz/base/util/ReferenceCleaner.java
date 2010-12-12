@@ -38,6 +38,7 @@ public final class ReferenceCleaner {
             keepRunning = false;
         }
 
+        @Override
         public void run() {
             while (keepRunning) {
                 try {

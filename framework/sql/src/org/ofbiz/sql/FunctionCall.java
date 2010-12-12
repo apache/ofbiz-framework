@@ -34,6 +34,7 @@ public final class FunctionCall extends StaticValue implements Iterable<Value> {
         this.values = values;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -42,6 +43,7 @@ public final class FunctionCall extends StaticValue implements Iterable<Value> {
         return name;
     }
 
+    @Override
     public String getDefaultName() {
         return name;
     }
@@ -54,6 +56,7 @@ public final class FunctionCall extends StaticValue implements Iterable<Value> {
         return values.iterator();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof FunctionCall) {
             FunctionCall other = (FunctionCall) o;

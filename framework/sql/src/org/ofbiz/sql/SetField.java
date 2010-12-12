@@ -35,6 +35,7 @@ public final class SetField extends Atom {
         return value;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof SetField) {
             SetField other = (SetField) o;

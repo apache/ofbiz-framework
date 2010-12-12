@@ -153,10 +153,12 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
     }
 
     public static class CantRemoveMap<K, V> extends HashMap<K, V> {
+        @Override
         public V get(Object key) {
             return super.get(key);
         }
 
+        @Override
         public V put(K key, V value) {
             if (value == null) {
                 throw new IllegalArgumentException();

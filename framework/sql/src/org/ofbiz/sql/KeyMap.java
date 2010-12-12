@@ -35,6 +35,7 @@ public final class KeyMap {
         return rightFieldName;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof KeyMap) {
             KeyMap other = (KeyMap) o;

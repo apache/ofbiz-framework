@@ -75,6 +75,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             return result;
         }
 
+        @Override
         protected void clearInternal() {
             incrementCallCount("clearInternal");
             proxyMap.clear();
@@ -85,6 +86,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             return proxyMap.containsKey(key);
         }
 
+        @Override
         protected V get(Object key, boolean noteAccess) {
             incrementCallCount("get-" + noteAccess);
             return proxyMap.get(key);
@@ -95,13 +97,16 @@ public class GenericMapTest extends GenericTestCaseBase {
             return proxyMap.isEmpty();
         }
 
+        @Override
         protected Iterator<Map.Entry<K, V>> iterator(final boolean noteAccess) {
             incrementCallCount("iterator-" + noteAccess);
             //return new IteratorWrapper<Map.Entry<K, V>, Map.Entry<K, V>>(noteAccess, proxyMap.entrySet().iterator()) {
             return new IteratorWrapper<Map.Entry<K, V>, Map.Entry<K, V>>(proxyMap.entrySet().iterator()) {
+                @Override
                 protected Map.Entry<K, V> convert(Map.Entry<K, V> src) {
                     return new GenericMapEntry<K, V>(TestGenericMap.this, src.getKey(), noteAccess);
                 }
+                @Override
                 protected void noteRemoval(Map.Entry<K, V> dest, Map.Entry<K, V> src) {
                 }
             };
@@ -113,6 +118,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             return proxyMap.put(key, value);
         }
 
+        @Override
         protected <KE extends K, VE extends V> void putAllIterator(Iterator<Map.Entry<KE, VE>> it) {
             incrementCallCount("putAllIterator");
             while (it.hasNext()) {
@@ -121,6 +127,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             }
         }
 
+        @Override
         protected V removeInternal(Object key, boolean incrementModCount) {
             incrementCallCount("removeInternal-" + incrementModCount);
             if (!proxyMap.containsKey(key)) return null;

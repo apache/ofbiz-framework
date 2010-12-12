@@ -146,6 +146,7 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
             this.value = value;
         }
 
+        @Override
         protected T getValue() {
             return value;
         }

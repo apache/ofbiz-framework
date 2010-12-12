@@ -32,6 +32,7 @@ public abstract class TTLCachedObject<T> extends TTLObject<T> {
         return lastModifiedTime;
     }
 
+    @Override
     protected T load(T old, int serial) throws Exception {
         long timestamp = getTimestamp(old);
         if (lastModifiedTime != timestamp) {

@@ -38,6 +38,7 @@ public abstract class Atom implements Appender<StringBuilder> {
         return UtilValidate.isEmpty(map) ? null : map;
     }
 
+    @Override
     public String toString() {
         return appendTo(new StringBuilder()).toString();
     }

@@ -32,6 +32,7 @@ public class SyncTTLObjectTest extends TTLObjectTest {
     }
 
     private static class TTLStaticRegistryObject extends TTLObject<String> {
+        @Override
         protected String load(String old, int serial) {
             return old;
         }
@@ -139,6 +140,7 @@ public class SyncTTLObjectTest extends TTLObjectTest {
         Exception caught = null;
         try {
             new TTLObject<Object>() {
+                @Override
                 protected Object load(Object old, int serial) {
                     return old;
                 }
@@ -150,10 +152,12 @@ public class SyncTTLObjectTest extends TTLObjectTest {
             assertTrue("is a ttl configuration exception", caught.getMessage().startsWith("No TTL defined for "));
         }
         new TTLObject<Object>() {
+            @Override
             protected long getTTL() {
                 return 1000;
             }
 
+            @Override
             protected Object load(Object old, int serial) {
                 return old;
             }

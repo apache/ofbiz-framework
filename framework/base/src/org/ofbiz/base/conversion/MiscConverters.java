@@ -142,6 +142,7 @@ public class MiscConverters implements ConverterLoader {
             super(Enum.class, String.class);
         }
 
+        @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
             return Enum.class.isAssignableFrom(sourceClass) && String.class.isAssignableFrom(targetClass);
         }
@@ -150,10 +151,12 @@ public class MiscConverters implements ConverterLoader {
             return obj.name();
         }
 
+        @Override
         public String convert(Class<? extends String> targetClass, Enum<?> obj) throws ConversionException {
             return convert(obj);
         }
 
+        @Override
         public Class<? super Enum<?>> getSourceClass() {
             return null;
         }
@@ -178,6 +181,7 @@ public class MiscConverters implements ConverterLoader {
             super(String.class, Enum.class);
         }
 
+        @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
             return String.class.isAssignableFrom(sourceClass) && Enum.class.isAssignableFrom(targetClass);
         }
@@ -186,10 +190,12 @@ public class MiscConverters implements ConverterLoader {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public E convert(Class<? extends E> targetClass, String obj) throws ConversionException {
             return Enum.valueOf(UtilGenerics.<Class<E>>cast(targetClass), obj);
         }
 
+        @Override
         public Class<? super Enum<?>> getTargetClass() {
             return null;
         }

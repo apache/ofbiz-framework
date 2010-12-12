@@ -27,6 +27,7 @@ public final class SQLDelete extends SQLStatement<SQLDelete> {
         this.whereCondition = whereCondition;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -39,6 +40,7 @@ public final class SQLDelete extends SQLStatement<SQLDelete> {
         return whereCondition;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof SQLDelete) {
             SQLDelete other = (SQLDelete) o;

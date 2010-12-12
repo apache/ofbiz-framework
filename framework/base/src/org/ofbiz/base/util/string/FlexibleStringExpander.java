@@ -191,12 +191,14 @@ public abstract class FlexibleStringExpander implements Serializable {
     }
 
     private static abstract class Key {
+        @Override
         public final boolean equals(Object o) {
             // No class test here, nor null, as this class is only used
             // internally
             return toString().equals(o.toString());
         }
 
+        @Override
         public final int hashCode() {
             return toString().hashCode();
         }
@@ -209,6 +211,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             this.chars = chars;
         }
 
+        @Override
         public String toString() {
             return new String(chars);
         }
@@ -225,6 +228,7 @@ public abstract class FlexibleStringExpander implements Serializable {
             this.length = length;
         }
 
+        @Override
         public String toString() {
             return new String(chars, offset, length);
         }

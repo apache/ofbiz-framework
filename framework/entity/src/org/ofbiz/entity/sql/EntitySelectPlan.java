@@ -89,6 +89,7 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan, EntityC
         return limit;
     }
 
+    @Override
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("dve=").append(dve);
         if (getWherePlan() != null) {

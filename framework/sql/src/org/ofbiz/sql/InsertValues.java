@@ -34,6 +34,7 @@ public final class InsertValues extends Atom implements InsertSource, Iterable<I
         return rows.iterator();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof InsertValues) {
             InsertValues other = (InsertValues) o;

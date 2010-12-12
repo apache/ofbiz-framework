@@ -34,6 +34,7 @@ public final class InsertRow extends Atom implements Iterable<Value> {
         return values.iterator();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof InsertRow) {
             InsertRow other = (InsertRow) o;

@@ -81,6 +81,7 @@ public class MapStack<K> extends MapContext<K, Object> {
      * situation where a parent and child context are operating simultaneously
      * using two different MapStack objects, but sharing the Maps in common
      */
+    @Override
     public MapStack<K> standAloneStack() {
         MapStack<K> standAlone = MapStack.create(this);
         return standAlone;
@@ -92,6 +93,7 @@ public class MapStack<K> extends MapContext<K, Object> {
      * situation where a parent and child context are operating simultaneously
      * using two different MapStack objects, but sharing the Maps in common
      */
+    @Override
     public MapStack<K> standAloneChildStack() {
         MapStack<K> standAloneChild = MapStack.create(this);
         standAloneChild.push();
@@ -101,6 +103,7 @@ public class MapStack<K> extends MapContext<K, Object> {
     /* (non-Javadoc)
      * @see java.util.Map#get(java.lang.Object)
      */
+    @Override
     public Object get(Object key) {
         if ("context".equals(key)) {
             return this;
@@ -112,6 +115,7 @@ public class MapStack<K> extends MapContext<K, Object> {
     /* (non-Javadoc)
      * @see org.ofbiz.base.util.collections.LocalizedMap#get(java.lang.String, java.util.Locale)
      */
+    @Override
     public Object get(String name, Locale locale) {
         if ("context".equals(name)) {
             return this;
@@ -123,6 +127,7 @@ public class MapStack<K> extends MapContext<K, Object> {
     /* (non-Javadoc)
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
+    @Override
     public Object put(K key, Object value) {
         if ("context".equals(key)) {
             if (value == null || this != value) {
