@@ -340,7 +340,7 @@ public class EbayStoreAutoPreferences {
                                     Calendar right_now = Calendar.getInstance();
                                     Calendar shippedTime = orderStatus.getShippedTime();
                                     Calendar afterShippedTime = orderStatus.getShippedTime();
-                                    afterShippedTime.add(afterShippedTime.DAY_OF_MONTH, afterDays);
+                                    afterShippedTime.add(Calendar.DAY_OF_MONTH, afterDays);
                                     Debug.logInfo("Verify date for send reminder feedback eamil by auto service: buyer " + solditem.getBuyerID() + " seller shippedTime " +
                                             "" + formatter.format(shippedTime) + " codition days " + afterDays + " after shippedTime :" + formatter.format(afterShippedTime) + " now date" + formatter.format(right_now), module);
                                     // if now date is after shipped time follow after days condition would be send reminder email to buyer
