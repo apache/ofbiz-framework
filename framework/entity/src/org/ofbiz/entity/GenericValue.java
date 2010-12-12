@@ -507,5 +507,5 @@ public class GenericValue extends GenericEntity implements Reusable {
         public String toString() {
             return "[null-entity-value]";
         }
-    };
+    }
 }

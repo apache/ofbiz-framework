@@ -19,7 +19,7 @@
 package org.ofbiz.sql;
 
 public final class Unioned extends Atom {
-    public enum Operator { UNION, UNION_ALL, INTERSECT, INTERSECT_ALL, EXCEPT, EXCEPT_ALL };
+    public enum Operator { UNION, UNION_ALL, INTERSECT, INTERSECT_ALL, EXCEPT, EXCEPT_ALL }
 
     private final Operator operator;
     private final SelectGroup group;

@@ -22,8 +22,8 @@ import org.ofbiz.base.lang.SourceMonitored;
 
 @SourceMonitored
 public final class OrderByItem extends Atom {
-    public enum Order { DEFAULT, ASCENDING, DESCENDING };
-    public enum Nulls { DEFAULT, FIRST, LAST };
+    public enum Order { DEFAULT, ASCENDING, DESCENDING }
+    public enum Nulls { DEFAULT, FIRST, LAST }
 
     private final Order order;
     private final Nulls nulls;

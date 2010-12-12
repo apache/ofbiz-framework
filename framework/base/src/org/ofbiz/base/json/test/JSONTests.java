@@ -64,7 +64,7 @@ public class JSONTests extends GenericTestCaseBase {
             jsonWriter = new JSONWriter(writer, JSONWriter.ResolvingFallbackHandler);
         } else {
             jsonWriter = new JSONWriter(writer);
-        };
+        }
         assertTrue("writer is IndentingWriter", jsonWriter.getWriter() instanceof IndentingWriter);
         jsonWriter.write(object);
         return writer.toString();

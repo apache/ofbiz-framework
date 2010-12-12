@@ -668,7 +668,7 @@ public class CommunicationEventServices {
             Address[] addressesTo = wrapper.getTo();
             Address[] addressesCC = wrapper.getCc();
             Address[] addressesBCC = wrapper.getBcc();
-            String messageId = wrapper.getMessageId().replaceAll("[<>]", "");;
+            String messageId = wrapper.getMessageId().replaceAll("[<>]", "");
 
             String aboutThisEmail = "message [" + messageId + "] from [" +
                 (addressesFrom[0] == null? "not found" : addressesFrom[0].toString()) + "] to [" +
@@ -736,9 +736,7 @@ public class CommunicationEventServices {
             }
             if (userLogin.get("partyId") == null && partyIdTo != null) {
                 int ch = 0;
-                for (ch=partyIdTo.length(); ch > 0 && Character.isDigit(partyIdTo.charAt(ch-1)); ch--) {
-                    ;
-                }
+                for (ch=partyIdTo.length(); ch > 0 && Character.isDigit(partyIdTo.charAt(ch-1)); ch--) {}
                 userLogin.put("partyId", partyIdTo.substring(0,ch)); //allow services to be called to have prefix
             }
 

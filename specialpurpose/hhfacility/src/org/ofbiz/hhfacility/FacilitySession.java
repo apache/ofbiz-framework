@@ -69,7 +69,7 @@ public class FacilitySession {
             ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
             RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
             GenericValue product = EntityUtil.getFirst(productList);
-            String requestName = "/productstocktake?facilityId=" + facilityIdStr + "&productId=" + product.getString("productId");;
+            String requestName = "/productstocktake?facilityId=" + facilityIdStr + "&productId=" + product.getString("productId");
             String target = rh.makeLink(request, response, requestName, false, false, false);
             try {
                 response.sendRedirect(target);

@@ -106,4 +106,4 @@ public class ICalHandlerFactory implements RequestHandlerFactory {
         }
     }
 
-};
+}

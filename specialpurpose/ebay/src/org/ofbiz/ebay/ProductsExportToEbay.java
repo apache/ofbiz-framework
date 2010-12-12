@@ -213,7 +213,7 @@ public class ProductsExportToEbay {
                 }
 
                 // Buy it now is the optional value for a product that you send to eBay. Once this value is entered by user - this option allow user to win auction immediately.
-                String buyItNowPrice = (String)context.get("buyItNowPrice");;
+                String buyItNowPrice = (String)context.get("buyItNowPrice");
                 String buyItNowCurrencyUomId = null;
                 if (UtilValidate.isEmpty(buyItNowPrice)) {
                     GenericValue buyItNowPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(prod.getRelatedByAnd("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MAXIMUM_PRICE"))));

@@ -134,7 +134,6 @@ public class SaveLabelsToXmlFile {
                         if (UtilValidate.isNotEmpty(valueString)) {
                             valueString = StringEscapeUtils.unescapeHtml(valueString);
                             Element valueElem = UtilXml.addChildElementValue(propertyElem, "value", valueString, resourceDocument);
-                            ;
                             valueElem.setAttribute("xml:lang", localeFound);
                             if (valueString.trim().length() == 0) {
                                 valueElem.setAttribute("xml:space", "preserve");

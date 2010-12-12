@@ -1362,7 +1362,7 @@ public class DatabaseUtil {
     }
 
     public Map<String, Map<String, ReferenceCheckInfo>> getReferenceInfo(Set<String> tableNames, Collection<String> messages) {
-        Connection connection = getConnectionLogged(messages);;
+        Connection connection = getConnectionLogged(messages);
         if (connection == null) {
             return null;
         }
@@ -1788,7 +1788,7 @@ public class DatabaseUtil {
             return;
         }
 
-        Connection connection = getConnectionLogged(messages);;
+        Connection connection = getConnectionLogged(messages);
         Statement stmt = null;
         if (connection == null) {
             return;
@@ -2009,7 +2009,7 @@ public class DatabaseUtil {
         }
 
         // need connection
-        Connection connection = getConnectionLogged(messages);;
+        Connection connection = getConnectionLogged(messages);
         Statement stmt = null;
         if (connection == null) {
             return;

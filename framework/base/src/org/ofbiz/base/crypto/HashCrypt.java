@@ -68,7 +68,7 @@ public class HashCrypt {
 
             messagedigest.update(codeBytes);
             byte digestBytes[] = messagedigest.digest();
-            char[] digestChars = Hex.encodeHex(digestBytes);;
+            char[] digestChars = Hex.encodeHex(digestBytes);
             StringBuilder sb = new StringBuilder();
             sb.append("{").append(hashType).append("}");
             sb.append(digestChars, 0, digestChars.length);

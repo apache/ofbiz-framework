@@ -362,7 +362,7 @@ public class OrderReturnServices {
                             }
                         }
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module);;
+                        Debug.logError(e, module);
                     }
                 }
             }

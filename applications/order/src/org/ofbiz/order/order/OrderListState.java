@@ -185,7 +185,7 @@ public class OrderListState {
     //==============   Get and Set methods   =================//
 
 
-    public Map getOrderStatusState() { return orderStatusState; };
+    public Map getOrderStatusState() { return orderStatusState; }
     public Map getOrderTypeState() { return orderTypeState; }
     public Map getorderFilterState() { return orderFilterState; }
 
