@@ -50,7 +50,7 @@ public abstract class EntityConditionFunction extends EntityCondition {
         public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
             // nothing to do here...
         }
-    };
+    }
 
     protected Integer idInt = null;
     protected String codeString = null;

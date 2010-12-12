@@ -23,7 +23,7 @@ import java.io.File;
 public class LabelFile {
     public static final String module = LabelFile.class.getName();
 
-    protected final boolean fileLoaded = false;;
+    protected final boolean fileLoaded = false;
     protected final File file;
     protected final String componentName;
 

@@ -444,7 +444,7 @@ public final class UtilIO {
                 jsonWriter = new JSONWriter(indenting, JSONWriter.ResolvingFallbackHandler);
             } else {
                 jsonWriter = new JSONWriter(indenting);
-            };
+            }
             jsonWriter.write(value);
             writer.write(sw.toString());
             return true;

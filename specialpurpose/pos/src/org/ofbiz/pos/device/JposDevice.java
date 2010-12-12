@@ -21,5 +21,5 @@ package org.ofbiz.pos.device;
 public interface JposDevice {
 
     public void open() throws jpos.JposException;
-    public void close() throws jpos.JposException;;
+    public void close() throws jpos.JposException;
 }

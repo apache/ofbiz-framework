@@ -151,7 +151,7 @@ public class WeightPackageServices {
         Map<String, Object> response = FastMap.newInstance();
         try {
             String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
-            String result = weightPackageSession.complete(orderId, locale, getActualShippingQuoteFromUps);;
+            String result = weightPackageSession.complete(orderId, locale, getActualShippingQuoteFromUps);
             if ("showWarningForm".equals(result)) {
                 response.put("showWarningForm", true);
             } else if ("success".equals(result)) {

@@ -118,7 +118,7 @@ public class GenericDelegator implements Delegator {
     private boolean testRollbackInProgress = false;
     private static final AtomicReferenceFieldUpdater<GenericDelegator, LinkedBlockingDeque> testOperationsUpdater = AtomicReferenceFieldUpdater.newUpdater(GenericDelegator.class, LinkedBlockingDeque.class, "testOperations");
     private volatile LinkedBlockingDeque<TestOperation> testOperations = null;
-    private enum OperationType {INSERT, UPDATE, DELETE};
+    private enum OperationType {INSERT, UPDATE, DELETE}
 
     /** @deprecated Use Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
      * @param delegatorName
