@@ -131,8 +131,6 @@ public class WebToolsServices {
                 url = isUrl?FlexibleLocation.resolveLocation(filename):UtilURL.fromFilename(filename);
             } catch (MalformedURLException mue) {
                 return ServiceUtil.returnError("ERROR: invalid file name (" + filename + "): " + mue.getMessage());
-            } catch (IOException ioe) {
-                return ServiceUtil.returnError("ERROR reading file name (" + filename + "): " + ioe.getMessage());
             } catch (Exception exc) {
                 return ServiceUtil.returnError("ERROR: reading file name (" + filename + "): " + exc.getMessage());
             }
