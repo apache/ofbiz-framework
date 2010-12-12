@@ -179,8 +179,8 @@ public class ConfigureItem extends XPage {
         questionHashMap = FastMap.newInstance();
 
         List<ConfigItem> questions = m_pcw.getQuestions();
-        if (questions==null) ; // no questions, we shouldn't be here
-        else{
+        
+        if (questions != null) {
             Iterator<ConfigItem> iter = questions.iterator();
             Iterator<XButton> buttons = m_buttonList.iterator();
             while (iter.hasNext()) {
