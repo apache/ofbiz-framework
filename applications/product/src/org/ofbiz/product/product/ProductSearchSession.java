@@ -598,7 +598,7 @@ public class ProductSearchSession {
             String keywordString = (String) parameters.get("SEARCH_STRING");
             String searchOperator = (String) parameters.get("SEARCH_OPERATOR");
             // defaults to true/Y, ie anything but N is true/Y
-            boolean anyPrefixSuffix = !"N".equals((String) parameters.get("SEARCH_ANYPRESUF"));
+            boolean anyPrefixSuffix = !"N".equals(parameters.get("SEARCH_ANYPRESUF"));
             searchAddConstraint(new ProductSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null, "AND".equals(searchOperator)), session);
             constraintsChanged = true;
         }
@@ -622,7 +622,7 @@ public class ProductSearchSession {
                 String keywordString = (String) parameters.get("SEARCH_STRING" + kwNum);
                 String searchOperator = (String) parameters.get("SEARCH_OPERATOR" + kwNum);
                 // defaults to true/Y, ie anything but N is true/Y
-                boolean anyPrefixSuffix = !"N".equals((String) parameters.get("SEARCH_ANYPRESUF" + kwNum));
+                boolean anyPrefixSuffix = !"N".equals(parameters.get("SEARCH_ANYPRESUF" + kwNum));
                 searchAddConstraint(new ProductSearch.KeywordConstraint(keywordString, anyPrefixSuffix, anyPrefixSuffix, null, "AND".equals(searchOperator)), session);
                 constraintsChanged = true;
             }
@@ -1227,7 +1227,7 @@ public class ProductSearchSession {
 
         List<Map<String, String>> featureCountList = FastList.newInstance();
         GenericValue searchResult = null;
-        while ((searchResult = (GenericValue) eli.next()) != null) {
+        while ((searchResult = eli.next()) != null) {
             featureCountList.add(UtilMisc.toMap("productFeatureId", (String) searchResult.get("pfacProductFeatureId"), "productFeatureTypeId", (String) searchResult.get("pfcProductFeatureTypeId"), "description", (String) searchResult.get("pfcDescription"), "featureCount", Long.toString((Long) searchResult.get("featureCount"))));
         }
 
@@ -1305,7 +1305,7 @@ public class ProductSearchSession {
 
         GenericValue searchResult = null;
         Long priceRangeCount = Long.valueOf(0);
-        while ((searchResult = (GenericValue) eli.next()) != null) {
+        while ((searchResult = eli.next()) != null) {
             priceRangeCount = searchResult.getLong("priceRangeCount");
         }
 
@@ -1371,7 +1371,7 @@ public class ProductSearchSession {
 
         GenericValue searchResult = null;
         Long categoryCount = Long.valueOf(0);
-        while ((searchResult = (GenericValue) eli.next()) != null) {
+        while ((searchResult = eli.next()) != null) {
             categoryCount = searchResult.getLong("categoryCount");
         }
 

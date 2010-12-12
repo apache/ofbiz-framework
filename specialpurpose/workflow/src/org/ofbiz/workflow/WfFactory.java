@@ -144,7 +144,7 @@ public class WfFactory {
                 }
             }
         }
-        return (WfProcessMgr) wfProcessMgrCache.get(key);
+        return wfProcessMgrCache.get(key);
     }
 
     /**
@@ -200,7 +200,7 @@ public class WfFactory {
                 wfClientCache.put(dctx, new WorkflowClient(dctx));
             }
         }
-        return (WorkflowClient) wfClientCache.get(dctx);
+        return wfClientCache.get(dctx);
     }
 
 }

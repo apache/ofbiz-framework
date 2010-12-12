@@ -117,10 +117,10 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         }
 
         Map whenMap = FastMap.newInstance();
-        whenMap.put("followWhen", (String) templateRoot.get("followWhen"));
-        whenMap.put("pickWhen", (String) templateRoot.get("pickWhen"));
-        whenMap.put("returnBeforePickWhen", (String) templateRoot.get("returnBeforePickWhen"));
-        whenMap.put("returnAfterPickWhen", (String) templateRoot.get("returnAfterPickWhen"));
+        whenMap.put("followWhen", templateRoot.get("followWhen"));
+        whenMap.put("pickWhen", templateRoot.get("pickWhen"));
+        whenMap.put("returnBeforePickWhen", templateRoot.get("returnBeforePickWhen"));
+        whenMap.put("returnAfterPickWhen", templateRoot.get("returnAfterPickWhen"));
         templateRoot.put("whenMap", whenMap);
 
         String fromDateStr = (String) templateRoot.get("fromDateStr");

@@ -59,7 +59,7 @@ public class LabelInfo {
     }
 
     public LabelValue getLabelValue(String localeStr) {
-       return (LabelValue)labelValues.get(localeStr);
+       return labelValues.get(localeStr);
     }
 
     public int getLabelValueSize() {

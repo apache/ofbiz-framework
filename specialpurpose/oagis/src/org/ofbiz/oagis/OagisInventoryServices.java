@@ -1023,7 +1023,7 @@ public class OagisInventoryServices {
                             Double returnQuantityDbl = returnItem.getDouble("returnQuantity");
                             if (UtilValidate.isNotEmpty(productId) && returnQuantityDbl != null) {
                                 double newTotal = returnQuantityDbl.doubleValue();
-                                Double existingTotal = (Double) returnQuantityByProductIdMap.get(productId);
+                                Double existingTotal = returnQuantityByProductIdMap.get(productId);
                                 if (existingTotal != null) newTotal += existingTotal.doubleValue();
                                 returnQuantityByProductIdMap.put(productId, new Double(newTotal));
                             }

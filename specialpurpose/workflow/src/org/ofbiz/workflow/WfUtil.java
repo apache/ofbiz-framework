@@ -38,7 +38,7 @@ public final class WfUtil {
      */
     public static final String getJavaType(String xpdlType) {
         if (typeMap.containsKey(xpdlType))
-            return (String) typeMap.get(xpdlType);
+            return typeMap.get(xpdlType);
         else
             return "java.lang.Object";
     }

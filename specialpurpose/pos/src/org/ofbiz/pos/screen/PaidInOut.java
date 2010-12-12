@@ -123,7 +123,7 @@ public class PaidInOut extends XPage {
         } else {
             return UtilMisc.toMap("amount", m_amountEdit.getText(),
                     "reason", (String)(posPaidReasons.get(m_reasonCombo.getSelectedIndex())).get("enumId"),
-                    "reasonComment", (String) m_reasonCommentEdit.getText());
+                    "reasonComment", m_reasonCommentEdit.getText());
             }
     }
 

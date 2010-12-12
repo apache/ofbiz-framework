@@ -428,7 +428,7 @@ public class ConfigXMLReader {
         }
 
         String cacheId = controllerPartialPath != null ? controllerPartialPath : "NOPARTIALPATH";
-        List<ControllerConfig> controllerConfigs = (List<ControllerConfig>) controllerSearchResultsCache.get(cacheId);
+        List<ControllerConfig> controllerConfigs = controllerSearchResultsCache.get(cacheId);
 
         if (controllerConfigs == null) {
             try {

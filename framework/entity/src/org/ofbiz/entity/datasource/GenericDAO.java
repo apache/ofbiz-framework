@@ -439,7 +439,7 @@ public class GenericDAO {
                 }
             } else if (meResult.size() == 1) {
                 // Update existing value
-                meGenericValue = (GenericValue) meResult.iterator().next();
+                meGenericValue = meResult.iterator().next();
             } else {
                 throw new GenericEntityException("Found more than one result for member entity " + meName + " in view " + modelViewEntity.getEntityName() + " - this is no updatable view");
             }

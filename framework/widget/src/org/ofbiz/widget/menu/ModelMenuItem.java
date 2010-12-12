@@ -199,7 +199,7 @@ public class ModelMenuItem {
     public ModelMenuItem addUpdateMenuItem(ModelMenuItem modelMenuItem) {
 
         // not a conditional item, see if a named item exists in Map
-        ModelMenuItem existingMenuItem = (ModelMenuItem) this.menuItemMap.get(modelMenuItem.getName());
+        ModelMenuItem existingMenuItem = this.menuItemMap.get(modelMenuItem.getName());
         if (existingMenuItem != null) {
             // does exist, update the item by doing a merge/override
             existingMenuItem.mergeOverrideModelMenuItem(modelMenuItem);

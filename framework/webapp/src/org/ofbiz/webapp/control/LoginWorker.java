@@ -851,7 +851,7 @@ public class LoginWorker {
 
                         Map<String, String> x500Map = KeyStoreUtil.getCertX500Map(clientCerts[i]);
                         if (i == 0) {
-                            String cn = (String) x500Map.get("CN");
+                            String cn = x500Map.get("CN");
                             cn = cn.replaceAll("\\\\", "");
                             Matcher m = pattern.matcher(cn);
                             if (m.matches()) {
@@ -933,7 +933,7 @@ public class LoginWorker {
         String externalKey = request.getParameter(LoginWorker.EXTERNAL_LOGIN_KEY_ATTR);
         if (externalKey == null) return "success";
 
-        GenericValue userLogin = (GenericValue) LoginWorker.externalLoginKeys.get(externalKey);
+        GenericValue userLogin = LoginWorker.externalLoginKeys.get(externalKey);
         if (userLogin != null) {
             //to check it's the right tenant 
             //in case username and password are the same in different tenants

@@ -245,7 +245,7 @@ public class Calculate extends MethodOperation {
 
         public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) {
             String valueStr = methodContext.expandString(this.valueStr);
-            Locale locale = (Locale) methodContext.getLocale();
+            Locale locale = methodContext.getLocale();
 
             if (locale == null) locale = Locale.getDefault();
             

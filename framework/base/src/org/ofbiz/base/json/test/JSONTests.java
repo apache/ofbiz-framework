@@ -72,17 +72,17 @@ public class JSONTests extends GenericTestCaseBase {
 
     protected void assertSimpleJSONByte(byte n, String json) throws Exception {
         assertSimpleJSON("integer - byte", new Byte(n), json, new Long(n));
-        assertSimpleJSONShort((short) n, json);
+        assertSimpleJSONShort(n, json);
     }
 
     protected void assertSimpleJSONShort(short n, String json) throws Exception {
         assertSimpleJSON("integer - short", new Integer(n), json, new Long(n));
-        assertSimpleJSONInteger((int) n, json);
+        assertSimpleJSONInteger(n, json);
     }
 
     protected void assertSimpleJSONInteger(int n, String json) throws Exception {
         assertSimpleJSON("integer - int", new Short((short) n), json, new Long(n));
-        assertSimpleJSONLong((long) n, json);
+        assertSimpleJSONLong(n, json);
     }
 
     protected void assertSimpleJSONLong(long n, String json) throws Exception {
@@ -91,7 +91,7 @@ public class JSONTests extends GenericTestCaseBase {
 
     protected void assertSimpleJSONFloat(float n, String json) throws Exception {
         assertSimpleJSON("float - float", new Float(n), json, new Double(n));
-        assertSimpleJSONDouble((double) n, json);
+        assertSimpleJSONDouble(n, json);
     }
 
     protected void assertSimpleJSONDouble(double n, String json) throws Exception {

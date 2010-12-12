@@ -274,7 +274,7 @@ public class ICalWorker {
     }
 
     protected static void logInUser(HttpServletRequest request, HttpServletResponse response) throws GenericServiceException, GenericEntityException {
-        Map<String, Object> serviceMap = (Map<String, Object>) WebDavUtil.getCredentialsFromRequest(request);
+        Map<String, Object> serviceMap = WebDavUtil.getCredentialsFromRequest(request);
         if (serviceMap == null) {
             return;
         }

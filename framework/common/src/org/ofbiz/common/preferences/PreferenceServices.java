@@ -171,7 +171,7 @@ public class PreferenceServices {
 
         String userLoginId = PreferenceWorker.getUserLoginId(context, false);
         String userPrefTypeId = (String) context.get("userPrefTypeId");
-        Object userPrefValue = (String) context.get("userPrefValue");
+        Object userPrefValue = context.get("userPrefValue");
         if (UtilValidate.isEmpty(userLoginId) || UtilValidate.isEmpty(userPrefTypeId) || userPrefValue == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.invalidArgument", locale));
         }

@@ -284,15 +284,15 @@ public class MsrKybService extends BaseService implements jpos.services.MSRServi
             if (this.parseDecodeData) {
                 // set the sentinels
                 this.sentinels = new int[4];
-                this.sentinels[0] = (int) tr1BegChar.charAt(0);
-                this.sentinels[1] = (int) tr1EndChar.charAt(0);
-                this.sentinels[2] = (int) tr2BegChar.charAt(0);
-                this.sentinels[3] = (int) tr2EndChar.charAt(0);
+                this.sentinels[0] = tr1BegChar.charAt(0);
+                this.sentinels[1] = tr1EndChar.charAt(0);
+                this.sentinels[2] = tr2BegChar.charAt(0);
+                this.sentinels[3] = tr2EndChar.charAt(0);
 
                 // set the lrcs
                 this.lrc = new int[2];
-                this.lrc[0] = (int) tr1LrcCode.charAt(0);
-                this.lrc[1] = (int) tr2LrcCode.charAt(0);
+                this.lrc[0] = tr1LrcCode.charAt(0);
+                this.lrc[1] = tr2LrcCode.charAt(0);
 
                 // set the account number
                 this.accountNumber = new String[2];

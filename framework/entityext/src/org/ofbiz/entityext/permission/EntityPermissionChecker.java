@@ -1066,14 +1066,14 @@ public class EntityPermissionChecker {
              buf.append(StringUtil.join(this.operationList, ","));
              buf.append("\n");
              for (String fld: fieldNames) {
-                 wid = (Integer)widths.get(fld);
+                 wid = widths.get(fld);
                  buf.append(fld);
                  for (int i=0; i < (wid.intValue() - fld.length()); i++) buf.append("^");
                  buf.append("  ");
              }
                      buf.append("\n");
              for (String fld: fieldNames) {
-                 wid = (Integer)widths.get(fld);
+                 wid = widths.get(fld);
                  for (int i=0; i < wid.intValue(); i++) buf.append("-");
                  buf.append("  ");
              }
@@ -1095,7 +1095,7 @@ public class EntityPermissionChecker {
                      if (UtilValidate.isEmpty(roleTypeId)) {
                          roleTypeId = "";
                      }
-                     wid = (Integer)widths.get("roleFieldName");
+                     wid = widths.get("roleFieldName");
                      buf.append(roleTypeId);
                      for (int i=0; i < (wid.intValue() - roleTypeId.length()); i++) buf.append("^");
                      buf.append("  ");
@@ -1104,7 +1104,7 @@ public class EntityPermissionChecker {
                      if (UtilValidate.isEmpty(auxiliaryFieldValue)) {
                          auxiliaryFieldValue = "";
                      }
-                     wid = (Integer)widths.get("auxiliaryFieldName");
+                     wid = widths.get("auxiliaryFieldName");
                      buf.append(auxiliaryFieldValue);
                      for (int i=0; i < (wid.intValue() - auxiliaryFieldValue.length()); i++) buf.append("^");
                      buf.append("  ");

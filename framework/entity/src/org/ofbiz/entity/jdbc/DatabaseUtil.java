@@ -356,7 +356,7 @@ public class DatabaseUtil {
 
                     // -list all fields that do not have a corresponding column
                     for (String colName: fieldColNames.keySet()) {
-                        ModelField field = (ModelField) fieldColNames.get(colName);
+                        ModelField field = fieldColNames.get(colName);
                         String message = "Field [" + field.getName() + "] of entity [" + entity.getEntityName() + "] is missing its corresponding column [" + field.getColName() + "]" + (field.getIsPk() ? " (and it is a PRIMARY KEY FIELD)" : "");
 
                         Debug.logWarning(message, module);
@@ -2105,7 +2105,7 @@ public class DatabaseUtil {
             String entityName = fieldInfo.substring(0, fieldInfo.indexOf('.'));
             String fieldName = fieldInfo.substring(fieldInfo.indexOf('.') + 1);
 
-            ModelEntity modelEntity = (ModelEntity) modelEntities.get(entityName);
+            ModelEntity modelEntity = modelEntities.get(entityName);
             ModelField modelField = modelEntity.getField(fieldName);
             repairColumnSize(modelEntity, modelField, messages);
         }

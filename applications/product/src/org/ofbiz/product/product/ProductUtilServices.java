@@ -669,7 +669,7 @@ while (allCatIter.hasNext()) {
            ), EntityOperator.AND);
             EntityListIterator productFeatureAndApplEli = delegator.find("ProductFeatureAndAppl", condition, null, null, null, null);
             GenericValue productFeatureAndAppl = null;
-            while ((productFeatureAndAppl = (GenericValue) productFeatureAndApplEli.next()) != null) {
+            while ((productFeatureAndAppl = productFeatureAndApplEli.next()) != null) {
                 String productFeatureId = productFeatureAndAppl.getString("productFeatureId");
                 String productFeatureTypeId = productFeatureAndAppl.getString("productFeatureTypeId");
                 if (UtilValidate.isNotEmpty(productFeatureTypeIdsToInclude) && !productFeatureTypeIdsToInclude.contains(productFeatureTypeId)) {

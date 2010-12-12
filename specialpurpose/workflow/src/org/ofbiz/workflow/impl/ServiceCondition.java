@@ -43,7 +43,7 @@ public class ServiceCondition implements TransitionCondition {
      */
     public Boolean evaluateCondition(Map<String, Object> context, Map<String, String> attrs, String expression, DispatchContext dctx) throws EvaluationException {
         // get the service to call
-        String serviceName = (String) attrs.get("serviceName");
+        String serviceName = attrs.get("serviceName");
         if (UtilValidate.isEmpty(serviceName))
             throw new EvaluationException("Invalid serviceName; be sure to set the serviceName ExtendedAttribute");
 

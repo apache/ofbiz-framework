@@ -107,7 +107,7 @@ public class RequirementServices {
 
                 // get an available supplier product, preferably the one with the smallest minimum quantity to order, followed by price
                 String supplierKey =  partyId + "^" + productId;
-                GenericValue supplierProduct = (GenericValue) suppliers.get(supplierKey);
+                GenericValue supplierProduct = suppliers.get(supplierKey);
                 if (supplierProduct == null) {
                     conditions = UtilMisc.toList(
                             // TODO: it is possible to restrict to quantity > minimumOrderQuantity, but then the entire requirement must be skipped

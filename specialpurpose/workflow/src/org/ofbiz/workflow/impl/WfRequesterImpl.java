@@ -151,7 +151,7 @@ public class WfRequesterImpl implements WfRequester {
         GenericRequester req = null;
 
         if (performers.containsKey(process))
-            req = (GenericRequester) performers.get(process);
+            req = performers.get(process);
         if (req != null)
             req.receiveResult(process.result());
     }

@@ -161,7 +161,7 @@ public class ServiceConfigUtil implements Serializable {
                             for (int index = 0; index < params.getLength(); index++) {
                                 Element param = (Element) params.item(index);
                                 if (param != null && name.equals(param.getAttribute("name"))) {
-                                    return (String) param.getAttribute("value");
+                                    return param.getAttribute("value");
                                 }
                             }
                         }

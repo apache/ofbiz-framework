@@ -730,7 +730,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         if (howManyAssignment() == 1) {
             Debug.logVerbose("Single assignment; getting assignment info.", module);
             List<WfAssignment> assignments = getAssignments();
-            WfAssignment assign = (WfAssignment) assignments.iterator().next();
+            WfAssignment assign = assignments.iterator().next();
             WfResource res = assign.assignee();
             context.put("assignedPartyId", res.resourcePartyId());
             context.put("assignedRoleTypeId", res.resourceRoleId());
@@ -764,7 +764,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                     // direct assignment from context
                     actualContext.put(key, context.get(key));
                 } else if (!actualContext.containsKey(key) && !ignoreUnknown) {
-                    throw new WfException("Context does not contain the key: '" + (String) key + "'");
+                    throw new WfException("Context does not contain the key: '" + key + "'");
                 }
             }
         }

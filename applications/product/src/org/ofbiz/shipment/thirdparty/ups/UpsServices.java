@@ -1138,7 +1138,7 @@ public class UpsServices {
             if (shipmentPackageRouteSegIter.hasNext()) {
                 errorList.add("Error: There are more Packages on this Shipment than there were PackageResults returned from UPS");
                 while (shipmentPackageRouteSegIter.hasNext()) {
-                    GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegIter.next();
+                    GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegIter.next();
                     errorList.add("Error: No PackageResults were returned for the Package [" + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + "]");
                 }
             }

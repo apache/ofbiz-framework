@@ -93,7 +93,7 @@ public class HtmlMenuWrapper {
         }
 
         // if a parameter was passed saying this is an error, it is an error
-        if ("true".equals((String) parameterMap.get("isError"))) {
+        if ("true".equals(parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);
         }
     }

@@ -109,7 +109,7 @@ public class ScannerKybService extends BaseService implements jpos.services.Scan
 
     public int getScanDataType() throws JposException {
         if (codeId != null && barcodeIdMap.containsKey(codeId)) {
-            return ((Integer) barcodeIdMap.get(codeId)).intValue();
+            return (barcodeIdMap.get(codeId)).intValue();
         }
         return ScannerConst.SCAN_SDT_UNKNOWN;
     }

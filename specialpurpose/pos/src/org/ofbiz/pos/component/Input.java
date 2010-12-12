@@ -96,7 +96,7 @@ public class Input implements KeyboardReceiver, KeyListener {
     public String[] getLastFunction() {
         String[] f = null;
         try {
-            f = (String[]) this.functionStack.peek();
+            f = this.functionStack.peek();
         } catch (EmptyStackException e) {
         }
         return f;
@@ -105,7 +105,7 @@ public class Input implements KeyboardReceiver, KeyListener {
     public String[] clearLastFunction() {
         String[] f = null;
         try {
-            f = (String[]) this.functionStack.pop();
+            f = this.functionStack.pop();
         } catch (EmptyStackException e) {
         }
         return f;
@@ -123,7 +123,7 @@ public class Input implements KeyboardReceiver, KeyListener {
     public String[] clearFunction(String function) {
         Iterator<String[]> i = functionStack.iterator();
         while (i.hasNext()) {
-            String[] func = (String[]) i.next();
+            String[] func = i.next();
             if (func[0].equals(function)) {
                 i.remove();
                 return func;
@@ -195,7 +195,7 @@ public class Input implements KeyboardReceiver, KeyListener {
         boolean process = false;
         int remIdx = 0;
         for (int i = 0; i < chars.length; i++) {
-            if (((int) chars[i]) == 10 || ((int) chars[i]) == 8 || ((int) chars[i] == 27)) {
+            if ((chars[i]) == 10 || (chars[i]) == 8 || (chars[i] == 27)) {
                 idxToRemove[remIdx++] = i+1;
             } else {
                 process = true;

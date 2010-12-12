@@ -504,7 +504,7 @@ public class ShoppingCartHelper {
                         try {
                             if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart requirement [" + quantity + "] of [" + productId + "]", module);
                             int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, requirement.getTimestamp("requiredByDate"), null, null, null, catalogId, null, null, itemGroupNumber, null, dispatcher);
-                            ShoppingCartItem sci = (ShoppingCartItem)this.cart.items().get(index);
+                            ShoppingCartItem sci = this.cart.items().get(index);
                             sci.setRequirementId(requirementId);
                         } catch (CartItemModifyException e) {
                             return ServiceUtil.returnError(e.getMessage());

@@ -388,12 +388,12 @@ public class WorkflowClient {
         WfExecutionObject obj = null;
 
         try {
-            obj = (WfExecutionObject) WfFactory.getWfActivity(delegator, workEffortId);
+            obj = WfFactory.getWfActivity(delegator, workEffortId);
         } catch (WfException e) {// ingore
         }
         if (obj == null) {
             try {
-                obj = (WfExecutionObject) WfFactory.getWfProcess(delegator, workEffortId);
+                obj = WfFactory.getWfProcess(delegator, workEffortId);
             } catch (WfException e) {// ignore
             }
         }

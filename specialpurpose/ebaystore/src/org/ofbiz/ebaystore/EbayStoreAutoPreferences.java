@@ -799,7 +799,7 @@ public class EbayStoreAutoPreferences {
 
                         if (soldGroupList.size() > 1) {
                             for (int j = 0; j < soldGroupList.size(); j++) {
-                                Map<String, Object> myMap = (Map<String, Object>) soldGroupList.get(j);
+                                Map<String, Object> myMap = soldGroupList.get(j);
                                 SellingManagerSoldOrderType soldorder = (SellingManagerSoldOrderType) myMap.get("soldorder");
                                 Timestamp createdate = UtilDateTime.toTimestamp(soldorder.getCreationTime().getTime());
                                 if (myMap.get("group").toString().length() == 0) {
@@ -826,7 +826,7 @@ public class EbayStoreAutoPreferences {
                                 int totalQty = 0;
 
                                 for (int j = 0; j < soldGroupList.size(); j++) {
-                                    Map<String, Object> myMap = (Map<String, Object>) soldGroupList.get(j);
+                                    Map<String, Object> myMap = soldGroupList.get(j);
                                     if (UtilValidate.isNotEmpty(myMap.get("group"))) {
                                         if (x == Integer.parseInt(myMap.get("group").toString())) {
                                             SellingManagerSoldOrderType sellingManagerSoldOrder = (SellingManagerSoldOrderType) myMap.get("soldorder");
@@ -915,7 +915,7 @@ public class EbayStoreAutoPreferences {
     public static void runCheckAndGroup(int groupRunning, Timestamp startTimestamp, long countDays, List<Map<String, Object>> inList) {
         Timestamp endDate = UtilDateTime.getDayEnd(UtilDateTime.toTimestamp(startTimestamp), countDays);
         for (Map<String, Object> inMap : inList) {
-            String group = (String) inMap.get("group").toString();
+            String group = inMap.get("group").toString();
             SellingManagerSoldOrderType soldorder = (SellingManagerSoldOrderType) inMap.get("soldorder");
             if (group.length() == 0) {
                 Timestamp createtimestamp = UtilDateTime.toTimestamp(soldorder.getCreationTime().getTime());
@@ -955,7 +955,7 @@ public class EbayStoreAutoPreferences {
                         if (allBidders.size() != 0) {
                             // call to send email to bidder
                             for (int j = 0; j < allBidders.size(); j++) {
-                                Map<String, Object> bidder = (Map<String, Object>) allBidders.get(j);
+                                Map<String, Object> bidder = allBidders.get(j);
                                 UserType user = (UserType) bidder.get("bidder");
                                 String buyerUserId = bidder.get("userId").toString();
 
@@ -1171,7 +1171,7 @@ public class EbayStoreAutoPreferences {
             GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
             String jobId = (String) context.get("jobId");
             String productStoreId = (String) context.get("productStoreId");
-            GenericValue ebayProductStorePref = (GenericValue) delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"));
+            GenericValue ebayProductStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"));
             String parentPrefCondId = ebayProductStorePref.getString("parentPrefCondId");
             List<GenericValue> ebayProductStorePrefCond = delegator.findByAnd("EbayProductStorePrefCond", UtilMisc.toMap("parentPrefCondId", parentPrefCondId));
             //Parameters

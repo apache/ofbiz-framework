@@ -444,7 +444,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
 
             // check for a conditionClassName attribute if exists use it
             if (extendedAttr != null && extendedAttr.get("conditionClassName") != null) {
-                String conditionClassName = (String) extendedAttr.get("conditionClassName");
+                String conditionClassName = extendedAttr.get("conditionClassName");
                 transitionOk = this.evalConditionClass(conditionClassName, conditionBody, this.processContext(), extendedAttr);
             } else {
                 // since no condition class is supplied, evaluate the expression using bsh

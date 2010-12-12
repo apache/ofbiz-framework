@@ -73,7 +73,7 @@ public class WfActivityToolImplementation extends WfActivityAbstractImplementati
 
             Map<String, String> extendedAttr = StringUtil.strToMap(extend);
             if (extendedAttr != null && extendedAttr.containsKey("serviceName")) {
-                serviceName = (String) extendedAttr.get("serviceName");
+                serviceName = extendedAttr.get("serviceName");
             }
 
             serviceName = serviceName != null ? serviceName : (toolTypeEnumId.equals("WTT_APPLICATION") ? "wfActivateApplication" : toolId);

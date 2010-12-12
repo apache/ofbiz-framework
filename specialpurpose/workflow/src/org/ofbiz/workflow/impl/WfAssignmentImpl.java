@@ -125,7 +125,7 @@ public class WfAssignmentImpl implements WfAssignment {
                 Iterator<WfAssignment> ai = activity.getIteratorAssignment();
 
                 while (ai.hasNext() && allDelegated) {
-                    WfAssignment a = (WfAssignment) ai.next();
+                    WfAssignment a = ai.next();
                     if (!a.equals(this) && !a.status().equals("CAL_DELEGATED")) {
                         allDelegated = false;
                     }
@@ -140,7 +140,7 @@ public class WfAssignmentImpl implements WfAssignment {
                 Iterator<WfAssignment> ai = activity.getIteratorAssignment();
 
                 while (ai.hasNext()) {
-                    WfAssignment a = (WfAssignment) ai.next();
+                    WfAssignment a = ai.next();
                     if (!this.isEqual(a)) a.delegate();
                 }
             }

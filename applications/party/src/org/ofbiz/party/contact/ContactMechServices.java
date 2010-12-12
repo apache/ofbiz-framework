@@ -1041,7 +1041,7 @@ public class ContactMechServices {
      * Creates an EmailAddressVerification
      */
     public static Map<String, Object> createEmailAddressVerification(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Delegator delegator = (Delegator) dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         String emailAddress = (String) context.get("emailAddress");
         String verifyHash = null;
 

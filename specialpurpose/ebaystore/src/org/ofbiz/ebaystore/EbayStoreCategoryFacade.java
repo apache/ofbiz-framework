@@ -166,7 +166,7 @@ public class EbayStoreCategoryFacade {
                 al.add(pm);
             }
         }
-        return (BuyerPaymentMethodCodeType[])al.toArray(new BuyerPaymentMethodCodeType[0]);
+        return al.toArray(new BuyerPaymentMethodCodeType[0]);
     }
 
     /**

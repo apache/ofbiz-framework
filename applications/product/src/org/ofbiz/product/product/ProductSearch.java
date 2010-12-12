@@ -719,7 +719,7 @@ public class ProductSearch {
                 productIds.add(searchResult.getString("mainProductId"));
                 productIdSet.add(searchResult.getString("mainProductId"));
 
-                while ((maxResults == null || numRetreived < maxResults.intValue()) && ((searchResult = (GenericValue) eli.next()) != null)) {
+                while ((maxResults == null || numRetreived < maxResults.intValue()) && ((searchResult = eli.next()) != null)) {
                     String productId = searchResult.getString("mainProductId");
                     if (!productIdSet.contains(productId)) {
                         productIds.add(productId);

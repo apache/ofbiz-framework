@@ -122,7 +122,7 @@ public class CheckPermission extends MethodOperation {
         }
 
         if (!hasPermission && acceptUlPartyIdEnvNameAcsr != null) {
-            String acceptPartyId = (String) acceptUlPartyIdEnvNameAcsr.get(methodContext);
+            String acceptPartyId = acceptUlPartyIdEnvNameAcsr.get(methodContext);
             if (UtilValidate.isEmpty(acceptPartyId)) {
                 // try the parameters Map
                 Map<String, Object> parameters = methodContext.getEnv("parameters");

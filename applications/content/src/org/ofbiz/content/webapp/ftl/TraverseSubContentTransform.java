@@ -136,10 +136,10 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         final Map traverseContext = FastMap.newInstance();
         traverseContext.put("delegator", delegator);
         Map whenMap = FastMap.newInstance();
-        whenMap.put("followWhen", (String)templateCtx.get("followWhen"));
-        whenMap.put("pickWhen", (String)templateCtx.get("pickWhen"));
-        whenMap.put("returnBeforePickWhen", (String)templateCtx.get("returnBeforePickWhen"));
-        whenMap.put("returnAfterPickWhen", (String)templateCtx.get("returnAfterPickWhen"));
+        whenMap.put("followWhen", templateCtx.get("followWhen"));
+        whenMap.put("pickWhen", templateCtx.get("pickWhen"));
+        whenMap.put("returnBeforePickWhen", templateCtx.get("returnBeforePickWhen"));
+        whenMap.put("returnAfterPickWhen", templateCtx.get("returnAfterPickWhen"));
         traverseContext.put("whenMap", whenMap);
         String fromDateStr = (String)templateCtx.get("fromDateStr");
         String thruDateStr = (String)templateCtx.get("thruDateStr");

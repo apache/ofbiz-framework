@@ -38,7 +38,7 @@ import org.ofbiz.pos.screen.PosScreen;
 public class Journal {
 
     public static final String module = Journal.class.getName();
-    protected XProject currentProject = (XProject)XProjectManager.getCurrentProject();
+    protected XProject currentProject = XProjectManager.getCurrentProject();
 
     private static String[] field = { "sku", "desc", "qty", "price" };
     private static String[] name = { "PosSku", "PosItem", "PosQty", "PosAmt" };

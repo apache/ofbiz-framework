@@ -194,7 +194,7 @@ public class EbayHelper {
             if (UtilValidate.isNotEmpty(paymentPreferences)) {
                 Iterator<GenericValue> i = paymentPreferences.iterator();
                 while (i.hasNext()) {
-                    GenericValue pref = (GenericValue) i.next();
+                    GenericValue pref = i.next();
                     boolean okay = createPayment(dispatcher, userLogin, pref, orderId, externalId, orderDate, partyIdFrom);
                     if (!okay)
                         return false;
@@ -304,10 +304,10 @@ public class EbayHelper {
         try {
             Map<String, Object> context = FastMap.newInstance();
             context.put("partyId", partyId);
-            context.put("toName", (String) address.get("buyerName"));
-            context.put("address1", (String) address.get("shippingAddressStreet1"));
-            context.put("address2", (String) address.get("shippingAddressStreet2"));
-            context.put("postalCode", (String) address.get("shippingAddressPostalCode"));
+            context.put("toName", address.get("buyerName"));
+            context.put("address1", address.get("shippingAddressStreet1"));
+            context.put("address2", address.get("shippingAddressStreet2"));
+            context.put("postalCode", address.get("shippingAddressPostalCode"));
             context.put("userLogin", userLogin);
             context.put("contactMechPurposeTypeId", contactMechPurposeTypeId);
 
@@ -469,7 +469,7 @@ public class EbayHelper {
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("geoId", (String) geo.get("geoId"));
+        result.put("geoId", geo.get("geoId"));
         return result;
     }
 
@@ -485,7 +485,7 @@ public class EbayHelper {
         // check them to see if one matches
         Iterator<GenericValue> shippingLocationsIterator = shippingLocations.iterator();
         while (shippingLocationsIterator.hasNext()) {
-            GenericValue shippingLocation = (GenericValue) shippingLocationsIterator.next();
+            GenericValue shippingLocation = shippingLocationsIterator.next();
             contactMechId = shippingLocation.getString("contactMechId");
             GenericValue postalAddress;
             try {
@@ -532,7 +532,7 @@ public class EbayHelper {
         // check them to see if one matches
         Iterator<GenericValue> emailAddressesContactMechsIterator = emailAddressContactMechs.iterator();
         while (emailAddressesContactMechsIterator.hasNext()) {
-            GenericValue emailAddressContactMech = (GenericValue) emailAddressesContactMechsIterator.next();
+            GenericValue emailAddressContactMech = emailAddressesContactMechsIterator.next();
             contactMechId = emailAddressContactMech.getString("contactMechId");
             // now compare values. If one matches, that's our email address.
             // Return the related contact mech id.
@@ -557,7 +557,7 @@ public class EbayHelper {
         // check them to see if one matches
         Iterator<GenericValue> phoneNumbersIterator = phoneNumbers.iterator();
         while (phoneNumbersIterator.hasNext()) {
-            GenericValue phoneNumberContactMech = (GenericValue) phoneNumbersIterator.next();
+            GenericValue phoneNumberContactMech = phoneNumbersIterator.next();
             contactMechId = phoneNumberContactMech.getString("contactMechId");
             GenericValue phoneNumber;
             try {
@@ -587,7 +587,7 @@ public class EbayHelper {
             // First try to get an exact match: title == internalName
             List<GenericValue> products = delegator.findByAnd("Product", UtilMisc.toMap("internalName", title));
             if (UtilValidate.isNotEmpty(products) && products.size() == 1) {
-                productId = (String) ((GenericValue)products.get(0)).get("productId");
+                productId = (String) (products.get(0)).get("productId");
             }
             // If it fails, attempt to get the product id from the first word of the title
             if (UtilValidate.isEmpty(productId)) {

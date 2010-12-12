@@ -69,7 +69,7 @@ public class TreeFactory {
             }
         }
 
-        ModelTree modelTree = (ModelTree) modelTreeMap.get(treeName);
+        ModelTree modelTree = modelTreeMap.get(treeName);
         if (modelTree == null) {
             throw new IllegalArgumentException("Could not find tree with name [" + treeName + "] in class resource [" + resourceName + "]");
         }
@@ -99,7 +99,7 @@ public class TreeFactory {
             }
         }
 
-        ModelTree modelTree = (ModelTree) modelTreeMap.get(treeName);
+        ModelTree modelTree = modelTreeMap.get(treeName);
         if (modelTree == null) {
             throw new IllegalArgumentException("Could not find tree with name [" + treeName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }

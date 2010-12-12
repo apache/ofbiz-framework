@@ -637,7 +637,7 @@ public class CheckOutEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
-        String paymentMethodTypeId = (String) request.getParameter("paymentMethodTypeId");
+        String paymentMethodTypeId = request.getParameter("paymentMethodTypeId");
         if ("EXT_PAYPAL".equals(paymentMethodTypeId) || cart.getPaymentMethodTypeIds().contains("EXT_PAYPAL")) {
             List<GenericValue> payPalProdStorePaySettings = null;
             try {

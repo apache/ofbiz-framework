@@ -53,7 +53,7 @@ public class DeviceLoader {
     public static void load(Map<String, ContainerConfig.Container.Property> devices) throws GeneralException {
         // load the keyboard
         if (devices.get("Keyboard") != null) {
-            String keyboardDevice = ((ContainerConfig.Container.Property) devices.get("Keyboard")).value;
+            String keyboardDevice = (devices.get("Keyboard")).value;
             if (UtilValidate.isNotEmpty(keyboardDevice) && !"[NOT IMPLEMENTED]".equals(keyboardDevice)) {
                 keyboard = new Keyboard(keyboardDevice, -1);
                 try {
@@ -67,7 +67,7 @@ public class DeviceLoader {
 
         // load the scanner
         if (devices.get("Scanner") != null) {
-            String scannerDevice = ((ContainerConfig.Container.Property) devices.get("Scanner")).value;
+            String scannerDevice = (devices.get("Scanner")).value;
             if (UtilValidate.isNotEmpty(scannerDevice) && !"[NOT IMPLEMENTED]".equals(scannerDevice)) {
                 scanner = new Scanner(scannerDevice, -1);
                 try {
@@ -81,7 +81,7 @@ public class DeviceLoader {
 
         // load the check reader
         if (devices.get("CheckScanner") != null) {
-            String checkScannerDevice = ((ContainerConfig.Container.Property) devices.get("CheckScanner")).value;
+            String checkScannerDevice = (devices.get("CheckScanner")).value;
             if (UtilValidate.isNotEmpty(checkScannerDevice) && !"[NOT IMPLEMENTED]".equals(checkScannerDevice)) {
                 check = new CheckScanner(checkScannerDevice, -1);
                 try {
@@ -95,7 +95,7 @@ public class DeviceLoader {
 
         // load the msr
         if (devices.get("Msr") != null) {
-            String msrDevice = ((ContainerConfig.Container.Property) devices.get("Msr")).value;
+            String msrDevice = (devices.get("Msr")).value;
             if (UtilValidate.isNotEmpty(msrDevice) && !"[NOT IMPLEMENTED]".equals(msrDevice)) {
                 msr = new Msr(msrDevice, -1);
                 try {
@@ -109,7 +109,7 @@ public class DeviceLoader {
 
         // load the receipt printer
         if (devices.get("Receipt") != null) {
-            String receiptDevice = ((ContainerConfig.Container.Property) devices.get("Receipt")).value;
+            String receiptDevice = (devices.get("Receipt")).value;
             if (UtilValidate.isNotEmpty(receiptDevice) && !"[NOT IMPLEMENTED]".equals(receiptDevice)) {
                 receipt = new Receipt(receiptDevice, -1);
                 try {
@@ -123,7 +123,7 @@ public class DeviceLoader {
 
         // load the journal printer
         if (devices.get("Journal") != null) {
-            String journalDevice = ((ContainerConfig.Container.Property) devices.get("Journal")).value;
+            String journalDevice = (devices.get("Journal")).value;
             if (UtilValidate.isNotEmpty(journalDevice) && !"[NOT IMPLEMENTED]".equals(journalDevice)) {
                 journal = new Journal(journalDevice, -1);
                 try {
@@ -137,7 +137,7 @@ public class DeviceLoader {
 
         // load the line display
         if (devices.get("LineDisplay") != null) {
-            String lineDisplayDevice = ((ContainerConfig.Container.Property) devices.get("LineDisplay")).value;
+            String lineDisplayDevice = (devices.get("LineDisplay")).value;
             if (UtilValidate.isNotEmpty(lineDisplayDevice) && !"[NOT IMPLEMENTED]".equals(lineDisplayDevice)) {
                 ldisplay = new LineDisplay(lineDisplayDevice, -1);
                 try {
@@ -153,7 +153,7 @@ public class DeviceLoader {
         for (int i = 1; i < 10; i++) { // more than 10 cash drawers on a terminal??
             String idName = "CashDrawer." + i;
             if (devices.get(idName) != null) {
-                String cashDrawerDevice = ((ContainerConfig.Container.Property) devices.get(idName)).value;
+                String cashDrawerDevice = (devices.get(idName)).value;
                 if (UtilValidate.isNotEmpty(cashDrawerDevice) && !"[NOT IMPLEMENTED]".equals(cashDrawerDevice)) {
                     if (drawer == null) {
                         drawer = new CashDrawer[10];

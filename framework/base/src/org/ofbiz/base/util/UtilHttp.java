@@ -118,7 +118,7 @@ public class UtilHttp {
         // add all the actual HTTP request parameters
         Enumeration<String> e = UtilGenerics.cast(request.getParameterNames());
         while (e.hasMoreElements()) {
-            String name = (String) e.nextElement();
+            String name = e.nextElement();
             if (nameSet != null && (onlyIncludeOrSkipPrim ^ nameSet.contains(name))) {
                 continue;
             }
@@ -248,7 +248,7 @@ public class UtilHttp {
             } else if (paramEntry.getValue() instanceof Collection) {
                 List<String> newList = FastList.newInstance();
                 for (String listEntry: UtilGenerics.<String>checkCollection(paramEntry.getValue())) {
-                    newList.add(canonicalizeParameter((String) listEntry));
+                    newList.add(canonicalizeParameter(listEntry));
                 }
                 paramEntry.setValue(newList);
             }
@@ -306,7 +306,7 @@ public class UtilHttp {
         // look at all request attributes
         Enumeration<String> requestAttrNames = UtilGenerics.cast(request.getAttributeNames());
         while (requestAttrNames.hasMoreElements()) {
-            String attrName = (String) requestAttrNames.nextElement();
+            String attrName = requestAttrNames.nextElement();
             if (namesToSkip != null && namesToSkip.contains(attrName))
                 continue;
 

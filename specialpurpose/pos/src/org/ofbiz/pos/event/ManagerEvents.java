@@ -435,7 +435,7 @@ public class ManagerEvents {
         PaidInOut PaidInOut = new PaidInOut(trans, pos, type);
         Map<String, String> mapInOut = PaidInOut.openDlg();
         if (null != mapInOut.get("amount")) {
-            String amount = (String) mapInOut.get("amount");
+            String amount = mapInOut.get("amount");
             BigDecimal amt = ZERO;
             try {
                 amt = new BigDecimal(amount);
@@ -503,7 +503,7 @@ public class ManagerEvents {
 
             if (eli != null) {
                 GenericValue ohpp;
-                while (((ohpp = (GenericValue) eli.next()) != null)) {
+                while (((ohpp = eli.next()) != null)) {
                     Timestamp orderDate = ohpp.getTimestamp("orderDate");
                     if (orderDate.after(dayStart) && orderDate.before(dayEnd)) {
                         String pmt = ohpp.getString("paymentMethodTypeId");

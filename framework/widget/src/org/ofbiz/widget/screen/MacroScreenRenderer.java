@@ -688,7 +688,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
-            ofLabel = (String) uiLabelMap.get("CommonOf");
+            ofLabel = uiLabelMap.get("CommonOf");
             ofLabel = ofLabel.toLowerCase();
         }
 
@@ -790,8 +790,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
-            addColumnLabel = (String) uiLabelMap.get("CommonAddColumn");
-            addColumnHint = (String) uiLabelMap.get("CommonAddAColumnToThisPortalPage");
+            addColumnLabel = uiLabelMap.get("CommonAddColumn");
+            addColumnHint = uiLabelMap.get("CommonAddAColumnToThisPortalPage");
         }
 
         StringWriter sr = new StringWriter();
@@ -835,13 +835,13 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
-            delColumnLabel = (String) uiLabelMap.get("CommonDeleteColumn");
-            delColumnHint = (String) uiLabelMap.get("CommonDeleteThisColumn");
+            delColumnLabel = uiLabelMap.get("CommonDeleteColumn");
+            delColumnHint = uiLabelMap.get("CommonDeleteThisColumn");
 
-            addPortletLabel = (String) uiLabelMap.get("CommonAddAPortlet");
-            addPortletHint = (String) uiLabelMap.get("CommonAddPortletToPage");
-            colWidthLabel = (String) uiLabelMap.get("CommonWidth");
-            setColumnSizeHint = (String) uiLabelMap.get("CommonSetColumnWidth");
+            addPortletLabel = uiLabelMap.get("CommonAddAPortlet");
+            addPortletHint = uiLabelMap.get("CommonAddPortletToPage");
+            colWidthLabel = uiLabelMap.get("CommonWidth");
+            setColumnSizeHint = uiLabelMap.get("CommonSetColumnWidth");
         }
 
         StringWriter sr = new StringWriter();
@@ -908,8 +908,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
-            delPortletHint = (String) uiLabelMap.get("CommonDeleteThisPortlet");
-            editAttributeHint = (String) uiLabelMap.get("CommonEditPortletAttributes");
+            delPortletHint = uiLabelMap.get("CommonDeleteThisPortlet");
+            editAttributeHint = uiLabelMap.get("CommonEditPortletAttributes");
         }
 
         StringWriter sr = new StringWriter();

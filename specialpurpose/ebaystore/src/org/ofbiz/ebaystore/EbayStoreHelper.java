@@ -405,7 +405,7 @@ public class EbayStoreHelper {
     public static void mappedShippingLocations(Map requestParams, ItemType item, ApiContext apiContext, HttpServletRequest request, HashMap attributeMapList) {
         try {
             if (UtilValidate.isNotEmpty(requestParams)) {
-                EbayStoreSiteFacade sf = (EbayStoreSiteFacade) EbayEvents.getSiteFacade(apiContext, request);
+                EbayStoreSiteFacade sf = EbayEvents.getSiteFacade(apiContext, request);
                 Map<SiteCodeType, GeteBayDetailsResponseType> eBayDetailsMap = sf.getEBayDetailsMap();
                 GeteBayDetailsResponseType eBayDetails = eBayDetailsMap.get(apiContext.getSite());
                 ShippingLocationDetailsType[] shippingLocationDetails = eBayDetails.getShippingLocationDetails();
@@ -413,7 +413,7 @@ public class EbayStoreHelper {
                     int i = 0;
                     String[] tempShipLocation = new String[shippingLocationDetails.length];
                     for (ShippingLocationDetailsType shippingLocationDetail : shippingLocationDetails) {
-                        String shippingLocation = (String) shippingLocationDetail.getShippingLocation();
+                        String shippingLocation = shippingLocationDetail.getShippingLocation();
                         String shipParam = (String)requestParams.get("Shipping_".concat(shippingLocation));
                         if ("true".equals(shipParam)) {
                             tempShipLocation[i] = shippingLocation;
@@ -431,7 +431,7 @@ public class EbayStoreHelper {
 
     public static Map<String, Object> exportProductEachItem(DispatchContext dctx, Map<String, Object> context) {
         Map<String,Object> result = FastMap.newInstance();
-        LocalDispatcher dispatcher = (LocalDispatcher) dctx.getDispatcher();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> itemObject = (Map<String, Object>) context.get("itemObject");
         String productListingId = itemObject.get("productListingId").toString();
@@ -658,7 +658,7 @@ public class EbayStoreHelper {
                             AddOrderRequestType addReq = new AddOrderRequestType();
                             AddOrderResponseType addResp = null;
                             OrderType newOrder = new OrderType();
-                            ShippingDetailsType shippingDetail = (ShippingDetailsType) order.getShippingDetails();
+                            ShippingDetailsType shippingDetail = order.getShippingDetails();
                             if (trackingOrders.size() > 0) {
                                 ShipmentTrackingDetailsType[] trackDetails = new ShipmentTrackingDetailsType[trackingOrders.size()];
                                 for (int i = 0; i < trackDetails.length; i++) {

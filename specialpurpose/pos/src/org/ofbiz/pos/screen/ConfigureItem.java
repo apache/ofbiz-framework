@@ -412,7 +412,7 @@ public class ConfigureItem extends XPage {
                     //for(int i: selected) {
                     //    Debug.logInfo(""+i, module);
                     //}
-                    List<ConfigOption> options = (List<ConfigOption>)question.getOptions();
+                    List<ConfigOption> options = question.getOptions();
                     for (ConfigOption option: options) {
                         option.setSelected(false);
                     }

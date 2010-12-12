@@ -218,7 +218,7 @@ public class OagisShipmentServices {
                 String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");
                 String originFacilityId = shipment.getString("originFacilityId");
 
-                Element shipUnitFirstElement = (Element)shipUnitElementList.get(0);
+                Element shipUnitFirstElement = shipUnitElementList.get(0);
                 String trackingNum = UtilXml.childElementValue(shipUnitFirstElement, "of:TRACKINGID"); // of
                 String carrierCode = UtilXml.childElementValue(shipUnitFirstElement, "of:CARRIER"); // of
                 if (UtilValidate.isNotEmpty(carrierCode)) {
@@ -343,7 +343,7 @@ public class OagisShipmentServices {
                                     Debug.logError(errMsg, module);
                                     continue;
                                 }
-                                GenericValue shipmentItem = (GenericValue) shipmentItemList.get(0);
+                                GenericValue shipmentItem = shipmentItemList.get(0);
 
                                 String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");
                                 GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId)));
@@ -395,7 +395,7 @@ public class OagisShipmentServices {
 
                                 // because there may be more than one ShipmentItem for an OrderItem allow there to be more inventory reservations for the
                                 //OrderItem than there is quantity on the current ShipmentItem
-                                if ((int) totalReserved < messageQuantity.intValue()) {
+                                if (totalReserved < messageQuantity.intValue()) {
                                     String errMsg = "Inventory reservation quantity [" + totalReserved + "] was less than the message quantity [" + messageQuantity.intValue() + "] so cannot receive against reservations for ShipmentItem with ID [" + shipmentId + ":" + shipmentItemSeqId + "], and OrderItem [" + orderShipment.getString("orderId") + ":" + orderShipment.getString("orderItemSeqId") + "]";
                                     errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
                                     Debug.logInfo(errMsg, module);

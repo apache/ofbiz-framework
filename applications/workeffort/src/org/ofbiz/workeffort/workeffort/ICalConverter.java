@@ -261,7 +261,7 @@ public class ICalConverter {
         if (iCalObj == null) {
             return null;
         }
-        return new Long((long)iCalObj.getPercentage());
+        return new Long(iCalObj.getPercentage());
     }
 
     protected static Double fromPriority(PropertyList propertyList) {

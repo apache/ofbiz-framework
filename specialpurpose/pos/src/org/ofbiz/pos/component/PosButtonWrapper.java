@@ -203,7 +203,7 @@ public class PosButtonWrapper {
             // we can only wrap if :
             // 1) we have a space available
             // 2) the next character is a space
-            if (space == -1 && ((int)text.charAt(thisPosition)) != 32) {
+            if (space == -1 && (text.charAt(thisPosition)) != 32) {
                 buf.append(text);
                 break;
             } else {

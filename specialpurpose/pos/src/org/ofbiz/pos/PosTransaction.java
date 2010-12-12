@@ -367,8 +367,8 @@ public class PosTransaction implements Serializable {
         //Debug.log("AuthTrans - " + authTrans, module);
 
         if ("PaymentMethodType".equals(infValue.getEntityName())) {
-            payInfo.put("description", (String) infValue.get("description", locale));
-            payInfo.put("payInfo", (String) infValue.get("description", locale));
+            payInfo.put("description", infValue.get("description", locale));
+            payInfo.put("payInfo", infValue.get("description", locale));
             payInfo.put("amount", UtilFormatOut.formatPrice(inf.amount));
         } else {
             String paymentMethodTypeId = infValue.getString("paymentMethodTypeId");
@@ -379,7 +379,7 @@ public class PosTransaction implements Serializable {
                 Debug.logError(e, module);
             }
             if (pmt != null) {
-                payInfo.put("description", (String) pmt.get("description", locale));
+                payInfo.put("description", pmt.get("description", locale));
                 payInfo.put("amount", UtilFormatOut.formatPrice(inf.amount));
             }
 

@@ -81,7 +81,7 @@ public class FinAccountHelper {
       */
      public static BigDecimal addFirstEntryAmount(BigDecimal initialValue, List<GenericValue> transactions, String fieldName, int decimals, int rounding) throws GenericEntityException {
           if ((transactions != null) && (transactions.size() == 1)) {
-              GenericValue firstEntry = (GenericValue) transactions.get(0);
+              GenericValue firstEntry = transactions.get(0);
               if (firstEntry.get(fieldName) != null) {
                   BigDecimal valueToAdd = firstEntry.getBigDecimal(fieldName);
                   return initialValue.add(valueToAdd).setScale(decimals, rounding);
@@ -163,7 +163,7 @@ public class FinAccountHelper {
              Debug.logError("Multiple fin accounts found", module);
              return null;
          } else {
-             return (GenericValue) accounts.get(0);
+             return accounts.get(0);
          }
      }
 

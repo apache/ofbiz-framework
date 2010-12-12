@@ -76,10 +76,10 @@ public class StringAppend extends MethodOperation {
                 mapAcsr.put(methodContext, toMap);
             }
 
-            String oldValue = (String) fieldAcsr.get(toMap, methodContext);
+            String oldValue = fieldAcsr.get(toMap, methodContext);
             fieldAcsr.put(toMap, this.appendString(oldValue, methodContext), methodContext);
         } else {
-            String oldValue = (String) fieldAcsr.get(methodContext);
+            String oldValue = fieldAcsr.get(methodContext);
             fieldAcsr.put(methodContext, this.appendString(oldValue, methodContext));
         }
 

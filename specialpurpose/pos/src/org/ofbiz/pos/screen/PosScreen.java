@@ -58,7 +58,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
     public static final long MAX_INACTIVITY = Long.valueOf(UtilProperties.getPropertyValue(PosTransaction.resource, "MaxInactivity", "1800000"));
     public static PosScreen currentScreen;
 
-    protected XProject currentProject = (XProject)XProjectManager.getCurrentProject();
+    protected XProject currentProject = XProjectManager.getCurrentProject();
     protected static boolean monitorRunning = false;
     protected static boolean firstInit = false;
     protected static long lastActivity = 0;

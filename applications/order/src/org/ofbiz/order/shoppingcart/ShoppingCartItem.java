@@ -924,7 +924,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         while (BigDecimal.valueOf(dayCount).compareTo(reservLength) < 0) {
             GenericValue techDataCalendarExcDay = null;
             // find an existing Day exception record
-            Timestamp exceptionDateStartTime = new Timestamp((long) (reservStart.getTime() + (dayCount++ * 86400000)));
+            Timestamp exceptionDateStartTime = new Timestamp((reservStart.getTime() + (dayCount++ * 86400000)));
             try {
                 techDataCalendarExcDay = delegator.findByPrimaryKey("TechDataCalendarExcDay",
                         UtilMisc.toMap("calendarId", fixedAsset.get("calendarId"), "exceptionDateStartTime", exceptionDateStartTime));
@@ -976,7 +976,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Debug.logError("Error calling isStoreInventoryAvailableOrNotRequired service, result is: " + invReqResult, module);
                 throw new CartItemModifyException((String) invReqResult.get(ModelService.ERROR_MESSAGE));
             }
-            inventoryAvailable = "Y".equals((String) invReqResult.get("availableOrNotRequired"));
+            inventoryAvailable = "Y".equals(invReqResult.get("availableOrNotRequired"));
         } catch (GenericServiceException e) {
             String errMsg = "Fatal error calling inventory checking services: " + e.toString();
             Debug.logError(e, errMsg, module);
