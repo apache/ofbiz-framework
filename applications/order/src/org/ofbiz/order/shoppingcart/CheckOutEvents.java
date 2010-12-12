@@ -584,7 +584,7 @@ public class CheckOutEvents {
         CheckOutHelper checkOutHelper = new CheckOutHelper(null, delegator, cart);
         String result;
 
-        Map callResult = checkOutHelper.checkOrderBlacklist(userLogin);
+        Map callResult = checkOutHelper.checkOrderBlackList();
         if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
             request.setAttribute("_ERROR_MESSAGE_", callResult.get(ModelService.ERROR_MESSAGE));
             result = "error";
