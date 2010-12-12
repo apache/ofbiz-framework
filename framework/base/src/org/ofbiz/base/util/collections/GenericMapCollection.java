@@ -105,6 +105,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
         return list.toArray(array);
     }
 
+    @Override
     public String toString() {
         return appendTo(new StringBuilder()).toString();
     }

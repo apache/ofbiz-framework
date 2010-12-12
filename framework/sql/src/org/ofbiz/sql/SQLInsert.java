@@ -34,6 +34,7 @@ public final class SQLInsert extends SQLStatement<SQLInsert> {
         this.columns = columns;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -50,6 +51,7 @@ public final class SQLInsert extends SQLStatement<SQLInsert> {
         return columns.iterator();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof SQLInsert) {
             SQLInsert other = (SQLInsert) o;

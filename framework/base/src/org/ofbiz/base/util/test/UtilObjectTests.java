@@ -41,10 +41,12 @@ public class UtilObjectTests extends GenericTestCaseBase {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
@@ -71,6 +73,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
             this.onClose = onClose;
         }
 
+        @Override
         public int read() throws IOException {
             if (after == 0) {
                 throw new IOException();
@@ -81,10 +84,12 @@ public class UtilObjectTests extends GenericTestCaseBase {
             return super.read();
         }
 
+        @Override
         public int read(byte[] buf) throws IOException {
             return read(buf, 0, buf.length);
         }
 
+        @Override
         public int read(byte[] buf, int offset, int length) throws IOException {
             if (after == 0) {
                 throw new IOException();
@@ -101,6 +106,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
             }
         }
 
+        @Override
         public void close() throws IOException {
             if (onClose) {
                 throw new IOException();

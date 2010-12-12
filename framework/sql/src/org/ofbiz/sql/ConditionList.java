@@ -34,6 +34,7 @@ public final class ConditionList extends Condition implements Iterable<Condition
         this.conditions = conditions;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -50,6 +51,7 @@ public final class ConditionList extends Condition implements Iterable<Condition
         return conditions.iterator();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof ConditionList) {
             ConditionList other = (ConditionList) o;

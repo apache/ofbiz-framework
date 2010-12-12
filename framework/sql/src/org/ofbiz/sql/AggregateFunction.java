@@ -38,6 +38,7 @@ public final class AggregateFunction extends StaticValue {
         this.value = value;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -50,6 +51,7 @@ public final class AggregateFunction extends StaticValue {
         return isDistinct;
     }
 
+    @Override
     public String getDefaultName() {
         return name;
     }
@@ -58,6 +60,7 @@ public final class AggregateFunction extends StaticValue {
         return value;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof AggregateFunction) {
             AggregateFunction other = (AggregateFunction) o;

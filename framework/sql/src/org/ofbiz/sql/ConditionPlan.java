@@ -39,6 +39,7 @@ public final class ConditionPlan<C> extends SQLPlan<ConditionPlan<C>> {
         }
     }
 
+    @Override
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("ConditionPlan[");
         if (originalCondition != null) {

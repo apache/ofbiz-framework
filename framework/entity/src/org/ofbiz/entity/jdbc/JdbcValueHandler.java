@@ -785,9 +785,11 @@ public abstract class JdbcValueHandler<T> {
         protected JdbcValueHandler<java.sql.Timestamp> newInstance(int sqlType) {
             if (sqlType == Types.CHAR) {
                 return new TimestampJdbcValueHandler(sqlType) {
+                    @Override
                     protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.sql.Timestamp obj) throws SQLException {
                         ps.setString(parameterIndex, obj.toString());
                     }
+                    @Override
                     public java.sql.Timestamp getValue(ResultSet rs, int columnIndex) throws SQLException {
                         String str = rs.getString(columnIndex);
                         if (str == null) {

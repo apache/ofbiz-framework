@@ -41,6 +41,7 @@ public final class SQLIndex extends SQLStatement<SQLIndex> {
         this.values = values;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -65,6 +66,7 @@ public final class SQLIndex extends SQLStatement<SQLIndex> {
         return values;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof SQLIndex) {
             SQLIndex other = (SQLIndex) o;

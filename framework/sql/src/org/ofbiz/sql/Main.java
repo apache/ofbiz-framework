@@ -41,22 +41,27 @@ public final class Main {
             super(new DebugConditionPlanner());
         }
 
+        @Override
         public DebugDeletePlan planDelete(SQLDelete deleteStatement) {
             return null;
         }
 
+        @Override
         public DebugInsertPlan planInsert(SQLInsert insertStatement) {
             return null;
         }
 
+        @Override
         public DebugSelectPlan planSelect(SQLSelect selectStatement) {
             return null;
         }
 
+        @Override
         public DebugUpdatePlan planUpdate(SQLUpdate updateStatement) {
             return null;
         }
 
+        @Override
         public DebugViewPlan planView(SQLView viewStatement) {
             return null;
         }

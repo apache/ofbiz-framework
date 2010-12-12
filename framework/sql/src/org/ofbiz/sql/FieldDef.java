@@ -42,6 +42,7 @@ public final class FieldDef extends Atom {
         return value;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof FieldDef) {
             FieldDef other = (FieldDef) o;

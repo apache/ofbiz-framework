@@ -45,6 +45,7 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         this.limit = limit;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -73,6 +74,7 @@ public final class SQLSelect extends SQLStatement<SQLSelect> implements InsertSo
         return limit;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof SQLSelect)) {
             return false;

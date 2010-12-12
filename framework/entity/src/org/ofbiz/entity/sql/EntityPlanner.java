@@ -60,14 +60,17 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         super(new EntityConditionPlanner());
     }
 
+    @Override
     public EntityDeletePlan planDelete(SQLDelete deleteStatement) {
         return null;
     }
 
+    @Override
     public EntityInsertPlan planInsert(SQLInsert insertStatement) {
         return null;
     }
 
+    @Override
     public EntitySelectPlan planSelect(SQLSelect selectStatement) {
         DynamicViewEntity dve = new DynamicViewEntity();
         Unioned unioned = selectStatement.getUnioned();
@@ -103,10 +106,12 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         return new EntitySelectPlan(dve, plan(selectGroup.getWhereCondition()), plan(selectGroup.getHavingCondition()), orderBy);
     }
 
+    @Override
     public EntityUpdatePlan planUpdate(SQLUpdate updateStatement) {
         return null;
     }
 
+    @Override
     public EntityViewPlan planView(SQLView viewStatement) {
         return null;
     }

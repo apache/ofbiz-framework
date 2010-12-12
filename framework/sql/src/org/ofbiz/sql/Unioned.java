@@ -43,6 +43,7 @@ public final class Unioned extends Atom {
         return next;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof Unioned) {
             Unioned other = (Unioned) o;

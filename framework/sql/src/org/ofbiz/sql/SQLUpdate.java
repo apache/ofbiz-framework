@@ -34,6 +34,7 @@ public final class SQLUpdate extends SQLStatement<SQLUpdate> implements Iterable
         this.whereCondition = whereCondition;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -50,6 +51,7 @@ public final class SQLUpdate extends SQLStatement<SQLUpdate> implements Iterable
         return whereCondition;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof SQLUpdate) {
             SQLUpdate other = (SQLUpdate) o;

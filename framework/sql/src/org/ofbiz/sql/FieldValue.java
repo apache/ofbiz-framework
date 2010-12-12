@@ -29,6 +29,7 @@ public final class FieldValue extends StaticValue {
         this(null, fieldName);
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -46,10 +47,12 @@ public final class FieldValue extends StaticValue {
         return fieldName;
     }
 
+    @Override
     public String getDefaultName() {
         return fieldName;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof FieldValue) {
             FieldValue other = (FieldValue) o;

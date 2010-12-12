@@ -35,6 +35,7 @@ public final class TableName extends Atom {
         return alias;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof TableName) {
             TableName other = (TableName) o;

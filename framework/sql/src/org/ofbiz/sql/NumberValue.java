@@ -36,6 +36,7 @@ public final class NumberValue<N extends Number> extends ConstantValue {
         this.number = number;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -44,6 +45,7 @@ public final class NumberValue<N extends Number> extends ConstantValue {
         return number;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof NumberValue) {
             NumberValue other = (NumberValue) o;

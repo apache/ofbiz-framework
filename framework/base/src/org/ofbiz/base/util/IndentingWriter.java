@@ -80,10 +80,12 @@ public class IndentingWriter extends FilterWriter {
         return this;
     }
 
+    @Override
     public void write(char[] buf) throws IOException {
         write(buf, 0, buf.length);
     }
 
+    @Override
     public void write(char[] buf, int offset, int length) throws IOException {
         int i;
         for (i = offset; i < length; i++) {
@@ -98,6 +100,7 @@ public class IndentingWriter extends FilterWriter {
         super.write(buf, offset, i - offset);
     }
 
+    @Override
     public void write(int c) throws IOException {
         checkAfterNewline();
         super.write(c);
@@ -107,10 +110,12 @@ public class IndentingWriter extends FilterWriter {
         }
     }
 
+    @Override
     public void write(String s) throws IOException {
         write(s, 0, s.length());
     }
 
+    @Override
     public void write(String s, int offset, int length) throws IOException {
         int i;
         for (i = offset; i < length; i++) {

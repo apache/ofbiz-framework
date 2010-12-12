@@ -28,10 +28,12 @@ public final class CountAllFunction extends StaticValue {
         this.tableName = tableName;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
 
+    @Override
     public String getDefaultName() {
         return "COUNT";
     }
@@ -40,6 +42,7 @@ public final class CountAllFunction extends StaticValue {
         return tableName;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof CountAllFunction) {
             CountAllFunction other = (CountAllFunction) o;

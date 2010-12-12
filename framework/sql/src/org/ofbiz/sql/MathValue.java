@@ -34,6 +34,7 @@ public final class MathValue extends StaticValue implements Iterable<ConstantVal
         this.values = values;
     }
 
+    @Override
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
@@ -42,6 +43,7 @@ public final class MathValue extends StaticValue implements Iterable<ConstantVal
         return op;
     }
 
+    @Override
     public String getDefaultName() {
         return null;
     }
@@ -50,6 +52,7 @@ public final class MathValue extends StaticValue implements Iterable<ConstantVal
         return values.iterator();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof MathValue) {
             MathValue other = (MathValue) o;

@@ -51,10 +51,12 @@ public abstract class TTLObjectTest extends GenericTestCaseBase {
         object = new TTLObjectTestTTLObject(foreground);
     }
 
+    @Override
     protected void setUp() throws InterruptedException {
         executor = ExecutionPool.getNewExactExecutor(getName());
     }
 
+    @Override
     protected void tearDown() throws InterruptedException {
         doneCount.set(0);
         lastLoadThread.set(null);
@@ -98,14 +100,17 @@ public abstract class TTLObjectTest extends GenericTestCaseBase {
             this.foreground = foreground;
         }
 
+        @Override
         public long getTTL() throws ConfigurationException {
             return super.getTTL();
         }
 
+        @Override
         protected boolean getForeground() {
             return foreground ? super.getForeground() : false;
         }
 
+        @Override
         protected String load(String old, int serial) throws Exception {
             lastLoadThread.set(Thread.currentThread());
             try {

@@ -47,6 +47,7 @@ public final class OrderByItem extends Atom {
         return value;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof OrderByItem) {
             OrderByItem other = (OrderByItem) o;

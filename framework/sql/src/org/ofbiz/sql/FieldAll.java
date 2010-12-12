@@ -42,6 +42,7 @@ public final class FieldAll extends Atom implements Iterable<String> {
         return exclude.iterator();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o instanceof FieldAll) {
             FieldAll other = (FieldAll) o;
