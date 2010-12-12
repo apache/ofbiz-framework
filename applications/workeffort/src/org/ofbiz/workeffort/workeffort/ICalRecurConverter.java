@@ -252,16 +252,22 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         switch (freqType) {
         case Calendar.SECOND:
             this.state.addRecur((new Recur(Recur.SECONDLY, freqCount)));
+            break;
         case Calendar.MINUTE:
             this.state.addRecur((new Recur(Recur.MINUTELY, freqCount)));
+            break;
         case Calendar.HOUR:
             this.state.addRecur((new Recur(Recur.HOURLY, freqCount)));
+            break;
         case Calendar.DAY_OF_MONTH:
             this.state.addRecur((new Recur(Recur.DAILY, freqCount)));
+            break;
         case Calendar.MONTH:
             this.state.addRecur((new Recur(Recur.MONTHLY, freqCount)));
+            break;
         case Calendar.YEAR:
             this.state.addRecur((new Recur(Recur.YEARLY, freqCount)));
+            break;
         }
     }
 
