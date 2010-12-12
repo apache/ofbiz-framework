@@ -246,7 +246,6 @@ public class UtilCache<K, V> implements Serializable {
         return key == ObjectType.NULL ? null : (K) key;
     }
 
-    @SuppressWarnings("unchecked")
     private void addAllFileTableValues(List<V> values) throws IOException {
         FastIterator<V> iter = fileTable.values();
         V value = iter.next();

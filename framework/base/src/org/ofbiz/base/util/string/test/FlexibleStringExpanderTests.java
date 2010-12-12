@@ -238,7 +238,6 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static class SpecialNumberToString extends AbstractConverter<SpecialNumber, String> {
         public SpecialNumberToString() {
             super(SpecialNumber.class, String.class);
