@@ -35,8 +35,7 @@ under the License.
                         -->
                         <platform-specific>
                             <html>
-                                <html-template
-                                    location="component://common/webcommon/portal/showPortlet.ftl" />
+                                <html-template location="component://common/webcommon/portal/showPortlet.ftl" />
                             </html>
                         </platform-specific>
                     </widgets>
