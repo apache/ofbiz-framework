@@ -27,7 +27,7 @@ under the License.
 <#else>
   <#assign hideFields = "N">
 </#if>
-<h1>${uiLabelMap.PartyFindParties}</h1>
+<h1>${uiLabelMap.PageTitleFindParty}</h1>
 <#if (parameters.firstName?has_content || parameters.lastName?has_content)>
   <#assign createUrl = "editperson?create_new=Y&amp;lastName=${parameters.lastName?if_exists}&amp;firstName=${parameters.firstName?if_exists}"/>
 <#elseif (parameters.groupName?has_content)>

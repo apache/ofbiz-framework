@@ -5898,22 +5898,6 @@
         <value xml:lang="en">Find Communications by Order</value>
         <value xml:lang="zh_TW">以訂單查詢通訊</value>
     </property>
-    <property key="PartyFindParties">
-        <value xml:lang="de">Akteure suchen</value>
-        <value xml:lang="en">Find Parties</value>
-        <value xml:lang="es">Buscar participantes</value>
-        <value xml:lang="fr">Recherche des acteurs</value>
-        <value xml:lang="hi_IN">पार्टियाँ खोजें</value>
-        <value xml:lang="it">Ricerca soggetti</value>
-        <value xml:lang="nl">Relatie(s) vinden</value>
-        <value xml:lang="pt_BR">Buscar participantes</value>
-        <value xml:lang="pt_PT">Procurar Secções</value>
-        <value xml:lang="ro">Cauta Subiecti</value>
-        <value xml:lang="ru">Найти участника</value>
-        <value xml:lang="th">ค้นหากลุ่มผู้ใช้</value>
-        <value xml:lang="zh">查找会员</value>
-        <value xml:lang="zh_TW">查詢成員</value>
-    </property>
     <property key="PartyFindParty">
         <value xml:lang="de">Akteur suchen</value>
         <value xml:lang="en">Find Party</value>
