@@ -1174,6 +1174,9 @@ text-decoration:none;
 color:#999999;
 } /*Color subcells disabled mode*/
 
+#main-navigation ul li ul li ul.secondary{
+left:204px;
+}
 
 /* ================================================= */
 /* ===== Screenlet Title Bar/Navigation Styles ===== */
