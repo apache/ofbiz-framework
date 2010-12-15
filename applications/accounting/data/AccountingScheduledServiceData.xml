@@ -42,4 +42,10 @@ under the License.
     <RecurrenceRule recurrenceRuleId="9000" untilDateTime="" frequency="DAILY" intervalNumber="5" countNumber="-1"/>
     <RecurrenceInfo recurrenceInfoId="9000" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="9000" recurrenceCount="0"/>
     <JobSandbox jobId="9000" jobName="Auto Reconcile Financial Account" runTime="2000-01-01 00:00:00.000" serviceName="autoFinAccountReconciliation" poolId="pool" runAsUser="system" recurrenceInfoId="9000"/>
+    
+    <!-- The following three elements set up a regularly scheduled job that will automatically create
+        fixed asset maintenances from ProductMaint time intervals. -->
+    <TemporalExpression tempExprId="FAM_AUTO_CREATE" tempExprTypeId="FREQUENCY" description="Every Hour" integer1="12" integer2="60"/>
+    <JobSandbox jobId="FAM_AUTO_CREATE" jobName="Auto-create Fixed Asset Maintenances" runTime="2000-01-01 00:00:00.000" serviceName="createMaintsFromTimeInterval" poolId="pool" runAsUser="system" tempExprId="FAM_AUTO_CREATE" maxRecurrenceCount="-1"/>
+    
 </entity-engine-xml>
