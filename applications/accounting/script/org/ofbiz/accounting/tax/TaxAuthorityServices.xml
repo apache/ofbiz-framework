@@ -161,6 +161,9 @@ under the License.
         <field-to-result field="newEntity.taxAuthorityRateSeqId" result-name="taxAuthorityRateSeqId"/>
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp field="newEntity.fromDate"/>
+        </if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTaxAuthorityRateProduct" short-description="update a TaxAuthorityRateProduct">
