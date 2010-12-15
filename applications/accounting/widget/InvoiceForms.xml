@@ -355,6 +355,8 @@ under the License.
                if(quantity == null || quantity.compareTo(BigDecimal.ZERO) == 0) quantity = BigDecimal.ONE;
                return(quantity.multiply(amount));}"/>
        </row-actions>
+       <field name="viewSize"><hidden value="${viewSize}"/></field>
+       <field name="viewIndex"><hidden value="${viewIndex}"/></field>
        <field name="invoiceId"><hidden/></field>
        <field name="invoiceItemSeqId" widget-style="buttontext">
            <hyperlink target="listInvoiceItems"  description="${invoiceItemSeqId}">
@@ -384,6 +386,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceItem">
                 <parameter param-name="invoiceId"/>
                 <parameter param-name="invoiceItemSeqId"/>
+                <parameter param-name="viewIndex"/>
+                <parameter param-name="viewSize"/>
             </hyperlink>
        </field>
     </form>
@@ -467,6 +471,8 @@ under the License.
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceApplication">
                 <parameter param-name="paymentApplicationId"/>
                 <parameter param-name="invoiceId"/>
+                <parameter param-name="viewIndex"/>
+                <parameter param-name="viewSize"/>
             </hyperlink>
         </field>
     </form>
@@ -523,6 +529,8 @@ under the License.
                 <parameter param-name="invoiceId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
+                <parameter param-name="viewIndex"/>
+                <parameter param-name="viewSize"/>
             </hyperlink>
         </field>
     </form>
