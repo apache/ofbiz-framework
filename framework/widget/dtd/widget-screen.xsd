@@ -1101,7 +1101,6 @@ under the License.
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
-                    <xs:enumeration value="${parameters.confMode}"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -1111,7 +1110,6 @@ under the License.
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
-                    <xs:enumeration value="${parameters.usePrivate}"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
