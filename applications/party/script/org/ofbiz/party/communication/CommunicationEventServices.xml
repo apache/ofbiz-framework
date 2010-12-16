@@ -549,7 +549,9 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
-                <add-error><fail-property resource="PartyErrorUiLabels" property="commeventservices.communication_event_status"/></add-error>
+                <add-error>
+                    <fail-property resource="PartyErrorUiLabels" property="commeventservices.communication_event_status"/>
+                </add-error>
                 <log level="error" message="Cannot change from ${communicationEvent.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>
@@ -625,7 +627,9 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
-                <add-error><fail-message message="Status is not a valid change"/></add-error>
+               <add-error>
+                    <fail-property resource="PartyErrorUiLabels" property="commeventservices.communication_event_role_status"/>
+                </add-error>
                 <log level="error" message="Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>

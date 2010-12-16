@@ -32,7 +32,9 @@ under the License.
 
         <if-empty field="formInput.formInput.contentId">
             <if-empty field="formInput.imageFileName">
-                <add-error><fail-message message="Upload file is missing..."/></add-error>
+                <add-error>
+                    <fail-property resource="PartyUiLabels" property="PartyCreateCommunicationEventUploadFileMissing"/>
+                </add-error>
             </if-empty>
             <check-errors/>
             
@@ -142,23 +144,30 @@ under the License.
     </simple-method>
 
     <simple-method method-name="allocateMsgToParty" short-description="Allocate an emailaddress to an existing/new party, update the communication event accordingly">
-        
         <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
         <if-empty field="communicationEvent">
-            <add-error><fail-message message="Communication Event ID: ${parameters.commnicationEventId} not found"/></add-error>
+            <add-error>
+                <fail-property resource="PartyUiLabels" property="PartyCommunicationEventNotFound"/>
+            </add-error>
         </if-empty>
         
         <if-empty field="parameters.partyId">
             <if-empty field="parameters.emailAddress">
-                <add-error><fail-message message="Email address is required"/></add-error>
+                <add-error>
+                    <fail-property resource="PartyUiLabels" property="PartyEmailAddressRequired"/>
+                </add-error>
             </if-empty>
             
             <if-empty field="parameters.lastName">
-                <add-error><fail-message message="Please enter a lastName"/></add-error>
+                <add-error>
+                    <fail-property resource="PartyUiLabels" property="PartyLastNameRequested"/>
+                </add-error>
             </if-empty>
             
             <if-empty field="parameters.firstName">
-                <add-error><fail-message message="Please enter a firstName"/></add-error>
+                <add-error>
+                    <fail-property resource="PartyUiLabels" property="PartyFirstNameRequested"/>
+                </add-error>
                 <check-errors/>
             </if-empty>
         </if-empty>
@@ -178,7 +187,7 @@ under the License.
             <entity-one entity-name="Party" value-field="party"/>
             <if-empty field="party">
                 <add-error>
-                    <fail-message message="Party ID: ${parameters.partyId} not found"/>
+                    <fail-property resource="PartyUiLabels" property="PartyPartyIdMissing"/>
                 </add-error>
                 <check-errors />
             </if-empty>
