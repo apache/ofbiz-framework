@@ -214,6 +214,7 @@ under the License.
         <description>Create a ProductFeatureType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="productFeatureTypeId" mode="IN" optional="true" />
     </service>
     <service name="updateProductFeatureType" default-entity-name="ProductFeatureType" engine="simple"
                 location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureType" auth="true">
