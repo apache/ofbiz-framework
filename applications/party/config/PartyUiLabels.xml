@@ -4056,6 +4056,10 @@
         <value xml:lang="zh">沟通事件</value>
         <value xml:lang="zh_TW">通訊事件</value>
     </property>
+    <property key="PartyCommunicationEventNotFound">
+        <value xml:lang="en">Communication Event ID: ${parameters.commnicationEventId} not found</value>
+        <value xml:lang="it">Evento comunicazioni: ${parameters.commnicationEventId} non trovato</value>
+    </property>
     <property key="PartyCommunications">
         <value xml:lang="de">Kommunikationen</value>
         <value xml:lang="en">Communications</value>
@@ -4787,6 +4791,10 @@
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการสร้างสถานะของผลในการติดต่อ คุณต้องได้รับความยินยอมจาก PARTYMGR_CREATE หรือ PARTYMGR_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要运行 createCommunicationEventRole，你必须具有 PARTYMGR_CREATE 或 PARTYMGR_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤: 要運行 createCommunicationEventRole，你必須具有 PARTYMGR_CREATE 或 PARTYMGR_ADMIN 權限</value>
+    </property>
+    <property key="PartyCreateCommunicationEventUploadFileMissing">
+        <value xml:lang="en">Upload file is missing...</value>
+        <value xml:lang="it">File da caricare mancante...</value>
     </property>
     <property key="PartyCreateNewBillingAddress">
         <value xml:lang="cs">Zložte novou fakturační adresu pro tuto kreditkartu</value>
@@ -5604,6 +5612,10 @@
         <value xml:lang="zh">电子邮件地址格式错误，必须类似：name@domain</value>
         <value xml:lang="zh_TW">電子郵件地址格式錯誤，必須類似：name@domain</value>
     </property>
+    <property key="PartyEmailAddressRequired">
+        <value xml:lang="en">Email address is required</value>
+        <value xml:lang="it">L'indirizzo e-mail è richiesto</value>
+    </property>
     <property key="PartyEmailAddressSuccessfullyCreated">
         <value xml:lang="de">E-Mail Adresse erfolgreich erstellt.</value>
         <value xml:lang="en">Email Address successfully created.</value>
@@ -5973,6 +5985,10 @@
         <value xml:lang="pt_BR">Nome no cartão está faltando</value>
         <value xml:lang="zh">找不到卡上的名字</value>
         <value xml:lang="zh_TW">找不到卡上的名字</value>
+    </property>
+    <property key="PartyFirstNameRequested">
+        <value xml:lang="en">Please enter a firstName</value>
+        <value xml:lang="it">Perfavore inserire il nome</value>
     </property>
     <property key="PartyFollowSession">
         <value xml:lang="de">Session verfolgen</value>
@@ -6684,6 +6700,10 @@
         <value xml:lang="pt_BR">Sobrenome no cartão está faltando</value>
         <value xml:lang="zh">找不到卡上的姓氏</value>
         <value xml:lang="zh_TW">找不到卡上的姓氏</value>
+    </property>
+    <property key="PartyLastNameRequested">
+        <value xml:lang="en">Please enter a lastName</value>
+        <value xml:lang="it">Perfavore inserire il cognome</value>
     </property>
     <property key="PartyLeaveEmpty">
         <value xml:lang="en">Leave empty for new 'Party'</value>

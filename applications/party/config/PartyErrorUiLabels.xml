@@ -64,6 +64,10 @@
         <value xml:lang="zh">错误：没有找到沟通事件，沟通实践标识</value>
         <value xml:lang="zh_TW">錯誤：沒有找到通訊事件ID</value>
     </property>
+    <property key="commeventservices.communication_event_role_status">
+        <value xml:lang="en">ERROR: Status is not a valid change; old Status: ${communicationEventRole.statusId}, new status: ${parameters.statusId}</value>
+        <value xml:lang="it">ERRORE: Cambio di stato non valido; vecchio stato: ${communicationEventRole.statusId}, nuovo stato: ${parameters.statusId}</value>
+    </property>
     <property key="commeventservices.communication_event_status">
         <value xml:lang="en">ERROR: Status is not a valid change; old Status: ${communicationEvent.statusId}, new status: ${parameters.statusId}</value>
         <value xml:lang="fr">ERREUR : Le changement de ${communicationEvent.statusId} à ${parameters.statusId} n'est pas valide</value>
