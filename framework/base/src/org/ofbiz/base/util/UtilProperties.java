@@ -826,6 +826,7 @@ public class UtilProperties implements Serializable {
             doc = UtilXml.readXmlDocument(in, false, "XML Properties file");
             in.close();
         } catch (Exception e) {
+            Debug.logWarning(e, "XML Locale file for locale " + locale + " could not be loaded.", module);
             in.close();
             return null;
         }
