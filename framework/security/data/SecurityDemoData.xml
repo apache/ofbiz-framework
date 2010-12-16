@@ -17,14 +17,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<entity-engine-xml>
+    <!-- OFBiz security demo data -->
 
-<ofbiz-component name="securityext"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <resource-loader name="main" type="component"/>
-    <classpath type="jar" location="build/lib/*"/>
-    <classpath type="dir" location="config"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/UserDemoData.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-    <test-suite loader="main" location="testdef/securitytests.xml"/>
-</ofbiz-component>
+    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="admin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="FLEXADMIN" userLoginId="flexadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="demoadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="ltdadmin1" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="BIZADMIN" userLoginId="bizadmin" fromDate="2001-01-01 12:00:00.0"/>
+
+</entity-engine-xml>

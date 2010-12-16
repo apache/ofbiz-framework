@@ -79,11 +79,4 @@ under the License.
     <UserLogin userLoginId="ltdadmin1" partyId="ltdadmin1"/>
     <UserLogin userLoginId="bizadmin" partyId="bizadmin"/>
 
-    <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="admin" fromDate="2001-01-01 12:00:00.0"/>
-    <UserLoginSecurityGroup groupId="FLEXADMIN" userLoginId="flexadmin" fromDate="2001-01-01 12:00:00.0"/>
-    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="demoadmin" fromDate="2001-01-01 12:00:00.0"/>
-    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
-    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="ltdadmin1" fromDate="2001-01-01 12:00:00.0"/>
-    <UserLoginSecurityGroup groupId="BIZADMIN" userLoginId="bizadmin" fromDate="2001-01-01 12:00:00.0"/>
-
 </entity-engine-xml>
