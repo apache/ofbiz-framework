@@ -627,55 +627,55 @@ under the License.
         <mkdir dir="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF/actions"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/widget/"/>
-        <copy file="${basedir}/framework/resources/templates/ofbiz-component.xml" tofile="${basedir}/hot-deploy/${component-name}/ofbiz-component.xml">
+        <copy file="${basedir}/framework/resources/templates/ofbiz-component.xml" tofile="${basedir}/hot-deploy/${component-name}/ofbiz-component.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/build.xml" tofile="${basedir}/hot-deploy/${component-name}/build.xml">
+        <copy file="${basedir}/framework/resources/templates/build.xml" tofile="${basedir}/hot-deploy/${component-name}/build.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/TypeData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}TypeData.xml">
+        <copy file="${basedir}/framework/resources/templates/TypeData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}TypeData.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/SecurityData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}SecurityData.xml">
+        <copy file="${basedir}/framework/resources/templates/SecurityData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}SecurityData.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/DemoData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}DemoData.xml">
+        <copy file="${basedir}/framework/resources/templates/DemoData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}DemoData.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/entitymodel.xml" tofile="${basedir}/hot-deploy/${component-name}/entitydef/entitymodel.xml">
+        <copy file="${basedir}/framework/resources/templates/entitymodel.xml" tofile="${basedir}/hot-deploy/${component-name}/entitydef/entitymodel.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/services.xml" tofile="${basedir}/hot-deploy/${component-name}/servicedef/services.xml">
+        <copy file="${basedir}/framework/resources/templates/services.xml" tofile="${basedir}/hot-deploy/${component-name}/servicedef/services.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/Tests.xml" tofile="${basedir}/hot-deploy/${component-name}/testdef/${component-resource-name}Tests.xml">
+        <copy file="${basedir}/framework/resources/templates/Tests.xml" tofile="${basedir}/hot-deploy/${component-name}/testdef/${component-resource-name}Tests.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/UiLabels.xml" tofile="${basedir}/hot-deploy/${component-name}/config/${component-resource-name}UiLabels.xml">
+        <copy file="${basedir}/framework/resources/templates/UiLabels.xml" tofile="${basedir}/hot-deploy/${component-name}/config/${component-resource-name}UiLabels.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/index.jsp" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/index.jsp">
+        <copy file="${basedir}/framework/resources/templates/index.jsp" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/index.jsp" encoding="iso-8859-1">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/error.jsp" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/error/error.jsp">
+        <copy file="${basedir}/framework/resources/templates/error.jsp" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/error/error.jsp" encoding="iso-8859-1">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/controller.xml" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF/controller.xml">
+        <copy file="${basedir}/framework/resources/templates/controller.xml" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF/controller.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/web.xml" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF/web.xml">
+        <copy file="${basedir}/framework/resources/templates/web.xml" tofile="${basedir}/hot-deploy/${component-name}/webapp/${webapp-name}/WEB-INF/web.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/CommonScreens.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/CommonScreens.xml">
+        <copy file="${basedir}/framework/resources/templates/CommonScreens.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/CommonScreens.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/Screens.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/${component-resource-name}Screens.xml">
+        <copy file="${basedir}/framework/resources/templates/Screens.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/${component-resource-name}Screens.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/Menus.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/${component-resource-name}Menus.xml">
+        <copy file="${basedir}/framework/resources/templates/Menus.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/${component-resource-name}Menus.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
-        <copy file="${basedir}/framework/resources/templates/Forms.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/${component-resource-name}Forms.xml">
+        <copy file="${basedir}/framework/resources/templates/Forms.xml" tofile="${basedir}/hot-deploy/${component-name}/widget/${component-resource-name}Forms.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
         <echo>Component successfully created in folder ${basedir}/hot-deploy/${component-name}.
