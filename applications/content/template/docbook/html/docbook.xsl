@@ -115,11 +115,13 @@
 </xsl:template>
 
 <xsl:template name="body.attributes">
+<!-- use the docbook.css
   <xsl:attribute name="bgcolor">white</xsl:attribute>
   <xsl:attribute name="text">black</xsl:attribute>
   <xsl:attribute name="link">#0000FF</xsl:attribute>
   <xsl:attribute name="vlink">#840084</xsl:attribute>
   <xsl:attribute name="alink">#0000FF</xsl:attribute>
+  -->
   <xsl:if test="starts-with($writing.mode, 'rl')">
     <xsl:attribute name="dir">rtl</xsl:attribute>
   </xsl:if>
