@@ -135,4 +135,12 @@ under the License.
     <EnumerationType enumTypeId="CONVERSION_PURPOSE" description="Conversion Purpose"/>
     <Enumeration enumId="INTERNAL_CONVERSION" enumTypeId="CONVERSION_PURPOSE" enumCode="INTERNAL" sequenceId="10" description="Internal Conversion"/>
     <Enumeration enumId="EXTERNAL_CONVERSION" enumTypeId="CONVERSION_PURPOSE" enumCode="EXTERNAL" sequenceId="20" description="External Conversion"/>
+
+    <!-- Server Hit seed data -->
+    <ServerHitType description="Request" hitTypeId="REQUEST"/>
+    <ServerHitType description="Event" hitTypeId="EVENT"/>
+    <ServerHitType description="View" hitTypeId="VIEW"/>
+    <ServerHitType description="Entity" hitTypeId="ENTITY"/>
+    <ServerHitType description="Service" hitTypeId="SERVICE"/>
+
 </entity-engine-xml>
