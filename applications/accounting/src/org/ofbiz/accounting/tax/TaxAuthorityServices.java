@@ -43,6 +43,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.contact.ContactMechWorker;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -314,9 +315,24 @@ public class TaxAuthorityServices {
             EntityCondition productCategoryCond = null;
             if (product != null) {
                 // find the tax categories associated with the product and filter by those, with an IN clause or some such
+                // if this product is variant, find the virtual product id and consider also the categories of the virtual
                 // question: get all categories, or just a special type? for now let's do all categories...
+                String virtualProductId = null;
+                if ("Y".equals(product.getString("isVariant"))) {
+                    virtualProductId = ProductWorker.getVariantVirtualId(product);
+                }
                 Set productCategoryIdSet = FastSet.newInstance();
-                List pcmList = delegator.findByAndCache("ProductCategoryMember", UtilMisc.toMap("productId", product.get("productId")));
+                EntityCondition productIdCond = null;
+                if (virtualProductId != null) {
+                    productIdCond = EntityCondition.makeCondition(
+                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.getString("productId")),
+                            EntityOperator.OR,
+                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, virtualProductId));
+
+                } else {
+                    productIdCond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.getString("productId"));
+                }
+                List pcmList = delegator.findList("ProductCategoryMember", productIdCond, UtilMisc.toSet("productCategoryId"), null, null, true);
                 pcmList = EntityUtil.filterByDate(pcmList, true);
                 Iterator pcmIter = pcmList.iterator();
                 while (pcmIter.hasNext()) {
