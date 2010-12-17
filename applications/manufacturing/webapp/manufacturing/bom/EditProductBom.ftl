@@ -158,7 +158,12 @@ function lookupBom() {
         <td width="26%" align="right">${uiLabelMap.CommonThruDate}</td>
         <td>&nbsp;</td>
         <td width="74%">
-            <@htmlTemplate.renderDateTimeField name="thruDate" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("thruDate"))?if_exists}"</#if> size="30" maxlength="30" id="fromDate_2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+            <#if useValues> 
+              <#assign value= productAssoc.thruDate?if_exists>
+            <#else>
+              <#assign value= request.getParameter("thruDate")?if_exists>
+            </#if>
+            <@htmlTemplate.renderDateTimeField value="${value}" name="thruDate" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="30" maxlength="30" id="fromDate_2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
         </td>
     </tr>
     <tr>
