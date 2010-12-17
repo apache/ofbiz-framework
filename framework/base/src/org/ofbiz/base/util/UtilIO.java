@@ -250,6 +250,7 @@ public final class UtilIO {
             char[] buf = new char[4096];
             int r;
             while ((r = reader.read(buf, 0, 4096)) != -1) {
+        	if (r == 0) break;
                 sb.append(buf, 0, r);
             }
             return filterLineEndings(sb).toString();
