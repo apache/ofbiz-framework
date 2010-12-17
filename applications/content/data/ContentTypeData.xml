@@ -152,12 +152,6 @@ under the License.
     <DocumentType description="Port Charge" documentTypeId="PORT_CHARGE_DOCUMENT" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
     <DocumentType description="Tax Tariff" documentTypeId="TAX_TARIFF_DOCUMENT" hasTable="N" parentTypeId="SHIPPING_DOCUMENT"/>
 
-    <ServerHitType description="Request" hitTypeId="REQUEST"/>
-    <ServerHitType description="Event" hitTypeId="EVENT"/>
-    <ServerHitType description="View" hitTypeId="VIEW"/>
-    <ServerHitType description="Entity" hitTypeId="ENTITY"/>
-    <ServerHitType description="Service" hitTypeId="SERVICE"/>
-
     <StatusType description="Server Hit" hasTable="N" parentTypeId="" statusTypeId="SERVER_HIT_STATUS"/>
     <StatusType description="Web Content" hasTable="N" parentTypeId="" statusTypeId="WEB_CONTENT_STATUS"/>
 
