@@ -107,6 +107,7 @@ public final class UtilIO {
             CharBuffer buffer = CharBuffer.allocate(4096);
             int r;
             while ((r = reader.read(buffer)) != -1) {
+        	if (r == 0) break;
                 buffer.rewind();
                 out.append(buffer);
                 buffer.flip();
