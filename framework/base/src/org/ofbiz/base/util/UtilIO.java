@@ -105,9 +105,7 @@ public final class UtilIO {
     public static void copy(Reader reader, boolean closeIn, Appendable out) throws IOException {
         try {
             CharBuffer buffer = CharBuffer.allocate(4096);
-            int r;
-            while ((r = reader.read(buffer)) != -1) {
-        	if (r == 0) break;
+            while (reader.read(buffer) > 0) {
                 buffer.rewind();
                 out.append(buffer);
                 buffer.flip();
@@ -249,8 +247,7 @@ public final class UtilIO {
             StringBuilder sb = new StringBuilder();
             char[] buf = new char[4096];
             int r;
-            while ((r = reader.read(buf, 0, 4096)) != -1) {
-        	if (r == 0) break;
+            while ((r = reader.read(buf, 0, 4096)) > 0) {
                 sb.append(buf, 0, r);
             }
             return filterLineEndings(sb).toString();
