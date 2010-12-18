@@ -75,11 +75,13 @@ under the License.
                       </td>
                       <td>
                       <#if postedPerson?has_content>
-                      <#if postedPerson.firstName?has_content && postedPerson.lastName?has_content>
-                          ${postedPerson.firstName} ${postedPerson.lastName}
+                        <#if postedPerson.firstName?has_content && postedPerson.lastName?has_content>
+                            ${postedPerson.firstName} ${postedPerson.lastName}
+                        <#else>
+                            ${postedPerson.groupName}
+                        </#if>
                       <#else>
-                          ${postedPerson.groupName}
-                      </#if>
+                          <td></td>
                       </#if>
                       </td>
                       <td>
