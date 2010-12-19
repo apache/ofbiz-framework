@@ -493,6 +493,14 @@
         <value xml:lang="zh">兴趣验证码</value>
         <value xml:lang="zh_TW">興趣驗証碼</value>
     </property>
+    <property key="MarketingContactListOptInVerifyCodeIsMandatory">
+        <value xml:lang="en">No Opt-in Verify Code specified, but one is required.</value>
+        <value xml:lang="it">Nessun codice di verifica Opt-in specificato, ma uno è obbligatorio.</value>
+    </property>
+    <property key="MarketingContactListOptInVerifyCodeNotCorrect">
+        <value xml:lang="en">The Opt-in Verify Code specified [${parameters.optInVerifyCode}] was not correct. Please check the code you were sent.</value>
+        <value xml:lang="it">Il codice di verifia Opt-in specificato [${parameters.optInVerifyCode}] non era corretto. Perfavore verificare il codice che ti è stato inviato.</value>
+    </property>
     <property key="MarketingContactListOwnerPartyId">
         <value xml:lang="de">Ersteller ID</value>
         <value xml:lang="en">Owner Party Id</value>
@@ -611,6 +619,10 @@
         <value xml:lang="zh">验证电子邮件站点标识</value>
         <value xml:lang="zh_TW">驗証電子郵件站台ID</value>
     </property>
+    <property key="MarketingContactMechNotRightForContactList">
+        <value xml:lang="en">The preferred contact mechanism [${preferredContactMechType.description}] was not of the right type for the list [${listContactMechType.description}].</value>
+        <value xml:lang="it">Il contatto preferito [${preferredContactMechType.description}] non era la giusta lista [${listContactMechType.description}].</value>
+    </property>
     <property key="MarketingConversionRate">
         <value xml:lang="de">Konversationsrate</value>
         <value xml:lang="en">Conversion Rate</value>
@@ -624,6 +636,10 @@
         <value xml:lang="zh">折算率</value>
         <value xml:lang="zh_TW">折算率</value>
     </property>
+    <property key="MarketingCreatePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the MARKETING_CREATE or MARKETING_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_CREATE o MARKETING_ADMIN</value>
+    </property>
     <property key="MarketingDateRange">
         <value xml:lang="en">Date Range</value>
         <value xml:lang="es">Rango de fechas</value>
@@ -635,6 +651,10 @@
         <value xml:lang="th">ข้อมูลแถว</value>
         <value xml:lang="zh">日期范围</value>
         <value xml:lang="zh_TW">日期範圍</value>
+    </property>
+    <property key="MarketingDeletePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the MARKETING_DELETE or MARKETING_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_DELETE o MARKETING_ADMIN</value>
     </property>
     <property key="MarketingEmailStatusReport">
         <value xml:lang="de">E-Mail Statusbericht</value>
@@ -913,6 +933,10 @@
         <value xml:lang="pt_BR">ID de segmento de grupo de participante classificação de grupo</value>
         <value xml:lang="zh">分区组会员的分类组标识</value>
         <value xml:lang="zh_TW">分區組成員的分類組ID</value>
+    </property>
+    <property key="MarketingSegmentGroupPermissionError">
+        <value xml:lang="en">Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza\: per eseguire ${methodShortDescription} devi avere il permesso MARKETING${securityAction} o MARKETING_ADMIN</value>
     </property>
     <property key="MarketingSegmentGroupProductStoreId">
         <value xml:lang="de">Produktgeschäfts-ID</value>
@@ -1497,6 +1521,10 @@
         <value xml:lang="th">ชื่อโปรแกรมประยุต์บนเว็บ</value>
         <value xml:lang="zh">Web应用名称</value>
         <value xml:lang="zh_TW">Web應用名稱</value>
+    </property>
+    <property key="MarketingUpdatePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the MARKETING_UPDATE or MARKETING_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso MARKETING_UPDATE o MARKETING_ADMIN</value>
     </property>
     <property key="MarketingViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
