@@ -128,13 +128,6 @@ under the License.
         </subant>
     </target>
 
-    <target name="download-PG-JDBC"
-            description="Download the PostgreSQL JDBC driver file">
-        <subant target="install-PG-JDBC">
-            <filelist dir="." files="framework/entity/build.xml"/>
-        </subant>
-    </target>
-
     <target name="tests" depends="ofbiz-init">
         <subant target="tests">
             <filelist dir="." files="framework/build.xml"/>
@@ -578,6 +571,10 @@ under the License.
 
     <target name="download-cobertura" depends="ivy-init">
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="cobertura"/>
+    </target>
+
+    <target name="download-PG-JDBC" depends="ivy-init">
+        <ivy:retrieve pattern="framework/entity/lib/jdbc/[artifact]-[revision].[ext]" conf="postgres"/>
     </target>
 
     <!-- ================================================================== -->
