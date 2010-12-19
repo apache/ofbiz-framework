@@ -77,7 +77,9 @@ under the License.
             <set field="goodStatusId" value="CRQ_ACCEPTED"/>
             <if-compare-field operator="not-equals" field="lookedUpValue.statusId" to-field="goodStatusId" >
                 <set field="entity" value="Customer request"/>
-                <add-error><fail-property resource="CommonUiLabels" property="CommonErrorStatusNotValid"/></add-error>
+                <add-error>
+                    <fail-property resource="CommonUiLabels" property="CommonErrorStatusNotValid"/>
+                </add-error>
                 <check-errors/>
             </if-compare-field>
             <!-- create customer request / work effort relation -->
@@ -110,7 +112,9 @@ under the License.
         <set from-field="partyId" map-name="userLogin" to-map-name="findWepaMap"/>
         <find-by-and entity-name="WorkEffortPartyAssignment" map="findWepaMap" list="wepaList"/>
         <if-empty field="wepaList">
-            <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="Security Error: to run updateWorkEffort you must have the WORKEFFORTMGR_UPDATE or WORKEFFORTMGR_ADMIN permission"/></check-permission>
+            <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
+            </check-permission>
             <check-errors/>
         </if-empty>-->
 
@@ -136,7 +140,9 @@ under the License.
                     </entity-and>
 
                     <if-empty field="validChange">
-                        <add-error><fail-message message="The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change"/></add-error>
+                        <add-error>
+                            <fail-property resource="WorkEffortUiLabels" property="WorkEffortStatusChangeNotValid"/>
+                        </add-error>
                         <log level="error" message="The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change"/>
                         <check-errors/>
                     </if-empty>
@@ -176,7 +182,9 @@ under the License.
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
         <if-empty field="wepaList">
-            <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="Security Error: to run deleteWorkEffort you must have the WORKEFFORTMGR_DELETE or WORKEFFORTMGR_ADMIN permission"/></check-permission>
+            <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
+            </check-permission>
             <check-errors/>
         </if-empty>
 
@@ -218,15 +226,19 @@ under the License.
         <field-to-result field="lookupMap.communicationEventId" result-name="communicationEventId"/>
     </simple-method>
 
-    <simple-method method-name="updateCommunicationEventWorkEff" short-description="Delete a CommunicationEventWorkEff">
-        <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this work effort."/></check-permission>
+    <simple-method method-name="updateCommunicationEventWorkEff" short-description="Update a CommunicationEventWorkEff">
+        <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
         <!-- Find old value -->
         <make-value entity-name="CommunicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <set-pk-fields value-field="communicationEventWorkEff" map="parameters"/>
         <find-by-primary-key entity-name="CommunicationEventWorkEff" map="communicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <if-empty field="communicationEventWorkEff">
-            <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCannotUpdateContactInfo"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         <set-nonpk-fields value-field="communicationEventWorkEff" map="parameters"/>
@@ -234,14 +246,18 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deleteCommunicationEventWorkEff" short-description="Delete a CommunicationEventWorkEff">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation for this work effort."/></check-permission>
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
         <!-- Find old value -->
         <make-value entity-name="CommunicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <set-pk-fields value-field="communicationEventWorkEff" map="parameters"/>
         <find-by-primary-key entity-name="CommunicationEventWorkEff" map="communicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <if-empty field="communicationEventWorkEff">
-            <add-error><fail-message message="ERROR: Cannot delete specified contact info because it does not correspond to the specified work effort"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCannotDeleteContactInfo"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         <remove-value value-field="communicationEventWorkEff"/>
@@ -289,9 +305,7 @@ under the License.
         <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
         <!-- to be dropped later (use now workEffortGenericPermission)
         <if-compare-field field="userLogin.partyId" to-field="workEffortPartyAssignment.partyId" operator="not-equals">
-            <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
-                <fail-message message="You cannot update this Work Effort Party Assignment, you must either be associated with it or have administration permission."/>
-               </check-permission>
+            <check-permission permission="WORKEFFORTMGR" action="_UPDATE"/>
             <check-errors/>
         </if-compare-field>
          -->
@@ -356,7 +370,9 @@ under the License.
         <!-- Find old value -->
         <entity-one entity-name="WorkEffortContactMech" value-field="workEffortContactMech"/>
         <if-empty field="workEffortContactMech">
-            <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCannotUpdateContactInfo"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 
@@ -394,7 +410,9 @@ under the License.
         <!-- Find old value -->
         <entity-one entity-name="WorkEffortContactMech" value-field="workEffortContactMech"/>
         <if-empty field="workEffortContactMech">
-            <add-error><fail-message message="ERROR: Cannot delete specified contact info because it does not correspond to the specified work effort"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCannotDeleteContactInfo"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         <remove-value value-field="workEffortContactMech"/>
@@ -603,7 +621,9 @@ under the License.
         </else>
         </if-empty>
         <if-not-empty field="lookedUpValue">
-            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortAssocIdAlreadyExist"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortAssocIdAlreadyExist"/>
+            </add-error>
             <check-errors/>
         <else>
             <if-empty field="parameters.workEffortIdTo">
@@ -629,7 +649,9 @@ under the License.
         </if-empty>
 
         <if-not-empty field="lookedUpValue">
-            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortAssocIdAlreadyExist"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortAssocIdAlreadyExist"/>
+            </add-error>
             <check-errors/>
         <else>
             <make-value value-field="newEntity" entity-name="WorkEffortAssoc"/>
@@ -655,7 +677,9 @@ under the License.
     <simple-method method-name="createWorkEffortGoodStandard" short-description="Create a link between a WorkEffort and a Product">
         <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
-            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortGoodStandardAlreadyExist"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortGoodStandardAlreadyExist"/>
+            </add-error>
             <check-errors/>
         <else>
             <make-value value-field="newEntity" entity-name="WorkEffortGoodStandard"/>
@@ -702,7 +726,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-primary-key entity-name="CustRequestWorkEffort" map="lookupMap" value-field="custRequestWorkEffort"/>
         <if-not-empty field="custRequestWorkEffort">
-            <add-error><fail-message message="ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] already exists."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCustRequestAlreadyExists"/>
+            </add-error>
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
@@ -712,7 +738,9 @@ under the License.
     <simple-method method-name="deleteWorkEffortRequest" short-description="Delete a CustRequestWorkEffort">
         <entity-one entity-name="CustRequestWorkEffort" value-field="custRequestWorkEffort"/>
         <if-empty field="custRequestWorkEffort">
-            <add-error><fail-message message="ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] does not exist."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCustRequestDoesNotExists"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <remove-value value-field="custRequestWorkEffort"/>
@@ -724,7 +752,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="custRequestItemWorkEffort"/>
         <if-not-empty field="custRequestItemWorkEffort">
-            <add-error><fail-message message="ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] already exists."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCustRequestItemAlreadyExists"/>
+            </add-error>
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
@@ -733,7 +763,9 @@ under the License.
     <simple-method method-name="deleteWorkEffortRequestItem" short-description="Delete a CustRequestItemWorkEffort">
         <entity-one entity-name="CustRequestItemWorkEffort" value-field="custRequestItemWorkEffort"/>
         <if-empty field="custRequestItemWorkEffort.custRequestItemSeqId">
-            <add-error><fail-message message="ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] does not exist."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortCustRequestItemDoesNotExists"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <remove-value value-field="lookupMap"/>
@@ -758,7 +790,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="quoteWorkEffort"/>
         <if-not-empty field="quoteWorkEffort">
-            <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortQuoteAlreadyExists"/>
+            </add-error>
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
@@ -768,7 +802,9 @@ under the License.
     <simple-method method-name="deleteWorkEffortQuote" short-description="Delete a QuoteWorkEffort">
         <entity-one entity-name="QuoteWorkEffort" value-field="quoteWorkEffort"/>
         <if-empty field="quoteWorkEffort">
-            <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] does not exist."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortQuoteDoesNotExists"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <remove-value value-field="quoteWorkEffort"/>
@@ -780,7 +816,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-primary-key entity-name="WorkRequirementFulfillment" map="lookupMap" value-field="workRequirementFulfillment"/>
         <if-not-empty field="workRequirementFulfillment">
-            <add-error><fail-message message="ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] already exists."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequirementFulfillmentAlreadyExists"/>
+            </add-error>
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
@@ -790,7 +828,9 @@ under the License.
     <simple-method method-name="deleteWorkRequirementFulfillment" short-description="Delete a WorkRequirementFulfillment">
         <entity-one entity-name="WorkRequirementFulfillment" value-field="workRequirementFulfillment"/>
         <if-empty field="workRequirementFulfillment">
-            <add-error><fail-message message="ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] does not exist."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequirementFulfillmentDoesNotExists"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <remove-value value-field="workRequirementFulfillment"/>
@@ -802,7 +842,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-primary-key entity-name="ShoppingListWorkEffort" map="lookupMap" value-field="shoppingListWorkEffort"/>
         <if-not-empty field="shoppingListWorkEffort">
-            <add-error><fail-message message="ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] already exists."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortShoppingListAlreadyExists"/>
+            </add-error>
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
@@ -812,7 +854,9 @@ under the License.
     <simple-method method-name="deleteShoppingListWorkEffort" short-description="Delete a ShoppingListWorkEffort">
         <entity-one entity-name="ShoppingListWorkEffort" value-field="shoppingListWorkEffort"/>
         <if-empty field="shoppingListWorkEffort">
-            <add-error><fail-message message="ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] does not exist."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortShoppingListDoesNotExists"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <remove-value value-field="shoppingListWorkEffort"/>
@@ -824,7 +868,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-primary-key entity-name="OrderHeaderWorkEffort" map="lookupMap" value-field="orderWorkEffort"/>
         <if-not-empty field="orderWorkEffort">
-            <add-error><fail-message message="ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] already exists."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortOrderHeaderAlreadyExists"/>
+            </add-error>
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
@@ -834,7 +880,9 @@ under the License.
     <simple-method method-name="deleteOrderHeaderWorkEffort" short-description="Delete a OrderHeaderWorkEffort">
         <entity-one entity-name="OrderHeaderWorkEffort" value-field="orderWorkEffort"/>
         <if-empty field="orderWorkEffort">
-            <add-error><fail-message message="ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] does not exist."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortOrderHeaderDoesNotExists"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <remove-value value-field="orderWorkEffort"/>
@@ -999,7 +1047,9 @@ under the License.
         <check-errors />
         <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
-            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortReviewAlreadyExist"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortReviewAlreadyExist"/>
+            </add-error>
             <check-errors/>
         <else>
             <make-value entity-name="WorkEffortReview" value-field="newEntity"/>
@@ -1056,14 +1106,20 @@ under the License.
         <check-errors />
         <entity-one entity-name="WorkEffortKeyword" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
-            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortKeywordAlreadyExist"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortKeywordAlreadyExist"/>
+            </add-error>
         <else>
         <make-value value-field="newEntity" entity-name="WorkEffortKeyword"/>
         <if-empty field="parameters.workEffortId">
-            <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/>
+            </add-error>
         </if-empty>
         <if-empty field="parameters.keyword">
-            <add-error><fail-property resource="ProductUiLabels" property="productevents.keyword_missing"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="productevents.keyword_missing"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         <set-pk-fields value-field="newEntity" map="parameters"></set-pk-fields>
@@ -1111,13 +1167,12 @@ under the License.
     </simple-method>
 
     <simple-method method-name="duplicateWorkEffort" short-description="Duplicate a WorkEffort" login-required="false">
-
         <check-permission permission="WORKEFFORTMGR" action="_CREATE">
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
         </check-permission>
         <check-errors />
         <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
         </check-permission>
         <check-errors />
         <!-- look up the old workEffort and clone it -->
