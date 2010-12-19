@@ -706,7 +706,7 @@
     <view-map name="viewroles" type="screen" page="component://projectmgr/widget/ResourceScreens.xml#viewroles"/>
     <view-map name="listResourcesTask" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesTask"/>
     <view-map name="listResourcesProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesProject"/>
-    <view-map name="createnewlogin" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#CreateUserLogin"/>
+    <view-map name="createnewlogin" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreateUserLogin"/>
     <view-map name="showvisits" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#showvisits"/>
     <view-map name="EditPartyRates" type="screen" page="component://projectmgr/widget/ResourceScreens.xml#EditPartyRates"/>
 
