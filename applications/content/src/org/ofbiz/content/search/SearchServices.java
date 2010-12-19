@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.content.search;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,11 +40,15 @@ public class SearchServices {
     public static final String module = SearchServices.class.getName();
 
     public static Map<String, Object> indexTree(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Date start = new Date();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
 
         String siteId = (String) context.get("contentId");
         String path = (String) context.get("path");
+        if (path == null) {
+            path = SearchWorker.getIndexPath(path);
+        }
         Map<String, Object> envContext = FastMap.newInstance();
 
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId, module);
@@ -58,7 +63,9 @@ public class SearchServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Error indexing tree: " + e.toString());
         }
+        Date end = new Date();
         if (Debug.infoOn()) Debug.logInfo("in indexTree, results:" + results, module);
+        if (Debug.infoOn()) Debug.logInfo("Indexing done in: " + (end.getTime()-start.getTime()) + " ms", module);
         return results;
     }
 }
