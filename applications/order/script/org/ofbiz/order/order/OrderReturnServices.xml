@@ -474,7 +474,9 @@ under the License.
                 <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
             </condition>
             <then>
-                <add-error><fail-message message="Security error to run createReturnAdjustment"/></add-error>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
+                </add-error>
             </then>
         </if>
         <check-errors/>
@@ -488,7 +490,9 @@ under the License.
         <field-to-result field="responseMessage" result-name="successMessage"/>
     </simple-method>
     <simple-method method-name="removeReturnAdjustment" short-description="Remove Return Adjustment">
-        <check-permission permission="ORDERMGR" action="_DELETE"><fail-message message="Order security ErrorToRunUpdateReturnAdjustment"/></check-permission>
+        <check-permission permission="ORDERMGR" action="_DELETE">
+            <fail-property resource="OrderErrorUiLabels" property="OrderErrorDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <set from-field="parameters.returnAdjustmentId" field="lookupPKMap.returnAdjustmentId"/>

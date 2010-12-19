@@ -261,7 +261,7 @@ under the License.
     <!-- create a new QuoteRole -->
     <simple-method method-name="createQuoteRole" short-description="Create a QuoteRole">
         <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-message message="Security Error: to run createQuoteRole you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
+            <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
         </check-permission>
         <check-errors/>
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
@@ -282,7 +282,7 @@ under the License.
     <!-- remove an existing QuoteRole -->
     <simple-method method-name="removeQuoteRole" short-description="Remove an existing QuoteRole">
         <check-permission permission="ORDERMGR" action="_DELETE">
-            <fail-message message="Security Error: to run removeQuoteRole you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
+            <fail-property resource="OrderErrorUiLabels" property="OrderErrorDeletePermissionError"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="QuoteRole" value-field="quoteRole" auto-field-map="true"/>
