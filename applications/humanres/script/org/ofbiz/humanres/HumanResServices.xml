@@ -81,7 +81,7 @@
             </condition>
             <then>
                  <add-error>
-                    <fail-message message="Record with the selected combination already exists.Please try with Other combination."/>
+                    <fail-property resource="HumanResUiLabels" property="HumanResPartySkillsAlreadyExists"/>
                  </add-error>
                  <check-errors/>
             </then>
