@@ -54,4 +54,9 @@ under the License.
         <exclude name="org/ofbiz/content/report/JRMapCollectionDataSource.java"/>
         <exclude name="org/ofbiz/content/openoffice/*.java"/>
     </patternset>
+
+    <target name="jar" depends="classes">
+        <main-jar/>
+        <test-jar/>
+    </target>
 </project>
