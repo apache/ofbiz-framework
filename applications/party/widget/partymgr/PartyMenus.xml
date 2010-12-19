@@ -39,7 +39,7 @@
 
     <menu name="SecurityGroupTabBar" default-menu-item-name="EditSecurityGroup" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="EditSecurityGroup" title="${uiLabelMap.PartySecurityGroups}">
+        <menu-item name="EditSecurityGroup" title="${uiLabelMap.SecurityGroups}">
             <link target="EditSecurityGroup">
                 <parameter param-name="groupId"/>
             </link>

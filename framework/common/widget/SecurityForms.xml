@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="AddUserLogin" type="single" target="createUserLogin"
+        focus-field-name="userLoginId" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createUserLogin"/>
+        <field name="partyId"><hidden/></field>
+        <field name="enabled"><hidden/></field>
+        <field name="currentPassword"><password/></field>
+        <field name="currentPasswordVerify"><password/></field>
+        <field name="requirePasswordChange">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="backHome" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+
+    <form name="updatePassword" type="single" target="updatePassword"
+        focus-field-name="currentPassword" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="passwordHint" from-field="editUserLogin.passwordHint"/>
+        </actions>
+        <auto-fields-service service-name="updatePassword"/>
+        <field name="partyId"><hidden/></field>
+        <field name="userLoginId"><hidden/></field>
+        <field name="currentPassword"><password/></field>
+        <field name="newPassword"><password/></field>
+        <field name="newPasswordVerify"><password/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="userLoginId"/>
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="updateUserLoginSecurity" type="single" target="updateUserLoginSecurity" default-map-name="editUserLogin"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <property-to-field field="ldapEnabled" resource="security" property="security.ldap.enable"/>
+        </actions>
+        <auto-fields-service service-name="updateUserLoginSecurity"/>
+        <field name="partyId"><hidden/></field>
+        <field name="userLoginId"><hidden/></field>
+        <field name="userLdapDn" use-when="&quot;true&quot;.equals(ldapEnabled)"><text/></field>
+        <field name="userLdapDn" use-when="!&quot;true&quot;.equals(ldapEnabled)"><ignored/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="userLoginId"/>
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+</forms>
