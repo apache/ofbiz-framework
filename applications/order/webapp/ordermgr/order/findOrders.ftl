@@ -205,7 +205,7 @@ function toggleOrderIdList() {
                 </td>
               </tr>
               <tr>
-                <td width='25%' align='right' class='label'>${uiLabelMap.PartyUserLoginId}</td>
+                <td width='25%' align='right' class='label'>${uiLabelMap.CommonUserLoginId}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'><input type='text' name='userLoginId' value='${requestParameters.userLoginId?if_exists}'/></td>
               </tr>

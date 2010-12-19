@@ -97,7 +97,7 @@ under the License.
         </#if>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.PartyUserLoginId}</div></td>
+          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.CommonUserLoginId}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>
@@ -164,7 +164,7 @@ under the License.
         <tr><td colspan="4">&nbsp;</td></tr>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.PartyUserLoginId}</div></td>
+          <td align='right' valign='middle' nowrap="nowrap"><div class='tableheadtext'>${uiLabelMap.CommonUserLoginId}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>

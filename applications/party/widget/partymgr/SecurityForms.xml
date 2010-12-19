@@ -98,7 +98,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="groupId"><hidden/></field>
-        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><display/></field>
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}">
@@ -122,7 +122,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addUserLoginToSecurityGroup"/>
         <field name="groupId"><hidden/></field>
-        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><lookup target-form-name="LookupUserLoginAndPartyDetails" size="30"></lookup></field>
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><lookup target-form-name="LookupUserLoginAndPartyDetails" size="30"></lookup></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 

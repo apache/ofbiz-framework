@@ -63,7 +63,7 @@ under the License.
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" sort-field="true"><display/></field>
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" sort-field="true"><display/></field>
         <field name="userCreated" title="${uiLabelMap.PartyNewUser}" sort-field="true"><display/></field>
         <field name="webappName" title="${uiLabelMap.PartyWebApp}" sort-field="true"><display/></field>
         <field name="clientIpAddress" title="${uiLabelMap.PartyClientIP}" sort-field="true"><display/></field>
@@ -84,7 +84,7 @@ under the License.
             </entity-condition>
         </actions>
         
-        <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" sort-field="true"><display/></field>
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" sort-field="true"><display/></field>
         <field name="partyId" widget-style="buttontext" sort-field="true">
             <hyperlink description="${partyId}" target="viewprofile">
                 <parameter param-name="partyId"/>

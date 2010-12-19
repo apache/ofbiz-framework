@@ -37,30 +37,6 @@
         <menu-item name="partyinv" title="${uiLabelMap.PartyInvitation}"><link target="partyInvitation"/></menu-item>
     </menu>
 
-    <menu name="SecurityGroupTabBar" default-menu-item-name="EditSecurityGroup" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="EditSecurityGroup" title="${uiLabelMap.SecurityGroups}">
-            <link target="EditSecurityGroup">
-                <parameter param-name="groupId"/>
-            </link>
-        </menu-item>
-        <menu-item name="EditSecurityGroupPermissions" title="${uiLabelMap.PartyPermissions}">
-            <link target="EditSecurityGroupPermissions">
-                <parameter param-name="groupId"/>
-            </link>
-        </menu-item>
-        <menu-item name="EditSecurityGroupUserLogins" title="${uiLabelMap.PartyUserLogins}">
-            <link target="EditSecurityGroupUserLogins">
-                <parameter param-name="groupId"/>
-            </link>
-        </menu-item>
-        <menu-item name="EditSecurityGroupProtectedViews" title="${uiLabelMap.PartyProtectedViews}">
-            <link target="EditSecurityGroupProtectedViews">
-                <parameter param-name="groupId"/>
-            </link>
-        </menu-item>
-    </menu>
-
     <menu name="ProfileTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         default-menu-item-name="viewprofile">
         <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">

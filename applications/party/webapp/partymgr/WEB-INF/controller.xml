@@ -1355,14 +1355,13 @@ under the License.
     <view-map name="FindPartyClassificationGroups" type="screen" page="component://party/widget/partymgr/PartyClassificationScreens.xml#FindPartyClassificationGroups"/>
     <view-map name="EditPartyClassificationGroup" type="screen" page="component://party/widget/partymgr/PartyClassificationScreens.xml#EditPartyClassificationGroup"/>
 
-    <view-map name="FindSecurityGroup" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#FindSecurityGroup"/>
-    <view-map name="EditSecurityGroup" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroup"/>
-    <view-map name="EditSecurityGroupPermissions" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroupPermissions"/>
-    <view-map name="EditSecurityGroupUserLogins" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroupUserLogins"/>
-    <view-map name="EditSecurityGroupProtectedViews" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroupProtectedViews"/>
-
-    <view-map name="CertIssuerProvisions" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditX509IssuerProvisions"/>
-    <view-map name="ViewCertificate" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#ViewCertificate"/>
+    <view-map name="FindSecurityGroup" type="screen" page="component://common/widget/SecurityScreens.xml#FindSecurityGroup"/>
+    <view-map name="EditSecurityGroup" type="screen" page="component://common/widget/SecurityScreens.xml#EditSecurityGroup"/>
+    <view-map name="EditSecurityGroupPermissions" type="screen" page="component://common/widget/SecurityScreens.xml#EditSecurityGroupPermissions"/>
+    <view-map name="EditSecurityGroupUserLogins" type="screen" page="component://common/widget/SecurityScreens.xml#EditSecurityGroupUserLogins"/>
+    <view-map name="EditSecurityGroupProtectedViews" type="screen" page="component://common/widget/SecurityScreens.xml#EditSecurityGroupProtectedViews"/>
+    <view-map name="CertIssuerProvisions" type="screen" page="component://common/widget/SecurityScreens.xml#EditX509IssuerProvisions"/>
+    <view-map name="ViewCertificate" type="screen" page="component://common/widget/SecurityScreens.xml#ViewCertificate"/>
 
     <view-map name="findVisits" type="screen" page="component://party/widget/partymgr/VisitScreens.xml#FindVisits"/>
     <view-map name="visitdetail" type="screen" page="component://party/widget/partymgr/VisitScreens.xml#visitdetail"/>
