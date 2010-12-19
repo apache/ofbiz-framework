@@ -2249,15 +2249,15 @@
         <value xml:lang="zh_TW">材料</value>
     </property>
     <property key="ManufacturingMaterialsNotAvailable">
-        <value xml:lang="de">Materialien nicht im Lager vorhanden</value>
-        <value xml:lang="en">Materials Not Available in Warehouse</value>
-        <value xml:lang="es">Materiales no disponibles en almacén</value>
-        <value xml:lang="fr">Matériaux non disponibles dans l'entrepôt</value>
-        <value xml:lang="it">Materiali Non Disponibili a Magazzino</value>
-        <value xml:lang="pt_BR">Materiais não disponíveis no armazém</value>
-        <value xml:lang="th">ไม่มีข้อมูลในคลังสินค้า</value>
-        <value xml:lang="zh">材料在库房中不可用</value>
-        <value xml:lang="zh_TW">材料在庫房中不可用</value>
+        <value xml:lang="de">Materialien nicht im Lager vorhanden ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="en">Materials Not Available in Warehouse ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="es">Materiales no disponibles en almacén ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="fr">Matériaux non disponibles dans l'entrepôt ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="it">Materiali non disponibili a magazzino ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="pt_BR">Materiais não disponíveis no armazém ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="th">ไม่มีข้อมูลในคลังสินค้า ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="zh">材料在库房中不可用 ${productId}: ${parameters.quantityNotIssued}</value>
+        <value xml:lang="zh_TW">材料在庫房中不可用 ${productId}: ${parameters.quantityNotIssued}</value>
     </property>
     <property key="ManufacturingMaterialsRequiredByRunningTask">
         <value xml:lang="de">Materialien werden für aktuellen Arbeitsgang benötigt</value>
