@@ -877,55 +877,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="EditUserLogin">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleEditGroupInformation"/>
-                <set field="tabButtonItem" value="viewprofile"/>
-                <set field="labelTitleProperty" value="PageTitleEditGroupInformation"/>
-
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="userLoginId" from-field="parameters.userLoginId"/>
-                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container><label text="${uiLabelMap.PartyUserLoginChangePassword}" style="h2"/></container>
-                        <include-form name="updatePassword" location="component://party/widget/partymgr/PartyForms.xml"/>
-                        <container><label text="${uiLabelMap.PartyUserLoginUpdateSecuritySettings}" style="h2"/></container>
-                        <include-form name="updateUserLoginSecurity" location="component://party/widget/partymgr/PartyForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="EditUserLoginSecurityGroups">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
-                <set field="tabButtonItem" value="viewprofile"/>
-                <set field="labelTitleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
-
-                <set field="userLoginId" from-field="parameters.userLoginId"/>
-                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
-                <set field="partyId" from-field="parameters.partyId" default-value="${editUserLogin.partyId}"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container><label style="h2" text="${uiLabelMap.PageTitleEditUserLoginSecurityGroups}"/></container>
-                        <include-form name="ListUserLoginSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                        <container><label style="h2" text="${uiLabelMap.PartyAddUserLoginToSecurityGroup}"/></container>
-                        <include-form name="AddUserLoginSecurityGroup" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="EditPartyGroup">
         <section>
             <actions>
