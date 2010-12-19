@@ -22,7 +22,9 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- TrackingCode methods -->
     <simple-method method-name="createTrackingCode" short-description="Create an TrackingCode">
-        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createTrackingCode you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_CREATE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <now-timestamp field="nowStamp"/>
@@ -40,7 +42,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTrackingCode" short-description="Update an TrackingCode">
-        <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateTrackingCode you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_UPDATE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <now-timestamp field="nowStamp"/>
@@ -57,7 +61,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTrackingCode" short-description="Delete an TrackingCode">
-        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteTrackingCode you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_DELETE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="TrackingCode" value-field="lookupPKMap"/>
@@ -67,7 +73,9 @@ under the License.
     </simple-method>
     <!-- TrackingCodeType methods -->
     <simple-method method-name="createTrackingCodeType" short-description="Create an TrackingCodeType">
-        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createTrackingCodeType you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_CREATE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <now-timestamp field="nowStamp"/>
@@ -82,7 +90,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTrackingCodeType" short-description="Update an TrackingCodeType">
-        <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateTrackingCodeType you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_UPDATE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <now-timestamp field="nowStamp"/>
@@ -95,7 +105,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTrackingCodeType" short-description="Delete an TrackingCodeType">
-        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteTrackingCodeType you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_DELETE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>

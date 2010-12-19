@@ -22,7 +22,9 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- MarketingCampaign methods -->
     <simple-method method-name="createMarketingCampaign" short-description="Create an MarketingCampaign">
-        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_CREATE">
+           <fail-property resource="MarketingUiLabels.xml" property="MarketingCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="MarketingCampaign" value-field="newEntity"/>
@@ -36,7 +38,9 @@ under the License.
         <field-to-result field="newEntity.marketingCampaignId" result-name="marketingCampaignId"/>
     </simple-method>
     <simple-method method-name="updateMarketingCampaign" short-description="Update an MarketingCampaign">
-        <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateMarketingCampaign you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_UPDATE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="MarketingCampaign" value-field="lookupPKMap"/>
@@ -47,7 +51,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteMarketingCampaign" short-description="Delete an MarketingCampaign">
-        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_DELETE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="MarketingCampaign" value-field="lookupPKMap"/>
@@ -58,7 +64,9 @@ under the License.
 
     <!-- MarketingCampaignPrice methods -->
     <simple-method method-name="addPriceRuleToMarketingCampaign" short-description="Add PriceRule To MarketingCampaign">
-        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run addPriceRuleToMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_CREATE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="MarketingCampaignPrice" value-field="newEntity"/>
@@ -68,7 +76,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removePriceRuleFromMarketingCampaign" short-description="Remove PriceRule from MarketingCampaign">
-        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run removePriceRuleFromMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_DELETE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="MarketingCampaignPrice" value-field="lookupPKMap"/>
@@ -79,7 +89,9 @@ under the License.
 
     <!-- MarketingCampaignPromo methods -->
     <simple-method method-name="addPromoToMarketingCampaign" short-description="Add Promo To MarketingCampaign">
-        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run addPromoToMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_CREATE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="MarketingCampaignPromo" value-field="newEntity"/>
@@ -89,7 +101,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removePromoFromMarketingCampaign" short-description="Remove Promo from MarketingCampaign">
-        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run removePromoFromMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_DELETE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="MarketingCampaignPromo" value-field="lookupPKMap"/>
@@ -100,7 +114,9 @@ under the License.
 
     <!-- MarketingCampaignRole methods -->
     <simple-method method-name="addRoleToMarketingCampaign" short-description="Add Role To MarketingCampaign">
-        <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run addRoleToMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_CREATE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="MarketingCampaignRole" value-field="newEntity"/>
@@ -110,7 +126,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeRoleFromMarketingCampaign" short-description="Remove Role from MarketingCampaign">
-        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run removeRoleFromMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_DELETE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="MarketingCampaignRole" value-field="lookupPKMap"/>
@@ -127,7 +145,11 @@ under the License.
                     <not><if-has-permission permission="MARKETING" action="_CREATE"/></not>
                 </and>
             </condition>
-            <then><add-error><fail-message message="Security Error: to run createMarketingCampaignRole you must run it for yourself or have the MARKETING_CREATE or MARKETING_ADMIN permissions."/></add-error></then>
+            <then>
+                <add-error>
+                    <fail-property resource="MarketingUiLabels.xml" property="MarketingCreatePermissionError"/>
+                </add-error>
+            </then>
         </if>
 
         <entity-one entity-name="MarketingCampaign" value-field="marketingCampaign"/>
@@ -151,7 +173,11 @@ under the License.
                     <not><if-has-permission permission="MARKETING" action="_UPDATE"/></not>
                 </and>
             </condition>
-            <then><add-error><fail-message message="Security Error: to run updateMarketingCampaignRole you must run it for yourself or have the MARKETING_UPDATE or MARKETING_ADMIN permissions."/></add-error></then>
+            <then>
+                <add-error>
+                    <fail-property resource="MarketingUiLabels.xml" property="MarketingUpdatePermissionError"/>
+                </add-error>
+            </then>
         </if>
         <check-errors/>
 
@@ -162,7 +188,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteMarketingCampaignRole" short-description="Remove Role from MarketingCampaign">
-        <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteMarketingCampaignRole you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
+        <check-permission permission="MARKETING" action="_DELETE">
+            <fail-property resource="MarketingUiLabels.xml" property="MarketingDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <entity-one entity-name="MarketingCampaignRole" value-field="lookedUpValue"/>
