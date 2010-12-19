@@ -35,7 +35,7 @@
         <call-map-processor in-map-name="parameters" out-map-name="partyGroupContext">
             <simple-map-processor name="newPartyGroup">
                 <process field="partyId"><copy/></process>
-                <process field="groupName"><copy to-field="groupName"/><not-empty><fail-message message="Organization name is missing"/></not-empty></process>
+                <process field="groupName"><copy to-field="groupName"/><not-empty><fail-property resource="" property="SetupOrganizationNameIsMissing"/></not-empty></process>
             </simple-map-processor>
         </call-map-processor>
 
@@ -342,7 +342,9 @@
 
     <simple-method method-name="createFacilityAndContactMech" short-description="create Facility and ContactMech">
         <if-empty field="parameters.facilityName">
-            <add-error><fail-message message="Facility Name is missing"/></add-error>
+            <add-error>
+                <fail-property resource="SetupUiLabels" property="SetupFacilityNameIsMissing"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         
@@ -392,7 +394,9 @@
 
     <simple-method method-name="createProductStoreWithDefaultSetting" short-description="create ProductStore and setting default value for payment and shipping">
         <if-empty field="parameters.storeName">
-            <add-error><fail-message message="Store Name is missing"/></add-error>
+            <add-error>
+                <fail-property resource="SetupUiLabels" property="SetupProductStoreNameIsMissing"/>
+            </add-error>
         </if-empty>
         <if-compare field="parameters.showPricesWithVatTax" operator="equals" value="Y">
             <if-empty field="parameters.vatTaxAuthGeoId">

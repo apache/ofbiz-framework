@@ -79,6 +79,10 @@
         <value xml:lang="it">Stabilimento</value>
         <value xml:lang="zh_TW">場所</value>
     </property>
+    <property key="SetupFacilityNameIsMissing">
+        <value xml:lang="en">Facility Name is missing</value>
+        <value xml:lang="it">Stabilimento mancante</value>
+    </property>
     <property key="SetupOrganizationPartyId">
         <value xml:lang="en">Organization Party Id</value>
         <value xml:lang="it">Soggetto organizzazione</value>
@@ -88,6 +92,10 @@
         <value xml:lang="en">Organization name</value>
         <value xml:lang="it">Nome organizzazione</value>
         <value xml:lang="zh_TW">組織名稱</value>
+    </property>
+    <property key="SetupOrganizationNameIsMissing">
+        <value xml:lang="en">Organization name is missing</value>
+        <value xml:lang="it">Nome organizzazione è mancante</value>
     </property>
     <property key="SetupOrganizationInformation">
         <value xml:lang="en">Organization Information</value>
@@ -103,6 +111,10 @@
         <value xml:lang="en">Product Store name</value>
         <value xml:lang="it">Nome negozio prodotti</value>
         <value xml:lang="zh_TW">產品商店名稱</value>
+    </property>
+    <property key="SetupProductStoreNameIsMissing">
+        <value xml:lang="en">Store Name is missing</value>
+        <value xml:lang="it">Nome negozio è mancante</value>
     </property>
     <property key="SetupResults">
         <value xml:lang="en">Results</value>
