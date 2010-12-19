@@ -256,36 +256,6 @@
         <value xml:lang="zh">国家</value>
         <value xml:lang="zh_TW">國家</value>
     </property>
-    <property key="FormFieldTitle_currentPassword">
-        <value xml:lang="de">Aktuelles Passwort</value>
-        <value xml:lang="en">Current Password</value>
-        <value xml:lang="es">Clave actual</value>
-        <value xml:lang="fr">Mot de passe actuel</value>
-        <value xml:lang="hi_IN">वर्तमान पासवर्ड</value>
-        <value xml:lang="it">Password Attuale</value>
-        <value xml:lang="nl">Huidig wachtwoord</value>
-        <value xml:lang="pt_BR">Senha atual</value>
-        <value xml:lang="ro">Parola Actuala</value>
-        <value xml:lang="ru">Действующий пароль</value>
-        <value xml:lang="th">รหัสผ่านปัจจุบัน</value>
-        <value xml:lang="zh">当前密码</value>
-        <value xml:lang="zh_TW">目前密碼</value>
-    </property>
-    <property key="FormFieldTitle_currentPasswordVerify">
-        <value xml:lang="de">Überprüfung des aktuellen Passworts</value>
-        <value xml:lang="en">Current Password Verify</value>
-        <value xml:lang="es">Verificar clave actual</value>
-        <value xml:lang="fr">Vérification du mot de passe actuel</value>
-        <value xml:lang="hi_IN">वर्तमान पासवर्ड सत्यापित करें</value>
-        <value xml:lang="it">Password Attuale Verifica</value>
-        <value xml:lang="nl">Verificatie huidig wachtwoord</value>
-        <value xml:lang="pt_BR">Verificação da senha atual</value>
-        <value xml:lang="ro">Verifica Parola Actuala </value>
-        <value xml:lang="ru">Действующий пароль повторно</value>
-        <value xml:lang="th">ยืนยันรหัสผ่าน</value>
-        <value xml:lang="zh">当前密码验证</value>
-        <value xml:lang="zh_TW">目前密碼驗証</value>
-    </property>
     <property key="FormFieldTitle_deceasedDate">
         <value xml:lang="en">Deceased Date</value>
         <value xml:lang="fr">Date de décès</value>
@@ -725,35 +695,6 @@
         <value xml:lang="th">นามสกุลก่อนแต่งงาน</value>
         <value xml:lang="zh">母亲未婚时名字</value>
         <value xml:lang="zh_TW">母親娘家姓氏</value>
-    </property>
-    <property key="FormFieldTitle_newPassword">
-        <value xml:lang="de">Neues Passwort</value>
-        <value xml:lang="en">New Password</value>
-        <value xml:lang="es">Nueva clave</value>
-        <value xml:lang="fr">Nouveau mot de passe</value>
-        <value xml:lang="hi_IN">नया पासवर्ड</value>
-        <value xml:lang="it">Password Nuova</value>
-        <value xml:lang="nl">Nieuw wachtwoord</value>
-        <value xml:lang="pt_BR">Nova senha</value>
-        <value xml:lang="ro">Parola Noua</value>
-        <value xml:lang="ru">Новый пароль</value>
-        <value xml:lang="th">รหัสผ่านใหม่</value>
-        <value xml:lang="zh">新密码</value>
-        <value xml:lang="zh_TW">新密碼</value>
-    </property>
-    <property key="FormFieldTitle_newPasswordVerify">
-        <value xml:lang="de">Überprüfung neues Passwort</value>
-        <value xml:lang="en">New Password Verify</value>
-        <value xml:lang="es">Validar nueva clave</value>
-        <value xml:lang="fr">Vérification du nouveau mot de passe</value>
-        <value xml:lang="hi_IN">नया पासवर्ड सत्यापित करें</value>
-        <value xml:lang="it">Verifica Password Nuova</value>
-        <value xml:lang="pt_BR">Verificação da nova senha</value>
-        <value xml:lang="ro">Verifica Parola Noua</value>
-        <value xml:lang="ru">Новый пароль повторно</value>
-        <value xml:lang="th">ยืนยันรหัสผ่านใหม่</value>
-        <value xml:lang="zh">新密码验证</value>
-        <value xml:lang="zh_TW">新密碼驗証</value>
     </property>
     <property key="FormFieldTitle_nickname">
         <value xml:lang="de">Spitzname</value>
@@ -1307,15 +1248,6 @@
         <value xml:lang="zh">税金缺省金额</value>
         <value xml:lang="zh_TW">稅金預設金額</value>
     </property>
-    <property key="FormFieldTitle_requirePasswordChange">
-        <value xml:lang="en">Require Password Change</value>
-        <value xml:lang="fr">Changement mot de passe obligatoire</value>
-        <value xml:lang="hi_IN">पासवर्ड परिवर्तित किया जाना चाहिए</value>
-        <value xml:lang="it">Richiesto cambio password</value>
-        <value xml:lang="pt_BR">Pedir alteração de senha</value>
-        <value xml:lang="zh">必须修改密码</value>
-        <value xml:lang="zh_TW">必須修改密碼</value>
-    </property>
     <property key="FormFieldTitle_residenceStatusEnumId">
         <value xml:lang="de">Wohnsitzstatus Aufzählung ID</value>
         <value xml:lang="en">Residence Status Enum Id</value>
@@ -1609,33 +1541,6 @@
         <value xml:lang="th">ผลรวมของปีที่มีประสบการณ์การทำงาน</value>
         <value xml:lang="zh">工作经历年数合计</value>
         <value xml:lang="zh_TW">工作年資</value>
-    </property>
-    <property key="FormFieldTitle_userLdapDn">
-        <value xml:lang="de">LDAP Distinguished Name</value>
-        <value xml:lang="en">LDAP Distinguished Name</value>
-        <value xml:lang="es">Nombre distinguido LDAP</value>
-        <value xml:lang="fr">Nom LDAP distinct</value>
-        <value xml:lang="hi_IN">एलडीएपी(LDAP) विशिष्ट नाम</value>
-        <value xml:lang="it">Nome distinto LDAP</value>
-        <value xml:lang="nl">LDAP Distinguished Name</value>
-        <value xml:lang="pt_BR">Nome único de LDAP</value>
-        <value xml:lang="zh">LDAP专有名</value>
-        <value xml:lang="zh_TW">LDAP專有名</value>
-    </property>
-    <property key="FormFieldTitle_userLoginId">
-        <value xml:lang="de">Benutzeranmeldung ID</value>
-        <value xml:lang="en">User Login Id</value>
-        <value xml:lang="es">Código de usuario para conexión</value>
-        <value xml:lang="fr">Identifiant de connexion</value>
-        <value xml:lang="hi_IN">प्रयोक्ता लॉगिन क्रमांक</value>
-        <value xml:lang="it">Utente login</value>
-        <value xml:lang="nl">Loginnaam gebruiker</value>
-        <value xml:lang="pt_BR">Id de login do usuário</value>
-        <value xml:lang="ro">Utilizator Login</value>
-        <value xml:lang="ru">Код имени пользователя</value>
-        <value xml:lang="th">รหัสผู้ใช้ที่เข้าสู่ระบบ</value>
-        <value xml:lang="zh">用户登录标识</value>
-        <value xml:lang="zh_TW">使用者登入ID</value>
     </property>
     <property key="FormFieldTitle_viewContent">
         <value xml:lang="de">Inhalt anzeigen</value>
@@ -5125,21 +5030,6 @@
         <value xml:lang="pt_BR">Criar requisição de cliente a partir de evento de comunicação</value>
         <value xml:lang="zh">从沟通事件创建客户需求</value>
         <value xml:lang="zh_TW">從通訊事件建立客訴</value>
-    </property>
-    <property key="PartyCreateUserLogin">
-        <value xml:lang="de">Benutzeranmeldung erstellen</value>
-        <value xml:lang="en">Create UserLogin</value>
-        <value xml:lang="es">Crear usuario</value>
-        <value xml:lang="fr">Création d'un identifiant de connexion</value>
-        <value xml:lang="hi_IN">प्रयोक्तालॉगिन बनाएँ</value>
-        <value xml:lang="it">Creare Utente</value>
-        <value xml:lang="nl">Nieuwe gebruiker</value>
-        <value xml:lang="pt_BR">Criar nome usuário</value>
-        <value xml:lang="ro">Creare Utilizator</value>
-        <value xml:lang="ru">Создать имя входа</value>
-        <value xml:lang="th">สร้างผู้ใช้ระบบ</value>
-        <value xml:lang="zh">创建用户登录</value>
-        <value xml:lang="zh_TW">建立使用者登入</value>
     </property>
     <property key="PartyCreateVendorPermissionError">
         <value xml:lang="de">Sicherheitsfehler: um createVendor auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
@@ -10050,22 +9940,6 @@
         <value xml:lang="zh">安全组</value>
         <value xml:lang="zh_TW">安全群組</value>
     </property>
-    <property key="PartySecurityGroups">
-        <value xml:lang="de">Sicherheitsgruppen</value>
-        <value xml:lang="en">Security Groups</value>
-        <value xml:lang="es">Grupos de seguridad</value>
-        <value xml:lang="fr">Groupes de sécurité</value>
-        <value xml:lang="hi_IN">सुरक्षा समूह</value>
-        <value xml:lang="it">Gruppi Sicurezza</value>
-        <value xml:lang="nl">Beveiligingsgroepen</value>
-        <value xml:lang="pt_BR">Grupos de segurança</value>
-        <value xml:lang="pt_PT">Grupos de Segurança</value>
-        <value xml:lang="ro">Grupuri De Siguranta</value>
-        <value xml:lang="ru">Группы безопасности</value>
-        <value xml:lang="th">กลุ่มความปลอดภัย</value>
-        <value xml:lang="zh">安全组</value>
-        <value xml:lang="zh_TW">安全群組</value>
-    </property>
     <property key="PartySecurityGroupsList">
         <value xml:lang="de">Liste der Sicherheitsgruppen</value>
         <value xml:lang="en">SecurityGroups List</value>
@@ -11242,21 +11116,6 @@
         <value xml:lang="zh">用户登录</value>
         <value xml:lang="zh_TW">用戶登錄</value>
     </property>
-    <property key="PartyUserLoginChangePassword">
-        <value xml:lang="de">Passwort der Benutzeranmeldung ändern</value>
-        <value xml:lang="en">Change UserLogin Password</value>
-        <value xml:lang="es">Cambiar clave de conexión</value>
-        <value xml:lang="fr">Changer le mot de passe de connexion</value>
-        <value xml:lang="hi_IN">प्रयोक्तालॉगिन का पासवर्ड बदलें</value>
-        <value xml:lang="it">Cambio Password Utente Login</value>
-        <value xml:lang="nl">Wachtwoord wijzigen</value>
-        <value xml:lang="pt_BR">Alterar senha do nome de usuário</value>
-        <value xml:lang="ro">Schimb Parola Utilizator Login</value>
-        <value xml:lang="ru">Изменение пароля пользователя</value>
-        <value xml:lang="th">เปลี่ยนรหัสผ่านผู้เข้าใช้ระบบ</value>
-        <value xml:lang="zh">修改用户登录密码</value>
-        <value xml:lang="zh_TW">修改用戶登錄密碼</value>
-    </property>
     <property key="PartyUserLoginId">
         <value xml:lang="de">Benutzeranmeldung ID</value>
         <value xml:lang="en">User Login Id</value>
@@ -11290,20 +11149,6 @@
         <value xml:lang="th">ไม่ได้ใส่ชื่อผู้ใช้</value>
         <value xml:lang="zh">找不到用户名</value>
         <value xml:lang="zh_TW">找不到使用者名稱</value>
-    </property>
-    <property key="PartyUserLoginUpdateSecuritySettings">
-        <value xml:lang="de">Benutzeranmeldung Sicherheitsberechtigungen aktualisieren</value>
-        <value xml:lang="en">Update UserLogin Security Settings</value>
-        <value xml:lang="fr">Mise à jour des paramètres de sécurité pour l'identifiant de connexion</value>
-        <value xml:lang="hi_IN">प्रयोक्ता लॉगिन सुरक्षा सेटिंग्स नवीनतम करे</value>
-        <value xml:lang="it">Aggiorna Impostazioni Sicurezza Utente Login</value>
-        <value xml:lang="nl">UserLogin Security Settings wijzigen</value>
-        <value xml:lang="pt_BR">Atualizar configurações de segurança do nome de usuário</value>
-        <value xml:lang="ro">Actualizare Setari De Siguranta Utilizator Login</value>
-        <value xml:lang="ru">Обновление настроек безопасности пользователя</value>
-        <value xml:lang="th">เปลี่ยนแปลงการตั้งค่าความปลอดภัยของผู้เข้าใช้ระบบ</value>
-        <value xml:lang="zh">更新用户登录安全设置</value>
-        <value xml:lang="zh_TW">更新用戶登錄安全設置</value>
     </property>
     <property key="PartyUserLogins">
         <value xml:lang="de">Benutzeranmeldungen</value>

@@ -295,6 +295,7 @@ under the License.
     <screen name="CommonPartyDecorator">
         <section>
             <actions>
+                <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="resources"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>

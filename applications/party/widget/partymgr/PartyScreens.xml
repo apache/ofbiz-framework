@@ -504,24 +504,16 @@ under the License.
     <screen name="EditUserLogin">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditGroupInformation"/>
+                <set field="titleProperty" value="UserLoginUpdateSecuritySettings"/>
                 <set field="tabButtonItem" value="viewprofile"/>
-                <set field="labelTitleProperty" value="PageTitleEditGroupInformation"/>
-
+                <set field="labelTitleProperty" value="UserLoginUpdateSecuritySettings"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set field="userLoginId" from-field="parameters.userLoginId"/>
-                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PartyUserLoginChangePassword}">
-                            <include-form name="updatePassword" location="component://party/widget/partymgr/PartyForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PartyUserLoginUpdateSecuritySettings}">
-                            <include-form name="updateUserLoginSecurity" location="component://party/widget/partymgr/PartyForms.xml"/>
-                        </screenlet>
+                        <include-screen name="EditUserLogin" location="component://common/widget/SecurityScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -530,19 +522,16 @@ under the License.
     <screen name="CreateUserLogin">
         <section>
             <actions>
-                <set field="titleProperty" value="PartyCreateUserLogin"/>
+                <set field="titleProperty" value="CreateUserLogin"/>
                 <set field="tabButtonItem" value="viewprofile"/>
-                <set field="labelTitleProperty" value="PartyCreateUserLogin"/>
-
+                <set field="labelTitleProperty" value="CreateUserLogin"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PartyCreateUserLogin}">
-                            <include-form name="AddUserLogin" location="component://party/widget/partymgr/PartyForms.xml"/>
-                        </screenlet>
+                        <include-screen name="CreateUserLogin" location="component://common/widget/SecurityScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

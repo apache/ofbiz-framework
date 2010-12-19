@@ -58,7 +58,7 @@ under the License.
     <screen name="CommonPartyDecorator">
         <section>
             <actions>
-
+                <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>
                 <entity-one entity-name="Person" value-field="lookupPerson"/>
