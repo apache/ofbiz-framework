@@ -69,7 +69,9 @@ under the License.
         <if-empty field="timesheets">
                 <call-simple-method method-name="createTimesheet"/>
             <else>
-                <add-error><fail-message message="Time sheet already exist, not created an other one."/></add-error>
+                <add-error>
+                    <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetAlreadyExists"/>
+                </add-error>
                 <check-errors/>
             </else>
         </if-empty>
@@ -82,7 +84,9 @@ under the License.
        </iterate>
     </simple-method>
     <simple-method method-name="addTimesheetToInvoice" short-description="Add Timesheet to Invoice">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <entity-one entity-name="Timesheet" value-field="timesheet"/>
@@ -103,14 +107,18 @@ under the License.
 
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-empty field="invoice">
-            <add-error><fail-message message="Could not find invoice with ID [${invoiceId}], not adding Timesheet Entries to it."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetCannotFindInvoice"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 
         <call-simple-method method-name="createTimeEntryInvoiceItemsInline"/>
     </simple-method>
     <simple-method method-name="addWorkEffortTimeToInvoice" short-description="Add Work Effort Time to Invoice">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <if-empty field="parameters.invoiceId">
@@ -124,7 +132,9 @@ under the License.
         </if-empty>
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-empty field="invoice">
-            <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetCannotFindInvoice"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <!-- update currency, can be changed with regenerate -->
@@ -278,7 +288,9 @@ under the License.
                         <else>
                             <set field="errMsg" value="Invoice ${invoiceId} should have the status 'in progress', the status is however: ${invoice.statusId}"/>
                             <log level="error" message="${errMsg}"/>
-                            <add-error error-list-name="errorMessageList"><fail-message message="${errMsg}"/></add-error>
+                            <add-error error-list-name="errorMessageList">
+                                <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetInvoiceShuoldBeInProgressStatus"/>
+                            </add-error>
                             <return response-code="error"/>
                         </else>
                     </if-compare>
@@ -289,7 +301,9 @@ under the License.
 
     <!-- TimesheetRole Services -->
     <simple-method method-name="createTimesheetRole" short-description="Create TimesheetRole">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="TimesheetRole"/>
@@ -297,7 +311,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteTimesheetRole" short-description="Delete TimesheetRole">
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <entity-one entity-name="TimesheetRole" value-field="lookedUpValue"/>
@@ -373,7 +389,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="getTimeEntryRate" short-description="Get TimeEntry Rate">
-        <check-permission permission="WORKEFFORTMGR" action="_VIEW"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
+        <check-permission permission="WORKEFFORTMGR" action="_VIEW">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortViewPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <entity-one entity-name="TimeEntry" value-field="timeEntry"/>
@@ -413,14 +431,18 @@ under the License.
                 </if-empty>
                 <entity-one entity-name="Timesheet" value-field="timesheet"/>
                 <if-empty field="timesheet">
-                    <add-error><fail-message message="Timesheet could not be found, timesheetId: ${parameters.timesheetId}"/></add-error>
+                    <add-error>
+                        <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetCouldNotBeFound"/>
+                    </add-error>
                     <log level="info" message="Timesheet not found, timesheet: ${parameters.timesheetId}"/>
                     <check-errors/>
                 </if-empty>
                 <!-- check if the status is in progress... -->
                 <if-compare field="timesheet.statusId" value="TIMESHEET_IN_PROCESS" operator="not-equals">
                     <get-related-one value-field="timesheet" relation-name="StatusItem" to-value-field="statusItem"/>
-                    <add-error><fail-message message="Can only update Timesheet, when status is in-process...current status: ${statusItem.description}"/></add-error>
+                    <add-error>
+                        <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetNotInProcessStatus"/>
+                    </add-error>
                     <log level="info" message="Can only update Timesheet, when status is in-process...is now: ${timesheet.statusId}"/>
                 </if-compare>
             </then>
