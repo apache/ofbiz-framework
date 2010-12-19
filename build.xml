@@ -18,7 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<project name="OFBiz Main Build" default="build" basedir=".">
+<project name="OFBiz Main Build" default="build" basedir="."
+    xmlns:ivy="antlib:org.apache.ivy.ant">
+
     <import file="macros.xml"/>
     <property name="site.dir" value="../site"/>
     <property name="memory.initial.param" value="-Xms128M"/>
@@ -35,6 +37,15 @@ under the License.
 
     <target name="ofbiz-init">
         <property environment="env"/>
+    </target>
+
+    <target name="ivy-init">
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+            uri="antlib:org.apache.ivy.ant">
+            <classpath>
+                <pathelement location="framework/base/lib/ivy-2.2.0.jar" />
+            </classpath>
+        </taskdef>
     </target>
 
     <!-- ================================================================== -->
@@ -110,7 +121,7 @@ under the License.
         </subant>
     </target>
 
-    <target name="download-selenium" 
+    <target name="download-selenium"
           description="Download the selenium files">
         <subant target="install-seleniumxml">
             <filelist dir="." files="framework/testtools/build.xml"/>
@@ -450,7 +461,7 @@ under the License.
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
         </java>
     </target>
-    <target name="run-tests" depends="build" 
+    <target name="run-tests" depends="download-cobertura, build"
           description="Run OFBiz default tests, execute ant run-install before and see results in runtime/logs/test-results/html/all-tests.html">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
@@ -487,7 +498,7 @@ under the License.
             <arg value="-ant"/>
         </java>
     </target>
-    <target name="run-single-test" depends="build"
+    <target name="run-single-test" depends="download-cobertura, build"
           description="Run a single test, syntax eg: ant run-single-test -Dtest.component=service -Dtest.case=service-soap-tests">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
@@ -510,7 +521,7 @@ under the License.
             </condition>
         </fail>
     </target>
-    <target name="run-single-test-suite" depends="build"
+    <target name="run-single-test-suite" depends="download-cobertura, build"
             description="Run a single test suite, syntax eg: ant run-single-test-suite -Dtest.component=mycomponent -Dtest.suiteName=mytests">      
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
@@ -533,7 +544,7 @@ under the License.
         <delete dir="runtime/logs/test-results"/>
         <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
     </target>
-    
+
     <target name="cobertura-report">
         <delete dir="runtime/logs/cobertura-report"/>
         <mkdir dir="runtime/logs/cobertura-report"/>
@@ -559,6 +570,14 @@ under the License.
 
             <include name="**/*.java"/>
         </cobertura-report>
+    </target>
+
+    <!-- ================================================================== -->
+    <!--    Ivy targets, more info at  http://ant.apache.org/ivy/  -->
+    <!-- ================================================================== -->
+
+    <target name="download-cobertura" depends="ivy-init">
+        <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="cobertura"/>
     </target>
 
     <!-- ================================================================== -->

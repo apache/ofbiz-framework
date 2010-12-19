@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+
+<ivy-module version="2.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="org.apache" module="ofbiz">
+        <description homepage="http://ofbiz.apache.org/"/>
+    </info>
+    <configurations>
+        <conf name="cobertura" description="downloads cobertura 1.9.3 (GPL2.0) http://cobertura.sourceforge.net/"/>
+    </configurations>
+    <dependencies>
+        <dependency org="net.sourceforge.cobertura" name="cobertura" rev="1.9.3" conf="cobertura->default"/>
+
+        <!--Exclusions for cobertura-->
+        <exclude module="oro" conf="cobertura"/>
+        <exclude module="asm" conf="cobertura"/>
+        <exclude module="asm-tree" conf="cobertura"/>
+        <exclude module="log4j" conf="cobertura"/>
+        <exclude module="ant" conf="cobertura"/>
+    </dependencies>
+
+</ivy-module>
