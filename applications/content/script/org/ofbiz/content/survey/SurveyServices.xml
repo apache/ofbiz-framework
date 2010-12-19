@@ -23,7 +23,7 @@
     <!-- Methods for Survey -->
     <simple-method method-name="createSurvey" short-description="Create Survey">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurvey you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="Survey" value-field="newEntity"/>
@@ -34,7 +34,7 @@
     </simple-method>
     <simple-method method-name="updateSurvey" short-description="Update Survey">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurvey you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="Survey" value-field="lookedUpValue"/>
@@ -43,7 +43,7 @@
     </simple-method>
     <simple-method method-name="deleteSurvey" short-description="Delete Survey">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyt you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="Survey" value-field="lookedUpValue"/>
@@ -53,7 +53,7 @@
     <!-- Methods for SurveyMultiResp -->
     <simple-method method-name="createSurveyMultiResp" short-description="Create Survey Multi-Response">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyMultiResp you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="SurveyMultiResp" value-field="newEntity"/>
@@ -66,7 +66,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyMultiResp" short-description="Update Survey Multi-Response">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyMultiResp you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyMultiResp" value-field="lookedUpValue"/>
@@ -75,7 +75,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyMultiResp" short-description="Delete Survey Multi-Response">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyMultiResp you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyMultiResp" value-field="lookedUpValue"/>
@@ -85,7 +85,7 @@
     <!-- Methods for SurveyMultiRespColumn -->
     <simple-method method-name="createSurveyMultiRespColumn" short-description="Create Survey Multi-Response Column/Category">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyMultiRespColumn you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="SurveyMultiRespColumn" value-field="newEntity"/>
@@ -96,7 +96,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyMultiRespColumn" short-description="Update Survey Multi-Response Column/Category">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyMultiRespColumn you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyMultiRespColumn" value-field="lookedUpValue"/>
@@ -105,7 +105,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyMultiRespColumn" short-description="Delete Survey Multi-Response Column/Category">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyMultiRespColumn you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyMultiRespColumn" value-field="lookedUpValue"/>
@@ -115,7 +115,7 @@
     <!-- Methods for SurveyPage -->
     <simple-method method-name="createSurveyPage" short-description="Create Survey Page">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyPage you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="SurveyPage" value-field="newEntity"/>
@@ -126,7 +126,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyPage" short-description="Update Survey Page">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyPage you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyPage" value-field="lookedUpValue"/>
@@ -135,7 +135,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyPage" short-description="Delete Survey Page">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyPage you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyPage" value-field="lookedUpValue"/>
@@ -145,7 +145,7 @@
     <!-- Methods for SurveyApplType -->
     <simple-method method-name="createSurveyApplType" short-description="Create SurveyApplType">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyApplType you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="SurveyApplType" value-field="newEntity"/>
@@ -155,7 +155,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyApplType" short-description="Update SurveyApplType">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyApplType you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="Survey" value-field="lookedUpValue"/>
@@ -164,7 +164,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyApplType" short-description="Delete SurveyApplType">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyApplType you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyApplType" value-field="lookupKeyValue"/>
@@ -174,7 +174,7 @@
     <!-- Methods for SurveyQuestion -->
     <simple-method method-name="createSurveyQuestion" short-description="Create Survey Question">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyQuestion you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <if>
             <condition>
@@ -209,7 +209,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyQuestion" short-description="Update Survey Question">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyQuestion you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <if>
             <condition>
@@ -240,7 +240,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyQuestion" short-description="Delete Survey Question">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyQuestion you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestion" value-field="lookedUpValue"/>
@@ -250,7 +250,7 @@
     <!-- Methods for SurveyQuestionOption -->
     <simple-method method-name="createSurveyQuestionOption" short-description="Create Survey Question Option">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyQuestionOption you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeleteCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="SurveyQuestionOption" value-field="newEntity"/>
@@ -262,7 +262,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyQuestionOption" short-description="Update Survey Question Option">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyQuestionOption you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestionOption" value-field="lookedUpValue"/>
@@ -272,7 +272,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyQuestionOption" short-description="Delete Survey Question Option">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyQuestionOption you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestionOption" value-field="lookedUpValue"/>
@@ -282,7 +282,7 @@
     <!-- Methods for SurveyQuestionAppl -->
     <simple-method method-name="createSurveyQuestionAppl" short-description="Create Survey Question Application">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyQuestionAppl you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="SurveyQuestionAppl" value-field="newEntity"/>
@@ -295,7 +295,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyQuestionAppl" short-description="Update Survey Question Application">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyQuestionAppl you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestionAppl" value-field="lookedUpValue"/>
@@ -304,7 +304,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyQuestionAppl" short-description="Delete Survey Question Application">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyQuestionAppl you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestionAppl" value-field="lookedUpValue"/>
@@ -314,7 +314,7 @@
     <!-- Methods for SurveyQuestionCategory -->
     <simple-method method-name="createSurveyQuestionCategory" short-description="Create Survey QuestionCategory">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyQuestionCategory you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="SurveyQuestionCategory" value-field="newEntity"/>
@@ -325,7 +325,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyQuestionCategory" short-description="Update Survey QuestionCategory">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyQuestionCategory you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestionCategory" value-field="lookupKeyValue"/>
@@ -334,7 +334,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyQuestionCategory" short-description="Delete Survey QuestionCategory">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyQuestionCategory you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestionCategory" value-field="lookupKeyValue"/>
@@ -344,7 +344,7 @@
     <!-- Methods for SurveyQuestionType -->
     <simple-method method-name="createSurveyQuestionType" short-description="Create SurveyQuestionType">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyQuestionType you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="SurveyQuestionType" value-field="newEntity"/>
@@ -354,7 +354,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyQuestionType" short-description="Update SurveyQuestionType">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyQuestionType you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestionType" value-field="lookupKeyValue"/>
@@ -363,7 +363,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyQuestionType" short-description="Delete SurveyQuestionType">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyQuestionType you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyQuestionType" value-field="lookupKeyValue"/>
@@ -373,7 +373,7 @@
     <!-- Methods for SurveyTrigger -->
     <simple-method method-name="createSurveyTrigger" short-description="Create SurveyTrigger">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createSurveyTrigger you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="SurveyTrigger" value-field="newEntity"/>
@@ -383,7 +383,7 @@
     </simple-method>
     <simple-method method-name="updateSurveyTrigger" short-description="Update SurveyTrigger">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateSurveyTrigger you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyTrigger" value-field="lookedUpValue"/>
@@ -392,7 +392,7 @@
     </simple-method>
     <simple-method method-name="deleteSurveyTrigger" short-description="Delete SurveyTrigger">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run deleteSurveyTrigger you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="SurveyTrigger" value-field="lookedUpValue"/>
@@ -404,7 +404,9 @@
         <!-- lookup the survey -->
         <entity-one entity-name="Survey" value-field="survey" use-cache="true"/>
         <if-empty field="survey">
-            <add-error><fail-message message="No survey found for survey ID: ${surveyLookup.surveyId}"/></add-error>
+            <add-error>
+                <fail-message message="No survey found for survey ID: ${surveyLookup.surveyId}"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 

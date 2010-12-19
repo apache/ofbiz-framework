@@ -58,7 +58,7 @@ under the License.
                 </entity-one>
                 <if-not-empty field="existingContent">
                     <add-error>
-                        <fail-message message="Instance compdoc Content for ${parameters.rootInstanceContentId} already exists"/>
+                        <fail-property resource="ContentUiLabels" property="ContentCompDocInstanceAlreadyExists"/>
                     </add-error>
                     <check-errors/>
                 </if-not-empty>
@@ -319,7 +319,7 @@ under the License.
     <!-- Methods for ContentRevision -->
     <simple-method method-name="createContentRevision" short-description="Create ContentRevision">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createContentRevision you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentRevision" value-field="newEntity"/>
@@ -329,7 +329,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateContentRevision" short-description="Update ContentRevision">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateContentRevision you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentRevision" value-field="lookupKeyValue"/>
@@ -340,7 +340,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeContentRevision" short-description="Remove ContentRevision">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run removeContentRevision you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletPermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentRevision" value-field="lookupKeyValue"/>
@@ -351,7 +351,7 @@ under the License.
     <!-- Methods for ContentRevisionItem -->
     <simple-method method-name="createContentRevisionItem" short-description="Create ContentRevisionItem">
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createContentRevisionItem you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentRevisionItem" value-field="newEntity"/>
@@ -361,7 +361,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateContentRevisionItem" short-description="Update ContentRevisionItem">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateContentRevisionItem you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentRevisionItem" value-field="lookupKeyValue"/>
@@ -372,7 +372,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeContentRevisionItem" short-description="Remove ContentRevisionItem">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run removeContentRevisionItem you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentRevisionItem" value-field="lookupKeyValue"/>
@@ -477,7 +477,7 @@ under the License.
     <simple-method method-name="createContentApproval" short-description="Create ContentApproval">
         <log level="always" message="got into createContentApproval(4)"/>
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run createContentApproval you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentApproval" value-field="newEntity"/>
@@ -493,7 +493,7 @@ under the License.
     <simple-method method-name="updateContentApproval" short-description="Update ContentApproval">
         <log level="always" message="got into updateContentApproval(4)"/>
         <check-permission action="_UPDATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run updateContentApproval you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentApproval" value-field="lookupKeyValue"/>
@@ -504,7 +504,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeContentApproval" short-description="Remove ContentApproval">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run removeContentApproval you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentApproval" value-field="lookupKeyValue"/>
@@ -792,7 +792,7 @@ under the License.
         <log level="info" message="got into prepForApproval- parameters: ${parameters}"/>
         <set field="rootContentId" from-field="parameters.rootContentId"/>
         <check-permission action="_CREATE" permission="CONTENTMGR">
-            <fail-message message="Security Error: to run prepForApproval you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
         <!--  bump CDI up one for new approval -->

@@ -42,7 +42,7 @@ under the License.
         </call-service>
         <if-empty field="contentId">
             <add-error>
-                <fail-message message="Permission not granted."/>
+                <fail-property resource="ContentUiLabels" property="ContentPermissionNotGranted"/>
             </add-error>
         </if-empty>
         <check-errors/>
@@ -68,7 +68,7 @@ under the License.
         </call-service>
         <if-compare field="permissionStatus" operator="not-equals" value="granted" type="String">
             <add-error>
-                <fail-message message="Permission not granted."/>
+                <fail-property resource="ContentUiLabels" property="ContentPermissionNotGranted"/>
             </add-error>
         </if-compare>
         <check-errors/>
@@ -342,7 +342,7 @@ under the License.
             </condition>
             <then>
                 <add-error>
-                    <fail-message message="Content Id or Upload file is missing."/>
+                    <fail-property resource="ContentUiLabels" property="ContentContentIdOrUploadFileIsMissing"/>
                 </add-error>
             </then>
         </if>
@@ -371,7 +371,7 @@ under the License.
                     </then>
                     <else>
                         <add-error>
-                            <fail-message message="Upload file type not match your selected."/>
+                            <fail-property resource="ContentUiLabels" property="ContentUploadFileTypeNotMatch"/>
                         </add-error>
                     </else>
                 </if>

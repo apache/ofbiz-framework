@@ -583,7 +583,7 @@
     <!-- Generic content services -->
     <simple-method method-name="createEmailContent" short-description="Create Email as Content">
         <check-permission permission="CONTENTMGR" action="_CREATE">
-            <fail-message message="Security Error: to run createContentEmail you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
 
@@ -626,7 +626,7 @@
     </simple-method>
     <simple-method method-name="updateEmailContent" short-description="Update Email Content">
         <check-permission permission="CONTENTMGR" action="_UPDATE">
-            <fail-message message="Security Error: to run updateContentEmail you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
 
@@ -649,7 +649,7 @@
 
     <simple-method method-name="createDownloadContent" short-description="Create Download as Content">
         <check-permission permission="CONTENTMGR" action="_CREATE">
-            <fail-message message="Security Error: to run createContentEmail you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
 
@@ -664,7 +664,7 @@
     </simple-method>
     <simple-method method-name="updateDownloadContent" short-description="Update Download Content">
         <check-permission permission="CONTENTMGR" action="_UPDATE">
-            <fail-message message="Security Error: to run updateContentEmail you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
 
@@ -677,7 +677,7 @@
 
     <simple-method method-name="createSimpleTextContent" short-description="Create Simple Text Content">
         <check-permission permission="CONTENTMGR" action="_CREATE">
-            <fail-message message="Security Error: to run createSimpleTextContent you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityCreatePermission"/>
         </check-permission>
         <check-errors/>
 
@@ -703,7 +703,7 @@
     </simple-method>
     <simple-method method-name="updateSimpleTextContent" short-description="Update Simple Text Content">
         <check-permission permission="CONTENTMGR" action="_UPDATE">
-            <fail-message message="Security Error: to run updateSimpleTextContent you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
         </check-permission>
         <check-errors/>
 
@@ -772,7 +772,9 @@
     <simple-method method-name="createCommContentDataResource" short-description="Create CommunicationEvent and Content">
 
         <!--
-        <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-permission permission="CONTENTMGR" action="_DELETE">
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
+        </check-permission>
         <check-errors/>
             -->
 
@@ -815,7 +817,9 @@
     <simple-method method-name="updateCommContentDataResource" short-description="Update CommunicationEvent and Content">
 
         <!--
-        <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
+        <check-permission permission="CONTENTMGR" action="_DELETE">
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
+        </check-permission>
         <check-errors/>
             -->
         <set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
