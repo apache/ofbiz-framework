@@ -21,6 +21,48 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
+    <form name="AddSecurityGroupPermission" type="single" target="addSecurityPermissionToSecurityGroup"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="addSecurityPermissionToSecurityGroup"/>
+        <field name="groupId"><hidden/></field>
+        <field name="permissionId" title="${uiLabelMap.PermissionId}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="SecurityPermission" description="${permissionId} ${description}">
+                    <entity-order-by field-name="permissionId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddSecurityGroupPermissionManual" type="single" target="addSecurityPermissionToSecurityGroup"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="addSecurityPermissionToSecurityGroup"/>
+        <field name="groupId"><hidden/></field>
+        <field name="permissionId" title="${uiLabelMap.PermissionId}"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddSecurityGroupProtectedView" type="single" target="addProtectedViewToSecurityGroup"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="addProtectedViewToSecurityGroup"/>
+        <field name="groupId"><hidden/></field>
+        <field name="viewNameId"><text size="60" maxlength="60"/></field>
+        <field name="maxHits"><text size="20" maxlength="20"/></field>
+        <field name="maxHitsDuration"><text size="20" maxlength="20"/></field>
+        <field name="tarpitDuration"><text size="20" maxlength="20"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddSecurityGroupUserLogin" type="single" target="addUserLoginToSecurityGroup"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="addUserLoginToSecurityGroup"/>
+        <field name="groupId"><hidden/></field>
+        <!-- TODO: Fix lookup screen -->
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><lookup target-form-name="LookupUserLoginAndPartyDetails" size="30"></lookup></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
     <form name="AddUserLogin" type="single" target="createUserLogin"
         focus-field-name="userLoginId" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createUserLogin"/>
@@ -36,6 +78,113 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="backHome" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+
+    <form name="CertIssuerList" type="list" list-name="issuerProvisions"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="X509IssuerProvision">
+                <order-by field-name="commonName"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="X509IssuerProvision" default-field-type="display"/>
+    </form>
+
+    <form name="EditSecurityGroup" type="single" target="updateSecurityGroup" default-map-name="securityGroup"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="securityGroup==null" target="createSecurityGroup"/>
+        <auto-fields-service service-name="updateSecurityGroup" map-name="securityGroup"/>
+        <field use-when="securityGroup!=null" name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"  tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="securityGroup==null&amp;&amp;groupId==null" name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"><text size="20" maxlength="20"/></field>
+        <field use-when="securityGroup==null&amp;&amp;groupId!=null" name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${groupId}]"><text size="20" maxlength="20"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListSecurityGroupPermissions" type="list" list-name="securityGroupPermissions"
+        paginate-target="EditSecurityGroupPermissions" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="SecurityGroupPermission">
+                <condition-expr field-name="groupId" from-field="groupId"/>
+                <order-by field-name="permissionId"/>
+            </entity-condition>
+        </actions>
+        <field name="groupId"><hidden/></field>
+        <field name="permissionId" title="${uiLabelMap.PermissionId}"><display-entity entity-name="SecurityPermission" description="${permissionId} ${description}"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="removeSecurityPermissionFromSecurityGroup" description="${uiLabelMap.CommonRemove}">
+                <parameter param-name="permissionId"/>
+                <parameter param-name="groupId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="ListSecurityGroupProtectedViews" type="list" list-name="securityGroupProtectedViewsList" target="updateProtectedViewToSecurityGroup"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="ProtectedView">
+                <condition-expr field-name="groupId" from-field="groupId"/>
+                <order-by field-name="viewNameId"/>
+            </entity-condition>
+        </actions>
+        <field name="groupId"><hidden/></field>
+        <field name="viewNameId"><display/></field>
+        <field name="maxHits"><text/></field>
+        <field name="maxHitsDuration"><text/></field>
+        <field name="tarpitDuration"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeProtectedViewFromSecurityGroup" also-hidden="false">
+                <parameter param-name="groupId"/>
+                <parameter param-name="viewNameId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="ListSecurityGroups" type="list" list-name="securityGroups"
+        paginate-target="FindSecurityGroup" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="SecurityGroup">
+                <order-by field-name="groupId"/>
+            </entity-condition>
+        </actions>
+        <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${groupId}" target="EditSecurityGroup">
+                <parameter param-name="groupId"/>
+            </hyperlink>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+    </form>
+
+    <form name="ListSecurityGroupUserLogins" type="list" list-name="userLoginSecurityGroups" target="updateUserLoginToSecurityGroup"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="UserLoginAndSecurityGroup">
+                <condition-expr field-name="groupId" from-field="groupId"/>
+                <order-by field-name="userLoginId"/>
+            </entity-condition>
+        </actions>
+        <field name="groupId"><hidden/></field>
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <!-- 
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <display-entity entity-name="PartyNameView" also-hidden="false" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink target="viewprofile" description="${partyId}" link-style="buttontext">
+                    <parameter param-name="partyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        -->
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeUserLoginFromSecurityGroup" also-hidden="false">
+                <parameter param-name="userLoginId"/>
+                <parameter param-name="groupId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="updatePassword" type="single" target="updatePassword"
@@ -75,6 +224,14 @@ under the License.
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
+    </form>
+
+    <form name="ViewCertificate" type="single" target="ViewCertificate"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="certString">
+            <textarea rows="10"/>
+        </field>
+        <field name="View Cert" title="${uiLabelMap.ViewCert}"><submit/></field>
     </form>
 
 </forms>

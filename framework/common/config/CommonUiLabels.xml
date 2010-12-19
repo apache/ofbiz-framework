@@ -8502,6 +8502,22 @@
         <value xml:lang="zh">仅允许登录用户</value>
         <value xml:lang="zh_TW">只允許使用者進入</value>
     </property>
+    <property key="CommonUserLoginId">
+        <value xml:lang="de">Benutzeranmeldung ID</value>
+        <value xml:lang="en">User Login ID</value>
+        <value xml:lang="es">Código de usuario</value>
+        <value xml:lang="fr">Identifiant de connexion</value>
+        <value xml:lang="hi_IN">प्रयोक्ता लॉगिन क्रमांक</value>
+        <value xml:lang="it">Codice utente login</value>
+        <value xml:lang="nl">User Login Id</value>
+        <value xml:lang="pt_BR">ID de nome de usuário</value>
+        <value xml:lang="pt_PT">Identificação de Início de Secção</value>
+        <value xml:lang="ro">Cod Utilizator Login</value>
+        <value xml:lang="ru">Код имени пользователя</value>
+        <value xml:lang="th">รหัสผู้ใช้ระบบ</value>
+        <value xml:lang="zh">用户登录标识</value>
+        <value xml:lang="zh_TW">使用者登入ID</value>
+    </property>
     <property key="CommonUsername">
         <value xml:lang="ar">اسم المستخدم</value>
         <value xml:lang="cs">Uživatelské jméno</value>
