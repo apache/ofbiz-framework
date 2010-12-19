@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.content.search;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +44,9 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
 
 
 
@@ -99,16 +103,16 @@ public class SearchWorker {
         indexContentList(dispatcher, delegator, context, idList, path);
     }
 
-    public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, List<String> idList, String path) throws Exception {
-        String indexAllPath = getIndexPath(path);
-        if (Debug.infoOn()) Debug.logInfo("in indexContent, indexAllPath:" + indexAllPath, module);
+    public static void indexContentList(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context,List<String> idList, String path) throws Exception {
+        Directory directory = FSDirectory.open(new File(getIndexPath(path)));
+        if (Debug.infoOn()) Debug.logInfo("in indexContent, indexAllPath: " + directory.toString(), module);
         GenericValue content = null;
         // Delete existing documents
         Iterator<String> iter = null;
         List<GenericValue> contentList = null;
         IndexReader reader = null;
         try {
-            reader = IndexReader.open(indexAllPath);
+            reader = IndexReader.open(directory, false);
         } catch (Exception e) {
             // ignore
         }
@@ -137,9 +141,9 @@ public class SearchWorker {
         // Now create
         IndexWriter writer = null;
         try {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
+            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), false, IndexWriter.MaxFieldLength.UNLIMITED);
         } catch (Exception e) {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
+            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), true, IndexWriter.MaxFieldLength.UNLIMITED);
         }
 
         Iterator<GenericValue> contentListIter = contentList.iterator();
@@ -152,9 +156,8 @@ public class SearchWorker {
     }
 
     public static void deleteContentDocument(GenericValue content, String path) throws Exception {
-        String indexAllPath = null;
-        indexAllPath = getIndexPath(path);
-        IndexReader reader = IndexReader.open(indexAllPath);
+        Directory directory = FSDirectory.open(new File(getIndexPath(path)));
+        IndexReader reader = IndexReader.open(directory);
         deleteContentDocument(content, reader);
         reader.close();
     }
@@ -179,14 +182,14 @@ public class SearchWorker {
     }
 
     public static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, GenericValue content, String path) throws Exception {
-        String indexAllPath = getIndexPath(path);
+        Directory directory = FSDirectory.open(new File(getIndexPath(path)));
         IndexWriter writer = null;
         try {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
-            if (Debug.infoOn()) Debug.logInfo("Used old directory:" + indexAllPath, module);
+            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), false, IndexWriter.MaxFieldLength.UNLIMITED);
+            if (Debug.infoOn()) Debug.logInfo("Used old directory:" + directory.toString(), module);
         } catch (FileNotFoundException e) {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
-            if (Debug.infoOn()) Debug.logInfo("Created new directory:" + indexAllPath, module);
+            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), true, IndexWriter.MaxFieldLength.UNLIMITED);
+            if (Debug.infoOn()) Debug.logInfo("Created new directory:" + directory.toString(), module);
         }
 
         indexContent(dispatcher, delegator, context, content, writer);
@@ -200,8 +203,7 @@ public class SearchWorker {
         if (doc != null) {
             writer.addDocument(doc);
             Integer goodIndexCount = (Integer)context.get("goodIndexCount");
-            int newCount = goodIndexCount.intValue() + 1;
-            Integer newIndexCount = Integer.valueOf(newCount);
+            Integer newIndexCount = goodIndexCount + 1;
             context.put("goodIndexCount", newIndexCount);
         }
         /*
@@ -218,12 +220,12 @@ public class SearchWorker {
     }
 
     public static void indexDataResource(Delegator delegator, Map<String, Object> context, String id, String path) throws Exception {
-        String indexAllPath = getIndexPath(path);
+        Directory directory = FSDirectory.open(new File(getIndexPath(path)));
         IndexWriter writer = null;
         try {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
+            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), false, IndexWriter.MaxFieldLength.UNLIMITED);
         } catch (FileNotFoundException e) {
-            writer = new IndexWriter(indexAllPath, new StandardAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
+            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), true, IndexWriter.MaxFieldLength.UNLIMITED);
         }
         indexDataResource(delegator, context, id, writer);
         writer.optimize();

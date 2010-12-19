@@ -151,7 +151,7 @@ ofbiz/trunk/framework/webslinger/lib/webslinger-extension-template-20091211-3897
 ofbiz/trunk/framework/webslinger/lib/webslinger-extension-velocity-20091211-3897-7ab22baea4b6.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-extension-wiki-20091211-3897-7ab22baea4b6.jar
 ofbiz/trunk/framework/webslinger/lib/webslinger-launcher-20091211-3897-7ab22baea4b6.jar
-ofbiz/trunk/applications/content/lib/lucene-core-2.4.1.jar
+ofbiz/trunk/applications/content/lib/lucene-core-3.0.3.jar
 ofbiz/trunk/applications/content/lib/poi-3.2-FINAL-20081019.jar
 ofbiz/trunk/specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
 =========================================================================
