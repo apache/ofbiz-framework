@@ -31,12 +31,12 @@ under the License.
             <simple-map-processor name="newDateContent">
                 <process field="createdDate">
                     <convert type="Timestamp">
-                        <fail-message message="Created Date is not a valid Timestamp input format."/>
+                        <fail-property resource="ContentUiLabels" property="ContentCreateDateInvalidFormat"/>
                     </convert>
                 </process>
                 <process field="lastModifiedDate">
                     <convert type="Timestamp">
-                        <fail-message message="LastModified Date is not a valid Timestamp input format."/>
+                        <fail-property resource="ContentUiLabels" property="ContentLastModifiedDateInvalidFormat"/>
                     </convert>
                 </process>
             </simple-map-processor>
@@ -57,7 +57,7 @@ under the License.
         </call-service>
         <if-empty field="contentId">
             <add-error>
-                <fail-message message="Permission not granted."/>
+                <fail-property resource="ContentUiLabels" property="ContentPermissionNotGranted"/>
             </add-error>
         </if-empty>
         <check-errors/>
@@ -95,12 +95,12 @@ under the License.
             <simple-map-processor name="newDateContent">
                 <process field="createdDate">
                     <convert type="Timestamp">
-                        <fail-message message="Created Date is not a valid Timestamp input format."/>
+                        <fail-property resource="ContentUiLabels" property="ContentCreateDateInvalidFormat"/>
                     </convert>
                 </process>
                 <process field="lastModifiedDate">
                     <convert type="Timestamp">
-                        <fail-message message="LastModified Date is not a valid Timestamp input format."/>
+                        <fail-property resource="ContentUiLabels" property="ContentLastModifiedDateInvalidFormat"/>
                     </convert>
                 </process>
             </simple-map-processor>

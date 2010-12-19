@@ -47,7 +47,7 @@ under the License.
 
         <if-compare field="permissionStatus" operator="not-equals" type="String" value="granted">
             <add-error>
-                <fail-message message="Permission not granted."/>
+                <fail-property resource="ContentUiLabels" property="ContentPermissionNotGranted"/>
             </add-error>
         </if-compare>
         <check-errors/>

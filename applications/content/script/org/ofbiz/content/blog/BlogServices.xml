@@ -33,7 +33,7 @@
         <!-- determine of we need to create complex template structure or simple content structure -->
         <if-empty field="parameters.contentName">
             <add-error>
-                <fail-message message="Article Name is missing."/>
+                <fail-property resource="ContentUiLabels" property="ContentArticleNameIsMissing"/>
             </add-error>
         </if-empty>
         <check-errors/>

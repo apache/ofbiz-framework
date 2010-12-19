@@ -87,6 +87,10 @@
         <value xml:lang="en">Article Name</value>
         <value xml:lang="th">ชื่อบทความ</value>
     </property>
+    <property key="ContentArticleNameIsMissing">
+        <value xml:lang="en">Article Name is missing.</value>
+        <value xml:lang="it">Nome articolo è mancante.</value>
+    </property>
     <property key="ContentAttribute">
         <value xml:lang="ar">خاصية</value>
         <value xml:lang="da">Attribut</value>
@@ -447,6 +451,10 @@
         <value xml:lang="zh">返回合成文档根目录</value>
         <value xml:lang="zh_TW">返回合成文檔根目錄</value>
     </property>
+    <property key="ContentCompDocInstanceAlreadyExists">
+        <value xml:lang="en">Instance compdoc Content for ${parameters.rootInstanceContentId} already exists</value>
+        <value xml:lang="it">Istanza composizione documenti contenuto per ${parameters.rootInstanceContentId} esiste già</value>
+    </property>
     <property key="ContentCompDocParentContentId">
         <value xml:lang="da">Forældre inholds id</value>
         <value xml:lang="en">Parent Content ID</value>
@@ -645,6 +653,14 @@
         <value xml:lang="nl">Content geassocieerd met deze databron</value>
         <value xml:lang="zh">关联到这个数据资源的内容记录</value>
         <value xml:lang="zh_TW">關聯到這個資料資源的內容記錄</value>
+    </property>
+    <property key="ContentContentIdOrUploadFileIsMissing">
+        <value xml:lang="en">Content Id or Upload file is missing.</value>
+        <value xml:lang="it">Id contenuto o file da caricare è mancante.</value>
+    </property>
+    <property key="ContentCreateDateInvalidFormat">
+        <value xml:lang="en">Created Date is not a valid Timestamp input format.</value>
+        <value xml:lang="it">Data creazione non è nel formato valido.</value>
     </property>
     <property key="ContentCreateFile">
         <value xml:lang="da">Opret fil</value>
@@ -1071,6 +1087,10 @@
         <value xml:lang="zh">论坛</value>
         <value xml:lang="zh_TW">論壇</value>
     </property>
+    <property key="ContentFromDateInvalidFormat">
+        <value xml:lang="en">fromDate not a valid date format</value>
+        <value xml:lang="it">Data dal non è nel formato valido.</value>
+    </property>
     <property key="ContentGIF">
         <value xml:lang="da">GIF</value>
         <value xml:lang="en">GIF</value>
@@ -1188,6 +1208,10 @@
         <value xml:lang="en">JPEG</value>
         <value xml:lang="fr">JPG</value>
         <value xml:lang="it">JPEG</value>
+    </property>
+    <property key="ContentLastModifiedDateInvalidFormat">
+        <value xml:lang="en">Last Modified Date is not a valid Timestamp input format.</value>
+        <value xml:lang="it">Data modifica non è nel formato valido.</value>
     </property>
     <property key="ContentLatest">
         <value xml:lang="da">Senest</value>
@@ -1427,6 +1451,10 @@
         <value xml:lang="zh">路径别名列表</value>
         <value xml:lang="zh_TW">路徑別名列表</value>
     </property>
+    <property key="ContentPermissionNotGranted">
+        <value xml:lang="en">Permission not granted.</value>
+        <value xml:lang="it">Permesso non abilitato.</value>
+    </property>
     <property key="ContentPlainText">
         <value xml:lang="da">Klartekst</value>
         <value xml:lang="en">Plain Text</value>
@@ -1560,6 +1588,18 @@
         <value xml:lang="it">Principale</value>
         <value xml:lang="zh">根</value>
         <value xml:lang="zh_TW">根</value>
+    </property>
+    <property key="ContentSecurityCreatePermission">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_CREATE o CONTENTMGR_ADMIN</value>
+    </property>
+    <property key="ContentSecurityDeletPermission">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_DELETE o CONTENTMGR_ADMIN</value>
+    </property>
+    <property key="ContentSecurityUpdatePermission">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_UPDATE o CONTENTMGR_ADMIN</value>
     </property>
     <property key="ContentSoftRejected">
         <value xml:lang="da">Soft afvist</value>
@@ -2097,6 +2137,10 @@
         <value xml:lang="zh">树</value>
         <value xml:lang="zh_TW">樹</value>
     </property>
+    <property key="ContentThruDateInvalidFormat">
+        <value xml:lang="en">thruDate not a valid date format</value>
+        <value xml:lang="it">Data al non è nel formato valido.</value>
+    </property>
     <property key="ContentType">
         <value xml:lang="da">Indholdstype</value>
         <value xml:lang="de">Inhalt Typ</value>
@@ -2130,6 +2174,10 @@
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้("CONTENTMGR_UPDATE" หรือ "CONTENTMGR_ADMIN" )</value>
         <value xml:lang="zh">你没有浏览本页面的权限。(需要具备"CONTENTMGR_UPDATE"或"CONTENTMGR_ADMIN")</value>
         <value xml:lang="zh_TW">你沒有瀏覽本頁面的權限。(需要具備"CONTENTMGR_UPDATE"或"CONTENTMGR_ADMIN")</value>
+    </property>
+    <property key="ContentUploadFileTypeNotMatch">
+        <value xml:lang="en">Upload file type not match your selected.</value>
+        <value xml:lang="it">Tipo file da caricare non corrisponde alla tua selezione.</value>
     </property>
     <property key="ContentUploadedFile">
         <value xml:lang="da">Uploadet fil</value>
