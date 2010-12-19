@@ -157,8 +157,9 @@ under the License.
                         </or>
                     </condition>
                     <then>
-                        <add-error><fail-property property="ManufacturingMaterialsNotAvailable" resource="ManufacturingUiLabels"/></add-error>
-                        <add-error><fail-message message=" ${productId}: ${parameters.quantityNotIssued}"/></add-error>
+                        <add-error>
+                            <fail-property property="ManufacturingMaterialsNotAvailable" resource="ManufacturingUiLabels"/>
+                        </add-error>
                     </then>
                 </if>
                 <check-errors/>
