@@ -138,8 +138,8 @@ public class PdfSurveyServices {
 
                 // ==== create a good sequenceNum based on tab order or if no tab order then the page location
 
-                Integer tabPage = (Integer) item.page.get(0);
-                Integer tabOrder = (Integer) item.tabOrder.get(0);
+                Integer tabPage = item.getPage(0);
+                Integer tabOrder = item.getTabOrder(0);
                 Debug.logInfo("tabPage=" + tabPage + ", tabOrder=" + tabOrder, module);
 
                 //array of float  multiple of 5. For each of this groups the values are: [page, llx, lly, urx, ury]
@@ -162,9 +162,8 @@ public class PdfSurveyServices {
 
                 // TODO: need to find something better to put into these fields...
                 String annotation = null;
-                Iterator widgetIter = item.widgets.iterator();
-                while (widgetIter.hasNext()) {
-                    PdfDictionary dict = (PdfDictionary) widgetIter.next();
+                for (int k = 0; k < item.size(); ++k) {
+                    PdfDictionary dict = item.getWidget(k);
 
                     // if the "/Type" value is "/Annot", then get the value of "/TU" for the annotation
 
