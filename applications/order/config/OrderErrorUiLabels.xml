@@ -661,6 +661,10 @@
         <value xml:lang="zh">错误：无法修改订单状态 (</value>
         <value xml:lang="zh_TW">錯誤：無法修改訂單狀態 (</value>
     </property>
+    <property key="OrderErrorCouldNotChangeOrderStatusFromTo">
+        <value xml:lang="en">Status is not a valid change: from ${custRequest.statusId} to ${parameters.statusId}</value>
+        <value xml:lang="it">Cambio di stato non è valido: da ${custRequest.statusId} a ${parameters.statusId}</value>
+    </property>
     <property key="OrderErrorCouldNotChangeOrderStatusOrderCannotBeFound">
         <value xml:lang="en">ERROR : Could not change order status; order cannot be found.</value>
         <value xml:lang="es">ERROR: No puede cambiar el estado del pedido; el pedido no se encuentra.</value>
@@ -767,6 +771,18 @@
         <value xml:lang="zh">错误：无法获得订单信息 (</value>
         <value xml:lang="zh_TW">錯誤：無法獲得訂單資訊 (</value>
     </property>
+    <property key="OrderErrorCreatePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
+    </property>
+    <property key="OrderErrorUpdatePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
+    </property>
+    <property key="OrderErrorDeletePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
+    </property>
     <property key="OrderErrorCustRequestWithIdDoesntExist">
         <value xml:lang="en">Error : CustRequest with id [ ${custRequestId} ] doesn't exist. </value>
         <value xml:lang="es">ERROR: La petición de cliente con código [ ${custRequestId} ] no existe.</value>
@@ -778,6 +794,10 @@
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! การร้องขอของลูกค้าด้วยรหัส [ ${custRequestId} ] ไม่มีอยู่. </value>
         <value xml:lang="zh">错误：不存在标识为 [ ${custRequestId} ] 的客户请求。 </value>
         <value xml:lang="zh_TW">錯誤：不存在ID為 [ ${custRequestId} ] 的客戶要求。 </value>
+    </property>
+    <property key="OrderErrorCustRequestNotFound">
+        <value xml:lang="en">CustRequest not found, statusId Id: ${custRequest.statusId}</value>
+        <value xml:lang="it">Richiesta non trovata, lo stato è : ${custRequest.statusId}</value>
     </property>
     <property key="OrderErrorGettingNextOrderIdWhileCreatingOrder">
         <value xml:lang="en">Error getting next order Id while creating order </value>

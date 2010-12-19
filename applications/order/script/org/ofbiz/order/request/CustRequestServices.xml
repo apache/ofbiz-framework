@@ -186,7 +186,9 @@ under the License.
     <simple-method method-name="checkStatusCustRequest" short-description="Check StatusId CustRequest">
         <entity-one entity-name="CustRequest" value-field="custRequest"></entity-one>
         <if-empty field="custRequest">
-            <add-error><fail-message message="CustRequest not found, statusId Id: ${custRequest.statusId}"/></add-error>
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderErrorCustRequestNotFound"/>
+            </add-error>
             <log level="info" message="CustRequest not found, statusId Id: ${custRequest.statusId}"/>
             <check-errors/>
             </if-empty>
@@ -462,8 +464,10 @@ under the License.
                 </entity-one>
                 <if-empty field="statusChange">
                     <set field="msg" value="Status is not a valid change: from ${custRequest.statusId} to ${parameters.statusId}"/>
-                    <add-error><fail-message message="${msg}"/></add-error>
                     <log level="error" message="${msg}"/>
+                    <add-error>
+                        <fail-property resource="OrderErrorUiLabels" property="OrderErrorCouldNotChangeOrderStatusFromTo"/>
+                    </add-error>
                 </if-empty>
             </if-compare-field>
         </if-not-empty>

@@ -100,7 +100,7 @@ under the License.
     <!-- create a new RequirementRole -->
     <simple-method method-name="createRequirementRole" short-description="Create a RequirementRole">
         <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-message message="Security Error: to run createRequirementRole you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
+            <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
         </check-permission>
         <check-errors/>
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
@@ -125,8 +125,7 @@ under the License.
     <!-- update an existing RequirementRole -->
     <simple-method method-name="updateRequirementRole" short-description="Update an existing RequirementRole">
         <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-message message="Security Error: to run updateRequirementRole you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
-        </check-permission>
+            <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="RequirementRole" value-field="requirementRole" auto-field-map="true"/>
         <check-errors/>
@@ -138,7 +137,7 @@ under the License.
     <!-- remove an existing RequirementRole -->
     <simple-method method-name="removeRequirementRole" short-description="Remove an existing RequirementRole">
         <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-message message="Security Error: to run removeRequirementRole you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
+            <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="RequirementRole" value-field="requirementRole" auto-field-map="true"/>
@@ -149,7 +148,7 @@ under the License.
 
     <simple-method method-name="createTransferFromRequirement" short-description="Create the inventory transfers required to fulfill the requirement.">
         <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-message message="Security Error: to run createTransferFromRequirement you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission"/>
+            <fail-property resource="OrderErrorUiLabels" property="OrderErrorCreatePermissionError"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>

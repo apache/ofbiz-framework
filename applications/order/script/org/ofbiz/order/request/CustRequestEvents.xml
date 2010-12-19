@@ -38,7 +38,7 @@
             </condition>
             <then>
                 <add-error>
-                    <fail-message message="Content Id or Upload file is missing."/>
+                    <fail-property resource="ContentUiLabels" property="ContentContentIdOrUploadFileIsMissing"/>
                 </add-error>
             </then>
         </if>
@@ -67,7 +67,7 @@
                     </then>
                     <else>
                         <add-error>
-                            <fail-message message="Upload file type not match your selected."/>
+                            <fail-property resource="ContentUiLabels" property="ContentUploadFileTypeNotMatch"/>
                         </add-error>
                     </else>
                 </if>
