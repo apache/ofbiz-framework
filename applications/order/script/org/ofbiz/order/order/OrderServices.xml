@@ -968,7 +968,7 @@ under the License.
             <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
                 <result-to-field result-name="contactMechId" field="parameters.shipToContactMechId"/>
             </call-service>
-            <log level="info" message="Shipping address created with contactMechId ${shipToAddressCtx.shipToContactMechId}"/>
+            <log level="info" message="Shipping address created with contactMechId ${parameters.shipToContactMechId}"/>
         <else>
             <if-compare field="keepAddressBook" operator="equals" value="Y">
                 <make-value entity-name="PostalAddress" value-field="newValue"/>
