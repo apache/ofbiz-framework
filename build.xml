@@ -199,7 +199,7 @@ under the License.
                 <include name="*/build.xml"/>
             </fileset>
         </subant>
-        <antcall target="clean-svninfo"></antcall>
+        <antcall target="clean-svninfo"/>
 
         <echo message="[build] ========== Done Building (Compile) =========="/>
     </target>
