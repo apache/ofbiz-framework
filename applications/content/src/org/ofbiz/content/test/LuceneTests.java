@@ -53,7 +53,6 @@ public class LuceneTests extends OFBizTestCase {
 
     @Override
     protected void tearDown() throws Exception {
-        //destruction index
     }
 
     public void testCreateIndex() throws Exception {
