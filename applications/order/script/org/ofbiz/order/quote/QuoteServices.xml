@@ -105,7 +105,9 @@ under the License.
                 </and>
             </condition>
             <then>
-                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuote"/></add-error>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuote"/>
+                </add-error>
             </then>
         </if>
         <check-errors/>
@@ -166,7 +168,9 @@ under the License.
             </entity-and>
 
             <if-empty field="validChange">
-                <add-error><fail-message message="The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change"/></add-error>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderQuoteStatusChangeIsNotValid"/>
+                </add-error>
                 <log level="error" message="The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change"/>
                 <check-errors/>
             </if-empty>
@@ -303,7 +307,9 @@ under the License.
                 </and>
             </condition>
             <then>
-                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteItem"/></add-error>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteItem"/>
+                </add-error>
             </then>
         </if>
 
@@ -837,7 +843,9 @@ under the License.
                 </and>
             </condition>
             <then>
-                <add-error><fail-message message="ERROR: CustRequest [${custRequest.custRequestId}] is not a request for quote."/></add-error>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderQuoteNotARequest"/>
+                </add-error>
             </then>
         </if>
         <check-errors/>
@@ -902,7 +910,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="quoteWorkEffort"/>
         <if-not-empty field="quoteWorkEffort.quoteId">
-            <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists."/></add-error>
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderQuoteNotAWorkEffort"/>
+            </add-error>
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
@@ -915,7 +925,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="quoteWorkEffort"/>
         <if-empty field="quoteWorkEffort.quoteId">
-            <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] does not exist."/></add-error>
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderQuoteWorkEffortDoesNotExists"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <if-not-empty field="quoteWorkEffort.quoteId">
