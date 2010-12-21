@@ -447,7 +447,7 @@ function setLookDescription(textFieldId, description, params, formName) {
             }
         }
       var lookupWrapperEl = jQuery("#" + textFieldId).closest('.field-lookup');
-      if (lookupWrapperEl.length) {
+      if (lookupWrapperEl.length && start != -1) {
           tooltipElement = jQuery("#" + textFieldId + '_lookupDescription')
           if (!tooltipElement.length) {
               tooltipElement = jQuery("<span id='" + textFieldId + "_lookupDescription' class='tooltip'></span>");
