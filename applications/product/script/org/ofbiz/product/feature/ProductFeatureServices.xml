@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,9 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createProductFeatureCategory" short-description="Create Product Feature Category">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureCategory you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductFeatureCategory" value-field="newEntity"/>
@@ -33,7 +35,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureCategory" short-description="Update Product Feature Category">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCategory you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <entity-one entity-name="ProductFeatureCategory" value-field="productFeatureCategory"/>
@@ -42,7 +46,9 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createProductFeature" short-description="Create Product Feature">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeature you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductFeature"/>
@@ -58,7 +64,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeature" short-description="Update Product Feature">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeature you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <entity-one entity-name="ProductFeature" value-field="productFeature"/>
@@ -134,7 +142,9 @@ under the License.
 
     <!-- Methods for ProductFeatureCategoryAppl -->
     <simple-method method-name="createProductFeatureCategoryAppl" short-description="Create an Product Feature Category Application">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureCategoryAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductFeatureCategoryAppl"/>
@@ -148,7 +158,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureCategoryAppl" short-description="Update an Product Feature Category Application">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCategoryAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
@@ -158,7 +170,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureCategoryAppl" short-description="Remove a Product Feature Category Application">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureCategoryAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
@@ -169,7 +183,9 @@ under the License.
 
     <!-- Methods for ProductFeatureCatGrpAppl -->
     <simple-method method-name="createProductFeatureCatGrpAppl" short-description="Create a ProductFeatureGroup to ProductCategory Application">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureCatGrpAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductFeatureCatGrpAppl"/>
@@ -183,7 +199,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureCatGrpAppl" short-description="Update a ProductFeatureGroup to ProductCategory Application">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCatGrpAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
@@ -193,7 +211,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureCatGrpAppl" short-description="Remove a ProductFeatureGroup to ProductCategory Application">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureCatGrpAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
@@ -204,7 +224,9 @@ under the License.
 
     <!-- ProductFeatureGroup Services -->
     <simple-method method-name="createProductFeatureGroup" short-description="Create Product Feature Group">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureGroup you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductFeatureGroup"/>
@@ -216,7 +238,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureGroup" short-description="Update Product Feature Group">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureGroup you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <entity-one entity-name="ProductFeatureGroup" value-field="productFeatureGroup"/>
@@ -224,7 +248,9 @@ under the License.
         <store-value value-field="productFeatureGroup"/>
     </simple-method>
     <simple-method method-name="createProductFeatureGroupAppl" short-description="Create an Product Feature Group Application">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureGroupAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductFeatureGroupAppl"/>
@@ -238,7 +264,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureGroupAppl" short-description="Update an Product Feature Group Application">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureGroupAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
@@ -248,7 +276,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureGroupAppl" short-description="Remove a Product Feature Group Application">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureGroupAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
@@ -259,7 +289,9 @@ under the License.
 
     <!-- Methods for ProductFeatureIactn -->
     <simple-method method-name="createProductFeatureIactn" short-description="Create a Product Feature Interaction">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureIactn you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="ProductFeatureIactn"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -267,7 +299,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureIactn" short-description="Remove a Product Feature Interaction">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureInteraction you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureIactn"/>
@@ -277,7 +311,9 @@ under the License.
     </simple-method>
     <!-- Methods for ProductFeatureType -->
     <simple-method method-name="createProductFeatureType" short-description="Create a Product Feature Type">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureType you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <if>
@@ -311,7 +347,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureType" short-description="Update an Product Feature Type">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureType you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureType"/>
@@ -321,7 +359,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureType" short-description="Remove a Product Feature Type">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureType you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureType"/>
@@ -333,7 +373,7 @@ under the License.
     <!-- create a new ProductFeatureApplAttr -->
     <simple-method method-name="createProductFeatureApplAttr" short-description="Create a ProductFeatureApplAttr">
         <check-permission permission="CATALOG" action="_CREATE">
-            <fail-message message="Security Error: to run createProductFeatureApplAttr you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="ProductFeatureApplAttr"/>
@@ -357,7 +397,7 @@ under the License.
     <!-- update an existing ProductFeatureApplAttr -->
     <simple-method method-name="updateProductFeatureApplAttr" short-description="Update an existing ProductFeatureApplAttr">
         <check-permission permission="CATALOG" action="_UPDATE">
-            <fail-message message="Security Error: to run updateProductFeatureApplAttr you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="ProductFeatureApplAttr" value-field="productFeatureApplAttr" auto-field-map="true"/>
@@ -370,7 +410,7 @@ under the License.
     <!-- remove an existing ProductFeatureApplAttr -->
     <simple-method method-name="removeProductFeatureApplAttr" short-description="Remove an existing ProductFeatureApplAttr">
         <check-permission permission="CATALOG" action="_DELETE">
-            <fail-message message="Security Error: to run removeProductFeatureApplAttr you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
         </check-permission>
         <check-errors/>
         <entity-one entity-name="ProductFeatureApplAttr" value-field="productFeatureApplAttr" auto-field-map="true"/>

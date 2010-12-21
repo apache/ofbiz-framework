@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -21,7 +21,9 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createSupplierProduct" short-description="Create a Supplier Product record">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createSupplierProduct you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="SupplierProduct"/>
@@ -32,7 +34,9 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateSupplierProduct" short-description="Update a Supplier Product record">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateSupplierProduct you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
@@ -44,7 +48,9 @@ under the License.
     </simple-method>
 
     <simple-method method-name="removeSupplierProduct" short-description="Remove a Supplier Product record">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeSupplierProduct you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
@@ -56,7 +62,9 @@ under the License.
 
     <!-- services for supplier product features -->
     <simple-method method-name="createSupplierProductFeature" short-description="Create a Supplier Product Feature record">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createSupplierProductFeature you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="SupplierProductFeature"/>
@@ -66,7 +74,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSupplierProductFeature" short-description="Update a Supplier Product Feature record">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateSupplierProductFeature you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <entity-one entity-name="SupplierProductFeature" value-field="sprod"/>
@@ -74,7 +84,9 @@ under the License.
         <store-value value-field="sprod"/>
     </simple-method>
     <simple-method method-name="removeSupplierProductFeature" short-description="Remove a Supplier Product record">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run updateSupplierProductFeature you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <entity-one entity-name="SupplierProductFeature" value-field="sprod"/>

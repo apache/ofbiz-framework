@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -61,7 +61,7 @@ under the License.
         -->
 
         <check-permission permission="FACILITY" action="_VIEW">
-            <fail-message message="Security Error: to run getPicklistData you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityViewPermissionError"/>
         </check-permission>
         <check-errors/>
         <set field="groupByShippingMethod" from-field="parameters.groupByShippingMethod"/>
@@ -584,7 +584,7 @@ under the License.
     <!-- ========================================================= -->
     <simple-method method-name="createPicklistFromOrders" short-description="Create Picklist From Orders">
         <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createPicklistFromOrders you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -679,7 +679,9 @@ under the License.
         <else>
             <log level="info" message="Not Creating Picklist with ID, nothing to process."/>
             <!-- return error messages saying no orders ready to pick, not creating picklist -->
-            <add-error><fail-message message="No orders ready to pick, not creating picklist."/></add-error>
+            <add-error>
+                <fail-message message="No orders ready to pick, not creating picklist."/>
+            </add-error>
             <check-errors/>
         </else>
         </if-not-empty>
@@ -737,7 +739,7 @@ under the License.
        <!-- Picklist -->
     <simple-method method-name="createPicklist" short-description="Create Picklist">
         <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createPicklist you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -762,7 +764,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePicklist" short-description="Update Picklist">
         <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updatePicklist you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityUpdatePermissionError"/>
         </check-permission>
 
         <make-value value-field="lookupPKMap" entity-name="Picklist"/>
@@ -804,7 +806,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePicklist" short-description="Delete Picklist">
         <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deletePicklist you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityDeletePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -817,7 +819,7 @@ under the License.
     <!-- PicklistBin -->
     <simple-method method-name="createPicklistBin" short-description="Create PicklistBin">
         <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createPicklistBin you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -831,7 +833,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePicklistBin" short-description="Update PicklistBin">
         <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updatePicklistBin you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityUpdatePermissionError"/>
         </check-permission>
 
         <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
@@ -843,7 +845,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePicklistBin" short-description="Delete PicklistBin">
         <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deletePicklistBin you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityDeletePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -856,7 +858,7 @@ under the License.
     <!-- PicklistItem -->
     <simple-method method-name="createPicklistItem" short-description="Create PicklistItem">
         <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createPicklistItem you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -872,7 +874,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePicklistItem" short-description="Update PicklistItem">
         <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updatePicklistItem you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityUpdatePermissionError"/>
         </check-permission>
 
         <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
@@ -906,7 +908,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePicklistItem" short-description="Delete PicklistItem">
         <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deletePicklistItem you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityDeletePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -917,7 +919,7 @@ under the License.
     </simple-method>
     <simple-method method-name="setPicklistItemToComplete" short-description="Set the status of a pick list item to completed">
         <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run setPicklistItemToComplete you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityUpdatePermissionError"/>
         </check-permission>
 
         <set-service-fields service-name="updatePicklistItem" map="parameters" to-map="serviceCtx"/>
@@ -928,7 +930,7 @@ under the License.
     <!-- PicklistRole -->
     <simple-method method-name="createPicklistRole" short-description="Create PicklistRole">
         <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run createPicklistRole you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -944,7 +946,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePicklistRole" short-description="Update PicklistRole">
         <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run updatePicklistRole you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityUpdatePermissionError"/>
         </check-permission>
 
         <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>
@@ -956,7 +958,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePicklistRole" short-description="Delete PicklistRole">
         <check-permission permission="FACILITY" action="_DELETE">
-            <fail-message message="Security Error: to run deletePicklistRole you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityDeletePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -971,7 +973,7 @@ under the License.
     <!-- ========================================================= -->
     <simple-method method-name="getPicklistDisplayInfo" short-description="Get Picklist Display Info">
         <check-permission permission="FACILITY" action="_VIEW">
-            <fail-message message="Security Error: to run deletePicklistRole you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityViewPermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -1000,7 +1002,7 @@ under the License.
               3. noLocationProductInfoList (product, pickQuantity, picklistBinInfoList (picklistBin, quantity), picklistItemInfoList (picklistItem, picklistBin, orderItem, product, inventoryItemAndLocation, orderItemShipGrpInvRes, itemIssuanceList))
         -->
         <check-permission permission="FACILITY" action="_VIEW">
-            <fail-message message="Security Error: to run getPickAndPackReportInfo you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityViewPermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -1268,10 +1270,10 @@ under the License.
         -->
 
         <check-permission permission="FACILITY" action="_VIEW">
-            <fail-message message="Security Error: to run getPicklistData you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityViewPermissionError"/>
         </check-permission>
         <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run getPicklistData you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityUpdatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -1394,7 +1396,7 @@ under the License.
     <!-- special method to check update the picklist status from the item status -->
     <simple-method method-name="checkPicklistBinItemStatuses" short-description="Checks the item status and updates the pick list status">
         <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run checkPicklistItemStatus you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityUpdatePermissionError"/>
         </check-permission>
 
         <!-- find the picklist bin -->

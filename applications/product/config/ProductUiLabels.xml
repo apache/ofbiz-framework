@@ -9183,6 +9183,18 @@
         <value xml:lang="zh">目录名称 [标识]</value>
         <value xml:lang="zh_TW">目錄名稱 [ID]</value>
     </property>
+    <property key="ProductCatalogCreatePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso CATALOG_CREATE o CATALOG_ADMIN, il permesso limitato CATALOG_ROLE_CREATE</value>
+    </property>
+    <property key="ProductCatalogDeletePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CATALOG_DELETE or CATALOG_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso CATALOG_DELETE o CATALOG_ADMIN</value>
+    </property>
+    <property key="ProductCatalogUpdatePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CATALOG_UPDATE or CATALOG_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso CATALOG_UPDATE o CATALOG_ADMIN</value>
+    </property>
     <property key="ProductCatalogViewPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung diese Seite anzuzeigen. ("CATALOG_VIEW" oder "CATALOG_ADMIN" benötigt)</value>
         <value xml:lang="en">You do not have permission to view this page. ("CATALOG_VIEW" or "CATALOG_ADMIN" needed)</value>
@@ -14961,6 +14973,10 @@
         <value xml:lang="th">คลังสินค้าน้อยที่สุด จำนวนการสั่งอีกครั้ง วันที่การขนส่ง</value>
         <value xml:lang="zh">最小存货、再订购数量、送货天数</value>
         <value xml:lang="zh_TW">最小存貨、再訂購數量、送貨天數</value>
+    </property>
+    <property key="ProductMissingMainActionInPermissionService">
+        <value xml:lang="en">In the permission-service element for the productGenericPermission service the main-action attribute was missing but is required</value>
+        <value xml:lang="it">Nell'elemento permission-service del servizio productGenericPermission l'attributo main-action è mancante ma è obbligatorio</value>
     </property>
     <property key="ProductMoreOptions">
         <value xml:lang="de">Mehr Optionen im Drop Down verfügbar.</value>

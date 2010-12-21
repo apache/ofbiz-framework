@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -28,7 +28,7 @@ under the License.
     <simple-method method-name="createProductCategory" short-description="Create an ProductCategory">
         <check-permission permission="CATALOG" action="_CREATE">
             <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createProductCategory you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -400,7 +400,7 @@ under the License.
         <set value="duplicateCategoryEntities" field="callingMethodName"/>
         <check-permission permission="CATALOG" action="_CREATE">
             <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createProductCategory you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -555,7 +555,7 @@ under the License.
         <set value="duplicateProductCategory" field="callingMethodName"/>
         <check-permission permission="CATALOG" action="_CREATE">
             <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
-            <fail-message message="Security Error: to run createProductCategory you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -629,7 +629,7 @@ under the License.
     <simple-method method-name="createProductCategoryAttribute"
         short-description="Create an attribute for a product category">
         <check-permission permission="CATALOG" action="_CREATE">
-            <fail-message message="Security Error: to create a product category attribute requires the CATALOG_CREATE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -642,8 +642,8 @@ under the License.
     <simple-method method-name="updateProductCategoryAttribute"
         short-description="Update an association between two product categories">
         <check-permission permission="CATALOG" action="_UPDATE">
-            <fail-message message="Security Error: to update a product category attribute requires the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
-          </check-permission>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
@@ -655,8 +655,8 @@ under the License.
     <simple-method method-name="deleteProductCategoryAttribute"
         short-description="Delete an association between two product categories">
         <check-permission permission="CATALOG" action="_DELETE">
-            <fail-message message="Security Error: to delete a product category attribute requires the CATALOG_DELETE or CATALOG_ADMIN permission"/>
-           </check-permission>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
@@ -747,7 +747,9 @@ under the License.
             </condition>
             <then>
                 <log level="verbose" message="Permission check failed, user does not have permission"/>
-                <add-error><fail-message message="Security Error: to run ${callingMethodName} you must have the CATALOG_${checkAction} or CATALOG_ADMIN permission or have the CATALOG_ROLE_${checkAction} permission and be associated with a category containing this category."/></add-error>
+                <add-error>
+                    <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+                </add-error>
                 <set field="hasPermission" type="Boolean" value="false"/>
             </then>
         </if>
@@ -755,7 +757,9 @@ under the License.
     <simple-method method-name="productCategoryGenericPermission" short-description="Main permission logic">
         <set field="mainAction" from-field="parameters.mainAction"/>
         <if-empty field="mainAction">
-            <add-error><fail-message message="In the permission-service element for the productGenericPermission service the main-action attribute was missing but is required"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductMissingMainActionInPermissionService"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 

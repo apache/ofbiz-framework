@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -25,7 +25,9 @@ under the License.
         <set field="callingMethodName" value="createProductConfig"/>
         <set field="checkAction" value="CREATE"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductConfig"/>
@@ -45,7 +47,9 @@ under the License.
         <set field="callingMethodName" value="updateProductConfig"/>
         <set field="checkAction" value="UPDATE"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductConfig" value-field="lookupPKMap"/>
@@ -60,7 +64,9 @@ under the License.
         <set field="callingMethodName" value="deleteProductConfig"/>
         <set field="checkAction" value="DELETE"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductConfig" value-field="lookupPKMap"/>
@@ -73,7 +79,7 @@ under the License.
     <!-- Methods for Config Items -->
     <simple-method method-name="createProductConfigItem" short-description="Create a Config Item">
         <check-permission action="_CREATE" permission="CATALOG">
-            <fail-message message="Security Error: to run createProductConfigItem you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigItem" value-field="newEntity"/>
@@ -84,7 +90,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateProductConfigItem" short-description="Update a Config Item">
         <check-permission action="_UPDATE" permission="CATALOG">
-            <fail-message message="Security Error: to run updateProductConfigItem you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
@@ -95,7 +101,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProductConfigItem" short-description="Delete a Config Item">
         <check-permission action="_DELETE" permission="CATALOG">
-            <fail-message message="Security Error: to run deleteProductConfigItem you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
@@ -106,7 +112,7 @@ under the License.
     <!-- Methods for Config Options -->
     <simple-method method-name="createProductConfigOption" short-description="Create a Config Option">
         <check-permission action="_CREATE" permission="CATALOG">
-            <fail-message message="Security Error: to run createProductConfigOption you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigOption" value-field="newEntity"/>
@@ -119,7 +125,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateProductConfigOption" short-description="Update a Config Option">
         <check-permission action="_UPDATE" permission="CATALOG">
-            <fail-message message="Security Error: to run updateProductConfigOption you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
@@ -130,7 +136,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProductConfigOption" short-description="Delete a Config Option">
         <check-permission action="_DELETE" permission="CATALOG">
-            <fail-message message="Security Error: to run deleteProductConfigOption you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
@@ -141,7 +147,7 @@ under the License.
     <!-- Methods for ProductConfigProduct -->
     <simple-method method-name="createProductConfigProduct" short-description="Create a ProductConfigProduct">
         <check-permission action="_CREATE" permission="CATALOG">
-            <fail-message message="Security Error: to run createProductConfigProduct you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigProduct" value-field="newEntity"/>
@@ -151,7 +157,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateProductConfigProduct" short-description="Update a ProductConfigProduct">
         <check-permission action="_UPDATE" permission="CATALOG">
-            <fail-message message="Security Error: to run updateProductConfigProduct you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
@@ -162,7 +168,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProductConfigProduct" short-description="Delete a ProductConfigProduct">
         <check-permission action="_DELETE" permission="CATALOG">
-            <fail-message message="Security Error: to run deleteProductConfigProduct you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
