@@ -1613,6 +1613,14 @@
         <value xml:lang="zh">创建订单失败；请通知客户服务。 </value>
         <value xml:lang="zh_TW">創建訂單失敗；請通知客戶服務。 </value>
     </property>
+    <property key="OrderOrderIdDoesNotExists">
+        <value xml:lang="en">Order with id ${parameters.orderId} doesn't exist.</value>
+        <value xml:lang="it">Ordine ${parameters.orderId} non esiste.</value>
+    </property>
+    <property key="OrderOrderItemIdDoesNotExists">
+        <value xml:lang="en">The Orders Item with id ${orderItem.orderItemSeqId} doesn't exist.</value>
+        <value xml:lang="it">Riga ordine ${orderItem.orderItemSeqId} non esiste.</value>
+    </property>
     <property key="OrderOrderItemTypeNotExist">
         <value xml:lang="en">Order item type not exist</value>
         <value xml:lang="es">Tipo de ítem del pedido inexistente</value>
@@ -2194,6 +2202,22 @@
         <value xml:lang="zh">询价百分比</value>
         <value xml:lang="zh_TW">詢價百分比</value>
     </property>
+    <property key="OrderQuoteStatusChangeIsNotValid">
+        <value xml:lang="en">The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change</value>
+        <value xml:lang="it">Il cambio di stato da ${quote.statusId} a ${parameters.statusId} non è consentito</value>
+    </property>
+    <property key="OrderQuoteNotARequest">
+        <value xml:lang="en">ERROR: CustRequest ${custRequest.custRequestId} is not a request for quote.</value>
+        <value xml:lang="it">ERRORE: Richiesta ${custRequest.custRequestId} non è richiesta di preventivo.</value>
+    </property>
+    <property key="OrderQuoteNotAWorkEffort">
+        <value xml:lang="en">ERROR: QuoteWorkEffort ${parameters.quoteId} ${parameters.workEffortId} already exists.</value>
+        <value xml:lang="it">ERRORE: Impegno di lavoro ${parameters.quoteId} ${parameters.workEffortId} non è preventivo di impegno di lavoro.</value>
+    </property>
+    <property key="OrderQuoteWorkEffortDoesNotExists">
+        <value xml:lang="en">ERROR: QuoteWorkEffort ${parameters.quoteId} ${parameters.workEffortId} does not exist.</value>
+        <value xml:lang="it">ERRORE: Impegno di lavoro ${parameters.quoteId} ${parameters.workEffortId} non esiste.</value>
+    </property>
     <property key="OrderReceivedNullForOrderItemRecordsOrderId">
         <value xml:lang="en">Received NULL for OrderItem records orderId : ${orderId}</value>
         <value xml:lang="es">Se recibió nulo para los registros de ítems del pedido con código: ${orderId}</value>
@@ -2256,6 +2280,14 @@
         <value xml:lang="zh">预定长度应该是一个正数</value>
         <value xml:lang="zh_TW">預定長度應該是一個正數</value>
     </property>
+    <property key="OrderReturnItemTypeIsNotDefined">
+        <value xml:lang="en">Return Item Type is not defined for this item; or no mapping was found.</value>
+        <value xml:lang="it">Tipo riga reso non è definita per questa riga.</value>
+    </property>
+    <property key="OrderReturnItemTypeOrderItemNoMatching">
+        <value xml:lang="en">No matching return item type map found for order item: ${orderItem}</value>
+        <value xml:lang="it">Nessuna corrispondenza trovata fra il tipo riga reso e la riga ordine: ${orderItem}</value>
+    </property>
     <property key="OrderReturnPaymentMethodNeededForThisTypeOfReturn">
         <value xml:lang="en">A payment method must be set for this type of return</value>
         <value xml:lang="es">Hay que fijar un método de pago para este tipo de devolución</value>
@@ -2302,6 +2334,14 @@
         <value xml:lang="th">การคืนค่าจำนวน [ ${parameters.returnQuantity} ] ไม่สามารถเกินกว่าจำนวนรายการ [ ${orderItem.quantity} ]. </value>
         <value xml:lang="zh">退货数量 [ ${parameters.returnQuantity} ] 不能超过订单数量 [ ${orderItem.quantity} ]。 </value>
         <value xml:lang="zh_TW">退貨數量 [ ${parameters.returnQuantity} ] 不能超過訂單數量 [ ${orderItem.quantity} ]。 </value>
+    </property>
+    <property key="OrderReturnRequestPartyRoleInternalOrg">
+        <value xml:lang="en">Error: a return must be to a party in the role of internal organization</value>
+        <value xml:lang="it">Errore: un reso deve avere un soggetto con ruolo organizzazione interna</value>
+    </property>
+    <property key="OrderReturnRequestPartyRoleSupplier">
+        <value xml:lang="en">Error: a return must be to a party in the role of supplier</value>
+        <value xml:lang="it">Errore: un reso deve avere un soggetto con ruolo fornitore</value>
     </property>
     <property key="OrderReturnTotalCannotLessThanZero">
         <value xml:lang="en">Return total [${returnTotalAmount}] can not less than zero.</value>

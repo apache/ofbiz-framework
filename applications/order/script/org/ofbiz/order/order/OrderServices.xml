@@ -589,7 +589,9 @@ under the License.
 
         <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
         <if-empty field="orderHeader">
-            <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderOrderIdDoesNotExists"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         <set-nonpk-fields value-field="orderHeader" map="parameters"/>
@@ -917,7 +919,9 @@ under the License.
     <simple-method method-name="getOrderStatus" short-description="Gets an order status" login-required="false">
         <entity-one entity-name="OrderHeader" value-field="order"/>
         <if-empty field="order">
-            <add-error><fail-message message="Order not found [{parameters.orderId}]"/></add-error>
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderOrderIdDoesNotExists"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <field-to-result field="order.statusId" result-name="statusId"/>
