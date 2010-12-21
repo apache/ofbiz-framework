@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -28,7 +28,7 @@ under the License.
     <simple-method method-name="findStockMovesNeeded" short-description="Find all Stock Moves that need to be done">
         <!-- TODO: make this method aware of serialized inventory in addition to non-serialized inventory -->
         <check-permission permission="FACILITY" action="_VIEW">
-            <fail-message message="Security Error: to run findStockMovesNeeded you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityViewPermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -196,7 +196,7 @@ under the License.
     <simple-method method-name="findStockMovesRecommended" short-description="Find all Stock Moves recommended to be done based on ProductFacilityLocation settings">
         <!-- TODO: make this method aware of serialized inventory in addition to non-serialized inventory -->
         <check-permission permission="FACILITY" action="_VIEW">
-            <fail-message message="Security Error: to run findStockMovesRecommended you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityViewPermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -350,10 +350,10 @@ under the License.
 
     <simple-method method-name="processPhysicalStockMove" short-description="Process a Physical Stock Move from one FacilityLocation to another, in the same Facility">
         <check-permission permission="FACILITY" action="_CREATE">
-            <fail-message message="Security Error: to run processPhysicalStockMove you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityCreatePermissionError"/>
         </check-permission>
         <check-permission permission="FACILITY" action="_UPDATE">
-            <fail-message message="Security Error: to run processPhysicalStockMove you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductFacilityUpdatePermissionError"/>
         </check-permission>
         <check-errors/>
 

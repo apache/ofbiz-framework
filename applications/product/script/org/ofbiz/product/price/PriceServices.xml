@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -25,7 +25,9 @@ under the License.
         <set field="callingMethodName" value="createProductPrice"/>
         <set field="checkAction" value="CREATE"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
         
         <call-simple-method method-name="inlineHandlePriceWithTaxIncuded"/>
@@ -52,7 +54,9 @@ under the License.
         <set field="callingMethodName" value="updateProductPrice"/>
         <set field="checkAction" value="UPDATE"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <call-simple-method method-name="inlineHandlePriceWithTaxIncuded"/>
@@ -74,7 +78,9 @@ under the License.
         <set field="callingMethodName" value="deleteProductPrice"/>
         <set field="checkAction" value="DELETE"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPrice" value-field="lookupPKMap"/>
@@ -124,7 +130,9 @@ under the License.
                 </if-empty>
                 
                 <if-empty field="parameters.taxPercentage">
-                    <add-error><fail-message message="Tax Authority was specified but no Tax Percentage passed in, and could not find one in the Tax Authority Rate Product settings, so cannot handle price with tax included."/></add-error>
+                    <add-error>
+                        <fail-message message="Tax Authority was specified but no Tax Percentage passed in, and could not find one in the Tax Authority Rate Product settings, so cannot handle price with tax included."/>
+                    </add-error>
                     <check-errors/>
                 </if-empty>
                 
@@ -172,7 +180,7 @@ under the License.
             <alt-permission permission="CATALOG_ROLE" action="_CREATE"/>
             <alt-permission permission="CATALOG_ROLE" action="_UPDATE"/>
             <alt-permission permission="CATALOG_ROLE" action="_DELETE"/>
-            <fail-message message="Security Error: to run saveProductPriceChange you must have a CATALOG_* or CATALOG_ROLE_* permission"/>
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -221,8 +229,12 @@ under the License.
 
     <!-- ProductPriceRule methods -->
     <simple-method method-name="createProductPriceRule" short-description="Create an ProductPriceRule">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPriceRule you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPriceRule"/>
@@ -233,8 +245,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPriceRule" short-description="Update an ProductPriceRule">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPriceRule you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
@@ -244,8 +260,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPriceRule" short-description="Delete an ProductPriceRule">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPriceRule you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
@@ -256,8 +276,12 @@ under the License.
 
     <!-- ProductPriceCond methods -->
     <simple-method method-name="createProductPriceCond" short-description="Create an ProductPriceCond">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPriceCond you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <if-not-empty field="parameters.condValueInput">
@@ -272,8 +296,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPriceCond" short-description="Update an ProductPriceCond">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPriceCond you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <if-not-empty field="parameters.condValueInput">
@@ -286,8 +314,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPriceCond" short-description="Delete an ProductPriceCond">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPriceCond you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
@@ -298,8 +330,12 @@ under the License.
 
     <!-- ProductPriceAction methods -->
     <simple-method method-name="createProductPriceAction" short-description="Create an ProductPriceAction">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPriceAction you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPriceAction"/>
@@ -311,8 +347,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPriceAction" short-description="Update an ProductPriceAction">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPriceAction you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>
@@ -322,8 +362,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPriceAction" short-description="Delete an ProductPriceAction">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPriceAction you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>

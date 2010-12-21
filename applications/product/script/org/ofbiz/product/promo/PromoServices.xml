@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -22,8 +22,12 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductPromo methods -->
     <simple-method method-name="createProductPromo" short-description="Create a ProductPromo">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPromo you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromo"/>
@@ -44,8 +48,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromo" short-description="Update a ProductPromo">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromo you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <set from-field="parameters.productPromoId" field="lookupPKMap.productPromoId"/>
@@ -63,8 +71,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromo" short-description="Delete a ProductPromo">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromo you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <!-- TODO: if a force remove flag is passed, remove related info first, maybe just rules, store assocs, etc -->
@@ -76,8 +88,12 @@ under the License.
 
     <!-- ProductPromoAction methods -->
     <simple-method method-name="createProductPromoAction" short-description="Create an ProductPromoAction">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPromoAction you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoAction"/>
@@ -89,8 +105,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoAction" short-description="Update an ProductPromoAction">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoAction you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoAction" value-field="lookupPKMap"/>
@@ -100,8 +120,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoAction" short-description="Delete an ProductPromoAction">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoAction you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoAction" value-field="lookupPKMap"/>
@@ -112,8 +136,12 @@ under the License.
 
     <!-- ProductPromoCategory methods -->
     <simple-method method-name="createProductPromoCategory" short-description="Create an ProductPromoCategory">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPromoCategory you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCategory"/>
@@ -123,8 +151,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoCategory" short-description="Update an ProductPromoCategory">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoCategory you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+         </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoCategory" value-field="lookupPKMap"/>
@@ -134,8 +166,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCategory" short-description="Delete an ProductPromoCategory">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCategory you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoCategory" value-field="lookupPKMap"/>
@@ -146,8 +182,12 @@ under the License.
 
     <!-- ProductPromoCode methods -->
     <simple-method method-name="createProductPromoCode" short-description="Create an ProductPromoCode">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPromoCode you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCode"/>
@@ -171,8 +211,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoCode" short-description="Update an ProductPromoCode">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoCode you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoCode" value-field="lookupPKMap"/>
@@ -187,8 +231,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCode" short-description="Delete an ProductPromoCode">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCode you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoCode" value-field="lookupPKMap"/>
@@ -199,8 +247,12 @@ under the License.
 
     <!-- ProductPromoCodeEmail methods -->
     <simple-method method-name="createProductPromoCodeEmail" short-description="Create an ProductPromoCodeEmail">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPromoCodeEmail you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCodeEmail"/>
@@ -210,8 +262,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCodeEmail" short-description="Delete an ProductPromoCodeEmail">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCodeEmail you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoCodeEmail" value-field="lookupPKMap"/>
@@ -222,8 +278,12 @@ under the License.
 
     <!-- ProductPromoCodeParty methods -->
     <simple-method method-name="createProductPromoCodeParty" short-description="Create an ProductPromoCodeParty">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPromoCodeParty you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCodeParty"/>
@@ -233,8 +293,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCodeParty" short-description="Delete an ProductPromoCodeParty">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCodeParty you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoCodeParty" value-field="lookupPKMap"/>
@@ -245,8 +309,12 @@ under the License.
 
     <!-- ProductPromoCond methods -->
     <simple-method method-name="createProductPromoCond" short-description="Create an ProductPromoCond">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPromoCond you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCond"/>
@@ -261,8 +329,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoCond" short-description="Update an ProductPromoCond">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoCond you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoCond" value-field="lookupPKMap"/>
@@ -275,8 +347,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCond" short-description="Delete an ProductPromoCond">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCond you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoCond" value-field="lookupPKMap"/>
@@ -287,8 +363,12 @@ under the License.
 
     <!-- ProductPromoProduct methods -->
     <simple-method method-name="createProductPromoProduct" short-description="Create an ProductPromoProduct">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPromoProduct you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoProduct"/>
@@ -298,8 +378,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoProduct" short-description="Update an ProductPromoProduct">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoProduct you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoProduct" value-field="lookupPKMap"/>
@@ -309,8 +393,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoProduct" short-description="Delete an ProductPromoProduct">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoProduct you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoProduct" value-field="lookupPKMap"/>
@@ -321,8 +409,12 @@ under the License.
 
     <!-- ProductPromoRule methods -->
     <simple-method method-name="createProductPromoRule" short-description="Create a ProductPromoRule">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPromoRule you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoRule"/>
@@ -334,8 +426,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoRule" short-description="Update a ProductPromoRule">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoRule you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoRule" value-field="lookupPKMap"/>
@@ -345,8 +441,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoRule" short-description="Delete a ProductPromoRule">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoRule you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductPromoRule" value-field="lookupPKMap"/>
@@ -357,8 +457,12 @@ under the License.
 
     <!-- ProductPromo to ProductStore methods -->
     <simple-method method-name="createProductStorePromoAppl" short-description="Create ProductStorePromoAppl">
-        <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStorePromoAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_CREATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductStorePromoAppl"/>
@@ -373,8 +477,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductStorePromoAppl" short-description="Update ProductStorePromoAppl">
-        <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStorePromoAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_UPDATE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductStorePromoAppl" value-field="lookupPKMap"/>
@@ -384,8 +492,12 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductStorePromoAppl" short-description="Delete ProductStorePromoAppl">
-        <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStorePromoAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
-        <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
+        <check-permission permission="CATALOG" action="_DELETE">
+            <fail-property resource="ProductUiLabels" property="ProductCatalogDeletePermissionError"/>
+        </check-permission>
+        <check-permission permission="CATALOG_PRICE_MAINT">
+            <fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProductStorePromoAppl" value-field="lookupPKMap"/>
