@@ -2108,6 +2108,10 @@
         <value xml:lang="hi_IN">बंद नकदी शेष</value>
         <value xml:lang="zh_TW">關閉現金餘額</value>
     </property>
+    <property key="AccountingCOGSCostingMethodIsNotSupported">
+        <value xml:lang="en">COGS costing method is not supported: ${partyAcctgPreference.cogsMethodId}</value>
+        <value xml:lang="it">Metodo costi COGS non è supportato: ${partyAcctgPreference.cogsMethodId}</value>
+    </property>
     <property key="AccountingComments">
         <value xml:lang="ar">تعاليق</value>
         <value xml:lang="de">Kommentare</value>
@@ -5191,6 +5195,10 @@
         <value xml:lang="en">The amount value is mandatory</value>
         <value xml:lang="it">L'importo fattura è obbligatorio</value>
     </property>
+    <property key="AccountingInvoiceBadInvoiceType">
+        <value xml:lang="en">Bad invoiceTypeId ${invoiceType.invoiceTypeId}. Service createAcctgTransForCustomerReturnInvoice for type CUST_RTN_INVOICE.</value>
+        <value xml:lang="it">Tipo fattura errato ${invoiceType.invoiceTypeId}. Il servizio createAcctgTransForCustomerReturnInvoice vuole il tipo CUST_RTN_INVOICE.</value>
+    </property>
     <property key="AccountingInvoiceCancelledCannotApplyTo">
         <value xml:lang="ar">الفاتورة  [${invoiceId}] قد ألغيت, لا يمكن تطبيقها على</value>
         <value xml:lang="de">Rechnung [${invoiceId}] ist storniert und kann nicht zugewiesen werden...</value>
@@ -7082,6 +7090,10 @@
         <value xml:lang="en">Not a deposit financial account transaction.</value>
         <value xml:lang="hi_IN">जमा वित्तीय खाता गतिविधि नहीं है</value>
     </property>
+    <property key="AccountingNotFindAccountingInventory">
+        <value xml:lang="en">Could not find enough accounting inventory for product ${inventoryItem.productId}; remaining quantity: ${remainingQuantity}</value>
+        <value xml:lang="it">Non è possibile trovare abbastanza inventario contabile per il prodotto ${inventoryItem.productId}; quantità rimanente: ${remainingQuantity}ै</value>
+    </property>
     <property key="AccountingNotModificationRecrationGlAccount">
         <value xml:lang="ar">لا يمكن تعيير هذا دون إعادة إستحداث حساب المحاسبي</value>
         <value xml:lang="de">Diese Einstellung kann nicht ohne Neuerstellung des HB Kontos geändert werden</value>
@@ -8759,6 +8771,10 @@
         <value xml:lang="th">แจ้งรายการ</value>
         <value xml:lang="zh">交易过账</value>
         <value xml:lang="zh_TW">交易過賬</value>
+    </property>
+    <property key="AccountingPostedBalanceAlreadyPresent">
+        <value xml:lang="en">There is already a posted balance ${postedBalance} that doesn't match with the current one ${totalAmount}.</value>
+        <value xml:lang="it">C'è già un bilancio contabilizzato ${postedBalance} che non corrisponde con quello attuale ${totalAmount}.</value>
     </property>
     <property key="AccountingPostedTransactionTotals">
         <value xml:lang="de">Gebuchte Geamtsumme</value>
