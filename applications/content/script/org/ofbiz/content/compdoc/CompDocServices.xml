@@ -340,7 +340,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeContentRevision" short-description="Remove ContentRevision">
         <check-permission action="_DELETE" permission="CONTENTMGR">
-            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletPermission"/>
+            <fail-property resource="ContentUiLabels" property="ContentSecurityDeletePermission"/>
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentRevision" value-field="lookupKeyValue"/>
