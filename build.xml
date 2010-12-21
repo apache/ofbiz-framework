@@ -629,7 +629,9 @@ under the License.
         <mkdir dir="${basedir}/hot-deploy/${component-name}"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/config"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/data"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/data/helpdata"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/dtd"/>
+        <mkdir dir="${basedir}/hot-deploy/${component-name}/documents"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/entitydef"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/lib"/>
         <mkdir dir="${basedir}/hot-deploy/${component-name}/patches"/>
@@ -656,6 +658,12 @@ under the License.
             <filterset refid="replacePlaceholders"/>
         </copy>
         <copy file="${basedir}/framework/resources/templates/DemoData.xml" tofile="${basedir}/hot-deploy/${component-name}/data/${component-resource-name}DemoData.xml" encoding="utf-8">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/HELP.xml" tofile="${basedir}/hot-deploy/${component-name}/data/helpdata/HELP_${component-resource-name}.xml" encoding="utf-8">
+            <filterset refid="replacePlaceholders"/>
+        </copy>
+        <copy file="${basedir}/framework/resources/templates/document.xml" tofile="${basedir}/hot-deploy/${component-name}/documents/${component-resource-name}.xml" encoding="utf-8">
             <filterset refid="replacePlaceholders"/>
         </copy>
         <copy file="${basedir}/framework/resources/templates/entitymodel.xml" tofile="${basedir}/hot-deploy/${component-name}/entitydef/entitymodel.xml" encoding="utf-8">
