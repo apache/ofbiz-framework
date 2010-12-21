@@ -131,7 +131,7 @@ under the License.
                 
                 <if-empty field="parameters.taxPercentage">
                     <add-error>
-                        <fail-message message="Tax Authority was specified but no Tax Percentage passed in, and could not find one in the Tax Authority Rate Product settings, so cannot handle price with tax included."/>
+                        <fail-property resource="ProductUiLabels" property="ProductPriceTaxPercentageNotFound"/>
                     </add-error>
                     <check-errors/>
                 </if-empty>

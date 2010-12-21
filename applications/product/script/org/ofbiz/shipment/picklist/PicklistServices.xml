@@ -680,7 +680,7 @@ under the License.
             <log level="info" message="Not Creating Picklist with ID, nothing to process."/>
             <!-- return error messages saying no orders ready to pick, not creating picklist -->
             <add-error>
-                <fail-message message="No orders ready to pick, not creating picklist."/>
+                <fail-property resource="ProductUiLabels" property="FacilityNoOrdersReadyToPick"/>
             </add-error>
             <check-errors/>
         </else>

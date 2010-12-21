@@ -24,7 +24,9 @@ under the License.
     <simple-method method-name="prepareProductDimensionData" short-description="">
         <entity-one entity-name="Product" value-field="product"/>
         <if-empty field="product">
-            <add-error><fail-message message="Product with id [${productId}] doesn't exist."/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductNotFoundWithProduct"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         <make-value value-field="productDimension" entity-name="ProductDimension"/>
