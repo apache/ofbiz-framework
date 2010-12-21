@@ -537,7 +537,9 @@ under the License.
                 <get-related-one relation-name="ProductStore" to-value-field="productStore" value-field="facility"/>
                 <set field="organizationPartyId" from-field="productStore.ownerPartyId"/>
                 <if-empty field="organizationPartyId">
-                    <add-error error-list-name="error_list"><fail-message message="Owner Party is missing, please provide any of the Inventory Owner or Facility Owner or ProductStore Owner."/></add-error>
+                    <add-error error-list-name="error_list">
+                        <fail-property resource="ProductUiLabels" property="ProductOwnerPartyIsMissing"/>
+                    </add-error>
                 </if-empty>
                 <check-errors/>
             </if-empty>

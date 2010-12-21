@@ -82,7 +82,9 @@ under the License.
                     </and>
                 </condition>
                 <then>
-                    <add-error><fail-message message="Tried to receive a serialized inventory item with serialNumber [${parameters.serialNumber}] or inventoryItemId [${parameters.currentInventoryItemId}] passed in and quantityAccepted [${parameters.quantityAccepted}] was greater than 1; we don't know what to do with that!"/></add-error>
+                    <add-error>
+                        <fail-property resource="ProductUiLabels" property="FacilityReceiveInventoryProduct"/>
+                    </add-error>
                 </then>
             </if>
 

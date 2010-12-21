@@ -143,6 +143,10 @@
         <value xml:lang="en">No Grouping</value>
         <value xml:lang="it">Nessun raggruppamento</value>
     </property>
+    <property key="FacilityNoOrdersReadyToPick">
+        <value xml:lang="en">No orders ready to pick, not creating picklist.</value>
+        <value xml:lang="it">Nessun ordine pronto da prelevare.</value>
+    </property>
     <property key="FacilityNoOtherShippingMethods">
         <value xml:lang="de">Benutze Voreinstellung: Keine anderen Liefermethoden verfügbar</value>
         <value xml:lang="en">Use Default: No other shipping methods available.</value>
@@ -168,6 +172,10 @@
         <value xml:lang="it">3 righe o più</value>
         <value xml:lang="zh">明细大于等于3</value>
         <value xml:lang="zh_TW">項目數量大於3</value>
+    </property>
+    <property key="FacilityReceiveInventoryProduct">
+        <value xml:lang="en">Tried to receive a serialized inventory item with serialNumber ${parameters.serialNumber} or inventoryItemId ${parameters.currentInventoryItemId} passed in and quantityAccepted ${parameters.quantityAccepted} was greater than 1; we don't know what to do with that!</value>
+        <value xml:lang="it">Tentativo di ricevere una riga di inventario serializzata con un numero seriale ${parameters.serialNumber} o riga inventario ${parameters.currentInventoryItemId} passata e quantità accettata ${parameters.quantityAccepted} è maggiore di 1; non sappiamo come trattarlo!</value>
     </property>
     <property key="FacilitySelectOptionsToGroupBy">
         <value xml:lang="en">Select Options To Group</value>
@@ -16770,6 +16778,10 @@
         <value xml:lang="zh">订单状态</value>
         <value xml:lang="zh_TW">訂單狀態</value>
     </property>
+    <property key="ProductOwnerPartyIsMissing">
+        <value xml:lang="en">Owner Party is missing</value>
+        <value xml:lang="it">Soggetto proprietario è mancante</value>
+    </property>
     <property key="ProductPackItem">
         <value xml:lang="de">Position verpacken</value>
         <value xml:lang="en">Pack Item</value>
@@ -17501,6 +17513,10 @@
         <value xml:lang="en">Add a New Condition</value>
         <value xml:lang="fr">Ajout d'une condition</value>
         <value xml:lang="zh_TW">增加一個新條件</value>
+    </property>
+    <property key="ProductPriceTaxPercentageNotFound">
+        <value xml:lang="en">Tax Authority was specified but no Tax Percentage passed in, and could not find one in the Tax Authority Rate Product settings, so cannot handle price with tax included.</value>
+        <value xml:lang="it">Un'autorità tasse è stata specificata ma nessuna percentuale di tasse è stata presente, e potrebbe non trovarla nelle impostazioni su Tax Authority Rate Product, così non è possibile trattare il prezzo con tasse incluse.</value>
     </property>
     <property key="ProductPriceTitle1">
         <value xml:lang="en">Price charge</value>
