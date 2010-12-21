@@ -185,7 +185,11 @@
                 </and>
             </condition>
             <then>
-                <add-error><fail-message message="Question type ENUMERATION requires enumTypeId to be set"/></add-error>
+                <add-error>
+                    <set field="questionType" value="ENUMERATION"/>
+                    <set field="requiredField" value="enumTypeId"/>
+                    <fail-property resource="ContentUiLabels" property="ContentQuestionTypeRequiredField"/>
+                </add-error>
             </then>
         </if>
         <if>
@@ -196,7 +200,11 @@
                 </and>
             </condition>
             <then>
-                <add-error><fail-message message="Question type GEO requires geoId to be set"/></add-error>
+                <add-error>
+                    <set field="questionType" value="GEO"/>
+                    <set field="requiredField" value="geoId"/>
+                    <fail-property resource="ContentUiLabels" property="ContentQuestionTypeRequiredField"/>
+                </add-error>
             </then>
         </if>
         <check-errors/>
@@ -219,7 +227,11 @@
                 </and>
             </condition>
             <then>
-                <add-error><fail-message message="Question type ENUMERATION requires enumTypeId to be set"/></add-error>
+                <add-error>
+                    <set field="questionType" value="ENUMERATION"/>
+                    <set field="requiredField" value="enumTypeId"/>
+                    <fail-property resource="ContentUiLabels" property="ContentQuestionTypeRequiredField"/>
+                </add-error>
             </then>
         </if>
         <if>
@@ -230,7 +242,11 @@
                 </and>
             </condition>
             <then>
-                <add-error><fail-message message="Question type GEO requires geoId to be set"/></add-error>
+                <add-error>
+                    <set field="questionType" value="GEO"/>
+                    <set field="requiredField" value="geoId"/>
+                    <fail-property resource="ContentUiLabels" property="ContentQuestionTypeRequiredField"/>
+                </add-error>
             </then>
         </if>
         <check-errors/>
@@ -405,7 +421,7 @@
         <entity-one entity-name="Survey" value-field="survey" use-cache="true"/>
         <if-empty field="survey">
             <add-error>
-                <fail-message message="No survey found for survey ID: ${surveyLookup.surveyId}"/>
+                <fail-property resource="ContentUiLabels" property="ContentNoSurveyFound"/>
             </add-error>
             <check-errors/>
         </if-empty>
@@ -415,14 +431,18 @@
             <field-map field-name="surveyId" from-field="survey.surveyId"/>
         </entity-and>
         <if-empty field="surveyQuestionAndApplList">
-            <add-error><fail-message message="No questions found for survey ID: ${survey.surveyId}"/></add-error>
+            <add-error>
+                <fail-property resource="ContentUiLabels" property="ContentNoQuestionsSurveyFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 
         <!-- check if anonymous is allowed and if not that we have a partyId -->
         <if-compare field="survey.isAnonymous" operator="not-equals" value="Y">
             <if-empty field="parameters.partyId">
-                <add-error><fail-message message="Anonymous response to this survey is not allowed (you must be logged in)"/></add-error>
+                <add-error>
+                    <fail-property resource="ContentUiLabels" property="ContentSurveyAnonymousResponse"/>
+                </add-error>
                 <check-errors/>
             </if-empty>
         </if-compare>
@@ -436,7 +456,9 @@
                 </entity-and>
                 <if-not-empty field="existingResponses">
                     <if-compare field="survey.allowUpdate" operator="not-equals" value="Y">
-                        <add-error><fail-message message="You have already responded to this survey; multiple responses are not allowed"/></add-error>
+                        <add-error>
+                            <fail-property resource="ContentUiLabels" property="ContentSurveyAlreadyResponded"/>
+                        </add-error>
                         <check-errors/>
                     </if-compare>
                 </if-not-empty>
@@ -444,7 +466,9 @@
         </if-compare>
         <!-- make sure we have answers to check -->
         <if-empty field="parameters.answers">
-            <add-error><fail-message message="No answers were found"/></add-error>
+            <add-error>
+                <fail-property resource="ContentUiLabels" property="ContentSurveyAnswersNotFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <set field="answers" from-field="parameters.answers"/>
@@ -565,7 +589,9 @@
         <!-- see if response is required -->
         <if-compare field="surveyQuestionAndAppl.requiredField" operator="equals" value="Y">
             <if-empty field="${answerFieldName}">
-                <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a response."/></add-error>
+                <add-error>
+                    <fail-property resource="ContentUiLabels" property="ContentSurveyQuestionRequiresAResponse"/>
+                </add-error>
             </if-empty>
         </if-compare>
 
@@ -573,7 +599,9 @@
         <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CREDIT_CARD">
             <if-validate-method field="${answerFieldName}" method="isCreditCard">
                 <else>
-                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid credit-card number."/></add-error>
+                    <add-error>
+                        <fail-property resource="ContentUiLabels" property="ContentSurveyQuestionRequiresAValidCreditCardNumber"/>
+                    </add-error>
                 </else>
             </if-validate-method>
         </if-compare>
@@ -590,7 +618,9 @@
             <if-compare field="codeOk" value="true" operator="not-equals">
                 <if-validate-method field="${answerFieldName}" method="isGiftCard">
                     <else>
-                        <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid gift-card number."/></add-error>
+                        <add-error>
+                               <fail-property resource="ContentUiLabels" property="ContentSurveyQuestionRequiresAValidGiftCardNumber"/>
+                        </add-error>
                     </else>
                 </if-validate-method>
             </if-compare>
@@ -598,42 +628,54 @@
         <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="DATE">
             <if-validate-method field="${answerFieldName}" method="isDate">
                 <else>
-                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid date string (mm/dd/yyyy)."/></add-error>
+                    <add-error>
+                           <fail-property resource="ContentUiLabels" property="ContentSurveyQuestionRequiresAValidDate"/>
+                    </add-error>
                 </else>
             </if-validate-method>
         </if-compare>
         <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="EMAIL">
             <if-validate-method field="${answerFieldName}" method="isEmail">
                 <else>
-                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid email address."/></add-error>
+                    <add-error>
+                        <fail-property resource="ContentUiLabels" property="ContentSurveyQuestionRequiresAValidEmailAddress"/>
+                    </add-error>
                 </else>
             </if-validate-method>
         </if-compare>
         <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_CURRENCY">
             <if-validate-method field="${answerFieldName}" method="isSignedDouble">
                 <else>
-                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid currency amount."/></add-error>
+                    <add-error>
+                           <fail-property resource="ContentUiLabels" property="ContentSurveyQuestionRequiresAValidCurrencyAmount"/>
+                    </add-error>
                 </else>
             </if-validate-method>
         </if-compare>
         <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_FLOAT">
             <if-validate-method field="${answerFieldName}" method="isSignedDouble">
                 <else>
-                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid decimal number."/></add-error>
+                    <add-error>
+                        <fail-property resource="ContentUiLabels" property="ContentSurveyQuestionRequiresAValidDecimalNumber"/>
+                    </add-error>
                 </else>
             </if-validate-method>
         </if-compare>
         <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="NUMBER_LONG">
             <if-validate-method field="${answerFieldName}" method="isSignedLong">
                 <else>
-                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid whole number."/></add-error>
+                    <add-error>
+                        <fail-property resource="ContentUiLabels" property="ContentSurveyQuestionRequiresAValidWholeNumber"/>
+                    </add-error>
                 </else>
             </if-validate-method>
         </if-compare>
         <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="URL">
             <if-validate-method field="${answerFieldName}" method="isUrl">
                 <else>
-                    <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a valid URL."/></add-error>
+                    <add-error>
+                        <fail-property resource="ContentUiLabels" property="ContentSurveyQuestionRequiresAValidURL"/>
+                    </add-error>
                 </else>
             </if-validate-method>
         </if-compare>

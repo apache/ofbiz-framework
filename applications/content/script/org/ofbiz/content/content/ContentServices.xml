@@ -124,7 +124,9 @@
             </entity-one>
 
             <if-empty field="statusChange">
-                <add-error><fail-message message="Cannot change from ${content.statusId} to ${parameters.statusId}"/></add-error>
+                <add-error>
+                    <fail-property resource="ContentUiLabels" property="ContentCannotChangeStatus"/>
+                </add-error>
                 <log level="error" message="Cannot change from ${content.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>
@@ -734,7 +736,9 @@
             <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
         </entity-one>
         <if-empty field="dataResource">
-            <add-error><fail-message message="No data resource found for ID: [${parameters.dataResourceId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ContentUiLabels" property="ContentDataResourceNotFound"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 
@@ -861,7 +865,7 @@
         <find-by-primary-key value-field="commEventContentAssoc" map="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
         <if-empty field="commEventContentAssoc">
             <add-error>
-                <fail-message message="CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>
+                <fail-property resource="ContentUiLabels" property="ContenCommEventContentAssocNotFoundForUpdate"/>
             </add-error>
         </if-empty>
         <set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
@@ -874,7 +878,7 @@
         <find-by-primary-key value-field="commEventContentAssoc" map="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
         <if-empty field="commEventContentAssoc">
             <add-error>
-                <fail-message message="CommEventContentAssoc entity not found for removal, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>
+                <fail-property resource="ContentUiLabels" property="ContenCommEventContentAssocNotFoundForDelete"/>
             </add-error>
         </if-empty>
         <remove-value value-field="commEventContentAssoc"/>

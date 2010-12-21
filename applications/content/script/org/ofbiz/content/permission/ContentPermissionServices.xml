@@ -136,7 +136,9 @@
                     <set field="contentId" from-field="parameters.contentId"/>
                 </if-empty>
                 <if-empty field="contentId">
-                    <add-error><fail-message message="Content Permission Service VIEW requires a contentId!"/></add-error>
+                    <add-error>
+                        <fail-property resource="ContentUiLabels" property="ContentViewPermissionError"/>
+                    </add-error>
                 </if-empty>
                 <check-errors/>
 
@@ -290,7 +292,9 @@
             <set field="contentId" from-field="parameters.contentId"/>
         </if-empty>
         <if-empty field="contentId">
-            <add-error><fail-message message="Content Permission Service UPDATE requires a contentId!"/></add-error>
+            <add-error>
+                <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 
@@ -322,7 +326,9 @@
                     <field-map field-name="contentId"/>
                 </entity-one>
                 <if-empty field="thisContent">
-                    <add-error><fail-message message="Content record not found for ID [${contentId}]"/></add-error>
+                    <add-error>
+                        <fail-property resource="ContentUiLabels" property="ContentNoContentFound"/>
+                    </add-error>
                     <check-errors/>
                 </if-empty>
 
@@ -424,7 +430,10 @@
         <set field="hasPermission" type="Boolean" value="false"/>
 
         <if-empty field="contentOperationId">
-            <add-error><fail-message message="Required field 'contentOperationId' is missing in simple method call [checkContentOperationSecurity]"/></add-error>
+            <add-error>
+                <set field="requiredField" value="contentOperationId"/>
+                <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
+            </add-error>
         </if-empty>
 
         <if-empty field="contentPurposeTypeId">
@@ -625,7 +634,10 @@
         <set field="hasPermission" type="Boolean" value="false"/>
 
         <if-empty field="checkId">
-            <add-error><fail-message message="Required field 'checkId' is missing in simple method call [checkOwnership]"/></add-error>
+            <add-error>
+                <set field="requiredField" value="checkId"/>
+                <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
+            </add-error>
         </if-empty>
         <if-empty field="partyId">
             <set field="partyId" from-field="userLogin.partyId"/>
@@ -666,19 +678,31 @@
 
         <!-- roleEntity is required to determine which content role table to look: ContentRole, DataResourceRole, etc -->
         <if-empty field="roleEntity">
-            <add-error><fail-message message="Required field 'roleEntity' is missing in simple method call [checkRoleSecurity]"/></add-error>
+            <add-error>
+                <set field="requiredField" value="roleEntity"/>
+                <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
+            </add-error>
         </if-empty>
         <!-- roleEntityField is required to determine the pk field to check; contentId, dataResourceId, etc -->
         <if-empty field="roleEntityField">
-            <add-error><fail-message message="Required field 'roleEntityField' is missing in simple method call [checkRoleSecurity]"/></add-error>
+            <add-error>
+                <set field="requiredField" value="roleEntityField"/>
+                <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
+            </add-error>
         </if-empty>
         <!-- setting the env field contentId is required for this simple method -->
         <if-empty field="checkId">
-            <add-error><fail-message message="Required field 'checkId' is missing in simple method call [checkRoleSecurity]"/></add-error>
+            <add-error>
+                <set field="requiredField" value="checkId"/>
+                <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
+            </add-error>
         </if-empty>
         <!-- the party ID to check is required for this check -->
         <if-empty field="checkPartyId">
-            <add-error><fail-message message="Required field 'checkPartyId' is missing in simple method call [checkRoleSecurity]"/></add-error>
+            <add-error>
+                <set field="requiredField" value="checkPartyId"/>
+                <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 
@@ -757,7 +781,10 @@
     <!-- method to get the content purposes -->
     <simple-method method-name="findAllContentPurposes" short-description="Find all content purposes for the specified content">
         <if-empty field="checkId">
-            <add-error><fail-message message="Required field 'checkId' (contentId) is missing in simple method call [findAllContentPurposes]"/></add-error>
+            <add-error>
+                <set field="requiredField" value="checkId"/>
+                <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 
@@ -779,7 +806,10 @@
     <!-- method to get content associations -->
     <simple-method method-name="findAllParentContent" short-description="Finds all associated parent content">
         <if-empty field="contentId">
-            <add-error><fail-message message="Required field 'contentId' is missing in simple method call [findAllParentContent]"/></add-error>
+            <add-error>
+                <set field="requiredField" value="contentId"/>
+                <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 

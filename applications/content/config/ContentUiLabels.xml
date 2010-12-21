@@ -224,6 +224,10 @@
         <value xml:lang="zh">浏览</value>
         <value xml:lang="zh_TW">瀏覽</value>
     </property>
+    <property key="ContentCannotChangeStatus">
+        <value xml:lang="en">Cannot change from ${content.statusId} to ${parameters.statusId}</value>
+        <value xml:lang="it">Non è possibile cambiare lo stato da ${content.statusId} a ${parameters.statusId}</value>
+    </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
         <value xml:lang="da">CMS</value>
@@ -771,6 +775,10 @@
         <value xml:lang="zh">图像</value>
         <value xml:lang="zh_TW">圖像</value>
     </property>
+    <property key="ContentDataResourceNotFound">
+        <value xml:lang="en">No data resource found for ID: ${parameters.dataResourceId}</value>
+        <value xml:lang="it">Nessuna risorsa dati trovata con ID: ${parameters.dataResourceId}</value>
+    </property>
     <property key="ContentDataResourceProductFeatures">
         <value xml:lang="ar">سمات المنتوج</value>
         <value xml:lang="da">Produktegenskaber</value>
@@ -845,6 +853,10 @@
         <value xml:lang="zh">数据类型</value>
         <value xml:lang="zh_TW">資料類型</value>
     </property>
+    <property key="ContentDataTypeNotYetSupported">
+        <value xml:lang="en">Data type ${dataResourceTypeId} is not yet supported!</value>
+        <value xml:lang="it">Tipo dati ${dataResourceTypeId} non è ancora supportato!</value>
+    </property>
     <property key="ContentDecorator">
         <value xml:lang="da">Dekoration</value>
         <value xml:lang="en">Decorator</value>
@@ -899,6 +911,18 @@
         <value xml:lang="it">Aggiorna ultima revisione</value>
         <value xml:lang="zh">编辑最新修订</value>
         <value xml:lang="zh_TW">編輯最新修訂</value>
+    </property>
+    <property key="ContentElectronicTextNotFound">
+        <value xml:lang="en">Electronic Text not found.</value>
+        <value xml:lang="it">Electronic Text non trovato.</value>
+    </property>
+    <property key="ContenCommEventContentAssocNotFoundForUpdate">
+        <value xml:lang="en">CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
+        <value xml:lang="it">Entità CommEventContentAssoc non trovata da aggiornare, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
+    </property>
+    <property key="ContenCommEventContentAssocNotFoundForDelete">
+        <value xml:lang="en">CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
+        <value xml:lang="it">Entità CommEventContentAssoc non trovata da cancellare, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
     </property>
     <property key="ContentFile">
         <value xml:lang="ar">ملف</value>
@@ -1338,6 +1362,10 @@
         <value xml:lang="zh">导航</value>
         <value xml:lang="zh_TW">導航</value>
     </property>
+    <property key="ContentNeitherContentSupplied">
+        <value xml:lang="en">Neither content nor contentId supplied.</value>
+        <value xml:lang="it">Nessuno contenuto specificato.</value>
+    </property>
     <property key="ContentNewContentInFolder">
         <value xml:lang="da">Nyt indhold i folder</value>
         <value xml:lang="de">New Content in Folder</value>
@@ -1357,6 +1385,22 @@
         <value xml:lang="th">สร้างกล่องใหม่</value>
         <value xml:lang="zh">新建文件夹</value>
         <value xml:lang="zh_TW">新建文件夾</value>
+    </property>
+    <property key="ContentNoContentFound">
+        <value xml:lang="en">Content record not found for ID ${contentId}</value>
+        <value xml:lang="it">Contenuto non trovato per ID ${contentId}</value>
+    </property>
+    <property key="ContentNoQuestionsSurveyFound">
+        <value xml:lang="en">No questions found for survey ID: ${survey.surveyId}</value>
+        <value xml:lang="it">Nessuna domanda sondaggio trovata con ID: ${surveyLookup.surveyId}</value>
+    </property>
+    <property key="ContentNoSurveyFound">
+        <value xml:lang="en">No survey found for survey ID: ${surveyLookup.surveyId}</value>
+        <value xml:lang="it">Nessun sondaggio trovato con ID: ${surveyLookup.surveyId}</value>
+    </property>
+    <property key="ContentNoUploadedContentFound">
+        <value xml:lang="en">No uploaded content found in context</value>
+        <value xml:lang="it">Nessun contenuto caricato trovato</value>
     </property>
     <property key="ContentOtherLayout">
         <value xml:lang="ar">الوضعيات الأخرى المستعملة لهذا المحتوى التحتي</value>
@@ -1483,6 +1527,10 @@
         <value xml:lang="zh">输入查询参数</value>
         <value xml:lang="zh_TW">輸入查詢參數</value>
     </property>
+    <property key="ContentQuestionTypeRequiredField">
+        <value xml:lang="en">Question type ${questionType} requires ${requiredField} to be set</value>
+        <value xml:lang="it">Tipo domanda ${questionType} richiede ${requiredField} di essere impostato</value>
+    </property>
     <property key="ContentQuickSubContent">
         <value xml:lang="da">Hurtig sub indhold</value>
         <value xml:lang="de">Rasch untergeordneter Inhalt</value>
@@ -1510,6 +1558,10 @@
         <value xml:lang="th">เปลี่ยนชื่อกล่อง</value>
         <value xml:lang="zh">重命名文件夹</value>
         <value xml:lang="zh_TW">重命名文件夾</value>
+    </property>
+    <property key="ContentRequiredField">
+        <value xml:lang="en">Required field ${requiredField} is missing in simple method call ${resourceDescription}</value>
+        <value xml:lang="it">Campo ${requiredField} è richiesto ed è mancante nella chiamata a ${resourceDescription}</value>
     </property>
     <property key="ContentResourceAudio">
         <value xml:lang="da">Audio</value>
@@ -1593,7 +1645,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_CREATE o CONTENTMGR_ADMIN</value>
     </property>
-    <property key="ContentSecurityDeletPermission">
+    <property key="ContentSecurityDeletePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_DELETE o CONTENTMGR_ADMIN</value>
     </property>
@@ -1648,6 +1700,18 @@
         <value xml:lang="ru">Итоги</value>
         <value xml:lang="th">สรุป</value>
         <value xml:lang="zh">摘要</value>
+    </property>
+    <property key="ContentSurveyAlreadyResponded">
+        <value xml:lang="en">You have already responded to this survey; multiple responses are not allowed</value>
+        <value xml:lang="it">Tu hai già risposto a questo sondaggio; risposte multiple non sono consentite</value>
+    </property>
+    <property key="ContentSurveyAnonymousResponse">
+        <value xml:lang="en">Anonymous response to this survey is not allowed (you must be logged in)</value>
+        <value xml:lang="it">Risposta anonima per questo sondaggio non è consentita (ti devi autenticare)</value>
+    </property>
+    <property key="ContentSurveyAnswersNotFound">
+        <value xml:lang="en">No answers were found</value>
+        <value xml:lang="it">Nessuna risposta è stata trovata</value>
     </property>
     <property key="ContentSurveryCategory">
         <value xml:lang="ar">فئة</value>
@@ -1940,6 +2004,42 @@
         <value xml:lang="th">คำถาม</value>
         <value xml:lang="zh">问题</value>
         <value xml:lang="zh_TW">問題</value>
+    </property>
+    <property key="ContentSurveyQuestionRequiresAResponse">
+        <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a response.</value>
+        <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una risposta.</value>
+    </property>
+    <property key="ContentSurveyQuestionRequiresAValidCreditCardNumber">
+        <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid credit-card number.</value>
+        <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una carta di credito valida.</value>
+    </property>
+    <property key="ContentSurveyQuestionRequiresAValidCurrencyAmount">
+        <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid currency amount.</value>
+        <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un'importo in valuta valido.</value>
+    </property>
+    <property key="ContentSurveyQuestionRequiresAValidDate">
+        <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid date string (mm/dd/yyyy).</value>
+        <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una data valida (mm/gg/aaaa).</value>
+    </property>
+    <property key="ContentSurveyQuestionRequiresAValidDecimalNumber">
+        <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid decimal number.</value>
+        <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un numero con decimali valido.</value>
+    </property>
+    <property key="ContentSurveyQuestionRequiresAValidEmailAddress">
+        <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid email address.</value>
+        <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un'indirizzo e-mail valido.</value>
+    </property>
+    <property key="ContentSurveyQuestionRequiresAValidGiftCardNumber">
+        <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid gift-card number.</value>
+        <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una carta regalo valida.</value>
+    </property>
+    <property key="ContentSurveyQuestionRequiresAValidURL">
+        <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid URL.</value>
+        <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un URL valido.</value>
+    </property>
+    <property key="ContentSurveyQuestionRequiresAValidWholeNumber">
+        <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid whole number.</value>
+        <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un numero intero valido.</value>
     </property>
     <property key="ContentSurveyResponse">
         <value xml:lang="ar">جواب</value>
