@@ -446,15 +446,15 @@ function setLookDescription(textFieldId, description, params, formName) {
                 dependentField.val(dependentFieldValue);
             }
         }
-    }
-    var lookupWrapperEl = jQuery("#" + textFieldId).closest('.field-lookup');
-    if (lookupWrapperEl.length) {
-        tooltipElement = jQuery("#" + textFieldId + '_lookupDescription')
-        if (!tooltipElement.length) {
-            tooltipElement = jQuery("<span id='" + textFieldId + "_lookupDescription' class='tooltip'></span>");
-        }
-        tooltipElement.html(description);
-        lookupWrapperEl.append(tooltipElement);
+      var lookupWrapperEl = jQuery("#" + textFieldId).closest('.field-lookup');
+      if (lookupWrapperEl.length) {
+          tooltipElement = jQuery("#" + textFieldId + '_lookupDescription')
+          if (!tooltipElement.length) {
+              tooltipElement = jQuery("<span id='" + textFieldId + "_lookupDescription' class='tooltip'></span>");
+          }
+          tooltipElement.html(description);
+          lookupWrapperEl.append(tooltipElement);
+      }
     }
 }
 
