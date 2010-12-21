@@ -8968,6 +8968,10 @@
         <value xml:lang="zh">按产品</value>
         <value xml:lang="zh_TW">按產品</value>
     </property>
+    <property key="ProductCannotAssociatedToContent">
+        <value xml:lang="en">Cannot add this Content: you are not associated with it as an Owner</value>
+        <value xml:lang="it">Non è possibile aggiungere questo contenuto: questo non è associato con un proprietario</value>
+    </property>
     <property key="ProductCannotReviewUnKnownProduct">
         <value xml:lang="cs">Nemůžete hodnotit neznámý produkt</value>
         <value xml:lang="de">Sie können ein unbekanntes Produkt nicht beurteilen</value>
@@ -15058,6 +15062,10 @@
         <value xml:lang="th">รายการสั่งซื้อมากมายสำหรับสินค้านี้</value>
         <value xml:lang="zh">对于这个产品有多个订单明细</value>
         <value xml:lang="zh_TW">對于這個產品有多個訂單明細</value>
+    </property>
+    <property key="ProductMustBeAssociatedWithSupplier">
+        <value xml:lang="en">Cannot update this Product: you are not associated with it as the Supplier</value>
+        <value xml:lang="it">Non è possibile aggiornare questo prodotto: questo non è associato con un fornitore</value>
     </property>
     <property key="ProductName">
         <value xml:lang="de">Name</value>

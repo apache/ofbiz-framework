@@ -47,14 +47,18 @@ under the License.
                 </not>
             </condition>
             <then>
-                <add-error><fail-message message="Security Error: to run ${callingMethodName} you must have the CATALOG_${checkAction} or CATALOG_ADMIN or FACILITY_${checkAction} or FACILITY_ADMIN permission."/></add-error>
+                <add-error>
+                    <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+                </add-error>
             </then>
         </if>
     </simple-method>
     <simple-method method-name="facilityGenericPermission" short-description="Main permission logic">
         <set field="mainAction" from-field="parameters.mainAction"/>
         <if-empty field="mainAction">
-            <add-error><fail-message message="In the permission-service element for the facilityGenericPermission service the main-action attribute was missing but is required"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductMissingMainActionInPermissionService"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 

@@ -73,7 +73,9 @@ under the License.
         <entity-one entity-name="SupplierProduct" value-field="supplierProduct"/>
 
         <if-empty field="supplierProduct">
-            <add-error><fail-message message="Cannot update this Product: you are not associated with it as the Supplier"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductMustBeAssociatedWithSupplier"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 
@@ -117,7 +119,9 @@ under the License.
         </entity-and>
 
         <if-empty field="supplierProductList">
-            <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductMustBeAssociatedWithSupplier"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 
@@ -145,7 +149,9 @@ under the License.
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
         <if-empty field="supplierProductList">
-            <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductMustBeAssociatedWithSupplier"/>
+            </add-error>
         </if-empty>
 
         <!-- make sure there is a ContentRole for userLogin.partyId and parameters.contentId and roleTypeId=OWNER -->
@@ -155,7 +161,9 @@ under the License.
             <field-map field-name="roleTypeId" value="OWNER"/>
         </entity-and>
         <if-empty field="contentRoleList">
-            <add-error><fail-message message="Cannot add this Content: you are not associated with it as an Owner"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductCannotAssociatedToContent"/>
+            </add-error>
         </if-empty>
 
         <check-errors/>
@@ -177,7 +185,9 @@ under the License.
         </entity-and>
 
         <if-empty field="supplierProductList">
-            <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductMustBeAssociatedWithSupplier"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 
