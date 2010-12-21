@@ -173,8 +173,8 @@ under the License.
 
         <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="not-equals" value="0" type="BigDecimal">
             <add-error>
-			    <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlJournalTrialBalanceFailed"/>
-			</add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlJournalTrialBalanceFailed"/>
+            </add-error>
             <check-errors/>
         </if-compare>
 
@@ -236,8 +236,8 @@ under the License.
         <entity-one entity-name="AcctgTransEntry" value-field="acctgTransEntry"/>
         <if-compare field="acctgTransEntry.reconcileStatusId" operator="equals" value="AES_RECONCILED">
             <add-error>
-			    <fail-property resource="AccountingUiLabels" property="AccountingNotReconcilingTransEntryAlreadyReconciled"/>
-			</add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNotReconcilingTransEntryAlreadyReconciled"/>
+            </add-error>
             <check-errors/>
         </if-compare>
         <make-value entity-name="GlReconciliationEntry" value-field="newEntity"/>
@@ -282,7 +282,9 @@ under the License.
     <simple-method method-name="completeAcctgTransEntries" short-description="Completes, if possible, the AcctgTransEntries using the mappings defined in the gl setup">
         <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/>
+            </add-error>
             <check-errors/>
         </if-compare>
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntries"/>
@@ -657,8 +659,8 @@ under the License.
         <get-related value-field="customTimePeriod" relation-name="ChildCustomTimePeriod" list="openChildTimePeriods" map="openTimePeriodCondition"/>
         <iterate list="openChildTimePeriods" entry="openChildTimePeriod">
             <add-error>
-			    <fail-property resource="AccountingUiLabels" property="AccountingNoCustomTimePeriodClosedChild"/>
-			</add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNoCustomTimePeriodClosedChild"/>
+            </add-error>
         </iterate>
         <check-errors/>
         <!-- retrieve the last closed date for the same type of time period -->
@@ -670,8 +672,8 @@ under the License.
         </call-service>
         <if-empty field="lastClosedDate">
             <add-error>
-			    <fail-property resource="AccountingUiLabels" property="AccountingNoCustomTimePeriodClosedForClosedDate"/>
-			</add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNoCustomTimePeriodClosedForClosedDate"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         <entity-one entity-name="GlAccountClass" value-field="expenseGlAccountClass">
@@ -789,7 +791,9 @@ under the License.
                 <field field="profitLossAccountHistory" type="GenericValue"/>
             </call-class-method>
             <if-compare-field field="postedBalance" to-field="totalAmount" operator="not-equals" type="BigDecimal">
-                <add-error><fail-message message="There is already a posted balance [${postedBalance}] that doesn't match with the current one [${totalAmount}]."/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingPostedBalanceAlreadyPresent"/>
+                </add-error>
             </if-compare-field>
             <check-errors/>
         <else>
@@ -1167,7 +1171,9 @@ under the License.
                     <set value="-datetimeReceived" field="orderByString"/>
                 </if-compare>
                 <if-empty field="orderByString">
-                    <add-error><fail-message message="COGS costing method is not supported: ${partyAcctgPreference.cogsMethodId}"/></add-error>
+                    <add-error>
+                        <fail-property resource="AccountingUiLabels" property="AccountingCOGSCostingMethodIsNotSupported"/>
+                    </add-error>
                     <check-errors/>
                 </if-empty>
                 <entity-condition entity-name="InventoryItem" list="costInventoryItems">
@@ -1224,7 +1230,9 @@ under the License.
                     </if-compare>
                 </iterate>
                 <if-compare field="remainingQuantity" operator="greater" value="0.0" type="BigDecimal">
-                    <add-error><fail-message message="Could not find enough accounting inventory for product [${inventoryItem.productId}]; remaining quantity: ${remainingQuantity}"/></add-error>
+                    <add-error>
+                        <fail-property resource="AccountingUiLabels" property="AccountingNotFindAccountingInventory"/>
+                    </add-error>
                     <check-errors/>
                 </if-compare>
             </else>
@@ -2013,7 +2021,9 @@ under the License.
             <field-to-result field="acctgTransId" result-name="acctgTransId"/>
         <else>
             <!-- This invoice is not a Customer Return. Return error -->
-            <add-error><fail-message message="Bad invoiceTypeId [${invoiceType.invoiceTypeId}]. Service createAcctgTransForCustomerReturnInvoice for type CUST_RTN_INVOICE."/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceBadInvoiceType"/>
+            </add-error>
         </else>
         </if-compare>
     </simple-method>
@@ -2738,7 +2748,9 @@ under the License.
                     <log level="info" message="GlAccountCategoryMember expired for [${glAccountCategoryId}] and [${glAccountId}]"/>
                 </if-not-empty>
             <else>
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingTotalAmountPercentageIsNotEqualOneHundred"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingTotalAmountPercentageIsNotEqualOneHundred"/>
+                </add-error>
                 <check-errors/>
             </else>
             </if-compare>
@@ -2928,7 +2940,9 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/>
+                </add-error>
                 <log level="error" message="Cannot change from ${glReconciliation.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
             <else>
