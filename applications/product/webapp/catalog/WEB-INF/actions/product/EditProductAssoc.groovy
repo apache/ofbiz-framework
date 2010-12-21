@@ -49,7 +49,7 @@ fromDateStr = parameters.FROM_DATE;
 
 fromDate = null;
 if (UtilValidate.isNotEmpty(fromDateStr)) {
-    fromDate = Timestamp.valueOf(fromDateStr);
+    fromDate = ObjectType.simpleTypeConvert(fromDateStr, "Timestamp", null, UtilHttp.getTimeZone(request), UtilHttp.getLocale(request), false);
 }
 if (!fromDate) {
     fromDate = request.getAttribute("ProductAssocCreateFromDate");
