@@ -20,29 +20,29 @@
 def module = "AcctgTransEntriesSearchResultsParameters.groovy";
 
 try {
-	def birtParameters = [:];
-	birtParameters.organizationPartyId = parameters.organizationPartyId;
-	birtParameters.produtId = parameters.produtId;
-	birtParameters.isPosted = parameters.isPosted;
-	birtParameters.invoiceId = parameters.invoiceId;
-	birtParameters.acctgTransId = parameters.acctgTransId;
-	birtParameters.glFiscalTypeId = parameters.glFiscalTypeId;
-	birtParameters.glAccountId = parameters.glAccountId;
-	birtParameters.shipmentId = parameters.shipmentId;
-	birtParameters.acctgTransTypeId = parameters.acctgTransTypeId;
-	birtParameters.workEffortId = parameters.workEffortId;
-	birtParameters.glJournalId = parameters.glJournalId;
-	birtParameters.partyId = parameters.partyId;
-	birtParameters.paymentId = parameters.paymentId;
-	if (parameters.fromDate) {
-	    birtParameters.fromDate = Timestamp.valueOf(parameters.fromDate);
-	}
-	if (parameters.thruDate) {
-	    birtParameters.thruDate = Timestamp.valueOf(parameters.thruDate);
-	}
-	birtParameters.userLoginId = userLogin.userLoginId;
-	request.setAttribute("birtParameters", birtParameters);
+    def birtParameters = [:];
+    birtParameters.organizationPartyId = parameters.organizationPartyId;
+    birtParameters.produtId = parameters.produtId;
+    birtParameters.isPosted = parameters.isPosted;
+    birtParameters.invoiceId = parameters.invoiceId;
+    birtParameters.acctgTransId = parameters.acctgTransId;
+    birtParameters.glFiscalTypeId = parameters.glFiscalTypeId;
+    birtParameters.glAccountId = parameters.glAccountId;
+    birtParameters.shipmentId = parameters.shipmentId;
+    birtParameters.acctgTransTypeId = parameters.acctgTransTypeId;
+    birtParameters.workEffortId = parameters.workEffortId;
+    birtParameters.glJournalId = parameters.glJournalId;
+    birtParameters.partyId = parameters.partyId;
+    birtParameters.paymentId = parameters.paymentId;
+    if (parameters.fromDate) {
+        birtParameters.fromDate = Timestamp.valueOf(parameters.fromDate);
+    }
+    if (parameters.thruDate) {
+        birtParameters.thruDate = Timestamp.valueOf(parameters.thruDate);
+    }
+    birtParameters.userLoginId = userLogin.userLoginId;
+    request.setAttribute("birtParameters", birtParameters);
 } catch (e) {
-	Debug.logError(e, module);
+    Debug.logError(e, module);
 }
 return "success";
