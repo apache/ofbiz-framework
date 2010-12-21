@@ -104,13 +104,25 @@ under the License.
 
         <!-- Make sure we have the glAccountId, glAccountIdOffset, organizationPartyId -->
         <if-empty field="quickCreateAcctgTransAndEntries.debitGlAccountId">
-            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find Debit glAccountId"/></add-error>
+            <add-error>
+                <set field="creditDebit" value="Debit"/>
+                <set field="requiredField" value="glAccountId"/>
+                <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountCannotPost"/>
+            </add-error>
         </if-empty>
         <if-empty field="quickCreateAcctgTransAndEntries.creditGlAccountId">
-            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find credit glAccountId"/></add-error>
+            <add-error>
+                <set field="creditDebit" value="credit"/>
+                <set field="requiredField" value="glAccountId"/>
+                <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountCannotPost"/>
+            </add-error>
         </if-empty>
         <if-empty field="organizationPartyId">
-            <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find organizationPartyId"/></add-error>
+            <add-error>
+                <set field="creditDebit" value=""/>
+                <set field="requiredField" value="organizationPartyId"/>
+                <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountCannotPost"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         <call-service service-name="quickCreateAcctgTransAndEntries" in-map-name="quickCreateAcctgTransAndEntries" include-user-login="true"/>

@@ -24,7 +24,9 @@ under the License.
     <simple-method method-name="loadSalesInvoiceFact" short-description="">
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-empty field="invoice">
-            <add-error><fail-message message="Invoice with id [${parameters.invoiceId}] doesn't exist."/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceDoesNotExists"/>
+            </add-error>
         </if-empty>
         <check-errors/>
         <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
@@ -48,10 +50,14 @@ under the License.
             <entity-one entity-name="InvoiceItem" value-field="invoiceItem"/>
         </if-empty>
         <if-empty field="invoice">
-            <add-error><fail-message message="Invoice with id [${parameters.invoiceId}] doesn't exist."/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceDoesNotExists"/>
+            </add-error>
         </if-empty>
         <if-empty field="invoiceItem">
-            <add-error><fail-message message="The Invoice Item with id [${parameters.invoiceItemSeqId}] doesn't exist."/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceItemDoesNotExists"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 

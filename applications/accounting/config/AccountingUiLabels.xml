@@ -4867,6 +4867,14 @@
         <value xml:lang="zh">总账账户</value>
         <value xml:lang="zh_TW">總帳科目</value>
     </property>
+    <property key="AccountingGlAccountNotSetForAccountType">
+        <value xml:lang="en">Gl account id is not set for ${acctgTransEntry.acctgTransEntrySeqId} or mapping not found for account type ${acctgTransEntry.glAccountTypeId}</value>
+        <value xml:lang="it">Conto contabilità generale non è impostato per ${acctgTransEntry.acctgTransEntrySeqId} o mappatura non trovata per il tipo conto ${acctgTransEntry.glAccountTypeId}</value>
+    </property>
+    <property key="AccountingGlAccountAmountNotSet">
+        <value xml:lang="en">Amount not set for ${acctgTransEntry.acctgTransEntrySeqId} or failed to convert the original amount ${acctgTransEntry.origAmount} with currency ${acctgTransEntry.origCurrencyUomId}</value>
+        <value xml:lang="it">Importo non impostato per ${acctgTransEntry.acctgTransEntrySeqId} o fallimento durante la conversion dell'importo originale ${acctgTransEntry.origAmount} con valuta ${acctgTransEntry.origCurrencyUomId}</value>
+    </property>
     <property key="AccountingGlAccountAssignments">
         <value xml:lang="ar">تعيينات الحساب المحاسبي</value>
         <value xml:lang="de">HB Kontenzuordnungen</value>
@@ -5179,6 +5187,10 @@
         <value xml:lang="zh">发票</value>
         <value xml:lang="zh_TW">發票</value>
     </property>
+    <property key="AccountingInvoiceAmountIsMandatory">
+        <value xml:lang="en">The amount value is mandatory</value>
+        <value xml:lang="it">L'importo fattura è obbligatorio</value>
+    </property>
     <property key="AccountingInvoiceCancelledCannotApplyTo">
         <value xml:lang="ar">الفاتورة  [${invoiceId}] قد ألغيت, لا يمكن تطبيقها على</value>
         <value xml:lang="de">Rechnung [${invoiceId}] ist storniert und kann nicht zugewiesen werden...</value>
@@ -5193,6 +5205,10 @@
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] ถูกยกเลิก, ไม่สามารถที่จะนำมาใช้ได้...</value>
         <value xml:lang="zh">发票[${invoiceId}]已取消，无法应用...</value>
         <value xml:lang="zh_TW">發票[${invoiceId}]已取消，無法應用...</value>
+    </property>
+    <property key="AccountingInvoiceCannotChangeStatusToPaid">
+        <value xml:lang="en">Cannot change status to 'paid', invoice ${invoice.invoiceId} has an unapplied balance of ${notApplied}</value>
+        <value xml:lang="it">Non è possibile cambiare lo stato a 'pagato', fattura ${invoice.invoiceId} ha un bilancio non applicato di ${notApplied}</value>
     </property>
     <property key="AccountingInvoiceCapitals">
         <value xml:lang="ar">فاتورة</value>
@@ -5376,6 +5392,10 @@
         <value xml:lang="zh">开票日期</value>
         <value xml:lang="zh_TW">開票日期</value>
     </property>
+    <property key="AccountingInvoiceDoesNotExists">
+        <value xml:lang="en">Invoice with id ${parameters.invoiceId} doesn't exist.</value>
+        <value xml:lang="it">Fattura con id ${parameters.invoiceId} non esiste.</value>
+    </property>
     <property key="AccountingInvoiceHeader">
         <value xml:lang="ar">الرأسية</value>
         <value xml:lang="de">Kopfzeile</value>
@@ -5454,6 +5474,10 @@
         <value xml:lang="th">เพิ่มรายการใบกำกับสินค้าใหม่</value>
         <value xml:lang="zh">新建发票明细</value>
         <value xml:lang="zh_TW">新建發票明細</value>
+    </property>
+    <property key="AccountingInvoiceItemDoesNotExists">
+        <value xml:lang="en">The Invoice Item with id ${parameters.invoiceItemSeqId} doesn't exist.</value>
+        <value xml:lang="it">Riga fattura con id ${parameters.invoiceItemSeqId} non esiste.</value>
     </property>
     <property key="AccountingInvoiceItemLessRequested">
         <value xml:lang="en">Invoice [${invoiceId} Item [${invoiceItemSeqId} has ${invoiceItemApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested</value>
@@ -5732,6 +5756,10 @@
         <value xml:lang="th">ใบกำกับการขาย</value>
         <value xml:lang="zh">销售发票</value>
         <value xml:lang="zh_TW">銷售發票</value>
+    </property>
+    <property key="AccountingInvoiceUpdateOnlyWithInProcessStatus">
+        <value xml:lang="en">Can only update Invoice, when status is in-process...current status: ${lookedUpValue.statusId}</value>
+        <value xml:lang="it">La fattura può essere aggiornata solo quando lo stato è in-corso...stato attuale: ${lookedUpValue.statusId}</value>
     </property>
     <property key="AccountingInvoicesDueSoon">
         <value xml:lang="en">Invoices Due Soon</value>
@@ -6835,6 +6863,22 @@
         <value xml:lang="zh">没有选择当前的定制时间段；下面的"子集"没有上级时间段。</value>
         <value xml:lang="zh_TW">沒有選擇當前的定制時間段；下面的"子集"沒有上級時間段。</value>
     </property>
+    <property key="AccountingNoCustomTimePeriodClosed">
+        <value xml:lang="en">CustomTimePeriod (fiscal period) ${customTimePeriod.customTimePeriodId} is CLOSED, cannot post to it (is for the Transaction Date ${acctgTrans.transactionDate} and Organization Party with ID ${acctgTransEntry.organizationPartyId})</value>
+        <value xml:lang="it">CustomTimePeriod (periodo fiscale) ${customTimePeriod.customTimePeriodId} è CHIUSO, non è possibile contabilizzare (è la data transazione ${acctgTrans.transactionDate} e organizzazione con ID ${acctgTransEntry.organizationPartyId})</value>
+    </property>
+    <property key="AccountingNoCustomTimePeriodClosedChild">
+        <value xml:lang="en">Cannot close time period ${customTimePeriod.customTimePeriodId} because the child time period ${openChildTimePeriod.periodName} ${openChildTimePeriod.customTimePeriodId} is not closed.</value>
+        <value xml:lang="it">Non è possibile chiudere il periodo ${customTimePeriod.customTimePeriodId} perchè il periodo filgio ${openChildTimePeriod.periodName} ${openChildTimePeriod.customTimePeriodId} non è chiuso.</value>
+    </property>
+    <property key="AccountingNoCustomTimePeriodClosedForClosedDate">
+        <value xml:lang="en">Unable to find a last closed date for time period ${customTimePeriod.customTimePeriodId} of type ${customTimePeriod.customTimePeriodId} for organization ${customTimePeriod.organizationPartyId}</value>
+        <value xml:lang="it">Non è possibil trovate una data ultima chiusura per il periodo di tempo ${customTimePeriod.customTimePeriodId} del tipo ${customTimePeriod.customTimePeriodId} per l'organizzazione ${customTimePeriod.organizationPartyId}</value>
+    </property>
+    <property key="AccountingNoCustomTimePeriodFoundForTransactionDate">
+        <value xml:lang="en">Could not find a CustomTimePeriod (fiscal period) for the Transaction Date ${acctgTrans.transactionDate} (is for Organization Party with ID ${acctgTransEntry.organizationPartyId})</value>
+        <value xml:lang="it">Non è possibile trova un CustomTimePeriod (periodo fiscale) per la data transazione ${acctgTrans.transactionDate} (è una organizzazione con ID ${acctgTransEntry.organizationPartyId})</value>
+    </property>
     <property key="AccountingNoGenBilAddressFound">
         <value xml:lang="ar">لا عنوان عام/فوترة موجود للطرف</value>
         <value xml:lang="de">Keine Allgemeine-/Rechnungsadresse für Akteur gefunden:</value>
@@ -7052,6 +7096,38 @@
         <value xml:lang="th">ไม่สามารถเปลี่ยนโดยปราศจากการสร้างบัญชีแยกประเภททั่วไปอีกครั้ง.</value>
         <value xml:lang="zh">只有重新新建总账账户才能改变这个数据项。</value>
         <value xml:lang="zh_TW">只有重新新建總帳科目才能改變這個資料項。</value>
+    </property>
+    <property key="AccountingNotPostingGlAccountTransactionAlreadyPosted">
+        <value xml:lang="en">AcctgTrans ${parameters.acctgTransId} has already been posted. Not posting again</value>
+        <value xml:lang="it">AcctgTrans ${parameters.acctgTransId} è già stata contabilizzata. Non contabilizzabile nuovamente</value>
+    </property>
+    <property key="AccountingNotPostingGlAccountTransactionBadDebitCreditFlag">
+        <value xml:lang="en">Bad debitCreditFlag ${acctgTransEntry.debitCreditFlag} (was not D or C) in Accounting Transaction Entry with acctgTransId=${acctgTransEntry.acctgTransId} and acctgTransEntrySeqId=${acctgTransEntry.acctgTransEntrySeqId}</value>
+        <value xml:lang="it">Flag debito/credito errato ${acctgTransEntry.debitCreditFlag} (non è D o C) in Accounting Transaction Entry con acctgTransId=${acctgTransEntry.acctgTransId} e acctgTransEntrySeqId=${acctgTransEntry.acctgTransEntrySeqId}</value>
+    </property>
+    <property key="AccountingNotPostingGlAccountTransactionCreditZero">
+        <value xml:lang="en">Not posting GL Accounting Transaction with ID ${parameters.acctgTransId} because credit total is zero: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}</value>
+        <value xml:lang="it">Non è possibile contabilizzare la GL Accounting Transaction con ID ${parameters.acctgTransId} perchè il credito totale è zero: Debito Totale=${trialBalanceResultMap.debitTotal} Credito Totale=${trialBalanceResultMap.creditTotal} Debito/Credito Differenza=${trialBalanceResultMap.debitCreditDifference}</value>
+    </property>
+    <property key="AccountingNotPostingGlAccountTransactionDebitZero">
+        <value xml:lang="en">Not posting GL Accounting Transaction with ID ${parameters.acctgTransId} because debit total is zero: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}</value>
+        <value xml:lang="it">Non è possibile contabilizzare la GL Accounting Transaction con ID ${parameters.acctgTransId} perchè il debito totale è zero: Debito Totale=${trialBalanceResultMap.debitTotal} Credito Totale=${trialBalanceResultMap.creditTotal} Debito/Credito Differenza=${trialBalanceResultMap.debitCreditDifference}</value>
+    </property>
+    <property key="AccountingNotPostingGlAccountTransactionTrialBalanceFailed">
+        <value xml:lang="en">Not posting GL Accounting Transaction with ID ${parameters.acctgTransId} because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}</value>
+        <value xml:lang="it">Non è possibile contabilizzare la GL Accounting Transaction con ID ${parameters.acctgTransId} perchè il bilancio di prova è fallito: Debito Totale=${trialBalanceResultMap.debitTotal} Credito Totale=${trialBalanceResultMap.creditTotal} Debito/Credito Differenza=${trialBalanceResultMap.debitCreditDifference}</value>
+    </property>
+    <property key="AccountingNotPostingGlAccountTransactionNotScheduledToBePosted">
+        <value xml:lang="en">Not posting GL Accounting Transaction with ID ${parameters.acctgTransId} because it's not scheduled to be posted yet. The scheduled posting date is ${acctgTrans.scheduledPostingDate}</value>
+        <value xml:lang="it">Non è possibile contabilizzare la GL Accounting Transaction con ID ${parameters.acctgTransId} perchè non è schedulato di essere ancora contabilizzato. La data di schedulazione contabilizzazione è ${acctgTrans.scheduledPostingDate}</value>
+    </property>
+    <property key="AccountingNotPostingGlJournalTrialBalanceFailed">
+        <value xml:lang="en">Not posting GL Journal with ID ${parameters.glJournalId} because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}</value>
+        <value xml:lang="it">Non è possibile contabilizzare il giornale con ID ${parameters.glJournalId} perchè il bilancio di prova è fallito: Debito Totale=${trialBalanceResultMap.debitTotal} Credito Totale=${trialBalanceResultMap.creditTotal} Debito/Credito Differenza=${trialBalanceResultMap.debitCreditDifference}</value>
+    </property>
+    <property key="AccountingNotReconcilingTransEntryAlreadyReconciled">
+        <value xml:lang="en">The accounting transaction entry ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} is already reconciled: cannot reconcile.</value>
+        <value xml:lang="it">La voce transazione ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} è già riconcialita: non può essere riconciliata.</value>
     </property>
     <property key="AccountingNotWithdrawalFinAccountTrans">
         <value xml:lang="en">Not a withdrawal financial account transaction.</value>
@@ -7715,6 +7791,10 @@
         <value xml:lang="th">พื่นที่เสียภาษี [${paymentApplication.taxAuthGeoId}]</value>
         <value xml:lang="zh">税务机关辖区 [${paymentApplication.taxAuthGeoId}]</value>
         <value xml:lang="zh_TW">稅務機關轄區 [${paymentApplication.taxAuthGeoId}]</value>
+    </property>
+    <property key="AccountingPaymentApplicationCannotRemovedWithConfirmedStatus">
+        <value xml:lang="en">PaymentID ${payment.paymentId} has status 'confirmed', cannot remove application.</value>
+        <value xml:lang="it">ID pagamento ${payment.paymentId} ha lo stato 'confermato', non è possibile rimuovere l'applicazione pagamento.</value>
     </property>
     <property key="AccountingPaymentApplicationNotFound">
         <value xml:lang="de">Zahlungs-Zuweisungs-Datensatz [${paymentApplicationId}] nicht gefunden</value>
@@ -9626,6 +9706,14 @@
         <value xml:lang="zh">至少有一个产品税率使用了这个分类</value>
         <value xml:lang="zh_TW">至少有一個產品稅率使用了這個分類</value>
     </property>
+    <property key="AccountingTaxCannotCalculate">
+        <value xml:lang="en">Cannot calculate tax, no shipping or.......</value>
+        <value xml:lang="it">Non è possibile calcolare le tasse, nessuna spedizione o.......</value>
+    </property>
+    <property key="AccountingTaxProductIdCannotCalculate">
+        <value xml:lang="en">productId don't have value, cannot call calcTax service.</value>
+        <value xml:lang="it">Codice prodotto non ha nessun valore, non è possibile eseguire il servizio calcTax.</value>
+    </property>
     <property key="AccountingTaxSummary">
         <value xml:lang="ar">تقرير ملخص الضريبة</value>
         <value xml:lang="de">Zusammenfasssung Steuer-Bericht</value>
@@ -10186,6 +10274,10 @@
         <value xml:lang="th">Security Error : To Update a Payment you must either be the to or from party or have the PAY_INFO_UPDATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="zh">安全错误：要更新支付，你必须是支付方或接收方会员，或者具有PAY_INFO_UPDATE或PAY_INFO_ADMIN权限。</value>
         <value xml:lang="zh_TW">安全錯誤：要更新支付，你必須是支付方或接收方成員，或者具有PAY_INFO_UPDATE或PAY_INFO_ADMIN權限。</value>
+    </property>
+    <property key="AccountingUpdatePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN, o il permesso limitato ACCOUNTING_ROLE_UPDATE</value>
     </property>
     <property key="AccountingUpdateRateAmount">
         <value xml:lang="en">Update Rate amount</value>

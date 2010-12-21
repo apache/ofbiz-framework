@@ -30,7 +30,9 @@ under the License.
                 </and>
             </condition>
             <then>
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingCreatePaymentPermissionError"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingCreatePaymentPermissionError"/>
+                </add-error>
             </then>
         </if>
         <check-errors/>
@@ -90,7 +92,9 @@ under the License.
                 </and>
             </condition>
             <then>
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingUpdatePaymentPermissionError"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingUpdatePaymentPermissionError"/>
+                </add-error>
             </then>
         </if>
         <check-errors/>
@@ -146,7 +150,9 @@ under the License.
             <if-empty field="parameters.billingAccountId">
                 <if-empty field="parameters.taxAuthGeoId">
                     <if-empty field="parameters.overrideGlAccountId">
-                      <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationParameterMissing"/></add-error>
+                      <add-error>
+                          <fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationParameterMissing"/>
+                      </add-error>
                       <check-errors/>
                     </if-empty>
                 </if-empty>
@@ -198,7 +204,9 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/>
+                </add-error>
                 <log level="error" message="Cannot change from ${payment.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>
@@ -207,7 +215,9 @@ under the License.
                     <if-compare field="parameters.statusId" operator="equals" value="PMNT_CONFIRMED">
                         <set field="notYetApplied" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)}"/>
                         <if-compare field="notYetApplied" operator="greater" value="0.00" type="BigDecimal">
-                            <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSNotConfirmedNotFullyApplied"/></add-error>
+                            <add-error>
+                                <fail-property resource="AccountingUiLabels" property="AccountingPSNotConfirmedNotFullyApplied"/>
+                            </add-error>
                             <log level="error" message="Cannot change from ${payment.statusId} to ${parameters.statusId}, payment not fully applied: ${notYetapplied}"/>
                             <check-errors/>
                         </if-compare>
@@ -417,7 +427,9 @@ under the License.
         <set field="transStatusId" value="FINACT_TRNS_CANCELED"/>
         <field-to-result field="transStatusId" result-name="statusId"/>
         <if-empty field="payment">
-            <add-error><fail-message message="${uiLabelMap.AccountingNoPaymentsfound}"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNoPaymentsfound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <set field="paymentId" from-field="parameters.paymentId"/>
@@ -510,10 +522,14 @@ under the License.
             <field-map field-name="finAccountId" from-field="paymentMethod.finAccountId"/>
         </entity-one>
         <if-compare field="finAccount.statusId" operator="equals" value="FNACT_MANFROZEN">
-            <add-error><fail-property resource="AccountingErrorUiLabels.xml" property="AccountingFinAccountInactiveStatusError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingErrorUiLabels.xml" property="AccountingFinAccountInactiveStatusError"/>
+            </add-error>
         </if-compare>
         <if-compare field="finAccount.statusId" operator="equals" value="FNACT_CANCELLED">
-            <add-error><fail-property resource="AccountingErrorUiLabels.xml" property="AccountingFinAccountStatusNotValidError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingErrorUiLabels.xml" property="AccountingFinAccountStatusNotValidError"/>
+            </add-error>
         </if-compare>
         <check-errors/>
         <set field="invoices" type="List"/>
@@ -565,7 +581,9 @@ under the License.
                 <first-from-list list="invoicePaymentInfoList" entry="invoicePaymentInfo"/>
                 <set field="paymentAmount" value="${paymentAmount + invoicePaymentInfo.outstandingAmount}"/>
             <else>
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingInvoicesRequiredInReadyStatus"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingInvoicesRequiredInReadyStatus"/>
+                </add-error>
                 <check-errors/>
             </else>
             </if-compare>
@@ -722,7 +740,9 @@ under the License.
             </if-compare>
         </iterate>
         <if-not-empty field="disbursementPaymentIds">
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingCannotIncludeApPaymentError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingCannotIncludeApPaymentError"/>
+            </add-error>
             <check-errors/>
         </if-not-empty>
         <entity-condition entity-name="PaymentGroupMember" list="paymentGroupMembers" filter-by-date="true">
@@ -730,7 +750,9 @@ under the License.
         </entity-condition>
         <if-not-empty field="paymentGroupMembers">
             <set field="batchPaymentIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(paymentGroupMembers, 'paymentId', true);}" type="List"/>
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentsAreAlreadyBatchedError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingPaymentsAreAlreadyBatchedError"/>
+            </add-error>
             <check-errors/>
         <else>
             <set-service-fields service-name="createPaymentGroupAndMember" map="parameters" to-map="createPaymentGroupAndMemberMap"/>
