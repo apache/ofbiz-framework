@@ -172,7 +172,9 @@ under the License.
         </call-service>
 
         <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="not-equals" value="0" type="BigDecimal">
-            <add-error><fail-message message="Not posting GL Journal with ID [${parameters.glJournalId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
+            <add-error>
+			    <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlJournalTrialBalanceFailed"/>
+			</add-error>
             <check-errors/>
         </if-compare>
 
@@ -233,7 +235,9 @@ under the License.
         <!-- first of all, make sure that the AcctgTransEntry is not already reconciled -->
         <entity-one entity-name="AcctgTransEntry" value-field="acctgTransEntry"/>
         <if-compare field="acctgTransEntry.reconcileStatusId" operator="equals" value="AES_RECONCILED">
-            <add-error><fail-message message="The accounting transaction entry ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} is already reconciled: cannot reconcile."/></add-error>
+            <add-error>
+			    <fail-property resource="AccountingUiLabels" property="AccountingNotReconcilingTransEntryAlreadyReconciled"/>
+			</add-error>
             <check-errors/>
         </if-compare>
         <make-value entity-name="GlReconciliationEntry" value-field="newEntity"/>
@@ -652,7 +656,9 @@ under the License.
         <set field="openTimePeriodCondition.isClosed" value="N"/>
         <get-related value-field="customTimePeriod" relation-name="ChildCustomTimePeriod" list="openChildTimePeriods" map="openTimePeriodCondition"/>
         <iterate list="openChildTimePeriods" entry="openChildTimePeriod">
-            <add-error><fail-message message="Cannot close time period [${customTimePeriod.customTimePeriodId}] because the child time period ${openChildTimePeriod.periodName} [${openChildTimePeriod.customTimePeriodId}] is not closed."/></add-error>
+            <add-error>
+			    <fail-property resource="AccountingUiLabels" property="AccountingNoCustomTimePeriodClosedChild"/>
+			</add-error>
         </iterate>
         <check-errors/>
         <!-- retrieve the last closed date for the same type of time period -->
@@ -663,7 +669,9 @@ under the License.
             <result-to-field result-name="lastClosedTimePeriod"/>
         </call-service>
         <if-empty field="lastClosedDate">
-            <add-error><fail-message message="Unable to find a last closed date for time period [${customTimePeriod.customTimePeriodId}] of type [${customTimePeriod.customTimePeriodId}] for organization [${customTimePeriod.organizationPartyId}]"/></add-error>
+            <add-error>
+			    <fail-property resource="AccountingUiLabels" property="AccountingNoCustomTimePeriodClosedForClosedDate"/>
+			</add-error>
         </if-empty>
         <check-errors/>
         <entity-one entity-name="GlAccountClass" value-field="expenseGlAccountClass">

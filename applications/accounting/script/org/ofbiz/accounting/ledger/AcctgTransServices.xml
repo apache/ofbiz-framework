@@ -181,7 +181,9 @@ under the License.
                     </calculate>
                 <else>
                     <!-- uh-oh, bad debitCreditFlag... -->
-                      <add-error><fail-message message="Bad debitCreditFlag [${acctgTransEntry.debitCreditFlag}] (was not D or C) in Accounting Transaction Entry with acctgTransId=[${acctgTransEntry.acctgTransId}] and acctgTransEntrySeqId=[${acctgTransEntry.acctgTransEntrySeqId}]"/></add-error>
+                      <add-error>
+                          <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionBadDebitCreditFlag"/>
+                      </add-error>
                 </else>
                 </if-compare>
             </else>
@@ -207,7 +209,9 @@ under the License.
         <!-- make sure the AcctgTrans has not already been posted -->
         <entity-one entity-name="AcctgTrans" value-field="acctgTrans" auto-field-map="true"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
-            <add-error><fail-message message="AcctgTrans [${parameters.acctgTransId}] has already been posted. Not posting again"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionAlreadyPosted"/>
+            </add-error>
         </if-compare>
         <check-errors/>
 
@@ -217,16 +221,24 @@ under the License.
             <results-to-map map-name="trialBalanceResultMap"/>
         </call-service>
         <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="greater-equals" value="0.01" type="BigDecimal">
-            <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionTrialBalanceFailed"/>
+            </add-error>
         </if-compare>
         <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="less-equals" value="-0.01" type="BigDecimal">
-            <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionTrialBalanceFailed"/>
+            </add-error>
         </if-compare>
         <if-compare field="trialBalanceResultMap.debitTotal" operator="equals" value="0.00" type="BigDecimal">
-            <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because debit total is zero: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionDebitZero"/>
+            </add-error>
         </if-compare>
         <if-compare field="trialBalanceResultMap.creditTotal" operator="equals" value="0.00" type="BigDecimal">
-            <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because credit total is zero: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionCreditZero"/>
+            </add-error>
         </if-compare>
 
         <entity-condition entity-name="AcctgTransEntry" list="acctgTransEntryList">
@@ -239,7 +251,9 @@ under the License.
             <set field="scheduledPostingDate" from-field="acctgTrans.scheduledPostingDate"/>
             <set field="beforeScheduled" value="${groovy: org.ofbiz.base.util.UtilDateTime.nowTimestamp().before(scheduledPostingDate)}"/>
             <if-compare field="beforeScheduled" operator="equals" value="true" type="Boolean">
-                <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because it's not scheduled to be posted yet.  The scheduled posting date is [${acctgTrans.scheduledPostingDate}]"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionNotScheduledToBePosted"/>
+                </add-error>
             </if-compare>
         </if-not-empty>
 
@@ -268,12 +282,16 @@ under the License.
                 </call-service>
 
                 <if-empty field="customTimePeriodList">
-                    <add-error><fail-message message="Could not find a CustomTimePeriod (fiscal period) for the Transaction Date [${acctgTrans.transactionDate}] (is for Organization Party with ID [${acctgTransEntry.organizationPartyId}])"/></add-error>
+                    <add-error>
+                        <fail-property resource="AccountingUiLabels" property="AccountingNoCustomTimePeriodFoundForTransactionDate"/>
+                    </add-error>
                 </if-empty>
                 <!-- now do the actual isClose check -->
                 <iterate entry="customTimePeriod" list="customTimePeriodList">
                     <if-compare field="customTimePeriod.isClosed" operator="equals" value="Y">
-                        <add-error><fail-message message="CustomTimePeriod (fiscal period) [${customTimePeriod.customTimePeriodId}] is CLOSED, cannot post to it (is for the Transaction Date [${acctgTrans.transactionDate}] and Organization Party with ID [${acctgTransEntry.organizationPartyId}])"/></add-error>
+                        <add-error>
+                            <fail-property resource="AccountingUiLabels" property="AccountingNoCustomTimePeriodClosed"/>
+                        </add-error>
                     </if-compare>
                 </iterate>
 
@@ -281,14 +299,20 @@ under the License.
                 <set from-field="customTimePeriodList" field="customTimePeriodListByOrganizationPartyIdMap[acctgTransEntry.organizationPartyId]"/>
             </if-empty>
             <if-empty field="acctgTransEntry.glAccountId">
-                <add-error><fail-message message="Gl account id is not set for [${acctgTransEntry.acctgTransEntrySeqId}] or mapping not found for account type ${acctgTransEntry.glAccountTypeId}"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingGlAccountNotSetForAccountType"/>
+                </add-error>
             </if-empty>
             <if-empty field="acctgTransEntry.amount">
-                <add-error><fail-message message="Amount not set for [${acctgTransEntry.acctgTransEntrySeqId}] or failed to convert the original amount ${acctgTransEntry.origAmount} with currency ${acctgTransEntry.origCurrencyUomId}"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingGlAccountAmountNotSet"/>
+                </add-error>
             </if-empty>
             <!--
             <if-empty field="acctgTransEntry.currencyUomId">
-                <add-error><fail-message message="Currency is not set for [${acctgTransEntry.acctgTransEntrySeqId}]"/></add-error>
+                <add-error>
+                    
+                </add-error>
             </if-empty>
             -->
         </iterate>
@@ -428,7 +452,9 @@ under the License.
                                 </calcop>
                             </calculate>
                             <else>
-                                <add-error><fail-message message="Bad debitCreditFlag [${acctgTransEntry.debitCreditFlag}] (was not D or C) in Accounting Transaction Entry with acctgTransId=[${acctgTransEntry.acctgTransId}] and acctgTransEntrySeqId=[${acctgTransEntry.acctgTransEntrySeqId}]"/></add-error>
+                                <add-error>
+                                    <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionBadDebitCreditFlag"/>                                    
+                                </add-error>
                             </else>
                         </if-compare>
                     </else>

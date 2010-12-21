@@ -38,7 +38,9 @@ under the License.
             <!-- check the Duplicate ID> -->
             <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
             <if-not-empty field="fixedAsset">
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetIdAlreadyExists"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingFixedAssetIdAlreadyExists"/>
+                </add-error>
                 <log level="info" message="${AccountingUiLabels.AccountingFixedAssetIdAlreadyExists}"/>
                 <else>
                     <check-id field="parameters.fixedAssetId"/>
@@ -98,7 +100,7 @@ under the License.
 <!--     <simple-method method-name="updateFixedAssetCalendar" short-description="Update the calendar of the FixedAsset">
         <check-permission permission="ACCOUNTING" action="_UPDATE">
             <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-message message="Security Error: to run updateFixedAssetCalendar you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission"/>
+            <fail-property resource="AccountingUiLabels" property="AccountingUpdatePermissionError"/>
         </check-permission>
         <check-errors/>
 
@@ -124,7 +126,9 @@ under the License.
         <!-- Check, should not exist already -->
         <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost"/>
         <if-not-empty field="fixedAssetStdCost">
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetStdCostAlreadyExists"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingFixedAssetStdCostAlreadyExists"/>
+            </add-error>
         </if-not-empty>
         <check-errors/>
 
@@ -467,7 +471,9 @@ under the License.
         <entity-one entity-name="OrderHeader" value-field="lookedUpValue"/>
         <if-empty field="lookedUpValue">
             <set field="orderId" from-field="parameters.orderId"/>
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingOrderWithIdNotFound"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingOrderWithIdNotFound"/>
+            </add-error>
         </if-empty>
         <check-errors/>
 
@@ -488,7 +494,9 @@ under the License.
                <entity-one entity-name="OrderItem" value-field="lookedUpValue"/>
                <if-empty field="lookedUpValue">
                   <set field="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
-                  <add-error><fail-property resource="AccountingUiLabels" property="AccountingOrderItemWithIdNotFound"/></add-error>
+                  <add-error>
+                      <fail-property resource="AccountingUiLabels" property="AccountingOrderItemWithIdNotFound"/>
+                  </add-error>
                </if-empty>
             </else>
         </if-empty>
@@ -800,7 +808,9 @@ under the License.
     <simple-method method-name="calculateFixedAssetDepreciation" short-description="Service to calculate the yearly depreciation from dateAcquired year to current financial year">
         <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
         <if-empty field="fixedAsset">
-            <add-error><fail-property resource="ManufacturingUiLabels" property="ManufacturingFixedAssetNotExist"/></add-error>
+            <add-error>
+                <fail-property resource="ManufacturingUiLabels" property="ManufacturingFixedAssetNotExist"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <set field="startIndex" value="0" type="Integer"/>

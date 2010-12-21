@@ -19,6 +19,14 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="AccountingDeleteRateAmount">
+        <value xml:lang="en">Could not find RateAmount record to be deleted</value>
+        <value xml:lang="it">Non è possibile trovare un record di RateAmount che deve essere cancellato</value>
+    </property>
+    <property key="AccountingFinAccountCannotPost">
+        <value xml:lang="en">Cannot post FinAccountTrans with ID ${parameters.finAccountTransId} to GL, could not find ${creditDebit} ${requiredField}</value>
+        <value xml:lang="it">Non post FinAccountTrans con ID ${parameters.finAccountTransId} in GL, could not find ${creditDebit} ${requiredField}</value>
+    </property>
     <property key="AccountingFinAccountInactiveStatusError">
         <value xml:lang="en">FinAccount must be in active status</value>
         <value xml:lang="fr">Le compte financier doit être dans un état actif</value>
@@ -41,6 +49,10 @@
         <value xml:lang="fr">Votre panier est vide, vous ne pouvez pas effectuer une validation express</value>
         <value xml:lang="hi_IN">शॉपिंग कार्ट खाली है, एक्सप्रेस चेकआउट के साथ आगे नहीं बढ़ सकते</value>
         <value xml:lang="it">Il carrello è vuoto, non posso procedere con il checkout Express</value>
+    </property>
+    <property key="AccountingTaxIdInvalidFormat">
+        <value xml:lang="en">The tax ID ${parameters.partyTaxId} was not in a valid format for the selected tax authority ${taxAuthority.taxIdFormatPattern}</value>
+        <value xml:lang="it">Id tasse ${parameters.partyTaxId} non è nel formato valido per l'autorità tasse selezionata ${taxAuthority.taxIdFormatPattern}</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>

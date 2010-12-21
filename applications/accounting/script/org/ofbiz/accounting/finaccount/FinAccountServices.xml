@@ -109,7 +109,9 @@ under the License.
                     </entity-one>
                     <if-empty field="statusValidChange">
                         <!-- no valid change record found? return an error... -->
-                        <add-error><fail-property resource="CommonUiLabels" property="CommonErrorNoStatusValidChange"/></add-error>
+                        <add-error>
+                            <fail-property resource="CommonUiLabels" property="CommonErrorNoStatusValidChange"/>
+                        </add-error>
                         <check-errors/>
                     </if-empty>
                 </if-not-empty>
@@ -120,10 +122,14 @@ under the License.
             </then>
             <else>
                 <if-compare field="lookedUpValue.statusId" operator="equals" value="FNACT_MANFROZEN">
-                    <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/></add-error>
+                    <add-error>
+                        <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/>
+                    </add-error>
                 </if-compare>
                 <if-compare field="lookedUpValue.statusId" operator="equals" value="FNACT_CANCELLED">
-                    <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountStatusNotValidError"/></add-error>
+                    <add-error>
+                        <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountStatusNotValidError"/>
+                    </add-error>
                 </if-compare>
                 <check-errors/>
             </else>
@@ -171,10 +177,14 @@ under the License.
     <simple-method method-name="createFinAccountTrans" short-description="Create a Financial Account Transaction">
         <entity-one entity-name="FinAccount" value-field="finAccount"/>
         <if-compare field="finAccount.statusId" operator="equals" value="FNACT_MANFROZEN">
-            <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/>
+            </add-error>
         </if-compare>
         <if-compare field="finAccount.statusId" operator="equals" value="FNACT_CANCELLED">
-            <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountStatusNotValidError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountStatusNotValidError"/>
+            </add-error>
         </if-compare>
         <check-errors/>
         <call-simple-method method-name="getArithmeticSettingsInline"/>
@@ -212,10 +222,14 @@ under the License.
     <simple-method method-name="createFinAccountRole" short-description="Create a Financial Account Role">
         <entity-one entity-name="FinAccount" value-field="finAccount"/>
         <if-compare field="finAccount.statusId" operator="equals" value="FNACT_MANFROZEN">
-            <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/>
+            </add-error>
         </if-compare>
         <if-compare field="finAccount.statusId" operator="equals" value="FNACT_CANCELLED">
-            <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountStatusNotValidError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountStatusNotValidError"/>
+            </add-error>
         </if-compare>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="FinAccountRole"/>
@@ -409,7 +423,9 @@ under the License.
                </or>
            </condition>
            <then>
-               <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/></add-error>
+               <add-error>
+                   <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/>
+               </add-error>
            </then>
         </if>
         <check-errors/>
@@ -420,12 +436,16 @@ under the License.
         <iterate list="payments" entry="payment">
             <set field="paymentRunningTotal" value="${paymentRunningTotal + payment.amount}" type="BigDecimal"/>
             <if-not-empty field="payment.finAccountTransId">
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentAlreadyAssociatedToFinAccountError"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingPaymentAlreadyAssociatedToFinAccountError"/>
+                </add-error>
             </if-not-empty>
             <check-errors/>
             <set field="isValidStatus" value="${payment.statusId == 'PMNT_SENT' @or payment.statusId == 'PMNT_RECEIVED'}" type="Boolean"/>
             <if-compare field="isValidStatus" operator="equals" value="false">
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentStatusIsNotReceivedOrSentError"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingPaymentStatusIsNotReceivedOrSentError"/>
+                </add-error>
             </if-compare>
             <check-errors/>
         </iterate>
@@ -442,7 +462,9 @@ under the License.
             <iterate list="payments" entry="payment">
                 <set field="isReceipt" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.isReceipt(payment)}" type="Boolean"/>
                 <if-compare field="isReceipt" operator="equals" value="false" type="Boolean">
-                    <add-error><fail-property resource="AccountingUiLabels" property="AccountingCannotIncludeApPaymentError"/></add-error>
+                    <add-error>
+                        <fail-property resource="AccountingUiLabels" property="AccountingCannotIncludeApPaymentError"/>
+                    </add-error>
                 </if-compare>
                 <check-errors/>
                 <set field="updatePaymentCtx.paymentId" from-field="payment.paymentId"/>
@@ -493,7 +515,9 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
-                <add-error><fail-message message="${uiLabelMap.AccountingPSInvalidStatusChange}"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/>
+                </add-error>
                 <log level="error" message="Cannot change from ${finAccountTrans.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
             <else>
@@ -726,7 +750,9 @@ under the License.
             </if-compare>
             <call-service service-name="updateGlReconciliation" in-map-name="updateGlReconciliationMap"/>
         <else>
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingReconciliationError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingReconciliationError"/>
+            </add-error>
             <check-errors/>
         </else>
         </if-not-empty>
@@ -941,10 +967,14 @@ under the License.
                 <field-map field-name="finAccountId" from-field="paymentMethod.finAccountId"/>
             </entity-one>
             <if-compare field="finAccount.statusId" operator="equals" value="FNACT_MANFROZEN">
-                <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountInactiveStatusError"/>
+                </add-error>
             </if-compare>
             <if-compare field="finAccount.statusId" operator="equals" value="FNACT_CANCELLED">
-                <add-error><fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountStatusNotValidError"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountStatusNotValidError"/>
+                </add-error>
             </if-compare>
             <check-errors/>
             <if-compare field="parameters.isDepositWithDrawPayment" operator="equals" value="Y">
@@ -992,7 +1022,9 @@ under the License.
         <entity-one entity-name="GlReconciliation" value-field="glReconciliation"/>
         <if-compare field="glReconciliation.statusId" operator="equals" value="GLREC_CREATED">
             <if-compare field="finAccountTrans.statusId" operator="not-equals" value="FINACT_TRNS_CREATED">
-                <add-error><fail-property resource="AccountingUiLabels" property="AccountingInvalidGlReconciliationAssignment"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingInvalidGlReconciliationAssignment"/>
+                </add-error>
                 <check-errors/>
             <else>
                 <set field="finAccountTrans.glReconciliationId" from-field="glReconciliationId"/>
@@ -1012,12 +1044,16 @@ under the License.
             </if-empty>
             <iterate list="payments" entry="payment">
                 <if-compare field="${payment.statusId == 'PMNT_SENT' @or payment.statusId == 'PMNT_RECEIVED' @or payment.statusId == 'PMNT_CONFIRMED'}" operator="equals" value="false">
-                    <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentsAssociateWithFinAccountHasInvalidStatusError"/></add-error>
+                    <add-error>
+                        <fail-property resource="AccountingUiLabels" property="AccountingPaymentsAssociateWithFinAccountHasInvalidStatusError"/>
+                    </add-error>
                     <check-errors/>
                 </if-compare>
             </iterate>
         <else>
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingInvalidGlReconciliation"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvalidGlReconciliation"/>
+            </add-error>
             <check-errors/>
         </else>
         </if-compare>
@@ -1029,7 +1065,9 @@ under the License.
             <clear-field field="finAccountTrans.glReconciliationId"/>
             <store-value value-field="finAccountTrans"/>
         <else>
-            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFinAccountTransInvalidStatusError"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingFinAccountTransInvalidStatusError"/>
+            </add-error>
             <check-errors/>
         </else>
         </if-compare>

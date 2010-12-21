@@ -237,7 +237,9 @@ under the License.
                 <store-value value-field="lookedUpValue"/> <!-- update all non status and key fields -->
             </if-compare-field>
             <else>
-                <add-error><fail-message message="Can only update Invoice, when status is in-process...current status: ${lookedUpValue.statusId}"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingInvoiceUpdateOnlyWithInProcessStatus"/>
+                </add-error>
                 <log level="error" message="Can only update Invoice, when status is in-process...current Status: ${lookedUpValue.statusId}"/>
                 <check-errors/>
             </else>
@@ -293,7 +295,7 @@ under the License.
         </if-not-empty>
         <if-empty field="newEntity.amount">
             <add-error>
-                <fail-message message="The amount value is mandatory"/>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceAmountIsMandatory"/>
             </add-error>
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -324,7 +326,7 @@ under the License.
         </if-not-empty>
         <if-empty field="newEntity.amount">
             <add-error>
-                <fail-message message="The amount value is mandatory"/>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceAmountIsMandatory"/>
             </add-error>
         </if-empty>
         <if-compare-field field="lookedUpValue" to-field="savedValue" operator="not-equals" type="Object">
@@ -356,7 +358,7 @@ under the License.
         </entity-one>
         <if-empty field="paymentApplication">
             <add-error>
-                <fail-message message="Cannot find payment application record [${parameters.paymentApplicationId}]"/>
+                <fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationNotFound"/>
             </add-error>
             <check-errors/>
         </if-empty>
@@ -368,7 +370,9 @@ under the License.
             </entity-one>
             <if-not-empty field="payment">
                 <if-compare field="payment.statusId" operator="equals" value="PMNT_CONFIRMED">
-                    <add-error><fail-message message="PaymentID [${payment.paymentId}] has status 'confirmed', cannot remove application."/></add-error>
+                    <add-error>
+                        <fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationCannotRemovedWithConfirmedStatus"/>
+                    </add-error>
                 </if-compare>
                 <check-errors/>
             </if-not-empty>
@@ -381,7 +385,9 @@ under the License.
                 <field-map field-name="invoiceId" value="${paymentApplication.invoiceId}"/>
             </entity-one>
             <if-empty field="invoice">
-                <add-error><fail-message message="Invoice not found, invoice Id: ${paymentApplication.invoiceId}"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingInvoiceNotFound"/>
+                </add-error>
                 <log level="info" message="Invoice not found, invoice Id: ${invoiceId}"/>
                 <check-errors/>
             </if-empty>
@@ -410,7 +416,9 @@ under the License.
             </entity-one>
             <if-not-empty field="toPayment">
                 <if-compare field="toPayment.statusId" operator="equals" value="PMNT_CONFIRMED">
-                    <add-error><fail-message message="Related payment [${toPayment.paymentId}] has status 'confirmed', cannot remove application."/></add-error>
+                    <add-error>
+                        <fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationCannotRemovedWithConfirmedStatus"/>
+                    </add-error>
                 </if-compare>
                 <check-errors/>
             </if-not-empty>
@@ -462,7 +470,9 @@ under the License.
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
-                <add-error><fail-message message="Status is not a valid change"/></add-error>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/>
+                </add-error>
                 <log level="error" message="Cannot change from ${invoice.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
             <else>
@@ -470,7 +480,9 @@ under the License.
                 <if-compare field="parameters.statusId" operator="equals" value="INVOICE_PAID">
                     <set field="notApplied" type="BigDecimal" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
                     <if-compare field="notApplied" operator="not-equals" value="0.00" type="BigDecimal">
-                        <add-error><fail-message message="Cannot change status to 'paid', invoice ${invoice.invoiceId} has an unapplied balance of [${notApplied}]"/></add-error>
+                        <add-error>
+                            <fail-property resource="AccountingUiLabels" property="AccountingInvoiceCannotChangeStatusToPaid"/>
+                        </add-error>
                         <check-errors/>
                     </if-compare>
 
@@ -570,13 +582,17 @@ under the License.
         <!-- find the current header record -->
         <entity-one entity-name="Invoice" value-field="headerValue"/>
         <if-empty field="headerValue">
-            <add-error><fail-message message="Invoice not found, invoice Id: ${invoiceId}"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceNotFound"/>
+            </add-error>
             <log level="info" message="Invoice not found, invoice Id: ${invoiceId}"/>
             <check-errors/>
         </if-empty>
         <!-- check if the status is in progress... -->
         <if-compare field="headerValue.statusId" operator="not-equals" value="INVOICE_IN_PROCESS">
-            <add-error><fail-message message="Can only update Invoice, when status is in-process...is now: ${headerValue.statusId}"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceUpdateOnlyWithInProcessStatus"/>
+            </add-error>
             <log level="info" message="Can only update Invoice, when status is in-process...is now: ${headerValue.statusId}"/>
         </if-compare>
         <check-errors/>
@@ -622,7 +638,9 @@ under the License.
     <simple-method method-name="cancelInvoice" short-description="Service to cancel the Invoices">
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-empty field="invoice">
-            <add-error><fail-message message="${uiLabelMap.AccountingInvoiceNotFound}"/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceNotFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <get-related relation-name="PaymentApplication" value-field="invoice" list="paymentApplications"/>
@@ -727,7 +745,9 @@ under the License.
             </entity-and>
         </if-empty>
         <if-empty field="contacts">
-            <add-error><fail-message message="cannot calculate tax, no shipping or......."/></add-error>
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingTaxCannotCalculate"/>
+            </add-error>
         </if-empty>
         <first-from-list entry="contactMech" list="contacts"/>
         <entity-one entity-name="PostalAddress" value-field="postalAddress">
@@ -854,7 +874,7 @@ under the License.
             </then>
             <else>
                 <add-error>
-                    <fail-message message="productId don't have value, cannot call calcTax service."/>
+                    <fail-property resource="AccountingUiLabels" property="AccountingTaxProductIdCannotCalculate"/>
                 </add-error>
                 <log level="error" message="Cannot call calcTax service, when don't have productId"/>
                 <check-errors/>
