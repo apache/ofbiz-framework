@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -22,7 +22,9 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- SecurityGroup methods -->
     <simple-method method-name="createSecurityGroup" short-description="Create an SecurityGroup">
-        <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run createSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_CREATE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="SecurityGroup"/>
@@ -32,7 +34,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSecurityGroup" short-description="Update an SecurityGroup">
-        <check-permission permission="SECURITY" action="_UPDATE"><fail-message message="Security Error: to run updateSecurityGroup you must have the SECURITY_UPDATE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_UPDATE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="SecurityGroup" value-field="lookupPKMap"/>
@@ -44,7 +48,9 @@ under the License.
 
     <!-- SecurityPermission methods -->
     <simple-method method-name="createSecurityPermission" short-description="Create an SecurityPermission">
-        <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run createSecurityPermission you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_CREATE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="SecurityPermission"/>
@@ -54,7 +60,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSecurityPermission" short-description="Update an SecurityPermission">
-        <check-permission permission="SECURITY" action="_UPDATE"><fail-message message="Security Error: to run updateSecurityPermission you must have the SECURITY_UPDATE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_UPDATE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="SecurityPermission" value-field="lookupPKMap"/>
@@ -66,7 +74,9 @@ under the License.
 
     <!-- SecurityPermission to SecurityGroup methods -->
     <simple-method method-name="addSecurityPermissionToSecurityGroup" short-description="Add SecurityPermission To SecurityGroup">
-        <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run addSecurityPermissionToSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_CREATE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="SecurityGroupPermission"/>
@@ -75,7 +85,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeSecurityPermissionFromSecurityGroup" short-description="Remove SecurityPermission From SecurityGroup">
-        <check-permission permission="SECURITY" action="_DELETE"><fail-message message="Security Error: to run removeSecurityPermissionFromSecurityGroup you must have the SECURITY_DELETE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_DELETE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="SecurityGroupPermission" value-field="lookupPKMap"/>
@@ -86,7 +98,9 @@ under the License.
 
     <!-- UserLogin to SecurityGroup methods -->
     <simple-method method-name="addUserLoginToSecurityGroup" short-description="Add UserLogin To SecurityGroup">
-        <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run addUserLoginToSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_CREATE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="UserLoginSecurityGroup"/>
@@ -101,7 +115,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateUserLoginToSecurityGroup" short-description="Update UserLogin to SecurityGroup">
-        <check-permission permission="SECURITY" action="_UPDATE"><fail-message message="Security Error: to run updateUserLoginToSecurityGroup you must have the SECURITY_UPDATE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_UPDATE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="UserLoginSecurityGroup" value-field="lookupPKMap"/>
@@ -111,7 +127,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeUserLoginFromSecurityGroup" short-description="Remove UserLogin From SecurityGroup">
-        <check-permission permission="SECURITY" action="_DELETE"><fail-message message="Security Error: to run removeUserLoginFromSecurityGroup you must have the SECURITY_DELETE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_DELETE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="UserLoginSecurityGroup" value-field="lookupPKMap"/>
@@ -122,7 +140,9 @@ under the License.
 
     <!-- ProtectedView to SecurityGroup methods -->
     <simple-method method-name="addProtectedViewToSecurityGroup" short-description="Add ProtectedView To SecurityGroup">
-        <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run addProtectedViewToSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_CREATE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupCreatePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProtectedView"/>
@@ -132,7 +152,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProtectedViewToSecurityGroup" short-description="Update ProtectedView to SecurityGroup">
-        <check-permission permission="SECURITY" action="_UPDATE"><fail-message message="Security Error: to run updateProtectedViewToSecurityGroup you must have the SECURITY_UPDATE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_UPDATE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupUpdatePermissionError"/>
+        </check-permission>
         <check-errors/>
         <make-value entity-name="ProtectedView" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
@@ -141,7 +163,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProtectedViewFromSecurityGroup" short-description="Remove ProtectedView From SecurityGroup">
-        <check-permission permission="SECURITY" action="_DELETE"><fail-message message="Security Error: to run removeProtectedViewFromSecurityGroup you must have the SECURITY_DELETE or SECURITY_ADMIN permission"/></check-permission>
+        <check-permission permission="SECURITY" action="_DELETE">
+            <fail-property resource="PartyUiLabels" property="PartySecurityGroupDeletePermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="ProtectedView" value-field="lookupPKMap"/>

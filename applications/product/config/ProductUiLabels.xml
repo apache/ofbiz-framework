@@ -100,6 +100,10 @@
         <value xml:lang="zh">组名称</value>
         <value xml:lang="zh_TW">組名稱</value>
     </property>
+    <property key="FacilityReturnHeaderTypeNotSupported">
+        <value xml:lang="en">${returnHeader.returnHeaderTypeId} is not supported</value>
+        <value xml:lang="it">${returnHeader.returnHeaderTypeId} non è supportata</value>
+    </property>
     <property key="FacilityHoldShipment">
         <value xml:lang="en">Hold Shipment</value>
         <value xml:lang="it">Congela spedizione</value>
@@ -118,7 +122,31 @@
         <value xml:lang="zh_CN">库存</value>
         <value xml:lang="zh_TW">庫存</value>
     </property>
-    <property key="FacilityInventoryHistoryReport">
+    <property key="FacilityInventoryItemsMissingCurrencyId">
+        <value xml:lang="en">Error: you cannot create inventory items with no currencyUomId; you can set a default currency in the PartyAcctgPreference for the party ${inventoryItem.ownerPartyId}, or in the general.properties file under the key currency.uom.id.default.</value>
+        <value xml:lang="it">Errore: tu non puoi creare una riga di inventario senza indicare la valuta; puoi imposta la valuta di default attraverso le preferenze del soggetto proprietario ${inventoryItem.ownerPartyId}, o nel file general.properties alla chiave currency.uom.id.default.</value>
+    </property>
+    <property key="FacilityInventoryItemsMissingFacilityId">
+        <value xml:lang="en">Error: you cannot create inventory items with no facility id.</value>
+        <value xml:lang="it">Errore: tu non puoi creare una riga di inventario senza il codice stabilimento.</value>
+    </property>
+    <property key="FacilityInventoryItemsMissingOwnerPartyId">
+        <value xml:lang="en">Error: you cannot create inventory items with no ownerPartyId.</value>
+        <value xml:lang="it">Errore: tu non puoi creare una riga di inventario senza il soggetto proprietario.</value>
+    </property>
+    <property key="FacilityInventoryItemsMissingUnitCost">
+        <value xml:lang="en">Error: you cannot create inventory items with no unitCost.</value>
+        <value xml:lang="it">Errore: tu non puoi creare una riga di inventario senza nessun costo unitario.</value>
+    </property>
+    <property key="FacilityInventoryItemsNegativeUnitCost">
+        <value xml:lang="en">Error: you cannot create inventory items with a negative unitCost.</value>
+        <value xml:lang="it">Errore: tu non puoi creare una riga di inventario con un costo unitario negativo.</value>
+    </property>
+    <property key="FacilityInventoryItemsUnitCostCannotBeNegative">
+        <value xml:lang="en">Unit cost for inventory item ${lookupPKMap.inventoryItemId} cannot be negative.</value>
+        <value xml:lang="it">Costo unitario per la riga di inventario ${lookupPKMap.inventoryItemId} non può essere negativo.</value>
+    </property>
+    </property key="FacilityInventoryHistoryReport">
         <value xml:lang="en">Inventory History Report</value>
     </property>
     <property key="FacilityMultipleLocations">
@@ -138,6 +166,14 @@
         <value xml:lang="zh">没有场所</value>
         <value xml:lang="zh_CN">仓储设施</value>
         <value xml:lang="zh_TW">沒有場所</value>
+    </property>
+    <property key="FacilityNoItemsAvailableToShip">
+        <value xml:lang="en">No items available to ship</value>
+        <value xml:lang="it">Nessun prodotto disponibile da spedire</value>
+    </property>
+    <property key="FacilityNoAssociatedWithProcuctStore">
+        <value xml:lang="en">Facility with id ${parameters.facilityId} is not associated to ProductStore with id ${parameters.productStoreId}, not reserving inventory.</value>
+        <value xml:lang="it">Stabilimento con id ${parameters.facilityId} non è associato al negozio con id ${parameters.productStoreId}, nessun inventario verrà riservato.</value>
     </property>
     <property key="FacilityNoGrouping">
         <value xml:lang="en">No Grouping</value>
@@ -172,6 +208,22 @@
         <value xml:lang="it">3 righe o più</value>
         <value xml:lang="zh">明细大于等于3</value>
         <value xml:lang="zh_TW">項目數量大於3</value>
+    </property>
+    <property key="FacilityNoQuickShip">
+        <value xml:lang="en">No ProductStore associated with order; cannot use Quick Ship</value>
+        <value xml:lang="it">Nessun negozio associato con l'ordine; non puoi usare spedizione veloce</value>
+    </property>
+    <property key="FacilityNoQuickShipForNotInventoryFacility">
+        <value xml:lang="en">No inventory facility associated with ProductStore ${productStore.productStoreId}; cannot use Quick Ship</value>
+        <value xml:lang="it">Nessun inventario magazzino associato con il negozio ${productStore.productStoreId}; non puoi usare spedizione veloce</value>
+    </property>
+    <property key="FacilityNoQuickShipForNotReserveInventory">
+        <value xml:lang="en">ProductStore ${productStore.productStoreId} does not reserve inventory; cannot use Quick Ship</value>
+        <value xml:lang="it">Negozio ${productStore.productStoreId} non è possibile riservare inventario; non puoi usare spedizione veloce</value>
+    </property>
+    <property key="FacilityNoQuickShipForMultipleFacilities">
+        <value xml:lang="en">ProductStore ${productStore.productStoreId} allows multiple facilities; cannot use Quick Ship</value>
+        <value xml:lang="it">Negozio ${productStore.productStoreId} permette stabilimenti multipli; non puoi usare spedizione veloce</value>
     </property>
     <property key="FacilityReceiveInventoryProduct">
         <value xml:lang="en">Tried to receive a serialized inventory item with serialNumber ${parameters.serialNumber} or inventoryItemId ${parameters.currentInventoryItemId} passed in and quantityAccepted ${parameters.quantityAccepted} was greater than 1; we don't know what to do with that!</value>
@@ -442,12 +494,12 @@
         <value xml:lang="it">Attenzione: nessuna spedizione creata; non √® possibile trovare niente di pronto da spedire.</value>
     </property>
     <property key="FacilityShipmentNotCreatedForNotReserveInventory">
-        <value xml:lang="en">ProductStore {0} does not reserve inventory; cannot use Quick Ship for Multiple Facilities</value>
-        <value xml:lang="it">Negozio {0} non riserva inventario; non √® possibile utilizzare la spedizione veloce per stabilimenti multipli</value>
+        <value xml:lang="en">ProductStore ${productStore.productStoreId} does not reserve inventory; cannot use Quick Ship for Multiple Facilities</value>
+        <value xml:lang="it">Negozio ${productStore.productStoreId} non riserva inventario; non è possibile utilizzare la spedizione veloce per stabilimenti multipli</value>
     </property>
     <property key="FacilityShipmentNotCreatedForExplodesOrderItems">
-        <value xml:lang="en">ProductStore {0} explodes order items; cannot use Quick Ship for Multiple Facilities</value>
-        <value xml:lang="it">Negozio {0} esplosione righe ordine; non √® possibile utilizzare la spedizione veloce per stabilimenti multipli</value>
+        <value xml:lang="en">ProductStore ${productStore.productStoreId} explodes order items; cannot use Quick Ship for Multiple Facilities</value>
+        <value xml:lang="it">Negozio ${productStore.productStoreId} esplosione righe ordine; non è possibile utilizzare la spedizione veloce per stabilimenti multipli</value>
     </property>
     <property key="FacilityShipmentNoItemsAvailableToShip">
         <value xml:lang="en">No items available to ship at this time for ship group ID {0}</value>
@@ -15557,6 +15609,42 @@
         <value xml:lang="zh">没有可用的库存预订信息</value>
         <value xml:lang="zh_TW">沒有可用的庫存預訂資訊</value>
     </property>
+    <property key="ProductNotIssueOrderForNotSalesOrders">
+        <value xml:lang="en">Not canceling ItemIssuance because the order is not a Sales Order</value>
+        <value xml:lang="it">Non è possibile cancellare la consegna perchè l'ordine non è di tipo ordine di vendita</value>
+    </property>
+    <property key="ProductNotIssueOrderQuantityCancelLess">
+        <value xml:lang="en">Not cancelling ItemIssuance ${parameters.itemIssuanceId} because the quantity to cancel ${toCancelQuantity} is less than 0</value>
+        <value xml:lang="it">Non è possibile cancellare la consegna ${parameters.itemIssuanceId} perchè la quantità da cancellare ${toCancelQuantity} è minore di zero</value>
+    </property>
+    <property key="ProductNotIssueOrderQuantityCancelGreater">
+        <value xml:lang="en">Not cancelling ItemIssuance because the quantity to cancel ${toCancelQuantity} is greater than the quantity left ${qtyIssuedLeft} for ItemIssuance ${parameters.itemIssuanceId}</value>
+        <value xml:lang="it">Non è possibile cancellare la consegna perchè la quantità da cancellare ${toCancelQuantity} è maggiore della quantità rimasta ${qtyIssuedLeft} per la consegna ${parameters.itemIssuanceId}</value>
+    </property>
+    <property key="ProductNotIssueOrderToShipment">
+        <value xml:lang="en">Not issuing Order Item Ship Group Inventory Reservation to shipment ${parameters.shipmentId} because the quantity to issue is empty for order ${orderItemShipGrpInvRes.orderId} order item ${orderItemShipGrpInvRes.orderItemSeqId} inventoryItem ${orderItemShipGrpInvRes.inventoryItemId}</value>
+        <value xml:lang="it">Non consegnabile inventario alla spedizione ${parameters.shipmentId} perchè la quantità da consegnare è vuota per l'ordine ${orderItemShipGrpInvRes.orderId} riga ordine ${orderItemShipGrpInvRes.orderItemSeqId} riga inventario ${orderItemShipGrpInvRes.inventoryItemId}</value>
+    </property>
+    <property key="ProductNotIssueOrderToShipmentQuantityLess">
+        <value xml:lang="en">Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue ${parameters.quantity} is less than or equal to 0 for order ${orderItemShipGrpInvRes.orderId} order item ${orderItemShipGrpInvRes.orderItemSeqId} inventoryItem ${orderItemShipGrpInvRes.inventoryItemId}</value>
+        <value xml:lang="it">Non consegnabile inventario alla spedizione ${parameters.shipmentId} perchè la quantità da consegnare ${parameters.quantity} è minore o uguale a zero per l'ordine ${orderItemShipGrpInvRes.orderId} riga ordine ${orderItemShipGrpInvRes.orderItemSeqId} riga inventario ${orderItemShipGrpInvRes.inventoryItemId}</value>
+    </property>
+    <property key="ProductNotIssueOrderToShipmentQuantityGreater">
+        <value xml:lang="en">Not issuing Order Item Ship Group Inventory Reservation to shipment ${parameters.shipmentId} because the quantity to issue ${parameters.quantity} is greater than the quantity left to issue ${orderItemShipGrpInvRes.quantity} for order ${orderItemShipGrpInvRes.orderId} order item ${orderItemShipGrpInvRes.orderItemSeqId} inventoryItem ${orderItemShipGrpInvRes.inventoryItemId}</value>
+        <value xml:lang="it">Non consegnabile inventario alla spedizione ${parameters.shipmentId} perchè la quantità da consegnare ${parameters.quantity} è maggiore di quella rimasta da consegnare ${orderItemShipGrpInvRes.quantity} per l'ordine ${orderItemShipGrpInvRes.orderId} riga ordine ${orderItemShipGrpInvRes.orderItemSeqId} riga inventario ${orderItemShipGrpInvRes.inventoryItemId}</value>
+    </property>
+    <property key="ProductNotIssueOrderToShipmentQuantityReturnGreater">
+        <value xml:lang="en">Not issuing Order Item Ship Group Inventory Reservation to shipment ${parameters.shipmentId} because the quantity to issue ${parameters.quantity} is greater than the quantity left to return ${orderItemShipGrpInvRes.quantity} for order ${orderItemShipGrpInvRes.orderId} order item ${orderItemShipGrpInvRes.orderItemSeqId} inventoryItem ${orderItemShipGrpInvRes.inventoryItemId}</value>
+        <value xml:lang="it">Non consegnabile inventario alla spedizione ${parameters.shipmentId} perchè la quantità da consegnare ${parameters.quantity} è maggiore di quella rimasta da restituire ${orderItemShipGrpInvRes.quantity} per l'ordine ${orderItemShipGrpInvRes.orderId} riga ordine ${orderItemShipGrpInvRes.orderItemSeqId} riga inventario ${orderItemShipGrpInvRes.inventoryItemId}</value>
+    </property>
+    <property key="ProductNotIssueToFixedAssetMaintQuantityLess">
+        <value xml:lang="en">Not issuing InventoryItem to FixedAssetMaint ${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId} because the quantity to issue ${parameters.quantity} is less than or equal to 0 for inventoryItem ${inventoryItem.inventoryItemId}</value>
+        <value xml:lang="it">Non consegnabile inventario alla manutenzione cespite ${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId} perchè la quantità da consegnare ${parameters.quantity} è minore o uguale a zero per la riga inventario ${inventoryItem.inventoryItemId}</value>
+    </property>
+    <property key="ProductNotIssueToFixedAssetMaintQuantityGreater">
+        <value xml:lang="en">Not issuing InventoryItem to FixedAssetMaint ${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId} because the quantity to issue ${parameters.quantity} is greater than the quantity left to issue (ie the ATP or Available To Promise) ${intentoryItem.availableToPromiseTotal} for inventoryItem ${orderItemShipGrpInvRes.inventoryItemId}</value>
+        <value xml:lang="it">Non consegnabile inventario alla manutenzione cespite ${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId} perchè la quantità da consegnare ${parameters.quantity} è maggiore della quantità rimasta da consegnare ${intentoryItem.availableToPromiseTotal} per la riga inventario ${orderItemShipGrpInvRes.inventoryItemId}</value>
+    </property>
     <property key="ProductNoItemsLeft">
         <value xml:lang="de">es sollten keine Positionen mehr übrig sein zur Ausgabe für diesen Auftrag</value>
         <value xml:lang="en">there should be no items left to issue from this order</value>
@@ -18119,17 +18207,29 @@
         <value xml:lang="zh">产品店铺组标识</value>
         <value xml:lang="zh_TW">產品商店群組ID</value>
     </property>
-    <property key="ProductProductStoreKeywordOverrideSettings">
-        <value xml:lang="de">Laden Schlüsselwörter Übersteuerung Einstellungen</value>
-        <value xml:lang="en">Product Store Keyword Override Settings</value>
-        <value xml:lang="es">Configuración de reemplazo de palabras clave para la tienda</value>
-        <value xml:lang="fr">Configuration des mots-clés du centre de profit</value>
-        <value xml:lang="it">Configurazione Sovrapposizione Chiave Negozio</value>
-        <value xml:lang="ro">Configurare Suprapunere Cheie Magazin </value>
-        <value xml:lang="ru">Настройки ключевых слов торг.точек продукта</value>
-        <value xml:lang="th">ตั้งค่าการยกเลิกคีย์เวิร์ดคลังสินค้า</value>
-        <value xml:lang="zh">产品店铺 关键字替代设置</value>
-        <value xml:lang="zh_TW">產品商店 關鍵字替代設置</value>
+    <property key="ProductProductStoreGroupId">
+        <value xml:lang="de">Ladengruppe ID</value>
+        <value xml:lang="en">Product Store Group Id</value>
+        <value xml:lang="es">Código del grupo de tiendas de productos</value>
+        <value xml:lang="fr">Réf. Groupe de centres de profit</value>
+        <value xml:lang="it">Gruppo Negozio</value>
+        <value xml:lang="ro">Grup Magazin id</value>
+        <value xml:lang="ru">Код группы торг.точек продукта</value>
+        <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
+        <value xml:lang="zh">产品店铺组标识</value>
+        <value xml:lang="zh_TW">產品商店群組ID</value>
+    </property>
+    <property key="ProductProductStoreNotFound">
+        <value xml:lang="en">No ProductStore found with id ${parameters.productStoreId}, not reserving inventory.</value>
+        <value xml:lang="it">Nessun negozio trovato con id ${parameters.productStoreId}, nessun inventario verrà riservato.</value>
+    </property>
+    <property key="ProductProductStoreNoSpecifiedInventoryFacility">
+        <value xml:lang="en">ProductStore with id ${productStoreId} has Y for oneInventoryFacility but inventoryFacilityId is empty, not reserving inventory.</value>
+        <value xml:lang="it">Negozio con id ${productStoreId} ha impostato il flag oneInventoryFacility ad Y ma inventoryFacilityId è vuoto, nessun inventario verrà riservato.</value>
+    </property>
+    <property key="ProductProductStoreNotCheckAvailability">
+        <value xml:lang="en">ProductStore with id ${productStoreId} has Y for oneInventoryFacility but inventoryFacilityId is empty, not checking available inventory.</value>
+        <value xml:lang="it">Negozio con id ${productStoreId} ha impostato il flag oneInventoryFacility ad Y ma inventoryFacilityId è vuoto, nessun controllo di disponibilità di inventario verrà effettuato.</value>
     </property>
     <property key="ProductProductStoreList">
         <value xml:lang="de">Ladenliste</value>
