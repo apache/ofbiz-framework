@@ -541,6 +541,10 @@
         <value xml:lang="th">ข้อผิดพลาดในส่วนของความปลอดภัย: ในการรัน ${resourceDescription} คุณต้องได้รับอนุญาตจาก EXAMPLE_${mainAction} หรือ EXAMPLE_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要运行${methodShortDescription}，你必须具有EXAMPLE${securityAction}或EXAMPLE_ADMIN权限</value>
     </property>
+    <property key="ExamplePermissionMainActionAttributeMissing">
+        <value xml:lang="en">In the permission-service element for the exampleGenericPermission service the main-action attribute was missing but is required</value>
+        <value xml:lang="it">Nell'elemento permission-service per il servizio exampleGenericPermission l'attributo è mancancate ma è richiesto</value>
+    </property>
     <property key="ExamplePointAddress">
         <value xml:lang="en">Geolocation via address</value>
         <value xml:lang="fr">Géolocalisation par l'adresse</value>
