@@ -18208,18 +18208,6 @@
         <value xml:lang="zh">产品店铺组标识</value>
         <value xml:lang="zh_TW">產品商店群組ID</value>
     </property>
-    <property key="ProductProductStoreGroupId">
-        <value xml:lang="de">Ladengruppe ID</value>
-        <value xml:lang="en">Product Store Group Id</value>
-        <value xml:lang="es">Código del grupo de tiendas de productos</value>
-        <value xml:lang="fr">Réf. Groupe de centres de profit</value>
-        <value xml:lang="it">Gruppo Negozio</value>
-        <value xml:lang="ro">Grup Magazin id</value>
-        <value xml:lang="ru">Код группы торг.точек продукта</value>
-        <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
-        <value xml:lang="zh">产品店铺组标识</value>
-        <value xml:lang="zh_TW">產品商店群組ID</value>
-    </property>
     <property key="ProductProductStoreNotFound">
         <value xml:lang="en">No ProductStore found with id ${parameters.productStoreId}, not reserving inventory.</value>
         <value xml:lang="it">Nessun negozio trovato con id ${parameters.productStoreId}, nessun inventario verrà riservato.</value>
