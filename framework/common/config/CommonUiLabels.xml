@@ -2291,6 +2291,14 @@
         <value xml:lang="zh_CN">电子邮件密码</value>
         <value xml:lang="zh_TW">電子郵件密碼</value>
     </property>
+    <property key="CommonEmailShouldBeSpecified">
+        <value xml:lang="en">PartyId or Email Address (sendTo) should be specified!</value>
+        <value xml:lang="it">Id soggetto o indirizzo e-mail (inviare a) deve essere specificato!</value>
+    </property>
+    <property key="CommonEmailNotValid">
+        <value xml:lang="en">PartyId: ${parameters.partyIdTo} has no valid email address!</value>
+        <value xml:lang="it">Id soggetto: ${parameters.partyIdTo} non ha un'indirizzo e-mail valido!</value>
+    </property>
     <property key="CommonEmailTo">
         <value xml:lang="ar">بريد الإلكتروني إلى</value>
         <value xml:lang="cs">Email komu</value>

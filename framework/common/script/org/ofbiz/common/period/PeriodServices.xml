@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -22,7 +22,9 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- CustomTimePeriod Services -->
     <simple-method method-name="createCustomTimePeriod" short-description="Create a CustomTimePeriod">
-        <check-permission permission="PERIOD_MAINT"><fail-message message="Security Error: to run createCustomTimePeriod you must have the PERIOD_MAINT permission"/></check-permission>
+        <check-permission permission="PERIOD_MAINT">
+            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="CustomTimePeriod"/>
@@ -35,7 +37,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateCustomTimePeriod" short-description="Update a CustomTimePeriod">
-        <check-permission permission="PERIOD_MAINT"><fail-message message="Security Error: to run updateCustomTimePeriod you must have the PERIOD_MAINT permission"/></check-permission>
+        <check-permission permission="PERIOD_MAINT">
+            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="CustomTimePeriod"/>
@@ -45,7 +49,9 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteCustomTimePeriod" short-description="Delete a CustomTimePeriod">
-        <check-permission permission="PERIOD_MAINT"><fail-message message="Security Error: to run deleteCustomTimePeriod you must have the PERIOD_MAINT permission"/></check-permission>
+        <check-permission permission="PERIOD_MAINT">
+            <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
+        </check-permission>
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="CustomTimePeriod"/>
