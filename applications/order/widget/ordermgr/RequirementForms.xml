@@ -266,7 +266,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyId" title="${uiLabelMap.ProductSupplier}">
+        <field name="partyId" title="${uiLabelMap.ProductSupplier}" position="1">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
                     <entity-constraint name="roleTypeId"  value="SUPPLIER" operator="equals"/>
@@ -274,6 +274,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="supplierCurrencyUomId" entry-name="parameters.supplierCurrencyUomId" position="2"><display/></field>
         <field name="unassignedRequirements"><check/></field>
         <field name="facilityId">
             <drop-down allow-empty="true">
@@ -343,8 +344,9 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
         <field name="partyId" title="${uiLabelMap.ProductSupplier}">
-            <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
+            <display-entity entity-name="PartyNameView" description="${lastName} ${firstName} ${groupName}"/>
         </field>
+        <field name="supplierCurrencyUomId" entry-name="parameters.supplierCurrencyUomId"><display/></field>
         <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
         <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display/></field>
         <field name="minimumOrderQuantity" title="${uiLabelMap.FormFieldTitle_minimumOrderQuantity}" widget-area-style="align-text"><display/></field>
@@ -372,9 +374,16 @@ under the License.
     </form>
     <form name="ApprovedProductRequirementsByVendor" type="list" use-row-submit="true" list-name="requirements" target="ApprovedProductRequirements" separate-columns="true"
         paginate-target="ApprovedProductRequirementsByVendor" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="Party" value-field="supplierParty">
+                <field-map field-name="partyId" from-field="partyId"/>
+            </entity-one>
+            <set field="supplierCurrencyUomId" from-field="supplierParty.preferredCurrencyUomId"/>
+        </row-actions>
         <field name="partyId">
             <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
         </field>
+        <field name="supplierCurrencyUomId"><display/></field>
         <field name="productId" title="${uiLabelMap.OrderVendorRequirementCount}" widget-area-style="align-text"><display also-hidden="false"/></field>
         <field name="billToCustomerPartyId">
             <drop-down allow-empty="false">

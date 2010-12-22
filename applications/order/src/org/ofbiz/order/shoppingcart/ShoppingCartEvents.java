@@ -643,11 +643,23 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
-
-        ShoppingCart cart = new WebShoppingCart(request);
+        String supplierPartyId = request.getParameter("supplierPartyId_o_0");
+        
+        // check the preferred currency of the supplier, if set, use that for the cart, otherwise use system defaults.
+        ShoppingCart cart = null;
+        try {
+        	GenericValue supplierParty = delegator.findOne("Party", UtilMisc.toMap("partyId", supplierPartyId), false);
+            if (UtilValidate.isNotEmpty(supplierParty.getString("preferredCurrencyUomId"))) {
+                cart = new WebShoppingCart(request, locale, supplierParty.getString("preferredCurrencyUomId"));
+            } else {
+                cart = new WebShoppingCart(request);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+        }
+        
         // TODO: the code below here needs some cleanups
         String billToCustomerPartyId = request.getParameter("billToCustomerPartyId_o_0");
-        String supplierPartyId = request.getParameter("supplierPartyId_o_0");
         if (UtilValidate.isEmpty(billToCustomerPartyId) && UtilValidate.isEmpty(supplierPartyId)) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderCouldNotInitPurchaseOrder", locale));
             return "error";
