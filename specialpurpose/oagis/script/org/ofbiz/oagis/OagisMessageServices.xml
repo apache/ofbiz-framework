@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -28,7 +28,9 @@ under the License.
         <!-- make sure it doesn't already exist: motivation: if it already exists we'll get a HUGE error message on the create with the whole XML file in it if debug is on for that, so we want a smaller error message -->
         <find-by-primary-key map="newEntity" value-field="currentOagisMessageInfo"/>
         <if-not-empty field="currentOagisMessageInfo">
-            <add-error><fail-message message="This message was already received, ie we have a duplicate combined ID for the message: ${newEntity}"/></add-error>
+            <add-error>
+                <fail-property resource="OagisUiLabels" property="OagisMessageAlreadyReceived"/>
+            </add-error>
             <check-errors/>
         </if-not-empty>
 

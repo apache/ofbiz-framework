@@ -794,6 +794,14 @@
         <value xml:lang="th">Billing</value>
         <value xml:lang="zh">账单</value>
     </property>
+    <property key="ProjectMgrCannotAddToTimesheet">
+        <value xml:lang="en">Cannot add to timesheet ${timesheet.timesheetId} because the status does not allow additions or modifications.</value>
+        <value xml:lang="it">Non è possibile aggiungerlo alla timbratura ${timesheet.timesheetId} perchè lo stato non permette aggiunte o modifiche.</value>
+    </property>
+    <property key="ProjectMgrCannotAddInvoiceToTimesheet">
+        <value xml:lang="en">Invoice with ID ${parameters.invoiceId}, has the wrong status, not adding Timesheet Entries to it.</value>
+        <value xml:lang="it">Fattura con ID ${parameters.invoiceId}, ha lo stato errato, non aggiungerlo alla riga timbratura.</value>
+    </property>
     <property key="ProjectMgrCheckComplete">
         <value xml:lang="de">Markieren wenn Fertiggestellt</value>
         <value xml:lang="en">Check Complete</value>
@@ -953,6 +961,10 @@
         <value xml:lang="nl">Taak wijzigen</value>
         <value xml:lang="th">แก้ไขงาน</value>
         <value xml:lang="zh">编辑任务</value>
+    </property>
+    <property key="ProjectMgrErrorProjectNotFound">
+        <value xml:lang="en">Project: ${parameters.projectId} not found</value>
+        <value xml:lang="it">Progetto: ${parameters.projectId} non trovato</value>
     </property>
     <property key="ProjectMgrErrorRequestNotFound">
         <value xml:lang="de">Kundenanfrage: ${parameters.custRequestId} wurde nicht gefunden</value>
@@ -1191,6 +1203,10 @@
         <value xml:lang="nl">Nieuwe aanmaken</value>
         <value xml:lang="th">สร้างใหม่</value>
         <value xml:lang="zh">创建新的</value>
+    </property>
+    <property key="ProjectMgrNoTimeentryItemsFound">
+        <value xml:lang="en">No timeentry items found</value>
+        <value xml:lang="it">Nessuna riga timbratura trovata</value>
     </property>
     <property key="ProjectMgrParentProjectName">
         <value xml:lang="de">Name des übergeordneten Projektes</value>

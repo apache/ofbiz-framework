@@ -31,7 +31,9 @@ under the License.
         </if-not-empty>
         <if-empty field="product.productId">
             <log level="info" message="No product found for ID ${parameters.productId}, "/>
-            <add-error error-list-name="errorMessageList"><fail-message message="Product not found"/></add-error>
+            <add-error error-list-name="errorMessageList">
+                <fail-property resource="ProductUiLabels" property="ProductErrorProductNotFound"/>
+            </add-error>
             <return response-code="error"/>  <!-- all done -->
         </if-empty>
     </simple-method>

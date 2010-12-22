@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -66,8 +66,7 @@ under the License.
                 <process field="USERNAME"><copy to-field="userLoginId"/><not-empty><fail-property resource="PartyUiLabels" property="PartyUserLoginMissingError"/></not-empty></process>
                 <process field="PASSWORD"><copy to-field="currentPassword"/><not-empty><fail-property resource="PartyUiLabels" property="PartyPasswordMissing"/></not-empty></process>
                 <process field="CONFIRM_PASSWORD">
-                    <compare-field operator="equals" field="PASSWORD"><fail-property resource="PartyUiLabels" property="PartyPasswordMatchError"/></compare-field>
-                    <!-- This is checked below in the checkNewPassword method in the bsh block: <not-empty><fail-message message="You must enter your password twice"/></not-empty> -->
+                    <compare-field operator="equals" field="PASSWORD"><fail-property resource="PartyUiLabels" property="PartyPasswordMatchError"/></compare-field>                    
                     <copy to-field="currentPasswordVerify"/>
                 </process>
                 <process field="PASSWORD_HINT"><copy to-field="passwordHint"/></process>
@@ -540,8 +539,8 @@ under the License.
                 <process field="maritalStatus"><copy/></process>
                 <process field="employmentStatusEnumId"><copy/></process>
                 <process field="occupation"><copy/></process>
-                <process field="yearsWithEmployer"><convert type="Long"><fail-message message="Years with Employer was not a valid number: ${parameters.yearsWithEmployer}"/></convert></process>
-                <process field="monthsWithEmployer"><convert type="Long"><fail-message message="Months with Employer was not a valid number: ${parameters.monthsWithEmployer}"/></convert></process>
+                <process field="yearsWithEmployer"><convert type="Long"><fail-property resource="EcommerceUiLabels" property="EcommerceYearsWithEmployeeNotValid"/></convert></process>
+                <process field="monthsWithEmployer"><convert type="Long"><fail-property resource="EcommerceUiLabels" property="EcommerceMonthsWithEmployeeNotValid"/></convert></process>
                 <process field="existingCustomer"><copy/></process>
             </simple-map-processor>
         </call-map-processor>
@@ -569,7 +568,7 @@ under the License.
                 </process>
                 <process field="homeContactNumber">
                     <copy to-field="contactNumber"/>
-                    <not-empty><fail-message message="Home Phone Contact Number is missing."/></not-empty>
+                    <not-empty><fail-property resource="PartyUiLabels" property="PartyHomePhoneContactNumberMissing"/></not-empty>
                 </process>
                 <process field="homeExt"><copy to-field="extension"/></process>
                 <process field="homeSol"><copy to-field="allowSolicitation"/></process>
@@ -656,7 +655,11 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateCustomer" short-description="Update Customer" login-required="true">
-        <if-empty field="parameters.partyId"><add-error><fail-message message="No partyId passed, cannot Update Customer"/></add-error></if-empty>
+        <if-empty field="parameters.partyId">
+            <add-error>
+                <fail-property resource="PartyUiLabels" property="PartyNoPartyForUpdateCustomer"/>
+            </add-error>
+        </if-empty>
 
         <call-simple-method method-name="validateCustomerInfo"/>
 
@@ -743,8 +746,8 @@ under the License.
                     <not-empty><fail-property resource="PartyUiLabels" property="PartyCountryMissing"/></not-empty>
                 </process>
                 <process field="allowSolicitation"><copy/></process>
-                <process field="yearsAtAddress"><convert type="Long" to-field="yearsWithContactMech"><fail-message message="Years at address not a valid number: ${parameters.yearsAtAddress}"/></convert></process>
-                <process field="monthsAtAddress"><convert type="Long" to-field="monthsWithContactMech"><fail-message message="Months at address not a valid number: ${parameters.monthsAtAddress}"/></convert></process>
+                <process field="yearsAtAddress"><convert type="Long" to-field="yearsWithContactMech"><fail-property resource="EcommerceUiLabels" property="EcommerceYearsAtAddressNotValid"/></convert></process>
+                <process field="monthsAtAddress"><convert type="Long" to-field="monthsWithContactMech"><fail-property resource="EcommerceUiLabels" property="EcommerceMonthsAtAddressNotValid"/></convert></process>
             </simple-map-processor>
         </call-map-processor>
         <if-compare value="USA" operator="equals" field="parameters.countryGeoId">

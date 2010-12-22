@@ -1960,6 +1960,14 @@
         <value xml:lang="zh">月</value>
         <value xml:lang="zh_TW">月</value>
     </property>
+    <property key="EcommerceMonthsAtAddressNotValid">
+        <value xml:lang="en">Months at address not a valid number: ${parameters.monthsAtAddress}</value>
+        <value xml:lang="it">Mesi all'indirizzo non è un numero valido: ${parameters.monthsAtAddress}</value>
+    </property>
+    <property key="EcommerceMonthsWithEmployeeNotValid">
+        <value xml:lang="en">Months with Employer was not a valid number: ${parameters.monthsWithEmployer}</value>
+        <value xml:lang="it">Mesi come impiegato non è un numero valido: ${parameters.monthsWithEmployer}</value>
+    </property>
     <property key="EcommerceMyAccount">
         <value xml:lang="da">Min konto</value>
         <value xml:lang="de">Mein Konto</value>
@@ -3738,6 +3746,14 @@
         <value xml:lang="th">ดูที่ส่ง</value>
         <value xml:lang="zh">浏览已发送和已接收</value>
         <value xml:lang="zh_TW">瀏覽已發送</value>
+    </property>
+    <property key="EcommerceYearsAtAddressNotValid">
+        <value xml:lang="en">Years at address not a valid number: ${parameters.yearsAtAddress}</value>
+        <value xml:lang="it">Anni all'indirizzo non è un numero valido: ${parameters.yearsAtAddress}</value>
+    </property>
+    <property key="EcommerceYearsWithEmployeeNotValid">
+        <value xml:lang="en">Years with Employer was not a valid number: ${parameters.yearsWithEmployer}</value>
+        <value xml:lang="it">Anni come impiegato non è un numero valido: ${parameters.yearsWithEmployer}</value>
     </property>
     <property key="EcommerceYouHave">
         <value xml:lang="da">De har</value>
