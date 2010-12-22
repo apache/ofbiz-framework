@@ -3989,6 +3989,7 @@
         <value xml:lang="zh_TW">全部列表</value>
     </property>
     <property key="CommonLoading">
+        <value xml:lang="de">Empfange Daten ...</value>
         <value xml:lang="en">Loading...</value>
         <value xml:lang="fr">Chargement...</value>
         <value xml:lang="hi_IN">लोड हो रहा है...</value>
@@ -10668,10 +10669,6 @@
     <property key="CommonPleaseSelect">
         <value xml:lang="de">Bitte wählen</value>
         <value xml:lang="en">please select</value>
-    </property>
-    <property key="CommonLoading">
-        <value xml:lang="de">Empfange Daten ...</value>
-        <value xml:lang="en">Loading ...</value>
     </property>
     <property key="CommonDownloaded">
         <value xml:lang="de">Daten empfangen.</value>
