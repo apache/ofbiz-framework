@@ -458,7 +458,7 @@ under the License.
         <entity-one entity-name="ProductStore" value-field="productStore" use-cache="true"/>
         <if-empty field="productStore">
             <add-error>
-                <fail-message message="No ProductStore found with id ${parameters.productStoreId}, not reserving inventory."/>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
             </add-error>
             <check-errors/>
         </if-empty>
@@ -478,7 +478,7 @@ under the License.
             <if-compare value="Y" field="productStore.oneInventoryFacility" operator="equals">
                 <if-empty field="productStore.inventoryFacilityId">
                     <add-error>
-                        <fail-message message="ProductStore with id ${productStoreId} has Y for oneInventoryFacility but inventoryFacilityId is empty, not reserving inventory."/>
+                        <fail-property resource="ProductUiLabels" property="ProductProductStoreNoSpecifiedInventoryFacility"/>
                     </add-error>
                     <check-errors/>
                 </if-empty>
@@ -549,7 +549,7 @@ under the License.
             </iterate>
             <if-empty field="facilityFound">
                 <add-error>
-                    <fail-message message="Facility with id ${parameters.facilityId} is not associated to ProductStore with id ${parameters.productStoreId}, not reserving inventory."/>
+                    <fail-property resource="ProductUiLabels" property="FacilityNoAssociatedWithProcuctStore"/>
                 </add-error>
                 <check-errors/>
             </if-empty>
@@ -642,7 +642,7 @@ under the License.
         <if-compare value="Y" operator="equals" field="productStore.oneInventoryFacility">
             <if-empty field="productStore.inventoryFacilityId">
                 <add-error>
-                    <fail-message message="ProductStore with id ${productStoreId} has Y for oneInventoryFacility but inventoryFacilityId is empty, not checking available inventory."/>
+                    <fail-property resource="ProductUiLabels" property="ProductProductStoreNotCheckAvailability"/>
                 </add-error>
                 <check-errors/>
             </if-empty>

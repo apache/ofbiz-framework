@@ -320,7 +320,7 @@ under the License.
         </else-if>
         <else>
              <add-error>
-                <fail-message message="${returnHeader.returnHeaderTypeId} is not supported"/>
+                <fail-property resource="ProductUiLabels" property="FacilityReturnHeaderTypeNotSupported"/>
             </add-error>
             <check-errors/>
         </else>
@@ -1272,7 +1272,9 @@ under the License.
         <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
         <if-empty field="orderHeader.productStoreId">
             <!-- no store cannot use quick ship; throw error -->
-            <add-error><fail-property resource="ProductUiLabels" property="FacilityShipmentMissingProductStore"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="FacilityShipmentMissingProductStore"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 
@@ -1283,15 +1285,15 @@ under the License.
 
         <if-compare field="productStore.reserveInventory" operator="not-equals" value="Y">
             <!-- no reservations; no shipment; cannot use quick ship -->
-            <set field="argListNames[]" from-field="productStore.productStoreId"/>
-            <property-to-field property="FacilityShipmentNotCreatedForNotReserveInventory" resource="ProductUiLabels" field="errMsg" arg-list-name="argListNames"/>
-            <add-error><fail-message message="${errMsg}"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="FacilityShipmentNotCreatedForNotReserveInventory"/>
+            </add-error>
         </if-compare>
         <if-compare field="productStore.explodeOrderItems" operator="equals" value="Y">
             <!-- can't insert duplicate rows in shipmentPackageContent -->
-            <set field="argListNames[]" from-field="productStore.productStoreId"/>
-            <property-to-field property="FacilityShipmentNotCreatedForExplodesOrderItems" resource="ProductUiLabels" field="errMsg" arg-list-name="argListNames"/>
-            <add-error><fail-message message="${errMsg}"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="FacilityShipmentNotCreatedForExplodesOrderItems"/>
+            </add-error>
         </if-compare>
         <check-errors/>
 
@@ -1328,7 +1330,9 @@ under the License.
         <field-to-result field="successMessageList"/>
 
         <if-empty field="shipmentShipGroupFacilityList">
-            <add-error><fail-property resource="ProductUiLabels" property="FacilityShipmentNotCreated"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="FacilityShipmentNotCreated"/>
+            </add-error>
         </if-empty>
         <check-errors/>
     </simple-method>
@@ -1402,7 +1406,9 @@ under the License.
 
         <!-- make sure we have something to ship -->
         <if-empty field="orderItemAndShipGroupAssocList">
-            <add-error><fail-message message="No items available to ship at this time"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="FacilityNoItemsAvailableToShip"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 
@@ -1575,7 +1581,9 @@ under the License.
         <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
         <if-empty field="orderHeader.productStoreId">
             <!-- no store cannot use quick ship; throw error -->
-            <add-error><fail-message message="No ProductStore associated with order; cannot use Quick Ship"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="FacilityNoQuickShip"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 
@@ -1725,7 +1733,9 @@ under the License.
         <if-empty field="parameters.originFacilityId">
             <if-empty field="orderHeader.productStoreId">
                 <!-- no store cannot use quick ship; throw error -->
-                <add-error><fail-message message="No ProductStore associated with order; cannot use Quick Ship"/></add-error>
+                <add-error>
+                    <fail-property resource="ProductUiLabels" property="FacilityNoQuickShip"/>
+                </add-error>
                 <check-errors/>
             </if-empty>
             <if-not-empty field="orderHeader.productStoreId">
@@ -1736,15 +1746,21 @@ under the License.
 
                 <if-compare field="productStore.reserveInventory" operator="not-equals" value="Y">
                     <!-- no reservations; no shipment; cannot use quick ship -->
-                    <add-error><fail-message message="ProductStore [${productStore.productStoreId}] does not reserve inventory; cannot use Quick Ship"/></add-error>
+                    <add-error>
+                        <fail-property resource="ProductUiLabels" property="FacilityNoQuickShipForNotReserveInventory"/>
+                    </add-error>
                 </if-compare>
                 <if-compare field="productStore.oneInventoryFacility" operator="not-equals" value="Y">
                     <!-- if we allow multiple facilities we cannot use quick ship; throw error -->
-                    <add-error><fail-message message="ProductStore [${productStore.productStoreId}] allows multiple facilities; cannot use Quick Ship"/></add-error>
+                    <add-error>
+                        <fail-property resource="ProductUiLabels" property="FacilityNoQuickShipForMultipleFacilities"/>
+                    </add-error>
                 </if-compare>
                 <if-empty field="productStore.inventoryFacilityId">
                     <!-- if no inventoryFacility is defined we cannot use quick ship; throw error -->
-                    <add-error><fail-message message="No inventory facility associated with ProductStore [${productStore.productStoreId}]; cannot use Quick Ship"/></add-error>
+                    <add-error>
+                        <fail-property resource="ProductUiLabels" property="FacilityNoQuickShipForNotInventoryFacility"/>
+                    </add-error>
                 </if-empty>
                 <check-errors/>
             </if-not-empty>
@@ -1752,7 +1768,9 @@ under the License.
 
         <!-- make sure we have items to issue -->
         <if-empty field="parameters.itemShipList">
-            <add-error><fail-message message="No items available to ship at this time"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="FacilityNoItemsAvailableToShip"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 

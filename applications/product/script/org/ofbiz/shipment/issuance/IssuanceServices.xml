@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -134,7 +134,9 @@ under the License.
 
         <!-- make sure specified quantity is not empty -->
         <if-empty field="parameters.quantity">
-            <add-error><fail-message message="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue is empty for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderToShipment"/>
+            </add-error>
         </if-empty>
         <if-empty field="orderItemShipGrpInvRes.quantity">
             <log level="info" message="Order item reservation amount is null! PK lookup: ${OrderItemShipGrpInvResLookupPk}"/>
@@ -142,11 +144,15 @@ under the License.
 
         <!-- make sure specified quantity is not less than or equal to 0 -->
         <if-compare field="parameters.quantity" operator="less-equals" value="0" type="BigDecimal">
-            <add-error><fail-message message="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderToShipmentQuantityLess"/>
+            </add-error>
         </if-compare>
         <!-- make sure specified quantity is not greater than reserved quantity left to be issued, ie orderItemShipGrpInvRes.quantity -->
         <if-compare-field field="parameters.quantity" to-field="orderItemShipGrpInvRes.quantity" operator="greater" type="BigDecimal">
-            <add-error><fail-message message="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue [${orderItemShipGrpInvRes.quantity}] for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderToShipmentQuantityGreater"/>
+            </add-error>
         </if-compare-field>
 
         <check-errors/>
@@ -372,11 +378,15 @@ under the License.
 
         <!-- make sure specified quantity is not less than or equal to 0 -->
         <if-compare field="parameters.quantity" operator="less-equals" value="0" type="BigDecimal">
-            <add-error><fail-message message="Not issuing InventoryItem to FixedAssetMaint [${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for inventoryItem [${inventoryItem.inventoryItemId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueToFixedAssetMaintQuantityLess"/>
+            </add-error>
         </if-compare>
         <!-- make sure specified quantity is not greater than available quantity left to be issued, ie intentoryItem.availableToPromiseTotal -->
         <if-compare-field field="parameters.quantity" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="BigDecimal">
-            <add-error><fail-message message="Not issuing InventoryItem to FixedAssetMaint [${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue (ie the ATP or Available To Promise) [${intentoryItem.availableToPromiseTotal}] for inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueToFixedAssetMaintQuantityGreater"/>
+            </add-error>
         </if-compare-field>
 
         <check-errors/>
@@ -446,7 +456,9 @@ under the License.
 
         <!-- make sure the order is of orderTypeId: SALES_ORDER -->
         <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
-            <add-error><fail-message message="Not canceling ItemIssuance because the order is not a Sales Order"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderForNotSalesOrders"/>
+            </add-error>
         </if-compare>
 
         <!-- get the quantity that can be cancelled ItemIssuance -->
@@ -464,7 +476,9 @@ under the License.
 
         <!-- make sure specified cancel Quantity is not less than or equal to 0 -->
         <if-compare field="toCancelQuantity" operator="less" value="0" type="BigDecimal">
-            <add-error><fail-message message="Not cancelling ItemIssuance [${parameters.itemIssuanceId}] because the quantity to cancel [${toCancelQuantity}] is less than 0 "/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderQuantityCancelLess"/>
+            </add-error>
         </if-compare>
 
         <if-compare field="toCancelQuantity" operator="equals" value="0" type="BigDecimal">
@@ -473,7 +487,9 @@ under the License.
 
         <!-- make sure specified quantity is not greater than issued quantity left -->
         <if-compare-field field="toCancelQuantity" to-field="qtyIssuedLeft" operator="greater" type="BigDecimal">
-            <add-error><fail-message message="Not cancelling ItemIssuance because the quantity to cancel [${toCancelQuantity}] is greater than the quantity left [${qtyIssuedLeft}] for ItemIssuance [${parameters.itemIssuanceId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderQuantityCancelGreater"/>
+            </add-error>
         </if-compare-field>
         <check-errors/>
 
@@ -535,15 +551,21 @@ under the License.
         </calculate>
         <!-- make sure specified quantity is not less than or equal to 0 -->
         <if-compare field="parameters.quantity" operator="less-equals" value="0" type="BigDecimal">
-            <add-error><fail-message message="Not issuing InventoryItem to Shipment [${parameters.shipmentId}:$${parameters.shipmentItemSeqId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for inventoryItem [${inventoryItem.inventoryItemId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderToShipmentQuantityLess"/>
+            </add-error>
         </if-compare>
         <!-- make sure specified quantity is not greater than available quantity left to be issued, i.e. intentoryItem.availableToPromiseTotal -->
         <if-compare-field field="parameters.quantity" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="BigDecimal">
-            <add-error><fail-message message="Not issuing InventoryItem to Shipment [${parameters.shipmentId}:${parameters.shipmentItemSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue (ie the ATP or Available To Promise) [${intentoryItem.availableToPromiseTotal}] for inventoryItem [${parameters.inventoryItemId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderToShipmentQuantityGreater"/>
+            </add-error>
         </if-compare-field>
         <!-- make sure specified quantity is not greater than total return quantity -->
         <if-compare-field field="parameters.quantity" to-field="quantityNotIssued" operator="greater" type="BigDecimal">
-            <add-error><fail-message message="Not issuing InventoryItem to Shipment [${parameters.shipmentId}:${parameters.shipmentItemSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to return for inventoryItem [${parameters.inventoryItemId}]"/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotIssueOrderToShipmentQuantityReturnGreater"/>
+            </add-error>
         </if-compare-field>
         <check-errors/>
 

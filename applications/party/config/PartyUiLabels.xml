@@ -4268,6 +4268,10 @@
         <value xml:lang="zh">Cookie</value>
         <value xml:lang="zh_TW">Cookie</value>
     </property>
+    <property key="PartyCouldNotCreateNewPurpose">
+        <value xml:lang="en">Could not create new purpose, a purpose with that type already exists</value>
+        <value xml:lang="it">Non è possibile creare una nuova funzione, una funzione con quel tipo esiste già</value>
+    </property>
     <property key="PartyCountry">
         <value xml:lang="cs">Země</value>
         <value xml:lang="de">Land</value>
@@ -9588,6 +9592,18 @@
         <value xml:lang="zh">安全组</value>
         <value xml:lang="zh_TW">安全群組</value>
     </property>
+    <property key="PartySecurityGroupCreatePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the SECURITY_CREATE or SECURITY_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso SECURITY_CREATE o SECURITY_ADMIN</value>
+    </property>
+    <property key="PartySecurityGroupDeletePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the SECURITY_DELETE or SECURITY_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso SECURITY_DELETE o SECURITY_ADMIN</value>
+    </property>
+    <property key="PartySecurityGroupUpdatePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the SECURITY_UPDATE or SECURITY_ADMIN permission</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso SECURITY_UPDATE o SECURITY_ADMIN</value>
+    </property>
     <property key="PartySegmentGroupId">
         <value xml:lang="de">Segmentgruppe ID</value>
         <value xml:lang="en">Segment Group Id</value>
@@ -10551,6 +10567,10 @@
         <value xml:lang="th">รหัสประเภทกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员类型标识</value>
         <value xml:lang="zh_TW">成員類型ID</value>
+    </property>
+    <property key="PartyUnableToLocatePurpose">
+        <value xml:lang="en">Unable to locate purpose; cannot delete</value>
+        <value xml:lang="it">Non è possibile localizzare la funzione; non può essere cancellata</value>
     </property>
     <property key="PartyURI">
         <value xml:lang="de">URI</value>
