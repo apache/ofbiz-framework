@@ -25,7 +25,6 @@ under the License.
         <set field="mainAction" from-field="parameters.mainAction"/>
         <if-empty field="mainAction">
             <add-error>
-            <fail-message message="In the permission-service element for the exampleGenericPermission service the main-action attribute was missing but is required"/>
                 <fail-property resource="ExampleUiLabels" property="ExamplePermissionMainActionAttributeMissing"/>
             </add-error>
             <check-errors/>
