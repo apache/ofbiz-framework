@@ -200,6 +200,10 @@
         <value xml:lang="th">ข้อมูลของข้อความ</value>
         <value xml:lang="zh">消息信息</value>
     </property>
+    <property key="OagisMessageAlreadyReceived">
+        <value xml:lang="en"> This message was already received, ie we have a duplicate combined ID for the message: ${newEntity}</value>
+        <value xml:lang="it"> Questo messaggio è già stato ricevuto, c'è un duplicato ID per il messaggio: ${newEntity}</value>
+    </property>
     <property key="OagisMessageDataFileUpload">
         <value xml:lang="en">Oagis Message DataFile Upload</value>
         <value xml:lang="fr">Téléchargement du message Oagis par fichier de données vers le serveur</value>

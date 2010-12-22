@@ -36,6 +36,10 @@
         <value xml:lang="en">Export categories to eBay store</value>
         <value xml:lang="th">ส่งออกหมวดหมู่สินค้าเข้าคลังสินค้าในอีเบย์</value>
     </property>
+    <property key="EbayStoreCannotDecreaseQuantity">
+        <value xml:lang="en">Can not decrease quantity of product ${parameters.productId} because it already to used created listing.</value>
+        <value xml:lang="it">Non è possibile diminuire la quantità del prodotto ${parameters.productId} perchè è già usato da aste create.</value>
+    </property>
     <property key="EbayExportToEbayStore">
         <value xml:lang="en">Export To eBay Store</value>
         <value xml:lang="th">การส่งออกไปยังคลังสินค้าอีเบย์</value>

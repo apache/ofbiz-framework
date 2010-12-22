@@ -53,7 +53,9 @@
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
         </entity-one>
         <if-empty field="productStore">
-            <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}, not reserving inventory."/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 
@@ -86,7 +88,9 @@
                 <log level="info" message="ProductStoreService:Facility Found : [${facilityFound}]"/>
             </iterate>
             <if-empty field="facilityFound">
-                <add-error><fail-message message="Facility with id ${parameters.facilityId} is not associated to ProductStore with id ${parameters.productStoreId}, not reserving inventory."/></add-error>
+                <add-error>
+                    <fail-property resource="ProductUiLabels" property="FacilityNoAssociatedWithProcuctStore"/>
+                </add-error>
                 <check-errors/>
             </if-empty>
             <!-- verifly that product was store in facility -->
@@ -95,7 +99,9 @@
                 <field-map from-field="parameters.productId" field-name="productId"/>
             </entity-and>
             <if-empty field="productFacilityList">
-                <add-error><fail-message message="Facility with id ${parameters.facilityId} is not associated to ProductId with id ${parameters.productId}, not reserving inventory."/></add-error>
+                <add-error>
+                    <fail-property resource="ProductUiLabels" property="FacilityNoAssociatedWithProcuctStore"/>
+                </add-error>
                 <check-errors/>
             </if-empty>
 
@@ -191,7 +197,9 @@
             <field-map field-name="productId" from-field="parameters.productId"/>
         </entity-one>
         <if-empty field="ebayProductStoreInventory">
-            <add-error><fail-message message="No Product found with id ${parameters.productId}."/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotFindProductId"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <set field="actionType" from-field="parameters.actionType"/>
@@ -255,7 +263,9 @@
                     </calculate>
                     <store-value value-field="ebayProductStoreInventory"/>
                     <else>
-                        <add-error><fail-message message="can not decrease quantity of product ${parameters.productId} because it already to used created listing."/></add-error>
+                        <add-error>                        
+                            <fail-property resource="ProductUiLabels" property="EbayStoreCannotDecreaseQuantity"/>
+                        </add-error>
                         <return/>
                     </else>
                 </if-compare>

@@ -31,7 +31,9 @@
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
         </entity-one>
         <if-empty field="productStore">
-            <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}."/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
@@ -76,7 +78,9 @@
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
         </entity-one>
         <if-empty field="productStore">
-            <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}."/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
@@ -119,7 +123,9 @@
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
         </entity-one>
         <if-empty field="productStore">
-            <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}."/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
         <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
@@ -161,7 +167,9 @@
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
         </entity-one>
         <if-empty field="productStore">
-            <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}."/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 
@@ -202,7 +210,9 @@
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
         </entity-one>
         <if-empty field="productStore">
-            <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}."/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 
@@ -292,7 +302,9 @@
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
         </entity-one>
         <if-empty field="productStore">
-            <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}."/></add-error>
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
             <check-errors/>
         </if-empty>
 

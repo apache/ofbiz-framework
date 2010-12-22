@@ -612,7 +612,9 @@
 
         <if-empty field="project">
             <field-to-result field="parameters.projectId" result-name="projectId"/>
-            <add-error error-list-name="error_list"><fail-message message="Project: ${parameters.projectId} not found"/></add-error>
+            <add-error error-list-name="error_list">
+                <fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorProjectNotFound"/>
+            </add-error>
         </if-empty>
         <if-empty field="parameters.workEffortName">
             <set field="parameters.workEffortName" from-field="project.workEffortName"/>
@@ -1178,7 +1180,7 @@
                         <set field="parameters.timesheetId" from-field="timesheet.timesheetId"/>
                         <else>
                             <add-error>
-                                <fail-message message="Cannot add to timesheet ${timesheet.timesheetId} because the status does not allow additions or modifications."/>
+                                <fail-property resource="ProjectMgrUiLabels" property="ProjectMgrCannotAddToTimesheet"/>
                             </add-error>
                             <check-errors/>
                         </else>
@@ -1209,20 +1211,24 @@
         <if-compare operator="equals" value="Y" field="parameters.reCreate">
             <entity-one entity-name="Invoice" value-field="invoice"/>
             <if-empty field="invoice">
-                <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
+                <add-error>
+                    <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetCannotFindInvoice"/>
+                </add-error>
                 <check-errors/>
             </if-empty>
             <if-compare field="invoice.statusId" operator="not-equals" value="INVOICE_IN_PROCESS">
-                <add-error><fail-message message="Invoice with ID [${parameters.invoiceId}], has the wrong status, not adding Timesheet Entries to it."/></add-error>
+                <add-error>
+                    <fail-property resource="ProjectMgrUiLabels" property="ProjectMgrCannotAddInvoiceToTimesheet"/>
+                </add-error>
                 <check-errors/>
             </if-compare>
             <entity-and list="entries" entity-name="TimeEntry">
                 <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
             </entity-and>
             <iterate list="entries" entry="timeEntry">
-                   <clear-field field="timeEntry.invoiceId"/>
-                   <clear-field field="timeEntry.invoiceItemSeqId"/>
-                   <store-value value-field="timeEntry"/>
+                <clear-field field="timeEntry.invoiceId"/>
+                <clear-field field="timeEntry.invoiceItemSeqId"/>
+                <store-value value-field="timeEntry"/>
             </iterate>
             <set field="removeItems.invoiceId" from-field="parameters.invoiceId"/>
             <remove-by-and entity-name="InvoiceItem" map="removeItems"/>
@@ -1239,7 +1245,7 @@
         </entity-condition>
         <if-empty field="tasks">
             <add-error>
-                <fail-message message="No timeentry items found"/>
+                <fail-property resource="ProjectMgrUiLabels" property="ProjectMgrNoTimeentryItemsFound"/>
             </add-error>
             <check-errors/>
         </if-empty>
