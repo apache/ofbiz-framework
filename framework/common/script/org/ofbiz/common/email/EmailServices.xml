@@ -25,7 +25,9 @@ under the License.
         <if-empty field="parameters.sendTo">
             <if-empty field="parameters.partyIdTo">
                 <log level="error" message="PartyId or SendTo should be specified!"></log>
-                <add-error><fail-message message="PartyId or Email Address (sendTo) should be specified!"/></add-error>
+                <add-error>
+                    <fail-property resource="CommonUiLabels" property="CommonEmailShouldBeSpecified"/>
+                </add-error>
             <check-errors/>
             </if-empty>
         </if-empty>
@@ -37,7 +39,9 @@ under the License.
                 </call-service>
                 <if-empty field="parameters.sendTo">
                     <log level="error" message="PartyId: ${parameters.partyIdTo} has no valid email address!"></log>
-                    <add-error><fail-message message="PartyId: ${parameters.partyIdTo} has no valid email address!"/></add-error>
+                    <add-error>
+                        <fail-property resource="CommonUiLabels" property="CommonEmailNotValid"/>
+                    </add-error>
                     <check-errors/>
                 </if-empty>
             </if-empty>
