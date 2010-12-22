@@ -146,8 +146,9 @@
         <value xml:lang="en">Unit cost for inventory item ${lookupPKMap.inventoryItemId} cannot be negative.</value>
         <value xml:lang="it">Costo unitario per la riga di inventario ${lookupPKMap.inventoryItemId} non può essere negativo.</value>
     </property>
-    </property key="FacilityInventoryHistoryReport">
+    <property key="FacilityInventoryHistoryReport">
         <value xml:lang="en">Inventory History Report</value>
+        <value xml:lang="it">Report storia inventario</value>
     </property>
     <property key="FacilityMultipleLocations">
         <value xml:lang="en">Multiple Locations</value>
