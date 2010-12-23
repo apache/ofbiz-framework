@@ -158,7 +158,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             }
         }
 
-        if (menuItem.getDisabled()) {
+        if (menuItem.getDisabled() || this.isDisableIfEmpty(menuItem, context)) {
             style = menuItem.getDisabledTitleStyle();
         }
 
@@ -389,7 +389,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     public void renderLink(Appendable writer, Map<String, Object> context, ModelMenuItem.Link link) throws IOException {
         String target = link.getTarget(context);
         ModelMenuItem menuItem = link.getLinkMenuItem();
-        if (menuItem.getDisabled()) {
+        if (menuItem.getDisabled() || isDisableIfEmpty(menuItem, context)) {
             target = null;
         }
 
