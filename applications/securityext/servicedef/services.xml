@@ -25,81 +25,94 @@ under the License.
     <version>1.0</version>
 
     <!-- SecurityGroup services -->
-    <service name="createSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="createSecurityGroup" auth="true">
+    <service name="createSecurityGroup" engine="entity-auto" invoke="create" default-entity-name="SecurityGroup" auth="true">
         <description>Create an SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
-        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="updateSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="updateSecurityGroup" auth="true">
+    <service name="updateSecurityGroup" engine="entity-auto" invoke="update" default-entity-name="SecurityGroup" auth="true">
         <description>Update a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
-        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
+
     <!-- SecurityPermission services -->
-    <service name="createSecurityPermission" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="createSecurityPermission" auth="true">
+    <service name="createSecurityPermission" engine="entity-auto" invoke="create" default-entity-name="SecurityPermission" auth="true">
         <description>Create a SecurityPermission</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
         <attribute name="permissionId" type="String" mode="IN" optional="false"/>
-        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="updateSecurityPermission" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="updateSecurityPermission" auth="true">
+    <service name="updateSecurityPermission" engine="entity-auto" invoke="update" default-entity-name="SecurityPermission" auth="true">
         <description>Update a SecurityPermission</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
         <attribute name="permissionId" type="String" mode="IN" optional="false"/>
-        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- SecurityPermission to SecurityGroup services -->
-    <service name="addSecurityPermissionToSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="addSecurityPermissionToSecurityGroup" auth="true">
+    <service name="addSecurityPermissionToSecurityGroup" engine="entity-auto" invoke="create" default-entity-name="SecurityGroupPermission" auth="true">
         <description>Add a SecurityPermission to a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="permissionId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="removeSecurityPermissionFromSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="removeSecurityPermissionFromSecurityGroup" auth="true">
+    <service name="removeSecurityPermissionFromSecurityGroup" engine="entity-auto" invoke="delete" default-entity-name="SecurityGroupPermission" auth="true">
         <description>Remove a SecurityPermission from a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="DELETE"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="permissionId" type="String" mode="IN" optional="false"/>
     </service>
 
     <!-- UserLogin to SecurityGroup services -->
-    <service name="addUserLoginToSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="addUserLoginToSecurityGroup" auth="true">
+    <service name="addUserLoginToSecurityGroup" engine="entity-auto" invoke="create" default-entity-name="UserLoginSecurityGroup" auth="true">
         <description>Add a UserLogin to a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
-    <service name="updateUserLoginToSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="updateUserLoginToSecurityGroup" auth="true">
+    <service name="updateUserLoginToSecurityGroup" engine="entity-auto" invoke="update" default-entity-name="UserLoginSecurityGroup" auth="true">
         <description>Update a UserLogin to SecurityGroup Appl</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
-    <service name="removeUserLoginFromSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="removeUserLoginFromSecurityGroup" auth="true">
+    <service name="removeUserLoginFromSecurityGroup" engine="entity-auto" invoke="delete" default-entity-name="UserLoginSecurityGroup" auth="true">
         <description>Remove a UserLogin from a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="DELETE"/>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
 
     <!-- ProtectedView to SecurityGroup services -->
-    <service name="addProtectedViewToSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="addProtectedViewToSecurityGroup" auth="true">
-        <description>Add a ProtectedView to a SecurityGroup</description>
+    <service name="addProtectedViewToSecurityGroup" engine="entity-auto" invoke="create" default-entity-name="ProtectedView" auth="true">
+        <description>Add a Protected View to a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
         <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="maxHits" type="Integer" mode="IN" optional="false"/>
         <attribute name="maxHitsDuration" type="Long" mode="IN" optional="false"/>
         <attribute name="tarpitDuration" type="Long" mode="IN" optional="false"/>
     </service>
-    <service name="updateProtectedViewToSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="updateProtectedViewToSecurityGroup" auth="true">
-        <description>Update a ProtectedView to SecurityGroup Appl</description>
+    <service name="updateProtectedViewToSecurityGroup" engine="entity-auto" invoke="update" default-entity-name="ProtectedView" auth="true">
+        <description>Update a Protected View to SecurityGroup Assignment</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
         <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="maxHits" type="Integer" mode="IN" optional="false"/>
         <attribute name="maxHitsDuration" type="Long" mode="IN" optional="false"/>
         <attribute name="tarpitDuration" type="Long" mode="IN" optional="false"/>
     </service>
-    <service name="removeProtectedViewFromSecurityGroup" engine="simple" location="component://securityext/script/org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="removeProtectedViewFromSecurityGroup" auth="true">
-        <description>Remove a ProtectedView from a SecurityGroup</description>
+    <service name="removeProtectedViewFromSecurityGroup" engine="entity-auto" invoke="delete" default-entity-name="ProtectedView" auth="true">
+        <description>Remove a Protected View from a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="DELETE"/>
         <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
     </service>
