@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>OFBiz Security Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- SecurityGroup services -->
+    <service name="createSecurityGroup" engine="entity-auto" invoke="create" default-entity-name="SecurityGroup" auth="true">
+        <description>Create an SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="updateSecurityGroup" engine="entity-auto" invoke="update" default-entity-name="SecurityGroup" auth="true">
+        <description>Update a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <!-- SecurityPermission services -->
+    <service name="createSecurityPermission" engine="entity-auto" invoke="create" default-entity-name="SecurityPermission" auth="true">
+        <description>Create a SecurityPermission</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
+        <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="updateSecurityPermission" engine="entity-auto" invoke="update" default-entity-name="SecurityPermission" auth="true">
+        <description>Update a SecurityPermission</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
+        <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <!-- SecurityPermission to SecurityGroup services -->
+    <service name="addSecurityPermissionToSecurityGroup" engine="entity-auto" invoke="create" default-entity-name="SecurityGroupPermission" auth="true">
+        <description>Add a SecurityPermission to a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removeSecurityPermissionFromSecurityGroup" engine="entity-auto" invoke="delete" default-entity-name="SecurityGroupPermission" auth="true">
+        <description>Remove a SecurityPermission from a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="DELETE"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="permissionId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- UserLogin to SecurityGroup services -->
+    <service name="addUserLoginToSecurityGroup" engine="entity-auto" invoke="create" default-entity-name="UserLoginSecurityGroup" auth="true">
+        <description>Add a UserLogin to a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="updateUserLoginToSecurityGroup" engine="entity-auto" invoke="update" default-entity-name="UserLoginSecurityGroup" auth="true">
+        <description>Update a UserLogin to SecurityGroup Appl</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+    </service>
+    <service name="removeUserLoginFromSecurityGroup" engine="entity-auto" invoke="delete" default-entity-name="UserLoginSecurityGroup" auth="true">
+        <description>Remove a UserLogin from a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="DELETE"/>
+        <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProtectedView to SecurityGroup services -->
+    <service name="addProtectedViewToSecurityGroup" engine="entity-auto" invoke="create" default-entity-name="ProtectedView" auth="true">
+        <description>Add a Protected View to a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
+        <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="maxHits" type="Integer" mode="IN" optional="false"/>
+        <attribute name="maxHitsDuration" type="Long" mode="IN" optional="false"/>
+        <attribute name="tarpitDuration" type="Long" mode="IN" optional="false"/>
+    </service>
+    <service name="updateProtectedViewToSecurityGroup" engine="entity-auto" invoke="update" default-entity-name="ProtectedView" auth="true">
+        <description>Update a Protected View to SecurityGroup Assignment</description>
+        <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
+        <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="maxHits" type="Integer" mode="IN" optional="false"/>
+        <attribute name="maxHitsDuration" type="Long" mode="IN" optional="false"/>
+        <attribute name="tarpitDuration" type="Long" mode="IN" optional="false"/>
+    </service>
+    <service name="removeProtectedViewFromSecurityGroup" engine="entity-auto" invoke="delete" default-entity-name="ProtectedView" auth="true">
+        <description>Remove a Protected View from a SecurityGroup</description>
+        <permission-service service-name="securityPermissionCheck" main-action="DELETE"/>
+        <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- permission check -->
+    <service name="securityPermissionCheck" engine="simple"
+             location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+        <implements service="permissionInterface"/>
+        <attribute name="primaryPermission" type="String" mode="IN" optional="true" default-value="SECURITY"/>
+    </service>
+    
+</services>
