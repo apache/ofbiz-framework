@@ -22,6 +22,7 @@ under the License.
 
 <#-- virtual product javascript -->
 ${virtualJavaScript?if_exists}
+${virtualVariantJavaScript?if_exists}
 <script type="text/javascript">
 //<![CDATA[
     var detailImageUrl = null;
@@ -269,7 +270,13 @@ ${virtualJavaScript?if_exists}
     </#if>
     
     function displayProductVirtualVariantId(variantId) {
-        document.addform.product_id.value = variantId;
+        if(variantId){
+            document.addform.product_id.value = variantId;
+        }else{
+            document.addform.product_id.value = '';
+            variantId = '';
+        }
+        
         var elem = document.getElementById('product_id_display');
         var txt = document.createTextNode(variantId);
         if(elem.hasChildNodes()) {
@@ -277,7 +284,20 @@ ${virtualJavaScript?if_exists}
         } else {
             elem.appendChild(txt);
         }
-        setVariantPrice(variantId);
+        
+        var priceElem = document.getElementById('variant_price_display');
+        var price = getVariantPrice(variantId);
+        var priceTxt = null;
+        if(price){
+            priceTxt = document.createTextNode(price);
+        }else{
+            priceTxt = document.createTextNode('');
+        }
+        if(priceElem.hasChildNodes()) {
+            priceElem.replaceChild(priceTxt, priceElem.firstChild);
+        } else {
+            priceElem.appendChild(priceTxt);
+        }
     }
 //]]>
  </script>
@@ -584,6 +604,19 @@ ${virtualJavaScript?if_exists}
          </#if>
         <#else>
           <input type="hidden" name="add_product_id" value="${product.productId}" />
+          <#if mainProducts?has_content>
+            <input type="hidden" name="product_id" value=""/>
+            <select name="productVariantId" onchange="javascript:displayProductVirtualVariantId(this.value);">
+                <option value="">Select Unit Of Measure</option>
+                <#list mainProducts as mainProduct>
+                    <option value="${mainProduct.productId}">${mainProduct.uomDesc} : ${mainProduct.piecesIncluded}</option>
+                </#list>
+            </select><br/>
+            <div>
+              <strong><span id="product_id_display"> </span></strong>
+              <strong><div id="variant_price_display"> </div></strong>
+            </div>
+          </#if>
           <#if (availableInventory?exists) && (availableInventory <= 0)>
             <#assign inStock = false />
           </#if>

@@ -31,7 +31,8 @@ import org.ofbiz.product.config.ProductConfigWorker;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
 import org.ofbiz.order.shoppingcart.*;
-
+import org.ofbiz.product.product.ProductWorker;
+import java.text.NumberFormat;
 
 //either optProduct, optProductId or productId must be specified
 product = request.getAttribute("optProduct");
@@ -126,6 +127,73 @@ if (product) {
 
     // get the product review(s)
     reviews = product.getRelatedCache("ProductReview", null, ["-postedDateTime"]);
+    
+    // get product variant for Box/Case/Each
+    productVariants = [];
+    boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null);
+    mainProducts = [];
+    if(isAlternativePacking){
+        productVirtualVariants = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE"));
+        if(productVirtualVariants){
+            productVirtualVariants.each { virtualVariantKey ->
+                mainProductMap = [:];
+                mainProduct = virtualVariantKey.getRelatedOneCache("MainProduct");
+                quantityUom = mainProduct.getRelatedOneCache("QuantityUom");
+                mainProductMap.productId = mainProduct.productId;
+                mainProductMap.piecesIncluded = mainProduct.piecesIncluded;
+                mainProductMap.uomDesc = quantityUom.description;
+                mainProducts.add(mainProductMap);
+            }
+        }
+        
+        // get alternative product price when product doesn't have any feature 
+        jsBuf = new StringBuffer();
+        jsBuf.append("<script language=\"JavaScript\" type=\"text/javascript\">");
+        
+        // make a list of variant sku with requireAmount
+        virtualVariantsRes = dispatcher.runSync("getAssociatedProducts", [productIdTo : productId, type : "ALTERNATIVE_PACKAGE", checkViewAllow : true, prodCatalogId : categoryId]);
+        virtualVariants = virtualVariantsRes.assocProducts;
+        // Format to apply the currency code to the variant price in the javascript
+        if (productStore) {
+            localeString = productStore.defaultLocaleString;
+            if (localeString) {
+                locale = UtilMisc.parseLocale(localeString);
+            }
+        }
+        variantPriceList = [];
+        numberFormat = NumberFormat.getCurrencyInstance(locale);
+        
+        if(virtualVariants){
+            amt = new StringBuffer();
+            // Create the javascript to return the price for each variant
+            variantPriceJS = new StringBuffer();
+            variantPriceJS.append("function getVariantPrice(sku) { ");
+            
+            virtualVariants.each { virtualAssoc ->
+                virtual = virtualAssoc.getRelatedOne("MainProduct");
+                // Get price from a virtual product
+                priceContext.product = virtual;
+                if (cart.isSalesOrder()) {
+                    // sales order: run the "calculateProductPrice" service
+                    virtualPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+                    BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get("price");
+                    // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
+                    variantPriceList.add(virtualPriceMap);
+                } else {
+                    virtualPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
+                }
+                variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
+            }
+            variantPriceJS.append(" } ");
+            
+            context.variantPriceList = variantPriceList;
+            jsBuf.append(amt.toString());
+            jsBuf.append(variantPriceJS.toString());
+            jsBuf.append("</script>");
+            context.virtualJavaScript = jsBuf;
+        }
+    }
+    context.mainProducts = mainProducts;
 }
 
 // get the average rating

@@ -40,6 +40,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
@@ -1125,17 +1126,49 @@ nextProd:
         return variantProductId;
     }
     
-    public static boolean isAlternativePacking(Delegator delegator, String productId, String originalVirtualProductId) {
+    public static boolean isAlternativePacking(Delegator delegator, String productId, String virtualVariantId) {
         boolean isAlternativePacking = false;
-        if(productId != null && originalVirtualProductId != null){
+        if(productId != null || virtualVariantId != null){
             List<GenericValue> alternativePackingProds = null;
             try {
-                alternativePackingProds = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productId", originalVirtualProductId , "productIdTo", productId, "productAssocTypeId", "ALTERNATIVE_PACKAGE"));
+                List<EntityCondition> condList = FastList.newInstance();
+
+                if (UtilValidate.isNotEmpty(productId)) {
+                    condList.add(EntityCondition.makeCondition("productIdTo", productId));
+                }
+                if (UtilValidate.isNotEmpty(virtualVariantId)) {
+                    condList.add(EntityCondition.makeCondition("productId", virtualVariantId));
+                }
+                condList.add(EntityCondition.makeCondition("productAssocTypeId", "ALTERNATIVE_PACKAGE"));
+                alternativePackingProds = delegator.findList("ProductAssoc", EntityCondition.makeCondition(condList, EntityOperator.AND), null, null, null, true);
                 if(UtilValidate.isNotEmpty(alternativePackingProds)) isAlternativePacking = true;
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Could not found alternative product: " + e.getMessage(), module);
             }
         }
         return isAlternativePacking;
+    }
+    
+    public static String getOriginalProductId(Delegator delegator, String productId){
+        boolean isAlternativePacking = isAlternativePacking(delegator, null, productId);
+        if (isAlternativePacking) {
+            List<GenericValue> productAssocs = null;
+            try {
+                productAssocs = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productId", productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            productAssocs = EntityUtil.filterByDate(productAssocs);
+            
+            if (productAssocs != null) {
+                GenericValue productAssoc = EntityUtil.getFirst(productAssocs);
+                return productAssoc.getString("productIdTo");
+            } else {
+                return null;
+            }
+        }else{
+            return null;
+        }
+        
     }
 }
