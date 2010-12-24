@@ -23,35 +23,42 @@
         <value xml:lang="en">Create Public Message</value>
         <value xml:lang="fr">Créer un message public</value>
         <value xml:lang="it">Crea messaggio pubblico</value>
+        <value xml:lang="pt_BR">Criar Mensagem Pública</value>
     </property>
     <property key="CommonExtDateInfoCreated">
         <value xml:lang="en">Date info created</value>
         <value xml:lang="fr">Date de création</value>
         <value xml:lang="it">Data di creazione</value>
+        <value xml:lang="pt_BR">Data da informação criada</value>
     </property>
     <property key="CommonExtDateLastChanged">
         <value xml:lang="en">Date Last Changed</value>
         <value xml:lang="fr">Dernière date de changement</value>
         <value xml:lang="it">Data ultimo cambiamento</value>
+        <value xml:lang="pt_BR">Data da última modificação</value>
     </property>
     <property key="CommonExtSystemInfoNote">
         <value xml:lang="en">System Info Note</value>
         <value xml:lang="fr">Message d'information système</value>
         <value xml:lang="it">Messaggio di sistema</value>
+        <value xml:lang="pt_BR">Nota de Informação do Sistema</value>
     </property>
     <property key="CommonExtSystemInfoNoteForUser">
         <value xml:lang="en">System Info note for user:</value>
         <value xml:lang="fr">Message d'information système pour l'utilisateur :</value>
         <value xml:lang="it">Messaggio di sistema per l'utente:</value>
+        <value xml:lang="pt_BR">Nota de Informação do Sistema para o usuário:</value>
     </property>
     <property key="CommonExtSystemInfoStatus">
         <value xml:lang="en">System Info Status</value>
         <value xml:lang="fr">Message d'information d'état</value>
         <value xml:lang="it">Stato messaggi di sistema</value>
+        <value xml:lang="pt_BR">Informação de estado do sistema</value>
     </property>
     <property key="CommonExtSystemInfoStatusForUser">
         <value xml:lang="en">System Info status for user:</value>
         <value xml:lang="fr">Message d'information d'état pour l'utilisateur :</value>
         <value xml:lang="it">Stato messaggi di sistema per l'utente:</value>
+        <value xml:lang="pt_BR">Informação de estado do sistema para o usuário:</value>
     </property>
 </resource>
