@@ -1108,6 +1108,9 @@
         <value xml:lang="zh">无法找到</value>
         <value xml:lang="zh_TW">無法找到</value>
     </property>
+    <property key="CommonCaptchaCode">
+        <value xml:lang="en">Captcha Code</value>
+    </property>
     <property key="CommonChange">
         <value xml:lang="ar">تغيير</value>
         <value xml:lang="de">Verändern</value>
@@ -2272,6 +2275,9 @@
         <value xml:lang="th">อีเมล</value>
         <value xml:lang="zh">电子邮件</value>
         <value xml:lang="zh_TW">電子郵件</value>
+    </property>
+    <property key="CommonEmailAlreadyExist">
+        <value xml:lang="en">Email already exist</value>
     </property>
     <property key="CommonEmailPassword">
         <value xml:lang="ar">كلمة سر البريد الإلكتروني</value>
@@ -3695,6 +3701,9 @@
     <property key="CommonReleaseDate">
         <value xml:lang="en">Release Date</value>
     </property>
+    <property key="CommonReloadCaptchaCode">
+        <value xml:lang="en">Reload Captcha Code</value>
+    </property>
     <property key="CommonInventory">
         <value xml:lang="en">Inventory</value>
         <value xml:lang="fr">Stockage</value>
@@ -4346,6 +4355,9 @@
         <value xml:lang="zh">信息</value>
         <value xml:lang="zh_CN">消息</value>
         <value xml:lang="zh_TW">訊息</value>
+    </property>
+    <property key="CommonMessageMissing">
+        <value xml:lang="en">Message is missing</value>
     </property>
     <property key="CommonMessages">
         <value xml:lang="de">Meldungen</value>
@@ -8630,6 +8642,9 @@
         <value xml:lang="zh">数值</value>
         <value xml:lang="zh_CN">值</value>
         <value xml:lang="zh_TW">數值</value>
+    </property>
+        <property key="CommonVerifyCaptchaCode">
+        <value xml:lang="en">Verify Captcha Code</value>
     </property>
     <property key="CommonView">
         <value xml:lang="ar">مشهد</value>

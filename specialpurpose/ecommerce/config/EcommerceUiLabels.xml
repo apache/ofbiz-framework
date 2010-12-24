@@ -3319,6 +3319,9 @@
         <value xml:lang="zh">主题</value>
         <value xml:lang="zh_TW">標題</value>
     </property>
+    <property key="EcommerceSubjectMissing">
+        <value xml:lang="en">Subject is missing</value>
+    </property>
     <property key="EcommerceSubscribe">
         <value xml:lang="da">Abonnér</value>
         <value xml:lang="de">Abonnieren</value>
