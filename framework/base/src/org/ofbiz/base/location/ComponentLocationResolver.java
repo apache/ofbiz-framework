@@ -39,8 +39,12 @@ public class ComponentLocationResolver implements LocationResolver {
         StringBuffer baseLocation = ComponentLocationResolver.getBaseLocation(location);
         URL fileUrl = UtilURL.fromFilename(baseLocation.toString());
 
-        if (fileUrl == null  && location.indexOf("jquery.ui.datepicker") == -1) { // We don't care for missing jquery.ui.datepicker i18n files, since "en" as default is handled internally. If people want a missing translation they have to add the file 
-            Debug.logWarning("Unable to get file URL for component location; expanded location was [" + baseLocation + "], original location was [" + location + "]", module);
+        if (fileUrl == null) { 
+            if (location.indexOf("jquery.ui.datepicker") > -1) {
+        	Debug.logWarning("A jquery.ui.datepicker i18n file is missing for the language.country couple you want. Simply add it there: [" + baseLocation + "]. Else anyway the 'en' default will be used", module); 
+            } else {
+                Debug.logWarning("Unable to get file URL for component location; expanded location was [" + baseLocation + "], original location was [" + location + "]", module);        	
+            }
         }
         return fileUrl;
     }
