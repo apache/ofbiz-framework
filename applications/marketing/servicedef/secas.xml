@@ -24,12 +24,24 @@ under the License.
         <condition field-name="statusId" operator="equals" value="CLPT_PENDING"/>
         <action service="sendContactListPartyVerifyEmail" mode="async" persist="true"/>
     </eca>
+    <eca service="createContactListPartyStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="CLPT_ACCEPTED"/>
+        <action service="sendContactListPartySubscribeEmail" mode="async" persist="true"/>
+    </eca>
     <eca service="updatePartyEmailAddress" event="return">
         <action service="updatePartyEmailContactListParty" mode="sync"/>
     </eca>
     <eca service="updateContactListParty" event="commit">
         <condition field-name="statusId" operator="equals" value="CLPT_REJECTED"/>
         <action service="sendContactListPartyUnSubscribeEmail" mode="sync" persist="true"/>
+    </eca>
+    <eca service="createContactListPartyStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="CLPT_UNSUBSCRIBED"/>
+        <action service="sendContactListPartyUnSubscribeEmail" mode="async" persist="true"/>
+    </eca>
+    <eca service="createContactListPartyStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="CLPT_UNSUBS_PENDING"/>
+        <action service="sendContactListPartyUnSubscribeVerifyEmail" mode="async" persist="true"/>
     </eca>
     
     <!--  update contact list communication status -->

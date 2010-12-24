@@ -1316,6 +1316,17 @@ under the License.
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
+    <request-map uri="unsubscribeContactListParty">
+        <security https="false" auth="false"/>
+        <event type="service" invoke="unsubscribeContactListParty"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="contactListOptOut" track-serverhit="false" track-visit="false">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="updateContactListPartyNoUserLogin"/>
+        <response name="success" type="view" value="ContactListOptOut"/>
+    </request-map>
 
     <!-- ======================= Content Requests: Forums/Content/Articles ======================= -->
 
@@ -1565,6 +1576,12 @@ under the License.
         <event type="service" invoke="updateContactListParty"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
+    </request-map>
+    <request-map uri="updateContactListPartyNoUserLogin">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="updateContactListPartyNoUserLogin"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
     </request-map>
 
     <request-map uri="choosecatalog">
@@ -2051,5 +2068,8 @@ under the License.
     
     <!-- Product in the different UOM -->
     <view-map name="ProductUomDropDownOnly" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#ProductUomDropDownOnly"/>
+    
+    <!-- Contact List -->
+    <view-map name="ContactListOptOut" type="screen" page="component://marketing/widget/ContactListScreens.xml#OptOutResponse"/>
     <!-- End of View Mappings -->
 </site-conf>

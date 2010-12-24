@@ -182,6 +182,65 @@ under the License.
         <field-to-result field="parameters.productStoreId" result-name="productStoreId" />
         <field-to-result field="parameters.contactListId" result-name="contactListId" />
     </simple-method>
+    <simple-method method-name="updateContactListPartyNoUserLogin" short-description="Update Add Party To ContactList No User Login" login-required="false">
+        <entity-one value-field="contactList" entity-name="ContactList"/>
+        <entity-and list="contactListPartyStatusList" entity-name="ContactListPartyStatus">
+            <field-map field-name="contactListId" from-field="parameters.contactListId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="optInVerifyCode" from-field="parameters.optInVerifyCode"/>
+            <field-map field-name="fromDate" from-field="parameters.fromDate"/>
+        </entity-and>
+        <if-not-empty field="contactListPartyStatusList">
+            <set-service-fields service-name="updateContactListParty" map="parameters" to-map="updateContactListPartyMap"/>
+            <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+                <field-map field-name="userLoginId" value="system"/>
+            </entity-one>
+            <set field="updateContactListPartyMap.userLogin" from-field="systemUserLogin"/>
+            <call-service service-name="updateContactListParty" in-map-name="updateContactListPartyMap"/>
+            <else>
+                <add-error><fail-message message="Invalid verify code for the ${contactList.contactListName}"/></add-error>
+                <check-errors/>
+            </else>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="unsubscribeContactListParty" short-description="Unsubscribe for contact list" login-required="false">
+        <!-- check valid email -->
+        <call-class-method method-name="isEmail" class-name="org.ofbiz.base.util.UtilValidate" ret-field="isEmail">
+            <field field="parameters.email"/>
+        </call-class-method>
+        <if-compare operator="equals" value="false" field="isEmail" type="Boolean">
+            <add-error><fail-property resource="MarketingUiLabels" property="MarketingCampaignInvalidEmailInput"/></add-error>
+            <check-errors/>
+        </if-compare>
+        
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <if-empty field="parameters.partyId">
+            <set field="parameters.partyId" value="_NA_"/>
+        </if-empty>
+        <entity-and list="partyContactWithPurposes" entity-name="PartyContactWithPurpose">
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="infoString" from-field="parameters.email"/>
+            <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+            <field-map field-name="contactMechPurposeTypeId" value="OTHER_EMAIL"/>
+        </entity-and>
+        <filter-list-by-date list="partyContactWithPurposes" from-field-name="contactFromDate" thru-field-name="contactThruDate"/>
+        <filter-list-by-date list="partyContactWithPurposes" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
+        <!-- if there is email contact mech for party then update contact list party's status to CLPT_UNSUBS_PENDING -->
+        <if-not-empty field="partyContactWithPurposes">
+            <set field="updateContactListPartyMap.contactListId" from-field="parameters.contactListId"/>
+            <set field="updateContactListPartyMap.partyId" from-field="parameters.partyId"/>
+            <set field="updateContactListPartyMap.preferredContactMechId" from-field="partyContactWithPurposes[0].contactMechId"/>
+            <set field="updateContactListPartyMap.statusId" value="CLPT_UNSUBS_PENDING"/>
+            <set field="updateContactListPartyMap.userLogin" from-field="userLogin"/>
+            <call-service service-name="updateContactListParty" in-map-name="updateContactListPartyMap"/>
+            <else>
+                <add-error><fail-message message="The email address (${parameters.email}) does not have the Other Email Address as contact purpose."/></add-error>
+                <check-errors/>
+            </else>
+        </if-not-empty>
+    </simple-method>
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
         <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>
         <find-by-and entity-name="ContactListParty" map="lookupMap" list="ContactListParties"/>
@@ -395,29 +454,158 @@ under the License.
         </if-not-empty>                                       
     </simple-method>       
     
+    <simple-method method-name="sendContactListPartySubscribeEmail" short-description="Send contact list party subscribe email" login-required="true">
+        <set field="productStoreId" type="String" from-field="parameters.productStoreId"/>
+        <entity-one value-field="contactList" entity-name="ContactList"/>
+        <entity-one value-field="contactListParty" entity-name="ContactListParty"/>
+        <!-- get the latest accepted status -->
+        <!-- look up the last ContactListPartyStatus with statusId=CLPT_ACCEPTED -->
+        <entity-condition entity-name="ContactListPartyStatus" list="lastContactListPartyStatusList">
+            <condition-list combine="and">
+                <condition-expr field-name="contactListId" from-field="parameters.contactListId"/>
+                <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                <condition-expr field-name="fromDate" from-field="parameters.fromDate"/>
+                <condition-expr field-name="statusId" value="CLPT_ACCEPTED"/>
+            </condition-list>
+            <order-by field-name="-statusDate"/>
+        </entity-condition>
+        <first-from-list entry="contactListPartyStatus" list="lastContactListPartyStatusList"/>
+                
+        <if-empty field="productStoreId">
+            <entity-one value-field="webSite" entity-name="WebSite">
+                <field-map field-name="webSiteId" from-field="contactList.verifyEmailWebSiteId"/>
+            </entity-one>
+            <set field="productStoreId" from-field="webSite.productStoreId"/>
+        </if-empty>
+        <entity-one entity-name="ProductStoreEmailSetting" value-field="storeEmail" auto-field-map="false">
+            <field-map field-name="productStoreId" from-field="productStoreId"/>
+            <field-map field-name="emailType" value="SUB_CONT_LIST_NOTI"/>
+        </entity-one>
+        <entity-one entity-name="ContactMech" value-field="contactMech" auto-field-map="false">
+            <field-map field-name="contactMechId" from-field="parameters.preferredContactMechId"/>
+        </entity-one>
+        <if-not-empty field="storeEmail.bodyScreenLocation">
+            <!-- send email from screen -->
+            <set field="bodyParameters.contactListId" from-field="parameters.contactListId"/>
+            <set field="bodyParameters.partyId" from-field="parameters.partyId"/>
+            <set field="bodyParameters.contactList" from-field="contactList"/>
+            <set field="bodyParameters.contactListParty" from-field="contactListParty"/>
+            <set field="bodyParameters.contactListPartyStatus" from-field="contactListPartyStatus"/>
+            
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="emailParams.userLogin" from-field="userLogin"/>
+            <set field="emailParams.webSiteId" from-field="contactList.verifyEmailWebSiteId"/>
+            <set field="emailParams.sendTo" from-field="contactMech.infoString"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.subject" value="${storeEmail.subject} ${contactList.contactListName}"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <set field="emailParams.contentType" value="text/html"/>
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="sendContactListPartyUnSubscribeVerifyEmail" short-description="Send contact list party unsubscribe verify email" login-required="true">
+        <if>
+            <condition>
+                <and>
+                    <not><if-has-permission permission="MARKETING" action="_VIEW"/></not>
+                </and>
+            </condition>
+            <then><add-error><fail-message message="Security Error: to run sendContactListPartyVerifyEmail you must have the MARKETING_VIEW or MARKETING_ADMIN permissions."/></add-error></then>
+        </if>
+        <check-errors/>
+
+        <entity-one entity-name="ContactList" value-field="contactList"/>
+        <entity-one entity-name="ContactListParty" value-field="contactListParty"/>
+        <get-related-one value-field="contactListParty" relation-name="PreferredContactMech" to-value-field="preferredContactMech"/>
+        
+        <!-- get the latest accepted status -->
+        <!-- look up the last ContactListPartyStatus with statusId=CLPT_ACCEPTED -->
+        <entity-condition entity-name="ContactListPartyStatus" list="lastContactListPartyStatusList">
+            <condition-list combine="and">
+                <condition-expr field-name="contactListId" from-field="parameters.contactListId"/>
+                <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                <condition-expr field-name="fromDate" from-field="parameters.fromDate"/>
+                <condition-expr field-name="statusId" value="CLPT_ACCEPTED"/>
+            </condition-list>
+            <order-by field-name="-statusDate"/>
+        </entity-condition>
+        <first-from-list entry="contactListPartyStatus" list="lastContactListPartyStatusList"/>
+        
+        <set field="productStoreId" type="String" from-field="parameters.productStoreId"/>
+        <entity-one value-field="contactList" entity-name="ContactList"/>
+        <if-empty field="productStoreId">
+            <entity-one value-field="webSite" entity-name="WebSite">
+                <field-map field-name="webSiteId" from-field="contactList.verifyEmailWebSiteId"/>
+            </entity-one>
+            <set field="productStoreId" from-field="webSite.productStoreId"/>
+        </if-empty>
+        <entity-one entity-name="ProductStoreEmailSetting" value-field="storeEmail" auto-field-map="false">
+            <field-map field-name="productStoreId" from-field="productStoreId"/>
+            <field-map field-name="emailType" value="UNSUB_CONT_LIST_VERI"/>
+        </entity-one>
+        <entity-one entity-name="ContactMech" value-field="contactMech" auto-field-map="false">
+            <field-map field-name="contactMechId" from-field="parameters.preferredContactMechId"/>
+        </entity-one>
+        <if-not-empty field="storeEmail.bodyScreenLocation">
+            <!-- create communication event -->
+            <set field="createCommunicationEventInMap.contactListId" from-field="contactList.contactListId"/>
+            <set field="createCommunicationEventInMap.partyIdTo" from-field="contactListParty.partyId"/>
+            <set field="createCommunicationEventInMap.contactMechIdTo" from-field="contactListParty.preferredContactMechId"/>
+            <set field="createCommunicationEventInMap.fromString" from-field="storeEmail.fromAddress"/>
+            <set field="createCommunicationEventInMap.toString" from-field="contactMech.infoString"/>
+            <set field="createCommunicationEventInMap.userLogin" from-field="contactMech.userLogin"/>
+            <set field="createCommunicationEventInMap.subject" value="${storeEmail.subject} ${contactList.contactListName}"/>
+            <call-service service-name="createCommunicationEvent" in-map-name="createCommunicationEventInMap">
+                <result-to-field result-name="communicationEventId"/>
+            </call-service>
+            
+            <!-- send email from screen -->
+            <set field="bodyParameters.contactListId" from-field="parameters.contactListId"/>
+            <set field="bodyParameters.partyId" from-field="parameters.partyId"/>
+            <set field="bodyParameters.contactList" from-field="contactList"/>
+            <set field="bodyParameters.contactListParty" from-field="contactListParty"/>
+            <set field="bodyParameters.contactListPartyStatus" from-field="contactListPartyStatus"/>
+            
+            <set field="emailParams.webSiteId" from-field="contactList.verifyEmailWebSiteId"/>
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="emailParams.communicationEventId" from-field="communicationEventId"/>
+            <set field="emailParams.userLogin" from-field="userLogin"/>
+            <set field="emailParams.sendTo" from-field="contactMech.infoString"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.subject" value="${storeEmail.subject} ${contactList.contactListName}"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <set field="emailParams.contentType" value="text/html"/>
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        </if-not-empty>
+    </simple-method>
     <simple-method method-name="sendContactListPartyUnSubscribeEmail" short-description="Send contact list party unsubscribe email" login-required="true">
         <set field="productStoreId" type="String" from-field="parameters.productStoreId"/>
+        <entity-one value-field="contactList" entity-name="ContactList"/>
+        <if-empty field="productStoreId">
+            <entity-one value-field="webSite" entity-name="WebSite">
+                <field-map field-name="webSiteId" from-field="contactList.verifyEmailWebSiteId"/>
+            </entity-one>
+            <set field="productStoreId" from-field="webSite.productStoreId"/>
+        </if-empty>
         <entity-one entity-name="ProductStoreEmailSetting" value-field="storeEmail" auto-field-map="false">
             <field-map field-name="productStoreId" from-field="productStoreId"/>
             <field-map field-name="emailType" value="UNSUB_CONT_LIST_NOTI"/>
         </entity-one>
-        <entity-and entity-name="PartyContactMechPurpose" list="partyContactMechPurposes">
-            <field-map field-name="partyId" from-field="userLogin.partyId"/>
-            <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-        </entity-and>
-        <first-from-list list="partyContactMechPurposes" entry="partyContactMechPurpose"/>
         <entity-one entity-name="ContactMech" value-field="contactMech" auto-field-map="false">
-            <field-map field-name="contactMechId" from-field="partyContactMechPurpose.contactMechId"/>
+            <field-map field-name="contactMechId" from-field="parameters.preferredContactMechId"/>
         </entity-one>
         <if-not-empty field="storeEmail.bodyScreenLocation">
             <set field="bodyParameters.contactListId" from-field="parameters.contactListId"/>
-            <set field="bodyParameters.partyId" from-field="userLogin.partyId"/>
+            <set field="bodyParameters.partyId" from-field="parameters.partyId"/>
+            <set field="emailParams.webSiteId" from-field="contactList.verifyEmailWebSiteId"/>
             <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
             <set field="emailParams.userLogin" from-field="userLogin"/>
             <set field="emailParams.sendTo" from-field="contactMech.infoString"/>
             <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
-            <set field="emailParams.subject" from-field="storeEmail.subject"/>
+            <set field="emailParams.subject" value="${storeEmail.subject} ${contactList.contactListName}"/>
             <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <set field="emailParams.contentType" value="text/html"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
         </if-not-empty>
     </simple-method>

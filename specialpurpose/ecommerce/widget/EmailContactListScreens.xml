@@ -62,14 +62,54 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ContactListSubscribeEmail">
+        <section>
+            <actions>
+                <entity-one entity-name="ContactList" value-field="contactList"/>
+                <entity-one entity-name="PartyNameView" value-field="partyName"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListSubscribeEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ContactListUnsubscribeVerifyEmail">
+        <section>
+            <actions>
+                <entity-one entity-name="ContactList" value-field="contactList"/>
+                <entity-one entity-name="PartyNameView" value-field="partyName"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListUnsubscribeVerifyEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ContactListUnsubscribeEmail">
         <section>
             <actions>
                 <entity-one entity-name="ContactList" value-field="contactList"/>
                 <entity-one entity-name="PartyNameView" value-field="partyName"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListUnsubscribeEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ContactListEmailTemplate">
+        <section>
+            <actions>
+                <entity-one entity-name="ContactList" value-field="contactList"/>
+                <entity-one entity-name="PartyNameView" value-field="partyName"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListEmailTemplate.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

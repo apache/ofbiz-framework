@@ -491,6 +491,7 @@ under the License.
               <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
               <input type="hidden" name="partyId" value="${party.partyId}"/>
               <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
+              <input type="hidden" name="preferredContactMechId" value="${contactListParty.preferredContactMechId}"/>
               <input type="hidden" name="fromDate" value="${contactListParty.fromDate}"/>
               <input type="hidden" name="statusId" value="CLPT_REJECTED"/>
               <input type="submit" value="${uiLabelMap.EcommerceUnsubscribe}" class="smallSubmit"/>
@@ -501,6 +502,7 @@ under the License.
             <div>
               <input type="hidden" name="partyId" value="${party.partyId}"/>
               <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
+              <input type="hidden" name="preferredContactMechId" value="${contactListParty.preferredContactMechId}"/>
               <input type="hidden" name="fromDate" value="${contactListParty.fromDate}"/>
               <input type="hidden" name="statusId" value="CLPT_ACCEPTED"/>
               <input type="text" size="10" name="optInVerifyCode" value="" class="inputBox"/>
@@ -512,6 +514,7 @@ under the License.
             <div>
               <input type="hidden" name="partyId" value="${party.partyId}"/>
               <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
+              <input type="hidden" name="preferredContactMechId" value="${contactListParty.preferredContactMechId}"/>
               <input type="hidden" name="fromDate" value="${contactListParty.fromDate}"/>
               <input type="hidden" name="statusId" value="CLPT_PENDING"/>
               <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>

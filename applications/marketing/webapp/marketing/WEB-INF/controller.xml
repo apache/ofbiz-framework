@@ -329,6 +329,7 @@ under the License.
     </request-map>
     <request-map uri="contactListOptOut" track-serverhit="false" track-visit="false">
         <security https="true" auth="false"/>        
+        <event type="service" invoke="updateContactListPartyNoUserLogin"/>
         <response name="success" type="view" value="ContactListOptOut"/>
     </request-map>   
 
