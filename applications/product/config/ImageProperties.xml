@@ -35,4 +35,36 @@ under the License.
         <dimension name="height" value="600"/>
         <dimension name="width" value="600"/>
     </size>
+    <size name="100x75">
+        <dimension name="height" value="75"/>
+        <dimension name="width" value="100"/>
+    </size>
+    <size name="150x112">
+        <dimension name="height" value="112"/>
+        <dimension name="width" value="150"/>
+    </size>
+   	<size name="320x240">
+        <dimension name="height" value="240"/>
+        <dimension name="width" value="320"/>
+    </size>
+     <size name="640x480">
+        <dimension name="height" value="480"/>
+        <dimension name="width" value="640"/>
+    </size>
+    <size name="800x600">
+        <dimension name="height" value="600"/>
+        <dimension name="width" value="800"/>
+    </size>
+    <size name="1024x768">
+        <dimension name="height" value="768"/>
+        <dimension name="width" value="1024"/>
+    </size>
+    <size name="1280x1024">
+        <dimension name="height" value="1024"/>
+        <dimension name="width" value="1280"/>
+    </size>
+     <size name="1600x1200">
+        <dimension name="height" value="1200"/>
+        <dimension name="width" value="1600"/>
+    </size>
 </imageSize>

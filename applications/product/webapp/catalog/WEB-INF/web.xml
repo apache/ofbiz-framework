@@ -60,7 +60,7 @@ under the License.
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css</param-value>
+            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css:/imagemanagement:/products</param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
@@ -88,11 +88,25 @@ under the License.
         <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+    <servlet>
+        <servlet-name>ImageUrlServlet</servlet-name>
+        <display-name>ImageUrlServlet</display-name>
+        <description>Image URL Servlet</description>
+        <servlet-class>org.ofbiz.product.imagemanagement.ImageUrlServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
         <url-pattern>/control/*</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>ImageUrlServlet</servlet-name>
+        <url-pattern>/images/*</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>60</session-timeout> <!-- in minutes -->
     </session-config>

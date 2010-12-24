@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
+    <simple-method method-name="UploadProductImages" short-description="Method to upload multiple images for product">
+        <set-service-fields service-name="addMultipleuploadForProduct" map="parameters" to-map="addAdditionalViewForProductMap"/>
+        <if-not-empty field="parameters.additionalImageOne">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageOne"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageOne_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageOne_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageTwo">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageTwo"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageTwo_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageTwo_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageThree">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageThree"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageThree_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageThree_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageFour">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageFour"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageFour_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageFour_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageFive">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageFive"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageFive_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageFive_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageSix">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageSix"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageSix_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageSix_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageSeven">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageSeven"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+           <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageSeven_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageSeven_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageEight">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageEight"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageEight_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageEight_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageNine">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageNine"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageNine_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageNine_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.additionalImageTen">
+            <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
+            <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
+            <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageTen"/>
+            <set field="addAdditionalViewForProductMap.productContentTypeId" value="IMAGE"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_fileName" from-field="parameters._additionalImageTen_fileName"/>
+            <set field="addAdditionalViewForProductMap._uploadedFile_contentType" from-field="parameters._additionalImageTen_contentType"/>
+            <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
+            <clear-field field="addAdditionalViewForProductMap"/>
+        </if-not-empty>
+        <field-to-result field="parameters.productId" result-name="productId"/>
+    </simple-method>
+   
+    <simple-method method-name="removeProductContentAndImageFile" short-description="Remove Content From Product and Image File">
+        <entity-and list="contentAssocs" entity-name="ContentAssoc">
+            <field-map field-name="contentId" from-field="parameters.contentId"/>
+            <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+        </entity-and>
+        <if-not-empty field="contentAssocs">
+            <first-from-list entry="contentAssoc" list="contentAssocs"/>
+            <remove-value value-field="contentAssoc"/>
+            
+            <set field="removeContent.contentId" from-field="contentAssoc.contentIdTo"/>
+            <set field="removeContent.productId" from-field="parameters.productId"/>
+            <call-service service-name="removeProductContentForImageManagement" in-map-name="removeContent"/>
+        </if-not-empty>
+        
+        <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+        <set field="removeContent.contentId" from-field="parameters.contentId"/>
+        <set field="removeContent.productId" from-field="parameters.productId"/>
+        <call-service service-name="removeProductContentForImageManagement" in-map-name="removeContent"/>
+    </simple-method>
+    
+    <simple-method method-name="removeProductContentForImageManagement" short-description="Remove Content From Product">
+        <entity-and list="contentRoles" entity-name="ContentRole" >
+           <field-map field-name="contentId" from-field="parameters.contentId"/>
+        </entity-and>
+        <remove-value value-field="contentRoles[0]"/>
+        
+        <entity-condition entity-name="PartyContent" list="partyContents">
+            <condition-list combine="and">
+                <condition-expr field-name="contentId" from-field="parameters.contentId"/>
+                <condition-expr field-name="partyContentTypeId" value="IMAGEAPPROVER"/>
+            </condition-list>
+        </entity-condition>
+        <iterate entry="partyContent" list="partyContents">
+            <remove-value value-field="partyContent"/>
+        </iterate>
+        
+        <entity-one value-field="content" entity-name="Content">
+            <field-map field-name="contentId" from-field="parameters.contentId"/>
+        </entity-one>
+        
+        <set field="removeContentPKMap.contentId" from-field="parameters.contentId"/>
+        <set-service-fields service-name="removeContent" map="removeContentPKMap" to-map="removeContentMap"/>
+        <call-service service-name="removeContent" in-map-name="removeContentMap"/>
+        
+        <set field="dataResourceId" from-field="content.dataResourceId"/>
+        <entity-and list="dataResourceRoles" entity-name="DataResourceRole" >
+            <field-map field-name="dataResourceId" from-field="dataResourceId"/>
+        </entity-and>
+        <remove-value value-field="dataResourceRoles[0]"/>
+        
+        <entity-one value-field="dataResource" entity-name="DataResource">
+            <field-map field-name="dataResourceId" from-field="dataResourceId"/>
+        </entity-one>
+        
+        <set field="removeImageFile.productId" from-field="parameters.productId"/>
+        <set field="removeImageFile.contentId" from-field="parameters.contentId"/>
+        <set field="removeImageFile.dataResourceName" from-field="dataResource.dataResourceName"/>
+        <set-service-fields service-name="removeImageFileForImageManagement" map="removeImageFile" to-map="removeImageFileMap"/>
+        <call-service service-name="removeImageFileForImageManagement" in-map-name="removeImageFileMap"/>
+        
+        <set field="removeDataResourcePKMap.dataResourceId" from-field="dataResourceId"/>
+        <set-service-fields service-name="removeDataResource" map="removeDataResourcePKMap" to-map="removeDataResourceMap"/>
+        <call-service service-name="removeDataResource" in-map-name="removeDataResourceMap"/>
+    </simple-method>
+    
+    <simple-method method-name="setImageDetail" short-description="Set Image Detail">
+        <!-- set sort order (defaultSequenceNum) and exclude (enable) -->
+        <entity-one value-field="productContent" entity-name="ProductContent"/>
+        <set field="productContent.defaultSequenceNum" from-field="parameters.defaultSequenceNum" type="Long"/>
+        <store-value value-field="productContent"/>
+        <if-not-empty field="parameters.defaultSequenceNum">
+            <script location="component://image_management/webapp/image_management/WEB-INF/actions/sortSequenceNum.groovy"/>
+            <set field="productContent.defaultSequenceNum" from-field="parameters.defaultSequenceNum" type="Long"/>
+            <store-value value-field="productContent"/>
+        </if-not-empty>
+        <if-compare operator="equals" value="false" field="parameters.enable"> <!-- if ticked checked box = false -->
+            <set field="parameters.enable" value="true"/>
+            <else>
+                <set field="parameters.enable" value="false"/>
+            </else>
+        </if-compare>
+        <set field="productContent.enable" from-field="parameters.enable" type="Boolean"/>
+        <store-value value-field="productContent"/>
+        
+        <!-- set caption -->
+        <entity-one value-field="content" entity-name="Content"/>
+        <set field="content.description" from-field="parameters.description"/>
+        <store-value value-field="content"/>
+    </simple-method>
+    
+    <simple-method method-name="updateStatusImageManagement" short-description="Update Status Image Management">
+        <now-timestamp field="nowTimestamp"/>
+        <set field="parameters.checkStatusId" value="${groovy: import org.ofbiz.base.util.StringUtil;
+        checkStatusVal = parameters.checkStatusId; 
+        statusId = StringUtil.split(checkStatusVal, &quot;/&quot;);
+        if (statusId) return statusId[0];
+        }"/>
+        <entity-and entity-name="PartyContent" list="partyContents">
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
+            <field-map field-name="contentId" from-field="parameters.contentId"/>
+            <field-map field-name="partyContentTypeId" value="IMAGEAPPROVER"/>
+        </entity-and>
+        <first-from-list entry="partyContent" list="partyContents"/>
+        <if-not-empty field="parameters.checkStatusId">
+            <set field="partyContent.statusId" from-field="parameters.checkStatusId"/>
+        </if-not-empty>
+        <store-value value-field="partyContent"/>
+        
+        <if-compare field="parameters.checkStatusId" operator="equals" value="IM_REJECTED">
+            <entity-condition entity-name="PartyContent" list="checkRejects">
+                <condition-list combine="and">
+                    <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
+                    <condition-expr field-name="partyContentTypeId" operator="equals" value="IMAGEAPPROVER"/>
+                </condition-list>
+            </entity-condition>
+            <iterate entry="checkReject" list="checkRejects">
+                <set field="checkReject.statusId" value="IM_REJECTED"/>
+                <store-value value-field="checkReject"/>
+            </iterate>
+            <entity-one entity-name="Content" value-field="content"/>
+            <set field="content.statusId" value="IM_REJECTED"/>
+            <set field="content.createdByUserLogin" from-field="userLogin.userLoginId"/>
+            <store-value value-field="content"/>
+            <else>
+                <if-compare field="parameters.checkStatusId" operator="equals" value="IM_APPROVED">
+                    <entity-count entity-name="PartyContent" count-field="countParty">
+                        <condition-list combine="and">
+                            <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
+                            <condition-expr field-name="partyContentTypeId" operator="equals" value="IMAGEAPPROVER"/>
+                        </condition-list>
+                    </entity-count>
+                    <if-compare field="countParty" operator="equals" value="1">
+                        <entity-one entity-name="Content" value-field="content"/>
+                        <set field="content.statusId" value="IM_APPROVED"/>
+                        <store-value value-field="content"/>
+                        
+                        <entity-and entity-name="ProductContent" list="productContents">
+                            <field-map field-name="contentId" from-field="parameters.contentId"/>
+                            <field-map field-name="productContentTypeId" value="IMAGE"/>
+                        </entity-and>
+                        <first-from-list entry="productContent" list="productContents"/>
+                        <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
+                        <set field="productContent.enable" value="N"/>
+                        <set field="productContent.thumbnail" value="N"/>
+                        <store-value value-field="productContent"/>
+                        <else>
+                            <entity-count entity-name="PartyContent" count-field="countApprove">
+                                 <condition-list combine="and">
+                                    <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
+                                    <condition-expr field-name="partyContentTypeId" operator="equals" value="IMAGEAPPROVER"/>
+                                    <condition-expr field-name="statusId" operator="equals" value="IM_APPROVED"/>
+                                </condition-list>
+                            </entity-count>
+                            <if-compare field="countApprove" operator="greater-equals" value="2">
+                                <entity-one entity-name="Content" value-field="content"/>
+                                <set field="content.statusId" value="IM_APPROVED"/>
+                                <store-value value-field="content"/>
+                                
+                                <entity-and entity-name="ProductContent" list="productContents">
+                                    <field-map field-name="contentId" from-field="parameters.contentId"/>
+                                    <field-map field-name="productContentTypeId" value="IMAGE"/>
+                                </entity-and>
+                                <first-from-list entry="productContent" list="productContents"/>
+                                <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
+                                <set field="productContent.enable" value="N"/>
+                                <set field="productContent.thumbnail" value="N"/>
+                                <store-value value-field="productContent"/>
+                                
+                                <entity-condition entity-name="PartyContent" list="checkApproveList">
+                                    <condition-list combine="and">
+                                        <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
+                                        <condition-expr field-name="partyContentTypeId" operator="equals" value="IMAGEAPPROVER"/>
+                                    </condition-list>
+                                </entity-condition>
+                                <iterate entry="checkApprove" list="checkApproveList">
+                                    <set field="checkApprove.statusId" value="IM_APPROVED"/>
+                                    <store-value value-field="checkApprove"/>
+                                </iterate>
+                            </if-compare>
+                        </else>
+                    </if-compare>
+                </if-compare>
+            </else>
+        </if-compare>
+    </simple-method>
+    
+    <simple-method method-name="addRejectedReasonImageManagement" short-description="Add Rejected Reason Image Management">
+        <now-timestamp field="nowTimestam"/>
+        <entity-one entity-name="Content" value-field="content"/>
+        <if-not-empty field="parameters.description">
+            <if-compare field="parameters.description" value="RETAKE_PHOTO" operator="equals">
+                <set field="content.description" value="Re-take Photo"/>
+            </if-compare>
+            <if-compare field="parameters.description" value="REMOVE_LOGO" operator="equals">
+                <set field="content.description" value="Remove Logo"/>
+            </if-compare>
+            <if-compare field="parameters.description" value="OTHER" operator="equals">
+                <set field="content.description" value="Other"/>
+            </if-compare>
+            <else>
+                <set field="content.description" value="Other"/>
+            </else>
+        </if-not-empty>
+        <store-value value-field="content"/>
+        
+        <entity-and entity-name="ProductContent" list="productContents">
+            <field-map field-name="contentId" from-field="parameters.contentId"/>
+            <field-map field-name="productContentTypeId" value="IMAGE"/>
+        </entity-and>
+        <first-from-list entry="productContent" list="productContents"/>
+        <set field="productContent.thruDate" from-field="nowTimestam"/>
+        <store-value value-field="productContent"/>
+    </simple-method>
+    
+    <simple-method method-name="createImagePartyContent" short-description="Create Party Content of Image">
+        <now-timestamp field="nowTimestam"/>
+        <entity-and entity-name="PartyRole" list="partyRoles">
+            <field-map field-name="roleTypeId" value="IMAGEAPPROVER"/>
+        </entity-and>
+        <iterate list="partyRoles" entry="partyRole">
+            <set field="partyContent.partyId" from-field="partyRole.partyId"/>
+            <set field="partyContent.contentId" from-field="parameters.contentId"/>
+            <set field="partyContent.partyContentTypeId" value="IMAGEAPPROVER"/>
+            <set field="partyContent.fromDate" from-field="nowTimestam"/>
+            <set field="partyContent.statusId" value="IM_PENDING"/>
+            <call-service service-name="createPartyContent" in-map-name="partyContent"/>
+        </iterate>
+    </simple-method>
+    
+    <simple-method method-name="removeImagePartyContent" short-description="Remove Party Content of Image">
+        <entity-and entity-name="PartyContent" list="partyContents">
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="partyContentTypeId" value="IMAGEAPPROVER"/>
+        </entity-and>
+        <iterate list="partyContents" entry="partyContent">
+            <remove-value value-field="partyContent"/>
+        </iterate>
+    </simple-method>
+</simple-methods>

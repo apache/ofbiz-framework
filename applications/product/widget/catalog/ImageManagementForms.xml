@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="ListImageManagement" type="list" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
+        <actions>
+            <entity-condition entity-name="ProductContentAndInfo">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" from-field="parameters.productId"/>
+                    <condition-expr field-name="statusId" from-field="statusForm"/>
+                    <condition-expr field-name="productContentTypeId" value="IMAGE"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+        </row-actions>
+        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drDataResourceName" title="Image Name">
+            <hyperlink target="${currentFormName}" description="${drDataResourceName}">
+                <parameter param-name="productId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="dataResourceId"/>
+            </hyperlink>
+        </field>
+        <field name="contentId"><display/></field>
+        <field name="dataResourceId"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="statusId" title="Status">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="ImageGallery" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageGallery"> 
+        <field name="productId" title="${uiLabelMap.ChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ImageApprove" type="multi" title="" list-name="partyContentProductContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+        use-row-submit="true" separate-columns="true" target="updateStatusImageManagement">
+        <row-actions>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId"/>
+                <field-map field-name="drDataResourceId"/>
+            </entity-and>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+            <set field="checkRadio" from-field="parameters.selectStatus"/>
+            <entity-one entity-name="Product" value-field="product">
+                <field-map field-name="productId" from-field="productId"/>
+            </entity-one>
+            <entity-one entity-name="ProductCategory" value-field="productCategory">
+                <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
+            </entity-one>
+        </row-actions>
+        <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
+        </field>
+        <field name="statusProductId" title="Product Status" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+            <radio no-current-selected-key="${checkRadio}">
+                <option key="IM_APPROVED__${productId}" description="Approve"/>
+                <option key="IM_REJECTED__${productId}" description="Reject"/>
+                <option key="IM_PENDING__${productId}" description="Pending"/>
+            </radio>
+        </field>
+        <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
+        <field name="drObjectInfo" position="2" title="Image"><image/></field>
+        <field name="checkStatusId" position="2" title="Status">
+            <radio no-current-selected-key="${checkRadio}">
+                <option key="IM_APPROVED/${productId}" description="Approve"/>
+                <option key="IM_REJECTED/${productId}" description="Reject"/>
+                <option key="IM_PENDING/${productId}" description="Pending"/>
+            </radio>
+        </field>
+        <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
+        <field name="contentId" position="2"><display/></field>
+        <field name="dataResourceId" position="2"><display/></field>
+        <field name="fromDate" position="2"><display/></field>
+        <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListPeopleApproved" type="list" title="" list-name="partyContentProductContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+        use-row-submit="true" separate-columns="true" target="">
+        <row-actions>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceView">
+                <field-map field-name="contentId"/>
+                <field-map field-name="drDataResourceId"/>
+            </entity-one>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+            <entity-one entity-name="Product" value-field="product">
+                <field-map field-name="productId" from-field="productId"/>
+            </entity-one>
+            <entity-one entity-name="ProductCategory" value-field="productCategory">
+                <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
+            </entity-one>
+        </row-actions>
+        <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
+        </field>
+        <field name="drObjectInfo" position="2" title="Image"><image/></field>
+        <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
+        <field name="contentId" position="2"><display/></field>
+        <field name="dataResourceId" position="2"><display/></field>
+        <field name="fromDate" position="2"><display/></field>
+        <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="ImageRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+        use-row-submit="true" separate-columns="true" target="addRejectedReasonImageManagement">
+        <row-actions>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceView">
+                <field-map field-name="contentId"/>
+                <field-map field-name="drDataResourceId"/>
+            </entity-one>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+            <entity-one entity-name="Product" value-field="product">
+                <field-map field-name="productId" from-field="productId"/>
+            </entity-one>
+            <entity-one entity-name="ProductCategory" value-field="productCategory">
+                <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
+            </entity-one>
+        </row-actions>
+        <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
+        </field>
+        <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
+       	<field name="drObjectInfo" position="2" title="Image"><image/></field>
+        <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
+        <field name="contentId" position="2"><display/></field>
+        <field name="dataResourceId" position="2"><display/></field>
+        <field name="fromDate" position="2"><display/></field>
+        <field name="statusId" position="2" title="Status">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="description" position="2" title="Rejected Reason">
+            <drop-down allow-empty="true">
+                <option key="RETAKE_PHOTO" description="Re-take Photo"/>
+                <option key="REMOVE_LOGO" description="Remove Logo"/>
+                <option key="OTHER" description="Other"/>
+            </drop-down>
+        </field>
+        <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListPeopleRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+        use-row-submit="true" separate-columns="true" target="">
+        <row-actions>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceView">
+                <field-map field-name="contentId"/>
+                <field-map field-name="drDataResourceId"/>
+            </entity-one>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+            <entity-and entity-name="UserLoginAndPartyDetails" list="userLoginAndPartyDetails">
+                <field-map field-name="userLoginId" from-field="createdByUserLogin"/>
+            </entity-and>
+            <set field="rejectedBy" value="${userLoginAndPartyDetails[0].firstName} ${userLoginAndPartyDetails[0].middleName} ${userLoginAndPartyDetails[0].lastName}"/>
+            <entity-one entity-name="Product" value-field="product">
+                <field-map field-name="productId" from-field="productId"/>
+            </entity-one>
+            <entity-one entity-name="ProductCategory" value-field="productCategory">
+                <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
+            </entity-one>
+        </row-actions>
+        <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+            <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
+        </field>
+        <field name="drObjectInfo" position="2" title="Image"><image/></field>
+        <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
+        <field name="contentId" position="2"><display/></field>
+        <field name="dataResourceId" position="2"><display/></field>
+        <field name="fromDate" position="2"><display/></field>
+        <field name="thruDate" position="2"><display/></field>
+        <field name="statusId" position="2" title="Status">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="rejectedBy" position="2" title="Rejected By"><display/></field>
+        <field name="description" position="2" title="Rejected Reason"><display/></field>
+        <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+      	</field>
+    </form>
+    
+    <form name="ImageManage" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageManage"> 
+        <field name="productId" title="${uiLabelMap.ChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListImageManage" type="multi" title="" odd-row-style="alternate-row" default-table-style="basic-table" list-name="productContentAndInfoList"
+        use-row-submit="true" separate-columns="true" target="setImageDetail?productId=${parameters.productId}">
+        <actions>
+            <entity-condition entity-name="ProductContentAndInfo" list="productContentAndInfoList">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" from-field="parameters.productId"/>
+                    <condition-expr field-name="productContentTypeId" value="IMAGE"/>
+                    <condition-list combine="or">
+                         <condition-expr field-name="statusId" value="IM_APPROVED"/>
+                         <condition-expr field-name="statusId" value="IM_PENDING"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="defaultSequenceNum"/>
+                <order-by field-name="statusId"/>
+            </entity-condition>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+        </row-actions>
+        <field name="productId"><hidden/></field>
+        <field name="productContentTypeId"><hidden/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="contentIdTo"><hidden/></field>
+        <field name="dataResourceId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="_rowSubmit" title=" " widget-style="hidden"><check all-checked="true"/></field>
+        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="action" title="Action" event="onChange" action="javascript:
+            document.ListImageManage.action='checkAction?productId=${productId}&amp;contentId=${contentId}&amp;dataResourceId=${dataResourceId}'; 
+            document.ListImageManage.submit();">
+            <drop-down allow-empty="true">
+                  <option key="frame" description="Frame"/>
+                  <option key="watermark" description="Watermark"/>
+                  <option key="crop" description="Crop"/>
+                  <option key="rotate" description="Rotate"/>
+            </drop-down>
+        </field>
+        <field name="description" use-when="${groovy: return context.statusId == 'IM_APPROVED'; }" title="Caption"><text/></field>
+        <field name="defaultSequenceNum" use-when="${groovy: return context.statusId == 'IM_APPROVED'; }" title="Sort Order"><text maxlength="2" size="5"/></field>
+        <field name="enable" use-when="${groovy: return context.statusId == 'IM_APPROVED'; }" title="Exclude"><check/></field>
+        <field name="thumbnail">
+            <hyperlink target="setImageThumbnail" description=" ${thumbnail}">
+                <parameter param-name="productId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="contentIdTo"/>
+            </hyperlink>
+        </field>
+        <field name="statusId" title="Status">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <sort-order>
+            <sort-field name="drObjectInfo"/>
+            <sort-field name="action"/>
+            <sort-field name="description"/>
+            <sort-field name="defaultSequenceNum"/>
+            <sort-field name="enable"/>
+            <sort-field name="thumbnail"/>
+            <sort-field name="statusId"/>
+        </sort-order>
+    </form>
+    
+    <form name="ImageFrames" type="single" title="" target="uploadFrame" header-row-style="header-row" default-table-style="basic-table" target-window="_self">
+        <actions>
+            <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/ImageFrame.groovy"/>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>
+            </entity-one>
+            <set field="imageURL" from-field="contentDataResource.drObjectInfo"/>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource2">
+                <field-map field-name="contentId" from-field="frameContentId"/>
+                <field-map field-name="drDataResourceId" from-field="frameDataResourceId"/>
+            </entity-one>
+            
+            <set field="frameURL" from-field="contentDataResource2.drObjectInfo"/>
+            <set field="previewURL" from-field="contentFrameDataResource.drDataResourceName"/>
+        </actions>
+        <field name="productId"><hidden value="${parameters.productId}"/></field>
+        <field name="contentId"><hidden value="${parameters.contentId}"/></field>
+        <field name="dataResourceId"><hidden value="${parameters.dataResourceId}"/></field>
+        <field name="frameContentId"><hidden value="${frameContentId}"></hidden></field>
+        <field name="frameDataResourceId"><hidden value="${frameDataResourceId}"></hidden></field>
+        <field name="checkFrame"><hidden value="T"/></field>
+        <field name="frameURL"><hidden value="${parameters.checkFrame}"/></field>
+        <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
+        <field name="imageShare" use-when="imageURL != null" title="Image" widget-area-style="image-src"><image value="${imageURL}"/></field>
+        <field name="imageShare" use-when="imageURL == null" title="Image"><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="imageDimention" widget-area-style="dimention"><display></display></field>
+        <field name="imageFrame" use-when="frameURL != null" title="Frame" widget-area-style="image-fr"><image value="${frameURL}"/></field>
+        <field name="imageFrame" use-when="frameURL == null" title="Frame" widget-area-style="image-fr"><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="frameDimention" use-when="frameURL != null" widget-area-style="frameDimention"><display></display></field>
+        <field name="uploadedFile" title="Upload New Frame" event="onClick" action="javascript:setUploadTarget('_self');"><file/></field>
+        <field name="uploadButton" title="Upload" widget-style="smallSubmit" event="onClick" action="javascript:document.ImageFrames.setAttribute('enctype', 'multipart/form-data');setTargetWindows('upload');document.ImageFrames.submit();"><submit button-type="button"/></field>
+        <field name="imageFrameContentId" title="Choose Exist Frame"><lookup target-form-name="LookupImageFrame"/></field>
+        <field name="confirmButton" title="Confirm" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('choose');document.ImageFrames.submit();"><submit button-type="button"/></field>
+        <field name="imageWidth" title="Image Width"><text/></field>
+        <field name="imageHeight" title="Image Height"><text/></field>
+        <field name="previewButton" title="Preview" use-when="frameURL != null" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('new');"><submit button-type="button"/></field>
+        <field name="submitButton" title="Create" use-when="frameURL != null" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('_self');"><submit button-type="button"/></field>
+        <field name="cancelButton" title=" " widget-style="buttontext" event="onClick" action="javascript:deletePreviewFrameImage();">
+            <hyperlink target="ListImageManage" description="Cancel">
+                <parameter param-name="productId" from-field="parameters.productId"></parameter>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="ImageWatermarking" type="single" target="createWatermarkImage" title="" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>
+            </entity-one>
+            <set field="imageURL" from-field="contentDataResource.drObjectInfo"/>
+        </actions>
+        <field name="productId"><hidden/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="dataResourceId"><hidden/></field>
+        <field name="pointX"><hidden/></field>
+        <field name="pointY"><hidden/></field>
+        <field name="width"><hidden/></field>
+        <field name="height"><hidden/></field>
+        <field name="positionX" widget-area-style="positionX"><hidden value="50.00"/></field>
+        <field name="positionY" widget-area-style="positionY"><hidden value="50.00"/></field>
+        <field name="previewCount" widget-area-style="count"><hidden value="0"/></field>
+        <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
+        <field name="imageWatermark" use-when="imageURL != null" title="Image" widget-area-style="img-src"><image value="${imageURL}"/></field>
+        <field name="imageWatermark" use-when="imageURL == null" title="Image" widget-area-style="img-src-de"><image value="/images/defaultImage.jpg"/></field>
+        <field name="" widget-style="h3"><display description="Click directly on the image to adjust the location of the watermark"></display></field>
+        <field name="imageOpacity" title="Opacity" widget-area-style="opacity">
+            <drop-down no-current-selected-key="0.5">
+                <option key="0.1" description="10%"/>
+                <option key="0.2" description="20%"/>
+                <option key="0.3" description="30%"/>
+                <option key="0.4" description="40%"/>
+                <option key="0.5" description="50%"/>
+                <option key="0.6" description="60%"/>
+                <option key="0.7" description="70%"/>
+                <option key="0.8" description="80%"/>
+                <option key="0.9" description="90%"/>
+                <option key="1.0" description="100%"/>
+            </drop-down>
+        </field>
+        <field name="textWatermark" title="Text" widget-area-style="watermark_txt"><text default-value="DEFAULT"/></field>
+        <field name="previewButton" title=" " widget-style="buttontext" widget-area-style="preview"><hyperlink target="#" target-type="plain" description="Preview"></hyperlink></field>
+        <field name="colorWatermark" title="Text Color" widget-area-style="txt_color">
+            <drop-down allow-empty="true" no-current-selected-key="TEXT_BLACK">
+                <entity-options description="${description}" entity-name="ProductFeature" key-field-name="productFeatureId">
+                    <entity-constraint name="productFeatureTypeId" value="COLOR"/>
+                    <entity-constraint name="productFeatureCategoryId" value="TEXT"/>
+                    <entity-order-by field-name="defaultSequenceNum"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="sizeWatermark" title="Text Size" widget-area-style="txt_size">
+            <drop-down allow-empty="true" no-current-selected-key="TEXT_MIDDLE">
+                <entity-options description="${description}" entity-name="ProductFeature" key-field-name="productFeatureId">
+                    <entity-constraint name="productFeatureTypeId" value="SIZE"/>
+                    <entity-constraint name="productFeatureCategoryId" value="TEXT"/>
+                    <entity-order-by field-name="defaultSequenceNum"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="Watermark" event="onClick" action="javascript:setImageDimention()" widget-style="smallSubmit" ><submit button-type="button"/></field>
+        <field name="cancelButton" title=" " widget-style="buttontext" event="onClick" action="javascript:deletePreviewWatermarkImage();">
+            <hyperlink target="ListImageManage" description="Cancel">
+                <parameter param-name="productId" from-field="parameters.productId"></parameter>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="ImageCropping" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="CropImage"> 
+        <actions>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>
+            </entity-one>
+            <set field="imageURL" from-field="contentDataResource.drObjectInfo"/>
+        </actions>
+        <field name="productId"><hidden/></field>
+        <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
+        <field name="imageURL"><hidden/></field>
+        <field name="imageX"><hidden/></field>
+        <field name="imageY"><hidden/></field>
+        <field name="imageW"><hidden/></field>
+        <field name="imageH"><hidden/></field>
+        <field name="imageCropp" widget-area-style="cropbox" use-when="imageURL != null" title="Image" ><image value="${imageURL}"/></field>
+        <field name="imageCropp" use-when="imageURL == null" title="Image" ><image value="/images/defaultImage.jpg" width="200"/></field>
+    </form>
+    
+    <form name="ImageRotating" type="single" target="RotateImage" title="" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>
+            </entity-one>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="imageURL" from-field="contentDataResourceViews[0].drObjectInfo"/>
+        </actions>
+        <field name="productId"><hidden/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="dataResourceId"><hidden/></field>
+        <field name="angle"><hidden/></field>
+        <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
+        <field name="imageRotate" widget-area-style="cropbox" title="Image"><image value="${imageURL}" /></field>
+        <field name="submitButton" title="Submit" widget-style="smallSubmit" position="1"><submit button-type="button"/></field>
+        <field name="cancelButton" title=" " widget-style="buttontext">
+            <hyperlink target="ListImageManage" description="Cancel">
+                <parameter param-name="productId" from-field="parameters.productId"></parameter>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="ImageShare" type="single" title="" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResource">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>
+            </entity-one>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="imageThumbnail" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <set field="imageURL" from-field="contentDataResource.drObjectInfo"/>
+        </actions>
+        <field name="imageURL"><hidden/></field>
+        <field name="imageThumbnail"><hidden/></field>
+        <field name="seoURL"><hidden value="${parameters.seoUrl}"/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="imageShare" use-when="imageURL != null" title="Image"><image value="${imageURL}" width="200"/></field>
+        <field name="imageShare" use-when="imageURL == null" title="Image"><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="link" title="Link"  event="onClick" action="javascript:select();"><text/></field>
+        <field name="direct" title="Direct Link"  event="onClick" action="javascript:select();"><text/></field>
+        <field name="forumCode" title="Forum Code" event="onClick" action="javascript:select();"><text></text></field>
+        <field name="forumThumbnail" title="Forum Thumbnail" event="onClick" action="javascript:select();"><text></text></field>
+        <field name="altForumCode" title="Alt Forum Code" event="onClick" action="javascript:select();"><text></text></field>
+        <field name="altForumThumbnail" title="Alt Forum Thumbnail" event="onClick" action="javascript:select();"><text></text></field>
+        <field name="html" title="HTML Code" event="onClick" action="javascript:select();"><text/></field>
+        <field name="htmlThumbnail" title="HTML Thumbnail" event="onClick" action="javascript:select();"><text/></field>
+    </form>
+    
+    <form name="ImageReplace" type="single" target="replaceImageToExistImage" title="" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceExist">
+                <field-map field-name="contentId" from-field="parameters.contentIdExist"/>
+                <field-map field-name="drDataResourceId" from-field="parameters.dataResourceIdExist"/>
+            </entity-one>
+            <set field="imageURLExist" from-field="contentDataResourceExist.drObjectInfo"/>
+            <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceReplace">
+                <field-map field-name="contentId" from-field="parameters.contentIdReplace"/>
+                <field-map field-name="drDataResourceId" from-field="parameters.dataResourceIdReplace"/>
+            </entity-one>
+            <set field="imageURLReplace" from-field="contentDataResourceReplace.drObjectInfo"/>
+        </actions>
+        <field name="productId"><hidden/></field>
+        <field name="contentIdExist"><hidden value="${parameters.contentIdExist}"/></field>
+        <field name="contentIdReplace"><hidden value="${parameters.contentIdReplace}"/></field>
+        <field name="imageName"><hidden value="${contentDataResourceExist.drDataResourceName}"/></field>
+        <field name="imageExist" position="1" use-when="imageURLExist != null" title="Replacement Image"><image value="${imageURLExist}" width="200"/></field>
+        <field name="imageReplace" position="2" use-when="imageURLReplace != null&amp;&amp;imageURLExist != null" title="Image to Replace"><image value="${imageURLReplace}" width="200"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListImageUpload" type="list" title="" list-name="productContent" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
+        <actions>
+            <set field="dateNow" type="Timestamp" value="${groovy:import org.ofbiz.base.util.UtilDateTime;UtilDateTime.nowTimestamp().getTime() - 18000;}"/>
+            <entity-condition entity-name="ProductContentAndInfo">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" from-field="parameters.productId"/>
+                       <condition-expr field-name="statusId" value="IM_PENDING"/>
+                       <condition-expr field-name="productContentTypeId" value="IMAGE"/>
+                       <condition-expr field-name="fromDate" operator="greater-equals" from-field="dateNow" />
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+        </row-actions>
+        <field name="productId"><hidden/></field>
+        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drDataResourceName" title="Image Name"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="status"><display description="Uploaded"/></field>
+        <field name="removeContent" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="removeImageUpload" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="productContentTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+      
+    <form name="ListLookupImage" type="list" list-name="listIt" paginate-target="ListLookupImage" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="ProductContentAndInfo">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" from-field="parameters.productId"/>
+                    <condition-expr field-name="statusId" value="IM_APPROVED"/>
+                    <condition-expr field-name="productContentTypeId" value="IMAGE"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+        </row-actions>
+        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drDataResourceName" title="Image Name" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${drDataResourceName}" target="javascript:set_value('${contentId}')"/>
+        </field>
+        <field name="contentId"><display/></field>
+        <field name="dataResourceId"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="statusId" title="Status">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="productImageReplace" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageReplace"> 
+        <field name="productId" title="${uiLabelMap.ChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListImageRecentlyApproved" type="list" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true" target="">
+        <actions>
+            <entity-condition entity-name="ProductContentAndInfo">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" from-field="parameters.productId"/>
+                    <condition-expr field-name="productContentTypeId" value="IMAGE"/>
+                    <condition-expr field-name="statusId" value="IM_APPROVED"/>
+                    <condition-expr field-name="purchaseFromDate" operator="greater-equals" from-field="parameters.date1"/>
+                    <condition-expr field-name="purchaseFromDate" operator="less" from-field="parameters.date2"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+            <entity-and entity-name="UserLoginAndPartyDetails" list="userLoginAndPartyDetails">
+                <field-map field-name="userLoginId" from-field="createdByUserLogin"/>
+            </entity-and>
+            <set field="ApprovedBy" value="${userLoginAndPartyDetails[0].firstName} ${userLoginAndPartyDetails[0].middleName} ${userLoginAndPartyDetails[0].lastName}"/>
+        </row-actions>
+        <field name="productId"><hidden/></field>
+        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drDataResourceName" title="Image Name"><display/></field>
+        <field name="contentId"><display/></field>
+        <field name="dataResourceId"><display/></field>
+        <field name="statusId" title="Status">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="purchaseFromDate" title="Approved Date"><display/></field>
+        <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="ListImageExist" type="list" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
+        <actions>
+            <entity-condition entity-name="ProductContentAndInfo">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" from-field="parameters.productId"/>
+                    <condition-expr field-name="statusId" from-field="statusForm"/>
+                    <condition-expr field-name="productContentTypeId" value="IMAGE"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+        </row-actions>
+        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drDataResourceName" title="Image Name">
+            <hyperlink target="ListImageReplace" description="${drDataResourceName}">
+                <parameter param-name="productId"/>
+                <parameter param-name="contentIdExist" from-field="contentId"/>
+                <parameter param-name="dataResourceIdExist" from-field="dataResourceId"/>
+            </hyperlink>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="statusId" title="Status">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="ListImageReplace" type="list" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
+        <actions>
+            <entity-condition entity-name="ProductContentAndInfo">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" from-field="parameters.productId"/>
+                    <condition-expr field-name="statusId" from-field="statusForm"/>
+                    <condition-expr field-name="productContentTypeId" value="IMAGE"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="ContentAssoc" list="contentAssocs">
+                <field-map field-name="contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
+            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
+                <field-map field-name="contentId" from-field="contentIdTo"/>
+            </entity-and>
+            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
+            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
+                <field-map field-name="contentId"/>
+            </entity-and>
+        </row-actions>
+        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drDataResourceName" title="Image Name">
+            <hyperlink target="ListImageReplace" description="${drDataResourceName}">
+                <parameter param-name="productId"/>
+                <parameter param-name="contentIdReplace" from-field="contentId"/>
+                <parameter param-name="dataResourceIdReplace" from-field="dataResourceId"/>
+                <parameter param-name="contentIdExist" from-field="parameters.contentIdExist"/>
+                <parameter param-name="dataResourceIdExist" from-field="parameters.dataResourceIdExist"/>
+            </hyperlink>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="statusId" title="Status">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
+            <hyperlink target="viewImages" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="drObjectInfo" from-field="origContentDataResourceViews[0].drObjectInfo"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="AutomaticResize" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListAutomaticResize"> 
+        <field name="productId" title="Choose Product ID"><lookup target-form-name="LookupProduct"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListLookupImageFrame" type="list" list-name="listIt" paginate-target="ListLookupImageFrame" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="ContentDataResourceView">
+                <condition-expr field-name="contentTypeId" value="IMAGE_FRAME"/>
+            </entity-condition>
+        </actions>
+        <field name="drObjectInfo" title="Image"><image width="100"/></field>
+        <field name="drDataResourceName" title="Image Name" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${drDataResourceName}" target="javascript:set_value('${contentId}')"/>
+        </field>
+        <field name="contentId"><display/></field>
+        <field name="dataResourceId"><display/></field>
+        <field name="createdDate"><display/></field>
+        <!--<field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteImageFrame" target-window="new" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="contentId" from-field="contentId"/>
+            </hyperlink>
+        </field>-->
+    </form>
+</forms>

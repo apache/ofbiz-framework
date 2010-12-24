@@ -584,7 +584,49 @@ under the License.
     <WebSite webSiteId="FACILITY" siteName="Facility Manager" visualThemeSetId="BACKOFFICE"/>
 
     <WebAnalyticsType description="Web Analytics" hasTable="N" parentTypeId="" webAnalyticsTypeId="WEB_ANALYTICS"/>
-    <WebAnalyticsType webAnalyticsTypeId="GOOGLE_ANALYTICS" parentTypeId="WEB_ANALYTICS" hasTable="N" description="Google Analytics"/>    
+    <WebAnalyticsType webAnalyticsTypeId="GOOGLE_ANALYTICS" parentTypeId="WEB_ANALYTICS" hasTable="N" description="Google Analytics"/>
     <WebAnalyticsType webAnalyticsTypeId="BING_ANALYTICS" parentTypeId="WEB_ANALYTICS" hasTable="N" description="Bing Analytics"/>
-
+    
+    <!-- Image Management -->
+    <RoleType roleTypeId="IMAGEAPPROVER" hasTable="N" description="Image Approver"/>
+    
+    <PartyContentType partyContentTypeId="IMAGEAPPROVER" description="Image Approver"/>
+    
+    <ProductContentType description="Image" hasTable="N" parentTypeId="" productContentTypeId="IMAGE"/>
+    <ProductContentType description="Frame" hasTable="N" parentTypeId="" productContentTypeId="FRAME"/>
+    
+    <ContentType contentTypeId="IMAGE_FRAME" description="Frame Image"/>
+    
+    <ContentAssocType contentAssocTypeId="IMAGE_THUMBNAIL" description="Image Thumbnail"/>
+    
+    <StatusType description="Image Management" hasTable="N" parentTypeId="" statusTypeId="IMAGE_MANAGEMENT_ST"/>
+    <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="IM_PENDING" statusTypeId="IMAGE_MANAGEMENT_ST"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="IM_APPROVED" statusTypeId="IMAGE_MANAGEMENT_ST"/>
+    <StatusItem description="Rejected" sequenceId="03" statusCode="REJECTED" statusId="IM_REJECTED" statusTypeId="IMAGE_MANAGEMENT_ST"/>
+    
+    <ProductFeatureCategory productFeatureCategoryId="IMAGE" description="Image"/>
+    <ProductFeatureCategory productFeatureCategoryId="TEXT" description="Text"/>
+    
+    <ProductFeature productFeatureId="IMAGE_AVATAR" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="100 X 75 (avatar)" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="IMAGE_THUMBNAIL" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="150 X 112 (thumbnail)" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="IMAGE_WEBSITE" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="320 X 240 (for websites and email)" defaultSequenceNum="3"/>
+    <ProductFeature productFeatureId="IMAGE_BOARD" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="640 X 480 (for message boards)" defaultSequenceNum="4"/>
+    <ProductFeature productFeatureId="IMAGE_MONITOR15" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="800 X 600 (15-inch monitor)" defaultSequenceNum="5"/>
+    <ProductFeature productFeatureId="IMAGE_MONITOR17" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="1024 X 768 (17-inch monitor)" defaultSequenceNum="6"/>
+    <ProductFeature productFeatureId="IMAGE_MONITOR19" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="1280 X 1024 (19-inch monitor)" defaultSequenceNum="7"/>
+    <ProductFeature productFeatureId="IMAGE_MONITOR21" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="1600 X 1200 (21-inch monitor)" defaultSequenceNum="8"/>
+    
+    <ProductFeature productFeatureId="TEXT_SMALL" productFeatureTypeId="SIZE" productFeatureCategoryId="TEXT" description="Small" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="TEXT_MIDDLE" productFeatureTypeId="SIZE" productFeatureCategoryId="TEXT" description="Middle" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="TEXT_LARGE" productFeatureTypeId="SIZE" productFeatureCategoryId="TEXT" description="Large" defaultSequenceNum="3"/>
+    <ProductFeature productFeatureId="TEXT_VERYLARGE" productFeatureTypeId="SIZE" productFeatureCategoryId="TEXT" description="Very Large" defaultSequenceNum="4"/>
+    
+    <ProductFeature productFeatureId="TEXT_WHITE" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="White" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="TEXT_GRAY" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Gray" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="TEXT_BLACK" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Black" defaultSequenceNum="3"/>
+    <ProductFeature productFeatureId="TEXT_RED" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Red" defaultSequenceNum="4"/>
+    <ProductFeature productFeatureId="TEXT_GREEN" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Green" defaultSequenceNum="5"/>
+    <ProductFeature productFeatureId="TEXT_BLUE" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Blue" defaultSequenceNum="6"/>
+    <ProductFeature productFeatureId="TEXT_YELLOW" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Yellow" defaultSequenceNum="7"/>
+    
 </entity-engine-xml>

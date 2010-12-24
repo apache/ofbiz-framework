@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
+    <simple-method method-name="setImageThumbnail" short-description="Set Image Thumbnail">
+        <!-- change status lastest thumbnail to 'N' -->
+        <entity-and list="lastestThumbnails" entity-name="ProductContent">
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="productContentTypeId" value="IMAGE"/>
+            <field-map field-name="thumbnail" value="Y"/>
+        </entity-and>
+        <first-from-list entry="lastestThumbnail" list="lastestThumbnails"/>
+        <if-not-empty field="lastestThumbnail">
+            <set field="lastestThumbnail.thumbnail" value="N"/>
+            <store-value value-field="lastestThumbnail"/>
+        </if-not-empty>
+        
+        <!-- set status thumbnail to 'Y' -->
+        <entity-and list="productContents" entity-name="ProductContent">
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="contentId" from-field="parameters.contentId"/>
+            <field-map field-name="productContentTypeId" value="IMAGE"/>
+        </entity-and>
+        <first-from-list entry="productContent" list="productContents"/>
+        <set field="productContent.thumbnail" value="Y"/>
+        <store-value value-field="productContent"/>
+        
+        <!-- set thumbnail to product -->
+        <entity-and list="productContentAndInfos" entity-name="ProductContentAndInfo">
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="contentId" from-field="parameters.contentId"/>
+            <field-map field-name="productContentTypeId" value="IMAGE"/>
+        </entity-and>
+        <if-not-empty field="productContentAndInfos">
+            <set field="setThumbnailMap.productId" from-field="parameters.productId"/>
+            <set field="setThumbnailMap.contentIdTo" from-field="parameters.contentIdTo"/>
+            <call-service service-name="setThumbnail" in-map-name="setThumbnailMap"/>
+        </if-not-empty>
+    </simple-method>
+</simple-methods>
