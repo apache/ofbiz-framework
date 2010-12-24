@@ -177,6 +177,7 @@ under the License.
     <simple-method method-name="updateDataResourcePurpose" short-description="Update Data Resource Purpose">
         <check-permission permission="CONTENTMGR" action="_UPDATE">
             <fail-property resource="ContentUiLabels" property="ContentSecurityUpdatePermission"/>
+        </check-permission>
         <check-errors/>
 
         <make-value entity-name="DataResourcePurpose" value-field="lookupKeyValue"/>
