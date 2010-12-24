@@ -381,6 +381,7 @@ public class ShoppingCartHelper {
             String productId = null;
             String quantStr = null;
             String itemGroupNumberToUse = itemGroupNumber;
+            String originalProductId = null;
             if (entry.getKey() instanceof String) {
                 String key = (String) entry.getKey();
                 //Debug.logInfo("Bulk Key: " + key, module);
@@ -413,9 +414,26 @@ public class ShoppingCartHelper {
                     quantity = BigDecimal.ZERO;
                 }
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
+                    // check for alternative packing
+                    if(ProductWorker.isAlternativePacking(delegator, null , productId)){
+                        GenericValue originalProduct = null;
+                        originalProductId = productId;
+                        productId = ProductWorker.getOriginalProductId(delegator, productId);
+                        try {
+                            originalProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", originalProductId));
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, "Error getting parent product", module);
+                        }
+                        BigDecimal piecesIncluded = BigDecimal.ZERO;
+                        if(originalProduct != null){
+                            piecesIncluded = new BigDecimal(originalProduct.getLong("piecesIncluded"));
+                            quantity = quantity.multiply(piecesIncluded);
+                        }
+                    }
+                    
                     try {
                         if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart [" + quantity + "] of [" + productId + "] in Item Group [" + itemGroupNumber + "]", module);
-                        this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, null, dispatcher);
+                        this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, originalProductId, dispatcher);
                     } catch (CartItemModifyException e) {
                         return ServiceUtil.returnError(e.getMessage());
                     } catch (ItemNotFoundException e) {

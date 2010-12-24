@@ -1116,7 +1116,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 // check alternative packaging
                 boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, this.productId , this.getParentProductId());
                 BigDecimal pieces = BigDecimal.ONE;
-                if(isAlternativePacking){
+                if(isAlternativePacking && UtilValidate.isNotEmpty(this.getParentProduct())){
                     GenericValue originalProduct = this.getParentProduct();
                     if (originalProduct != null) pieces = new BigDecimal(originalProduct.getLong("piecesIncluded"));
                     priceContext.put("product", originalProduct);
