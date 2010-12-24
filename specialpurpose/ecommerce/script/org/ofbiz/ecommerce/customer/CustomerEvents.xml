@@ -1256,4 +1256,83 @@ under the License.
             <store-value value-field="loggedInUser"/>
         </if-compare-field>
     </simple-method>
+    <simple-method method-name="createAnonContact" short-description="Create a non Contact" login-required="false">
+        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="parameters.userLogin" from-field="systemUserLogin"/>
+        <set field="isExistingEmail" type="Boolean" value="false"/>
+        <if-empty field="parameters.subject">
+            <add-error><fail-property resource="EcommerceUiLabels" property="EcommerceSubjectMissing"/></add-error>
+        </if-empty>
+        <if-empty field="parameters.content">
+            <add-error><fail-property resource="CommonUiLabels" property="CommonMessageMissing"/></add-error>
+        </if-empty>
+        <if-empty field="parameters.emailAddress">
+            <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressMissingError"/></add-error>
+            <else>
+                <if-validate-method field="parameters.emailAddress" method="isEmail" class="org.ofbiz.base.util.UtilValidate">
+                    <!-- Check existing email -->
+                    <entity-condition list="contacts" entity-name="PartyContactDetailByPurpose">
+                        <condition-list>
+                            <condition-expr field-name="infoString" from-field="parameters.emailAddress"/>
+                            <condition-expr field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+                            <condition-expr field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+                        </condition-list>
+                    </entity-condition>
+                    <if-not-empty field="contacts">
+                        <first-from-list entry="contact" list="contacts"/>
+                        <set field="isExistingEmail" type="Boolean" value="true"/>
+                    </if-not-empty>
+                    <else>
+                        <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error>
+                    </else>
+                </if-validate-method>
+            </else>
+        </if-empty>
+        <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="parameters.captcha"/>
+        <call-object-method obj-field="parameters.captchaCode" method-name="toLowerCase" ret-field="parameters.captchaCode"/>
+        <if-compare-field operator="not-equals" field="parameters.captcha" to-field="parameters.captchaCode">
+            <add-error><fail-property resource="MyPortalUiLabels" property="MyPortalCaptchaMissingError"/></add-error>
+        </if-compare-field>
+        <check-errors/>
+        <!-- If email already exist, will go to confirm screen. -->
+        <if>
+            <condition>
+                <and>
+                    <if-empty field="parameters.partyId"/>
+                    <if-compare operator="equals" value="true" field="isExistingEmail"/>
+                </and>
+            </condition>
+            <then>
+                <entity-one value-field="person" entity-name="Person">
+                    <field-map field-name="partyId" from-field="contact.partyId"/>
+                </entity-one>
+                <field-to-request field="person" request-name="person"/>
+                <return response-code="confirm"/>
+            </then>
+        </if>
+        <!-- If person doesn't exist, will create new person and contact. -->
+        <if-empty field="parameters.partyId">
+            <set-service-fields service-name="createPerson" to-map="newPerson" map="parameters"/>
+            <call-service service-name="createPerson" in-map-name="newPerson">
+                <result-to-field result-name="partyId" field="parameters.partyId"/>
+            </call-service>
+            <set-service-fields service-name="createPartyContactMech" to-map="newContact" map="parameters"/>
+            <set field="newContact.infoString" from-field="parameters.emailAddress"/>
+            <set field="newContact.contactMechTypeId" value="EMAIL_ADDRESS"/>
+            <set field="newContact.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+            <call-service service-name="createPartyContactMech" in-map-name="newContact">
+                <result-to-field result-name="contactMechId" field="parameters.contactMechIdFrom"/>
+            </call-service>
+            <else>
+                <set field="parameters.contactMechIdFrom" from-field="contact.contactMechId"/>
+            </else>
+        </if-empty>
+        <set-service-fields service-name="createCommunicationEventWithoutPermission" to-map="newComm" map="parameters"/>
+        <set field="newComm.partyIdFrom" from-field="parameters.partyId"/>
+        <call-service service-name="createCommunicationEventWithoutPermission" in-map-name="newComm">
+            <default-message property="CommonGenericServiceSuccessMessage" resource="CommonUiLabels"></default-message>
+        </call-service>
+    </simple-method>
 </simple-methods>

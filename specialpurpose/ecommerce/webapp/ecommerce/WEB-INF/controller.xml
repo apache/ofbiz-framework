@@ -1295,6 +1295,7 @@ under the License.
     </request-map>
     <request-map uri="AnonContactus">
         <security https="true" auth="false"/>
+        <event type="java" invoke="getCodeCaptcha" path="org.ofbiz.common.Captcha"/>
         <response name="success" type="view" value="AnonContactus"/>
     </request-map>
     <request-map uri="contactsubmit">
@@ -1305,9 +1306,10 @@ under the License.
     </request-map>
     <request-map uri="submitAnonContact">
         <security https="true" auth="false"/>
-        <event type="service" invoke="sendContactUsEmailToCompany"/>
-        <response name="success" type="view" value="AnonContactus"/>
-        <response name="error" type="view" value="AnonContactus"/>
+        <event type="simple" invoke="createAnonContact" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml"/>
+        <response name="success" type="request-redirect" value="main"/>
+        <response name="confirm" type="request" value="AnonContactus"/>
+        <response name="error" type="request" value="AnonContactus"/>
     </request-map>
 
     <request-map uri="signUpForContactList">
@@ -1923,6 +1925,17 @@ under the License.
         <security auth="false" https="false"/>
         <response name="success" type="view" value="ProductUomDropDownOnly" save-last-view="true"/>
     </request-map>
+    
+    <!-- Captcha -->
+    <request-map uri="reloadCaptchaImage">
+        <security https="true" auth="false"/>        
+        <response name="success" type="view" value="reloadCaptchaImage"/>
+    </request-map>
+    <request-map uri="reloadCaptchaCode">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="reloadCaptchaCode"/>
+    </request-map>
+    
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
@@ -2071,5 +2084,9 @@ under the License.
     
     <!-- Contact List -->
     <view-map name="ContactListOptOut" type="screen" page="component://marketing/widget/ContactListScreens.xml#OptOutResponse"/>
+    
+    <!-- Captcha -->
+    <view-map name="reloadCaptchaImage" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaImage"/>
+    <view-map name="reloadCaptchaCode" type="screen" page="component://myportal/widget/CommonScreens.xml#reloadCaptchaCode"/>
     <!-- End of View Mappings -->
 </site-conf>
