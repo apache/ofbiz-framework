@@ -92,4 +92,20 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="FACILITY_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="FACILITY_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="FACILITY_ADMIN"/>
+    
+    <!-- Image Management security -->
+    <SecurityGroup description="Image Management Admin." groupId="IMAGEADMIN"/>
+    <SecurityPermission description="All operations in the Image Management." permissionId="IMAGE_MANAGEMENT_ADMIN"/>
+    <SecurityGroupPermission groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
+    <SecurityGroupPermission groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_APPROVE"/>
+    <SecurityGroupPermission groupId="IMAGEADMIN" permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
+    
+    <SecurityGroup description="Image Management Approve" groupId="IMAGEAPPROVE"/>
+    <SecurityPermission description="Approve photos in the Image Management." permissionId="IMAGE_MANAGEMENT_APPROVE"/>
+    <SecurityGroupPermission groupId="IMAGEAPPROVE" permissionId="IMAGE_MANAGEMENT_APPROVE"/>
+    
+    <SecurityGroup description="Image Management Upload." groupId="IMAGEUPLOAD"/>
+    <SecurityPermission description="Upload photos in the Image Management." permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
+    <SecurityGroupPermission groupId="IMAGEUPLOAD" permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
 </entity-engine-xml>

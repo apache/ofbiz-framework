@@ -1335,4 +1335,163 @@ under the License.
         <override name="productPromoContentTypeId" optional="false"/>
         <override name="productPromoId" optional="false"/>
     </service>
+    
+    <!-- Image Management Services -->
+    <service name="addMultipleuploadForProduct" default-entity-name="ProductContent" engine="java"
+        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="addMultipleuploadForProduct" auth="true">
+        <implements service="uploadFileInterface"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute mode="INOUT" name="contentId" optional="true" type="String"/>
+        <attribute mode="INOUT" name="dataResourceId" optional="true" type="String"/>
+        <attribute mode="IN" name="imageResize" optional="true" type="String"/>
+        <attribute mode="OUT" name="contentFrameId" optional="true" type="String"/>
+        <attribute mode="OUT" name="dataResourceFrameId" optional="true" type="String"/>
+        <override name="productContentTypeId" optional="false"/>
+        <override name="productId" optional="false"/>
+    </service>
+    
+    <service name="multipleUploadProductImages" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="UploadProductImages" auth="true">
+        <description>Multiple upload Images For Product</description>
+        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <attribute name="productId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="imageResize" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageOne" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageOne_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageOne_contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageTwo" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageTwo_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageTwo_contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageThree" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageThree_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageThree_contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageFour" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageFour_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageFour_contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageFive" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageFive_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageFive_contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageSix" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageSix_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageSix_contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageSeven" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageSeven_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageSeven_contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageEight" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageEight_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageEight_contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageNine" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageNine_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageNine_contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="additionalImageTen" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
+        <attribute name="_additionalImageTen_fileName" type="String" mode="IN" optional="true"/>
+        <attribute name="_additionalImageTen_contentType" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="removeProductContentAndImageFile" default-entity-name="ProductContent" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="removeProductContentAndImageFile" auth="true">
+        <description>Remove Content From Product and File Image</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="removeProductContentForImageManagement" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="removeProductContentForImageManagement" auth="true">
+        <description>Delete Product Content Relationship Entity</description>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+    </service>
+    
+    <service name="removeImageFileForImageManagement" engine="java"
+        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="removeImageFileForImageManagement" auth="true">
+        <description>Delete Image File</description>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
+        <attribute mode="IN" name="dataResourceName" optional="false" type="String"/>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+    </service>
+    
+    <service name="addImageFrame" engine="java"
+        location="org.ofbiz.product.imagemanagement.FrameImage" invoke="addImageFrame" auth="true">
+        <description>Create Image Frame For Product.</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="imageName" optional="false" type="String"/>
+        <attribute mode="IN" name="imageWidth" optional="false" type="String"/>
+        <attribute mode="IN" name="imageHeight" optional="false" type="String"/>
+        <attribute mode="IN" name="frameContentId" optional="false" type="String"/>
+        <attribute mode="IN" name="frameDataResourceId" optional="false" type="String"/>
+    </service>
+    
+    <service name="uploadFrame" engine="java"
+        location="org.ofbiz.product.imagemanagement.FrameImage" invoke="uploadFrame" auth="true">
+        <description>Upload Image Frame.</description>
+        <attribute mode="IN" name="uploadedFile" optional="false" type="java.nio.ByteBuffer"/>
+    </service>
+    
+    <service name="addImageCaption" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="addImageCaption" auth="true">
+        <description>Replace Image To Exist Image.</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
+        <attribute mode="IN" name="description" optional="true" type="String"/>
+    </service>
+    
+    <service name="imageCrop" engine="java"
+        location="org.ofbiz.product.imagemanagement.CropImage" invoke="imageCrop" auth="true">
+        <description>Crop Image</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="imageName" optional="false" type="String"/>
+        <attribute mode="IN" name="imageX" optional="false" type="String"/>
+        <attribute mode="IN" name="imageY" optional="false" type="String"/>
+        <attribute mode="IN" name="imageW" optional="false" type="String"/>
+        <attribute mode="IN" name="imageH" optional="false" type="String"/>
+    </service>
+    
+    <service name="imageRotate" engine="java"
+        location="org.ofbiz.product.imagemanagement.RotateImage" invoke="imageRotate" auth="true">
+        <description>Rotate Image</description>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+        <attribute mode="IN" name="imageName" optional="false" type="String"/>
+        <attribute mode="IN" name="angle" optional="false" type="String"/>
+    </service>
+    
+    <service name="setImageDetail" engine="simple" default-entity-name="ProductContent"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="setImageDetail" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="defaultSequenceNum" mode="IN" type="Integer" optional="true"/>
+        <attribute name="enable" mode="IN" type="Boolean" optional="true" default-value="true"/>
+        <attribute name="description" mode="IN" type="String" optional="true"/>
+    </service>
+    
+    <service name="updateStatusImageManagement" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="updateStatusImageManagement" auth="true">
+        <attribute name="contentId" mode="IN" type="String" optional="false"/>
+        <attribute name="checkStatusId" mode="IN" type="String" optional="true"/>
+    </service>
+    
+    <service name="addRejectedReasonImageManagement" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="addRejectedReasonImageManagement" auth="true">
+        <attribute name="contentId" mode="IN" type="String" optional="false"/>
+        <attribute name="description" mode="IN" type="String" optional="true"/>
+    </service>
+    
+    <service name="createImagePartyContent" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="createImagePartyContent" auth="true">
+        <attribute name="contentId" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <service name="removeImagePartyContent" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="removeImagePartyContent" auth="true">
+        <attribute name="partyId" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <service name="setThumbnail" engine="java"
+        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="setThumbnail" auth="true">
+        <description>Set Thumbnail for product</description>
+        <attribute mode="IN" name="contentIdTo" optional="false" type="String"/>
+        <attribute mode="IN" name="productId" optional="false" type="String"/>
+    </service>
+    
+    
 </services>

@@ -128,5 +128,11 @@ under the License.
     <eca service="receiveInventoryProduct" event="commit">
         <action service="updateProductAverageCostOnReceiveInventory" mode="sync"/>
     </eca>
+    
+    <!-- Remove party content of image  -->
+    <eca service="deletePartyRole" event="commit">
+        <condition field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>
+        <action service="removeImagePartyContent" mode="sync"/>
+    </eca>
 
 </service-eca>

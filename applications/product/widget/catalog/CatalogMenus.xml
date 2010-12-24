@@ -30,6 +30,7 @@ under the License.
         <menu-item name="Subscription" title="${uiLabelMap.ProductSubscriptions}"><link target="FindSubscription"/></menu-item>
         <menu-item name="shipping" title="${uiLabelMap.ProductShipping}"><link target="ListShipmentMethodTypes"/></menu-item>
         <menu-item name="WebAnalytics" title="${uiLabelMap.CatalogWebAnalytics}"><link target="WebAnalytics"/></menu-item>
+        <menu-item name="Imagemanagement" title="${uiLabelMap.ImageManagement}"><link target="Imagemanagement"/></menu-item>
     </menu>
 
     <menu name="FeaturesTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -473,4 +474,64 @@ under the License.
         <menu-item name="EditWebAnalyticsType" title="${uiLabelMap.CommonNew}"><link target="EditWebAnalyticsType"/></menu-item>
     </menu>
 
+     <menu name="ImageManagementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="userTabButtonImage">
+        <menu-item name="ImageGallery" title="${uiLabelMap.Gallery}">
+            <link target="ImageGallery"/>
+        </menu-item>
+        <menu-item name="ImageUpload" title="${uiLabelMap.ImageUpload}">
+            <condition>
+                <or>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_UPLOAD"/>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                </or>
+            </condition>
+            <link target="ImageUpload"/>
+        </menu-item>
+        <menu-item name="ImageRecentlyApproved" title="${uiLabelMap.ImageRecentlyApproved}">
+            <condition>
+                <or>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                </or>
+            </condition>
+            <link target="ImageRecentlyApproved"/>
+        </menu-item>
+        <menu-item name="ImageApprove" title="${uiLabelMap.ImageApprove}">
+            <condition>
+                <or>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                </or>
+            </condition>
+            <link target="ImageApprove"/>
+        </menu-item>
+        <menu-item name="ImageRejected" title="${uiLabelMap.ImageRejected}">
+            <condition>
+                <or>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                </or>
+            </condition>
+            <link target="ImageRejected"/>
+        </menu-item>
+        <menu-item name="ImageManage" title="${uiLabelMap.Manage}">
+            <condition>
+                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+            </condition>
+            <link target="ImageManage"/>
+        </menu-item>
+        <menu-item name="ImageReplace" title="${uiLabelMap.Replace}">
+            <condition>
+                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+            </condition>
+            <link target="ImageReplace"/>
+        </menu-item>
+        <!--<menu-item name="AutomaticResize" title="${uiLabelMap.AutomaticResize}">
+            <condition>
+                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+            </condition>
+            <link target="AutomaticResize"/>
+        </menu-item>-->
+    </menu>
+    
 </menus>

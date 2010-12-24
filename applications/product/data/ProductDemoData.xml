@@ -22,5 +22,25 @@ under the License.
     <!-- Limited user demo -->
     <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin1" fromDate="2001-01-01 12:00:00.0"/>
+    
+    <!-- Image Management user demo -->
+    <Party partyId="imageAdmin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="imageAdmin" firstName="Image Management" lastName="Administrator"/>
+    <UserLogin userLoginId="imageAdmin" partyId="imageAdmin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="imageAdmin" groupId="FULLADMIN" fromDate="2010-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup userLoginId="imageAdmin" groupId="IMAGEADMIN" fromDate="2010-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup userLoginId="imageAdmin" groupId="IMAGEUPLOAD" fromDate="2010-01-01 12:00:00.0"/>
+    
+    <Party partyId="imageAdmin2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="imageAdmin2" firstName="Image Management" lastName="Administrator 2"/>
+    <UserLogin userLoginId="imageAdmin2" partyId="imageAdmin2" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="imageAdmin2" groupId="FULLADMIN" fromDate="2010-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup userLoginId="imageAdmin2" groupId="IMAGEAPPROVE" fromDate="2010-01-01 12:00:00.0"/>
+    
+    <Party partyId="imageUpload" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="imageUpload" firstName="Image Management" lastName="Upload"/>
+    <UserLogin userLoginId="imageUpload" partyId="imageUpload" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="imageUpload" groupId="FULLADMIN" fromDate="2010-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup userLoginId="imageUpload" groupId="IMAGEUPLOAD" fromDate="2010-01-01 12:00:00.0"/>
 
 </entity-engine-xml>

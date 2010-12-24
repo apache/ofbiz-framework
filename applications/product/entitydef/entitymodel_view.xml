@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    
+    <view-entity entity-name="PartyContentProductContentAndInfo"
+            package-name="org.ofbiz.content.content"
+            title="PartyContent, ProductContent, Content and DataResource View Entity">
+      <member-entity entity-alias="PAC" entity-name="PartyContent"/>
+      <member-entity entity-alias="PRC" entity-name="ProductContent"/>
+      <member-entity entity-alias="CO" entity-name="Content"/>
+      <member-entity entity-alias="DR" entity-name="DataResource"/>
+      <alias-all entity-alias="PAC"/>
+      <alias-all entity-alias="PRC">
+      	<exclude field="contentId"/>
+      </alias-all>
+      <alias-all entity-alias="CO">
+      	<exclude field="contentId"/>
+      </alias-all>
+      <alias-all entity-alias="DR" prefix="dr"/>
+      <view-link entity-alias="PAC" rel-entity-alias="PRC">
+        <key-map field-name="contentId"/>
+      </view-link>
+      <view-link entity-alias="PRC" rel-entity-alias="CO">
+        <key-map field-name="contentId"/>
+      </view-link>
+      <view-link entity-alias="CO" rel-entity-alias="DR">
+        <key-map field-name="dataResourceId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="ElectronicText">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="ImageDataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="OtherDataResource">
+        <key-map field-name="dataResourceId"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
+      </relation>
+      <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
+      </relation>
+    </view-entity>
+    
+</entitymodel>

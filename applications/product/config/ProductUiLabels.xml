@@ -19,6 +19,39 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="Approve">
+        <value xml:lang="en">Approve</value>
+        <value xml:lang="th">ยืนยัน</value>
+    </property>
+    <property key="Approved">
+        <value xml:lang="en">Approved</value>
+        <value xml:lang="th">ยืนยันแล้ว</value>
+    </property>
+    <property key="AutomaticResize">
+        <value xml:lang="en">Automatic Resize</value>
+        <value xml:lang="th">เปลี่ยนขนาดอัตโนมัติ</value>
+    </property>
+    <property key="CatalogWebAnalytics">
+        <value xml:lang="en">Web Analytics</value>
+    </property>
+    <property key="CatalogWebAnalyticsConfigs">
+        <value xml:lang="en">Web Analytics Configuration</value>
+    </property>
+    <property key="CatalogWebAnalyticsTypes">
+        <value xml:lang="en">Web Analytics Types</value>
+    </property>
+    <property key="ChooseImageToReplace">
+        <value xml:lang="en">Choose Image to Replace</value>
+        <value xml:lang="th">เลือกภาพสำหรับแทนที่</value>
+    </property>
+    <property key="ChooseProductID">
+        <value xml:lang="en">Choose Product ID</value>
+        <value xml:lang="th">เลือกรหัสสินค้า</value>
+    </property>
+    <property key="ChooseReplacementImage">
+        <value xml:lang="en">Choose Replacement Image</value>
+        <value xml:lang="th">เลือกภาพที่จะแทนที่</value>
+    </property>
     <property key="FacilityActualShippingCharges">
         <value xml:lang="en">Actual shipping charges</value>
         <value xml:lang="it">Ricarico di spedizione attuale</value>
@@ -4831,7 +4864,59 @@
         <value xml:lang="zh">人工服务好的标准类型标识</value>
         <value xml:lang="zh_TW">工項成品規範類型ID</value>
     </property>
-    <property key="PageTitleAddFacilityGroupRollup">
+    <property key="Gallery">
+        <value xml:lang="en">Gallery</value>
+        <value xml:lang="th">แกลลอรี่</value>
+    </property>
+    <property key="ImageApprove">
+        <value xml:lang="en">Approve</value>
+        <value xml:lang="th">ยืนยันรูปภาพ</value>
+    </property>
+
+    <property key="ImageCropping">
+        <value xml:lang="en">Image Cropping</value>
+        <value xml:lang="th">ตัดภาพ</value>
+    </property>
+    <property key="ImageFrames">
+        <value xml:lang="en">Image Frames</value>
+        <value xml:lang="th">เฟรม</value>
+    </property>
+    <property key="ImageManagement">
+        <value xml:lang="en">Image Management</value>
+        <value xml:lang="th">จัดการรูปภาพ</value>
+    </property>
+    <property key="ImageManagementApplication">
+        <value xml:lang="en">Image Management Application</value>
+        <value xml:lang="th">โปรแกรมจัดการรูปภาพ</value>
+    </property>
+    <property key="ImageRecentlyApproved">
+        <value xml:lang="en">Recently Approved</value>
+        <value xml:lang="th">รูปภาพยืนยันล่าสุด</value>
+    </property>
+    <property key="ImageRejected">
+        <value xml:lang="en">Rejected</value>
+        <value xml:lang="th">ปฏิเสธรูปภาพ</value>
+    </property>
+    <property key="ImageRotating">
+        <value xml:lang="en">Image Rotating</value>
+        <value xml:lang="th">หมุนภาพ</value>
+    </property>
+    <property key="ImageUpload">
+        <value xml:lang="en">Upload</value>
+        <value xml:lang="th">อัพโหลดรูป</value>
+    </property>
+    <property key="ImageUploadList">
+        <value xml:lang="en">Image Upload List</value>
+        <value xml:lang="th">รูปภาพที่อัพโหลด</value>
+    </property>
+    <property key="ImageWatermarking">
+        <value xml:lang="en">Image Watermarking</value>
+        <value xml:lang="th">ลายน้ำ</value>
+    </property>
+    <property key="Manage">
+        <value xml:lang="en">Manage</value>
+        <value xml:lang="th">จัดการ</value>
+    </property>    <property key="PageTitleAddFacilityGroupRollup">
         <value xml:lang="de">Einrichtungsgruppe Rollup hinzufügen</value>
         <value xml:lang="en">Add Facility Group Rollup</value>
         <value xml:lang="es">Añadir despliegue de grupo de almacenes</value>
@@ -23523,5 +23608,29 @@
         <value xml:lang="th">ผลการค้นหาของคุณ</value>
         <value xml:lang="zh">你搜索</value>
         <value xml:lang="zh_TW">你所搜索的</value>
+    </property>
+    <property key="RecentlyApproved">
+        <value xml:lang="en">Recently Approved</value>
+        <value xml:lang="th">แกลลอรี่</value>
+    </property>
+    <property key="Rejected">
+        <value xml:lang="en">Rejected</value>
+        <value xml:lang="th">ปฏิเสธ</value>
+    </property>
+    <property key="Replace">
+        <value xml:lang="en">Replace</value>
+        <value xml:lang="th">แทนที่</value>
+    </property>
+    <property key="ShareImage">
+        <value xml:lang="en">Share Image</value>
+        <value xml:lang="th">แบ่งบันภาพ</value>
+    </property>
+    <property key="Upload">
+        <value xml:lang="en">Upload</value>
+        <value xml:lang="th">อัพโหลด</value>
+    </property>
+    <property key="WelcomeMessage">
+        <value xml:lang="en">Welcome to the Image Management</value>
+        <value xml:lang="th">ยินดีต้อนรับสู้รบบการจัดการรูปภาพ</value>
     </property>
 </resource>
