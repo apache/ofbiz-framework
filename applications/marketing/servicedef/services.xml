@@ -78,6 +78,14 @@ under the License.
         <attribute name="email" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="unsubscribeContactListParty" engine="simple"
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="unsubscribeContactListParty" auth="false">
+        <description>Unsubscribe an input email for a ContactList with _NA_ party using the system userLogin.
+            The intent is for anonymous unsubscribe to email lists.  Also validates email format.</description>
+        <attribute name="contactListId" type="String" mode="IN" optional="false"/>
+        <attribute name="email" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
 
     <!-- MarketingCampaignRole Services -->
     <service name="addRoleToMarketingCampaign" default-entity-name="MarketingCampaignRole" engine="simple"
@@ -149,6 +157,19 @@ under the License.
         <attribute name="optInVerifyCode" type="String" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
+    <service name="updateContactListPartyNoUserLogin" default-entity-name="ContactListParty" engine="simple"
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updateContactListPartyNoUserLogin" auth="false">
+        <description>Update Party to ContactList Join</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contactListId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="optInVerifyCode" type="String" mode="IN" optional="true"/>
+        <attribute name="email" type="String" mode="IN" optional="true"/>
+        <override name="partyId" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
     <service name="updatePartyEmailContactListParty" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updatePartyEmailContactListParty" auth="true">
         <description>Update ContactList Party Contact Mech</description>
@@ -169,6 +190,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="setByUserLoginId"/>
         </auto-attributes>
+        <attribute name="preferredContactMechId" mode="IN" type="String" optional="false"/>
         <override name="statusId" optional="false"/>
         <override name="fromDate" optional="true"/>
     </service>
@@ -183,12 +205,31 @@ under the License.
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="contactListId" type="String" mode="OUT" optional="true"/>
     </service>
+    <service name="sendContactListPartySubscribeEmail" engine="simple"
+        location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="sendContactListPartySubscribeEmail" auth="false">
+        <attribute name="productStoreId" mode="IN" type="String" optional="true"/>
+        <attribute name="partyId" mode="IN" type="String" optional="true"/>
+        <attribute name="contactListId" mode="IN" type="String" optional="true"/>
+        <attribute name="preferredContactMechId" mode="IN" type="String" optional="false"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="statusId" mode="IN" type="String" optional="true"/>
+    </service>
+    <service name="sendContactListPartyUnSubscribeVerifyEmail" engine="simple"
+        location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="sendContactListPartyUnSubscribeVerifyEmail" auth="false">
+        <attribute name="productStoreId" mode="IN" type="String" optional="true"/>
+        <attribute name="partyId" mode="IN" type="String" optional="true"/>
+        <attribute name="contactListId" mode="IN" type="String" optional="true"/>
+        <attribute name="preferredContactMechId" mode="IN" type="String" optional="false"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="statusId" mode="IN" type="String" optional="true"/>
+    </service>
     <service name="sendContactListPartyUnSubscribeEmail" engine="simple"
         location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="sendContactListPartyUnSubscribeEmail" auth="false">
         <attribute name="productStoreId" mode="IN" type="String" optional="true"/>
         <attribute name="partyId" mode="IN" type="String" optional="true"/>
         <attribute name="contactListId" mode="IN" type="String" optional="true"/>
-        <attribute name="fromDate" mode="IN" type="String" optional="true"/>
+        <attribute name="preferredContactMechId" mode="IN" type="String" optional="false"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp" optional="true"/>
         <attribute name="statusId" mode="IN" type="String" optional="true"/>
     </service>
 

@@ -27,6 +27,15 @@ under the License.
   </select>
 </#macro>
 
+<script type="text/javascript" language="JavaScript">
+    function unsubscribe() {
+        var form = document.getElementById("signUpForContactListForm");
+        form.action = "<@ofbizUrl>unsubscribeContactListParty</@ofbizUrl>"
+        document.getElementById("statusId").value = "CLPT_UNSUBS_PENDING";
+        form.submit();
+    }
+</script>
+
 <div id="miniSignUpForContactList" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
@@ -39,10 +48,10 @@ under the License.
   <#-- The visitor potentially has an account and party id -->
     <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
     <#-- They are logged in so lets present the form to sign up with their email address -->
-      <form method="post" action="<@ofbizUrl>createContactListParty</@ofbizUrl>" name="signUpForContactListForm">
+      <form method="post" action="<@ofbizUrl>createContactListParty</@ofbizUrl>" name="signUpForContactListForm" id="signUpForContactListForm">
         <fieldset>
           <input type="hidden" name="partyId" value="${partyId}"/>
-          <input type="hidden" name="statusId" value="CLPT_PENDING"/>
+          <input type="hidden" id="statusId" name="statusId" value="CLPT_PENDING"/>
           <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
           <div>
             <@contactList publicEmailContactLists=publicEmailContactLists/>
@@ -56,6 +65,7 @@ under the License.
           </div>
           <div>
             <input type="submit" value="${uiLabelMap.EcommerceSubscribe}"/>
+            <input type="button" value="${uiLabelMap.EcommerceUnsubscribe}" onclick="javascript:unsubscribe();"/>
           </div>
         </fieldset>
       </form>
@@ -69,6 +79,7 @@ under the License.
   <#-- There is no party info so just offer an anonymous (non-partyId) related newsletter sign up -->
     <form method="post" action="<@ofbizUrl>signUpForContactList</@ofbizUrl>" name="signUpForContactListForm" id="signUpForContactListForm">
       <fieldset>
+        <input type="hidden" id="statusId" name="statusId"/>
         <div>
           <label>${uiLabelMap.EcommerceSignUpForContactListComments}</label>
           <@contactList publicEmailContactLists=publicEmailContactLists/>
@@ -78,6 +89,7 @@ under the License.
         </div>
         <div>
           <input type="submit" value="${uiLabelMap.EcommerceSubscribe}"/>
+          <input type="button" value="${uiLabelMap.EcommerceUnsubscribe}" onclick="javascript:unsubscribe();"/>
         </div>
       </fieldset>
     </form>

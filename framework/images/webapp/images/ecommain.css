@@ -124,7 +124,8 @@ font-weight:700;
 margin:2px;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover,
+input[type=button]:hover {
 color:red;
 cursor:pointer;
 text-decoration:underline;
