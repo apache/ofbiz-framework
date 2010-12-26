@@ -163,7 +163,7 @@
         <value xml:lang="en">password was empty reenter</value>
         <value xml:lang="es">El password no puede ser vacío</value>
         <value xml:lang="fr">Le mot de passe était vide, SVP recommencez.</value>
-        <value xml:lang="it">La password è vuota, prego inserirla dinuovo.</value>
+        <value xml:lang="it">La password è vuota, prego inserirla di nuovo.</value>
         <value xml:lang="nl">Het wachtwoord is leeg, toets a.u.b. opnieuw in.</value>
         <value xml:lang="ro">Parola este goala, va rugam re-introduceti.</value>
         <value xml:lang="ru">Пароль пустой, введите повторно.</value>
@@ -226,7 +226,7 @@
         <value xml:lang="en">A user with the Username "${userLoginId}" was not found, please re-enter.</value>
         <value xml:lang="es">El usuario "${userLoginId}" no fue encontrado, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur "${userLoginId}" est inconnu, entrez le de nouveau SVP.</value>
-        <value xml:lang="it">L'utente "${userLoginId}" non è stato trovato, prego inserirlo dinuovo.</value>
+        <value xml:lang="it">L'utente "${userLoginId}" non è stato trovato, prego inserirlo di nuovo.</value>
         <value xml:lang="nl">Er is geen gebruiker gevonden met de gebruikersnaam "${userLoginId}", probeer het a.u.b. opnieuw.</value>
         <value xml:lang="ro">Utilizatorul cu nume "${userLoginId}" nu a fost gasit, va rog re-introduceti.</value>
         <value xml:lang="ru">Пользователь с именем "${userLoginId}" не найден, пожалуйста повторите ввод.</value>
@@ -239,7 +239,7 @@
         <value xml:lang="en">The Username was not found, please re-enter.</value>
         <value xml:lang="es">El usuario "${userLoginId}" no fue encontrado, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur est inconnu, entrez le de nouveau, SVP.</value>
-        <value xml:lang="it">L'utente non è stato trovato, prego inserirlo dinuovo.</value>
+        <value xml:lang="it">L'utente non è stato trovato, prego inserirlo di nuovo.</value>
         <value xml:lang="nl">De gebruikersnaam is niet gevonden, toets a.u.b. opnieuw in.</value>
         <value xml:lang="ro">Nume Utilizator nu a fost gasit, va rugam reintroduceti.</value>
         <value xml:lang="ru">Это имя пользователя не найдено, введите повторно.</value>
@@ -252,7 +252,7 @@
         <value xml:lang="en">username was empty reenter</value>
         <value xml:lang="es">El usuario no puede ser vacío, por favor intente de nuevo.</value>
         <value xml:lang="fr">Le nom d'utilisateur est vide, taper le de nouveau SVP.</value>
-        <value xml:lang="it">L'utente è vuoto, prego inserirlo dinuovo.</value>
+        <value xml:lang="it">L'utente è vuoto, prego inserirlo di nuovo.</value>
         <value xml:lang="nl">De gebruikersnaam is leeg, toets a.u.b. opnieuw in.</value>
         <value xml:lang="ro">Nume Utilizator este gol, va rugam reintroduceti.</value>
         <value xml:lang="ru">Имя пользователя пустое, введите повторно.</value>

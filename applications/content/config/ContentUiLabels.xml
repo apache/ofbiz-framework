@@ -581,7 +581,7 @@
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
-        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
@@ -1845,7 +1845,7 @@
         <value xml:lang="en">Create Survey Response</value>
         <value xml:lang="es">Crear respuesta</value>
         <value xml:lang="fr">Créer une réponse</value>
-        <value xml:lang="it">Creare risposta sondaggio</value>
+        <value xml:lang="it">Nuova risposta sondaggio</value>
         <value xml:lang="ro">Creare Raspuns Sondaj</value>
         <value xml:lang="th">สร้างคำตอบ</value>
         <value xml:lang="zh">新建调查回答</value>
@@ -1883,7 +1883,7 @@
         <value xml:lang="en">Find Response</value>
         <value xml:lang="es">Buscar respuesta</value>
         <value xml:lang="fr">Rechercher la réponse</value>
-        <value xml:lang="it">Ricerca risposta</value>
+        <value xml:lang="it">Ricerca risposte</value>
         <value xml:lang="ro">Cautare Raspuns</value>
         <value xml:lang="th">ค้นหาคำตอบ</value>
         <value xml:lang="zh">查找回答</value>
@@ -2060,7 +2060,7 @@
         <value xml:lang="en">Response Summary</value>
         <value xml:lang="es">Resumen de respuestas</value>
         <value xml:lang="fr">Résumé de réponse</value>
-        <value xml:lang="it">Sommario risposta</value>
+        <value xml:lang="it">Sommario risposte</value>
         <value xml:lang="ro">Sumar Raspuns</value>
         <value xml:lang="th">คำตอบโดยสรุป</value>
         <value xml:lang="zh">回答摘要</value>
@@ -3924,7 +3924,7 @@
         <value xml:lang="en">Survey Id</value>
         <value xml:lang="es">Código de encuesta</value>
         <value xml:lang="fr">Sondage</value>
-        <value xml:lang="it">Numero Sondaggio</value>
+        <value xml:lang="it">Numero sondaggio</value>
         <value xml:lang="nl">Onderzoek ID</value>
         <value xml:lang="ro">Numar Sondaj</value>
         <value xml:lang="ru">Код обзора</value>
@@ -3963,7 +3963,7 @@
         <value xml:lang="en">Survey Name</value>
         <value xml:lang="es">Nombre de la encuesta</value>
         <value xml:lang="fr">Nom du sondage</value>
-        <value xml:lang="it">Nome Sondaggio</value>
+        <value xml:lang="it">Nome sondaggio</value>
         <value xml:lang="ro">Numar Sondaj</value>
         <value xml:lang="ru">Имя обзора</value>
         <value xml:lang="th">ชื่อการสำรวจ</value>
@@ -4012,7 +4012,7 @@
         <value xml:lang="de">Befragung Antwort ID</value>
         <value xml:lang="en">Survey Response Id</value>
         <value xml:lang="fr">Réponse au sondage</value>
-        <value xml:lang="it">Risposta Sondaggio</value>
+        <value xml:lang="it">Risposta sondaggio</value>
         <value xml:lang="ro">Raspuns Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบ</value>
         <value xml:lang="zh">调查回答标识</value>
@@ -4939,7 +4939,7 @@
         <value xml:lang="en">Edit survey</value>
         <value xml:lang="es">Modificar Encuesta</value>
         <value xml:lang="fr">Modifier le sondage</value>
-        <value xml:lang="it">Aggiorna Sondaggio</value>
+        <value xml:lang="it">Aggiorna sondaggio</value>
         <value xml:lang="ro">Aggiorna Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจ</value>
         <value xml:lang="zh">编辑调查</value>
@@ -4978,7 +4978,7 @@
         <value xml:lang="en">Edit Survey Questions</value>
         <value xml:lang="es">Modificar Preeguntas de Encuesta</value>
         <value xml:lang="fr">Modifier les questions du sondage</value>
-        <value xml:lang="it">Aggiorna Domande Sondaggio</value>
+        <value xml:lang="it">Aggiorna domande sondaggio</value>
         <value xml:lang="ro">Actualizeaza Intrebari Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจคำถาม</value>
         <value xml:lang="zh">编辑调查问题</value>
@@ -4991,7 +4991,7 @@
         <value xml:lang="en">Edit Survey Response</value>
         <value xml:lang="es">Modificar Respuestas de Encuesta</value>
         <value xml:lang="fr">Modifier les réponses du sondage</value>
-        <value xml:lang="it">Aggiorna Risposta Sondaggio</value>
+        <value xml:lang="it">Aggiorna risposta sondaggio</value>
         <value xml:lang="ro">Adauga Raspuns Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจคำตอบ</value>
         <value xml:lang="zh">编辑调查回答</value>
@@ -5148,7 +5148,7 @@
         <value xml:lang="en">Find Survey</value>
         <value xml:lang="es">Buscar Encuesta</value>
         <value xml:lang="fr">Rechercher le sondage</value>
-        <value xml:lang="it">Ricerca Sondaggio</value>
+        <value xml:lang="it">Ricerca sondaggi</value>
         <value xml:lang="ro">Cauta Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจ</value>
         <value xml:lang="zh">查找调查</value>
@@ -5161,7 +5161,7 @@
         <value xml:lang="en">Find Survey Response</value>
         <value xml:lang="es">Buscar Respuesta de Encuestas</value>
         <value xml:lang="fr">Rechercher les réponses du sondage</value>
-        <value xml:lang="it">Ricerca Risposte Sondaggio</value>
+        <value xml:lang="it">Ricerca risposte sondaggio</value>
         <value xml:lang="ro">Cauta Raspuns Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจคำตอบ</value>
         <value xml:lang="zh">查找调查回答</value>
@@ -5268,7 +5268,7 @@
         <value xml:lang="de">Liste der Antworten Befragung</value>
         <value xml:lang="en">List Survey Response</value>
         <value xml:lang="fr">Liste des réponses au sondage</value>
-        <value xml:lang="it">Lista Risposte Sondaggio</value>
+        <value xml:lang="it">Lista risposte sondaggio</value>
         <value xml:lang="th">รายการสำรวจคำตอบ</value>
         <value xml:lang="zh">调查回答列表</value>
         <value xml:lang="zh_TW">調查回答列表</value>
@@ -5338,7 +5338,7 @@
         <value xml:lang="de">Befragung suchen</value>
         <value xml:lang="en">Lookup Survey</value>
         <value xml:lang="fr">Consultation de sondage</value>
-        <value xml:lang="it">Ricerca Sondaggio</value>
+        <value xml:lang="it">Ricerca sondaggi</value>
         <value xml:lang="ro">Cauta Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจ</value>
         <value xml:lang="zh">查找调查</value>
@@ -5350,7 +5350,7 @@
         <value xml:lang="de">Befragung Antwort suchen</value>
         <value xml:lang="en">Lookup Survey Response</value>
         <value xml:lang="fr">Consultation de réponse de sondage</value>
-        <value xml:lang="it">Ricerca Risposta Sondaggio</value>
+        <value xml:lang="it">Ricerca risposte sondaggio</value>
         <value xml:lang="ro">Cauta Raspuns Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจคำตอบ</value>
         <value xml:lang="zh">查找调查回答</value>
@@ -5448,7 +5448,7 @@
         <value xml:lang="en">View Survey Responses</value>
         <value xml:lang="es">Ver Respuesta de Encuestas</value>
         <value xml:lang="fr">Réponses des sondages d'opinion</value>
-        <value xml:lang="it">Mostra Risposte Sondaggio</value>
+        <value xml:lang="it">Mostra risposte sondaggio</value>
         <value xml:lang="ro">Afiseaza Sondaj</value>
         <value xml:lang="th">ดูการสำรวจคำตอบ</value>
         <value xml:lang="zh">浏览调查回答</value>

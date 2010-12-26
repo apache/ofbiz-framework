@@ -86,7 +86,7 @@
     <property key="FacilityCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
-        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
         <value xml:lang="nl">Deel van de 'Open For Business' familie van open source software</value>    
         <value xml:lang="zh">开源软件OFBiz的组成部分</value>
         <value xml:lang="zh_TW">開源軟件OFBiz的組成部分</value>
@@ -9840,7 +9840,7 @@
         <!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
         <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
-        <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
         <!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
