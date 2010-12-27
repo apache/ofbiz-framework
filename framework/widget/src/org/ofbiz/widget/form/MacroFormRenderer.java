@@ -220,7 +220,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" idName=\"");
         sr.append(idName);
         sr.append("\" description=\"");
-        sr.append(description);
+        sr.append(FreeMarkerWorker.encodeDoubleQuotes(description));
         sr.append("\" title=\"");
         sr.append(title);
         sr.append("\" class=\"");
