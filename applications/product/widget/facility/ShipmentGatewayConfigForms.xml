@@ -224,6 +224,13 @@ under the License.
                 <option key="20" description="${uiLabelMap.FacilityShipmentUpsPickupAirServiceCenter}"/>
             </drop-down>
         </field>
+        <field name="customerClassification" title="${uiLabelMap.FacilityShipmentUpsCustomerClassification}">
+            <drop-down>
+                <option key="01" description="${uiLabelMap.FacilityShipmentUpsCustomerClassificationWholesale}"/>
+                <option key="03" description="${uiLabelMap.FacilityShipmentUpsCustomerClassificationOccasional}"/>
+                <option key="04" description="${uiLabelMap.FacilityShipmentUpsCustomerClassificationRetail}"/>
+            </drop-down>
+        </field>
         <field name="maxEstimateWeight" title="${uiLabelMap.FacilityShipmentUpsMaxEstimateWeight}">
             <text size="9" maxlength="9"/>
         </field>

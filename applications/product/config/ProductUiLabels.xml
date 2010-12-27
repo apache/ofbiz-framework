@@ -559,17 +559,45 @@
         <value xml:lang="en">Allow Cash On Delivery</value>
         <value xml:lang="it">Permetti pagamento in contanti alla consegna</value>
     </property>
+    <property key="FacilityShipmentUpsApplyToPackagesIsNotConfigured">
+        <value xml:lang="en">Apply to packages is not configured</value>
+        <value xml:lang="it">Applica ai pacchi non è configurato</value>
+    </property>
     <property key="FacilityShipmentUpsBillShipperAccountNumber">
         <value xml:lang="en">Bill Shipper Account Number</value>
         <value xml:lang="it">Numero conto fatturazione/spedizione</value>
     </property>
     <property key="FacilityShipmentUpsConnectTimeout">
-        <value xml:lang="en">Conntect Timeout</value>
+        <value xml:lang="en">Connect Timeout</value>
         <value xml:lang="it">Timeout connessione a UPS</value>
     </property>
     <property key="FacilityShipmentUpsConnectUrl">
         <value xml:lang="en">Conntect URL</value>
-        <value xml:lang="it">URL Connessione a UPS</value>
+        <value xml:lang="it">URL connessione a UPS</value>
+    </property>
+    <property key="FacilityShipmentUpsCodFundsCodeIsNotConfigured">
+        <value xml:lang="en">CodFundsCode is not configured</value>
+        <value xml:lang="it">CodFundsCode non è configurato</value>
+    </property>
+    <property key="FacilityShipmentUpsCurrencyDoesNotMatch">
+        <value xml:lang="en">The Currency Unit of Measure returned ${currency1} is not the same as the original ${currency2}, setting to the new one.</value>
+        <value xml:lang="it">La valuta restituita ${currency1} non è la stessa dell'originale ${currency2}, impostarne un'altra.</value>
+    </property>
+    <property key="FacilityShipmentUpsCustomerClassification">
+        <value xml:lang="en">Customer Classification</value>
+        <value xml:lang="it">Classificazione cliente</value>
+    </property>
+    <property key="FacilityShipmentUpsCustomerClassificationOccasional">
+        <value xml:lang="en">Occasional</value>
+        <value xml:lang="it">Occasionale</value>
+    </property>
+    <property key="FacilityShipmentUpsCustomerClassificationRetail">
+        <value xml:lang="en">Retail</value>
+        <value xml:lang="it">Dettaglio</value>
+    </property>
+    <property key="FacilityShipmentUpsCustomerClassificationWholesale">
+        <value xml:lang="en">Wholesale</value>
+        <value xml:lang="it">Ingrosso</value>
     </property>
     <property key="FacilityShipmentUpsDefaultReturnLabelMemo">
         <value xml:lang="en">Default Return Label Memo</value>
@@ -579,9 +607,193 @@
         <value xml:lang="en">Default Return Label Subject</value>
         <value xml:lang="it">Soggetto di default sull'etichetta del reso</value>
     </property>
+    <property key="FacilityShipmentUpsErrorStatusCode">
+        <value xml:lang="en">Error status code: ${responseStatusCode}</value>
+        <value xml:lang="it">Errore codice di stato: ${responseStatusCode}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorWasAtElement">
+        <value xml:lang="en">The error was at Element ${errorLocationElementName}</value>
+        <value xml:lang="it">L'errore era nell'elemento ${errorLocationElementName}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorWasAtElementAttribute">
+        <value xml:lang="en"> in the attribute ${errorLocationAttributeName}</value>
+        <value xml:lang="it"> nell'attributo ${errorLocationAttributeName}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorWasAtElementFullText">
+        <value xml:lang="en"> full text: ${fullText}</value>
+        <value xml:lang="it"> testo completo: ${fullText}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorMessage">
+        <value xml:lang="en">An error occurred [code:${errorCode}] with severity ${errorSeverity}: ${errorDescription}</value>
+        <value xml:lang="it">Un errore è successo [codice:${errorCode}] con severità ${errorSeverity}: ${errorDescription}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorMessageMinimumRetrySeconds">
+        <value xml:lang="en">; you should wait ${minimumRetrySeconds} seconds before retrying. </value>
+        <value xml:lang="it">; devi aspettare ${minimumRetrySeconds} secondi prima di riprovare. </value>
+    </property>
     <property key="FacilityShipmentUpsFundsCode">
         <value xml:lang="en">Funds for Cash on Delivery</value>
         <value xml:lang="it">Fondi per il pagamento in contanti alla consegna</value>
+    </property>
+    <property key="FacilityShipmentUpsIncompleteConnectionURL">
+        <value xml:lang="en">Incomplete connection URL; check your UPS configuration</value>
+        <value xml:lang="it">URL connessione incompleto; verificare la tua configurazione UPS</value>
+    </property>
+    <property key="FacilityShipmentUpsServiceNameCannotBeNull">
+        <value xml:lang="en">UPS service name cannot be null</value>
+        <value xml:lang="it">Nome servizio UPS non può essere vuoto</value>
+    </property>
+    <property key="FacilityShipmentUpsXmlMessageCannotBeNull">
+        <value xml:lang="en">XML message cannot be null</value>
+        <value xml:lang="it">Messaggio XML non può essere vuoto</value>
+    </property>
+     <property key="FacilityShipmentUpsCannotRateEstimatePostalCodeMissing">
+        <value xml:lang="en">Cannot estimate UPS Rate because postal code is missing</value>
+        <value xml:lang="it">Non è possibile stimare la spedizione con UPS perchè il CAP è mancante</value>
+    </property>
+    <property key="FacilityShipmentUpsURLConnectionProblem">
+        <value xml:lang="en">URL Connection problem: ${exception}</value>
+        <value xml:lang="it">Problema connessione URL: ${exception}</value>
+    </property>
+    <property key="FacilityShipmentUpsReceivedNullResponse">
+        <value xml:lang="en">Received a null response</value>
+        <value xml:lang="it">Ricevuta una risposta nulla</value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentConfirmResposeWasReceived">
+        <value xml:lang="en">A ShipmentConfirmRespose was received: ${shipmentConfirmResponseString}</value>
+        <value xml:lang="it">Una risposta ShipmentConfirmRespose è stata ricevuta: ${shipmentConfirmResponseString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorDataShipmentAlternateRate">
+        <value xml:lang="en">Error reading or writing Shipment data for UPS Shipment Alternate Rates Inquiry: ${errorString}</value>
+        <value xml:lang="it">Errore leggendo o scrivendo i dati della spedizione stima spedizione alternativa UPS: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorDataShipmentAccept">
+        <value xml:lang="en">Error reading or writing Shipment data for UPS Shipment Accept: ${errorString}</value>
+        <value xml:lang="it">Errore leggendo o scrivendo i dati della spedizione all'accettazione spedizione UPS: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorDataShipmentConfirm">
+        <value xml:lang="en">Error reading or writing Shipment data for UPS Shipment Confirm: ${errorString}</value>
+        <value xml:lang="it">Errore leggendo o scrivendo i dati della spedizione alla conferma spedizione UPS: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorDataShipmentTrack">
+        <value xml:lang="en">Error reading or writing Shipment data for UPS Track Shipment: ${errorString}</value>
+        <value xml:lang="it">Errore leggendo o scrivendo i dati della spedizione della Tracciatura Spedizione UPS: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorDataShipmentVoid">
+        <value xml:lang="en">Error reading or writing Shipment data for UPS Void Shipment: ${errorString}</value>
+        <value xml:lang="it">Errore leggendo o scrivendo i dati della spedizione alla Cancellazione Spedizione UPS: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorMorePackageOnThisShipment">
+        <value xml:lang="en">Error: There are more Packages on this Shipment than there were PackageResults returned from UPS</value>
+        <value xml:lang="it">Errore: Ci sono più pacchi in questa spedizione di quelli che ci sono come PackageResults restituiti da UPS</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorMorePackageResultsWereReturned">
+        <value xml:lang="en">Error: More PackageResults were returned than there are Packages on this Shipment; the TrackingNumber is ${trackingNumber}, the ServiceOptionsCharges were ${ServiceOptionsCharges}</value>
+        <value xml:lang="it">Errore: Molti PackageResults sono stati restituiti più di quelli che ci sono nel pacco della spedizione; il TrackingNumber è ${trackingNumber}, il ServiceOptionsCharges era ${ServiceOptionsCharges}</value>
+    </property>
+  <property key="FacilityShipmentUpsErrorNoPackageResultsWereReturned">
+        <value xml:lang="en">Error: No PackageResults were returned  for the Package ${shipmentPackageSeqId}</value>
+        <value xml:lang="it">Error: No PackageResults were returned  for the Package ${shipmentPackageSeqId}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingBillingWeight">
+        <value xml:lang="en">Error parsing the billingWeight ${billingWeight}:  ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di billingWeight ${billingWeight}: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingAddressVerificationResponse">
+        <value xml:lang="en">Error parsing the AddressVerificationResponse: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di AddressVerificationResponse: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingRatingServiceSelectionResponse">
+        <value xml:lang="en">Error parsing the RatingServiceSelectionResponse: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di RatingServiceSelectionResponse: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingServiceOptionsMonetaryValue">
+        <value xml:lang="en">Error parsing the serviceOptionsMonetaryValue ${serviceOptionsMonetaryValue}:  ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di serviceOptionsMonetaryValue ${serviceOptionsMonetaryValue}: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingShipmentAcceptResponse">
+        <value xml:lang="en">Error parsing the ShipmentAcceptResponse: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di ShipmentAcceptResponse: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingShipmentConfirm">
+        <value xml:lang="en">Error parsing the ShipmentConfirmResponse: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di ShipmentConfirmResponse: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingTrackResponse">
+        <value xml:lang="en">Error parsing the TrackResponse: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di TrackResponse: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingTotalMonetaryValue">
+        <value xml:lang="en">Error parsing the totalMonetaryValue ${totalMonetaryValue}:  ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di totalMonetaryValue ${totalMonetaryValue}: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingTransportationMonetaryValue">
+        <value xml:lang="en">Error parsing the transportationMonetaryValue ${transportationMonetaryValue}:  ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di transportationMonetaryValue ${transportationMonetaryValue}: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorParsingVoidShipmentResponse">
+        <value xml:lang="en">Error parsing the VoidShipmentResponse: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di VoidShipmentResponse: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorSendingAddressVerification">
+        <value xml:lang="en">Error sending UPS request Address Verification: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio a UPS di UPS Address Verification: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorSendingRate">
+        <value xml:lang="en">Error sending UPS request for UPS Service Rate: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio a UPS di UPS Service Rate: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorSendingShipAccept">
+        <value xml:lang="en">Error sending UPS request for UPS Service ShipAccept: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio a UPS di UPS Service ShipAccept: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorSendingShipConfirm">
+        <value xml:lang="en">Error sending UPS request for UPS Service ShipConfirm: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio a UPS di UPS Service ShipConfirm: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorSendingTrack">
+        <value xml:lang="en">Error sending UPS request for UPS Service Track: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio a UPS di UPS Service Track: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorSendingVoid">
+        <value xml:lang="en">Error sending UPS request for UPS Service Void: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio a UPS di UPS Service Void: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorAddressValidationRequestXmlToString">
+        <value xml:lang="en">Error writing the AddressValidationRequest XML Document to a String: ${errorString}</value>
+        <value xml:lang="it">Errore scrivendo il documento XML AddressValidationRequest in stringa: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorRatingServiceSelectionRequestXmlToString">
+        <value xml:lang="en">Error writing the RatingServiceSelectionRequest XML Document to a String: ${errorString}</value>
+        <value xml:lang="it">Errore scrivendo il documento XML RatingServiceSelectionRequest in stringa: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorShipmentAcceptRequestXmlToString">
+        <value xml:lang="en">Error writing the ShipmentAcceptRequest XML Document to a String: ${errorString}</value>
+        <value xml:lang="it">Errore scrivendo il documento XML ShipmentAcceptRequest in stringa: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorShipmentConfirmRequestXmlToString">
+        <value xml:lang="en">Error writing the ShipmentConfirmRequest XML Document to a String: ${errorString}</value>
+        <value xml:lang="it">Errore scrivendo il documento XML ShipmentConfirmRequest in stringa: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorTrackRequestXmlToString">
+        <value xml:lang="en">Error writing the TrackRequest XML Document to a String: ${errorString}</value>
+        <value xml:lang="it">Errore scrivendo il documento XML TrackRequest in stringa: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorAccessRequestXmlToString">
+        <value xml:lang="en">Error writing the AccessRequest XML Document to a String: ${errorString}</value>
+        <value xml:lang="it">Errore scrivendo il documento XML AccessRequest in stringa: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsErrorVoidShipmentRequestXmlToString">
+        <value xml:lang="en">Error writing the VoidShipmentRequest XML Document to a String: ${errorString}</value>
+        <value xml:lang="it">Errore scrivendo il documento XML VoidShipmentRequest in stringa: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsAddressValidationRequireCityOrPostalCode">
+        <value xml:lang="en">Address Validation requires either a city or postalCode</value>
+        <value xml:lang="it">Validazione dell'indirizzo richiede entrambi città o CAP</value>
+    </property>
+    <property key="FacilityShipmentUpsGatewayNotAvailable">
+        <value xml:lang="en">UPS Shipment Gateway Configuration is not available</value>
+        <value xml:lang="it">Configurazione gateway spedizioni UPS non è disponibile</value>
     </property>
     <property key="FacilityShipmentUpsMaxEstimateWeight">
         <value xml:lang="en">Max weight per package</value>
@@ -590,6 +802,14 @@
     <property key="FacilityShipmentUpsMinEstimateWeight">
         <value xml:lang="en">Minimum weight for a package</value>
         <value xml:lang="it">Peso minimo per un pacco</value>
+    </property>
+    <property key="FacilityShipmentUpsNoRateAvailable">
+        <value xml:lang="en">No rates available at this time</value>
+        <value xml:lang="it">Nessuna stima spedizione disponibile in questo momento</value>
+    </property>
+    <property key="FacilityShipmentUpsNotRouteSegmentCarrier">
+        <value xml:lang="en">ERROR: The Carrier for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is not UPS.</value>
+        <value xml:lang="it">ERRORE: il corriere sul percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, non è UPS.</value>
     </property>
     <property key="FacilityShipmentUpsPickupAirServiceCenter">
         <value xml:lang="en">Air Service Center</value>
@@ -619,6 +839,66 @@
         <value xml:lang="en">Suggested Retail Rates</value>
         <value xml:lang="it">Costo suggerito al dettaglio</value>
     </property>
+    <property key="FacilityShipmentUpsShipmentAlternateRatesInquiryResponse">
+        <value xml:lang="en">A ShipmentAlternateRatesInquiryResponse was received: ${rateResponseString}</value>
+        <value xml:lang="it">Una ShipmentAlternateRatesInquiryResponse è stata ricevuta: ${rateResponseString}</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentOriginPostalAddressNotFound">
+        <value xml:lang="en">OriginPostalAddress not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Indirizzo d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentStatusNotConfirmed">
+        <value xml:lang="en">ERROR: The Carrier Service Status for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is ${shipmentRouteSegmentStatus}, but must be not-set or [SHRSCS_CONFIRMED] to perform the UPS Shipment Accept operation.</value>
+        <value xml:lang="it">ERRORE: lo stato corriere per percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, è ${shipmentRouteSegmentStatus}, ma deve non essere impostato o [SHRSCS_CONFIRMED] per eseguire l'operazione di Accettazione Spedizione UPS.</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentStatusMustBeConfirmedOrAccepted">
+        <value xml:lang="en">ERROR: The Carrier Service Status for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is ${shipmentRouteSegmentStatus}, but must be [SHRSCS_CONFIRMED] or [SHRSCS_ACCEPTED] to perform the UPS Void Shipment operation.</value>
+        <value xml:lang="it">ERRORE: lo stato corriere per percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, è ${shipmentRouteSegmentStatus}, ma deve essere impostato [SHRSCS_CONFIRMED] or [SHRSCS_ACCEPTED] per eseguire l'operazione di Cancellazione Spedizione UPS.</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentStatusNotAccepted">
+        <value xml:lang="en">ERROR: The Carrier Service Status for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is ${shipmentRouteSegmentStatus}, but must be not-set or [SHRSCS_ACCEPTED] to perform the UPS Shipment Confirm operation.</value>
+        <value xml:lang="it">ERRORE: lo stato corriere per percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, è ${shipmentRouteSegmentStatus}, ma deve non essere impostato o [SHRSCS_ACCEPTED] per eseguire l'operazione di Conferma Spedizione UPS.</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentStatusNotStarted">
+        <value xml:lang="en">ERROR: The Carrier Service Status for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is ${shipmentRouteSegmentStatus}, but must be not-set or [SHRSCS_NOT_STARTED] to perform the UPS Shipment Confirm operation.</value>
+        <value xml:lang="it">ERRORE: lo stato corriere per percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, è ${shipmentRouteSegmentStatus}, ma deve non essere impostato o [SHRSCS_NOT_STARTED] per eseguire l'operazione di Conferma Spedizione UPS.</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentOriginTelecomNumberNotFound">
+        <value xml:lang="en">OriginTelecomNumber not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Numero telefono d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentOriginCountryGeoNotFound">
+        <value xml:lang="en">OriginCountryGeo not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Paese d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentDestPostalAddressNotFound">
+        <value xml:lang="en">DestPostalAddress not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Indirizzo di destinazione non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentDestTelecomNumberNotFound">
+        <value xml:lang="en">DestTelecomNumber not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Numero telefono di destinazione non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentDestCountryGeoNotFound">
+        <value xml:lang="en">DestCountryGeo not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Paese di destinazione non trovata per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentCarrierShipmentMethodNotFound">
+        <value xml:lang="en">CarrierShipmentMethod not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}; partyId is ${carrierPartyId} and shipmentMethodTypeId is ${shipmentMethodTypeId};</value>
+        <value xml:lang="it">Metodo di spedizione corriere non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}; il soggetto è ${carrierPartyId} e il metodo di spedizione è ${shipmentMethodTypeId};</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentThirdPartyCountryNotFound">
+        <value xml:lang="en">Third-party country not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Paese soggetto terzo non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentUpsRouteSegmentThirdPartyPostalCodeNotFound">
+        <value xml:lang="en">Third-party postal code not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">CAP soggetto terzo non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentUpsPackageRouteSegsNotFound">
+        <value xml:lang="en">No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+    </property>
     <property key="FacilityShipmentUpsSaveCertInfo">
         <value xml:lang="en">Save Cert Info</value>
         <value xml:lang="it">Salva informazioni certificato</value>
@@ -631,6 +911,58 @@
         <value xml:lang="en">Secured Funds Only</value>
         <value xml:lang="it">Solo fondi sicuri</value>
     </property>
+    <property key="FacilityShipmentUpsShipmentAcceptError">
+        <value xml:lang="en">, but the following occurred: </value>
+        <value xml:lang="it">, ma i seguenti errori sono accaduti: </value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentAcceptFailed">
+        <value xml:lang="en">The UPS ShipmentAccept failed</value>
+        <value xml:lang="it">La richiesta ad UPS ShipmentAccept è fallita</value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentAcceptSucceeded">
+        <value xml:lang="en">The UPS ShipmentAccept succeeded</value>
+        <value xml:lang="it">La richiesta ad UPS ShipmentAccept ha avuto successo</value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentConfirmError">
+        <value xml:lang="en">, but the following occurred: </value>
+        <value xml:lang="it">, ma i seguenti errori sono accaduti: </value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentConfirmFailedForReturnShippingLabel">
+        <value xml:lang="en">The UPS ShipmentConfirm failed so not sending email for return shipping label</value>
+        <value xml:lang="it">La richiesta ShipmentConfirm UPS è fallita così non inviare e-mail per l'etichetta reso spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentConfirmFailed">
+        <value xml:lang="en">The UPS ShipmentConfirm failed</value>
+        <value xml:lang="it">La richiesta ad UPS ShipmentConfirm è fallita</value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentConfirmSucceeded">
+        <value xml:lang="en">The UPS ShipmentConfirm succeeded</value>
+        <value xml:lang="it">La richiesta ad UPS ShipmentConfirm ha avuto successo</value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentTrackError">
+        <value xml:lang="en">, but the following occurred: </value>
+        <value xml:lang="it">, ma i seguenti errori sono accaduti: </value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentTrackFailed">
+        <value xml:lang="en">The UPS TrackShipment failed</value>
+        <value xml:lang="it">La tracciatura spedizione UPS è fallita</value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentTrackSucceeded">
+        <value xml:lang="en">The UPS TrackShipment succeeded</value>
+        <value xml:lang="it">La tracciatura spedizione UPS ha avuto successo</value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentVoidError">
+        <value xml:lang="en">, but the following occurred: </value>
+        <value xml:lang="it">, ma i seguenti errori sono accaduti: </value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentVoidFailed">
+        <value xml:lang="en">The UPS ShipmentConfirm failed; the StatusType is: ${statusTypeCode} : ${statusTypeDescription}, the StatusCode is: ${statusCodeCode} ${statusCodeDescription}</value>
+        <value xml:lang="it">La cancellazione spedizione UPS è fallita; lo stato è: ${statusTypeCode} : ${statusTypeDescription}, il codice stato è: ${statusCodeCode} ${statusCodeDescription}</value>
+    </property>
+    <property key="FacilityShipmentUpsShipmentVoidSucceeded">
+        <value xml:lang="en">The UPS VoidShipment succeeded; the StatusType is: ${statusTypeCode} : ${statusTypeDescription}, the StatusCode is: ${statusCodeCode} ${statusCodeDescription}</value>
+        <value xml:lang="it">La cancellazione spedizione UPS ha avuto successo; lo stato è: ${statusTypeCode} : ${statusTypeDescription}, il codice stato è: ${statusCodeCode} ${statusCodeDescription}</value>
+    </property>
     <property key="FacilityShipmentUpsShipperNumber">
         <value xml:lang="en">Shipper Number</value>
         <value xml:lang="it">Numero spedizioniere</value>
@@ -639,9 +971,25 @@
         <value xml:lang="en">Shipper Pickup Type</value>
         <value xml:lang="it">Tipo prelievo spedizioniere</value>
     </property>
+    <property key="FacilityShipmentUpsUnableToLocateShippingMethodRequested">
+        <value xml:lang="en">Unable to locate the shipping method requested</value>
+        <value xml:lang="it">Non è possibile localizzare il metodo di spedizione richiesto</value>
+    </property>
     <property key="FacilityShipmentUpsSurchargeAll">
         <value xml:lang="en">Surcharge amount will be applied to each shipment package</value>
-        <value xml:lang="it">Importo supplementare sar√† applicato ad ogni pacco di spedizione</value>
+        <value xml:lang="it">Importo supplementare sarà applicato ad ogni pacco di spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeAmountIsNotConfigurated">
+        <value xml:lang="en">Surcharge amount is not configured</value>
+        <value xml:lang="it">Importo supplementare non è configurato</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeCurrencyIsNotConfigurated">
+        <value xml:lang="en">Surcharge currency is not configured</value>
+        <value xml:lang="it">Valuta importo supplementare non è configurato</value>
+    </property>
+    <property key="FacilityShipmentUpsSurchargeIsNotConfigurated">
+        <value xml:lang="en">Surcharge amount is not configured</value>
+        <value xml:lang="it">Importo supplementare non è configurato</value>
     </property>
     <property key="FacilityShipmentUpsSurchargeAmount">
         <value xml:lang="en">Surcharge Amount for Cash On Delivery</value>
@@ -657,19 +1005,47 @@
     </property>
     <property key="FacilityShipmentUpsSurchargeFirst">
         <value xml:lang="en">Surcharge amount will be applied to the first package in the shipment</value>
-        <value xml:lang="it">Importo supplementare sar√† applicato al primo pacco di spedizione</value>
+        <value xml:lang="it">Importo supplementare sarà applicato al primo pacco di spedizione</value>
     </property>
     <property key="FacilityShipmentUpsSurchargeNone">
         <value xml:lang="en">Surcharge will not be applied to any packages </value>
-        <value xml:lang="it">Importo supplementare non sar√† applicato a nessun pacco della spedizione</value>
+        <value xml:lang="it">Importo supplementare non sarà applicato a nessun pacco della spedizione</value>
     </property>
     <property key="FacilityShipmentUpsSurchargeSplit">
         <value xml:lang="en">Surcharge amount will be split between shipment packages</value>
-        <value xml:lang="it">Importo supplementare sar√† suddiviso fra i pacchi della spedizione</value>
+        <value xml:lang="it">Importo supplementare sarà suddiviso fra i pacchi della spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsTrackingDigestWasNotSet">
+        <value xml:lang="en">ERROR: The trackingDigest was not set for this Route Segment, meaning that a UPS shipment confirm has not been done.</value>
+        <value xml:lang="it">ERRORE: L'elemento trackingDigest non è impostato per questo percorso di spedizione, significa che una conferma spedizione a UPS non è stata fatta.</value>
+    </property>
+    <property key="FacilityShipmentUpsTrackingIdNumberWasNotSet">
+        <value xml:lang="en">ERROR: The trackingIdNumber was not set for this Route Segment, meaning that a UPS shipment confirm has not been done.</value>
+        <value xml:lang="it">ERRORE: Il trackingIdNumber non è impostato in questo percorso spedizione, significa che una conferma spedizione UPS non è stata fatta.</value>
     </property>
     <property key="FacilityShipmentUpsUnsecuredFundsAllowed">
         <value xml:lang="en">Unsecured Funds Allowed</value>
         <value xml:lang="it">Consentiti fondi non sicuri</value>
+    </property>
+    <property key="FacilityShipmentUpsRateEstimateError">
+        <value xml:lang="en">Error on UPS Rate Estimate: ${errorString}</value>
+        <value xml:lang="it">Errore su stima spedizione UPS: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUpsShipToAddresssNoDestionationCountry">
+        <value xml:lang="en">Destination CountryGeo not found for ship-to address</value>
+        <value xml:lang="it">Paese di destinazione non trovato dall'indirizzo di spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsUnableFoundShipToAddresss">
+        <value xml:lang="en">Unable to determine ship-to address</value>
+        <value xml:lang="it">Non è possibile determinare l'indirizzo di spedizione</value>
+    </property>
+    <property key="FacilityShipmentUpsUnableFoundShipToAddresssForDropShipping">
+        <value xml:lang="en">Unable to determine ship-from address for drop shipping</value>
+        <value xml:lang="it">Non è possibile determinare l'indirizzo di spedizione per la spedizione conto terzi</value>
+    </property>
+    <property key="FacilityShipmentUpsWeightValueNotFound">
+        <value xml:lang="en">Weight value not found for ShipmentRouteSegment with shipmentId ${shipmentId}, shipmentRouteSegmentId ${shipmentRouteSegmentId}, and shipmentPackageSeqId ${shipmentPackageSeqId}</value>
+        <value xml:lang="it">Il peso non trovato per la spedizione ${shipmentId}, percorso spedizione ${shipmentRouteSegmentId}, e pacco ${shipmentPackageSeqId}</value>
     </property>
     <property key="FacilityShipmentUspsAccessPassword">
         <value xml:lang="en">Access Password</value>
@@ -21166,6 +21542,10 @@
         <value xml:lang="th">ใบเสร็จการขนส่งสำหรับ</value>
         <value xml:lang="zh">货运收据用于</value>
         <value xml:lang="zh_TW">貨運收據用于</value>
+    </property>
+    <property key="ProductShipmentRouteSegmentNotFound">
+        <value xml:lang="en">ShipmentRouteSegment not found with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Percorso spedizione non trovato con shipmentId ${shipmentId} e shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
     </property>
     <property key="ProductShipmentThirdPartyAccountNumber">
         <value xml:lang="de">Kontonummer Dritter</value>
