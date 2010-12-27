@@ -18,28 +18,39 @@
  *******************************************************************************/
 package org.ofbiz.shipment.shipment;
 
-import java.util.*;
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.common.geo.GeoWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.party.party.PartyWorker;
 
 /**
  * ShipmentServices
@@ -1186,5 +1197,47 @@ public class ShipmentServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderProblemSendingEmail", locale), null, null, sendResp);
         }
         return sendResp;
+    }
+    
+    public static Map<String, Object> getShipmentGatewayConfigFromShipment(Delegator delegator, String shipmentId) {
+        Map<String, Object> shipmentGatewayConfig = ServiceUtil.returnSuccess();
+        try {
+            GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+            if (shipment == null) {
+                return ServiceUtil.returnError("Shipment not found with ID " + shipmentId);
+            }
+            GenericValue primaryOrderHeader = shipment.getRelatedOne("PrimaryOrderHeader");
+            if (primaryOrderHeader == null) {
+                return ServiceUtil.returnError("Cannot found primary order header for shipment with ID " + shipmentId);
+            }
+            String productStoreId = primaryOrderHeader.getString("productStoreId");
+            if (UtilValidate.isEmpty(productStoreId)) {
+                return ServiceUtil.returnError("Cannot found productStoreId for shipment with ID " + shipmentId);
+            }
+            GenericValue primaryOrderItemShipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup");
+            if (primaryOrderItemShipGroup == null) {
+                return ServiceUtil.returnError("Cannot found primary order item ship group for shipment with ID " + shipmentId);
+            }
+            String shipmentMethodTypeId = primaryOrderItemShipGroup.getString("shipmentMethodTypeId");
+            String carrierPartyId = primaryOrderItemShipGroup.getString("carrierPartyId");
+            String carrierRoleTypeId = primaryOrderItemShipGroup.getString("carrierRoleTypeId");
+            List<EntityCondition> conditions = FastList.newInstance();
+            conditions.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
+            conditions.add(EntityCondition.makeCondition("shipmentMethodTypeId", EntityOperator.EQUALS, shipmentMethodTypeId));
+            conditions.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, carrierPartyId));
+            conditions.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, carrierRoleTypeId));
+            EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
+            List<GenericValue> productStoreShipmentMeths = delegator.findList("ProductStoreShipmentMeth", ecl, null, null, null, false);
+            GenericValue productStoreShipmentMeth = EntityUtil.getFirst(productStoreShipmentMeths);
+            if (UtilValidate.isNotEmpty(productStoreShipmentMeth)) {
+                shipmentGatewayConfig.put("shipmentGatewayConfigId", productStoreShipmentMeth.getString("shipmentGatewayConfigId"));
+                shipmentGatewayConfig.put("configProps", productStoreShipmentMeth.getString("configProps"));
+            } else {
+                return ServiceUtil.returnError("Cannot found product store shipment meth for shipment with ID " + shipmentId);
+            }
+        } catch (Exception e) {
+            return ServiceUtil.returnError("Error in getShipmentGatewayConfigFromShipment : " + e.getMessage());
+        }
+        return shipmentGatewayConfig;
     }
 }

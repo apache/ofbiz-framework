@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -865,6 +865,8 @@ under the License.
         <attribute name="shippableQuantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="shippableTotal" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentCustomMethodId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="true"/>
         <attribute name="shippingEstimateAmount" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 

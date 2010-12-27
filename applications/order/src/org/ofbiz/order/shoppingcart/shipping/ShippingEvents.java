@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
@@ -272,10 +273,31 @@ public class ShippingEvents {
         }
         return genericShipAmt;
     }
+    
+    public static String getShipmentCustomMethod(Delegator delegator, String shipmentCustomMethodId) {
+        String serviceName = null;
+        GenericValue customMethod = null;
+        try {
+            customMethod = delegator.findOne("CustomMethod", UtilMisc.toMap("customMethodId", shipmentCustomMethodId), false);
+            if (UtilValidate.isNotEmpty(customMethod)) {
+                serviceName = customMethod.getString("customMethodName");
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return serviceName;
+    }
 
-    public static BigDecimal getExternalShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map context) throws GeneralException {
+    public static BigDecimal getExternalShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map<String, Object> context) throws GeneralException {
+        String shipmentCustomMethodId = storeShipMeth.getString("shipmentCustomMethodId");
+        String serviceName = "";
+        if (UtilValidate.isNotEmpty(shipmentCustomMethodId)) {
+            serviceName = getShipmentCustomMethod(dispatcher.getDelegator(), shipmentCustomMethodId);
+        }
+        if (UtilValidate.isEmpty(serviceName)) {
+            serviceName = storeShipMeth.getString("serviceName");
+        }
         // invoke the external shipping estimate service
-        String serviceName = (String)storeShipMeth.get("serviceName");
         BigDecimal externalShipAmt = null;
         if (serviceName != null) {
             String doEstimates = UtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck", "true");
@@ -289,16 +311,19 @@ public class ShippingEvents {
                 serviceName = null;
             }
         }
-        if ((serviceName != null)) {
+        if (serviceName != null) {
+            String shipmentGatewayConfigId = storeShipMeth.getString("shipmentGatewayConfigId");
             String configProps = storeShipMeth.getString("configProps");
             if (UtilValidate.isNotEmpty(serviceName)) {
                 // prepare the external service context
                 context.put("serviceConfigProps", configProps);
-
+                context.put("shipmentCustomMethodId", shipmentCustomMethodId);
+                context.put("shipmentGatewayConfigId", shipmentGatewayConfigId);
+                
                 // invoke the service
-                Map serviceResp = null;
+                Map<String, Object> serviceResp = null;
                 try {
-                    Debug.log("Service : " + serviceName + " / " + configProps + " -- " + context, module);
+                    Debug.log("Service : " + serviceName + " / shipmentGatewayConfigId : " + shipmentGatewayConfigId + " / configProps : " + configProps + " -- " + context, module);
                     // because we don't want to blow up too big or rollback the transaction when this happens, always have it run in its own transaction...
                     serviceResp = dispatcher.runSync(serviceName, context, 0, true);
                 } catch (GenericServiceException e) {

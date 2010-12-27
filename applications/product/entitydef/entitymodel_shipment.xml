@@ -883,6 +883,7 @@ under the License.
       <field name="saveCertInfo" type="short-varchar"><description>Setting to save files needed for UPS certification (true|false)</description></field>
       <field name="saveCertPath" type="value"><description>UPS file certificate path</description></field>
       <field name="shipperPickupType" type="short-varchar"><description>Shipper Default Pickup Type</description></field>
+      <field name="customerClassification" type="short-varchar"><description>Customer Classification</description></field>
       <field name="maxEstimateWeight" type="fixed-point"><description>Estimate split into packages</description></field>
       <field name="minEstimateWeight" type="fixed-point"><description>Minimum weight for a package</description></field>
       <field name="codAllowCod" type="value"><description>All shipment package items are from orders which have been fully paid via EXT_COD</description></field>
