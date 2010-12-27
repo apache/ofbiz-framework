@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 // *** getDependentDropdownValues allows to dynamically populate a dependent drop-down on change on its parent drop-down, doesn't require any fixed naming convention 
 // request      = request calling the service which retrieve the info from the DB, ex: getAssociatedStateList
 // paramKey     = parameter value used in the called service 
@@ -33,100 +32,103 @@
 // 				  this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request
 // 				  this will be maybe extended later to use an auto-completed drop-down or a lookup, instead of straight drop-down currently, when there are too much values to populate
 // 				  this is e.g. currently used in the Product Price Rules screen
-function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback, hide, hideTitle, inputField) {
-	target = '#' + targetField;
-	input = '#' + inputField;
+function getDependentDropdownValues(request, paramKey, paramField, targetField, responseName, keyName, descName, selected, callback, hide, hideTitle, inputField){
+    target = '#' + targetField;
+    input = '#' + inputField;
     targetTitle = target + '_title'
     optionList = '';
     jQuery.ajax({
         url: request,
-        data: [ { name: paramKey, value: jQuery('#' + paramField).val()} ],  // get requested value from parent drop-down field
-        dataType : 'json',
+        data: [{
+            name: paramKey,
+            value: jQuery('#' + paramField).val()
+        }], // get requested value from parent drop-down field
+        dataType: 'json',
         async: false,
         type: 'POST',
         success: function(result){
-	        list = result[responseName];
-	        // Create and show dependent select options
-	        // Create and show dependent select options
-	        if (list) {
-		        jQuery.each(list, function (key, value) {
-		            if (typeof value == 'string') {
-		                values = value.split(': ');
-		                if (values[1].indexOf(selected) >=0) {
-		                    optionList += "<option selected='selected' value = " + values[1] + " >" + values[0] + "</option>";
-		                } else {
-		                    optionList +=  "<option value = " + values[1] + " >" + values[0] + "</option>";
-		                }
-		            } else {
-		                if (value[keyName] == selected) {
-		                    optionList += "<option selected='selected' value = " + value[keyName] + " >" + value[descName] + "</option>";
-		                } else {
-		                    optionList += "<option value = " + value[keyName] + " >" + value[descName] + "</option>";
-		                }
-		            }
-		        })
-	        };
+            list = result[responseName];
+            // Create and show dependent select options
+            // Create and show dependent select options
+            if (list) {
+                jQuery.each(list, function(key, value){
+                    if (typeof value == 'string') {
+                        values = value.split(': ');
+                        if (values[1].indexOf(selected) >= 0) {
+                            optionList += "<option selected='selected' value = " + values[1] + " >" + values[0] + "</option>";
+                        } else {
+                            optionList += "<option value = " + values[1] + " >" + values[0] + "</option>";
+                        }
+                    } else {
+                        if (value[keyName] == selected) {
+                            optionList += "<option selected='selected' value = " + value[keyName] + " >" + value[descName] + "</option>";
+                        } else {
+                            optionList += "<option value = " + value[keyName] + " >" + value[descName] + "</option>";
+                        }
+                    }
+                })
+            };
             // Hide/show the dependent drop-down if hide=true else simply disable/enable
-            if ((!list) || (list.length < 1) || ((list.length == 1) && list[0].indexOf("_NA_") >=0)) {
-            	jQuery(target).attr('disabled', 'disabled');
-            	if (hide) {
-	                if (jQuery(target).is(':visible')) {
-	                	jQuery(target).fadeOut(2500);
-	                	if (hideTitle) jQuery(targetTitle).fadeOut(2500);
-					} else {
-						jQuery(target).fadeIn();
-						if (hideTitle) jQuery(targetTitle).fadeIn();	                    
-	                	jQuery(target).fadeOut(2500);
-	                	if (hideTitle) jQuery(targetTitle).fadeOut(2500);
-    	            }
-            	}
+            if ((!list) || (list.length < 1) || ((list.length == 1) && list[0].indexOf("_NA_") >= 0)) {
+                jQuery(target).attr('disabled', 'disabled');
+                if (hide) {
+                    if (jQuery(target).is(':visible')) {
+                        jQuery(target).fadeOut(2500);
+                        if (hideTitle) jQuery(targetTitle).fadeOut(2500);
+                    } else {
+                        jQuery(target).fadeIn();
+                        if (hideTitle) jQuery(targetTitle).fadeIn();
+                        jQuery(target).fadeOut(2500);
+                        if (hideTitle) jQuery(targetTitle).fadeOut(2500);
+                    }
+                }
             } else {
-            	jQuery(target).removeAttr('disabled');
-            	if (hide) {
-            		if (!jQuery(target).is(':visible')) {
-            			jQuery(target).fadeIn();
-            			if (hideTitle) jQuery(targetTitle).fadeIn();
-            		}
+                jQuery(target).removeAttr('disabled');
+                if (hide) {
+                    if (!jQuery(target).is(':visible')) {
+                        jQuery(target).fadeIn();
+                        if (hideTitle) jQuery(targetTitle).fadeIn();
+                    }
                 }
             }
-    	},
-	    complete: function() {
+        },
+        complete: function(){
             // this is to handle a specific case where an input field is needed instead of a drop-down when no values are returned by the request (else if allow-empty="true" is used autoComplete handle the case)
             // this could be extended later to use an auto-completed drop-down or a lookup, instead of drop-down currently, when there are too much values to populate
             // Another option is to use an input field with Id instead of a drop-down, see setPriceRulesCondEventJs.ftl and top of getAssociatedPriceRulesConds service
             if (!list && inputField) {
                 jQuery(target).hide();
                 jQuery(input).show();
-            } else if (inputField) { 
+            } else if (inputField) {
                 jQuery(input).hide();
                 jQuery(target).show();
             }
             jQuery(target).html(optionList).click().change(); // .change() needed when using also asmselect on same field, .click() specifically for IE8
             if (callback != null) eval(callback);
-		}
+        }
     });
 }
-  
+
 //*** calls any service already mounted as an event
-function getServiceResult(request, params) {
+function getServiceResult(request, params){
     var data;
     jQuery.ajax({
-    	type: 'POST',
-    	url: request,
-    	data: params,
-    	async: false,
-    	cache: false,
-    	dataType: 'json',
-    	success: function(result) {
-    		data = result;
-    	}
-    });    
+        type: 'POST',
+        url: request,
+        data: params,
+        async: false,
+        cache: false,
+        dataType: 'json',
+        success: function(result){
+            data = result;
+        }
+    });
     return data;
 }
 
 //*** checkUomConversion returns true if an UomConversion exists 
-function checkUomConversion(request, params) {
-    data = getServiceResult(request, params);     
+function checkUomConversion(request, params){
+    data = getServiceResult(request, params);
     return data['exist'];
 }
 
