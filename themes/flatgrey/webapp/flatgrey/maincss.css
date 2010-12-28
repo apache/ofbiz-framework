@@ -17,8 +17,7 @@
  * under the License.
  */
 
-/* This CSS file is used for all OFBiz applications EXCEPT ecommerce. */
-/* See the "ecommain.css" file for ecommerce. */
+/* This CSS file is used for the Flat Grey visual theme. */
 
 /* ===== Resets/Browser Normalization ===== */
 html, body, div, span, applet, object, iframe,
@@ -1900,32 +1899,43 @@ margin-bottom: 1em;
 /* Pager */
 
 .nav-pager {
+background-color: #5f9fcf;
+color: #ffffff;
+font-weight: bold;
+line-height: 2em;
 height: 2em;
-padding-bottom: 0.7em;
-padding-top: 0.4em;
+margin: 0.5em 0 0.5em 0;
 }
+
+/* background-color: #0366b0; */
 
 .nav-pager ul {
 display: inline; /* IE Fix */
 }
 
 .nav-pager ul li {
-background-color: #ffffff;
+border-left: solid #D4D0C8 0.1em;
 float:left;
-font-weight: bold;
-line-height: 1.8em;
-margin: 0.2em;
+vertical-align: center;
 }
 
 .nav-pager ul li a {
 display: block;
 }
 
-.nav-pager ul .nav-first,
-.nav-pager ul .nav-previous,
-.nav-pager ul .nav-next,
-.nav-pager ul .nav-last {
-border: #999999 solid 0.1em;
+.nav-pager ul a {
+color: #ffffff;
+padding: 0 1em 0 1em;
+text-decoration: none;
+}
+
+.nav-pager ul a:hover {
+background-color: #0366b0;
+}
+
+.nav-pager ul .nav-pagesize,
+.nav-pager ul .nav-page-select,
+.nav-pager ul .nav-displaying {
 padding: 0 1em 0 1em;
 }
 
@@ -1933,13 +1943,8 @@ padding: 0 1em 0 1em;
 .nav-pager ul .nav-previous-disabled,
 .nav-pager ul .nav-next-disabled,
 .nav-pager ul .nav-last-disabled {
-border: #999999 solid 0.1em;
-color: #333333;
-padding: 0 0.5em 0 0.5em;
-}
-
-.nav-pager select {
-margin: 0;
+color: #D4D0C8;
+padding: 0 1em 0 1em;
 }
 
 /* ================================= */

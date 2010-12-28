@@ -384,4 +384,7 @@ text-align: right;
 
 .nav-pager ul li {
 float: right;
+border-left: none;
+border-right: solid #D4D0C8 0.1em;
+}
 }
