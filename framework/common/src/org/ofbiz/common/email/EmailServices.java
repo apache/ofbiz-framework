@@ -330,6 +330,7 @@ public class EmailServices {
                     SMTPAddressFailedException safe = (SMTPAddressFailedException) nestedException;
                     Debug.logError("Failed to send message to [" + safe.getAddress() + "], return code [" + safe.getReturnCode() + "], return message [" + safe.getMessage() + "]", errMsg);
                     failedAddresses.add(safe);
+                    break;
                 }
             }
             Boolean sendFailureNotification = (Boolean) context.get("sendFailureNotification");
