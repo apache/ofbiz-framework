@@ -55,22 +55,22 @@ under the License.
         <#local javaScriptEnabled = Static["org.ofbiz.base.util.UtilHttp"].isJavaScriptEnabled(request) />
     </#if>
     <#if (commonUrl?has_content)>
-        <#if (!firstUr?has_content)>
+        <#if (!firstUrl?has_content)>
             <#local firstUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexFirst}"/>
         </#if>
         <#if (!previousUrl?has_content)>
              <#local previousUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexPrevious}"/>
         </#if>
-        <#if (!firstUr?has_content)>
+        <#if (!firstUrl?has_content)>
             <#local nextUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexNext}"/>
         </#if>
-        <#if (!firstUr?has_content)>
+        <#if (!firstUrl?has_content)>
             <#local lastUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexLast}"/>
         </#if>
-        <#if (!firstUr?has_content)>
+        <#if (!firstUrl?has_content)>
             <#local selectUrl=commonUrl+"VIEW_SIZE=${viewSize}&amp;VIEW_INDEX="/>
         </#if>
-        <#if (!firstUr?has_content)>
+        <#if (!firstUrl?has_content)>
             <#local selectSizeUrl=commonUrl+"VIEW_SIZE='+this.value+'&amp;VIEW_INDEX=0"/>
         </#if>
     </#if>
