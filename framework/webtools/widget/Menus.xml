@@ -52,6 +52,10 @@ under the License.
             <condition><if-has-permission permission="PORTALPAGE_ADMIN"/></condition>
             <link target="FindPortalPage"/>
         </menu-item>
+        <menu-item name="security" title="${uiLabelMap.CommonSecurity}">
+            <!-- <condition><if-has-permission permission="SECURITY_ADMIN"/></condition> -->
+            <link target="security"/>
+        </menu-item>
         <menu-item name="tests" title="Tests">
             <link target="selenium"/>
         </menu-item>

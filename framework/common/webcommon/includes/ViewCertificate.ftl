@@ -21,12 +21,9 @@ under the License.
 <#if (requestParameters.certString?has_content)>
     <#assign cert = Static["org.ofbiz.base.util.KeyStoreUtil"].pemToCert(requestParameters.certString)/>
 </#if>
-<div id="findPartyParameters" class="screenlet">
+<div class="screenlet">
   <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${uiLabelMap.PageTitleImportCertificate}</li>
-    </ul>
-    <br class="clear" />
+    <h3>${uiLabelMap.CertDetails}</h3>
   </div>
   <div class="screenlet-body">
     <#if (cert?has_content)>
@@ -38,12 +35,9 @@ under the License.
     </#if>
   </div>
 </div>
-<div id="findPartyParameters" class="screenlet">
+<div class="screenlet">
   <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${uiLabelMap.CertSaveToKeyStore}</li>
-    </ul>
-    <br class="clear" />
+    <h3>${uiLabelMap.CertSaveToKeyStore}</h3>
   </div>
   <div class="screenlet-body">
     <table cellspacing="0" class="basic-table">

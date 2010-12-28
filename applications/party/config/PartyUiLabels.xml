@@ -1986,21 +1986,6 @@
         <value xml:lang="zh">编辑安全组用户登录</value>
         <value xml:lang="zh_TW">編輯安全組用戶登錄</value>
     </property>
-    <property key="PageTitleEditUserLoginSecurityGroups">
-        <value xml:lang="de">Sicherheitsgruppen zur Benuterzanmeldung bearbeiten</value>
-        <value xml:lang="en">Edit UserLogin Security Groups</value>
-        <value xml:lang="es">Editar grupos de seguridad</value>
-        <value xml:lang="fr">Modifier les groupes de sécurité de l'identifiant de connexion </value>
-        <value xml:lang="hi_IN">प्रयोक्तालॉगिन के सुरक्षा समूह को संपादित करें</value>
-        <value xml:lang="it">Aggiorna Gruppi Sicurezza Utente</value>
-        <value xml:lang="nl">Beveiligingsgroepen userlogin wijzigen</value>
-        <value xml:lang="pt_BR">Editar usuários/senhas dos grupos de segurança</value>
-        <value xml:lang="ro">Actualizare Grup Siguranta Utilizator</value>
-        <value xml:lang="ru">Изменить группу безопасности для имени пользователя</value>
-        <value xml:lang="th">แก้ไขกลุ่มความปลอดภัยของผู้เข้าใช้ระบบ</value>
-        <value xml:lang="zh">编辑用户登录安全组</value>
-        <value xml:lang="zh_TW">編輯用戶登錄安全組</value>
-    </property>
     <property key="PageTitleFindCommunicationEvents">
         <value xml:lang="de">Kommunikationen suchen</value>
         <value xml:lang="en">Find Communications</value>
@@ -6661,7 +6646,7 @@
     </property>
     <property key="PartyLookupUserLoginAndPartyDetails">
         <value xml:lang="de">Benutzeranmeldung und Akteur suchen</value>
-        <value xml:lang="en">Lookup UserLoginAndPartyDetails</value>
+        <value xml:lang="en">Lookup User Login And Party Details</value>
         <value xml:lang="es">Buscar conexión y detalles de participante</value>
         <value xml:lang="fr">Rechercher un ou des identifiants de connexion et détails de l'acteur</value>
         <value xml:lang="hi_IN">उपयोगकर्तालॉगिन/पार्टीविवरण लुकअप</value>

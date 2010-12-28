@@ -507,13 +507,23 @@ under the License.
                 <set field="titleProperty" value="UserLoginUpdateSecuritySettings"/>
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="labelTitleProperty" value="UserLoginUpdateSecuritySettings"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
+                <set field="updateUserLoginSecurityURI" value="ProfileUpdateUserLoginSecurity"/>
+                <set field="updatePasswordURI" value="ProfileUpdatePassword"/>
+                <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="viewprofile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
+                <set field="userLoginId" from-field="parameters.userLoginId"/>
+                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-screen name="EditUserLogin" location="component://common/widget/SecurityScreens.xml"/>
+                        <container style="page-title">
+                            <label text="${uiLabelMap.UserLoginUpdateSecuritySettings} - ${userLoginId}"/>
+                        </container>
+                        <include-form name="updateUserLoginSecurity" location="component://common/widget/SecurityForms.xml"/>
+                        <screenlet title="${uiLabelMap.UserLoginChangePassword}">
+                            <include-form name="updatePassword" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -525,13 +535,16 @@ under the License.
                 <set field="titleProperty" value="CreateUserLogin"/>
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="labelTitleProperty" value="CreateUserLogin"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
+                <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="viewprofile"/>
+                <set field="createUserLoginURI" value="ProfileCreateUserLogin"/>
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-screen name="CreateUserLogin" location="component://common/widget/SecurityScreens.xml"/>
+                        <screenlet title="${uiLabelMap.CreateUserLogin}">
+                            <include-form name="AddUserLogin" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -542,6 +555,10 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
                 <set field="tabButtonItem" value="viewprofile"/>
+                <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="viewprofile"/>
+                <set field="addUserLoginSecurityGroupURI" value="ProfileAddUserLoginToSecurityGroup"/>
+                <set field="removeUserLoginSecurityGroupURI" value="ProfileRemoveUserLoginFromSecurityGroup"/>
+                <set field="updateUserLoginSecurityGroupURI" value="ProfileUpdateUserLoginToSecurityGroup"/>
                 <set field="userLoginId" from-field="parameters.userLoginId"/>
                 <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${editUserLogin.partyId}"/>
@@ -550,9 +567,9 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddUserLoginSecurityGroupsPanel" title="${uiLabelMap.AddUserLoginToSecurityGroup}" collapsible="true">
-                            <include-form name="AddUserLoginSecurityGroup" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                            <include-form name="AddUserLoginSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <include-form name="ListUserLoginSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                        <include-form name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

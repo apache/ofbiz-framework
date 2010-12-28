@@ -22,25 +22,62 @@
 
     <menu name="SecurityGroupTabBar" default-menu-item-name="EditSecurityGroup" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="FindUserLogin" title="${uiLabelMap.FindUserLogin}">
+            <link target="FindUserLogin"/>
+        </menu-item>
+        <menu-item name="FindSecurityGroup" title="${uiLabelMap.PageTitleFindSecurityGroup}">
+            <link target="FindSecurityGroup"/>
+        </menu-item>
+        <menu-item name="EditUserLogin" title="${uiLabelMap.UserLogin}">
+            <condition>
+                <not><if-empty field="userLoginId"/></not>
+            </condition>
+            <link target="editlogin">
+                <parameter param-name="userLoginId"/>
+            </link>
+        </menu-item>
         <menu-item name="EditSecurityGroup" title="${uiLabelMap.SecurityGroups}">
+            <condition>
+                <not><if-empty field="groupId"/></not>
+            </condition>
             <link target="EditSecurityGroup">
                 <parameter param-name="groupId"/>
             </link>
         </menu-item>
+        <menu-item name="EditUserLoginSecurityGroups" title="${uiLabelMap.SecurityGroups}">
+            <condition>
+                <not><if-empty field="userLoginId"/></not>
+            </condition>
+            <link target="EditUserLoginSecurityGroups">
+                <parameter param-name="userLoginId"/>
+            </link>
+        </menu-item>
         <menu-item name="EditSecurityGroupPermissions" title="${uiLabelMap.Permissions}">
+            <condition>
+                <not><if-empty field="groupId"/></not>
+            </condition>
             <link target="EditSecurityGroupPermissions">
                 <parameter param-name="groupId"/>
             </link>
         </menu-item>
         <menu-item name="EditSecurityGroupUserLogins" title="${uiLabelMap.UserLogins}">
+            <condition>
+                <not><if-empty field="groupId"/></not>
+            </condition>
             <link target="EditSecurityGroupUserLogins">
                 <parameter param-name="groupId"/>
             </link>
         </menu-item>
         <menu-item name="EditSecurityGroupProtectedViews" title="${uiLabelMap.ProtectedViews}">
+            <condition>
+                <not><if-empty field="groupId"/></not>
+            </condition>
             <link target="EditSecurityGroupProtectedViews">
                 <parameter param-name="groupId"/>
             </link>
+        </menu-item>
+        <menu-item name="EditCertIssuerProvisions" title="${uiLabelMap.CertIssuers}">
+            <link target="EditCertIssuerProvisions"/>
         </menu-item>
     </menu>
 

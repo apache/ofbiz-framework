@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <description>Security Site Configuration File</description>
+    
+    <request-map uri="addProtectedViewToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="addProtectedViewToSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupProtectedViews"/>
+        <response name="error" type="view" value="EditSecurityGroupProtectedViews"/>
+    </request-map>
+    <request-map uri="addSecurityPermissionToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="addSecurityPermissionToSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupPermissions"/>
+        <response name="error" type="view" value="EditSecurityGroupPermissions"/>
+    </request-map>
+    <request-map uri="addUserLoginToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="addUserLoginToSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupUserLogins"/>
+        <response name="error" type="view" value="EditSecurityGroupUserLogins"/>
+    </request-map>
+    <request-map uri="createnewlogin">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="createnewlogin" save-current-view="true"/>
+    </request-map>
+    <request-map uri="CreateNewSecurityGroup">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateNewSecurityGroup"/>
+    </request-map>
+    <request-map uri="createSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroup"/>
+        <response name="error" type="view" value="EditSecurityGroup"/>
+    </request-map>
+    <request-map uri="createUserLogin">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createUserLogin"/>
+        <response name="success" type="view" value="EditUserLogin"/>
+        <response name="error" type="view" value="createnewlogin"/>
+    </request-map>
+    <request-map uri="EditCertIssuerProvisions">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CertIssuerProvisions"/>
+    </request-map>
+    <request-map uri="editlogin">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditUserLogin"/>
+    </request-map>
+    <request-map uri="EditSecurityGroup">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditSecurityGroup"/>
+    </request-map>
+    <request-map uri="EditSecurityGroupPermissions">
+        <security https="true" auth="true" />
+        <response name="success" type="view" value="EditSecurityGroupPermissions" />
+    </request-map>
+    <request-map uri="EditSecurityGroupProtectedViews">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditSecurityGroupProtectedViews"/>
+    </request-map>
+    <request-map uri="EditSecurityGroupUserLogins">
+        <security https="true" auth="true" />
+        <response name="success" type="view" value="EditSecurityGroupUserLogins" />
+    </request-map>
+    <request-map uri="EditUserLoginSecurityGroups">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
+    </request-map>
+    <request-map uri="FindSecurityGroup">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindSecurityGroup"/>
+    </request-map>
+    <request-map uri="FindUserLogin">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindUserLogin"/>
+    </request-map>
+    <request-map uri="importIssuerProvision">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="importIssuerProvision"/>
+        <response name="success" type="view" value="CertIssuerProvisions"/>
+        <response name="error" type="view" value="ViewCertificate"/>
+    </request-map>
+    <request-map uri="LookupUserLogin">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LookupUserLogin"/>
+    </request-map>
+    <request-map uri="removeProtectedViewFromSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeProtectedViewFromSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupProtectedViews"/>
+        <response name="error" type="view" value="EditSecurityGroupProtectedViews"/>
+    </request-map>
+    <request-map uri="removeSecurityPermissionFromSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeSecurityPermissionFromSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupPermissions"/>
+        <response name="error" type="view" value="EditSecurityGroupPermissions"/>
+    </request-map>
+    <request-map uri="removeUserLoginFromSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeUserLoginFromSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupUserLogins"/>
+        <response name="error" type="view" value="EditSecurityGroupUserLogins"/>
+    </request-map>
+    <request-map uri="updatePassword">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updatePassword"/>
+        <response name="success" type="view" value="EditUserLogin"/>
+        <response name="error" type="view" value="EditUserLogin"/>
+    </request-map>
+    <request-map uri="updateProtectedViewToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProtectedViewToSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupProtectedViews"/>
+        <response name="error" type="view" value="EditSecurityGroupProtectedViews"/>
+    </request-map>
+    <request-map uri="updateSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroup"/>
+        <response name="error" type="view" value="EditSecurityGroup"/>
+    </request-map>
+    <request-map uri="updateUserLoginSecurity">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateUserLoginSecurity"/>
+        <response name="success" type="view" value="EditUserLogin"/>
+        <response name="error" type="view" value="EditUserLogin"/>
+    </request-map>
+    <request-map uri="updateUserLoginToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateUserLoginToSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupUserLogins"/>
+        <response name="error" type="view" value="EditSecurityGroupUserLogins"/>
+    </request-map>
+    <request-map uri="userLogin_addUserLoginToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="addUserLoginToSecurityGroup"/>
+        <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
+        <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
+    </request-map>
+    <request-map uri="userLogin_removeUserLoginFromSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeUserLoginFromSecurityGroup"/>
+        <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
+        <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
+    </request-map>
+    <request-map uri="userLogin_updateUserLoginToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateUserLoginToSecurityGroup"/>
+        <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
+        <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
+    </request-map>
+    <request-map uri="ViewCertificate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewCertificate"/>
+    </request-map>
+
+    <view-map name="CertIssuerProvisions" type="screen" page="component://common/widget/SecurityScreens.xml#EditX509IssuerProvisions"/>
+    <view-map name="createnewlogin" type="screen" page="component://common/widget/SecurityScreens.xml#CreateUserLogin"/>
+    <view-map name="CreateNewSecurityGroup" type="screen" page="component://common/widget/SecurityScreens.xml#CreateSecurityGroup"/>
+    <view-map name="EditSecurityGroup" type="screen" page="component://common/widget/SecurityScreens.xml#EditSecurityGroup"/>
+    <view-map name="EditSecurityGroupPermissions" type="screen" page="component://common/widget/SecurityScreens.xml#EditSecurityGroupPermissions"/>
+    <view-map name="EditSecurityGroupProtectedViews" type="screen" page="component://common/widget/SecurityScreens.xml#EditSecurityGroupProtectedViews"/>
+    <view-map name="EditSecurityGroupUserLogins" type="screen" page="component://common/widget/SecurityScreens.xml#EditSecurityGroupUserLogins"/>
+    <view-map name="EditUserLogin" type="screen" page="component://common/widget/SecurityScreens.xml#EditUserLogin"/>
+    <view-map name="EditUserLoginSecurityGroups" type="screen" page="component://common/widget/SecurityScreens.xml#EditUserLoginSecurityGroups"/>
+    <view-map name="FindSecurityGroup" type="screen" page="component://common/widget/SecurityScreens.xml#FindSecurityGroup"/>
+    <view-map name="FindUserLogin" type="screen" page="component://common/widget/SecurityScreens.xml#FindUserLogin"/>
+    <view-map name="LookupUserLogin" type="screen" page="component://common/widget/LookupScreens.xml#LookupUserLogin"/>
+    <view-map name="ViewCertificate" type="screen" page="component://common/widget/SecurityScreens.xml#ViewCertificate"/>
+
+</site-conf>
