@@ -21,31 +21,42 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="CreateUserLogin">
+    <screen name="CreateSecurityGroup">
         <section>
             <actions>
+                <set field="titleProperty" value="NewSecurityGroup"/>
+                <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="FindSecurityGroup"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.CreateUserLogin}">
-                    <include-form name="AddUserLogin" location="component://common/widget/SecurityForms.xml"/>
-                </screenlet>
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="page-title">
+                            <label text="${uiLabelMap.NewSecurityGroup}"/>
+                        </container>
+                        <include-form name="CreateSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
 
-    <screen name="EditUserLogin">
+    <screen name="CreateUserLogin">
         <section>
             <actions>
-                <set field="userLoginId" from-field="parameters.userLoginId"/>
-                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
+                <set field="titleProperty" value="CreateUserLogin"/>
+                <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="FindUserLogin"/>
+                <set field="createUserLoginURI" value="createUserLogin"/>
+                <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.UserLoginChangePassword}">
-                    <include-form name="updatePassword" location="component://common/widget/SecurityForms.xml"/>
-                </screenlet>
-                <screenlet title="${uiLabelMap.UserLoginUpdateSecuritySettings}">
-                    <include-form name="updateUserLoginSecurity" location="component://common/widget/SecurityForms.xml"/>
-                </screenlet>
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="page-title">
+                            <label text="${uiLabelMap.CreateUserLogin}"/>
+                        </container>
+                        <include-form name="AddUserLogin" location="component://common/widget/SecurityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -59,11 +70,12 @@ under the License.
                 <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
             <widgets>
-                <decorator-screen name="SecurityGroupDecorator" location="${parameters.securityGroupDecoratorLocation}">
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditSecurityGroup}">
-                            <include-form name="EditSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
-                        </screenlet>
+                        <container style="page-title">
+                            <label text="${uiLabelMap.PageTitleEditSecurityGroup} - ${groupId}"/>
+                        </container>
+                        <include-form name="EditSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -75,20 +87,25 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditSecurityGroupPermissions"/>
                 <set field="tabButtonItem" value="EditSecurityGroupPermissions"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="groupId" from-field="parameters.groupId"/>
                 <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
             <widgets>
-                <decorator-screen name="SecurityGroupDecorator" location="${parameters.securityGroupDecoratorLocation}">
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditSecurityGroupPermissions}">
-                            <include-form name="ListSecurityGroupPermissions" location="component://common/widget/SecurityForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.AddPermissionToSecurityGroup}">
+                        <container style="page-title">
+                            <label text="${uiLabelMap.PageTitleEditSecurityGroupPermissions} - ${groupId}"/>
+                        </container>
+                        <screenlet id="AddPermissionFromList" title="${uiLabelMap.AddPermissionToSecurityGroup}" collapsible="true">
                             <include-form name="AddSecurityGroupPermission" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.AddPermissionManuallyToSecurityGroup}">
+                        <screenlet id="AddPermissionManual" title="${uiLabelMap.AddPermissionManuallyToSecurityGroup}" collapsible="true">
                             <include-form name="AddSecurityGroupPermissionManual" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.Permissions}">
+                            <include-form name="ListSecurityGroupPermissions" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -105,8 +122,11 @@ under the License.
                 <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
             <widgets>
-                <decorator-screen name="SecurityGroupDecorator" location="${parameters.securityGroupDecoratorLocation}">
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="page-title">
+                            <label text="${uiLabelMap.ProtectedViews} - ${groupId}"/>
+                        </container>
                         <screenlet id="AddSecurityGroupProtectedViewsPanel" title="${uiLabelMap.AddProtectedViewToSecurityGroup}" collapsible="true">
                             <include-form name="AddSecurityGroupProtectedView" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
@@ -126,8 +146,11 @@ under the License.
                 <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
             <widgets>
-                <decorator-screen name="SecurityGroupDecorator" location="${parameters.securityGroupDecoratorLocation}">
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="page-title">
+                            <label text="${uiLabelMap.UserLogins} - ${groupId}"/>
+                        </container>
                         <screenlet id="AddSecurityGroupUserLoginsPanel" title="${uiLabelMap.AddUserLoginToSecurityGroup}" collapsible="true">
                             <include-form name="AddSecurityGroupUserLogin" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
@@ -138,40 +161,80 @@ under the License.
         </section>
     </screen>
 
+    <screen name="EditUserLogin">
+        <section>
+            <actions>
+                <set field="titleProperty" value="UserLoginUpdateSecuritySettings"/>
+                <set field="tabButtonItem" value="EditUserLogin"/>
+                <set field="cancelPage" from-field="parameters.CANCEL_PAGE" default-value="FindUserLogin"/>
+                <set field="updateUserLoginSecurityURI" value="updateUserLoginSecurity"/>
+                <set field="updatePasswordURI" value="updatePassword"/>
+                <set field="userLoginId" from-field="parameters.userLoginId"/>
+                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="page-title">
+                            <label text="${uiLabelMap.UserLoginUpdateSecuritySettings} - ${userLoginId}"/>
+                        </container>
+                        <include-form name="updateUserLoginSecurity" location="component://common/widget/SecurityForms.xml"/>
+                        <screenlet title="${uiLabelMap.UserLoginChangePassword}">
+                            <include-form name="updatePassword" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditUserLoginSecurityGroups">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
+                <set field="tabButtonItem" value="EditUserLoginSecurityGroups"/>
+                <set field="addUserLoginSecurityGroupURI" value="userLogin_addUserLoginToSecurityGroup"/>
+                <set field="removeUserLoginSecurityGroupURI" value="userLogin_removeUserLoginFromSecurityGroup"/>
+                <set field="updateUserLoginSecurityGroupURI" value="userLogin_updateUserLoginToSecurityGroup"/>
+                <set field="userLoginId" from-field="parameters.userLoginId"/>
+                <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="page-title">
+                            <label text="${uiLabelMap.PageTitleEditUserLoginSecurityGroups} - ${userLoginId}"/>
+                        </container>
+                        <screenlet id="AddUserLoginSecurityGroupsPanel" title="${uiLabelMap.AddUserLoginToSecurityGroup}" collapsible="true">
+                            <include-form name="AddUserLoginSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="EditX509IssuerProvisions">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditIssuerProvisions"/>
-                <set field="headerItem" value="security"/>
-                <set field="tabButtonItem" value="EditX509IssuerProvisions"/>
+                <set field="tabButtonItem" value="EditCertIssuerProvisions"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="SECURITY" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleEditIssuerProvisions}">
-                                    <container style="button-bar">
-                                        <link target="EditSecurityGroup" style="buttontext create" text="${uiLabelMap.NewSecurityGroup}"/>
-                                        <link target="EditCertIssuerProvisions" style="buttontext" text="${uiLabelMap.CertIssuers}"/>
-                                    </container>
-                                    <container>
-                                        <include-form name="CertIssuerList" location="component://common/widget/SecurityForms.xml"/>
-                                    </container>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.PageTitleAddIssuerProvisions}">
-                                    <include-form name="ViewCertificate" location="component://common/widget/SecurityForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.SecurityViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
+                        <container style="page-title">
+                            <label text="${uiLabelMap.PageTitleEditIssuerProvisions}"/>
+                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleAddIssuerProvisions}">
+                            <include-form name="ViewCertificate" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.CertIssuers}">
+                            <include-form name="CertIssuerList" location="component://common/widget/SecurityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -182,37 +245,51 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindSecurityGroup"/>
-                <set field="headerItem" value="security"/>
+                <set field="tabButtonItem" value="FindSecurityGroup"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="SECURITY" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.SecurityGroupsList}">
-                                    <container style="button-bar">
-                                        <link target="EditSecurityGroup" style="textbutton create" text="${uiLabelMap.NewSecurityGroup}"/>
-                                        <link target="EditCertIssuerProvisions" style="textbutton" text="${uiLabelMap.CertIssuers}"/>
-                                    </container>
-                                    <include-form name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.SecurityViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
+                        <container style="page-title">
+                            <label text="${uiLabelMap.PageTitleFindSecurityGroup}"/>
+                        </container>
+                        <container style="button-bar">
+                            <link target="CreateNewSecurityGroup" style="buttontext create" text="${uiLabelMap.CommonCreateNew}"/>
+                        </container>
+                        <include-form name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 
-    <screen name="SecurityGroupDecorator">
+    <screen name="FindUserLogin">
+        <section>
+            <actions>
+                <set field="titleProperty" value="FindUserLogin"/>
+                <set field="tabButtonItem" value="FindUserLogin"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="page-title">
+                            <label text="${uiLabelMap.FindUserLogin}"/>
+                        </container>
+                        <container style="button-bar">
+                            <link target="createnewlogin" style="buttontext create" text="${uiLabelMap.CommonCreateNew}"/>
+                        </container>
+                        <include-form name="ListUserLogins" location="component://common/widget/SecurityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="SecurityDecorator">
         <section>
             <actions>
                 <set field="headerItem" value="security"/>
@@ -222,10 +299,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <and>
-                                    <if-has-permission permission="SECURITY" action="_VIEW"/>
-                                    <not><if-empty field="groupId"/></not>
-                                </and>
+                                <if-service-permission service-name="securityPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <include-menu name="SecurityGroupTabBar" location="component://common/widget/SecurityMenus.xml"/>
@@ -235,16 +309,9 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="SECURITY" action="_VIEW"/>
+                                <if-service-permission service-name="securityPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <container>
-                                    <label style="h1" text="${uiLabelMap[labelTitleProperty]} [${groupId}]"/>
-                                </container>
-                                <container style="button-bar">
-                                    <link target="EditSecurityGroup" style="buttontext create" text="${uiLabelMap.NewSecurityGroup}"/>
-                                    <link target="EditCertIssuerProvisions" style="buttontext" text="${uiLabelMap.CertIssuers}"/>
-                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -261,28 +328,21 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleImportCertificate"/>
-                <set field="headerItem" value="security"/>
+                <set field="tabButtonItem" value="EditCertIssuerProvisions"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="SecurityDecorator" location="${parameters.securityDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="SECURITY" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <container style="widget-container">
-                                    <platform-specific>
-                                        <html>
-                                            <html-template location="component://common/webcommon/includes/ViewCertificate.ftl"/>
-                                        </html>
-                                    </platform-specific>
-                                </container>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.SecurityViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
+                        <container style="page-title">
+                            <label text="${uiLabelMap.PageTitleImportCertificate}"/>
+                        </container>
+                        <container style="widget-container">
+                            <platform-specific>
+                                <html>
+                                    <html-template location="component://common/webcommon/includes/ViewCertificate.ftl"/>
+                                </html>
+                            </platform-specific>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

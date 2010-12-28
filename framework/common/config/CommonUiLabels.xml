@@ -6818,14 +6818,6 @@
         <value xml:lang="th">รหัสกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">安全组标识</value>
     </property>
-    <property key="CommonSecurityGroups">
-        <value xml:lang="en">Security Groups</value>
-        <value xml:lang="fr">Groupes de sécurité</value>
-        <value xml:lang="hi_IN">सुरक्षा समूह</value>
-        <value xml:lang="it">Gruppo di sicurezza</value>
-        <value xml:lang="zh">安全组</value>
-        <value xml:lang="zh_TW">安全組</value>
-    </property>
     <property key="CommonGeoAbbr">
         <value xml:lang="en">Abbreviation</value>
         <value xml:lang="es">Abreviación</value>

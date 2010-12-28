@@ -67,4 +67,29 @@ under the License.
         </field>
     </form>        
         
+    <form name="LookupUserLogin" type="single" target="LookupUserLogin">
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListLookedUpUserLogins" type="list" list-name="listIt" paginate-target="LookupUserLogin"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="orderBy" value="userLoginId"/>
+                <field-map field-name="entityName" value="UserLogin"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
+        </field>
+        <field name="enabled"><display/></field>
+        <field name="hasLoggedOut"><display/></field>
+        <field name="disabledDateTime"><display/></field>
+    </form>
+
 </forms>

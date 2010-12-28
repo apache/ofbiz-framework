@@ -58,12 +58,11 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addUserLoginToSecurityGroup"/>
         <field name="groupId"><hidden/></field>
-        <!-- TODO: Fix lookup screen -->
-        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><lookup target-form-name="LookupUserLoginAndPartyDetails" size="30"></lookup></field>
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><lookup target-form-name="LookupUserLogin" size="30"></lookup></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
-    <form name="AddUserLogin" type="single" target="createUserLogin"
+    <form name="AddUserLogin" type="single" target="${createUserLoginURI}"
         focus-field-name="userLoginId" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createUserLogin"/>
         <field name="partyId"><hidden/></field>
@@ -77,7 +76,22 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="backHome" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+
+    <form name="AddUserLoginSecurityGroup" type="single" target="${addUserLoginSecurityGroupURI}"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="addUserLoginToSecurityGroup"/>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="userLoginId"><hidden/></field>
+        <field name="groupId" title="${uiLabelMap.CommonGroup}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="SecurityGroup" description="${groupId} ${description}">
+                    <entity-order-by field-name="groupId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
     <form name="CertIssuerList" type="list" list-name="issuerProvisions"
@@ -90,13 +104,15 @@ under the License.
         <auto-fields-entity entity-name="X509IssuerProvision" default-field-type="display"/>
     </form>
 
-    <form name="EditSecurityGroup" type="single" target="updateSecurityGroup" default-map-name="securityGroup"
-        header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="securityGroup==null" target="createSecurityGroup"/>
-        <auto-fields-service service-name="updateSecurityGroup" map-name="securityGroup"/>
-        <field use-when="securityGroup!=null" name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"  tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="securityGroup==null&amp;&amp;groupId==null" name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"><text size="20" maxlength="20"/></field>
-        <field use-when="securityGroup==null&amp;&amp;groupId!=null" name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${groupId}]"><text size="20" maxlength="20"/></field>
+    <form name="CreateSecurityGroup" type="single" target="createSecurityGroup" default-map-name="securityGroup">
+        <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" widget-style="required" tooltip="${uiLabelMap.CommonRequired}"><text size="20" maxlength="20"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+    </form>
+
+    <form name="EditSecurityGroup" type="single" target="updateSecurityGroup" default-map-name="securityGroup">
+        <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
@@ -142,7 +158,7 @@ under the License.
     </form>
 
     <form name="ListSecurityGroups" type="list" list-name="securityGroups"
-        paginate-target="FindSecurityGroup" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        paginate-target="FindSecurityGroup" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="SecurityGroup">
                 <order-by field-name="groupId"/>
@@ -168,15 +184,6 @@ under the License.
         <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-        <!-- 
-        <field name="partyId" title="${uiLabelMap.PartyParty}">
-            <display-entity entity-name="PartyNameView" also-hidden="false" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="viewprofile" description="${partyId}" link-style="buttontext">
-                    <parameter param-name="partyId"/>
-                </sub-hyperlink>
-            </display-entity>
-        </field>
-        -->
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeUserLoginFromSecurityGroup" also-hidden="false">
@@ -187,7 +194,81 @@ under the License.
         </field>
     </form>
 
-    <form name="updatePassword" type="single" target="updatePassword"
+    <form name="ListUserLogins" type="list" list-name="securityGroups"
+        paginate-target="FindUserLogin" header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="UserLogin">
+                <order-by field-name="userLoginId"/>
+            </entity-condition>
+        </actions>
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${userLoginId}" target="editlogin">
+                <parameter param-name="userLoginId"/>
+            </hyperlink>
+        </field>
+        <field name="enabled"><display/></field>
+        <field name="hasLoggedOut"><display/></field>
+        <field name="disabledDateTime"><display/></field>
+    </form>
+
+    <form name="ListUserLoginSecurityGroups" type="list"
+        list-name="userLoginSecurityGroups" header-row-style="header-row-2" target="${updateUserLoginSecurityGroupURI}"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="UserLoginAndSecurityGroup">
+                <condition-expr field-name="userLoginId" from-field="userLoginId"/>
+                <order-by field-name="groupId"/>
+            </entity-condition>
+        </actions>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="groupIdCol" title="${uiLabelMap.CommonSecurityGroupId}" widget-style="buttontext">
+            <hyperlink description="${groupId}" target="EditSecurityGroup">
+                    <parameter param-name="groupId"/>
+            </hyperlink>
+        </field>
+        <field name="groupId" title="${uiLabelMap.CommonDescription}">
+            <display-entity entity-name="SecurityGroup"/>
+        </field>
+        <field name="userLoginId"><hidden/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="${removeUserLoginSecurityGroupURI}" also-hidden="false">
+                <parameter param-name="partyId"/>
+                <parameter param-name="userLoginId"/>
+                <parameter param-name="groupId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="LookupUserLogin" type="single" target="LookupUserLogin">
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListLookedUpUserLogins" type="list" list-name="listIt" paginate-target="LookupUserLogin"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="orderBy" value="userLoginId"/>
+                <field-map field-name="entityName" value="UserLogin"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
+        </field>
+        <field name="enabled"><display/></field>
+        <field name="hasLoggedOut"><display/></field>
+        <field name="disabledDateTime"><display/></field>
+    </form>
+
+    <form name="updatePassword" type="single" target="${updatePasswordURI}"
         focus-field-name="currentPassword" header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="passwordHint" from-field="editUserLogin.passwordHint"/>
@@ -200,14 +281,14 @@ under the License.
         <field name="newPasswordVerify"><password/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+            <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
     </form>
 
-    <form name="updateUserLoginSecurity" type="single" target="updateUserLoginSecurity" default-map-name="editUserLogin"
+    <form name="updateUserLoginSecurity" type="single" target="${updateUserLoginSecurityURI}" default-map-name="editUserLogin"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <property-to-field field="ldapEnabled" resource="security" property="security.ldap.enable"/>
@@ -219,7 +300,7 @@ under the License.
         <field name="userLdapDn" use-when="!&quot;true&quot;.equals(ldapEnabled)"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+            <hyperlink target="${cancelPage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="partyId"/>
             </hyperlink>

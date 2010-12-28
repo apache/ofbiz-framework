@@ -90,6 +90,9 @@
         <value xml:lang="zh">组件</value>
         <value xml:lang="zh_TW">元件</value>
     </property>
+    <property key="CertDetails">
+        <value xml:lang="en">Cert Details</value>
+    </property>
     <property key="CertImportIssuer">
         <value xml:lang="de">Aussteller importieren</value>
         <value xml:lang="en">Import Issuer</value>
@@ -223,6 +226,9 @@
         <value xml:lang="zh">创建用户登录</value>
         <value xml:lang="zh_TW">建立使用者登入</value>
     </property>
+    <property key="FindUserLogin">
+        <value xml:lang="en">Find User Login</value>
+    </property>
     <property key="FormFieldTitle_currentPassword">
         <value xml:lang="de">Aktuelles Passwort</value>
         <value xml:lang="en">Current Password</value>
@@ -355,6 +361,9 @@
         <value xml:lang="zh">浏览名称</value>
         <value xml:lang="zh_TW">瀏覽名稱</value>
     </property>
+    <property key="LookupUserLogin">
+        <value xml:lang="en">Lookup User Login</value>
+    </property>
     <property key="NewSecurityGroup">
         <value xml:lang="de">Neue Sicherheitsgruppe</value>
         <value xml:lang="en">New Security Group</value>
@@ -429,6 +438,21 @@
         <value xml:lang="th">แก้ไขการอนุญาตกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">编辑安全组权限</value>
         <value xml:lang="zh_TW">編輯安全組權限</value>
+    </property>
+    <property key="PageTitleEditUserLoginSecurityGroups">
+        <value xml:lang="de">Sicherheitsgruppen zur Benuterzanmeldung bearbeiten</value>
+        <value xml:lang="en">Edit User Login Security Groups</value>
+        <value xml:lang="es">Editar grupos de seguridad</value>
+        <value xml:lang="fr">Modifier les groupes de sécurité de l'identifiant de connexion </value>
+        <value xml:lang="hi_IN">प्रयोक्तालॉगिन के सुरक्षा समूह को संपादित करें</value>
+        <value xml:lang="it">Aggiorna Gruppi Sicurezza Utente</value>
+        <value xml:lang="nl">Beveiligingsgroepen userlogin wijzigen</value>
+        <value xml:lang="pt_BR">Editar usuários/senhas dos grupos de segurança</value>
+        <value xml:lang="ro">Actualizare Grup Siguranta Utilizator</value>
+        <value xml:lang="ru">Изменить группу безопасности для имени пользователя</value>
+        <value xml:lang="th">แก้ไขกลุ่มความปลอดภัยของผู้เข้าใช้ระบบ</value>
+        <value xml:lang="zh">编辑用户登录安全组</value>
+        <value xml:lang="zh_TW">編輯用戶登錄安全組</value>
     </property>
     <property key="PageTitleFindSecurityGroup">
         <value xml:lang="de">Sicherheitsgruppe suchen</value>
@@ -562,6 +586,9 @@
         <value xml:lang="th">เปลี่ยนรหัสผ่านผู้เข้าใช้ระบบ</value>
         <value xml:lang="zh">修改用户登录密码</value>
         <value xml:lang="zh_TW">修改用戶登錄密碼</value>
+    </property>
+    <property key="UserLogin">
+        <value xml:lang="en">User Login</value>
     </property>
     <property key="UserLogins">
         <value xml:lang="de">Benutzeranmeldungen</value>

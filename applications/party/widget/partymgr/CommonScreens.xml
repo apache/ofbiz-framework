@@ -91,7 +91,7 @@ under the License.
                                     <widgets>
                                         <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileSubTabBar"/>
                                         <container style="clear"/>
-                                        <container style="h1">
+                                        <container style="page-title">
                                             <section>
                                                 <condition>
                                                     <or>

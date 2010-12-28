@@ -93,7 +93,7 @@ under the License.
 
     <div class="screenlet">
       <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.CommonSecurityGroups}</h3>
+        <h3>${uiLabelMap.SecurityGroups}</h3>
       </div>
       <#if selectedServiceMap.permissionGroups != 'NA'>
         <table class="basic-table" cellspacing='0'>

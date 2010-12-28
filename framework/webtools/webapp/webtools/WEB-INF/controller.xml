@@ -22,6 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
+    <include location="component://common/webcommon/WEB-INF/security-controller.xml"/>
     <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>
     <include location="component://testtools/webapp/testtools/WEB-INF/controller.xml"/>
     <description>WebTools Site Configuration File</description>
@@ -580,6 +581,10 @@ under the License.
         <event type="service" path="" invoke="linkGeos"/>
         <response name="success" type="view" value="LinkGeos"/>
         <response name="error" type="view" value="LinkGeos"/>
+    </request-map>
+    <request-map uri="security">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindUserLogin"/>
     </request-map>
     
     <!-- end of request mappings -->
