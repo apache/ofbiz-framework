@@ -659,8 +659,7 @@ function set_value (value) {
     var target = obj_caller.target;
 
     write_value(value, target);
-    field = jQuery("#" + target.attr('id'));
-    field.trigger("lookup:changed");
+    field = jQuery("#" + target.attr('id'));    
     
     closeLookup();
 }
@@ -686,7 +685,8 @@ function write_value (value, target) {
     if (target && target != null) {
         setSourceColor(target);
         target.val(value);
-    }
+        target.trigger("lookup:changed");
+    }    
 }
 
 function set_multivalues(value) {
