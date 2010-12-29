@@ -1735,7 +1735,11 @@ public class DatabaseUtil {
 
         // if there is a tableType, add the TYPE arg here
         if (UtilValidate.isNotEmpty(this.datasourceInfo.tableType)) {
-            sqlBuf.append(" TYPE ");
+         // jaz:20101229 - This appears to be only used by mysql and now mysql has
+            // deprecated (and in 5.5.x removed) the use of the TYPE keyword. This is
+            // changed to ENGINE which is supported starting at 4.1
+            sqlBuf.append(" ENGINE ");
+            //sqlBuf.append(" TYPE ");
             sqlBuf.append(this.datasourceInfo.tableType);
         }
 
