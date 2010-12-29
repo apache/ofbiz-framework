@@ -315,7 +315,7 @@ under the License.
         </field>
     </form>
     
-    <form name="EditPaymentGatewayConfigEway" type="single" target="UpdatePaymentGatewayConfigClearCommerce" default-map-name="paymentGatewayClearCommerce" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditPaymentGatewayConfigEway" type="single" target="UpdatePaymentGatewayConfigEway" default-map-name="paymentGatewayEway" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="PaymentGatewayEway" default-field-type="edit"/>
         <field name="paymentGatewayConfigId"><hidden/></field>
         <field name="testMode">

@@ -84,4 +84,9 @@ under the License.
         <auto-attributes entity-name="PaymentGatewaySecurePay" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="PaymentGatewaySecurePay" include="nonpk" mode="IN" optional="true"/>
     </service>
+    
+    <service name="updatePaymentGatewayConfigEway" engine="entity-auto" invoke="update" default-entity-name="PaymentGatewayEway" auth="true">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>    
 </services>

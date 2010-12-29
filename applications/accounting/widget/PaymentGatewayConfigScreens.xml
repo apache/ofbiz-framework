@@ -216,7 +216,7 @@ under the License.
                                 <not><if-empty field="paymentGatewayEway"/></not>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigClearCommerce}">
+                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigEway}">
                                     <include-form name="EditPaymentGatewayConfigEway" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                 </screenlet>
                             </widgets>
