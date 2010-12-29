@@ -15236,6 +15236,9 @@
         <value xml:lang="it">Aggiorna configurazione gateway pagamento CyberSource</value>
         <value xml:lang="zh_TW">更新CyberSource的支付閘道配置</value>
     </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigEway">
+        <value xml:lang="en">Update Payment Gateway Config eWay</value>        
+    </property>    
     <property key="PageTitleUpdatePaymentGatewayConfigPayflowPro">
         <value xml:lang="de">Bezahl-Schnittstelle Payflow Pro aktualisieren</value>
         <value xml:lang="en">Update Payment Gateway Config Payflow Pro</value>
