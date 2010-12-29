@@ -510,6 +510,7 @@ public class FindServices {
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
         results.put("listIt", executeResult.get("listIt"));
+        results.put("listSize", executeResult.get("listSize"));
         results.put("queryString", prepareResult.get("queryString"));
         results.put("queryStringMap", prepareResult.get("queryStringMap"));
         return results;
@@ -605,10 +606,12 @@ public class FindServices {
         Delegator delegator = dctx.getDelegator();
         // Retrieve entities  - an iterator over all the values
         EntityListIterator listIt = null;
+        int listSize = 0;
         try {
             if (noConditionFind || (entityConditionList != null && entityConditionList.getConditionListSize() > 0)) {
                 listIt = delegator.find(entityName, entityConditionList, null, fieldSet, orderByList,
                         new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, -1, maxRows, distinct));
+                listSize = listIt.getResultsSizeAfterPartialList();
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Error running Find on the [" + entityName + "] entity: " + e.getMessage());
@@ -616,6 +619,7 @@ public class FindServices {
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
         results.put("listIt", listIt);
+        results.put("listSize", listSize);
         return results;
     }
 
