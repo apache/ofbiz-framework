@@ -1539,7 +1539,7 @@
         <value xml:lang="en">Available Time</value>
         <value xml:lang="es">Tiempo disponible</value>
         <value xml:lang="fr">Durée disponible</value>
-        <value xml:lang="it">Tempo disponibile</value>
+        <value xml:lang="it">Tempo disposizione</value>
         <value xml:lang="ru">Доступное время</value>
         <value xml:lang="th">ใช้ประโยชน์ได้ถึงเวลา</value>
         <value xml:lang="zh">有效时间</value>
@@ -1550,7 +1550,7 @@
         <value xml:lang="en">Available Time Uom Id</value>
         <value xml:lang="es">Unidad de medida de tiempo disponible</value>
         <value xml:lang="fr">Réf. d'unité de temps disponible</value>
-        <value xml:lang="it">Udm Tempo Disponibile</value>
+        <value xml:lang="it">Udm tempo a disposizione</value>
         <value xml:lang="ru">Код времени для доступного времени</value>
         <value xml:lang="th">รหัสหน่วยวัดเวลาที่มีอยู่</value>
         <value xml:lang="zh">有效时间度量单位标识</value>
@@ -1651,13 +1651,13 @@
     </property>
     <property key="FormFieldTitle_canclAutmExtTime">
         <value xml:lang="en">The time period (before the end of the thruedate) after which the automatic extension of the subscription will be executed.</value>
-        <value xml:lang="it">Il periodo di tempo (prima della fine di thruedate) dopo che l'estensione automatica della sottoscrizione eseguita.</value>
+        <value xml:lang="it">Il periodo di tempo (prima della data di termine) dopo che l'estensione automatica dell'abbonamento verrà eseguita.</value>
         <value xml:lang="zh">在要执行的订阅自动延期后的时间段(在结束日期结束前)</value>
         <value xml:lang="zh_TW">在要執行的訂閱自動延期後的時間段(在結束日期結束前)</value>
     </property>
     <property key="FormFieldTitle_canclAutmExtTimeUomId">
         <value xml:lang="en">The subscription will be extended at the end of the subscription period with a new order</value>
-        <value xml:lang="it">La sottoscrizione sarà estessa all fine del periodo della sottoscrizione con un nuovo ordine</value>
+        <value xml:lang="it">L'abbonamento sarà esteso alla fine del periodo con un nuovo ordine</value>
         <value xml:lang="zh">在订阅结束时通过新建订单来延期的订阅</value>
         <value xml:lang="zh_TW">在訂閱結束時通過新建訂單來延期的訂閱</value>
     </property>
@@ -2384,7 +2384,7 @@
         <value xml:lang="en">External Subscription Id</value>
         <value xml:lang="es">Código Suscripción externa</value>
         <value xml:lang="fr">Réf. d'abonnement externe</value>
-        <value xml:lang="it">Codice abbonamento esterno</value>
+        <value xml:lang="it">Abbonamento n. esterno</value>
         <value xml:lang="ro">Numar Abonament Extern</value>
         <value xml:lang="ru">Код внешней подписки</value>
         <value xml:lang="th">รหัสค่าบำรุงรักษาลักษณะภายนอก</value>
@@ -3099,7 +3099,7 @@
         <value xml:lang="en">Max Life Time</value>
         <value xml:lang="es">Tiempo de vida máximo</value>
         <value xml:lang="fr">Durée de vie maxi</value>
-        <value xml:lang="it">Massimo Tempo di Vita</value>
+        <value xml:lang="it">Massimo tempo di vita</value>
         <value xml:lang="ru">Макс. время жизни</value>
         <value xml:lang="th">อายุการใช้งานมาก</value>
         <value xml:lang="zh">最大使用寿命</value>
@@ -3110,7 +3110,7 @@
         <value xml:lang="en">Max Life Time Uom Id</value>
         <value xml:lang="es">UDM tiempo de vida máximo</value>
         <value xml:lang="fr">Unité de temps disponible [Réf.]</value>
-        <value xml:lang="it">Udm Massimo Tempo di Vita</value>
+        <value xml:lang="it">Udm massimo tempo di vita</value>
         <value xml:lang="ru">Код времени для макс. вр. жизни</value>
         <value xml:lang="th">รหัสหน่วยวัดอายุการใช้งานมาก</value>
         <value xml:lang="zh">最大使用寿命度量单位标识</value>
@@ -4812,7 +4812,7 @@
         <value xml:lang="en">Subscription Id</value>
         <value xml:lang="es">Nº de suscripción</value>
         <value xml:lang="fr">Réf. de l'abonnement</value>
-        <value xml:lang="it">Codice abbonamento</value>
+        <value xml:lang="it">Abbonamento n.</value>
         <value xml:lang="ro">Numar Abonament</value>
         <value xml:lang="ru">Код подписки</value>
         <value xml:lang="th">รหัสการสั่งซื้อ</value>
@@ -5012,7 +5012,7 @@
         <value xml:lang="en">Use Count Limit</value>
         <value xml:lang="es">Usar el límite de contador</value>
         <value xml:lang="fr">Limite d'utilisation du compte</value>
-        <value xml:lang="it">Usa limite contatore</value>
+        <value xml:lang="it">Limite d'utilizzo del contatore</value>
         <value xml:lang="ro">Foloseste Limitator Contor</value>
         <value xml:lang="ru">Лимит количества использований</value>
         <value xml:lang="th">ใช้ข้อกำหนดการคำนวน</value>
@@ -5090,7 +5090,7 @@
         <value xml:lang="en">Use Role Type Id</value>
         <value xml:lang="es">Usar código de tipo de rol</value>
         <value xml:lang="fr">Utiliser la ref. de type de rôle</value>
-        <value xml:lang="it">Usa Tipo Ruolo</value>
+        <value xml:lang="it">Usa tipo ruolo</value>
         <value xml:lang="ro">Foloseste Tip Rol</value>
         <value xml:lang="ru">Использовать код типа роли</value>
         <value xml:lang="th">ใช้รหัสประเภทสถานะ</value>
@@ -5102,7 +5102,7 @@
         <value xml:lang="en">Use Time</value>
         <value xml:lang="es">Usar tiempo</value>
         <value xml:lang="fr">Utiliser le temps</value>
-        <value xml:lang="it">Usa Tempo</value>
+        <value xml:lang="it">Uso del tempo</value>
         <value xml:lang="ro">Foloseste Timp</value>
         <value xml:lang="ru">Время использования</value>
         <value xml:lang="th">ใช้เวลา</value>
@@ -5114,7 +5114,7 @@
         <value xml:lang="en">Use Time Uom Id</value>
         <value xml:lang="es">Usar UDM de tiempo</value>
         <value xml:lang="fr">Utiliser la ref. d'unité de mesure du temps</value>
-        <value xml:lang="it">Usa Udm Tempo</value>
+        <value xml:lang="it">Uso dell'unità di misura del tempo</value>
         <value xml:lang="ro">Foloseste Udm Timp</value>
         <value xml:lang="ru">Код времени использования</value>
         <value xml:lang="th">ใช้รหัสหน่วยวัดเวลา</value>
@@ -5507,7 +5507,7 @@
         <value xml:lang="en">Add Product Subscription Resources</value>
         <value xml:lang="es">Añadir recursos de suscripción</value>
         <value xml:lang="fr">Ajouter des ressources d'abonnements</value>
-        <value xml:lang="it">Aggiungi Risorse Abbonamento Prodotto</value>
+        <value xml:lang="it">Aggiungi risorsa abbonamento</value>
         <value xml:lang="th">เพิ่มแหล่งข้อมูลการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">添加产品订阅资源</value>
         <value xml:lang="zh_TW">添加產品訂閱資源</value>
@@ -5548,7 +5548,7 @@
         <value xml:lang="en">Add Subscription Attributes</value>
         <value xml:lang="es">Añadir atributo de suscripción</value>
         <value xml:lang="fr">Ajouter des attributs d'abonnement</value>
-        <value xml:lang="it">Aggiungi Attributi Abbonamento</value>
+        <value xml:lang="it">Aggiungi attributo abbonamento</value>
         <value xml:lang="th">เพิ่มลักษณะการสั่งซื้อ</value>
         <value xml:lang="zh">添加订阅属性</value>
         <value xml:lang="zh_TW">添加訂閱屬性</value>
@@ -5558,7 +5558,7 @@
         <value xml:lang="en">Add Subscription Comm Event</value>
         <value xml:lang="es">Añadir suscripción a evento de comunicación</value>
         <value xml:lang="fr">Ajouter des abonnements à des communication d'événement</value>
-        <value xml:lang="it">Aggiungi Evento Comunicazioni Abbonamento</value>
+        <value xml:lang="it">Aggiungi evento comunicazioni abbonamento</value>
         <value xml:lang="th">Add Subscription Comm Event</value>
         <value xml:lang="zh">添加订阅沟通事件</value>
         <value xml:lang="zh_TW">添加訂閱溝通事件</value>
@@ -5568,7 +5568,7 @@
         <value xml:lang="en">Add Subscription Resource Products</value>
         <value xml:lang="es">Añadir recursos de suscripción a producto</value>
         <value xml:lang="fr">Ajoutez des ressources d'abonnement à un article</value>
-        <value xml:lang="it">Aggiungi Risorse Prodotti Abbonamento</value>
+        <value xml:lang="it">Aggiungi risorsa abbonamento</value>
         <value xml:lang="th">เพิ่มแหล่งข้อมูลการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">添加订阅资源产品</value>
         <value xml:lang="zh_TW">添加訂閱資源產品</value>
@@ -6723,7 +6723,7 @@
         <value xml:lang="en">Edit Product Subscription Resources</value>
         <value xml:lang="es">Editar recursos de suscripción del producto</value>
         <value xml:lang="fr">Modifier les ressources d'abonnement de l'article</value>
-        <value xml:lang="it">Aggiorna Risorse Abbonamento Prodotto</value>
+        <value xml:lang="it">Aggiorna risorsa abbonamento</value>
         <value xml:lang="ro">Actualizeaza Resurse Abonament Produs</value>
         <value xml:lang="ru">Изменить ресурсы подписки продукта</value>
         <value xml:lang="th">แก้ไขแหล่งข้อมูลการสั่งซื้อสินค้า</value>
@@ -6813,7 +6813,7 @@
         <value xml:lang="en">Edit Subscription</value>
         <value xml:lang="es">Editar suscripción</value>
         <value xml:lang="fr">Modifier l'abonnement</value>
-        <value xml:lang="it">Aggiorna Abbonamento</value>
+        <value xml:lang="it">Aggiorna abbonamento</value>
         <value xml:lang="ro">Actualizeaza Abonament</value>
         <value xml:lang="ru">Изменить подписку</value>
         <value xml:lang="th">แก้ไขการสั่งซื้อ</value>
@@ -6825,7 +6825,7 @@
         <value xml:lang="en">Edit Subscription Attributes</value>
         <value xml:lang="es">Editar atributos de suscripción</value>
         <value xml:lang="fr">Modifier les attributs d'abonnement</value>
-        <value xml:lang="it">Aggiorna Attributi Abbonamento</value>
+        <value xml:lang="it">Aggiorna attributo abbonamento</value>
         <value xml:lang="ru">Изменить атрибуты подписки</value>
         <value xml:lang="th">แก้ไขลักษณะการสั่งซื้อ</value>
         <value xml:lang="zh">编辑订阅属性</value>
@@ -6836,7 +6836,7 @@
         <value xml:lang="en">Edit Subscription Communication Event</value>
         <value xml:lang="es">Editar suscripción a evento de comunicación</value>
         <value xml:lang="fr">Modifier l'abonnement d'événement de communication</value>
-        <value xml:lang="it">Aggiorna Evento Comunicazione Abbonamento</value>
+        <value xml:lang="it">Aggiorna evento comunicazione abbonamento</value>
         <value xml:lang="ru">Изменить коммуникационное событие подписки</value>
         <value xml:lang="th">แก้ไขผลลัพธ์การติดต่อการสั่งซื้อ</value>
         <value xml:lang="zh">编辑订阅沟通事件</value>
@@ -6859,7 +6859,7 @@
         <value xml:lang="en">Edit Subscription Resource Products</value>
         <value xml:lang="es">Editar productos de recurso de suscripción</value>
         <value xml:lang="fr">Modifier les ressources d'abonnement aux articles</value>
-        <value xml:lang="it">Aggiorna prodotti di risorsa abbonamento</value>
+        <value xml:lang="it">Aggiorna risorsa abbonamento</value>
         <value xml:lang="ro">Actualizeaza Resurse Abonament Produse</value>
         <value xml:lang="ru">Изменить продукты ресурсов подписки</value>
         <value xml:lang="th">แก้ไขแหล่งข้อมูลการสั่งซื้อสินค้า</value>
@@ -7082,7 +7082,7 @@
         <value xml:lang="en">Find Subscription</value>
         <value xml:lang="es">Buscar suscripción</value>
         <value xml:lang="fr">Recherche d'un abonnement</value>
-        <value xml:lang="it">Ricerca Abbonamenti</value>
+        <value xml:lang="it">Ricerca abbonamenti</value>
         <value xml:lang="ro">Cauta Abonamente</value>
         <value xml:lang="ru">Найти подписку</value>
         <value xml:lang="th">ค้นหาการสั่งซื้อ</value>
@@ -7094,7 +7094,7 @@
         <value xml:lang="en">Find Subscription Resource</value>
         <value xml:lang="es">Buscar recurso de suscripción</value>
         <value xml:lang="fr">Recherche d'une ressource d'abonnement</value>
-        <value xml:lang="it">Ricerca Risorse Abbonamenti</value>
+        <value xml:lang="it">Ricerca risorsa abbonamenti</value>
         <value xml:lang="ro">Cauta Resurse Abonamente</value>
         <value xml:lang="ru">Найти ресурс подписки</value>
         <value xml:lang="th">ค้นหาแหล่งข้อมูลการสั่งซื้อ</value>
@@ -12924,7 +12924,7 @@
         <value xml:lang="en">Find Subscriptions for Resource</value>
         <value xml:lang="es">Buscar suscripciones para recurso</value>
         <value xml:lang="fr">Rechercher les abonnements pour la ressource</value>
-        <value xml:lang="it">Ricerca Abbonamenti per Risorsa</value>
+        <value xml:lang="it">Ricerca risorsa abbonamento</value>
         <value xml:lang="ro">Cauta Abonamente pe Resurse </value>
         <value xml:lang="ru">Найти подписки для ресурса</value>
         <value xml:lang="th">ค้นหาการสั่งซื้อสำหรับแหล่งข้อมูล</value>
@@ -15904,7 +15904,7 @@
         <value xml:lang="en">New Subscription</value>
         <value xml:lang="es">Nueva suscripción</value>
         <value xml:lang="fr">Nouvel abonnement</value>
-        <value xml:lang="it">Nuovo Abbonamento</value>
+        <value xml:lang="it">Nuovo abbonamento</value>
         <value xml:lang="ro">Nou Abonament</value>
         <value xml:lang="ru">Новая подписка</value>
         <value xml:lang="th">การสั่งซื้อใหม่</value>
@@ -15916,7 +15916,7 @@
         <value xml:lang="en">New Subscription Resource</value>
         <value xml:lang="es">Nueva fuente de suscripción</value>
         <value xml:lang="fr">Nouvelle ressource d'abonnement</value>
-        <value xml:lang="it">Nuova risorsa di abbonamento</value>
+        <value xml:lang="it">Nuova risorsa abbonamento</value>
         <value xml:lang="ro">Noua Resursa Abonament</value>
         <value xml:lang="ru">Новый подписной ресурс</value>
         <value xml:lang="th">แหล่งข้อมูลการสั่งซื้อใหม่</value>
@@ -22362,7 +22362,7 @@
         <value xml:lang="en">Subscription Attributes</value>
         <value xml:lang="es">Atributos de suscripción</value>
         <value xml:lang="fr">Attributs d'abonnement</value>
-        <value xml:lang="it">Attributi Abbonamento</value>
+        <value xml:lang="it">Attributi abbonamento</value>
         <value xml:lang="ru">Атрибуты подписки</value>
         <value xml:lang="th">ลักษณะการสั่งซื้อ</value>
         <value xml:lang="zh">订阅属性</value>
@@ -22373,7 +22373,7 @@
         <value xml:lang="en">k Communication Event</value>
         <value xml:lang="es">Evento de comunicación de suscripción</value>
         <value xml:lang="fr">Evènement de communication d'abonnement</value>
-        <value xml:lang="it">Evento Comunicazioni Abbonamento</value>
+        <value xml:lang="it">Evento comunicazioni abbonamento</value>
         <value xml:lang="ru">Коммуникацион. событие подписки</value>
         <value xml:lang="th">ผลการติดต่อการสั่งซื้อ</value>
         <value xml:lang="zh">订阅沟通事件</value>
@@ -22403,12 +22403,16 @@
         <value xml:lang="en">Subscription Resources</value>
         <value xml:lang="es">Recursos de suscripción</value>
         <value xml:lang="fr">Ressources d'abonnement</value>
-        <value xml:lang="it">Risorse Abbonamento</value>
+        <value xml:lang="it">Risorse abbonamento</value>
         <value xml:lang="ro">Resursa Abonament</value>
         <value xml:lang="ru">Ресурсы подписки</value>
         <value xml:lang="th">แหล่งข้อมูลการสั่งซื้อ</value>
         <value xml:lang="zh">订阅资源</value>
         <value xml:lang="zh_TW">訂閱資源</value>
+    </property>
+    <property key="ProductSubscriptionType">
+        <value xml:lang="en">Subscription Type</value>
+        <value xml:lang="it">Tipo abbonamento</value>
     </property>
     <property key="ProductSubscriptionViewPermissionError">
         <value xml:lang="en">Subscription View Permission Error</value>
