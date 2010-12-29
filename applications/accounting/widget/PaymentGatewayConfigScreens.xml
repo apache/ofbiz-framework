@@ -95,6 +95,9 @@ under the License.
                 <entity-one entity-name="PaymentGatewayCyberSource" value-field="paymentGatewayCyberSource">
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
+                <entity-one entity-name="PaymentGatewayEway" value-field="paymentGatewayEway">
+                    <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
+                </entity-one>
                 <entity-one entity-name="PaymentGatewayPayflowPro" value-field="paymentGatewayPayflowPro">
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
@@ -205,6 +208,16 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigSecurePay}">
                                     <include-form name="EditPaymentGatewayConfigSecurePay" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not><if-empty field="paymentGatewayEway"/></not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigClearCommerce}">
+                                    <include-form name="EditPaymentGatewayConfigEway" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>

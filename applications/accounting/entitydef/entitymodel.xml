@@ -3271,6 +3271,20 @@ under the License.
         <key-map field-name="paymentGatewayConfigId"/>
       </relation>
     </entity>
+    <entity entity-name="PaymentGatewayEway"
+            package-name="org.ofbiz.accounting.payment"
+            title="eWay Payment Gateway Configuration">
+      <field name="paymentGatewayConfigId" type="id-ne"></field>                                        
+      <field name="customerId" type="value"/>
+      <field name="refundPwd" type="value" encrypt="true"/>
+      <field name="testMode" type="short-varchar"/>
+      <field name="enableCvn" type="short-varchar"/>
+      <field name="enableBeagle" type="short-varchar"/>
+      <prim-key field="paymentGatewayConfigId"/>
+      <relation type="one" fk-name="PGEW_PGC" rel-entity-name="PaymentGatewayConfig">
+        <key-map field-name="paymentGatewayConfigId"/>
+      </relation>
+    </entity>
     <entity entity-name="PaymentGatewayCyberSource"
             package-name="org.ofbiz.accounting.payment"
             title="CyberSource Payment Gateway Configuration">

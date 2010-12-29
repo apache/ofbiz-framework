@@ -821,6 +821,10 @@ under the License.
     <CustomMethod customMethodId="PAYPAL_RELEASE_PFP" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payflowPayPalVoid" description="Payflow PayPal Order release"/>
     <CustomMethod customMethodId="PAYPAL_RELEASE" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payPalVoid" description="PayPal Order Release"/>
     
+    <CustomMethod customMethodId="CC_CHARGE_EWAY" customMethodTypeId="CC_AUTH" customMethodName="ewayCharge" description="eWay CC Charge"/>
+    <CustomMethod customMethodId="CC_REFUND_EWAY" customMethodTypeId="CC_REFUND" customMethodName="ewayRefund" description="eWay CC Refund"/>
+    <CustomMethod customMethodId="CC_RELEASE_EWAY" customMethodTypeId="CC_RELEASE" customMethodName="ewayRelease" description="eWay CC Release"/>
+    
     <CustomMethod customMethodId="SECURE_AUTH_OFBIZ" customMethodTypeId="CC_AUTH" customMethodName="ofbScAuthorize" description="SecurePay payment authorize"/>
     <CustomMethod customMethodId="SECURE_CAPTURE_OFBIZ" customMethodTypeId="CC_CAPTURE" customMethodName="ofbScCapture" description="SecurePay payment capture"/>
     <CustomMethod customMethodId="SECURE_REFUND_OFBIZ" customMethodTypeId="CC_REFUND" customMethodName="ofbScRefund" description="SecurePay payment refund"/>
