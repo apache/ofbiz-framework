@@ -48,8 +48,7 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
         type: 'POST',
         success: function(result){
             list = result[responseName];
-            // Create and show dependent select options
-            // Create and show dependent select options
+            // Create and show dependent select options            
             if (list) {
                 jQuery.each(list, function(key, value){
                     if (typeof value == 'string') {
@@ -69,7 +68,7 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
                 })
             };
             // Hide/show the dependent drop-down if hide=true else simply disable/enable
-            if ((!list) || (list.length < 1) || ((list.length == 1) && list[0].indexOf("_NA_") >= 0)) {
+            if ((!list) || (list.length < 1) || ((list.length == 1) && jQuery.inArray("_NA_", list) != -1)) {
                 jQuery(target).attr('disabled', 'disabled');
                 if (hide) {
                     if (jQuery(target).is(':visible')) {
