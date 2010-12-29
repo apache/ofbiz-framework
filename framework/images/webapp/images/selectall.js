@@ -416,9 +416,11 @@ function ajaxAutoCompleter(areaCsvString, showDescription, formName) {
                 })
             },
             select: function(event, ui) {
-               jQuery("#" + areaArray[0]).html(ui.item)
-               if (showDescription) {
-                  setLookDescription(areaArray[0] ,ui.item.label, areaArray[2], formName)
+            	//jQuery("#" + areaArray[0]).html(ui.item);
+            	jQuery("#" + areaArray[0]).val(ui.item.value); // setting a text field   
+            	jQuery("#" + areaArray[0]).trigger("lookup:changed"); // notify the field has changed
+            	if (showDescription) {
+            		setLookDescription(areaArray[0] ,ui.item.label, areaArray[2], formName)
                 }
             }
         });
@@ -444,6 +446,7 @@ function setLookDescription(textFieldId, description, params, formName) {
             var dependentFieldValue = description.substring(0, description.lastIndexOf(' '))
             if (dependentField.length) {            
                 dependentField.val(dependentFieldValue);
+                dependentField.trigger("change"); // let the 'hidden' field know its been changed
             }
         }
       var lookupWrapperEl = jQuery("#" + textFieldId).closest('.field-lookup');
@@ -454,7 +457,7 @@ function setLookDescription(textFieldId, description, params, formName) {
           }
           tooltipElement.html(description);
           lookupWrapperEl.append(tooltipElement);
-      }
+      }      
     }
 }
 
@@ -491,7 +494,7 @@ function ajaxAutoCompleteDropDown() {
                         }) );
                     },
                     select: function( event, ui ) {
-                        ui.item.option.selected = true;
+                        ui.item.option.selected = true;                        
                         //select.val( ui.item.option.value );
                         self._trigger( "selected", event, {
                             item: ui.item.option
