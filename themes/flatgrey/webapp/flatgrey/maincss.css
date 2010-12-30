@@ -1541,6 +1541,14 @@ padding: 0.1em;
 vertical-align: middle;
 }
 
+.basic-table tr .align-bottom {
+vertical-align: bottom;
+}
+
+.basic-table tr .align-top {
+vertical-align: top;
+}
+
 .basic-table tr .label,
 .basic-table tr .group-label {
 /* field labels for forms */
@@ -1610,14 +1618,18 @@ collection of buttons used in lists */
 vertical-align: top;
 }
 
-.basic-table tr .button-col a {
+.basic-table tr .button-col a,
+.basic-table tr .button-col input[type="submit"] {
 background-color: #ffffff;
 border: #999999 solid 0.1em;
 color: #000099;
 float: left;
 margin: 0 0.1em 0 0.1em;
-padding: 0.1em 0.4em 0.1em 0.4em;
 white-space: nowrap;
+}
+
+.basic-table tr .button-col a {
+padding: 0.2em 0.4em 0.2em 0.4em;
 }
 
 .basic-table tr .smallSubmit,
