@@ -31,7 +31,7 @@
         <value xml:lang="en">already exists with primary key: "${primaryKey}; please change</value>
         <value xml:lang="es">Ya existe esta llave primaria: "${primaryKey}; cambiarla.</value>
         <value xml:lang="fr">Existe déjà avec la clé primaire "${primaryKey}"</value>
-        <value xml:lang="it">già esistente con chiave primaria: "${primaryKey}; perfavore cambiarla</value>
+        <value xml:lang="it">già esistente con chiave primaria: "${primaryKey}; per favore cambiarla</value>
         <value xml:lang="ro">deja exista cu cheia primara: "${primaryKey}; Va rugam schimbati-o</value>
         <value xml:lang="th">ยังคงมีอยู่แล้วด้วยคีย์หลัก: "${primaryKey}; กรุณาเปลี่ยน</value>
         <value xml:lang="zh">主键已存在："${primaryKey}；请换一个</value>
@@ -70,7 +70,7 @@
         <value xml:lang="en">The delegator object was not found in the request, please check the control servlet init</value>
         <value xml:lang="es">Objeto deletar no fue encontrado en el request, favor revisar el init del servlet</value>
         <value xml:lang="fr">Impossible de trouver l'objet delegator dans la requête, SVP vérifiez l'initialisation du control servlet</value>
-        <value xml:lang="it">L'oggetto delegator non è stato trovato nella request, perfavore controlla la control servlet init</value>
+        <value xml:lang="it">L'oggetto delegator non è stato trovato nella request, per favore controlla la control servlet init</value>
         <value xml:lang="ro">Obiectul delegator nu a fost gasit in cerere, va rugam controlati controlul servlet init.</value>
         <value xml:lang="th">The delegator object was not found in the request, please check the control servlet init</value>
         <value xml:lang="zh">访问请求中没有代表对象，请检查控制servlet的初始化</value>
@@ -157,7 +157,7 @@
         <value xml:lang="en">The security object was not found in the request, please check the control servlet init</value>
         <value xml:lang="es">El token de seguridad no fue encontrado, revisar el inicio del servlet</value>
         <value xml:lang="fr">Impossible de trouver l'objet security dans la requête, SVP vérifiez l'initialisation du control servlet</value>
-        <value xml:lang="it">L'oggetto sicurezza non è stato trovato nella request, perfavore controlla la control servlet init</value>
+        <value xml:lang="it">L'oggetto sicurezza non è stato trovato nella request, per favore controlla la control servlet init</value>
         <value xml:lang="ro">Obiectul siguranta nu a fost gasit  in cerere, va rugam controlati controlul servlet init.</value>
         <value xml:lang="th">ไม่พบเป้าหมายความปลอดภัยในการร้องขอ, กรุณาเริ่มตรวจสอบการควบคุมเซิร์ฟเลท</value>
         <value xml:lang="zh">访问请求中没有安全对象，请检查控制servlet的初始化</value>

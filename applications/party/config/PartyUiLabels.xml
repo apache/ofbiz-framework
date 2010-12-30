@@ -5591,7 +5591,7 @@
     </property>
     <property key="PartyFirstNameRequested">
         <value xml:lang="en">Please enter a firstName</value>
-        <value xml:lang="it">Perfavore inserire il nome</value>
+        <value xml:lang="it">Per favore inserire il nome</value>
     </property>
     <property key="PartyFollowSession">
         <value xml:lang="de">Session verfolgen</value>
@@ -6306,7 +6306,7 @@
     </property>
     <property key="PartyLastNameRequested">
         <value xml:lang="en">Please enter a lastName</value>
-        <value xml:lang="it">Perfavore inserire il cognome</value>
+        <value xml:lang="it">Per favore inserire il cognome</value>
     </property>
     <property key="PartyLeaveEmpty">
         <value xml:lang="en">Leave empty for new 'Party'</value>
@@ -10781,7 +10781,7 @@
     <property key="PartyUserNameInUse">
         <value xml:lang="en">Username in use, please choose another.</value>
         <value xml:lang="fr">Identifiant de connexion déjà utilisé, choisissez en un autre SVP.</value>
-        <value xml:lang="it">Nome utente è già in uso, perfavore scegliere un'altro.</value>
+        <value xml:lang="it">Il nome utente è già in uso, per favore sceglierne un altro.</value>
         <value xml:lang="nl">Deze gebruikersnaam bestaat al. Kiest u alstublieft een andere.</value>        
         <value xml:lang="zh_TW">使用者名稱已使用, 請另行選擇.</value>
     </property>
