@@ -499,7 +499,7 @@
     </property>
     <property key="MarketingContactListOptInVerifyCodeNotCorrect">
         <value xml:lang="en">The Opt-in Verify Code specified [${parameters.optInVerifyCode}] was not correct. Please check the code you were sent.</value>
-        <value xml:lang="it">Il codice di verifia Opt-in specificato [${parameters.optInVerifyCode}] non era corretto. Perfavore verificare il codice che ti è stato inviato.</value>
+        <value xml:lang="it">Il codice di verifia Opt-in specificato [${parameters.optInVerifyCode}] non era corretto. Per favore verificare il codice che ti è stato inviato.</value>
     </property>
     <property key="MarketingContactListOwnerPartyId">
         <value xml:lang="de">Ersteller ID</value>

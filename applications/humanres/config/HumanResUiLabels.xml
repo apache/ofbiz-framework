@@ -2008,7 +2008,7 @@
     </property>
     <property key="HumanResPartySkillsAlreadyExists">
         <value xml:lang="en">Record with the selected combination already exists.Please try with Other combination.</value>
-        <value xml:lang="it">Record con la combinazionazione selezionata esiste già.Perfavore provare con altre combinazioni.</value>
+        <value xml:lang="it">Un record con la combinazione selezionata esiste già.Per favore provare con altre combinazioni.</value>
     </property>
     <property key="HumanResPayGrade">
         <value xml:lang="de">Lohnstufen</value>

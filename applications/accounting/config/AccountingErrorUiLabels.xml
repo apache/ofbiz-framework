@@ -42,7 +42,7 @@
     <property key="AccountingPayPalCommunicationError">
         <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
         <value xml:lang="hi_IN">Paypal से संचार में समस्या, कृपया पुन: प्रयास करें या एक अलग Checkout पद्धति का चयन करें</value>
-        <value xml:lang="it">E' accaduto un problema durante la comunicazione con PayPal, perfavore provare dinuovo o selezionare un differente metodo di checkout</value>
+        <value xml:lang="it">Si è verificato un problema durante la comunicazione con PayPal, per favore provare di nuovo o selezionare un altro metodo di checkout</value>
     </property>
     <property key="AccountingPayPalShoppingCartIsEmpty">
         <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
