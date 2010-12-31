@@ -196,14 +196,6 @@ under the License.
     <request-map uri="LookupGeoName"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeoName"/></request-map>
     
     <!--========================== AJAX events =====================-->
-    <!-- Get products related to a product category -->
-    <request-map uri="getAssociatedProductsList">
-        <security https="true" auth="false"/>
-        <event type="service" invoke="getAssociatedProductsList"/>
-        <response name="success" type="request" value="json"/>
-        <response name="error" type="request" value="json"/>
-    </request-map>
-
     <!-- Get states related to a country -->
     <request-map uri="getAssociatedStateList">
         <security https="true" auth="false"/>
