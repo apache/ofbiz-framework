@@ -30,6 +30,17 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
 
+    <service name="commonGetAllCrudPermissions" engine="simple"
+        location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="getAllCrudPermissions">
+        <description>Returns all CRUD and View Permissions</description>
+        <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
+        <attribute name="altPermission" type="String" mode="IN" optional="true"/>
+        <attribute name="hasCreatePermission" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="hasUpdatePermission" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="hasDeletePermission" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="hasViewPermission" type="Boolean" mode="OUT" optional="false"/>
+    </service>
+
     <service name="echoService" engine="java" validate="false"
             location="org.ofbiz.common.CommonServices" invoke="echoService">
         <description>Echos back all passed parameters</description>
