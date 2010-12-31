@@ -319,6 +319,22 @@
         <value xml:lang="en">Shipment Custom Method</value>
         <value xml:lang="it">Metodo personalizzato spedizione</value>
     </property>
+    <property key="FacilityShipmentDefaultDimensionUomIdNotFound">
+        <value xml:lang="en">Default dimensioneUomId not found</value>
+        <value xml:lang="it">Unità di misura dimensione di default non trovata</value>
+    </property>
+    <property key="FacilityShipmentDefaultDimensionUomIdNotValid">
+        <value xml:lang="en">DimensionUomId must be LEN_in or LEN_cm.</value>
+        <value xml:lang="it">Unità di misura dimensione deve essere LEN_in o LEN_cm.</value>
+    </property>
+    <property key="FacilityShipmentDefaultWeightUomIdNotFound">
+        <value xml:lang="en">Default weightUomId not found</value>
+        <value xml:lang="it">Unità di misura del peso di default non trovato</value>
+    </property>
+    <property key="FacilityShipmentDefaultWeightUomIdNotValid">
+        <value xml:lang="en">WeightUomId must be WT_lb or WT_kg.</value>
+        <value xml:lang="it">Unità di misura del peso deve essere WT_lb o WT_kg.</value>
+    </property>
     <property key="FacilityShipmentDhlAccessAccountNbr">
         <value xml:lang="en">Your DHL ShipIT Account Number</value>
         <value xml:lang="it">Il tuo numero conto DHL ShipIT</value>
@@ -383,6 +399,26 @@
         <value xml:lang="en">Access User Password</value>
         <value xml:lang="it">Password utente di accesso</value>
     </property>
+    <property key="FacilityShipmentFedexAccountNumberNotFound">
+        <value xml:lang="en">accountNbr not found for this request.</value>
+        <value xml:lang="it">accountNbr non trovato nella richiesta.</value>
+    </property>
+    <property key="FacilityShipmentFedexCompanyPartyDoesNotExists">
+        <value xml:lang="en">Party with partyId ${companyPartyId} does not exist</value>
+        <value xml:lang="it">Il soggetto con Id ${companyPartyId} non esiste</value>
+    </property>
+    <property key="FacilityShipmentFedexCompanyPartyHasNoName">
+        <value xml:lang="en">Party with partyId ${companyPartyId} has no name</value>
+        <value xml:lang="it">Il soggetto con Id ${companyPartyId} non ha un nome</value>
+    </property>
+    <property key="FacilityShipmentFedexCompanyPartyHasNotPostalAddress">
+        <value xml:lang="en">Party with partyId ${companyPartyId} does not have a current, fully populated postal address</value>
+        <value xml:lang="it">Il soggetto con Id ${companyPartyId} non ha attualmente, un'indirizzo postale popolato</value>
+    </property>
+    <property key="FacilityShipmentFedexCompanyPartyHasNotPrimaryPhoneNumber">
+        <value xml:lang="en">Party with partyId ${companyPartyId} does not have a current, fully populated primary phone number</value>
+        <value xml:lang="it">Il soggetto con Id ${companyPartyId} non ha attualmente, un numero di telefono primario completamente popolato</value>
+    </property>
     <property key="FacilityShipmentFedexConnectSoapUrl">
         <value xml:lang="en">Conntect Soap URL</value>
         <value xml:lang="it">URL Soap Connessione a FedEx</value>
@@ -394,6 +430,18 @@
     <property key="FacilityShipmentFedexConnectUrl">
         <value xml:lang="en">Conntect URL</value>
         <value xml:lang="it">URL Connessione a FedEx</value>
+    </property>
+    <property key="FacilityShipmentFedexConnectUrlIncomplete">
+        <value xml:lang="en">Incomplete connection URL; check your Fedex configuration</value>
+        <value xml:lang="it">URL connessione incompleto; verifica la tua configurazione Fedex</value>
+    </property>
+    <property key="FacilityShipmentFedexConnectUrlProblem">
+        <value xml:lang="en">URL Connection problem ${errorString}</value>
+        <value xml:lang="it">Problema di connessione URL ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentFedexContactNameCannotBeEmpty">
+        <value xml:lang="en">Contact name can't be empty.</value>
+        <value xml:lang="it">Nome contatto non può essere vuoto.</value>
     </property>
     <property key="FacilityShipmentFedexDropoffType">
         <value xml:lang="en">Dropoff Type</value>
@@ -407,6 +455,10 @@
         <value xml:lang="en">Drop-Box</value>
         <value xml:lang="it">Drop-Box</value>
     </property>
+    <property key="FacilityShipmentFedexDropoffTypeNotFound">
+        <value xml:lang="en">Default dropoff type not found</value>
+        <value xml:lang="it">Default dropoff type non trovato</value>
+    </property>
     <property key="FacilityShipmentFedexDropoffTypeRegularPickup">
         <value xml:lang="en">Regular Pickup</value>
         <value xml:lang="it">Prelievo normale</value>
@@ -419,9 +471,37 @@
         <value xml:lang="en">Station</value>
         <value xml:lang="it">Stazione</value>
     </property>
+    <property key="FacilityShipmentFedexErrorMessage">
+        <value xml:lang="en">An error occurred [code:${errorCode}] Description: ${errorMessage}</value>
+        <value xml:lang="it">Un errore è successo [codice:${errorCode}] Descrizione: ${errorMessage}</value>
+    </property>
+    <property key="FacilityShipmentFedexGatewayNotAvailable">
+        <value xml:lang="en">Fedex Shipment Gateway Configuration is not available</value>
+        <value xml:lang="it">Configurazione gateway spedizioni Fedex non è disponibile</value>
+    </property>
+    <property key="FacilityShipmentFedexHomeDeliveryDateBeforeCurrentDate">
+        <value xml:lang="en">Home Delivery Date is before the current time for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Home Delivery Date è antecedente la data odierna per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentFedexHomeDeliveryDateRequired">
+        <value xml:lang="en">Home Delivery Date required for home delivery Type shipments - ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Home Delivery Date richiesta per le spedizioni home delivery Type - per la spedizione ${shipmentId} e il percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentFedexHomeDeliveryTypeInvalid">
+        <value xml:lang="en">Invalid homeDeliveryType for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Home Delivery Type non valido per la spedizione ${shipmentId} e il percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
     <property key="FacilityShipmentFedexLabelImageType">
         <value xml:lang="en">Label Image Type</value>
         <value xml:lang="it">Tipo immagine etichetta</value>
+    </property>
+    <property key="FacilityShipmentFedexLabelImageTypeNotFound">
+        <value xml:lang="en">Label Image Type not found</value>
+        <value xml:lang="it">Tipo immagine etichetta non trovata</value>
+    </property>
+    <property key="FacilityShipmentFedexLabelImageTypeNotValid">
+        <value xml:lang="en">Label Image Type must be PDF or PNG</value>
+        <value xml:lang="it">Tipo immagine etichetta deve essere PDF o PNG</value>
     </property>
     <property key="FacilityShipmentFedexLabelImageTypePdf">
         <value xml:lang="en">PDF</value>
@@ -430,6 +510,34 @@
     <property key="FacilityShipmentFedexLabelImageTypePng">
         <value xml:lang="en">PNG</value>
         <value xml:lang="it">PNG</value>
+    </property>
+    <property key="FacilityShipmentFedexMeterNumberAlreadyExists">
+        <value xml:lang="en">MeterNumber already exists: ${meterNumber}</value>
+        <value xml:lang="it">Meter Number esiste già: ${meterNumber}</value>
+    </property>
+    <property key="FacilityShipmentFedexMeterNumberNotFound">
+        <value xml:lang="en">Meter number not found: ${meterNumber}</value>
+        <value xml:lang="it">Meter number non trovato: ${meterNumber}</value>
+    </property>
+    <property key="FacilityShipmentFedexMultiplePackagesNotSupported">
+        <value xml:lang="en">Cannot confirm shipment: fedexShipRequest service does not currently support more than one package per shipment.</value>
+        <value xml:lang="it">Non è possibile confermare la spedizione: il servizio fedexShipRequest non supporta più pacchi in una spedizione.</value>
+    </property>
+    <property key="FacilityShipmentFedexNoCarrieServiceCode">
+        <value xml:lang="en">No Carrier service code for carrier Fedex shipmentMethodTypeId ${shipmentMethodTypeId}</value>
+        <value xml:lang="it">No Carrier service code for carrier Fedex shipmentMethodTypeId ${shipmentMethodTypeId}</value>
+    </property>
+    <property key="FacilityShipmentFedexNotRouteSegmentCarrier">
+        <value xml:lang="en">ERROR: The Carrier for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is not Fedex.</value>
+        <value xml:lang="it">ERRORE: il corriere sul percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, non è Fedex.</value>
+    </property>
+    <property key="FacilityShipmentFedexOriginFacilityRequired">
+        <value xml:lang="en">Shipment.originFacilityId is required for Fedex shipments: shipmentId ${shipmentId}, shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Stabilimento d'origini sulla spedizione è richiesto per le spedizioni con Fedex: spedizione ${shipmentId}, percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentFedexOwnerPartyRequired">
+        <value xml:lang="en">Facility.ownerPartyId is required for Fedex shipments: shipmentId ${shipmentId}, shipmentRouteSegmentId ${shipmentRouteSegmentId}, facilityId ${facilityId}</value>
+        <value xml:lang="it">Propertario stabilimento è richiestp per le spedizioni con Fedex: spedizione ${shipmentId}, percorso spedizione ${shipmentRouteSegmentId}, stabilimento ${facilityId}</value>
     </property>
     <property key="FacilityShipmentFedexPackingBox10Kg">
         <value xml:lang="en">10KG Box</value>
@@ -471,6 +579,18 @@
         <value xml:lang="en">Tube</value>
         <value xml:lang="it">Tubo</value>
     </property>
+    <property key="FacilityShipmentFedexPackingTypeInvalid">
+        <value xml:lang="en">Cannot confirm shipment: Package ${shipmentPackageSeqId} of shipment ${shipmentId} has an invalid packaging type for Fedex.</value>
+        <value xml:lang="it">Non è possibile confermare la spedizione: Pacco ${shipmentPackageSeqId} della spedizione ${shipmentId} ha un tipo pacco non valido per Fedex.</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingTypeMissing">
+        <value xml:lang="en">Cannot confirm shipment: Package type for package ${shipmentPackageSeqId} of shipment ${shipmentId} is missing packagingTypeCode.</value>
+        <value xml:lang="it">Non è possibile confermare la spedizione: Tipo pacco per il pacco ${shipmentPackageSeqId} della spedizione ${shipmentId} ha il codice tipo pacco mancante.</value>
+    </property>
+    <property key="FacilityShipmentFedexPackingTypeNotConfigured">
+        <value xml:lang="en">Cannot confirm shipment: Package ${shipmentPackageSeqId} of shipment ${shipmentId} has no packaging type set, and packagingType is not configured</value>
+        <value xml:lang="it">Non è possibile confermare la spedizione: Pacco ${shipmentPackageSeqId} della spedizione ${shipmentId} non il tipo di impacchettamento impostato, e il packagingType non è configurato</value>
+    </property>
     <property key="FacilityShipmentFedexPackingType">
         <value xml:lang="en">Packing Type</value>
         <value xml:lang="it">Tipo pacco</value>
@@ -479,17 +599,101 @@
         <value xml:lang="en">Your Packaging</value>
         <value xml:lang="it">Pacco personalizzato</value>
     </property>
+    <property key="FacilityShipmentFedexPartyFromHasNoName">
+        <value xml:lang="en">PartyIdFrom for shipmentId ${shipmentId}, shipmentRouteSegmentId ${shipmentRouteSegmentId} has no name (required for Fedex shipments)</value>
+        <value xml:lang="it">Soggetto origine per la spedizione ${shipmentId}, percorso spedizione ${shipmentRouteSegmentId} non ha un nome (richiesto per le spedizioni con Fedex)</value>
+    </property>
+    <property key="FacilityShipmentFedexPartyToHasNoName">
+        <value xml:lang="en">partyTo for shipmentId ${shipmentId}, shipmentRouteSegmentId ${shipmentRouteSegmentId} has no name (required for Fedex shipments)</value>
+        <value xml:lang="it">Soggetto destinazione per la spedizione ${shipmentId}, percorso spedizione ${shipmentRouteSegmentId} non ha un nome (richiesto per le spedizioni con Fedex)</value>
+    </property>
+    <property key="FacilityShipmentFedexPartyToRequired">
+        <value xml:lang="en">Shipment.partyIdTo is required for Fedex shipments: shipmentId ${shipmentId}, shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Soggetto destinazione è richiesto per le spedizioni Fedex: spedizione ${shipmentId}, percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
     <property key="FacilityShipmentFedexRateEstimateTemplateLocation">
         <value xml:lang="en">Rate Estimate Template Location</value>
         <value xml:lang="it">Posizione template stima spedizione</value>
+    </property>
+    <property key="FacilityShipmentFedexReceivedNullResponse">
+        <value xml:lang="en">Received a null response from Fedex</value>
+        <value xml:lang="it">Ricevuta una risposta vuota da Fedex</value>
+    </property>
+    <property key="FacilityShipmentFedexRouteSegmentStatusNotStarted">
+        <value xml:lang="en">ERROR: The Carrier Service Status for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is ${shipmentRouteSegmentStatus}, but must be not-set or [SHRSCS_NOT_STARTED] to perform the Fedex Shipment Confirm operation.</value>
+        <value xml:lang="it">ERRORE: lo stato corriere per percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, è ${shipmentRouteSegmentStatus}, ma deve non essere impostato o [SHRSCS_NOT_STARTED] per eseguire l'operazione di Conferma Spedizione Fedex.</value>
+    </property>
+    <property key="FacilityShipmentFedexRouteSegmentCarrierShipmentMethodNotFound">
+        <value xml:lang="en">CarrierShipmentMethod not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}; partyId is ${carrierPartyId} and shipmentMethodTypeId is ${shipmentMethodTypeId};</value>
+        <value xml:lang="it">Metodo di spedizione corriere non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}; il soggetto è ${carrierPartyId} e il metodo di spedizione è ${shipmentMethodTypeId};</value>
+    </property>
+    <property key="FacilityShipmentFedexShipmentConfirmed">
+        <value xml:lang="en">FedEx Shipment Confirmed.</value>
+        <value xml:lang="it">Spedizione confermata da FedEx.</value>
+    </property>
+    <property key="FacilityShipmentFedexShipmentTemplateError">
+        <value xml:lang="en">Cannot confirm Fedex shipment: Failed to render Fedex XML Ship Request Template ${templateLocation}: ${errorString}</value>
+        <value xml:lang="it">Non è possibile confermare la spedizione a Fedex: Fallimento nella creazione del documento XML a Fedex dal Template ${templateLocation} di conferma spedizione: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentFedexShipmentTemplateLabelNotFound">
+        <value xml:lang="en">Cannot get FDXShipReply label for shipment package route segment ${shipmentPackageRouteSeg}. FedEx response is: ${fDXShipReplyString}</value>
+        <value xml:lang="it">Errore di parsing della risposta FDXShipReply</value>
     </property>
     <property key="FacilityShipmentFedexShipmentTemplateLocation">
         <value xml:lang="en">Shipment Template Location</value>
         <value xml:lang="it">Posizione template spedizione</value>
     </property>
+    <property key="FacilityShipmentFedexShipmentTemplateLocationNotFound">
+        <value xml:lang="en">Can't find location for FDXShipRequest template - should be in ${templateLocation}</value>
+        <value xml:lang="it">Non è possibile trovare il template per FDXShipRequest - dovrebbe essere in ${templateLocation}</value>
+    </property>
+    <property key="FacilityShipmentFedexShipmentTemplateParsingError">
+        <value xml:lang="en">Error parsing the FDXShipReply</value>
+        <value xml:lang="it">Errore di parsing della risposta FDXShipReply</value>
+    </property>
+    <property key="FacilityShipmentFedexShipmentTemplateSendingError">
+        <value xml:lang="en">Error sending Fedex request for FDXShipRequest: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio della richiesta FDXShipRequest a Fedex: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentFedexShipmentTemplateServiceError">
+        <value xml:lang="en">Error in fedexShipRequest service: ${errorString}</value>
+        <value xml:lang="it">Errore nel servizio fedexShipRequest: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentFedexSubscriptionTemplateError">
+        <value xml:lang="en">Cannot send Fedex subscription request: Failed to render Fedex XML Subscription Request Template ${templateLocation}: ${errorString}</value>
+        <value xml:lang="it">Cannot send Fedex subscription request: Failed to render Fedex XML Subscription Request Template ${templateLocation}: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentFedexSubscriptionTemplateParsingError">
+        <value xml:lang="en">Error parsing the FDXSubscriptionRequest response: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing della risposta FDXSubscriptionRequest: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentFedexSubscriptionTemplateSendingError">
+        <value xml:lang="en">Error sending Fedex request for FDXSubscriptionRequest: ${errorString}</value>
+        <value xml:lang="it">Errore di invio della richiesta a Fedex per FDXSubscriptionRequest: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentFedexSubscriptionTemplateLocationNotFound">
+        <value xml:lang="en">Can't find location for FDXSubscriptionRequest template - should be in ${templateLocation}</value>
+        <value xml:lang="it">Non è possibile trovare il template per FDXSubscriptionRequest - dovrebbe essere in ${templateLocation}</value>
+    </property>
     <property key="FacilityShipmentFedexSubscriptionTemplateLocation">
         <value xml:lang="en">Subscription Template Location</value>
-        <value xml:lang="it">Posizione template abbonamento</value>
+        <value xml:lang="it">Posizione template sottoscrizione</value>
+    </property>
+    <property key="FacilityShipmentFedexSubscriptionTemplateLocationNotFound">
+        <value xml:lang="en">Can't find location for FDXSubscriptionRequest template - should be in ${templateLocation}</value>
+        <value xml:lang="it">Non è possibile trovare il template per FDXSubscriptionRequest template - dovrebbe essere in ${templateLocation}</value>
+    </property>
+    <property key="FacilityShipmentFedexWeightOfPackageNotAvailable">
+        <value xml:lang="en">Unable to determine weight for package ${shipmentPackageSeqId} of shipmentRouteSegment ${shipmentRouteSegmentId} of shipment ${shipmentId}</value>
+        <value xml:lang="it">Non è possibile determinare il peso del pacco ${shipmentPackageSeqId} del percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}</value>
+    </property>
+    <property key="FacilityShipmentFedexWeightOfPackageCannotBeConverted">
+        <value xml:lang="en">Unable to convert weight for package ${shipmentPackageSeqId} of shipmentRouteSegment ${shipmentRouteSegmentId} of shipment ${shipmentId}</value>
+        <value xml:lang="it">Non è possibile convertire il peso del pacco ${shipmentPackageSeqId} del percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}</value>
+    </property>
+    <property key="FacilityShipmentFedexXmlHeaderMalformed">
+        <value xml:lang="en">XML header is malformed</value>
+        <value xml:lang="it">Intestazione XML è malformata</value>
     </property>
     <property key="FacilityShipmentGatewayConfig">
         <value xml:lang="en">Shipment Gateway Config</value>
@@ -538,6 +742,50 @@
     <property key="FacilityShipmentNoItemsAvailableToShip">
         <value xml:lang="en">No items available to ship at this time for ship group ID {0}</value>
         <value xml:lang="it">Nessuna riga disponibile da spedire in questo momento per il gruppo spedizione {0}</value>
+    </property>
+    <property key="FacilityShipmentPackageRouteSegsNotFound">
+        <value xml:lang="en">No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentOriginPostalAddressNotFound">
+        <value xml:lang="en">OriginPostalAddress not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Indirizzo d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentOriginPostalAddressNotComplete">
+        <value xml:lang="en">OriginPostalAddress not complete for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Indirizzo d'origine non completo per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentOriginStateProvinceGeoIdRequired">
+        <value xml:lang="en">OriginStateProvinceGeoId required in contactMechId ${contactMechId} for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">OriginStateProvinceGeoId richiesto per il contatto ${contactMechId} per la spedizione ${shipmentId} e il perscorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentOriginCountryGeoNotFound">
+        <value xml:lang="en">OriginCountryGeo not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Paese d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentOriginTelecomNumberNotFound">
+        <value xml:lang="en">OriginTelecomNumber not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Numero telefono d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentDestCountryGeoNotFound">
+        <value xml:lang="en">DestCountryGeo not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Paese di destinazione non trovata per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentDestPostalAddressIncomplete">
+        <value xml:lang="en">DestPostalAddress incomplete for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Indirizzo di destinazione non completo per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentDestPostalAddressNotFound">
+        <value xml:lang="en">DestPostalAddress not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Indirizzo di destinazione non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentDestStateProvinceGeoIdNotFound">
+        <value xml:lang="en">DestinationStateProvinceGeoId required in contactMechId ${contactMechId} for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Stato o provincia di destinazione richiesta per il contatto ${contactMechId} per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
+    </property>
+    <property key="FacilityShipmentRouteSegmentDestTelecomNumberNotFound">
+        <value xml:lang="en">DestTelecomNumber not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Numero telefono di destinazione non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
     </property>
     <property key="FacilityShipmentServiceName">
         <value xml:lang="en">Shipment Service Name (deprecated use)</value>
@@ -843,10 +1091,6 @@
         <value xml:lang="en">A ShipmentAlternateRatesInquiryResponse was received: ${rateResponseString}</value>
         <value xml:lang="it">Una ShipmentAlternateRatesInquiryResponse è stata ricevuta: ${rateResponseString}</value>
     </property>
-    <property key="FacilityShipmentUpsRouteSegmentOriginPostalAddressNotFound">
-        <value xml:lang="en">OriginPostalAddress not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
-        <value xml:lang="it">Indirizzo d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
-    </property>
     <property key="FacilityShipmentUpsRouteSegmentStatusNotConfirmed">
         <value xml:lang="en">ERROR: The Carrier Service Status for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is ${shipmentRouteSegmentStatus}, but must be not-set or [SHRSCS_CONFIRMED] to perform the UPS Shipment Accept operation.</value>
         <value xml:lang="it">ERRORE: lo stato corriere per percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, è ${shipmentRouteSegmentStatus}, ma deve non essere impostato o [SHRSCS_CONFIRMED] per eseguire l'operazione di Accettazione Spedizione UPS.</value>
@@ -863,26 +1107,6 @@
         <value xml:lang="en">ERROR: The Carrier Service Status for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is ${shipmentRouteSegmentStatus}, but must be not-set or [SHRSCS_NOT_STARTED] to perform the UPS Shipment Confirm operation.</value>
         <value xml:lang="it">ERRORE: lo stato corriere per percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, è ${shipmentRouteSegmentStatus}, ma deve non essere impostato o [SHRSCS_NOT_STARTED] per eseguire l'operazione di Conferma Spedizione UPS.</value>
     </property>
-    <property key="FacilityShipmentUpsRouteSegmentOriginTelecomNumberNotFound">
-        <value xml:lang="en">OriginTelecomNumber not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
-        <value xml:lang="it">Numero telefono d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
-    </property>
-    <property key="FacilityShipmentUpsRouteSegmentOriginCountryGeoNotFound">
-        <value xml:lang="en">OriginCountryGeo not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
-        <value xml:lang="it">Paese d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
-    </property>
-    <property key="FacilityShipmentUpsRouteSegmentDestPostalAddressNotFound">
-        <value xml:lang="en">DestPostalAddress not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
-        <value xml:lang="it">Indirizzo di destinazione non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
-    </property>
-    <property key="FacilityShipmentUpsRouteSegmentDestTelecomNumberNotFound">
-        <value xml:lang="en">DestTelecomNumber not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
-        <value xml:lang="it">Numero telefono di destinazione non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
-    </property>
-    <property key="FacilityShipmentUpsRouteSegmentDestCountryGeoNotFound">
-        <value xml:lang="en">DestCountryGeo not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
-        <value xml:lang="it">Paese di destinazione non trovata per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
-    </property>
     <property key="FacilityShipmentUpsRouteSegmentCarrierShipmentMethodNotFound">
         <value xml:lang="en">CarrierShipmentMethod not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}; partyId is ${carrierPartyId} and shipmentMethodTypeId is ${shipmentMethodTypeId};</value>
         <value xml:lang="it">Metodo di spedizione corriere non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}; il soggetto è ${carrierPartyId} e il metodo di spedizione è ${shipmentMethodTypeId};</value>
@@ -894,10 +1118,6 @@
     <property key="FacilityShipmentUpsRouteSegmentThirdPartyPostalCodeNotFound">
         <value xml:lang="en">Third-party postal code not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
         <value xml:lang="it">CAP soggetto terzo non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
-    </property>
-    <property key="FacilityShipmentUpsPackageRouteSegsNotFound">
-        <value xml:lang="en">No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
-        <value xml:lang="it">No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
     </property>
     <property key="FacilityShipmentUpsSaveCertInfo">
         <value xml:lang="en">Save Cert Info</value>

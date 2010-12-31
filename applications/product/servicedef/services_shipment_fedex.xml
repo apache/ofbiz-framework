@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -28,6 +28,8 @@ under the License.
     <attribute name="contactPartyName" type="String" mode="IN" optional="false"/>
     <attribute name="companyPartyId" type="String" mode="IN" optional="false"/>
     <attribute name="replaceMeterNumber" type="Boolean" mode="IN" optional="false"/>
+    <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
+    <attribute name="configProps" type="String" mode="IN" optional="false"/>
     <attribute name="meterNumber" type="String" mode="OUT" optional="false"/>
   </service>
 
@@ -38,5 +40,4 @@ under the License.
     <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     <attribute name="shipmentRouteSegmentId" type="String" mode="IN" optional="false"/>
   </service>
-
 </services>
