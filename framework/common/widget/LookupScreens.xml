@@ -144,8 +144,9 @@ under the License.
                 <set field="title" value="${uiLabelMap.CommonVisualThemes}"/>
                 <set field="parameters.presentation" value="window"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
+                <set field="visualThemeSetId" from-field="webSite.visualThemeSetId" default-value="BACKOFFICE" />
                 <entity-condition entity-name="VisualTheme" list="visualThemes">
-                    <condition-expr field-name="visualThemeSetId" from-field="webSite.visualThemeSetId"/>
+                    <condition-expr field-name="visualThemeSetId" from-field="visualThemeSetId" />
                 </entity-condition>
             </actions>
             <widgets>
