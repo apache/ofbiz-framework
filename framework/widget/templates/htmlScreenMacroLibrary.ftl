@@ -64,49 +64,28 @@ under the License.
 
 <#macro renderLabel text id style>
   <#if text?has_content>
-    <#-- Label is considered block level element in screen widget. There is not reason to render text outside of any html element. Use of style element has set pattern and we'll use style 
-       to determine appropriate html element to use -->
+    <#-- If a label widget has one of the h1-h6 styles, then it is considered block level element.
+         Otherwise it is considered an inline element. -->
+    <#assign idText = ""/>
+    <#if id?has_content><#assign idText = " id=\"${id}\""/></#if>
     <#if style?has_content>
       <#if style=="h1">
-        <h1 
+        <h1${idText}>${text}</h1> 
       <#elseif style=="h2">
-        <h2 
+        <h2${idText}>${text}</h2>
       <#elseif style=="h3">
-        <h3 
+        <h3${idText}>${text}</h3>
       <#elseif style=="h4">
-        <h4 
+        <h4${idText}>${text}</h4>
       <#elseif style=="h5">
-        <h5 
+        <h5${idText}>${text}</h5>
       <#elseif style=="h6">
-        <h6 
+        <h6${idText}>${text}</h6>
       <#else>
-        <p class="${style}" 
+        <span${idText} class="${style}">${text}</span> 
       </#if>
     <#else>
-      <p 
-    </#if>
-    <#if id?has_content >
-        <#if id?has_content> id="${id}"</#if>
-    </#if>
-        >${text}
-    <#if style?has_content>
-      <#if style=="h1">
-        </h1> 
-      <#elseif style=="h2">
-        </h2> 
-      <#elseif style=="h3">
-        </h3> 
-      <#elseif style=="h4">
-        </h4> 
-      <#elseif style=="h5">
-        </h5> 
-      <#elseif style=="h6">
-        </h6> 
-      <#else>
-        </p> 
-      </#if>
-    <#else>
-      </p>
+      <span${idText}>${text}</span> 
     </#if>
   </#if>
 </#macro>
