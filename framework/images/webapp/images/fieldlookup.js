@@ -701,7 +701,6 @@ function set_multivalues(value) {
     if (field.change != null) {
         field.click().change()
     }
-     
 
     var thisForm = obj_caller.target.form;
     var evalString = "";
@@ -731,43 +730,38 @@ function closeLookup() {
 var lookupDescriptionLoaded = function(fieldId, url, params, formName) {
   this.init(fieldId, url, params, formName);
 }
-
-if (typeof jQuery != 'undefined') {
-  jQuery.extend(lookupDescriptionLoaded.prototype, {
+lookupDescriptionLoaded.prototype.init = function (fieldId, url, params, formName) {
+  this.fieldId = fieldId;
+  this.url = url;
+  this.params = params;
+  this.formName = formName;
+}
+lookupDescriptionLoaded.prototype.update = function (){
+  var tooltipElement = jQuery("#" + this.fieldId + '_lookupDescription');
+  if (tooltipElement.length) {//first remove current description
+    tooltipElement.remove();
+  }
+  //actual server call
+  var fieldName = this.params.substring(this.params.indexOf("searchValueFieldName"));
+  fieldName = fieldName.substring(fieldName.indexOf("=") + 1);
+  var fieldSerialized = jQuery("input[name=" + fieldName + "]", jQuery("form[name=" + this.formName + "]")).serialize();
+  this.allParams = this.params + '&' + fieldSerialized + '&' + 'searchType=EQUALS';
+  _fieldId = this.fieldId;
   
-    init: function(fieldId, url, params, formName){
-      this.fieldId = fieldId;
-      this.url = url;
-      this.params = params;
-      this.formName = formName;
-    },
-    update: function(){
-      var tooltipElement = jQuery("#" + this.fieldId + '_lookupDescription');
-      if (tooltipElement.length) {//first remove current description
-        tooltipElement.remove();
+  jQuery.ajax({
+    url: this.url,
+    type: "POST",
+    data: this.allParams,
+    async: false,
+    success: function(result){
+      // This would be far more reliable if we would remove the widget boundaries in LookupDecorator using widgetVerbose in context
+      if (result.split("ajaxAutocompleteOptions.ftl -->")[1]) {
+        setLookDescription(_fieldId, result.split("ajaxAutocompleteOptions.ftl -->")[1].trim().split("<!--")[0].trim(), "", "");
       }
-      //actual server call
-      var fieldName = this.params.substring(this.params.indexOf("searchValueFieldName"));
-      fieldName = fieldName.substring(fieldName.indexOf("=") + 1);
-      var fieldSerialized = jQuery("input[name=" + fieldName + "]", jQuery("form[name=" + this.formName + "]")).serialize();
-      this.allParams = this.params + '&' + fieldSerialized + '&' + 'searchType=EQUALS';
-      _fieldId = this.fieldId;
-      
-      jQuery.ajax({
-        url: this.url,
-        type: "POST",
-        data: this.allParams,
-        async: false,
-        success: function(result){
-          // This would be far more reliable if we would remove the widget boundaries in LookupDecorator using widgetVerbose in context
-          if (result.split("ajaxAutocompleteOptions.ftl -->")[1]) {
-            setLookDescription(_fieldId, result.split("ajaxAutocompleteOptions.ftl -->")[1].trim().split("<!--")[0].trim(), "", "");
-          }
-        }
-      });
     }
   });
 }
+    
 if(typeof String.prototype.trim !== 'function') { // Needed because IE8 does not implement trim yet
   String.prototype.trim = function() {
     return this.replace(/^\s+|\s+$/g, ''); 
