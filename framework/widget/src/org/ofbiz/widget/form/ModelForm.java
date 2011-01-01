@@ -2953,13 +2953,17 @@ public class ModelForm extends ModelWidget {
         }
 
         public void renderStartString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
-            formStringRenderer.renderFieldGroupOpen(writer, context, this);
+            if (modelForm.fieldGroupList.size() > 0) {
+                formStringRenderer.renderFieldGroupOpen(writer, context, this);
+            }
             formStringRenderer.renderFormatSingleWrapperOpen(writer, context, modelForm);
         }
 
         public void renderEndString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderFormatSingleWrapperClose(writer, context, modelForm);
-            formStringRenderer.renderFieldGroupClose(writer, context, this);
+            if (modelForm.fieldGroupList.size() > 0) {
+                formStringRenderer.renderFieldGroupClose(writer, context, this);
+            }
         }
     }
 
