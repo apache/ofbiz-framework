@@ -70,7 +70,9 @@ import org.w3c.dom.Node;
  * <tr><td><code>date:yearStart(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to start of year.</td></tr>
  * <tr><td><code>date:yearEnd(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to end of year.</td></tr>
  * <tr><td><code>date:dateStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a date <code>String</code> (yyyy-mm-dd).</td></tr>
+ * <tr><td><code>date:localizedDateStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a date <code>String</code> formatted according to the supplied locale.</td></tr>
  * <tr><td><code>date:dateTimeStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a date-time <code>String</code> (yyyy-mm-dd hh:mm).</td></tr>
+ * <tr><td><code>date:localizedDateTimeStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a date-time <code>String</code> formatted according to the supplied locale.</td></tr>
  * <tr><td><code>date:timeStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a time <code>String</code> (hh:mm).</td></tr>
  * <tr><td><code>date:nowTimestamp()</code></td><td>Returns <code>Timestamp </code> for right now.</td></tr>
  * <tr><td colspan="2"><b><code>math:</code> maps to <code>java.lang.Math</code></b></td></tr>
@@ -184,7 +186,8 @@ public class UelFunctions {
                 this.functionMap.put("date:yearStart", UtilDateTime.class.getMethod("getYearStart", Timestamp.class, TimeZone.class, Locale.class));
                 this.functionMap.put("date:yearEnd", UtilDateTime.class.getMethod("getYearEnd", Timestamp.class, TimeZone.class, Locale.class));
                 this.functionMap.put("date:dateStr", UelFunctions.class.getMethod("dateString", Timestamp.class, TimeZone.class, Locale.class));
-                this.functionMap.put("date:dateTimeStr", UelFunctions.class.getMethod("dateTimeString", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:localizedDateStr", UelFunctions.class.getMethod("localizedDateString", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:localizedDateTimeStr", UelFunctions.class.getMethod("localizedDateTimeString", Timestamp.class, TimeZone.class, Locale.class));
                 this.functionMap.put("date:timeStr", UelFunctions.class.getMethod("timeString", Timestamp.class, TimeZone.class, Locale.class));
                 this.functionMap.put("date:nowTimestamp", UtilDateTime.class.getMethod("nowTimestamp"));
                 this.functionMap.put("math:absDouble", Math.class.getMethod("abs", double.class));
@@ -278,8 +281,20 @@ public class UelFunctions {
         return dateFormat.format(stamp);
     }
 
+    public static String localizedDateString(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        DateFormat dateFormat = UtilDateTime.toDateFormat(null, timeZone, locale);
+        dateFormat.setTimeZone(timeZone);
+        return dateFormat.format(stamp);
+    }
+
     public static String dateTimeString(Timestamp stamp, TimeZone timeZone, Locale locale) {
         DateFormat dateFormat = UtilDateTime.toDateTimeFormat("yyyy-MM-dd HH:mm", timeZone, locale);
+        dateFormat.setTimeZone(timeZone);
+        return dateFormat.format(stamp);
+    }
+
+    public static String localizedDateTimeString(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        DateFormat dateFormat = UtilDateTime.toDateTimeFormat(null, timeZone, locale);
         dateFormat.setTimeZone(timeZone);
         return dateFormat.format(stamp);
     }
