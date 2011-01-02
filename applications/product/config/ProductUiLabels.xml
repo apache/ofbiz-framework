@@ -339,6 +339,10 @@
         <value xml:lang="en">Your DHL ShipIT Account Number</value>
         <value xml:lang="it">Il tuo numero conto DHL ShipIT</value>
     </property>
+    <property key="FacilityShipmentDhlAccessAccountNbrMandotoryForRegisterAccount">
+        <value xml:lang="en">AccountNbr not found for Register Account.</value>
+        <value xml:lang="it">AccountNbr non trovato per la registrazione Account.</value>
+    </property>
     <property key="FacilityShipmentDhlAccessPassword">
         <value xml:lang="en">Your DHL ShipIT Access Password</value>
         <value xml:lang="it">La tua password DHL ShipIT</value>
@@ -358,6 +362,38 @@
     <property key="FacilityShipmentDhlConnectUrl">
         <value xml:lang="en">Conntect URL</value>
         <value xml:lang="it">URL Connessione a DHL</value>
+    </property>
+    <property key="FacilityShipmentDhlConnectUrlIncomplete">
+        <value xml:lang="en">Incomplete connection URL; check your DHL configuration</value>
+        <value xml:lang="it">URL connessione incompleto; verifica la tua configurazione DHL</value>
+    </property>
+    <property key="FacilityShipmentDhlConnectUrlProblem">
+        <value xml:lang="en">Problem connecting with DHL server ${errorString}</value>
+        <value xml:lang="it">Problema di connessione URL a DHL ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentDhlDefaultShippableWeightNotConfigured">
+        <value xml:lang="en">Cannot get DHL Estimate: Default shippable weight not configured (shipment.default.weight.value)</value>
+        <value xml:lang="it">Non è possibile ottenere la stima spedizione DHL: Il peso di default per la spedizione non è configurato (shipment.default.weight.value)</value>
+    </property>
+    <property key="FacilityShipmentDhlErrorAccessRequestXmlToString">
+        <value xml:lang="en">Error writing the AccessRequest XML Document to a String: ${errorString}</value>
+        <value xml:lang="it">Errore scrivendo il documento XML AccessRequest in stringa: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentDhlErrorMessage">
+        <value xml:lang="en">An error occurred code: ${errorCode} Description: ${errorDescription}.</value>
+        <value xml:lang="it">E' accaduto il seguente errore: ${errorCode} Descrizione: ${errorDescription}.</value>
+    </property>
+    <property key="FacilityShipmentDhlErrorMessageElement">
+        <value xml:lang="en">The error was at Element ${errorSource}</value>
+        <value xml:lang="it">L'errore era nell'elemento ${errorSource}</value>
+    </property>
+    <property key="FacilityShipmentDhlErrorParsingRegisterAccountResponse">
+        <value xml:lang="en">Error parsing the RegisterAccountServiceSelectionResponse: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing di RegisterAccountServiceSelectionResponse: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentDhlErrorSendingRequestRegisterAccount">
+        <value xml:lang="en">Error sending DHL request for DHL Register Account: ${errorString}</value>
+        <value xml:lang="it">Errore di invio della richiesta a DHL per la registrazione Account: ${errorString}</value>
     </property>
     <property key="FacilityShipmentDhlHeadAction">
         <value xml:lang="en">Head action attribute</value>
@@ -379,9 +415,93 @@
         <value xml:lang="en">PNG</value>
         <value xml:lang="it">PNG</value>
     </property>
+    <property key="FacilityShipmentDhlMultiplePackagesNotSupported">
+        <value xml:lang="en">Cannot confirm shipment: DHL ShipIT does not currently support more than one package per shipment.</value>
+        <value xml:lang="it">Non è possibile confermare la spedizione: DHL ShipIt non supporta più pacchi in una spedizione.</value>
+    </property>
+    <property key="FacilityShipmentDhlNoCarrierShipmentMethod">
+        <value xml:lang="en">No CarrierShipmentMethod entry for carrier ${carrierPartyId}, shipmentMethodTypeId ${shipmentMethodTypeId}</value>
+        <value xml:lang="it">Nessun metodo di spedizione per il corriere ${carrierPartyId}, tipo spedizione ${shipmentMethodTypeId}</value>
+    </property>
+    <property key="FacilityShipmentDhlNotRouteSegmentCarrier">
+        <value xml:lang="en">ERROR: The Carrier for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is not DHL.</value>
+        <value xml:lang="it">ERRORE: il corriere sul percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, non è DHL.</value>
+    </property>
     <property key="FacilityShipmentDhlRateEstimate">
         <value xml:lang="en">Rate Estimate API schema</value>
         <value xml:lang="it">API schema per stima spedizione</value>
+    </property>
+    <property key="FacilityShipmentDhlRateEstimateTemplateNotConfigured">
+        <value xml:lang="en">Cannot get DHL Estimate: DHL Rate template not configured</value>
+        <value xml:lang="it">Non è possibile ottente una stima spedizione da DHL: il template di stima spedizione DHL non è configurato</value>
+    </property>
+    <property key="FacilityShipmentFedexRateTemplateReadingError">
+        <value xml:lang="en">Error reading or writing Shipment data for DHL Shipment Confirm: ${errorString}</value>
+        <value xml:lang="it">Errore leggendo o scrivendo i dati per la conferma spedizione DHL: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentFedexRateTemplateReadingError">
+        <value xml:lang="en">Error reading or writing Shipment data for DHL Shipment Confirm: ${errorString}</value>
+        <value xml:lang="it">Errore leggendo o scrivendo i dati per la conferma spedizione DHL: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentFedexShipmentConfirmResponse">
+        <value xml:lang="en">A ShipmentConfirmRespose was received: ${shipmentConfirmResponseString}</value>
+        <value xml:lang="it">A ShipmentConfirmRespose was received: ${shipmentConfirmResponseString}</value>
+    </property>
+    <property key="FacilityShipmentFedexRateTemplateRenderingError">
+        <value xml:lang="en">Cannot confirm DHL shipment: Failed to render DHL XML Request.</value>
+        <value xml:lang="it">Non è possibile confermare la spedizione DHL: fallimento duranta la creazione della richiesta XML.</value>
+    </property>
+    <property key="FacilityShipmentFedexRateTemplateSendingError">
+        <value xml:lang="en">Error sending DHL request for DHL Service Rate: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio della richiesta a DHL per il servizio di stima spedizione: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentDhlReceivedNullResponse">
+        <value xml:lang="en">Received a null response from DHL</value>
+        <value xml:lang="it">Ricevuta una risposta vuota da DHL</value>
+    </property>
+    <property key="FacilityShipmentDhlRouteSegmentStatusNotStarted">
+        <value xml:lang="en">ERROR: The Carrier Service Status for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is ${shipmentRouteSegmentStatus}, but must be not-set or [SHRSCS_NOT_STARTED] to perform the DHL Shipment Confirm operation.</value>
+        <value xml:lang="it">ERRORE: lo stato corriere per percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, è ${shipmentRouteSegmentStatus}, ma deve non essere impostato o [SHRSCS_NOT_STARTED] per eseguire l'operazione di Conferma Spedizione DHL.</value>
+    </property>
+    <property key="FacilityShipmentDhlShipmentConfirmed">
+        <value xml:lang="en">DHL Shipment Confirmed.</value>
+        <value xml:lang="it">Spedizione confermata da DHL.</value>
+    </property>
+    <property key="FacilityShipmentDhlShipmentLabelError">
+        <value xml:lang="en">Cannot get response DHL shipment label for shipment package route segment ${shipmentPackageRouteSeg}.  DHL response is: ${rateResponseString}</value>
+        <value xml:lang="it">Non è possibile ottene la risposta da DHL per l'etichetta spedizione per il percorso spedizione ${shipmentPackageRouteSeg}. Risposta da DHL è: ${rateResponseString}</value>
+    </property>
+    <property key="FacilityShipmentDhlShipmentTemplateError">
+        <value xml:lang="en">Cannot get DHL Estimate: Failed to render DHL XML Request.</value>
+        <value xml:lang="it">Non è possibile ottenere la stime spedizione da DHL: Fallimento nella creazione del documento XML a DHL</value>
+    </property>
+    <property key="FacilityShipmentDhlShipmentTemplateLocationNotFound">
+        <value xml:lang="en">Cannot get DHL Estimate: DHL Rate template not configured</value>
+        <value xml:lang="it">Non è possibile ottenere la stima spedizione da DHL: il template per la stima non è configurato</value>
+    </property>
+    <property key="FacilityShipmentFedexShipmentTemplateParsingError">
+        <value xml:lang="en">Error parsing the RatingServiceResponse: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing della risposta RatingServiceResponse: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentDhlShipmentTemplateSendingError">
+        <value xml:lang="en">Error sending DHL request for DHL Service Rate: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio della richiesta a DHL per la stima spedizione: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentDhlShippableWeightExceed">
+        <value xml:lang="en">Cannot get DHL Estimate: Shippable weight cannot be greater than 999 lbs for ground or 150 lbs for all other services.</value>
+        <value xml:lang="it">Non è possibile ottenere la stima spedizione DHL: il peso della spedizione non può esser maggiore di 999 lbs per servizio ground o 150 lbs per tutti gli altri servizi.</value>
+    </property>
+    <property key="FacilityShipmentDhlUnknownLabelImageFormat">
+        <value xml:lang="en">Unknown DHL Label Image Format: ${labelImagePreference}</value>
+        <value xml:lang="it">Formato immagine etichetta DHL sconosciuto: ${labelImagePreference}</value>
+    </property>
+    <property key="FacilityShipmentDhlGatewayNotAvailable">
+        <value xml:lang="en">DHL Shipment Gateway Configuration is not available</value>
+        <value xml:lang="it">Configurazione gateway spedizioni DHL non è disponibile</value>
+    </property>
+    <property key="FacilityShipmentDhlXmlCannotBeNull">
+        <value xml:lang="en">XML message cannot be null</value>
+        <value xml:lang="it">Messaggio XML non può essere vuoto</value>
     </property>
     <property key="FacilityShipmentFedexAccessAccountNumber">
         <value xml:lang="en">Access Account Number</value>
@@ -745,7 +865,7 @@
     </property>
     <property key="FacilityShipmentPackageRouteSegsNotFound">
         <value xml:lang="en">No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
-        <value xml:lang="it">No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Nessun pacco trovato per la spedizione ${shipmentId} e il percorso spedizione ${shipmentRouteSegmentId}</value>
     </property>
     <property key="FacilityShipmentRouteSegmentOriginPostalAddressNotFound">
         <value xml:lang="en">OriginPostalAddress not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
@@ -1255,7 +1375,7 @@
         <value xml:lang="en">Destination CountryGeo not found for ship-to address</value>
         <value xml:lang="it">Paese di destinazione non trovato dall'indirizzo di spedizione</value>
     </property>
-    <property key="FacilityShipmentUpsUnableFoundShipToAddresss">
+    <property key="FacilityShipmentUnableFoundShipToAddresss">
         <value xml:lang="en">Unable to determine ship-to address</value>
         <value xml:lang="it">Non è possibile determinare l'indirizzo di spedizione</value>
     </property>
@@ -21664,16 +21784,16 @@
         <value xml:lang="zh_TW">無</value>
     </property>
     <property key="ProductShipmentNotFoundId">
-        <value xml:lang="de">Lieferung nicht gefunden mit der ID</value>
-        <value xml:lang="en">The Shipment was not found with ID</value>
-        <value xml:lang="es">No se encontró envío con el código</value>
-        <value xml:lang="fr">Aucune expédition avec cette référence</value>
-        <value xml:lang="it">La Spedizione non è stata trovata con Codice</value>
-        <value xml:lang="ro">Expedierea cu codul Id nu a fost gasita ProductShipmentPlan=Plan de Expediere</value>
-        <value xml:lang="ru">Не найдена поставка с кодом</value>
-        <value xml:lang="th">ไม่พบการขนส่งด้วยรหัส</value>
-        <value xml:lang="zh">没有找到货运，标识</value>
-        <value xml:lang="zh_TW">沒有找到貨運ID</value>
+        <value xml:lang="de">Lieferung nicht gefunden mit der ID </value>
+        <value xml:lang="en">The Shipment was not found with ID </value>
+        <value xml:lang="es">No se encontró envío con el código </value>
+        <value xml:lang="fr">Aucune expédition avec cette référence </value>
+        <value xml:lang="it">La Spedizione non è stata trovata con Codice </value>
+        <value xml:lang="ro">Expedierea cu codul Id nu a fost gasita ProductShipmentPlan=Plan de Expediere </value>
+        <value xml:lang="ru">Не найдена поставка с кодом </value>
+        <value xml:lang="th">ไม่พบการขนส่งด้วยรหัส </value>
+        <value xml:lang="zh">没有找到货运，标识 </value>
+        <value xml:lang="zh_TW">沒有找到貨運ID </value>
     </property>
     <property key="ProductShipmentPackageNotFound">
         <value xml:lang="de">shipmentPackageSeqId [${shipmentPackageSeqId}] nicht gefunden in der Lieferung mit ID [${shipmentId}]</value>

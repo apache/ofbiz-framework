@@ -26,6 +26,8 @@ under the License.
   <service name="dhlRegisterAccount" engine="java" location="org.ofbiz.shipment.thirdparty.dhl.DhlServices" invoke="dhlRegisterInquire" auth="false">
     <description>DHL ShipIt Register Account inquire tool</description>
     <attribute name="postalCode" type="String" mode="IN" optional="false"/>
+    <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
+    <attribute name="configProps" type="String" mode="IN" optional="false"/>
     <attribute name="shippingKey" type="String" mode="OUT" optional="false"/>
   </service>
   <!-- DHL Rate API Services -->
