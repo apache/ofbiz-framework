@@ -292,6 +292,12 @@ under the License.
         <field name="maxEstimateWeight" title="${uiLabelMap.FacilityShipmentUspsMaxEstimateWeight}">
             <text size="9" maxlength="9"/>
         </field>
+        <field name="test" title="${uiLabelMap.FacilityShipmentUspsTestMode}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

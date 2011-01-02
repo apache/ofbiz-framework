@@ -37,6 +37,8 @@ under the License.
     <service name="uspsTrackConfirm" engine="java"
             location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsTrackConfirm">
         <attribute name="trackingId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
+        <attribute name="configProps" type="String" mode="IN" optional="false"/>
         <attribute name="trackingSummary" type="String" mode="OUT" optional="false"/>
         <attribute name="trackingDetailList" type="List" mode="OUT" optional="true"/>
     </service>
@@ -49,11 +51,15 @@ under the License.
         <attribute name="state" type="String" mode="INOUT" optional="true"/>
         <attribute name="zip5" type="String" mode="INOUT" optional="true"/>
         <attribute name="zip4" type="String" mode="INOUT" optional="true"/>
+        <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
+        <attribute name="configProps" type="String" mode="IN" optional="false"/>
         <attribute name="returnText" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="uspsCityStateLookup" engine="java"
             location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsCityStateLookup">
         <attribute name="zip5" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
+        <attribute name="configProps" type="String" mode="IN" optional="false"/>
         <attribute name="city" type="String" mode="OUT" optional="false"/>
         <attribute name="state" type="String" mode="OUT" optional="false"/>
     </service>
@@ -61,12 +67,16 @@ under the License.
             location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsPriorityMailStandard">
         <attribute name="originZip" type="String" mode="IN" optional="false"/>
         <attribute name="destinationZip" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
+        <attribute name="configProps" type="String" mode="IN" optional="false"/>
         <attribute name="days" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="uspsPackageServicesStandard" engine="java"
             location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsPackageServicesStandard">
         <attribute name="originZip" type="String" mode="IN" optional="false"/>
         <attribute name="destinationZip" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
+        <attribute name="configProps" type="String" mode="IN" optional="false"/>
         <attribute name="days" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="uspsDomesticRate" engine="java"
@@ -79,6 +89,8 @@ under the License.
         <attribute name="container" type="String" mode="IN" optional="true"/>
         <attribute name="size" type="String" mode="IN" optional="true"/>
         <attribute name="machinable" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentGatewayConfigId" type="String" mode="IN" optional="false"/>
+        <attribute name="configProps" type="String" mode="IN" optional="false"/>
         <attribute name="zone" type="String" mode="OUT" optional="false"/>
         <attribute name="postage" type="String" mode="OUT" optional="false"/>
         <attribute name="restrictionCodes" type="String" mode="OUT" optional="true"/>
