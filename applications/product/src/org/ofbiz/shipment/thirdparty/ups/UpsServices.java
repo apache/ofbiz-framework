@@ -1721,7 +1721,7 @@ public class UpsServices {
             }
         }
         if (shipToAddress == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsUnableFoundShipToAddresss", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUnableFoundShipToAddresss", locale));
         }
 
         // obtain the ship from address if provided
@@ -1731,7 +1731,7 @@ public class UpsServices {
                 shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", shippingOriginContactMechId));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsUnableFoundShipToAddresssForDropShipping", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUnableFoundShipToAddresssForDropShipping", locale));
             }
         }
 
@@ -2066,7 +2066,7 @@ public class UpsServices {
             }
         }
         if (shipFromAddress == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsUnableFoundShipToAddresss", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUnableFoundShipToAddresss", locale));
         }
 
         // locate the service code

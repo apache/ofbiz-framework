@@ -72,7 +72,9 @@ under the License.
             <Country>US</Country>
          </Address>
          <AttnTo>${attnTo?if_exists?upper_case}</AttnTo> <!--CDATA -->
-         <PhoneNbr>${phoneNbr}</PhoneNbr>
+         <#if phoneNbr?exists>
+             <PhoneNbr>${phoneNbr}</PhoneNbr>
+         </#if>
       </Receiver>
       <ShipmentProcessingInstructions>
         <#if labelImageType?exists>
