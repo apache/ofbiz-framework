@@ -128,13 +128,14 @@ under the License.
     
     <ShipmentGatewayConfigType shipmentGatewayConfTypeId="USPS" hasTable="N" description="USPS Shipment Gateway"/>
     <ShipmentGatewayConfig shipmentGatewayConfigId="USPS_CONFIG" shipmentGatewayConfTypeId="USPS" description="USPS Config"/>
-    <ShipmentGatewayUsps shipmentGatewayConfigId="USPS_CONFIG" connectUrl="http://production.shippingapis.com/ShippingAPITest.dll" connectTimeout="60" accessUserId="000000000000" accessPassword="999999999999" maxEstimateWeight="70"/>
+    <ShipmentGatewayUsps shipmentGatewayConfigId="USPS_CONFIG" connectUrl="http://production.shippingapis.com/ShippingAPITest.dll" connectUrlLabels="http://production.shippingapis.com/ShippingAPITest.dll" connectTimeout="60" accessUserId="000000000000" accessPassword="999999999999" maxEstimateWeight="70" test="N"/>
     
     <!-- Shipment Gateway custom methods by type -->
     <CustomMethodType customMethodTypeId="SHIP_EST" parentTypeId="" hasTable="N" description="Shipment Gateway rate estimate methods"/>
     
-    <CustomMethod customMethodId="SHIP_EST_DHL"   customMethodTypeId="SHIP_EST" customMethodName="dhlRateEstimate"   description="DHL rate estimate"/>
-    <CustomMethod customMethodId="SHIP_EST_FEDEX" customMethodTypeId="SHIP_EST" customMethodName="fedexRateEstimate" description="FedEx rate estimate"/>
-    <CustomMethod customMethodId="SHIP_EST_UPS"   customMethodTypeId="SHIP_EST" customMethodName="upsRateEstimate"   description="UPS rate estimate"/>
-    <CustomMethod customMethodId="SHIP_EST_USPS"  customMethodTypeId="SHIP_EST" customMethodName="uspsRateInquire"   description="USPS rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_DHL"      customMethodTypeId="SHIP_EST" customMethodName="dhlRateEstimate"   description="DHL rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_FEDEX"    customMethodTypeId="SHIP_EST" customMethodName="fedexRateEstimate" description="FedEx rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_UPS"      customMethodTypeId="SHIP_EST" customMethodName="upsRateEstimate"   description="UPS rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_USPS"     customMethodTypeId="SHIP_EST" customMethodName="uspsRateInquire"   description="USPS rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_USPS_INT" customMethodTypeId="SHIP_EST" customMethodName="uspsInternationalRateInquire"   description="USPS rate estimate international"/>
 </entity-engine-xml>

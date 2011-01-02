@@ -867,6 +867,10 @@
         <value xml:lang="en">No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
         <value xml:lang="it">Nessun pacco trovato per la spedizione ${shipmentId} e il percorso spedizione ${shipmentRouteSegmentId}</value>
     </property>
+    <property key="FacilityShipmentRateNotAvailable">
+        <value xml:lang="en">No rates available at this time</value>
+        <value xml:lang="it">Nessuna stima spedizione disponibile in questo momento</value>
+    </property>
     <property key="FacilityShipmentRouteSegmentOriginPostalAddressNotFound">
         <value xml:lang="en">OriginPostalAddress not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
         <value xml:lang="it">Indirizzo d'origine non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
@@ -1171,10 +1175,6 @@
         <value xml:lang="en">Minimum weight for a package</value>
         <value xml:lang="it">Peso minimo per un pacco</value>
     </property>
-    <property key="FacilityShipmentUpsNoRateAvailable">
-        <value xml:lang="en">No rates available at this time</value>
-        <value xml:lang="it">Nessuna stima spedizione disponibile in questo momento</value>
-    </property>
     <property key="FacilityShipmentUpsNotRouteSegmentCarrier">
         <value xml:lang="en">ERROR: The Carrier for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is not UPS.</value>
         <value xml:lang="it">ERRORE: il corriere sul percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, non è UPS.</value>
@@ -1395,6 +1395,31 @@
         <value xml:lang="en">Access User Id</value>
         <value xml:lang="it">Id utente d'accesso</value>
     </property>
+    <property key="FacilityShipmentUspsAddressValidationIncompleteResponse">
+        <value xml:lang="en">Incomplete response from USPS Address Validation service: no Address element found</value>
+        <value xml:lang="it">Risposta incompleta da USPS per il servizio di validazione indirizzo: nessun elemento Address trovato</value>
+    </property>
+    <property key="FacilityShipmentUspsAddressValidationResponseError">
+        <value xml:lang="en">The following error was returned by the USPS Address Validation service: ${errorString}</value>
+        <value xml:lang="it">Il seguente errore è stato restituito da USPS servizio di validazione indirizzo: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsAddressValidationSendingError">
+        <value xml:lang="en">Error sending request for USPS Address Validation service: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio della richiesta a USPS per il servizio di validazione indirizzo: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsAddressValidationStateAndCityOrZipRqd">
+        <value xml:lang="de">USPS Adressverifikation benötigt Postleitzahl oder Ort/Staat</value>
+        <value xml:lang="en">USPS address validation requires either zip5 or city and state</value>
+        <value xml:lang="fr">La validation de l'adresse USPS demande l'un ou l'autre : zip5 ou ville et état</value>
+        <value xml:lang="it">USPS richiedere validazione indirizzo entrambi zip5 o città e stato</value>
+        <value xml:lang="th">USPS ต้องการที่อยู่ ถ้าไม่ รหัสไปรษณีย์ หรือ เมือง และ รัฐ</value>
+        <value xml:lang="zh">USPS地址验证需要zip5或者省和市</value>
+        <value xml:lang="zh_TW">USPS位址驗証需要zip5或者省和市</value>
+    </property>
+    <property key="FacilityShipmentUspsConnectionProblem">
+        <value xml:lang="en">Problem connecting with USPS server: ${errorString}</value>
+        <value xml:lang="it">Errore durante la connession con il server di USPS: ${errorString}</value>
+    </property>
     <property key="FacilityShipmentUspsConnectTimeout">
         <value xml:lang="en">Conntect Timeout</value>
         <value xml:lang="it">Timeout connessione a USPS</value>
@@ -1403,9 +1428,197 @@
         <value xml:lang="en">Conntect URL</value>
         <value xml:lang="it">URL Connessione a USPS</value>
     </property>
+    <property key="FacilityShipmentUspsConnectUrlIncomplete">
+        <value xml:lang="en">Incomplete connection URL; check your USPS configuration</value>
+        <value xml:lang="it">URL connessione incompleto; verifica la tua configurazione USPS</value>
+    </property>
+    <property key="FacilityShipmentUspsCityStateLookupIncompleteResponse">
+        <value xml:lang="en">Incomplete response from USPS City/State Lookup service: no ZipCode element found</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio di ricerca città/stato: nessun elemento ZipCode trovato</value>
+    </property>
+    <property key="FacilityShipmentUspsCityStateLookupIncompleteCityElement">
+        <value xml:lang="en">Incomplete response from USPS City/State Lookup service: no City element found</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio di ricerca città/stato: nessun elemento City trovato</value>
+    </property>
+    <property key="FacilityShipmentUspsCityStateLookupIncompleteStateElement">
+        <value xml:lang="en">Incomplete response from USPS City/State Lookup service: no State element found</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio di ricerca città/stato: nessun elemento State trovato</value>
+    </property>
+    <property key="FacilityShipmentUspsCityStateLookupResponseError">
+        <value xml:lang="en">Response from USPS: ${errorString}</value>
+        <value xml:lang="it">Risposta da USPS: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsCityStateLookupSendingError">
+        <value xml:lang="en">Error sending request for USPS City/State Lookup service: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio della richiesta a USPS per il servizio di ricerca città/stato: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsDeliveryConfirmationSendingError">
+        <value xml:lang="en">Error sending request for USPS Delivery Confirmation service: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio della richiesta a USPS per il servizio di conferma consegna: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsDeliveryConfirmationReadingError">
+        <value xml:lang="en">Error reading or writing shipment data for the USPS Delivery Confirmation service: ${errorString}</value>
+        <value xml:lang="it">Errore di lettura o scrittura dei dati della spedizione a USPS servizio conferma consegna: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsDeliveryConfirmationResponseError">
+        <value xml:lang="en">The following error was returned by the USPS Delivery Confirmation service for ShipmentPackage ${shipmentId} ${shipmentPackageSeqId}: ${errorString}</value>
+        <value xml:lang="it">Il seguente errore è stato restituito da USPS servizio conferma consegna per il pacco ${shipmentId} ${shipmentPackageSeqId}: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsDeliveryConfirmationResponseIncompleteElementDeliveryConfirmationLabel">
+        <value xml:lang="en">Incomplete response from the USPS Delivery Confirmation service: missing or empty DeliveryConfirmationLabel element</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio conferma consegna: elemento DeliveryConfirmationLabel mancante o vuoto</value>
+    </property>
+    <property key="FacilityShipmentUspsDeliveryConfirmationResponsenIncompleteElementDeliveryConfirmationNumber">
+        <value xml:lang="en">Incomplete response from the USPS Delivery Confirmation service: missing or empty DeliveryConfirmationNumber element</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio conferma consegna: elemento DeliveryConfirmationNumber mancante o vuoto</value>
+    </property>
+    <property key="FacilityShipmentUspsSerializingError">
+        <value xml:lang="en">Error serializing requestDocument: ${errorString}</value>
+        <value xml:lang="it">Errore durante la serializzazione del documento: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsGatewayNotAvailable">
+        <value xml:lang="en">USPS Shipment Gateway Configuration is not available</value>
+        <value xml:lang="it">Configurazione gateway spedizioni USPS non è disponibile</value>
+    </property>
     <property key="FacilityShipmentUspsMaxEstimateWeight">
         <value xml:lang="en">Estimate split into packages</value>
         <value xml:lang="it">Stima spezzatura pacchi</value>
+    </property>
+    <property key="FacilityShipmentUspsNoCarrierServiceCodeFound">
+        <value xml:lang="en">Carrier Service Code not found for CarrierShipmentMethod ${carrierPartyId}, shipmentMethodTypeId ${shipmentMethodTypeId}</value>
+        <value xml:lang="it">Il codice del servizio corriere non è stato trovato per ${carrierPartyId}, metodo di spedizione ${shipmentMethodTypeId}</value>
+    </property>
+    <property key="FacilityShipmentUspsNoCarrierShipmentMethod">
+        <value xml:lang="en">No CarrierShipmentMethod entry for carrier ${carrierPartyId}, shipmentMethodTypeId ${shipmentMethodTypeId}</value>
+        <value xml:lang="it">Nessun metodo di spedizione per il corriere ${carrierPartyId}, tipo spedizione ${shipmentMethodTypeId}</value>
+    </property>
+    <property key="FacilityShipmentUspsNotRouteSegmentCarrier">
+        <value xml:lang="en">ERROR: The Carrier for ShipmentRouteSegment ${shipmentRouteSegmentId} of Shipment ${shipmentId}, is not USPS.</value>
+        <value xml:lang="it">ERRORE: il corriere sul percorso spedizione ${shipmentRouteSegmentId} della spedizione ${shipmentId}, non è USPS.</value>
+    </property>
+    <property key="FacilityShipmentUspsPriorityMailLabelOriginAddressMissing">
+        <value xml:lang="en">Unable to request a USPS Priority Mail International Label: ShipmentRouteSegment is missing origin phone or address details</value>
+        <value xml:lang="it">Non è possibile richiedere a USPS Etichetta Posta Internazionale: percorso spedizione è mancante del telefono di origine o dettagli sull'indirizzo</value>
+    </property>
+    <property key="FacilityShipmentUspsPriorityMailLabelSendingError">
+        <value xml:lang="en">Error sending request for USPS Priority Mail International service: ${errorString}</value>
+        <value xml:lang="it">Errore di invio della richiesta a USPS servizio Posta Internazionale: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsPriorityMailLabelResponseIncompleteElementBarcodeNumber">
+        <value xml:lang="en">Incomplete response from the USPS Priority Mail International service: missing or empty BarcodeNumber element</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio Posta Internazionale: elemento BarcodeNumber mancante o vuoto</value>
+    </property>
+    <property key="FacilityShipmentUspsPriorityMailLabelResponseIncompleteElementLabelImage">
+        <value xml:lang="en">Incomplete response from the USPS Priority Mail International service: missing or empty LabelImage element</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio Posta Internazionale: elemento LabelImage mancante o vuoto</value>
+    </property>
+    <property key="FacilityShipmentUspsRateInquiryOnlyInUsDestinations">
+        <value xml:lang="en">Rate inquiry is only valid for US destinations.</value>
+        <value xml:lang="it">Stima spedizione è valida solo per le destinazioni negli USA.</value>
+    </property>
+    <property key="FacilityShipmentUspsRateInternationCannotBeUsedForUsDestinations">
+        <value xml:lang="en">The USPS International Rate Calculation service is not applicable to US destinations (including Possesions), use uspsRateInquire</value>
+        <value xml:lang="it">il servizio di stima spedizione internazionale non è applicabile per le destinazioni negli USA (inclusa Possessions), usare uspsRateInquire.</value>
+    </property>
+    <property key="FacilityShipmentUspsRateDomesticReadingError">
+        <value xml:lang="en">Error reading or writing shipment data for the USPS Domestic Rate Calculation service: ${errorString}</value>
+        <value xml:lang="it">Errore di lettura o scrittura dei dati di spedizione a USPS per il servizio di stima spedizione: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsRateDomesticSendingError">
+        <value xml:lang="en">Error sending request for USPS Domestic Rate Calculation service: ${errorString}</value>
+        <value xml:lang="it">Errore nella richiesta inviata a USPS per la stima di spedizione: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsRateDomesticResponseError">
+        <value xml:lang="en">The following error was returned by the USPS Domestic Rate Calculation service: ${errorString}</value>
+        <value xml:lang="it">Il seguente errore è stato restituito da USPS servizio stima spedizione: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsRateDomesticResponseIncompleteElementPackage">
+        <value xml:lang="en">Incomplete response from USPS Domestic Rate Calculation service: no Package element found</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio stima spedizione: nessun elemento Package trovato</value>
+    </property>
+    <property key="FacilityShipmentUspsRateDomesticResponseIncompleteElementPostage">
+        <value xml:lang="en">Incomplete response from USPS Domestic Rate Calculation service: no Postage element found</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio stima spedizione: nessun elemento Postage trovato</value>
+    </property>
+    <property key="FacilityShipmentUspsRateDomesticResponseIncompleteElementZone">
+        <value xml:lang="en">Incomplete response from USPS Domestic Rate Calculation service: no Zone element found</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio stima spedizione: nessun elemento Zone trovato</value>
+    </property>
+    <property key="FacilityShipmentUspsRateInternationalSendingError">
+        <value xml:lang="en">Error sending request for USPS International Rate Calculation service: ${errorString}</value>
+        <value xml:lang="it">Errore nella richiesta inviata a USPS per la stima di spedizione internazionale: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsRouteSegmentDestinationZipCodeMissing">
+        <value xml:lang="en">ZIP code is missing from the destination postal address ${contactMechId}</value>
+        <value xml:lang="it">Il CAP è mancante dall'indirizzo postale di destinazione ${contactMechId}</value>
+    </property>
+    <property key="FacilityShipmentUspsResponseError">
+        <value xml:lang="en">Error reading request Document from a String: ${errorString}</value>
+        <value xml:lang="it">Errore durante la lettura del documento in stringa: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsRouteSegmentOriginCountryGeoNotInUsa">
+        <value xml:lang="en">ShipmentRouteSeqment for shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId} does not originate from a US address</value>
+        <value xml:lang="it">Percorso di spedizione per la spedizione ${shipmentId} e il percorso spedizione ${shipmentRouteSegmentId} non è originata da un'indirizzo negli USA</value>
+    </property>
+    <property key="FacilityShipmentUspsRouteSegmentOriginZipCodeMissing">
+        <value xml:lang="en">ZIP code is missing from the origin postal address ${contactMechId}</value>
+        <value xml:lang="it">Il CAP è mancante dall'indirizzo postale di origine ${contactMechId}</value>
+    </property>
+    <property key="FacilityShipmentUspsServiceStandardResponseIncompleteDaysElement">
+        <value xml:lang="en">Incomplete response from USPS ${serviceType} Service Standards service: no Days element found</value>
+        <value xml:lang="it">Risposta incompleta da USPS ${serviceType} servizi Standards: nessun elemento Days trovato</value>
+    </property>
+    <property key="FacilityShipmentUspsServiceStandardSendingError">
+        <value xml:lang="en">Error sending request for USPS ${serviceType} Service Standards service: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'invio della richiesta a USPS ${serviceType} per i servizi Standards: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsShippableWeightMustGreaterThanZero">
+        <value xml:lang="en">Shippable Weight must be greater than zero</value>
+        <value xml:lang="it">Il peso della spedizione deve essere maggiore di zero</value>
+    </property>
+    <property key="FacilityShipmentUspsTestMode">
+        <value xml:lang="en">Test Mode</value>
+        <value xml:lang="it">Modalità di test</value>
+    </property>
+    <property key="FacilityShipmentUspsTrackingIncompleteResponse">
+        <value xml:lang="en">Incomplete response from USPS Tracking service: no TrackInfo element found</value>
+        <value xml:lang="it">Risposta incompleta da USPS servizio tracciatura: nessun elemento TrackInfo trovato</value>
+    </property>
+    <property key="FacilityShipmentUspsTrackingSendingError">
+        <value xml:lang="en">Error sending request for USPS Tracking service: ${errorString}</value>
+        <value xml:lang="it">Errore nella richiesta inviata a USPS per la tracciatura della spedizione: ${errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsUnableDetermineDestinationCountry">
+        <value xml:lang="en">Unable to determine the destination country</value>
+        <value xml:lang="it">Non è possibile determinare il paese di destinazione</value>
+    </property>
+    <property key="FacilityShipmentUspsUnableDetermineDestinationZip">
+        <value xml:lang="en">Unable to determine the destination ZIP</value>
+        <value xml:lang="it">Non è possibile determinare il CAP di destinazione</value>
+    </property>
+    <property key="FacilityShipmentUspsUnableDetermineOriginationZip">
+        <value xml:lang="en">Unable to determine the origination ZIP</value>
+        <value xml:lang="it">Non è possibile determinare il CAP di origine</value>
+    </property>
+    <property key="FacilityShipmentUspsUnableDetermineServiceCode">
+        <value xml:lang="en">Unable to determine the service code</value>
+        <value xml:lang="it">Non è possibile determinare il codice del servizio</value>
+    </property>
+    <property key="FacilityShipmentUspsUnsupporteServiceType">
+        <value xml:lang="en">Unsupported service type: ${serviceType}</value>
+        <value xml:lang="it">Tipo servizio non supportato: ${serviceType}</value>
+    </property>
+    <property key="FacilityShipmentUspsWeightConversionError">
+        <value xml:lang="en">Error during weight conversion: {errorString}</value>
+        <value xml:lang="it">Errore durante la conversione del peso: {errorString}</value>
+    </property>
+    <property key="FacilityShipmentUspsWeightNotFound">
+        <value xml:lang="en">Weight not found for ShipmentPackage ${shipmentId} ${shipmentPackageSeqId}</value>
+        <value xml:lang="it">Peso non trovato per il pacco ${shipmentId} ${shipmentPackageSeqId}</value>
+    </property>
+    <property key="FacilityShipmentUspsWeightUnsupported">
+        <value xml:lang="en">Unsupported weightUom ${weightUomId} for ShipmentPackage ${shipmentId} ${shipmentPackageSeqId}, could not find a conversion factor for ${weightUom}</value>
+        <value xml:lang="it">Unità di misura peso non supportato ${weightUomId} per il pacco ${shipmentId} ${shipmentPackageSeqId}, non è possibile trovare un fattore di conversione per ${weightUom}</value>
     </property>
     <property key="FacilityShipments">
         <value xml:lang="de">Auslieferungen</value>
@@ -21885,7 +22098,7 @@
     </property>
     <property key="ProductShipmentRouteSegmentNotFound">
         <value xml:lang="en">ShipmentRouteSegment not found with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
-        <value xml:lang="it">Percorso spedizione non trovato con shipmentId ${shipmentId} e shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
+        <value xml:lang="it">Percorso spedizione non trovata per la spedizione ${shipmentId} e il percorso spedizione ${shipmentRouteSegmentId}</value>
     </property>
     <property key="ProductShipmentThirdPartyAccountNumber">
         <value xml:lang="de">Kontonummer Dritter</value>

@@ -1851,7 +1851,8 @@ public class UpsServices {
             Map<String, BigDecimal> rateMap = FastMap.newInstance();
             BigDecimal firstRate = null;
             if (UtilValidate.isEmpty(rates)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsNoRateAvailable", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "FacilityShipmentRateNotAvailable", locale));
             } else {
                 for (Element element: rates) {
                     // get service

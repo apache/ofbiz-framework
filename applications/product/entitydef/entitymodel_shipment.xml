@@ -903,10 +903,12 @@ under the License.
             title="USPS Shipment Gateway Configuration">
       <field name="shipmentGatewayConfigId" type="id-ne"></field>
       <field name="connectUrl" type="value"><description>USPS Connection URL</description></field>
+      <field name="connectUrlLabels" type="value"><description>USPS Connection URL for Labels</description></field>
       <field name="connectTimeout" type="numeric"><description>Timeout in seconds</description></field>
       <field name="accessUserId" type="value" encrypt="true"><description>USPS Access User ID</description></field>
       <field name="accessPassword" type="value" encrypt="true"><description>USPS Access Password</description></field>
       <field name="maxEstimateWeight" type="numeric"><description>Estimate split into packages</description></field>
+      <field name="test" type="short-varchar"><description>Test/Production mode</description></field>
       <prim-key field="shipmentGatewayConfigId"/>
       <relation type="one" fk-name="SGUSPS_SGC" rel-entity-name="ShipmentGatewayConfig">
         <key-map field-name="shipmentGatewayConfigId"/>
