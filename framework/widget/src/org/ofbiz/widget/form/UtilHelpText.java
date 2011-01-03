@@ -52,10 +52,17 @@ public class UtilHelpText {
         String messageId = "FieldDescription." + entityName + "." + fieldName;
         String fieldDescription = UtilProperties.getMessage(entityResourceName, messageId, locale);
         if (fieldDescription.equals(messageId)) {
-            if (Debug.infoOn()) {
-                Debug.logInfo("No help text found in [" + entityResourceName + "] with key [" + messageId + "]", module);
+            messageId = "FieldDescription." + fieldName;
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "], Trying with: " + messageId, module);
             }
-            return "";
+            fieldDescription = UtilProperties.getMessage(entityResourceName, messageId, locale);
+            if (fieldDescription.equals(messageId)) {
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("No help text found in [" + entityResourceName + "] with key [" + messageId + "]", module);
+                }
+                return "";
+            }
         }
         return fieldDescription;
     }
