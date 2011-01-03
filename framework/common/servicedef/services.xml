@@ -31,7 +31,7 @@ under the License.
     </service>
 
     <service name="commonGetAllCrudPermissions" engine="simple"
-        location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="getAllCrudPermissions">
+        location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="getAllCrudPermissions" auth="false">
         <description>Returns all CRUD and View Permissions</description>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
