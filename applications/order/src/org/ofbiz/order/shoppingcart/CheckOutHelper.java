@@ -589,6 +589,9 @@ public class CheckOutHelper {
         context.put("grandTotal", grandTotal);
         context.put("userLogin", userLogin);
         context.put("visitId", visitId);
+        if (UtilValidate.isEmpty(webSiteId)) {
+            webSiteId = cart.getWebSiteId();
+        }
         context.put("webSiteId", webSiteId);
         context.put("originOrderId", originOrderId);
 
