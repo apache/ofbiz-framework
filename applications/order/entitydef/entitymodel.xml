@@ -2661,6 +2661,27 @@ under the License.
       </relation>
     </entity>
 
+    <entity entity-name="ReturnContactMech"
+            package-name="org.ofbiz.order.return"
+            never-cache="true"
+            title="Retrun Contact Mechanism Entity">
+        <field name="returnId" type="id-ne"></field>
+        <field name="contactMechPurposeTypeId" type="id-ne"></field>
+        <field name="contactMechId" type="id-ne"></field>
+        <prim-key field="returnId"/>
+        <prim-key field="contactMechPurposeTypeId"/>
+        <prim-key field="contactMechId"/>
+        <relation type="one" fk-name="RETURN_CMECH_HDR" rel-entity-name="ReturnHeader">
+            <key-map field-name="returnId"/>
+        </relation>
+        <relation type="one" fk-name="RETURN_CMECH_CM" rel-entity-name="ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relation>
+        <relation type="one" fk-name="RETURN_CMECH_CMPT" rel-entity-name="ContactMechPurposeType">
+            <key-map field-name="contactMechPurposeTypeId"/>
+        </relation>
+    </entity>
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.order.shoppingcart -->
   <!-- ========================================================= -->

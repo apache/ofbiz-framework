@@ -349,4 +349,21 @@ under the License.
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="returnItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
+
+    <!-- Return ContactMech Services -->
+    <service name="createReturnContactMech" default-entity-name="ReturnContactMech" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ReturnContactMech</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateReturnContactMech" engine="simple"
+            location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnContactMech" auth="true" default-entity-name="ReturnContactMech">
+        <description>Update Return Contact Mech</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="oldContactMechId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteReturnContactMech" default-entity-name="ReturnContactMech" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ReturnContactMech</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
