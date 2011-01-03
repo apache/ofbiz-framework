@@ -1106,4 +1106,34 @@ under the License.
         <now-timestamp field="newEntity.statusDatetime"/>
         <create-value value-field="newEntity"/>
     </simple-method>
+    
+    <simple-method method-name="updateReturnContactMech" short-description="Update ReturnContactMech">
+        <check-permission permission="ORDERMGR" action="_UPDATE">
+           <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderContactMech"/>
+        </check-permission>
+        <check-errors/>
+
+        <make-value value-field="returnContactMechMap" entity-name="ReturnContactMech"/>
+
+        <set-pk-fields map="parameters" value-field="returnContactMechMap"/>
+        <entity-one value-field="returnHeader" entity-name="ReturnHeader"/>
+        <set from-field="parameters.returnId" field="createReturnContactMechMap.returnId"/>
+        <set from-field="parameters.contactMechPurposeTypeId" field="createReturnContactMechMap.contactMechPurposeTypeId"/>
+        <set from-field="parameters.contactMechId" field="createReturnContactMechMap.contactMechId"/>
+  
+        <find-by-and entity-name="ReturnContactMech" map="createReturnContactMechMap" list="returnContactMechList"/>
+        <!-- If returnContactMechList value is null then create new entry in ReturnContactMech entity-->
+        <if-empty field="returnContactMechList">
+            <if-compare value="SHIPPING_LOCATION" field="parameters.contactMechPurposeTypeId" operator="equals">
+                <set field="returnHeader.originContactMechId" from-field="createReturnContactMechMap.contactMechId"/>
+                <store-value value-field="returnHeader"/>
+            </if-compare>
+            <call-service service-name="createReturnContactMech" in-map-name="createReturnContactMechMap" include-user-login="true"/>
+            <set from-field="parameters.returnId" field="deleteReturnContactMechMap.returnId"/>
+            <set from-field="parameters.oldContactMechId" field="deleteReturnContactMechMap.contactMechId"/>
+            <set from-field="parameters.contactMechPurposeTypeId" field="deleteReturnContactMechMap.contactMechPurposeTypeId"/>
+            <call-service service-name="deleteReturnContactMech" in-map-name="deleteReturnContactMechMap" include-user-login="true"/>
+        </if-empty>
+        <store-value value-field="returnContactMechMap"/>
+     </simple-method>
 </simple-methods>

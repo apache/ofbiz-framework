@@ -718,6 +718,11 @@ public class CheckOutHelper {
                 GenericValue orderContactMech = this.delegator.makeValue("OrderContactMech",
                         UtilMisc.toMap("orderId", orderId, "contactMechId", email.getString("contactMechId"), "contactMechPurposeTypeId", "ORDER_EMAIL"));
                 toBeStored.add(orderContactMech);
+                if (UtilValidate.isEmpty(ContactHelper.getContactMechByPurpose(party, "ORDER_EMAIL", false))) {
+                    GenericValue partyContactMechPurpose = this.delegator.makeValue("PartyContactMechPurpose",
+                            UtilMisc.toMap("partyId", party.getString("partyId"), "contactMechId", email.getString("contactMechId"), "contactMechPurposeTypeId", "ORDER_EMAIL", "fromDate", UtilDateTime.nowTimestamp()));
+                    toBeStored.add(partyContactMechPurpose);
+                }
             }
         }
 
