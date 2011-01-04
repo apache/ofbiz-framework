@@ -453,16 +453,16 @@ function setLookDescription(textFieldId, description, params, formName){
         if (lookupWrapperEl.length) {
             if (start == -1) {
                 var start = description.indexOf(' ');
-                if (start != -1) {
+                if (start != -1 && description.indexOf('<script type="text/javascript">') == -1) {
                     description = description.substring(start);
                 }
-                tooltipElement = jQuery("#" + textFieldId + '_lookupDescription')
-                if (!tooltipElement.length) {
-                    tooltipElement = jQuery("<span id='" + textFieldId + "_lookupDescription' class='tooltip'></span>");
-                }
-                tooltipElement.html(description);
-                lookupWrapperEl.append(tooltipElement);
             }
+            tooltipElement = jQuery("#" + textFieldId + '_lookupDescription')
+            if (!tooltipElement.length) {
+                tooltipElement = jQuery("<span id='" + textFieldId + "_lookupDescription' class='tooltip'></span>");
+            }
+            tooltipElement.html(description);
+            lookupWrapperEl.append(tooltipElement);
         }
     }
 }
