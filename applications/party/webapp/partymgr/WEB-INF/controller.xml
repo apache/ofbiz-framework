@@ -1040,6 +1040,30 @@ under the License.
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
+    
+    <!-- Billing Account requests -->
+    <request-map uri="EditBillingAccount">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditBillingAccount"/>
+    </request-map>
+    <request-map uri="createBillingAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createBillingAccount"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="EditBillingAccount"/>
+    </request-map>
+    <request-map uri="updateBillingAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateBillingAccount"/>
+        <response name="success" type="view" value="EditBillingAccount"/>
+        <response name="error" type="view" value="EditBillingAccount"/>
+    </request-map>
+    <request-map uri="deleteBillingAccount">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="deleteBillingAccount"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="viewprofile"/>
+    </request-map>
 
     <!-- Order communication event requests -->
     <request-map uri="UpdateCommOrders">
@@ -1334,5 +1358,8 @@ under the License.
     <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
     
     <view-map name="ViewProductStoreRoles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ViewProductStoreRoles"/>
+    
+    <!-- Billing Account-->
+    <view-map name="EditBillingAccount" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#EditBillingAccount"/>
     <!-- end of view mappings -->
 </site-conf>

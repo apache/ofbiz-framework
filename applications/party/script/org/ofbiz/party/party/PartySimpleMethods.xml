@@ -219,4 +219,11 @@ under the License.
             <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext"/>
         </if-not-empty>
     </simple-method>
+    
+    <simple-method method-name="deleteBillingAccount" short-description="delete billing account">
+        <now-timestamp field="nowTimestamp"/>
+        <set field="parameters.thruDate" from-field="nowTimestamp"/>
+        <set-service-fields service-name="updateBillingAccount" to-map="deleteBillingAccountCtx" map="parameters"/>
+        <call-service service-name="updateBillingAccount" in-map-name="deleteBillingAccountCtx"/>
+    </simple-method>
 </simple-methods>
