@@ -71,12 +71,12 @@ import org.ofbiz.service.ServiceUtil;
 
 public class VCard {
     public static final String module = VCard.class.getName();
-	public static final String resourceError = "MarketingUiLabels";
+    public static final String resourceError = "MarketingUiLabels";
 
     public static Map<String, Object> importVCard(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-		Locale locale = (Locale) context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Address workAddress = null;
         String email = null;
@@ -207,11 +207,11 @@ public class VCard {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-			return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "SfaImportVCardError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
-			return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "SfaImportVCardError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
@@ -220,7 +220,7 @@ public class VCard {
     public static Map<String, Object> exportVCard(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String partyId = (String) context.get("partyId");
-		Locale locale = (Locale) context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         File file = null;
         try {
             ContactModelFactory cmf = Pim.getContactModelFactory();
@@ -280,14 +280,14 @@ public class VCard {
             outputStream.close();
         } catch (FileNotFoundException e) {
             Debug.logError(e, module);
-			return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "SfaExportVCardErrorOpeningFile", UtilMisc.toMap("errorString", file.getAbsolutePath()), locale));
         } catch (IOException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "SfaExportVCardErrorWritingFile", UtilMisc.toMap("errorString", file.getAbsolutePath()), locale));
         } catch (GenericEntityException e) {
-			return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "SfaExportVCardError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return ServiceUtil.returnSuccess();
