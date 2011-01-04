@@ -22,14 +22,17 @@
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE">
         <value xml:lang="en">Main</value>
         <value xml:lang="fr">Accueil</value>
+        <value xml:lang="pt_BR">Principal</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE1">
         <value xml:lang="en">My Profile</value>
         <value xml:lang="fr">Mon profil</value>
+        <value xml:lang="pt_BR">Meu Perfil</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE4">
         <value xml:lang="en">My Time Sheet</value>
         <value xml:lang="fr">Mes feuilles de temps</value>
+        <value xml:lang="pt_BR">Minha folha de tempo</value>
     </property>
     <property key="PortalPage.portalPageName.ProductStoreFacility">
         <value xml:lang="de">Lager</value>
@@ -38,6 +41,7 @@
         <value xml:lang="fr">Lieu de stockage</value>
         <value xml:lang="it">Stabilimento </value>
         <value xml:lang="nl">Faciliteit</value>
+        <value xml:lang="pt_BR">Instalação</value>
         <value xml:lang="ro">Compartiment </value>
         <value xml:lang="ru">Оборудование</value>
         <value xml:lang="th">คลังสินค้า</value>
