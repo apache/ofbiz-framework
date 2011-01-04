@@ -434,7 +434,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, formName) {
    }
 }
 
-function setLookDescription(textFieldId, description, params, formName) {
+function setLookDescription(textFieldId, description, params, formName){
     if (description) {
         var start = description.lastIndexOf(' [');
         if (start != -1) {
@@ -442,22 +442,28 @@ function setLookDescription(textFieldId, description, params, formName) {
             
             // This sets a (possibly hidden) dependent field if a description-field-name is provided  
             var dependentField = params.substring(params.indexOf("searchValueFieldName"));
-            dependentField = jQuery("#" + formName + "_" + dependentField.substring(dependentField.indexOf("=") + 1));            
+            dependentField = jQuery("#" + formName + "_" + dependentField.substring(dependentField.indexOf("=") + 1));
             var dependentFieldValue = description.substring(0, description.lastIndexOf(' '))
-            if (dependentField.length) {            
+            if (dependentField.length) {
                 dependentField.val(dependentFieldValue);
                 dependentField.trigger("change"); // let the 'hidden' field know its been changed
             }
         }
-      var lookupWrapperEl = jQuery("#" + textFieldId).closest('.field-lookup');
-      if (lookupWrapperEl.length && start != -1) {
-          tooltipElement = jQuery("#" + textFieldId + '_lookupDescription')
-          if (!tooltipElement.length) {
-              tooltipElement = jQuery("<span id='" + textFieldId + "_lookupDescription' class='tooltip'></span>");
-          }
-          tooltipElement.html(description);
-          lookupWrapperEl.append(tooltipElement);
-      }      
+        var lookupWrapperEl = jQuery("#" + textFieldId).closest('.field-lookup');
+        if (lookupWrapperEl.length) {
+            if (start == -1) {
+                var start = description.indexOf(' ');
+                if (start != -1) {
+                    description = description.substring(start);
+                }
+                tooltipElement = jQuery("#" + textFieldId + '_lookupDescription')
+                if (!tooltipElement.length) {
+                    tooltipElement = jQuery("<span id='" + textFieldId + "_lookupDescription' class='tooltip'></span>");
+                }
+                tooltipElement.html(description);
+                lookupWrapperEl.append(tooltipElement);
+            }
+        }
     }
 }
 
