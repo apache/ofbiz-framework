@@ -149,4 +149,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="EditBillingAccount">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditBillingAccount"/>
+                <set field="headerItem" value="billingaccount"/>
+                <set field="tabButtonItem" value="EditBillingAccount"/>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+                <set field="billingAccountId" from-field="parameters.billingAccountId"/>
+                <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="roleTypeId" from-field="parameters.roleTypeId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="PaymentMethodDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleEditBillingAccount}">
+                            <include-form name="EditBillingAccount" location="component://party/widget/partymgr/PaymentMethodForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+         </section>
+    </screen>
 </screens>

@@ -42,13 +42,15 @@ under the License.
           <li><a href="<@ofbizUrl>editeftaccount?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewEftAccount}</a></li>
           <li><a href="<@ofbizUrl>editgiftcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewGiftCard}</a></li>
           <li><a href="<@ofbizUrl>editcreditcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewCreditCard}</a></li>
+          <li><a href="<@ofbizUrl>EditBillingAccount?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateBillingAccount}</a></li>
         </#if>
       </ul>
       <br class="clear" />
     </div>
     <div class="screenlet-body">
-      <#if paymentMethodValueMaps?has_content>
+      <#if paymentMethodValueMaps?has_content || billingAccounts?has_content>
         <table class="basic-table" cellspacing="0">
+        <#if paymentMethodValueMaps?has_content>
           <#list paymentMethodValueMaps as paymentMethodValueMap>
             <#assign paymentMethod = paymentMethodValueMap.paymentMethod/>
             <tr>
@@ -149,6 +151,27 @@ under the License.
               </td> <#-- closes out orphaned <td> elements inside conditionals -->
             </tr>
           </#list>
+        </#if>
+        <#-- Billing list-->
+        <#if billingAccounts?has_content>
+            <#list billingAccounts as billing>
+            <tr>
+              <td class="label" valign="top">${uiLabelMap.AccountingBilling}</td>
+              <td>
+                  <#if billing.billingAccountId?has_content>${billing.billingAccountId}</#if>
+                  <#if billing.description?has_content>(${billing.description})</#if>
+                  <#if billing.accountLimit?has_content>(${uiLabelMap.AccountingAccountLimit} $${billing.accountLimit})</#if>
+                  <#if billing.accountBalance?has_content>(${uiLabelMap.AccountingBillingAvailableBalance} $${billing.accountBalance})</#if>
+                  <#if billing.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${billing.fromDate?if_exists})</#if>
+                  <#if billing.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${billing.thruDate.toString()}</b></#if>
+              </td>
+              <td class="button-col">
+                <a href="<@ofbizUrl>EditBillingAccount?billingAccountId=${billing.billingAccountId}&amp;partyId=${partyId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                <a href="<@ofbizUrl>deleteBillingAccount?partyId=${partyId}&amp;billingAccountId=${billing.billingAccountId}</@ofbizUrl>">${uiLabelMap.CommonExpire}</a>
+              </td>
+          </tr>
+          </#list>
+        </#if>
         </table>
       <#else>
         ${uiLabelMap.PartyNoPaymentMethodInformation}

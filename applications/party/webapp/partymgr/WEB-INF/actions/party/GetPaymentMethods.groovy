@@ -18,9 +18,20 @@
  */
 
 import org.ofbiz.accounting.payment.PaymentWorker;
+import org.ofbiz.accounting.payment.BillingAccountWorker;
+import org.ofbiz.entity.util.EntityUtil;
 
 partyId = parameters.partyId ?: userLogin.partyId;
 showOld = "true".equals(parameters.SHOW_OLD);
+
+currencyUomId = null;
+billingAccounts = [];
+if (partyId) {
+    billingAccountAndRoles = delegator.findByAnd("BillingAccountAndRole", [partyId : partyId]);
+    if (billingAccountAndRoles) currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId;
+    if (currencyUomId) billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher);
+}
+context.billingAccounts = billingAccounts;
 context.showOld = showOld;
 context.partyId = partyId;
 context.paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, showOld);
