@@ -24,6 +24,7 @@
         <value xml:lang="en">Could not copy user preferences: Invalid argument(s)</value>
         <value xml:lang="fr">Impossible de copier les préférences de l'utilisateur : argument(s) non valides</value>
         <value xml:lang="it">Non è possibile copiare le preferenze utente: argomento(i) invalidi</value>
+        <value xml:lang="pt_BR">Não foi possível copiar as preferências do usuário: Argumento(s) inválido(s)</value>
         <value xml:lang="th">ไม่สามารถคัดลอกสิทธิพิเศษของผู้ใช้:ข้อพิสูจน์ใช้ไม่ได้</value>
         <value xml:lang="zh">无法复制用户设置：无效的参数</value>
     </property>
@@ -32,6 +33,7 @@
         <value xml:lang="en">Could not copy user preferences (read/write failure): {0}</value>
         <value xml:lang="fr">Impossible de copier les préférences de l'utilisateur (erreur d'écriture ou de lecture) : {0}</value>
         <value xml:lang="it">Non è possibile copiare le preferenze utente (lettura/scrittura fallita): {0}</value>
+        <value xml:lang="pt_BR">Não foi possível copiar as preferências do usuário (de leitura / gravação falha): {0}</value>
         <value xml:lang="th">ไม่สามารถคัดลอกสิทธิพิเศษของผู้ใช้ (อ่าน/เขียนล้มเหลว): {0}</value>
         <value xml:lang="zh">无法复制用户设置(读/写失败)：{0}</value>
     </property>
@@ -40,6 +42,7 @@
         <value xml:lang="en">Could not get user preferences: Invalid argument(s)</value>
         <value xml:lang="fr">Impossible d'obtenir les préférences de l'utilisateur : argument(s) non valides</value>
         <value xml:lang="it">Non è possibile ottenerele preferenze utente: argomento(i) invalidi)</value>
+        <value xml:lang="pt_BR">Não foi possível obter as preferências do usuário: Argumento(s) inválido(s)</value>
         <value xml:lang="th">ไม่สามารถเรียกค่าสิทธิพิเศษของผู้ใช้:ข้อพิสูจน์ใช้ไม่ได้</value>
         <value xml:lang="zh">无法得到用户设置：无效的参数</value>
     </property>
@@ -47,6 +50,7 @@
         <value xml:lang="en">Permissions error while getting user preferences</value>
         <value xml:lang="fr">Erreur de permissions tout en obtenant des préférences d'utilisateur</value>
         <value xml:lang="it">Errore di permesso durante la lettura delle preferenza utente</value>
+        <value xml:lang="pt_BR">Erro de Permissões ao obter as preferências do usuário</value>
         <value xml:lang="zh">获得用户设置时发生权限错误</value>
     </property>
     <property key="getPreference.readFailure">
@@ -54,6 +58,7 @@
         <value xml:lang="en">Could not get user preferences (read failure): {0}</value>
         <value xml:lang="fr">Impossible d'obtenir les préférences de l'utilisateur (erreur de lecture) : {0}</value>
         <value xml:lang="it">Non è possibile ottenere le preferenze utente (lettura fallita): {0}</value>
+        <value xml:lang="pt_BR">Não foi possível obter as preferências do usuário (falha na leitura): {0}</value>
         <value xml:lang="th">ไม่สามารถเรียกค่าสิทธิพิเศษของผู้ใช้ (อ่านล้มเหลว): {0}</value>
         <value xml:lang="zh">无法获得用户设置(读失败)：{0}</value>
     </property>
@@ -62,6 +67,7 @@
         <value xml:lang="en">Could not set user preferences: Invalid argument(s)</value>
         <value xml:lang="fr">Impossible de définir les préférences de l'utilisateur : argument(s) non valides</value>
         <value xml:lang="it">Non è possibile ottenere le preferenze utente: argomento(i) invalidi</value>
+        <value xml:lang="pt_BR">Não foi possível definir as preferências do usuário: Argumento(s) inválido(s)</value>
         <value xml:lang="th">ไม่สามารถตั้งค่าสิทธิพิเศษของผู้ใช้:ข้อพิสูจน์ใช้ไม่ได้</value>
         <value xml:lang="zh">无法设置用户设置：无效的参数</value>
     </property>
@@ -70,6 +76,7 @@
         <value xml:lang="en">Could not set user preferences (write failure): {0}</value>
         <value xml:lang="fr">Impossible de définir les préférences de l'utilisateur (erreur d'écriture): {0}</value>
         <value xml:lang="it">Non è possibile ottenere le preferenze utente (scrittura fallita): {0}</value>
+        <value xml:lang="pt_BR">Não foi possível definir as preferências do usuário (falha de escrita): {0}</value>
         <value xml:lang="th">ไม่สามารถตั้งค่าสิทธิพิเศษของผู้ใช้ (เขียนล้มเหลว): {0}</value>
         <value xml:lang="zh">无法设置用户设置(写失败)：{0}</value>
     </property>

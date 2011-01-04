@@ -19,7 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
     <property key="AddPermissionManuallyToSecurityGroup">
         <value xml:lang="de">Berechtigung (durch Eingabe) zur Sicherheitsgruppe hinzufügen</value>
         <value xml:lang="en">Add Permission (manually) to Security Group</value>
@@ -92,6 +91,7 @@
     </property>
     <property key="CertDetails">
         <value xml:lang="en">Cert Details</value>
+        <value xml:lang="pt_BR">Detalhes do certificado</value>
     </property>
     <property key="CertImportIssuer">
         <value xml:lang="de">Aussteller importieren</value>
@@ -228,6 +228,7 @@
     </property>
     <property key="FindUserLogin">
         <value xml:lang="en">Find User Login</value>
+        <value xml:lang="pt_BR">Encontrar Nome de Usuário</value>
     </property>
     <property key="FormFieldTitle_currentPassword">
         <value xml:lang="de">Aktuelles Passwort</value>
@@ -264,7 +265,7 @@
         <value xml:lang="fr">Nombre maximum de visites</value>
         <value xml:lang="hi_IN">यात्राओं(visits) की अधिकतम संख्या</value>
         <value xml:lang="it">Massimo numero di visite</value>
-        <value xml:lang="nl">Maximaal aantal bezoeken</value>       
+        <value xml:lang="nl">Maximaal aantal bezoeken</value>
         <value xml:lang="pt_BR">Número máximo de visitas</value>
         <value xml:lang="zh">最大访问数量</value>
         <value xml:lang="zh_TW">最大訪問數量</value>
@@ -363,6 +364,7 @@
     </property>
     <property key="LookupUserLogin">
         <value xml:lang="en">Lookup User Login</value>
+        <value xml:lang="pt_BR">Pesquisar Nome de Usuário</value>
     </property>
     <property key="NewSecurityGroup">
         <value xml:lang="de">Neue Sicherheitsgruppe</value>
@@ -572,6 +574,10 @@
         <value xml:lang="zh">SecurityViewPermissionError 你没有权限浏览本页面。 (需要"SECURITY_VIEW" 或 "SECURITY_ADMIN")</value>
         <value xml:lang="zh_TW">SecurityViewPermissionError 你沒有權限瀏覽本頁面。 (需要"SECURITY_VIEW" 或 "SECURITY_ADMIN")</value>
     </property>
+    <property key="UserLogin">
+        <value xml:lang="en">User Login</value>
+        <value xml:lang="pt_BR">Nome de Usuário</value>
+    </property>
     <property key="UserLoginChangePassword">
         <value xml:lang="de">Passwort der Benutzeranmeldung ändern</value>
         <value xml:lang="en">Change User Login Password</value>
@@ -587,8 +593,19 @@
         <value xml:lang="zh">修改用户登录密码</value>
         <value xml:lang="zh_TW">修改用戶登錄密碼</value>
     </property>
-    <property key="UserLogin">
-        <value xml:lang="en">User Login</value>
+    <property key="UserLoginUpdateSecuritySettings">
+        <value xml:lang="de">Benutzeranmeldung Sicherheitsberechtigungen aktualisieren</value>
+        <value xml:lang="en">Update User Login Security Settings</value>
+        <value xml:lang="fr">Mise à jour des paramètres de sécurité pour l'identifiant de connexion</value>
+        <value xml:lang="hi_IN">प्रयोक्ता लॉगिन सुरक्षा सेटिंग्स नवीनतम करे</value>
+        <value xml:lang="it">Aggiorna Impostazioni Sicurezza Utente Login</value>
+        <value xml:lang="nl">UserLogin Security Settings wijzigen</value>
+        <value xml:lang="pt_BR">Atualizar configurações de segurança do nome de usuário</value>
+        <value xml:lang="ro">Actualizare Setari De Siguranta Utilizator Login</value>
+        <value xml:lang="ru">Обновление настроек безопасности пользователя</value>
+        <value xml:lang="th">เปลี่ยนแปลงการตั้งค่าความปลอดภัยของผู้เข้าใช้ระบบ</value>
+        <value xml:lang="zh">更新用户登录安全设置</value>
+        <value xml:lang="zh_TW">更新用戶登錄安全設置</value>
     </property>
     <property key="UserLogins">
         <value xml:lang="de">Benutzeranmeldungen</value>
@@ -606,20 +623,6 @@
         <value xml:lang="zh">用户登录</value>
         <value xml:lang="zh_TW">用戶登錄</value>
     </property>
-    <property key="UserLoginUpdateSecuritySettings">
-        <value xml:lang="de">Benutzeranmeldung Sicherheitsberechtigungen aktualisieren</value>
-        <value xml:lang="en">Update User Login Security Settings</value>
-        <value xml:lang="fr">Mise à jour des paramètres de sécurité pour l'identifiant de connexion</value>
-        <value xml:lang="hi_IN">प्रयोक्ता लॉगिन सुरक्षा सेटिंग्स नवीनतम करे</value>
-        <value xml:lang="it">Aggiorna Impostazioni Sicurezza Utente Login</value>
-        <value xml:lang="nl">UserLogin Security Settings wijzigen</value>
-        <value xml:lang="pt_BR">Atualizar configurações de segurança do nome de usuário</value>
-        <value xml:lang="ro">Actualizare Setari De Siguranta Utilizator Login</value>
-        <value xml:lang="ru">Обновление настроек безопасности пользователя</value>
-        <value xml:lang="th">เปลี่ยนแปลงการตั้งค่าความปลอดภัยของผู้เข้าใช้ระบบ</value>
-        <value xml:lang="zh">更新用户登录安全设置</value>
-        <value xml:lang="zh_TW">更新用戶登錄安全設置</value>
-    </property>
     <property key="ViewCert">
         <value xml:lang="de">Zertifikat anzeigen</value>
         <value xml:lang="en">View Cert</value>
@@ -634,5 +637,4 @@
         <value xml:lang="zh">浏览证书</value>
         <value xml:lang="zh_TW">瀏覽証書</value>
     </property>
-
 </resource>
