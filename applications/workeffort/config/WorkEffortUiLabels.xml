@@ -2256,6 +2256,14 @@
         <value xml:lang="zh">事件提醒</value>
         <value xml:lang="zh_TW">事件提醒</value>
     </property>
+    <property key="WorkEffortEventRemindersRetrivingError">
+        <value xml:lang="en">Error while retrieving work effort event reminders: ${errorString}</value>
+        <value xml:lang="it">Errore durante la ricerca dell'impegno di lavoro promemoria eventi: ${errorString}</value>
+    </property>
+    <property key="WorkEffortEventRemindersMigrationError">
+        <value xml:lang="en">Error while migrating work effort event reminders: ${errorString}</value>
+        <value xml:lang="it">Errore durante la migrazione dell'impegno di lavoro promemoria eventi: ${errorString}</value>
+    </property>
     <property key="WorkEffortEventStatus">
         <value xml:lang="en">Event Status</value>
         <value xml:lang="es">Estado del evento</value>
@@ -2618,6 +2626,10 @@
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการความพยายามในการทำงาน</value>
         <value xml:lang="zh">人工服务管理应用</value>
         <value xml:lang="zh_TW">工項管理應用</value>
+    </property>
+    <property key="WorkEffortManufacturingError">
+        <value xml:lang="en">Error retrieving manufacturing data for productId ${productId}: " ${errorString}</value>
+        <value xml:lang="it">Errore nella ricerca dei dati per la produzione per il prodotto ${productId}: " ${errorString}</value>
     </property>
     <property key="WorkEffortMaxAmount">
         <value xml:lang="de">Maximale Anzahl</value>
@@ -2991,6 +3003,10 @@
         <value xml:lang="zh">没有任务关联到需求</value>
         <value xml:lang="zh_TW">沒有任務關聯到要求</value>
     </property>
+    <property key="WorkEffortNotFound">
+        <value xml:lang="en">Error finding desired WorkEffort records: ${errorString}</value>
+        <value xml:lang="it">Errore durante la ricerca del record di impegno di lavoro desiredato: ${errorString}</value>
+    </property>
     <property key="WorkEffortNotInRolePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must be in ${roleTypeId} role with WorkEffort: ${workEffortId}</value>
         <value xml:lang="fr">Erreur de sécurité: Pour exécuter ${resourceDescription} vous devez être dans le rôle ${roleTypeId} avec la tâche : ${workEffortId}</value>
@@ -3131,6 +3147,10 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员标识</value>
         <value xml:lang="zh_TW">成員ID</value>
+    </property>
+    <property key="WorkEffortPartyPermissionError">
+        <value xml:lang="en">You do not have permission to view information for party with ID ${partyId}, you must be logged in as a user associated with this party, or have the WORKEFFORTMGR_VIEW or WORKEFFORTMGR_ADMIN permissions.</value>
+        <value xml:lang="it">Tu non il permesso di vedere le informazioni del soggetto ${partyId}, devi essere autenticato con un'utente associato con questo soggetto, o avere i permessi WORKEFFORTMGR_VIEW o WORKEFFORTMGR_ADMIN.</value>
     </property>
     <property key="WorkEffortPassword">
         <value xml:lang="en">Password</value>
