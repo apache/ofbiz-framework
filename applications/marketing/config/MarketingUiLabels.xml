@@ -2413,6 +2413,18 @@
         <value xml:lang="zh">事件</value>
         <value xml:lang="zh_TW">事件</value>
     </property>
+    <property key="SfaExportVCardError">
+        <value xml:lang="en">Error during export data from VCard: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'esportazione dei dati da VCard: ${errorString}</value>
+    </property>
+    <property key="SfaExportVCardErrorOpeningFile">
+        <value xml:lang="en">Error during export data from VCard, unable to open file for writing: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'esportazione dei dati da VCard, non è possibile aprire il file in scrittura: ${errorString}</value>
+    </property>
+    <property key="SfaExportVCardErrorWritingFile">
+        <value xml:lang="en">Error during export data from VCard, unable to write data to: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'esportazione dei dati da VCard, non è possibile scrivere i dati in: ${errorString}</value>
+    </property>
     <property key="SfaFindAccountLeads">
         <value xml:lang="en">Find Account Leads</value>
         <value xml:lang="pt_BR">Buscar contas de Leads</value>
@@ -2493,6 +2505,10 @@
         <value xml:lang="pt_BR">Importar Lead</value>
         <value xml:lang="zh">导入线索</value>
         <value xml:lang="zh_TW">導入線索</value>
+    </property>
+    <property key="SfaImportVCardError">
+        <value xml:lang="en">Error during import data from VCard: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'importazione dei dati da VCard: ${errorString}</value>
     </property>
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
