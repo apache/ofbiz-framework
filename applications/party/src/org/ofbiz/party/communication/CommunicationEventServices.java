@@ -684,13 +684,12 @@ public class CommunicationEventServices {
      * @return
      */
     public static Map<String, Object> storeIncomingEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
-
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
-
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
         String partyIdTo = null;
         String partyIdFrom = null;
         String contentType = null;
@@ -725,14 +724,16 @@ public class CommunicationEventServices {
                 String msgHeaderValue = wrapper.getHeader(spamHeaderName)[0];
                 if (msgHeaderValue != null && msgHeaderValue.startsWith(configHeaderValue)) {
                     Debug.logInfo("Incoming Email message ignored, was detected by external spam checker", module);
-                    return ServiceUtil.returnSuccess(" Message Ignored: detected by external spam checker");
+                    return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
+                            "PartyCommEventMessageIgnoredDetectedByExternalSpamChecker", locale));
                 }
             }
 
             // if no 'from' addresses specified ignore the message
             if (addressesFrom == null) {
                 Debug.logInfo("Incoming Email message ignored, had not 'from' email address", module);
-                return ServiceUtil.returnSuccess(" Message Ignored: no 'From' address specified");
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
+                        "PartyCommEventMessageIgnoredNoFromAddressSpecified", locale));
             }
 
             // make sure this isn't a duplicate
@@ -745,7 +746,8 @@ public class CommunicationEventServices {
             }
             if (!commEvents.isEmpty()) {
                 Debug.logInfo("Ignoring Duplicate Email: " + aboutThisEmail, module);
-                return ServiceUtil.returnSuccess(" Message Ignored: duplicate messageId");
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
+                        "PartyCommEventMessageIgnoredDuplicateMessageId", locale));
             }
 
             // get the related partId's
@@ -1273,7 +1275,6 @@ public class CommunicationEventServices {
                             } else {
                                 if (Debug.infoOn()) {
                                     Debug.logInfo("Unable to find ContactListCommStatus with the matching messageId : "  + messageId, module);
-
                                 }
                             }
                         }

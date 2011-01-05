@@ -62,7 +62,8 @@ import org.ofbiz.service.ServiceUtil;
 public class PartyServices {
 
     public static final String module = PartyServices.class.getName();
-    public static final String resource = "PartyErrorUiLabels";
+    public static final String resource = "PartyUiLabels";
+    public static final String resourceError = "PartyErrorUiLabels";
 
     /**
      * Deletes a Party.
@@ -88,8 +89,8 @@ public class PartyServices {
          * We may want to not allow this, but rather have some sort of delete flag for it if it's REALLY that big of a deal...
          */
 
-        String errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_delete_party_not_implemented", locale);
-        return ServiceUtil.returnError(errMsg);
+        return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                "partyservices.cannot_delete_party_not_implemented", locale));
     }
 
     /**
@@ -113,7 +114,8 @@ public class PartyServices {
 
         // if specified partyId starts with a number, return an error
         if (UtilValidate.isNotEmpty(partyId) && partyId.matches("\\d+")) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "party.id_is_digit", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "party.id_is_digit", locale));
         }
 
         // partyId might be empty, so check it and get next seq party id if empty
@@ -121,7 +123,8 @@ public class PartyServices {
             try {
                 partyId = delegator.getNextSeqId("Party");
             } catch (IllegalArgumentException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "party.id_generation_failure", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "party.id_generation_failure", locale));
             }
         }
 
@@ -136,7 +139,8 @@ public class PartyServices {
 
         if (party != null) {
             if (!"PERSON".equals(party.getString("partyTypeId"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.create.party_exists_not_person_type", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "person.create.party_exists_not_person_type", locale)); 
             }
         } else {
             // create a party if one doesn't already exist with an initial status from the input
@@ -175,7 +179,8 @@ public class PartyServices {
         }
 
         if (person != null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.create.person_exists", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "person.create.person_exists", locale)); 
         }
 
         person = delegator.makeValue("Person", UtilMisc.toMap("partyId", partyId));
@@ -186,7 +191,8 @@ public class PartyServices {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.create.db_error", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "person.create.db_error", new Object[] { e.getMessage() }, locale)); 
         }
 
         result.put("partyId", partyId);
@@ -224,7 +230,10 @@ public class PartyServices {
                 if (statusValidChange == null) {
                     String errorMsg = "Cannot change party status from " + party.getString("statusId") + " to " + statusId;
                     Debug.logWarning(errorMsg, module);
-                    return ServiceUtil.returnError(errorMsg);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "PartyStatusCannotBeChanged", 
+                            UtilMisc.toMap("partyFromStatusId", party.getString("statusId"), 
+                            "partyToStatusId", statusId), locale)); 
                 }
 
                 party.set("statusId", statusId);
@@ -252,7 +261,8 @@ public class PartyServices {
             return results;
         } catch (GenericEntityException e) {
             Debug.logError(e, e.getMessage(), module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.write_failure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "person.update.write_failure", new Object[] { e.getMessage() }, locale));
         }
     }
 
@@ -270,7 +280,8 @@ public class PartyServices {
 
         String partyId = getPartyId(context);
         if (UtilValidate.isEmpty(partyId)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.party_id_missing", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(ServiceUtil.resource, 
+                    "serviceUtil.party_id_missing", locale));
         }
 
         GenericValue person = null;
@@ -281,11 +292,13 @@ public class PartyServices {
             party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.read_failure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "person.update.read_failure", new Object[] { e.getMessage() }, locale));
         }
 
         if (person == null || party == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.not_found", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "person.update.not_found", locale));
         }
 
         // update status by separate service
@@ -304,7 +317,8 @@ public class PartyServices {
             party.store();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.write_failure", new Object[] { e.getMessage() }, locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "person.update.write_failure", new Object[] { e.getMessage() }, locale));
         }
 
         if (UtilValidate.isNotEmpty(context.get("statusId")) && !context.get("statusId").equals(oldStatusId)) {
@@ -312,12 +326,14 @@ public class PartyServices {
                 dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
             } catch (GenericServiceException e) {
                 Debug.logWarning(e.getMessage(), module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.write_failure", new Object[] { e.getMessage() }, locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "person.update.write_failure", new Object[] { e.getMessage() }, locale));
             }
         }
 
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "person.update.success", locale));
+        result.put(ModelService.SUCCESS_MESSAGE, 
+                UtilProperties.getMessage(resourceError, "person.update.success", locale));
         return result;
     }
 
@@ -336,21 +352,20 @@ public class PartyServices {
 
         String partyId = (String) context.get("partyId");
         Locale locale = (Locale) context.get("locale");
-        String errMsg = null;
 
         // partyId might be empty, so check it and get next seq party id if empty
         if (UtilValidate.isEmpty(partyId)) {
             try {
                 partyId = delegator.getNextSeqId("Party");
             } catch (IllegalArgumentException e) {
-                errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_create_party_group_generation_failure", locale);
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "partyservices.could_not_create_party_group_generation_failure", locale));
             }
         } else {
             // if specified partyId starts with a number, return an error
             if (partyId.matches("\\d+")) {
-                errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_create_party_ID_digit", locale);
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "partyservices.could_not_create_party_ID_digit", locale));
             }
         }
 
@@ -360,16 +375,16 @@ public class PartyServices {
             GenericValue partyGroupPartyType = delegator.findByPrimaryKeyCache("PartyType", UtilMisc.toMap("partyTypeId", "PARTY_GROUP"));
 
             if (partyGroupPartyType == null) {
-                errMsg = UtilProperties.getMessage(resource,"partyservices.party_type_not_found_in_database_cannot_create_party_group", locale);
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "partyservices.partyservices.party_type_not_found_in_database_cannot_create_party_group", locale));
             }
 
             if (party != null) {
                 GenericValue partyType = party.getRelatedOneCache("PartyType");
 
                 if (!EntityTypeUtil.isType(partyType, partyGroupPartyType)) {
-                    errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_create_party_group_already_exists_not_PARTY_GROUP_type", locale);
-                    return ServiceUtil.returnError(errMsg);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                            "partyservices.partyservices.cannot_create_party_group_already_exists_not_PARTY_GROUP_type", locale));
                 }
             } else {
                 // create a party if one doesn't already exist
@@ -380,7 +395,8 @@ public class PartyServices {
                     if (desiredPartyType != null && EntityTypeUtil.isType(desiredPartyType, partyGroupPartyType)) {
                         partyTypeId = desiredPartyType.getString("partyTypeId");
                     } else {
-                        return ServiceUtil.returnError("The specified partyTypeId [" + context.get("partyTypeId") + "] could not be found or is not a sub-type of PARTY_GROUP");
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                "PartyPartyTypeIdNotFound", UtilMisc.toMap("partyTypeId", context.get("partyTypeId")), locale));
                     }
                 }
 
@@ -408,8 +424,8 @@ public class PartyServices {
 
             GenericValue partyGroup = delegator.findByPrimaryKey("PartyGroup", UtilMisc.toMap("partyId", partyId));
             if (partyGroup != null) {
-                errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_create_party_group_already_exists", locale);
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "partyservices.cannot_create_party_group_already_exists", locale));
             }
 
             partyGroup = delegator.makeValue("PartyGroup", UtilMisc.toMap("partyId", partyId));
@@ -418,9 +434,9 @@ public class PartyServices {
 
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"partyservices.data_source_error_adding_party_group", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.data_source_error_adding_party_group", 
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
 
         result.put("partyId", partyId);
@@ -442,10 +458,10 @@ public class PartyServices {
 
         String partyId = getPartyId(context);
         if (UtilValidate.isEmpty(partyId)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.party_id_missing", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(ServiceUtil.resource, 
+                    "serviceUtil.party_id_missing", locale));
         }
 
-        String errMsg = null;
         GenericValue partyGroup = null;
         GenericValue party = null;
 
@@ -454,14 +470,14 @@ public class PartyServices {
             party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_party_information_read", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.could_not_update_party_information_read",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
 
         if (partyGroup == null || party == null) {
-            errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_party_information_not_found", locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.could_not_update_party_information_not_found", locale));
         }
 
 
@@ -476,9 +492,9 @@ public class PartyServices {
             party.store();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_party_information_write", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.could_not_update_party_information_write",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
 
         if (UtilValidate.isNotEmpty(context.get("statusId")) && !context.get("statusId").equals(oldStatusId)) {
@@ -486,7 +502,8 @@ public class PartyServices {
                 dispatcher.runSync("setPartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", context.get("statusId"), "userLogin", context.get("userLogin")));
             } catch (GenericServiceException e) {
                 Debug.logWarning(e.getMessage(), module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "person.update.write_failure", new Object[] { e.getMessage() }, locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "person.update.write_failure", new Object[] { e.getMessage() }, locale));
             }
         }
 
@@ -503,17 +520,15 @@ public class PartyServices {
     public static Map<String, Object> createAffiliate(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
-        Timestamp now = UtilDateTime.nowTimestamp();
-
         Locale locale = (Locale) context.get("locale");
-        String errMsg = null;
+        Timestamp now = UtilDateTime.nowTimestamp();
 
         String partyId = getPartyId(context);
 
         // if specified partyId starts with a number, return an error
         if (UtilValidate.isNotEmpty(partyId) && partyId.matches("\\d+")) {
-            errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_create_affiliate_digit", locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.cannot_create_affiliate_digit", locale));
         }
 
         // partyId might be empty, so check it and get next seq party id if empty
@@ -521,8 +536,8 @@ public class PartyServices {
             try {
                 partyId = delegator.getNextSeqId("Party");
             } catch (IllegalArgumentException e) {
-                errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_create_affiliate_generation_failure", locale);
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "partyservices.cannot_create_affiliate_generation_failure", locale));
             }
         }
 
@@ -536,8 +551,8 @@ public class PartyServices {
         }
 
         if (party == null) {
-            errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_create_affiliate_no_party_entity", locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.cannot_create_affiliate_no_party_entity", locale));
         }
 
         GenericValue affiliate = null;
@@ -549,8 +564,8 @@ public class PartyServices {
         }
 
         if (affiliate != null) {
-            errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_create_affiliate_ID_already_exists", locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.cannot_create_affiliate_ID_already_exists", locale));
         }
 
         affiliate = delegator.makeValue("Affiliate", UtilMisc.toMap("partyId", partyId));
@@ -561,9 +576,9 @@ public class PartyServices {
             delegator.create(affiliate);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_add_affiliate_info_write", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.could_not_add_affiliate_info_write",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
 
         result.put("partyId", partyId);
@@ -583,24 +598,24 @@ public class PartyServices {
 
         String partyId = getPartyId(context);
         if (UtilValidate.isEmpty(partyId)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.party_id_missing", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(ServiceUtil.resource, 
+                    "serviceUtil.party_id_missing", locale));
         }
 
-        String errMsg = null;
         GenericValue affiliate = null;
 
         try {
             affiliate = delegator.findByPrimaryKey("Affiliate", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_affiliate_information_read", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.could_not_update_affiliate_information_read",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
 
         if (affiliate == null) {
-            errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_affiliate_information_not_found", locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.could_not_update_affiliate_information_not_found", locale));
         }
 
         affiliate.setNonPKFields(context);
@@ -608,9 +623,9 @@ public class PartyServices {
         try {
             affiliate.store();
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_affiliate_information_write", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyservices.could_not_update_affiliate_information_write",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         return ServiceUtil.returnSuccess();
     }
@@ -630,8 +645,6 @@ public class PartyServices {
         String partyId = (String) context.get("partyId");
         String noteId = (String) context.get("noteId");
         String noteName = (String) context.get("noteName");
-
-        String errMsg = null;
         Locale locale = (Locale) context.get("locale");
         //Map noteCtx = UtilMisc.toMap("note", noteString, "userLogin", userLogin);
 
@@ -657,7 +670,8 @@ public class PartyServices {
                          "note", noteString, "userLogin", userLogin, "locale", locale, "noteName", noteName));
             } catch (GenericServiceException e) {
                 Debug.logError(e, e.getMessage(), module);
-                return ServiceUtil.returnError("Unable to create Note: " + e.getMessage());
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "PartyNoteCreationError", UtilMisc.toMap("errorString", e.getMessage()), locale));
             }
 
             if (noteRes.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))
@@ -666,8 +680,8 @@ public class PartyServices {
             noteId = (String) noteRes.get("noteId");
 
             if (UtilValidate.isEmpty(noteId)) {
-                errMsg = UtilProperties.getMessage(resource,"partyservices.problem_creating_note_no_noteId_returned", locale);
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                        "partyservices.problem_creating_note_no_noteId_returned", locale));
             }
         }
         result.put("noteId", noteId);
@@ -680,10 +694,10 @@ public class PartyServices {
             delegator.create(v);
         } catch (GenericEntityException ee) {
             Debug.logError(ee, module);
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", ee.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"partyservices.problem_associating_note_with_party", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, errMsg);
+            result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resourceError,
+                    "partyservices.problem_associating_note_with_party", 
+                    UtilMisc.toMap("errMessage", ee.getMessage()), locale));
         }
         return result;
     }
@@ -700,11 +714,10 @@ public class PartyServices {
         Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String email = (String) context.get("email");
         Locale locale = (Locale) context.get("locale");
-        String errMsg = null;
 
         if (email.length() == 0) {
-            errMsg = UtilProperties.getMessage(resource,"partyservices.required_parameter_email_cannot_be_empty", locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.required_parameter_email_cannot_be_empty", locale));
         }
 
         try {
@@ -721,9 +734,9 @@ public class PartyServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.cannot_get_party_entities_read",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (parties.size() > 0)
             result.put("parties", parties);
@@ -736,11 +749,10 @@ public class PartyServices {
         Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String email = (String) context.get("email");
         Locale locale = (Locale) context.get("locale");
-        String errMsg = null;
 
         if (email.length() == 0) {
-            errMsg = UtilProperties.getMessage(resource,"partyservices.required_parameter_email_cannot_be_empty", locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.required_parameter_email_cannot_be_empty", locale));
         }
 
         try {
@@ -757,9 +769,9 @@ public class PartyServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.cannot_get_party_entities_read",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (parties.size() > 0)
             result.put("parties", parties);
@@ -781,7 +793,8 @@ public class PartyServices {
         Locale locale = (Locale) context.get("locale");
 
         if (userLoginId.length() == 0)
-            return ServiceUtil.returnError("Required parameter 'userLoginId' cannot be empty.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyCannotGetUserLoginFromParty", locale));
 
         try {
             EntityExpr ee = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.LIKE, EntityFunction.UPPER("%" + userLoginId.toUpperCase() + "%"));
@@ -797,9 +810,9 @@ public class PartyServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.cannot_get_party_entities_read", 
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (parties.size() > 0) {
             result.put("parties", parties);
@@ -828,8 +841,8 @@ public class PartyServices {
             lastName = "";
         }
         if (firstName.length() == 0 && lastName.length() == 0) {
-            String errMsg = UtilProperties.getMessage(resource,"partyservices.both_names_cannot_be_empty", locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.both_names_cannot_be_empty", locale));
         }
 
         try {
@@ -847,9 +860,9 @@ public class PartyServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.cannot_get_party_entities_read",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (parties.size() > 0) {
             result.put("parties", parties);
@@ -871,7 +884,8 @@ public class PartyServices {
         Locale locale = (Locale) context.get("locale");
 
         if (groupName.length() == 0) {
-            return ServiceUtil.returnError("Required parameter 'groupName' cannot be empty.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyCannotGetPartyFromPartyGroup", locale));
         }
 
         try {
@@ -887,9 +901,9 @@ public class PartyServices {
                 }
             }
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            String errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.cannot_get_party_entities_read",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (parties.size() > 0) {
             result.put("parties", parties);
@@ -901,12 +915,15 @@ public class PartyServices {
         Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         String partyId = (String) context.get("partyId");
+        Locale locale = (Locale) context.get("locale");
         GenericValue person = null;
 
         try {
             person = delegator.findByPrimaryKeyCache("Person", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Cannot get person entity (read failure): " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                    "partyservices.cannot_get_party_entities_read",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (person != null) {
             result.put("lookupPerson", person);
@@ -917,6 +934,7 @@ public class PartyServices {
     public static Map<String, Object> createRoleType(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         GenericValue roleType = null;
 
         try {
@@ -926,7 +944,9 @@ public class PartyServices {
             roleType = delegator.create(roleType);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Cannot create role type entity (write failure): " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyCannotCreateRoleTypeEntity",
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (roleType != null) {
             result.put("roleType", roleType);
@@ -936,7 +956,8 @@ public class PartyServices {
 
     public static Map<String, Object> createPartyDataSource(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
-
+        Locale locale = (Locale) context.get("locale");
+        
         // input data
         String partyId = (String) context.get("partyId");
         String dataSourceId = (String) context.get("dataSourceId");
@@ -948,9 +969,17 @@ public class PartyServices {
             GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
             GenericValue dataSource = delegator.findByPrimaryKey("DataSource", UtilMisc.toMap("dataSourceId", dataSourceId));
             if (party == null || dataSource == null) {
-                List<String> errorList = UtilMisc.toList("Cannot create PartyDataSource");
-                if (party == null) errorList.add("party with ID [" + partyId + "] was not found ");
-                if (dataSource == null) errorList.add("data source with ID [" + dataSourceId + "] was not found ");
+                List<String> errorList = UtilMisc.toList(UtilProperties.getMessage(resource, 
+                        "PartyCannotCreatePartyDataSource", locale));
+                if (party == null) {
+                    errorList.add(UtilProperties.getMessage(resource, 
+                            "PartyNoPartyFoundWithPartyId", locale) + partyId);
+                }
+                if (dataSource == null) {
+                    errorList.add(UtilProperties.getMessage(resource, 
+                            "PartyNoPartyWithDataSourceId",
+                            UtilMisc.toMap("dataSourceId", dataSourceId), locale));
+                }
                 return ServiceUtil.returnError(errorList);
             }
 
@@ -969,7 +998,8 @@ public class PartyServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-
+        Locale locale = (Locale) context.get("locale");
+        
         String extInfo = (String) context.get("extInfo");
 
         // get the role types
@@ -979,7 +1009,9 @@ public class PartyServices {
         } catch (GenericEntityException e) {
             String errMsg = "Error looking up RoleTypes: " + e.toString();
             Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyLookupRoleTypeError",
+                    UtilMisc.toMap("errMessage", e.toString()), locale));
         }
 
         // current role type
@@ -993,7 +1025,9 @@ public class PartyServices {
         } catch (GenericEntityException e) {
             String errMsg = "Error looking up current RoleType: " + e.toString();
             Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyLookupRoleTypeError",
+                    UtilMisc.toMap("errMessage", e.toString()), locale));
         }
 
         //get party types
@@ -1003,7 +1037,9 @@ public class PartyServices {
         } catch (GenericEntityException e) {
             String errMsg = "Error looking up PartyTypes: " + e.toString();
             Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyLookupPartyTypeError",
+                    UtilMisc.toMap("errMessage", e.toString()), locale));
         }
 
         // current party type
@@ -1015,9 +1051,11 @@ public class PartyServices {
                 result.put("currentPartyType", currentPartyType);
             }
         } catch (GenericEntityException e) {
-            String errMsg = "Error looking up current RoleType: " + e.toString();
+            String errMsg = "Error looking up current PartyType: " + e.toString();
             Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyLookupPartyTypeError",
+                    UtilMisc.toMap("errMessage", e.toString()), locale));
         }
 
         // current state
@@ -1031,7 +1069,9 @@ public class PartyServices {
         } catch (GenericEntityException e) {
             String errMsg = "Error looking up current stateProvinceGeo: " + e.toString();
             Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyLookupStateProvinceGeoError",
+                    UtilMisc.toMap("errMessage", e.toString()), locale));
         }
 
         // set the page parameters
@@ -1420,7 +1460,9 @@ public class PartyServices {
                 } catch (GenericEntityException e) {
                     String errMsg = "Failure in party find operation, rolling back transaction: " + e.toString();
                     Debug.logError(e, errMsg, module);
-                    return ServiceUtil.returnError(errMsg);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "PartyLookupPartyError",
+                            UtilMisc.toMap("errMessage", e.toString()), locale));
                 }
             } else {
                 partyListSize = 0;
@@ -1449,6 +1491,7 @@ public class PartyServices {
     public static Map<String, Object> linkParty(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator _delegator = dctx.getDelegator();
         Delegator delegator = _delegator.cloneDelegator();
+        Locale locale = (Locale) context.get("locale");
         delegator.setEntityEcaHandler(null);
 
         String partyIdTo = (String) context.get("partyIdTo");
@@ -1456,7 +1499,8 @@ public class PartyServices {
         Timestamp now = UtilDateTime.nowTimestamp();
 
         if (partyIdTo.equals(partyId)) {
-            return ServiceUtil.returnError("Cannot link the same party with itself");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyCannotLinkPartyToItSelf", locale));
         }
 
         // get the from/to party records
@@ -1468,10 +1512,12 @@ public class PartyServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (partyTo == null) {
-            return ServiceUtil.returnError("Party To does not exist!");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyPartyToDoesNotExists", locale));
         }
         if ("PARTY_DISABLED".equals(partyTo.get("statusId"))) {
-            return ServiceUtil.returnError("Cannot merge records into a disabled party!");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyCannotMergeDisabledParty", locale));
         }
 
         GenericValue party;
@@ -1482,7 +1528,8 @@ public class PartyServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (party == null) {
-            return ServiceUtil.returnError("Party FROM does not exist!");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "PartyPartyFromDoesNotExists", locale));
         }
 
         // update the contact mech records
@@ -1674,6 +1721,7 @@ public class PartyServices {
 
     public static Map<String, Object> importAddressMatchMapCsv(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         String encoding = System.getProperty("file.encoding");
         String csvFile = Charset.forName(encoding).decode(fileBytes).toString();
@@ -1685,7 +1733,8 @@ public class PartyServices {
                 String str = records[i].trim();
                 String[] map = str.split(",");
                 if (map.length != 2 && map.length != 3) {
-                    return ServiceUtil.returnError("Invalid format for CSV (key,value,sequence)");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "PartyImportInvalidCsvFile", locale));
                 } else {
                     GenericValue addrMap = delegator.makeValue("AddressMatchMap");
                     addrMap.put("mapKey", map[0].trim().toUpperCase());
@@ -1718,7 +1767,8 @@ public class PartyServices {
                     }
                 }
             } else {
-                return ServiceUtil.returnError("No records found in file");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "PartyImportNoRecordsFoundInFile", locale));
             }
         }
 
