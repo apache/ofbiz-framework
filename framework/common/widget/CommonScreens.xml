@@ -94,14 +94,6 @@ under the License.
         <section>
             <actions>
                 <set field="autocompleteOptions" from-field="parameters.autocompleteOptions"/>
-                <!--
-                FIXME: Disabled because it represents a security hole.
-                <set field="entityName" from-field="parameters.entityName"/>
-                <set field="fieldName" from-field="parameters.fieldName"/>
-                <set field="selectFields" from-field="parameters.selectFields"/>
-                <set field="sortByFields" from-field="parameters.sortByFields"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/FindAutocompleteOptions.groovy"/>
-                -->
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/ajaxAutocompleteOptions.ftl"/></html></platform-specific>
