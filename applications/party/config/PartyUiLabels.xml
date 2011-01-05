@@ -3270,6 +3270,38 @@
         <value xml:lang="zh">办公电话</value>
         <value xml:lang="zh_TW">辦公電話</value>
     </property>
+    <property key="PartyCannotCreatePartyDataSource">
+        <value xml:lang="en">Cannot create PartyDataSource</value>
+        <value xml:lang="it">Non è possibile creare la sorgente dati</value>
+    </property>
+    <property key="PartyCannotCreateRoleTypeEntity">
+        <value xml:lang="en">Cannot create role type entity (write failure): ${errMessage}</value>
+        <value xml:lang="it">Non è possibile creare il tipo ruolo (fallimento in scrittura): ${errMessage}</value>
+    </property>
+    <property key="PartyCannotGetUserLoginFromParty">
+        <value xml:lang="en">Required parameter 'userLoginId' cannot be empty.</value>
+        <value xml:lang="it">Parametro 'userLoginId' richiesto non può essere vuoto.</value>
+    </property>
+    <property key="PartyCannotCopyPartyContactMech">
+        <value xml:lang="en">Failed to copy contact mechs. Error: ${errorString}</value>
+        <value xml:lang="it">Fallita copia contatti. Errore: ${errorString}</value>
+    </property>
+    <property key="PartyCannotGetPartyContactMech">
+        <value xml:lang="en">Both 'partyId' and 'userLogin' are empty.</value>
+        <value xml:lang="it">Entrambi 'soggetto' e 'utente' sono vuoti.</value>
+    </property>
+    <property key="PartyCannotGetPartyContactMech">
+        <value xml:lang="en">Both 'partyId' and 'userLogin' are empty.</value>
+        <value xml:lang="it">Entrambi 'soggetto' e 'utente' sono vuoti.</value>
+    </property>
+    <property key="PartyCannotLinkPartyToItSelf">
+        <value xml:lang="en">Cannot link the same party with itself</value>
+        <value xml:lang="it">Non è possibile collegare lo stesso soggetto a se stesso</value>
+    </property>
+    <property key="PartyCannotMergeDisabledParty">
+        <value xml:lang="en">Cannot merge records into a disabled party!</value>
+        <value xml:lang="it">Non è possibile fondere i soggetti se il soggetto è disabilitato!</value>
+    </property>
     <property key="PartyCannotUpdateContactBecauseNotWithSpecifiedParty">
         <value xml:lang="de">FEHLER: Kann die Kontaktinformationen nicht aktualisieren da sie nicht zum angegeben Akteur gehören.</value>
         <value xml:lang="en">ERROR: Cannot update specified contact info because it does not correspond to the specified party.</value>
@@ -3555,6 +3587,18 @@
         <value xml:lang="en">Create Opportunity</value>
         <value xml:lang="it">Creare opportunità</value>
         <value xml:lang="pt_BR">Criar oportunidade</value>
+    </property>
+    <property key="PartyCommEventMessageIgnoredDetectedByExternalSpamChecker">
+        <value xml:lang="en"> Message Ignored: detected by external spam checker</value>
+        <value xml:lang="it"> Messaggio Ignorato: individuato da un verificatore esterno di spam</value>
+    </property>
+    <property key="PartyCommEventMessageIgnoredDuplicateMessageId">
+        <value xml:lang="en"> Message Ignored: duplicate messageId</value>
+        <value xml:lang="it"> Messaggio Ignorato: messaggio duplicato</value>
+    </property>
+    <property key="PartyCommEventMessageIgnoredNoFromAddressSpecified">
+        <value xml:lang="en"> Message Ignored: no 'From' address specified</value>
+        <value xml:lang="it"> Messaggio Ignorato: nessu indirizzo 'Da' specificato</value>
     </property>
     <property key="PartyCommEventOrders">
         <value xml:lang="en">Communication Event Orders</value>
@@ -5940,6 +5984,14 @@
         <value xml:lang="zh">找不到家庭电话号码。</value>
         <value xml:lang="zh_TW">沒有家裡電話號碼。</value>
     </property>
+    <property key="PartyImportInvalidCsvFile">
+        <value xml:lang="en">Invalid format for CSV (key,value,sequence)</value>
+        <value xml:lang="it">Formato file CSV non valido (chiave, valore, sequenza)</value>
+    </property>
+    <property key="PartyImportNoRecordsFoundInFile">
+        <value xml:lang="en">No records found in file</value>
+        <value xml:lang="it">Formato file CSV non valido (chiave, valore, sequenza)</value>
+    </property>
     <property key="PartyInProgresstEmails">
         <value xml:lang="en">Emails scheduled to be sent</value>
         <value xml:lang="fr">Courriels prêts à être envoyés</value>
@@ -6643,6 +6695,22 @@
         <value xml:lang="th">ค้นหาบุคคลทั่วไป</value>
         <value xml:lang="zh">查找人员</value>
         <value xml:lang="zh_TW">查找人員</value>
+    </property>
+    <property key="PartyLookupStateProvinceGeoError">
+        <value xml:lang="en">Error looking up StateProvinceGeo: ${errMessage}</value>
+        <value xml:lang="it">Errore durante la ricerca dello stato/provincia: ${errMessage}</value>
+    </property>
+    <property key="PartyLookupPartyError">
+        <value xml:lang="en">Failure in party find operation, rolling back transaction: ${errMessage}</value>
+        <value xml:lang="it">Fallita l'operazione di ricerca soggetto, transazione annullata: ${errMessage}</value>
+    </property>
+    <property key="PartyLookupPartyTypeError">
+        <value xml:lang="en">Error looking up PartyTypes: ${errMessage}</value>
+        <value xml:lang="it">Errore durante la ricerca del tipo soggetto: ${errMessage}</value>
+    </property>
+    <property key="PartyLookupRoleTypeError">
+        <value xml:lang="en">Error looking up RoleTypes: ${errMessage}</value>
+        <value xml:lang="it">Errore durante la ricerca del tipo ruolo: ${errMessage}</value>
     </property>
     <property key="PartyLookupUserLoginAndPartyDetails">
         <value xml:lang="de">Benutzeranmeldung und Akteur suchen</value>
@@ -7659,6 +7727,10 @@
         <value xml:lang="zh">没有找到会员，会员标识</value>
         <value xml:lang="zh_TW">沒有找到相符成員ID</value>
     </property>
+    <property key="PartyNoPartyWithDataSourceId">
+        <value xml:lang="en">Data source with ID ${dataSourceId} was not found</value>
+        <value xml:lang="it">Sorgente dati ${dataSourceId} non è stato trovato</value>
+    </property>
     <property key="PartyNoPartyRelationshipsFound">
         <value xml:lang="de">Keine Beziehungen gefunden.</value>
         <value xml:lang="en">No relationships found.</value>
@@ -7798,6 +7870,10 @@
         <value xml:lang="th">ไม่มีผู้จัดหาสิ่งของให้</value>
         <value xml:lang="zh">没有供货商</value>
         <value xml:lang="zh_TW">沒有供貨商</value>
+    </property>
+    <property key="PartyNoteCreationError">
+        <value xml:lang="en">Unable to create Note: ${errorString}</value>
+        <value xml:lang="it">Non è possibile creare la nota: ${errorString}</value>
     </property>
     <property key="PartyNoUserLogin">
         <value xml:lang="de">Keine Benutzeranmeldung gefunden für diesen Akteur.</value>
@@ -8119,6 +8195,10 @@
         <value xml:lang="zh">会员来自</value>
         <value xml:lang="zh_TW">成員來自</value>
     </property>
+    <property key="PartyPartyFromDoesNotExists">
+        <value xml:lang="en">Party From does not exist!</value>
+        <value xml:lang="it">Soggetto Da non esiste!</value>
+    </property>
     <property key="PartyPartyGroupInformation">
         <value xml:lang="de">Akteurgruppe Information</value>
         <value xml:lang="en">Party Group Information</value>
@@ -8335,6 +8415,14 @@
         <value xml:lang="th">กลุ่มผู้ใช้ถึง</value>
         <value xml:lang="zh">会员到</value>
         <value xml:lang="zh_TW">成員到</value>
+    </property>
+    <property key="PartyPartyToDoesNotExists">
+        <value xml:lang="en">Party To does not exist!</value>
+        <value xml:lang="it">Soggetto A non esiste!</value>
+    </property>
+    <property key="PartyPartyTypeIdNotFound">
+        <value xml:lang="en">The specified partyTypeId ${partyTypeId} could not be found or is not a sub-type of PARTY_GROUP</value>
+        <value xml:lang="it">Il tipo soggetto specificato ${partyTypeId} non è stato trovato o non è un sotto-tipo di PARTY_GROUP</value>
     </property>
     <property key="PartyPartyWithId">
         <value xml:lang="de">des Akteur mit der ID</value>
@@ -9169,6 +9257,18 @@
         <value xml:lang="th">ความปลอดภัยของกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员关系安全</value>
         <value xml:lang="zh_TW">成員關係安全</value>
+    </property>
+    <property key="PartyRelationshipTypeAlreadyExists">
+        <value xml:lang="en">Could not create party relationship type: already exists</value>
+        <value xml:lang="it">Non è possibile creare il tipo rapporto soggetto: esiste già</value>
+    </property>
+    <property key="PartyRelationshipTypeReadFailure">
+        <value xml:lang="en">Could not create party relationship type (read failure): ${errorString}</value>
+        <value xml:lang="it">Non è possibile creare il tipo rapporto soggetto (fallita lettura): ${errorString}</value>
+    </property>
+    <property key="PartyRelationshipTypeWriteFailure">
+        <value xml:lang="en">Could not create party relationship type (write failure): ${errorString}</value>
+        <value xml:lang="it">Non è possibile creare il tipo rapporto soggetto (fallita scrittura): ${errorString}</value>
     </property>
     <property key="PartyRelationshipValidFromRoleType">
         <value xml:lang="de">Gültig von Rolle Typ</value>
@@ -10097,6 +10197,10 @@
         <value xml:lang="pt_BR">Estado está em branco</value>
         <value xml:lang="zh">缺少省</value>
         <value xml:lang="zh_TW">缺少省</value>
+    </property>
+    <property key="PartyStatusCannotBeChanged">
+        <value xml:lang="en">Cannot change party status from ${partyFromStatusId} to ${partyToStatusId}</value>
+        <value xml:lang="it">Non è possibile cambiare lo stato del soggetto da ${partyFromStatusId} a ${partyToStatusId}</value>
     </property>
     <property key="PartyStillActive">
         <value xml:lang="de">Immer noch aktiv</value>

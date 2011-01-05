@@ -20,6 +20,7 @@
 package org.ofbiz.party.party;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -27,6 +28,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -46,7 +48,8 @@ import org.ofbiz.service.ServiceUtil;
 public class PartyRelationshipServices {
 
     public static final String module = PartyRelationshipServices.class.getName();
-    public static final String resource = "PartyErrorUiLabels";
+    public static final String resource = "PartyUiLabels";
+    public static final String resourceError = "PartyErrorUiLabels";
 
     /** Creates a PartyRelationshipType
      *@param ctx The DispatchContext that this service is operating in
@@ -58,6 +61,7 @@ public class PartyRelationshipServices {
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
 
         ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PARTYMGR", "_CREATE");
 
@@ -75,18 +79,23 @@ public class PartyRelationshipServices {
 
         try {
             if (delegator.findOne(partyRelationshipType.getEntityName(), partyRelationshipType.getPrimaryKey(), false) != null) {
-                return ServiceUtil.returnError("Could not create party relationship type: already exists");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "PartyRelationshipTypeAlreadyExists", locale));
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            return ServiceUtil.returnError("Could not create party relationship type (read failure): " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "PartyRelationshipTypeReadFailure",
+                    UtilMisc.toMap("errorString", e.getMessage()),    locale));
         }
 
         try {
             partyRelationshipType.create();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            return ServiceUtil.returnError("Could not create party relationship type (write failure): " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "PartyRelationshipTypeWriteFailure",
+                    UtilMisc.toMap("errorString", e.getMessage()),    locale));
         }
 
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
@@ -103,6 +112,7 @@ public class PartyRelationshipServices {
         Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
 
         try {
             List<GenericValue> partyRelationShipList = PartyRelationshipHelper.getActivePartyRelationships(delegator, context);
@@ -146,12 +156,16 @@ public class PartyRelationshipServices {
                     dispatcher.runSync("createPartyRelationship", context); // Create new one
                 } catch (GenericServiceException e) {
                     Debug.logWarning(e.getMessage(), module);
-                    return ServiceUtil.returnError("Could not create party relationship (write failure): " + e.getMessage());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                            "partyrelationshipservices.could_not_create_party_role_write",
+                            UtilMisc.toMap("errorString", e.getMessage()), locale));
                 }
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            return ServiceUtil.returnError("Could not create party relationship (write failure): " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "partyrelationshipservices.could_not_create_party_role_write",
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
