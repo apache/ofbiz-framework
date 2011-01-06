@@ -127,6 +127,10 @@ under the License.
     </request-map>
 
     <!-- ================ Category Requests ================= -->
+    <request-map uri="FindCategory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindCategory"/>
+    </request-map>
     <request-map uri="EditCategory">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditCategory"/>
@@ -3040,6 +3044,7 @@ under the License.
     <view-map name="exportproducts" type="screen" page="component://product/widget/catalog/FindScreens.xml#exportproducts"/>
     <view-map name="FindProductById" type="screen" page="component://product/widget/catalog/FindScreens.xml#FindProductById"/>
 
+    <view-map name="FindCategory" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#FindCategory"/>
     <view-map name="EditCategory" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategory"/>
     <view-map name="EditCategoryContent" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategoryContent"/>
     <view-map name="EditCategoryAttributes" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategoryAttributes"/>

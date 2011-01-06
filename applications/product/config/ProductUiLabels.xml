@@ -7459,6 +7459,10 @@
     <property key="PageTitleFacilityGeoLocation">
         <value xml:lang="en">Facility Geo Location</value>
     </property>
+    <property key="PageTitleFindCategory">
+        <value xml:lang="en">Find Category</value>
+        <value xml:lang="th">ค้นหาหมวดหมู่</value>
+    </property>
     <property key="PageTitleFindConfigItems">
         <value xml:lang="de">Konfigurationsposition suchen</value>
         <value xml:lang="en">Find Config Items</value>
@@ -7479,7 +7483,7 @@
         <value xml:lang="it">Ricerca Stabilimento</value>
         <value xml:lang="ro">Cauta Compartimento</value>
         <value xml:lang="ru">Поиск объекта</value>
-        <value xml:lang="th">ค้นหาคลังสินค้</value>
+        <value xml:lang="th">ค้นหาคลังสินค้า</value>
         <value xml:lang="zh">查找场所</value>
         <value xml:lang="zh_TW">查找場所</value>
     </property>

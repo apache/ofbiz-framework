@@ -40,7 +40,7 @@ under the License.
                     </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for CATALOG, _VIEW permission -->
@@ -80,11 +80,53 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="FindCategory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindCategory"/>
+                <set field="headerItem" value="categories"/>
+                <set field="tabButtonItem" value="FindCategory"/>
+                <set field="labelTitleProperty" value="ProductCategory"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCategoryDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar">
+                                            <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext create"/>
+                                            <link target="createProductInCategoryStart" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext create">
+                                                <parameter param-name="productCategoryId"/>
+                                            </link>
+                                            <link target="advancedsearch" text="${uiLabelMap.ProductSearchInCategory}" style="buttontext search">
+                                                <parameter param-name="SEARCH_CATEGORY_ID" from-field="productCategoryId"/>
+                                            </link>
+                                            <link target="/ecommerce/control/category" url-mode="plain" text="${uiLabelMap.ProductCategoryPage}" style="buttontext website">
+                                                <parameter param-name="category_id" from-field="productCategoryId"/>
+                                            </link>
+                                        </container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditCategory">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCategories"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategory"/>
                 <set field="labelTitleProperty" value="ProductCategory"/>
 
@@ -112,7 +154,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryContent"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryContent"/>
                 <set field="labelTitleProperty" value="ProductCategoryContent"/>
 
@@ -149,7 +191,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryContentContent"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryContent"/>
                 <set field="labelTitleProperty" value="ProductCategoryContent"/>
 
@@ -193,7 +235,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryRollup"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryRollup"/>
                 <set field="labelTitleProperty" value="ProductRollup"/>
                 <set field="productCategoryId" from-field="parameters.showProductCategoryId"/>
@@ -223,7 +265,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryProducts"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryProducts"/>
                 <set field="labelTitleProperty" value="ProductProducts"/>
 
@@ -246,7 +288,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryProductCatalogs"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryProdCatalogs"/>
                 <set field="labelTitleProperty" value="ProductCatalogs"/>
 
@@ -282,7 +324,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryFeatureCategories"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryFeatureCats"/>
                 <set field="labelTitleProperty" value="ProductFeatureCategoriesGroups"/>
 
@@ -320,7 +362,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryParties"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryParties"/>
                 <set field="labelTitleProperty" value="PartyParties"/>
 
@@ -352,7 +394,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryAttributes"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryAttributes"/>
                 <set field="labelTitleProperty" value="ProductCategoryAttributes"/>
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
@@ -380,7 +422,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateProductCategoryStart"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="labelTitleProperty" value="ProductCreateProductInCategory"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
@@ -401,7 +443,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateProductCategoryCheckExisting"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="labelTitleProperty" value="ProductCreateProductInCategory"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
@@ -426,7 +468,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCategoryLink"/>
-                <set field="headerItem" value="category"/>
+                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditProductCategoryLinks"/>
                 <set field="labelTitleProperty" value="ProductCategoryLinks"/>
 

@@ -329,8 +329,9 @@ under the License.
         <section>
             <widgets>
                 <include-screen name="keywordsearchbox"/>
-                <include-screen name="sidecatalogs"/>
-                <include-screen name="sidedeepcategory"/>
+                <!--<include-screen name="sidecatalogs"/>
+                <include-screen name="sidedeepcategory"/>-->
+                <include-screen name="categorytree"/>
                 <include-screen name="miniproductlist"/>
             </widgets>
         </section>
@@ -425,7 +426,22 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
+    <screen name="categorytree">
+        <section>
+            <actions>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.4.2.min.js" global="true"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/CategoryTree.groovy"></script>
+            </actions>
+            <widgets>
+                <screenlet id="ProductBrowseCategoriesPanel" title="${uiLabelMap.ProductBrowseCategories}" collapsible="true">
+                    <container id="EditDocumentTree"/>
+                    <platform-specific><html><html-template location="component://product/webapp/catalog/category/CategoryTree.ftl"/></html></platform-specific>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="main">
         <section>
             <actions>
