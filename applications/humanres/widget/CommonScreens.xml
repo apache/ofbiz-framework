@@ -387,7 +387,7 @@ under the License.
     <screen name="CommonTrainingDecorator">
         <section>
             <actions>
-                <property-map resource="WebPosUiLabels" map-name="uiLabelMap" global="true"/>
+                <!-- <property-map resource="WebPosUiLabels" map-name="uiLabelMap" global="true"/> -->
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="Training"/>
             </actions>
