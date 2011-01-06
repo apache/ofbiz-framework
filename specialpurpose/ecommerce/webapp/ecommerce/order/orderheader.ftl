@@ -120,7 +120,7 @@ under the License.
           <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId && creditCard?has_content>
             <#if outputted?default(false)>
             </#if>
-            <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress")>
+            <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress")?if_exists>
             <li>
               <ul>
                 <li> ${uiLabelMap.AccountingCreditCard}
@@ -162,7 +162,7 @@ under the License.
           <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId && eftAccount?has_content>
             <#if outputted?default(false)>
             </#if>
-            <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress")>
+            <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress")?if_exists>
             <li>
               <ul>
                 <li>
