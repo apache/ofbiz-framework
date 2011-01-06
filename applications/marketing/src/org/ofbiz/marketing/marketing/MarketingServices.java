@@ -19,6 +19,7 @@
 package org.ofbiz.marketing.marketing;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -30,6 +31,9 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -75,7 +79,19 @@ public class MarketingServices {
 
             // associate the email with anonymous user TODO: do we need a custom contact mech purpose type, say MARKETING_EMAIL?
             if (partyId == null) {
-                partyId = "_NA_";
+                // Check existing email
+                List conds = UtilMisc.toList(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, email));
+                conds.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "EMAIL_ADDRESS"));
+                conds.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_EMAIL"));
+                conds.add(EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate"));
+                conds.add(EntityUtil.getFilterByDateExpr());
+                List<GenericValue> contacts = delegator.findList("PartyContactDetailByPurpose", EntityCondition.makeCondition(conds), null, UtilMisc.toList("-fromDate"), null, false);
+                if (UtilValidate.isNotEmpty(contacts)) {
+                    GenericValue contact = EntityUtil.getFirst(contacts);
+                    partyId = contact.getString("partyId");
+                } else {
+                    partyId = "_NA_";
+                }
             }
             input = UtilMisc.toMap("userLogin", userLogin, "emailAddress", email, "partyId", partyId, "fromDate", fromDate, "contactMechPurposeTypeId", "OTHER_EMAIL");
             Map<String, Object> serviceResults = dispatcher.runSync("createPartyEmailAddress", input);
