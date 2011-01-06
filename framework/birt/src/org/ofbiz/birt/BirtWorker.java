@@ -185,7 +185,7 @@ public class BirtWorker {
             security = (Security) request.getAttribute("security");
         }
         if (UtilValidate.isNotEmpty(security)) {
-            engine.getConfig().getAppContext().put("security", dispatcher);
+            engine.getConfig().getAppContext().put("security", security);
         }
     }
 }

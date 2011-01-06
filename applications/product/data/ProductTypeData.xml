@@ -175,6 +175,7 @@ under the License.
     <ProdCatalogCategoryType description="Purchase Allow (One)" prodCatalogCategoryTypeId="PCCT_PURCH_ALLW"/>
     <ProdCatalogCategoryType description="Admin Allow (One)" prodCatalogCategoryTypeId="PCCT_ADMIN_ALLW"/>
     <ProdCatalogCategoryType description="Ebay Root (One)" prodCatalogCategoryTypeId="PCCT_EBAY_ROOT"/>
+    <ProdCatalogCategoryType description="Best Selling (One)" prodCatalogCategoryTypeId="PCCT_BEST_SELL"/>
 
     <ProductAssocType description="Also Bought" hasTable="N" parentTypeId="" productAssocTypeId="ALSO_BOUGHT"/>
     <ProductAssocType description="Upgrade or Up-Sell" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_UPGRADE"/>
@@ -209,6 +210,7 @@ under the License.
     <ProductCategoryType description="Tax" hasTable="N" parentTypeId="" productCategoryTypeId="TAX_CATEGORY"/>
     <ProductCategoryType description="Google Base" hasTable="N" parentTypeId="" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
     <ProductCategoryType description="Gift Cards" hasTable="N" parentTypeId="" productCategoryTypeId="GIFT_CARD_CATEGORY"/>
+    <ProductCategoryType description="Best Selling" hasTable="N" parentTypeId="" productCategoryTypeId="BEST_SELL_CATEGORY"/>
 
     <!-- product geo data -->
     <EnumerationType description="Product Geo Data" enumTypeId="PROD_GEO" hasTable="N" parentTypeId=""/>

@@ -38,14 +38,14 @@ under the License.
         <field name="origCurrencyDimId" type="id-ne"></field>
         <field name="billToCustomerDimId" type="id-ne"></field> <!-- TODO: implement the dimension -->
         
-        <field name="productStoreId" type="id-ne"></field>      
+        <field name="productCategoryId" type="id-ne"></field>
+        <field name="productStoreId" type="id-ne"></field>
         <field name="salesChannelEnumId" type="id-ne"></field>
-        <field name="saleChannel" type="description"></field>
-        <field name="orderStatus" type="description"></field>
-        <field name="visitId" type="id-ne"></field>
-        <field name="initialReferrer" type="url"></field>
-        <field name="productPromoCode" type="id"></field>
-        <field name="categoryName" type="id"></field>
+        <field name="statusId" type="id-ne"></field>
+        
+        <field name="brand" type="name"></field>
+        <field name="pod" type="name"></field>
+        <field name="account" type="name"></field>
         
         <field name="quantity" type="fixed-point">
             <description>Quantity order. From OrderItem.quantity</description>
@@ -70,103 +70,27 @@ under the License.
             <description>Extended tax amount.</description>
         </field>
         
-        <field name="GrossSales" type="currency-precise">
-            <description>Gross Sales: extGrossAmount less extShippingAmount.</description>
+        <field name="GS" type="currency-precise">
+            <description>Gross Sales: Gross Amount plus Shipping Amount.</description>
         </field>
-        <field name="GrossMerchandizeSales" type="currency-precise">
-            <description>Gross Merchandize Sales: extGrossAmount.</description>
+        <field name="GMS" type="currency-precise">
+            <description>Gross Merchandize Sales: Gross Amount.</description>
         </field>
-        <field name="GrossMerchandizeProfit" type="currency-precise">
-            <description>Gross Merchandize Profit: GrossMerchandizeSales less default price.</description>
+        <field name="GMP" type="currency-precise">
+            <description>Gross Merchandize Profit: Gross Merchandize Sales less Gross Cost.</description>
         </field>
-        <field name="GrossShippingProfit" type="currency-precise">
-            <description>Gross Shipping Profit</description>
+        <field name="GSS" type="currency-precise">
+            <description>Gross Shipping Sales: Shipping Amount</description>
         </field>
-        <field name="GrossProfit" type="currency-precise">
-            <description>Gross Profit: GrossMerchandizeProfit less GrossShippingProfit.</description>
+        <field name="GSC" type="currency-precise">
+            <description>Gross Shipping Cost</description>
         </field>
-        
-        <field name="eBay" type="currency-precise">
-            <description>eBay Fee: current ebay fee is captured manually by employee and updated into sharepoint list.</description>
+        <field name="GSP" type="currency-precise">
+            <description>Gross Shipping Profit: Gross Shipping Sales less Gross Shipping Cost.</description>
         </field>
-        <field name="RRC" type="currency-precise">
-            <description>RRC: the total amount of our RRC (refund, replace and cancellation).</description>
+        <field name="GP" type="currency-precise">
+            <description>Gross Profit: Gross Merchandize Profit less Gross Shipping Profit.</description>
         </field>
-        <field name="OtherFree" type="currency-precise">
-            <description>Others: other fee which calculation is just a percentage of GrossSales.</description>
-        </field>
-        
-        <field name="NBO" type="currency-precise">
-            <description>NBO: NBO which calculation is GrossProfit minus all the fees (eBay,RRC and Others).</description>
-        </field>
-        
-        <field name="CountDate" type="currency-precise">
-            <description>CountDate: Count of date.</description>
-        </field>
-<!--        <field name="AverageMerchandizeProfit" type="currency-precise">
-            <description>Average Merchandize Profit</description>
-        </field>
-        <field name="AverageGrossProfit" type="currency-precise">
-            <description>Average Gross Profit</description>
-        </field>-->
-
-        <!--<field name="extGrossAmount" type="currency-precise">
-            <description>Extended gross amount: quantity invoiced multiplied by the list unit price.</description>
-        </field>
-        <field name="extDiscountAmount" type="currency-precise">
-            <description>Extended discount amount.</description>
-        </field>
-        <field name="extNetAmount" type="currency-precise">
-            <description>Extended net amount: gross amount less discounts.</description>
-        </field>
-        <field name="extShippingAmount" type="currency-precise">
-        <description>Extended shipping amount.</description>
-        </field>
-        <field name="extTaxAmount" type="currency-precise">
-            <description>Extended tax amount.</description>
-        </field>
-        <field name="extManFixedCost" type="currency-precise">
-            <description>Extended manufacturing fixed cost.</description>
-        </field>
-        <field name="extManVarCost" type="currency-precise">
-            <description>Extended manufacturing variable cost.</description>
-        </field>
-        <field name="extStorageCost" type="currency-precise">
-            <description>Extended storage cost.</description>
-        </field>
-        <field name="extDistributionCost" type="currency-precise">
-            <description>Extended distribution cost.</description>
-        </field>
-        <field name="contributionAmount" type="currency-precise">
-            <description>Extended net amount less all the costs.</description>
-        </field>-->
-        <!--
-        TODO: implement multi-currency fields
-        <field name="extGrossAmountOrig" type="currency-precise">
-            <description>Extended gross amount in the original currency: quantity invoiced multiplied by the list unit price.</description>
-        </field>
-        <field name="extDiscountAmountOrig" type="currency-precise">
-            <description>Extended discount amount in the original currency.</description>
-        </field>
-        <field name="extNetAmountOrig" type="currency-precise">
-            <description>Extended net amount in the original currency: gross amount less discounts.</description>
-        </field>
-        <field name="extManFixedCostOrig" type="currency-precise">
-            <description>Extended manufacturing fixed cost in the original currency.</description>
-        </field>
-        <field name="extManVarCostOrig" type="currency-precise">
-            <description>Extended manufacturing variable cost in the original currency.</description>
-        </field>
-        <field name="extStorageCostOrig" type="currency-precise">
-            <description>Extended storage cost in the original currency.</description>
-        </field>
-        <field name="extDistributionCostOrig" type="currency-precise">
-            <description>Extended distribution cost in the original currency.</description>
-        </field>
-        <field name="contributionAmountOrig" type="currency-precise">
-            <description>Extended net amount less all the costs in the original currency.</description>
-        </field>
-        -->
 
         <prim-key field="orderId"/>
         <prim-key field="orderItemSeqId"/>
@@ -210,28 +134,26 @@ under the License.
             <exclude field="productDimId"/>
             <exclude field="origCurrencyDimId"/>
             <exclude field="billToCustomerDimId"/>
+            <exclude field="productCategoryId"/>
             <exclude field="productStoreId"/>
             <exclude field="salesChannelEnumId"/>
-            <exclude field="saleChannel"/>
-            <exclude field="orderStatus"/>
-            <exclude field="visitId"/>
-            <exclude field="initialReferrer"/>
-            <exclude field="productPromoCode"/>
-            <exclude field="categoryName"/>
+            <exclude field="statusId"/>
+            <exclude field="brand"/>
+            <exclude field="pod"/>
+            <exclude field="account"/>
         </alias-all>
         <alias entity-alias="SOIF" name="orderId" group-by="true">
             <description>Order id</description>
         </alias>
 
         <alias entity-alias="SOIF" name="orderItemSeqId" group-by="true"/>
+        <alias entity-alias="SOIF" name="productCategoryId" group-by="true"/>
         <alias entity-alias="SOIF" name="productStoreId" group-by="true"/>
         <alias entity-alias="SOIF" name="salesChannelEnumId" group-by="true"/>
-        <alias entity-alias="SOIF" name="saleChannel" group-by="true"/>
-        <alias entity-alias="SOIF" name="orderStatus" group-by="true"/>
-        <alias entity-alias="SOIF" name="visitId" group-by="true"/>
-        <alias entity-alias="SOIF" name="initialReferrer" group-by="true"/>
-        <alias entity-alias="SOIF" name="productPromoCode" group-by="true"/>
-        <alias entity-alias="SOIF" name="categoryName" group-by="true"/>
+        <alias entity-alias="SOIF" name="statusId" group-by="true"/>
+        <alias entity-alias="SOIF" name="brand" group-by="true"/>
+        <alias entity-alias="SOIF" name="pod" group-by="true"/>
+        <alias entity-alias="SOIF" name="account" group-by="true"/>
 
         <view-link entity-alias="SOIF" rel-entity-alias="ODD">
             <key-map field-name="orderDateDimId" rel-field-name="dimensionId"/>

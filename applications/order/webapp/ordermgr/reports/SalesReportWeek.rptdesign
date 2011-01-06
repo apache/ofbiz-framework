@@ -178,7 +178,7 @@ under the License.
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="thisYear" id="2707">
+        <scalar-parameter name="thisYear" id="2766">
             <property name="valueType">static</property>
             <property name="isRequired">false</property>
             <property name="dataType">integer</property>
@@ -233,41 +233,31 @@ under the License.
                 </structure>
                 <structure>
                     <property name="position">8</property>
-                    <property name="name">orderDateDayName</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">9</property>
-                    <property name="name">orderDateDescription</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">10</property>
                     <property name="name">quantity</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="position">11</property>
+                    <property name="position">9</property>
                     <property name="name">GS</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="position">12</property>
+                    <property name="position">10</property>
                     <property name="name">GMS</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="position">13</property>
+                    <property name="position">11</property>
                     <property name="name">GMP</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="position">14</property>
+                    <property name="position">12</property>
                     <property name="name">GSP</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="position">15</property>
+                    <property name="position">13</property>
                     <property name="name">GP</property>
                     <property name="dataType">integer</property>
                 </structure>
@@ -300,14 +290,6 @@ under the License.
                 <structure>
                     <property name="columnName">orderDateWeekOfYear</property>
                     <text-property name="displayName">orderDateWeekOfYear</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">orderDateDayName</property>
-                    <text-property name="displayName">orderDateDayName</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">orderDateDescription</property>
-                    <text-property name="displayName">orderDateDescription</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">quantity</property>
@@ -373,41 +355,31 @@ under the License.
                     </structure>
                     <structure>
                         <property name="position">8</property>
-                        <property name="name">orderDateDayName</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">9</property>
-                        <property name="name">orderDateDescription</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">10</property>
                         <property name="name">quantity</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">11</property>
+                        <property name="position">9</property>
                         <property name="name">GS</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">12</property>
+                        <property name="position">10</property>
                         <property name="name">GMS</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">13</property>
+                        <property name="position">11</property>
                         <property name="name">GMP</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">14</property>
+                        <property name="position">12</property>
                         <property name="name">GSP</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">15</property>
+                        <property name="position">13</property>
                         <property name="name">GP</property>
                         <property name="dataType">integer</property>
                     </structure>
@@ -482,8 +454,6 @@ if (starschemas)
     row["orderDateMonthOfYear"] = orderDateMonthOfYear;
     row["orderDateMonthName"] = orderDateMonthName;
     row["orderDateWeekOfYear"] = orderDateWeekOfYear;
-    row["orderDateDayName"] = orderDateDayName;
-    row["orderDateDescription"] = orderDateDescription;
     row["quantity"] = quantity;
     row["GS"] = GS;
     row["GMS"] = GMS;
@@ -521,14 +491,6 @@ return true;]]></method>
                                     <property name="dataType">string</property>
                                     <property name="columnName">orderDateWeekOfYear</property>
                                 </tabular-level>
-                                <tabular-level name="orderDateDescription" id="1476">
-                                    <property name="dataType">string</property>
-                                    <property name="columnName">orderDateDescription</property>
-                                </tabular-level>
-                                <tabular-level name="orderDateDayName" id="1477">
-                                    <property name="dataType">string</property>
-                                    <property name="columnName">orderDateDayName</property>
-                                </tabular-level>
                             </property>
                         </tabular-hierarchy>
                     </property>
@@ -562,23 +524,23 @@ return true;]]></method>
                             <expression name="measureExpression">dataSetRow["quantity"]</expression>
                             <property name="dataType">integer</property>
                         </tabular-measure>
-                        <tabular-measure name="GS" id="2398">
+                        <tabular-measure name="GS" id="2616">
                             <expression name="measureExpression">dataSetRow["GS"]</expression>
                             <property name="dataType">integer</property>
                         </tabular-measure>
-                        <tabular-measure name="GMS" id="2399">
+                        <tabular-measure name="GMS" id="2617">
                             <expression name="measureExpression">dataSetRow["GMS"]</expression>
                             <property name="dataType">integer</property>
                         </tabular-measure>
-                        <tabular-measure name="GMP" id="2400">
+                        <tabular-measure name="GMP" id="2618">
                             <expression name="measureExpression">dataSetRow["GMP"]</expression>
                             <property name="dataType">integer</property>
                         </tabular-measure>
-                        <tabular-measure name="GSP" id="2401">
+                        <tabular-measure name="GSP" id="2619">
                             <expression name="measureExpression">dataSetRow["GSP"]</expression>
                             <property name="dataType">integer</property>
                         </tabular-measure>
-                        <tabular-measure name="GP" id="2402">
+                        <tabular-measure name="GP" id="2620">
                             <expression name="measureExpression">dataSetRow["GP"]</expression>
                             <property name="dataType">integer</property>
                         </tabular-measure>
@@ -666,84 +628,83 @@ return true;]]></method>
             <property name="paddingTop">1pt</property>
             <property name="paddingBottom">20pt</property>
             <property name="textAlign">center</property>
-            <text-property name="text">Sales Report Daily</text-property>
+            <text-property name="text">Sales Report Weekly</text-property>
         </label>
-        <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="2554">
+        <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="2621">
             <property name="measures">
-                <extended-item extensionName="MeasureView" id="2556">
+                <extended-item extensionName="MeasureView" id="2623">
                     <property name="measure">quantity</property>
                     <property name="detail">
-                        <extended-item extensionName="AggregationCell" id="2557">
+                        <extended-item extensionName="AggregationCell" id="2624">
                             <property name="aggregationOnRow">Account/Account</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#FFEBCD</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2558">
+                                <data id="2625">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">quantity_Account/Account_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">quantity_Account/Account_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
                     </property>
                     <property name="aggregations">
-                        <extended-item extensionName="AggregationCell" id="2638">
+                        <extended-item extensionName="AggregationCell" id="2699">
                             <property name="aggregationOnRow">Account/Brand</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
-                            <property name="backgroundAttachment">scroll</property>
                             <property name="backgroundColor">#87CEFA</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2639">
+                                <data id="2700">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">quantity_Account/Brand_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">quantity_Account/Brand_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2656">
+                        <extended-item extensionName="AggregationCell" id="2717">
                             <property name="aggregationOnRow">Account/Pod</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#B0C4DE</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2657">
+                                <data id="2718">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">quantity_Account/Pod_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">quantity_Account/Pod_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2674">
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                        <extended-item extensionName="AggregationCell" id="2735">
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#6495ED</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2675">
+                                <data id="2736">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">quantity_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">quantity_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
                     </property>
                     <property name="header">
-                        <extended-item extensionName="CrosstabCell" id="2559">
+                        <extended-item extensionName="CrosstabCell" id="2626">
                             <property name="content">
-                                <label id="2560">
+                                <label id="2627">
                                     <text-property name="text">Sold Qty</text-property>
                                 </label>
                             </property>
@@ -755,80 +716,79 @@ return true;]]></method>
                         </extended-item>
                     </property>
                 </extended-item>
-                <extended-item extensionName="MeasureView" id="2571">
+                <extended-item extensionName="MeasureView" id="2638">
                     <property name="measure">GMP</property>
                     <property name="detail">
-                        <extended-item extensionName="AggregationCell" id="2572">
+                        <extended-item extensionName="AggregationCell" id="2639">
                             <property name="aggregationOnRow">Account/Account</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#FFEBCD</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2573">
+                                <data id="2640">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GMP_Account/Account_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GMP_Account/Account_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
                     </property>
                     <property name="aggregations">
-                        <extended-item extensionName="AggregationCell" id="2644">
+                        <extended-item extensionName="AggregationCell" id="2705">
                             <property name="aggregationOnRow">Account/Brand</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
-                            <property name="backgroundAttachment">scroll</property>
                             <property name="backgroundColor">#87CEFA</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2645">
+                                <data id="2706">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GMP_Account/Brand_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GMP_Account/Brand_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2662">
+                        <extended-item extensionName="AggregationCell" id="2723">
                             <property name="aggregationOnRow">Account/Pod</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#B0C4DE</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2663">
+                                <data id="2724">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GMP_Account/Pod_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GMP_Account/Pod_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2680">
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                        <extended-item extensionName="AggregationCell" id="2741">
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#6495ED</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2681">
+                                <data id="2742">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GMP_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GMP_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
                     </property>
                     <property name="header">
-                        <extended-item extensionName="CrosstabCell" id="2574">
+                        <extended-item extensionName="CrosstabCell" id="2641">
                             <property name="content">
-                                <label id="2575">
+                                <label id="2642">
                                     <text-property name="text">GMP$</text-property>
                                 </label>
                             </property>
@@ -840,80 +800,79 @@ return true;]]></method>
                         </extended-item>
                     </property>
                 </extended-item>
-                <extended-item extensionName="MeasureView" id="2576">
+                <extended-item extensionName="MeasureView" id="2643">
                     <property name="measure">GSP</property>
                     <property name="detail">
-                        <extended-item extensionName="AggregationCell" id="2577">
+                        <extended-item extensionName="AggregationCell" id="2644">
                             <property name="aggregationOnRow">Account/Account</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#FFEBCD</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2578">
+                                <data id="2645">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GSP_Account/Account_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GSP_Account/Account_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
                     </property>
                     <property name="aggregations">
-                        <extended-item extensionName="AggregationCell" id="2646">
+                        <extended-item extensionName="AggregationCell" id="2707">
                             <property name="aggregationOnRow">Account/Brand</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
-                            <property name="backgroundAttachment">scroll</property>
                             <property name="backgroundColor">#87CEFA</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2647">
+                                <data id="2708">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GSP_Account/Brand_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GSP_Account/Brand_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2664">
+                        <extended-item extensionName="AggregationCell" id="2725">
                             <property name="aggregationOnRow">Account/Pod</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#B0C4DE</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2665">
+                                <data id="2726">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GSP_Account/Pod_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GSP_Account/Pod_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2682">
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                        <extended-item extensionName="AggregationCell" id="2743">
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#6495ED</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2683">
+                                <data id="2744">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GSP_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GSP_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
                     </property>
                     <property name="header">
-                        <extended-item extensionName="CrosstabCell" id="2579">
+                        <extended-item extensionName="CrosstabCell" id="2646">
                             <property name="content">
-                                <label id="2580">
+                                <label id="2647">
                                     <text-property name="text">GSP$</text-property>
                                 </label>
                             </property>
@@ -925,80 +884,79 @@ return true;]]></method>
                         </extended-item>
                     </property>
                 </extended-item>
-                <extended-item extensionName="MeasureView" id="2581">
+                <extended-item extensionName="MeasureView" id="2648">
                     <property name="measure">GP</property>
                     <property name="detail">
-                        <extended-item extensionName="AggregationCell" id="2582">
+                        <extended-item extensionName="AggregationCell" id="2649">
                             <property name="aggregationOnRow">Account/Account</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#FFEBCD</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2583">
+                                <data id="2650">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GP_Account/Account_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GP_Account/Account_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
                     </property>
                     <property name="aggregations">
-                        <extended-item extensionName="AggregationCell" id="2648">
+                        <extended-item extensionName="AggregationCell" id="2709">
                             <property name="aggregationOnRow">Account/Brand</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
-                            <property name="backgroundAttachment">scroll</property>
                             <property name="backgroundColor">#87CEFA</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2649">
+                                <data id="2710">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GP_Account/Brand_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GP_Account/Brand_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2666">
+                        <extended-item extensionName="AggregationCell" id="2727">
                             <property name="aggregationOnRow">Account/Pod</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#B0C4DE</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2667">
+                                <data id="2728">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GP_Account/Pod_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GP_Account/Pod_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2684">
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                        <extended-item extensionName="AggregationCell" id="2745">
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#6495ED</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2685">
+                                <data id="2746">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GP_Date/orderDateDescription</property>
+                                    <property name="resultSetColumn">GP_Date/orderDateWeekOfYear</property>
                                 </data>
                             </property>
                         </extended-item>
                     </property>
                     <property name="header">
-                        <extended-item extensionName="CrosstabCell" id="2584">
+                        <extended-item extensionName="CrosstabCell" id="2651">
                             <property name="content">
-                                <label id="2585">
+                                <label id="2652">
                                     <text-property name="text">GP$</text-property>
                                 </label>
                             </property>
@@ -1010,16 +968,16 @@ return true;]]></method>
                         </extended-item>
                     </property>
                 </extended-item>
-                <extended-item extensionName="ComputedMeasureView" name="GMP%" id="2617">
+                <extended-item extensionName="ComputedMeasureView" name="GMP%" id="2678">
                     <property name="detail">
-                        <extended-item extensionName="AggregationCell" id="2618">
+                        <extended-item extensionName="AggregationCell" id="2679">
                             <property name="aggregationOnRow">Account/Account</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#FFEBCD</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data name="GMP%1" id="2621">
+                                <data name="GMP%1" id="2682">
                                     <structure name="numberFormat">
                                         <property name="category">Percent</property>
                                         <property name="pattern">#,##0%</property>
@@ -1030,15 +988,14 @@ return true;]]></method>
                         </extended-item>
                     </property>
                     <property name="aggregations">
-                        <extended-item extensionName="AggregationCell" id="2650">
+                        <extended-item extensionName="AggregationCell" id="2711">
                             <property name="aggregationOnRow">Account/Brand</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
-                            <property name="backgroundAttachment">scroll</property>
                             <property name="backgroundColor">#87CEFA</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2695">
+                                <data id="2755">
                                     <structure name="numberFormat">
                                         <property name="category">Percent</property>
                                         <property name="pattern">#,##0%</property>
@@ -1047,14 +1004,14 @@ return true;]]></method>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2668">
+                        <extended-item extensionName="AggregationCell" id="2729">
                             <property name="aggregationOnRow">Account/Pod</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#B0C4DE</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2693">
+                                <data id="2754">
                                     <structure name="numberFormat">
                                         <property name="category">Percent</property>
                                         <property name="pattern">#,##0%</property>
@@ -1063,13 +1020,13 @@ return true;]]></method>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2686">
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                        <extended-item extensionName="AggregationCell" id="2747">
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#6495ED</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2703">
+                                <data id="2758">
                                     <structure name="numberFormat">
                                         <property name="category">Percent</property>
                                         <property name="pattern">#,##0%</property>
@@ -1080,9 +1037,9 @@ return true;]]></method>
                         </extended-item>
                     </property>
                     <property name="header">
-                        <extended-item extensionName="CrosstabCell" id="2619">
+                        <extended-item extensionName="CrosstabCell" id="2680">
                             <property name="content">
-                                <label id="2620">
+                                <label id="2681">
                                     <text-property name="text">GMP%</text-property>
                                 </label>
                             </property>
@@ -1094,16 +1051,16 @@ return true;]]></method>
                         </extended-item>
                     </property>
                 </extended-item>
-                <extended-item extensionName="ComputedMeasureView" name="GP%" id="2622">
+                <extended-item extensionName="ComputedMeasureView" name="GP%" id="2683">
                     <property name="detail">
-                        <extended-item extensionName="AggregationCell" id="2623">
+                        <extended-item extensionName="AggregationCell" id="2684">
                             <property name="aggregationOnRow">Account/Account</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#FFEBCD</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data name="GP%1" id="2626">
+                                <data name="GP%1" id="2687">
                                     <structure name="numberFormat">
                                         <property name="category">Percent</property>
                                         <property name="pattern">#,##0%</property>
@@ -1114,15 +1071,14 @@ return true;]]></method>
                         </extended-item>
                     </property>
                     <property name="aggregations">
-                        <extended-item extensionName="AggregationCell" id="2651">
+                        <extended-item extensionName="AggregationCell" id="2712">
                             <property name="aggregationOnRow">Account/Brand</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
-                            <property name="backgroundAttachment">scroll</property>
                             <property name="backgroundColor">#87CEFA</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2698">
+                                <data id="2757">
                                     <structure name="numberFormat">
                                         <property name="category">Percent</property>
                                         <property name="pattern">#,##0%</property>
@@ -1131,14 +1087,14 @@ return true;]]></method>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2669">
+                        <extended-item extensionName="AggregationCell" id="2730">
                             <property name="aggregationOnRow">Account/Pod</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#B0C4DE</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2697">
+                                <data id="2756">
                                     <structure name="numberFormat">
                                         <property name="category">Percent</property>
                                         <property name="pattern">#,##0%</property>
@@ -1147,13 +1103,13 @@ return true;]]></method>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2687">
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                        <extended-item extensionName="AggregationCell" id="2748">
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#6495ED</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2704">
+                                <data id="2759">
                                     <structure name="numberFormat">
                                         <property name="category">Percent</property>
                                         <property name="pattern">#,##0%</property>
@@ -1164,9 +1120,9 @@ return true;]]></method>
                         </extended-item>
                     </property>
                     <property name="header">
-                        <extended-item extensionName="CrosstabCell" id="2624">
+                        <extended-item extensionName="CrosstabCell" id="2685">
                             <property name="content">
-                                <label id="2625">
+                                <label id="2686">
                                     <text-property name="text">GP%</text-property>
                                 </label>
                             </property>
@@ -1178,16 +1134,16 @@ return true;]]></method>
                         </extended-item>
                     </property>
                 </extended-item>
-                <extended-item extensionName="ComputedMeasureView" name="AMP" id="2627">
+                <extended-item extensionName="ComputedMeasureView" name="AMP" id="2688">
                     <property name="detail">
-                        <extended-item extensionName="AggregationCell" id="2628">
+                        <extended-item extensionName="AggregationCell" id="2689">
                             <property name="aggregationOnRow">Account/Account</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#FFEBCD</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data name="AMP1" id="2631">
+                                <data name="AMP1" id="2692">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0.0</property>
@@ -1198,15 +1154,14 @@ return true;]]></method>
                         </extended-item>
                     </property>
                     <property name="aggregations">
-                        <extended-item extensionName="AggregationCell" id="2652">
+                        <extended-item extensionName="AggregationCell" id="2713">
                             <property name="aggregationOnRow">Account/Brand</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
-                            <property name="backgroundAttachment">scroll</property>
                             <property name="backgroundColor">#87CEFA</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2700">
+                                <data id="2761">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0.0</property>
@@ -1215,14 +1170,14 @@ return true;]]></method>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2670">
+                        <extended-item extensionName="AggregationCell" id="2731">
                             <property name="aggregationOnRow">Account/Pod</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#B0C4DE</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2699">
+                                <data id="2760">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0.0</property>
@@ -1231,13 +1186,13 @@ return true;]]></method>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2688">
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                        <extended-item extensionName="AggregationCell" id="2749">
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#6495ED</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2705">
+                                <data id="2762">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0.0</property>
@@ -1248,9 +1203,9 @@ return true;]]></method>
                         </extended-item>
                     </property>
                     <property name="header">
-                        <extended-item extensionName="CrosstabCell" id="2629">
+                        <extended-item extensionName="CrosstabCell" id="2690">
                             <property name="content">
-                                <label id="2630">
+                                <label id="2691">
                                     <text-property name="text">AMP</text-property>
                                 </label>
                             </property>
@@ -1262,16 +1217,16 @@ return true;]]></method>
                         </extended-item>
                     </property>
                 </extended-item>
-                <extended-item extensionName="ComputedMeasureView" name="AGP" id="2632">
+                <extended-item extensionName="ComputedMeasureView" name="AGP" id="2693">
                     <property name="detail">
-                        <extended-item extensionName="AggregationCell" id="2633">
+                        <extended-item extensionName="AggregationCell" id="2694">
                             <property name="aggregationOnRow">Account/Account</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#FFEBCD</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data name="AGP1" id="2636">
+                                <data name="AGP1" id="2697">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0.0</property>
@@ -1282,15 +1237,14 @@ return true;]]></method>
                         </extended-item>
                     </property>
                     <property name="aggregations">
-                        <extended-item extensionName="AggregationCell" id="2653">
+                        <extended-item extensionName="AggregationCell" id="2714">
                             <property name="aggregationOnRow">Account/Brand</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
-                            <property name="backgroundAttachment">scroll</property>
                             <property name="backgroundColor">#87CEFA</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2702">
+                                <data id="2764">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0.0</property>
@@ -1299,14 +1253,14 @@ return true;]]></method>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2671">
+                        <extended-item extensionName="AggregationCell" id="2732">
                             <property name="aggregationOnRow">Account/Pod</property>
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#B0C4DE</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2701">
+                                <data id="2763">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0.0</property>
@@ -1315,13 +1269,13 @@ return true;]]></method>
                                 </data>
                             </property>
                         </extended-item>
-                        <extended-item extensionName="AggregationCell" id="2689">
-                            <property name="aggregationOnColumn">Date/orderDateDescription</property>
+                        <extended-item extensionName="AggregationCell" id="2750">
+                            <property name="aggregationOnColumn">Date/orderDateWeekOfYear</property>
                             <property name="fontFamily">sans-serif</property>
                             <property name="backgroundColor">#6495ED</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2706">
+                                <data id="2765">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0.0</property>
@@ -1332,9 +1286,9 @@ return true;]]></method>
                         </extended-item>
                     </property>
                     <property name="header">
-                        <extended-item extensionName="CrosstabCell" id="2634">
+                        <extended-item extensionName="CrosstabCell" id="2695">
                             <property name="content">
-                                <label id="2635">
+                                <label id="2696">
                                     <text-property name="text">AGP</text-property>
                                 </label>
                             </property>
@@ -1348,11 +1302,11 @@ return true;]]></method>
                 </extended-item>
             </property>
             <property name="rows">
-                <extended-item extensionName="CrosstabView" id="2606">
+                <extended-item extensionName="CrosstabView" id="2667">
                     <property name="grandTotal">
-                        <extended-item extensionName="CrosstabCell" id="2673">
+                        <extended-item extensionName="CrosstabCell" id="2734">
                             <property name="content">
-                                <label id="2690">
+                                <label id="2751">
                                     <text-property name="text">Grand Total</text-property>
                                 </label>
                             </property>
@@ -1361,15 +1315,15 @@ return true;]]></method>
                         </extended-item>
                     </property>
                     <property name="views">
-                        <extended-item extensionName="DimensionView" id="2607">
+                        <extended-item extensionName="DimensionView" id="2668">
                             <property name="dimension">Account</property>
                             <property name="levels">
-                                <extended-item extensionName="LevelView" name="NewLevel View6" id="2608">
+                                <extended-item extensionName="LevelView" name="NewLevel View4" id="2669">
                                     <property name="level">Account/Brand</property>
                                     <property name="member">
-                                        <extended-item extensionName="CrosstabCell" id="2609">
+                                        <extended-item extensionName="CrosstabCell" id="2670">
                                             <property name="content">
-                                                <data name="Brand" id="2610">
+                                                <data name="Brand" id="2671">
                                                     <property name="resultSetColumn">Brand</property>
                                                 </data>
                                             </property>
@@ -1380,9 +1334,9 @@ return true;]]></method>
                                         </extended-item>
                                     </property>
                                     <property name="aggregationHeader">
-                                        <extended-item extensionName="CrosstabCell" id="2637">
+                                        <extended-item extensionName="CrosstabCell" id="2698">
                                             <property name="content">
-                                                <label id="2692">
+                                                <label id="2753">
                                                     <text-property name="text">Total</text-property>
                                                 </label>
                                             </property>
@@ -1391,12 +1345,12 @@ return true;]]></method>
                                         </extended-item>
                                     </property>
                                 </extended-item>
-                                <extended-item extensionName="LevelView" name="NewLevel View7" id="2611">
+                                <extended-item extensionName="LevelView" name="NewLevel View5" id="2672">
                                     <property name="level">Account/Pod</property>
                                     <property name="member">
-                                        <extended-item extensionName="CrosstabCell" id="2612">
+                                        <extended-item extensionName="CrosstabCell" id="2673">
                                             <property name="content">
-                                                <data name="Pod" id="2613">
+                                                <data name="Pod" id="2674">
                                                     <property name="resultSetColumn">Pod</property>
                                                 </data>
                                             </property>
@@ -1407,9 +1361,9 @@ return true;]]></method>
                                         </extended-item>
                                     </property>
                                     <property name="aggregationHeader">
-                                        <extended-item extensionName="CrosstabCell" id="2655">
+                                        <extended-item extensionName="CrosstabCell" id="2716">
                                             <property name="content">
-                                                <label id="2691">
+                                                <label id="2752">
                                                     <text-property name="text">Total</text-property>
                                                 </label>
                                             </property>
@@ -1418,12 +1372,12 @@ return true;]]></method>
                                         </extended-item>
                                     </property>
                                 </extended-item>
-                                <extended-item extensionName="LevelView" name="NewLevel View8" id="2614">
+                                <extended-item extensionName="LevelView" name="NewLevel View6" id="2675">
                                     <property name="level">Account/Account</property>
                                     <property name="member">
-                                        <extended-item extensionName="CrosstabCell" id="2615">
+                                        <extended-item extensionName="CrosstabCell" id="2676">
                                             <property name="content">
-                                                <data name="Account" id="2616">
+                                                <data name="Account" id="2677">
                                                     <property name="resultSetColumn">Account</property>
                                                 </data>
                                             </property>
@@ -1441,17 +1395,17 @@ return true;]]></method>
                 </extended-item>
             </property>
             <property name="columns">
-                <extended-item extensionName="CrosstabView" id="2586">
+                <extended-item extensionName="CrosstabView" id="2653">
                     <property name="views">
-                        <extended-item extensionName="DimensionView" id="2587">
+                        <extended-item extensionName="DimensionView" id="2654">
                             <property name="dimension">Date</property>
                             <property name="levels">
-                                <extended-item extensionName="LevelView" name="NewLevel View" id="2588">
+                                <extended-item extensionName="LevelView" name="NewLevel View" id="2655">
                                     <property name="level">Date/orderDateYearName</property>
                                     <property name="member">
-                                        <extended-item extensionName="CrosstabCell" id="2589">
+                                        <extended-item extensionName="CrosstabCell" id="2656">
                                             <property name="content">
-                                                <data name="orderDateYearName" id="2590">
+                                                <data name="orderDateYearName" id="2657">
                                                     <property name="resultSetColumn">orderDateYearName</property>
                                                 </data>
                                             </property>
@@ -1461,12 +1415,12 @@ return true;]]></method>
                                         </extended-item>
                                     </property>
                                 </extended-item>
-                                <extended-item extensionName="LevelView" name="NewLevel View2" id="2594">
+                                <extended-item extensionName="LevelView" name="NewLevel View2" id="2661">
                                     <property name="level">Date/orderDateMonthName</property>
                                     <property name="member">
-                                        <extended-item extensionName="CrosstabCell" id="2595">
+                                        <extended-item extensionName="CrosstabCell" id="2662">
                                             <property name="content">
-                                                <data name="orderDateMonthName" id="2596">
+                                                <data name="orderDateMonthName" id="2663">
                                                     <property name="resultSetColumn">orderDateMonthName</property>
                                                 </data>
                                             </property>
@@ -1476,28 +1430,13 @@ return true;]]></method>
                                         </extended-item>
                                     </property>
                                 </extended-item>
-                                <extended-item extensionName="LevelView" name="NewLevel View3" id="2597">
+                                <extended-item extensionName="LevelView" name="NewLevel View3" id="2664">
                                     <property name="level">Date/orderDateWeekOfYear</property>
                                     <property name="member">
-                                        <extended-item extensionName="CrosstabCell" id="2598">
+                                        <extended-item extensionName="CrosstabCell" id="2665">
                                             <property name="content">
-                                                <data name="orderDateWeekOfYear" id="2599">
+                                                <data name="orderDateWeekOfYear" id="2666">
                                                     <property name="resultSetColumn">orderDateWeekOfYear</property>
-                                                </data>
-                                            </property>
-                                            <property name="fontFamily">sans-serif</property>
-                                            <property name="backgroundColor">#FFEBCD</property>
-                                            <property name="textAlign">center</property>
-                                        </extended-item>
-                                    </property>
-                                </extended-item>
-                                <extended-item extensionName="LevelView" name="NewLevel View4" id="2600">
-                                    <property name="level">Date/orderDateDescription</property>
-                                    <property name="member">
-                                        <extended-item extensionName="CrosstabCell" id="2601">
-                                            <property name="content">
-                                                <data name="orderDateDescription" id="2602">
-                                                    <property name="resultSetColumn">orderDateDescription</property>
                                                 </data>
                                             </property>
                                             <property name="fontFamily">sans-serif</property>
@@ -1513,7 +1452,7 @@ return true;]]></method>
                 </extended-item>
             </property>
             <property name="header">
-                <extended-item extensionName="CrosstabCell" id="2555"/>
+                <extended-item extensionName="CrosstabCell" id="2622"/>
             </property>
             <property name="backgroundColor">#FFFFFF</property>
             <property name="cube">BIC_DataCube</property>
@@ -1732,68 +1671,69 @@ return true;]]></method>
                     <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
-                    <property name="name">orderDateDescription</property>
-                    <expression name="expression">dimension["Date"]["orderDateDescription"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">quantity_Date/orderDateDescription</property>
-                    <expression name="expression">measure["quantity"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GS_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GS"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GMS_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GMS"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GMP_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GMP"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GSP_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GSP"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GP_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GP"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
                     <property name="name">Brand</property>
                     <expression name="expression">dimension["Account"]["Brand"]</expression>
                     <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">quantity_Account/Brand_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["quantity"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Brand</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GS_Account/Brand_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GS"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Brand</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GMS_Account/Brand_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GMS"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Brand</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GMP_Account/Brand_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GMP"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Brand</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GSP_Account/Brand_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GSP"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Brand</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GP_Account/Brand_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GP"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Brand</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
                     <property name="name">Pod</property>
@@ -1801,226 +1741,166 @@ return true;]]></method>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
+                    <property name="name">quantity_Account/Pod_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["quantity"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Pod</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GS_Account/Pod_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GS"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Pod</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GMS_Account/Pod_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GMS"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Pod</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GMP_Account/Pod_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GMP"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Pod</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GSP_Account/Pod_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GSP"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Pod</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">GP_Account/Pod_Date/orderDateWeekOfYear</property>
+                    <expression name="expression">measure["GP"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Pod</value>
+                        <value>Date/orderDateWeekOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
                     <property name="name">Account</property>
                     <expression name="expression">dimension["Account"]["Account"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">quantity_Account/Account_Date/orderDateDescription</property>
+                    <property name="name">quantity_Account/Account_Date/orderDateWeekOfYear</property>
                     <expression name="expression">measure["quantity"]</expression>
                     <property name="dataType">integer</property>
                     <simple-property-list name="aggregateOn">
                         <value>Account/Account</value>
-                        <value>Date/orderDateDescription</value>
+                        <value>Date/orderDateWeekOfYear</value>
                     </simple-property-list>
                     <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
-                    <property name="name">GS_Account/Account_Date/orderDateDescription</property>
+                    <property name="name">GS_Account/Account_Date/orderDateWeekOfYear</property>
                     <expression name="expression">measure["GS"]</expression>
                     <property name="dataType">integer</property>
                     <simple-property-list name="aggregateOn">
                         <value>Account/Account</value>
-                        <value>Date/orderDateDescription</value>
+                        <value>Date/orderDateWeekOfYear</value>
                     </simple-property-list>
                     <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
-                    <property name="name">GMS_Account/Account_Date/orderDateDescription</property>
+                    <property name="name">GMS_Account/Account_Date/orderDateWeekOfYear</property>
                     <expression name="expression">measure["GMS"]</expression>
                     <property name="dataType">integer</property>
                     <simple-property-list name="aggregateOn">
                         <value>Account/Account</value>
-                        <value>Date/orderDateDescription</value>
+                        <value>Date/orderDateWeekOfYear</value>
                     </simple-property-list>
                     <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
-                    <property name="name">GMP_Account/Account_Date/orderDateDescription</property>
+                    <property name="name">GMP_Account/Account_Date/orderDateWeekOfYear</property>
                     <expression name="expression">measure["GMP"]</expression>
                     <property name="dataType">integer</property>
                     <simple-property-list name="aggregateOn">
                         <value>Account/Account</value>
-                        <value>Date/orderDateDescription</value>
+                        <value>Date/orderDateWeekOfYear</value>
                     </simple-property-list>
                     <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
-                    <property name="name">GSP_Account/Account_Date/orderDateDescription</property>
+                    <property name="name">GSP_Account/Account_Date/orderDateWeekOfYear</property>
                     <expression name="expression">measure["GSP"]</expression>
                     <property name="dataType">integer</property>
                     <simple-property-list name="aggregateOn">
                         <value>Account/Account</value>
-                        <value>Date/orderDateDescription</value>
+                        <value>Date/orderDateWeekOfYear</value>
                     </simple-property-list>
                     <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
-                    <property name="name">GP_Account/Account_Date/orderDateDescription</property>
+                    <property name="name">GP_Account/Account_Date/orderDateWeekOfYear</property>
                     <expression name="expression">measure["GP"]</expression>
                     <property name="dataType">integer</property>
                     <simple-property-list name="aggregateOn">
                         <value>Account/Account</value>
-                        <value>Date/orderDateDescription</value>
+                        <value>Date/orderDateWeekOfYear</value>
                     </simple-property-list>
                     <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
                     <property name="name">GMP%</property>
-                    <expression name="expression" type="javascript">if ((data["GMP_Account/Account_Date/orderDateDescription"] != null) &amp;&amp; (data["GMS_Account/Account_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if ((data["GMP_Account/Account_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GMS_Account/Account_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Account_Date/orderDateDescription"]/data["GMS_Account/Account_Date/orderDateDescription"]
+	data["GMP_Account/Account_Date/orderDateWeekOfYear"]/data["GMS_Account/Account_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="name">GP%</property>
-                    <expression name="expression" type="javascript">if ((data["GP_Account/Account_Date/orderDateDescription"] != null) &amp;&amp; (data["GS_Account/Account_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if ((data["GP_Account/Account_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GS_Account/Account_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Account_Date/orderDateDescription"]/data["GS_Account/Account_Date/orderDateDescription"]
+	data["GP_Account/Account_Date/orderDateWeekOfYear"]/data["GS_Account/Account_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="name">AMP</property>
-                    <expression name="expression" type="javascript">if	((data["GMP_Account/Account_Date/orderDateDescription"] != null) &amp;&amp; (data["quantity_Account/Account_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if ((data["GMP_Account/Account_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Account_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Account_Date/orderDateDescription"]/data["quantity_Account/Account_Date/orderDateDescription"]
+	data["GMP_Account/Account_Date/orderDateWeekOfYear"]/data["quantity_Account/Account_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
                     <property name="name">AGP</property>
-                    <expression name="expression" type="javascript">if ((data["GP_Account/Account_Date/orderDateDescription"] != null) &amp;&amp; (data["quantity_Account/Account_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if ((data["GP_Account/Account_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Account_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Account_Date/orderDateDescription"]/data["quantity_Account/Account_Date/orderDateDescription"]
+	data["GP_Account/Account_Date/orderDateWeekOfYear"]/data["quantity_Account/Account_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="name">quantity_Account/Brand_Date/orderDateDescription</property>
-                    <expression name="expression">measure["quantity"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Brand</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GS_Account/Brand_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GS"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Brand</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GMS_Account/Brand_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GMS"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Brand</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GMP_Account/Brand_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GMP"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Brand</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GSP_Account/Brand_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GSP"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Brand</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GP_Account/Brand_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GP"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Brand</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
                     <property name="name">Brand_TOTAL</property>
                     <expression name="expression">dimension["Account"]["Brand"]+" TOTAL"</expression>
                     <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">quantity_Account/Pod_Date/orderDateDescription</property>
-                    <expression name="expression">measure["quantity"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Pod</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GS_Account/Pod_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GS"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Pod</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GMS_Account/Pod_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GMS"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Pod</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GMP_Account/Pod_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GMP"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Pod</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GSP_Account/Pod_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GSP"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Pod</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
-                </structure>
-                <structure>
-                    <property name="name">GP_Account/Pod_Date/orderDateDescription</property>
-                    <expression name="expression">measure["GP"]</expression>
-                    <property name="dataType">integer</property>
-                    <simple-property-list name="aggregateOn">
-                        <value>Account/Pod</value>
-                        <value>Date/orderDateDescription</value>
-                    </simple-property-list>
-                    <property name="aggregateFunction">SUM</property>
                 </structure>
                 <structure>
                     <property name="name">Pod_TOTAL</property>
@@ -2029,97 +1909,97 @@ return true;]]></method>
                 </structure>
                 <structure>
                     <property name="name">Pod_GMP%</property>
-                    <expression name="expression" type="javascript">if ((data["GMP_Account/Pod_Date/orderDateDescription"] != null) &amp;&amp; (data["GMS_Account/Pod_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if ((data["GMP_Account/Pod_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GMS_Account/Pod_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Pod_Date/orderDateDescription"]/data["GMS_Account/Pod_Date/orderDateDescription"]
+	data["GMP_Account/Pod_Date/orderDateWeekOfYear"]/data["GMS_Account/Pod_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="name">Brand_GMP%</property>
-                    <expression name="expression" type="javascript">if ((data["GMP_Account/Brand_Date/orderDateDescription"] != null) &amp;&amp; (data["GMS_Account/Brand_Date/orderDateDescription"] !=null))
+                    <expression name="expression" type="javascript">if ((data["GMP_Account/Brand_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GMS_Account/Brand_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Account/Brand_Date/orderDateDescription"]/data["GMS_Account/Brand_Date/orderDateDescription"]
+	data["GMP_Account/Brand_Date/orderDateWeekOfYear"]/data["GMS_Account/Brand_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="name">Pod_GP%</property>
-                    <expression name="expression" type="javascript">if ((data["GP_Account/Pod_Date/orderDateDescription"] != null) &amp;&amp; (data["GS_Account/Pod_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if	((data["GP_Account/Pod_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GS_Account/Pod_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Pod_Date/orderDateDescription"]/data["GS_Account/Pod_Date/orderDateDescription"]
+	data["GP_Account/Pod_Date/orderDateWeekOfYear"]/data["GS_Account/Pod_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="name">Brand_GP%</property>
-                    <expression name="expression" type="javascript">if	((data["GP_Account/Brand_Date/orderDateDescription"] != null) &amp;&amp; (data["GS_Account/Brand_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if ((data["GP_Account/Brand_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GS_Account/Brand_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Account/Brand_Date/orderDateDescription"]/data["GS_Account/Brand_Date/orderDateDescription"]
+	data["GP_Account/Brand_Date/orderDateWeekOfYear"]/data["GS_Account/Brand_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="name">Pod_AMP</property>
-                    <expression name="expression" type="javascript">if ((data["GMP_Account/Pod_Date/orderDateDescription"] != null) &amp;&amp; (data["quantity_Account/Pod_Date/orderDateDescription"] != null))
-{
-	data["GMP_Account/Pod_Date/orderDateDescription"]/data["quantity_Account/Pod_Date/orderDateDescription"]
-}</expression>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="name">Brand_AMP</property>
-                    <expression name="expression" type="javascript">if ((data["GMP_Account/Brand_Date/orderDateDescription"] != null) &amp;&amp; (data["quantity_Account/Brand_Date/orderDateDescription"] != null))
-{
-	data["GMP_Account/Brand_Date/orderDateDescription"]/data["quantity_Account/Brand_Date/orderDateDescription"]
-}</expression>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="name">Pod_AGP</property>
-                    <expression name="expression" type="javascript">if ((data["GP_Account/Pod_Date/orderDateDescription"] != null) &amp;&amp; (data["quantity_Account/Pod_Date/orderDateDescription"] != null))
-{
-	data["GP_Account/Pod_Date/orderDateDescription"]/data["quantity_Account/Pod_Date/orderDateDescription"]
-}</expression>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
-                    <property name="name">Brand_AGP</property>
-                    <expression name="expression" type="javascript">if ((data["GP_Account/Brand_Date/orderDateDescription"] != null) &amp;&amp; (data["quantity_Account/Brand_Date/orderDateDescription"] != null))
-{
-	data["GP_Account/Brand_Date/orderDateDescription"]/data["quantity_Account/Brand_Date/orderDateDescription"]
-}</expression>
-                    <property name="dataType">float</property>
-                </structure>
-                <structure>
                     <property name="name">Grand_GMP%</property>
-                    <expression name="expression" type="javascript">if ((data["GMP_Date/orderDateDescription"] != null) &amp;&amp; (data["GMS_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if ((data["GMP_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GMS_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Date/orderDateDescription"]/data["GMS_Date/orderDateDescription"]
+	data["GMP_Date/orderDateWeekOfYear"]/data["GMS_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="name">Grand_GP%</property>
-                    <expression name="expression" type="javascript">if ((data["GP_Date/orderDateDescription"] != null) &amp;&amp; (data["GS_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if ((data["GP_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["GS_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Date/orderDateDescription"]/data["GS_Date/orderDateDescription"]
+	data["GP_Date/orderDateWeekOfYear"]/data["GS_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
-                    <property name="name">Grand_AMP</property>
-                    <expression name="expression" type="javascript">if	((data["GMP_Date/orderDateDescription"] != null) &amp;&amp; (data["quantity_Date/orderDateDescription"] != null))
+                    <property name="name">Pod_AMP</property>
+                    <expression name="expression" type="javascript">if ((data["GMP_Account/Pod_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Pod_Date/orderDateWeekOfYear"] != null))
 {
-	data["GMP_Date/orderDateDescription"]/data["quantity_Date/orderDateDescription"]
+	data["GMP_Account/Pod_Date/orderDateWeekOfYear"]/data["quantity_Account/Pod_Date/orderDateWeekOfYear"]
+}</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">Brand_AMP</property>
+                    <expression name="expression" type="javascript">if ((data["GMP_Account/Brand_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Brand_Date/orderDateWeekOfYear"] != null))
+{
+	data["GMP_Account/Brand_Date/orderDateWeekOfYear"]/data["quantity_Account/Brand_Date/orderDateWeekOfYear"]
+}</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">Grand_AMP</property>
+                    <expression name="expression" type="javascript">if ((data["GMP_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Date/orderDateWeekOfYear"] != null))
+{
+	data["GMP_Date/orderDateWeekOfYear"]/data["quantity_Date/orderDateWeekOfYear"]
+}</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">Pod_AGP</property>
+                    <expression name="expression" type="javascript">if ((data["GP_Account/Pod_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Pod_Date/orderDateWeekOfYear"] != null))
+{
+	data["GP_Account/Pod_Date/orderDateWeekOfYear"]/data["quantity_Account/Pod_Date/orderDateWeekOfYear"]
+}</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">Brand_AGP</property>
+                    <expression name="expression" type="javascript">if ((data["GP_Account/Brand_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Account/Brand_Date/orderDateWeekOfYear"] != null))
+{
+	data["GP_Account/Brand_Date/orderDateWeekOfYear"]/data["quantity_Account/Brand_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>
                 <structure>
                     <property name="name">Grand_AGP</property>
-                    <expression name="expression" type="javascript">if ((data["GP_Date/orderDateDescription"] != null) &amp;&amp; (data["quantity_Date/orderDateDescription"] != null))
+                    <expression name="expression" type="javascript">if ((data["GP_Date/orderDateWeekOfYear"] != null) &amp;&amp; (data["quantity_Date/orderDateWeekOfYear"] != null))
 {
-	data["GP_Date/orderDateDescription"]/data["quantity_Date/orderDateDescription"]
+	data["GP_Date/orderDateWeekOfYear"]/data["quantity_Date/orderDateWeekOfYear"]
 }</expression>
                     <property name="dataType">float</property>
                 </structure>

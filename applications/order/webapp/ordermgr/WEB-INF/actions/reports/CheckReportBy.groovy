@@ -16,29 +16,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.base.util.*;
-import java.sql.*;
-import java.util.Calendar;
 
-fromDateStr = parameters.fromDate;
-cal = Calendar.getInstance();
-cal.setTime(Date.valueOf(fromDateStr));
-int week = cal.get(Calendar.WEEK_OF_YEAR);
-int month = cal.get(Calendar.MONTH) + 1;
-int year = cal.get(Calendar.YEAR);
+import javax.servlet.http.HttpServletRequest;
+import org.ofbiz.base.util.UtilValidate;
 
-birtParameters = [:];
-try {
-    birtParameters.reportBy = parameters.reportBy;
-    birtParameters.fromDate = (Date.valueOf(fromDateStr))-3;
-    birtParameters.thruDate = Date.valueOf(fromDateStr);
-    birtParameters.thruWeek = week;
-    birtParameters.thruMonth = month;
-    birtParameters.thisYear = year;
-} catch (e) {
-    Debug.logError(e, "");
+reportBy = parameters.reportBy;
+
+if (UtilValidate.isEmpty(parameters.fromDate)) {
+    request.setAttribute("_ERROR_MESSAGE_", "Please select From Date.");
+    return "error";
 }
 
-request.setAttribute("birtParameters", birtParameters);
-
-return "success";
+if (reportBy == "day") {
+    return "day";
+} else if (reportBy == "week") {
+    return "week";
+} else if (reportBy == "month") {
+    return "month";
+} else {
+    request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.");
+    return "error";
+}

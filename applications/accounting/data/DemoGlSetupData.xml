@@ -407,6 +407,7 @@ under the License.
     <!-- to convert demo invoice -->
     <UomConversionDated uomId="USD" uomIdTo="EUR" fromDate="2001-01-01 00:00:00.0" conversionFactor="0.7"/>
     <UomConversionDated uomId="EUR" uomIdTo="USD" fromDate="2001-01-01 00:00:00.0" conversionFactor="1.5"/>
+    <UomConversionDated uomId="USD" uomIdTo="USD" fromDate="2001-01-01 00:00:00.0" conversionFactor="1"/>
 
     <!-- Gl Reconciliation -->
     <GlReconciliation glReconciliationId="9000" glReconciliationName="demoGlReconciliation" glAccountId="111100" statusId="GLREC_RECONCILED" organizationPartyId="Company" reconciledBalance="75000.00" reconciledDate="2009-08-08 20:03:14.000"/>
