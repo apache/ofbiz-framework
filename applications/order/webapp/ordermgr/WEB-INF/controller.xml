@@ -1080,9 +1080,28 @@ under the License.
         <response name="success" type="view" value="PurchasesByOrganizationReport"/>
     </request-map>
     
+    <request-map uri="checkReportBy">
+        <security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="CheckReportBy.groovy"/>
+        <response name="day" type="request" value="SalesReport.pdf"/>
+        <response name="week" type="request" value="SalesReportWeek.pdf"/>
+        <response name="month" type="request" value="SalesReportMonth.pdf"/>
+        <response name="error" type="request-redirect" value="OrderPurchaseReportOptions">
+            <redirect-parameter name="fromDate"/>
+            <redirect-parameter name="reportBy" from="parameters.reportDate"/>
+        </response>
+    </request-map>
     <request-map uri="SalesReport.pdf"><security https="true" auth="true"/>
         <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
         <response name="success" type="view" value="SalesOrderReport"/>
+    </request-map>
+    <request-map uri="SalesReportWeek.pdf"><security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportWeek"/>
+    </request-map>
+    <request-map uri="SalesReportMonth.pdf"><security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportMonth"/>
     </request-map>
     <request-map uri="NetBeforeOverheadReport.pdf"><security https="true" auth="true"/>
         <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="NetBeforeOverheadReport.groovy"/>
@@ -1825,6 +1844,8 @@ under the License.
     <view-map name="PurchasesByOrganizationReport" type="screenfop" page="component://order/widget/ordermgr/ReportScreens.xml#PurchasesByOrganizationReport" content-type="application/pdf" encoding="none"/>
 
     <view-map name="SalesOrderReport" type="birt" page="component://order/webapp/ordermgr/reports/SalesReport.rptdesign" content-type="application/pdf"/>
+    <view-map name="SalesOrderReportWeek" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportWeek.rptdesign" content-type="application/pdf"/>
+    <view-map name="SalesOrderReportMonth" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportMonth.rptdesign" content-type="application/pdf"/>
     <view-map name="NetBeforeOverheadOrderReport" type="birt" page="component://order/webapp/ordermgr/reports/NetBeforeOverheadReport.rptdesign" content-type="application/pdf"/>
     <view-map name="ProductDemandOrderReport" type="birt" page="component://order/webapp/ordermgr/reports/ProductDemandReport.rptdesign" content-type="application/pdf"/>
     <view-map name="OrderByReferrerReport" type="birt" page="component://order/webapp/ordermgr/reports/OrderByReferrer.rptdesign" content-type="application/pdf"/>

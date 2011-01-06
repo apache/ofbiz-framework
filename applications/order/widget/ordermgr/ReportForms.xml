@@ -197,38 +197,16 @@ under the License.
     </form>
     
     <!--New From-->
-    <form name="SalesReport" type="single" target="SalesReport.pdf" title=""
+    <form name="SalesReport" type="single" target="checkReportBy" title=""
         header-row-style="header-row" default-table-style="basic-table">
-<!--        <field name="report">
-            <drop-down allow-empty="false">
-                <option key="BIC" description="BIC"/>
-                <option key="NBO" description="NBO"/>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="date"/></field>
+        <field name="reportBy" title="Report By">
+            <drop-down>
+                <option key="day" description="Days"></option>
+                <option key="week" description="Weeks"></option>
+                <option key="month" description="Months"></option>
             </drop-down>
-        </field>-->
-<!--        <field name="productStoreId">
-            <drop-down allow-empty="false">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
-                    <entity-order-by field-name="storeName"/>
-                </entity-options>
-            </drop-down>
-        </field>-->
-<!--        <field name="orderTypeId">
-            <drop-down allow-empty="false">
-                <option key="SALES_ORDER" description="${uiLabelMap.OrderSalesOrder}"/>
-                <option key="PURCHASE_ORDER" description="${uiLabelMap.OrderPurchaseOrder}"/>
-            </drop-down>
-        </field>-->
-<!--        <field name="orderStatusId">
-            <drop-down allow-empty="false">
-                <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
-                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
-                </entity-options>
-            </drop-down>
-        </field>-->
-        <field name="fromDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="date"/></field>
-        <field name="thruDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="date"/></field>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 

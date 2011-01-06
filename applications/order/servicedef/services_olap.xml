@@ -40,4 +40,9 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
     
+    <service name="importSalesOrderData" auth="true" engine="simple"
+        location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="importSalesOrderData">
+        <description>Import Sales Order Data.</description>
+    </service>
+    
 </services>

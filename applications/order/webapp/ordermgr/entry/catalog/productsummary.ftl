@@ -130,13 +130,16 @@ ${virtualJavaScript?if_exists}
             </#if>
             </form>
             
-              <#if prodCatMem?exists && prodCatMem.quantity?exists && 0.00 < prodCatMem.quantity?double>222
-                <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}defaultform" style="margin: 0;">
-                  <input type="hidden" name="add_product_id" value="${prodCatMem.productId?if_exists}"/>
-                  <input type="hidden" name="quantity" value="${prodCatMem.quantity?if_exists}"/>
-                  <input type="hidden" name="clearSearch" value="N"/>
-                  <a href="javascript:document.the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}defaultform.submit()" class="buttontext">${uiLabelMap.CommonAddDefault}(${prodCatMem.quantity?string.number}) ${uiLabelMap.OrderToCart}</a>
-                </form>
+              <#if prodCatMem?exists && prodCatMem.quantity?exists && 0.00 < prodCatMem.quantity?double>
+                <#assign productCategory = delegator.findByPrimaryKey("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", prodCatMem.productCategoryId))/>
+                <#if productCategory.productCategoryTypeId != "BEST_SELL_CATEGORY">
+	                <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}defaultform" style="margin: 0;">
+	                  <input type="hidden" name="add_product_id" value="${prodCatMem.productId?if_exists}"/>
+	                  <input type="hidden" name="quantity" value="${prodCatMem.quantity?if_exists}"/>
+	                  <input type="hidden" name="clearSearch" value="N"/>
+	                  <a href="javascript:document.the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}defaultform.submit()" class="buttontext">${uiLabelMap.CommonAddDefault}(${prodCatMem.quantity?string.number}) ${uiLabelMap.OrderToCart}</a>
+	                </form>
+                </#if>
               </#if>
           </#if>
         </div>

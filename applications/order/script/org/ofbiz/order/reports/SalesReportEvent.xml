@@ -22,26 +22,50 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="getOrder" short-description="Get Orders" login-required="false">
-        <if-not-empty field="fromDate">
-            <entity-condition entity-name="SalesOrderItemStarSchema" list="starschemas">
-                <condition-list combine="and">
-                    <condition-expr field-name="orderDateYearMonthDay" operator="greater-equals" from-field="fromDate"/>
-                    <condition-expr field-name="orderDateYearMonthDay" operator="less" from-field="thruDate"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="productStoreId" operator="equals" value="B2CStore"/>
-                        <condition-expr field-name="productStoreId" operator="equals" value="B2BStore"/>
+        <if-compare operator="equals" value="day" field="reportBy">
+            <if-not-empty field="thruDate">
+                <entity-condition entity-name="SalesOrderItemStarSchema" list="starschemas">
+                    <condition-list combine="and">
+                        <condition-expr field-name="orderDateYearMonthDay" operator="greater-equals" from-field="fromDate"/>
+                        <condition-expr field-name="orderDateYearMonthDay" operator="less-equals" from-field="thruDate"/>
                     </condition-list>
-                </condition-list>
-            </entity-condition>
-        </if-not-empty>
-        <if-empty field="fromDate">
-            <entity-condition list="starschemas" entity-name="SalesOrderItemStarSchema">
-                <condition-list combine="or">
-                    <condition-expr field-name="productStoreId" operator="equals" value="B2CStore"/>
-                    <condition-expr field-name="productStoreId" operator="equals" value="B2BStore"/>
-                </condition-list>
-            </entity-condition>
-        </if-empty>
+                </entity-condition>
+            </if-not-empty>
+        </if-compare>
+        
+        <if-compare operator="equals" value="week" field="reportBy">
+            <calculate field="fromWeek">
+                <calcop field="thruWeek" operator="subtract">
+                    <number value="3"/>
+                </calcop>
+            </calculate>
+            <if-not-empty field="thruWeek">
+                <entity-condition entity-name="SalesOrderItemStarSchema" list="starschemas">
+                    <condition-list combine="and">
+                        <condition-expr field-name="orderDateYearName" operator="equals" from-field="thisYear"/>
+                        <condition-expr field-name="orderDateWeekOfYear" operator="greater-equals" from-field="fromWeek"/>
+                        <condition-expr field-name="orderDateWeekOfYear" operator="less-equals" from-field="thruWeek"/>
+                    </condition-list>
+                </entity-condition>
+            </if-not-empty>
+        </if-compare>
+        
+        <if-compare operator="equals" value="month" field="reportBy">
+            <calculate field="fromMonth">
+                <calcop field="thruMonth" operator="subtract">
+                    <number value="3"/>
+                </calcop>
+            </calculate>
+            <if-not-empty field="fromMonth">
+                <entity-condition entity-name="SalesOrderItemStarSchema" list="starschemas">
+                    <condition-list combine="and">
+                        <condition-expr field-name="orderDateYearName" operator="equals" from-field="thisYear"/>
+                        <condition-expr field-name="orderDateMonthOfYear" operator="greater-equals" from-field="fromMonth"/>
+                        <condition-expr field-name="orderDateMonthOfYear" operator="less-equals" from-field="thruMonth"/>
+                    </condition-list>
+                </entity-condition>
+            </if-not-empty>
+        </if-compare>
     </simple-method>
     
 </simple-methods>

@@ -465,4 +465,27 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="bestSellingCategory">
+        <section>
+            <widgets>
+                <section>
+                    <widgets>
+                        <!--<label style="h1" text="Popular Categories"/>-->
+                        <include-screen name="showBestSellingCategory"/>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="showBestSellingCategory">
+        <section>
+            <actions>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/BestSellingCategory.groovy"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/catalog/ShowBestSellingCategory.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>
