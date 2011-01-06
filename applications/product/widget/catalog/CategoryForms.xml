@@ -220,4 +220,38 @@ under the License.
         </field>
         <field name="description"><display/></field>
     </form>
+    
+    <form name="FindCategory" type="single" target="FindCategory" title="" default-map-name="category"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}"><text-find/></field>
+        <field name="categoryName" title="${uiLabelMap.FormFieldTitle_categoryName}"><text-find/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="ListCategory" list-name="listIt" target="" title="" type="list" paginate-target="FindCategory"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <actions>
+            <set field="entityName" value="ProductCategory"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="productCategoryId" sort-field="true">
+            <hyperlink also-hidden="false" description="${productCategoryId}" target="EditCategory">
+                <parameter param-name="productCategoryId"/>
+            </hyperlink>
+        </field>
+        
+        <field name="productCategoryTypeId" sort-field="true"><display/></field>
+        <field name="primaryParentCategoryId" sort-field="true"><display/></field>
+        <field name="categoryName" sort-field="true"><display/></field>
+        <field name="description" sort-field="true"><display/></field>
+    </form>
 </forms>
