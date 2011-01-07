@@ -344,7 +344,7 @@ var rawdata_errors = [
             type: 'POST',
             data: ctx,
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 jQuery('#cmscontent').html(msg);
@@ -378,7 +378,7 @@ function callMetaInfo(contentId) {
             type: 'POST',
             data: ctx,
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 jQuery('#cmscontent').html(msg);
@@ -399,7 +399,7 @@ function callMetaInfo(contentId) {
             type: 'POST',
             data: ctx,
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 jQuery('#cmscontent').html(msg);
@@ -436,7 +436,7 @@ function callMetaInfo(contentId) {
                 type: 'POST',
                 data: jQuery(form).serialize(),
                 error: function(msg) {
-                    alert("An error occurred.");
+                    showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonUnspecifiedErrorOccurred}");
                 },
                 success: function(msg) {
                     callPathAlias(contentId);
@@ -454,7 +454,7 @@ function callMetaInfo(contentId) {
                 type: 'POST',
                 data: {"pathAlias" : pathAlias, "webSiteId" : webSiteId},
                 error: function(msg) {
-                    alert("An error occured! : " + msg);
+                    showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonUnspecifiedErrorOccurred} : " + msg);
                 },
                 success: function(msg) {
                     callPathAlias(contentId);
@@ -478,7 +478,7 @@ function callMetaInfo(contentId) {
                     }
                 },
                 error: function(msg) {
-                    alert("An error occurred submitting form.");
+                    showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonErrorSubmittingForm} : " + msg);
                 }
             });
         }

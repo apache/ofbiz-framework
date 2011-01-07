@@ -56,18 +56,18 @@ under the License.
     <#elseif ProductReceiveInventoryAgainstPurchaseOrderProductNotFound?exists>
         <div class="errorMessage">
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderProductNotFound?interpret><@uiLabelWithVar/>
-            <script type="text/javascript">window.onload=function(){alert('<@uiLabelWithVar/>')};</script>
+            <script type="text/javascript">window.onload=function(){showErrorAlert("${uiLabelMap.CommonErrorMessage2}","<@uiLabelWithVar/>");};</script>
         </div>
     <#elseif ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive?exists>
         <div class="errorMessage">
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive?interpret><@uiLabelWithVar/>
-            <script type="text/javascript">window.onload=function(){alert('<@uiLabelWithVar/>')};</script>
+            <script type="text/javascript">window.onload=function(){showErrorAlert("${uiLabelMap.CommonErrorMessage2}","<@uiLabelWithVar/>");};</script>
         </div>
     </#if>
     <#if ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder?exists>
         <div class="errorMessage" style="color:green">
             <#assign uiLabelWithVar=uiLabelMap.ProductReceiveInventoryAgainstPurchaseOrderQuantityGoesToBackOrder?interpret><@uiLabelWithVar/>
-            <script type="text/javascript">window.onload=function(){alert('<@uiLabelWithVar/>')};</script>
+            <script type="text/javascript">window.onload=function(){showErrorAlert("${uiLabelMap.CommonErrorMessage2}","<@uiLabelWithVar/>");};</script>
         </div>
     </#if>
 </#if>

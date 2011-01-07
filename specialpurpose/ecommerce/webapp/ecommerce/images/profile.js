@@ -185,13 +185,14 @@ function getServerError(data) {
     if (data._ERROR_MESSAGE_LIST_ != undefined) {
         serverErrorHash = data._ERROR_MESSAGE_LIST_;
 
-        alert(serverErrorHash);
+        var CommonErrorMessage2 = getJSONuiLabel("CommonUiLabels", "CommonErrorMessage2");
+        showErrorAlert(CommonErrorMessage2, serverErrorHash);
         jQuery.each(serverErrorHash, function(error, message){
             if (error != undefined) {
                 serverError += message;
             }
         });
-        
+
         if (serverError == "") {
             serverError = serverErrorHash;
         }

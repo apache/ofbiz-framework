@@ -122,7 +122,7 @@ var rawdata = [
             type: 'POST',
             data: {"contentId" : contentId},
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 jQuery('#Document').html(msg);
@@ -137,7 +137,7 @@ var rawdata = [
             data: {contentId: contentId,
                         contentAssocTypeId: 'TREE_CHILD'},
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 jQuery('#Document').html(msg);
@@ -151,7 +151,7 @@ var rawdata = [
             type: 'POST',
             data: {contentId: contentId},
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 jQuery('#Document').html(msg);
@@ -165,7 +165,7 @@ var rawdata = [
             type: 'POST',
             data: {contentIdTo: contentIdTo},
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 jQuery('#Document').html(msg);
@@ -180,7 +180,7 @@ var rawdata = [
             type: 'POST',
             data: {contentId : contentId, contentIdTo : contentIdTo, contentAssocTypeId : contentAssocTypeId, fromDate : fromDate},
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 location.reload();
@@ -197,7 +197,7 @@ var rawdata = [
                      rename: 'Y'
                      },
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 jQuery('#Document').html(msg);
@@ -211,7 +211,7 @@ var rawdata = [
             url: url,
             type: 'POST',
             error: function(msg) {
-                alert("An error occured loading content! : " + msg);
+                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
             },
             success: function(msg) {
                 jQuery('#Document').html(msg);

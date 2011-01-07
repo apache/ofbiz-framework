@@ -125,18 +125,19 @@ function lookup_popup2(view_name) {
             }
         }
     }
-    
+
     var obj_lookupwindow = window.open(getViewNameWithSeparator(view_name) + 'presentation=' + this.presentation + '&id=' + this.id + argString, '_blank', 'width=700,height=550,scrollbars=yes,status=no,resizable=yes,top=' + my + ',left=' + mx + ',dependent=yes,alwaysRaised=yes');
     obj_lookupwindow.opener = window;
     obj_lookupwindow.focus();
 }
 function lookup_error(str_message) {
-    alert(str_message);
+    var CommonErrorMessage2 = getJSONuiLabel("CommonUiLabels", "CommonErrorMessage2");
+    showErrorAlert(CommonErrorMessage2, str_message);
     return null;
 }
 
 function getViewNameWithSeparator(view_name) {
-	var sep = "?";
+    var sep = "?";
     if (view_name.indexOf("?") >= 0) {
         sep = "&";
     }

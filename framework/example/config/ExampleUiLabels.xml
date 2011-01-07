@@ -749,4 +749,8 @@
         <value xml:lang="th">ดูลักษณะตัวอย่าง</value>
         <value xml:lang="zh">查找样例特征</value>
     </property>
+    <property key="YouChangedTheSelectBoxValue">
+        <value xml:lang="de">Sie haben den Wert in der Select Box geändert.</value>
+        <value xml:lang="en">You have changed the value in the select box</value>
+    </property>
 </resource>

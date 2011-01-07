@@ -81,7 +81,7 @@ under the License.
             var geocoder = new GClientGeocoder();
             var map = new GMap2(document.getElementById("<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>"));
             geocoder.getLatLng("${pointAddress}", function(point) {
-              if (!point) { alert("Address not found");}
+              if (!point) { showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonAddressNotFound}");}
               map.setUIToDefault();
               map.setCenter(point, 13);
               map.addOverlay(new GMarker(point));

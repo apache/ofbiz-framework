@@ -50,7 +50,7 @@
         if (form != null) {
             ajaxSubmitForm(form, "<#if content?has_content>${content.contentId!}</#if>");
         } else {
-            alert("Cannot find the cmsform!");
+            showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CannotFindCmsform}");
         }
 
         return false;

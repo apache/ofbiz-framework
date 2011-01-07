@@ -37,7 +37,7 @@ ${virtualJavaScript?if_exists}
         if (window[fieldName] == "_NONE_") {
             hack = document.createElement('span');
             hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
-            alert(hack.innerHTML);
+            showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonNoDetailImageAvailableToDisplay}");
             return;
         }
         window[fieldName] = window[fieldName].replace(/\&\#47;/g, "/");
@@ -163,7 +163,7 @@ ${virtualJavaScript?if_exists}
             if (element.name.substring(0, index) == fieldName) {
                  if (element.value == '' || element.value == 'NULL') {
                     option.checked = false;
-                    alert('Please select all features first');
+                    showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonPleaseSelectAllFeaturesFirst}");
                     return false;
                 }
             }

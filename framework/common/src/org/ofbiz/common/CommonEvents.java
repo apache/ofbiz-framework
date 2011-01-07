@@ -22,19 +22,27 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastMap;
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
@@ -251,10 +259,16 @@ public class CommonEvents {
 
         // create a JSON Object for return
         JSONObject json = JSONObject.fromObject(attrMap);
+        writeJSONtoResponse(json, response);
+
+        return "success";
+    }
+
+    private static void writeJSONtoResponse(JSON json, HttpServletResponse response) {
         String jsonStr = json.toString();
         if (jsonStr == null) {
             Debug.logError("JSON Object was empty; fatal error!", module);
-            return "success";
+            return;
         }
 
         // set the X-JSON content type
@@ -275,7 +289,85 @@ public class CommonEvents {
         } catch (IOException e) {
             Debug.logError(e, module);
         }
+    }
 
+
+    public static String getJSONuiLabelArray(HttpServletRequest request, HttpServletResponse response) {
+        String requiredLabels = request.getParameter("requiredLabels");
+
+        JSONObject uiLabelObject = null;
+        if (UtilValidate.isNotEmpty(requiredLabels)) {
+            uiLabelObject = new JSONObject();
+            // Transform JSON String to Object
+            uiLabelObject = (JSONObject) JSONSerializer.toJSON(requiredLabels);
+        }
+
+        JSONObject jsonUiLabel = new JSONObject();
+        Locale locale = request.getLocale();
+        if(!uiLabelObject.isEmpty()) {
+            Set<String> resourceSet = UtilGenerics.checkSet(uiLabelObject.keySet());
+            // Iterate over the resouce set
+            for (String resource : resourceSet) {
+                JSONArray labels = uiLabelObject.getJSONArray(resource);
+                if (labels.isEmpty() || labels == null) {
+                    continue;
+                }
+
+                // Iterate over the uiLabel List
+                Iterator jsonLabelIterator = labels.iterator();
+                JSONArray resourceLabelList = new JSONArray();
+                while(jsonLabelIterator.hasNext()) {
+                    String label = (String) jsonLabelIterator.next();
+                    String receivedLabel = UtilProperties.getMessage(resource, label, locale);
+                    if (UtilValidate.isNotEmpty(receivedLabel)) {
+                        resourceLabelList.add(receivedLabel);
+                    }
+                }
+                jsonUiLabel.element(resource, resourceLabelList);
+            }
+        }
+
+        writeJSONtoResponse(jsonUiLabel, response);
+        return "success";
+    }
+
+    public static String getJSONuiLabel(HttpServletRequest request, HttpServletResponse response) {
+        String requiredLabels = request.getParameter("requiredLabel");
+
+        JSONObject uiLabelObject = null;
+        if (UtilValidate.isNotEmpty(requiredLabels)) {
+            uiLabelObject = new JSONObject();
+            // Transform JSON String to Object
+            uiLabelObject = (JSONObject) JSONSerializer.toJSON(requiredLabels);
+        }
+
+        JSONArray jsonUiLabel = new JSONArray();
+        Locale locale = request.getLocale();
+        if(!uiLabelObject.isEmpty()) {
+            Set<String> resourceSet = UtilGenerics.checkSet(uiLabelObject.keySet());
+            // Iterate over the resource set
+            // here we need a keySet because we don't now which label resource to load
+            // the key set should have the size one, if greater or empty error should returned
+            if (UtilValidate.isEmpty(resourceSet)) {
+                Debug.logError("No resource and labels found", module);
+                return "error";
+            } else if (resourceSet.size() > 1) {
+                Debug.logError("More than one resource found, please use the method: getJSONuiLabelArray", module);
+                return "error";
+            }
+
+            for (String resource : resourceSet) {
+                String label = uiLabelObject.getString(resource);
+                if (UtilValidate.isEmail(label)) {
+                    continue;
+                }
+
+                String receivedLabel = UtilProperties.getMessage(resource, label, locale);
+                jsonUiLabel.add(receivedLabel);
+            }
+        }
+
+        writeJSONtoResponse(jsonUiLabel, response);
         return "success";
     }
 }

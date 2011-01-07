@@ -18,13 +18,21 @@ under the License.
 * */
 
 /**
- * 
+ *
  **/
+var uiLabelJsonObject = null;
 jQuery(document).ready(function() {
+
+    var labelObject = {
+            "CommonUiLabels" : ["CommonUpload", "CommonSave", "CommonCompleted"],
+          };
+
+    uiLabelJsonObjects = getJSONuiLabels(labelObject);
+
     jQuery("#uploadPartyContent").bind("submit", uploadPartyContent);
     jQuery("#uploadPartyContent").bind("submit", getUploadProgressStatus);
     jQuery("#progress_bar").progressbar({value: 0});
-    
+
 });
 
 function uploadPartyContent(event){
@@ -42,17 +50,17 @@ function uploadPartyContent(event){
 
 function uploadCompleted(){
     var iframePartyContentList = jQuery("#target_upload").contents().find("#partyContentList").html();
-    
+
     // update partyContentList - copy the Data from the iFrame partyContentList to the page partyContentList
     jQuery("#partyContentList").html(iframePartyContentList);
-    
-    jQuery('#progressBarSavingMsg').html("Saving complete!");
+
+    jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[2]);
     // reset progressbar
     jQuery("#progress_bar").progressbar("option", "value", 0);
-    
+
     // remove iFrame
     jQuery("#target_upload").remove();
-    return; 
+    return;
 }
 
 function checkIframeStatus() {
@@ -73,7 +81,7 @@ function checkIframeStatus() {
 }
 
 function getUploadProgressStatus(event){
-    jQuery('#uploadPartyContent').append("<span id='progressBarSavingMsg' class='label'>Uploading...</span>");
+    jQuery('#uploadPartyContent').append("<span id='progressBarSavingMsg' class='label'>" + uiLabelJsonObjects.CommonUiLabels[0] + "...</span>");
     var i=0;
     jQuery.fjTimer({
         interval: 1000,
@@ -93,9 +101,9 @@ function getUploadProgressStatus(event){
                      } else {
                         var readPercent = data.readPercent;
                         jQuery("#progress_bar").progressbar("option", "value", readPercent);
-                        jQuery('#progressBarSavingMsg').html("Uploading... (" + readPercent + "%)");
+                        jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[0] + "... (" + readPercent + "%)");
                         if(readPercent > 99){
-                            jQuery('#progressBarSavingMsg').html("Saving...");
+                            jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[1] + "...");
                             // stop the fjTimer
                             timerId.stop();
                             // call the upload complete method to do final stuff

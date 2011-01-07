@@ -69,7 +69,7 @@ ${virtualJavaScript?if_exists}
         if (detailImageUrl == "_NONE_") {
             hack = document.createElement('span');
             hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
-            alert(hack.innerHTML);
+            showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonNoDetailImageAvailableToDisplay}");
             return;
         }
         detailImageUrl = detailImageUrl.replace(/\&\#47;/g, "/");
@@ -468,7 +468,7 @@ function getConfigDetails(event) {
                 <div>${question.description?if_exists}</div>
                 <#assign instructions = question.content.get("INSTRUCTIONS")?if_exists>
                 <#if instructions?has_content>
-                  <a href="javascript:alert('${instructions}');" class="buttontext">Instructions</a>
+                  <a href="javascript:showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${instructions}");" class="buttontext">Instructions</a>
                 </#if>
                 <#assign image = question.content.get("IMAGE_URL")?if_exists>
                 <#if image?string?has_content>

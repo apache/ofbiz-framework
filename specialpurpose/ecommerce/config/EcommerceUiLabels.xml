@@ -3886,6 +3886,10 @@
         <value xml:lang="zh">你充值的礼品卡有</value>
         <value xml:lang="zh_TW">你重新載入禮品卡有</value>
     </property>
+    <property key="EcommerceYourOrderIsBeingProcessed">
+        <value xml:lang="de">Ihre Bestellung wird verarbeitet, dies kann einige Minuten dauern...</value>
+        <value xml:lang="en">Your order is being processed, this may take a moment...</value>
+    </property>
     <property key="EcommerceYourPinNumber">
         <value xml:lang="da">Deres PIN kode</value>
         <value xml:lang="de">Ihre Pin-Nummer</value>

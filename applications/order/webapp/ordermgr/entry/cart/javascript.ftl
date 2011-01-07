@@ -84,7 +84,7 @@ function gwAll(e) {
         }
     }
     if (cartSize > passed && selectedValue != "NO^") {
-        alert("${uiLabelMap.OrderSelectedGiftNotAvailableForAll}");
+        showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.OrderSelectedGiftNotAvailableForAll}");
     }
     cform.submit();
 }

@@ -11411,4 +11411,28 @@
         <value xml:lang="zh_CN">中文</value>
         <value xml:lang="zh_TW">中文</value>
     </property>
+    <property key="CommonRequery">
+        <value xml:lang="de">Erneute Abfrage</value>
+        <value xml:lang="en">Requery</value>
+    </property>
+    <property key="CommonUnspecifiedErrorOccurred">
+        <value xml:lang="de">Ein unbestimmter Fehler ist aufgetreten!</value>
+        <value xml:lang="en">An unspecified error occurred!</value>
+    </property>
+    <property key="CommonErrorSubmittingForm">
+        <value xml:lang="de">Ein Fehler beim abschicken der Form ist aufgetreten.</value>
+        <value xml:lang="en">An error occurred submitting form.</value>
+    </property>
+    <property key="CommonPleaseSelectAllFeaturesFirst">
+        <value xml:lang="de">Bitte wählen Sie erst alle Merkmale aus.</value>
+        <value xml:lang="en">Please select all features first.</value>
+    </property>
+    <property key="CommonPleaseSelectAllRequiredOptions">
+        <value xml:lang="de">Bitte selektieren Sie alle benötigten Optionen.</value>
+        <value xml:lang="en">Please select all of the required options.</value>
+    </property>
+    <property key="CommonAddressNotFound">
+        <value xml:lang="de">Die Adresse wurde nicht gefunden.</value>
+        <value xml:lang="en">Address not found.</value>
+    </property>
 </resource>
