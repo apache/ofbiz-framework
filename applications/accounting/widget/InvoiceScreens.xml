@@ -418,6 +418,8 @@ under the License.
     <screen name="EditInvoiceItems">
         <section>
             <actions>
+                <set field="viewIndex" from-field="parameters.viewIndex"/>
+                <set field="viewSize" from-field="parameters.viewSize"/>
                 <set field="titleProperty" value="PageTitleListInvoices"/>
                 <set field="tabButtonItem" value="listInvoiceItems"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
@@ -463,6 +465,8 @@ under the License.
     <screen name="EditInvoiceTimeEntries">
         <section>
             <actions>
+                <set field="viewIndex" from-field="parameters.viewIndex"/>
+                <set field="viewSize" from-field="parameters.viewSize"/>
                 <set field="titleProperty" value="PageTitleListInvoiceTimeEntries"/>
                 <set field="tabButtonItem" value="EditInvoiceTimeEntries"/>
                 <set field="invoiceId" from-field="parameters.invoiceId"/>

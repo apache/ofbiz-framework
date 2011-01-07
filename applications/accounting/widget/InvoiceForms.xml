@@ -358,6 +358,8 @@ under the License.
        <field name="viewSize"><hidden value="${viewSize}"/></field>
        <field name="viewIndex"><hidden value="${viewIndex}"/></field>
        <field name="invoiceId"><hidden/></field>
+       <field name="uomId"><hidden/></field>
+       <field name="taxableFlag"><hidden/></field>
        <field name="invoiceItemSeqId" widget-style="buttontext">
            <hyperlink target="listInvoiceItems"  description="${invoiceItemSeqId}">
                 <parameter param-name="invoiceId"/>
@@ -371,7 +373,7 @@ under the License.
            </drop-down>
        </field>
        <field name="productId"><lookup target-form-name="LookupProduct" size="20"/></field>
-       <field name="description"><text size="30"/></field>
+       <field name="description"><text size="50"/></field>
        <field name="overrideGlAccountId">
            <drop-down allow-empty="true">
                <list-options list-name="glAccountOrganizationAndClassList" key-name="glAccountId" description="${glAccountId} ${accountName}"/>
@@ -379,8 +381,6 @@ under the License.
        </field>
        <field name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="7"/></field>
        <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>  <!-- this should not look like something you can modify, hence display -->
-       <field name="uomId"><hidden/></field>
-       <field name="taxableFlag"><hidden/></field>
        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceItem">
@@ -579,6 +579,8 @@ under the License.
             <hyperlink target="unlinkInvoiceFromTimeEntry" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="timeEntryId"/>
                 <parameter param-name="invoiceId"/>
+                <parameter param-name="viewIndex"/>
+                <parameter param-name="viewSize"/>
             </hyperlink>
         </field>
     </form>
