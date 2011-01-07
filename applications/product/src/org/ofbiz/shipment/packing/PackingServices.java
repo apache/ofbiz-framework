@@ -19,11 +19,14 @@
 package org.ofbiz.shipment.packing;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -31,6 +34,7 @@ import org.ofbiz.service.ServiceUtil;
 public class PackingServices {
 
     public static final String module = PackingServices.class.getName();
+    public static final String resource = "ProductUiLabels";
 
     public static Map<String, Object> addPackLine(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
@@ -92,6 +96,7 @@ public class PackingServices {
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         Boolean updateQuantity = (Boolean) context.get("updateQuantity");
+        Locale locale = (Locale) context.get("locale");
         if (updateQuantity == null) {
             updateQuantity = Boolean.FALSE;
         }
@@ -146,7 +151,8 @@ public class PackingServices {
 
                 // check to make sure there is at least one package
                 if (packages == null || packages.length == 0) {
-                    return ServiceUtil.returnError("No packages defined for processing.");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductPackBulkNoPackagesDefined", locale));
                 }
 
                 // process the quantity array
@@ -156,7 +162,8 @@ public class PackingServices {
                         quantities[p] = qtyInfo.get(rowKey + ":" + packages[p]);
                     }
                     if (quantities.length != packages.length) {
-                        return ServiceUtil.returnError("Packages and quantities do not match.");
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                "ProductPackBulkPackagesAndQuantitiesDoNotMatch", locale));
                     }
                 } else {
                     quantities = new String[] { qtyStr };
@@ -228,6 +235,7 @@ public class PackingServices {
         String inventoryItemId = (String) context.get("inventoryItemId");
         String productId = (String) context.get("productId");
         Integer packageSeqId = (Integer) context.get("packageSeqId");
+        Locale locale = (Locale) context.get("locale");
 
         PackingSessionLine line = session.findLine(orderId, orderItemSeqId, shipGroupSeqId,
                 productId, inventoryItemId, packageSeqId.intValue());
@@ -236,7 +244,8 @@ public class PackingServices {
         if (line != null) {
             session.clearLine(line);
         } else {
-            return ServiceUtil.returnError("Packing line item not found; cannot clear.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductPackLineNotFound", locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -272,7 +281,8 @@ public class PackingServices {
 
     public static Map<String, Object> completePack(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
-
+        Locale locale = (Locale) context.get("locale");
+        
         // set the instructions -- will clear out previous if now null
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
@@ -300,9 +310,11 @@ public class PackingServices {
 
         Map<String, Object> resp;
         if ("EMPTY".equals(shipmentId)) {
-            resp = ServiceUtil.returnError("No items currently set to be shipped. Cannot complete!");
+            resp = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductPackCompleteNoItems", locale));
         } else {
-            resp = ServiceUtil.returnSuccess("Shipment #" + shipmentId + " created and marked as PACKED.");
+            resp = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
+                    "ProductPackComplete", UtilMisc.toMap("shipmentId", shipmentId), locale));
         }
 
         resp.put("shipmentId", shipmentId);
