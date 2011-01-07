@@ -823,6 +823,10 @@
         <value xml:lang="en">Shipment Gateway Config Description</value>
         <value xml:lang="it">Descrizione configurazione gateway spedizione</value>
     </property>
+    <property key="FacilityShipmentGatewayConfigFromShipmentError">
+        <value xml:lang="en">Error in getShipmentGatewayConfigFromShipment: ${errorString}</value>
+        <value xml:lang="it">Errore nel metodo getShipmentGatewayConfigFromShipment: ${errorString}</value>
+    </property>
     <property key="FacilityShipmentGatewayConfigId">
         <value xml:lang="en">Shipment Gateway Config Id</value>
         <value xml:lang="it">Codice configurazione gateway spedizione</value>
@@ -15750,6 +15754,10 @@
         <value xml:lang="zh">中图</value>
         <value xml:lang="zh_TW">中圖</value>
     </property>
+    <property key="ProductMergeVirtualWithSingleVariant">
+        <value xml:lang="en">Test mode - returning error to get a rollback</value>
+        <value xml:lang="it">Modalità di test - errore</value>
+    </property>
     <property key="ProductMessageQoh">
         <value xml:lang="de">Standartmässig werden nur Bewegungen angezeigt, die die verfügbare Menge beeinflussen. Falls das 0 gelöscht wird, werden auch Bewegungen angezeigt, die Reservationen betreffen.</value>
         <value xml:lang="en">By default, only movements affecting the qoh are shown; remove the 0 here to get also the movements related to reservations.</value>
@@ -17973,6 +17981,26 @@
         <value xml:lang="zh">包装</value>
         <value xml:lang="zh_TW">包裝</value>
     </property>
+    <property key="ProductPackBulkNoPackagesDefined">
+        <value xml:lang="en">No packages defined for processing.</value>
+        <value xml:lang="it">Nessun pacco definito.</value>
+    </property>
+    <property key="ProductPackBulkPackagesAndQuantitiesDoNotMatch">
+        <value xml:lang="en">Packages and quantities do not match.</value>
+        <value xml:lang="it">Pacchi e quantità non corrispondono.</value>
+    </property>
+    <property key="ProductPackComplete">
+        <value xml:lang="en">Shipment # ${shipmentId} created and marked as PACKED.</value>
+        <value xml:lang="it">Spedizione ${shipmentId} create ed impostata come IMBALLATA.</value>
+    </property>
+    <property key="ProductPackCompleteNoItems">
+        <value xml:lang="en">No items currently set to be shipped. Cannot complete!</value>
+        <value xml:lang="it">Nessuma riga attualmente deve essere spedita. Non è possibile completare l'imballaggio!</value>
+    </property>
+    <property key="ProductPackLineNotFound">
+        <value xml:lang="en">Packing line item not found; cannot clear.</value>
+        <value xml:lang="it">Nessun riga pacco trovata; non è possibile cancellarla.</value>
+    </property>
     <property key="ProductPackedQty">
         <value xml:lang="de">Verpackte Menge</value>
         <value xml:lang="en">Packed Qty</value>
@@ -18983,6 +19011,26 @@
         <value xml:lang="zh">产品标识到</value>
         <value xml:lang="zh_TW">產品ID到</value>
     </property>
+    <property key="ProductProductImportCannotCreateWorkbookFromFile">
+        <value xml:lang="en">Unable to read or create workbook from file</value>
+        <value xml:lang="it">Non è possibile leggere o creare il workbook dal file</value>
+    </property>
+    <property key="ProductProductImportCannotStoreProduct">
+        <value xml:lang="en">Cannot store product</value>
+        <value xml:lang="it">Non è possibile scrivere il prodotto</value>
+    </property>
+    <property key="ProductProductImportDirectoryNotFound">
+        <value xml:lang="en">Directory not found or can not be read</value>
+        <value xml:lang="it">Directory non trovata o non può essere letta</value>
+    </property>
+    <property key="ProductProductImportPathNotSpecified">
+        <value xml:lang="en">No path specified, doing nothing</value>
+        <value xml:lang="it">Nessun path specificato, non fare niente</value>
+    </property>
+    <property key="ProductProductImportPathNoSpreadsheetExists">
+        <value xml:lang="en">No spreadsheet exists in </value>
+        <value xml:lang="it">Nessun spreadsheet esiste in </value>
+    </property>
     <property key="ProductProductJump">
         <value xml:lang="de">Direktzugriff</value>
         <value xml:lang="en">Product Jump</value>
@@ -19201,6 +19249,14 @@
         <value xml:lang="th">ตั้งค่าอีเมลคลังสินค้า</value>
         <value xml:lang="zh">产品店铺电子邮件设置</value>
         <value xml:lang="zh_TW">產品商店電子郵件設置</value>
+    </property>
+    <property key="ProductProductStoreEmailSettingsNotValid">
+        <value xml:lang="en">No valid email setting for store with productStoreId ${productStoreId} and emailType ${emailType}</value>
+        <value xml:lang="it">Nessuna configurazione email valida per il negozio ${productStoreId} e tipo email ${emailType}</value>
+    </property>
+    <property key="ProductProductStoreEmailSettingsNoSendToFound">
+        <value xml:lang="en">No sendTo email address found</value>
+        <value xml:lang="it">Nessun indirizzo destinatario email trovato</value>
     </property>
     <property key="ProductProductStoreGroup">
         <value xml:lang="de">Ladengruppe</value>
@@ -21864,6 +21920,22 @@
         <value xml:lang="zh">成本估算标识</value>
         <value xml:lang="zh_TW">成本估算ID</value>
     </property>
+    <property key="ProductShipmentCostEstimateRemoveError">
+        <value xml:lang="en">Problem removing entity or related entities: ${errorString}</value>
+        <value xml:lang="it">Problema durante la cancellazione della stima costi di spedizione: ${errorString}</value>
+    </property>
+    <property key="ProductShipmentCostEstimateCannotGetShippingAddress">
+        <value xml:lang="en">Cannot get shipping address entity</value>
+        <value xml:lang="it">Non è possibile ottenere l'indirizzo di spedizione</value>
+    </property>
+    <property key="ProductShipmentCostEstimateCannotFoundForCarrier">
+        <value xml:lang="en">No shipping estimate found for carrier ${carrierPartyId} and shipment method type ${shipmentMethodTypeId}</value>
+        <value xml:lang="it">Nessun stima costi di spedizione trovata per il corriere ${carrierPartyId} e il tipo metodo di spedizione ${shipmentMethodTypeId}</value>
+    </property>
+    <property key="ProductShipmentCostEstimateCannotRetrieve">
+        <value xml:lang="en">Unable to locate estimates from database</value>
+        <value xml:lang="it">Non è possibile localizzare le stime di spedizione dal database</value>
+    </property>
     <property key="ProductShipmentFedexHomeAppointment">
         <value xml:lang="de">Verabredung</value>
         <value xml:lang="en">Appointment</value>
@@ -22000,6 +22072,14 @@
         <value xml:lang="zh">无</value>
         <value xml:lang="zh_TW">無</value>
     </property>
+    <property key="ProductShipmentNoAddressFound">
+        <value xml:lang="en">No address found for shipment!</value>
+        <value xml:lang="it">Nessun indirizzo per la spedizione trovato!</value>
+    </property>
+    <property key="ProductShipmentNoPackagesAvailable">
+        <value xml:lang="en">No packages are available for shipping!</value>
+        <value xml:lang="it">Nessun pacco è disponibile per la spedizione!</value>
+    </property>
     <property key="ProductShipmentNotFoundId">
         <value xml:lang="de">Lieferung nicht gefunden mit der ID </value>
         <value xml:lang="en">The Shipment was not found with ID </value>
@@ -22012,16 +22092,28 @@
         <value xml:lang="zh">没有找到货运，标识 </value>
         <value xml:lang="zh_TW">沒有找到貨運ID </value>
     </property>
+    <property key="ProductShipmentPrimaryOrderHeaderItemShipGroupNotFound">
+        <value xml:lang="en">Cannot found primary order item ship group for shipment with ID ${shipmentId}</value>
+        <value xml:lang="it">Non è possibile trovare il gruppo spedizione per la riga ordine primaria per la spedizione ${shipmentId}</value>
+    </property>
+    <property key="ProductShipmentPrimaryOrderHeaderNotFound">
+        <value xml:lang="en">Cannot found primary order header for shipment with ID ${shipmentId}</value>
+        <value xml:lang="it">Non è possibile trovare la testata ordine primaria per la spedizione ${shipmentId}</value>
+    </property>
+    <property key="ProductShipmentPrimaryOrderHeaderProductStoreNotFound">
+        <value xml:lang="en">Cannot found productStoreId ${productStoreId} for shipment with ID ${shipmentId}</value>
+        <value xml:lang="it">Non è possibile trovare il neogzio ${productStoreId} per la spedizione ${shipmentId}</value>
+    </property>
     <property key="ProductShipmentPackageNotFound">
-        <value xml:lang="de">shipmentPackageSeqId [${shipmentPackageSeqId}] nicht gefunden in der Lieferung mit ID [${shipmentId}]</value>
-        <value xml:lang="en">shipmentPackageSeqId [${shipmentPackageSeqId}] was not found in shipment with ID [${shipmentId}]</value>
-        <value xml:lang="es">Nº sec. paquete de envío [${shipmentPackageSeqId}] no se ha encontrado en envío con ccódigo [${shipmentId}]</value>
-        <value xml:lang="fr">Réf. séq. d'exp. du paquet [${shipmentPackageSeqId}] non trouvée dans l'expédition de réf.[${shipmentId}]</value>
-        <value xml:lang="it">Pacco spedizione [${shipmentPackageSeqId}] non trovato per la spedizione [${shipmentId}]</value>
-        <value xml:lang="ru">shipmentPackageSeqId [${shipmentPackageSeqId}] не найден в поставке с кодом [${shipmentId}]</value>
-        <value xml:lang="th">รหัสรายการแพคเกจการขนส่ง [${shipmentPackageSeqId}] ไม่พบการขนส่งด้วยรหัส [${shipmentId}]</value>
-        <value xml:lang="zh">没有找到标识为[${shipmentId}]的货运的货运包装序号[${shipmentPackageSeqId}]</value>
-        <value xml:lang="zh_TW">沒有找到ID為[${shipmentId}]的貨運的貨運包裝序號[${shipmentPackageSeqId}]</value>
+        <value xml:lang="de">shipmentPackageSeqId ${shipmentPackageSeqId} nicht gefunden in der Lieferung mit ID ${shipmentId}</value>
+        <value xml:lang="en">shipmentPackageSeqId ${shipmentPackageSeqId} was not found in shipment with ID ${shipmentId}</value>
+        <value xml:lang="es">Nº sec. paquete de envío ${shipmentPackageSeqId} no se ha encontrado en envío con ccódigo ${shipmentId}</value>
+        <value xml:lang="fr">Réf. séq. d'exp. du paquet ${shipmentPackageSeqId} non trouvée dans l'expédition de réf. ${shipmentId}</value>
+        <value xml:lang="it">Pacco spedizione ${shipmentPackageSeqId} non trovato per la spedizione ${shipmentId}</value>
+        <value xml:lang="ru">shipmentPackageSeqId ${shipmentPackageSeqId} не найден в поставке с кодом ${shipmentId}</value>
+        <value xml:lang="th">รหัสรายการแพคเกจการขนส่ง ${shipmentPackageSeqId} ไม่พบการขนส่งด้วยรหัส ${shipmentId}</value>
+        <value xml:lang="zh">没有找到标识为 ${shipmentId} 的货运的货运包装序号 ${shipmentPackageSeqId}</value>
+        <value xml:lang="zh_TW">沒有找到ID為 ${shipmentId} 的貨運的貨運包裝序號 ${shipmentPackageSeqId}</value>
     </property>
     <property key="ProductShipmentPlan">
         <value xml:lang="de">Lieferplan</value>
@@ -22748,6 +22840,10 @@
         <value xml:lang="zh">店铺货运方式关联</value>
         <value xml:lang="zh_TW">商店貨運方式關聯</value>
     </property>
+    <property key="ProductStoreShipmentMethodCannotRetrieve">
+        <value xml:lang="en">Problem retrieving ProductStoreShipmentMeth entry with id ${productStoreShipMethId}: ${errorString}</value>
+        <value xml:lang="it">Problema nel ricavare ProductStoreShipmentMeth ${productStoreShipMethId}: ${errorString}</value>
+    </property>
     <property key="ProductStoreSurveyResultTemplatePath">
         <value xml:lang="de">Resultat Template Pfad</value>
         <value xml:lang="en">Result Template Path</value>
@@ -22970,6 +23066,30 @@
     <property key="ProductSubscriptionType">
         <value xml:lang="en">Subscription Type</value>
         <value xml:lang="it">Tipo abbonamento</value>
+    </property>
+    <property key="ProductSubscriptionByOrderError">
+        <value xml:lang="en">Error processing subscriptions for Order with ID ${orderId}</value>
+        <value xml:lang="it">Errore durante l'esecuzione dell'abbonamento per l'ordine ${orderId}</value>
+    </property>
+    <property key="ProductSubscriptionByProductError">
+        <value xml:lang="en">Error processing subscriptions for Product with ID ${productId}</value>
+        <value xml:lang="it">Errore durante l'esecuzione dell'abbonamento per il prodotto ${productId}</value>
+    </property>
+    <property key="ProductSubscriptionCreateError">
+        <value xml:lang="en">Error creating subscription while processing with resource ID ${subscriptionResourceId}</value>
+        <value xml:lang="it">Errore durante la creazione dell'abbonamento ${subscriptionResourceId}</value>
+    </property>
+    <property key="ProductSubscriptionUpdateError">
+        <value xml:lang="en">Error processing subscription update with ID ${subscriptionId}</value>
+        <value xml:lang="it">Errore durante l'aggiornamento dell'abbonamento ${subscriptionId}</value>
+    </property>
+    <property key="ProductSubscriptionPartyRoleCreationError">
+        <value xml:lang="en">Error creating new PartyRole while processing subscription update with resource ID ${subscriptionResourceId}</value>
+        <value xml:lang="it">Errore durante la creazione di un nuovo ruolo soggetto mentre eseguivo un'aggiornamento dell'abbonamento ${subscriptionResourceId}</value>
+    </property>
+    <property key="ProductSubscriptionResourceNotFound">
+        <value xml:lang="en">No ProductSubscriptionResource found for productId: ${productId}</value>
+        <value xml:lang="it">Nessuna risorsa abbonamento trovata per il prodotto: ${productId}</value>
     </property>
     <property key="ProductSubscriptionViewPermissionError">
         <value xml:lang="en">Subscription View Permission Error</value>
