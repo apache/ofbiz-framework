@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeSet;
 
@@ -53,6 +54,7 @@ import org.ofbiz.service.ServiceUtil;
 public class PriceServices {
 
     public static final String module = PriceServices.class.getName();
+    public static final String resource = "ProductUiLabels";
     public static final BigDecimal ONE_BASE = BigDecimal.ONE;
     public static final BigDecimal PERCENT_SCALE = new BigDecimal("100.000");
 
@@ -101,14 +103,16 @@ public class PriceServices {
 
         String productStoreId = (String) context.get("productStoreId");
         String productStoreGroupId = (String) context.get("productStoreGroupId");
+        Locale locale = (Locale) context.get("locale");
+        
         GenericValue productStore = null;
         try {
             // we have a productStoreId, if the corresponding ProductStore.primaryStoreGroupId is not empty, use that
             productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
         } catch (GenericEntityException e) {
-            String errMsg = "Error getting product store info from the database while calculating price" + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()) , locale));
         }
         if (UtilValidate.isEmpty(productStoreGroupId)) {
             if (productStore != null) {
@@ -125,9 +129,9 @@ public class PriceServices {
                         }
                     }
                 } catch (GenericEntityException e) {
-                    String errMsg = "Error getting product store info from the database while calculating price" + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    return ServiceUtil.returnError(errMsg);
+                    Debug.logError(e, "Error getting product store info from the database while calculating price" + e.toString(), module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductPriceCannotRetrieveProductStore", UtilMisc.toMap("errorString", e.toString()) , locale));
                 }
             }
 
@@ -159,9 +163,9 @@ public class PriceServices {
             try {
                 virtualProductId = ProductWorker.getVariantVirtualId(product);
             } catch (GenericEntityException e) {
-                String errMsg = "Error getting virtual product id from the database while calculating price" + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError(e, "Error getting virtual product id from the database while calculating price" + e.toString(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductPriceCannotRetrieveVirtualProductId", UtilMisc.toMap("errorString", e.toString()) , locale));
             }
         }
 
@@ -245,9 +249,9 @@ public class PriceServices {
                     defaultPriceValue = agreementPriceValue;
                 }
             } catch (GenericEntityException e) {
-                String errMsg = "Error getting agreement info from the database while calculating price" + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError(e, "Error getting agreement info from the database while calculating price" + e.toString(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductPriceCannotRetrieveAgreementInfo", UtilMisc.toMap("errorString", e.toString()) , locale));
             }
         }
 
@@ -549,7 +553,7 @@ public class PriceServices {
             result.put("orderItemPriceInfos", orderItemPriceInfos);
 
             Map<String, Object> errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore,
-                    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                    checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher, locale);
             if (errorResult != null) return errorResult;
         } else {
             try {
@@ -599,9 +603,9 @@ public class PriceServices {
                         Map<String, Object> quantCalcResults = calcPriceResultFromRules(ruleListToUse, listPrice, defaultPrice, promoPrice,
                             wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound,
                             averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId,
-                            webSiteId, partyId, null, currencyUomId, delegator, nowTimestamp);
+                            webSiteId, partyId, null, currencyUomId, delegator, nowTimestamp, locale);
                         Map<String, Object> quantErrorResult = addGeneralResults(quantCalcResults, competitivePriceValue, specialPromoPriceValue, productStore,
-                            checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                            checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher, locale);
                         if (quantErrorResult != null) return quantErrorResult;
 
                         // also add the quantityProductPriceRule to the Map so it can be used for quantity break information
@@ -615,7 +619,7 @@ public class PriceServices {
                     Map<String, Object> calcResults = calcPriceResultFromRules(allProductPriceRules, listPrice, defaultPrice, promoPrice,
                         wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound,
                         averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId,
-                        webSiteId, partyId, BigDecimal.ONE, currencyUomId, delegator, nowTimestamp);
+                        webSiteId, partyId, BigDecimal.ONE, currencyUomId, delegator, nowTimestamp, locale);
                     result.putAll(calcResults);
                     // The orderItemPriceInfos out parameter requires a special treatment:
                     // the list of OrderItemPriceInfos generated by the price rule is appended to
@@ -627,13 +631,13 @@ public class PriceServices {
                     result.put("orderItemPriceInfos", orderItemPriceInfos);
 
                     Map<String, Object> errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore,
-                            checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                            checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher, locale);
                     if (errorResult != null) return errorResult;
                 } else {
                     Map<String, Object> calcResults = calcPriceResultFromRules(allProductPriceRules, listPrice, defaultPrice, promoPrice,
                         wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound,
                         averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId,
-                        webSiteId, partyId, quantity, currencyUomId, delegator, nowTimestamp);
+                        webSiteId, partyId, quantity, currencyUomId, delegator, nowTimestamp, locale);
                     result.putAll(calcResults);
                     // The orderItemPriceInfos out parameter requires a special treatment:
                     // the list of OrderItemPriceInfos generated by the price rule is appended to
@@ -645,12 +649,13 @@ public class PriceServices {
                     result.put("orderItemPriceInfos", orderItemPriceInfos);
 
                     Map<String, Object> errorResult = addGeneralResults(result, competitivePriceValue, specialPromoPriceValue, productStore,
-                        checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
+                        checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher, locale);
                     if (errorResult != null) return errorResult;
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting rules from the database while calculating price", module);
-                return ServiceUtil.returnError("Error getting rules from the database while calculating price: " + e.toString());
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductPriceCannotRetrievePriceRules", UtilMisc.toMap("errorString", e.toString()) , locale));
             }
         }
 
@@ -659,7 +664,7 @@ public class PriceServices {
     }
 
     public static Map<String, Object> addGeneralResults(Map<String, Object> result, GenericValue competitivePriceValue, GenericValue specialPromoPriceValue, GenericValue productStore,
-        String checkIncludeVat, String currencyUomId, String productId, BigDecimal quantity, String partyId, LocalDispatcher dispatcher) {
+        String checkIncludeVat, String currencyUomId, String productId, BigDecimal quantity, String partyId, LocalDispatcher dispatcher, Locale locale) {
         result.put("competitivePrice", competitivePriceValue != null ? competitivePriceValue.getBigDecimal("price") : null);
         result.put("specialPromoPrice", specialPromoPriceValue != null ? specialPromoPriceValue.getBigDecimal("price") : null);
         result.put("currencyUsed", currencyUomId);
@@ -676,7 +681,8 @@ public class PriceServices {
             try {
                 Map<String, Object> calcTaxForDisplayResult = dispatcher.runSync("calcTaxForDisplay", calcTaxForDisplayContext);
                 if (ServiceUtil.isError(calcTaxForDisplayResult)) {
-                    return ServiceUtil.returnError("Error calculating VAT tax (with calcTaxForDisplay service)", null, null, calcTaxForDisplayResult);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductPriceCannotCalculateVatTax", locale), null, null, calcTaxForDisplayResult);
                 }
                 // taxTotal, taxPercentage, priceWithTax
                 result.put("price", calcTaxForDisplayResult.get("priceWithTax"));
@@ -700,9 +706,9 @@ public class PriceServices {
                     result.put("competitivePrice", ((BigDecimal) result.get("competitivePrice")).multiply(taxMultiplier).setScale(taxFinalScale, taxRounding));
                 }
             } catch (GenericServiceException e) {
-                String errMsg = "Error calculating VAT tax (with calcTaxForDisplay service): " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError(e, "Error calculating VAT tax (with calcTaxForDisplay service): " + e.toString(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductPriceCannotCalculateVatTax", locale));
             }
         }
 
@@ -861,7 +867,8 @@ public class PriceServices {
     public static Map<String, Object> calcPriceResultFromRules(List<GenericValue> productPriceRules, BigDecimal listPrice, BigDecimal defaultPrice, BigDecimal promoPrice,
         BigDecimal wholesalePrice, GenericValue maximumPriceValue, GenericValue minimumPriceValue, boolean validPriceFound,
         GenericValue averageCostValue, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId,
-        String webSiteId, String partyId, BigDecimal quantity, String currencyUomId, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
+        String webSiteId, String partyId, BigDecimal quantity, String currencyUomId, Delegator delegator, Timestamp nowTimestamp,
+        Locale locale) throws GenericEntityException {
 
         Map<String, Object> calcResults = FastMap.newInstance();
 
@@ -1025,8 +1032,10 @@ public class PriceServices {
                     // add a orderItemPriceInfo element too, without orderId or orderItemId
                     StringBuilder priceInfoDescription = new StringBuilder();
 
+                    
                     priceInfoDescription.append(condsDescription.toString());
-                    priceInfoDescription.append("[type:");
+                    priceInfoDescription.append("[");
+                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductPriceConditionType", locale));
                     priceInfoDescription.append(productPriceAction.getString("productPriceActionTypeId"));
                     priceInfoDescription.append("]");
 
@@ -1305,6 +1314,7 @@ public class PriceServices {
         String currencyUomId = (String)context.get("currencyUomId");
         String partyId = (String)context.get("partyId");
         BigDecimal quantity = (BigDecimal)context.get("quantity");
+        Locale locale = (Locale)context.get("locale");
 
         // a) Get the Price from the Agreement* data model
         // TODO: Implement this
@@ -1333,10 +1343,11 @@ public class PriceServices {
                     }
                     // add a orderItemPriceInfo element too, without orderId or orderItemId
                     StringBuilder priceInfoDescription = new StringBuilder();
-                    priceInfoDescription.append("SupplierProduct ");
-                    priceInfoDescription.append("[minimumOrderQuantity:");
+                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductSupplier", locale));
+                    priceInfoDescription.append(" [");
+                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductSupplierMinimumOrderQuantity", locale));
                     priceInfoDescription.append(productSupplier.getBigDecimal("minimumOrderQuantity"));
-                    priceInfoDescription.append(", lastPrice: ");
+                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductSupplierLastPrice", locale));
                     priceInfoDescription.append(productSupplier.getBigDecimal("lastPrice"));
                     priceInfoDescription.append("]");
                     GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo");
