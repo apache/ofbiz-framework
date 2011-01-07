@@ -25,6 +25,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -33,6 +34,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -52,11 +54,13 @@ import org.ofbiz.service.ServiceUtil;
 public class PromoServices {
 
     public final static String module = PromoServices.class.getName();
-
+    public static final String resource = "ProductUiLabels";
+    
     public static Map<String, Object> createProductPromoCodeSet(DispatchContext dctx, Map<String, ? extends Object> context) {
         //Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Long quantity = (Long) context.get("quantity");
+        Locale locale = (Locale) context.get("locale");
         //Long useLimitPerCode = (Long) context.get("useLimitPerCode");
         //Long useLimitPerCustomer = (Long) context.get("useLimitPerCustomer");
         //GenericValue promoItem = null;
@@ -68,11 +72,13 @@ public class PromoServices {
             try {
                 createProductPromoCodeMap = dispatcher.runSync("createProductPromoCode", dctx.makeValidContext("createProductPromoCode", "IN", context));
             } catch (GenericServiceException err) {
-                return ServiceUtil.returnError("Could not create a bank of promo codes", null, null, createProductPromoCodeMap);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductPromoCodeCannotBeCreated",  locale), null, null, createProductPromoCodeMap);
             }
             if (ServiceUtil.isError(createProductPromoCodeMap)) {
                 // what to do here? try again?
-                return ServiceUtil.returnError("Could not create a bank of promo codes", null, null, createProductPromoCodeMap);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductPromoCodeCannotBeCreated",  locale), null, null, createProductPromoCodeMap);
             }
             bankOfNumbers.append((String) createProductPromoCodeMap.get("productPromoCodeId"));
             bankOfNumbers.append("<br/>");
@@ -84,6 +90,7 @@ public class PromoServices {
     public static Map<String, Object> purgeOldStoreAutoPromos(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
+        Locale locale = (Locale) context.get("locale");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         List<EntityCondition> condList = FastList.newInstance();
@@ -105,9 +112,9 @@ public class PromoServices {
             }
             eli.close();
         } catch (GenericEntityException e) {
-            String errMsg = "Error removing expired ProductStorePromo records: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error removing expired ProductStorePromo records: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductPromoCodeCannotBeRemoved", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -115,11 +122,13 @@ public class PromoServices {
 
     public static Map<String, Object> importPromoCodesFromFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
 
         // check the uploaded file
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         if (fileBytes == null) {
-            return ServiceUtil.returnError("Uploaded file not valid or corrupted");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductPromoCodeImportUploadedFileNotValid", locale));
         }
 
         String encoding = System.getProperty("file.encoding");
@@ -158,7 +167,7 @@ public class PromoServices {
                         }
                     } else {
                         // not valid ignore and notify
-                        errors.add(line + ": is not a valid promo code; must be between 1 and 20 characters");
+                        errors.add(line + UtilProperties.getMessage(resource, "ProductPromoCodeInvalidCode", locale));
                     }
                     ++lines;
                 }
@@ -181,7 +190,8 @@ public class PromoServices {
         if (errors.size() > 0) {
             return ServiceUtil.returnError(errors);
         } else if (lines == 0) {
-            return ServiceUtil.returnError("Empty file; nothing to do");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductPromoCodeImportEmptyFile", locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -189,13 +199,14 @@ public class PromoServices {
 
     public static Map<String, Object> importPromoCodeEmailsFromFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-
         String productPromoCodeId = (String) context.get("productPromoCodeId");
         byte[] wrapper = (byte[]) context.get("uploadedFile");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
 
         if (wrapper == null) {
-            return ServiceUtil.returnError("Uploaded file not valid or corrupted");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductPromoCodeImportUploadedFileNotValid", locale));
         }
 
         // read the bytes into a reader
@@ -240,7 +251,8 @@ public class PromoServices {
         if (errors.size() > 0) {
             return ServiceUtil.returnError(errors);
         } else if (lines == 0) {
-            return ServiceUtil.returnError("Empty file; nothing to do");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductPromoCodeImportEmptyFile", locale));
         }
 
         return ServiceUtil.returnSuccess();

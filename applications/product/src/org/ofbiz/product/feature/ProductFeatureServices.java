@@ -20,6 +20,7 @@ package org.ofbiz.product.feature;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,6 +31,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -61,6 +63,7 @@ public class ProductFeatureServices {
     public static Map<String, Object> getProductFeaturesByType(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
 
         /* because we might need to search either for product features or for product features of a product, the search code has to be generic.
          * we will determine which entity and field to search on based on what the user has supplied us with.
@@ -85,7 +88,7 @@ public class ProductFeatureServices {
         }
 
         if (valueToSearch == null) {
-            return ServiceUtil.returnError("This service requires a productId, a productFeatureGroupId, or a productFeatureCategoryId to run.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductFeatureByType", locale));
         }
 
         try {
@@ -299,6 +302,7 @@ public class ProductFeatureServices {
 
         List<GenericValue> productFeatures = UtilGenerics.checkList(context.get("productFeatures"));
         String productCategoryId = (String) context.get("productCategoryId");
+        Locale locale = (Locale) context.get("locale");
 
         // get all the product members of the product category
         Map<String, Object> result;
@@ -337,7 +341,7 @@ public class ProductFeatureServices {
             }
 
             if (products.size() == 0) {
-                return ServiceUtil.returnError("No products which fit your requirements were found.");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductCategoryNoVariants", locale));
             } else {
                 results = ServiceUtil.returnSuccess();
                 results.put("products", products);
