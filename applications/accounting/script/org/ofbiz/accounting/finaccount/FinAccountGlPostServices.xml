@@ -104,23 +104,23 @@ under the License.
 
         <!-- Make sure we have the glAccountId, glAccountIdOffset, organizationPartyId -->
         <if-empty field="quickCreateAcctgTransAndEntries.debitGlAccountId">
+            <set field="creditDebit" value="Debit"/>
+            <set field="requiredField" value="glAccountId"/>
             <add-error>
-                <set field="creditDebit" value="Debit"/>
-                <set field="requiredField" value="glAccountId"/>
                 <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountCannotPost"/>
             </add-error>
         </if-empty>
         <if-empty field="quickCreateAcctgTransAndEntries.creditGlAccountId">
+            <set field="creditDebit" value="credit"/>
+            <set field="requiredField" value="glAccountId"/>
             <add-error>
-                <set field="creditDebit" value="credit"/>
-                <set field="requiredField" value="glAccountId"/>
                 <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountCannotPost"/>
             </add-error>
         </if-empty>
         <if-empty field="organizationPartyId">
+            <set field="creditDebit" value=""/>
+            <set field="requiredField" value="organizationPartyId"/>
             <add-error>
-                <set field="creditDebit" value=""/>
-                <set field="requiredField" value="organizationPartyId"/>
                 <fail-property resource="AccountingErrorUiLabels" property="AccountingFinAccountCannotPost"/>
             </add-error>
         </if-empty>

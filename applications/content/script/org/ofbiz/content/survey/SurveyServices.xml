@@ -185,9 +185,9 @@
                 </and>
             </condition>
             <then>
+                <set field="questionType" value="ENUMERATION"/>
+                <set field="requiredField" value="enumTypeId"/>
                 <add-error>
-                    <set field="questionType" value="ENUMERATION"/>
-                    <set field="requiredField" value="enumTypeId"/>
                     <fail-property resource="ContentUiLabels" property="ContentQuestionTypeRequiredField"/>
                 </add-error>
             </then>
@@ -200,9 +200,9 @@
                 </and>
             </condition>
             <then>
+                <set field="questionType" value="GEO"/>
+                <set field="requiredField" value="geoId"/>
                 <add-error>
-                    <set field="questionType" value="GEO"/>
-                    <set field="requiredField" value="geoId"/>
                     <fail-property resource="ContentUiLabels" property="ContentQuestionTypeRequiredField"/>
                 </add-error>
             </then>
@@ -227,9 +227,9 @@
                 </and>
             </condition>
             <then>
+                <set field="questionType" value="ENUMERATION"/>
+                <set field="requiredField" value="enumTypeId"/>
                 <add-error>
-                    <set field="questionType" value="ENUMERATION"/>
-                    <set field="requiredField" value="enumTypeId"/>
                     <fail-property resource="ContentUiLabels" property="ContentQuestionTypeRequiredField"/>
                 </add-error>
             </then>
@@ -242,9 +242,9 @@
                 </and>
             </condition>
             <then>
+                <set field="questionType" value="GEO"/>
+                <set field="requiredField" value="geoId"/>
                 <add-error>
-                    <set field="questionType" value="GEO"/>
-                    <set field="requiredField" value="geoId"/>
                     <fail-property resource="ContentUiLabels" property="ContentQuestionTypeRequiredField"/>
                 </add-error>
             </then>
