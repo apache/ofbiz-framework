@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
@@ -75,13 +76,16 @@ public class FrameImage {
         String imageName = (String) context.get("imageName");
         String imageWidth = (String) context.get("imageWidth");
         String imageHeight = (String) context.get("imageHeight");
-
+        Locale locale = (Locale) context.get("locale");
+        
         if (UtilValidate.isEmpty(context.get("frameContentId")) || UtilValidate.isEmpty(context.get("frameDataResourceId"))) {
-            result =  ServiceUtil.returnError("Required frame image content ID or dataResource ID parameters. Please upload new frame image or choose the exist frame.");
+            result =  ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductImageFrameContentIdRequired", locale));
             result.putAll(context);
         }
         if (UtilValidate.isEmpty(context.get("imageWidth")) || UtilValidate.isEmpty(context.get("imageHeight"))) {
-            result =  ServiceUtil.returnError("Image Width and Image Height are required to create the image. Please enter in Image Width and Image Height fields.");
+            result =  ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductImageWidthAndHeightRequired", locale));
             result.putAll(context);
         }
 

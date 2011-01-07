@@ -120,7 +120,8 @@ public class ScaleImage {
             type = "additional";
             id = imgName + "_View_" + viewNumber;
         } else {
-            return ServiceUtil.returnError("View Type : " + type + " is wrong");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductImageViewType", UtilMisc.toMap("viewType", type), locale));
         }
         FlexibleStringExpander mainFilenameExpander = FlexibleStringExpander.getInstance(mainFilenameFormat);
         String fileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", type, "id", filenameToUse));
@@ -276,7 +277,8 @@ public class ScaleImage {
             type = "additional";
             id = imgName + "_View_" + viewNumber;
         } else {
-            return ServiceUtil.returnError("View Type : " + type + " is wrong");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductImageViewType", UtilMisc.toMap("viewType", type), locale));
         }
         FlexibleStringExpander mainFilenameExpander = FlexibleStringExpander.getInstance(mainFilenameFormat);
         String fileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", type, "id", filenameToUse));
