@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section id="WorkingwithCatalogs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title> Working with Catalogs</title>
+ 
+<section>
+    <title> Working with Catalogs</title>
+    <para>
+To follow this topic, click on the 'Catalog Detail List' in the left-hand panel under the 'Browse Catalogs' section.
+ Then click on any catalog in the table of current catalogs presented in the main screen. 
+You will see the top-level editing screen for that catalog.
+ Along the top of the working screen are four sub-tabs: Catalog, Stores, Parties and Catalogs. 
+Each of those are discussed as a topic below.
+
+</para>
+</section>
+<section>
+    <title> Catalogs in general</title>
+    <para>
+A product catalog is used to group many product categories together and forms an intermediate step in the organization between products, categories, and stores. The product catalog can be used to define a common look and feel for all categories in this catalog and specify the way different categories will behave. For example, it is very useful for stores which sell products from different manufacturer or completely different product types that require differing presentations to the customer.
+</para>
+</section>
+<note>
+    <title> Sequence from a Store to the Products</title>
+    <para>
+Although the process sequence through the tabs discussed below does not correspond with the tab layout within the Catalog Manager, the progression of the steps is intentional. Promotions and Price Rules cannot exist without Products. Products are usually so numerous that you wish to divide them into Categories and distinguish them by their Features. Categories are then the major sections of your Catalogs. And Catalogs must be associated with their related Stores. Therefore, when setting up your business, you need to start with the Store. All of these details are handled within the Catalog Manager.
+</para></note>
+<section>
+    <title> Catalog tab</title>
+  <para>
+The main Catalog tab for a product catalog is mostly for establishing the look and feel. Each catalog can have its own style sheet (CSS), its own logo, and its own content repository (the content path prefix) and templates prefix (where its freemarker templates are located).
+</para>
+</section>
+<section>
+    <title> The Stores tab</title>
+    <para>
+The 'Stores' tab shows a list of Stores that this Catalog is currently featured in. Note that Stores and Catalogs do not have a one-to-one relationship: the same Store can feature multiple Catalogs, and the same Catalog could be featured in many Stores.
+
+</para>
+</section>
+<section>
+    <title>The Parties tab</title>
+    <para>
+Here you identify which Party is responsible for or assigned to work with the specific Catalog selected. The Party's Role is assigned or identified and, if appropriate, a start and/or finish date for the assignment can be specified.
+
+</para>
+</section>
+<section>
+    <title>Categories tab</title>
+    <para>
+The 'categories' tab shows the different product categories and their roles for this catalog. Specifically:
+
+    * Each catalog can (should) have a 'Browse Root' category, which is used as the root category for navigation. For example, the navigation menu would start at this category and show its child categories.
+    * Each catalog can also have a 'Promotions' category, which is shown first to the customer when he signs in to the site.
+    * There is also a 'Default Search' category. Products in this category are used for search results first.
+    * 'Quick add' categories are used to specify categories where products can be added in bulk to the cart from the same screen.
+
+</para>
+</section>
+<section>
+    <title> Browse Categories links</title>
+    <para>
+In the left-hand panel is a section labeled 'Browse Categories.' You can click on one of the -indented- categories to begin editing it directly, or click on the [Choose Top Category] link to view a list of links to all Parent categories.
+
+</para>
+</section>
+<section>
+    <title> Catalog Administration Main Page</title>
+    <para>
+The catalog administration main page has several small menus for finding catalogs, categories, or products. The first three menus allow you to edit catalogs, categories, or products by their respective IDs, or create new catalogs, categories, or products. The last one allows you to look for a product using an ID other than its product ID, such as upc or isbn number (see below.) Under these menus are two more links. [Auto create keywords] and [Fast load catalog into cache].
+
+</para>
+</section>
+<section>
+    <title> Auto create keywords</title>
+    <para>
+[Auto create keywords] will create keywords for all of the products identified with the current Catalog. The keywords are based on product descriptions and are used for searching for products.
+
+</para>
+</section>
+<section>
+    <title> Fast load catalog</title>
+    <para>
+[Fast load catalog into cache] will load all products and product categories into the cache; this is good for improved application performance. Note that only basic product and category information from the first Product and Category tabs is loaded, so additional information such as content, associations, and pricing will still have to be retrieved from the database and cached later by the applications.
+
+</para>
+</section>
+
+</section>
+
