@@ -328,7 +328,7 @@ public class FrameImage {
         String frameDataResourceId = (String) request.getParameter("frameDataResourceId");
         
         if (UtilValidate.isEmpty(request.getParameter("imageWidth")) || UtilValidate.isEmpty(request.getParameter("imageHeight"))) {
-        	String errMsg = "Image Width and Image Height are required to preview the image. Please enter in Image Width and Image Height fields.";
+            String errMsg = "Image Width and Image Height are required to preview the image. Please enter in Image Width and Image Height fields.";
             session.setAttribute("frameContentId", frameContentId);
             session.setAttribute("frameDataResourceId", frameDataResourceId);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);

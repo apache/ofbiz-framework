@@ -360,7 +360,7 @@ public class WatermarkImage{
         File file = new File(imageServerPath + "/products/management/previewImage" + count  + ".jpg");
         file.delete();
 
-    	return "success";
+        return "success";
     }
 
     private static Color setFontColor(String color) {

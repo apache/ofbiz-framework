@@ -49,9 +49,9 @@ import org.ofbiz.common.uom.UomWorker;
 public class SubscriptionServices {
 
     public static final String module = SubscriptionServices.class.getName();
-	public static final String resource = "ProductUiLabels";
-	public static final String resourceOrderError = "OrderErrorUiLabels";
-	
+    public static final String resource = "ProductUiLabels";
+    public static final String resourceOrderError = "OrderErrorUiLabels";
+    
     public static Map<String, Object> processExtendSubscription(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -65,7 +65,7 @@ public class SubscriptionServices {
         Integer useTime = (Integer) context.get("useTime");
         String useTimeUomId = (String) context.get("useTimeUomId");
         String alwaysCreateNewRecordStr = (String) context.get("alwaysCreateNewRecord");
-		Locale locale = (Locale) context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         boolean alwaysCreateNewRecord = !"N".equals(alwaysCreateNewRecordStr);
 
         GenericValue lastSubscription = null;
@@ -183,7 +183,7 @@ public class SubscriptionServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
         Integer qty = (Integer) context.get("quantity");
-		Locale locale = (Locale) context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         if (qty == null) {
             qty = Integer.valueOf(1);
         }
@@ -199,7 +199,7 @@ public class SubscriptionServices {
 
             if (productSubscriptionResourceList.size() == 0) {
                 Debug.logError("No ProductSubscriptionResource found for productId: " + productId, module);
-				return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductSubscriptionResourceNotFound", 
                         UtilMisc.toMap("productId", productId), locale));
             }
@@ -241,7 +241,7 @@ public class SubscriptionServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
         String orderId = (String) context.get("orderId");
-		Locale locale = (Locale) context.get("locale");
+        Locale locale = (Locale) context.get("locale");
 
         Debug.logInfo("In processExtendSubscriptionByOrder service with orderId: " + orderId, module);
 
