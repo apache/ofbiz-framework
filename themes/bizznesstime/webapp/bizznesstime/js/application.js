@@ -82,7 +82,7 @@ don't support input:focus (cough, cough, IE, cough)
 jQuery('document').ready(function () {
     var fields = jQuery("input, textarea");
     for (var i = 0; i < fields.length; i++) {
-     if (!fields[i].style.visbility == 'hidden') {
+     if (!fields[i].style.visibility == 'hidden') {
       fields[i].focus (function() {this.className += ' focused';});
       fields[i].blur (function() {this.className = this.className.replace('focused', '');});
      }
