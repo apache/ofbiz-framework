@@ -24,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -34,6 +35,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -44,7 +46,8 @@ import org.ofbiz.service.ServiceUtil;
 public class ImportProductServices {
 
     public static String module = ImportProductServices.class.getName();
-
+    public static final String resource = "ProductUiLabels";
+    
     /**
      * This method is responsible to import spreadsheet data into "Product" and
      * "InventoryItem" entities into database. The method uses the
@@ -60,6 +63,7 @@ public class ImportProductServices {
      */
     public static Map<String, Object> productImportFromSpreadsheet(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         // System.getProperty("user.dir") returns the path upto ofbiz home
         // directory
         String path = System.getProperty("user.dir") + "/spreadsheet";
@@ -77,14 +81,17 @@ public class ImportProductServices {
                     }
                 }
             } else {
-                return ServiceUtil.returnError("Directory not found or can not be read");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductProductImportDirectoryNotFound", locale));
             }
         } else {
-            return ServiceUtil.returnError("No path specified, doing nothing");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductProductImportPathNotSpecified", locale));
         }
 
         if (fileItems.size() < 1) {
-            return ServiceUtil.returnError("No spreadsheet exists in" + path);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductProductImportPathNoSpreadsheetExists", locale) + path);
         }
 
         for (File item: fileItems) {
@@ -98,7 +105,8 @@ public class ImportProductServices {
                 wb = new HSSFWorkbook(fs);
             } catch (IOException e) {
                 Debug.logError("Unable to read or create workbook from file", module);
-                return ServiceUtil.returnError("Unable to read or create workbook from file");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductProductImportCannotCreateWorkbookFromFile", locale));
             }
 
             // get first sheet
@@ -148,7 +156,8 @@ public class ImportProductServices {
                         delegator.create(inventoryItemGV);
                     } catch (GenericEntityException e) {
                         Debug.logError("Cannot store product", module);
-                        return ServiceUtil.returnError("Cannot store product");
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                "ProductProductImportCannotStoreProduct", locale));
                     }
                 }
             }

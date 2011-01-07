@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import com.ibm.icu.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -29,6 +30,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -47,7 +49,9 @@ import org.ofbiz.common.uom.UomWorker;
 public class SubscriptionServices {
 
     public static final String module = SubscriptionServices.class.getName();
-
+	public static final String resource = "ProductUiLabels";
+	public static final String resourceOrderError = "OrderErrorUiLabels";
+	
     public static Map<String, Object> processExtendSubscription(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -61,6 +65,7 @@ public class SubscriptionServices {
         Integer useTime = (Integer) context.get("useTime");
         String useTimeUomId = (String) context.get("useTimeUomId");
         String alwaysCreateNewRecordStr = (String) context.get("alwaysCreateNewRecord");
+		Locale locale = (Locale) context.get("locale");
         boolean alwaysCreateNewRecord = !"N".equals(alwaysCreateNewRecordStr);
 
         GenericValue lastSubscription = null;
@@ -134,7 +139,10 @@ public class SubscriptionServices {
                 Map<String, Object> updateSubscriptionResult = dispatcher.runSync("updateSubscription", updateSubscriptionMap);
                 result.put("subscriptionId", updateSubscriptionMap.get("subscriptionId"));
                 if (ServiceUtil.isError(updateSubscriptionResult)) {
-                    return ServiceUtil.returnError("Error processing subscription update with ID [" + updateSubscriptionMap.get("subscriptionId") + "]", null, null, updateSubscriptionResult);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductSubscriptionUpdateError", 
+                            UtilMisc.toMap("subscriptionId", updateSubscriptionMap.get("subscriptionId")), locale),
+                            null, null, updateSubscriptionResult);
                 }
             } else {
                 Map<String, Object> createPartyRoleMap = FastMap.newInstance();
@@ -144,7 +152,10 @@ public class SubscriptionServices {
                     createPartyRoleMap.put("userLogin", userLogin);
                     Map<String, Object> createPartyRoleResult = dispatcher.runSync("createPartyRole", createPartyRoleMap);
                     if (ServiceUtil.isError(createPartyRoleResult)) {
-                        return ServiceUtil.returnError("Error creating new PartyRole while processing subscription update with resource ID [" + subscriptionResourceId + "]", null, null, createPartyRoleResult);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                "ProductSubscriptionPartyRoleCreationError", 
+                                UtilMisc.toMap("subscriptionResourceId", subscriptionResourceId), locale),
+                                null, null, createPartyRoleResult);
                     }
                 }
                 Map<String, Object> createSubscriptionMap = dctx.getModelService("createSubscription").makeValid(newSubscription, ModelService.IN_PARAM);
@@ -152,7 +163,10 @@ public class SubscriptionServices {
 
                 Map<String, Object> createSubscriptionResult = dispatcher.runSync("createSubscription", createSubscriptionMap);
                 if (ServiceUtil.isError(createSubscriptionResult)) {
-                    return ServiceUtil.returnError("Error creating subscription while processing with resource ID [" + subscriptionResourceId + "]", null, null, createSubscriptionResult);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductSubscriptionCreateError", 
+                            UtilMisc.toMap("subscriptionResourceId", subscriptionResourceId), locale),
+                            null, null, createSubscriptionResult);
                 }
                 result.put("subscriptionId", createSubscriptionResult.get("subscriptionId"));
             }
@@ -169,6 +183,7 @@ public class SubscriptionServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
         Integer qty = (Integer) context.get("quantity");
+		Locale locale = (Locale) context.get("locale");
         if (qty == null) {
             qty = Integer.valueOf(1);
         }
@@ -183,9 +198,10 @@ public class SubscriptionServices {
             productSubscriptionResourceList = EntityUtil.filterByDate(productSubscriptionResourceList, orderCreatedDate, "purchaseFromDate", "purchaseThruDate", true);
 
             if (productSubscriptionResourceList.size() == 0) {
-                String msg = "No ProductSubscriptionResource found for productId: " + productId;
-                Debug.logError(msg, module);
-                return ServiceUtil.returnError(msg);
+                Debug.logError("No ProductSubscriptionResource found for productId: " + productId, module);
+				return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductSubscriptionResourceNotFound", 
+                        UtilMisc.toMap("productId", productId), locale));
             }
 
             for (GenericValue productSubscriptionResource: productSubscriptionResourceList) {
@@ -206,7 +222,10 @@ public class SubscriptionServices {
                 Map<String, Object> ctx = dctx.getModelService("processExtendSubscription").makeValid(subContext, ModelService.IN_PARAM);
                 Map<String, Object> processExtendSubscriptionResult = dispatcher.runSync("processExtendSubscription", ctx);
                 if (ServiceUtil.isError(processExtendSubscriptionResult)) {
-                    return ServiceUtil.returnError("Error processing subscriptions for Product with ID [" + productId + "]", null, null, processExtendSubscriptionResult);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductSubscriptionByProductError", 
+                            UtilMisc.toMap("productId", productId), locale),
+                            null, null, processExtendSubscriptionResult);
                 }
             }
         } catch (GenericEntityException e) {
@@ -222,6 +241,7 @@ public class SubscriptionServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
         String orderId = (String) context.get("orderId");
+		Locale locale = (Locale) context.get("locale");
 
         Debug.logInfo("In processExtendSubscriptionByOrder service with orderId: " + orderId, module);
 
@@ -233,13 +253,15 @@ public class SubscriptionServices {
                 String partyId = (String) orderRole.get("partyId");
                 subContext.put("partyId", partyId);
             } else {
-                String msg = "No OrderRole found for orderId:" + orderId;
-                return ServiceUtil.returnFailure(msg);
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceOrderError, 
+                        "OrderErrorCannotGetOrderRoleEntity", 
+                        UtilMisc.toMap("itemMsgInfo", orderId), locale));
             }
             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader == null) {
-                String msg = "No OrderHeader found for orderId:" + orderId;
-                return ServiceUtil.returnError(msg);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
+                        "OrderErrorNoValidOrderHeaderFoundForOrderId", 
+                        UtilMisc.toMap("orderId", orderId), locale));
             }
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");
             subContext.put("orderCreatedDate", orderCreatedDate);
@@ -262,7 +284,9 @@ public class SubscriptionServices {
                     Map<String, Object> ctx = dctx.getModelService("processExtendSubscriptionByProduct").makeValid(subContext, ModelService.IN_PARAM);
                     Map<String, Object> thisResult = dispatcher.runSync("processExtendSubscriptionByProduct", ctx);
                     if (ServiceUtil.isError(thisResult)) {
-                        return ServiceUtil.returnError("Error processing subscriptions for Order with ID [" + orderId + "]", null, null, thisResult);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                "ProductSubscriptionByOrderError", 
+                                UtilMisc.toMap("orderId", orderId), locale), null, null, thisResult);
                     }
                 }
             }
