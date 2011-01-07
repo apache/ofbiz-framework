@@ -430,8 +430,8 @@
         <set field="hasPermission" type="Boolean" value="false"/>
 
         <if-empty field="contentOperationId">
+            <set field="requiredField" value="contentOperationId"/>
             <add-error>
-                <set field="requiredField" value="contentOperationId"/>
                 <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
             </add-error>
         </if-empty>
@@ -634,8 +634,8 @@
         <set field="hasPermission" type="Boolean" value="false"/>
 
         <if-empty field="checkId">
+            <set field="requiredField" value="checkId"/>
             <add-error>
-                <set field="requiredField" value="checkId"/>
                 <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
             </add-error>
         </if-empty>
@@ -678,29 +678,29 @@
 
         <!-- roleEntity is required to determine which content role table to look: ContentRole, DataResourceRole, etc -->
         <if-empty field="roleEntity">
+            <set field="requiredField" value="roleEntity"/>
             <add-error>
-                <set field="requiredField" value="roleEntity"/>
                 <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
             </add-error>
         </if-empty>
         <!-- roleEntityField is required to determine the pk field to check; contentId, dataResourceId, etc -->
         <if-empty field="roleEntityField">
+            <set field="requiredField" value="roleEntityField"/>
             <add-error>
-                <set field="requiredField" value="roleEntityField"/>
                 <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
             </add-error>
         </if-empty>
         <!-- setting the env field contentId is required for this simple method -->
         <if-empty field="checkId">
+            <set field="requiredField" value="checkId"/>
             <add-error>
-                <set field="requiredField" value="checkId"/>
                 <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
             </add-error>
         </if-empty>
         <!-- the party ID to check is required for this check -->
         <if-empty field="checkPartyId">
+            <set field="requiredField" value="checkPartyId"/>
             <add-error>
-                <set field="requiredField" value="checkPartyId"/>
                 <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
             </add-error>
         </if-empty>
@@ -781,8 +781,8 @@
     <!-- method to get the content purposes -->
     <simple-method method-name="findAllContentPurposes" short-description="Find all content purposes for the specified content">
         <if-empty field="checkId">
+            <set field="requiredField" value="checkId"/>
             <add-error>
-                <set field="requiredField" value="checkId"/>
                 <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
             </add-error>
         </if-empty>
@@ -806,8 +806,8 @@
     <!-- method to get content associations -->
     <simple-method method-name="findAllParentContent" short-description="Finds all associated parent content">
         <if-empty field="contentId">
+            <set field="requiredField" value="contentId"/>
             <add-error>
-                <set field="requiredField" value="contentId"/>
                 <fail-property resource="ContentUiLabels" property="ContentRequiredField"/>
             </add-error>
         </if-empty>
