@@ -5487,4 +5487,12 @@
         <value xml:lang="zh">网站内容</value>
         <value xml:lang="zh_TW">網站內容</value>
     </property>
+    <property key="ErrorLoadingContent">
+        <value xml:lang="de">Ein Fehler beim Laden des Inhaltes ist aufgetrete!</value>
+        <value xml:lang="en">An error occured loading content!</value>
+    </property>
+    <property key="CannotFindCmsform">
+        <value xml:lang="de">Die CMS Form kann nicht gefunden werden!</value>
+        <value xml:lang="en">Cannot find the cmsform!</value>
+    </property>
 </resource>

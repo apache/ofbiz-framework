@@ -768,3 +768,141 @@ function waitSpinnerShow() {
 function waitSpinnerHide() {
     jQuery("#wait-spinner").hide()
 }
+
+/**
+ * Reads the requiered uiLabels from the uiLabelXml Files
+ * @param requiredLabels JSON Object {resource : [label1, label2 ...], resource2 : [label1, label2, ...]}
+ * @return JSON Object
+ */
+function getJSONuiLabels(requiredLabels) {
+    var returnVal = {};
+    var requiredLabelsStr = JSON.stringify(requiredLabels)
+
+    if (requiredLabels != null && requiredLabels != "") {
+        jQuery.ajax({
+            url: "getJSONuiLabelArray",
+            type: "POST",
+            data: {"requiredLabels" : requiredLabelsStr},
+            async: false,
+            success: function(data) {
+                returnVal = data;
+            }
+        });
+    }
+
+    return returnVal;
+}
+
+/**
+ * Read the requiered uiLabel from the uiLabelXml Resource
+ * @param uiResource String
+ * @param errUiLabel String
+ * @returns String with Label
+ */
+function getJSONuiLabel(uiResource, errUiLabel) {
+    requiredLabel = {};
+    requiredLabel[uiResource] = errUiLabel;
+
+    var returnVal = "";
+    var requiredLabelStr = JSON.stringify(requiredLabel)
+
+    if (requiredLabel != null && requiredLabel != "") {
+        jQuery.ajax({
+            url: "getJSONuiLabel",
+            type: "POST",
+            data: {"requiredLabel" : requiredLabelStr},
+            async: false,
+            success: function(data) {
+                returnVal = data[0];
+            }
+        });
+    }
+    return returnVal;
+}
+
+/**
+ * Opens an alert alert box with an i18n error message
+ * @param errBoxTitleResource String - Can be empty
+ * @param errBoxTitleLabel String - Can be empty
+ * @param uiResource String - Required
+ * @param errUiLabel String - Required
+ */
+function showErrorAlertLoadUiLabel(errBoxTitleResource, errBoxTitleLabel, uiResource, errUiLabel) {
+    if (uiResource == null || uiResource == "" || uiResource == undefined || errUiLabel == null || errUiLabel == "" || errUiLabel == undefined) {
+        // No Label Information are set, Error Msg Box can't be created
+        return;
+    }
+
+    var labels = {};
+    var useTitle = false;
+    // title can only be set when the resource and the label are set
+    if (errBoxTitleResource != null && errBoxTitleResource != "" && errBoxTitleLabel != null && errBoxTitleLabel != "") {
+        // create the JSON Object
+        if (errBoxTitleResource == uiResource) {
+            labels[errBoxTitleResource] = [errBoxTitleLabel, errUiLabel];
+        } else {
+            labels[errBoxTitleResource] = [errBoxTitleLabel];
+            labels[uiResource] = [errUiLabel];
+        }
+        useTitle = true;
+    } else {
+        labels[uiResource] = [errUiLabel];
+    }
+    // request the labels
+    labels = getJSONuiLabels(labels);
+
+    var errMsgBox = jQuery("#contentarea").after(jQuery("<div id='errorAlertBox'></div>"));
+
+    if (errMsgBox.length) {
+        errMsgBox.dialog({
+            modal: true,
+            title: function() {
+                if (useTitle) {
+                    return labels[errBoxTitleResource][0]
+                } else {
+                    return ""
+                }
+            },
+            open : function() {
+                var positionInArray = 0;
+                if (errBoxTitleResource == uiResource) {
+                    positionInArray = 1;
+                }
+                errMsgBox.html(labels[uiResource][positionInArray]);
+            },
+            buttons: {
+                Ok: function() {
+                    errMsgBox.remove();
+                    jQuery( this ).dialog( "close" );
+                }
+            }
+        });
+    }
+}
+
+/**
+ * Opens an alert alert box. This function is for a direct call from the ftl files where you can direcetly resolve youre labels
+ * @param errBoxTitle String - Can be empty
+ * @param errMessage String - Required - i18n Error Message
+ */
+function showErrorAlert(errBoxTitle, errMessage) {
+    if (errMessage == null || errMessage == "" || errMessage == undefined ) {
+        // No Error Message Information is set, Error Msg Box can't be created
+        return;
+    }
+
+    var errMsgBox = jQuery("#contentarea").after(jQuery("<div id='errorAlertBox'>" + errMessage + "</div>"));
+
+    if (errMsgBox.length) {
+        errMsgBox.dialog({
+            modal: true,
+            title: errBoxTitle,
+            buttons: {
+                Ok: function() {
+                    errMsgBox.remove();
+                    jQuery( this ).dialog( "close" );
+                }
+            }
+        });
+    }
+}

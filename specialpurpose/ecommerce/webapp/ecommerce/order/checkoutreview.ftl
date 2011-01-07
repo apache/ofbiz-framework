@@ -28,7 +28,7 @@ under the License.
             document.${parameters.formNameValue}.processButton.disabled=true;
             document.${parameters.formNameValue}.submit();
         } else {
-            alert("You order is being processed, this may take a moment.");
+            showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.YoureOrderIsBeingProcessed}");
         }
     }
 // -->

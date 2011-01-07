@@ -161,7 +161,7 @@ under the License.
         <field name="field8"
                title="${uiLabelMap.ExampleDropDownField8Title}"
                event="onchange"
-               action="return alert('You have changed the value in the select box');"
+               action="return showErrorAlert('${uiLabelMap.CommonErrorMessage2}','${uiLabelMap.YouChangedTheSelectBoxValue}');"
                tooltip="${uiLabelMap.ExampleDropDownField8Tooltip}">
             <drop-down>
                 <option key="Y" description="${uiLabelMap.CommonY}"/>

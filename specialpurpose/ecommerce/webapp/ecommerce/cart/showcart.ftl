@@ -85,7 +85,7 @@ function gwAll(e) {
         }
     }
     if (cartSize > passed && selectedValue != "NO^") {
-        alert("${uiLabelMap.EcommerceSelectedGiftWrap}");
+        showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.EcommerceSelectedGiftWrap}");
     }
     cform.submit();
 }

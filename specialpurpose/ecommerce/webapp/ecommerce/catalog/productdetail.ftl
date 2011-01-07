@@ -83,7 +83,7 @@ ${virtualVariantJavaScript?if_exists}
     }
     function addItem() {
        if (document.addform.add_product_id.value == 'NULL') {
-           alert("Please select all of the required options.");
+           showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonPleaseSelectAllRequiredOptions}");
            return;
        } else {
            if (isVirtual(document.addform.add_product_id.value)) {
@@ -113,7 +113,7 @@ ${virtualVariantJavaScript?if_exists}
         if (detailImageUrl == "_NONE_") {
             hack = document.createElement('span');
             hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
-            alert(hack.innerHTML);
+            showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonNoDetailImageAvailableToDisplay}");
             return;
         }
         detailImageUrl = detailImageUrl.replace(/\&\#47;/g, "/");
@@ -196,21 +196,25 @@ ${virtualVariantJavaScript?if_exists}
         msg[0]="Please use correct date format [yyyy-mm-dd]";
 
         var y=x.split("-");
-        if(y.length!=3){ alert(msg[0]);return false; }
-        if((y[2].length>2)||(parseInt(y[2])>31)) { alert(msg[0]); return false; }
+        if(y.length!=3){ showAlert(msg[0]);return false; }
+        if((y[2].length>2)||(parseInt(y[2])>31)) { showAlert(msg[0]); return false; }
         if(y[2].length==1){ y[2]="0"+y[2]; }
-        if((y[1].length>2)||(parseInt(y[1])>12)){ alert(msg[0]); return false; }
+        if((y[1].length>2)||(parseInt(y[1])>12)){ showAlert(msg[0]); return false; }
         if(y[1].length==1){ y[1]="0"+y[1]; }
-        if(y[0].length>4){ alert(msg[0]); return false; }
+        if(y[0].length>4){ showAlert(msg[0]); return false; }
         if(y[0].length<4) {
             if(y[0].length==2) {
                 y[0]="20"+y[0];
             } else {
-                alert(msg[0]);
+                showAlert(msg[0]);
                 return false;
             }
         }
         return (y[0]+"-"+y[1]+"-"+y[2]);
+    }
+
+    function showAlert(msg){
+        showErrorAlert("${uiLabelMap.CommonErrorMessage2}", msg);
     }
 
     function additemSubmit(){
@@ -577,7 +581,7 @@ ${virtualVariantJavaScript?if_exists}
             <div id="addCart2" style="display:block;">
               <span style="white-space: nowrap;"><strong>${uiLabelMap.CommonQuantity}:</strong></span>&nbsp;
               <input type="text" size="5" value="1" disabled="disabled" />
-              <a href="javascript:alert('Please select all features first');" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
+              <a href="javascript:showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonPleaseSelectAllFeaturesFirst}");" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
             </div>
           </#if>
