@@ -19,6 +19,22 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="categoryservices.problems_reading_category_entity">
+        <value xml:lang="en">Problem reading product categories: ${errMessage}.</value>
+        <value xml:lang="it">Problemi leggendo categorie prodotto: ${errMessage}.</value>
+    </property>
+    <property key="categoryservices.error_find_next_products">
+        <value xml:lang="en">Error finding previous/next product info: ${errMessage}</value>
+        <value xml:lang="it">Errore nelle ricerca dei prodotti precedenti/successivi: ${errMessage}</value>
+    </property>
+    <property key="categoryservices.problems_getting_next_products">
+        <value xml:lang="en">Both Index and ProductID cannot be null.</value>
+        <value xml:lang="it">Entrambi indice e prodotto non possono essere vuoti.</value>
+    </property>
+    <property key="categoryservices.product_not_found">
+        <value xml:lang="en">Product not found in the current category.</value>
+        <value xml:lang="it">Prodotto non trovato nell'attuale categoria.</value>
+    </property>
     <property key="ScaleImage.error_occurs_during_writing">
         <value xml:lang="en">An error occurs during writing</value>
         <value xml:lang="fr">Une erreur est survenue lors de l'écriture</value>

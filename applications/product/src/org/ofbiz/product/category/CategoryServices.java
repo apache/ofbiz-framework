@@ -20,6 +20,7 @@ package org.ofbiz.product.category;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -29,6 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -49,10 +51,12 @@ import org.ofbiz.service.ServiceUtil;
 public class CategoryServices {
 
     public static final String module = CategoryServices.class.getName();
+    public static final String resourceError = "ProductErrorUiLabels";
 
     public static Map<String, Object> getCategoryMembers(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String categoryId = (String) context.get("categoryId");
+        Locale locale = (Locale) context.get("locale");
         GenericValue productCategory = null;
         List<GenericValue> members = null;
 
@@ -61,9 +65,10 @@ public class CategoryServices {
             members = EntityUtil.filterByDate(productCategory.getRelatedCache("ProductCategoryMember", null, UtilMisc.toList("sequenceNum")), true);
             if (Debug.verboseOn()) Debug.logVerbose("Category: " + productCategory + " Member Size: " + members.size() + " Members: " + members, module);
         } catch (GenericEntityException e) {
-            String errMsg = "Problem reading product categories: " + e.getMessage();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Problem reading product categories: " + e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "categoryservices.problems_reading_category_entity", 
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("category", productCategory);
@@ -79,9 +84,11 @@ public class CategoryServices {
         Integer index = (Integer) context.get("index");
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
-
+        Locale locale = (Locale) context.get("locale");
+        
         if (index == null && productId == null) {
-            return ServiceUtil.returnError("Both Index and ProductID cannot be null.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "categoryservices.problems_getting_next_products", locale));
         }
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
@@ -94,9 +101,10 @@ public class CategoryServices {
             productCategory = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", categoryId));
             productCategoryMembers = delegator.findByAndCache(entityName, UtilMisc.toMap("productCategoryId", categoryId), orderByFields);
         } catch (GenericEntityException e) {
-            String errMsg = "Error finding previous/next product info: " + e.toString();
-            Debug.logInfo(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logInfo(e, "Error finding previous/next product info: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "categoryservices.error_find_next_products", 
+                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
@@ -124,7 +132,8 @@ public class CategoryServices {
 
         if (index == null) {
             // this is not going to be an error condition because we don't want it to be so critical, ie rolling back the transaction and such
-            return ServiceUtil.returnSuccess("Product not found in the current category.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "categoryservices.product_not_found", locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
