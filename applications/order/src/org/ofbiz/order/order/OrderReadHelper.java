@@ -679,8 +679,17 @@ public class OrderReadHelper {
         if (getBillingAccount() == null) {
             return BigDecimal.ZERO;
         } else {
-            List<GenericValue> paymentPreferences = getPaymentPreferences();
-            GenericValue billingAccountPaymentPreference = EntityUtil.getFirst(EntityUtil.filterByAnd(paymentPreferences, UtilMisc.toMap("paymentMethodTypeId", "EXT_BILLACT")));
+            List<GenericValue> paymentPreferences = null;
+            try {
+                Delegator delegator = orderHeader.getDelegator();
+                paymentPreferences = delegator.findByAnd("OrderPurchasePaymentSummary", UtilMisc.toMap("orderId", orderHeader.getString("orderId")));
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, module);
+            }
+            List<EntityExpr> exprs = UtilMisc.toList(
+                    EntityCondition.makeCondition("paymentMethodTypeId", "EXT_BILLACT"),
+                    EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
+            GenericValue billingAccountPaymentPreference = EntityUtil.getFirst(EntityUtil.filterByAnd(paymentPreferences, exprs));
             if ((billingAccountPaymentPreference != null) && (billingAccountPaymentPreference.getBigDecimal("maxAmount") != null)) {
                 return billingAccountPaymentPreference.getBigDecimal("maxAmount");
             } else {
