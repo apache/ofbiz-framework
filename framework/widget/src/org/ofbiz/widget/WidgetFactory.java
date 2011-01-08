@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
 
 /**
  * Screen widget factory.<p>Applications can add their own widget implementations
- * to the factory by calling the <code>registerXxx(...)</code> methods.</p>
+ * to the factory by implementing the {@link org.ofbiz.widget.WidgetLoader} interface.</p>
  */
 public class WidgetFactory {
 
