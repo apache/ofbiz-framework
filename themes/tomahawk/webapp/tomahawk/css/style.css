@@ -203,7 +203,14 @@ links (A elements) and make them similar to form's buttons. */
 .smallSubmit,.smallSubmit:visited {
 background-color: #ffffff;
 border: #999999 solid 0.1em;
-color: #000099;
+border-top: #f7e893 solid 0.1em;
+border-left: #f7e893 solid 0.1em;
+border-right: #999999 solid 0.1em;
+
+background-image: url(../images/button_whitegray.jpg);
+background-repeat:repeat-x;
+
+color: #000000;
 font-size: 1em;
 font-weight: bold;
 margin: 0.2em;
@@ -211,7 +218,12 @@ padding: 0.1em 0.2em 0.1em 0.2em;
 }
 
 .smallSubmit:hover {
-color: #ff0000;
+color: #000000;
+border-bottom: #f7e893 solid 0.1em;
+border-top: #333333 solid 0.1em;
+border-left: #333333 solid 0.1em;
+border-right: #f7e893 solid 0.1em;
+background-image: url(../images/button_medgray_in.jpg);
 text-decoration: none;
 }
 
@@ -1400,24 +1412,25 @@ padding-left: 1em;
 }
 
 .basic-nav ul { /* placeholder */
-
 }
 
 .basic-nav ul li {
-
 }
 
 .basic-nav ul a {
-color: #000099;
+padding-left: 0.5em;
+padding-right: 0.5em;
+color: #000000;
 font-size: 1.1em;
+background-image: url(../images/button_whitegray.jpg);
 }
 
 .basic-nav ul .selected,.basic-nav ul .selected a {
-color: #0000ff;
+color: #000000;
 }
 
 .basic-nav ul a:hover {
-color: #0000ff;
+color: #000000;
 }
 
 .basic-nav ul .disabled,.basic-nav ul .disabled a {
