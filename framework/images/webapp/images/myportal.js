@@ -189,6 +189,6 @@ function onStartRequest() {
 
     p.appendChild(img);
     
-    var container = document.getElementById("portalContainerId");
+    var container = document.getElementById("content-main-section");
     container.appendChild(p);
 }

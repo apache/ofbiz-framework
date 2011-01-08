@@ -157,7 +157,16 @@ ${menuString}
 <#macro renderPortalPageColumnBegin originalPortalPageId portalPageId columnSeqId confMode="false" width="auto" delColumnLabel="Delete column" delColumnHint="Delete this column" addPortletLabel="Add portlet" addPortletHint="Add a new portlet to this column" colWidthLabel="Col. width:" setColumnSizeHint="Set column size">
   <#assign columnKey = portalPageId+columnSeqId>
   <#assign columnKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="columnSeqId" value="' + columnSeqId + '" type="hidden"/>'>
-  <td class="portal-column<#if confMode == "true">-config</#if>" style="vertical-align: top; <#if width?has_content> width:${width};</#if>" id="portalColumn_${columnSeqId}">
+  <script type="text/javascript">
+    if (typeof SORTABLE_COLUMN_LIST != "undefined") {
+      if (SORTABLE_COLUMN_LIST == null) {
+        SORTABLE_COLUMN_LIST = "#portalColumn_${columnSeqId}";
+      } else {
+        SORTABLE_COLUMN_LIST += ", #portalColumn_${columnSeqId}";
+      }
+    }
+  </script>
+  <td class="portal-column<#if confMode == "true">-config</#if> connectedSortable" style="vertical-align: top; <#if width?has_content> width:${width};</#if>" id="portalColumn_${columnSeqId}">
     <#if confMode == "true">
       <div class="portal-column-config-title-bar">
         <ul>
@@ -189,10 +198,10 @@ ${menuString}
   </td>
 </#macro>
 
-<#macro renderPortalPagePortletBegin originalPortalPageId portalPageId portalPortletId portletSeqId prevPortletId="" prevPortletSeqId="" nextPortletId="" nextPortletSeqId="" prevColumnSeqId="" nextColumnSeqId="" confMode="false" delPortletHint="Remove this portlet" editAttribute="false" editAttributeHint="Edit portlet parameters">
+<#macro renderPortalPagePortletBegin originalPortalPageId portalPageId portalPortletId portletSeqId prevPortletId="" prevPortletSeqId="" nextPortletId="" nextPortletSeqId="" columnSeqId="" prevColumnSeqId="" nextColumnSeqId="" confMode="false" delPortletHint="Remove this portlet" editAttribute="false" editAttributeHint="Edit portlet parameters">
   <#assign portletKey = portalPageId+portalPortletId+portletSeqId>
   <#assign portletKeyFields = '<input name="portalPageId" value="' + portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portletSeqId  + '" type="hidden"/>'>
-  <div id="PP_${portletKey}" name="portalPortlet" class="noClass">
+  <div id="PP_${portletKey}" name="portalPortlet" class="noClass" portalPageId="${portalPageId}" portalPortletId="${portalPortletId}" columnSeqId="${columnSeqId}" portletSeqId="${portletSeqId}">
     <#if confMode == "true">
       <div class="portlet-config" id="PPCFG_${portletKey}">
         <div class="portlet-config-title-bar">

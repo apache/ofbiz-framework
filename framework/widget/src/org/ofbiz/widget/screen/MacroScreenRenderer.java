@@ -891,17 +891,18 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String originalPortalPageId = portalPage.getOriginalPortalPageId();
         String portalPortletId = portalPortlet.getString("portalPortletId");
         String portletSeqId = portalPortlet.getString("portletSeqId");
+        String columnSeqId = portalPortlet.getString("columnSeqId");
         String confMode = portalPage.getConfMode(context);
         String editFormName = portalPortlet.getString("editFormName");
         String editFormLocation = portalPortlet.getString("editFormLocation");
-        
+
         String prevPortletId = (String) context.get("prevPortletId");
         String prevPortletSeqId = (String) context.get("prevPortletSeqId");
         String nextPortletId = (String) context.get("nextPortletId");
         String nextPortletSeqId = (String) context.get("nextPortletSeqId");
         String prevColumnSeqId = (String) context.get("prevColumnSeqId");
         String nextColumnSeqId = (String) context.get("nextColumnSeqId");
-        
+
         Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
         String delPortletHint = "";
         String editAttributeHint = "";
@@ -930,6 +931,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append(nextPortletId);
         sr.append("\" nextPortletSeqId=\"");
         sr.append(nextPortletSeqId);
+        sr.append("\" columnSeqId=\"");
+        sr.append(columnSeqId);
         sr.append("\" prevColumnSeqId=\"");
         sr.append(prevColumnSeqId);
         sr.append("\" nextColumnSeqId=\"");
