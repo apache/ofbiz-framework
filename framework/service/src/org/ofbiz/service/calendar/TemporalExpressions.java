@@ -54,7 +54,6 @@ public class TemporalExpressions implements Serializable {
     public static final int SEQUENCE_HOUR_RANGE = 300;
     public static final int SEQUENCE_MINUTE_RANGE = 200;
     public static final int SEQUENCE_MONTH_RANGE = 600;
-    public static final int SEQUENCE_TOD_RANGE = 350;
 
     /** A temporal expression that represents a range of dates. */
     public static class DateRange extends TemporalExpression {
