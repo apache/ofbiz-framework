@@ -97,6 +97,7 @@ public class ImageManagementServices {
         ByteBuffer imageData = (ByteBuffer) context.get("uploadedFile");
         String uploadFileName = (String) context.get("_uploadedFile_fileName");
         String imageResize = (String) context.get("imageResize");
+        Locale locale = (Locale) context.get("locale");
         
         if (UtilValidate.isNotEmpty(uploadFileName)) {
             String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
@@ -208,10 +209,12 @@ public class ImageManagementServices {
                 out.close();
             } catch (FileNotFoundException e) {
                 Debug.logError(e, module);
-                return ServiceUtil.returnError("Unable to open file for writing: " + file.getAbsolutePath());
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             } catch (IOException e) {
                 Debug.logError(e, module);
-                return ServiceUtil.returnError("Unable to write binary data to: " + file.getAbsolutePath());
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
             
             // Scale Image in different sizes 
@@ -223,10 +226,12 @@ public class ImageManagementServices {
                     outFile.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError("Unable to open file for writing: " + file.getAbsolutePath());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError("Unable to write binary data to: " + file.getAbsolutePath());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
                 
                 Map<String, Object> resultResize = FastMap.newInstance();
@@ -543,6 +548,7 @@ public class ImageManagementServices {
         Map<String, Object> result = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
@@ -600,10 +606,14 @@ public class ImageManagementServices {
             outFileThumb.close();
         } catch (FileNotFoundException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Unable to open file for writing: " + fileOriginalThumb.getAbsolutePath());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductImageViewUnableWriteFile", 
+                    UtilMisc.toMap("fileName", fileOriginalThumb.getAbsolutePath()), locale));
         } catch (IOException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Unable to write binary data to: " + fileOriginalThumb.getAbsolutePath());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ProductImageViewUnableWriteBinaryData", 
+                    UtilMisc.toMap("fileName", fileOriginalThumb.getAbsolutePath()), locale));
         }
         
         Map<String, Object> resultResizeThumb = FastMap.newInstance();
