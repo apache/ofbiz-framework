@@ -474,6 +474,13 @@ ${item.description}</span>
 </#macro>
 
 <#macro renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName fieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText showDescription initiallyCollapsed>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    if (!jQuery('form[name="${formName}"]').length) {
+        alert("Developer: for lookups to work you must provide a form name!")
+    }
+});
+</script>
 <span class="field-lookup">
 <#if size?has_content && size=="0"><input type="hidden" <#if name?has_content> name="${name}"/></#if><#else><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/><#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></#if>
 <#if presentation?has_content && descriptionFieldName?has_content && presentation == "window">
@@ -509,7 +516,7 @@ ${item.description}</span>
     </#if>
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            new ConstructLookup("${fieldFormName}", "${id}", document.getElementById("${id}"), <#if descriptionFieldName?has_content>document.getElementById("${formName}_${descriptionFieldName}")<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", "${showDescription}"<#else>"", ""</#if>, '${presentation!}');
+            new ConstructLookup("${fieldFormName}", "${id}", document.${formName?html}.${name?html}, <#if descriptionFieldName?has_content>document.${formName?html}.${descriptionFieldName}<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", "${showDescription}"<#else>"", ""</#if>, '${presentation!}');
         });
     </script>
 </#if>
