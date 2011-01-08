@@ -916,7 +916,7 @@ under the License.
       <alias entity-alias="OH" name="orderTypeId"/>
       <alias entity-alias="OH" name="orderDate"/>
       <alias entity-alias="OH" name="billingAccountId"/>
-      <alias entity-alias="OPP" name="preferenceStatusId" field="statusId"/>
+      <alias entity-alias="OPP" name="preferenceStatusId" field="statusId" group-by="true"/>
       <view-link entity-alias="OH" rel-entity-alias="OPP">
         <key-map field-name="orderId"/>
       </view-link>
