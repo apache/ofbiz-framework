@@ -10441,6 +10441,10 @@
         <value xml:lang="zh">没有找到分类——分类标识</value>
         <value xml:lang="zh_TW">沒有找到分類ID</value>
     </property>
+    <property key="ProductCategoryNoVariants">
+        <value xml:lang="en">No products which fit your requirements were found.</value>
+        <value xml:lang="it">Nessun prodotto trovato corrispondono ai tuoi parametri.</value>
+    </property>
     <property key="ProductCategoryPage">
         <value xml:lang="de">Kategorie Seite</value>
         <value xml:lang="en">Category Page</value>
@@ -13197,6 +13201,10 @@
         <value xml:lang="zh">产品特征属性</value>
         <value xml:lang="zh_TW">產品特性的屬性</value>
     </property>
+    <property key="ProductFeatureByType">
+        <value xml:lang="en">This service requires a productId, a productFeatureGroupId, or a productFeatureCategoryId to run.</value>
+        <value xml:lang="it">Questo servizio richiede un prodotto, un gruppo caratteristica, o una categoria caratteristica per essere eseguito.</value>
+    </property>
     <property key="ProductFeatureCategoriesGroups">
         <value xml:lang="de">Merkmal Kategorien und Gruppen</value>
         <value xml:lang="en">Feature Categories and Groups</value>
@@ -14115,11 +14123,23 @@
         <value xml:lang="zh">如果没有指定缺省值到</value>
         <value xml:lang="zh_TW">如果沒有指定預設值到</value>
     </property>
+    <property key="ProductImageFrameContentIdRequired">
+        <value xml:lang="en">Required frame image content ID or dataResource ID parameters. Please upload new frame image or choose the exist frame.</value>
+        <value xml:lang="it">Richiesti i parametri frame image content ID o dataResource ID. Per favore caricare un nuova frame immagine o scegliere il frame esistente.</value>
+    </property>
     <property key="ProductImageUrlTooltip">
         <value xml:lang="en">example: /images/categories/linkOne/100.jpg</value>
         <value xml:lang="it">esempio: /images/categories/linkOne/100.jpg</value>
         <value xml:lang="zh">样例：/images/categories/linkOne/100.jpg</value>
         <value xml:lang="zh_TW">範例: /images/categories/linkOne/100.jpg</value>
+    </property>
+    <property key="ProductImageViewType">
+        <value xml:lang="en">View Type : ${viewType} is wrong</value>
+        <value xml:lang="it">Tipo vista : ${viewType} è errata</value>
+    </property>
+    <property key="ProductImageWidthAndHeightRequired">
+        <value xml:lang="en">Image Width and Image Height are required to create the image. Please enter in Image Width and Image Height fields.</value>
+        <value xml:lang="it">Altezza e larghezza immagine sono richiesti per creare l'immagine. Per favore inserire i campi altezza e larghezza.</value>
     </property>
     <property key="ProductInInventory">
         <value xml:lang="de">Am Lager</value>
@@ -18597,6 +18617,30 @@
         <value xml:lang="zh">价格阶梯标识</value>
         <value xml:lang="zh_TW">價格階梯ID</value>
     </property>
+    <property key="ProductPriceCannotRetrieveAgreementInfo">
+        <value xml:lang="en">Error getting agreement info from the database while calculating price: ${errorString}</value>
+        <value xml:lang="it">Errore nel ricavare l'informazioni sull'accordo dal database durante il calcolo del prezzo: ${errorString}</value>
+    </property>
+    <property key="ProductPriceCannotCalculateVatTax">
+        <value xml:lang="en">Error calculating VAT tax (with calcTaxForDisplay service)</value>
+        <value xml:lang="it">Errore di calcolo delle tasse</value>
+    </property>
+    <property key="ProductPriceCannotRetrievePriceRules">
+        <value xml:lang="en">Error getting rules from the database while calculating price: ${errorString}</value>
+        <value xml:lang="it">Errore nel ricavare le regole prezzo dal database durante il calcolo del prezzo: ${errorString}</value>
+    </property>
+    <property key="ProductPriceCannotRetrieveProductStore">
+        <value xml:lang="en">Error getting product store info from the database while calculating price: ${errorString}</value>
+        <value xml:lang="it">Error getting product store info from the database while calculating price: ${errorString}</value>
+    </property>
+    <property key="ProductPriceCannotRetrieveVirtualProductId">
+        <value xml:lang="en">Error getting virtual product id from the database while calculating price: ${errorString}</value>
+        <value xml:lang="it">Errore nel ricavare il prodotto virtuale dal database durante il calcolo del prezzo: ${errorString}</value>
+    </property>
+    <property key="ProductPriceConditionType">
+        <value xml:lang="en">type:</value>
+        <value xml:lang="it">tipo:</value>
+    </property>
     <property key="ProductPriceMaintPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung die Preisinformationen zu verwalten ("CATALOG_PRICE_MAINT" wird benötigt).</value>
         <value xml:lang="en">You do not have permission to maintain price information. ("CATALOG_PRICE_MAINT" needed)</value>
@@ -19434,6 +19478,10 @@
         <value xml:lang="zh">不填的话会自动生成一个唯一的促销代码</value>
         <value xml:lang="zh_TW">不填的話會自動生成一個唯一的促銷代碼</value>
     </property>
+    <property key="ProductPromoCodeCannotBeCreated">
+        <value xml:lang="en">Could not create a bank of promo codes</value>
+        <value xml:lang="it">Non è possibile creare un gruppo di codici promozioni</value>
+    </property>
     <property key="ProductPromoCodeEmails">
         <value xml:lang="de">Aktionscode E-Mails</value>
         <value xml:lang="en">Promo Code Emails</value>
@@ -19446,6 +19494,18 @@
         <value xml:lang="zh">促销代码电子邮件</value>
         <value xml:lang="zh_TW">促銷代碼電子郵件</value>
     </property>
+    <property key="ProductPromoCodeImportEmptyFile">
+        <value xml:lang="en">Empty file; nothing to do</value>
+        <value xml:lang="it">File vuoto; niente verrà fatto</value>
+    </property>
+    <property key="ProductPromoCodeImportUploadedFileNotValid">
+        <value xml:lang="en">Uploaded file not valid or corrupted</value>
+        <value xml:lang="it">File da caricare non è valido o corrotto</value>
+    </property>
+    <property key="ProductPromoCodeInvalidCode">
+        <value xml:lang="en">: is not a valid promo code; must be between 1 and 20 characters</value>
+        <value xml:lang="it">: non è un codice promozione valido; deve essere fra 1 e 20 caratteri</value>
+    </property>
     <property key="ProductPromoCodeParties">
         <value xml:lang="de">Aktionscode Akteure</value>
         <value xml:lang="en">Promo Code Parties</value>
@@ -19457,6 +19517,10 @@
         <value xml:lang="th">กลุ่มรหัสโปรโมชัน</value>
         <value xml:lang="zh">促销代码 会员</value>
         <value xml:lang="zh_TW">促銷代碼 會員</value>
+    </property>
+    <property key="ProductPromoCodeCannotBeRemoved">
+        <value xml:lang="en">Error removing expired ProductStorePromo records: ${errorString}</value>
+        <value xml:lang="it">Errore durnate la cancellazione di codici promozioni scadute: ${errorString}</value>
     </property>
     <property key="ProductPromoCodes">
         <value xml:lang="de">Aktionscodes</value>
@@ -23133,6 +23197,14 @@
         <value xml:lang="th">ผู้จัดหาสิ่งของสามารถยุติการขนส่ง?</value>
         <value xml:lang="zh">供货商能直接送货吗?</value>
         <value xml:lang="zh_TW">供貨商能直接送貨嗎?</value>
+    </property>
+    <property key="ProductSupplierLastPrice">
+        <value xml:lang="en">, lastPrice: </value>
+        <value xml:lang="it">, ultimo prezzo: </value>
+    </property>
+    <property key="ProductSupplierMinimumOrderQuantity">
+        <value xml:lang="en">minimumOrderQuantity:</value>
+        <value xml:lang="it">Quantità minima ordine:</value>
     </property>
     <property key="ProductSupplierPrefOrderId">
         <value xml:lang="de">Lieferant präferierte Auftrags-ID</value>
