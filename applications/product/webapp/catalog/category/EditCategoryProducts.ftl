@@ -186,7 +186,7 @@ under the License.
                         <span class="label">${uiLabelMap.ProductOptionalFilterWithDate}</span>
                         <@htmlTemplate.renderDateTimeField name="validDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="validDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <br />
-                        <span class="label">${uiLabelMap.ProductIncludeSubCategories}?</span>
+                        <span class="label">${uiLabelMap.ProductIncludeSubCategories}</span>
                         <select name="recurse">
                             <option value="N">${uiLabelMap.CommonN}</option>
                             <option value="Y">${uiLabelMap.CommonY}</option>

@@ -58,7 +58,7 @@ under the License.
     <h3>${uiLabelMap.ProductAdvancedSearchInCategory}</h3>
   </div>
   <div class="screenlet-body">
-    <form id="advToKeywordSearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
+    <form name="advToKeywordSearchform" id="advToKeywordSearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
       <fieldset>
         <input type="hidden" name="VIEW_SIZE" value="25"/>
         <input type="hidden" name="PAGING" value="Y"/>
@@ -72,7 +72,7 @@ under the License.
               </td>
               <td valign="middle">
                 <div>
-                  <b>"${(searchCategory.description)?if_exists}" [${(searchCategory.productCategoryId)?if_exists}]</b> ${uiLabelMap.ProductIncludeSubCategories}?
+                  <b>"${(searchCategory.description)?if_exists}" [${(searchCategory.productCategoryId)?if_exists}]</b> ${uiLabelMap.ProductIncludeSubCategories}
                   ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked="checked"/>
                   ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="N"/>
                 </div>
@@ -139,7 +139,7 @@ under the License.
                   <#else>
                     <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="advToKeywordSearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
                   </#if>
-                  ${uiLabelMap.ProductIncludeSubCategories}?
+                  ${uiLabelMap.ProductIncludeSubCategories}
                   ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked="checked" />
                   ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="N" />
                   ${uiLabelMap.CommonInclude}<input type="radio" name="SEARCH_CATEGORY_EXC" value="" checked="checked" />
