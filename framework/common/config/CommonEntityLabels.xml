@@ -292,7 +292,6 @@
         <value xml:lang="fr">Coût moyen</value>
         <value xml:lang="it">Costo medio</value>
         <value xml:lang="pt">Custo Médio</value>
-        <value xml:lang="pt_BR">Custo Médio</value>
         <value xml:lang="ro">Cost Mediu</value>
         <value xml:lang="ru">По средней стоимости</value>
         <value xml:lang="th">ถัวเฉลี่ยน</value>
@@ -331,7 +330,6 @@
         <value xml:lang="fr">Canal de vente : eBay</value>
         <value xml:lang="it">Canale eBay</value>
         <value xml:lang="pt">Canal eBay</value>
-        <value xml:lang="pt_BR">Canal eBay</value>
         <value xml:lang="th">ช่องทาง eBay</value>
         <value xml:lang="zh">EBay渠道</value>
         <value xml:lang="zh_TW">EBay通路</value>
@@ -395,7 +393,6 @@
         <value xml:lang="fr">Compresseur</value>
         <value xml:lang="it">Compressore</value>
         <value xml:lang="pt">Compressor</value>
-        <value xml:lang="pt_BR">Compressor</value>
         <value xml:lang="ro">Compresor</value>
         <value xml:lang="ru">Компрессор</value>
         <value xml:lang="th">คอมเพรสเซอร์</value>
@@ -434,7 +431,6 @@
         <value xml:lang="fr">Ascenseur</value>
         <value xml:lang="it">Ascensore</value>
         <value xml:lang="pt">Manlift</value>
-        <value xml:lang="pt_BR">Manlift</value>
         <value xml:lang="ro">Ascensor</value>
         <value xml:lang="ru">Подъемник</value>
         <value xml:lang="th">Manlift</value>
@@ -447,7 +443,6 @@
         <value xml:lang="fr">Mobile</value>
         <value xml:lang="it">Mobile</value>
         <value xml:lang="pt">Mobile</value>
-        <value xml:lang="pt_BR">Mobile</value>
         <value xml:lang="ro">Mobile</value>
         <value xml:lang="ru">Мобильный</value>
         <value xml:lang="th">โทรศัพท์เคลื่อนที่</value>
@@ -743,7 +738,6 @@
         <value xml:lang="fr">FIFO reçu</value>
         <value xml:lang="it">FIFO ricevuto</value>
         <value xml:lang="pt">FIFO Recebido</value>
-        <value xml:lang="pt_BR">FIFO Recebido</value>
         <value xml:lang="ro">FIFO Primit</value>
         <value xml:lang="ru">FIFO получено</value>
         <value xml:lang="th">FIFO เป็นที่ยอมรับ</value>
@@ -769,7 +763,6 @@
         <value xml:lang="fr">LIFO expiré</value>
         <value xml:lang="it">LIFO scaduto</value>
         <value xml:lang="pt">LIFO Expira</value>
-        <value xml:lang="pt_BR">LIFO expira</value>
         <value xml:lang="ro">LIFO Expirat</value>
         <value xml:lang="ru">LIFO окончание срока</value>
         <value xml:lang="th">LIFO หมดอายุ</value>
@@ -782,7 +775,6 @@
         <value xml:lang="fr">LIFO reçu</value>
         <value xml:lang="it">LIFO ricevuto</value>
         <value xml:lang="pt">LIFO Recebido</value>
-        <value xml:lang="pt_BR">LIFO Recebido</value>
         <value xml:lang="ro">LIFO Primit</value>
         <value xml:lang="ru">LIFO получено</value>
         <value xml:lang="th">LIFO เป็นที่ยอมรับ</value>
@@ -860,7 +852,6 @@
         <value xml:lang="fr">URL (lien internet) au sein d'OFBiz</value>
         <value xml:lang="it">URL OFBiz</value>
         <value xml:lang="pt">URL OFBiz</value>
-        <value xml:lang="pt_BR">URL OFBiz</value>
         <value xml:lang="ro">URL OFBiz</value>
         <value xml:lang="ru">OFBiz URL</value>
         <value xml:lang="th">OFBiz URL</value>
@@ -886,7 +877,6 @@
         <value xml:lang="fr">Produit</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="pt">Produto</value>
-        <value xml:lang="pt_BR">Produto</value>
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Продукт</value>
         <value xml:lang="th">สินค้า</value>
@@ -987,7 +977,6 @@
         <value xml:lang="it">Termine più stretto</value>
         <value xml:lang="nl">meer specifiek woord</value>
         <value xml:lang="pt">Termo Específico</value>
-        <value xml:lang="pt_BR">Termo específico</value>
         <value xml:lang="ro">Termen mai concis</value>
         <value xml:lang="ru">Более узкие термины</value>
         <value xml:lang="th">ช่วงเวลาสั้น ๆ</value>
@@ -1002,7 +991,6 @@
         <value xml:lang="it">Termine relativo</value>
         <value xml:lang="nl">Related Term</value>
         <value xml:lang="pt">Termo Relacionado</value>
-        <value xml:lang="pt_BR">Termo relacionado</value>
         <value xml:lang="ro">Termen Relativ</value>
         <value xml:lang="ru">Связанные термины</value>
         <value xml:lang="th">ระยะเวลาที่สัมพันธ์กัน</value>
@@ -1032,7 +1020,6 @@
         <value xml:lang="it">Usato per</value>
         <value xml:lang="nl">Gebruikt voor</value>
         <value xml:lang="pt">Usado para</value>
-        <value xml:lang="pt_BR">Usado Para</value>
         <value xml:lang="ro">Folosit Pentru</value>
         <value xml:lang="ru">Используется для</value>
         <value xml:lang="th">ใช้สำหรับ</value>
@@ -1096,7 +1083,6 @@
         <value xml:lang="fr">Autorisation</value>
         <value xml:lang="it">Autorizza</value>
         <value xml:lang="pt">Autorizar</value>
-        <value xml:lang="pt_BR">Autorizar</value>
         <value xml:lang="ro">Autorizeaza</value>
         <value xml:lang="ru">Авторизация</value>
         <value xml:lang="th">อนุญาต</value>
@@ -1109,7 +1095,6 @@
         <value xml:lang="fr">Prélèvement</value>
         <value xml:lang="it">Cattura</value>
         <value xml:lang="pt">Capturar</value>
-        <value xml:lang="pt_BR">Capturar</value>
         <value xml:lang="ro">Inregistreaza</value>
         <value xml:lang="ru">Захват</value>
         <value xml:lang="th">ยึดครอง</value>
@@ -1303,7 +1288,6 @@
         <value xml:lang="fr">Destination</value>
         <value xml:lang="it">Destinazione</value>
         <value xml:lang="pt">Destino</value>
-        <value xml:lang="pt_BR">Destino</value>
         <value xml:lang="ro">Destinatie</value>
         <value xml:lang="ru">В пункте назначения</value>
         <value xml:lang="th">จุดหมายปลายทาง</value>
@@ -1316,7 +1300,6 @@
         <value xml:lang="fr">Départ usine</value>
         <value xml:lang="it">Per fabbrica</value>
         <value xml:lang="pt">EX-Works</value>
-        <value xml:lang="pt_BR">EX-Works</value>
         <value xml:lang="ro">Ex-Servicii</value>
         <value xml:lang="ru">EX-Works</value>
         <value xml:lang="th">งานเก่า</value>
@@ -1367,7 +1350,6 @@
         <value xml:lang="fr">En transit</value>
         <value xml:lang="it">In transito</value>
         <value xml:lang="pt">Em Trânsito</value>
-        <value xml:lang="pt_BR">Em Trânsito</value>
         <value xml:lang="ro">In Tranzit</value>
         <value xml:lang="ru">Во время транзита</value>
         <value xml:lang="th">ในการเดินทางผ่าน</value>
@@ -1379,7 +1361,6 @@
         <value xml:lang="fr">Origine</value>
         <value xml:lang="it">Origine</value>
         <value xml:lang="pt">Origem</value>
-        <value xml:lang="pt_BR">Origem</value>
         <value xml:lang="ro">Origine</value>
         <value xml:lang="ru">В пункте отправки</value>
         <value xml:lang="th">ที่มา</value>
@@ -1392,7 +1373,6 @@
         <value xml:lang="fr">Est</value>
         <value xml:lang="it">E'</value>
         <value xml:lang="pt">É</value>
-        <value xml:lang="pt_BR">É</value>
         <value xml:lang="ro">Este</value>
         <value xml:lang="ru">это</value>
         <value xml:lang="th">เป็น</value>
@@ -1405,7 +1385,6 @@
         <value xml:lang="fr">Est plus grand que</value>
         <value xml:lang="it">E' maggiore di</value>
         <value xml:lang="pt">É Maior Que</value>
-        <value xml:lang="pt_BR">É maior que</value>
         <value xml:lang="ro">E Mai mare decat</value>
         <value xml:lang="ru">больше</value>
         <value xml:lang="th">มากกว่า</value>
@@ -1418,7 +1397,6 @@
         <value xml:lang="fr">Est plus grand ou égal  à</value>
         <value xml:lang="it">E' maggiore di o uguale a</value>
         <value xml:lang="pt">É Maior ou Igual A</value>
-        <value xml:lang="pt_BR">É maior ou igual a</value>
         <value xml:lang="ro">E Mai mare sau Egal cu</value>
         <value xml:lang="ru">больше или равно</value>
         <value xml:lang="th">มากกว่าหรือเท่ากับ</value>
@@ -1431,7 +1409,6 @@
         <value xml:lang="fr">Est plus petit que</value>
         <value xml:lang="it">E' minore di</value>
         <value xml:lang="pt">É Menos Que</value>
-        <value xml:lang="pt_BR">É menos que</value>
         <value xml:lang="ro">E Mai mic decat</value>
         <value xml:lang="ru">меньше</value>
         <value xml:lang="th">น้อยกว่า</value>
@@ -1457,7 +1434,6 @@
         <value xml:lang="fr">N'est pas</value>
         <value xml:lang="it">Non e'</value>
         <value xml:lang="pt">Não É</value>
-        <value xml:lang="pt_BR">Não é</value>
         <value xml:lang="ro">Nu Este</value>
         <value xml:lang="ru">не</value>
         <value xml:lang="th">ไม่</value>
@@ -1483,7 +1459,6 @@
         <value xml:lang="fr">Sous-total du panier</value>
         <value xml:lang="it">Sub-totale carrello</value>
         <value xml:lang="pt">Sub-total do Carrinho</value>
-        <value xml:lang="pt_BR">Sub-total do Carrinho</value>
         <value xml:lang="ro">Sub-total Cos</value>
         <value xml:lang="ru">Итог корзины</value>
         <value xml:lang="th">ผลรวมย่อยของตระกร้า</value>
@@ -1551,7 +1526,6 @@
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="pt">Participante</value>
-        <value xml:lang="pt_BR">Participante</value>
         <value xml:lang="ro">Subiect</value>
         <value xml:lang="ru">Участник</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
@@ -1603,7 +1577,6 @@
         <value xml:lang="fr">Type de rôle</value>
         <value xml:lang="it">Tipo ruolo</value>
         <value xml:lang="pt">Tipo de Papel</value>
-        <value xml:lang="pt_BR">Tipo de Papel</value>
         <value xml:lang="ro">Tip Rol</value>
         <value xml:lang="ru">Тип роли</value>
         <value xml:lang="th">ประเภทสถานะ</value>
@@ -1629,7 +1602,6 @@
         <value xml:lang="fr">Exclure</value>
         <value xml:lang="it">Escludi</value>
         <value xml:lang="pt">Excluir</value>
-        <value xml:lang="pt_BR">Excluir</value>
         <value xml:lang="ro">Exclude</value>
         <value xml:lang="ru">Исключить</value>
         <value xml:lang="th">แยกออกไป</value>
@@ -1642,7 +1614,6 @@
         <value xml:lang="fr">Inclure</value>
         <value xml:lang="it">Includi</value>
         <value xml:lang="pt">Incluir</value>
-        <value xml:lang="pt_BR">Incluir</value>
         <value xml:lang="ro">Include</value>
         <value xml:lang="ru">Включить</value>
         <value xml:lang="th">รวมกัน</value>
@@ -1655,7 +1626,6 @@
         <value xml:lang="fr">est</value>
         <value xml:lang="it">E'</value>
         <value xml:lang="pt">É</value>
-        <value xml:lang="pt_BR">É</value>
         <value xml:lang="ro">E</value>
         <value xml:lang="ru">это</value>
         <value xml:lang="th">Is</value>
@@ -1668,7 +1638,6 @@
         <value xml:lang="fr">est plus grand que</value>
         <value xml:lang="it">E' maggiore di</value>
         <value xml:lang="pt">É Maior Que</value>
-        <value xml:lang="pt_BR">É maior que</value>
         <value xml:lang="ro">E Mai mare decat</value>
         <value xml:lang="ru">больше</value>
         <value xml:lang="th">มากกว่า</value>
@@ -1720,7 +1689,6 @@
         <value xml:lang="fr">n'est pas</value>
         <value xml:lang="it">Non è</value>
         <value xml:lang="pt">Não É</value>
-        <value xml:lang="pt_BR">Não é</value>
         <value xml:lang="ro">Nu e</value>
         <value xml:lang="ru">не</value>
         <value xml:lang="th">ไม่ใช่</value>
@@ -1837,7 +1805,6 @@
         <value xml:lang="fr">Accompli</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="pt">Completo</value>
-        <value xml:lang="pt_BR">Completo</value>
         <value xml:lang="ro">Executat</value>
         <value xml:lang="ru">Завершение</value>
         <value xml:lang="th">การเสร็จสมบูรณ์</value>
@@ -1850,7 +1817,6 @@
         <value xml:lang="fr">Confirmation</value>
         <value xml:lang="it">Conferma</value>
         <value xml:lang="pt">Confirmação</value>
-        <value xml:lang="pt_BR">Confirmação</value>
         <value xml:lang="ro">Confirma</value>
         <value xml:lang="ru">Подтверждение</value>
         <value xml:lang="th">การยืนยัน</value>
@@ -1881,7 +1847,6 @@
         <value xml:lang="fr">Autorisation du paiement</value>
         <value xml:lang="it">Pagamento servizio autorizzazione</value>
         <value xml:lang="pt">Serviço de Autorização de Pagamento</value>
-        <value xml:lang="pt_BR">Serviço de Autorização de Pagamento</value>
         <value xml:lang="ro">Plata Serviciu Autorizatie</value>
         <value xml:lang="ru">Служба авторизации платежа</value>
         <value xml:lang="th">บริการให้การชำระเงิน</value>
@@ -1894,7 +1859,6 @@
         <value xml:lang="fr">Vérification de l'authenticité du paiement</value>
         <value xml:lang="it">Pagamento servizio verifica autorizzazione</value>
         <value xml:lang="pt">Serviço de Verificação de Autenticação de Pagamento</value>
-        <value xml:lang="pt_BR">Serviço de Verificação de Autenticação de Pagamento</value>
         <value xml:lang="ro">Plata Serviciu Verifica Autorizatie</value>
         <value xml:lang="ru">Служба верификации автор. платежа</value>
         <value xml:lang="th">ให้บริการตรวจสอบการชำระเงิน</value>
@@ -1920,7 +1884,6 @@
         <value xml:lang="fr">Paiement par crédit</value>
         <value xml:lang="it">Pagamento servizio credito</value>
         <value xml:lang="pt">Serviço de Pagamento a Crédito</value>
-        <value xml:lang="pt_BR">Serviço de pagamento a crédito</value>
         <value xml:lang="ro">Plata Serviciu Credit</value>
         <value xml:lang="ru">Служба кредитного платежа</value>
         <value xml:lang="th">บริการชำระเงินด้วยบัตรเครดิต</value>
@@ -1959,7 +1922,6 @@
         <value xml:lang="fr">Remboursement</value>
         <value xml:lang="it">Pagamento servizio rimborso</value>
         <value xml:lang="pt">Serviço de Reembolso de Pagamento</value>
-        <value xml:lang="pt_BR">Serviço de Reembolso de Pagamento</value>
         <value xml:lang="ro">Plata Serviciu Rambursari</value>
         <value xml:lang="ru">Служба платежа на возмещение</value>
         <value xml:lang="th">บริการชดใช้การชำระเงิน</value>
@@ -2029,7 +1991,6 @@
         <value xml:lang="fr">Retour annulé</value>
         <value xml:lang="it">Reso cancellato</value>
         <value xml:lang="pt">Devolução Cancelada</value>
-        <value xml:lang="pt_BR">Devolução Cancelada</value>
         <value xml:lang="ro">Returnare Stearsa</value>
         <value xml:lang="ru">Отмена возврата</value>
         <value xml:lang="th">คืนค่าการยกเลิก</value>
@@ -2067,7 +2028,6 @@
         <value xml:lang="fr">Devise utilisée</value>
         <value xml:lang="it">Udm Valuta</value>
         <value xml:lang="pt">Moeda UomId</value>
-        <value xml:lang="pt_BR">Moeda UomId</value>
         <value xml:lang="ro">Udm Valuta</value>
         <value xml:lang="ru">Код валюты</value>
         <value xml:lang="th">รหัสหน่วยสกุลเงิน</value>
@@ -2093,7 +2053,6 @@
         <value xml:lang="fr">Classification d'acteurs</value>
         <value xml:lang="it">Classificazione soggetto</value>
         <value xml:lang="pt">Classificação de Participante</value>
-        <value xml:lang="pt_BR">Classificação de participante</value>
         <value xml:lang="ro">Classificare Subiecti</value>
         <value xml:lang="ru">Классификация участника</value>
         <value xml:lang="th">การระบุกลุ่มผู้ใช้</value>
@@ -2119,7 +2078,6 @@
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="pt">Participante</value>
-        <value xml:lang="pt_BR">Participante</value>
         <value xml:lang="ro">Subiect</value>
         <value xml:lang="ru">Участник</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
@@ -2132,7 +2090,6 @@
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="pt">Produto</value>
-        <value xml:lang="pt_BR">Produto</value>
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Продукт</value>
         <value xml:lang="th">สินค้า</value>
@@ -2158,7 +2115,6 @@
         <value xml:lang="fr">Catalogue d'articles</value>
         <value xml:lang="it">Catalogo prodotto</value>
         <value xml:lang="pt">Catálogo de Produtos</value>
-        <value xml:lang="pt_BR">Catálogo de Produtos</value>
         <value xml:lang="ro">Catalog Produs</value>
         <value xml:lang="ru">Продуктовый каталог</value>
         <value xml:lang="th">หมวดหมู่สินค้า</value>
@@ -2184,7 +2140,6 @@
         <value xml:lang="fr">Quantité</value>
         <value xml:lang="it">Quantità</value>
         <value xml:lang="pt">Quantidade</value>
-        <value xml:lang="pt_BR">Quantidade</value>
         <value xml:lang="ro">Cantitate</value>
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
@@ -2197,7 +2152,6 @@
         <value xml:lang="fr">Type de rôle</value>
         <value xml:lang="it">Tipo ruolo</value>
         <value xml:lang="pt">Tipo de Papel</value>
-        <value xml:lang="pt_BR">Tipo de Papel</value>
         <value xml:lang="ro">Tip Rol</value>
         <value xml:lang="ru">Тип роли</value>
         <value xml:lang="th">ประเภทสถานะ</value>
@@ -2210,7 +2164,6 @@
         <value xml:lang="fr">Site web</value>
         <value xml:lang="it">Sito web</value>
         <value xml:lang="pt">Website</value>
-        <value xml:lang="pt_BR">Website</value>
         <value xml:lang="ro">Sit Web</value>
         <value xml:lang="ru">Web сайт</value>
         <value xml:lang="th">เว็บไซต์</value>
@@ -2480,7 +2433,6 @@
         <value xml:lang="fr">Cookie</value>
         <value xml:lang="it">Cookie</value>
         <value xml:lang="pt">Cookie</value>
-        <value xml:lang="pt_BR">Cookie</value>
         <value xml:lang="ru">Cookie</value>
         <value xml:lang="th">Cookie</value>
         <value xml:lang="zh">Cookie</value>
@@ -2493,7 +2445,6 @@
         <value xml:lang="fr">Paramètre d'URL (lien internet)</value>
         <value xml:lang="it">Parametro URL</value>
         <value xml:lang="pt">Parâmetro de URL</value>
-        <value xml:lang="pt_BR">Parâmetro de URL</value>
         <value xml:lang="ro">Parametru URL</value>
         <value xml:lang="ru">Параметр URL</value>
         <value xml:lang="th">URL พารามิเตอร์</value>
@@ -2731,7 +2682,6 @@
         <value xml:lang="fr">Canal de vente : internet</value>
         <value xml:lang="it">Canale web</value>
         <value xml:lang="pt">Canal Web</value>
-        <value xml:lang="pt_BR">Canal Web</value>
         <value xml:lang="ro">Canal Web</value>
         <value xml:lang="ru">Web сайт</value>
         <value xml:lang="th">ช่องทางเว็บ</value>
@@ -2815,7 +2765,6 @@
         <value xml:lang="fr">Accès restreint et privé</value>
         <value xml:lang="it">Limitato, accesso privato</value>
         <value xml:lang="pt">Restrito, acesso privado</value>
-        <value xml:lang="pt_BR">Restrito, acesso privado</value>
         <value xml:lang="ro">Limitat, acceso privat</value>
         <value xml:lang="ru">Ограниченная, частный доступ</value>
         <value xml:lang="th">ถูกกำหนด, การเข้าส่วนบุคคล</value>
@@ -3073,7 +3022,6 @@
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="nl">Niet van toepassing</value>
         <value xml:lang="pt">Não Aplicável</value>
-        <value xml:lang="pt_BR">Não Aplicável</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
@@ -3088,7 +3036,6 @@
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="nl">Niet van toepassing</value>
         <value xml:lang="pt">Não Aplicável</value>
-        <value xml:lang="pt_BR">Não Aplicável</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
@@ -3462,7 +3409,6 @@
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="nl">Niet van toepassing</value>
         <value xml:lang="pt">Não Aplicável</value>
-        <value xml:lang="pt_BR">Não Aplicável</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
@@ -3486,7 +3432,6 @@
         <value xml:lang="fr">Aruba</value>
         <value xml:lang="it">Aruba</value>
         <value xml:lang="pt">Aruba</value>
-        <value xml:lang="pt_BR">Aruba</value>
         <value xml:lang="ro">Aruba</value>
         <value xml:lang="ru">Аруба</value>
         <value xml:lang="th">อารูบา</value>
@@ -3514,7 +3459,6 @@
         <value xml:lang="fr">Angola</value>
         <value xml:lang="it">Angola</value>
         <value xml:lang="pt">Angola</value>
-        <value xml:lang="pt_BR">Angola</value>
         <value xml:lang="ro">Angola</value>
         <value xml:lang="ru">Ангола</value>
         <value xml:lang="th">แองโกลา</value>
@@ -3528,7 +3472,6 @@
         <value xml:lang="fr">Anguilla</value>
         <value xml:lang="it">Anguilla</value>
         <value xml:lang="pt">Anguilla</value>
-        <value xml:lang="pt_BR">Anguilla</value>
         <value xml:lang="ro">Anguilla</value>
         <value xml:lang="ru">Ангилья</value>
         <value xml:lang="th">แองกวิลา</value>
@@ -3556,7 +3499,6 @@
         <value xml:lang="fr">Andorre</value>
         <value xml:lang="it">Andorra</value>
         <value xml:lang="pt">Andorra</value>
-        <value xml:lang="pt_BR">Andorra</value>
         <value xml:lang="ro">Andorra</value>
         <value xml:lang="ru">Андорра</value>
         <value xml:lang="th">อันดอร์รา</value>
@@ -3598,7 +3540,6 @@
         <value xml:lang="fr">Argentine</value>
         <value xml:lang="it">Argentina</value>
         <value xml:lang="pt">Argentina</value>
-        <value xml:lang="pt_BR">Argentina</value>
         <value xml:lang="ro">Argentina</value>
         <value xml:lang="ru">Аргентина</value>
         <value xml:lang="th">อาร์เจนตินา</value>
@@ -3733,7 +3674,6 @@
         <value xml:lang="fr">Burundi</value>
         <value xml:lang="it">Burundi</value>
         <value xml:lang="pt">Burundi</value>
-        <value xml:lang="pt_BR">Burundi</value>
         <value xml:lang="ro">Burundi</value>
         <value xml:lang="ru">Бурунди</value>
         <value xml:lang="th">บูรันดิ</value>
@@ -3761,7 +3701,6 @@
         <value xml:lang="fr">Bénin</value>
         <value xml:lang="it">Benin</value>
         <value xml:lang="pt">Benin</value>
-        <value xml:lang="pt_BR">Benin</value>
         <value xml:lang="ro">Benin</value>
         <value xml:lang="ru">Бенин</value>
         <value xml:lang="th">เบนิน</value>
@@ -3775,7 +3714,6 @@
         <value xml:lang="fr">Burkina Faso</value>
         <value xml:lang="it">Burkina Faso</value>
         <value xml:lang="pt">Burkina Faso</value>
-        <value xml:lang="pt_BR">Burkina Faso</value>
         <value xml:lang="ro">Burkina Faso</value>
         <value xml:lang="ru">Буркина-Фасо</value>
         <value xml:lang="th">บูร์กินาฟาโซ</value>
@@ -3830,7 +3768,6 @@
         <value xml:lang="fr">Bahamas</value>
         <value xml:lang="it">Bahamas</value>
         <value xml:lang="pt">Bahamas</value>
-        <value xml:lang="pt_BR">Bahamas</value>
         <value xml:lang="ro">Bahamas</value>
         <value xml:lang="ru">Багамские о-ва</value>
         <value xml:lang="th">บาฮามาส </value>
@@ -3872,7 +3809,6 @@
         <value xml:lang="fr">Bélize</value>
         <value xml:lang="it">Belize</value>
         <value xml:lang="pt">Belize</value>
-        <value xml:lang="pt_BR">Belize</value>
         <value xml:lang="ro">Belize</value>
         <value xml:lang="ru">Белиз</value>
         <value xml:lang="th">เบไลซ์ </value>
@@ -3928,7 +3864,6 @@
         <value xml:lang="fr">Barbade</value>
         <value xml:lang="it">Barbados</value>
         <value xml:lang="pt">Barbados</value>
-        <value xml:lang="pt_BR">Barbados</value>
         <value xml:lang="ro">Barbados</value>
         <value xml:lang="ru">Барбадос</value>
         <value xml:lang="th">บาบาดอส</value>
@@ -3942,7 +3877,6 @@
         <value xml:lang="fr">Brunéi Darusalam</value>
         <value xml:lang="it">Brunei Darussalam</value>
         <value xml:lang="pt">Brunei Darussalam</value>
-        <value xml:lang="pt_BR">Brunei Darussalam</value>
         <value xml:lang="ro">Brunei Darussalam</value>
         <value xml:lang="ru">Бруней</value>
         <value xml:lang="th">บรูไนดารุสซาลาม</value>
@@ -4052,7 +3986,6 @@
         <value xml:lang="fr">Chili</value>
         <value xml:lang="it">Cile</value>
         <value xml:lang="pt">Chile</value>
-        <value xml:lang="pt_BR">Chile</value>
         <value xml:lang="ro">Cile</value>
         <value xml:lang="ru">Чили</value>
         <value xml:lang="th">ชิลี</value>
@@ -4066,7 +3999,6 @@
         <value xml:lang="fr">Chine</value>
         <value xml:lang="it">Cina</value>
         <value xml:lang="pt">China</value>
-        <value xml:lang="pt_BR">China</value>
         <value xml:lang="ro">Cina</value>
         <value xml:lang="ru">Китай</value>
         <value xml:lang="th">จีน</value>
@@ -4122,7 +4054,6 @@
         <value xml:lang="fr">Congo</value>
         <value xml:lang="it">Congo</value>
         <value xml:lang="pt">Congo</value>
-        <value xml:lang="pt_BR">Congo</value>
         <value xml:lang="ro">Congo</value>
         <value xml:lang="ru">Конго</value>
         <value xml:lang="th">คองโก</value>
@@ -4192,7 +4123,6 @@
         <value xml:lang="fr">Costa Rica</value>
         <value xml:lang="it">Costa Rica</value>
         <value xml:lang="pt">Costa Rica</value>
-        <value xml:lang="pt_BR">Costa Rica</value>
         <value xml:lang="ro">Costa Rica</value>
         <value xml:lang="ru">Коста-Рика</value>
         <value xml:lang="th">คอสตาริกา</value>
@@ -4206,7 +4136,6 @@
         <value xml:lang="fr">Cuba</value>
         <value xml:lang="it">Cuba</value>
         <value xml:lang="pt">Cuba</value>
-        <value xml:lang="pt_BR">Cuba</value>
         <value xml:lang="ro">Cuba</value>
         <value xml:lang="ru">Куба</value>
         <value xml:lang="th">คิวบา</value>
@@ -4304,7 +4233,6 @@
         <value xml:lang="fr">Dominique</value>
         <value xml:lang="it">Domenicana</value>
         <value xml:lang="pt">Dominica</value>
-        <value xml:lang="pt_BR">Dominica</value>
         <value xml:lang="ro">Domenicana</value>
         <value xml:lang="ru">Доминика</value>
         <value xml:lang="th">โดมินิกา</value>
@@ -4484,7 +4412,6 @@
         <value xml:lang="fr">Îles Fidgi</value>
         <value xml:lang="it">Fiji</value>
         <value xml:lang="pt">Fiji</value>
-        <value xml:lang="pt_BR">Fiji</value>
         <value xml:lang="ro">Fiji</value>
         <value xml:lang="ru">Фиджи</value>
         <value xml:lang="th">ฟิจิ</value>
@@ -4623,7 +4550,6 @@
         <value xml:lang="fr">Gibraltar</value>
         <value xml:lang="it">Gibilterra</value>
         <value xml:lang="pt">Gibraltar</value>
-        <value xml:lang="pt_BR">Gibraltar</value>
         <value xml:lang="ro">Gibilterra</value>
         <value xml:lang="ru">Гибралтар</value>
         <value xml:lang="th">กิบราต้า</value>
@@ -4721,7 +4647,6 @@
         <value xml:lang="fr">Grenade</value>
         <value xml:lang="it">Grenada</value>
         <value xml:lang="pt">Grenada</value>
-        <value xml:lang="pt_BR">Grenada</value>
         <value xml:lang="ro">Grenada</value>
         <value xml:lang="ru">Гренада</value>
         <value xml:lang="th">เกรเนดา</value>
@@ -4749,7 +4674,6 @@
         <value xml:lang="fr">Guatémala</value>
         <value xml:lang="it">Guatemala</value>
         <value xml:lang="pt">Guatemala</value>
-        <value xml:lang="pt_BR">Guatemala</value>
         <value xml:lang="ro">Guatemala</value>
         <value xml:lang="ru">Гватемала</value>
         <value xml:lang="th">สาธารณรัฐกัวเตมาลา</value>
@@ -4777,7 +4701,6 @@
         <value xml:lang="fr">Guam</value>
         <value xml:lang="it">Guam</value>
         <value xml:lang="pt">Guam</value>
-        <value xml:lang="pt_BR">Guam</value>
         <value xml:lang="ro">Guam</value>
         <value xml:lang="ru">Гуам</value>
         <value xml:lang="th">กวม</value>
@@ -4805,7 +4728,6 @@
         <value xml:lang="fr">Hong Kong</value>
         <value xml:lang="it">Hong Kong</value>
         <value xml:lang="pt">Hong Kong</value>
-        <value xml:lang="pt_BR">Hong Kong</value>
         <value xml:lang="ro">Hong Kong</value>
         <value xml:lang="ru">Гонконг</value>
         <value xml:lang="th">ฮ่องกง</value>
@@ -4833,7 +4755,6 @@
         <value xml:lang="fr">Honduras</value>
         <value xml:lang="it">Honduras</value>
         <value xml:lang="pt">Honduras</value>
-        <value xml:lang="pt_BR">Honduras</value>
         <value xml:lang="ro">Honduras</value>
         <value xml:lang="ru">Гондурас</value>
         <value xml:lang="th">ฮอนดูรัส</value>
@@ -4861,7 +4782,6 @@
         <value xml:lang="fr">Haïti</value>
         <value xml:lang="it">Haiti</value>
         <value xml:lang="pt">Haiti</value>
-        <value xml:lang="pt_BR">Haiti</value>
         <value xml:lang="ro">Haiti</value>
         <value xml:lang="ru">Гаити</value>
         <value xml:lang="th">ไฮติ</value>
@@ -4987,7 +4907,6 @@
         <value xml:lang="fr">Israël</value>
         <value xml:lang="it">Israele</value>
         <value xml:lang="pt">Israel</value>
-        <value xml:lang="pt_BR">Israel</value>
         <value xml:lang="ro">Israel</value>
         <value xml:lang="ru">Израиль</value>
         <value xml:lang="th">อิสราเอล</value>
@@ -5015,7 +4934,6 @@
         <value xml:lang="fr">Jamaïque</value>
         <value xml:lang="it">Giamaica</value>
         <value xml:lang="pt">Jamaica</value>
-        <value xml:lang="pt_BR">Jamaica</value>
         <value xml:lang="ro">Jiamaica</value>
         <value xml:lang="ru">Ямайка</value>
         <value xml:lang="th">จาไมก้า</value>
@@ -5113,7 +5031,6 @@
         <value xml:lang="fr">Kiribati</value>
         <value xml:lang="it">Kiribati</value>
         <value xml:lang="pt">Kiribati</value>
-        <value xml:lang="pt_BR">Kiribati</value>
         <value xml:lang="ro">Kiribati</value>
         <value xml:lang="ru">Кирибати</value>
         <value xml:lang="th">คิริบาตี</value>
@@ -5155,7 +5072,6 @@
         <value xml:lang="fr">Koweït</value>
         <value xml:lang="it">Kuwait</value>
         <value xml:lang="pt">Kuwait</value>
-        <value xml:lang="pt_BR">Kuwait</value>
         <value xml:lang="ro">Kuwait</value>
         <value xml:lang="ru">Кувейт</value>
         <value xml:lang="th">คูเวต</value>
@@ -5239,7 +5155,6 @@
         <value xml:lang="fr">Liechtenstein</value>
         <value xml:lang="it">Liechtenstein</value>
         <value xml:lang="pt">Liechtenstein</value>
-        <value xml:lang="pt_BR">Liechtenstein</value>
         <value xml:lang="ro">Liechtenstein</value>
         <value xml:lang="ru">Лихтенштейн</value>
         <value xml:lang="th">ลีเทนเทียน</value>
@@ -5253,7 +5168,6 @@
         <value xml:lang="fr">Sri Lanka</value>
         <value xml:lang="it">Sri Lanka</value>
         <value xml:lang="pt">Sri Lanka</value>
-        <value xml:lang="pt_BR">Sri Lanka</value>
         <value xml:lang="ro">Sri Lanka</value>
         <value xml:lang="ru">Шри-Ланка</value>
         <value xml:lang="th">ศรีลังกา</value>
@@ -5323,7 +5237,6 @@
         <value xml:lang="fr">Macao</value>
         <value xml:lang="it">Macao</value>
         <value xml:lang="pt">Macau</value>
-        <value xml:lang="pt_BR">Macau</value>
         <value xml:lang="ro">Macau</value>
         <value xml:lang="ru">Макао</value>
         <value xml:lang="th">มาเก๊า</value>
@@ -5389,7 +5302,6 @@
         <value xml:lang="fr">Madagascar</value>
         <value xml:lang="it">Madagascar</value>
         <value xml:lang="pt">Madagascar</value>
-        <value xml:lang="pt_BR">Madagascar</value>
         <value xml:lang="ro">Madagascar</value>
         <value xml:lang="ru">Мадагаскар</value>
         <value xml:lang="th">มาดากาสการ์</value>
@@ -5459,7 +5371,6 @@
         <value xml:lang="fr">Mali</value>
         <value xml:lang="it">Mali</value>
         <value xml:lang="pt">Mali</value>
-        <value xml:lang="pt_BR">Mali</value>
         <value xml:lang="ro">Mali</value>
         <value xml:lang="ru">Мали</value>
         <value xml:lang="th">มาลี</value>
@@ -5473,7 +5384,6 @@
         <value xml:lang="fr">Malte</value>
         <value xml:lang="it">Malta</value>
         <value xml:lang="pt">Malta</value>
-        <value xml:lang="pt_BR">Malta</value>
         <value xml:lang="ro">Malta</value>
         <value xml:lang="ru">Мальта</value>
         <value xml:lang="th">มอลตา</value>
@@ -5557,7 +5467,6 @@
         <value xml:lang="fr">Montserrat</value>
         <value xml:lang="it">Montserrat</value>
         <value xml:lang="pt">Montserrat</value>
-        <value xml:lang="pt_BR">Montserrat</value>
         <value xml:lang="ro">Montserrat</value>
         <value xml:lang="ru">Монсерат</value>
         <value xml:lang="th">มอนซีรัส </value>
@@ -5627,7 +5536,6 @@
         <value xml:lang="fr">Mayotte</value>
         <value xml:lang="it">Mayotte</value>
         <value xml:lang="pt">Mayotte</value>
-        <value xml:lang="pt_BR">Mayotte</value>
         <value xml:lang="ro">Mayotte</value>
         <value xml:lang="ru">Mayotte</value>
         <value xml:lang="th">มาโยเต</value>
@@ -5756,7 +5664,6 @@
         <value xml:lang="fr">Niue</value>
         <value xml:lang="it">Niue</value>
         <value xml:lang="pt">Niue</value>
-        <value xml:lang="pt_BR">Niue</value>
         <value xml:lang="ro">Niue</value>
         <value xml:lang="ru">Niue</value>
         <value xml:lang="th">นิว </value>
@@ -5807,7 +5714,6 @@
         <value xml:lang="fr">Népal</value>
         <value xml:lang="it">Nepal</value>
         <value xml:lang="pt">Nepal</value>
-        <value xml:lang="pt_BR">Nepal</value>
         <value xml:lang="ro">Nepal</value>
         <value xml:lang="ru">Непал</value>
         <value xml:lang="th">เนปาล</value>
@@ -5821,7 +5727,6 @@
         <value xml:lang="fr">Nauru</value>
         <value xml:lang="it">Nauru</value>
         <value xml:lang="pt">Nauru</value>
-        <value xml:lang="pt_BR">Nauru</value>
         <value xml:lang="ro">Nauru</value>
         <value xml:lang="ru">Науру</value>
         <value xml:lang="th">นาอูรู</value>
@@ -5950,7 +5855,6 @@
         <value xml:lang="fr">Pérou</value>
         <value xml:lang="it">Perù</value>
         <value xml:lang="pt">Peru</value>
-        <value xml:lang="pt_BR">Peru</value>
         <value xml:lang="ro">Peru </value>
         <value xml:lang="ru">Перу</value>
         <value xml:lang="th">เปรู</value>
@@ -5978,7 +5882,6 @@
         <value xml:lang="fr">Palau</value>
         <value xml:lang="it">Palau</value>
         <value xml:lang="pt">Palau</value>
-        <value xml:lang="pt_BR">Palau</value>
         <value xml:lang="ro">Palau</value>
         <value xml:lang="ru">Палау</value>
         <value xml:lang="th">ปาเลา</value>
@@ -6048,7 +5951,6 @@
         <value xml:lang="fr">Portugal</value>
         <value xml:lang="it">Portogallo</value>
         <value xml:lang="pt">Portugal</value>
-        <value xml:lang="pt_BR">Portugal</value>
         <value xml:lang="ro">Portugalia</value>
         <value xml:lang="ru">Португалия</value>
         <value xml:lang="th">โปรตุเกส</value>
@@ -6104,7 +6006,6 @@
         <value xml:lang="fr">Qatar</value>
         <value xml:lang="it">Qatar</value>
         <value xml:lang="pt">Qatar</value>
-        <value xml:lang="pt_BR">Qatar</value>
         <value xml:lang="ro">Qatar</value>
         <value xml:lang="ru">Катар</value>
         <value xml:lang="th">กาตาร์</value>
@@ -6233,7 +6134,6 @@
         <value xml:lang="fr">Sénégal</value>
         <value xml:lang="it">Senegal</value>
         <value xml:lang="pt">Senegal</value>
-        <value xml:lang="pt_BR">Senegal</value>
         <value xml:lang="ro">Senegal</value>
         <value xml:lang="ru">Сенегал</value>
         <value xml:lang="th">ซีนีกัล </value>
@@ -6340,7 +6240,6 @@
         <value xml:lang="fr">Le Salvador</value>
         <value xml:lang="it">El Salvador</value>
         <value xml:lang="pt">El Salvador</value>
-        <value xml:lang="pt_BR">El Salvador</value>
         <value xml:lang="ro">El Salvador</value>
         <value xml:lang="ru">Сальвадор</value>
         <value xml:lang="th">ซาน ซัลวาดอร์</value>
@@ -6410,7 +6309,6 @@
         <value xml:lang="fr">Surinam</value>
         <value xml:lang="it">Suriname</value>
         <value xml:lang="pt">Suriname</value>
-        <value xml:lang="pt_BR">Suriname</value>
         <value xml:lang="ro">Suriname</value>
         <value xml:lang="ru">Суринам</value>
         <value xml:lang="th">ซูริเนม</value>
@@ -6480,7 +6378,6 @@
         <value xml:lang="fr">Seychelles</value>
         <value xml:lang="it">Seychelles</value>
         <value xml:lang="pt">Seychelles</value>
-        <value xml:lang="pt_BR">Seychelles</value>
         <value xml:lang="ro">Seychelles</value>
         <value xml:lang="ru">Сейшельские о-ва</value>
         <value xml:lang="th">เซเชลส์ </value>
@@ -6536,7 +6433,6 @@
         <value xml:lang="fr">Togo</value>
         <value xml:lang="it">Togo</value>
         <value xml:lang="pt">Togo</value>
-        <value xml:lang="pt_BR">Togo</value>
         <value xml:lang="ro">Togo</value>
         <value xml:lang="ru">Того</value>
         <value xml:lang="th">โตโก</value>
@@ -6578,7 +6474,6 @@
         <value xml:lang="fr">Tokelau</value>
         <value xml:lang="it">Tokelau</value>
         <value xml:lang="pt">Tokelau</value>
-        <value xml:lang="pt_BR">Tokelau</value>
         <value xml:lang="ro">Tokelau</value>
         <value xml:lang="ru">Токелау</value>
         <value xml:lang="th">โทเคลาอู</value>
@@ -6620,7 +6515,6 @@
         <value xml:lang="fr">Tonga</value>
         <value xml:lang="it">Tonga</value>
         <value xml:lang="pt">Tonga</value>
-        <value xml:lang="pt_BR">Tonga</value>
         <value xml:lang="ro">Tonga</value>
         <value xml:lang="ru">Тонга</value>
         <value xml:lang="th">ทองกา</value>
@@ -6676,7 +6570,6 @@
         <value xml:lang="fr">Tuvalu</value>
         <value xml:lang="it">Tuvalu</value>
         <value xml:lang="pt">Tuvalu</value>
-        <value xml:lang="pt_BR">Tuvalu</value>
         <value xml:lang="ro">Tuvalu</value>
         <value xml:lang="ru">Тувалу</value>
         <value xml:lang="th">ทูวาล</value>
@@ -6690,7 +6583,6 @@
         <value xml:lang="fr">Taïwan</value>
         <value xml:lang="it">Taiwan</value>
         <value xml:lang="pt">Taiwan</value>
-        <value xml:lang="pt_BR">Taiwan</value>
         <value xml:lang="ro">Taiwan</value>
         <value xml:lang="ru">Тайвань</value>
         <value xml:lang="th">ไต้หวัน</value>
@@ -6718,7 +6610,6 @@
         <value xml:lang="fr">Ouganda</value>
         <value xml:lang="it">Uganda</value>
         <value xml:lang="pt">Uganda</value>
-        <value xml:lang="pt_BR">Uganda</value>
         <value xml:lang="ro">Uganda</value>
         <value xml:lang="ru">Уганда</value>
         <value xml:lang="th">อูกันดา </value>
@@ -6830,7 +6721,6 @@
         <value xml:lang="fr">Vénézuela</value>
         <value xml:lang="it">Venezuela</value>
         <value xml:lang="pt">Venezuela</value>
-        <value xml:lang="pt_BR">Venezuela</value>
         <value xml:lang="ro">Venezuela</value>
         <value xml:lang="ru">Венесуэла</value>
         <value xml:lang="th">เวเนซุเอลา </value>
@@ -6886,7 +6776,6 @@
         <value xml:lang="fr">Vanuatu</value>
         <value xml:lang="it">Vanuatu</value>
         <value xml:lang="pt">Vanuatu</value>
-        <value xml:lang="pt_BR">Vanuatu</value>
         <value xml:lang="ro">Vanuatu</value>
         <value xml:lang="ru">Вануату</value>
         <value xml:lang="th">วานัวตู</value>
@@ -6936,7 +6825,6 @@
         <value xml:lang="fr">Samoa</value>
         <value xml:lang="it">Samoa</value>
         <value xml:lang="pt">Samoa</value>
-        <value xml:lang="pt_BR">Samoa</value>
         <value xml:lang="ro">Samoa</value>
         <value xml:lang="ru">Самоа</value>
         <value xml:lang="th">ซาเมา</value>
@@ -7030,7 +6918,6 @@
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="pt">Não Aplicável</value>
-        <value xml:lang="pt_BR">Não Aplicável</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
@@ -7044,7 +6931,6 @@
         <value xml:lang="fr">Ville</value>
         <value xml:lang="it">Città</value>
         <value xml:lang="pt">Cidade</value>
-        <value xml:lang="pt_BR">Cidade</value>
         <value xml:lang="ro">Oras</value>
         <value xml:lang="ru">Город</value>
         <value xml:lang="th">เมือง</value>
@@ -7058,7 +6944,6 @@
         <value xml:lang="fr">Pays</value>
         <value xml:lang="it">Paese</value>
         <value xml:lang="pt">País</value>
-        <value xml:lang="pt_BR">País</value>
         <value xml:lang="ro">Tara</value>
         <value xml:lang="ru">Страна</value>
         <value xml:lang="th">ประเทศ</value>
@@ -7100,7 +6985,6 @@
         <value xml:lang="fr">Groupe</value>
         <value xml:lang="it">Gruppo</value>
         <value xml:lang="pt">Grupo</value>
-        <value xml:lang="pt_BR">Grupo</value>
         <value xml:lang="ro">Grup</value>
         <value xml:lang="ru">Группа</value>
         <value xml:lang="th">กลุ่ม</value>
@@ -7142,7 +7026,6 @@
         <value xml:lang="fr">Région</value>
         <value xml:lang="it">Regione</value>
         <value xml:lang="pt">Região</value>
-        <value xml:lang="pt_BR">Região</value>
         <value xml:lang="ro">Regiune</value>
         <value xml:lang="ru">Область</value>
         <value xml:lang="th">ภาค</value>
@@ -7156,7 +7039,6 @@
         <value xml:lang="fr">Territoire de vente</value>
         <value xml:lang="it">Territorio di vendita</value>
         <value xml:lang="pt">Território de Vendas</value>
-        <value xml:lang="pt_BR">Território de Vendas</value>
         <value xml:lang="ro">Teritoriu Vanzari</value>
         <value xml:lang="ru">Территория продаж</value>
         <value xml:lang="th">เขตการขาย</value>
@@ -7170,7 +7052,6 @@
         <value xml:lang="fr">Territoire de service</value>
         <value xml:lang="it">Territorio servizio</value>
         <value xml:lang="pt">Território do Serviço</value>
-        <value xml:lang="pt_BR">Território do Serviço</value>
         <value xml:lang="ro">Teritoriu Serviciu</value>
         <value xml:lang="ru">Сервисная территория</value>
         <value xml:lang="th">พื้นที่บริการ</value>
@@ -7184,7 +7065,6 @@
         <value xml:lang="fr">Etat</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="pt">Estado</value>
-        <value xml:lang="pt_BR">Estado</value>
         <value xml:lang="ro">Stat</value>
         <value xml:lang="ru">Штат</value>
         <value xml:lang="th">รัฐ</value>
@@ -7198,7 +7078,6 @@
         <value xml:lang="fr">Territoire</value>
         <value xml:lang="it">Territorio</value>
         <value xml:lang="pt">Território</value>
-        <value xml:lang="pt_BR">Território</value>
         <value xml:lang="ro">Teritoriu</value>
         <value xml:lang="ru">Территория</value>
         <value xml:lang="th">พื้นที่</value>
@@ -7301,7 +7180,6 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="nl">Gannuleerd</value>
         <value xml:lang="pt">Cancelado</value>
-        <value xml:lang="pt_BR">Cancelado</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -7409,7 +7287,6 @@
         <value xml:lang="it">Invia</value>
         <value xml:lang="nl">Verzonden</value>
         <value xml:lang="pt">Enviado</value>
-        <value xml:lang="pt_BR">Enviado</value>
         <value xml:lang="ro">Trimite</value>
         <value xml:lang="ru">Отослан</value>
         <value xml:lang="th">ส่ง</value>
@@ -7424,7 +7301,6 @@
         <value xml:lang="it">Tentativo</value>
         <value xml:lang="nl">Voorlopig</value>
         <value xml:lang="pt">Tentativa</value>
-        <value xml:lang="pt_BR">Tentativa</value>
         <value xml:lang="ro">Tentativa</value>
         <value xml:lang="ru">Предварительное</value>
         <value xml:lang="th">ชั่วคราว</value>
@@ -7535,7 +7411,6 @@
         <value xml:lang="fr">Annulée</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelado</value>
-        <value xml:lang="pt_BR">Cancelado</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменено</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -7549,7 +7424,6 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="pt">Completo</value>
-        <value xml:lang="pt_BR">Completo</value>
         <value xml:lang="ro">Completat</value>
         <value xml:lang="ru">Завершено</value>
         <value xml:lang="th">เสร็จสมบูรณ์</value>
@@ -7591,7 +7465,6 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="pt">Pendente</value>
-        <value xml:lang="pt_BR">Pendente</value>
         <value xml:lang="ro">Suspendat</value>
         <value xml:lang="ru">Ожидающее</value>
         <value xml:lang="th">ยังค้างอยู่</value>
@@ -7605,7 +7478,6 @@
         <value xml:lang="fr">Référé </value>
         <value xml:lang="it">Referenziato</value>
         <value xml:lang="pt">Referido</value>
-        <value xml:lang="pt_BR">Referido</value>
         <value xml:lang="ro">Referentiat</value>
         <value xml:lang="ru">Передано</value>
         <value xml:lang="th">อ้างอิง</value>
@@ -7663,7 +7535,6 @@
         <value xml:lang="fr">Acteur inconnu</value>
         <value xml:lang="it">Soggetto sconosciuto</value>
         <value xml:lang="pt">Participante Desconhecido</value>
-        <value xml:lang="pt_BR">Participante Desconhecido</value>
         <value xml:lang="ro">Subiect Necunoscut</value>
         <value xml:lang="ru">Неизвестный участник</value>
         <value xml:lang="th">ไม่รู้จักกลุ่มผู้ใช้ทั่วไป</value>
@@ -7691,7 +7562,6 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="pt">Cancelado</value>
-        <value xml:lang="pt_BR">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -7731,7 +7601,6 @@
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="pt">Rejeitado</value>
-        <value xml:lang="pt_BR">Rejeitado</value>
         <value xml:lang="ro">Refuzata</value>
         <value xml:lang="ru">Отклонен</value>
         <value xml:lang="th">ปฏิเสธ</value>
@@ -7837,7 +7706,6 @@
         <value xml:lang="fr">Publié</value>
         <value xml:lang="it">Pubblicato</value>
         <value xml:lang="pt">Publicado</value>
-        <value xml:lang="pt_BR">Publicado</value>
         <value xml:lang="ro">Publicat</value>
         <value xml:lang="ru">Опубликован</value>
         <value xml:lang="th">ประกาศ</value>
@@ -8013,7 +7881,6 @@
         <value xml:lang="fr">Annulée</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelado</value>
-        <value xml:lang="pt_BR">Cancelado</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменено</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -8041,7 +7908,6 @@
         <value xml:lang="fr">Créée</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="pt">Criado</value>
-        <value xml:lang="pt_BR">Criado</value>
         <value xml:lang="ro">Creat</value>
         <value xml:lang="ru">Создано</value>
         <value xml:lang="th">สร้าง</value>
@@ -8313,7 +8179,6 @@
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibili</value>
         <value xml:lang="pt">Disponível</value>
-        <value xml:lang="pt_BR">Disponível</value>
         <value xml:lang="ro">Disponibil</value>
         <value xml:lang="ru">Доступна</value>
         <value xml:lang="th">มีอยู่</value>
@@ -8363,7 +8228,6 @@
         <value xml:lang="fr">Défectueux</value>
         <value xml:lang="it">Difettosa</value>
         <value xml:lang="pt">Defeituoso</value>
-        <value xml:lang="pt_BR">Defeituoso</value>
         <value xml:lang="ro">Defectuoasa</value>
         <value xml:lang="ru">Дефектная</value>
         <value xml:lang="th">มีข้อตำหนิ</value>
@@ -8377,7 +8241,6 @@
         <value xml:lang="fr">Livré</value>
         <value xml:lang="it">Consegnata</value>
         <value xml:lang="pt">Entregue</value>
-        <value xml:lang="pt_BR">Entregue</value>
         <value xml:lang="ro">Livrata</value>
         <value xml:lang="ru">Доставлена</value>
         <value xml:lang="th">การส่ง</value>
@@ -8433,7 +8296,6 @@
         <value xml:lang="fr">Réservé</value>
         <value xml:lang="it">Promessa</value>
         <value xml:lang="pt">Prometido</value>
-        <value xml:lang="pt_BR">Prometido</value>
         <value xml:lang="ro">Promis</value>
         <value xml:lang="ru">Обещана</value>
         <value xml:lang="th">สัญญา</value>
@@ -8447,7 +8309,6 @@
         <value xml:lang="fr">Retourné</value>
         <value xml:lang="it">Resa</value>
         <value xml:lang="pt">Devolvido</value>
-        <value xml:lang="pt_BR">Devolvido</value>
         <value xml:lang="ro">Returnare</value>
         <value xml:lang="ru">Возвращена</value>
         <value xml:lang="th">การกลับคืน</value>
@@ -8462,7 +8323,6 @@
         <value xml:lang="it">Approvato</value>
         <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt">Aprovado</value>
-        <value xml:lang="pt_BR">Aprovado</value>
         <value xml:lang="ro">Aprobata</value>
         <value xml:lang="ru">Утверждена</value>
         <value xml:lang="th">เห็นด้วย</value>
@@ -8477,7 +8337,6 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="nl">Gannuleerd</value>
         <value xml:lang="pt">Cancelado</value>
-        <value xml:lang="pt_BR">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменена</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -8522,7 +8381,6 @@
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="nl">Afgewezen</value>
         <value xml:lang="pt">Rejeitado</value>
-        <value xml:lang="pt_BR">Rejeitado</value>
         <value xml:lang="ro">Refuzata</value>
         <value xml:lang="ru">Отклонена</value>
         <value xml:lang="th">ปฏิเสธ</value>
@@ -8839,7 +8697,6 @@
         <value xml:lang="fr">Livraison organisée</value>
         <value xml:lang="it">Consegna preparata</value>
         <value xml:lang="pt">Entrega Combinada</value>
-        <value xml:lang="pt_BR">Entrega combinada</value>
         <value xml:lang="ro">Livrare Preparata</value>
         <value xml:lang="ru">Договоренность о доставке</value>
         <value xml:lang="th">จัดเตรียมการขนส่ง</value>
@@ -8853,7 +8710,6 @@
         <value xml:lang="fr">Livraison annulée</value>
         <value xml:lang="it">Consegna cancellata</value>
         <value xml:lang="pt">Entrega Cancelada</value>
-        <value xml:lang="pt_BR">Entrega Cancelada</value>
         <value xml:lang="ro">Livrare Stearsa</value>
         <value xml:lang="ru">Доставка отменена</value>
         <value xml:lang="th">ยกเลิกการขนส่ง</value>
@@ -9076,7 +8932,6 @@
         <value xml:lang="it">Autorizzato</value>
         <value xml:lang="nl">Geautoriseerd</value>
         <value xml:lang="pt">Autorizado</value>
-        <value xml:lang="pt_BR">Autorizado</value>
         <value xml:lang="ro">Autorizat</value>
         <value xml:lang="ru">Авторизирован</value>
         <value xml:lang="th">อนุญาต</value>
@@ -9091,7 +8946,6 @@
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="nl">Gannuleerd</value>
         <value xml:lang="pt">Cancelado</value>
-        <value xml:lang="pt_BR">Cancelado</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -9136,7 +8990,6 @@
         <value xml:lang="it">Non ricevuto</value>
         <value xml:lang="nl">Niet ontvangen</value>
         <value xml:lang="pt">Não Recebido</value>
-        <value xml:lang="pt_BR">Não recebido</value>
         <value xml:lang="ro">Ne-Primit</value>
         <value xml:lang="ru">Не получен</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
@@ -9151,7 +9004,6 @@
         <value xml:lang="it">Ricevuto</value>
         <value xml:lang="nl">Ontvangen</value>
         <value xml:lang="pt">Recebido</value>
-        <value xml:lang="pt_BR">Recebido</value>
         <value xml:lang="ro">Primit</value>
         <value xml:lang="ru">Получен</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -9241,7 +9093,6 @@
         <value xml:lang="fr">Entrée</value>
         <value xml:lang="it">Input</value>
         <value xml:lang="pt">Entrada</value>
-        <value xml:lang="pt_BR">Entrada</value>
         <value xml:lang="ro">Input</value>
         <value xml:lang="ru">Получение</value>
         <value xml:lang="th">กรอกข้อมูล</value>
@@ -9278,7 +9129,6 @@
         <value xml:lang="it">Cancellati</value>
         <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt">Cancelado</value>
-        <value xml:lang="pt_BR">Cancelado</value>
         <value xml:lang="ro">Sterse</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -9293,7 +9143,6 @@
         <value xml:lang="it">Confermati</value>
         <value xml:lang="nl">Bevestigd</value>
         <value xml:lang="pt">Confirmado</value>
-        <value xml:lang="pt_BR">Confirmado</value>
         <value xml:lang="ro">Confirmate</value>
         <value xml:lang="ru">Подтвержден</value>
         <value xml:lang="th">ยืนยัน</value>
@@ -9308,7 +9157,6 @@
         <value xml:lang="it">Non pagati</value>
         <value xml:lang="nl">Niet Betaald</value>
         <value xml:lang="pt">Não Pago</value>
-        <value xml:lang="pt_BR">Não pago</value>
         <value xml:lang="ro">Restante</value>
         <value xml:lang="ru">Не оплачен</value>
         <value xml:lang="th">ไม่จ่าย</value>
@@ -9323,7 +9171,6 @@
         <value xml:lang="it">Ricevuti</value>
         <value xml:lang="nl">Ontvangen</value>
         <value xml:lang="pt">Recebido</value>
-        <value xml:lang="pt_BR">Recebido</value>
         <value xml:lang="ro">Primite</value>
         <value xml:lang="ru">Получен</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -9338,7 +9185,6 @@
         <value xml:lang="it">Inviati</value>
         <value xml:lang="nl">Verzonden</value>
         <value xml:lang="pt">Enviado</value>
-        <value xml:lang="pt_BR">Enviado</value>
         <value xml:lang="ro">Trimise</value>
         <value xml:lang="ru">Отослан</value>
         <value xml:lang="th">ส่ง</value>
@@ -9590,7 +9436,6 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="pt">Em Execução</value>
-        <value xml:lang="pt_BR">Em execução</value>
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="ru">Выполняется</value>
         <value xml:lang="th">ดำเนินการ</value>
@@ -9682,7 +9527,6 @@
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creata</value>
         <value xml:lang="pt">Criado</value>
-        <value xml:lang="pt_BR">Criado</value>
         <value xml:lang="ro">Creata</value>
         <value xml:lang="ru">Создана</value>
         <value xml:lang="th">สร้าง</value>
@@ -9696,7 +9540,6 @@
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevuta</value>
         <value xml:lang="pt">Recebido</value>
-        <value xml:lang="pt_BR">Recebido</value>
         <value xml:lang="ro">Primita</value>
         <value xml:lang="ru">Получена</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -9710,7 +9553,6 @@
         <value xml:lang="fr">Envoyé</value>
         <value xml:lang="it">Spedita</value>
         <value xml:lang="pt">Enviado</value>
-        <value xml:lang="pt_BR">Enviado</value>
         <value xml:lang="ro">Expediata</value>
         <value xml:lang="ru">Поставлена</value>
         <value xml:lang="th">การขนส่ง</value>
@@ -9780,7 +9622,6 @@
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="pt">Aprovado</value>
-        <value xml:lang="pt_BR">Aprovado</value>
         <value xml:lang="ro">Aprobat</value>
         <value xml:lang="ru">Утверждено</value>
         <value xml:lang="th">เห็นด้วย</value>
@@ -9794,7 +9635,6 @@
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="pt">Criado</value>
-        <value xml:lang="pt_BR">Criado</value>
         <value xml:lang="ro">Creat</value>
         <value xml:lang="ru">Создано</value>
         <value xml:lang="th">สร้าง</value>
@@ -9808,7 +9648,6 @@
         <value xml:lang="fr">Commandé</value>
         <value xml:lang="it">Ordinato</value>
         <value xml:lang="pt">Encomendado</value>
-        <value xml:lang="pt_BR">Encomendado</value>
         <value xml:lang="ro">Comandat</value>
         <value xml:lang="ru">Заказано</value>
         <value xml:lang="th">คู่ลำดับ</value>
@@ -9834,7 +9673,6 @@
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="pt">Rejeitado</value>
-        <value xml:lang="pt_BR">Rejeitado</value>
         <value xml:lang="ro">Refuzat</value>
         <value xml:lang="ru">Отклонено</value>
         <value xml:lang="th">ปฏิเสธ</value>
@@ -9862,7 +9700,6 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelado</value>
-        <value xml:lang="pt_BR">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -9898,7 +9735,6 @@
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevuto</value>
         <value xml:lang="pt">Recebido</value>
-        <value xml:lang="pt_BR">Recebido</value>
         <value xml:lang="ro">Primita</value>
         <value xml:lang="ru">Получен</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -10013,7 +9849,6 @@
         <value xml:lang="fr">Annulée</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="pt">Cancelado</value>
-        <value xml:lang="pt_BR">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменена</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -10027,7 +9862,6 @@
         <value xml:lang="fr">Livrée</value>
         <value xml:lang="it">Consegnata</value>
         <value xml:lang="pt">Entregue</value>
-        <value xml:lang="pt_BR">Entregue</value>
         <value xml:lang="ro">Livrata</value>
         <value xml:lang="ru">Доставлена</value>
         <value xml:lang="th">การส่งของ</value>
@@ -10069,7 +9903,6 @@
         <value xml:lang="fr">Prélevée</value>
         <value xml:lang="it">Prelevata</value>
         <value xml:lang="pt">Recolhido</value>
-        <value xml:lang="pt_BR">Recolhido</value>
         <value xml:lang="ro">Preluata</value>
         <value xml:lang="ru">Сортировка</value>
         <value xml:lang="th">เลือก</value>
@@ -10083,7 +9916,6 @@
         <value xml:lang="fr">Plannifiée</value>
         <value xml:lang="it">Schedulata</value>
         <value xml:lang="pt">Agendado</value>
-        <value xml:lang="pt_BR">Agendado</value>
         <value xml:lang="ro">Planificata</value>
         <value xml:lang="ru">Запланировано</value>
         <value xml:lang="th">ตารางเวลา</value>
@@ -10097,7 +9929,6 @@
         <value xml:lang="fr">Expédiée</value>
         <value xml:lang="it">Spedita</value>
         <value xml:lang="pt">Enviado</value>
-        <value xml:lang="pt_BR">Enviado</value>
         <value xml:lang="ro">Expediata</value>
         <value xml:lang="ru">Поставлена</value>
         <value xml:lang="th">การขนส่ง</value>
@@ -10192,7 +10023,6 @@
         <value xml:lang="it">Sincronizzato</value>
         <value xml:lang="nl">Gesynchroniseerd</value>
         <value xml:lang="pt">Sincronizado</value>
-        <value xml:lang="pt_BR">Sincronizado</value>
         <value xml:lang="ro">Sincronizat</value>
         <value xml:lang="ru">Синхронизирован</value>
         <value xml:lang="th">เกิดขึ้นเวลาเดียวกัน</value>
@@ -10251,7 +10081,6 @@
         <value xml:lang="fr">Rejetée</value>
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="pt">Rejeitado</value>
-        <value xml:lang="pt_BR">Rejeitado</value>
         <value xml:lang="ro">Refuzat</value>
         <value xml:lang="ru">Отклонено</value>
         <value xml:lang="th">ปฏิเสธ</value>
@@ -10392,7 +10221,6 @@
         <value xml:lang="fr">Echoué</value>
         <value xml:lang="it">Abortito</value>
         <value xml:lang="pt">Abortado</value>
-        <value xml:lang="pt_BR">Abortado</value>
         <value xml:lang="ro">Abandonat</value>
         <value xml:lang="ru">Прерван</value>
         <value xml:lang="th">ไม่เป็นผล</value>
@@ -10434,7 +10262,6 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="pt">Em Execução</value>
-        <value xml:lang="pt_BR">Em execução</value>
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="ru">Выполняется</value>
         <value xml:lang="th">ดำเนินการ</value>
@@ -10448,7 +10275,6 @@
         <value xml:lang="fr">Suspendu</value>
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="pt">Suspenso</value>
-        <value xml:lang="pt_BR">Suspenso</value>
         <value xml:lang="ro">Suspendat</value>
         <value xml:lang="ru">Приостановлен</value>
         <value xml:lang="th">ระงับชั่วคราว</value>
@@ -10462,7 +10288,6 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Terminato</value>
         <value xml:lang="pt">Terminado</value>
-        <value xml:lang="pt_BR">Terminado</value>
         <value xml:lang="ro">Terminat</value>
         <value xml:lang="ru">Прекращен</value>
         <value xml:lang="th">ไม่ชัดแจ้ง</value>
@@ -10587,7 +10412,6 @@
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="nl">Niet van toepassing</value>
         <value xml:lang="pt">Não Aplicável</value>
-        <value xml:lang="pt_BR">Não Aplicável</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
@@ -10601,7 +10425,6 @@
         <value xml:lang="it">Calendario</value>
         <value xml:lang="nl">Kalender</value>
         <value xml:lang="pt">Calendário</value>
-        <value xml:lang="pt_BR">Calendário</value>
         <value xml:lang="ro">Calendar</value>
         <value xml:lang="ru">Календарь</value>
         <value xml:lang="th">ปฏิทิน</value>
@@ -10615,7 +10438,6 @@
         <value xml:lang="fr">Evènement de communication</value>
         <value xml:lang="it">Evento comunicazione</value>
         <value xml:lang="pt">Evento de Comunicação</value>
-        <value xml:lang="pt_BR">Evento de Comunicação</value>
         <value xml:lang="ro">Eveniment Comunicatie</value>
         <value xml:lang="ru">Коммуникационное событие</value>
         <value xml:lang="th">ผลที่ได้จากการติดต่อสื่อสาร</value>
@@ -10643,7 +10465,6 @@
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="pt">Conteúdo</value>
-        <value xml:lang="pt_BR">Conteúdo</value>
         <value xml:lang="ro">Continut</value>
         <value xml:lang="ru">Контент</value>
         <value xml:lang="th">หัวข้อ</value>
@@ -10671,7 +10492,6 @@
         <value xml:lang="fr">Evènement</value>
         <value xml:lang="it">Evento</value>
         <value xml:lang="pt">Evento</value>
-        <value xml:lang="pt_BR">Evento</value>
         <value xml:lang="ro">Eveniment</value>
         <value xml:lang="ru">Событие</value>
         <value xml:lang="th">ผลที่ได้</value>
@@ -10699,7 +10519,6 @@
         <value xml:lang="fr">Ligne de stock</value>
         <value xml:lang="it">Riga inventario</value>
         <value xml:lang="pt">Item de Inventário</value>
-        <value xml:lang="pt_BR">Item de inventário</value>
         <value xml:lang="ro">Linie Inventar</value>
         <value xml:lang="ru">Позиция ТМЦ</value>
         <value xml:lang="th">รายการสินค้าคงเหลือ</value>
@@ -10713,7 +10532,6 @@
         <value xml:lang="fr">Transfert de stock</value>
         <value xml:lang="it">Inventario per trasferimenti</value>
         <value xml:lang="pt">Transferência de Inventário</value>
-        <value xml:lang="pt_BR">Transferência de Inventário</value>
         <value xml:lang="ro">Inventar x Trasferari</value>
         <value xml:lang="ru">Перемещение ТМЦ</value>
         <value xml:lang="th">การขนย้ายสินค้าคงเหลือ</value>
@@ -10768,7 +10586,6 @@
         <value xml:lang="fr">Campagne de marketing</value>
         <value xml:lang="it">Campagna di vendita</value>
         <value xml:lang="pt">Campanha de Marketing</value>
-        <value xml:lang="pt_BR">Campanha de Marketing</value>
         <value xml:lang="ro">Campanie Vanzare</value>
         <value xml:lang="ru">Маркетинговая компания</value>
         <value xml:lang="th">แผนการตลาด</value>
@@ -10842,7 +10659,6 @@
         <value xml:lang="it">Preferenze pagamento</value>
         <value xml:lang="nl">Betalingsvoorkeuren</value>
         <value xml:lang="pt">Preferência de Pagamento</value>
-        <value xml:lang="pt_BR">Preferência de Pagamento</value>
         <value xml:lang="ro">Preferinte Plata</value>
         <value xml:lang="ru">Предпочтения платежа</value>
         <value xml:lang="th">การอ้างอิงการชำระเงิน</value>
@@ -10898,7 +10714,6 @@
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="pt">Participante</value>
-        <value xml:lang="pt_BR">Participante</value>
         <value xml:lang="ro">Subiect</value>
         <value xml:lang="ru">Участник</value>
         <value xml:lang="th">กลุ่มผู้ใช้ทั่วไป</value>
@@ -10969,7 +10784,6 @@
         <value xml:lang="it">Sincronizza</value>
         <value xml:lang="nl">Synchroniseer</value>
         <value xml:lang="pt">Sincronizar</value>
-        <value xml:lang="pt_BR">Sincronizar</value>
         <value xml:lang="ro">Sincronizeaza</value>
         <value xml:lang="ru">Синхронизировать</value>
         <value xml:lang="th">เกิดขึ้นพร้อม ๆ กัน</value>
@@ -10983,7 +10797,6 @@
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Compito</value>
         <value xml:lang="pt">Tarefa</value>
-        <value xml:lang="pt_BR">Tarefa</value>
         <value xml:lang="ro">Sarcina</value>
         <value xml:lang="ru">Задача</value>
         <value xml:lang="th">ภารกิจ</value>
@@ -11022,7 +10835,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11050,7 +10862,6 @@
         <value xml:lang="fr">Déléguer</value>
         <value xml:lang="it">Delegato</value>
         <value xml:lang="pt">Delegar</value>
-        <value xml:lang="pt_BR">Delegar</value>
         <value xml:lang="ro">Delegat</value>
         <value xml:lang="ru">Делегировать</value>
         <value xml:lang="th">มอบหน้าที่ให้ทำการแทน</value>
@@ -11078,7 +10889,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancella</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11092,7 +10902,6 @@
         <value xml:lang="fr">Confirmer</value>
         <value xml:lang="it">Confermato</value>
         <value xml:lang="pt">Confirmar</value>
-        <value xml:lang="pt_BR">Confirmar</value>
         <value xml:lang="ro">Confirmat</value>
         <value xml:lang="ru">Подтвердить</value>
         <value xml:lang="th">ยืนยัน</value>
@@ -11106,7 +10915,6 @@
         <value xml:lang="fr">Envoyer</value>
         <value xml:lang="it">Invia</value>
         <value xml:lang="pt">Enviar</value>
-        <value xml:lang="pt_BR">Enviar</value>
         <value xml:lang="ro">Trimite</value>
         <value xml:lang="ru">Отослать</value>
         <value xml:lang="th">ส่ง</value>
@@ -11120,7 +10928,6 @@
         <value xml:lang="fr">Plan à titre d'essai</value>
         <value xml:lang="it">Piano provvisorio</value>
         <value xml:lang="pt">Plano de Tentativas</value>
-        <value xml:lang="pt_BR">Plano de tentativas</value>
         <value xml:lang="ro">Plan Provizoriu</value>
         <value xml:lang="ru">Спланировать предварительно</value>
         <value xml:lang="th">แผนการคร่าว ๆ</value>
@@ -11134,7 +10941,6 @@
         <value xml:lang="fr">Accepter</value>
         <value xml:lang="it">Accettato</value>
         <value xml:lang="pt">Aceitar</value>
-        <value xml:lang="pt_BR">Aceitar</value>
         <value xml:lang="ro">Acceptat</value>
         <value xml:lang="ru">Принять</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -11148,7 +10954,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancella</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11176,7 +10981,6 @@
         <value xml:lang="fr">Déléguer</value>
         <value xml:lang="it">Delega</value>
         <value xml:lang="pt">Delegar</value>
-        <value xml:lang="pt_BR">Delegar</value>
         <value xml:lang="ro">Deleaga</value>
         <value xml:lang="ru">Делегировать</value>
         <value xml:lang="th">มอบหน้าที่ให้ทำการแทน</value>
@@ -11190,7 +10994,6 @@
         <value xml:lang="fr">Accepter</value>
         <value xml:lang="it">Accettato</value>
         <value xml:lang="pt">Aceitar</value>
-        <value xml:lang="pt_BR">Aceitar</value>
         <value xml:lang="ro">Acceptat</value>
         <value xml:lang="ru">Принять</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -11204,7 +11007,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11218,7 +11020,6 @@
         <value xml:lang="fr">Confirmer</value>
         <value xml:lang="it">Confermato</value>
         <value xml:lang="pt">Confirmar</value>
-        <value xml:lang="pt_BR">Confirmar</value>
         <value xml:lang="ro">Confirmat</value>
         <value xml:lang="ru">Подтвердить</value>
         <value xml:lang="th">ยืนยัน</value>
@@ -11246,7 +11047,6 @@
         <value xml:lang="fr">Déléguer</value>
         <value xml:lang="it">Delegato</value>
         <value xml:lang="pt">Delegar</value>
-        <value xml:lang="pt_BR">Delegar</value>
         <value xml:lang="ro">Delegat</value>
         <value xml:lang="ru">Делегировать</value>
         <value xml:lang="th">มอบหน้าที่ให้ทำการแทน</value>
@@ -11260,7 +11060,6 @@
         <value xml:lang="fr">Rejeter</value>
         <value xml:lang="it">Rifiutata</value>
         <value xml:lang="pt">Rejeitar</value>
-        <value xml:lang="pt_BR">Rejeitar</value>
         <value xml:lang="ro">Refuzata</value>
         <value xml:lang="ru">Отклонить</value>
         <value xml:lang="th">ปฏิเสธ</value>
@@ -11274,7 +11073,6 @@
         <value xml:lang="fr">Accepter</value>
         <value xml:lang="it">Accettata</value>
         <value xml:lang="pt">Aceitar</value>
-        <value xml:lang="pt_BR">Aceitar</value>
         <value xml:lang="ro">Acceptata</value>
         <value xml:lang="ru">Принять</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -11288,7 +11086,6 @@
         <value xml:lang="fr">Rejeter</value>
         <value xml:lang="it">Rifiutata</value>
         <value xml:lang="pt">Rejeitar</value>
-        <value xml:lang="pt_BR">Rejeitar</value>
         <value xml:lang="ro">Refuzata</value>
         <value xml:lang="ru">Отклонить</value>
         <value xml:lang="th">ปฏิเสธ</value>
@@ -11302,7 +11099,6 @@
         <value xml:lang="fr">Accepter</value>
         <value xml:lang="it">Accettata</value>
         <value xml:lang="pt">Aceitar</value>
-        <value xml:lang="pt_BR">Aceitar</value>
         <value xml:lang="ro">Acceptata</value>
         <value xml:lang="ru">Принять</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -11316,7 +11112,6 @@
         <value xml:lang="fr">En attente d'acceptation</value>
         <value xml:lang="it">In attesa di accettazione</value>
         <value xml:lang="pt">Aceitação Pendente</value>
-        <value xml:lang="pt_BR">Aceitação Pendente</value>
         <value xml:lang="ro">In Asteptarea Acceptarii</value>
         <value xml:lang="ru">Ожидание принятия</value>
         <value xml:lang="th">อยู่ในระหว่างการยอมรับ</value>
@@ -11330,7 +11125,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11344,7 +11138,6 @@
         <value xml:lang="fr">Transmettre</value>
         <value xml:lang="it">Riferito</value>
         <value xml:lang="pt">Referir</value>
-        <value xml:lang="pt_BR">Referir</value>
         <value xml:lang="ro">Referinta</value>
         <value xml:lang="ru">На усмотрение</value>
         <value xml:lang="th">อ้างอิง</value>
@@ -11358,7 +11151,6 @@
         <value xml:lang="fr">Résoudre</value>
         <value xml:lang="it">Risolto</value>
         <value xml:lang="pt">Resolver</value>
-        <value xml:lang="pt_BR">Resolver</value>
         <value xml:lang="ro">Soluzionat</value>
         <value xml:lang="ru">Принять решение</value>
         <value xml:lang="th">แก้ปัญหา</value>
@@ -11372,7 +11164,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11400,7 +11191,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11428,7 +11218,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11470,7 +11259,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11484,7 +11272,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11526,7 +11313,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11554,7 +11340,6 @@
         <value xml:lang="fr">Annuler la requête</value>
         <value xml:lang="it">Richiesta cancellata</value>
         <value xml:lang="pt">Cancelar Pedido</value>
-        <value xml:lang="pt_BR">Cancelar Pedido</value>
         <value xml:lang="ro">Cerere Stearsa</value>
         <value xml:lang="ru">Отменить запрос</value>
         <value xml:lang="th">ยกเลิกคำร้อง</value>
@@ -11582,7 +11367,6 @@
         <value xml:lang="fr">Annuler la demande</value>
         <value xml:lang="it">Richiesta cancellata</value>
         <value xml:lang="pt">Cancelar Pedido</value>
-        <value xml:lang="pt_BR">Cancelar Pedido</value>
         <value xml:lang="ro">Cerere Stearsa</value>
         <value xml:lang="ru">Отменить запрос</value>
         <value xml:lang="th">ยกเลิกคำร้อง</value>
@@ -11764,7 +11548,6 @@
         <value xml:lang="fr">Annuler l'exemple</value>
         <value xml:lang="it">Cancella esempio</value>
         <value xml:lang="pt">Cancelar Exemplo</value>
-        <value xml:lang="pt_BR">Cancelar Exemplo</value>
         <value xml:lang="ro">Sterge Exemplu</value>
         <value xml:lang="ru">Отменить образец</value>
         <value xml:lang="th">ยกเลิกตัวอย่าง</value>
@@ -11792,7 +11575,6 @@
         <value xml:lang="fr">Approuver</value>
         <value xml:lang="it">Approva</value>
         <value xml:lang="pt">Aprovar</value>
-        <value xml:lang="pt_BR">Aprovar</value>
         <value xml:lang="ro">Aproba</value>
         <value xml:lang="ru">Утвердить</value>
         <value xml:lang="th">เห็นด้วย</value>
@@ -11806,7 +11588,6 @@
         <value xml:lang="fr">Annuler l'exemple</value>
         <value xml:lang="it">Cancella esempio</value>
         <value xml:lang="pt">Cancelar Exemplo</value>
-        <value xml:lang="pt_BR">Cancelar Exemplo</value>
         <value xml:lang="ro">Sterge Exemplu</value>
         <value xml:lang="ru">Отменить образец</value>
         <value xml:lang="th">ยกเลิกตัวอย่าง</value>
@@ -11820,7 +11601,6 @@
         <value xml:lang="fr">Annuler l'exemple</value>
         <value xml:lang="it">Cancella esempio</value>
         <value xml:lang="pt">Cancelar Exemplo</value>
-        <value xml:lang="pt_BR">Cancelar Exemplo</value>
         <value xml:lang="ro">Sterge Exemplu</value>
         <value xml:lang="ru">Отменить образец</value>
         <value xml:lang="th">ยกเลิกตัวอย่าง</value>
@@ -11848,7 +11628,6 @@
         <value xml:lang="fr">Annuler l'exemple</value>
         <value xml:lang="it">Cancellato esempio</value>
         <value xml:lang="pt">Cancelar Exemplo</value>
-        <value xml:lang="pt_BR">Cancelar Exemplo</value>
         <value xml:lang="ro">Sterge Exemplu</value>
         <value xml:lang="ru">Отменить образец</value>
         <value xml:lang="th">ยกเลิกตัวอย่าง</value>
@@ -11876,7 +11655,6 @@
         <value xml:lang="fr">Annuler l'exemple</value>
         <value xml:lang="it">Cancellato esempio</value>
         <value xml:lang="pt">Cancelar Exemplo</value>
-        <value xml:lang="pt_BR">Cancelar Exemplo</value>
         <value xml:lang="ro">Sterge Exemplu</value>
         <value xml:lang="ru">Отменить образец</value>
         <value xml:lang="th">ยกเลิกตัวอย่าง</value>
@@ -11920,7 +11698,6 @@
         <value xml:lang="it">Inviata</value>
         <value xml:lang="nl">Verzenden</value>
         <value xml:lang="pt">Enviar</value>
-        <value xml:lang="pt_BR">Enviar</value>
         <value xml:lang="ro">Trimisa</value>
         <value xml:lang="ru">Отослать</value>
         <value xml:lang="th">ส่ง</value>
@@ -11935,7 +11712,6 @@
         <value xml:lang="it">Approvata</value>
         <value xml:lang="nl">Goedkeuren</value>
         <value xml:lang="pt">Aprovar</value>
-        <value xml:lang="pt_BR">Aprovar</value>
         <value xml:lang="ro">Aprobata</value>
         <value xml:lang="ru">Утвердить</value>
         <value xml:lang="th">เห็นด้วย</value>
@@ -11950,7 +11726,6 @@
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="nl">Annuleren</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11980,7 +11755,6 @@
         <value xml:lang="it">Ricevuta</value>
         <value xml:lang="nl">Ontvangen</value>
         <value xml:lang="pt">Receber</value>
-        <value xml:lang="pt_BR">Receber</value>
         <value xml:lang="ro">Primita</value>
         <value xml:lang="ru">Получить</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -11995,7 +11769,6 @@
         <value xml:lang="it">Inviata</value>
         <value xml:lang="nl">Verzonden</value>
         <value xml:lang="pt">Enviar</value>
-        <value xml:lang="pt_BR">Enviar</value>
         <value xml:lang="ro">Trimisa</value>
         <value xml:lang="ru">Отослать</value>
         <value xml:lang="th">ส่ง</value>
@@ -12010,7 +11783,6 @@
         <value xml:lang="it">Pagata</value>
         <value xml:lang="nl">Betaald</value>
         <value xml:lang="pt">Pagar</value>
-        <value xml:lang="pt_BR">Pagar</value>
         <value xml:lang="ro">Platita</value>
         <value xml:lang="ru">Оплатить</value>
         <value xml:lang="th">จ่าย</value>
@@ -12040,7 +11812,6 @@
         <value xml:lang="it">Approvata</value>
         <value xml:lang="nl">Goedkeuren</value>
         <value xml:lang="pt">Aprovar</value>
-        <value xml:lang="pt_BR">Aprovar</value>
         <value xml:lang="ro">Aprobata</value>
         <value xml:lang="ru">Утвердить</value>
         <value xml:lang="th">เห็นด้วย</value>
@@ -12055,7 +11826,6 @@
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="nl">Annuleren</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Cancellata</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -12100,7 +11870,6 @@
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="nl">Annuleren</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -12145,7 +11914,6 @@
         <value xml:lang="it">Ricevuta</value>
         <value xml:lang="nl">Ontvangen</value>
         <value xml:lang="pt">Receber</value>
-        <value xml:lang="pt_BR">Receber</value>
         <value xml:lang="ro">Primita</value>
         <value xml:lang="ru">Получить</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -12175,7 +11943,6 @@
         <value xml:lang="it">Marcato come difettoso</value>
         <value xml:lang="nl">Als defect aanmerken</value>
         <value xml:lang="pt">Marcar Como Defeituoso</value>
-        <value xml:lang="pt_BR">Marcar como defeituoso</value>
         <value xml:lang="ro">Marcat Defectuos</value>
         <value xml:lang="ru">Пометить дефектным</value>
         <value xml:lang="th">ขาดการทำเครื่องหมาย</value>
@@ -12235,7 +12002,6 @@
         <value xml:lang="it">Reso disponibile</value>
         <value xml:lang="nl">Retour beschikbaar</value>
         <value xml:lang="pt">Devolução Disponível</value>
-        <value xml:lang="pt_BR">Devolução Disponível</value>
         <value xml:lang="ro">Returnare Disponibila</value>
         <value xml:lang="ru">Возврат доступен</value>
         <value xml:lang="th">การคืนค่าที่มีอยู่</value>
@@ -12250,7 +12016,6 @@
         <value xml:lang="it">Stato reso sospeso</value>
         <value xml:lang="nl">Retourstatus wachtend</value>
         <value xml:lang="pt">Estado de Devolução Pendente</value>
-        <value xml:lang="pt_BR">Estado de devolução pendente</value>
         <value xml:lang="ro">Stadiu Returnare Suspendata</value>
         <value xml:lang="ru">Ожидание статуса возврата</value>
         <value xml:lang="th">ในระหว่างการคืนค่าสถานะ</value>
@@ -12310,7 +12075,6 @@
         <value xml:lang="it">Marcato come difettoso</value>
         <value xml:lang="nl">Als defect aanmerken</value>
         <value xml:lang="pt">Marcar Como Defeituoso</value>
-        <value xml:lang="pt_BR">Marcar como defeituoso</value>
         <value xml:lang="ro">Marcat Defectuos</value>
         <value xml:lang="ru">Пометить дефектным</value>
         <value xml:lang="th">ขาดการทำเครื่องหมาย</value>
@@ -12325,7 +12089,6 @@
         <value xml:lang="it">Consegnato</value>
         <value xml:lang="nl">Leveren</value>
         <value xml:lang="pt">Entregar</value>
-        <value xml:lang="pt_BR">Entregar</value>
         <value xml:lang="ro">Livrata</value>
         <value xml:lang="ru">Доставить</value>
         <value xml:lang="th">การส่ง</value>
@@ -12340,7 +12103,6 @@
         <value xml:lang="it">Marcato reso disponibile</value>
         <value xml:lang="nl">Retourzending beschikbaar stellen</value>
         <value xml:lang="pt">Fazer Devolução Disponível</value>
-        <value xml:lang="pt_BR">Fazer devolução disponível</value>
         <value xml:lang="ro">Marcat Returnare Disponibila</value>
         <value xml:lang="ru">Пометить возврат доступным</value>
         <value xml:lang="th">การคืนค่าเตื่องหมายที่มีอยู่</value>
@@ -12370,7 +12132,6 @@
         <value xml:lang="it">Cancella riga</value>
         <value xml:lang="nl">Annuleren regel</value>
         <value xml:lang="pt">Cancelar Item</value>
-        <value xml:lang="pt_BR">Cancelar Item</value>
         <value xml:lang="ro">Sterge Linie</value>
         <value xml:lang="ru">Отменить позицию</value>
         <value xml:lang="th">ยกเลิกรายการ</value>
@@ -12400,7 +12161,6 @@
         <value xml:lang="it">Approva riga</value>
         <value xml:lang="nl">Goedkeuren regel</value>
         <value xml:lang="pt">Aprovar Item</value>
-        <value xml:lang="pt_BR">Aprovar Item</value>
         <value xml:lang="ro">Aproba Linie</value>
         <value xml:lang="ru">Утвердить позицию</value>
         <value xml:lang="th">รายการเห็นด้วย</value>
@@ -12415,7 +12175,6 @@
         <value xml:lang="it">Cancella riga</value>
         <value xml:lang="nl">Annuleren regel</value>
         <value xml:lang="pt">Cancelar Item</value>
-        <value xml:lang="pt_BR">Cancelar Item</value>
         <value xml:lang="ro">Sterge Linie</value>
         <value xml:lang="ru">Отменить позицию</value>
         <value xml:lang="th">รายการยกเลิก</value>
@@ -12430,7 +12189,6 @@
         <value xml:lang="it">Rifiuta riga</value>
         <value xml:lang="nl">Afwijzen regel</value>
         <value xml:lang="pt">Rejeitar Item</value>
-        <value xml:lang="pt_BR">Rejeitar Item</value>
         <value xml:lang="ro">Refuza Linie</value>
         <value xml:lang="ru">Отклонить позицию</value>
         <value xml:lang="th">รายการปฏิเสธ</value>
@@ -12457,7 +12215,6 @@
         <value xml:lang="fr">Demande d'inventaire annulée</value>
         <value xml:lang="it">Richiesta inventario cancellata</value>
         <value xml:lang="pt">Pedido de Inventário Cancelado</value>
-        <value xml:lang="pt_BR">Pedido de Inventário Cancelado</value>
         <value xml:lang="ro">Cerere Inventar Stearsa</value>
         <value xml:lang="ru">Запрос ТМЦ отменен</value>
         <value xml:lang="th">ยกเลิกคำร้องสินค้าคงเหลือ</value>
@@ -12549,7 +12306,6 @@
         <value xml:lang="fr">Annuler la campagne de marketing</value>
         <value xml:lang="it">Cancella campagna di vendita</value>
         <value xml:lang="pt">Cancelar Campanha de Marketing</value>
-        <value xml:lang="pt_BR">Cancelar Campanha de Marketing</value>
         <value xml:lang="ro">Sterge Campania Vanzare</value>
         <value xml:lang="ru">Отменить маркетинговую компанию</value>
         <value xml:lang="th">ยกเลิกแผนการตลาด</value>
@@ -12577,7 +12333,6 @@
         <value xml:lang="fr">Annuler la campagne de marketing</value>
         <value xml:lang="it">Cancella campagna di vendita</value>
         <value xml:lang="pt">Cancelar Campanha de Marketing</value>
-        <value xml:lang="pt_BR">Cancelar Campanha de Marketing</value>
         <value xml:lang="ro">Sterge Campania Vanzare</value>
         <value xml:lang="ru">Отменить маркетинговую компанию</value>
         <value xml:lang="th">ยกเลิกแผนการตลาด</value>
@@ -12605,7 +12360,6 @@
         <value xml:lang="fr">Approuver la campagne de marketing</value>
         <value xml:lang="it">Approva campagna di vendita</value>
         <value xml:lang="pt">Aprovar Campanha de Marketing</value>
-        <value xml:lang="pt_BR">Aprovar Campanha de Marketing</value>
         <value xml:lang="ro">Aproba Campania Vanzare</value>
         <value xml:lang="ru">Утвердить маркетинговую компанию</value>
         <value xml:lang="th">เห็นด้วยกับแผนการตลาด</value>
@@ -12619,7 +12373,6 @@
         <value xml:lang="fr">Annuler la campagne de marketing</value>
         <value xml:lang="it">Cancella campagna di vendita</value>
         <value xml:lang="pt">Cancelar Campanha de Marketing</value>
-        <value xml:lang="pt_BR">Cancelar Campanha de Marketing</value>
         <value xml:lang="ro">Sterge Campania Vanzare</value>
         <value xml:lang="ru">Отменить маркетинговую компанию</value>
         <value xml:lang="th">ยกเลิกแผนการตลาด</value>
@@ -12647,7 +12400,6 @@
         <value xml:lang="fr">Annuler la livraison</value>
         <value xml:lang="it">Cancella consegna</value>
         <value xml:lang="pt">Cancelar Entrega</value>
-        <value xml:lang="pt_BR">Cancelar Entrega</value>
         <value xml:lang="ro">Sterge Livrare</value>
         <value xml:lang="ru">Отменить доставку</value>
         <value xml:lang="th">ยกเลิกการส่งของ</value>
@@ -12675,7 +12427,6 @@
         <value xml:lang="fr">Annuler la livraison</value>
         <value xml:lang="it">Cancella consegna</value>
         <value xml:lang="pt">Cancelar Entrega</value>
-        <value xml:lang="pt_BR">Cancelar Entrega</value>
         <value xml:lang="ro">Sterge Livrare </value>
         <value xml:lang="ru">Отменить доставку</value>
         <value xml:lang="th">ยกเลิกการส่งของ</value>
@@ -12689,7 +12440,6 @@
         <value xml:lang="fr">Annuler la livraison</value>
         <value xml:lang="it">Cancella consegna</value>
         <value xml:lang="pt">Cancelar Entrega</value>
-        <value xml:lang="pt_BR">Cancelar Entrega</value>
         <value xml:lang="ro">Sterge Livrare </value>
         <value xml:lang="ru">Отменить доставку</value>
         <value xml:lang="th">ยกเลิกการส่งของ</value>
@@ -12703,7 +12453,6 @@
         <value xml:lang="fr">Accepter l'information de la livraison</value>
         <value xml:lang="it">Accetta informazioni consegna</value>
         <value xml:lang="pt">Aceitar Informação de Entrega</value>
-        <value xml:lang="pt_BR">Aceitar Informação de entrega</value>
         <value xml:lang="ro">Accepta Informatii Livrare</value>
         <value xml:lang="ru">Подтвердить информацию о доставке</value>
         <value xml:lang="th">เห็นด้วยกับข้อมูลการส่งของ</value>
@@ -12717,7 +12466,6 @@
         <value xml:lang="fr">Annuler la livraison</value>
         <value xml:lang="it">Cancella consegna</value>
         <value xml:lang="pt">Cancelar Entrega</value>
-        <value xml:lang="pt_BR">Cancelar Entrega</value>
         <value xml:lang="ro">Sterge Livrare</value>
         <value xml:lang="ru">Отменить доставку</value>
         <value xml:lang="th">ยกเลิกการส่งของ</value>
@@ -12984,7 +12732,6 @@
         <value xml:lang="it">Pagamento cancellato</value>
         <value xml:lang="nl">Betaling geannuleerd</value>
         <value xml:lang="pt">Pagamento Cancelado</value>
-        <value xml:lang="pt_BR">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
         <value xml:lang="th">ยกเลิกการชำระเงิน</value>
@@ -13014,7 +12761,6 @@
         <value xml:lang="it">Pagamento autorizzato</value>
         <value xml:lang="nl">Betaling geautoriseerd</value>
         <value xml:lang="pt">Pagamento Autorizado</value>
-        <value xml:lang="pt_BR">Pagamento Autorizado</value>
         <value xml:lang="ro">Plata Autorizata</value>
         <value xml:lang="ru">Платеж авторизирован</value>
         <value xml:lang="th">อนุญาตการชำระเงิน</value>
@@ -13029,7 +12775,6 @@
         <value xml:lang="it">Pagamento cancellato</value>
         <value xml:lang="nl">Betaling geannuleerd</value>
         <value xml:lang="pt">Pagamento Cancelado</value>
-        <value xml:lang="pt_BR">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
         <value xml:lang="th">ยกเลิกการชำระเงิน</value>
@@ -13044,7 +12789,6 @@
         <value xml:lang="it">Pagamento cancellato</value>
         <value xml:lang="nl">Betaling geannuleerd</value>
         <value xml:lang="pt">Pagamento Cancelado</value>
-        <value xml:lang="pt_BR">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
         <value xml:lang="th">ยกเลิกการชำระเงิน</value>
@@ -13059,7 +12803,6 @@
         <value xml:lang="it">Pagamento ricevuto</value>
         <value xml:lang="nl">Betaling ontvangen</value>
         <value xml:lang="pt">Pagamento Recebido</value>
-        <value xml:lang="pt_BR">Pagamento Recebido</value>
         <value xml:lang="ro">Plata Primita</value>
         <value xml:lang="ru">Платеж получен</value>
         <value xml:lang="th">ยอมรับการชำระเงิน</value>
@@ -13073,7 +12816,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancella</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -13087,7 +12829,6 @@
         <value xml:lang="fr">Prélever</value>
         <value xml:lang="it">Preleva</value>
         <value xml:lang="pt">Recolher</value>
-        <value xml:lang="pt_BR">Recolher</value>
         <value xml:lang="ro">Preleva</value>
         <value xml:lang="ru">Сортировать</value>
         <value xml:lang="th">เลือก</value>
@@ -13107,7 +12848,6 @@
         <value xml:lang="fr">Attribuer</value>
         <value xml:lang="it">Assegna</value>
         <value xml:lang="pt">Atribuir</value>
-        <value xml:lang="pt_BR">Atribuir</value>
         <value xml:lang="ro">Atribuie</value>
         <value xml:lang="ru">Назначить</value>
         <value xml:lang="th">มอบหมาย</value>
@@ -13121,7 +12861,6 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancella</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -13135,7 +12874,6 @@
         <value xml:lang="fr">Prélever</value>
         <value xml:lang="it">Preleva</value>
         <value xml:lang="pt">Recolher</value>
-        <value xml:lang="pt_BR">Recolher</value>
         <value xml:lang="ro">Preluare</value>
         <value xml:lang="ru">Сортировать</value>
         <value xml:lang="th">เลือก</value>
@@ -13168,7 +12906,6 @@
         <value xml:lang="it">Pagamento cancellato</value>
         <value xml:lang="nl">Betaling geannuleerd</value>
         <value xml:lang="pt">Pagamento Cancelado</value>
-        <value xml:lang="pt_BR">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
         <value xml:lang="th">ยกเลิกการชำระเงิน</value>
@@ -13183,7 +12920,6 @@
         <value xml:lang="it">Pagamento ricevuto</value>
         <value xml:lang="nl">Betaling ontvangen</value>
         <value xml:lang="pt">Pagamento Recebido</value>
-        <value xml:lang="pt_BR">Pagamento Recebido</value>
         <value xml:lang="ro">Plata Primita</value>
         <value xml:lang="ru">Платеж получен</value>
         <value xml:lang="th">ยอมรับการชำระเงิน</value>
@@ -13198,7 +12934,6 @@
         <value xml:lang="it">Pagamento inviato</value>
         <value xml:lang="nl">Betaling verstuurd</value>
         <value xml:lang="pt">Pagamento Enviado</value>
-        <value xml:lang="pt_BR">Pagamento Enviado</value>
         <value xml:lang="ro">Plata Trimisa</value>
         <value xml:lang="ru">Платеж отослан</value>
         <value xml:lang="th">ส่งการชำระเงิน</value>
@@ -13213,7 +12948,6 @@
         <value xml:lang="it">Pagamento confermato</value>
         <value xml:lang="nl">Betaling bevestigd</value>
         <value xml:lang="pt">Pagamento Confirmado</value>
-        <value xml:lang="pt_BR">Pagamento confirmado</value>
         <value xml:lang="ro">Plata Confirmata</value>
         <value xml:lang="ru">Платеж подтвержден</value>
         <value xml:lang="th">ยืนยันการชำระเงิน</value>
@@ -13228,7 +12962,6 @@
         <value xml:lang="it">Pagamento confermato</value>
         <value xml:lang="nl">Betaling bevestigd</value>
         <value xml:lang="pt">Pagamento Confirmado</value>
-        <value xml:lang="pt_BR">Pagamento confirmado</value>
         <value xml:lang="ro">Plata Confirmata</value>
         <value xml:lang="ru">Платеж подтвержден</value>
         <value xml:lang="th">ยืนยันการชำระเงิน</value>
@@ -13256,7 +12989,6 @@
         <value xml:lang="fr">Révision approuvée</value>
         <value xml:lang="it">Recensione approvata</value>
         <value xml:lang="pt">Revisão Aprovada</value>
-        <value xml:lang="pt_BR">Revisão Aprovada</value>
         <value xml:lang="ro">Recenzie Aprobata</value>
         <value xml:lang="ru">Отзыв утвержден</value>
         <value xml:lang="th">ยอมรับการตรวจสอบ</value>
@@ -13284,7 +13016,6 @@
         <value xml:lang="fr">Révision</value>
         <value xml:lang="it">Ricevuto</value>
         <value xml:lang="pt">Receber</value>
-        <value xml:lang="pt_BR">Receber</value>
         <value xml:lang="ro">Primit</value>
         <value xml:lang="ru">Получить</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -13312,7 +13043,6 @@
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevuto</value>
         <value xml:lang="pt">Receber</value>
-        <value xml:lang="pt_BR">Receber</value>
         <value xml:lang="ro">Primit</value>
         <value xml:lang="ru">Получить</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -13529,7 +13259,6 @@
         <value xml:lang="it">Cancellare</value>
         <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Stergere</value>
         <value xml:lang="ru">Отмена</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -13589,7 +13318,6 @@
         <value xml:lang="it">Cancellare</value>
         <value xml:lang="nl">Annuleren</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Stergere</value>
         <value xml:lang="ru">Отмена</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -13619,7 +13347,6 @@
         <value xml:lang="it">Cancellare</value>
         <value xml:lang="nl">Annuleren</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Stergere</value>
         <value xml:lang="ru">Отмена</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -13649,7 +13376,6 @@
         <value xml:lang="it">Cancellare</value>
         <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt">Cancelar</value>
-        <value xml:lang="pt_BR">Cancelar</value>
         <value xml:lang="ro">Stergere</value>
         <value xml:lang="ru">Отмена</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -13694,7 +13420,6 @@
         <value xml:lang="it">Consegna</value>
         <value xml:lang="nl">Geleverd</value>
         <value xml:lang="pt">Entregar</value>
-        <value xml:lang="pt_BR">Entregar</value>
         <value xml:lang="ro">Consegna</value>
         <value xml:lang="ru">Доставка</value>
         <value xml:lang="th">การส่งของ</value>
@@ -13723,7 +13448,6 @@
         <value xml:lang="it">Accettato</value>
         <value xml:lang="nl">Accepteren</value>
         <value xml:lang="pt">Aceitar</value>
-        <value xml:lang="pt_BR">Aceitar</value>
         <value xml:lang="ro">Acceptat</value>
         <value xml:lang="ru">Принять</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -13782,7 +13506,6 @@
         <value xml:lang="it">Abortire</value>
         <value xml:lang="nl">Afbreken</value>
         <value xml:lang="pt">Abortar</value>
-        <value xml:lang="pt_BR">Abortar</value>
         <value xml:lang="ro">Abandonare</value>
         <value xml:lang="ru">Прервать</value>
         <value xml:lang="th">ไม่เป็นผล</value>
@@ -13812,7 +13535,6 @@
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="nl">Opschorten</value>
         <value xml:lang="pt">Suspender</value>
-        <value xml:lang="pt_BR">Suspender</value>
         <value xml:lang="ro">Suspendat</value>
         <value xml:lang="ru">Приостановить</value>
         <value xml:lang="th">ระงับชั่วคราว</value>
@@ -13827,7 +13549,6 @@
         <value xml:lang="it">Terminato</value>
         <value xml:lang="nl">Beëindigen</value>
         <value xml:lang="pt">Terminar</value>
-        <value xml:lang="pt_BR">Terminar</value>
         <value xml:lang="ro">Terminat</value>
         <value xml:lang="ru">Прекратить</value>
         <value xml:lang="th">สิ้นสุด</value>
@@ -13961,7 +13682,6 @@
         <value xml:lang="it">Acro</value>
         <value xml:lang="nl">Acre (oppervlakte 5 000 m²)</value>
         <value xml:lang="pt">Acre</value>
-        <value xml:lang="pt_BR">Acre</value>
         <value xml:lang="ro">Acru</value>
         <value xml:lang="ru">Акр</value>
         <value xml:lang="th">Acre</value>
@@ -13976,7 +13696,6 @@
         <value xml:lang="it">Are</value>
         <value xml:lang="nl">Are (10m x 10m = 100m²)</value>
         <value xml:lang="pt">Are</value>
-        <value xml:lang="pt_BR">Are</value>
         <value xml:lang="ro">Ar</value>
         <value xml:lang="ru">Ар</value>
         <value xml:lang="th">Are</value>
@@ -13991,7 +13710,6 @@
         <value xml:lang="it">Centimetro quadrato</value>
         <value xml:lang="nl">Vierkante centimeter (cm²)</value>
         <value xml:lang="pt">Centímetro Quadrado</value>
-        <value xml:lang="pt_BR">Centímetro quadrado</value>
         <value xml:lang="ro">Centimetru Patrat</value>
         <value xml:lang="ru">Кв. сантиметр</value>
         <value xml:lang="th">ตารางเซนติเมตร</value>
@@ -14006,7 +13724,6 @@
         <value xml:lang="it">Piede quadrato</value>
         <value xml:lang="nl">Vierkante voet (30,48 cm²)</value>
         <value xml:lang="pt">Pé Quadrado</value>
-        <value xml:lang="pt_BR">Pé quadrado</value>
         <value xml:lang="ro">Picior Patrat</value>
         <value xml:lang="ru">Кв. фут</value>
         <value xml:lang="th">ตารางฟุต</value>
@@ -14021,7 +13738,6 @@
         <value xml:lang="it">Ettaro</value>
         <value xml:lang="nl">Hectare</value>
         <value xml:lang="pt">Hectare</value>
-        <value xml:lang="pt_BR">Hectare</value>
         <value xml:lang="ro">Hectar</value>
         <value xml:lang="ru">Гектар</value>
         <value xml:lang="th">เฮกตาร์</value>
@@ -14036,7 +13752,6 @@
         <value xml:lang="it">Pollice quadrato</value>
         <value xml:lang="nl">Vierkante inch (6.5 cm²)</value>
         <value xml:lang="pt">Polegada Quadrada</value>
-        <value xml:lang="pt_BR">Polegada quadrada</value>
         <value xml:lang="ro">Inch Patrat</value>
         <value xml:lang="ru">Кв. дюйм</value>
         <value xml:lang="th">ตารางนิ้ว</value>
@@ -14066,7 +13781,6 @@
         <value xml:lang="it">Metroquadro</value>
         <value xml:lang="nl">Vierkante meter (m²)</value>
         <value xml:lang="pt">Metro Quadrado</value>
-        <value xml:lang="pt_BR">Metro quadrado</value>
         <value xml:lang="ro">Metru Patrat</value>
         <value xml:lang="ru">Кв. метр</value>
         <value xml:lang="th">ตารางเมตร</value>
@@ -14081,7 +13795,6 @@
         <value xml:lang="it">Miglia quadrato</value>
         <value xml:lang="nl">Vierkante mijl (2,59 km²)</value>
         <value xml:lang="pt">Milha Quadrada</value>
-        <value xml:lang="pt_BR">Milha quadrada</value>
         <value xml:lang="ro">Mila Patrata</value>
         <value xml:lang="ru">Кв. миля</value>
         <value xml:lang="th">ตารางไมล์</value>
@@ -14096,7 +13809,6 @@
         <value xml:lang="it">Millimetro quadrato</value>
         <value xml:lang="nl">Vierkante millimeter (mm²)</value>
         <value xml:lang="pt">Milímetro Quadrado</value>
-        <value xml:lang="pt_BR">Milímetro quadrado</value>
         <value xml:lang="ro">Milimetru Patrat</value>
         <value xml:lang="ru">Кв. миллиметр</value>
         <value xml:lang="th">ตารางมิลลิเมตร</value>
@@ -14110,7 +13822,6 @@
         <value xml:lang="it">Rod quadrato</value>
         <value xml:lang="nl">Vierkante rod (1/160 hectare = 25,29285 m²)</value>
         <value xml:lang="pt">Rod Quadrado</value>
-        <value xml:lang="pt_BR">Rod quadrado</value>
         <value xml:lang="ro">Rod Patrat</value>
         <value xml:lang="ru">Кв. род</value>
         <value xml:lang="th">Square Rod</value>
@@ -14124,7 +13835,6 @@
         <value xml:lang="it">Iarda quadrato</value>
         <value xml:lang="nl">Vierkante yard (0,9144 m²)</value>
         <value xml:lang="pt">Jarda Quadrada</value>
-        <value xml:lang="pt_BR">Jarda quadrada</value>
         <value xml:lang="ro">Iard Patrat</value>
         <value xml:lang="ru">Кв. ярд</value>
         <value xml:lang="th">ตารางวา</value>
@@ -14423,7 +14133,6 @@
         <value xml:lang="fr">Saint-Domingue</value>
         <value xml:lang="it">Santo Domingo</value>
         <value xml:lang="pt">Santo Domiongo</value>
-        <value xml:lang="pt_BR">Santo Domiongo</value>
         <value xml:lang="ro">Santo Domingo</value>
         <value xml:lang="ru">Санто-Доминго</value>
         <value xml:lang="th">Santo Domiongo</value>
@@ -14463,7 +14172,6 @@
         <value xml:lang="fr">Chine</value>
         <value xml:lang="it">Cina</value>
         <value xml:lang="pt">China</value>
-        <value xml:lang="pt_BR">China</value>
         <value xml:lang="ro">Cina</value>
         <value xml:lang="ru">Китай</value>
         <value xml:lang="th">จีน</value>
@@ -14646,7 +14354,6 @@
         <value xml:lang="it">Gigabyte di Dati</value>
         <value xml:lang="nl">Data gigabytes</value>
         <value xml:lang="pt">Gigabyte de Dados</value>
-        <value xml:lang="pt_BR">Gigabyte de dados</value>
         <value xml:lang="ro">Gigabyte di Date</value>
         <value xml:lang="ru">Гигабайт</value>
         <value xml:lang="th">กิกะไบต์ของข้อมูล</value>
@@ -14661,7 +14368,6 @@
         <value xml:lang="it">Gigabit di Dati</value>
         <value xml:lang="nl">Data gigabits</value>
         <value xml:lang="pt">Gigabit de Dados</value>
-        <value xml:lang="pt_BR">Gigabit de dados</value>
         <value xml:lang="ro">Gigabit di Date</value>
         <value xml:lang="ru">Гигабит</value>
         <value xml:lang="th">กิกะบิตของข้อมูล</value>
@@ -14676,7 +14382,6 @@
         <value xml:lang="it">Kilobyte di Dati</value>
         <value xml:lang="nl">Data kilobytes</value>
         <value xml:lang="pt">Kilobyte de Dados</value>
-        <value xml:lang="pt_BR">Kilobyte de dados</value>
         <value xml:lang="ro">Kilobyte di Date</value>
         <value xml:lang="ru">Килобайт</value>
         <value xml:lang="th">กิโลไบต์ของข้อมูล</value>
@@ -14691,7 +14396,6 @@
         <value xml:lang="it">Kilobit di Dati</value>
         <value xml:lang="nl">Data kilobits</value>
         <value xml:lang="pt">Kilobit de Dados</value>
-        <value xml:lang="pt_BR">Kilobit de Dados</value>
         <value xml:lang="ro">Kilobit de Date</value>
         <value xml:lang="ru">Килобит</value>
         <value xml:lang="th">กิโลบิตของข้อมูล</value>
@@ -14706,7 +14410,6 @@
         <value xml:lang="it">Megabyte di Dati</value>
         <value xml:lang="nl">Data Megabits</value>
         <value xml:lang="pt">Megabyte de Dados</value>
-        <value xml:lang="pt_BR">Megabyte de dados</value>
         <value xml:lang="ro">Megabyte di Date</value>
         <value xml:lang="ru">Мегабайт</value>
         <value xml:lang="th">เมกกะไบต์ของข้อมูล</value>
@@ -14721,7 +14424,6 @@
         <value xml:lang="it">Megabit di Dati</value>
         <value xml:lang="nl">Data Megabits</value>
         <value xml:lang="pt">Megabit de Dados</value>
-        <value xml:lang="pt_BR">Megabit de dados</value>
         <value xml:lang="ro">Megabit di Date</value>
         <value xml:lang="ru">Мегабит</value>
         <value xml:lang="th">เมกกะบิตของข้อมูล</value>
@@ -14736,7 +14438,6 @@
         <value xml:lang="it">Petabyte di Dati</value>
         <value xml:lang="nl">Data Petabytes</value>
         <value xml:lang="pt">Petabyte de Dados</value>
-        <value xml:lang="pt_BR">Petabyte de dados</value>
         <value xml:lang="ro">Petabyte di Date</value>
         <value xml:lang="ru">Петабайт</value>
         <value xml:lang="th">เพทาไบต์ของข้อมูล</value>
@@ -14751,7 +14452,6 @@
         <value xml:lang="it">Terabyte di Dati</value>
         <value xml:lang="nl">Data terrabytes</value>
         <value xml:lang="pt">Terabyte de Dados</value>
-        <value xml:lang="pt_BR">Terabyte de dados</value>
         <value xml:lang="ro">Terabyte di Date</value>
         <value xml:lang="ru">Терабайт</value>
         <value xml:lang="th">เทราไบต์ของข้อมูล</value>
@@ -14781,7 +14481,6 @@
         <value xml:lang="it">Bit di Dati</value>
         <value xml:lang="nl">Data bits</value>
         <value xml:lang="pt">Bit de Dados</value>
-        <value xml:lang="pt_BR">Bit de dados</value>
         <value xml:lang="ro">Bit de Date</value>
         <value xml:lang="ru">Бит</value>
         <value xml:lang="th">บิตของข้อมูล</value>
@@ -14954,7 +14653,6 @@
         <value xml:lang="it">Joule (assoluti)</value>
         <value xml:lang="nl">Joule (absoluut)</value>
         <value xml:lang="pt">Joule (absoluto)</value>
-        <value xml:lang="pt_BR">Joule (absoluto)</value>
         <value xml:lang="ro">Joule (absoluti)</value>
         <value xml:lang="ru">Джоуль (абсолютный)</value>
         <value xml:lang="th">จูล (ค่าสัมบูรณ์)</value>
@@ -14999,7 +14697,6 @@
         <value xml:lang="it">Watt</value>
         <value xml:lang="nl">Watt</value>
         <value xml:lang="pt">Watt</value>
-        <value xml:lang="pt_BR">Watt</value>
         <value xml:lang="ro">Wat</value>
         <value xml:lang="ru">Ват</value>
         <value xml:lang="th">วัตต์</value>
@@ -15041,7 +14738,6 @@
         <value xml:lang="it">Euro</value>
         <value xml:lang="nl">Euro</value>
         <value xml:lang="pt">Euro</value>
-        <value xml:lang="pt_BR">Euro</value>
         <value xml:lang="ro">Euro</value>
         <value xml:lang="ru">Евро</value>
         <value xml:lang="th">ยูโร</value>
@@ -15588,7 +15284,6 @@
         <value xml:lang="it">Angstrom</value>
         <value xml:lang="nl">Angström</value>
         <value xml:lang="pt">Angstrom</value>
-        <value xml:lang="pt_BR">Angstrom</value>
         <value xml:lang="ro">Angstrom</value>
         <value xml:lang="ru">Ангстрем</value>
         <value xml:lang="th">อังสตรอม</value>
@@ -15660,7 +15355,6 @@
         <value xml:lang="it">Dekameter</value>
         <value xml:lang="nl">Dekameter</value>
         <value xml:lang="pt">Decâmetro</value>
-        <value xml:lang="pt_BR">Decâmetro</value>
         <value xml:lang="ro">Dekameter</value>
         <value xml:lang="ru">Декаметр</value>
         <value xml:lang="th">เดคาเมตร</value>
@@ -15705,7 +15399,6 @@
         <value xml:lang="it">Piede</value>
         <value xml:lang="nl">Voet (30,48 cm)</value>
         <value xml:lang="pt">Pé</value>
-        <value xml:lang="pt_BR">Pé</value>
         <value xml:lang="ro">Piede</value>
         <value xml:lang="ru">Фут</value>
         <value xml:lang="th">ฟุต</value>
@@ -15720,7 +15413,6 @@
         <value xml:lang="it">Furlong</value>
         <value xml:lang="nl">Furlong (201,168 m)</value>
         <value xml:lang="pt">Furlong</value>
-        <value xml:lang="pt_BR">Furlong</value>
         <value xml:lang="ro">Furlong</value>
         <value xml:lang="ru">Фурлонг</value>
         <value xml:lang="th">หน่วยวัดความยาวเป็นเฟอร์ลอง</value>
@@ -15749,7 +15441,6 @@
         <value xml:lang="it">Pollice</value>
         <value xml:lang="nl">Inch</value>
         <value xml:lang="pt">Polegada</value>
-        <value xml:lang="pt_BR">Polegada</value>
         <value xml:lang="ro">Inch</value>
         <value xml:lang="ru">Дюйм</value>
         <value xml:lang="th">นิ้ว</value>
@@ -15807,7 +15498,6 @@
         <value xml:lang="it">Link (Ramden's)</value>
         <value xml:lang="nl">Link (Ramden's = 0,3048 m)</value>
         <value xml:lang="pt">Link (Ramden's)</value>
-        <value xml:lang="pt_BR">Link (Ramden's)</value>
         <value xml:lang="ro">Link (Ramden's)</value>
         <value xml:lang="ru">Звено (Рамдена)</value>
         <value xml:lang="th">Link (Ramden's)</value>
@@ -15822,7 +15512,6 @@
         <value xml:lang="it">Metro</value>
         <value xml:lang="nl">Meter</value>
         <value xml:lang="pt">Metro</value>
-        <value xml:lang="pt_BR">Metro</value>
         <value xml:lang="ro">Metru</value>
         <value xml:lang="ru">Метр</value>
         <value xml:lang="th">เมตร</value>
@@ -15867,7 +15556,6 @@
         <value xml:lang="it">Millimetro</value>
         <value xml:lang="nl">Millimeter</value>
         <value xml:lang="pt">Milímetro</value>
-        <value xml:lang="pt_BR">Milímetro</value>
         <value xml:lang="ro">Milimetru</value>
         <value xml:lang="ru">Миллиметр</value>
         <value xml:lang="th">มิลลิเมตร</value>
@@ -15926,7 +15614,6 @@
         <value xml:lang="it">Rod</value>
         <value xml:lang="nl">Rod (5,0292 m)</value>
         <value xml:lang="pt">Rod</value>
-        <value xml:lang="pt_BR">Rod</value>
         <value xml:lang="ro">Rod</value>
         <value xml:lang="ru">Род</value>
         <value xml:lang="th">Rod</value>
@@ -15956,7 +15643,6 @@
         <value xml:lang="it">Iarda</value>
         <value xml:lang="nl">Yard (0,9144 m)</value>
         <value xml:lang="pt">Jarda</value>
-        <value xml:lang="pt_BR">Jarda</value>
         <value xml:lang="ro">Iard</value>
         <value xml:lang="ru">Ярд</value>
         <value xml:lang="th">หลา</value>
@@ -16388,7 +16074,6 @@
         <value xml:lang="fr">Candela - luminosité (intensité de lumière)</value>
         <value xml:lang="it">Candela - Luminosità (intensità della luce)</value>
         <value xml:lang="pt">Candela - Luminosidade (intensidade de luz)</value>
-        <value xml:lang="pt_BR">Candela - luminosidade (intensidade de luz)</value>
         <value xml:lang="ro">Candela - Luminozitate (intensitatea luminii)</value>
         <value xml:lang="ru">Канделла - яркость света</value>
         <value xml:lang="th">แคนเดลา (หน่วยวัดความเข้มของแสง)</value>
@@ -16754,7 +16439,6 @@
         <value xml:lang="fr">Leone</value>
         <value xml:lang="it">Leone</value>
         <value xml:lang="pt">Leone</value>
-        <value xml:lang="pt_BR">Leone</value>
         <value xml:lang="ro">Leone</value>
         <value xml:lang="ru">Леона</value>
         <value xml:lang="th">ลีโอน เซียร์ราลีโอน</value>
@@ -16768,7 +16452,6 @@
         <value xml:lang="fr">Nouveau sol (Pérou)</value>
         <value xml:lang="it">Peru</value>
         <value xml:lang="pt">Peru</value>
-        <value xml:lang="pt_BR">Peru</value>
         <value xml:lang="ro">Peru</value>
         <value xml:lang="ru">Перу</value>
         <value xml:lang="th">เปรู</value>
@@ -16873,7 +16556,6 @@
         <value xml:lang="fr">Degrés Celcius</value>
         <value xml:lang="it">Gradi Celsius</value>
         <value xml:lang="pt">Graus Celsius</value>
-        <value xml:lang="pt_BR">Graus Celsius</value>
         <value xml:lang="ro">Grade Celsius</value>
         <value xml:lang="ru">Градусы по Цельсию</value>
         <value xml:lang="th">องศาเซลเซียส</value>
@@ -16887,7 +16569,6 @@
         <value xml:lang="fr">Degrés Fahrenheit</value>
         <value xml:lang="it">Gradi Fahrenheit</value>
         <value xml:lang="pt">Graus Fahrenheit</value>
-        <value xml:lang="pt_BR">Graus Fahrenheit</value>
         <value xml:lang="ro">Grade Fahrenheit</value>
         <value xml:lang="ru">Градусы по Фарингейту</value>
         <value xml:lang="th">องศาฟารเรนไฮต์</value>
@@ -16901,7 +16582,6 @@
         <value xml:lang="fr">Kelvin</value>
         <value xml:lang="it">Kelvin</value>
         <value xml:lang="pt">Kelvin</value>
-        <value xml:lang="pt_BR">Kelvin</value>
         <value xml:lang="ro">Kelvin</value>
         <value xml:lang="ru">Кельвин</value>
         <value xml:lang="th">เคลวิน</value>
@@ -16915,7 +16595,6 @@
         <value xml:lang="fr">Temps en siècles</value>
         <value xml:lang="it">Tempo in Secoli</value>
         <value xml:lang="pt">Tempo em Séculos</value>
-        <value xml:lang="pt_BR">Tempo em séculos</value>
         <value xml:lang="ro">Timp in Secole</value>
         <value xml:lang="ru">Раз в столетие</value>
         <value xml:lang="th">เวลาในศตวรรษ</value>
@@ -16929,7 +16608,6 @@
         <value xml:lang="fr">Temps en jours</value>
         <value xml:lang="it">Tempo in Giorni</value>
         <value xml:lang="pt">Tempo em Dias</value>
-        <value xml:lang="pt_BR">Tempo em dias</value>
         <value xml:lang="ro">Timp in Zile</value>
         <value xml:lang="ru">Раз/день</value>
         <value xml:lang="th">เวลาในวัน</value>
@@ -16943,7 +16621,6 @@
         <value xml:lang="fr">Temps en décades</value>
         <value xml:lang="it">Tempo in Decadi</value>
         <value xml:lang="pt">Tempo em Décadas</value>
-        <value xml:lang="pt_BR">Tempo em décadas</value>
         <value xml:lang="ro">Timp in Decade</value>
         <value xml:lang="ru">Раз/декаду</value>
         <value xml:lang="th">เวลาในทศวรรษ</value>
@@ -16957,7 +16634,6 @@
         <value xml:lang="fr">Temps en heures</value>
         <value xml:lang="it">Tempo in Ore</value>
         <value xml:lang="pt">Tempo em Horas</value>
-        <value xml:lang="pt_BR">Tempo em horas</value>
         <value xml:lang="ro">Timp in Ore</value>
         <value xml:lang="ru">Раз/час</value>
         <value xml:lang="th">เวลาในชั่วโมง</value>
@@ -16985,7 +16661,6 @@
         <value xml:lang="fr">Temps en minutes</value>
         <value xml:lang="it">Tempo in Minuti</value>
         <value xml:lang="pt">Tempo em Minutos</value>
-        <value xml:lang="pt_BR">Tempo em Minutos</value>
         <value xml:lang="ro">Timp in Minute</value>
         <value xml:lang="ru">Раз/минуту</value>
         <value xml:lang="th">เวลาในนาที</value>
@@ -17013,7 +16688,6 @@
         <value xml:lang="fr">Temps en millisecondes</value>
         <value xml:lang="it">Tempo in Milli-Secondi</value>
         <value xml:lang="pt">Tempo em Milisegundos</value>
-        <value xml:lang="pt_BR">Tempo em milisegundos</value>
         <value xml:lang="ro">Timp in Mili-Secunde</value>
         <value xml:lang="ru">Раз/миллисекунду</value>
         <value xml:lang="th">เวลาในล้านวินาที</value>
@@ -17027,7 +16701,6 @@
         <value xml:lang="fr">Temps en secondes</value>
         <value xml:lang="it">Tempo in Secondi</value>
         <value xml:lang="pt">Tempo em Segundos</value>
-        <value xml:lang="pt_BR">Tempo em Segundos</value>
         <value xml:lang="ro">Timp in Seconde</value>
         <value xml:lang="ru">Раз/секунду</value>
         <value xml:lang="th">เวลาในวิาที</value>
@@ -17054,7 +16727,6 @@
         <value xml:lang="fr">Temps en semaines</value>
         <value xml:lang="it">Tempo in Settimane</value>
         <value xml:lang="pt">Tempo em Semanas</value>
-        <value xml:lang="pt_BR">Tempo em semanas</value>
         <value xml:lang="ro">Timp in Saptamani</value>
         <value xml:lang="ru">Раз/неделю</value>
         <value xml:lang="th">เวลาในสัปดาห์</value>
@@ -17068,7 +16740,6 @@
         <value xml:lang="fr">Temps en années</value>
         <value xml:lang="it">Tempo in Anni</value>
         <value xml:lang="pt">Tempo em Anos</value>
-        <value xml:lang="pt_BR">Tempo em Anos</value>
         <value xml:lang="ro">Timp in Ani</value>
         <value xml:lang="ru">Раз/год</value>
         <value xml:lang="th">เวลาในปี</value>
@@ -17133,7 +16804,6 @@
         <value xml:lang="fr">Pa'anga de Tonga</value>
         <value xml:lang="it">Tongan Pa'anga</value>
         <value xml:lang="pt">Tongan Pa'anga</value>
-        <value xml:lang="pt_BR">Tongan Pa'anga</value>
         <value xml:lang="ro">Tongan Pa'anga</value>
         <value xml:lang="ru">Паанга Тонго</value>
         <value xml:lang="th">พาอานกา ทองกา</value>
@@ -17287,7 +16957,6 @@
         <value xml:lang="fr">Stère (mètre cube)</value>
         <value xml:lang="it">Stere (metro cubo)</value>
         <value xml:lang="pt">Stere (metro cúbico)</value>
-        <value xml:lang="pt_BR">Stere (metro cúbico)</value>
         <value xml:lang="ro">Stere (metru cub)</value>
         <value xml:lang="ru">Стер (куб. метр)</value>
         <value xml:lang="th">Stere (ลูกบาศก์เมตร)</value>
@@ -17301,7 +16970,6 @@
         <value xml:lang="fr">Centimètre cube</value>
         <value xml:lang="it">Centimetro Cubo</value>
         <value xml:lang="pt">Centímetro Cúbico</value>
-        <value xml:lang="pt_BR">centímetro cúbico</value>
         <value xml:lang="ro">Centimetru Cub</value>
         <value xml:lang="ru">Кубический сантиметр</value>
         <value xml:lang="th">ลูกบาศก์เซนติเมตร</value>
@@ -17315,7 +16983,6 @@
         <value xml:lang="fr">Pied cubique (28,316846592 l)</value>
         <value xml:lang="it">Piede Cubo</value>
         <value xml:lang="pt">Pé Cúbico</value>
-        <value xml:lang="pt_BR">Pé cúbico</value>
         <value xml:lang="ro">Picior Cub</value>
         <value xml:lang="ru">Кубический фут</value>
         <value xml:lang="th">ลูกบาศก์ฟุต</value>
@@ -17329,7 +16996,6 @@
         <value xml:lang="fr">Pouce cubique (16,387 cm³)</value>
         <value xml:lang="it">Pollice Cubo</value>
         <value xml:lang="pt">Polegada Cúbica</value>
-        <value xml:lang="pt_BR">Polegada cúbica</value>
         <value xml:lang="ro">Inch Cub</value>
         <value xml:lang="ru">Кубический дюйм</value>
         <value xml:lang="th">ลูกบาศก์นิ้ว</value>
@@ -17343,7 +17009,6 @@
         <value xml:lang="fr">Mètre cube</value>
         <value xml:lang="it">Metro Cubo</value>
         <value xml:lang="pt">Metro Cúbico</value>
-        <value xml:lang="pt_BR">Metro cúbico</value>
         <value xml:lang="ro">Metru Cub</value>
         <value xml:lang="ru">Кубический метр</value>
         <value xml:lang="th">ลูกบาศก์เมตร</value>
@@ -17357,7 +17022,6 @@
         <value xml:lang="fr">Millimètre cube</value>
         <value xml:lang="it">Millimetro Cubo</value>
         <value xml:lang="pt">Milímetro Cúbico</value>
-        <value xml:lang="pt_BR">Milímetro cúbico</value>
         <value xml:lang="ro">Milimetru Cub</value>
         <value xml:lang="ru">Кубический миллиметр</value>
         <value xml:lang="th">ลูกบาศก์มิลลิเมตร</value>
@@ -17371,7 +17035,6 @@
         <value xml:lang="fr">Yard cubique</value>
         <value xml:lang="it">Iarda Cubo</value>
         <value xml:lang="pt">Jarda Cúbica</value>
-        <value xml:lang="pt_BR">Jarda cúbica</value>
         <value xml:lang="ro">Iard Cub</value>
         <value xml:lang="ru">Кубический ярд</value>
         <value xml:lang="th">ลูกบาศก์หลา</value>
@@ -17398,7 +17061,6 @@
         <value xml:lang="fr">Litre</value>
         <value xml:lang="it">Litro</value>
         <value xml:lang="pt">Litro</value>
-        <value xml:lang="pt_BR">Litro</value>
         <value xml:lang="ro">Litru</value>
         <value xml:lang="ru">Литр</value>
         <value xml:lang="th">ลิตร</value>
@@ -17469,7 +17131,6 @@
         <value xml:lang="fr">Gallon (UK)(3,7854 l)</value>
         <value xml:lang="it">Gallone (UK)</value>
         <value xml:lang="pt">Galão (UK)</value>
-        <value xml:lang="pt_BR">Galão (UK)</value>
         <value xml:lang="ro">Gallon (UK)</value>
         <value xml:lang="ru">Галлон (Брит.)</value>
         <value xml:lang="th">แกลลอน (UK)</value>
@@ -17581,7 +17242,6 @@
         <value xml:lang="fr">Quart (1,1365 l)</value>
         <value xml:lang="it">Quarto</value>
         <value xml:lang="pt">Quarto</value>
-        <value xml:lang="pt_BR">Quarto</value>
         <value xml:lang="ro">Quart</value>
         <value xml:lang="ru">Кварта</value>
         <value xml:lang="th">ปริมาณ 1 ใน 4 แกลลอน</value>
@@ -17595,7 +17255,6 @@
         <value xml:lang="fr">Teaspoon (5 cm³)</value>
         <value xml:lang="it">Cucchiaino</value>
         <value xml:lang="pt">Colher de Chá</value>
-        <value xml:lang="pt_BR">Colher de chá</value>
         <value xml:lang="ro">Lingurita</value>
         <value xml:lang="ru">Чайная ложка</value>
         <value xml:lang="th">ช้อนชา</value>
@@ -17649,7 +17308,6 @@
         <value xml:lang="fr">Dram (avdp = 1,7718452 g)</value>
         <value xml:lang="it">Dram (avdp)</value>
         <value xml:lang="pt">Dram (avdp)</value>
-        <value xml:lang="pt_BR">Dram (avdp)</value>
         <value xml:lang="ro">Dram (avdp)</value>
         <value xml:lang="ru">Драхма (эвердьюпойс)</value>
         <value xml:lang="th">แดรม (avdp)</value>
@@ -17662,7 +17320,6 @@
         <value xml:lang="fr">pennyweight (1,55517384 g)</value>
         <value xml:lang="it">Pennyweight</value>
         <value xml:lang="pt">Pennyweight</value>
-        <value xml:lang="pt_BR">Pennyweight</value>
         <value xml:lang="ro">Pennyweight</value>
         <value xml:lang="ru">Пеннивейт</value>
         <value xml:lang="th">หน่วยวัดน้ำหนักมีค่าเท่ากับ 24 เกรน</value>
@@ -17676,7 +17333,6 @@
         <value xml:lang="fr">Gramme</value>
         <value xml:lang="it">Grammo</value>
         <value xml:lang="pt">Grama</value>
-        <value xml:lang="pt_BR">Grama</value>
         <value xml:lang="ro">Gram</value>
         <value xml:lang="ru">Грамм</value>
         <value xml:lang="th">กรัม</value>
@@ -17718,7 +17374,6 @@
         <value xml:lang="fr">Livre (avdp = 453,6 g)</value>
         <value xml:lang="it">Libbra (avdp)</value>
         <value xml:lang="pt">Libra (avdp)</value>
-        <value xml:lang="pt_BR">Libra (avdp)</value>
         <value xml:lang="ro">Libbra (avdp)</value>
         <value xml:lang="ru">Фунт (эвердьюпойс)</value>
         <value xml:lang="th">ปอนด์ (avdp)</value>
@@ -17746,7 +17401,6 @@
         <value xml:lang="fr">Milligramme</value>
         <value xml:lang="it">Milligrammo</value>
         <value xml:lang="pt">Miligrama</value>
-        <value xml:lang="pt_BR">Miligrama</value>
         <value xml:lang="ro">Miligram</value>
         <value xml:lang="ru">Миллиграмм</value>
         <value xml:lang="th">มิลลิกรัม</value>
@@ -17774,7 +17428,6 @@
         <value xml:lang="fr">Once (avdp = 28,349523125 g)</value>
         <value xml:lang="it">Oncia (avdp)</value>
         <value xml:lang="pt">Onça (avdp)</value>
-        <value xml:lang="pt_BR">Onça (avdp)</value>
         <value xml:lang="ro">Ounce (avdp)</value>
         <value xml:lang="ru">Унция (эвердьюпойс)</value>
         <value xml:lang="th">ออนซ์ (avdp)</value>
@@ -17788,7 +17441,6 @@
         <value xml:lang="fr">Once (troy = 28,35 g)</value>
         <value xml:lang="it">Oncia (troy)</value>
         <value xml:lang="pt">Onça (troy)</value>
-        <value xml:lang="pt_BR">Onça (troy)</value>
         <value xml:lang="ro">Ounce (troy)</value>
         <value xml:lang="ru">Унция (тройская)</value>
         <value xml:lang="th">ออนซ์ (ทรอย)</value>
@@ -17907,7 +17559,6 @@
         <value xml:lang="fr">Zaïre</value>
         <value xml:lang="it">Zaire</value>
         <value xml:lang="pt">Zaire</value>
-        <value xml:lang="pt_BR">Zaire</value>
         <value xml:lang="ro">Zaire</value>
         <value xml:lang="ru">Заир</value>
         <value xml:lang="th">ซาเอียร์</value>
@@ -17935,7 +17586,6 @@
         <value xml:lang="it">Area</value>
         <value xml:lang="nl">Gebied</value>
         <value xml:lang="pt">Área</value>
-        <value xml:lang="pt_BR">Área</value>
         <value xml:lang="ro">Aria</value>
         <value xml:lang="ru">Площадь</value>
         <value xml:lang="th">พื้นที่</value>
@@ -17950,7 +17600,6 @@
         <value xml:lang="it">Valuta</value>
         <value xml:lang="nl">Valuta</value>
         <value xml:lang="pt">Moeda</value>
-        <value xml:lang="pt_BR">Moeda</value>
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">สกุลเงิน</value>
@@ -17980,7 +17629,6 @@
         <value xml:lang="it">Ampiezza Dati</value>
         <value xml:lang="nl">Data omvang</value>
         <value xml:lang="pt">Tamanho dos Dados</value>
-        <value xml:lang="pt_BR">Tamanho dos dados</value>
         <value xml:lang="ro">Marime Data</value>
         <value xml:lang="ru">Размер данных</value>
         <value xml:lang="th">ขนาดข้อมูล</value>
@@ -17995,7 +17643,6 @@
         <value xml:lang="it">Energia</value>
         <value xml:lang="nl">Energie</value>
         <value xml:lang="pt">Energia</value>
-        <value xml:lang="pt_BR">Energia</value>
         <value xml:lang="ro">Energie</value>
         <value xml:lang="ru">Энергия</value>
         <value xml:lang="th">พลังงาน</value>
@@ -18025,7 +17672,6 @@
         <value xml:lang="it">Altro</value>
         <value xml:lang="nl">Andere</value>
         <value xml:lang="pt">Outro</value>
-        <value xml:lang="pt_BR">Outro</value>
         <value xml:lang="ro">Altceva</value>
         <value xml:lang="ru">Другое</value>
         <value xml:lang="th">อื่น ๆ</value>
@@ -18040,7 +17686,6 @@
         <value xml:lang="it">Temperatura</value>
         <value xml:lang="nl">Temperatuur</value>
         <value xml:lang="pt">Temperatura</value>
-        <value xml:lang="pt_BR">Temperatura</value>
         <value xml:lang="ro">Temperatura</value>
         <value xml:lang="ru">Температура</value>
         <value xml:lang="th">อุณหภูมิ</value>
@@ -18100,7 +17745,6 @@
         <value xml:lang="it">Altezza</value>
         <value xml:lang="nl">Gewicht</value>
         <value xml:lang="pt">Peso</value>
-        <value xml:lang="pt_BR">Peso</value>
         <value xml:lang="ro">Inaltime</value>
         <value xml:lang="ru">Вес</value>
         <value xml:lang="th">น้ำหนัก</value>
