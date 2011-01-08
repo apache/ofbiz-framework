@@ -485,7 +485,7 @@ ${item.description}</span>
     </#if>
     );"></a><#rt>
 <#elseif presentation?has_content && presentation == "window">
-     <a href="javascript:call_fieldlookup2(document.${formName}.${name},'${fieldFormName}', '${presentation}'<#rt/>
+     <a href="javascript:call_fieldlookup2(document.${formName?html}.${name?html},'${fieldFormName}', '${presentation}'<#rt/>
     <#if targetParameterIter?has_content>
      <#list targetParameterIter as item>
     ,document.${formName}.${item}.value<#rt>
@@ -509,7 +509,7 @@ ${item.description}</span>
     </#if>
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            new ConstructLookup("${fieldFormName}", "${id}", document.${formName?html}.${name?html}, <#if descriptionFieldName?has_content>document.${formName?html}.${descriptionFieldName}<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", "${showDescription}"<#else>"", ""</#if>, '${presentation!}');
+            new ConstructLookup("${fieldFormName}", "${id}", document.getElementById("${id}"), <#if descriptionFieldName?has_content>document.getElementById("${formName}_${descriptionFieldName}")<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", "${showDescription}"<#else>"", ""</#if>, '${presentation!}');
         });
     </script>
 </#if>

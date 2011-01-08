@@ -377,7 +377,7 @@ under the License.
           <tr>
             <td align="center" colspan="2">
               <hr />
-              <a href="javascript:submit(document.getElementById('advToKeywordSearchform'));" class="buttontext">${uiLabelMap.CommonFind}</a>
+              <a href="javascript:submit('advToKeywordSearchform');" class="buttontext">${uiLabelMap.CommonFind}</a>
             </td>
           </tr>
         </table>
