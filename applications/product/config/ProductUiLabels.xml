@@ -13353,6 +13353,14 @@
         <value xml:lang="zh">特征组收费</value>
         <value xml:lang="zh_TW">特性群組收費</value>
     </property>
+    <property key="ProductFeatureTreeCannotFindFeaturesList">
+        <value xml:lang="en">Empty list of features passed</value>
+        <value xml:lang="it">Lista delle caratteristiche passate è vuota</value>
+    </property>
+    <property key="ProductFeatureTreeCannotCallIsStoreInventoryRequired">
+        <value xml:lang="en">Error calling the isStoreInventoryRequired when building the variant product tree.</value>
+        <value xml:lang="it">Errore durante la chiamata al servizio isStoreInventoryRequired mentre costruivo l'albero dei prodotti varianti</value>
+    </property>
     <property key="ProductFeatureType">
         <value xml:lang="de">Merkmaltyp</value>
         <value xml:lang="en">Feature Type</value>
@@ -14132,6 +14140,22 @@
         <value xml:lang="it">esempio: /images/categories/linkOne/100.jpg</value>
         <value xml:lang="zh">样例：/images/categories/linkOne/100.jpg</value>
         <value xml:lang="zh_TW">範例: /images/categories/linkOne/100.jpg</value>
+    </property>
+    <property key="ProductImageViewParsingError">
+        <value xml:lang="en">Errors occur in parsing ImageProperties.xml: ${errorString}</value>
+        <value xml:lang="it">Errore durante il parsing di ImageProperties.xml: ${errorString}</value>
+    </property>
+    <property key="ProductImageViewScaleImpossible">
+        <value xml:lang="en">Scale additional image in all different sizes is impossible: ${errorString}</value>
+        <value xml:lang="it">Scalare immagini aggiuntive in tutte le differenze ampiezze non è possibile: ${errorString}</value>
+    </property>
+    <property key="ProductImageViewUnableWriteBinaryData">
+        <value xml:lang="en">Unable to write binary data to: ${fileName}</value>
+        <value xml:lang="it">Non è possibile scrivere dati binari in: ${fileName}</value>
+    </property>
+    <property key="ProductImageViewUnableWriteFile">
+        <value xml:lang="en">Unable to open file for writing: ${fileName}</value>
+        <value xml:lang="it">Non è possibile aprire il file in scrittura: ${fileName}</value>
     </property>
     <property key="ProductImageViewType">
         <value xml:lang="en">View Type : ${viewType} is wrong</value>
@@ -24467,6 +24491,10 @@
         <value xml:lang="it">Metodo virtuale variante</value>
         <value xml:lang="zh">虚拟的多样化方法</value>
         <value xml:lang="zh_TW">虛擬變體方式</value>
+    </property>
+    <property key="ProductVirtualVariantCreation">
+        <value xml:lang="en">Error creating a virtual with variants: the ID ${variantProductId} is not a valid Product.productId or a GoodIdentification.idValue</value>
+        <value xml:lang="it">Errore durante la creazione del virtuale dalle varianti: variante prodotto ${variantProductId} non è valido Product.productId o un GoodIdentification.idValue</value>
     </property>
     <property key="ProductVoidUpsShipment">
         <value xml:lang="en">Void UPS Shipment</value>
