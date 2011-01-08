@@ -151,7 +151,7 @@ under the License.
             </drop-down>
         </field>
         <on-event-update-area event-type="submit" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
-        <on-event-update-area event-type="submit" area-id="EditExampleAjax" area-target="CreateExampleFormOnly"/>
+        <!--on-event-update-area event-type="submit" area-id="EditExampleAjax" area-target="CreateExampleFormOnly"/--><!-- JLR: this does not seem to be useful -->
     </form>
 
     <!-- ExampleItem -->
