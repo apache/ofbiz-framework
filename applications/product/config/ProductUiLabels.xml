@@ -12337,16 +12337,16 @@
         <value xml:lang="zh_TW">錯誤：場所</value>
     </property>
     <property key="ProductErrorFacilityIdNotFound">
-        <value xml:lang="de">FEHLER: Einricht mit der ID [${facilityId}] nicht gefunden</value>
-        <value xml:lang="en">ERROR: Facility with ID [${facilityId}] not found</value>
-        <value xml:lang="es">ERROR: Almacén con Código [${facilityId}] no encontrado</value>
-        <value xml:lang="fr">ERREUR: lieu de stockage non trouvé avec la référence [${facilityId}]</value>
-        <value xml:lang="it">ERRORE: Stabilimento con Codice [${facilityId}] non trovato</value>
-        <value xml:lang="ro">EROARE: Compartiment cu Cod [${facilityId}] negasit</value>
-        <value xml:lang="ru">ОШИБКА: Объект с кодом [${facilityId}] не найден</value>
-        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่พบคลังสินค้าด้วยรหัส [${facilityId}] </value>
-        <value xml:lang="zh">错误：没有找到标识为 [${facilityId}]场所</value>
-        <value xml:lang="zh_TW">錯誤：沒有找到ID為 [${facilityId}]場所</value>
+        <value xml:lang="de">FEHLER: Einricht mit der ID ${facilityId} nicht gefunden</value>
+        <value xml:lang="en">ERROR: Facility with ID ${facilityId} not found</value>
+        <value xml:lang="es">ERROR: Almacén con Código ${facilityId} no encontrado</value>
+        <value xml:lang="fr">ERREUR: lieu de stockage non trouvé avec la référence ${facilityId}</value>
+        <value xml:lang="it">ERRORE: Stabilimento con Codice ${facilityId} non trovato</value>
+        <value xml:lang="ro">EROARE: Compartiment cu Cod ${facilityId} negasit</value>
+        <value xml:lang="ru">ОШИБКА: Объект с кодом ${facilityId} не найден</value>
+        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่พบคลังสินค้าด้วยรหัส ${facilityId}</value>
+        <value xml:lang="zh">错误：没有找到标识为 ${facilityId} 场所</value>
+        <value xml:lang="zh_TW">錯誤：沒有找到ID為 ${facilityId} 場所</value>
     </property>
     <property key="ProductErrorNoFacilityAvailable">
         <value xml:lang="de">Fehler: Keine Einrichtung verfügbar</value>
@@ -14529,6 +14529,34 @@
         <value xml:lang="zh">库存明细</value>
         <value xml:lang="zh_TW">庫存明細</value>
     </property>
+    <property key="ProductInventoryItemATPNotAvailable">
+        <value xml:lang="en">The request transfer amount is not available, there is no available to promise on the Inventory Item with ID ${inventoryItemId}</value>
+        <value xml:lang="it">La richiesta di trasferimento non è disponibile, non c'è disponibilità promessa sulla riga inventario ${inventoryItemId}</value>
+    </property>
+    <property key="ProductInventoryItemATPIsNotSufficient">
+        <value xml:lang="en">The request transfer amount is not available, the available to promise ${atp} is not sufficient for the desired transfer quantity ${xferQty} on the Inventory Item with ID ${inventoryItemId}</value>
+        <value xml:lang="it">La richiesta di trasferimento non è disponibile, la disponibilità promessa ${atp} non è sufficiente per la quantità desiderata di trasferimento ${xferQty} sulla riga inventario ${inventoryItemId}</value>
+    </property>
+    <property key="ProductInventoryItemLookupProblem">
+        <value xml:lang="en">Inventory Item/Transfer lookup problem: ${errorString}</value>
+        <value xml:lang="it">Problema nella ricerca della riga di inventario/trasferimento: ${errorString}</value>
+    </property>
+    <property key="ProductInventoryItemRefreshProblem">
+        <value xml:lang="en">Inventory refresh problem: ${errorString}</value>
+        <value xml:lang="it">Problema durante l'aggiornamento dell'inventario: ${errorString}</value>
+    </property>
+    <property key="ProductInventoryItemStoreProblem">
+        <value xml:lang="en">Inventory item store problem: ${errorString}</value>
+        <value xml:lang="it">Problema registrazione riga di inventario: ${errorString}</value>
+    </property>
+    <property key="ProductInventoryItemTransferNotFound">
+        <value xml:lang="en">Inventory transfer ${inventoryTransferId} not found</value>
+        <value xml:lang="it">Inventaraio trasferimento ${inventoryTransferId} non trovato</value>
+    </property>
+    <property key="ProductInventoryItemDetailCreateProblem">
+        <value xml:lang="en">Inventory Item Detail create problem in prepare inventory transfer: ${errorString}</value>
+        <value xml:lang="it">Problema nella creazione riga inventario dettaglio in preparazione per il trasferimento di inventario: ${errorString}</value>
+    </property>
     <property key="ProductInventoryItemGrandTotals">
         <value xml:lang="de">Bestandsposition Haupttotal</value>
         <value xml:lang="en">Inventory Item Grand Totals</value>
@@ -14724,6 +14752,10 @@
         <value xml:lang="th">ไม่นำมาใช้</value>
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh_TW">不可用</value>
+    </property>
+    <property key="ProductInventoryNotAvailableForFacility">
+        <value xml:lang="en">Could not find inventory for facility ${facilityId}</value>
+        <value xml:lang="it">Non è possibile trovare lo stabilimento ${facilityId}</value>
     </property>
     <property key="ProductInventoryReceive">
         <value xml:lang="de">Bestandseingang</value>
@@ -18649,13 +18681,25 @@
         <value xml:lang="en">Error calculating VAT tax (with calcTaxForDisplay service)</value>
         <value xml:lang="it">Errore di calcolo delle tasse</value>
     </property>
+    <property key="ProductPriceCannotRetrieveInventoryItem">
+        <value xml:lang="en">Problem getting InventoryItem records</value>
+        <value xml:lang="it">Problema nel ricavare InventoryItem records</value>
+    </property>
     <property key="ProductPriceCannotRetrievePriceRules">
         <value xml:lang="en">Error getting rules from the database while calculating price: ${errorString}</value>
         <value xml:lang="it">Errore nel ricavare le regole prezzo dal database durante il calcolo del prezzo: ${errorString}</value>
     </property>
     <property key="ProductPriceCannotRetrieveProductStore">
         <value xml:lang="en">Error getting product store info from the database while calculating price: ${errorString}</value>
-        <value xml:lang="it">Error getting product store info from the database while calculating price: ${errorString}</value>
+        <value xml:lang="it">Errore nel ricavare il negozio dal database durant il calcolo del prezzo: ${errorString}</value>
+    </property>
+    <property key="ProductPriceCannotRetrieveRelativeReservation">
+        <value xml:lang="en">Problem getting related reservations</value>
+        <value xml:lang="it">Problema nel ricavare le relative riserve</value>
+    </property>
+    <property key="ProductPriceCannotRetrieveShipmentAndItem">
+        <value xml:lang="en">Problem getting ShipmentAndItem records</value>
+        <value xml:lang="it">Problema nel ricavare ShipmentAndItem records</value>
     </property>
     <property key="ProductPriceCannotRetrieveVirtualProductId">
         <value xml:lang="en">Error getting virtual product id from the database while calculating price: ${errorString}</value>
@@ -21759,6 +21803,10 @@
         <value xml:lang="th">พบสินค้าคงเหลือ</value>
         <value xml:lang="zh">找到了序列化的库存</value>
         <value xml:lang="zh_TW">找到了序列化的庫存</value>
+    </property>
+    <property key="ProductSerializedInventoryNotAvailable">
+        <value xml:lang="en">Serialized inventory is not available for transfer.</value>
+        <value xml:lang="it">Inventario serializzato non è disponibile per il trasferimento.</value>
     </property>
     <property key="ProductSerializedInventorySummary">
         <value xml:lang="de">Bestand mit Seriennummern Zusammenfassung</value>
