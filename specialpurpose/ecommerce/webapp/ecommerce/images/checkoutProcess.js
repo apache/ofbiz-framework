@@ -275,7 +275,7 @@ function createUpdateCustomerAndShippingAddress() {
                 jQuery('#shippingFormServerError').html(serverError);
             }
             result = false;
-        }, 
+        } 
     });
     return result;
 }
@@ -312,7 +312,7 @@ function getShipOptions() {
                     isShipStepValidate = false;
                 }
                 result = false;
-            }, 
+            }
         });
     }
     return result;
@@ -347,7 +347,7 @@ function setShippingOption() {
                 isShipOptionStepValidate = false;
             }
             result = false;
-        },
+        }
     });
     updateCartData();
     return result;
@@ -393,7 +393,7 @@ function processBillingAndPayment() {
                 isBillStepValidate = false;
             }
             result = false;
-        },
+        }
     });
     return result;
 
@@ -410,11 +410,11 @@ function initCartProcessObservers() {
         showEditCartPanel();
         updateShippingSummary();
     });
-    var inputs = cartForm.find(':text');
+    var inputs = cartForm.find('input[type=text]');
     inputs.each(function(e) {
-        if(e.id != 'productPromoCode') {
-            jQuery(e).change(function() {
-                cartItemQtyChanged();
+        if(this.id != 'productPromoCode' && this.id != undefined) {
+            jQuery(this).change(function() {
+                cartItemQtyChanged(this);
             });
         }
     });
@@ -443,7 +443,7 @@ function addPromoCode() {
                 jQuery('#cartFormServerError').fadeIn('fast');
                 jQuery('#cartFormServerError').html(error);
             }
-        },
+        }
     });
 }
 
@@ -467,9 +467,9 @@ function getProductLineItemIndex(event, productId) {
 function removeItem(elmt) {
     var removeElement = elmt;
     var elementId = removeElement.id;
-    var qtyId = elementId.sub('remove_', 'qty_');
-    var productIdElementId =  elementId.sub('remove_', 'cartLineProductId_');
-    var productId = jQuery(productIdElementId).val();
+    var qtyId = elementId.replace('removeItemLink_', 'qty_');
+    var productIdElementId =  elementId.replace('removeItemLink_', 'cartLineProductId_');
+    var productId = jQuery("#" + productIdElementId).val();
     var itemIndex = getProductLineItemIndex(elmt, productId);
     var formValues = "update_" + itemIndex + "= 0";
     if (jQuery(qtyId).val() == '' || isNaN(jQuery(qtyId).val())) {
@@ -481,8 +481,8 @@ function removeItem(elmt) {
 function cartItemQtyChanged(elmt) {
     var qtyElement = elmt;
     var elementId = qtyElement.id;
-    var productIdElementId = elementId.sub('qty_', 'cartLineProductId_');
-    var productId = jQuery(productIdElementId).val();
+    var productIdElementId = elementId.replace('qty_', 'cartLineProductId_');
+    var productId = jQuery("#" + productIdElementId).val();
     if (jQuery(qtyElement).val() && jQuery(qtyElement).val() >= 0 && !isNaN(jQuery(qtyElement).val())) {
         var itemIndex = getProductLineItemIndex(elmt, productId);
         qtyParam = "update_" + itemIndex +"="+jQuery(qtyElement).val();
@@ -513,12 +513,17 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
             } else {
                 // Replace whole cart panel with updated cart values for updating line item in case of gift item is added or remove in cart after applying coupon code
                 // No need to calculate individual value for shopping cart when whole cart is updating
-                jQuery('#cartPanel').load('UpdateCart', function() {
-                    initCartProcessObservers();
+                jQuery.ajax({
+                    url: 'UpdateCart',
+                    type: 'POST',
+                    cache: false,
+                    success: function(data) {
+                        jQuery('#cartPanel').html(data);
+                        initCartProcessObservers();
+                    }
                 });
-
             }
-        },
+        }
     });
 }
 function processOrder() {
