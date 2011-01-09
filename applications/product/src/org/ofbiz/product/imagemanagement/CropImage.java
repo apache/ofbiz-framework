@@ -22,7 +22,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -31,12 +31,9 @@ import javolution.util.FastMap;
 import org.jdom.JDOMException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -52,7 +49,6 @@ public class CropImage {
     public static Map<String, Object> imageCrop(DispatchContext dctx, Map<String, ? extends Object> context)
     throws IOException, JDOMException {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         
         String productId = (String) context.get("productId");
