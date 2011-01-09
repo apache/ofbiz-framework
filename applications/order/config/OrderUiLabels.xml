@@ -6298,6 +6298,14 @@
         <value xml:lang="zh_CN">平均成本</value>
         <value xml:lang="zh_TW">平均成本</value>
     </property>
+    <property key="OrderOrderQuoteCannotBeFound">
+        <value xml:lang="en">Could not find Quote with ID ${quoteId}</value>
+        <value xml:lang="it">Non è possibile trovare il preventivo ${quoteId}</value>
+    </property>
+    <property key="OrderOrderQuoteCannotBeStored">
+        <value xml:lang="en">Could not storing Quote</value>
+        <value xml:lang="it">Non è possibile registrare il preventivo</value>
+    </property>
     <property key="OrderOrderQuoteCoeffName">
         <value xml:lang="de">Koeffizient Name</value>
         <value xml:lang="en">Coeff. Name</value>
@@ -9139,6 +9147,10 @@
         <value xml:lang="zh">按日期的生产需求</value>
         <value xml:lang="zh_CN">制造需求按日期</value>
         <value xml:lang="zh_TW">按日期的生產需求</value>
+    </property>
+    <property key="OrderRequirementDoesNotExists">
+        <value xml:lang="en">Requirement with id ${requirementId} doesn't exist.</value>
+        <value xml:lang="it">Fabbisogno ${requirementId} non esiste</value>
     </property>
     <property key="OrderRequirementId">
         <value xml:lang="de">Bedarf ID</value>
