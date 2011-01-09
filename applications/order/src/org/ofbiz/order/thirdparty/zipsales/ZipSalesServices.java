@@ -23,15 +23,17 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
@@ -63,7 +65,7 @@ public class ZipSalesServices {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
     // import table service
-    public static Map importFlatTable(DispatchContext dctx, Map context) {
+    public static Map<String, Object> importFlatTable(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -209,11 +211,11 @@ public class ZipSalesServices {
     }
 
     // tax calc service
-    public static Map flatTaxCalc(DispatchContext dctx, Map context) {
+    public static Map<String, Object> flatTaxCalc(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        List itemProductList = (List) context.get("itemProductList");
-        List itemAmountList = (List) context.get("itemAmountList");
-        List itemShippingList = (List) context.get("itemShippingList");
+        List<GenericValue> itemProductList = UtilGenerics.checkList(context.get("itemProductList"));
+        List<BigDecimal> itemAmountList = UtilGenerics.checkList(context.get("itemAmountList"));
+        List<BigDecimal> itemShippingList = UtilGenerics.checkList(context.get("itemShippingList"));
         BigDecimal orderShippingAmount = (BigDecimal) context.get("orderShippingAmount");
         GenericValue shippingAddress = (GenericValue) context.get("shippingAddress");
 
@@ -223,15 +225,15 @@ public class ZipSalesServices {
         String city = shippingAddress.getString("city");
 
         // setup the return lists.
-        List orderAdjustments = new ArrayList();
-        List itemAdjustments = new ArrayList();
+        List<GenericValue> orderAdjustments = FastList.newInstance();
+        List<List<GenericValue>> itemAdjustments = FastList.newInstance();
 
         // check for a valid state/province geo
         String validStates = UtilProperties.getPropertyValue("zipsales.properties", "zipsales.valid.states");
         if (UtilValidate.isNotEmpty(validStates)) {
-            List stateSplit = StringUtil.split(validStates, "|");
+            List<String> stateSplit = StringUtil.split(validStates, "|");
             if (!stateSplit.contains(stateProvince)) {
-                Map result = ServiceUtil.returnSuccess();
+                Map<String, Object> result = ServiceUtil.returnSuccess();
                 result.put("orderAdjustments", orderAdjustments);
                 result.put("itemAdjustments", itemAdjustments);
                 return result;
@@ -247,21 +249,21 @@ public class ZipSalesServices {
                 itemAdjustments.add(getItemTaxList(delegator, product, postalCode, city, itemAmount, shippingAmount, false));
             }
             if (orderShippingAmount.compareTo(BigDecimal.ZERO) > 0) {
-                List taxList = getItemTaxList(delegator, null, postalCode, city, BigDecimal.ZERO, orderShippingAmount, false);
+                List<GenericValue> taxList = getItemTaxList(delegator, null, postalCode, city, BigDecimal.ZERO, orderShippingAmount, false);
                 orderAdjustments.addAll(taxList);
             }
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("orderAdjustments", orderAdjustments);
         result.put("itemAdjustments", itemAdjustments);
         return result;
     }
 
-    private static List getItemTaxList(Delegator delegator, GenericValue item, String zipCode, String city, BigDecimal itemAmount, BigDecimal shippingAmount, boolean isUseTax) throws GeneralException {
-        List adjustments = new ArrayList();
+    private static List<GenericValue>getItemTaxList(Delegator delegator, GenericValue item, String zipCode, String city, BigDecimal itemAmount, BigDecimal shippingAmount, boolean isUseTax) throws GeneralException {
+        List<GenericValue> adjustments = FastList.newInstance();
 
         // check the item for tax status
         if (item != null && item.get("taxable") != null && "N".equals(item.getString("taxable"))) {
@@ -270,22 +272,22 @@ public class ZipSalesServices {
         }
 
         // lookup the records
-        List zipLookup = delegator.findByAnd("ZipSalesTaxLookup", UtilMisc.toMap("zipCode", zipCode), UtilMisc.toList("-fromDate"));
+        List<GenericValue> zipLookup = delegator.findByAnd("ZipSalesTaxLookup", UtilMisc.toMap("zipCode", zipCode), UtilMisc.toList("-fromDate"));
         if (UtilValidate.isEmpty(zipLookup)) {
             throw new GeneralException("The zip code entered is not valid.");
         }
 
         // the filtered list
-        List taxLookup = null;
+        List<GenericValue> taxLookup = null;
 
         // only do filtering if there are more then one zip code found
         if (zipLookup != null && zipLookup.size() > 1) {
             // first filter by city
-            List cityLookup = EntityUtil.filterByAnd(zipLookup, UtilMisc.toMap("city", city.toUpperCase()));
+            List<GenericValue> cityLookup = EntityUtil.filterByAnd(zipLookup, UtilMisc.toMap("city", city.toUpperCase()));
             if (UtilValidate.isNotEmpty(cityLookup)) {
                 if (cityLookup.size() > 1) {
                     // filter by county
-                    List countyLookup = EntityUtil.filterByAnd(taxLookup, UtilMisc.toMap("countyDefault", "Y"));
+                    List<GenericValue> countyLookup = EntityUtil.filterByAnd(taxLookup, UtilMisc.toMap("countyDefault", "Y"));
                     if (UtilValidate.isNotEmpty(countyLookup)) {
                         // use the county default
                         taxLookup = countyLookup;
@@ -299,7 +301,7 @@ public class ZipSalesServices {
                 }
             } else {
                 // no city found; lookup default city
-                List defaultLookup = EntityUtil.filterByAnd(zipLookup, UtilMisc.toMap("generalDefault", "Y"));
+                List<GenericValue> defaultLookup = EntityUtil.filterByAnd(zipLookup, UtilMisc.toMap("generalDefault", "Y"));
                 if (UtilValidate.isNotEmpty(defaultLookup)) {
                     // use the default city lookup
                     taxLookup = defaultLookup;
@@ -342,7 +344,7 @@ public class ZipSalesServices {
         boolean taxShipping = true;
 
         // look up the rules
-        List ruleLookup = null;
+        List<GenericValue> ruleLookup = null;
         try {
             ruleLookup = delegator.findByAnd("ZipSalesRuleLookup", UtilMisc.toMap("stateCode", stateCode), UtilMisc.toList("-fromDate"));
         } catch (GenericEntityException e) {
@@ -360,7 +362,7 @@ public class ZipSalesServices {
         }
 
         if (ruleLookup != null) {
-            Iterator ruleIterator = ruleLookup.iterator();
+            Iterator<GenericValue> ruleIterator = ruleLookup.iterator();
             while (ruleIterator.hasNext()) {
                 if (!taxShipping) {
                     // if we found an rule which passes no need to contine (all rules are ||)
