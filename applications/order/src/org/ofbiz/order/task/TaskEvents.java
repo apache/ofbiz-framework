@@ -53,7 +53,7 @@ public class TaskEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
-        Map parameterMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameterMap = UtilHttp.getParameterMap(request);
         String workEffortId = (String) parameterMap.remove("workEffortId");
         String partyId = (String) parameterMap.remove("partyId");
         String roleTypeId = (String) parameterMap.remove("roleTypeId");
@@ -68,9 +68,9 @@ public class TaskEvents {
             return "error";
         }
 
-        Map result = null;
+        Map<String, Object> result = null;
         try {
-            Map context = UtilMisc.toMap("workEffortId", workEffortId, "partyId", partyId, "roleTypeId", roleTypeId,
+            Map<String, ? extends Object> context = UtilMisc.toMap("workEffortId", workEffortId, "partyId", partyId, "roleTypeId", roleTypeId,
                     "fromDate", fromDate, "result", parameterMap, "userLogin", userLogin);
             result = dispatcher.runSync("wfCompleteAssignment", context);
             if (result.containsKey(ModelService.RESPOND_ERROR)) {
@@ -130,8 +130,8 @@ public class TaskEvents {
         String partyId = request.getParameter("partyId");
         String roleTypeId = request.getParameter("roleTypeId");
         String orderId = request.getParameter("orderId");
-        Map context = UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", roleTypeId);
-        Map result = null;
+        Map<String, ? extends Object> context = UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", roleTypeId);
+        Map<String, Object> result = null;
         try {
             result = dispatcher.runSync("addOrderRole", context);
             Debug.logInfo("Added user to order role " + result, module);
