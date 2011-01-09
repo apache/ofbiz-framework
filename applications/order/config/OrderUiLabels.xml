@@ -4361,6 +4361,14 @@
         <value xml:lang="zh">明细 #</value>
         <value xml:lang="zh_TW">明細 #</value>
     </property>
+    <property key="OrderItemDescriptionCannotBeEmpty">
+        <value xml:lang="en">Item description must not be empty</value>
+        <value xml:lang="it">Descrizione riga ordine non può essere vuota</value>
+    </property>
+    <property key="OrderItemQtyMustBePositive">
+        <value xml:lang="en">Quantity must be >0, use cancel item to cancel completely!</value>
+        <value xml:lang="it">Quantità deve essere maggiore di zero, usare le righe cancellate per cancellare completamente l'ordine!</value>
+    </property>
     <property key="OrderItemStatus">
         <value xml:lang="de">Element Status</value>
         <value xml:lang="en">Item Status</value>
@@ -6109,6 +6117,30 @@
         <value xml:lang="zh_CN">需要关注的订单</value>
         <value xml:lang="zh_TW">需要注意的訂單</value>
     </property>
+    <property key="OrderOrderExternalFulfillmentError">
+        <value xml:lang="en">Error running external fulfillment service</value>
+        <value xml:lang="it">Errore durante l'esecuzione del servizio esterno di avanzamento ordine</value>
+    </property>
+    <property key="OrderOrderContachMechNotFound">
+        <value xml:lang="en">ERROR: Problems getting contact mech: ${errorString}</value>
+        <value xml:lang="it">ERRORE: Problema nel ricavare il contatto: ${errorString}</value>
+    </property>
+    <property key="OrderOrderNoteCannotBeCreated">
+        <value xml:lang="en">Problem associating note with order: ${errorString}</value>
+        <value xml:lang="it">Problema nella creazione della note ordine: ${errorString}</value>
+    </property>
+    <property key="OrderOrderNotFound">
+        <value xml:lang="en">Could not find OrderHeader with ID ${orderId}</value>
+        <value xml:lang="it">Non è possibile trovare l'ordine ${orderId}</value>
+    </property>
+    <property key="OrderOrderWithoutWebSite">
+        <value xml:lang="en">No website attached to order; cannot generate notification ${orderId}</value>
+        <value xml:lang="it">Nessun sito web legato all'ordine; non possibile generare la notifica ordine ${orderId}</value>
+    </property>
+    <property key="OrderOrderWithoutEmailAddress">
+        <value xml:lang="en">Customer is not setup to receive emails; no address(s) found ${orderId}</value>
+        <value xml:lang="it">Il cliente non è abilitato a ricevere email; nessun indirizzo email trovato ${orderId}</value>
+    </property>
     <property key="OrderOrderNumber">
         <value xml:lang="de">Auftragsnummer</value>
         <value xml:lang="en">Order Number</value>
@@ -6138,6 +6170,10 @@
         <value xml:lang="zh">订单选项设置</value>
         <value xml:lang="zh_CN">订单选项设置</value>
         <value xml:lang="zh_TW">訂單選項設置</value>
+    </property>
+    <property key="OrderOrderPaymentPreferencesCannotBeCreated">
+        <value xml:lang="en">ERROR: Could not create OrderPaymentPreference: ${errorString}</value>
+        <value xml:lang="it">ERRORE: Non è possibile creare le preferenze pagamenti ordine: ${errorString}</value>
     </property>
     <property key="OrderOrderPurchaseToBeScheduled">
         <value xml:lang="de">Einkaufsaufträge einzuplanen</value>
@@ -7868,6 +7904,14 @@
         <value xml:lang="th">รายการการประมวลผล</value>
         <value xml:lang="zh">处理转换</value>
         <value xml:lang="zh_TW">處理轉換</value>
+    </property>
+    <property key="OrderProcessOrderPayments">
+        <value xml:lang="en">Error processing payments:</value>
+        <value xml:lang="it">Errore durante l'esecuzione dei pagamenti:</value>
+    </property>
+    <property key="OrderProcessOrderPaymentsStatusInvalid">
+        <value xml:lang="en">ERROR: the Order status is </value>
+        <value xml:lang="it">ERRORE: lo stato ordine è </value>
     </property>
     <property key="OrderProduct">
         <value xml:lang="cs">Výrobek</value>
@@ -10437,6 +10481,10 @@
         <value xml:lang="th">รหัสรายการกลุ่มการขนส่ง</value>
         <value xml:lang="zh">货运组序号标识</value>
         <value xml:lang="zh_TW">遞送群組序列ID</value>
+    </property>
+    <property key="OrderShipGroupSeqIdInvalid">
+        <value xml:lang="en">Invalid shipGroupSeqId ${shipGroupSeqId}</value>
+        <value xml:lang="it">Gruppo spedizione ${shipGroupSeqId} invalido</value>
     </property>
     <property key="OrderShipGroupTo">
         <value xml:lang="de">zu Versandgruppe</value>

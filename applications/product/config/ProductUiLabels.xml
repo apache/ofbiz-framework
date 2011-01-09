@@ -19366,6 +19366,10 @@
         <value xml:lang="en">No valid email setting for store with productStoreId ${productStoreId} and emailType ${emailType}</value>
         <value xml:lang="it">Nessuna configurazione email valida per il negozio ${productStoreId} e tipo email ${emailType}</value>
     </property>
+    <property key="ProductProductStoreEmailSettingsNotValidBodyScreenLocation">
+        <value xml:lang="en">No valid bodyScreenLocation in email setting for store with productStoreId ${productStoreId} and emailType ${emailType}</value>
+        <value xml:lang="it">Nessun bodyScreenLocation valida nella configurazione email per il negozio ${productStoreId} e tipo email ${emailType}</value>
+    </property>
     <property key="ProductProductStoreEmailSettingsNoSendToFound">
         <value xml:lang="en">No sendTo email address found</value>
         <value xml:lang="it">Nessun indirizzo destinatario email trovato</value>
