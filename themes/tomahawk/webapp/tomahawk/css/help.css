@@ -28,7 +28,7 @@ margin-top:10px;
 
 .left-border {
 float:left;
-width:20em;
+width:50em;
 }
 
 .leftonly {
@@ -37,7 +37,7 @@ min-height:25em;
 }
 
 #column-container .leftonly {
-margin-left:20em;
+margin-left:50em;
 width:auto;
 }
 

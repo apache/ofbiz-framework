@@ -24,7 +24,7 @@ body {
 
 .left-border {
     float:left;
-    width:20em;
+    width:50em;
 }
 
 div.contentarea {
@@ -37,7 +37,7 @@ div.contentarea {
 }
 
 #column-container .leftonly {
-margin-left:20em;
+margin-left:50em;
 width:auto;
 }
 
