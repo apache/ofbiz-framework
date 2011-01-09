@@ -45,6 +45,7 @@ public class QuoteServices {
     public static final String module = QuoteServices.class.getName();
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
+    public static final String resourceProduct = "ProductUiLabels";
 
     public static Map<String, Object> sendQuoteReportMail(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -69,7 +70,9 @@ public class QuoteServices {
         }
 
         if (quote == null) {
-            return ServiceUtil.returnFailure("Could not find Quote with ID [" + quoteId + "]");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "OrderOrderQuoteCannotBeFound", 
+                    UtilMisc.toMap("quoteId", quoteId), locale));
         }
 
         GenericValue productStoreEmail = null;
@@ -79,18 +82,25 @@ public class QuoteServices {
             Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId=" + quote.get("productStoreId") + " and emailType=" + emailType, module);
         }
         if (productStoreEmail == null) {
-            return ServiceUtil.returnFailure("No valid email setting for store with productStoreId=" + quote.get("productStoreId") + " and emailType=" + emailType);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceProduct, 
+                    "ProductProductStoreEmailSettingsNotValid", 
+                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"), 
+                            "emailType", emailType), locale));
         }
         String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
         if (UtilValidate.isEmpty(bodyScreenLocation)) {
-            return ServiceUtil.returnFailure("No valid bodyScreenLocation in email setting for store with productStoreId=" + quote.get("productStoreId") + " and emailType=" + emailType);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceProduct, 
+                    "ProductProductStoreEmailSettingsNotValidBodyScreenLocation", 
+                    UtilMisc.toMap("productStoreId", quote.get("productStoreId"), 
+                            "emailType", emailType), locale));
         }
         sendMap.put("bodyScreenUri", bodyScreenLocation);
         String xslfoAttachScreenLocation = productStoreEmail.getString("xslfoAttachScreenLocation");
         sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
 
         if ((sendTo == null) || !UtilValidate.isEmail(sendTo)) {
-            return ServiceUtil.returnError("No sendTo email address found");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceProduct, 
+                    "ProductProductStoreEmailSettingsNoSendToFound", locale));
         }
 
         Map<String, Object> bodyParameters = UtilMisc.<String, Object>toMap("quoteId", quoteId, "userLogin", userLogin, "locale", locale);
@@ -132,7 +142,6 @@ public class QuoteServices {
     public static Map<String, Object> storeQuote(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-
         String quoteTypeId = (String) context.get("quoteTypeId");
         String partyId = (String) context.get("partyId");
         Timestamp issueDate = (Timestamp) context.get("issueDate");
@@ -150,6 +159,7 @@ public class QuoteServices {
         List<GenericValue> quoteRoles = UtilGenerics.checkList(context.get("quoteRoles"));
         List<GenericValue> quoteWorkEfforts = UtilGenerics.checkList(context.get("quoteWorkEfforts"));
         List<GenericValue> quoteAdjustments = UtilGenerics.checkList(context.get("quoteAdjustments"));
+        Locale locale = (Locale) context.get("locale");
         
         //TODO create Quote Terms still to be implemented
         //List<GenericValue> quoteTerms = UtilGenerics.cast(context.get("quoteTerms"));
@@ -261,7 +271,8 @@ public class QuoteServices {
                 //TODO create Quote Terms still to be implemented the base service createQuoteTerm
                 //TODO create Quote Term Attributes still to be implemented the base service createQuoteTermAttribute
             } else {
-                return ServiceUtil.returnFailure("Could not storing Quote");
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, 
+                        "OrderOrderQuoteCannotBeStored", locale));
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem storing Quote", module);

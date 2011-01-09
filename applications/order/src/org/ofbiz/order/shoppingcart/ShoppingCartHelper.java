@@ -495,7 +495,9 @@ public class ShoppingCartHelper {
                 } catch (GenericEntityException gee) {
                 }
                 if (requirement == null) {
-                    return ServiceUtil.returnError("Requirement with id [" + requirementId + "] doesn't exist.");
+                    return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, 
+                            "OrderRequirementDoesNotExists", 
+                            UtilMisc.toMap("requirementId", requirementId), cart.getLocale()));
                 }
 
                 if (UtilValidate.isNotEmpty(quantStr)) {
