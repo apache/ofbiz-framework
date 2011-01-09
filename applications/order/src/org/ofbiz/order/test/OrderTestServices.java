@@ -28,6 +28,7 @@ import java.util.Random;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -49,7 +50,7 @@ public class OrderTestServices {
 
     public static final String module = OrderTestServices.class.getName();
 
-    public static Map createTestSalesOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createTestSalesOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Integer numberOfOrders = (Integer) context.get("numberOfOrders");
 
@@ -57,7 +58,7 @@ public class OrderTestServices {
         for (int i = 1; i <= numberOfOrdersInt; i++) {
             try {
                 ModelService modelService = dctx.getModelService("createTestSalesOrderSingle");
-                Map outputMap = dispatcher.runSync("createTestSalesOrderSingle", modelService.makeValid(context, ModelService.IN_PARAM));
+                Map<String, Object> outputMap = dispatcher.runSync("createTestSalesOrderSingle", modelService.makeValid(context, ModelService.IN_PARAM));
                 String orderId = (String)outputMap.get("orderId");
                 Debug.logInfo("Test sales order with id [" + orderId + "] has been processed.", module);
             } catch (GenericServiceException e) {
@@ -68,7 +69,7 @@ public class OrderTestServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map createTestSalesOrderSingle(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createTestSalesOrderSingle(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -79,24 +80,23 @@ public class OrderTestServices {
         String currencyUomId = (String) context.get("currencyUomId");
         String partyId = (String) context.get("partyId");
         String productId = (String) context.get("productId");
-        Integer numberOfOrders = (Integer) context.get("numberOfOrders");
         Integer numberOfProductsPerOrder = (Integer) context.get("numberOfProductsPerOrder");
         String salesChannel = (String) context.get("salesChannel");
         if (UtilValidate.isEmpty(salesChannel)) {
             salesChannel = "WEB_SALES_CHANNEL";
         }
 
-        List productsList = FastList.newInstance();
+        List<String> productsList = FastList.newInstance();
         try {
             if (UtilValidate.isNotEmpty(productId)) {
                 productsList.add(productId);
                 numberOfProductsPerOrder = Integer.valueOf(1);
             } else {
-                Map result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
+                Map<String, Object> result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
                 if (result.get("categoryMembers") != null) {
-                    List productCategoryMembers = (List)result.get("categoryMembers");
+                    List<GenericValue> productCategoryMembers = UtilGenerics.checkList(result.get("categoryMembers"));
                     if (productCategoryMembers != null) {
-                        Iterator i = productCategoryMembers.iterator();
+                        Iterator<GenericValue> i = productCategoryMembers.iterator();
                         while (i.hasNext()) {
                             GenericValue prodCatMemb = (GenericValue) i.next();
                             if (prodCatMemb != null) {
@@ -143,10 +143,10 @@ public class OrderTestServices {
         }
         cart.setDefaultCheckoutOptions(dispatcher);
         CheckOutHelper checkout = new CheckOutHelper(dispatcher, delegator, cart);
-        Map orderCreateResult = checkout.createOrder(userLogin);
+        Map<String, Object> orderCreateResult = checkout.createOrder(userLogin);
         String orderId = (String) orderCreateResult.get("orderId");
 
-        Map resultMap = ServiceUtil.returnSuccess();
+        Map<String, Object> resultMap = ServiceUtil.returnSuccess();
         // approve the order
         if (UtilValidate.isNotEmpty(orderId)) {
             Debug.logInfo("Created test order with id: " + orderId, module);
@@ -157,7 +157,7 @@ public class OrderTestServices {
         Boolean shipOrder = (Boolean) context.get("shipOrder");
         if (shipOrder.booleanValue() && UtilValidate.isNotEmpty(orderId)) {
             try {
-                Map outputMap = dispatcher.runSync("quickShipEntireOrder", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
+                dispatcher.runSync("quickShipEntireOrder", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
                 Debug.logInfo("Test sales order with id [" + orderId + "] has been shipped", module);
             } catch (Exception exc) {
                 Debug.logWarning("Unable to quick ship test sales order with id [" + orderId + "] with error: " + exc.getMessage(), module);
