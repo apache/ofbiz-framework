@@ -396,7 +396,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, formName) {
    for (var i = 0; i < numAreas * 3; i = i + 3) {
           var url = areaArray[i + 1] + "?" + areaArray[i + 2];
           var div = areaArray[i];
-          // create a seperate div where the result JSON Opbject will be placed
+          // create a separated div where the result JSON Opbject will be placed
           if ((jQuery("#" + div + "_auto")).length < 1) {
               jQuery("<div id='" + div + "_auto'></div>").insertBefore("#" + areaArray[i]);
           }
@@ -409,9 +409,14 @@ function ajaxAutoCompleter(areaCsvString, showDescription, formName) {
                     data: {term : request.term},
                     success: function(data) {
                         //update the result div
-                        jQuery("#" + div + "_auto").html(data)
-                        // autocomp is the JSON Object which will be used for the autocomplete box
-                        response(autocomp);
+                        jQuery("#" + div + "_auto").html(data);
+                        if (typeof autocomp != 'undefined') {
+                            jQuery.each(autocomp, function(index, item) {
+                                item.label = jQuery("<div>").html(item.label).text();
+                            })
+                            // autocomp is the JSON Object which will be used for the autocomplete box
+                            response(autocomp);
+                        }
                     }
                 })
             },
