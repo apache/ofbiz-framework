@@ -47,7 +47,7 @@ under the License.
             </if-compare>
         <else>
             <!-- make sure that the party to return to is an INTERNAL_ORGANIZATIO for customer return and SUPPLIER for vendor return else stop -->
-            <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+            <if-compare field="returnHeaderTypeId" operator="contains" value="CUSTOMER_">
                 <entity-one entity-name="PartyRole" value-field="partyRole" use-cache="true" auto-field-map="false">
                     <field-map field-name="partyId" from-field="parameters.toPartyId"/>
                     <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>

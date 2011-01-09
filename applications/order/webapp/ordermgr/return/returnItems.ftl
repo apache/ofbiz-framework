@@ -360,7 +360,7 @@ under the License.
                 <td width='25%'>
                   <select name="orderId">
                     <#list partyOrders as order>
-                      <option>${order.orderId}</option>
+                      <option value="${order.orderId}">${order.orderId} - ${order.orderDate}</option>
                     </#list>
                   </select>
                 </td>

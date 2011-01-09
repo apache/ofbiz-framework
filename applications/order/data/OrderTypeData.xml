@@ -277,6 +277,7 @@ under the License.
     <ReturnAdjustmentType description="Return Fee" hasTable="N" returnAdjustmentTypeId="RET_FEE_ADJ" parentTypeId=""/>
     <ReturnAdjustmentType description="Return Miscellaneous Charges" hasTable="N" returnAdjustmentTypeId="RET_MISC_ADJ" parentTypeId=""/>
     <ReturnAdjustmentType description="Return Sales Tax" hasTable="N" returnAdjustmentTypeId="RET_SALES_TAX_ADJ" parentTypeId=""/>
+    <ReturnAdjustmentType description="Return VAT Tax" hasTable="N" returnAdjustmentTypeId="RET_VAT_TAX_ADJ" parentTypeId=""/>
     <ReturnAdjustmentType description="Return Shipping and Handling" hasTable="N" returnAdjustmentTypeId="RET_SHIPPING_ADJ" parentTypeId=""/>
     <ReturnAdjustmentType description="Return Surcharge" hasTable="N" returnAdjustmentTypeId="RET_SURCHARGE_ADJ" parentTypeId=""/>
     <ReturnAdjustmentType description="Return Additional Feature" hasTable="N" returnAdjustmentTypeId="RET_ADD_FEATURE_ADJ" parentTypeId=""/>
@@ -314,6 +315,7 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FEE" returnItemTypeId="RET_FEE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MISCELLANEOUS_CHARGE" returnItemTypeId="RET_MISC_CHARGE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SALES_TAX" returnItemTypeId="RET_SALES_TAX_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="VAT_TAX" returnItemTypeId="RET_VAT_TAX_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SHIPPING_CHARGES" returnItemTypeId="RET_SHIPPING_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SURCHARGE_ADJUSTMENT" returnItemTypeId="RET_SURCHARGE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="ADDITIONAL_FEATURE" returnItemTypeId="RET_ADD_FEATURE_ADJ"/>
