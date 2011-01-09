@@ -33,11 +33,9 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.service.ServiceUtil;
 
 /**
  * ControlServlet.java - Master servlet for the web application.
@@ -76,8 +74,6 @@ public class ImageUrlServlet extends HttpServlet {
 
         String pathInfo = request.getPathInfo();
         List<String> pathElements = StringUtil.split(pathInfo, "/");
-        
-        String lastPathElement = pathElements.get(pathElements.size() - 1);
         
         List<String> tagElements = FastList.newInstance();
         for (String pathElement : pathElements) {
