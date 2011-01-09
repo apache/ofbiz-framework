@@ -235,5 +235,3 @@ var rawdata = [
 </style>
 
 <div id="tree"></div>
-
-
