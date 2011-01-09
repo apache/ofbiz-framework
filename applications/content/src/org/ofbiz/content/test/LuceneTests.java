@@ -19,24 +19,29 @@
 
 package org.ofbiz.content.test;
 
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
 import javolution.util.FastMap;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.search.*;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.Searcher;
+import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.content.search.SearchWorker;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.testtools.OFBizTestCase;
-
-import java.io.File;
-import java.util.List;
-import java.util.Map;
 
 public class LuceneTests extends OFBizTestCase {
 
@@ -56,14 +61,14 @@ public class LuceneTests extends OFBizTestCase {
     }
 
     public void testCreateIndex() throws Exception {
-        Map ctx = FastMap.newInstance();
+        Map<String, Object> ctx = FastMap.newInstance();
         ctx.put("contentId", "WebStoreCONTENT");
         ctx.put("userLogin", userLogin);
-        Map resp = dispatcher.runSync("indexTree", ctx);
+        Map<String, Object> resp = dispatcher.runSync("indexTree", ctx);
 
         assertEquals(7, resp.get("goodIndexCount"));
 
-        List<String> badIndexList = (List<String>) resp.get("badIndexList");
+        List<String> badIndexList = UtilGenerics.checkList(resp.get("badIndexList"));
         assertEquals(8, badIndexList.size());
     }
 
