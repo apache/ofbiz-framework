@@ -30,6 +30,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
@@ -74,7 +75,6 @@ public class OrderTestServices {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-
         String productCategoryId = (String) context.get("productCategoryId");
         String productStoreId = (String) context.get("productStoreId");
         String currencyUomId = (String) context.get("currencyUomId");
@@ -107,10 +107,12 @@ public class OrderTestServices {
                 }
             }
         } catch (Exception e) {
-            return ServiceUtil.returnError("The following error occurred: " + e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         }
         if (productsList.size() == 0) {
-            return ServiceUtil.returnError("No products found in category [" + productCategoryId + "]; no orders will be created");
+            return ServiceUtil.returnError(UtilProperties.getMessage("OrderUiLabels",
+                    "OrderCreateTestSalesOrderSingleError", 
+                    UtilMisc.toMap("productCategoryId", productCategoryId), locale));
         }
 
         Random r = new Random();
