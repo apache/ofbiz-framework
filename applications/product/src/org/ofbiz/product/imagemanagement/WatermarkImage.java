@@ -40,6 +40,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -55,16 +56,16 @@ import watermarker.exception.WatermarkerException;
 import watermarker.impl.DefaultWatermarker;
 import watermarker.model.WatermarkSettings;
 import watermarker.model.WatermarkerSettings;
+
 public class WatermarkImage{
     
     public static final String module = WatermarkImage.class.getName();
     public static final String resource = "ProductErrorUiLabels";
     
     public static String createWatermarkImage(HttpServletRequest request, HttpServletResponse response) throws WatermarkerException, IOException {
-        Map<String, ? extends Object> context = request.getParameterMap();
+        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String watermarkText = null;
         URL imageUrl = null;
@@ -304,7 +305,7 @@ public class WatermarkImage{
         return result;
     }
     public static String setPreviewWaterMark(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, ? extends Object> context = request.getParameterMap();
+        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         String productId = request.getParameter("productId");
         String imageName = request.getParameter("imageName");
@@ -354,7 +355,7 @@ public class WatermarkImage{
         return "success";
     }
     public static String deletePreviewWatermarkImage(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, ? extends Object> context = request.getParameterMap();
+        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         String count = request.getParameter("count");
         File file = new File(imageServerPath + "/products/management/previewImage" + count  + ".jpg");

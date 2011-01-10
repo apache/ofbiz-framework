@@ -26,11 +26,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -41,7 +44,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceUtil;
 
 import watermarker.exception.WatermarkerException;
 import watermarker.impl.DefaultWatermarker;
@@ -53,7 +55,7 @@ public class ReplaceImage{
     public static final String resource = "ProductErrorUiLabels";
 
     public static String replaceImageToExistImage(HttpServletRequest request, HttpServletResponse response) throws MalformedURLException, FileNotFoundException, WatermarkerException, GenericEntityException, GenericServiceException {
-        Map<String, ? extends Object> context = request.getParameterMap();
+        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
