@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/ui/development-bundle/external/jquery.cookie.js</@ofbizContentUrl>"></script>
-
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/ui/development-bundle/external/jquery.cookie.js</@ofbizContentUrl>"></script>
 
 <script type="application/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manuely -->
@@ -26,7 +26,8 @@ function unescapeHtmlText(text) {
     return jQuery('<div />').html(text).text()
 }
 
-jQuery(document).ready(createTree());
+createTree();
+
 <#-- creating the JSON Data -->
 var rawdata = [
       <#if (prodCatalogList?has_content)>
@@ -39,13 +40,12 @@ var rawdata = [
                 <#assign catalogId = catalog.prodCatalogId/>
                 <#assign catalogName = catalog.catalogName/>
                 <#assign categoryList = catalog.rootCategoryList/>
-                <#assign catContentWrappers = catalog.catContentWrappers/>
                 {
                 <#if catalogId?has_content>
                     "data": {"title" : unescapeHtmlText("${catalogName!catalogId}"), "attr": {"href": "<@ofbizUrl>/EditProdCatalog?prodCatalogId=${catalogId}</@ofbizUrl>", "onClick" : "callDocument('<@ofbizUrl>/EditProdCatalog?prodCatalogId=${catalogId}</@ofbizUrl>');"}},
                     "attr": {"id" : "${catalogId}", "contentId" : "${catalogId}", "AssocType" : "${catalogId}", "fromDate" : "${catalogId}"},
                 </#if>
-                <#if categoryList?has_content && catContentWrappers?has_content>
+                <#if categoryList?has_content>
                     "children": [
                         <@fillCategoryTree childCategoryList = categoryList/>
                     ]
@@ -60,7 +60,7 @@ var rawdata = [
         </#macro>
         
         <#macro fillCategoryTree childCategoryList>
-            <#if childCategoryList?exists>
+            <#if childCategoryList?has_content>
                 <#list childCategoryList as childCategory>
                     {
                     <#local productCategoryId = childCategory.productCategoryId/>
@@ -74,7 +74,7 @@ var rawdata = [
                     <#local childCategorys = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "childCategoryList", productCategoryId, true)>
                     "data": {"title" : unescapeHtmlText("${categoryName}"), "attr": {"href": "<@ofbizUrl>/EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>", "onClick" : "callDocument('<@ofbizUrl>/EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>');"}},
                     "attr": {"id" : "${productCategoryId}", "contentId" : "${productCategoryId}", "AssocType" : "${productCategoryId}", "fromDate" : "${productCategoryId}"},
-                    <#if childCategoryList?exists>
+                    <#if childCategoryList?has_content>
                         "children": [
                             <@fillCategoryTree childCategoryList = childCategorys/>
                         ]
@@ -88,15 +88,17 @@ var rawdata = [
             </#if>
         </#macro>
      ];
+     
 
  <#-------------------------------------------------------------------------------------create Tree-->
   function createTree() {
     jQuery(function () {
-        var pageUrl = window.location.href
-        if ((pageUrl.indexOf("productCategoryId") == -1) && (pageUrl.indexOf("showProductCategoryId") == -1)) {
+        <#if !openTree>
             $.cookie('jstree_select', null);
             $.cookie('jstree_open', null);
-        }
+        <#else>
+            $.cookie("jstree_select", "${productCategoryId}");
+        </#if>
         jQuery("#tree").jstree({
         "plugins" : [ "themes", "json_data", "cookies", "ui"],
             "json_data" : {
@@ -109,7 +111,9 @@ var rawdata = [
                 "save_opened" : false
             }
         });
+        
     });
+    
   }
   
   function callDocument(url) {
@@ -117,16 +121,5 @@ var rawdata = [
   }
 
 </script>
-
-<style>
-<#if tabButtonItem?has_content>
-    <#if tabButtonItem=="LookupContentTree"||tabButtonItem=="LookupDetailContentTree">
-        body{background:none;}
-        .left-border{float:left;width:25%;}
-        .contentarea{margin: 0 0 0 0.5em;padding:0 0 0 0.5em;}
-        .leftonly{float:none;min-height:25em;}
-    </#if>
-</#if>
-</style>
 
 <div id="tree"></div>
