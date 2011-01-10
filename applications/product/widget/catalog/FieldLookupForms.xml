@@ -53,14 +53,18 @@ under the License.
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
+            
         </actions>
+        <row-actions>            
+            <set field="hasVariants" value="${groovy: delegator.findByAndCache('ProductAssoc', org.ofbiz.base.util.UtilMisc.toMap('productId', productId, 'productAssocTypeId', 'PRODUCT_VARIANT')).size() > 0}" type="Boolean"/>
+        </row-actions>
         <field name="productId" title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}"><display-entity entity-name="ProductType"/></field>
-        <field name="searchVariants" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
+        <field name="searchVariants" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="hasVariants">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
                 <parameter param-name="productId"/>
             </hyperlink>
@@ -181,6 +185,9 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
+        <row-actions>            
+            <set field="hasVariants" value="${groovy: delegator.findByAndCache('ProductAssoc', org.ofbiz.base.util.UtilMisc.toMap('productId', productId, 'productAssocTypeId', 'PRODUCT_VARIANT')).size() > 0}" type="Boolean"/>
+        </row-actions>
         <!--
         <field name="productId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="isVirtual==null||&quot;${isVirtual}&quot;.equals(&quot;N&quot;)">
             <hyperlink also-hidden="false" target-type="plain" description="${productId}" target="javascript:set_value('${productId}')"/>
@@ -196,7 +203,7 @@ under the License.
         <field name="price" title="${uiLabelMap.ProductPrice}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
-        <field name="searchVariants" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
+        <field name="searchVariants" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="hasVariants">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
                 <parameter param-name="productId"/>
             </hyperlink>
