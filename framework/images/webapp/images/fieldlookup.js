@@ -464,7 +464,7 @@ function modifySubmitButton (lookupDiv) {
 
         var navPagersSelect = jQuery("#" + lookupDiv + " .nav-pager select");
         jQuery.each(navPagersSelect, function(navPager) {
-            // that's quiet weird maybe someone have a better idea ... that's where the magic happens
+            // that's quite weird maybe someone have a better idea ... that's where the magic happens
             try {
                   var oc = jQuery(navPagersSelect[navPager]).attr("onchange");
                   if((typeof oc) == "function"){ // IE6/7 Fix
