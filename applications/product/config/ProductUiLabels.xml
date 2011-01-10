@@ -9955,7 +9955,7 @@
     </property>
     <property key="ProductBrowseCatalogeAndCategories">
         <value xml:lang="en">Browse Catalogs/Categories</value>
-        <value xml:lang="fr">Parcourir les catalogues/catégories</value>
+        <value xml:lang="fr">Catalogues/catégories</value>
     </property>
     <property key="ProductBrowseCategories">
         <value xml:lang="cs">Výběr skupiny výrobků</value>
