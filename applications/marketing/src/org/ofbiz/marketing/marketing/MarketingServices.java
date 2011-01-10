@@ -80,7 +80,7 @@ public class MarketingServices {
             // associate the email with anonymous user TODO: do we need a custom contact mech purpose type, say MARKETING_EMAIL?
             if (partyId == null) {
                 // Check existing email
-                List conds = UtilMisc.toList(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, email));
+                List<EntityCondition> conds = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, email));
                 conds.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "EMAIL_ADDRESS"));
                 conds.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_EMAIL"));
                 conds.add(EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate"));
