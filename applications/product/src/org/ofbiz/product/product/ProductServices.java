@@ -1048,7 +1048,7 @@ public class ProductServices {
 
             /* now store the image versions created by ScaleImage.scaleImageInAllSize */
             /* have to shrink length of productContentTypeId, as otherwise value is too long for database field */
-            Map<String,String> imageUrlMap = (Map<String, String>)resultResize.get("imageUrlMap");
+            Map<String,String> imageUrlMap = UtilGenerics.checkMap(resultResize.get("imageUrlMap"));
             for( String sizeType : ScaleImage.sizeTypeList ) {
                 imageUrl = imageUrlMap.get(sizeType);
                 if( UtilValidate.isNotEmpty(imageUrl)) {
