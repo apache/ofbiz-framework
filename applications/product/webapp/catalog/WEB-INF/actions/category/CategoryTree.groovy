@@ -53,12 +53,20 @@ if (prodCatalogs.size() > 0) {
         }
 
         if (rootCategoryList) {
-            catContentWrappers = [:];
-            CategoryWorker.getCategoryContentWrappers(catContentWrappers, rootCategoryList, request);
             prodCatalogMap.put("rootCategoryList", rootCategoryList);
-            prodCatalogMap.put("catContentWrappers", catContentWrappers);
             prodCatalogList.add(prodCatalogMap);
         }
     }
 }
+
 context.prodCatalogList = prodCatalogList;
+
+openTree = false;
+productCategoryId = null;
+if ((parameters.productCategoryId != null) || (parameters.showProductCategoryId != null)) {
+    openTree = true;
+    productCategoryId = (parameters.productCategoryId != null) ? parameters.productCategoryId : parameters.showProductCategoryId;
+}
+
+context.openTree = openTree;
+context.productCategoryId = productCategoryId;
