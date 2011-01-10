@@ -20,21 +20,23 @@ package org.ofbiz.content.layout;
 
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import javolution.util.FastMap;
-
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.service.ServiceUtil;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * LayoutWorker Class
@@ -49,18 +51,18 @@ public class LayoutWorker {
      * Expects key data in a field identitified by the "idField" value
      * and the binary data to be in a field id'd by uploadField.
      */
-    public static Map uploadImageAndParameters(HttpServletRequest request, String uploadField) {
+    public static Map<String, Object> uploadImageAndParameters(HttpServletRequest request, String uploadField) {
 
         //Debug.logVerbose("in uploadAndStoreImage", "");
         Locale locale = UtilHttp.getLocale(request);
 
-        Map results = FastMap.newInstance();
-        Map formInput = FastMap.newInstance();
+        Map<String, Object> results = FastMap.newInstance();
+        Map<String, String> formInput = FastMap.newInstance();
         results.put("formInput", formInput);
         ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
-        java.util.List lst = null;
+        List<FileItem> lst = null;
         try {
-           lst = fu.parseRequest(request);
+           lst = UtilGenerics.checkList(fu.parseRequest(request));
         } catch (FileUploadException e4) {
             return ServiceUtil.returnError(e4.getMessage());
         }
@@ -78,7 +80,6 @@ public class LayoutWorker {
         FileItem imageFi = null;
         for (int i=0; i < lst.size(); i++) {
             fi = (FileItem)lst.get(i);
-            String fn = fi.getName();
             String fieldName = fi.getFieldName();
             String fieldStr = fi.getString();
             if (fi.isFormField()) {
@@ -93,8 +94,8 @@ public class LayoutWorker {
         }
 
         if (imageFi == null) {
-            Map messageMap = UtilMisc.toMap("imageFi", imageFi);
-            String errMsg = UtilProperties.getMessage(LayoutWorker.err_resource, "layoutEvents.image_null", messageMap, locale);
+            String errMsg = UtilProperties.getMessage(LayoutWorker.err_resource, 
+                    "layoutEvents.image_null", UtilMisc.toMap("imageFi", imageFi), locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             //Debug.logWarning("[DataEvents.uploadImage] imageFi(" + imageFi + ") is null", module);
             return null;
@@ -109,7 +110,7 @@ public class LayoutWorker {
         return results;
     }
 
-    public static ByteBuffer returnByteBuffer(Map map) {
+    public static ByteBuffer returnByteBuffer(Map<String, ByteBuffer> map) {
         ByteBuffer byteBuff = (ByteBuffer)map.get("imageData");
         return byteBuff;
     }

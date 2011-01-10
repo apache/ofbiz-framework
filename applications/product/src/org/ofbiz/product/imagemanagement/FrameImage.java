@@ -46,6 +46,7 @@ import javolution.util.FastMap;
 import org.jdom.JDOMException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -79,12 +80,12 @@ public class FrameImage {
         Locale locale = (Locale) context.get("locale");
         
         if (UtilValidate.isEmpty(context.get("frameContentId")) || UtilValidate.isEmpty(context.get("frameDataResourceId"))) {
-            result =  ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "ProductImageFrameContentIdRequired", locale));
             result.putAll(context);
         }
         if (UtilValidate.isEmpty(context.get("imageWidth")) || UtilValidate.isEmpty(context.get("imageHeight"))) {
-            result =  ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "ProductImageWidthAndHeightRequired", locale));
             result.putAll(context);
         }
@@ -98,7 +99,7 @@ public class FrameImage {
             frameImageName = contentDataResourceView.getString("contentName");
         } catch (Exception e) {
             Debug.logError(e, module);
-            result =  ServiceUtil.returnError(e.getMessage());
+            result = ServiceUtil.returnError(e.getMessage());
             result.putAll(context);
         }
 
@@ -246,7 +247,7 @@ public class FrameImage {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         
-        Map<String, ? extends Object> context = request.getParameterMap();
+        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         Map<String, Object> tempFile = LayoutWorker.uploadImageAndParameters(request, "uploadedFile");
         String imageName = tempFile.get("imageFileName").toString();
@@ -317,7 +318,7 @@ public class FrameImage {
     }
     public static String previewFrameImage(HttpServletRequest request, HttpServletResponse response) throws IOException, JDOMException {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        Map<String, ? extends Object> context = request.getParameterMap();
+        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         HttpSession session = request.getSession();
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
 
@@ -406,7 +407,7 @@ public class FrameImage {
         return "success";
     }
     public static String deleteFrameImage(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, ? extends Object> context = request.getParameterMap();
+        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         File file = new File(imageServerPath + "/products/management/previewImage.jpg");
         if (file.exists()) {
