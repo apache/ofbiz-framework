@@ -9953,6 +9953,10 @@
         <value xml:lang="zh">浏览目录</value>
         <value xml:lang="zh_TW">目錄瀏覽</value>
     </property>
+    <property key="ProductBrowseCatalogeAndCategories">
+        <value xml:lang="en">Browse Catalogs/Categories</value>
+        <value xml:lang="fr">Parcourir les catalogues/catégories</value>
+    </property>
     <property key="ProductBrowseCategories">
         <value xml:lang="cs">Výběr skupiny výrobků</value>
         <value xml:lang="de">Produktgruppen durchsuchen</value>
