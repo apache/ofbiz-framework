@@ -2628,6 +2628,10 @@
         <value xml:lang="zh_CN">复制询价</value>
         <value xml:lang="zh_TW">複製報價</value>
     </property>
+    <property key="OrderCreateTestSalesOrderSingleError">
+        <value xml:lang="en">No products found in category ${productCategoryId}; no orders will be created</value>
+        <value xml:lang="it">Nessun prodotto trovato nella categoria ${productCategoryId}; nessun ordine verrà creato</value>
+    </property>
     <property key="OrderCreateAsNewOrder">
         <value xml:lang="de">Als neuen Auftrag erstellen</value>
         <value xml:lang="en">Create As New Order</value>
@@ -6171,9 +6175,57 @@
         <value xml:lang="zh_CN">订单选项设置</value>
         <value xml:lang="zh_TW">訂單選項設置</value>
     </property>
+    <property key="OrderOrderPaymentPreferencesCannotGetPaymentMethodTypes">
+        <value xml:lang="en">Problems getting PaymentMethodTypes: ${errorString}</value>
+        <value xml:lang="it">Problema nel ricavare i tipi metodo di pagamento: ${errorString}</value>
+    </property>
+    <property key="OrderOrderPaymentGatewayResponseCannotBeCreated">
+        <value xml:lang="en">Unable to create PaymentGatewayResponse record</value>
+        <value xml:lang="it">Non è possibile creare il record di risposta al gateway dei pagamenti</value>
+    </property>
     <property key="OrderOrderPaymentPreferencesCannotBeCreated">
         <value xml:lang="en">ERROR: Could not create OrderPaymentPreference: ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile creare le preferenze pagamenti ordine: ${errorString}</value>
+    </property>
+    <property key="OrderOrderPaymentFailed">
+        <value xml:lang="en">Problem creating Payment: ${errorString}</value>
+        <value xml:lang="it">Fallita creazione Pagamento: ${errorString}</value>
+    </property>
+    <property key="OrderOrderPaymentApplicationFailed">
+        <value xml:lang="en">Problem creating PaymentApplication: ${errorString}</value>
+        <value xml:lang="it">Fallita creazione PaymentApplication: ${errorString}</value>
+    </property>
+    <property key="OrderOrderPaymentCannotBeCreated">
+        <value xml:lang="en">Failed to create Payment: Cannot find OrderPaymentPreference with orderPaymentPreferenceId: ${orderPaymentPreferenceId}</value>
+        <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare OrderPaymentPreference con orderPaymentPreferenceId: ${orderPaymentPreferenceId}</value>
+    </property>
+    <property key="OrderOrderPaymentCannotBeCreatedPayToPartyIdNotSet">
+        <value xml:lang="en">Failed to create Payment: payToPartyId not set in ProductStore</value>
+        <value xml:lang="it">Fallita creazione Pagamento: pagare a non impostato sul negozio</value>
+    </property>
+    <property key="OrderOrderPaymentCannotBeCreatedWithRelatedOrderHeader">
+        <value xml:lang="en">Failed to create Payment: Cannot get related OrderHeader from payment preference</value>
+        <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare la testata ordine relazionata alle preferenza pagamento</value>
+    </property>
+    <property key="OrderOrderPaymentCannotBeCreatedWithRelatedProductStore">
+        <value xml:lang="en">Failed to create Payment: Cannot get the ProductStore for the order header</value>
+        <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare il negozio relazionato alla testata ordine</value>
+    </property>
+    <property key="OrderOrderCancelRemainingPurchaseOrderItemsError">
+        <value xml:lang="en">Error cancelRemainingPurchaseOrderItems for order: </value>
+        <value xml:lang="it">Errore durante la cancellazione delle rimanenza ordini d'acquisto dagli ordini: </value>
+    </property>
+    <property key="OrderOrderCheckOrderItemStatusError">
+        <value xml:lang="en">Error checkOrderItemStatus for order: </value>
+        <value xml:lang="it">Errore durante la verifica dello stato riga ordine dagli ordini: </value>
+    </property>
+    <property key="OrderOrderCreatingDropShipmentsError">
+        <value xml:lang="en">The following error occurred creating drop shipments for order ${orderId}: ${errorString}</value>
+        <value xml:lang="it">Il seguente error è accaduto durante la creazione delle spedizioni conto terzi per l'ordine ${orderId}: ${errorString}</value>
+    </property>
+    <property key="OrderOrderPickingListCreationError">
+        <value xml:lang="en">Error creating picklist from orders: </value>
+        <value xml:lang="it">Errore durante la creazione della lista di prelievo dagli ordini: </value>
     </property>
     <property key="OrderOrderPurchaseToBeScheduled">
         <value xml:lang="de">Einkaufsaufträge einzuplanen</value>
@@ -6203,6 +6255,10 @@
         <value xml:lang="th">จำนวนรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">订购数量</value>
         <value xml:lang="zh_TW">訂購數量</value>
+    </property>
+    <property key="OrderOrderQuickShipEntireOrderError">
+        <value xml:lang="en">Error quickShipEntireOrder for order: </value>
+        <value xml:lang="it">Errore durante spedizione veloce intero ordine: </value>
     </property>
     <property key="OrderOrderQuote">
         <value xml:lang="de">Offerte</value>
@@ -10758,6 +10814,14 @@
         <value xml:lang="th">ไม่มีการซื้อสินค้าลงตะกร้า</value>
         <value xml:lang="zh">购物车是空的</value>
         <value xml:lang="zh_TW">購物車是空的</value>
+    </property>
+    <property key="OrderRunSubscriptionAutoReorders">
+        <value xml:lang="en">runSubscriptionAutoReorders finished, ${count} subscription extended.</value>
+        <value xml:lang="it">runSubscriptionAutoReorders completato, ${count} abbonamenti estesi.</value>
+    </property>
+    <property key="OrderShoppingListCreationError">
+        <value xml:lang="en">Error while creating new shopping list based automatic reorder ${errorString}</value>
+        <value xml:lang="it">Error durante la creazione di una nuova lista d'acquisto basata sui ri-ordini automatici ${errorString}</value>
     </property>
     <property key="OrderShortfalled">
         <value xml:lang="de">Rückstand</value>
