@@ -573,7 +573,7 @@ under the License.
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="cobertura"/>
     </target>
 
-    <target name="download-PG-JDBC" depends="ivy-init">
+    <target name="download-PG-JDBC" depends="ivy-init" description="Download postgres jdbc driver">
         <ivy:retrieve pattern="framework/entity/lib/jdbc/[artifact]-[revision].[ext]" conf="postgres"/>
     </target>
 
