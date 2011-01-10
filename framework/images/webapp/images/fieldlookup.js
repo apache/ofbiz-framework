@@ -305,21 +305,21 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
             return false;
         }
     );
-    
+
     // close the dialog when clicking outside the dialog area
     jQuery(".ui-widget-overlay").live("click", function() {  jQuery("#" + lookupId).dialog("close"); } );
-    
+
 }
 
 function FieldLookupCounter() {
-	this.refArr = {};
-    
+    this.refArr = {};
+
     this.setReference = function (key, ref) {
         //if key doesn't exist in the array and
         for (itm in this.refArr) {
             if (itm == key) {
                 prefix = key.substring(0, key.indexOf("_"));
-                key = prefix + "_" + key; 
+                key = prefix + "_" + key;
                 this.refArr[""+ key + ""] = ref;
                 return this.refArr[key];
             }
@@ -388,10 +388,10 @@ function modifyCollapseable(lookupDiv){
     }
     var slTitleBars = jQuery("#" + lookupDiv + " .screenlet-title-bar");
     //jQuery("#" + lookupDiv + " li.expanded");
-    
+
     jQuery.each(slTitleBars, function(i) {
-    	var slTitleBar = slTitleBars[i];
-    	var ul = slTitleBar.firstChild;
+        var slTitleBar = slTitleBars[i];
+        var ul = slTitleBar.firstChild;
         if ((typeof ul) != 'object') {
             return true;
         }
@@ -402,70 +402,70 @@ function modifyCollapseable(lookupDiv){
                 break;
             }
         }
-        
+
         getNextCollapseSeq();
         var childEle = childElements[j].firstChild;
-        
+
         childEle.setAttribute('onclick', "javascript:toggleScreenlet(this, 'lec" + COLLAPSE +"', 'true', 'Expand', 'Collapse');");
         childEle.href = "javascript:void(0);"
         jQuery(slTitleBar).next('div').attr('id', 'lec' + COLLAPSE);
-    
+
     });
 }
 
 function modifySubmitButton (lookupDiv) {
-	/* changes form/submit behavior for Lookup Layer */
+    /* changes form/submit behavior for Lookup Layer */
     if (lookupDiv) {
         modifyCollapseable(lookupDiv);
-        
+
         //find the lookup form and input button
-    	var lookupForm = jQuery("#" + lookupDiv + " form:first");
-    	
-    	//set new form name and id
+        var lookupForm = jQuery("#" + lookupDiv + " form:first");
+
+        //set new form name and id
         oldFormName = lookupForm.attr("name");
         lookupForm.attr("name", "form_" + lookupDiv);
         lookupForm.attr("id", "form_" + lookupDiv);
         lookupForm = jQuery("#form_" + lookupDiv);
         //set new links for lookups
         var newLookups = jQuery("#" + lookupDiv + " .field-lookup");
-        
-    	var formAction = lookupForm.attr("action");
-    	// remove the form action
-    	lookupForm.attr("action", "");
-    	var input = jQuery("#" + lookupDiv + " input[type=submit]").css({display: "block"});
-        
-    	// remove the original input button and replace with a new one
-        
-    	var txt = input.attr("value");
+
+        var formAction = lookupForm.attr("action");
+        // remove the form action
+        lookupForm.attr("action", "");
+        var input = jQuery("#" + lookupDiv + " input[type=submit]").css({display: "block"});
+
+        // remove the original input button and replace with a new one
+
+        var txt = input.attr("value");
         (input.parent()).append(jQuery("<button/>", {
-        	id: "lookupSubmitButton",
-        	href: "javascript:void(0);",
-        	click: function () {
+            id: "lookupSubmitButton",
+            href: "javascript:void(0);",
+            click: function () {
                 lookupFormAjaxRequest(formAction, lookupForm.attr("id"));
-	            return false;
-	        },
-	        text: txt
+                return false;
+            },
+            text: txt
         }));
-        
+
         input.remove();
-        
+
         jQuery(document).bind("keypress", function (event) {
             if (event.which == 13) {
-            	lookupFormAjaxRequest(formAction, lookupForm.attr("id"));
-            	return false;
+                lookupFormAjaxRequest(formAction, lookupForm.attr("id"));
+                return false;
             }
         });
-        
+
         //modify nav-pager
         var navPagers = jQuery("#" + lookupDiv + " .nav-pager a");
         jQuery.each(navPagers, function(navPager) {
-        	jQuery(navPagers[navPager]).attr("href", "javascript:lookupPaginationAjaxRequest('" + jQuery(navPagers[navPager]).attr("href") + "', '" + lookupForm.id + "', 'link')");
+            jQuery(navPagers[navPager]).attr("href", "javascript:lookupPaginationAjaxRequest('" + jQuery(navPagers[navPager]).attr("href") + "', '" + lookupForm.id + "', 'link')");
         });
-        
+
         var navPagersSelect = jQuery("#" + lookupDiv + " .nav-pager select");
         jQuery.each(navPagersSelect, function(navPager) {
-        	// that's quiet wierd maybe someone have a better idea ... that's where the magic happens
-        	try {
+            // that's quiet weird maybe someone have a better idea ... that's where the magic happens
+            try {
                   var oc = jQuery(navPagersSelect[navPager]).attr("onchange");
                   if((typeof oc) == "function"){ // IE6/7 Fix
                     oc = oc.toString();
@@ -535,13 +535,13 @@ function modifySubmitButton (lookupDiv) {
                                     if (liSub.contains("javascript:set_")) {
                                         cellElement.href = liSub;
                                     } else {
-                                        cellElement.href = "javascript:lookupAjaxRequest('" + liSub + "')";
+                                        cellElement.href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
                                     }
                                 }
                             }
                         }
                     }
-                }                
+                }
             }
             catch (ex) {
             }
@@ -550,24 +550,24 @@ function modifySubmitButton (lookupDiv) {
         var resultTable= jQuery("#" + lookupDiv + " #search-results table:first tbody");
         var tableChildren = resultTable.children();
         jQuery.each(tableChildren, function(tableChild){
-        	var childElements = jQuery(tableChildren[tableChild]);
-        	var tableRow = childElements.children();
-        	jQuery.each(tableRow, function(cell){
-        		//to skip the first Entry of the row, because it's the normal id link
-        		if (cell == 0) return true;
-        		
-        		var cellChild = null;
+            var childElements = jQuery(tableChildren[tableChild]);
+            var tableRow = childElements.children();
+            jQuery.each(tableRow, function(cell){
+                //to skip the first Entry of the row, because it's the normal id link
+                if (cell == 0) return true;
+
+                var cellChild = null;
                 cellChild = jQuery(tableRow[cell]).children();
                 jQuery.each(cellChild, function (child) {
-                	if (cellChild[child].tagName == "A"){
-                		var link = cellChild[child].href;
+                    if (cellChild[child].tagName == "A"){
+                        var link = cellChild[child].href;
                         var liSub = link.substring(link.lastIndexOf('/')+1,(link.length));
-                        cellChild[child].href = "javascript:lookupAjaxRequest('" + liSub + "')";
-                	}
+                        cellChild[child].href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
+                    }
                 });
-                
-        	});
-        	
+
+            });
+
         });
     }
 }
@@ -577,8 +577,9 @@ function modifySubmitButton (lookupDiv) {
 function lookupAjaxRequest(request) {
     // get request arguments
     var arg = request.substring(request.indexOf('?')+1,(request.length));
+    request = request.substring(0, request.indexOf('?'));
     lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
-    jQuery("#" + lookupId).load(request, arg, function(data) { 
+    jQuery("#" + lookupId).load(request, arg, function(data) {
         if (data.search(/loginform/) != -1) {
             window.location.href = window.location.href;
             return;
@@ -594,10 +595,10 @@ function lookupAjaxRequest(request) {
 * @return
 */
 function lookupFormAjaxRequest(formAction, form) {
-	  lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+    lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
     var data = jQuery("#" + form).serialize();
     data = data + "&presentation=" + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).presentation;
-    jQuery("#" + lookupId).load(formAction, data, function(data) { 
+    jQuery("#" + lookupId).load(formAction, data, function(data) {
         if (data.search(/loginform/) != -1) {
             window.location.href = window.location.href;
             return;
