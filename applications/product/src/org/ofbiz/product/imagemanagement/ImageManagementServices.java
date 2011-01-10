@@ -46,7 +46,6 @@ import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import net.sf.json.JSONObject;
 
 import org.apache.commons.fileupload.FileItem;
@@ -58,7 +57,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -102,8 +100,6 @@ public class ImageManagementServices {
         if (UtilValidate.isNotEmpty(uploadFileName)) {
             String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
             String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-            String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
-            
             String rootTargetDirectory = imageServerPath + "/products/management";
             File rootTargetDir = new File(rootTargetDirectory);
             if (!rootTargetDir.exists()) {
@@ -161,10 +157,8 @@ public class ImageManagementServices {
             // File to use for image original
             FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
             String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", sizeType, "id", contentId));
-            String filePathPrefix = "";
             String filenameToUse = fileLocation;
             if (fileLocation.lastIndexOf("/") != -1) {
-                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
                 filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
             }
             
@@ -298,9 +292,6 @@ public class ImageManagementServices {
     }
 
     public static Map<String, Object> removeImageFileForImageManagement(DispatchContext dctx, Map<String, ? extends Object> context){
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        Delegator delegator = dctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String contentId = (String) context.get("contentId");
         String dataResourceName = (String) context.get("dataResourceName");
         String productId = (String) context.get("productId");
@@ -311,11 +302,9 @@ public class ImageManagementServices {
                 String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
                 FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
                 String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "management/" + productId , "id", contentId));
-                String filePathPrefix = "";
                 String filenameToUse = fileLocation;
             
                 if (fileLocation.lastIndexOf("/") != -1) {
-                    filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
                     filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
                 }
             
@@ -407,9 +396,6 @@ public class ImageManagementServices {
                 result.put("errorMessage", errMsg);
                 return result;
             }
-    
-            // new Filename Format
-            FlexibleStringExpander addFilenameExpander = mainFilenameExpander;
     
             /* scale Image for each Size Type */
             Iterator<String> sizeIter = sizeTypeList.iterator();
@@ -551,7 +537,6 @@ public class ImageManagementServices {
         Locale locale = (Locale) context.get("locale");
         String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-        String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
         
         // Create content for thumbnail
         Map<String, Object> contentThumb = FastMap.newInstance();
@@ -571,10 +556,8 @@ public class ImageManagementServices {
         // File to use for image thumbnail
         FlexibleStringExpander filenameExpanderThumb = FlexibleStringExpander.getInstance(imageFilenameFormat);
         String fileLocationThumb = filenameExpanderThumb.expandString(UtilMisc.toMap("location", "products", "type", "small", "id", contentIdThumb));
-        String filePathPrefixThumb = "";
         String filenameToUseThumb = fileLocationThumb;
         if (fileLocationThumb.lastIndexOf("/") != -1) {
-            filePathPrefixThumb = fileLocationThumb.substring(0, fileLocationThumb.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
             filenameToUseThumb = fileLocationThumb.substring(fileLocationThumb.lastIndexOf("/") + 1);
         }
     
@@ -678,18 +661,15 @@ public class ImageManagementServices {
     }
     
     public static String multipleUploadImage(HttpServletRequest request, HttpServletResponse response) throws IOException, JDOMException {
-        Locale locale = UtilHttp.getLocale(request);
         HttpSession session = request.getSession(true);
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         
-        Map formInput = FastMap.newInstance();
-        Map<String, Object> results = FastMap.newInstance();
+        Map<String, String> formInput = FastMap.newInstance();
         ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
-        java.util.List lst = null;
+        List<FileItem> lst = null;
         try {
-           lst = fu.parseRequest(request);
+           lst = UtilGenerics.checkList(fu.parseRequest(request));
         } catch (FileUploadException e4) {
             return e4.getMessage();
         }
@@ -699,7 +679,6 @@ public class ImageManagementServices {
         byte[] imageBytes = {};
         for (int i=0; i < lst.size(); i++) {
             fi = (FileItem)lst.get(i);
-            String fn = fi.getName();
             String fieldName = fi.getFieldName();
             if (fi.isFormField()) {
                 String fieldStr = fi.getString();
@@ -806,7 +785,6 @@ public class ImageManagementServices {
     }
     
     public static Map<String, Object> setThumbnail(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
