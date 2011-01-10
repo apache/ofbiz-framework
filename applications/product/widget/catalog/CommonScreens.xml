@@ -434,7 +434,7 @@ under the License.
                 <script location="component://product/webapp/catalog/WEB-INF/actions/category/CategoryTree.groovy"></script>
             </actions>
             <widgets>
-                <screenlet id="ProductBrowseCategoriesPanel" title="${uiLabelMap.ProductBrowseCategories}" collapsible="true">
+                <screenlet id="ProductBrowseCategoriesPanel" title="${uiLabelMap.ProductBrowseCatalogeAndCategories}" collapsible="true">
                     <container id="EditDocumentTree"/>
                     <platform-specific><html><html-template location="component://product/webapp/catalog/category/CategoryTree.ftl"/></html></platform-specific>
                 </screenlet>
