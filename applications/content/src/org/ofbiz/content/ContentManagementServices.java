@@ -24,6 +24,7 @@ import java.sql.Timestamp;
 import com.ibm.icu.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,6 +37,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -65,6 +67,7 @@ import org.ofbiz.service.ServiceUtil;
 public class ContentManagementServices {
 
     public static final String module = ContentManagementServices.class.getName();
+    public static final String resource = "ContentUiLabels";
 
     /**
      * getSubContent
@@ -165,6 +168,7 @@ public class ContentManagementServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
+        Locale locale = (Locale) context.get("locale");
 
         Debug.logInfo("=========== type:" + (String)context.get("dataresourceTypeId") , module);
         // Knowing why a request fails permission check is one of the more difficult
@@ -315,7 +319,9 @@ public class ContentManagementServices {
                 Debug.logInfo("In persistContentAndAssoc calling updateContent with content: " + contentContext, module);
                 Map thisResult = dispatcher.runSync("updateContent", contentContext);
                 if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult)) {
-                    return ServiceUtil.returnError("Error updating content (updateContent) in persistContentAndAssoc", null, null, thisResult);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentContentUpdatingError", 
+                            UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, thisResult);
                 }
                 //Map thisResult = ContentServices.updateContentMethod(dctx, context);
             } else {
@@ -329,7 +335,9 @@ public class ContentManagementServices {
                 Debug.logInfo("In persistContentAndAssoc calling createContent with content: " + contentContext, module);
                 Map thisResult = dispatcher.runSync("createContent", contentContext);
                 if (ServiceUtil.isError(thisResult) || ServiceUtil.isFailure(thisResult)) {
-                    return ServiceUtil.returnError("Error creating content (createContent) in persistContentAndAssoc", null, null, thisResult);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentContentCreatingError", 
+                            UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, thisResult);
                 }
                 //Map thisResult = ContentServices.createContentMethod(dctx, context);
 
@@ -526,7 +534,7 @@ public class ContentManagementServices {
                       // for now, will assume that any error is due to non-existence - ignore
                       //return ServiceUtil.returnError(e.toString());
                   try {
-Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
+                      Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                       //Timestamp thruDate = UtilDateTime.nowTimestamp();
                       //serviceContext.put("thruDate", thruDate);
                       //serviceContext.put("fromDate", fromDate);
@@ -556,6 +564,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       //Delegator delegator = dctx.getDelegator();
       LocalDispatcher dispatcher = dctx.getDispatcher();
       //String contentId = (String)context.get("contentId");
+      Locale locale = (Locale) context.get("locale");
       Map result = FastMap.newInstance();
       try {
           //GenericValue content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
@@ -567,7 +576,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               result = persistDataResourceAndDataMethod(dctx, context);
           }
           else {
-            return ServiceUtil.returnError("no access to upload image");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentContentNoAccessToUploadImage", locale));
           }
       } catch (GenericServiceException e) {
           Debug.logError(e, e.toString(), module);
@@ -678,8 +688,6 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               if (UtilValidate.isNotEmpty(errorMsg)) {
                   return ServiceUtil.returnError(errorMsg);
               }
-          } else {
-              //return ServiceUtil.returnError("'byteBuffer' empty when trying to create database image.");
           }
       } else if (dataResourceTypeId.equals("SHORT_TEXT")) {
       } else if (dataResourceTypeId.startsWith("SURVEY")) {
@@ -738,8 +746,6 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               if (UtilValidate.isNotEmpty(errorMsg)) {
                   return ServiceUtil.returnError(errorMsg);
               }
-//          } else {
-//              return ServiceUtil.returnError("'byteBuffer' empty when trying to create database image.");
           }
       } else if (dataResourceTypeId.equals("SHORT_TEXT")) {
       } else if (dataResourceTypeId.startsWith("SURVEY")) {
