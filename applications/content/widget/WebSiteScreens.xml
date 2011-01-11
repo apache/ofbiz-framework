@@ -288,15 +288,20 @@ under the License.
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="content"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSiteCMSMetaInfo.groovy"/>
             </actions>
             <widgets>
-                <platform-specific>
-                    <html>
-                        <html-template location="component://content/webapp/content/website/WebSiteCMSMeta.ftl"/>
-                    </html>
-                </platform-specific>
+                <container id="cmscontent" style="no-clear">
+                    <screenlet title="${uiLabelMap.PageTitleWebSiteCMSContent}">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://content/webapp/content/website/WebSiteCMSMeta.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </screenlet>
+                </container>
             </widgets>
         </section>
     </screen>
@@ -306,6 +311,7 @@ under the License.
             <actions>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
                 <entity-one entity-name="Content" value-field="content"/>
                 <entity-and entity-name="WebSitePathAlias" list="aliases">
@@ -314,11 +320,15 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <platform-specific>
-                    <html>
-                        <html-template location="component://content/webapp/content/website/WebSiteCMSPathAlias.ftl"/>
-                    </html>
-                </platform-specific>
+                <container id="cmscontent" style="no-clear">
+                    <screenlet title="${uiLabelMap.PageTitleWebSiteCMSContent}">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://content/webapp/content/website/WebSiteCMSPathAlias.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </screenlet>
+                </container>
             </widgets>
         </section>
     </screen>
