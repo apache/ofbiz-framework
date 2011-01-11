@@ -110,6 +110,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     private BigDecimal displayPrice = null;
     private BigDecimal recurringBasePrice = null;
     private BigDecimal recurringDisplayPrice = null;
+    private BigDecimal taxTotal = null;
+    private BigDecimal taxPercentage = null;
     /** comes from price calc, used for special promo price promotion action */
     private BigDecimal specialPromoPrice = null;
     /** for reservations: extra % 2nd person */
@@ -1206,6 +1208,14 @@ public class ShoppingCartItem implements java.io.Serializable {
                         if (priceResult.get("specialPromoPrice") != null) {
                             this.setSpecialPromoPrice(((BigDecimal) priceResult.get("specialPromoPrice")).divide(pieces, decimals, RoundingMode.HALF_UP));
                         }
+
+                        if (priceResult.get("taxTotal") != null) {
+                            this.taxTotal = ((BigDecimal) priceResult.get("taxTotal")).divide(pieces, decimals, RoundingMode.HALF_UP);
+                        }
+
+                        if (priceResult.get("taxPercentage") != null) {
+                            this.taxPercentage = ((BigDecimal) priceResult.get("taxPercentage")).divide(pieces, decimals, RoundingMode.HALF_UP);
+                        }
                     }else{
                         if (priceResult.get("listPrice") != null) {
                             this.listPrice = ((BigDecimal) priceResult.get("listPrice"));
@@ -1219,6 +1229,9 @@ public class ShoppingCartItem implements java.io.Serializable {
                             this.setDisplayPrice(((BigDecimal) priceResult.get("price")));
                         }
                         
+                        taxTotal = (BigDecimal) priceResult.get("taxTotal");
+                        taxPercentage = (BigDecimal) priceResult.get("taxPercentage");
+
                         this.setSpecialPromoPrice((BigDecimal) priceResult.get("specialPromoPrice"));
                     }
                     
@@ -1911,7 +1924,6 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
     }
 
-
     public Map getItemProductInfo() {
         Map itemInfo = FastMap.newInstance();
         itemInfo.put("productId", this.getProductId());
@@ -1996,6 +2008,16 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Set isModifiedPrice */
     public void setIsModifiedPrice(boolean isModifiedPrice) {
         this.isModifiedPrice = isModifiedPrice;
+    }
+
+    /** Get the total taxes */
+    public BigDecimal getTaxTotal() {
+        return taxTotal;
+    }
+
+    /** Get the percentage tax rate */
+    public BigDecimal getTaxPercentage() {
+        return taxPercentage;
     }
 
     /** get the percentage for the second person */
