@@ -68,10 +68,12 @@ public class LayoutWorker {
         }
 
         if (lst.size() == 0) {
-            String errMsg = UtilProperties.getMessage(LayoutWorker.err_resource, "layoutEvents.no_files_uploaded", locale);
+            String errMsg = UtilProperties.getMessage(err_resource,
+                    "layoutEvents.no_files_uploaded", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             //Debug.logWarning("[DataEvents.uploadImage] No files uploaded", module);
-            return ServiceUtil.returnError("No files uploaded.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(err_resource,
+                    "layoutEvents.no_files_uploaded", locale));
         }
 
 
@@ -94,7 +96,7 @@ public class LayoutWorker {
         }
 
         if (imageFi == null) {
-            String errMsg = UtilProperties.getMessage(LayoutWorker.err_resource, 
+            String errMsg = UtilProperties.getMessage(err_resource, 
                     "layoutEvents.image_null", UtilMisc.toMap("imageFi", imageFi), locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             //Debug.logWarning("[DataEvents.uploadImage] imageFi(" + imageFi + ") is null", module);

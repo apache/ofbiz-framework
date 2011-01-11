@@ -365,7 +365,9 @@ public class OpenOfficeServices {
             return results;
         } catch (Exception e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
-            return ServiceUtil.returnError("Error converting document: " + e.toString());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentConvertingDocumentError", 
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
     }
 }

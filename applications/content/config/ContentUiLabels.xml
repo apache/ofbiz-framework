@@ -224,9 +224,13 @@
         <value xml:lang="zh">浏览</value>
         <value xml:lang="zh_TW">瀏覽</value>
     </property>
-    <property key="ContentCannotChangeStatus">
-        <value xml:lang="en">Cannot change from ${content.statusId} to ${parameters.statusId}</value>
-        <value xml:lang="it">Non è possibile cambiare lo stato da ${content.statusId} a ${parameters.statusId}</value>
+    <property key="ContentCannotFindContextFileWithEmptyContextRoot">
+        <value xml:lang="en">Cannot find CONTEXT_FILE with an empty context root!</value>
+        <value xml:lang="it">Non è possibile trovare il CONTEXT_FILE con un contesto principale vuoto!</value>
+    </property>
+    <property key="ContentCannotProcessBothCharacterAndBinaryFile">
+        <value xml:lang="en">Cannot process both character and binary data in the same file</value>
+        <value xml:lang="it">Non è possibile processare i dati di entrambi i file binari e carattere</value>
     </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
@@ -307,6 +311,10 @@
         <value xml:lang="th">เซ็ตลักษณะ</value>
         <value xml:lang="zh">字符集</value>
         <value xml:lang="zh_TW">字符集</value>
+    </property>
+    <property key="ContentClearAssociatedRenderCacheError">
+        <value xml:lang="en">Unable to clear associated render cache with dataResourceId ${dataResourceId}</value>
+        <value xml:lang="it">Non è possibile pulire la cache associata alla risorsa dati ${dataResourceId}</value>
     </property>
     <property key="ContentClip">
         <value xml:lang="da">Klip</value>
@@ -606,6 +614,18 @@
         <value xml:lang="zh">内容</value>
         <value xml:lang="zh_TW">內容</value>
     </property>
+    <property key="ContentContentCreatingError">
+        <value xml:lang="en">Error creating content in ${serviceName}</value>
+        <value xml:lang="it">Errore durante la creazione del contenuto in ${serviceName}</value>
+    </property>
+    <property key="ContentContentNoAccessToUploadImage">
+        <value xml:lang="en">no access to upload image</value>
+        <value xml:lang="it">nessun accesso per caricare l'immagine</value>
+    </property>
+    <property key="ContentContentUpdatingError">
+        <value xml:lang="en">Error updating content in ${serviceName}</value>
+        <value xml:lang="it">Errore durante l'aggiornamento del contenuto in ${serviceName}</value>
+    </property>
     <property key="ContentContentManager">
         <value xml:lang="ar">تطبيق تسيير المحتوى</value>
         <value xml:lang="da">Indholdsadministrator</value>
@@ -648,6 +668,14 @@
         <value xml:lang="zh">内容设置</value>
         <value xml:lang="zh_TW">內容設置</value>
     </property>
+    <property key="ContentContentToOrFromIsNull">
+        <value xml:lang="en">contentTo ${contentTo}/From ${contentFrom} is null.</value>
+        <value xml:lang="it">Contenuto a ${contentTo}/da ${contentFrom} è nullo.</value>
+    </property>
+    <property key="ContentContentToOrFromErrorRetriving">
+        <value xml:lang="en">Error in retrieving content To or From.</value>
+        <value xml:lang="it">Errore nel ricavare il contenuto a o da.</value>
+    </property>
     <property key="ContentContentsAssociatedToDataResource">
         <value xml:lang="da">Indholdselementer tilknyttet til denne data ressource</value>
         <value xml:lang="de">Inhaltseinträge zugeordnet zu dieser Datenressource</value>
@@ -661,6 +689,10 @@
     <property key="ContentContentIdOrUploadFileIsMissing">
         <value xml:lang="en">Content Id or Upload file is missing.</value>
         <value xml:lang="it">Id contenuto o file da caricare è mancante.</value>
+    </property>
+    <property key="ContentConvertingDocumentError">
+        <value xml:lang="en">Error converting document: ${errorString}</value>
+        <value xml:lang="it">Errore durante la conversione del documento: ${errorString}</value>
     </property>
     <property key="ContentCreateDateInvalidFormat">
         <value xml:lang="en">Created Date is not a valid Timestamp input format.</value>
@@ -1115,6 +1147,10 @@
         <value xml:lang="en">fromDate not a valid date format</value>
         <value xml:lang="it">Data dal non è nel formato valido.</value>
     </property>
+    <property key="ContentCannotGenerateBlogRssFeed">
+        <value xml:lang="en">Not able to generate RSS feed for content: ${contentId}</value>
+        <value xml:lang="it">Non è possibile generare il feed RSS per il contenuto: ${contentId}</value>
+    </property>
     <property key="ContentGIF">
         <value xml:lang="da">GIF</value>
         <value xml:lang="en">GIF</value>
@@ -1227,6 +1263,10 @@
         <value xml:lang="zh">为输入的标识建立索引</value>
         <value xml:lang="zh_TW">為輸入的ID建立索引</value>
     </property>
+    <property key="ContentIndexingTreeError">
+        <value xml:lang="en">Error indexing tree: ${errorString}</value>
+        <value xml:lang="it">Errore di indicizzazione albero: ${errorString}</value>
+    </property>
     <property key="ContentJPEG">
         <value xml:lang="da">JPEG</value>
         <value xml:lang="en">JPEG</value>
@@ -1265,6 +1305,10 @@
         <value xml:lang="it">Lista templates personali creati</value>
         <value xml:lang="zh">列出自建模板</value>
         <value xml:lang="zh_TW">列出自建範本</value>
+    </property>
+    <property key="ContentLocalFileDoesNotPointToAbsoluteLocation">
+        <value xml:lang="en">DataResource LOCAL_FILE does not point to an absolute location</value>
+        <value xml:lang="it">La risorda dati LOCAL_FILE non punta ad una posizione assoluta</value>
     </property>
     <property key="ContentMSWord">
         <value xml:lang="da">MS Word</value>
@@ -1390,6 +1434,10 @@
         <value xml:lang="en">Content record not found for ID ${contentId}</value>
         <value xml:lang="it">Contenuto non trovato per ID ${contentId}</value>
     </property>
+    <property key="ContentNoContentFilePassed">
+        <value xml:lang="en">No file content passed for: ${fileName}</value>
+        <value xml:lang="it">Nessun file contenuto passato per:  ${fileName}</value>
+    </property>
     <property key="ContentNoQuestionsSurveyFound">
         <value xml:lang="en">No questions found for survey ID: ${survey.surveyId}</value>
         <value xml:lang="it">Nessuna domanda sondaggio trovata con ID: ${surveyLookup.surveyId}</value>
@@ -1499,6 +1547,18 @@
         <value xml:lang="en">Permission not granted.</value>
         <value xml:lang="it">Permesso non abilitato.</value>
     </property>
+    <property key="ContentPrinterNotAvailable">
+        <value xml:lang="en">No printer available</value>
+        <value xml:lang="it">Nessuna stampante disponibile</value>
+    </property>
+    <property key="ContentPrinterNotFound">
+        <value xml:lang="en">No printer found with name: ${printerName}</value>
+        <value xml:lang="it">Nessuna stampante trovate con il nome: ${printerName}</value>
+    </property>
+    <property key="ContentPrinterNotSupportDocFlavorFormat">
+        <value xml:lang="en">DocFlavor ${psInFormat} not supported by printer: ${printerName}</value>
+        <value xml:lang="it">Il formato Doc Flavor ${psInFormat} non è supportato dalla stampante: ${printerName}</value>
+    </property>
     <property key="ContentPlainText">
         <value xml:lang="da">Klartekst</value>
         <value xml:lang="en">Plain Text</value>
@@ -1558,6 +1618,10 @@
         <value xml:lang="th">เปลี่ยนชื่อกล่อง</value>
         <value xml:lang="zh">重命名文件夹</value>
         <value xml:lang="zh_TW">重命名文件夾</value>
+    </property>
+    <property key="ContentRenderingError">
+        <value xml:lang="en">Error rendering ${contentType}: ${errorString}</value>
+        <value xml:lang="it">Errore di rendering ${contentType}: ${errorString}</value>
     </property>
     <property key="ContentRequiredField">
         <value xml:lang="en">Required field ${requiredField} is missing in simple method call ${resourceDescription}</value>
@@ -2263,6 +2327,22 @@
         <value xml:lang="th">ประเภทลักษณะ</value>
         <value xml:lang="zh">类型属性</value>
         <value xml:lang="zh_TW">類型屬性</value>
+    </property>
+    <property key="ContentUnableObtainReferenceToFile">
+        <value xml:lang="en">Unable to obtain a reference to file ${objectInfo}</value>
+        <value xml:lang="it">Non è possibile ottenere un riferimento al file ${objectInfo}</value>
+    </property>
+    <property key="ContentUnableToOpenFileForWriting">
+        <value xml:lang="en">Unable to open file for writing: ${fileName}</value>
+        <value xml:lang="it">Non è possibile aprire il file in scrittura: ${fileName}</value>
+    </property>
+    <property key="ContentUnableWriteBinaryDataToFile">
+        <value xml:lang="en">Unable to write binary data to: ${fileName}</value>
+        <value xml:lang="it">Non è possibile scrivere i dati binari in: ${fileName}</value>
+    </property>
+    <property key="ContentUnableWriteCharacterDataToFile">
+        <value xml:lang="en">Unable to write character data to: ${fileName}</value>
+        <value xml:lang="it">Non è possibile scrivere i dati carattere in: ${fileName}</value>
     </property>
     <property key="ContentUpdatePermissionError">
         <value xml:lang="ar">You do not have permission to view this page. ("CONTENTMGR_UPDATE" or "CONTENTMGR_ADMIN" needed)</value>

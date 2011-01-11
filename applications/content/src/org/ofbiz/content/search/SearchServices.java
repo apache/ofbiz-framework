@@ -20,12 +20,15 @@ package org.ofbiz.content.search;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -38,14 +41,15 @@ import org.ofbiz.service.LocalDispatcher;
 public class SearchServices {
 
     public static final String module = SearchServices.class.getName();
+    public static final String resource = "ContentUiLabels";
 
     public static Map<String, Object> indexTree(DispatchContext dctx, Map<String, ? extends Object> context) {
         Date start = new Date();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-
         String siteId = (String) context.get("contentId");
         String path = (String) context.get("path");
+        Locale locale = (Locale) context.get("locale");
         if (path == null) {
             path = SearchWorker.getIndexPath(path);
         }
@@ -61,7 +65,8 @@ public class SearchServices {
             results = SearchWorker.indexTree(dispatcher, delegator, siteId, envContext, path);
         } catch (Exception e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Error indexing tree: " + e.toString());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentIndexingTreeError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
         Date end = new Date();
         if (Debug.infoOn()) Debug.logInfo("in indexTree, results:" + results, module);

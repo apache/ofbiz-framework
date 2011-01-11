@@ -38,6 +38,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -53,16 +54,19 @@ import org.ofbiz.service.ServiceUtil;
 public class DataServices {
 
     public static final String module = DataServices.class.getName();
+    public static final String resource = "ContentUiLabels";
 
     public static Map<String, Object> clearAssociatedRenderCache(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         String dataResourceId = (String) context.get("dataResourceId");
+        Locale locale = (Locale) context.get("locale");
         try {
             DataResourceWorker.clearAssociatedRenderCache(delegator, dataResourceId);
         } catch (GeneralException e) {
-            String errMsg = "Unable to clear associated render cache with dataResourceId=" + dataResourceId;
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Unable to clear associated render cache with dataResourceId=" + dataResourceId, module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentClearAssociatedRenderCacheError", 
+                    UtilMisc.toMap("dataResourceId", dataResourceId), locale));
         }
         return ServiceUtil.returnSuccess();
     }
@@ -198,6 +202,7 @@ public class DataServices {
             String objectInfo = (String) context.get("objectInfo");
             ByteBuffer binData = (ByteBuffer) context.get("binData");
             String textData = (String) context.get("textData");
+            Locale locale = (Locale) context.get("locale");
 
             // a few place holders
             String prefix = "";
@@ -205,7 +210,8 @@ public class DataServices {
 
             // extended validation for binary/character data
             if (UtilValidate.isNotEmpty(textData) && binData != null) {
-                return ServiceUtil.returnError("Cannot process both character and binary data in the same file");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentCannotProcessBothCharacterAndBinaryFile", locale));
             }
 
             // obtain a reference to the file
@@ -213,7 +219,8 @@ public class DataServices {
             if (UtilValidate.isEmpty(dataResourceTypeId) || dataResourceTypeId.equals("LOCAL_FILE") || dataResourceTypeId.equals("LOCAL_FILE_BIN")) {
                 file = new File(objectInfo);
                 if (!file.isAbsolute()) {
-                    return ServiceUtil.returnError("DataResource LOCAL_FILE does not point to an absolute location");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentLocalFileDoesNotPointToAbsoluteLocation", locale));
                 }
             } else if (dataResourceTypeId.equals("OFBIZ_FILE") || dataResourceTypeId.equals("OFBIZ_FILE_BIN")) {
                 prefix = System.getProperty("ofbiz.home");
@@ -224,7 +231,8 @@ public class DataServices {
             } else if (dataResourceTypeId.equals("CONTEXT_FILE") || dataResourceTypeId.equals("CONTEXT_FILE_BIN")) {
                 prefix = (String) context.get("rootDir");
                 if (UtilValidate.isEmpty(prefix)) {
-                    return ServiceUtil.returnError("Cannot find CONTEXT_FILE with an empty context root!");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentCannotFindContextFileWithEmptyContextRoot", locale));
                 }
                 if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
                     sep = "/";
@@ -232,7 +240,9 @@ public class DataServices {
                 file = new File(prefix + sep + objectInfo);
             }
             if (file == null) {
-                return ServiceUtil.returnError("Unable to obtain a reference to file - " + objectInfo);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentUnableObtainReferenceToFile",
+                        UtilMisc.toMap("objectInfo", objectInfo), locale));
             }
 
             // write the data to the file
@@ -243,7 +253,9 @@ public class DataServices {
                     out.close();
                 } catch (IOException e) {
                     Debug.logWarning(e, module);
-                    return ServiceUtil.returnError("Unable to write character data to: " + file.getAbsolutePath());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentUnableWriteCharacterDataToFile",
+                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else if (binData != null) {
                 try {
@@ -252,13 +264,19 @@ public class DataServices {
                     out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError("Unable to open file for writing: " + file.getAbsolutePath());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentUnableToOpenFileForWriting",
+                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError("Unable to write binary data to: " + file.getAbsolutePath());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentUnableWriteBinaryDataToFile",
+                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else {
-                return ServiceUtil.returnError("No file content passed for: " + file.getAbsolutePath());
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentNoContentFilePassed",
+                        UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
 
             Map result = ServiceUtil.returnSuccess();
@@ -295,35 +313,36 @@ public class DataServices {
     }
 
     public static Map<String, Object> updateDataResourceMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-
         Map result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         GenericValue dataResource = null;
-        //Locale locale = (Locale) context.get("locale");
-            GenericValue userLogin = (GenericValue) context.get("userLogin");
-            String userLoginId = (String) userLogin.get("userLoginId");
-            String lastModifiedByUserLogin = userLoginId;
-            Timestamp lastModifiedDate = UtilDateTime.nowTimestamp();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String userLoginId = (String) userLogin.get("userLoginId");
+        String lastModifiedByUserLogin = userLoginId;
+        Timestamp lastModifiedDate = UtilDateTime.nowTimestamp();
 
-            // If textData exists, then create DataResource and return dataResourceId
-            String dataResourceId = (String) context.get("dataResourceId");
-            try {
-                dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
-                return ServiceUtil.returnError("dataResource.update.read_failure" + e.getMessage());
-            }
+        // If textData exists, then create DataResource and return dataResourceId
+        String dataResourceId = (String) context.get("dataResourceId");
+        try {
+            dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentDataResourceNotFound",
+                    UtilMisc.toMap("parameters.dataResourceId", dataResourceId), locale));
+        }
 
-            dataResource.setNonPKFields(context);
-            dataResource.put("lastModifiedByUserLogin", lastModifiedByUserLogin);
-            dataResource.put("lastModifiedDate", lastModifiedDate);
+        dataResource.setNonPKFields(context);
+        dataResource.put("lastModifiedByUserLogin", lastModifiedByUserLogin);
+        dataResource.put("lastModifiedDate", lastModifiedDate);
 
-            try {
-                dataResource.store();
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-                return ServiceUtil.returnError(e.getMessage());
-            }
+        try {
+            dataResource.store();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
 
         result.put("dataResource", dataResource);
         return result;
@@ -348,7 +367,7 @@ public class DataServices {
         Map result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         GenericValue electronicText = null;
-        //Locale locale = (Locale) context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         String dataResourceId = (String) context.get("dataResourceId");
         result.put("dataResourceId",dataResourceId);
         String contentId = (String) context.get("contentId");
@@ -374,7 +393,8 @@ public class DataServices {
                     }
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
-                    return ServiceUtil.returnError("electronicText.update.read_failure" + e.getMessage());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentElectronicTextNotFound", locale) + " " + e.getMessage());
                 }
 
         return result;
@@ -396,42 +416,42 @@ public class DataServices {
     public static Map<String, Object> updateFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map result = FastMap.newInstance();
         //GenericValue fileText = null;
-        //Locale locale = (Locale) context.get("locale");
-            //String dataResourceId = (String) dataResource.get("dataResourceId");
-            String dataResourceTypeId = (String) context.get("dataResourceTypeId");
-            String objectInfo = (String) context.get("objectInfo");
-            String textData = (String) context.get("textData");
-            ByteBuffer binData = (ByteBuffer) context.get("binData");
-            String prefix = "";
-            File file = null;
-            String fileName = "";
-            String sep = "";
-            try {
-                if (UtilValidate.isEmpty(dataResourceTypeId) || dataResourceTypeId.startsWith("LOCAL_FILE")) {
-                    fileName = prefix + sep + objectInfo;
-                    file = new File(fileName);
-                    if (file == null) {
-                        throw new GenericServiceException("File: " + fileName + " is null.");
-                    }
-                    if (!file.isAbsolute()) {
-                        throw new GenericServiceException("File: " + fileName + " is not absolute.");
-                    }
-                } else if (dataResourceTypeId.startsWith("OFBIZ_FILE")) {
-                    prefix = System.getProperty("ofbiz.home");
-                    if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
-                        sep = "/";
-                    }
-                    file = new File(prefix + sep + objectInfo);
-                } else if (dataResourceTypeId.startsWith("CONTEXT_FILE")) {
-                    prefix = (String) context.get("rootDir");
-                    if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
-                        sep = "/";
-                    }
-                    file = new File(prefix + sep + objectInfo);
-                }
+        Locale locale = (Locale) context.get("locale");
+        //String dataResourceId = (String) dataResource.get("dataResourceId");
+        String dataResourceTypeId = (String) context.get("dataResourceTypeId");
+        String objectInfo = (String) context.get("objectInfo");
+        String textData = (String) context.get("textData");
+        ByteBuffer binData = (ByteBuffer) context.get("binData");
+        String prefix = "";
+        File file = null;
+        String fileName = "";
+        String sep = "";
+        try {
+            if (UtilValidate.isEmpty(dataResourceTypeId) || dataResourceTypeId.startsWith("LOCAL_FILE")) {
+                fileName = prefix + sep + objectInfo;
+                file = new File(fileName);
                 if (file == null) {
-                    throw new IOException("File: " + file + " is null");
+                    throw new GenericServiceException("File: " + fileName + " is null.");
                 }
+                if (!file.isAbsolute()) {
+                    throw new GenericServiceException("File: " + fileName + " is not absolute.");
+                }
+            } else if (dataResourceTypeId.startsWith("OFBIZ_FILE")) {
+                prefix = System.getProperty("ofbiz.home");
+                if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+                    sep = "/";
+                }
+                file = new File(prefix + sep + objectInfo);
+            } else if (dataResourceTypeId.startsWith("CONTEXT_FILE")) {
+                prefix = (String) context.get("rootDir");
+                if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
+                    sep = "/";
+                }
+                file = new File(prefix + sep + objectInfo);
+            }
+            if (file == null) {
+                throw new IOException("File: " + file + " is null");
+            }
 
             // write the data to the file
             if (UtilValidate.isNotEmpty(textData)) {
@@ -441,7 +461,9 @@ public class DataServices {
                     out.close();
                 } catch (IOException e) {
                     Debug.logWarning(e, module);
-                    return ServiceUtil.returnError("Unable to write character data to: " + file.getAbsolutePath());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentUnableWriteCharacterDataToFile",
+                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else if (binData != null) {
                 try {
@@ -450,19 +472,25 @@ public class DataServices {
                     out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError("Unable to open file for writing: " + file.getAbsolutePath());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentUnableToOpenFileForWriting",
+                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError("Unable to write binary data to: " + file.getAbsolutePath());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentUnableWriteBinaryDataToFile",
+                            UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } else {
-                return ServiceUtil.returnError("No file content passed for: " + file.getAbsolutePath());
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentNoContentFilePassed",
+                        UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
 
-            } catch (IOException e) {
-                Debug.logWarning(e, module);
-                throw new GenericServiceException(e.getMessage());
-            }
+        } catch (IOException e) {
+            Debug.logWarning(e, module);
+            throw new GenericServiceException(e.getMessage());
+        }
 
         return result;
     }

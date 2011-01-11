@@ -31,6 +31,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -53,6 +54,7 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
 public class BlogRssServices {
 
     public static final String module = BlogRssServices.class.getName();
+    public static final String resource = "ContentUiLabels";
     public static final String mimeTypeId = "text/html";
     public static final String mapKey = "SUMMARY";
 
@@ -79,7 +81,9 @@ public class BlogRssServices {
         }
 
         if (content == null) {
-            return ServiceUtil.returnError("Not able to generate RSS feed for content: " + contentId);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentCannotGenerateBlogRssFeed", 
+                    UtilMisc.toMap("contentId", contentId), locale));
         }
 
         // create the feed

@@ -19,6 +19,7 @@
 package org.ofbiz.content.content;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -27,6 +28,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -48,7 +50,7 @@ import org.ofbiz.service.LocalDispatcher;
 public class ContentPermissionServices {
 
     public static final String module = ContentPermissionServices.class.getName();
-
+    public static final String resource = "ContentUiLabels";
 
     public ContentPermissionServices() {}
 
@@ -258,7 +260,6 @@ public class ContentPermissionServices {
     }
 
     public static Map<String, Object> checkAssocPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
-
         Map results = FastMap.newInstance();
         Security security = dctx.getSecurity();
         Delegator delegator = dctx.getDelegator();
@@ -268,6 +269,7 @@ public class ContentPermissionServices {
         String contentIdTo = (String) context.get("contentIdTo");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String entityAction = (String) context.get("entityOperation");
+        Locale locale = (Locale) context.get("locale");
         if (entityAction == null) entityAction = "_ADMIN";
         List roleIds = null;
         String permissionStatus = null;
@@ -278,10 +280,13 @@ public class ContentPermissionServices {
             contentTo = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentIdTo));
             contentFrom = delegator.findByPrimaryKeyCache("Content",  UtilMisc.toMap("contentId", contentIdFrom));
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Error in retrieving content To or From. " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentContentToOrFromErrorRetriving", locale));
         }
         if (contentTo == null || contentFrom == null) {
-            return ServiceUtil.returnError("contentTo[" + contentTo + "]/From[" + contentFrom + "] is null. ");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentContentToOrFromIsNull", 
+                    UtilMisc.toMap("contentTo", contentTo, "contentFrom", contentFrom), locale));
         }
         Map resultsMap = null;
         boolean isMatch = false;
