@@ -38,6 +38,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -58,6 +59,7 @@ import org.ofbiz.service.ServiceUtil;
 public class ContentServices {
 
     public static final String module = ContentServices.class.getName();
+    public static final String resource = "ContentUiLabels";
 
     /**
      * findRelatedContent Finds the related
@@ -70,6 +72,7 @@ public class ContentServices {
         String fromDate = (String) context.get("fromDate");
         String thruDate = (String) context.get("thruDate");
         String toFrom = (String) context.get("toFrom");
+        Locale locale = (Locale) context.get("locale");
         if (toFrom == null) {
             toFrom = "TO";
         } else {
@@ -84,7 +87,9 @@ public class ContentServices {
         try {
             contentList = ContentWorker.getAssociatedContent(currentContent, toFrom, assocTypes, contentTypes, fromDate, thruDate);
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Error getting associated content: " + e.toString());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentAssocRetrievingError", 
+                    UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         if (targetOperations == null || targetOperations.isEmpty()) {
@@ -107,7 +112,8 @@ public class ContentServices {
                 permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
-                return ServiceUtil.returnError("Problem checking permissions");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentPermissionNotGranted", locale));
             }
 
             String permissionStatus = (String) permResults.get("permissionStatus");
@@ -169,6 +175,7 @@ public class ContentServices {
     public static Map<String, Object> traverseContent(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Map results = FastMap.newInstance();
+        Locale locale = (Locale) context.get("locale");
 
         String contentId = (String) context.get("contentId");
         String direction = (String) context.get("direction");
@@ -186,8 +193,9 @@ public class ContentServices {
         try {
             content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
         } catch (GenericEntityException e) {
-            System.out.println("Entity Error:" + e.getMessage());
-            return ServiceUtil.returnError("Error in retrieving Content. " + e.getMessage());
+            Debug.logError(e, "Entity Error:" + e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
         }
 
         String fromDateStr = (String) context.get("fromDateStr");
@@ -351,6 +359,7 @@ public class ContentServices {
         List contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
+        Locale locale = (Locale) context.get("locale");
 
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -370,7 +379,8 @@ public class ContentServices {
             contentIdCount++;
         if (contentIdCount < 2) {
             Debug.logError("Not 2 out of ContentId/To/From.", "ContentServices");
-            return ServiceUtil.returnError("Not 2 out of ContentId/To/From");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentCreateContentAssocMethodError", locale));
         }
 
         if (UtilValidate.isNotEmpty(contentIdFrom)) {
@@ -521,7 +531,7 @@ public class ContentServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = FastMap.newInstance();
-
+        
         context.put("entityOperation", "_UPDATE");
         List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
@@ -530,13 +540,14 @@ public class ContentServices {
         context.put("contentPurposeList", contentPurposeList);
 
         GenericValue content = null;
-        //Locale locale = (Locale) context.get("locale");
+        Locale locale = (Locale) context.get("locale");
         String contentId = (String) context.get("contentId");
         try {
             content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            return ServiceUtil.returnError("content.update.read_failure" + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
         }
         context.put("currentContent", content);
 
@@ -555,7 +566,8 @@ public class ContentServices {
                    dispatcher.runSync("setContentStatus", statusInMap);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem updating content Status", "ContentServices");
-                    return ServiceUtil.returnError("Problem updating content Status: " + e);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentStatusUpdateError", UtilMisc.toMap("errorString", e), locale));
                 }
             }
 
@@ -601,6 +613,7 @@ public class ContentServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
         Map result = FastMap.newInstance();
 
         context.put("entityOperation", "_UPDATE");
@@ -622,11 +635,14 @@ public class ContentServices {
         try {
             contentAssoc = delegator.findByPrimaryKey("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate));
         } catch (GenericEntityException e) {
-            System.out.println("Entity Error:" + e.getMessage());
-            return ServiceUtil.returnError("Error in retrieving Content. " + e.getMessage());
+            Debug.logError(e, "Entity Error:" + e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentAssocRetrievingError", 
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         if (contentAssoc == null) {
-            return ServiceUtil.returnError("Error in updating ContentAssoc. Entity is null.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentAssocUpdateError", locale));
         }
 
         contentAssoc.put("contentAssocPredicateId", context.get("contentAssocPredicateId"));
@@ -670,7 +686,8 @@ public class ContentServices {
             permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
-            return ServiceUtil.returnError("Problem checking association permissions");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentPermissionNotGranted", locale));
         }
         permissionStatus = (String) permResults.get("permissionStatus");
 
@@ -715,7 +732,7 @@ public class ContentServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = FastMap.newInstance();
-
+        Locale locale = (Locale) context.get("locale");
         context.put("entityOperation", "_UPDATE");
         List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
@@ -737,12 +754,15 @@ public class ContentServices {
             //contentAssoc = delegator.findByPrimaryKey("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate));
             contentAssoc = delegator.findByPrimaryKey("ContentAssoc", pk);
         } catch (GenericEntityException e) {
-            System.out.println("Entity Error:" + e.getMessage());
-            return ServiceUtil.returnError("Error in retrieving Content. " + e.getMessage());
+            Debug.logError(e, "Entity Error:" + e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentAssocRetrievingError", 
+                    UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         if (contentAssoc == null) {
-            return ServiceUtil.returnError("Error in deactivating ContentAssoc. Entity is null.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentAssocDeactivatingError", locale));
         }
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -767,7 +787,8 @@ public class ContentServices {
             permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
-            return ServiceUtil.returnError("Problem checking association permissions");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentPermissionNotGranted", locale));
         }
         permissionStatus = (String) permResults.get("permissionStatus");
 
@@ -796,6 +817,7 @@ public class ContentServices {
         String activeContentId = (String) context.get("activeContentId");
         String contentId = (String) context.get("contentId");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
+        Locale locale = (Locale) context.get("locale");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         String sequenceNum = null;
         Map results = FastMap.newInstance();
@@ -805,8 +827,10 @@ public class ContentServices {
             if (fromDate != null) {
                 activeAssoc = delegator.findByPrimaryKey("ContentAssoc", UtilMisc.toMap("contentId", activeContentId, "contentIdTo", contentIdTo, "fromDate", fromDate, "contentAssocTypeId", contentAssocTypeId));
                 if (activeAssoc == null) {
-                    return ServiceUtil.returnError("No association found for contentId=" + activeContentId + " and contentIdTo=" + contentIdTo
-                            + " and contentAssocTypeId=" + contentAssocTypeId + " and fromDate=" + fromDate);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "ContentAssocNotFound", 
+                            UtilMisc.toMap("activeContentId", activeContentId, "contentIdTo", contentIdTo,
+                                    "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), locale));
                 }
                 sequenceNum = (String) activeAssoc.get("sequenceNum");
             }

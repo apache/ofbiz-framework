@@ -21,7 +21,6 @@ package org.ofbiz.content;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import com.ibm.icu.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -35,11 +34,11 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.content.content.ContentServices;
 import org.ofbiz.content.content.ContentWorker;
@@ -60,6 +59,8 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceAuthException;
 import org.ofbiz.service.ServiceUtil;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * ContentManagementServices Class
@@ -835,7 +836,7 @@ public class ContentManagementServices {
                       // for now, will assume that any error is due to non-existence - ignore
                       //return ServiceUtil.returnError(e.toString());
                   try {
-Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
+                      Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                       //Timestamp thruDate = UtilDateTime.nowTimestamp();
                       //serviceContext.put("thruDate", thruDate);
                       //serviceContext.put("fromDate", fromDate);
@@ -982,12 +983,14 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         String contentId = (String)context.get("contentId");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         String userLoginId = userLogin.getString("userLoginId");
+        Locale locale = (Locale) context.get("locale");
         //int seqNum = 9999;
         try {
             GenericValue content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
             if (content == null) {
                 Debug.logError("content was null", module);
-                return ServiceUtil.returnError("content was null");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentNoContentFound", UtilMisc.toMap("contentId", ""), locale));
             }
             String dataResourceId = content.getString("dataResourceId");
             //String contentTypeIdTo = content.getString("contentTypeId");
@@ -1125,10 +1128,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
      * (it could be DOCUMENT or OUTLINE_NODE) then it will get changed to SUBPAGE_NODE.`
      */
     public static Map<String, Object> updatePageType(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException{
-
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map results = FastMap.newInstance();
+        Locale locale = (Locale) context.get("locale");
         Set visitedSet = (Set)context.get("visitedSet");
         if (visitedSet == null) {
             visitedSet = FastSet.newInstance();
@@ -1143,8 +1146,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         GenericValue thisContent = null;
         try {
             thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
-            if (thisContent == null)
-                return ServiceUtil.returnError("No entity found for id=" + contentId);
+            if (thisContent == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
+            }
             thisContent.set("contentTypeId", contentTypeId);
             thisContent.store();
             List kids = ContentWorker.getAssociatedContent(thisContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
@@ -1166,10 +1171,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
 
     public static Map<String, Object> resetToOutlineMode(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException{
-
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map results = FastMap.newInstance();
+        Locale locale = (Locale) context.get("locale");
         Set visitedSet = (Set)context.get("visitedSet");
         if (visitedSet == null) {
             visitedSet = FastSet.newInstance();
@@ -1183,8 +1188,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         GenericValue thisContent = null;
         try {
             thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
-            if (thisContent == null)
-                return ServiceUtil.returnError("No entity found for id=" + contentId);
+            if (thisContent == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
+            }
             thisContent.set("contentTypeId", "OUTLINE_NODE");
             thisContent.store();
             List kids = ContentWorker.getAssociatedContent(thisContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
@@ -1366,21 +1373,22 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map<String, Object> initContentChildCounts(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue content = (GenericValue)context.get("content");
+        if (content == null) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentNoContentFound", UtilMisc.toMap("contentId", ""), locale));
+        }
+        Long leafCount = (Long)content.get("childLeafCount");
+        if (leafCount == null) {
+            content.set("childLeafCount", Long.valueOf(0));
+        }
+        Long branchCount = (Long)content.get("childBranchCount");
+        if (branchCount == null) {
+            content.set("childBranchCount", Long.valueOf(0));
+        }
 
-            GenericValue content = (GenericValue)context.get("content");
-            if (content == null) {
-                    return ServiceUtil.returnError("No Content found.");
-            }
-            Long leafCount = (Long)content.get("childLeafCount");
-            if (leafCount == null) {
-                content.set("childLeafCount", Long.valueOf(0));
-            }
-            Long branchCount = (Long)content.get("childBranchCount");
-            if (branchCount == null) {
-                content.set("childBranchCount", Long.valueOf(0));
-            }
-
-            //content.store();
+        //content.store();
 
         return result;
     }
@@ -1388,52 +1396,54 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map<String, Object> incrementContentChildStats(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        String contentId = (String)context.get("contentId");
+        String contentAssocTypeId = (String)context.get("contentAssocTypeId");
 
-            String contentId = (String)context.get("contentId");
-            String contentAssocTypeId = (String)context.get("contentAssocTypeId");
-
-            try {
-                    GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
-                if (content == null) {
-                        return ServiceUtil.returnError("No Content found.");
-                }
-                Long leafCount = (Long)content.get("childLeafCount");
-                if (leafCount == null) {
-                    leafCount = Long.valueOf(0);
-                }
-                int changeLeafCount = leafCount.intValue() + 1;
-                int changeBranchCount = 1;
-
-                ContentManagementWorker.updateStatsBottomUp(delegator, contentId, UtilMisc.toList(contentAssocTypeId), changeBranchCount, changeLeafCount);
-            } catch (GenericEntityException e) {
-                    return ServiceUtil.returnError(e.toString());
+        try {
+            GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+            if (content == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
             }
+            Long leafCount = (Long)content.get("childLeafCount");
+            if (leafCount == null) {
+                leafCount = Long.valueOf(0);
+            }
+            int changeLeafCount = leafCount.intValue() + 1;
+            int changeBranchCount = 1;
+
+            ContentManagementWorker.updateStatsBottomUp(delegator, contentId, UtilMisc.toList(contentAssocTypeId), changeBranchCount, changeLeafCount);
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.toString());
+        }
         return result;
     }
 
     public static Map<String, Object> decrementContentChildStats(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        String contentId = (String)context.get("contentId");
+        String contentAssocTypeId = (String)context.get("contentAssocTypeId");
 
-            String contentId = (String)context.get("contentId");
-            String contentAssocTypeId = (String)context.get("contentAssocTypeId");
-
-            try {
-                    GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
-                if (content == null) {
-                        return ServiceUtil.returnError("No Content found.");
-                }
-                Long leafCount = (Long)content.get("childLeafCount");
-                if (leafCount == null) {
-                    leafCount = Long.valueOf(0);
-                }
-                int changeLeafCount = -1 * leafCount.intValue() - 1;
-                int changeBranchCount = -1;
-
-                ContentManagementWorker.updateStatsBottomUp(delegator, contentId, UtilMisc.toList(contentAssocTypeId), changeBranchCount, changeLeafCount);
-            } catch (GenericEntityException e) {
-                    return ServiceUtil.returnError(e.toString());
+        try {
+            GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
+            if (content == null) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
             }
+            Long leafCount = (Long)content.get("childLeafCount");
+            if (leafCount == null) {
+                leafCount = Long.valueOf(0);
+            }
+            int changeLeafCount = -1 * leafCount.intValue() - 1;
+            int changeBranchCount = -1;
+
+            ContentManagementWorker.updateStatsBottomUp(delegator, contentId, UtilMisc.toList(contentAssocTypeId), changeBranchCount, changeLeafCount);
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.toString());
+        }
         return result;
     }
 
@@ -1453,7 +1463,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         try {
             ContentManagementWorker.updateStatsTopDown(delegator, contentId, typeList);
         } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(e.toString());
+            return ServiceUtil.returnError(e.toString());
         }
         return result;
     }
@@ -1636,14 +1646,15 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
 
     public static Map<String, Object> followNodeChildren(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
-
         Map result = null;
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
         if (!security.hasEntityPermission("CONTENTMGR", "_ADMIN", userLogin)) {
-            return ServiceUtil.returnError("Permission denied.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    "ContentPermissionNotGranted", locale));
         }
         String contentId = (String)context.get("contentId");
         String serviceName = (String)context.get("serviceName");
@@ -1670,10 +1681,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
     public static Map followNodeChildrenMethod(GenericValue content,  LocalDispatcher dispatcher, String serviceName, Map context)
         throws GenericEntityException, GenericServiceException {
-
         Map result = null;
         String contentId = content.getString("contentId");
         List contentAssocTypeIdList = (List)context.get("contentAssocTypeIdList");
+        Locale locale = (Locale) context.get("locale");
         Set visitedSet = (Set)context.get("visitedSet");
         if (visitedSet == null) {
             visitedSet = FastSet.newInstance();
@@ -1681,7 +1692,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         } else {
             if (visitedSet.contains(contentId)) {
                 Debug.logWarning("visitedSet already contains:" + contentId, module);
-                return ServiceUtil.returnError("visitedSet already contains:" + contentId);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "ContentVisitedSet", locale) + contentId);
             } else {
                 visitedSet.add(contentId);
             }

@@ -69,6 +69,22 @@
         <value xml:lang="zh">内容关联</value>
         <value xml:lang="zh_TW">內容關聯</value>
     </property>
+    <property key="ContentAssocDeactivatingError">
+        <value xml:lang="en">Error in deactivating ContentAssoc. Entity is null.</value>
+        <value xml:lang="it">Errore nella disattivazione dell'entità ContentAssoc che è nulla.</value>
+    </property>
+    <property key="ContentAssocNotFound">
+        <value xml:lang="en">No association found for contentId ${activeContentId} and contentIdTo ${contentIdTo} and contentAssocTypeId ${contentAssocTypeId} and fromDate ${fromDate}</value>
+        <value xml:lang="it">Nessuna associazione trovata per il contenuto ${activeContentId} e il contenuto a ${contentIdTo} e il tipo associazione contenuto ${contentAssocTypeId} e dalla data ${fromDate}</value>
+    </property>
+    <property key="ContentAssocRetrievingError">
+        <value xml:lang="en">Error in retrieving Content: ${errorString}</value>
+        <value xml:lang="it">Errore nel ricavare ContentAsssoc entity: ${errorString}</value>
+    </property>
+    <property key="ContentAssocUpdateError">
+        <value xml:lang="en">Error in updating ContentAssoc. Entity is null.</value>
+        <value xml:lang="it">Errore nell'aggiornamento dell'entità ContentAssoc che è nulla.</value>
+    </property>
     <property key="ContentAssociation">
         <value xml:lang="ar">إرتباط</value>
         <value xml:lang="da">Association</value>
@@ -693,6 +709,10 @@
     <property key="ContentConvertingDocumentError">
         <value xml:lang="en">Error converting document: ${errorString}</value>
         <value xml:lang="it">Errore durante la conversione del documento: ${errorString}</value>
+    </property>
+    <property key="ContentCreateContentAssocMethodError">
+        <value xml:lang="en">Not 2 out of ContentId/To/From</value>
+        <value xml:lang="it">Necessari 2 dei tre parametri ContentId/To/From necessari</value>
     </property>
     <property key="ContentCreateDateInvalidFormat">
         <value xml:lang="en">Created Date is not a valid Timestamp input format.</value>
@@ -1432,7 +1452,7 @@
     </property>
     <property key="ContentNoContentFound">
         <value xml:lang="en">Content record not found for ID ${contentId}</value>
-        <value xml:lang="it">Contenuto non trovato per ID ${contentId}</value>
+        <value xml:lang="it">Contenuto non trovato ${contentId}</value>
     </property>
     <property key="ContentNoContentFilePassed">
         <value xml:lang="en">No file content passed for: ${fileName}</value>
@@ -1724,6 +1744,10 @@
         <value xml:lang="it">Rifiutato leggermente</value>
         <value xml:lang="zh">柔和地拒绝</value>
         <value xml:lang="zh_TW">柔和地拒絕</value>
+    </property>
+    <property key="ContentStatusUpdateError">
+        <value xml:lang="en">Problem updating content Status: ${errorString}</value>
+        <value xml:lang="it">Problema durante l'aggiornamento dello stato del contenuto: ${errorString}</value>
     </property>
     <property key="ContentSubContent">
         <value xml:lang="ar">محتوى تحتي</value>
@@ -2390,6 +2414,10 @@
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้("CONTENTMGR_UPDATE" หรือ "CONTENTMGR_ADMIN" )</value>
         <value xml:lang="zh">你没有浏览本页面的权限。(需要具备"CONTENTMGR_VIEW"或"CONTENTMGR_ADMIN")</value>
         <value xml:lang="zh_TW">你沒有瀏覽本頁面的權限。(需要具備"CONTENTMGR_VIEW"或"CONTENTMGR_ADMIN")</value>
+    </property>
+    <property key="ContentVisitedSet">
+        <value xml:lang="en">visitedSet already contains: </value>
+        <value xml:lang="it">visitedSet contiene già: </value>
     </property>
     <property key="ContentWebSite">
         <value xml:lang="ar">موقع الويب</value>
