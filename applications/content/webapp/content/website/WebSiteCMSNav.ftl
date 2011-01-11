@@ -370,9 +370,6 @@ var rawdata_errors = [
 function callMetaInfo(contentId) {
         var ctx = {"contentId" : contentId, "webSiteId" : webSiteId};
 
-        // destroy the editor
-        destroyEditor();
-
         jQuery.ajax({
             url: metaUrl,
             type: 'POST',
@@ -390,12 +387,9 @@ function callMetaInfo(contentId) {
     function callPathAlias(contentId) {
         var ctx = {"contentId" : contentId, "webSiteId" : webSiteId};
 
-        // destroy the editor
-        destroyEditor();
-
         // get the alias screen
         jQuery.ajax({
-            url: metaUrl,
+            url: aliasUrl,
             type: 'POST',
             data: ctx,
             error: function(msg) {
