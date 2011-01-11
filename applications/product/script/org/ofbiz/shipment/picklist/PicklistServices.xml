@@ -103,18 +103,6 @@ under the License.
                 <condition-expr field-name="orderId" from-field="orderHeader.orderId"/>
             </entity-count>
 
-            <entity-condition entity-name="OrderHeaderAndItemFacilityLocation" list="OrderHeaderAndItemFacilityLocationList" distinct="true">
-                <condition-list combine="and">
-                    <condition-expr field-name="orderId" from-field="orderHeader.orderId"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_PICKLOC"/>
-                        <condition-expr field-name="locationTypeEnumId" operator="equals" from-field="nullField"/>
-                    </condition-list>
-                </condition-list>
-                <select-field field-name="shipmentMethodTypeId"/>
-                <select-field field-name="areaId"/>
-                <use-iterator/>
-            </entity-condition>
             <set field="groupName"/>
             <set field="groupName1"/> <!-- Group by Shipping Method -->
             <set field="groupName2"/> <!-- Group by Warehouse Area -->
@@ -133,6 +121,18 @@ under the License.
                     <set field="groupName" from-field="orderHeader.orderId"/>
                 </then>
             <else>
+                <entity-condition entity-name="OrderHeaderAndItemFacilityLocation" list="OrderHeaderAndItemFacilityLocationList" distinct="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="orderId" from-field="orderHeader.orderId"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_PICKLOC"/>
+                            <condition-expr field-name="locationTypeEnumId" operator="equals" from-field="nullField"/>
+                        </condition-list>
+                    </condition-list>
+                    <select-field field-name="shipmentMethodTypeId"/>
+                    <select-field field-name="areaId"/>
+                    <use-iterator/>
+                </entity-condition>
                 <iterate list="OrderHeaderAndItemFacilityLocationList" entry="orderHeaderAndItemFacilityLocation">
                 <!-- set groupName for order according to the options selected by the user -->
 
