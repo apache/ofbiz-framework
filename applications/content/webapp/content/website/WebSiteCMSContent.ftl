@@ -18,6 +18,14 @@
   -->
 
 <script type="text/javascript">
+    jQuery(document).ready(function() {
+        // override elRTE save action to make "save" toolbar button work
+        elRTE.prototype.save = function() {
+            this.beforeSave();
+            cmsSave();
+        }
+    });
+
     function cmsSave() {
         var simpleFormAction = '<@ofbizUrl>/updateContentCms</@ofbizUrl>';
         var editor = jQuery("#cmseditor");
@@ -48,7 +56,13 @@
 
         // submit the form
         if (form != null) {
-            ajaxSubmitForm(form, "<#if content?has_content>${content.contentId!}</#if>");
+            <#if content?has_content>
+                ajaxSubmitForm(form, "${content.contentId!}");
+            <#else>
+                // for new content we need a real submit, so that the nav tree gets updated
+                // and because ajaxSubmitForm() cannot retrieve the new contentId, so subsequent saves would create more new contents
+                form.submit();
+            </#if>
         } else {
             showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CannotFindCmsform}");
         }

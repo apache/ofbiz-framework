@@ -22,7 +22,8 @@
 <link href="/images/jquery/plugins/elrteEditor/css/elrte.full.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
-    jQuery(document).ready(loadTrees());
+    jQuery(document).ready(loadTrees);
+    jQuery(document).ready(createEditor);
 
     var contentRoot = '${contentRoot?if_exists}';
     var webSiteId = '${webSiteId?if_exists}';
@@ -332,10 +333,10 @@ var rawdata_errors = [
             ctx['contentIdFrom'] = contentId;
             ctx['contentAssocTypeId'] = 'SUB_CONTENT';
 
-        }
-
-        if (contentId != null && contentId.length) {
-            ctx['contentId'] = contentId;
+        } else {
+            if (contentId != null && contentId.length) {
+                ctx['contentId'] = contentId;
+            }
         }
 
         //jQuerry Ajax Request
@@ -357,14 +358,16 @@ var rawdata_errors = [
 
 <#-------------------------------------------------------------------------------------createEditor function-->
     function createEditor() {
-        var opts = {
-            cssClass : 'el-rte',
-            height   : 350,
-            toolbar  : 'maxi',
-            doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',            
-            cssfiles : ['css/elrte-inner.css']
+        if($('#cmseditor').length) {
+            var opts = {
+                cssClass : 'el-rte',
+                height   : 350,
+                toolbar  : 'maxi',
+                doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
+                cssfiles : ['css/elrte-inner.css']
+            }
+            jQuery('#cmseditor').elrte(opts);
         }
-        jQuery('#cmseditor').elrte(opts);
     }
 <#-------------------------------------------------------------------------------------callMetaInfo function-->
 function callMetaInfo(contentId) {
