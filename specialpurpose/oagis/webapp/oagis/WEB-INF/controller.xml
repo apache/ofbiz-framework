@@ -26,9 +26,6 @@
     <!-- event handlers -->
     <handler name="stream" type="request" class="org.ofbiz.webapp.event.ServiceStreamHandler"/>
 
-    <!-- view handlers -->
-    <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
-
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>
