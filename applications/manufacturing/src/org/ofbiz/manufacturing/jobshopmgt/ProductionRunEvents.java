@@ -49,7 +49,7 @@ public class ProductionRunEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
-        Map parameters = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameters = UtilHttp.getParameterMap(request);
 
         BigDecimal quantity = null;
         try {
@@ -62,7 +62,7 @@ public class ProductionRunEvents {
         }
 
         Collection<Map<String, Object>> componentRows = UtilHttp.parseMultiFormData(parameters);
-        Map componentsLocationMap = FastMap.newInstance();
+        Map<GenericPK, Object> componentsLocationMap = FastMap.newInstance();
         for (Map<String, Object>componentRow : componentRows) {
             Timestamp fromDate = null;
             try {
@@ -73,22 +73,25 @@ public class ProductionRunEvents {
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-            GenericPK key = delegator.makePK("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", (String)componentRow.get("productionRunTaskId"),
-                                                                                                                "productId", (String)componentRow.get("productId"),
-                                                                                                                "fromDate", fromDate,
-                                                                                                                "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"));
-            componentsLocationMap.put(key, UtilMisc.toMap("locationSeqId", (String)componentRow.get("locationSeqId"),
-                                                          "secondaryLocationSeqId", (String)componentRow.get("secondaryLocationSeqId"),
-                                                          "failIfItemsAreNotAvailable", (String)componentRow.get("failIfItemsAreNotAvailable")));
+            GenericPK key = delegator.makePK("WorkEffortGoodStandard", 
+                    UtilMisc.<String, Object>toMap("workEffortId", (String)componentRow.get("productionRunTaskId"), 
+                            "productId", (String)componentRow.get("productId"),
+                            "fromDate", fromDate,
+                            "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"));
+            componentsLocationMap.put(key, 
+                    UtilMisc.<String, Object>toMap("locationSeqId", (String)componentRow.get("locationSeqId"),
+                            "secondaryLocationSeqId", (String)componentRow.get("secondaryLocationSeqId"),
+                            "failIfItemsAreNotAvailable", (String)componentRow.get("failIfItemsAreNotAvailable")));
         }
 
         try {
-            Map inputMap = UtilMisc.toMap("workEffortId", parameters.get("workEffortId"), "inventoryItemTypeId", parameters.get("inventoryItemTypeId"));
+            Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("workEffortId", parameters.get("workEffortId"),
+                    "inventoryItemTypeId", parameters.get("inventoryItemTypeId"));
             inputMap.put("componentsLocationMap", componentsLocationMap);
             inputMap.put("quantity", quantity);
             inputMap.put("lotId", parameters.get("lotId"));
             inputMap.put("userLogin", userLogin);
-            Map result = dispatcher.runSync("productionRunDeclareAndProduce", inputMap);
+            Map<String, Object> result = dispatcher.runSync("productionRunDeclareAndProduce", inputMap);
             if (ServiceUtil.isError(result)) {
                 request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
                 return "error";
