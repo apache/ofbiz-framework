@@ -192,6 +192,7 @@ under the License.
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(invoice)}" type="BigDecimal"/>
                 <entity-condition entity-name="AcctgTransAndEntries" list="AcctgTransAndEntries">
                     <condition-expr field-name="invoiceId"  operator="equals" from-field="invoiceId"/>
+                    <order-by field-name="acctgTransId"/>
                     <order-by field-name="acctgTransEntrySeqId"/>
                 </entity-condition>
             </actions>
