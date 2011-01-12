@@ -63,7 +63,8 @@ import com.lowagie.text.pdf.PdfReader;
 
 public class CompDocServices {
     public static final String module = CompDocServices.class.getName();
-
+    public static final String resource = "ContentUiLabels";
+    
     /**
      *
      * @param request
@@ -93,8 +94,8 @@ public class CompDocServices {
                 if (val == null)  contentExists = false;
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error running serviceName persistContentAndAssoc", module);
-                String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(UtilProperties.getMessage(CoreEvents.err_resource, 
+                        "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
            }
         }
 
@@ -102,17 +103,18 @@ public class CompDocServices {
         try {
             modelService = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
         } catch (GenericServiceException e) {
-            String errMsg = "Error getting model service for serviceName, 'persistContentAndAssoc'. " + e.toString();
-            Debug.logError(errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError("Error getting model service for serviceName, 'persistContentAndAssoc'. " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(CoreEvents.err_resource, 
+                    "coreEvents.error_modelservice_for_srv_name", locale));
         }
         Map persistMap = modelService.makeValid(context, ModelService.IN_PARAM);
         persistMap.put("userLogin", userLogin);
         try {
             Map persistContentResult = dispatcher.runSync("persistContentAndAssoc", persistMap);
             if (ServiceUtil.isError(persistContentResult)) {
-                //Debug.logError("Error running service 'persistContentAndAssoc'. " + ServiceUtil.getErrorMessage(persistContentResult), module);
-                return ServiceUtil.returnError("Error saving content information: ", null, null, persistContentResult);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ContentContentCreatingError", 
+                        UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale), null, null, persistContentResult);
             }
 
             contentId = (String) persistContentResult.get("contentId");
@@ -127,16 +129,18 @@ public class CompDocServices {
 
             Map persistRevResult = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
             if (ServiceUtil.isError(persistRevResult)) {
-                //Debug.logError("Error running service 'persistContentRevisionAndItem'. " + ServiceUtil.getErrorMessage(persistRevResult), module);
-                return ServiceUtil.returnError("Error saving revision information: ", null, null, persistRevResult);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                        "ContentContentCreatingError", 
+                        UtilMisc.toMap("serviceName", "persistContentRevisionAndItem"), locale), null, null, persistRevResult);
             }
 
             result.putAll(persistRevResult);
             return result;
         } catch (GenericServiceException e) {
-            String errMsg = "Error running serviceName, 'persistContentAndAssoc'. " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error running serviceName, 'persistContentAndAssoc'. " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "ContentContentCreatingError", 
+                    UtilMisc.toMap("serviceName", "persistContentAndAssoc"), locale) + e.toString());
         }
     }
 
@@ -235,7 +239,8 @@ public class CompDocServices {
                             // Create AcroForm PDF
                             Map survey2PdfResults = dispatcher.runSync("buildPdfFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyId));
                             if (ServiceUtil.isError(survey2PdfResults)) {
-                                return ServiceUtil.returnError("Error building PDF from SurveyResponse: ", null, null, survey2PdfResults);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                        "ContentSurveyErrorBuildingPDF", locale), null, null, survey2PdfResults);
                             }
 
                             ByteBuffer outByteBuffer = (ByteBuffer) survey2PdfResults.get("outByteBuffer");
@@ -245,7 +250,8 @@ public class CompDocServices {
                             // Fill in acroForm
                             Map survey2AcroFieldResults = dispatcher.runSync("setAcroFieldsFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
                             if (ServiceUtil.isError(survey2AcroFieldResults)) {
-                                return ServiceUtil.returnError("Error setting AcroFields from SurveyResponse: ", null, null, survey2AcroFieldResults);
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                        "ContentSurveyErrorSettingAcroFields", locale), null, null, survey2AcroFieldResults);
                             }
 
                             ByteBuffer outByteBuffer = (ByteBuffer) survey2AcroFieldResults.get("outByteBuffer");
@@ -263,7 +269,8 @@ public class CompDocServices {
                     Map convertResult = dispatcher.runSync("convertDocumentByteBuffer", convertInMap);
 
                     if (ServiceUtil.isError(convertResult)) {
-                        return ServiceUtil.returnError("Error in Open", null, null, convertResult);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                "ContentConvertingDocumentByteBuffer", locale), null, null, convertResult);
                     }
 
                     ByteBuffer outByteBuffer = (ByteBuffer) convertResult.get("outByteBuffer");
@@ -382,7 +389,8 @@ public class CompDocServices {
                         // Create AcroForm PDF
                         Map survey2PdfResults = dispatcher.runSync("buildPdfFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
                         if (ServiceUtil.isError(survey2PdfResults)) {
-                            return ServiceUtil.returnError("Error building PDF from SurveyResponse: ", null, null, survey2PdfResults);
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                    "ContentSurveyErrorBuildingPDF", locale), null, null, survey2PdfResults);
                         }
 
                         ByteBuffer outByteBuffer = (ByteBuffer)survey2PdfResults.get("outByteBuffer");
@@ -391,7 +399,8 @@ public class CompDocServices {
                         // Fill in acroForm
                         Map survey2AcroFieldResults = dispatcher.runSync("setAcroFieldsFromSurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
                         if (ServiceUtil.isError(survey2AcroFieldResults)) {
-                            return ServiceUtil.returnError("Error setting AcroFields from SurveyResponse: ", null, null, survey2AcroFieldResults);
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                                    "ContentSurveyErrorSettingAcroFields", locale), null, null, survey2AcroFieldResults);
                         }
 
                         ByteBuffer outByteBuffer = (ByteBuffer) survey2AcroFieldResults.get("outByteBuffer");
@@ -409,7 +418,8 @@ public class CompDocServices {
                 Map convertResult = dispatcher.runSync("convertDocumentByteBuffer", convertInMap);
 
                 if (ServiceUtil.isError(convertResult)) {
-                    return ServiceUtil.returnError("Error in Open", null, null, convertResult);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ContentConvertingDocumentByteBuffer", locale), null, null, convertResult);
                 }
 
                 ByteBuffer outByteBuffer = (ByteBuffer) convertResult.get("outByteBuffer");
