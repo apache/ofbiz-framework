@@ -120,17 +120,6 @@ under the License.
                     buttonImageOnly: false,
                     dateFormat: 'yy-mm-dd'
                   });
-              <#if !(shortDateInput?exists && shortDateInput)>
-  jQuery.timepicker.regional['fr'] = {
-        currentText: 'Maintenant',
-        closeText: 'OK',
-        ampm: true,
-        timeText: 'Heure',
-        hourText: 'Heure',
-        secondText: 'Seconde'};
-              
-                 jQuery.timepicker.setDefaults(jQuery.timepicker.regional['fr']);
-              </#if>                  
           </script>
       </#if>
       <#if timeDropdown?has_content && timeDropdown=="time-dropdown">
