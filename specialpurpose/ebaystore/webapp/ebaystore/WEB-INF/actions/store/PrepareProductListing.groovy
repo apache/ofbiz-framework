@@ -48,7 +48,6 @@
  contentPathPrefix = CatalogWorker.getContentPathPrefix(request);
  productStoreId = parameters.productStoreId;
  search_CategoryId = parameters.search_CategoryId;
- 
 //Get the addItemList and Prepare details
  apiContext = EbayEvents.getApiContext(request);
  addItemObj = EbayEvents.getAddItemListingObject(request, apiContext);
@@ -120,6 +119,7 @@
              }
          }
          categorySpecificObject = EbayEvents.categorySpecifics(pkCateId, request);
+         if(categorySpecificObject) {
          Map<String, List> categorySpecificMap = categorySpecificObject.get("categorySpecifics");
          int checkNameSpecific = null;
          int checkValueSpecific = null;
@@ -133,6 +133,7 @@
          String checkSpecific = ((checkNameSpecific > 0) && (checkValueSpecific == 1)) ? "true" : "false";
          context.checkSpecific = checkSpecific;
          context.categorySpecifix = categorySpecificObject;
+         }
          context.stCate1ID = stCate1ID;
          context.stCate2ID = stCate2ID;
          if (pkCateId) {

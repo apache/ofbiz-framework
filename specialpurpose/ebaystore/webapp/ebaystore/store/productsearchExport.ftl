@@ -76,7 +76,9 @@ under the License.
             url: url,
             type: "GET",
             data: pars,
-            beforeStart: function({document.getElementById('loading').innerHTML = '<b>${uiLabel.CommonPleaseWait}</b>';}),
+            beforeStart: function() {
+                document.getElementById('loading').innerHTML = '<b>${uiLabelMap.CommonPleaseWait}</b>';
+            },
             success: function(data) {
                 document.getElementById('loading').innerHTML = '';
                 if(data != null){
@@ -85,7 +87,7 @@ under the License.
                     var leng = resp.size();
                     for (i=0;i<leng;i++) {
                         if (i == 0) {
-                            document.getElementById(id).options[0] = new Option("${uiLabel.CommonPleaseSelect}","");
+                            document.getElementById(id).options[0] = new Option("${uiLabelMap.CommonPleaseSelect}","");
                         }
                         var optVal = resp[i].CategoryCode;
                         var optName = resp[i].CategoryName;
@@ -114,7 +116,7 @@ under the License.
                     var j = 0;
                     for (i=0;i<leng+1;i++) {
                         if (i == 0) {
-                            document.getElementById('theme').options[0] = new Option("${uiLabel.CommonPleaseSelect}","_NA_");
+                            document.getElementById('theme').options[0] = new Option("${uiLabelMap.CommonPleaseSelect}","_NA_");
                         } else {
                             var optVal = resp[i].TemplateId+":"+resp[i].TemplateImageURL;
                             document.getElementById('theme').options[i] = new Option(resp[i].TemplateName,optVal);

@@ -132,7 +132,7 @@ under the License.
           <tr>
             <td align="center" colspan="2">
               <hr />
-              <a href="javascript:submit(document.getElementById('productSearchform'));" class="buttontext">${uiLabelMap.CommonFind}</a>
+              <a href="javascript:submit('productSearchform');" class="buttontext">${uiLabelMap.CommonFind}</a>
             </td>
           </tr>
         </table>

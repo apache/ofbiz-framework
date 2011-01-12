@@ -22,7 +22,7 @@ under the License.
         if (areaName.value.length > limit){
            areaName.value=areaName.value.substring(0,limit);
         }else{
-          charleft.innerHTML = (limit - areaName.value.length) + " ${uiLabel.CommonCharactorsLeft}";
+          charleft.innerHTML = (limit - areaName.value.length) + " ${uiLabelMap.CommonCharactorsLeft}";
         }
     }
     function retrieveThemeColorSchemeByThemeId(url, themeId, productStoreId){
@@ -32,7 +32,7 @@ under the License.
          url: url,
          type: "GET",
          data: pars,
-         beforeStart: function() {document.getElementById('loading').innerHTML = ' ${uiLabel.CommonPleaseWait}';},
+         beforeStart: function() {document.getElementById('loading').innerHTML = ' ${uiLabelMap.CommonPleaseWait}';},
              success: function(data) {
                 if (data != null){
                     var resp = eval("("+data+")");
