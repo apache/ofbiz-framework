@@ -710,6 +710,10 @@
         <value xml:lang="en">Error converting document: ${errorString}</value>
         <value xml:lang="it">Errore durante la conversione del documento: ${errorString}</value>
     </property>
+    <property key="ContentConvertingDocumentByteBuffer">
+        <value xml:lang="en">Error converting document byte buffer: </value>
+        <value xml:lang="it">Errore durante la conversione del documento in byte buffer: </value>
+    </property>
     <property key="ContentCreateContentAssocMethodError">
         <value xml:lang="en">Not 2 out of ContentId/To/From</value>
         <value xml:lang="it">Necessari 2 dei tre parametri ContentId/To/From necessari</value>
@@ -2140,6 +2144,14 @@
         <value xml:lang="th">คำตอบ</value>
         <value xml:lang="zh">回答</value>
         <value xml:lang="zh_TW">回答</value>
+    </property>
+    <property key="ContentSurveyErrorBuildingPDF">
+        <value xml:lang="en">Error building PDF from SurveyResponse: </value>
+        <value xml:lang="it">Errore durante la creazione del PDF dalla risposta del sondaggio: </value>
+    </property>
+    <property key="ContentSurveyErrorSettingAcroFields">
+        <value xml:lang="en">Error setting AcroFields from SurveyResponse: </value>
+        <value xml:lang="it">Errore durante l'impostazioni di AcroFields dalla risposta del sondaggio: </value>
     </property>
     <property key="ContentSurveyResponseSummary">
         <value xml:lang="ar">ماخص الجواب</value>
