@@ -735,6 +735,10 @@ public class FindServices {
             result.put("item",item);
         }
         result.remove("listIt");
+        
+        if (result.containsKey("listSize")) {
+            result.remove("listSize");
+        }
         return result;
     }
 }
