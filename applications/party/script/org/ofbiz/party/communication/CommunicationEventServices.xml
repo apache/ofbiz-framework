@@ -288,6 +288,7 @@ under the License.
                 </if-not-empty>
                 <!-- add new role -->
                 <set field="newRoleFrom.partyId" from-field="parameters.partyIdFrom"/>
+                <set field="newRoleFrom.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" set-if-empty="false"/>
                 <call-service service-name="getPartyEmail" in-map-name="newRoleFrom">
                     <result-to-field result-name="contactMechId" field="newRoleFrom.contactMechId"/>
                 </call-service>
