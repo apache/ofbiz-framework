@@ -10884,7 +10884,7 @@
     </property>
     <property key="ProductConditionsActionsRemoveBefore">         
         <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions OR disable it by entering a Thru Date</value>
-        <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions. Vous pouvez aussi la désactivée en entrant une date de fin appropriée</value>
+        <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions. Vous pouvez aussi la désactiver en entrant une date de fin appropriée</value>
     </property>    
     <property key="ProductConditionsThenActions">         
         <value xml:lang="en">If multiple conditions are entered they are tested logically as and AND statement. Therefore all Conditions must be TRUE for the price rule to execute (same for actions)</value>
