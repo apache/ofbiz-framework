@@ -86,7 +86,6 @@ function getAssociatedStateList(countryId, stateId, errorId, divId) {
     }
     jQuery.ajax({
         url: requestToSend,
-        async: true,
         type: "POST",
         data: {countryGeoId: countryGeoId},
         success: function(data) {
