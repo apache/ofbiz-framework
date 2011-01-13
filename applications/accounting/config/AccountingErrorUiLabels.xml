@@ -23,113 +23,17 @@
         <value xml:lang="en">Could not find RateAmount record to be deleted</value>
         <value xml:lang="it">Non è possibile trovare un record di RateAmount che deve essere cancellato</value>
     </property>
-    <property key="AccountingFinAccountAuthorizationExpired">
-        <value xml:lang="en">Authorization transaction ${paymentGatewayResponseId} has expired as of ${authExpiration}</value>
-        <value xml:lang="it">Autorizzazione transazione ${paymentGatewayResponseId} ha una scadenza del ${authExpiration}</value>
-    </property>
-    <property key="AccountingFinAccountCancelled">
-        <value xml:lang="en">Account has been cancelled</value>
-        <value xml:lang="it">Il conto è stato cancellato</value>
-    </property>
-    <property key="AccountingFinAccountCannotBeAuthorized">
-        <value xml:lang="en">Cannot authorize financial account due to: ${errorString}</value>
-        <value xml:lang="it">Non è possibile autorizzare il conto finanziario per: ${errorString}</value>
-    </property>
-    <property key="AccountingFinAccountCannotBeExpired">
-        <value xml:lang="en">Unable to expire financial account authorization: </value>
-        <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario: </value>
-    </property>
-    <property key="AccountingFinAccountCannotBeRefunded">
-        <value xml:lang="en">Available balance does not match the actual balance; pending authorizations; cannot refund FinAccount at this time.</value>
-        <value xml:lang="it">Bilancio disponibilie non corrisponde all'attuale bilancio; autorizzazioni in attesa; non è possibile rimborsare il conto finanziario in questo momento.</value>
-    </property>
-    <property key="AccountingFinAccountCannotBeReplenish">
-        <value xml:lang="en">Cannot locate product store from previous deposits; product store cannot be empty</value>
-        <value xml:lang="it">Non è possibile localizzare il negozio dei precedenti depositi; il negozio non può essere vuoto</value>
-    </property>
-    <property key="AccountingFinAccountCannotCapture">
-        <value xml:lang="en">No authorization transaction found for the OrderPaymentPreference; cannot capture</value>
-        <value xml:lang="it">Nessuna transazione di autorizzazione trovata per le preferenze pagamento ordine; non è possibile catturare</value>
-    </property>
-    <property key="AccountingFinAccountCannotCreate">
-        <value xml:lang="en">Unable to create financial accout; no productStoreId on OrderHeader: ${orderId}</value>
-        <value xml:lang="it">Non è possibile creare conto finanziario; nessun negozio impostato sulla testata ordine: ${orderId}</value>
-    </property>
-    <property key="AccountingFinAccountCannotCreditAccount">
-        <value xml:lang="en">Could not find or create a service credit account</value>
-        <value xml:lang="it">Non è possibile trovare o creare un servizio di accredito conto</value>
-    </property>
-    <property key="AccountingFinAccountCannotFindAuthorization">
-        <value xml:lang="en"> Could not find authorization transaction.</value>
-        <value xml:lang="it"> Non è possibile trovare la transazione di autorizzazione.</value>
-    </property>
-    <property key="AccountingFinAccountCannotLocateItFromAccountCode">
-        <value xml:lang="en">Unable to locate financial account from account code</value>
-        <value xml:lang="it">Non è possibile localizzare il conto finanziario dal codice conto</value>
-    </property>
     <property key="AccountingFinAccountCannotPost">
         <value xml:lang="en">Cannot post FinAccountTrans with ID ${parameters.finAccountTransId} to GL, could not find ${creditDebit} ${requiredField}</value>
         <value xml:lang="it">Non post FinAccountTrans con ID ${parameters.finAccountTransId} in GL, could not find ${creditDebit} ${requiredField}</value>
-    </property>
-    <property key="AccountingFinAccountExpired">
-        <value xml:lang="en">Account has expired as of ${thruDate}</value>
-        <value xml:lang="it">Conto scaduto dal ${thruDate}</value>
-    </property>
-    <property key="AccountingFinAccountFrozen">
-        <value xml:lang="en">Account is currently frozen</value>
-        <value xml:lang="it">Il conto è attualmente congelato</value>
-    </property>
-    <property key="AccountingFinAccountIdAndFinAccountCodeAreNull">
-        <value xml:lang="en">Both finAccountId and finAccountCode cannot be null; at least one is required</value>
-        <value xml:lang="it">Entrambi finAccountId e finAccountCode non possono essere nulli; al minimo uno è richiesto</value>
-    </property>
-    <property key="AccountingFinAccountIdInvalid">
-        <value xml:lang="en">Invalid financial account; cannot locate account</value>
-        <value xml:lang="it">Conto finanziario invalido; non è possibile localizzare il conto</value>
     </property>
     <property key="AccountingFinAccountInactiveStatusError">
         <value xml:lang="en">FinAccount must be in active status</value>
         <value xml:lang="fr">Le compte financier doit être dans un état actif</value>
     </property>
-    <property key="AccountingFinAccountIsNotRefundable">
-        <value xml:lang="en">Account is not refunable</value>
-        <value xml:lang="it">Il conto non è rimborsabile</value>
-    </property>
-    <property key="AccountingFinAccountNegative">
-        <value xml:lang="en">Account is currently negative and pending replenishment</value>
-        <value xml:lang="it">Il conto è attualmente negativo e in attesa di rifornimento</value>
-    </property>
-    <property key="AccountingFinAccountNoPaymentMethodAssociatedWithReplenishAccount">
-        <value xml:lang="en">No payment method associated with replenish account</value>
-        <value xml:lang="it">Nessun metodo pagamento associtao con il conto di rifornimento</value>
-    </property>
-    <property key="AccountingFinAccountNotFound">
-        <value xml:lang="en">No finAccountId found ${finAccountId}</value>
-        <value xml:lang="it">Conto finanziario non trovato ${finAccountId}</value>
-    </property>
-    <property key="AccountingFinAccountPartiallyRefunded">
-        <value xml:lang="en">FinAccount partially refunded; not enough replenish deposits to refund!</value>
-        <value xml:lang="it">Conto finanziario parzialmente rimborsato; non ci sono abbastanza depositi per il rifornimento da rimborsare!</value>
-    </property>
-    <property key="AccountingFinAccountPinCodeCombinatorNotFound">
-        <value xml:lang="en">Financial account PIN/CODE combination not found</value>
-        <value xml:lang="it">Conto finanziario combinazione PIN/CODE non trovata</value>
-    </property>
-    <property key="AccountingFinAccountMustBePositive">
-        <value xml:lang="en">Amount should be a positive number.</value>
-        <value xml:lang="it">L'importo dovrebbe essere un numero positivo.</value>
-    </property>
-    <property key="AccountingFinAccountSetting">
-        <value xml:lang="en">No settings found for store ${productStoreId} for fin account type ${finAccountTypeId}</value>
-        <value xml:lang="it">Nessuna configurazione trovata per il negozio ${productStoreId} per il tipo conto finanziario ${finAccountTypeId}</value>
-    </property>
     <property key="AccountingFinAccountStatusNotValidError">
         <value xml:lang="en">FinAccount not in valid status</value>
         <value xml:lang="fr">Le compte financier n'est pas dans un état valide</value>
-    </property>
-    <property key="AccountingFinAccountUnknownReplenishMethod">
-        <value xml:lang="en">Unknown replenish method found</value>
-        <value xml:lang="it">Metodo rifornimento sconosciuto</value>
     </property>
     <property key="AccountingPartyAcctgPreferenceNotDefine">
         <value xml:lang="en">Acctg preference not define</value>

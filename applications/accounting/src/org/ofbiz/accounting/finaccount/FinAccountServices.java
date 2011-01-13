@@ -22,7 +22,6 @@ package org.ofbiz.accounting.finaccount;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -31,7 +30,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -52,7 +50,6 @@ import org.ofbiz.service.ServiceUtil;
 public class FinAccountServices {
 
     public static final String module = FinAccountServices.class.getName();
-    public static final String resourceError = "AccountingErrorUiLabels";
 
     public static Map<String, Object> createAccountAndCredit(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -60,7 +57,6 @@ public class FinAccountServices {
         String finAccountTypeId = (String) context.get("finAccountTypeId");
         String accountName = (String) context.get("accountName");
         String finAccountId = (String) context.get("finAccountId");
-        Locale locale = (Locale) context.get("locale");
 
         // check the type
         if (finAccountTypeId == null) {
@@ -148,8 +144,7 @@ public class FinAccountServices {
                     }
                 }
                 if (creditAccount == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                            "AccountingFinAccountCannotCreditAccount", locale));
+                    return ServiceUtil.returnError("Could not find or create a service credit account");
                 }
             }
 
@@ -184,15 +179,12 @@ public class FinAccountServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
         String finAccountTypeId = (String) context.get("finAccountTypeId");
-        Locale locale = (Locale) context.get("locale");
 
         try {
             // get the product store id and use it to generate a unique fin account code
             GenericValue productStoreFinAccountSetting = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId));
             if (productStoreFinAccountSetting == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "AccountingFinAccountSetting", 
-                        UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId), locale));
+                return ServiceUtil.returnError("No settings found for store [" + productStoreId + "] for fin account type [" + finAccountTypeId + "]");
             }
 
             Long accountCodeLength = productStoreFinAccountSetting.getLong("accountCodeLength");
@@ -246,7 +238,6 @@ public class FinAccountServices {
         Delegator delegator = dctx.getDelegator();
         String finAccountId = (String) context.get("finAccountId");
         String finAccountCode = (String) context.get("finAccountCode");
-        Locale locale = (Locale) context.get("locale");
 
         GenericValue finAccount;
         if (finAccountId == null) {
@@ -265,8 +256,7 @@ public class FinAccountServices {
             }
         }
         if (finAccount == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", finAccountId), locale));
+            return ServiceUtil.returnError("Unable to locate financial account");
         }
 
         // get the balance
@@ -292,11 +282,9 @@ public class FinAccountServices {
     public static Map<String, Object> checkFinAccountStatus(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         String finAccountId = (String) context.get("finAccountId");
-        Locale locale = (Locale) context.get("locale");
 
         if (finAccountId == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingFinAccountNotFound", UtilMisc.toMap("finAccountId", ""), locale));
+            return ServiceUtil.returnError("Financial account ID is required for this service!");
         }
 
         GenericValue finAccount;
@@ -337,7 +325,7 @@ public class FinAccountServices {
     public static Map<String, Object> refundFinAccount(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        Locale locale = (Locale) context.get("locale");
+
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String finAccountId = (String) context.get("finAccountId");
         Map<String, Object> result = null;
@@ -352,8 +340,7 @@ public class FinAccountServices {
         if (finAccount != null) {
             // check to make sure the account is refundable
             if (!"Y".equals(finAccount.getString("isRefundable"))) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "AccountingFinAccountIsNotRefundable", locale));
+                return ServiceUtil.returnError("Account is not refunable");
             }
 
             // get the actual and available balance
@@ -362,8 +349,7 @@ public class FinAccountServices {
 
             // if they do not match, then there are outstanding authorizations which need to be settled first
             if (actualBalance.compareTo(availableBalance) != 0) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "AccountingFinAccountCannotBeRefunded", locale));
+                return ServiceUtil.returnError("Available balance does not match the actual balance; pending authorizations; cannot refund FinAccount at this time.");
             }
 
             // now we make sure there is something to refund
@@ -487,8 +473,7 @@ public class FinAccountServices {
 
                 // check to make sure we balanced out
                 if (remainingBalance.compareTo(FinAccountHelper.ZERO) == 1) {
-                    result = ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                            "AccountingFinAccountPartiallyRefunded", locale));
+                    result = ServiceUtil.returnSuccess("FinAccount partially refunded; not enough replenish deposits to refund!");
                 }
             }
         }
