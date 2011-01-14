@@ -256,18 +256,6 @@ under the License.
                 </add-error>
             </then>
         </if>
-
-        <if-compare field="trialBalanceResultMap.debitTotal" operator="equals" value="0.00" type="BigDecimal">
-            <add-error>
-                <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionDebitZero"/>
-            </add-error>
-        </if-compare>
-        <if-compare field="trialBalanceResultMap.creditTotal" operator="equals" value="0.00" type="BigDecimal">
-            <add-error>
-                <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionCreditZero"/>
-            </add-error>
-        </if-compare>
-
         <entity-condition entity-name="AcctgTransEntry" list="acctgTransEntryList">
             <condition-expr field-name="acctgTransId" from-field="parameters.acctgTransId"/>
             <order-by field-name="acctgTransEntrySeqId"/>
