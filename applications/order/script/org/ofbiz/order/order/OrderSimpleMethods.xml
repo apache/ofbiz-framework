@@ -20,12 +20,44 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <!-- Returns hasPermission=true if userLogin partyId equals partyId parameter
+         Only the order owner should be able to cancel an item from Ecommerce
+    -->
+    <simple-method method-name="orderAdjustmentPermissionCheck" short-description="Party contact mech permission logic">
+        <if-empty field="parameters.partyId">
+            <set field="parameters.partyId" from-field="userLogin.partyId"/>
+        </if-empty>
+        <if-compare-field to-field="userLogin.partyId" field="parameters.partyId" operator="equals">
+            <set field="hasPermission" type="Boolean" value="true"/>
+            <field-to-result field="hasPermission"/>
+            <else>
+                <set field="primaryPermission" value="ORDERMGR"/>
+                <set field="altPermission" value="ORDERMGR_ROLE"/>
+                <set field="mainAction" from-field="parameters.mainAction"/>
+                <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                <if-compare field="hasPermission" operator="not-equals" value="true">
+                    <set field="resourceDescription" from-field="parameters.resourceDescription"/>
+                    <if-empty field="resourceDescription">
+                        <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
+                    </if-empty>
+                    <if-compare field="mainAction" value="CREATE" operator="equals">
+                        <property-to-field resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderAdjustement" field="failMessage"/>                        
+                    </if-compare>
+                    <if-compare field="mainAction" value="UPDATE" operator="equals">
+                        <property-to-field resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunAutoCreateOrderAdjustments" field="failMessage"/>                        
+                    </if-compare>
+                    <set field="hasPermission" type="Boolean" value="false"/>
+                    <field-to-result field="failMessage"/>
+                    <else>
+                        <field-to-result field="hasPermission"/>                        
+                    </else>
+                </if-compare>
+            </else>
+        </if-compare-field>
+    </simple-method>
+
     <simple-method method-name="createOrderAdjustment" short-description="Create an OrderAdjustment">
-        <check-permission permission="ORDERMGR" action="_CREATE">
-            <alt-permission permission="ORDERMGR_ROLE" action="_CREATE"/>
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateOrderAdjustement"/>
-        </check-permission>
-        <check-errors/>
 
         <make-value entity-name="OrderAdjustment" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
