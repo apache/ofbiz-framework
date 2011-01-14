@@ -122,6 +122,11 @@
     </menu>
     <menu name="PartyBar" default-menu-item-name="EditPerfReviewItems" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="EditPerfReview" title="${uiLabelMap.HumanResPerfReview}">
+            <link target="EditPerfReview">
+                <parameter param-name="perfReviewId"/>
+            </link>
+        </menu-item>
         <menu-item name="EditPerfReviewItems" title="${uiLabelMap.HumanResEditPerfReviewItems}">
             <link target="EditPerfReviewItems">
                 <parameter param-name="perfReviewId"/>
