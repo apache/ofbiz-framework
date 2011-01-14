@@ -10856,7 +10856,7 @@
     <property key="WebTools">
         <value xml:lang="ar">أدوات</value>
         <value xml:lang="de">Web-Werkzeuge</value>
-        <value xml:lang="en">WebTools</value>
+        <value xml:lang="en">Web Tools</value>
         <value xml:lang="es">Herramientas Web</value>
         <value xml:lang="fr">Adm. Sys.</value>
         <value xml:lang="hi_IN">वेब टूल्स</value>
@@ -10873,7 +10873,7 @@
     <property key="WorkEffort">
         <value xml:lang="ar">مجهود العمل</value>
         <value xml:lang="de">Aufgaben</value>
-        <value xml:lang="en">WorkEffort</value>
+        <value xml:lang="en">Work Effort</value>
         <value xml:lang="es">Adm. de tareas</value>
         <value xml:lang="fr">Tâches</value>
         <value xml:lang="hi_IN">कार्यप्रयास</value>
