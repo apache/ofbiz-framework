@@ -230,6 +230,33 @@ under the License.
                 <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionTrialBalanceFailed"/>
             </add-error>
         </if-compare>
+        <if>
+            <condition>
+                <and>
+                    <if-compare field="trialBalanceResultMap.debitTotal" operator="equals" value="0.00" type="BigDecimal"></if-compare>
+                    <if-compare field="trialBalanceResultMap.creditTotal" operator="not-equals" value="0.00" type="BigDecimal"></if-compare>
+                </and>
+            </condition>
+            <then>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionDebitZero"/>
+                </add-error>
+            </then>
+        </if>
+        <if>
+            <condition>
+                <and>
+                    <if-compare field="trialBalanceResultMap.creditTotal" operator="equals" value="0.00" type="BigDecimal"></if-compare>
+                    <if-compare field="trialBalanceResultMap.debitTotal" operator="not-equals" value="0.00" type="BigDecimal"></if-compare>
+                </and>
+            </condition>
+            <then>
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionCreditZero"/>
+                </add-error>
+            </then>
+        </if>
+
         <if-compare field="trialBalanceResultMap.debitTotal" operator="equals" value="0.00" type="BigDecimal">
             <add-error>
                 <fail-property resource="AccountingUiLabels" property="AccountingNotPostingGlAccountTransactionDebitZero"/>
