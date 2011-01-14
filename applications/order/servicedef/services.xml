@@ -181,9 +181,20 @@ under the License.
         <attribute name="shipmentReceiptId" type="String" mode="IN" optional="true"/>
     </service>
 
+    <service name="orderAdjustmentPermissionCheck" engine="simple"
+            location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="orderAdjustmentPermissionCheck">
+        <description>
+            Performs a party contact mech security check. The userLogin partyId must equal the partyId parameter.
+            Only the order owner should be able to cancel an item from Ecommerce.
+        </description>
+        <implements service="permissionInterface"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
+
     <service name="createOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"
             location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="createOrderAdjustment">
         <description>Creates a new order adjustment record</description>
+        <permission-service service-name="orderAdjustmentPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="orderAdjustmentTypeId" optional="false"/>
@@ -355,6 +366,7 @@ under the License.
     <service name="recreateOrderAdjustments" engine="simple" auth="true"
             location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="recreateOrderAdjustments">
         <description>Remove all existing order adjustments, recalc them and persist in OrderAdjustment.</description>
+        <permission-service service-name="orderAdjustmentPermissionCheck" main-action="UPDATE"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
 

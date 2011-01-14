@@ -599,10 +599,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="recreateOrderAdjustments" short-description="Auto create OrderAdjustments">
-        <check-permission permission="ORDERMGR" action="_UPDATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunAutoCreateOrderAdjustments"/>
-        </check-permission>
-        <check-errors/>
         <entity-one entity-name="OrderHeader" value-field="order" auto-field-map="true"/>
         <!-- all existing promo order items are cancelled -->
         <get-related value-field="order" relation-name="OrderItem" list="orderItems"/>
