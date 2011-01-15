@@ -771,6 +771,14 @@
         <value xml:lang="zh">错误：无法获得订单信息 (</value>
         <value xml:lang="zh_TW">錯誤：無法獲得訂單資訊 (</value>
     </property>
+    <property key="OrderErrorCreateReturnHeaderWithoutId">
+        <value xml:lang="en">Create return did not return a valid return id</value>
+        <value xml:lang="it">Creazione testata reso non ha ristituito in numero di reso</value>
+    </property>
+    <property key="OrderErrorCreateReturnItemWithoutId">
+        <value xml:lang="en">Create return item did not return a valid sequence id</value>
+        <value xml:lang="it">Creazione riga reso non ha ristituito un numero di riga reso</value>
+    </property>
     <property key="OrderErrorCreatePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
@@ -986,6 +994,14 @@
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! รหัสคลังสินค้าสามารถเป็นค่าว่างเท่านั้นสำหรับรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">错误：对于购物订单，产品店铺标识只能是 null</value>
         <value xml:lang="zh_TW">錯誤：對于購物訂單，產品商店ID只能是 null</value>
+    </property>
+    <property key="OrderErrorUnableToCreateReturnHeader">
+        <value xml:lang="en">Unable to create return header</value>
+        <value xml:lang="it">Non è possibile creare la testata del reso</value>
+    </property>
+    <property key="OrderErrorUnableToCreateReturnItem">
+        <value xml:lang="en">Unable to create return item</value>
+        <value xml:lang="it">Non è possibile creare la riga del reso</value>
     </property>
     <property key="OrderErrorUnableToCreateReturnStatusHistory">
         <value xml:lang="en">ERROR : Unable to create ReturnStatus history</value>

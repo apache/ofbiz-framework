@@ -1022,12 +1022,14 @@ public class InvoiceServices {
                         "AccountingInvoiceCommissionEntityDataProblem",
                         UtilMisc.toMap("reason", e.toString()), locale));
             }
-            invoicesCreated.add(UtilMisc.toMap("commissionInvoiceId",invoiceId, "salesRepresentative ",partyIdBillFrom));
+            invoicesCreated.add(UtilMisc.<String, String>toMap("commissionInvoiceId",invoiceId, "salesRepresentative ",partyIdBillFrom));
         }
+        String invCreated = new Integer(invoicesCreated.size()).toString();
         Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
                 "AccountingCommissionInvoicesCreated", 
-                UtilMisc.toMap("invoicesCreated", invoicesCreated), locale));
-        Debug.logInfo("Created Commission invoices for each commission receiving parties " + invoicesCreated, module);
+                UtilMisc.toMap("invoicesCreated", invCreated), locale));
+        Debug.logInfo("Created Commission invoices for each commission receiving parties " + 
+                invCreated, module);
         result.put("invoicesCreated", invoicesCreated);
         return result;
     }

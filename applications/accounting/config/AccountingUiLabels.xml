@@ -1607,19 +1607,19 @@
         <value xml:lang="zh_TW">賬單賬戶[${billingAccountId}]只有${newBillingAccountApplyAvailable?currency(${isoCode})}有效，因此${amountApplied?currency(${isoCode})}太多了</value>
     </property>
     <property key="AccountingBillingAccountNotFound">
-        <value xml:lang="ar">حساب الفوترة ${billingAccountId}] عير موجود...</value>
-        <value xml:lang="de">Rechnungskonto [${billingAccountId}] nicht gefunden...</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] not found...</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no encontrada...</value>
-        <value xml:lang="fr">Compte de facturation [${billingAccountId}] pas trouvé...</value>
-        <value xml:lang="hi_IN">देयकांकन खाता [${billingAccountId}] उपलब्ध नहीं है</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] non trovato...</value>
-        <value xml:lang="nl">factuurrekening [${billingAccountId}] niet gevonden...</value>
-        <value xml:lang="ro">Cont Facturare [${billingAccountId}] non Gasit...</value>
-        <value xml:lang="ru">Кредитный счет [${billingAccountId}] не найден...</value>
-        <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] ไม่พบ..</value>
-        <value xml:lang="zh">没有找到账单账户[${billingAccountId}]...</value>
-        <value xml:lang="zh_TW">沒有找到賬單賬戶[${billingAccountId}]...</value>
+        <value xml:lang="ar">حساب الفوترة ${billingAccountId} عير موجود...</value>
+        <value xml:lang="de">Rechnungskonto ${billingAccountId} nicht gefunden...</value>
+        <value xml:lang="en">Billing Account ${billingAccountId} not found...</value>
+        <value xml:lang="es">Cuenta de facturación ${billingAccountId} no encontrada...</value>
+        <value xml:lang="fr">Compte de facturation ${billingAccountId} pas trouvé...</value>
+        <value xml:lang="hi_IN">देयकांकन खाता ${billingAccountId} उपलब्ध नहीं है</value>
+        <value xml:lang="it">Conto Fatturazione ${billingAccountId} non trovato...</value>
+        <value xml:lang="nl">factuurrekening ${billingAccountId} niet gevonden...</value>
+        <value xml:lang="ro">Cont Facturare ${billingAccountId} non Gasit...</value>
+        <value xml:lang="ru">Кредитный счет ${billingAccountId} не найден...</value>
+        <value xml:lang="th">ยอดรวมของบัญชี ${billingAccountId} ไม่พบ..</value>
+        <value xml:lang="zh">没有找到账单账户 ${billingAccountId}...</value>
+        <value xml:lang="zh_TW">沒有找到賬單賬戶 ${billingAccountId}...</value>
     </property>
     <property key="AccountingBillingAccountOnly">
         <value xml:lang="ar"> سدد بحساب الفوترة فقط</value>
