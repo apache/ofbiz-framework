@@ -2133,6 +2133,10 @@
         <value xml:lang="fr">Montant Commission</value>
         <value xml:lang="hi_IN">दलाली राशी</value>
     </property>
+    <property key="AccountingCommissionInvoicesCreated">
+        <value xml:lang="en">Created Commission invoices for each commission receiving parties ${invoicesCreated}</value>
+        <value xml:lang="it">Create fatture provvigioni per ogni provvigione ricevuta dai soggetti ${invoicesCreated}</value>
+    </property>
     <property key="AccountingCommissionRun">
         <value xml:lang="de">Provisionslauf</value>
         <value xml:lang="en">Commission Run</value>
