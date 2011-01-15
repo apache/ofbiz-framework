@@ -129,8 +129,8 @@ public class GiftCertificateServices {
             // do something tricky here: run as the "system" user
             // that can actually create a financial account transaction
             GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-            refNum = createTransaction(delegator, dispatcher, permUserLogin, initialAmount,
-                                    productStoreId, partyId, currencyUom, deposit, finAccountId);
+            refNum = createTransaction(delegator, dispatcher, permUserLogin, initialAmount, productStoreId, 
+                    partyId, currencyUom, deposit, finAccountId, locale);
 
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -225,8 +225,8 @@ public class GiftCertificateServices {
         BigDecimal balance = ZERO;
         String refNum = null;
         try {
-            refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount,
-                    productStoreId, partyId, currencyUom, deposit, finAccountId);
+            refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount, productStoreId, partyId,
+                    currencyUom, deposit, finAccountId, locale);
             finAccount.refresh();
             balance = finAccount.getBigDecimal("availableBalance");
         } catch (GeneralException e) {
@@ -302,8 +302,8 @@ public class GiftCertificateServices {
         Boolean procResult;
         if (previousBalance.compareTo(amount) >= 0) {
             try {
-                refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount,
-                        productStoreId, partyId, currencyUom, withdrawl, cardNumber);
+                refNum = GiftCertificateServices.createTransaction(delegator, dispatcher, userLogin, amount, productStoreId,
+                        partyId, currencyUom, withdrawl, cardNumber, locale);
                 finAccount.refresh();
                 balance = finAccount.get("availableBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("availableBalance");
                 procResult = Boolean.TRUE;
@@ -569,7 +569,8 @@ public class GiftCertificateServices {
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         String currency = (String) context.get("currency");
         BigDecimal amount = (BigDecimal) context.get("refundAmount");
-        return giftCertificateRestore(dctx, userLogin, paymentPref, amount, currency, "refund");
+        Locale locale = (Locale) context.get("locale");
+        return giftCertificateRestore(dctx, userLogin, paymentPref, amount, currency, "refund", locale);
     }
 
     public static Map giftCertificateRelease(DispatchContext dctx, Map context) {
@@ -607,11 +608,11 @@ public class GiftCertificateServices {
         }
     }
 
-    private static Map giftCertificateRestore(DispatchContext dctx, GenericValue userLogin, GenericValue paymentPref, BigDecimal amount, String currency, String resultPrefix) {
+    private static Map giftCertificateRestore(DispatchContext dctx, GenericValue userLogin, GenericValue paymentPref, 
+            BigDecimal amount, String currency, String resultPrefix, Locale locale) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        //Locale locale = (Locale) context.get("locale");
-
+        
         // get the orderId for tracking
         String orderId = paymentPref.getString("orderId");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
@@ -630,14 +631,13 @@ public class GiftCertificateServices {
             giftCard = paymentPref.getRelatedOne("GiftCard");
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get GiftCard from OrderPaymentPreference", module);
-            //TODO necessary the parameters locale
-            //return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-            //        "AccountingGiftCerticateNumberCannotLocateItFromOrderPaymentPreference", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "AccountingGiftCerticateNumberCannotLocateItFromOrderPaymentPreference", locale));
         }
 
         if (giftCard == null) {
-            //return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-            //        "AccountingGiftCerticateNumberCannotRelease", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "AccountingGiftCerticateNumberCannotRelease", locale));
         }
 
         // make sure we have a currency
@@ -660,8 +660,8 @@ public class GiftCertificateServices {
             restoreGcResult = dispatcher.runSync("addFundsToGiftCertificate", refundCtx);
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
-            //return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-            //        "AccountingGiftCerticateNumberRefundCallError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "AccountingGiftCerticateNumberRefundCallError", locale));
         }
         if (ServiceUtil.isError(restoreGcResult)) {
             return ServiceUtil.returnError(ServiceUtil.getErrorMessage(restoreGcResult));
@@ -1305,7 +1305,8 @@ public class GiftCertificateServices {
                 admin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "admin"));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
-                return ServiceUtil.returnError("Unable to look up UserLogin from database");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
+                        "OrderErrorUnableToUpdateReturnHeaderStatusWithoutUserLogin", locale));
             }
 
             // update the status to received so it can process
@@ -1319,7 +1320,8 @@ public class GiftCertificateServices {
                 updateReturnResp = dispatcher.runSync("updateReturnHeader", updateReturnInfo);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
-                return ServiceUtil.returnError("Unable to update return header status");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
+                        "OrderErrorUnableToUpdateReturnHeaderStatus", locale));
             }
 
             if (updateReturnResp != null) {
@@ -1353,8 +1355,9 @@ public class GiftCertificateServices {
         return false;
     }
 
-    private static String createTransaction(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, BigDecimal amount,
-            String productStoreId, String partyId, String currencyUom, String txType, String finAccountId) throws GeneralException {
+    private static String createTransaction(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, 
+            BigDecimal amount, String productStoreId, String partyId, String currencyUom, String txType, 
+            String finAccountId, Locale locale) throws GeneralException {
         final String coParty = getPayToPartyId(delegator, productStoreId);
         final String paymentMethodType = "GIFT_CERTIFICATE";
 
@@ -1374,7 +1377,8 @@ public class GiftCertificateServices {
             partyIdFrom = coParty;
             partyIdTo = partyId;
         } else {
-            throw new GeneralException("Unable to create financial account transaction!");
+            throw new GeneralException(UtilProperties.getMessage(resourceError, 
+                    "AccountingFinAccountCannotCreateTransaction", locale));
         }
 
         // create the payment for the transaction

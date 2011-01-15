@@ -55,6 +55,10 @@
         <value xml:lang="en">Unable to create financial accout; no productStoreId on OrderHeader: ${orderId}</value>
         <value xml:lang="it">Non è possibile creare conto finanziario; nessun negozio impostato sulla testata ordine: ${orderId}</value>
     </property>
+    <property key="AccountingFinAccountCannotCreateTransaction">
+        <value xml:lang="en">Unable to create financial account transaction!</value>
+        <value xml:lang="it">Non è possibile creare un transazione di un conto finanziario!</value>
+    </property>
     <property key="AccountingFinAccountCannotCreditAccount">
         <value xml:lang="en">Could not find or create a service credit account</value>
         <value xml:lang="it">Non è possibile trovare o creare un servizio di accredito conto</value>

@@ -1166,6 +1166,14 @@
         <value xml:lang="zh">错误：无法获得明细的可退货数量。</value>
         <value xml:lang="zh_TW">錯誤：無法獲得明細的可退貨數量。</value>
     </property>
+    <property key="OrderErrorUnableToUpdateReturnHeaderStatusWithoutUserLogin">
+        <value xml:lang="en">Unable to look up UserLogin from database</value>
+        <value xml:lang="it">Non è possibile trovare l'utente dal database</value>
+    </property>
+    <property key="OrderErrorUnableToUpdateReturnHeaderStatus">
+        <value xml:lang="en">Unable to update return header status</value>
+        <value xml:lang="it">Non è possibile aggiornare lo stato della testata del reso</value>
+    </property>
     <property key="OrderErrorWithCreateBillingAccount">
         <value xml:lang="en">Error with createBillingAccount : </value>
         <value xml:lang="es">Error en la creación de la cuenta de facturación:</value>
