@@ -62,7 +62,7 @@
                 <entity-one entity-name="PerfReview" value-field="perfReview"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPerfReviewDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonEdit} ${uiLabelMap.HumanResPerfReview}">
                             <section>
@@ -83,6 +83,8 @@
                 <set field="titleProperty" value="PageTitleEditPartyReviewItem"/>
                 <set field="tabButtonItem" value="EditPerfReviewItems"/>
                 <set field="perfReviewId" from-field="parameters.perfReviewId"/>
+                <set field="employeePartyId" from-field="parameters.employeePartyId"/>
+                <set field="employeeRoleTypeId" from-field="parameters.employeeRoleTypeId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPerfReviewDecorator" location="${parameters.mainDecoratorLocation}">
