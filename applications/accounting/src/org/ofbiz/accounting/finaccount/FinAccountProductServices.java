@@ -43,12 +43,14 @@ import javolution.util.FastMap;
 public class FinAccountProductServices {
 
     public static final String module = FinAccountProductServices.class.getName();
-
+    public static final String resourceOrderError = "OrderErrorUiLabels";
+    public static final String resourceError = "AccountingErrorUiLabels";
+    
     public static Map<String, Object> createPartyFinAccountFromPurchase(DispatchContext dctx, Map<String, Object> context) {
         // this service should always be called via FULFILLMENT_EXTASYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-
+        Locale locale = (Locale) context.get("locale");
         GenericValue orderItem = (GenericValue) context.get("orderItem");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -62,7 +64,8 @@ public class FinAccountProductServices {
             orderHeader = orderItem.getRelatedOne("OrderHeader");
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem", module);
-            return ServiceUtil.returnError("Unable to get OrderHeader from OrderItem");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
+                    "OrderCannotGetOrderHeader", UtilMisc.toMap("orderId", orderId), locale));
         }
 
         String productId = orderItem.getString("productId");
@@ -116,9 +119,10 @@ public class FinAccountProductServices {
             productStoreId = orh.getProductStoreId();
         }
         if (productStoreId == null) {
-            String errMsg = "Unable to create financial accout; no productStoreId on OrderHeader : " + orderId;
-            Debug.logFatal(errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logFatal("Unable to create financial accout; no productStoreId on OrderHeader : " + orderId, module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "AccountingFinAccountCannotCreate", 
+                    UtilMisc.toMap("orderId", orderId), locale));
         }
 
         // party ID (owner)
