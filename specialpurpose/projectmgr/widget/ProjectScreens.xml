@@ -343,13 +343,10 @@ under the License.
                         <container>
                              <link target="EditPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
                         </container>
-                        <container style="boxoutside">
-                            <container style="screenlet-header">
-                                <label style="boxhead">${uiLabelMap.HumanResEditPartySkill}</label>
-                            </container>
+                        <screenlet title="${uiLabelMap.HumanResEditPartySkill}">
                             <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
                             <include-form name="AddPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
-                        </container>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

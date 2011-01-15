@@ -214,12 +214,9 @@ under the License.
                         <include-menu name="InternalJobPostingTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                         <section>
                             <widgets>
-                                <container style="boxoutside">
-                                    <container style="screenlet-header">
-                                        <label style="boxhead">${uiLabelMap.HumanResEditJobInterview}</label>
-                                    </container>
+                                <screenlet title="${uiLabelMap.HumanResEditJobInterview}">
                                     <include-form name="EditJobInterview" location="component://humanres/widget/forms/RecruitmentForms.xml"/>
-                                </container>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
