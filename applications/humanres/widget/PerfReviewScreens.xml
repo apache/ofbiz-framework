@@ -62,7 +62,7 @@
                 <entity-one entity-name="PerfReview" value-field="perfReview"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPerfReviewDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonEdit} ${uiLabelMap.HumanResPerfReview}">
                             <section>

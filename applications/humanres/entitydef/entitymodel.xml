@@ -164,13 +164,15 @@ under the License.
     <entity entity-name="PerfReviewItem"
             package-name="org.ofbiz.humanres.ability"
             title="Performance Review Item Entity">
+      <field name="employeePartyId" type="id-ne"></field>
+      <field name="employeeRoleTypeId" type="id"></field>
       <field name="perfReviewId" type="id-ne"></field>
       <field name="perfReviewItemSeqId" type="id-ne"></field>
       <field name="perfRatingTypeId" type="id"></field>
       <field name="perfReviewItemTypeId" type="id"></field>
-      <field name="employeePartyId" type="id-ne"></field>
-      <field name="employeeRoleTypeId" type="id"></field>
       <field name="comments" type="comment"></field>
+      <prim-key field="employeePartyId"/>
+      <prim-key field="employeeRoleTypeId"/>
       <prim-key field="perfReviewId"/>
       <prim-key field="perfReviewItemSeqId"/>
       <relation type="one" fk-name="PERF_RVITM_PFRV" rel-entity-name="PerfReview">
