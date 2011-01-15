@@ -101,7 +101,7 @@ under the License.
     <form name="AddPerfReviewItem" type="single" target="createPerfReviewItem" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPerfReviewItem"/>
-        <field name="perfReviewId"><hidden value="${parameters.perfReviewId}"/></field>
+        <field name="perfReviewId"><hidden/></field>
         <field name="perfReviewItemSeqId"><ignored/></field>
         <field name="employeePartyId"><hidden/></field>
         <field name="employeeRoleTypeId"><hidden/></field>

@@ -216,7 +216,6 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="PartyBar" location="component://humanres/widget/HumanresMenus.xml"/>
-                                        <label style="h1" text="${uiLabelMap.HumanResPerfReview} ${uiLabelMap.CommonId} ${perfReviewId}"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
