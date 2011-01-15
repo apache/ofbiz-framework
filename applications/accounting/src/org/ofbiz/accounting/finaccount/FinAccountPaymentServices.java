@@ -295,7 +295,7 @@ public class FinAccountPaymentServices {
             // expire the related financial authorization transaction
             GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(paymentPref);
             if (authTransaction == null) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                return ServiceUtil.returnError(err + UtilProperties.getMessage(resourceError, 
                         "AccountingFinAccountCannotFindAuthorization", locale));
             }
 

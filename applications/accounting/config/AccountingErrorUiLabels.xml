@@ -131,6 +131,86 @@
         <value xml:lang="en">Unknown replenish method found</value>
         <value xml:lang="it">Metodo rifornimento sconosciuto</value>
     </property>
+    <property key="AccountingGiftCerticateNumberCannotBeExpired">
+        <value xml:lang="en">Unable to expire financial account authorization for Gift Certificate: </value>
+        <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario per il certificato regalo: </value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotLocateItFromOrderPaymentPreference">
+        <value xml:lang="en">Unable to get GiftCard from OrderPaymentPreference</value>
+        <value xml:lang="it">Non è possibile localizzare il certificato regalo dalla preferenze pagamento dell'ordine</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotFulfill">
+        <value xml:lang="en">No product associated with OrderItem, cannot fulfill gift card</value>
+        <value xml:lang="it">Nessun prodotto associato alla riga ordine, non è possibile processare l'acquisto con carta regalo</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotProcess">
+        <value xml:lang="en">Unable to process gift card purchase; no productStoreId on OrderHeader: ${orderId}</value>
+        <value xml:lang="it">Non è possibile processare l'acquisto con la carta regalo; nessun negozio impostato sulla testata ordine: ${orderId}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotReload">
+        <value xml:lang="en">Unable to process gift card reload; no productStoreId on OrderHeader: ${orderId}</value>
+        <value xml:lang="it">Non è possibile processare la ricarica con la carta regalo; nessun negozio impostato sulla testata ordine: ${orderId}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotSendEmailNotice">
+        <value xml:lang="en">Error sending Gift Card notice email:  ${errorString}</value>
+        <value xml:lang="it">Non è possibile inviaria email di notifica carta regalo: ${errorString}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotStoreFulfillmentInfo">
+        <value xml:lang="en">Unable to store fulfillment info:  ${errorString}</value>
+        <value xml:lang="it">Non è possibile registrazione le informazioni di ricarica: ${errorString}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCreationError">
+        <value xml:lang="en">Unable to create gift certificate number.</value>
+        <value xml:lang="it">Non è possibile creare un numero certificato regalo.</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotAuthorize">
+        <value xml:lang="en">Cannot authorize gift certificate due to: ${errorString}</value>
+        <value xml:lang="it">Non è possibile autorizzare la carta regalo: ${errorString}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotFulfill">
+        <value xml:lang="en">Unable to get survey response information; cannot fulfill gift card</value>
+        <value xml:lang="it">Non è possibile ottenere l'informazione relativa alla risposta sondaggio; non è possibile caricare la carta regalo</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotFulfillFromSurveyAnswers">
+        <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card</value>
+        <value xml:lang="it">Non è possibile ottenere la risposta sondaggio dalle domande; non è possibile caricare la carta regalo</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotProcess">
+        <value xml:lang="en">Cannot process gift card: ${errorString}</value>
+        <value xml:lang="it">Non è possibile processare la carta regalo: ${errorString}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotRelease">
+        <value xml:lang="en">Attempt to release GiftCard payment failed; not a valid GiftCard record</value>
+        <value xml:lang="it">Tentivo di rilasciare il pagamento carta regalo fallito; non c'è un record valido</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotReload">
+        <value xml:lang="en">Unable to get survey response information; cannot fulfill gift card reload</value>
+        <value xml:lang="it">Non è possibile ottenere l'informazione relativa alla risposta sondaggio; non è possibile ricaricare la carta regalo</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotReloadFromSurveyAnswers">
+        <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card reload</value>
+        <value xml:lang="it">Non è possibile ottenere l'informazione relativa alla risposta sondaggio dalle domande; non è possibile ricaricare la carta regalo</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberExpired">
+        <value xml:lang="en">Gift certificate has expired as of  ${thruDate}</value>
+        <value xml:lang="it">Certificato regalo scaduto dal ${thruDate}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberNotFound">
+        <value xml:lang="en">Gift certificate not found ${finAccountId}</value>
+        <value xml:lang="it">Certificato regalo non trovato ${finAccountId}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotGetPaymentConfiguration">
+        <value xml:lang="en">Unable to get payment configuration file</value>
+        <value xml:lang="it">Non è possibile ottenere il file configurazione pagamento</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberPinNotValid">
+        <value xml:lang="en">PIN number is not valid</value>
+        <value xml:lang="it">Numero PIN non è valido</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberRefundCallError">
+        <value xml:lang="en">Unable to call refund service!</value>
+        <value xml:lang="it">Non è possibile eseguire il servizio refund!</value>
+    </property>
     <property key="AccountingPartyAcctgPreferenceNotDefine">
         <value xml:lang="en">Acctg preference not define</value>
         <value xml:lang="fr">Aucune configuration sur les préférences de gestion encore définie pour votre société</value>

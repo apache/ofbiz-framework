@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -34,6 +35,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -52,6 +54,7 @@ import org.ofbiz.service.ServiceUtil;
 public class BillingAccountWorker {
 
     public static final String module = BillingAccountWorker.class.getName();
+    public static final String resourceError = "AccountingUiLabels";
     private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals = -1;
     private static int rounding = -1;
@@ -285,12 +288,15 @@ public class BillingAccountWorker {
     public static Map<String, Object> calcBillingAccountBalance(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String billingAccountId = (String) context.get("billingAccountId");
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
         try {
             GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
             if (billingAccount == null) {
-                return ServiceUtil.returnError("Unable to locate billing account #" + billingAccountId);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                        "AccountingBillingAccountNotFound",
+                        UtilMisc.toMap("billingAccountId", billingAccountId), locale));
             }
 
             result.put("billingAccount", billingAccount);
@@ -302,7 +308,9 @@ public class BillingAccountWorker {
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Error getting billing account or calculating balance for billing account #" + billingAccountId);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "AccountingBillingAccountNotFound",
+                    UtilMisc.toMap("billingAccountId", billingAccountId), locale));
         }
     }
 
