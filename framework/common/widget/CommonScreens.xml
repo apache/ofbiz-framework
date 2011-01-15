@@ -153,7 +153,7 @@ under the License.
                 <!-- render header -->
                 <platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific>
                 <!-- render appbar or its opening part -->
-                <section>
+                <section name="Render-Main-Nav">
                     <condition>
                         <not><if-empty field="appbarOpenTemplateLocation"/></not>
                     </condition>
@@ -166,7 +166,7 @@ under the License.
                 </section>
 
                 <!-- render appheader: both menu widget style and ftl template style menus are supported-->
-                <section>
+                <section name="Render-App-Nav">
                     <condition>
                         <not><if-empty field="userLogin"/></not>
                     </condition>
@@ -213,7 +213,7 @@ under the License.
                 </container>
 
                 <!-- render footer -->
-                <section>
+                <section name="Render-Footer">
                     <condition>
                         <if-empty field="applicationFooterTemplate"/>
                     </condition>
