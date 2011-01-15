@@ -751,9 +751,6 @@ function setUserLayoutPreferences(userPrefGroupTypeId, userPrefTypeId, userPrefV
     });
 }
 
-function toggleLeftColumn(){
-}
-
 function waitSpinnerShow() {
     jSpinner = jQuery("#wait-spinner");
     if (!jSpinner.length) return
