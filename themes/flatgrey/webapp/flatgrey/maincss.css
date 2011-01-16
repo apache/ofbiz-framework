@@ -17,9 +17,18 @@
  * under the License.
  */
 
+/* ----------------------------------------------------- */
 /* This CSS file is used for the Flat Grey visual theme. */
+/* ----------------------------------------------------- */
 
-/* ===== Resets/Browser Normalization ===== */
+/* This theme uses a scalable, floating layout - so most
+   sizes are expressed in EMs. PX sizes are used only for
+   drop shadows and positioning around graphic images. */
+
+/* -------------------------------------- */
+/*      Resets/Browser Normalization      */
+/* -------------------------------------- */
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -28,12 +37,12 @@ small, strike, strong, sub, sup, tt, var,
 b, u, i, center,dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-    border:0;
-    margin:0;
-    outline:0;
-    padding:0;
-    font-size: 100%; /*add font size to reset */
-    background:transparent;
+    border: 0;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    font-size: 100%;
+    background: transparent;
     vertical-align: baseline;
 }
 
@@ -54,27 +63,26 @@ body, caption, th {
 text-align: left;
 }
 
-h1, h2, h3, h4, h5, h6 {
-font-size: 100%;
-}
-
 ol, ul {
 list-style: none;
 }
 
 ol.numbers {
-    list-style: decimal; 
-    padding-left: 20px;
-}
-ul.dots {
-    list-style: circle; 
-    padding-left: 20px;
+list-style: decimal; 
+padding-left: 20px;
 }
 
-/* ===== Basic Element Styles ===== */
+ul.dots {
+list-style: circle; 
+padding-left: 20px;
+}
+
+/* ------------------------------ */
+/*      Basic Element Styles      */
+/* ------------------------------ */
 
 a, a:visited {
-color: #000099;
+color: #333;
 font-weight: bold;
 }
 
@@ -91,12 +99,17 @@ body, textarea, input, select {
 font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
+html {
+background-image: url(images/tile.gif);
+}
+
 body {
-background: #D4D0C8;
 font-size: 62.5%;
 position: relative;
-line-height: 1;
-color: black;
+color: #000;
+min-width: 780px;
+margin: 0;
+width:expression(document.body.clientWidth < 782? "780px" : "auto");
 }
 
 hr {
@@ -104,51 +117,6 @@ background-color: #999999;
 border: 0;
 height: 0.1em;
 margin: 0.5em 0 0.5em 0;
-}
-
-input[type="radio"], input[type="checkbox"] {
-font-size: 1.1em;
-margin: 0.2em;
-}
-
-input[type="text"], input[type="password"] {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-font-size: 1.1em;
-margin: 0.2em;
-padding: 0.1em 0 0.1em 0;
-}
-
-input[type="submit"], input[type="button"],
-input[type="reset"] {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-color: #000099;
-font-size: 1em;
-font-weight: bold;
-}
-
-input[type="submit"]:hover {
-color: #ff0000;
-cursor: pointer;
-text-decoration: underline;
-}
-
-input[type="file"] {
-font-size: 1.1em;
-height: 1.6em; /* force ctrl to scale with text */
-}
-
-select {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-font-size: 1.1em;
-height: 1.6em; /* force ctrl to scale with text */
-margin: 0.1em;
-}
-
-select[multiple="multiple"] {
-height: 5em;
 }
 
 h1, .h1 {
@@ -187,677 +155,9 @@ color: #000000;
 font-weight: bold;
 }
 
-/* ===== Legacy Styles ===== */
-
-/* The "smallSubmit" class can be used to decorate
-links (A elements) and make them similar to form's buttons. */
-.smallSubmit, .smallSubmit:visited {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-color: #000099;
-font-size: 1em;
-font-weight: bold;
-margin: 0.2em;
-padding: 0.1em 0.2em 0.1em 0.2em;
-}
-
-.smallSubmit:hover {
-color: #ff0000;
-text-decoration: none;
-}
-
-.smallSubmit:active {
-background-color: #cccccc;
-color: #333366;
-text-decoration: none;
-}
-
-.info {
-color: #000000;
-font-style: normal;
-}
-
-.boxhead {
-color: #FFFFFF;
-font-size: 1.1em;
-font-weight: bold;
-}
-
-.boxlink {
-float:right;
-}
-
-DIV.boxtop {
-background-color: #000099;
-border-color: #999999;
-border-style: solid;
-margin: 0 auto 0 auto;
-padding: 0.1em 0.4em 0.1em 0.4em;
-text-align: center;
-}
-
-DIV.boxhead-left {
-border: none;
-color: #FFFFFF;
-float: left;
-font-size: 1.1em;
-font-weight: bold;
-width: auto;
-}
-
-DIV.boxhead-fill {
-border: none;
-color: #FFFFFF;
-font-size: 1.1em;
-font-weight: bold;
-text-align: center;
-width: 0;
-}
-
-DIV.boxhead-right {
-border: none;
-color: #FFFFFF;
-float: right;
-font-size: 1.1em;
-font-weight: bold;
-width: auto;
-}
-
-A.boxheadbutton {
-color: #FFFFFF;
-font-size: 1.1em;
-}
-
-A.boxheadbutton:hover {
-color: #ff0000;
-text-decoration: none;
-}
-
-.boxoutside {
-background-color: #FFFFFF;
-border: 0.1em solid #999999;
-}
-
-.boxtop {
-background-color: #000099;
-border: 0 solid #999999;
-padding: 0.1em 0.4em 0.1em 0.4em;
-}
-
-.boxbottom {
-background-color: #FFFFFF;
-border: 0 solid #999999;
-padding: 0.4em;
-}
-
-.button {
-background-color: #dddddd;
-border: 0.2em outset #9999CC;
-padding-right: 0.5em;
-padding-left: 0.5em;
-}
-
-.browsecategorylist {
-margin-left: 10px;
-}
-
-.browsecategorytext {
-color: #000099;
-font-weight: bold;
-padding-left: 10px;
-background:url(/images/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
-}
-
-A.browsecategorybutton {
-color: #000099;
-}
-
-.browsecategorybuttondisabled {
-color: #333333;
-font-weight: bold;
-}
-
-A.buttontext, .buttontextdisabled {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-font-weight: bold;
-line-height: 1.8em;
-margin: 0.2em;
-padding: 0.1em 0.4em 0.1em 0.4em;
-/*white-space: nowrap;*/
-}
-
-A.buttontext {
-color: #000099;
-}
-
-A.buttontext:hover {
-color: #ff0000;
-}
-
-A.linktext {
-color: #000099;
-}
-
-A.linktext:hover {
-color: #ff0000;
-}
-
-.buttontextdisabled {
-color: #333333;
-}
-
-A.headerbuttontext {
-color: #000099;
-}
-
-A.headerbuttontext:hover {
-color: #000000;
-}
-
-.submenutextinfo {
-border-right: 0.1em solid #5886C6;
-color: #ffffff;
-font-size: 0.9em;
-font-weight: bold;
-padding-left: 0.5em;
-padding-right: 0.5em;
-}
-
-.submenutext, A.submenutext, A.submenutext:visited {
-border-right: 0.1em solid #5886C6;
-color: #ffff00;
-font-size: 0.9em;
-font-weight: bold;
-padding-left: 0.2em;
-padding-right: 0.5em;
-}
-
-A.submenutext:hover {
-color: #ffff00;
-}
-
-.submenutextdisabled, A.submenutextdisabled {
-border-right: 0.1em solid #5886C6;
-color: #CCCCCC;
-font-size: 0.9em;
-font-weight: bold;
-padding-left: 0.2em;
-padding-right: 0.5em;
-}
-
-A.submenutextdisabled:hover {
-color: #ffff00;
-}
-
-.submenutextinforight {
-color: #ffffff;
-font-size: 0.9em;
-font-weight: bold;
-padding-left: 0.2em;
-}
-
-.submenutextright, A.submenutextright {
-color: #ffff00;
-font-size: 0.9em;
-font-weight: bold;
-padding-left: 0.2em;
-}
-
-A.submenutextright:hover {
-color: #ffff00;
-}
-
-.submenutextrightdisabled, A.submenutextrightdisabled {
-color: #CCCCCC;
-font-size: 0.9em;
-font-weight: bold;
-padding-left: 0.2em;
-}
-
-A.submenutextrightdisabled:hover {
-color: #ffff00;
-}
-
-A.lightbuttontext {
-border: none;
-color: #ffff00;
-}
-
-A.lightbuttontext:hover {
-color: #ffff00;
-}
-
-A.lightbuttontextsmall {
-border: none;
-color: #ffff00;
-font-size: 0.8em;
-}
-
-A.lightbuttontextsmall:hover {
-color: #ffff00;
-}
-
-.lightbuttontextdisabled {
-color: #CCCCCC;
-font-weight: bold;
-}
-
-A.buttontextbig, .buttontextbigdisabled {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-font-size: 1.5em;
-font-weight: bold;
-margin: 0.2em;
-padding: 0.1em 0.4em 0.1em 0.4em;
-}
-
-A.buttontextbig {
-color: #000099;
-}
-
-.buttontextbigdisabled {
-color: #CCCCCC;
-}
-
-A.buttontextbig:hover {
-color: #ff0000;
-}
-
-A IMG.imageborder {
-border: 0.1em solid #999999;
-}
-
-.eventMessage, .errorMessage {
-background-color: #FFFFEE;
-border: solid #000000 0.1em;
-font-size: 1.1em;
-font-weight: bold;
-margin: 1em;
-padding: 1em;
-}
-
-.eventMessage {
-color: #000099;
-}
-
-.errorMessage {
-color: #ff0000;
-}
-
-.mediumSubmit, .largeSubmit, .loginButton {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-color: #000099;
-font-size: 1.4em;
-font-weight: bold;
-margin: 0.2em;
-}
-
-.mediumSubmit:hover,.largeSubmit:hover,.loginButton:hover {
-color: #ff0000;
-}
-
-.smallAltSubmit,.mediumAltSubmit,.largeAltSubmit {
-font-size: 1.1em;
-}
-
-.basePrice {
-color: #000000;
-}
-
-.normalPrice {
-color: #008000;
-}
-
-.salePrice {
-color: #ff0000;
-}
-.divHidden {
-    width:400px;
-    overflow:hidden;
-    white-space:nowrap;
-    }
-/* ===== Product Summary Styles ===== */
-.product-prevnext {
-text-align: right;
-}
-
-.productsummary-container {
-border-top: #999 solid 0.1em;
-margin-top: 0.5em;
-margin-bottom: 0.5em;
-}
-
-.productsummary {
-border-bottom: #999 solid 0.1em;
-/* using min-height as an alternative to clear: both; because that, in some browsers, will clear the top-level columns and not just in this div (Mozilla based, namely) */
-min-height: 6em;
-overflow: visible;
-padding: 0.5em;
-position: relative;
-}
-
-.productsummary .smallimage {
-float: left;
-/* position: absolute; top: 5px; left: 5px; */
-margin: 0 0.5em 0.5em 0;
-}
-.productsummary .smallimage img {
-border: #CCC solid 0.1em;
-height: 5em;
-}
-
-.productsummary .productbuy {
-float: right;
-margin: 0.5em;
-text-align: right;
-width: 13em;
-}
-
-.productsummary .productinfo {
-/* margin-left: 60px; */
-text-align: left;
-}
-
-/* ===== Product Detail Styles ===== */
-#productdetail #long-description {
-border-top: #999 solid 0.1em;
-margin-top: 1em;
-padding-top: 0.5em;
-}
-
-#productdetail #reviews {
-border-top: #999 solid 0.1em;
-margin-top: 1em;
-padding-top: 0.5em;
-}
-
-#productdetail #associated-products {
-border-top: #999 solid 0.1em;
-margin-top: 1em;
-padding-top: 0.5em;
-}
-
-.treeWrapper {
-background-color: #ffffff;
-border-top: 0.1em solid #000000;
-border-left: 0.1em solid #000000;
-color: #000000;
-font-size: 1.6em;
-font-weight: normal;
-margin-left: 1.2em;
-margin-top: 0.2em;
-text-align: left;
-text-decoration: none;
-}
-
-.lefthalf{
-float: left;
-height: 1%;
-left: 0;
-margin: 0% 1% 1% 0%;
-width: 49%;
-}
-
-.righthalf {
-float: right;
-height: 1%;
-margin: 0 0 1% 1%;
-right: 0;
-width: 49%;
-}
-
-.leftclear{
-clear: left;
-height: 1%;
-}
-
-/* ==== Styles For Form Widgets === */
-.formTableBordered {
-border: 0.1em solid #999999;
-width: 100%;
-}
-
-/* ==== Styles For The Html Log === */
-.DEBUG {
-color: #808080;
-}
-
-.WARN {
-color: #0000ff;
-font-weight: bold;
-}
-
-.INFO{
-color: #008000;
-}
-
-.ERROR {
-border: 0.2em solid #ff0000;
-color: #ff0000;
-font-weight: bold;
-}
-
-/* ==== Styles Copied From tabstyles.css === */
-
-.treewrapper {
-margin-left: 1em;
-}
-
-.treeitem {
-border: #888888 solid 0.1em;
-color: #0000ff;
-font-size: 1.4em;
-font-weight: bold;
-}
-
-.appbar {
-background-color: #ffffff;
-}
-
-.whitearea {
-background-color: #FFFFFF;
-}
-
-.blackarea {
-background-color: #000000;
-}
-
-.apptitle {
-background-color: #000099;
-color: #FFFFFF;
-display: block;
-font-size: 1.3em;
-font-weight: bold;
-line-height: 2em;
-width: 100%;
-}
-
-.page-title {
-color:#000099;
-margin-bottom:0.5em;
-font-size:1.6em;
-font-weight:bold;
-}
-
-DIV.row {
-background-color: #B4B0AA;
-margin: 0 auto 0 auto;
-text-align: center;
-}
-
-DIV.col {
-border: none;
-float: left;
-width: auto;
-}
-
-DIV.col-fill {
-background-color: #B4B0AA;
-border: none;
-color: #000099;
-font-weight: bold;
-text-align: center;
-width: 0;
-}
-
-DIV.col-right {
-border: none;
-float: right;
-width: auto;
-}
-
-DIV.contentarea {
-background-color: #FFFFFF;
-border: solid #000000 0.1em;
-margin: 1em;
-}
-
-DIV.endcolumns {
-/* deprecated - use .clear */
-clear: both;
-}
-
-DIV.simple-right-small {
-float: right;
-width: 2em;
-text-align: right;
-}
-
-DIV.simple-right-half {
-float: right;
-width: 50%;
-text-align: right;
-}
-
-DIV.screenlet {
-background-color: #FFFFFF;
-border: 0.1em solid #999999;
-height: auto !important;
-height: 1%;
-margin-bottom: 1em;
-}
-
-/* Special Screenlet Handling for locals and timezone window */
-DIV.lists.screenlet {
-margin-left: 25%;
-margin-right: 25%;
-margin-top: 1em;
-}
-DIV.lists.screenlet .basic-table tr td {
-text-align: center;
-}
-DIV.lists.screenlet .basic-table tr td a {
-display: block;
-}
-
-DIV.screenlet-body {
-background-color: #FFFFFF;
-height: auto !important;
-height: 1%;
-padding: 0.4em;
-}
-
-DIV.no-padding {
-padding: 0;
-border: none;
-}
-
-.no-padding h2,
-.no-padding .h2 {
-padding: 0.4em;
-}
-
-#column-container {
-margin: auto;
-padding: 1em;
-position: relative;
-}
-
-#column-container h1,
-#column-container .h1,
-#column-container h2,
-#column-container .h2 {
-margin-bottom: 0.5em;
-}
-
-#column-container h1,
-#column-container .h1 {
-color: #000099;
-}
-
-#column-container .left {
-float: left;
-/* alt: position: absolute; top: 0px; left: 0px; */
-width: 22em;
-margin-right: 1em;
-}
-
-#column-container .left-larger {
-float: left;
-/* alt: position: absolute; top: 0px; left: 0px; */
-width: 25em;
-margin-right: 1em;
-}
-
-.left-border {
-float: left;
-margin-right: 1em;
-width: 22em;
-border-right: 0.5px dotted #ccc;
-background-color: #eee;
-height: 100%;
-}
-
-#column-container .right {
-float: right;
-margin-left: 1em;
-width: 22em;
-}
-
-#column-container .leftonly {
-margin-left: 23em;
-width: auto;
-}
-
-#column-container .leftonly-larger {
-margin-left: 26em;
-width: auto;
-}
-
-#column-container .rightonly {
-margin-right: 23em;
-width: auto;
-}
-
-#column-container .center {
-margin-left: 23em;
-margin-right: 23em;
-width: auto;
-}
-
-#column-container .nocolumns {
-width: auto;
-}
-
-DIV.column-left-wide {
-background-color: #CCCCCC;
-border: #000000 solid 0.2em;
-float: left;
-overflow: auto;
-width: 30em;
-}
-
-DIV.widget-container {
-margin-bottom: 2em;
-}
-
-/* ===== New Styles ===== */
-
-/* ================================ */
-/* ===== Used to clear floats ===== */
-/* ================================ */
+/* -------------------------- */
+/*     Float Clear/Reset      */
+/* -------------------------- */
 
 .clear {
 clear: both;
@@ -866,14 +166,14 @@ visibility: hidden;
 }
 
 .no-clear .clear {
-/* Used in container elements to override the clear class
-in contained elements. */
+/* Used in container elements to override
+ the clear class in contained elements. */
 clear: none;
 }
 
-/* ================================= */
-/* ===== Single Element Styles ===== */
-/* ================================= */
+/* ------------------------------- */
+/*      Single Element Styles      */
+/* ------------------------------- */
 
 .alert {
 /* Used for alert text */
@@ -906,7 +206,6 @@ background-color: #eeeeee;
 }
 
 .tooltip {
-/* tooltip style */
 background-color: #ffffbb;
 border: 0.1em solid #999999;
 color: #000000;
@@ -920,9 +219,9 @@ height: auto;
 visibility: visible;
 }
 
-/* ================================== */
-/* ===== Used to align elements ===== */
-/* ================================== */
+.page-container {
+/*background: url("images/big-fade.png") repeat-x 0 90px transparent;*/
+}
 
 .align-float {
 float: right;
@@ -940,166 +239,167 @@ vertical-align: top;
 text-align: center;
 }
 
-/* ==================================== */
-/* ===== Masthead (Header) Styles ===== */
-/* ==================================== */
+.page-title {
+color:#557996;
+margin-bottom:0.5em;
+font-size:1.6em;
+font-weight:bold;
+}
+
+.contentarea {
+}
+
+/* ------------------------ */
+/*      Masthead Style      */
+/* ------------------------ */
 
 #masthead {
-background-color: #FFFFFF;
-color: #000000;
-font-weight: bold;
-height: 1%; /* IE fix */
+background: #47637c url(images/masthead.gif) top left repeat-x;
+color: #ccc;
+font-size: 1em;
+font-weight: normal;
+min-height: 26px; /* Setting must be in px */
+height: 2.6em;
+overflow: auto;
 }
 
 #masthead ul li {
 float: left;
-padding: 0.4em;
+padding: 0.5em 0.8em 0.5em 0;
+}
+
+#masthead ul li a {
+color: #ccc;
+font-weight: normal;
 }
 
 #masthead ul .logo-area {
-/* placeholder */
+padding: 0.1em 0.8em;
 }
 
-#masthead ul .opposed,
-#masthead ul .control-area {
-float: right;
-text-align: right;
-}
-
-#masthead ul .control-area .expanded {
-background: url(/images/collapse.gif) no-repeat right;
-min-height: 10px;
-min-width: 10px;
-padding: 0 0.4em 0 0.4em;
-}
-
-#masthead ul .control-area .collapsed {
-background: url(/images/expand.gif) no-repeat right;
-min-height: 10px;
-min-width: 10px;
-}
-
-ul#preferences-menu {
-float: right;
-}
-
-/* ========================================= */
-/* ===== Footer Styles ===================== */
-/* ========================================= */
+/* ---------------------- */
+/*      Footer Style      */
+/* ---------------------- */
 
 #footer {
-text-align: center;
+background: #333;
+border-top: 0.1em inset #000;
+padding: 0.5em 0 0.5em 0.5em;
+}
+
+#footer a {
+color: #ccc;
+font-weight: normal;
+}
+
+#footer ul {
+float: left;
+display: inline
+}
+
+#footer ul li {
+border-left: 0.1em solid #444;
+border-right: 0.1em solid #222;
+float: left;
+display: inline; 
+color: #ccc; 
+font-weight: normal;
+padding: 0.5em;
+}
+
+#footer ul .first {
+border-left: none;
+}
+
+#footer ul .last {
+border-right: none;
+}
+
+#footer ul li a {
+color: #ccc;
+font-weight: normal;
 }
 
 #footer p {
-margin: 1em;
+clear: left;
+color: #ccc;
+font-weight: normal;
+padding: 0.5em;
 }
 
-/* ================================================== */
-/* ===== Main Navigation (App Menu) Styles ========== */
-/* ================================================== */
+/* ------------------------------- */
+/*      Main Navigation Style      */
+/* ------------------------------- */
 
 #main-navigation {
-background-color: #ffffff;
-font-size: 1.1em;
-height: 1%; /* IE fix */
-}
-
-#main-navigation ul {
-display: inline; /* IE Fix */
+clear: both;
+background: #436783 url(images/main-nav.gif) top left repeat-x;
+color: #fff;
+font-size: 1em;
+height: 5.2em;
+overflow: auto;
+border-bottom: 0.2em solid #47637c;
+padding: 0.5em 0 0.1em 0;
 }
 
 #main-navigation ul li {
 float: left;
-background-image: url(/images/tabs/main_uns_left.gif);
-}
-
-#main-navigation ul li:hover {
-background-image: url(/images/tabs/main_sel_left.gif);
-}
-
-#main-navigation ul li.selected {
-background-image: url(/images/tabs/main_sel_left.gif);
-}
-
-#main-navigation ul a {
-background-image: url(/images/tabs/main_uns_right.gif);
-background-position: top right;
-background-repeat: no-repeat;
-border-bottom: solid #989898 0.01em;
-color: #000000;
-display: block;
-padding: 0.3em 0.6em 0.1em 0.6em;
-text-align: center;
+display: inline;
+height: 4.85em;
+padding: 0 1em 0 0.5em;
+border-left: 0.1em solid #5c809c;
+border-right: 0.1em solid #3e5a71;
 }
 
 #main-navigation ul .disabled {
-/* disabled tab */
 color: #D4D0C8;
+}
+
+#main-navigation ul .first {
+border-left: none;
+}
+
+#main-navigation ul .last {
+border-right: none;
+}
+
+#main-navigation ul a {
+color: #fff;
+display: block;
+padding: 0 0.6em 0 0.6em;
+font-size: 0.9em;
+font-weight:normal;
+text-transform:uppercase;
+/* Uncomment next line for main-nav drop shadows */
+/*text-shadow: 0px 1px 1px #22323f;*/
 }
 
 #main-navigation ul a:hover,
-#main-navigation ul .selected a,
-#main-navigation ui .selected a:hover {
-background-image: url(/images/tabs/main_sel_right.gif);
-background-position: top right;
-background-repeat: no-repeat;
-border-bottom: solid #D4D0C8 0.01em;
-color: #000099;
+#main-navigation ul .selected {
+color: #F9924B;
 text-decoration: none;
 }
 
-/* ======================================================= */
-/* ===== Secondary Navigation (App Menu) Styles ========== */
-/* ======================================================= */
-
-#secondary-navigation {
-}
-
-#secondary-navigation a {
-padding: 0 1em 0 1em;
-border: 0.05em solid #000099;
-color: #ffff66;
-background-image: url(/images/gradient_sub_uns.gif);
-background-repeat: repeat-x;
-}
-
-#secondary-navigation .disabled {
-padding: 0 1em 0 1em;
-border: 0.05em solid #000099;
-background-image: url(/images/gradient_sub_uns.gif);
-background-repeat: repeat-x;
-color: #D4D0C8;
-}
-
-#secondary-navigation a.selected,
-#secondary-navigation a:hover {
-background-color: #2626c1;
-background-image: url(/images/gradient_sub_sel.gif);
-background-repeat: repeat-x;
-border-bottom: 0.05em solid #2626c1;
-text-decoration: none;
-color: #ffffff;
-}
-
-/* ========================================================= */
-/* ===== Component Navigation (App Header) Styles ========== */
-/* ========================================================= */
+/* -------------------------------------- */
+/*      Application Navigation Style      */
+/* -------------------------------------- */
 
 #app-navigation {
-background-color: #5f9fcf;
-background-image: url(/images/gradient_main.gif);
-background-repeat: repeat-y;
-border: 0.1em solid #69a9d9;
+background: url(images/gray-texture.jpg) top left;
+border-top: 0.1em solid #3E5A71;
+border-bottom: 0.1em solid #fff;
 height: 1%; /* IE fix */
-margin: 1em;
+margin: 0;
+padding: 0.5em;
 }
 
 #app-navigation h1,
 #app-navigation h2,
 #app-navigation h3 {
-color: #ffffff;
-padding: 0.4em;
+color: #959595;
+margin: 0.4em 0 0.4em 0;
+text-transform:uppercase;
+text-shadow: 1px 1px 0 #fff; /* Setting must be in px */
 }
 
 #app-navigation ul {
@@ -1107,21 +407,15 @@ display: inline; /* IE Fix */
 }
 
 #app-navigation ul li ul li {
-background-color: #000099;
-background-image: url(/images/gradient_sub_uns.gif);
-background-repeat: repeat-x;
-border-right: 0.1em solid #69a9d9;
-border-top: 0.1em solid #69a9d9;
+background-color: #fff;
+border-top: 0.1em solid #ccc;
+border-right: 0.1em solid #ddd;
+border-bottom: 0.1em solid #ddd;
+border-left: 0.1em solid #ccc;
+padding: 0.5em;
 float: left;
-}
-
-#app-navigation .opposed li,
-#app-navigation ul .opposed,
-#app-navigation ul .col-right {
-/* .col-right deprecated - use .opposed */
-border-left: 0.1em solid #69a9d9;
-border-right: none;
-float: right;
+display: inline;
+margin: 0.1em 0.3em 0.1em 0;
 }
 
 #app-navigation ul .disabled {
@@ -1129,41 +423,91 @@ color: #D4D0C8;
 }
 
 #app-navigation ul a {
-border-bottom: 0.05em solid #000099;
-color: #ffff66;
+color: #444;
 display: block;
-font-size: 1em;
-padding: 0 1em 0 1em;
+font-weight: normal;
+padding: 0.1em 0.3em 0.1em 0.3em;
 }
 
 #app-navigation ul .selected,
-#app-navigation ul .selected a {
-background-color: #2626c1;
-background-image: url(/images/gradient_sub_sel.gif);
-background-repeat: repeat-x;
+#app-navigation ul .selected {
+background-color: #f5f5f5;
+border: 0.1em solid;
+border-color: #aaa #f9f9f9 #f9f9f9 #aaa;
 color: #ffffff;
+}
+
+#app-navigation ul .selected a {
+color: #111;
+padding: 0.1em 0.3em 0 0.3em;
 }
 
 #app-navigation ul a:hover {
-background-color: #2626c1;
-background-image: url(/images/gradient_sub_sel.gif);
-background-repeat: repeat-x;
-border-bottom: 0.05em solid #2626c1;
 text-decoration: none;
-color: #ffffff;
+color: #111;
 }
 
-/* ================================================= */
-/* ===== Screenlet Title Bar/Navigation Styles ===== */
-/* ================================================= */
+/* ------------------------- */
+/*      Screenlet Style      */
+/* ------------------------- */
+
+.screenlet {
+background-color: #FFFFFF;
+border-right: 0.1em solid #ccc;
+border-bottom: 0.2em solid #ccc;
+border-left: 0.1em solid #ccc;
+height: auto !important;
+height: 1%;
+margin-bottom: 1em;
+}
+
+.screenlet-body {
+background-color: #FFFFFF;
+height: auto !important;
+height: 1%;
+padding: 0.4em;
+}
+
+.screenlet-body div {
+margin: 0.8em 0.1em
+}
+
+/* Special Screenlet style for locale and timezone window */
+.lists.screenlet {
+margin-left: 25%;
+margin-right: 25%;
+margin-top: 1em;
+}
+
+.lists.screenlet .basic-table tr td {
+text-align: center;
+}
+
+.lists.screenlet .basic-table tr td a {
+display: block;
+}
+
+/* No padding screenlet decorator */
+.no-padding {
+padding: 0;
+border: none;
+}
+
+.no-padding h2,
+.no-padding .h2 {
+padding: 0.4em;
+}
+
+/* ----------------------------------- */
+/*      Screenlet Title Bar Style      */
+/* ----------------------------------- */
 
 .screenlet-title-bar {
-background-color: #000099;
-background-image: url(/images/gradient_sub_uns.gif);
-background-repeat: repeat-x;
+background: url(images/bhead.gif) top left repeat-x;
 color: #ffffff;
 height: 1%; /* IE fix */
 min-height: 1.5em;
+padding:0.8em 0.2em;
 }
 
 .screenlet-title-bar .h1,
@@ -1173,9 +517,8 @@ min-height: 1.5em;
 .screenlet-title-bar h2,
 .screenlet-title-bar h3 {
 background: none;
-color: #ffffff;
-font-weight: bold;
-padding: 0.1em 0.5em 0.2em 0.5em;
+color: #333;
+text-shadow: 1px 1px 0 #fff; /* Setting must be in px */
 }
 
 .screenlet-title-bar ul {
@@ -1184,17 +527,14 @@ display: inline; /* IE Fix */
 
 .screenlet-title-bar ul li {
 background: none;
-border-left: 0.1em solid #5f9fcf;
-color: #ffffff;
+border-left: 0.1em solid #dedede;
+color: #222;
 float: right;
 font-size: 1em;
 font-weight: bold;
 padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
-.screenlet-title-bar ul h1,
-.screenlet-title-bar ul h2,
-.screenlet-title-bar ul h3,
 .screenlet-title-bar ul .h1,
 .screenlet-title-bar ul .h2,
 .screenlet-title-bar ul .h3 {
@@ -1202,37 +542,34 @@ border-left: none;
 float: left;
 }
 
+.screenlet-title-bar h1,
 .screenlet-title-bar .h1 {
 font-size: 1.6em;
 }
 
+.screenlet-title-bar h2,
 .screenlet-title-bar .h2 {
 font-size: 1.3em;
 }
 
+.screenlet-title-bar h3,
 .screenlet-title-bar .h3,
 .screenlet-title-bar .head4 {
 font-size: 1.1em;
 }
 
 .screenlet-title-bar .h3 a {
-color: #ffff66;
+color: #222;
 display: inline;
 }
 
 .screenlet-title-bar ul a {
-color: #ffff66;
+color: #222;
 display: block;
 }
 
 .screenlet-title-bar ul a:visited {
-color: #ffff66;
-}
-
-.screenlet-title-bar ul li:hover {
-background-color: #2626c1;
-background-image: url(/images/gradient_sub_sel.gif);
-background-repeat: repeat-x;
+color: #222;
 }
 
 .screenlet-title-bar ul a:hover {
@@ -1264,13 +601,6 @@ min-width: 1.1em;
 cursor: default;
 }
 
-.screenlet-title-bar ul .h1:hover,
-.screenlet-title-bar ul .h2:hover,
-.screenlet-title-bar ul .h3:hover {
-background-color: #000099;
-background-image: url(/images/gradient_sub_uns.gif);
-}
-
 /* login screenlet decorator */
 .login-screenlet {
 min-width: 25em;
@@ -1280,62 +610,18 @@ width: 25%;
 .login-screenlet .screenlet-title-bar {
 text-align: center;
 }
-/***********************************************
-ajax auto complete
-***********************************************/
-div.autocomplete {
-  position:absolute;
-  width:auto !important;
-/* min-width:154px; */
-  background-color:#f8f8f8;
-  border:1px solid #999999;
-  margin:0;
-  padding:0;
-}
-div.autocomplete ul {
-  list-style-type:none;
-  margin:0;
-  padding:0;
-}
-div.autocomplete ul li.selected {
- background-color: #ffb;
-}
-div.autocomplete ul li {
-  list-style-type:none;
-  display:block;
-  float: none;
-  margin:0;
-  padding:2px;
-  /*height:32px;*/
-  cursor:pointer;
-}
 
-.indicator img {
-  background: url(/images/ajax-loader.gif) no-repeat 0 0;
-  display: block;  
-  margin:3px 10px 0px 24px;
-  width:16px;
-  height:16px;
-  border: none;
-}
-/* ======================================================= */
-/* ===== Basic Navigation (Vertical Menu) Style ========== */
-/* ======================================================= */
+/* ------------------------------------------------ */
+/*      Basic Navigation (Vertical Menu) Style      */
+/* ------------------------------------------------ */
 
 .basic-nav {
 /* indent menu - helpful for widgets */
 padding-left: 1em;
 }
 
-.basic-nav ul {
-/* placeholder */
-}
-
-.basic-nav ul li {
-}
-
 .basic-nav ul a {
-color: #000099;
+color: #333;
 font-size: 1.1em;
 }
 
@@ -1353,9 +639,9 @@ color: #0000ff;
 color: #D4D0C8;
 }
 
-/* ======================================== */
-/* ===== Button Bar Navigation Styles ===== */
-/* ======================================== */
+/* ------------------------------------- */
+/*      Button Bar Navigation Style      */
+/* ------------------------------------- */
 
 .button-bar {
 margin-bottom: 1.0em;
@@ -1376,19 +662,8 @@ padding: 0.1em 0.4em 0.1em 0.4em;
 float: right;
 }
 
-.button-bar ul a,
-.tabContainer ul a {
+.button-bar ul a {
 display: block;
-}
-
-.button-bar ul a,
-.button-bar a {
-padding: 0.1em 0.5em 0.1em 0.5em;
-white-space: nowrap;
-}
-
-.button-bar ul a:hover {
-color: #0000ff;
 }
 
 .button-bar .opposed,
@@ -1397,131 +672,61 @@ color: #0000ff;
 float: right;
 }
 
-/* ===== Button style decorator ===== */
+/* ------------------------------- */
+/*      Button Bar Decorators      */
+/* ------------------------------- */
 
-.button-style-1 ul li,
-.tabContainer ul li {
-background-color: #ffffff;
-color: #000099;
-}
-
-.button-style-1 a,
-.button-style-1 ul a,
-a.button-style-1 {
-background-color: #D4D0C8;
-border: solid #000099 0.1em;
-color: #000099;
-}
-
-.button-style-1 .selected,
-.button-style-1 ul .selected,
-.button-style-1 ul .selected a {
-background-color: #000099;
-color: #ffffff;
-}
-
-.button-style-1 a:hover,
-.button-style-1 ul a:hover,
-a.button-style-1:hover {
-background-color: #000099;
-color: #ffffff;
-text-decoration: none;
-}
-
-/* ===== Button style decorator ===== */
 .button-style-2 {
-    display: table;
+display: table;
 }
 
-.button-style-2 ul li {
-background-color: #ffffff;
-color: #000099;
+.button-style-2 {
+display: table;
 }
-
-.button-style-2 ul a,
-.button-style-2 a,
-a.button-style-2 {
-background-color: #ffffff;
-border: solid #000099 0.1em;
-color: #000099;
-}
-
-.button-style-2 ul .selected a,
-.button-style-2 .selected {
-background-color: #000099;
-color: #ffffff;
-}
-
-.button-style-2 ul a:hover,
-.button-style-2 a:hover,
-a.button-style-2:hover {
-background-color: #000099;
-color: #ffffff;
-text-decoration: none;
-}
-
-.button-style-2 .disabled {
-background-color: #ffffff;
-border: solid #D4D0C8 0.1em;
-color: #D4D0C8;
-}
-
-/* ===== Button bar decorators ===== */
 
 .tool-bar {
-background-color: #D4D0C8;
-border: 0.1em solid #000099;
 padding: 0.2em;
 }
 
 .tool-bar ul li {
-background-color: #D4D0C8;
 padding: 0.1em;
 }
 
-/* tab-bar decorator intended to be used at
-the top of the main content area */
 .tab-bar {
-display:table;
+margin: 0.5em 0.5em 0 0.5em;
 }
 
-.tab-bar ul li {
-background-color: #0366b0;
-border-right: 0.1em solid #5f9fcf;
-border-bottom: 0.1em solid #5f9fcf;
-margin: 0;
-padding: 0;
+.tab-bar ul li ul li {
+margin-right: 0.5em;
+background: #fff;
+border-top: 0.1em solid #ccc;
+border-right: 0.2em solid #ccc;
+border-bottom: 0.2em solid #ccc;
+border-left: 0.1em solid #ccc;
+padding: 0.5em;
+white-space: nowrap;
 }
 
 .tab-bar ul a,
 .tab-bar ul a:visited {
-color: #ffffff;
+color: #666;
 }
 
 .tab-bar ul a:hover,
 .tab-bar ul .selected,
 .tab-bar ul .selected a,
 .tab-bar ul .selected a:hover {
-background-color: #5f9fcf;
-color: #ffffff;
+color: #333;
 text-decoration: none;
 }
 
 .tab-bar ul .disabled {
-color: #D4D0C8;
-padding: 0.1em 0.4em 0.1em 0.4em;
+color: #ccc;
 }
 
-.tab-bar .opposed,
-.tab-bar .opposed li,
-.tab-bar ul .opposed {
-border-left: 0.1em solid #5f9fcf;
-border-right: none;
-}
-
-/* ======================== */
-/* ===== Table Styles ===== */
-/* ======================== */
+/* ---------------------- */
+/*      Table Styles      */
+/* ---------------------- */
 
 .basic-table {
 background-color: #ffffff;
@@ -1537,7 +742,7 @@ margin-bottom: 0;
 
 .basic-table tr td {
 /* Style for all cells */
-padding: 0.1em;
+padding: 0.8em 0.1em;
 vertical-align: middle;
 }
 
@@ -1618,92 +823,60 @@ collection of buttons used in lists */
 vertical-align: top;
 }
 
-.basic-table tr .button-col a,
-.basic-table tr .button-col input[type="submit"] {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-color: #000099;
-float: left;
-margin: 0 0.1em 0 0.1em;
-white-space: nowrap;
-}
-
-.basic-table tr .button-col a {
-padding: 0.2em 0.4em 0.2em 0.4em;
-}
-
-.basic-table tr .smallSubmit,
-.basic-table tr .smallSubmit:visited {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-color: #000099;
-font-size: 1em;
-font-weight: bold;
-margin: 0.2em;
-padding: 0.1em 0.2em 0.1em 0.2em;
-white-space: nowrap;
-}
-
-.basic-table tr .button-col a:hover,
-.basic-table tr .button-col a:active,
-.basic-table tr .smallSubmit:hover,
-.basic-table tr .smallSubmit:active {
-color: #ff0000;
-text-decoration: none;
-}
-
 .basic-table .collapsed {
 visibility: collapse;
 }
 
-/* ===== Alternate table header style ===== */
+/*      Alternate table header style      */
 .basic-table .header-row-2 th,
 .basic-table .header-row-2 td {
-background-color: #999999;
+background-color: #999;
 border-bottom: 0;
-border-left: 0.1em solid #cccccc;
+border-left: 0.1em solid #aaa;
+border-right: 0.1em solid #888;
 color: #ffffff;
 font-weight: bold;
-text-align: left;
 }
 
-/* ===== Sort field style ===== */
+/*      Sort field style      */
 .basic-table .header-row-2 th .sort-order-asc,
 .basic-table .header-row-2 td .sort-order-asc{
 background: url(/images/arrow-gr-up.png) no-repeat right;
-padding-right: 20px;
+padding-right: 20px; /* Setting must be in px */
 }
 .basic-table .header-row-2 th .sort-order-desc,
 .basic-table .header-row-2 td .sort-order-desc{
 background: url(/images/arrow-gr-dw.png) no-repeat right;
-padding-right: 20px;
+padding-right: 20px; /* Setting must be in px */
 }
 .basic-table .header-row-2 th .sort-order,
 .basic-table .header-row-2 td .sort-order{
 background: url(/images/arrow-gr.png) no-repeat right;
-padding-right: 20px;
+padding-left: 0.5em;
+padding-right: 20px; /* Setting must be in px */
+color:#fff
 }
 
-/* ===== Table decorator - Hover bar ===== */
+/* ------------------------------------- */
+/*      Table decorator - Hover bar      */
+/* ------------------------------------- */
 
 .hover-bar tr:hover {
 background-color: #cccccc;
 cursor: default;
 }
 
-.hover-bar .header-row:hover,
+.hover-bar .header-row-1:hover,
 .hover-bar tr th:hover {
 background-color: #ffffff;
 color: #000000;
 }
 
-/* ===== Table decorator - Grid ===== */
-
-/* These decorators need an IE hack. IE7 does not
-render borders around empty <td> elements */
+/* -------------------------------- */
+/*      Table decorator - Grid      */
+/* -------------------------------- */
 
 .dark-grid {
-/* dark grid */
 border-right: 0.1em solid #000000;
 border-top: 0.1em solid #000000;
 }
@@ -1716,7 +889,6 @@ border-left: 0.1em solid #000000;
 }
 
 .light-grid {
-/* light grid */
 border-right: 0.1em solid #cccccc;
 border-top: 0.1em solid #cccccc;
 }
@@ -1727,7 +899,9 @@ border-bottom: 0.1em solid #cccccc;
 border-left: 0.1em solid #cccccc;
 }
 
-/* ===== Table decorator - Calendar ===== */
+/* ------------------------------------ */
+/*      Table decorator - Calendar      */
+/* ------------------------------------ */
 
 .calendar {
 border-right: 0.1em solid #cccccc;
@@ -1741,7 +915,7 @@ padding: 0.5em;
 }
 
 .calendar .header-row td {
-background-color: #69a9d9;
+background-color: #47637c;
 border-bottom: 0.1em solid #cccccc;
 border-left: 0.1em solid #cccccc;
 color: #ffffff;
@@ -1754,7 +928,7 @@ float: right;
 }
 
 .calendar tr td .h1 {
-color: #000099;
+color: #333;
 float: left;
 }
 
@@ -1766,9 +940,9 @@ background-color: #ffffcc;
 background-color: #eeeeee;
 }
 
-/* ======================= */
-/* ===== Tree Styles ===== */
-/* ======================= */
+/*     ================== */
+/*      Tree Styles      */
+/*     ================== */
 
 .basic-tree {
 /* placeholder */
@@ -1801,7 +975,7 @@ padding-right: 1em;
 .basic-tree li .treeitem {
 /* treeitem is deprecated */
 border-style: none;
-color: #000099;
+color: #333;
 font-size: 1em;
 }
 
@@ -1809,9 +983,9 @@ font-size: 1em;
 color: #0000ff;
 }
 
-/* ======================== */
-/* ===== Form Styles ===== */
-/* ======================== */
+/* --------------------- */
+/*      Form Styles      */
+/* --------------------- */
 
 .basic-form {
 margin-bottom: 1em;
@@ -1868,22 +1042,6 @@ border-bottom: 0.1em solid #999999;
 background-color: #eeeeee;
 }
 
-.basic-form table tr td .smallSubmit,
-.basic-form table tr td .smallSubmit:visited {
-background-color: #ffffff;
-border: #999999 solid 0.1em;
-color: #000099;
-font-size: 1em;
-font-weight: bold;
-margin: 0.2em;
-padding: 0.1em 0.2em 0.1em 0.2em;
-}
-
-.basic-form table tr td .smallSubmit:hover,
-.basic-form table tr td .smallSubmit:active {
-color: #ff0000;
-text-decoration: none;
-}
 
 .basic-form table tr td .disabled {
 background-color: #cccccc;
@@ -1891,7 +1049,7 @@ color: #333366;
 text-decoration: none;
 }
 
-/* ===== Form decorator - Form Widget ===== */
+/*      Form decorator - Form Widget      */
 
 .form-widget table tr .label,
 .form-widget-table tr .label {
@@ -1908,14 +1066,16 @@ width: auto;
 margin-bottom: 1em;
 }
 
-/* Pager */
+/* ------------------------------- */
+/*      List Navigation Style      */
+/* ------------------------------- */
 
 .nav-pager {
-background-color: #5f9fcf;
+background-color: #333;
 color: #ffffff;
 font-weight: bold;
-line-height: 2em;
-height: 2em;
+line-height: 3.5em;
+height: 3.5em;
 margin: 0.5em 0 0.5em 0;
 }
 
@@ -1924,7 +1084,8 @@ display: inline; /* IE Fix */
 }
 
 .nav-pager ul li {
-border-left: solid #D4D0C8 0.1em;
+border-right: solid #222 0.1em;
+border-left: solid #444 0.1em;
 float:left;
 vertical-align: center;
 }
@@ -1957,23 +1118,27 @@ color: #D4D0C8;
 padding: 0 1em 0 1em;
 }
 
-/* ================================= */
-/* ===== Visual Embellishments ===== */
-/* ================================= */
-.field-lookup a{
+.nav-pager ul .nav-displaying {
+border-right: none;
+}
+
+/* ------------------------------- */
+/*      Visual Embellishments      */
+/* ------------------------------- */
+
+.field-lookup a {
 background: url(/images/fieldlookup.gif) no-repeat 0 0;
 display: inline-block;
-/* margin: 3px 10px 0px 4px; */
-vertical-align:top;
-margin-top: 3px;
-width:16px;
-height:16px;
+vertical-align: top;
+margin-top: 0.3em;
+width: 16px; /* Setting must be in px */
+height: 16px; /* Setting must be in px */
 }
 
 
-/* ============================= */
-/* ===== FieldGroup Styles ===== */
-/* ============================= */
+/* --------------------------- */
+/*      FieldGroup Styles      */
+/* --------------------------- */
 
 .fieldgroup-title-bar {
 border-top: 0.1em solid #DADADA;
@@ -1997,18 +1162,20 @@ min-width: 1.1em;
 }
 
 .fieldgroup-title-bar a {
-cursor:pointer;
-text-decoration:none;
-padding-left: 10px;
+cursor: pointer;
+text-decoration: none;
+padding-left: 10px; /* Setting must be in px */
 color: #000000;
 }
 
-/* == Portlet configuration screenlet == */
+/* ----------------------------------------- */
+/*      Portlet configuration screenlet      */
+/* ----------------------------------------- */
 
 .portlet-config {
-  background-color:#D4D0C8;
-  border: 2px solid #D4D0C8;
-  margin-bottom: 5px;
+  background-color: #D4D0C8;
+  border: 0.2em solid #D4D0C8;
+  margin-bottom: 0.5em;
 }
 
 .portlet-config-title-bar .title {
@@ -2081,628 +1248,11 @@ font-weight: bold;
 .manage-portal-column-toolbar #delete-column,
 .manage-portal-column-toolbar #column-width {
 float: right;
+
 }
-
-/***********************************************
-Webtools
-***********************************************/
-.webToolList h3 {
-  margin:0.75em 0 0.09em 0;
-  text-transform:uppercase;
-}
-
-#wait-spinner {
-z-index:50000;
-position:absolute;
-}
-#wait-spinner-image {
-height:21px;
-width:56px;
-background-image:url(/images/spinner.gif);
-}
-.wait-spinner div {
-    padding-top: 4px;
-}
-
-/* ========================================================= */
-/* ===== JavaScript jQuery widgets                      ===== */
-/* ========================================================== */
-
-/*
- * jQuery UI CSS Framework @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Theming/API
- */
-
-/* Layout helpers
-----------------------------------*/
-.ui-helper-hidden { display: none; }
-.ui-helper-hidden-accessible { position: absolute; left: -99999999px; }
-.ui-helper-reset { margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none; }
-.ui-helper-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
-.ui-helper-clearfix { display: inline-block; }
-/* required comment for clearfix to work in Opera \*/
-* html .ui-helper-clearfix { height:1%; }
-.ui-helper-clearfix { display:block; }
-/* end clearfix */
-.ui-helper-zfix { width: 100%; height: 100%; top: 0; left: 0; position: absolute; opacity: 0; filter:Alpha(Opacity=0); }
-
-
-/* Interaction Cues
-----------------------------------*/
-.ui-state-disabled { cursor: default !important; }
-
-
-/* Icons
-----------------------------------*/
-
-/* states and images */
-.ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
-
-
-/* Misc visuals
-----------------------------------*/
-
-/* Overlays */
-.ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-
-/*
- * jQuery UI CSS Framework @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Theming/API
- *
- * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Lucida%20Grande,%20Lucida%20Sans,%20Arial,%20sans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=5px&bgColorHeader=5c9ccc&bgTextureHeader=12_gloss_wave.png&bgImgOpacityHeader=55&borderColorHeader=4297d7&fcHeader=ffffff&iconColorHeader=d8e7f3&bgColorContent=fcfdfd&bgTextureContent=06_inset_hard.png&bgImgOpacityContent=100&borderColorContent=a6c9e2&fcContent=222222&iconColorContent=469bdd&bgColorDefault=dfeffc&bgTextureDefault=02_glass.png&bgImgOpacityDefault=85&borderColorDefault=c5dbec&fcDefault=2e6e9e&iconColorDefault=6da8d5&bgColorHover=d0e5f5&bgTextureHover=02_glass.png&bgImgOpacityHover=75&borderColorHover=79b7e7&fcHover=1d5987&iconColorHover=217bc0&bgColorActive=f5f8f9&bgTextureActive=06_inset_hard.png&bgImgOpacityActive=100&borderColorActive=79b7e7&fcActive=e17009&iconColorActive=f9bd01&bgColorHighlight=fbec88&bgTextureHighlight=01_flat.png&bgImgOpacityHighlight=55&borderColorHighlight=fad42e&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=02_glass.png&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=aaaaaa&bgTextureOverlay=01_flat.png&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=aaaaaa&bgTextureShadow=01_flat.png&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
- */
-
-
-/* Component containers
-----------------------------------*/
-.ui-widget { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 1.1em; }
-.ui-widget .ui-widget { font-size: 1em; }
-.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 1em; }
-.ui-widget-content { border: 1px solid #a6c9e2; background: #fcfdfd url(images/ui-bg_inset-hard_100_fcfdfd_1x100.png) 50% bottom repeat-x; color: #222222; }
-.ui-widget-content a { color: #222222; }
-.ui-widget-header { border: 1px solid #4297d7; background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
-.ui-widget-header a { color: #ffffff; }
-
-/* Interaction states
-----------------------------------*/
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #c5dbec; background: #dfeffc url(images/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #2e6e9e; }
-.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #2e6e9e; text-decoration: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #79b7e7; background: #d0e5f5 url(images/ui-bg_glass_75_d0e5f5_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #1d5987; }
-.ui-state-hover a, .ui-state-hover a:hover { color: #1d5987; text-decoration: none; }
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #79b7e7; background: #f5f8f9 url(images/ui-bg_inset-hard_100_f5f8f9_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #e17009; }
-.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #e17009; text-decoration: none; }
-.ui-widget :active { outline: none; }
-
-/* Interaction Cues
-----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #fad42e; background: #fbec88 url(images/ui-bg_flat_55_fbec88_40x100.png) 50% 50% repeat-x; color: #363636; }
-.ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #363636; }
-.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #fef1ec url(images/ui-bg_glass_95_fef1ec_1x400.png) 50% 50% repeat-x; color: #cd0a0a; }
-.ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #cd0a0a; }
-.ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #cd0a0a; }
-.ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }
-.ui-priority-secondary, .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
-.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
-
-/* Icons
-----------------------------------*/
-
-/* states and images */
-.ui-icon { width: 16px; height: 16px; background-image: url(images/ui-icons_469bdd_256x240.png); }
-.ui-widget-content .ui-icon {background-image: url(images/ui-icons_469bdd_256x240.png); }
-.ui-widget-header .ui-icon {background-image: url(images/ui-icons_d8e7f3_256x240.png); }
-.ui-state-default .ui-icon { background-image: url(images/ui-icons_6da8d5_256x240.png); }
-.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(images/ui-icons_217bc0_256x240.png); }
-.ui-state-active .ui-icon {background-image: url(images/ui-icons_f9bd01_256x240.png); }
-.ui-state-highlight .ui-icon {background-image: url(images/ui-icons_2e83ff_256x240.png); }
-.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(images/ui-icons_cd0a0a_256x240.png); }
-
-/* positioning */
-.ui-icon-carat-1-n { background-position: 0 0; }
-.ui-icon-carat-1-ne { background-position: -16px 0; }
-.ui-icon-carat-1-e { background-position: -32px 0; }
-.ui-icon-carat-1-se { background-position: -48px 0; }
-.ui-icon-carat-1-s { background-position: -64px 0; }
-.ui-icon-carat-1-sw { background-position: -80px 0; }
-.ui-icon-carat-1-w { background-position: -96px 0; }
-.ui-icon-carat-1-nw { background-position: -112px 0; }
-.ui-icon-carat-2-n-s { background-position: -128px 0; }
-.ui-icon-carat-2-e-w { background-position: -144px 0; }
-.ui-icon-triangle-1-n { background-position: 0 -16px; }
-.ui-icon-triangle-1-ne { background-position: -16px -16px; }
-.ui-icon-triangle-1-e { background-position: -32px -16px; }
-.ui-icon-triangle-1-se { background-position: -48px -16px; }
-.ui-icon-triangle-1-s { background-position: -64px -16px; }
-.ui-icon-triangle-1-sw { background-position: -80px -16px; }
-.ui-icon-triangle-1-w { background-position: -96px -16px; }
-.ui-icon-triangle-1-nw { background-position: -112px -16px; }
-.ui-icon-triangle-2-n-s { background-position: -128px -16px; }
-.ui-icon-triangle-2-e-w { background-position: -144px -16px; }
-.ui-icon-arrow-1-n { background-position: 0 -32px; }
-.ui-icon-arrow-1-ne { background-position: -16px -32px; }
-.ui-icon-arrow-1-e { background-position: -32px -32px; }
-.ui-icon-arrow-1-se { background-position: -48px -32px; }
-.ui-icon-arrow-1-s { background-position: -64px -32px; }
-.ui-icon-arrow-1-sw { background-position: -80px -32px; }
-.ui-icon-arrow-1-w { background-position: -96px -32px; }
-.ui-icon-arrow-1-nw { background-position: -112px -32px; }
-.ui-icon-arrow-2-n-s { background-position: -128px -32px; }
-.ui-icon-arrow-2-ne-sw { background-position: -144px -32px; }
-.ui-icon-arrow-2-e-w { background-position: -160px -32px; }
-.ui-icon-arrow-2-se-nw { background-position: -176px -32px; }
-.ui-icon-arrowstop-1-n { background-position: -192px -32px; }
-.ui-icon-arrowstop-1-e { background-position: -208px -32px; }
-.ui-icon-arrowstop-1-s { background-position: -224px -32px; }
-.ui-icon-arrowstop-1-w { background-position: -240px -32px; }
-.ui-icon-arrowthick-1-n { background-position: 0 -48px; }
-.ui-icon-arrowthick-1-ne { background-position: -16px -48px; }
-.ui-icon-arrowthick-1-e { background-position: -32px -48px; }
-.ui-icon-arrowthick-1-se { background-position: -48px -48px; }
-.ui-icon-arrowthick-1-s { background-position: -64px -48px; }
-.ui-icon-arrowthick-1-sw { background-position: -80px -48px; }
-.ui-icon-arrowthick-1-w { background-position: -96px -48px; }
-.ui-icon-arrowthick-1-nw { background-position: -112px -48px; }
-.ui-icon-arrowthick-2-n-s { background-position: -128px -48px; }
-.ui-icon-arrowthick-2-ne-sw { background-position: -144px -48px; }
-.ui-icon-arrowthick-2-e-w { background-position: -160px -48px; }
-.ui-icon-arrowthick-2-se-nw { background-position: -176px -48px; }
-.ui-icon-arrowthickstop-1-n { background-position: -192px -48px; }
-.ui-icon-arrowthickstop-1-e { background-position: -208px -48px; }
-.ui-icon-arrowthickstop-1-s { background-position: -224px -48px; }
-.ui-icon-arrowthickstop-1-w { background-position: -240px -48px; }
-.ui-icon-arrowreturnthick-1-w { background-position: 0 -64px; }
-.ui-icon-arrowreturnthick-1-n { background-position: -16px -64px; }
-.ui-icon-arrowreturnthick-1-e { background-position: -32px -64px; }
-.ui-icon-arrowreturnthick-1-s { background-position: -48px -64px; }
-.ui-icon-arrowreturn-1-w { background-position: -64px -64px; }
-.ui-icon-arrowreturn-1-n { background-position: -80px -64px; }
-.ui-icon-arrowreturn-1-e { background-position: -96px -64px; }
-.ui-icon-arrowreturn-1-s { background-position: -112px -64px; }
-.ui-icon-arrowrefresh-1-w { background-position: -128px -64px; }
-.ui-icon-arrowrefresh-1-n { background-position: -144px -64px; }
-.ui-icon-arrowrefresh-1-e { background-position: -160px -64px; }
-.ui-icon-arrowrefresh-1-s { background-position: -176px -64px; }
-.ui-icon-arrow-4 { background-position: 0 -80px; }
-.ui-icon-arrow-4-diag { background-position: -16px -80px; }
-.ui-icon-extlink { background-position: -32px -80px; }
-.ui-icon-newwin { background-position: -48px -80px; }
-.ui-icon-refresh { background-position: -64px -80px; }
-.ui-icon-shuffle { background-position: -80px -80px; }
-.ui-icon-transfer-e-w { background-position: -96px -80px; }
-.ui-icon-transferthick-e-w { background-position: -112px -80px; }
-.ui-icon-folder-collapsed { background-position: 0 -96px; }
-.ui-icon-folder-open { background-position: -16px -96px; }
-.ui-icon-document { background-position: -32px -96px; }
-.ui-icon-document-b { background-position: -48px -96px; }
-.ui-icon-note { background-position: -64px -96px; }
-.ui-icon-mail-closed { background-position: -80px -96px; }
-.ui-icon-mail-open { background-position: -96px -96px; }
-.ui-icon-suitcase { background-position: -112px -96px; }
-.ui-icon-comment { background-position: -128px -96px; }
-.ui-icon-person { background-position: -144px -96px; }
-.ui-icon-print { background-position: -160px -96px; }
-.ui-icon-trash { background-position: -176px -96px; }
-.ui-icon-locked { background-position: -192px -96px; }
-.ui-icon-unlocked { background-position: -208px -96px; }
-.ui-icon-bookmark { background-position: -224px -96px; }
-.ui-icon-tag { background-position: -240px -96px; }
-.ui-icon-home { background-position: 0 -112px; }
-.ui-icon-flag { background-position: -16px -112px; }
-.ui-icon-calendar { background-position: -32px -112px; }
-.ui-icon-cart { background-position: -48px -112px; }
-.ui-icon-pencil { background-position: -64px -112px; }
-.ui-icon-clock { background-position: -80px -112px; }
-.ui-icon-disk { background-position: -96px -112px; }
-.ui-icon-calculator { background-position: -112px -112px; }
-.ui-icon-zoomin { background-position: -128px -112px; }
-.ui-icon-zoomout { background-position: -144px -112px; }
-.ui-icon-search { background-position: -160px -112px; }
-.ui-icon-wrench { background-position: -176px -112px; }
-.ui-icon-gear { background-position: -192px -112px; }
-.ui-icon-heart { background-position: -208px -112px; }
-.ui-icon-star { background-position: -224px -112px; }
-.ui-icon-link { background-position: -240px -112px; }
-.ui-icon-cancel { background-position: 0 -128px; }
-.ui-icon-plus { background-position: -16px -128px; }
-.ui-icon-plusthick { background-position: -32px -128px; }
-.ui-icon-minus { background-position: -48px -128px; }
-.ui-icon-minusthick { background-position: -64px -128px; }
-.ui-icon-close { background-position: -80px -128px; }
-.ui-icon-closethick { background-position: -96px -128px; }
-.ui-icon-key { background-position: -112px -128px; }
-.ui-icon-lightbulb { background-position: -128px -128px; }
-.ui-icon-scissors { background-position: -144px -128px; }
-.ui-icon-clipboard { background-position: -160px -128px; }
-.ui-icon-copy { background-position: -176px -128px; }
-.ui-icon-contact { background-position: -192px -128px; }
-.ui-icon-image { background-position: -208px -128px; }
-.ui-icon-video { background-position: -224px -128px; }
-.ui-icon-script { background-position: -240px -128px; }
-.ui-icon-alert { background-position: 0 -144px; }
-.ui-icon-info { background-position: -16px -144px; }
-.ui-icon-notice { background-position: -32px -144px; }
-.ui-icon-help { background-position: -48px -144px; }
-.ui-icon-check { background-position: -64px -144px; }
-.ui-icon-bullet { background-position: -80px -144px; }
-.ui-icon-radio-off { background-position: -96px -144px; }
-.ui-icon-radio-on { background-position: -112px -144px; }
-.ui-icon-pin-w { background-position: -128px -144px; }
-.ui-icon-pin-s { background-position: -144px -144px; }
-.ui-icon-play { background-position: 0 -160px; }
-.ui-icon-pause { background-position: -16px -160px; }
-.ui-icon-seek-next { background-position: -32px -160px; }
-.ui-icon-seek-prev { background-position: -48px -160px; }
-.ui-icon-seek-end { background-position: -64px -160px; }
-.ui-icon-seek-start { background-position: -80px -160px; }
-/* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
-.ui-icon-seek-first { background-position: -80px -160px; }
-.ui-icon-stop { background-position: -96px -160px; }
-.ui-icon-eject { background-position: -112px -160px; }
-.ui-icon-volume-off { background-position: -128px -160px; }
-.ui-icon-volume-on { background-position: -144px -160px; }
-.ui-icon-power { background-position: 0 -176px; }
-.ui-icon-signal-diag { background-position: -16px -176px; }
-.ui-icon-signal { background-position: -32px -176px; }
-.ui-icon-battery-0 { background-position: -48px -176px; }
-.ui-icon-battery-1 { background-position: -64px -176px; }
-.ui-icon-battery-2 { background-position: -80px -176px; }
-.ui-icon-battery-3 { background-position: -96px -176px; }
-.ui-icon-circle-plus { background-position: 0 -192px; }
-.ui-icon-circle-minus { background-position: -16px -192px; }
-.ui-icon-circle-close { background-position: -32px -192px; }
-.ui-icon-circle-triangle-e { background-position: -48px -192px; }
-.ui-icon-circle-triangle-s { background-position: -64px -192px; }
-.ui-icon-circle-triangle-w { background-position: -80px -192px; }
-.ui-icon-circle-triangle-n { background-position: -96px -192px; }
-.ui-icon-circle-arrow-e { background-position: -112px -192px; }
-.ui-icon-circle-arrow-s { background-position: -128px -192px; }
-.ui-icon-circle-arrow-w { background-position: -144px -192px; }
-.ui-icon-circle-arrow-n { background-position: -160px -192px; }
-.ui-icon-circle-zoomin { background-position: -176px -192px; }
-.ui-icon-circle-zoomout { background-position: -192px -192px; }
-.ui-icon-circle-check { background-position: -208px -192px; }
-.ui-icon-circlesmall-plus { background-position: 0 -208px; }
-.ui-icon-circlesmall-minus { background-position: -16px -208px; }
-.ui-icon-circlesmall-close { background-position: -32px -208px; }
-.ui-icon-squaresmall-plus { background-position: -48px -208px; }
-.ui-icon-squaresmall-minus { background-position: -64px -208px; }
-.ui-icon-squaresmall-close { background-position: -80px -208px; }
-.ui-icon-grip-dotted-vertical { background-position: 0 -224px; }
-.ui-icon-grip-dotted-horizontal { background-position: -16px -224px; }
-.ui-icon-grip-solid-vertical { background-position: -32px -224px; }
-.ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
-.ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
-.ui-icon-grip-diagonal-se { background-position: -80px -224px; }
-
-
-/* Misc visuals
-----------------------------------*/
-
-/* Corner radius */
-.ui-corner-tl { -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-left-radius: 5px; }
-.ui-corner-tr { -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; border-top-right-radius: 5px; }
-.ui-corner-bl { -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px; border-bottom-left-radius: 5px; }
-.ui-corner-br { -moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px; border-bottom-right-radius: 5px; }
-.ui-corner-top { -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-left-radius: 5px; -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; border-top-right-radius: 5px; }
-.ui-corner-bottom { -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px; border-bottom-left-radius: 5px; -moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px; border-bottom-right-radius: 5px; }
-.ui-corner-right {  -moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px; border-top-right-radius: 5px; -moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px; border-bottom-right-radius: 5px; }
-.ui-corner-left { -moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px; border-top-left-radius: 5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px; border-bottom-left-radius: 5px; }
-.ui-corner-all { -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
-
-/* Overlays */
-.ui-widget-overlay { background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); }
-.ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; }/*
- * jQuery UI Resizable @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Resizable#theming
- */
-.ui-resizable { position: relative;}
-.ui-resizable-handle { position: absolute;font-size: 0.1px;z-index: 99999; display: block;}
-.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle { display: none; }
-.ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0; }
-.ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0; }
-.ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 0; height: 100%; }
-.ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0; height: 100%; }
-.ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 1px; bottom: 1px; }
-.ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
-.ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
-.ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}/*
- * jQuery UI Selectable @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Selectable#theming
- */
-.ui-selectable-helper { position: absolute; z-index: 100; border:1px dotted black; }
-/*
- * jQuery UI Accordion @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Accordion#theming
- */
-/* IE/Win - Fix animation bug - #4615 */
-.ui-accordion { width: 100%; }
-.ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
-.ui-accordion .ui-accordion-li-fix { display: inline; }
-.ui-accordion .ui-accordion-header-active { border-bottom: 0 !important; }
-.ui-accordion .ui-accordion-header a { display: block; font-size: 1em; padding: .5em .5em .5em .7em; }
-.ui-accordion-icons .ui-accordion-header a { padding-left: 2.2em; }
-.ui-accordion .ui-accordion-header .ui-icon { position: absolute; left: .5em; top: 50%; margin-top: -8px; }
-.ui-accordion .ui-accordion-content { padding: 1em 2.2em; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
-.ui-accordion .ui-accordion-content-active { display: block; }/*
- * jQuery UI Autocomplete @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Autocomplete#theming
- */
-.ui-autocomplete { position: absolute; cursor: default; }
-
-/* workarounds */
-* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
-
-/*
- * jQuery UI Menu @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Menu#theming
- */
-.ui-menu {
-    list-style:none;
-    padding: 2px;
-    margin: 0;
-    display:block;
-    float: left;
-}
-.ui-menu .ui-menu {
-    margin-top: -3px;
-}
-.ui-menu .ui-menu-item {
-    margin:0;
-    padding: 0;
-    zoom: 1;
-    float: left;
-    clear: left;
-    width: 100%;
-}
-.ui-menu .ui-menu-item a {
-    text-decoration:none;
-    display:block;
-    padding:.2em .4em;
-    line-height:1.5;
-    zoom:1;
-}
-.ui-menu .ui-menu-item a.ui-state-hover,
-.ui-menu .ui-menu-item a.ui-state-active {
-    font-weight: normal;
-    margin: -1px;
-}
-/*
- * jQuery UI Button @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Button#theming
- */
-.ui-button { display: inline-block; position: relative; padding: 0; margin-right: .1em; text-decoration: none !important; cursor: pointer; text-align: center; zoom: 1; overflow: visible; } /* the overflow property removes extra width in IE */
-.ui-button-icon-only { width: 2.2em; } /* to make room for the icon, a width needs to be set here */
-button.ui-button-icon-only { width: 2.4em; } /* button elements seem to need a little more width */
-.ui-button-icons-only { width: 3.4em; }
-button.ui-button-icons-only { width: 3.7em; }
-
-/*button text element */
-.ui-button .ui-button-text { display: block; line-height: 1.4;  }
-.ui-button-text-only .ui-button-text { padding: .4em 1em; }
-.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: .4em; text-indent: -9999999px; }
-.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .4em 1em .4em 2.1em; }
-.ui-button-text-icon-secondary .ui-button-text, .ui-button-text-icons .ui-button-text { padding: .4em 2.1em .4em 1em; }
-.ui-button-text-icons .ui-button-text { padding-left: 2.1em; padding-right: 2.1em; }
-/* no icon support for input elements, provide padding by default */
-input.ui-button { padding: .4em 1em; }
-
-/*button icon element(s) */
-.ui-button-icon-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon, .ui-button-icons-only .ui-icon { position: absolute; top: 50%; margin-top: -8px; }
-.ui-button-icon-only .ui-icon { left: 50%; margin-left: -8px; }
-.ui-button-text-icon-primary .ui-button-icon-primary, .ui-button-text-icons .ui-button-icon-primary, .ui-button-icons-only .ui-button-icon-primary { left: .5em; }
-.ui-button-text-icon-secondary .ui-button-icon-secondary, .ui-button-text-icons .ui-button-icon-secondary, .ui-button-icons-only .ui-button-icon-secondary { right: .5em; }
-.ui-button-text-icons .ui-button-icon-secondary, .ui-button-icons-only .ui-button-icon-secondary { right: .5em; }
-
-/*button sets*/
-.ui-buttonset { margin-right: 7px; }
-.ui-buttonset .ui-button { margin-left: 0; margin-right: -.3em; }
-
-/* workarounds */
-button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra padding in Firefox */
-/*
- * jQuery UI Dialog @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Dialog#theming
- */
-.ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; }
-.ui-dialog .ui-dialog-titlebar { padding: .5em 1em .3em; position: relative;  }
-.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .2em 0; }
-.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
-.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
-.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
-.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
-.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
-.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
-.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
-.ui-draggable .ui-dialog-titlebar { cursor: move; }
-/*
- * jQuery UI Slider @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Slider#theming
- */
-.ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 1.2em; height: 1.2em; cursor: default; }
-.ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background-position: 0 0; }
-
-.ui-slider-horizontal { height: .8em; }
-.ui-slider-horizontal .ui-slider-handle { top: -.3em; margin-left: -.6em; }
-.ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
-.ui-slider-horizontal .ui-slider-range-min { left: 0; }
-.ui-slider-horizontal .ui-slider-range-max { right: 0; }
-
-.ui-slider-vertical { width: .8em; height: 100px; }
-.ui-slider-vertical .ui-slider-handle { left: -.3em; margin-left: 0; margin-bottom: -.6em; }
-.ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
-.ui-slider-vertical .ui-slider-range-min { bottom: 0; }
-.ui-slider-vertical .ui-slider-range-max { top: 0; }/*
- * jQuery UI Tabs @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Tabs#theming
- */
-.ui-tabs { position: relative; padding: .2em; zoom: 1; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
-.ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; }
-.ui-tabs .ui-tabs-nav li { list-style: none; float: left; position: relative; top: 1px; margin: 0 .2em 1px 0; border-bottom: 0 !important; padding: 0; white-space: nowrap; }
-.ui-tabs .ui-tabs-nav li a { float: left; padding: .5em 1em; text-decoration: none; }
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 1px; }
-.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
-.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
-.ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 1em 1.4em; background: none; }
-.ui-tabs .ui-tabs-hide { display: none !important; }
-/*
- * jQuery UI Datepicker @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Datepicker#theming
- */
-.ui-datepicker { width: 17em; padding: .2em .2em 0; }
-.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
-.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
-.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
-.ui-datepicker .ui-datepicker-prev { left:2px; }
-.ui-datepicker .ui-datepicker-next { right:2px; }
-.ui-datepicker .ui-datepicker-prev-hover { left:1px; }
-.ui-datepicker .ui-datepicker-next-hover { right:1px; }
-.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span { display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -8px;  }
-.ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
-.ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
-.ui-datepicker select.ui-datepicker-month-year {width: 100%;}
-.ui-datepicker select.ui-datepicker-month,
-.ui-datepicker select.ui-datepicker-year { width: 49%;}
-.ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
-.ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
-.ui-datepicker td { border: 0; padding: 1px; }
-.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
-.ui-datepicker .ui-datepicker-buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
-.ui-datepicker .ui-datepicker-buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
-.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
-
-/* with multiple calendars */
-.ui-datepicker.ui-datepicker-multi { width:auto; }
-.ui-datepicker-multi .ui-datepicker-group { float:left; }
-.ui-datepicker-multi .ui-datepicker-group table { width:95%; margin:0 auto .4em; }
-.ui-datepicker-multi-2 .ui-datepicker-group { width:50%; }
-.ui-datepicker-multi-3 .ui-datepicker-group { width:33.3%; }
-.ui-datepicker-multi-4 .ui-datepicker-group { width:25%; }
-.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header { border-left-width:0; }
-.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-left-width:0; }
-.ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
-.ui-datepicker-row-break { clear:both; width:100%; }
-
-/* Calendar Button and Image */
-.view-calendar button {
-background: url(images/cal.gif) no-repeat !important;
-display: inline-block;
-border: none;
-vertical-align:center;
-margin-top:3px;
-margin-left: 6px;
-height:22px;
-}
-
-/* css for timepicker */
-.ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
-.ui-timepicker-div dl{ text-align: left; }
-.ui-timepicker-div dl dt{ height: 25px; }
-.ui-timepicker-div dl dd{ margin: -25px 0 10px 65px; }
-.ui-timepicker-div .ui_tpicker_hour div { padding-right: 2px; }
-.ui-timepicker-div .ui_tpicker_minute div { padding-right: 6px; }
-.ui-timepicker-div .ui_tpicker_second div { padding-right: 6px; }
-.ui-timepicker-div td { font-size: 90%; }
-
-/* RTL support */
-.ui-datepicker-rtl { direction: rtl; }
-.ui-datepicker-rtl .ui-datepicker-prev { right: 2px; left: auto; }
-.ui-datepicker-rtl .ui-datepicker-next { left: 2px; right: auto; }
-.ui-datepicker-rtl .ui-datepicker-prev:hover { right: 1px; left: auto; }
-.ui-datepicker-rtl .ui-datepicker-next:hover { left: 1px; right: auto; }
-.ui-datepicker-rtl .ui-datepicker-buttonpane { clear:right; }
-.ui-datepicker-rtl .ui-datepicker-buttonpane button { float: left; }
-.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current { float:right; }
-.ui-datepicker-rtl .ui-datepicker-group { float:right; }
-.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
-.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
-
-/* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
-.ui-datepicker-cover {
-    display: none; /*sorry for IE5*/
-    display/**/: block; /*sorry for IE5*/
-    position: absolute; /*must have*/
-    z-index: -1; /*must have*/
-    filter: mask(); /*must have*/
-    top: -4px; /*must have*/
-    left: -4px; /*must have*/
-    width: 200px; /*must have*/
-    height: 200px; /*must have*/
-}/*
- * jQuery UI Progressbar @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Progressbar#theming
- */
-.ui-progressbar { height:2em; text-align: left; }
-.ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }
 
 /*=================== For the quickadd page =================================*/
+
 .quickaddall{
 float:right;
 padding-bottom:1em;
@@ -2717,10 +1267,10 @@ clear:both;
 .quickaddtable span {
 display:inline;
 float:left;
-border-right:1px solid #999999;
-border-top:1px solid #999999;
-margin:0px;
-padding:3px;
+border-right:0.1em solid #999999;
+border-top:0.1em solid #999999;
+margin:0;
+padding:0.3em;
 }
 
 .quickaddtable p {
@@ -2747,4 +1297,784 @@ width:10%
 
 .quickaddtable span.qty {
 width:10%
+}
+
+/* `Widths
+----------------------------------------------------------------------------------------------------*/
+
+.input_tiny {
+	width: 50px;
+}
+
+.input_small {
+	width: 100px;
+}
+
+.input_medium {
+	width: 150px;
+}
+
+.input_large {
+	width: 200px;
+}
+
+.input_xlarge {
+	width: 250px;
+}
+
+.input_xxlarge {
+	width: 300px;
+}
+
+.input_full {
+	width: 100%;
+}
+
+/*
+	Added via JS to <textarea> and class="input_full".
+	Applies to IE6, IE7. Other browsers don't need it.
+*/
+.input_full_wrap {
+	display: block;
+	padding-right: 8px;
+}
+
+/* `UI Consistency
+----------------------------------------------------------------------------------------------------*/
+
+::-moz-focus-inner {
+	border: 0;
+}
+
+input[type="search"]::-webkit-search-decoration {
+	display: none;
+}
+
+input,
+button,
+select,
+textarea {
+	margin: 0;
+	vertical-align: middle;
+}
+
+a.buttontext,
+a.buttontextbig,
+.smallSubmit,
+.mediumSubmit, 
+.largeSubmit, 
+.loginButton,
+.button-style-1 a,
+.button-style-1 ul a,
+a.button-style-1,
+.button-style-2 ul a, 
+.button-style-2 a, 
+a.button-style-2,
+.basic-table tr .button-col a, 
+.button,
+button,
+input[type="reset"],
+input[type="submit"],
+input[type="button"] {
+	-webkit-appearance: none;
+	-moz-border-radius: 1.1em;
+	-webkit-border-radius: 1.1em;
+	border-radius: 1.1em;
+	background: #ddd url(images/button.png) repeat-x;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
+	background: -moz-linear-gradient(top center, #fff 0%, #ddd 100%);
+	border: 0.1em solid;
+	border-color: #ddd #bbb #999;
+	cursor: pointer;
+	color: #333;
+	display:inline-block;
+    font-size: 1em;
+    font-weight: bold;
+    outline: 0;
+	overflow: visible;
+	padding: 0.4em 1em 0.4em;
+	text-decoration:none;
+	text-shadow: #fff 0 1px 1px; /* Setting must be in px */
+	/*text-transform:uppercase;*/
+	width: auto;
+
+	/* IE7 */
+	*padding-top: 0.2em;
+	*padding-bottom: 0;
+}
+
+button {
+	/* IE7 */
+	*padding-top: 0.1em;
+	*padding-bottom: 0.1em;
+}
+
+button[disabled],
+input[type="reset"][disabled],
+input[type="submit"][disabled],
+input[type="button"][disabled] {
+	color: #888;
+}
+
+textarea,
+select,
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"] {
+	-webkit-appearance: none;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background-color: #fff;
+	border: 0.1em solid;
+	border-color: #848484 #c1c1c1 #e1e1e1;
+	color: #000;
+	outline: 0;
+	padding: 0.2em 0.3em;
+
+	height: 1.8em;
+
+	/* IE7 */
+	*padding-top: 0.2em;
+	*padding-bottom: 0.1em;
+	*height: auto;
+}
+
+/*
+	Separate rule for Firefox.
+	Cannot stack with WebKit's.
+*/
+input.placeholder_text,
+textarea.placeholder_text {
+	color: #888;
+}
+
+::-webkit-input-placeholder {
+	color: #888;
+}
+
+textarea[disabled],
+select[disabled],
+input[type="date"][disabled],
+input[type="datetime"][disabled],
+input[type="datetime-local"][disabled],
+input[type="email"][disabled],
+input[type="month"][disabled],
+input[type="number"][disabled],
+input[type="password"][disabled],
+input[type="search"][disabled],
+input[type="tel"][disabled],
+input[type="text"][disabled],
+input[type="time"][disabled],
+input[type="url"][disabled],
+input[type="week"][disabled] {
+	background-color: #eee;
+	color: #888;
+}
+
+button:focus,
+button:active,
+input:focus,
+input:active,
+select:focus,
+select:active,
+textarea:focus,
+textarea:active {
+	-moz-box-shadow: #06f 0 0 7px;
+	-webkit-box-shadow: #06f 0 0 7px;
+	box-shadow: #06f 0 0 7px;
+
+	/* for Opera */
+	z-index: 1;
+}
+
+.is_webkit select {
+	/* Tweaks for Safari + Chrome. */
+	background-image: url(images/select_arrow.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+	padding-right: 20px;
+}
+
+textarea,
+select[multiple] {
+	height: auto;
+}
+
+select[multiple],
+.is_webkit select[multiple] {
+	background-image: none;
+	padding: 0;
+}
+
+textarea {
+	overflow: auto;
+	resize: vertical;
+	width: 100%;
+}
+
+optgroup {
+	color: #000;
+	font-style: normal;
+	font-weight: normal;
+}
+
+/* `IE6
+----------------------------------------------------------------------------------------------------*/
+
+.ie6_button,
+* html button {
+	background: #ddd url(images/button.png) repeat-x;
+	border: 0.1em solid;
+	border-color: #ddd #bbb #999;
+	cursor: pointer;
+	color: #333;
+	font: bold 1.2em Arial, sans-serif;
+	padding: 0.2em 1em 0;
+	overflow: visible;
+	width: auto;
+}
+
+* html button {
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+}
+
+.ie6_input,
+* html textarea,
+* html select {
+	background: #fff;
+	border: 0.1em solid;
+	border-color: #848484 #c1c1c1 #e1e1e1;
+	color: #000;
+	padding: 0.2em 0.3em 0.1em;
+	font-size: 1.3em;
+	font-family: Arial, sans-serif;
+	vertical-align: top;
+}
+
+* html select {
+	margin-top: 0.1em;
+}
+
+.placeholder_text,
+.ie6_input_disabled,
+.ie6_button_disabled {
+	color: #888;
+}
+
+.ie6_input_disabled {
+	background: #eee;
+}
+
+/* ------------------------------- */
+/*      Browse Category Style      */
+/* ------------------------------- */
+
+.browsecategorylist {
+margin-left: 1em;
+}
+
+.browsecategorytext {
+color: #333;
+font-weight: bold;
+padding-left: 10px; /* Setting must be in px */
+background:url(/images/bg_bullet_full_2.gif) no-repeat 0px 0.5em;
+}
+
+A.browsecategorybutton {
+color: #333;
+}
+
+.browsecategorybuttondisabled {
+color: #333333;
+font-weight: bold;
+}
+
+/* ----------------------------------- */
+/*      Event/Error Message Style      */
+/* ----------------------------------- */
+
+.eventMessage, .errorMessage {
+background-color: #FFFFEE;
+border: solid #000000 0.1em;
+font-size: 1.1em;
+font-weight: bold;
+margin: 1em;
+padding: 1em;
+}
+
+.eventMessage {
+color: #333;
+}
+
+.errorMessage {
+color: #ff0000;
+}
+
+/* ------------------------ */
+/*      Product Styles      */
+/* ------------------------ */
+
+.basePrice {
+color: #000000;
+}
+
+.normalPrice {
+color: #008000;
+}
+
+.salePrice {
+color: #ff0000;
+}
+.product-prevnext {
+text-align: right;
+}
+
+.productsummary-container {
+border-top: #999 solid 0.1em;
+margin-top: 0.5em;
+margin-bottom: 0.5em;
+}
+
+.productsummary {
+border-bottom: #999 solid 0.1em;
+/* using min-height as an alternative to clear: both; because that, in some browsers, will clear the top-level columns and not just in this div (Mozilla based, namely) */
+min-height: 6em;
+overflow: visible;
+padding: 0.5em;
+position: relative;
+}
+
+.productsummary .smallimage {
+float: left;
+/* position: absolute; top: 5px; left: 5px; */
+margin: 0 0.5em 0.5em 0;
+}
+.productsummary .smallimage img {
+border: #CCC solid 0.1em;
+height: 5em;
+}
+
+.productsummary .productbuy {
+float: right;
+margin: 0.5em;
+text-align: right;
+width: 13em;
+}
+
+.productsummary .productinfo {
+/* margin-left: 60px; */
+text-align: left;
+}
+
+#productdetail #long-description {
+border-top: #999 solid 0.1em;
+margin-top: 1em;
+padding-top: 0.5em;
+}
+
+#productdetail #reviews {
+border-top: #999 solid 0.1em;
+margin-top: 1em;
+padding-top: 0.5em;
+}
+
+#productdetail #associated-products {
+border-top: #999 solid 0.1em;
+margin-top: 1em;
+padding-top: 0.5em;
+}
+
+.treeWrapper {
+background-color: #ffffff;
+border-top: 0.1em solid #000000;
+border-left: 0.1em solid #000000;
+color: #000000;
+font-size: 1.6em;
+font-weight: normal;
+margin-left: 1.2em;
+margin-top: 0.2em;
+text-decoration: none;
+}
+
+/* ------------------------- */
+/*      HTML Log Styles      */
+/* ------------------------- */
+
+.DEBUG {
+color: #808080;
+}
+
+.WARN {
+color: #0000ff;
+font-weight: bold;
+}
+
+.INFO{
+color: #008000;
+}
+
+.ERROR {
+border: 0.2em solid #ff0000;
+color: #ff0000;
+font-weight: bold;
+}
+
+/* ---------------------------- */
+/*     Multi-Column Styles      */
+/* ---------------------------- */
+
+#column-container {
+margin: auto;
+padding: 1em;
+position: relative;
+}
+
+#column-container h1,
+#column-container .h1,
+#column-container h2,
+#column-container .h2 {
+margin-bottom: 0.5em;
+}
+
+#column-container h1,
+#column-container .h1 {
+color: #557996;
+}
+
+#column-container .left {
+float: left;
+/* alt: position: absolute; top: 0px; left: 0px; */
+width: 22em;
+margin-right: 1em;
+}
+
+#column-container .left-larger {
+float: left;
+/* alt: position: absolute; top: 0px; left: 0px; */
+width: 25em;
+margin-right: 1em;
+}
+
+.lefthalf {
+float: left;
+height: 1%;
+left: 0;
+margin: 0% 1% 1% 0%;
+width: 49%;
+}
+
+.righthalf {
+float: right;
+height: 1%;
+margin: 0 0 1% 1%;
+right: 0;
+width: 49%;
+}
+
+#column-container .right {
+float: right;
+margin-left: 1em;
+width: 22em;
+}
+
+#column-container .leftonly {
+margin-left: 23em;
+width: auto;
+}
+
+#column-container .leftonly-larger {
+margin-left: 26em;
+width: auto;
+}
+
+#column-container .rightonly {
+margin-right: 23em;
+width: auto;
+}
+
+#column-container .center {
+margin-left: 23em;
+margin-right: 23em;
+width: auto;
+}
+
+#column-container .nocolumns {
+width: auto;
+}
+
+/* ------------------------------ */
+/* Deprecated styles - DO NOT USE */
+/* ------------------------------ */
+
+.apptitle {
+background-color: #333;
+color: #FFFFFF;
+display: block;
+font-size: 1.3em;
+font-weight: bold;
+line-height: 2em;
+width: 100%;
+}
+
+.boxhead {
+color: #FFFFFF;
+font-size: 1.1em;
+font-weight: bold;
+}
+
+.boxlink {
+float:right;
+}
+
+DIV.boxtop {
+background-color: #333;
+border-color: #999999;
+border-style: solid;
+margin: 0 auto 0 auto;
+padding: 0.1em 0.4em 0.1em 0.4em;
+text-align: center;
+}
+
+DIV.boxhead-left {
+border: none;
+color: #FFFFFF;
+float: left;
+font-size: 1.1em;
+font-weight: bold;
+width: auto;
+}
+
+DIV.boxhead-fill {
+border: none;
+color: #FFFFFF;
+font-size: 1.1em;
+font-weight: bold;
+text-align: center;
+width: 0;
+}
+
+DIV.boxhead-right {
+border: none;
+color: #FFFFFF;
+float: right;
+font-size: 1.1em;
+font-weight: bold;
+width: auto;
+}
+
+A.boxheadbutton {
+color: #FFFFFF;
+font-size: 1.1em;
+}
+
+A.boxheadbutton:hover {
+color: #ff0000;
+text-decoration: none;
+}
+
+.boxoutside {
+background-color: #FFFFFF;
+border: 0.1em solid #999999;
+}
+
+.boxtop {
+background-color: #333;
+border: 0 solid #999999;
+padding: 0.1em 0.4em 0.1em 0.4em;
+}
+
+.boxbottom {
+background-color: #FFFFFF;
+border: 0 solid #999999;
+padding: 0.4em;
+}
+
+.webToolList h3 {
+  margin:0.75em 0 0.09em 0;
+  text-transform:uppercase;
+}
+
+A.linktext {
+color: #333;
+}
+
+A.linktext:hover {
+color: #ff0000;
+}
+
+.buttontextdisabled {
+color: #333333;
+}
+
+.submenutextinfo {
+border-right: 0.1em solid #5886C6;
+color: #ffffff;
+font-size: 0.9em;
+font-weight: bold;
+padding-left: 0.5em;
+padding-right: 0.5em;
+}
+
+.submenutext, A.submenutext, A.submenutext:visited {
+border-right: 0.1em solid #5886C6;
+color: #ffff00;
+font-size: 0.9em;
+font-weight: bold;
+padding-left: 0.2em;
+padding-right: 0.5em;
+}
+
+A.submenutext:hover {
+color: #ffff00;
+}
+
+.submenutextdisabled, A.submenutextdisabled {
+border-right: 0.1em solid #5886C6;
+color: #CCCCCC;
+font-size: 0.9em;
+font-weight: bold;
+padding-left: 0.2em;
+padding-right: 0.5em;
+}
+
+A.submenutextdisabled:hover {
+color: #ffff00;
+}
+
+.submenutextinforight {
+color: #ffffff;
+font-size: 0.9em;
+font-weight: bold;
+padding-left: 0.2em;
+}
+
+.submenutextright, A.submenutextright {
+color: #ffff00;
+font-size: 0.9em;
+font-weight: bold;
+padding-left: 0.2em;
+}
+
+A.submenutextright:hover {
+color: #ffff00;
+}
+
+.submenutextrightdisabled, A.submenutextrightdisabled {
+color: #CCCCCC;
+font-size: 0.9em;
+font-weight: bold;
+padding-left: 0.2em;
+}
+
+A.submenutextrightdisabled:hover {
+color: #ffff00;
+}
+
+A.lightbuttontext {
+border: none;
+color: #222;
+}
+
+A.lightbuttontext:hover {
+color: #ccc;
+}
+
+A.lightbuttontextsmall {
+border: none;
+color: #222;
+font-size: 0.8em;
+}
+
+A.lightbuttontextsmall:hover {
+color: #ccc;
+}
+
+.lightbuttontextdisabled {
+color: #CCCCCC;
+font-weight: bold;
+}
+
+DIV.row {
+background-color: #B4B0AA;
+margin: 0 auto 0 auto;
+text-align: center;
+}
+
+DIV.col {
+border: none;
+float: left;
+width: auto;
+}
+
+DIV.col-fill {
+background-color: #B4B0AA;
+border: none;
+color: #333;
+font-weight: bold;
+text-align: center;
+width: 0;
+}
+
+DIV.col-right {
+border: none;
+float: right;
+width: auto;
+}
+
+.leftclear{
+clear: left;
+height: 1%;
+}
+
+DIV.endcolumns {
+/* deprecated - use .clear */
+clear: both;
+}
+
+DIV.simple-right-small {
+float: right;
+width: 2em;
+text-align: right;
+}
+
+DIV.simple-right-half {
+float: right;
+width: 50%;
+text-align: right;
+}
+
+.left-border {
+float: left;
+margin-right: 1em;
+width: 22em;
+border-right: 0.5em dotted #ccc;
+background-color: #eee;
+height: 100%;
+}
+
+DIV.widget-container {
+margin-bottom: 2em;
+}
+
+DIV.column-left-wide {
+background-color: #CCCCCC;
+border: #000000 solid 0.2em;
+float: left;
+overflow: auto;
+width: 30em;
 }
