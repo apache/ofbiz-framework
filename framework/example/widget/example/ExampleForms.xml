@@ -248,4 +248,52 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+
+    <form name="LayoutDemoForm" type="single" target="${demoTargetUrl}" default-map-name="demoMap">
+        <field name="name" title="${uiLabelMap.CommonName}"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}" />
+                <option key="N" description="${uiLabelMap.CommonNo}" />
+            </drop-down>
+        </field>
+        <field name="checkBox" title="${uiLabelMap.CommonEnabled}">
+            <check/>
+        </field>
+        <field name="radioButton" title="${uiLabelMap.CommonEnabled}">
+            <radio>
+                <option key="Y" description="${uiLabelMap.CommonYes}" />
+                <option key="N" description="${uiLabelMap.CommonNo}" />
+            </radio>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+        <field name="cancelButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+            <hyperlink target="${demoTargetUrl}" description="${uiLabelMap.CommonCancel}"></hyperlink>
+        </field>
+    </form>
+
+    <form name="LayoutDemoList" type="list" list-name="demoList" paginate-target="${demoTargetUrl}" separate-columns="true"
+        odd-row-style="${altRowStyle}" header-row-style="${headerStyle}" default-table-style="${tableStyle}">
+        <field name="name" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}" />
+                <option key="N" description="${uiLabelMap.CommonNo}" />
+            </drop-down>
+        </field>
+        <field name="checkBox" title="${uiLabelMap.CommonEnabled}">
+            <check/>
+        </field>
+        <field name="radioButton" title="${uiLabelMap.CommonEnabled}">
+            <radio>
+                <option key="Y" description="${uiLabelMap.CommonYes}" />
+                <option key="N" description="${uiLabelMap.CommonNo}" />
+            </radio>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="button-col">
+            <submit button-type="button"/>
+        </field>
+    </form>
 </forms>
