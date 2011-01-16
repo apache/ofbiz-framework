@@ -154,4 +154,16 @@ under the License.
     <EmplLeaveReasonType description="Medical" hasTable="N" parentTypeId="" emplLeaveReasonTypeId="Fever"/>
     <EmplLeaveReasonType description="Casual" hasTable="N" parentTypeId="" emplLeaveReasonTypeId="Personal Work"/>
 
+    <PerfReviewItemType perfRatingTypeId="TECH" hasTable="N" description="Technical skills"/>
+    <PerfReviewItemType perfRatingTypeId="RESP" hasTable="N" description="Responsibility"/>
+    <PerfReviewItemType perfRatingTypeId="ATT" hasTable="N" description="Attitude"/>
+    <PerfReviewItemType perfRatingTypeId="COMM" hasTable="N" description="Communication skills"/>
+    <PerfReviewItemType perfRatingTypeId="JOBSAT" hasTable="N" description="Job Satisfaction"/>
+    
+    <PerfRatingType perfRatingTypeId="1" hasTable="N" description="Fails to Meet Expectations"/>
+    <PerfRatingType perfRatingTypeId="2" hasTable="N" description="Inconsistently Fulfills"/>
+    <PerfRatingType perfRatingTypeId="3" hasTable="N" description="Fulfilled Expectations"/>
+    <PerfRatingType perfRatingTypeId="4" hasTable="N" description="Frequently Exceeds"/>
+    <PerfRatingType perfRatingTypeId="5" hasTable="N" description="Consistently Exceeds"/>
+
 </entity-engine-xml>
