@@ -20,11 +20,9 @@ package org.ofbiz.common.geo;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
