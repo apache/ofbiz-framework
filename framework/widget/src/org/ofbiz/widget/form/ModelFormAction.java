@@ -48,6 +48,10 @@ import org.ofbiz.entity.finder.ByConditionFinder;
 import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.entity.finder.PrimaryKeyFinder;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.WidgetWorker;
@@ -302,6 +306,17 @@ public abstract class ModelFormAction {
                     String errMsg = "Error running Groovy script at location [" + location + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
+                }
+            } else if (location.endsWith(".xml")) {
+                Map<String, Object> localContext = FastMap.newInstance();
+                localContext.putAll(context);
+                DispatchContext ctx = this.modelForm.dispatchContext;
+                MethodContext methodContext = new MethodContext(ctx, localContext, null);
+                try {
+                    SimpleMethod.runSimpleMethod(location, method, methodContext);
+                    context.putAll(methodContext.getResults());
+                } catch (MiniLangException e) {
+                    throw new IllegalArgumentException("Error running simple method at location [" + location + "]", e);
                 }
             } else {
                 throw new IllegalArgumentException("For screen script actions the script type is not yet support for location:" + location);
