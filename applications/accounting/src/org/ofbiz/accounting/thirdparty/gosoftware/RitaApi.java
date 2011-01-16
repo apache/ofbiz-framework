@@ -19,9 +19,9 @@
 package org.ofbiz.accounting.thirdparty.gosoftware;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -92,19 +92,20 @@ public class RitaApi {
     protected static final int MODE_IN = 10;
 
     // instance variables
-    protected LinkedHashMap document = null;
+    protected Map<String, String> document = null;
     protected String host = null;
     protected boolean ssl = false;
     protected int port = 0;
     protected int mode = 0;
 
-    public RitaApi(Map document) {
-        this.document = new LinkedHashMap(document);
+    public RitaApi(Map<String, String> document) {
+        this.document = FastMap.newInstance();
+        this.document.putAll(document);
         this.mode = MODE_OUT;
     }
 
     public RitaApi() {
-        this.document = new LinkedHashMap();
+        this.document = FastMap.newInstance();
         this.mode = MODE_IN;
     }
 
@@ -151,9 +152,7 @@ public class RitaApi {
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        Iterator i = document.entrySet().iterator();
-        while (i.hasNext()) {
-            Map.Entry entry = (Map.Entry) i.next();
+        for (Map.Entry<String, String> entry : document.entrySet()) {
             String name = (String) entry.getKey();
             String value = (String) entry.getValue();
             buf.append(name);
@@ -165,7 +164,7 @@ public class RitaApi {
         return buf.toString();
     }
 
-    public Map getDocument() {
+    public Map<String, String> getDocument() {
         return this.document;
     }
 
@@ -227,7 +226,7 @@ public class RitaApi {
             br.close();
             */
 
-            LinkedHashMap docMap = new LinkedHashMap();
+            Map<String, String> docMap = FastMap.newInstance();
             String resp = null;
             try {
                 resp = http.post(stream);
