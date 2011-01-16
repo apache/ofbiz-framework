@@ -928,6 +928,7 @@ public class CCPaymentServices {
 
 }
 
+@SuppressWarnings("serial")
 class ClearCommerceException extends GeneralException {
 
     ClearCommerceException() {
