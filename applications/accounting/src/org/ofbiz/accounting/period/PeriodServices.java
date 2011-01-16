@@ -22,10 +22,12 @@ package org.ofbiz.accounting.period;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -35,7 +37,9 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
 public class PeriodServices {
+    
     public static String module = PeriodServices.class.getName();
+    public static final String resource = "AccountingUiLabels";
 
     /* find the date of the last closed CustomTimePeriod, or, if none available, the earliest date available of any
      * CustomTimePeriod
@@ -45,6 +49,7 @@ public class PeriodServices {
         String organizationPartyId = (String) context.get("organizationPartyId"); // input parameters
         String periodTypeId = (String) context.get("periodTypeId");
         Date findDate = (Date) context.get("findDate");
+        Locale locale = (Locale) context.get("locale");
 
         // default findDate to now
         if (findDate == null) {
@@ -82,7 +87,8 @@ public class PeriodServices {
                 if ((timePeriods != null) && (timePeriods.size() > 0) && (timePeriods.get(0).get("fromDate") != null)) {
                     lastClosedDate = UtilDateTime.toTimestamp(timePeriods.get(0).getDate("fromDate"));
                 } else {
-                    return ServiceUtil.returnError("Cannot get a starting date for net income");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "AccountingPeriodCannotGet", locale));
                 }
             }
 
