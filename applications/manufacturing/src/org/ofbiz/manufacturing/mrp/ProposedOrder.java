@@ -21,18 +21,21 @@ package org.ofbiz.manufacturing.mrp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.manufacturing.bom.BOMNode;
 import org.ofbiz.manufacturing.bom.BOMTree;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 import org.ofbiz.manufacturing.techdata.TechDataServices;
@@ -95,23 +98,24 @@ public class ProposedOrder {
      * <li>if ProposedOrder.isBuild a Map with all the routingTaskId as keys and estimatedStartDate as value.
      * <li>else null.
      **/
-    public Map calculateStartDate(int daysToShip, GenericValue routing, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
-        Map result = null;
+    public Map<String, Object> calculateStartDate(int daysToShip, GenericValue routing, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) {
+        Map<String, Object> result = null;
         Timestamp endDate = (Timestamp)requiredByDate.clone();
         Timestamp startDate = endDate;
         long timeToShip = daysToShip * 8 * 60 * 60 * 1000;
         if (isBuilt) {
-            List listRoutingTaskAssoc = null;
+            List<GenericValue> listRoutingTaskAssoc = null;
             if (routing == null) {
                 try {
-                    Map routingInMap = UtilMisc.toMap("productId", product.getString("productId"), "ignoreDefaultRouting", "Y", "userLogin", userLogin);
-                    Map routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
+                    Map<String, Object> routingInMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"), 
+                            "ignoreDefaultRouting", "Y", "userLogin", userLogin);
+                    Map<String, Object> routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
                     routing = (GenericValue)routingOutMap.get("routing");
-                    listRoutingTaskAssoc = (List)routingOutMap.get("tasks");
+                    listRoutingTaskAssoc = UtilGenerics.checkList(routingOutMap.get("tasks"));
                     if (routing == null) {
                         // try to find a routing linked to the virtual product
                         BOMTree tree = null;
-                        ArrayList components = new ArrayList();
+                        List<BOMNode> components = FastList.newInstance();
                         try {
                             tree = new BOMTree(product.getString("productId"), "MANUF_COMPONENT", requiredByDate, BOMTree.EXPLOSION_SINGLE_LEVEL, delegator, dispatcher, userLogin);
                             tree.setRootQuantity(quantity);
@@ -132,13 +136,14 @@ public class ProposedOrder {
                 }
             }
             if (routing != null) {
-                result = new HashMap();
+                result = FastMap.newInstance();
                 //Looks for all the routingTask (ordered by inversed (begin from the end) sequence number)
                 if (listRoutingTaskAssoc == null) {
                     try {
-                        Map routingTasksInMap = UtilMisc.toMap("workEffortId", routing.getString("workEffortId"), "userLogin", userLogin);
-                        Map routingTasksOutMap = dispatcher.runSync("getRoutingTaskAssocs", routingTasksInMap);
-                        listRoutingTaskAssoc = (List)routingTasksOutMap.get("routingTaskAssocs");
+                        Map<String, Object> routingTasksInMap = UtilMisc.<String, Object>toMap("workEffortId", routing.getString("workEffortId"),
+                                "userLogin", userLogin);
+                        Map<String, Object> routingTasksOutMap = dispatcher.runSync("getRoutingTaskAssocs", routingTasksInMap);
+                        listRoutingTaskAssoc = UtilGenerics.checkList(routingTasksOutMap.get("routingTaskAssocs"));
                     } catch (GenericServiceException gse) {
                         Debug.logWarning(gse.getMessage(), module);
                     }
@@ -201,7 +206,7 @@ public class ProposedOrder {
      * Read the first ProductFacility.reorderQuantity and calculate the quantity : if (quantity < reorderQuantity) quantity = reorderQuantity;
      **/
     // FIXME: facilityId
-    public void calculateQuantityToSupply(BigDecimal reorderQuantity, BigDecimal minimumStock, ListIterator  listIterIEP) {
+    public void calculateQuantityToSupply(BigDecimal reorderQuantity, BigDecimal minimumStock, ListIterator<GenericValue>  listIterIEP) {
         //      TODO : use a better algorithm using Order management cost et Product Stock cost to calculate the re-order quantity
         //                     the variable listIterIEP will be used for that
         if (quantity.compareTo(reorderQuantity) < 0) {
@@ -226,12 +231,13 @@ public class ProposedOrder {
         }
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
-        Map parameters = UtilMisc.toMap("userLogin", userLogin);
+        Map<String, Object> parameters = UtilMisc.<String, Object>toMap("userLogin", userLogin);
         if (isBuilt) {
             try {
+                List<BOMNode> bom = FastList.newInstance();
                 BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", null, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
                 tree.setRootQuantity(quantity);
-                tree.print(new ArrayList());
+                tree.print(bom);
                 requirementStartDate = tree.getRoot().getStartDate(manufacturingFacilityId, requiredByDate, true);
             } catch (Exception e) {
                 Debug.logError(e,"Error : computing the requirement start date. " + e.getMessage(), module);
@@ -250,7 +256,7 @@ public class ProposedOrder {
             parameters.put("description", "Automatically generated by MRP");
         }
         try {
-            Map result = dispatcher.runSync("createRequirement", parameters);
+            Map<String, Object> result = dispatcher.runSync("createRequirement", parameters);
             return (String) result.get("requirementId");
         } catch (GenericServiceException e) {
             Debug.logError(e,"Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), module);
