@@ -300,17 +300,6 @@ float: left;
 margin-right: 0;
 margin-left: 0.5em;
 }
-.tab-bar ul li {
-border-right: none;
-border-left: 0.1em solid #69a9d9;
-}
-
-#app-navigation .opposed li,
-#app-navigation ul .opposed {
-border-right: 0.1em solid #69a9d9;
-border-left: none;
-}
-
 /* ======================== */
 /* ===== Table Styles ===== */
 /* ======================== */
