@@ -26,8 +26,8 @@
                 <set field="titleProperty" value="HumanResFindPerfReview"/>
                 <set field="headerItem" value="PerfReview"/>
                 <set field="employeePartyId" from-field="parameters.partyId"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="3"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"  default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
