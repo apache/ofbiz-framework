@@ -1465,7 +1465,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         writer.append(" <table cellspacing=\"0\" class=\"");
         if (UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
-            writer.append(modelForm.getDefaultTableStyle());
+            writer.append(FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context));
         } else {
             writer.append("basic-table form-widget-table dark-grid");
         }
@@ -1488,7 +1488,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      */
     public void renderFormatHeaderRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append("  <tr");
-        String headerStyle = modelForm.getHeaderRowStyle();
+        String headerStyle = FlexibleStringExpander.expandString(modelForm.getHeaderRowStyle(), context);
         writer.append(" class=\"");
         if (UtilValidate.isNotEmpty(headerStyle)) {
             writer.append(headerStyle);
@@ -1604,7 +1604,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                     }
                 }
             } else {
-                String oddRowStyle = modelForm.getOddRowStyle();
+                String oddRowStyle = FlexibleStringExpander.expandString(modelForm.getOddRowStyle(), context);
                 if (UtilValidate.isNotEmpty(oddRowStyle)) {
                     writer.append(" class=\"");
                     writer.append(oddRowStyle);
@@ -1688,7 +1688,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderFormatSingleWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append(" <table cellspacing=\"0\"");
         if (UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
-            writer.append(" class=\"").append(modelForm.getDefaultTableStyle()).append("\"");
+            writer.append(" class=\"").append(FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context)).append("\"");
         }
         writer.append(">");
         appendWhitespace(writer);
