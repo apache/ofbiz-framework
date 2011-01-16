@@ -19,8 +19,6 @@
 package org.ofbiz.accounting.payment;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -60,8 +58,8 @@ public class PaymentMethodServices {
      * @param context Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map deletePaymentMethod(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> deletePaymentMethod(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -102,8 +100,8 @@ public class PaymentMethodServices {
         return result;
     }
 
-    public static Map makeExpireDate(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> makeExpireDate(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         String expMonth = (String) context.get("expMonth");
         String expYear = (String) context.get("expYear");
 
@@ -425,7 +423,7 @@ public class PaymentMethodServices {
         return result;
     }
 
-    public static Map clearCreditCardData(DispatchContext dctx, Map context) {
+    public static Map<String, Object> clearCreditCardData(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String paymentMethodId = (String) context.get("paymentMethodId");
 
@@ -451,8 +449,9 @@ public class PaymentMethodServices {
 
         // expire the payment method
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map expireCtx = UtilMisc.toMap("userLogin", userLogin, "paymentMethodId", paymentMethodId);
-        Map expireResp;
+        Map<String, Object> expireCtx = UtilMisc.<String, Object>toMap("userLogin", userLogin, 
+                "paymentMethodId", paymentMethodId);
+        Map<String, Object> expireResp;
         try {
             expireResp = dispatcher.runSync("deletePaymentMethod", expireCtx);
         } catch (GenericServiceException e) {
@@ -466,8 +465,8 @@ public class PaymentMethodServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map createGiftCard(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createGiftCard(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -479,7 +478,7 @@ public class PaymentMethodServices {
         if (result.size() > 0)
             return result;
 
-        List toBeStored = new LinkedList();
+        List<GenericValue> toBeStored = FastList.newInstance();
         GenericValue newPm = delegator.makeValue("PaymentMethod");
         toBeStored.add(newPm);
         GenericValue newGc = delegator.makeValue("GiftCard");
@@ -519,8 +518,8 @@ public class PaymentMethodServices {
         return result;
     }
 
-    public static Map updateGiftCard(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> updateGiftCard(DispatchContext ctx, Map<String, Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -528,13 +527,12 @@ public class PaymentMethodServices {
 
         Timestamp now = UtilDateTime.nowTimestamp();
 
-        String partyId =
-            ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_UPDATE");
+        String partyId = ServiceUtil.getPartyIdCheckSecurity(userLogin, security, context, result, "PAY_INFO", "_UPDATE");
 
         if (result.size() > 0)
             return result;
 
-        List toBeStored = new LinkedList();
+        List<GenericValue> toBeStored = FastList.newInstance();
         boolean isModified = false;
 
         GenericValue paymentMethod = null;
@@ -628,7 +626,8 @@ public class PaymentMethodServices {
             result.put("paymentMethodId", paymentMethodId);
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "AccountingNoChangesMadeNotUpdatingEftAccount", locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, 
+                    "AccountingNoChangesMadeNotUpdatingEftAccount", locale));
 
             return result;
         }
@@ -646,8 +645,8 @@ public class PaymentMethodServices {
      * @param context Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map createEftAccount(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createEftAccount(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -658,7 +657,7 @@ public class PaymentMethodServices {
 
         if (result.size() > 0) return result;
 
-        List toBeStored = new LinkedList();
+        List<GenericValue> toBeStored = FastList.newInstance();
         GenericValue newPm = delegator.makeValue("PaymentMethod");
 
         toBeStored.add(newPm);
@@ -700,8 +699,9 @@ public class PaymentMethodServices {
 
             GenericValue tempVal = null;
             try {
-                List allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null), true);
+                List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", 
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, 
+                                "contactMechPurposeTypeId", contactMechPurposeTypeId), null), true);
 
                 tempVal = EntityUtil.getFirst(allPCMPs);
             } catch (GenericEntityException e) {
@@ -738,8 +738,8 @@ public class PaymentMethodServices {
      * @param context Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map updateEftAccount(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> updateEftAccount(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -751,7 +751,7 @@ public class PaymentMethodServices {
 
         if (result.size() > 0) return result;
 
-        List toBeStored = new LinkedList();
+        List<GenericValue> toBeStored = FastList.newInstance();
         boolean isModified = false;
 
         GenericValue paymentMethod = null;
@@ -818,8 +818,9 @@ public class PaymentMethodServices {
             GenericValue tempVal = null;
 
             try {
-                List allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
-                            UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId",contactMechPurposeTypeId), null), true);
+                List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, 
+                                "contactMechPurposeTypeId",contactMechPurposeTypeId), null), true);
                 tempVal = EntityUtil.getFirst(allPCMPs);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
@@ -829,7 +830,8 @@ public class PaymentMethodServices {
             if (tempVal == null) {
                 // no value found, create a new one
                 newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, 
+                                "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
             }
         }
 
@@ -853,7 +855,8 @@ public class PaymentMethodServices {
             result.put("paymentMethodId", paymentMethodId);
             result.put("oldPaymentMethodId", paymentMethodId);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
-            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource, "AccountingNoChangesMadeNotUpdatingEftAccount", locale));
+            result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage(resource,
+                    "AccountingNoChangesMadeNotUpdatingEftAccount", locale));
 
             return result;
         }
