@@ -1394,7 +1394,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" formName=\"");
         sr.append(modelForm.getName());
         sr.append("\" style=\"");
-        sr.append(modelForm.getDefaultTableStyle());
+        sr.append(FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context));
         sr.append("\" columnStyles=[");
         sr.append(columnStyleListString);
         sr.append("] />");
@@ -1416,7 +1416,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormatHeaderRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String headerStyle = modelForm.getHeaderRowStyle();
+        String headerStyle = FlexibleStringExpander.expandString(modelForm.getHeaderRowStyle(), context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderRowOpen ");
         sr.append(" style=\"");
@@ -1487,7 +1487,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             if (itemIndex.intValue() % 2 == 0) {
                 evenRowStyle = modelForm.getEvenRowStyle();
             } else {
-                oddRowStyle = modelForm.getOddRowStyle();
+                oddRowStyle = FlexibleStringExpander.expandString(modelForm.getOddRowStyle(), context);
             }
         }
         StringWriter sr = new StringWriter();
@@ -1555,7 +1555,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormatSingleWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String style = modelForm.getDefaultTableStyle();
+        String style = FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context);
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatSingleWrapperOpen ");
         sr.append(" formName=\"");
