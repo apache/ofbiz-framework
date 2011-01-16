@@ -663,8 +663,8 @@ public class InvoiceServices {
                 } else {
                     // these will effect the shipping pro-rate (unless commented)
                     // other adjustment type
-                    BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId,
-                            orderSubTotal, invoiceSubTotal, adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING), invoiceTypeDecimals, ROUNDING, userLogin, dispatcher, locale);
+                    calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, orderSubTotal, invoiceSubTotal,
+                            adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING), invoiceTypeDecimals, ROUNDING, userLogin, dispatcher, locale);
                     // invoiceShipProRateAmount += adjAmount;
                     // do adjustments compound or are they based off subtotal? Here we will (unless commented)
                     // invoiceSubTotal += adjAmount;
@@ -689,8 +689,8 @@ public class InvoiceServices {
                     // The base amount in this case is the adjustment amount minus the total already invoiced for that adjustment, since
                     //  it won't be prorated
                     BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING).subtract(adjAlreadyInvoicedAmount);
-                    BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId,
-                            divisor, multiplier, baseAmount, invoiceTypeDecimals, ROUNDING, userLogin, dispatcher, locale);
+                    calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, divisor, multiplier, baseAmount, 
+                            invoiceTypeDecimals, ROUNDING, userLogin, dispatcher, locale);
                 } else {
 
                     // Pro-rate the shipping amount based on shippable information
@@ -699,8 +699,8 @@ public class InvoiceServices {
 
                     // The base amount in this case is the adjustment amount, since we want to prorate based on the full amount
                     BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING);
-                    BigDecimal adjAmount = calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId,
-                            divisor, multiplier, baseAmount, invoiceTypeDecimals, ROUNDING, userLogin, dispatcher, locale);
+                    calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, divisor, multiplier, 
+                            baseAmount, invoiceTypeDecimals, ROUNDING, userLogin, dispatcher, locale);
                 }
 
                 // Increment the counter
@@ -985,17 +985,14 @@ public class InvoiceServices {
                 String invoiceItemSeqIdFrom = (String)commissionMap.get("invoiceItemSeqId");
                 elemAmount = elemAmount.setScale(DECIMALS, ROUNDING);
                 Map<String, Object> resMap = null;
-                Map<String, Object> invoiceItemAssocResultMap = null;
                 try {
-                    resMap = dispatcher.runSync("createInvoiceItem", UtilMisc.toMap(
-                            "invoiceId", invoiceId,
+                    resMap = dispatcher.runSync("createInvoiceItem", UtilMisc.toMap("invoiceId", invoiceId,
                             "productId", commissionMap.get("productId"),
                             "invoiceItemTypeId", "COMM_INV_ITEM",
                             "quantity",quantity,
                             "amount", elemAmount,
                             "userLogin", userLogin));
-                    invoiceItemAssocResultMap = dispatcher.runSync("createInvoiceItemAssoc", UtilMisc.toMap(
-                            "invoiceIdFrom", invoiceIdFrom,
+                    dispatcher.runSync("createInvoiceItemAssoc", UtilMisc.toMap("invoiceIdFrom", invoiceIdFrom,
                             "invoiceItemSeqIdFrom", invoiceItemSeqIdFrom,
                             "invoiceIdTo", invoiceId,
                             "invoiceItemSeqIdTo", resMap.get("invoiceItemSeqId"),
@@ -1092,9 +1089,8 @@ public class InvoiceServices {
         // 2.a If the invoice is in In-Process status, then move its status to ready and capture the payment.
         // 2.b If the invoice is in status other then IN-Process, skip this. These would be already paid and captured.
 
-        GenericValue shipment = null;
         try {
-            shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+            delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting Shipment entity for shipment " + shipmentId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -2232,7 +2228,7 @@ public class InvoiceServices {
                 createOrderAdjustmentBillingContext.put("userLogin", userLogin);
 
                 try {
-                    Map<String, Object> createOrderAdjustmentBillingResult = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
+                    dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
                 } catch (GenericServiceException e) {
                     ServiceUtil.returnError(UtilProperties.getMessage(resource,
                             "AccountingErrorCreatingOrderAdjustmentBillingFromOrder", locale), null, null, createOrderAdjustmentBillingContext);
@@ -2292,7 +2288,7 @@ public class InvoiceServices {
                 createOrderAdjustmentBillingContext.put("userLogin", userLogin);
 
                 try {
-                    Map<String, Object> createOrderAdjustmentBillingResult = dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
+                    dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
                 } catch (GenericServiceException e) {
                     ServiceUtil.returnError(UtilProperties.getMessage(resource,
                             "AccountingErrorCreatingOrderAdjustmentBillingFromOrder", locale), null, null, createOrderAdjustmentBillingContext);
