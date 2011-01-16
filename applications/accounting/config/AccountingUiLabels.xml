@@ -8618,6 +8618,10 @@
         <value xml:lang="zh">你没有权限使用这个页面(需要PERIOD_MAINT)</value>
         <value xml:lang="zh_TW">你沒有權限使用這個頁面(需要PERIOD_MAINT)</value>
     </property>
+    <property key="AccountingPeriodCannotGet">
+        <value xml:lang="en">Cannot get a starting date for net income</value>
+        <value xml:lang="it">Non è possibile ricavare una data d'inizio per l'utile netto</value>
+    </property>
     <property key="AccountingPastDueInvoices">
         <value xml:lang="en">Past Due Invoices</value>
     </property>

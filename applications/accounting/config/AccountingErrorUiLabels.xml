@@ -23,6 +23,26 @@
         <value xml:lang="en">Could not find RateAmount record to be deleted</value>
         <value xml:lang="it">Non è possibile trovare un record di RateAmount che deve essere cancellato</value>
     </property>
+    <property key="AccountingEftAccountCannotBeCreated">
+        <value xml:lang="en">ERROR: Could not create payment method Id (id generation failure)</value>
+        <value xml:lang="it">ERRORE: Non è possibile creare il metodo pagamento (fallimento generazione id)</value>
+    </property>
+    <property key="AccountingEftAccountCannotBeCreatedWriteFailure">
+        <value xml:lang="en">ERROR: Could not create EFT account (write failure): ${errorString}</value>
+        <value xml:lang="it">ERRORE: Non è possibile creare il conto EFT (fallita scrittura): ${errorString}</value>
+    </property>
+    <property key="AccountingEftAccountCannotBeUpdated">
+        <value xml:lang="en">ERROR: Could not update EFT Account (write failure): ${errorString}</value>
+        <value xml:lang="it">ERRORE: Non è possibile aggiornare il conto EFT (scrittura fallita): ${errorString}</value>
+    </property>
+    <property key="AccountingEftAccountCannotBeUpdatedReadFailure">
+        <value xml:lang="en">ERROR: Could not update EFT Account (read error): ${errorString}</value>
+        <value xml:lang="it">ERRORE: Non è possibile aggiornare il conto EFT (fallita lettura): ${errorString}</value>
+    </property>
+    <property key="AccountingEftPartyNotAuthorized">
+        <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
+        <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
+    </property>
     <property key="AccountingFinAccountAuthorizationExpired">
         <value xml:lang="en">Authorization transaction ${paymentGatewayResponseId} has expired as of ${authExpiration}</value>
         <value xml:lang="it">Autorizzazione transazione ${paymentGatewayResponseId} ha una scadenza del ${authExpiration}</value>
@@ -135,6 +155,22 @@
         <value xml:lang="en">Unknown replenish method found</value>
         <value xml:lang="it">Metodo rifornimento sconosciuto</value>
     </property>
+    <property key="AccountingGiftCardCannotBeCreated">
+        <value xml:lang="en">ERROR: Could not create GiftCard (id generation failure)</value>
+        <value xml:lang="it">ERRORE: Non è possibile creare la carta regalo (fallita generazione id)</value>
+    </property>
+    <property key="AccountingGiftCardCannotBeCreatedWriteFailure">
+        <value xml:lang="en">ERROR: Could not create GiftCard (write failure): ${errorString}</value>
+        <value xml:lang="it">ERRORE: Non è possibile creare la carta regalo (fallita scrittura): ${errorString}</value>
+    </property>
+    <property key="AccountingGiftCardCannotBeUpdated">
+        <value xml:lang="en">ERROR: Could not get GiftCard to update (read error): ${errorString}</value>
+        <value xml:lang="it">ERRORE: Non è possibile aggiornare la carta regalo (fallita lettura): ${errorString}</value>
+    </property>
+    <property key="AccountingGiftCardPartyNotAuthorized">
+        <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
+        <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
+    </property>
     <property key="AccountingGiftCerticateNumberCannotBeExpired">
         <value xml:lang="en">Unable to expire financial account authorization for Gift Certificate: </value>
         <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario per il certificato regalo: </value>
@@ -218,6 +254,18 @@
     <property key="AccountingPartyAcctgPreferenceNotDefine">
         <value xml:lang="en">Acctg preference not define</value>
         <value xml:lang="fr">Aucune configuration sur les préférences de gestion encore définie pour votre société</value>
+    </property>
+    <property key="AccountingPaymentMethodCannotBeDeleted">
+        <value xml:lang="en">ERROR: Could not find Payment Method to delete (read failure ${errorString})</value>
+        <value xml:lang="it">ERRORE: Non è possibile trovare il metodo di pagmento da cancellare (lettura fallita ${errorString})</value>
+    </property>
+    <property key="AccountingPaymentMethodCannotBeDeletedWriteFailure">
+        <value xml:lang="en">ERROR: Could not find Payment Method to delete (write failure ${errorString})</value>
+        <value xml:lang="it">ERRORE: Non è possibile trovare il metodo di pagmento da cancellare (scrittura fallita ${errorString})</value>
+    </property>
+    <property key="AccountingPaymentMethodNoPermissionToDelete">
+        <value xml:lang="en">You do not have permission to delete Payment Method for this partyId</value>
+        <value xml:lang="it">Non hai il permesso per cancellare il metodo di pagamento per questo soggetto</value>
     </property>
     <property key="AccountingPayPalCommunicationError">
         <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
