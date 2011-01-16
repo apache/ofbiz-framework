@@ -466,6 +466,12 @@
         <value xml:lang="it">Descrizione lunga</value>
         <value xml:lang="zh">详细描述</value>
     </property>
+    <property key="ExampleLayoutDemo">
+        <value xml:lang="en">Layout Demo</value>
+    </property>
+    <property key="ExampleLayoutDemoText">
+        <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test jig.</value>
+    </property>
     <property key="ExampleLayerFromLayer">
         <value xml:lang="en">Layered lookup field (only test purp.)</value>
         <value xml:lang="fr">Lookup de type layer (only test)</value>
