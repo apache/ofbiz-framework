@@ -47,7 +47,7 @@ public class DataResourceDocument {
     static char dirSep = System.getProperty("file.separator").charAt(0);
     public static final String module = ContentDocument.class.getName();
 
-    public static Document Document(String id, Delegator delegator, Map context) throws InterruptedException  {
+    public static Document Document(String id, Delegator delegator, Map<String, Object> context) throws InterruptedException  {
 
         Document doc = null;
         GenericValue dataResource = null;
