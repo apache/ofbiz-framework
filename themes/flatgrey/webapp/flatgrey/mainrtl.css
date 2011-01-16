@@ -191,60 +191,62 @@ float: left;
 text-align: left;
 }
 
+/* ---------------------- */
+/*      Footer Style      */
+/* ---------------------- */
+
+#footer {
+padding: 0.5em 0.5em 0.5em 0;
+}
+
+#footer ul {
+float: right;
+}
+
+#footer ul li {
+float: right;
+}
+
+#footer ul .first {
+border-right: none;
+border-left: 0.1em solid #444;
+}
+
+#footer ul .last {
+border-left: none;
+border-right: 0.1em solid #222;
+}
+
+#footer p {
+clear: right;
+}
+
 /* ================================================== */
 /* ===== Main Navigation (App Menu) Styles ========== */
 /* ================================================== */
 
-#main-navigation ul {
-direction: rtl;
-}
-
 #main-navigation ul li {
-background-image: url(/images/rtl/main_uns_right.gif);
-background-position: top right;
 float: right;
+padding:0 0.5em 0 1em;
 }
 
-#main-navigation ul a {
-background-image: url(/images/rtl/main_uns_left.gif);
-background-position: top left;
+#main-navigation ul .first {
+border-right: none;
+border-left: 0.1em solid #5c809c;
 }
 
-#main-navigation ul .selected,
-#main-navigation ul li:hover {
-background-image: url(/images/rtl/main_sel_right.gif);
-background-position: top right;
-float: right;
-}
-
-#main-navigation ul a:hover,
-#main-navigation ul .selected a,
-#main-navigation ui .selected a:hover {
-background-image: url(/images/rtl/main_sel_left.gif);
-background-position: top left;
+#main-navigation ul .last {
+border-left: none;
+border-right: 0.1em solid #3e5a71;
 }
 
 /* ========================================================= */
 /* ===== Component Navigation (App Header) Styles ========== */
 /* ========================================================= */
 
-#app-navigation {
-background-image: url(/images/rtl/gradient_main.gif);
-background-position: top right;
-}
-
-#app-navigation ul li {
-border-right: none;
-border-left: 0.1em solid #69a9d9;
+#app-navigation ul li ul li {
 float: right;
-}
-
-#app-navigation .opposed li,
-#app-navigation ul .opposed,
-#app-navigation ul .col-right {
-border-right: 0.1em solid #69a9d9;
-border-left: none;
-float: left;
+margin: 0.1em 0 0.1em 0.3em;
 }
 
 /* ================================================= */
@@ -253,20 +255,17 @@ float: left;
 
 .screenlet-title-bar ul li {
 border-left: none;
-border-right: 0.1em solid #5f9fcf;
+border-right: 0.1em solid #dedede;
 float: left;
 }
 
-.screenlet-title-bar ul h1,
-.screenlet-title-bar ul h2,
-.screenlet-title-bar ul h3,
-.screenlet-title-bar ul .head1,
-.screenlet-title-bar ul .head2,
-.screenlet-title-bar ul .head3 {
-/* h1 - h3 deprecated, fails validation */
+.screenlet-title-bar ul .h1,
+.screenlet-title-bar ul .h2,
+.screenlet-title-bar ul .h3 {
 border-right: none;
 float: right;
 }
+
 
 /* login screenlet decorator */
 .login-screenlet {
@@ -287,8 +286,7 @@ padding-right: 1em;
 /* ===== Button Bar Navigation Styles ===== */
 /* ======================================== */
 
-.button-bar ul li,
-.tabContainer ul li {
+.button-bar ul li {
 float: right;
 }
 
@@ -298,11 +296,10 @@ float: left;
 
 /* ===== Button bar decorators ===== */
 
-.tab-bar {
-margin-left: 0;
-margin-right: -1em;
+.tab-bar ul li ul li {
+margin-right: 0;
+margin-left: 0.5em;
 }
-
 .tab-bar ul li {
 border-right: none;
 border-left: 0.1em solid #69a9d9;
@@ -382,9 +379,16 @@ padding: 2em 0 0 1.5em ;
 text-align: right;
 }
 
+/* ------------------------------- */
+/*      List Navigation Style      */
+/* ------------------------------- */
+
 .nav-pager ul li {
 float: right;
+}
+
+.nav-pager ul .nav-displaying {
 border-left: none;
-border-right: solid #D4D0C8 0.1em;
+border-right: solid #222 0.1em;
 }
-}
+

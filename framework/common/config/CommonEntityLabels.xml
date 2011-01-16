@@ -17764,7 +17764,7 @@
         <value xml:lang="pt_BR">Descartando Migalhas: Evolução da azul-luz, inclui um menu drop-down incorporado na barra de farinha de rosca</value>
     </property>
     <property key="VisualTheme.description.FLAT_GREY">
-        <value xml:lang="en">Flat Grey - Old OFBiz Standard Floating Layout</value>
+        <value xml:lang="en">Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
         <value xml:lang="pt_BR">Apartamento Grey - Layout padrão antigo OFBiz flutuante</value>
     </property>
     <property key="VisualTheme.description.MULTIFLEX">
