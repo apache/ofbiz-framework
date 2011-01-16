@@ -202,7 +202,7 @@ vertical-align: middle;
 
 .required, input.required {
 /* required style for <input> elements */
-background-color: #eeeeee;
+background-color: #f9f9f9;
 }
 
 .tooltip {
@@ -275,6 +275,10 @@ font-weight: normal;
 
 #masthead ul .logo-area {
 padding: 0.1em 0.8em;
+}
+
+#masthead ul a:focus {
+text-decoration: underline;
 }
 
 /* ---------------------- */
@@ -380,6 +384,10 @@ color: #F9924B;
 text-decoration: none;
 }
 
+#main-navigation ul a:focus {
+text-decoration: underline;
+}
+
 /* -------------------------------------- */
 /*      Application Navigation Style      */
 /* -------------------------------------- */
@@ -445,6 +453,10 @@ padding: 0.1em 0.3em 0 0.3em;
 #app-navigation ul a:hover {
 text-decoration: none;
 color: #111;
+}
+
+#app-navigation ul a:focus {
+text-decoration: underline;
 }
 
 /* ------------------------- */
@@ -718,6 +730,10 @@ color: #666;
 .tab-bar ul .selected a:hover {
 color: #333;
 text-decoration: none;
+}
+
+.tab-bar ul a:focus {
+text-decoration: underline;
 }
 
 .tab-bar ul .disabled {
@@ -1438,7 +1454,7 @@ input[type="week"] {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	background-color: #fff;
+	/*background-color: #fff;*/
 	border: 0.1em solid;
 	border-color: #848484 #c1c1c1 #e1e1e1;
 	color: #000;
@@ -1485,6 +1501,7 @@ input[type="week"][disabled] {
 	color: #888;
 }
 
+.smallSubmit:focus,
 button:focus,
 button:active,
 input:focus,
@@ -1493,10 +1510,9 @@ select:focus,
 select:active,
 textarea:focus,
 textarea:active {
-	-moz-box-shadow: #06f 0 0 7px;
-	-webkit-box-shadow: #06f 0 0 7px;
-	box-shadow: #06f 0 0 7px;
-
+	-moz-box-shadow: #5c809c 0 0 5px;
+	-webkit-box-shadow: #5c809c 0 0 5px;
+	box-shadow: #5c809c 0 0 5px;
 	/* for Opera */
 	z-index: 1;
 }
