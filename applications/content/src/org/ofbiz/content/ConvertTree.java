@@ -63,7 +63,7 @@ In order ta make this service active add the following to the service definition
 */
 
 
-    public static  Map<String, Object> convertTree(DispatchContext dctx, Map context) {
+    public static  Map<String, Object> convertTree(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -254,7 +254,8 @@ In order ta make this service active add the following to the service definition
                 }
     }
 
-    public static  Map<String,Object> createSubContent(int index,String line,String rootContent, Map context, DispatchContext dctx) {
+    public static  Map<String,Object> createSubContent(int index,String line,String rootContent, 
+            Map<String, ? extends Object> context, DispatchContext dctx) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
