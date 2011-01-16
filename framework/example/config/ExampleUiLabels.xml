@@ -470,7 +470,7 @@
         <value xml:lang="en">Layout Demo</value>
     </property>
     <property key="ExampleLayoutDemoText">
-        <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test jig.</value>
+        <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test page.</value>
     </property>
     <property key="ExampleLayerFromLayer">
         <value xml:lang="en">Layered lookup field (only test purp.)</value>
