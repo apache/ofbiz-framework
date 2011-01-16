@@ -168,8 +168,8 @@ under the License.
       <field name="employeeRoleTypeId" type="id"></field>
       <field name="perfReviewId" type="id-ne"></field>
       <field name="perfReviewItemSeqId" type="id-ne"></field>
-      <field name="perfRatingTypeId" type="id"></field>
       <field name="perfReviewItemTypeId" type="id"></field>
+      <field name="perfRatingTypeId" type="id"></field>
       <field name="comments" type="comment"></field>
       <prim-key field="employeePartyId"/>
       <prim-key field="employeeRoleTypeId"/>
