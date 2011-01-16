@@ -149,7 +149,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         if (hideThisItem)
             return;
 
-        String style = null;
+        String style = menuItem.getWidgetStyle();
 
         if (menuItem.isSelected(context)) {
             style = menuItem.getSelectedStyle();
