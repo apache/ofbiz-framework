@@ -126,7 +126,7 @@
         <make-value entity-name="PerfReviewItem" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="PerfReviewItem" field="newEntity.perfReviewItemSeqId"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="perfReviewItemSeqId"/>
         <field-to-result field="perfReviewItemSeqId" result-name="perfReviewItemSeqId"/>
         <create-value value-field="newEntity"/>
     </simple-method>

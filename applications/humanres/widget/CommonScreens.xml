@@ -205,17 +205,22 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PartyAbility, _VIEW permission -->
                             <condition>
                                 <if-has-permission permission="HUMANRES" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="perfReviewId"/></not>
+                                        <not><if-empty field="perfReview"/></not>
                                     </condition>
+                                    <actions>
+                                        <entity-one value-field="partyNameView" entity-name="PartyNameView">
+                                            <field-map field-name="partyId" from-field="perfReview.employeePartyId"/>
+                                        </entity-one>
+                                    </actions>
                                     <widgets>
-                                        <include-menu name="PartyBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                                        <include-menu name="PerfReviewBar" location="component://humanres/widget/HumanresMenus.xml"/>
+                                        <label style="h1" text="${uiLabelMap.HumanResPerfReview} [${perfReview.perfReviewId}] ${partyNameView.lastName} ${partyNameView.firstName} ${partyNameView.middleName}"></label>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
