@@ -81,6 +81,11 @@ under the License.
             </entity-condition>
         </actions>
         <auto-fields-service default-field-type="display" service-name="updatePerfReviewItem"/>
+        <field name="employeePartyId"><ignored/></field>
+        <field name="employeeRoleTypeId"><ignored/></field>
+        <field name="perfReviewId"><ignored/></field>
+        <field name="perfReviewItemTypeId"><display-entity entity-name="PerfReviewItemType"></display-entity></field>
+        <field name="perfRatingTypeId"><display-entity entity-name="PerfRatingType"></display-entity></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePerfReviewItem" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="perfReviewId"/>
