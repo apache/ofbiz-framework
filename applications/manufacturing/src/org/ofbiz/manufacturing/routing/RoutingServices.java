@@ -19,18 +19,18 @@
 package org.ofbiz.manufacturing.routing;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-
-import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 /**
  * Routing related services
@@ -47,8 +47,8 @@ public class RoutingServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map getEstimatedTaskTime(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> getEstimatedTaskTime(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
