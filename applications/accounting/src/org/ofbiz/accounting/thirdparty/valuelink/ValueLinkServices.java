@@ -19,13 +19,15 @@
 package org.ofbiz.accounting.thirdparty.valuelink;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+
 import javax.transaction.xa.XAException;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClientException;
@@ -56,7 +58,7 @@ public class ValueLinkServices {
     public static final String module = ValueLinkServices.class.getName();
 
     // generate/display new public/private/kek keys
-    public static Map createKeys(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createKeys(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
@@ -70,13 +72,13 @@ public class ValueLinkServices {
         String output = buf.toString();
         Debug.log(":: Key Generation Output ::\n\n" + output, module);
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("output", output);
         return result;
     }
 
     // test the KEK encryption
-    public static Map testKekEncryption(DispatchContext dctx, Map context) {
+    public static Map<String, Object> testKekEncryption(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         //GenericValue userLogin = (GenericValue) context.get("userLogin");
         Properties props = getProperties(context);
@@ -120,13 +122,13 @@ public class ValueLinkServices {
         String output = buf.toString();
         Debug.log(":: KEK Test Output ::\n\n" + output, module);
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("output", output);
         return result;
     }
 
     // change working key service
-    public static Map assignWorkingKey(DispatchContext dctx, Map context) {
+    public static Map<String, Object> assignWorkingKey(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Properties props = getProperties(context);
@@ -150,13 +152,13 @@ public class ValueLinkServices {
         String mwkHex = StringUtil.toHexString(vl.encryptViaKek(mwk));
 
         // build the request
-        Map request = vl.getInitialRequestMap(context);
+        Map<String, Object> request = vl.getInitialRequestMap(context);
         request.put("Interface", "Encrypt");
         request.put("EncryptKey", mwkHex);
         request.put("EncryptID", Long.valueOf(vl.getWorkingKeyIndex().longValue() + 1));
 
         // send the request
-        Map response = null;
+        Map<String, Object> response = null;
         try {
             response = vl.send(request);
         } catch (HttpClientException e) {
@@ -191,7 +193,7 @@ public class ValueLinkServices {
         }
     }
 
-    public static Map activate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> activate(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String vlPromoCode = (String) context.get("vlPromoCode");
@@ -207,7 +209,7 @@ public class ValueLinkServices {
 
         // get an api instance
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
-        Map request = vl.getInitialRequestMap(context);
+        Map<String, Object> request = vl.getInitialRequestMap(context);
         request.put("Interface", iFace != null ? iFace : "Activate");
         if (UtilValidate.isNotEmpty(vlPromoCode)) {
             request.put("PromoCode", vlPromoCode);
@@ -236,7 +238,7 @@ public class ValueLinkServices {
         setTimeoutReversal(dctx, context, request);
 
         // send the request
-        Map response = null;
+        Map<String, Object> response = null;
         try {
             response = vl.send(request);
         } catch (HttpClientException e) {
@@ -246,7 +248,7 @@ public class ValueLinkServices {
 
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
                 result.put("processResult", Boolean.TRUE);
                 result.put("pin", vl.decryptPin((String) response.get("pin")));
@@ -268,7 +270,7 @@ public class ValueLinkServices {
         }
     }
 
-    public static Map linkPhysicalCard(DispatchContext dctx, Map context) {
+    public static Map<String, Object> linkPhysicalCard(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String virtualCard = (String) context.get("virtualCard");
@@ -279,7 +281,7 @@ public class ValueLinkServices {
 
         // get an api instance
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
-        Map request = vl.getInitialRequestMap(context);
+        Map<String, Object> request = vl.getInitialRequestMap(context);
         request.put("Interface", "Link");
         request.put("VCardNo", virtualCard);
         request.put("VPIN", vl.encryptPin(virtualPin));
@@ -292,7 +294,7 @@ public class ValueLinkServices {
         }
 
         // send the request
-        Map response = null;
+        Map<String, Object> response = null;
         try {
             response = vl.send(request);
         } catch (HttpClientException e) {
@@ -302,7 +304,7 @@ public class ValueLinkServices {
 
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
-            Map result = ServiceUtil.returnSuccess("Activation of physical card complete.");
+            Map<String, Object> result = ServiceUtil.returnSuccess("Activation of physical card complete.");
             if (responseCode.equals("00")) {
 
                 result.put("processResult", Boolean.TRUE);
@@ -322,7 +324,7 @@ public class ValueLinkServices {
         }
     }
 
-    public static Map disablePin(DispatchContext dctx, Map context) {
+    public static Map<String, Object> disablePin(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
@@ -333,7 +335,7 @@ public class ValueLinkServices {
 
         // get an api instance
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
-        Map request = vl.getInitialRequestMap(context);
+        Map<String, Object> request = vl.getInitialRequestMap(context);
         request.put("Interface", "Disable");
         request.put("CardNo", cardNumber);
         request.put("PIN", vl.encryptPin(pin));
@@ -350,7 +352,7 @@ public class ValueLinkServices {
         }
 
         // send the request
-        Map response = null;
+        Map<String, Object> response = null;
         try {
             response = vl.send(request);
         } catch (HttpClientException e) {
@@ -360,7 +362,7 @@ public class ValueLinkServices {
 
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
-            Map result = ServiceUtil.returnSuccess("PIN disabled.");
+            Map<String, Object> result = ServiceUtil.returnSuccess("PIN disabled.");
             if (responseCode.equals("00")) {
                 result.put("processResult", Boolean.TRUE);
             } else {
@@ -378,7 +380,7 @@ public class ValueLinkServices {
         }
     }
 
-    public static Map redeem(DispatchContext dctx, Map context) {
+    public static Map<String, Object> redeem(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
@@ -393,7 +395,7 @@ public class ValueLinkServices {
 
         // get an api instance
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
-        Map request = vl.getInitialRequestMap(context);
+        Map<String, Object> request = vl.getInitialRequestMap(context);
         request.put("Interface", iFace != null ? iFace : "Redeem");
         request.put("CardNo", cardNumber);
         request.put("PIN", vl.encryptPin(pin));
@@ -414,7 +416,7 @@ public class ValueLinkServices {
         setTimeoutReversal(dctx, context, request);
 
         // send the request
-        Map response = null;
+        Map<String, Object> response = null;
         try {
             response = vl.send(request);
         } catch (HttpClientException e) {
@@ -424,7 +426,7 @@ public class ValueLinkServices {
 
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
                 result.put("processResult", Boolean.TRUE);
             } else {
@@ -445,7 +447,7 @@ public class ValueLinkServices {
         }
     }
 
-    public static Map reload(DispatchContext dctx, Map context) {
+    public static Map<String, Object> reload(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
@@ -460,7 +462,7 @@ public class ValueLinkServices {
 
         // get an api instance
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
-        Map request = vl.getInitialRequestMap(context);
+        Map<String, Object> request = vl.getInitialRequestMap(context);
         request.put("Interface", iFace != null ? iFace : "Reload");
         request.put("CardNo", cardNumber);
         request.put("PIN", vl.encryptPin(pin));
@@ -481,7 +483,7 @@ public class ValueLinkServices {
         setTimeoutReversal(dctx, context, request);
 
         // send the request
-        Map response = null;
+        Map<String, Object> response = null;
         try {
             response = vl.send(request);
         } catch (HttpClientException e) {
@@ -491,7 +493,7 @@ public class ValueLinkServices {
 
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
                 result.put("processResult", Boolean.TRUE);
             } else {
@@ -511,7 +513,7 @@ public class ValueLinkServices {
         }
     }
 
-    public static Map balanceInquire(DispatchContext dctx, Map context) {
+    public static Map<String, Object> balanceInquire(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
@@ -522,7 +524,7 @@ public class ValueLinkServices {
 
         // get an api instance
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
-        Map request = vl.getInitialRequestMap(context);
+        Map<String, Object> request = vl.getInitialRequestMap(context);
         request.put("Interface", "Balance");
         request.put("CardNo", cardNumber);
         request.put("PIN", vl.encryptPin(pin));
@@ -539,7 +541,7 @@ public class ValueLinkServices {
         }
 
         // send the request
-        Map response = null;
+        Map<String, Object> response = null;
         try {
             response = vl.send(request);
         } catch (HttpClientException e) {
@@ -549,7 +551,7 @@ public class ValueLinkServices {
 
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
                 result.put("processResult", Boolean.TRUE);
             } else {
@@ -567,7 +569,7 @@ public class ValueLinkServices {
         }
     }
 
-    public static Map transactionHistory(DispatchContext dctx, Map context) {
+    public static Map<String, Object> transactionHistory(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
@@ -577,7 +579,7 @@ public class ValueLinkServices {
 
         // get an api instance
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
-        Map request = vl.getInitialRequestMap(context);
+        Map<String, Object> request = vl.getInitialRequestMap(context);
         request.put("Interface", "History");
         request.put("CardNo", cardNumber);
         request.put("PIN", vl.encryptPin(pin));
@@ -593,7 +595,7 @@ public class ValueLinkServices {
         }
 
         // send the request
-        Map response = null;
+        Map<String, Object> response = null;
         try {
             response = vl.send(request);
         } catch (HttpClientException e) {
@@ -603,7 +605,7 @@ public class ValueLinkServices {
 
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
                 result.put("processResult", Boolean.TRUE);
             } else {
@@ -622,7 +624,7 @@ public class ValueLinkServices {
         }
     }
 
-    public static Map refund(DispatchContext dctx, Map context) {
+    public static Map<String, Object> refund(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Properties props = getProperties(context);
         String cardNumber = (String) context.get("cardNumber");
@@ -637,7 +639,7 @@ public class ValueLinkServices {
 
         // get an api instance
         ValueLinkApi vl = ValueLinkApi.getInstance(delegator, props);
-        Map request = vl.getInitialRequestMap(context);
+        Map<String, Object> request = vl.getInitialRequestMap(context);
         request.put("Interface", iFace != null ? iFace : "Refund");
         request.put("CardNo", cardNumber);
         request.put("PIN", vl.encryptPin(pin));
@@ -658,7 +660,7 @@ public class ValueLinkServices {
         setTimeoutReversal(dctx, context, request);
 
         // send the request
-        Map response = null;
+        Map<String, Object> response = null;
         try {
             response = vl.send(request);
         } catch (HttpClientException e) {
@@ -668,7 +670,7 @@ public class ValueLinkServices {
 
         if (response != null) {
             String responseCode = (String) response.get("responsecode");
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             if (responseCode.equals("00")) {
                 result.put("processResult", Boolean.TRUE);
             } else {
@@ -688,27 +690,27 @@ public class ValueLinkServices {
         }
     }
 
-    public static Map voidRedeem(DispatchContext dctx, Map context) {
+    public static Map<String, Object> voidRedeem(DispatchContext dctx, Map<String, Object> context) {
         context.put("Interface", "Redeem/Void");
         return redeem(dctx, context);
     }
 
-    public static Map voidRefund(DispatchContext dctx, Map context) {
+    public static Map<String, Object> voidRefund(DispatchContext dctx, Map<String, Object> context) {
         context.put("Interface", "Refund/Void");
         return refund(dctx, context);
     }
 
-    public static Map voidReload(DispatchContext dctx, Map context) {
+    public static Map<String, Object> voidReload(DispatchContext dctx, Map<String, Object> context) {
         context.put("Interface", "Reload/Void");
         return reload(dctx, context);
     }
 
-    public static Map voidActivate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> voidActivate(DispatchContext dctx, Map<String, Object> context) {
         context.put("Interface", "Activate/Void");
         return activate(dctx, context);
     }
 
-    public static Map timeOutReversal(DispatchContext dctx, Map context) {
+    public static Map<String, Object> timeOutReversal(DispatchContext dctx, Map<String, Object> context) {
         String vlInterface = (String) context.get("Interface");
         Debug.log("704 Interface : " + vlInterface, module);
         if (vlInterface != null) {
@@ -730,10 +732,11 @@ public class ValueLinkServices {
     }
 
     // 0704 Timeout Reversal (Supports - Activate/Void, Redeem, Redeem/Void, Reload, Reload/Void, Refund, Refund/Void)
-    private static void setTimeoutReversal(DispatchContext dctx, Map ctx, Map request) {
+    private static void setTimeoutReversal(DispatchContext dctx, Map<String, Object> ctx, Map<String, Object> request) {
         String vlInterface = (String) request.get("Interface");
         // clone the context
-        Map context = new HashMap(ctx);
+        Map<String, Object> context = FastMap.newInstance();
+        context.putAll(ctx);
 
         // append the rollback interface
         if (!vlInterface.endsWith("Rollback")) {
@@ -762,7 +765,7 @@ public class ValueLinkServices {
         }
     }
 
-    private static Properties getProperties(Map context) {
+    private static Properties getProperties(Map<String, Object> context) {
         String paymentProperties = (String) context.get("paymentConfig");
         if (paymentProperties == null) {
             paymentProperties = "payment.properties";
@@ -773,7 +776,7 @@ public class ValueLinkServices {
 
     // payment processing wrappers (process/release/refund)
 
-    public static Map giftCardProcessor(DispatchContext dctx, Map context) {
+    public static Map<String, Object> giftCardProcessor(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -789,7 +792,7 @@ public class ValueLinkServices {
             currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
         }
 
-        Map redeemCtx = new HashMap();
+        Map<String, Object> redeemCtx = FastMap.newInstance();
         redeemCtx.put("userLogin", userLogin);
         redeemCtx.put("paymentConfig", paymentConfig);
         redeemCtx.put("cardNumber", giftCard.get("cardNumber"));
@@ -800,7 +803,7 @@ public class ValueLinkServices {
         redeemCtx.put("amount", amount);
 
         // invoke the redeem service
-        Map redeemResult = null;
+        Map<String, Object> redeemResult = null;
         try {
             redeemResult = dispatcher.runSync("redeemGiftCard", redeemCtx);
         } catch (GenericServiceException e) {
@@ -808,7 +811,7 @@ public class ValueLinkServices {
             return ServiceUtil.returnError("Redeem service failed");
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         if (redeemResult != null) {
             Boolean processResult = (Boolean) redeemResult.get("processResult");
             // confirm the amount redeemed; since VL does not error in insufficient funds
@@ -821,7 +824,7 @@ public class ValueLinkServices {
                 Debug.logInfo("Redeemed (" + amount + "): " + redeemed + " / " + previous + " : " + current, module);
                 if (redeemed.compareTo(amount) < 0) {
                     // we didn't redeem enough void the transaction and return false
-                    Map voidResult = null;
+                    Map<String, Object> voidResult = null;
                     try {
                         voidResult = dispatcher.runSync("voidRedeemGiftCard", redeemCtx);
                     } catch (GenericServiceException e) {
@@ -848,7 +851,7 @@ public class ValueLinkServices {
         return result;
     }
 
-    public static Map giftCardRelease(DispatchContext dctx, Map context) {
+    public static Map<String, Object> giftCardRelease(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -878,7 +881,7 @@ public class ValueLinkServices {
             currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
         }
 
-        Map redeemCtx = new HashMap();
+        Map<String, Object> redeemCtx = FastMap.newInstance();
         redeemCtx.put("userLogin", userLogin);
         redeemCtx.put("paymentConfig", paymentConfig);
         redeemCtx.put("cardNumber", giftCard.get("cardNumber"));
@@ -888,7 +891,7 @@ public class ValueLinkServices {
         redeemCtx.put("amount", amount);
 
         // invoke the void redeem service
-        Map redeemResult = null;
+        Map<String, Object> redeemResult = null;
         try {
             redeemResult = dispatcher.runSync("voidRedeemGiftCard", redeemCtx);
         } catch (GenericServiceException e) {
@@ -896,7 +899,7 @@ public class ValueLinkServices {
             return ServiceUtil.returnError("Redeem service failed");
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         if (redeemResult != null) {
             Boolean processResult = (Boolean) redeemResult.get("processResult");
             result.put("releaseAmount", redeemResult.get("amount"));
@@ -909,7 +912,7 @@ public class ValueLinkServices {
         return result;
     }
 
-    public static Map giftCardRefund(DispatchContext dctx, Map context) {
+    public static Map<String, Object> giftCardRefund(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -939,7 +942,7 @@ public class ValueLinkServices {
             currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
         }
 
-        Map refundCtx = new HashMap();
+        Map<String, Object> refundCtx = FastMap.newInstance();
         refundCtx.put("userLogin", userLogin);
         refundCtx.put("paymentConfig", paymentConfig);
         refundCtx.put("cardNumber", giftCard.get("cardNumber"));
@@ -949,7 +952,7 @@ public class ValueLinkServices {
         refundCtx.put("amount", amount);
 
         // invoke the refund service
-        Map redeemResult = null;
+        Map<String, Object> redeemResult = null;
         try {
             redeemResult = dispatcher.runSync("refundGiftCard", refundCtx);
         } catch (GenericServiceException e) {
@@ -957,7 +960,7 @@ public class ValueLinkServices {
             return ServiceUtil.returnError("Refund service failed");
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         if (redeemResult != null) {
             Boolean processResult = (Boolean) redeemResult.get("processResult");
             result.put("refundAmount", redeemResult.get("amount"));
@@ -972,7 +975,7 @@ public class ValueLinkServices {
 
     // item fulfillment wrappers (purchase/reload)
 
-    public static Map giftCardPurchase(DispatchContext dctx, Map context) {
+    public static Map<String, Object> giftCardPurchase(DispatchContext dctx, Map<String, Object> context) {
         // this service should always be called via FULFILLMENT_EXTASYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -1047,9 +1050,9 @@ public class ValueLinkServices {
         // get the productFeature type TYPE (VL promo code)
         GenericValue typeFeature = null;
         try {
-            Map fields = UtilMisc.toMap("productId", product.get("productId"), "productFeatureTypeId", "TYPE");
-            List order = UtilMisc.toList("-fromDate");
-            List featureAppls = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
+            Map<String, Object> fields = UtilMisc.toMap("productId", product.get("productId"), "productFeatureTypeId", "TYPE");
+            List<String> order = UtilMisc.toList("-fromDate");
+            List<GenericValue> featureAppls = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
             featureAppls = EntityUtil.filterByDate(featureAppls);
             typeFeature = EntityUtil.getFirst(featureAppls);
         } catch (GenericEntityException e) {
@@ -1072,9 +1075,10 @@ public class ValueLinkServices {
         // get the survey response
         GenericValue surveyResponse = null;
         try {
-            Map fields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
-            List order = UtilMisc.toList("-responseDate");
-            List responses = delegator.findByAnd("SurveyResponse", fields, order);
+            Map<String, Object> fields = UtilMisc.<String, Object>toMap("orderId", orderId, 
+                    "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
+            List<String> order = UtilMisc.toList("-responseDate");
+            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order);
             // there should be only one
             surveyResponse = EntityUtil.getFirst(responses);
         } catch (GenericEntityException e) {
@@ -1083,7 +1087,7 @@ public class ValueLinkServices {
         }
 
         // get the response answers
-        List responseAnswers = null;
+        List<GenericValue> responseAnswers = null;
         try {
             responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer");
         } catch (GenericEntityException e) {
@@ -1092,9 +1096,9 @@ public class ValueLinkServices {
         }
 
         // make a map of answer info
-        Map answerMap = new HashMap();
+        Map<String, Object> answerMap = FastMap.newInstance();
         if (responseAnswers != null) {
-            Iterator rai = responseAnswers.iterator();
+            Iterator<GenericValue> rai = responseAnswers.iterator();
             while (rai.hasNext()) {
                 GenericValue answer = (GenericValue) rai.next();
                 GenericValue question = null;
@@ -1126,7 +1130,7 @@ public class ValueLinkServices {
         int qtyLoop = quantity.intValue();
         for (int i = 0; i < qtyLoop; i++) {
             // activate a gift card
-            Map activateCtx = new HashMap();
+            Map<String, Object> activateCtx = FastMap.newInstance();
             activateCtx.put("paymentConfig", paymentConfig);
             activateCtx.put("vlPromoCode", promoCode);
             activateCtx.put("currency", currency);
@@ -1136,7 +1140,7 @@ public class ValueLinkServices {
             activateCtx.put("userLogin", userLogin);
 
             boolean failure = false;
-            Map activateResult = null;
+            Map<String, Object> activateResult = null;
             try {
                 activateResult = dispatcher.runSync("activateGiftCard", activateCtx);
             } catch (GenericServiceException e) {
@@ -1163,7 +1167,7 @@ public class ValueLinkServices {
             }
 
             // create the fulfillment record
-            Map vlFulFill = new HashMap();
+            Map<String, Object> vlFulFill = FastMap.newInstance();
             vlFulFill.put("typeEnumId", "GC_ACTIVATE");
             vlFulFill.put("merchantId", UtilProperties.getPropertyValue(paymentConfig, "payment.valuelink.merchantId"));
             vlFulFill.put("partyId", partyId);
@@ -1220,7 +1224,7 @@ public class ValueLinkServices {
                     }
                 }
 
-                Map emailCtx = new HashMap();
+                Map<String, Object> emailCtx = FastMap.newInstance();
                 String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                 if (UtilValidate.isEmpty(bodyScreenLocation)) {
                     bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
@@ -1249,7 +1253,7 @@ public class ValueLinkServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map giftCardReload(DispatchContext dctx, Map context) {
+    public static Map<String, Object> giftCardReload(DispatchContext dctx, Map<String, Object> context) {
         // this service should always be called via FULFILLMENT_EXTSYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -1315,9 +1319,10 @@ public class ValueLinkServices {
         // get the survey response
         GenericValue surveyResponse = null;
         try {
-            Map fields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
-            List order = UtilMisc.toList("-responseDate");
-            List responses = delegator.findByAnd("SurveyResponse", fields, order);
+            Map<String, Object> fields = UtilMisc.toMap("orderId", orderId, 
+                    "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
+            List<String> order = UtilMisc.toList("-responseDate");
+            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order);
             // there should be only one
             surveyResponse = EntityUtil.getFirst(responses);
         } catch (GenericEntityException e) {
@@ -1326,7 +1331,7 @@ public class ValueLinkServices {
         }
 
         // get the response answers
-        List responseAnswers = null;
+        List<GenericValue> responseAnswers = null;
         try {
             responseAnswers = surveyResponse.getRelated("SurveyResponseAnswer");
         } catch (GenericEntityException e) {
@@ -1335,9 +1340,9 @@ public class ValueLinkServices {
         }
 
         // make a map of answer info
-        Map answerMap = new HashMap();
+        Map<String, Object> answerMap = FastMap.newInstance();
         if (responseAnswers != null) {
-            Iterator rai = responseAnswers.iterator();
+            Iterator<GenericValue> rai = responseAnswers.iterator();
             while (rai.hasNext()) {
                 GenericValue answer = (GenericValue) rai.next();
                 GenericValue question = null;
@@ -1361,7 +1366,7 @@ public class ValueLinkServices {
         String pinNumber = (String) answerMap.get(pinNumberKey);
 
         // reload the gift card
-        Map reloadCtx = new HashMap();
+        Map<String, Object> reloadCtx = FastMap.newInstance();
         reloadCtx.put("paymentConfig", paymentConfig);
         reloadCtx.put("currency", currency);
         reloadCtx.put("partyId", partyId);
@@ -1371,7 +1376,7 @@ public class ValueLinkServices {
         reloadCtx.put("amount", amount);
         reloadCtx.put("userLogin", userLogin);
 
-        Map reloadResult = null;
+        Map<String, Object> reloadResult = null;
         try {
             reloadResult = dispatcher.runSync("reloadGiftCard", reloadCtx);
         } catch (GenericServiceException e) {
@@ -1380,7 +1385,7 @@ public class ValueLinkServices {
         }
 
         // create the fulfillment record
-        Map vlFulFill = new HashMap();
+        Map<String, Object> vlFulFill = FastMap.newInstance();
         vlFulFill.put("typeEnumId", "GC_RELOAD");
         vlFulFill.put("merchantId", UtilProperties.getPropertyValue(paymentConfig, "payment.valuelink.merchantId"));
         vlFulFill.put("partyId", partyId);
@@ -1407,7 +1412,8 @@ public class ValueLinkServices {
 
             // process the return
             try {
-                Map refundCtx = UtilMisc.toMap("orderItem", orderItem, "partyId", partyId, "userLogin", userLogin);
+                Map<String, Object> refundCtx = UtilMisc.<String, Object>toMap("orderItem", orderItem, 
+                        "partyId", partyId, "userLogin", userLogin);
                 dispatcher.runAsync("refundGcPurchase", refundCtx, null, true, 300, true);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "ERROR! Unable to call create refund service; this failed reload will NOT be refunded", module);
@@ -1443,7 +1449,7 @@ public class ValueLinkServices {
         if (productStoreEmail == null) {
             Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
         } else {
-            Map emailCtx = new HashMap();
+            Map<String, Object> emailCtx = FastMap.newInstance();
             ResourceBundleMapWrapper uiLabelMap = (ResourceBundleMapWrapper) UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
             uiLabelMap.addBottomResourceBundle("OrderUiLabels");
             uiLabelMap.addBottomResourceBundle("CommonUiLabels");

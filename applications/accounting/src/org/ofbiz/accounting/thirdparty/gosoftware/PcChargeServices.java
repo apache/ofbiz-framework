@@ -43,7 +43,7 @@ public class PcChargeServices {
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
-    public static Map ccAuth(DispatchContext dctx, Map context) {
+    public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
         Properties props = buildPccProperties(context);
         PcChargeApi api = getApi(props);
         if (api == null) {
@@ -84,7 +84,7 @@ public class PcChargeServices {
         }
 
         if (out != null) {
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             String resultCode = out.get(PcChargeApi.RESULT);
             boolean passed = false;
             if ("CAPTURED".equals(resultCode)) {
@@ -129,7 +129,7 @@ public class PcChargeServices {
         }
     }
 
-    public static Map ccCapture(DispatchContext dctx, Map context) {
+    public static Map<String, Object> ccCapture(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
 
         //lets see if there is a auth transaction already in context
@@ -166,7 +166,7 @@ public class PcChargeServices {
         }
 
         if (out != null) {
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             String resultCode = out.get(PcChargeApi.RESULT);
             if ("CAPTURED".equals(resultCode)) {
                 result.put("captureResult", Boolean.TRUE);
@@ -185,7 +185,7 @@ public class PcChargeServices {
         }
     }
 
-    public static Map ccRelease(DispatchContext dctx, Map context) {
+    public static Map<String, Object> ccRelease(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
 
         //lets see if there is a auth transaction already in context
@@ -227,7 +227,7 @@ public class PcChargeServices {
         }
 
         if (out != null) {
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             String resultCode = out.get(PcChargeApi.RESULT);
             if ("VOIDED".equals(resultCode)) {
                 result.put("releaseResult", Boolean.TRUE);
@@ -246,7 +246,7 @@ public class PcChargeServices {
         }
     }
 
-    public static Map ccRefund(DispatchContext dctx, Map context) {
+    public static Map<String, Object> ccRefund(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
 
         //lets see if there is a auth transaction already in context
@@ -283,7 +283,7 @@ public class PcChargeServices {
         }
 
         if (out != null) {
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             String resultCode = out.get(PcChargeApi.RESULT);
             if ("CAPTURED".equals(resultCode)) {
                 result.put("refundResult", Boolean.TRUE);
@@ -302,11 +302,11 @@ public class PcChargeServices {
         }
     }
 
-    private static void setCreditCardInfo(PcChargeApi api, Map context) throws GeneralException {
+    private static void setCreditCardInfo(PcChargeApi api, Map<String, ? extends Object> context) throws GeneralException {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = (GenericValue) context.get("creditCard");
         if (creditCard != null) {
-            List expDateList = StringUtil.split(creditCard.getString("expireDate"), "/");
+            List<String> expDateList = StringUtil.split(creditCard.getString("expireDate"), "/");
             String month = (String) expDateList.get(0);
             String year = (String) expDateList.get(1);
             String y2d = year.substring(2);
@@ -385,7 +385,7 @@ public class PcChargeServices {
         return api;
     }
 
-    private static Properties buildPccProperties(Map context) {
+    private static Properties buildPccProperties(Map<String, ? extends Object> context) {
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
             configString = "payment.properties";
@@ -425,7 +425,7 @@ public class PcChargeServices {
         return props;
     }
 
-    private static String getAmountString(Map context, String amountField) {
+    private static String getAmountString(Map<String, ? extends Object> context, String amountField) {
         BigDecimal processAmount = (BigDecimal) context.get(amountField);
         return processAmount.setScale(decimals, rounding).toPlainString();
     }
