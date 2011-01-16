@@ -2841,7 +2841,7 @@
         <value xml:lang="en">ProductionRun ${productionRunId} created</value>
         <value xml:lang="es">Orden de producción ${productionRunId} creada</value>
         <value xml:lang="fr">Ordre de fabrication créé ${productionRunId}</value>
-        <value xml:lang="it">Ordine di Produzione ${productionRunId} creata</value>
+        <value xml:lang="it">Ordine di produzione ${productionRunId} creato</value>
         <value xml:lang="pt_BR">Execução de produção ${productionRunId} criada</value>
         <value xml:lang="ro">Comanda de Productie ${productionRunId} creata</value>
         <value xml:lang="th">สร้างการผลิต ${productionRunId}</value>
@@ -2894,7 +2894,7 @@
         <value xml:lang="en">Production Run Fixed Assets</value>
         <value xml:lang="es">Máquinas de la orden de producción</value>
         <value xml:lang="fr">Machines de l'ordre de fabrication</value>
-        <value xml:lang="it">Cespite Ordine di Produzione</value>
+        <value xml:lang="it">Cespite ordine di produzione</value>
         <value xml:lang="pt_BR">Ativos fixos da execução de produção</value>
         <value xml:lang="th">การผลิตสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="zh">生产运行固定资产</value>
@@ -2905,7 +2905,7 @@
         <value xml:lang="en">Production Run ID</value>
         <value xml:lang="es">Código de orden de producción</value>
         <value xml:lang="fr">Réf. de l'ordre de fabrication</value>
-        <value xml:lang="it">Codice Ordine di Produzione</value>
+        <value xml:lang="it">Ordine di produzione</value>
         <value xml:lang="pt_BR">Id de execução de produção</value>
         <value xml:lang="ro">Cod Comanda de Productie</value>
         <value xml:lang="th">รหัสการผลิต</value>
@@ -3776,7 +3776,7 @@
         <value xml:lang="en">Estimated Unit Run Time</value>
         <value xml:lang="es">Tiempo estimado unitario</value>
         <value xml:lang="fr">Temps de production estimé</value>
-        <value xml:lang="it">Tempo Stimato Esecuzione</value>
+        <value xml:lang="it">Tempo stimato esecuzione</value>
         <value xml:lang="pt_BR">Tempo estimado por unidade</value>
         <value xml:lang="ro">Timp Stimat in Executie</value>
         <value xml:lang="th">ประมาณเวลา</value>
@@ -3788,7 +3788,7 @@
         <value xml:lang="en">Estimated Setup Time</value>
         <value xml:lang="es">Tiempo estimado de preparación</value>
         <value xml:lang="fr">Temps d'installation estimé</value>
-        <value xml:lang="it">Tempo Stimato Configurazione</value>
+        <value xml:lang="it">Tempo stimato configur.</value>
         <value xml:lang="pt_BR">Tempo de preparação estimado</value>
         <value xml:lang="ro">Timp Stimat Configuratie</value>
         <value xml:lang="th">ประมาณเวลาที่ติดตั้ง</value>
