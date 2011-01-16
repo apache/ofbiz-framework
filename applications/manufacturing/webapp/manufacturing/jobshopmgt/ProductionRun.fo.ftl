@@ -134,7 +134,7 @@ under the License.
               <fo:table-column column-width="10%"/>
                 <fo:table-header>
                     <fo:table-row font-weight="bold">
-                        <fo:table-cell><fo:block>${uiLabelMap.FixedAsset}</fo:block></fo:table-cell>
+                        <fo:table-cell><fo:block>${uiLabelMap.ManufacturingProductionRunFixedAssets}</fo:block></fo:table-cell>
                         <fo:table-cell><fo:block>${uiLabelMap.ManufacturingRoutingTask}</fo:block></fo:table-cell>
                         <fo:table-cell><fo:block>${uiLabelMap.CommonDescription}</fo:block></fo:table-cell>
                         <fo:table-cell><fo:block>${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}</fo:block></fo:table-cell>
