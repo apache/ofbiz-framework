@@ -331,6 +331,10 @@ font-weight: normal;
 padding: 0.5em;
 }
 
+#footer a:focus {
+text-decoration: underline;
+}
+
 /* ------------------------------- */
 /*      Main Navigation Style      */
 /* ------------------------------- */
@@ -1382,10 +1386,8 @@ a.buttontextbig,
 .loginButton,
 .button-style-1 a,
 .button-style-1 ul a,
-a.button-style-1,
 .button-style-2 ul a, 
 .button-style-2 a, 
-a.button-style-2,
 .basic-table tr .button-col a, 
 .button,
 button,
@@ -1501,6 +1503,10 @@ input[type="week"][disabled] {
 	color: #888;
 }
 
+.button-style-1 a:focus,
+.button-style-1 ul a:focus,
+.button-style-2 ul a:focus, 
+.button-style-2 a:focus, 
 .smallSubmit:focus,
 button:focus,
 button:active,
