@@ -28,6 +28,7 @@ import org.ofbiz.service.GenericServiceException;
  * and Payments. When one of these occurs, make sure to reconcile the
  * affected data.
  */
+@SuppressWarnings("serial")
 public class AccountingException extends GenericServiceException {
 
     public AccountingException() {
