@@ -7320,7 +7320,7 @@
     <property key="CommonSelected">
         <value xml:lang="ar">مختارة</value>
         <value xml:lang="de">ausgewählt</value>
-        <value xml:lang="en">selected</value>
+        <value xml:lang="en">Selected</value>
         <value xml:lang="es">Seleccionar</value>
         <value xml:lang="fr">Sélectionné(e)</value>
         <value xml:lang="hi_IN">चयनित</value>
