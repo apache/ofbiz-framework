@@ -250,7 +250,9 @@ under the License.
     </form>
 
     <form name="LayoutDemoForm" type="single" target="${demoTargetUrl}" default-map-name="demoMap">
-        <field name="name" title="${uiLabelMap.CommonName}"><text/></field>
+        <field name="name" title="${uiLabelMap.CommonName}" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
+            <text />
+        </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
             <drop-down>
