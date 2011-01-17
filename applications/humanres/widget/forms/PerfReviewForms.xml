@@ -44,6 +44,18 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="PerfReview" default-field-type="display"/>
+        <field name="employeePartyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${lastName} ${firstName} ${middleName}">
+                <sub-hyperlink target="EmployeeProfile?partyId=${employeePartyId}" description="[${employeePartyId}]"/>
+            </display-entity>
+        </field>
+        <field name="employeeRoleTypeId"><ignored/></field>
+        <field name="managerPartyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${lastName} ${firstName} ${middleName}">
+                <sub-hyperlink target="EmployeeProfile?partyId=${managerPartyId}" description="[${managerPartyId}]"/>
+            </display-entity>
+        </field>
+        <field name="managerRoleTypeId"><ignored/></field>
         <field name="perfReviewId">
            <hyperlink also-hidden="false" description="${perfReviewId}" target="EditPerfReview">
                 <parameter param-name="perfReviewId"/>
