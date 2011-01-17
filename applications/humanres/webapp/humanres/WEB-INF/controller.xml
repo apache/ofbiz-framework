@@ -149,7 +149,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePerfReview"/>
         <response name="error" type="view" value="EditPerfReviews"/>
-        <response name="success" type="view" value="EditPerfReview"/>
+        <response name="success" type="request-redirect" value="EditPerfReview"/>
     </request-map>
     <request-map uri="deletePerfReview">
         <security https="true" auth="true"/>
