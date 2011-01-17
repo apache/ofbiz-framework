@@ -63,15 +63,17 @@ under the License.
                 <parameter param-name="employeeRoleTypeId"/>
             </hyperlink>
         </field>
+        <field name="fromDate"><display type="date"/></field>
+        <field name="thruDate"><display type="date"/></field>
     </form>
     <form name="EditPerfReview" type="single" target="updatePerfReview" title="" default-map-name="perfReview"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="perfReview==null" target="createPerfReview"/>
         <auto-fields-service service-name="updatePerfReview" map-name="perfReview"/>
         <field name="perfReviewId" use-when="perfReview==null"><text/></field>
-        <field name="perfReviewId" use-when="perfReview!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="perfReviewId" use-when="perfReview!=null"><ignored/></field>
         <field name="employeePartyId" use-when="perfReview==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="employeePartyId" use-when="perfReview!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="employeePartyId" use-when="perfReview!=null"><ignored/></field>
         <field name="employeeRoleTypeId"><hidden value="EMPLOYEE"/></field>
         <field name="managerPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="managerRoleTypeId">
@@ -97,7 +99,7 @@ under the License.
         <field name="employeeRoleTypeId"><ignored/></field>
         <field name="perfReviewId"><ignored/></field>
         <field name="perfReviewItemTypeId"><display-entity entity-name="PerfReviewItemType"></display-entity></field>
-        <field name="perfRatingTypeId"><display-entity entity-name="PerfRatingType"></display-entity></field>
+        <field name="perfRatingTypeId"><display-entity entity-name="PerfRatingType"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePerfReviewItem" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="perfReviewId"/>
@@ -124,7 +126,7 @@ under the License.
         <field name="perfRatingTypeId">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" key-field-name="perfRatingTypeId" entity-name="PerfRatingType">
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="-perfRatingTypeId"/><!-- order from good to bad -->
                 </entity-options>
             </drop-down>
         </field>
