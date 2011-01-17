@@ -107,14 +107,19 @@
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="PerfReview" field="newEntity.perfReviewId"/>
-        <field-to-result field="perfReviewId" result-name="perfReviewId"/>
         <create-value value-field="newEntity"/>
+        <field-to-result field="newEntity.perfReviewId" result-name="perfReviewId"/>
+        <field-to-result field="newEntity.employeePartyId" result-name="employeePartyId"/>
+        <field-to-result field="newEntity.employeeRoleTypeId" result-name="employeeRoleTypeId"/>
     </simple-method>
 
     <simple-method method-name="updatePerfReview" short-description="Update Performance Review">
         <entity-one entity-name="PerfReview" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
+        <field-to-result field="lookedUpValue.perfReviewId" result-name="perfReviewId"/>
+        <field-to-result field="lookedUpValue.employeePartyId" result-name="employeePartyId"/>
+        <field-to-result field="lookedUpValue.employeeRoleTypeId" result-name="employeeRoleTypeId"/>
     </simple-method>
 
     <simple-method method-name="deletePerfReview" short-description="Delete Performance Review">
