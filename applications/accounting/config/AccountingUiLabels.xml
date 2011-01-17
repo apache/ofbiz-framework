@@ -7625,6 +7625,10 @@
         <value xml:lang="zh">会员角色列表</value>
         <value xml:lang="zh_TW">成員角色列表</value>
     </property>
+    <property key="AccountingPayflowErrorRetreivingCartDetails">
+        <value xml:lang="en">An error occurred while retreiving cart details</value>
+        <value xml:lang="it">Un'errore è successo durante l'ottenimento dei dettagli del carrello</value>
+    </property>
     <property key="AccountingPayflowProLoggingOff">
         <value xml:lang="de">Abmelden</value>
         <value xml:lang="en">Logging Off</value>
