@@ -1254,6 +1254,10 @@
         <value xml:lang="hi_IN">अधिकृत Dot Net API संस्करणः</value>
         <value xml:lang="it">Versione API Authorize Dot Net</value>
     </property>
+    <property key="AccountingAuthorizeNetCannotPerformVoidTransaction">
+        <value xml:lang="en">Cannot perform a VOID transaction: authAmount ${authAmount} is different than voidAmount ${refundAmount}</value>
+        <value xml:lang="it">Non è possibile eseguira la cancellazione della transazione: importo autorizzato ${authAmount} è diverso da quello da cancellare ${refundAmount}</value>
+    </property>
     <property key="AccountingAuthorizeNetCpMarket">
         <value xml:lang="en">Card Present Market Type</value>        
     </property>
@@ -1314,6 +1318,10 @@
         <value xml:lang="hi_IN">लेन-देन URL</value>
         <value xml:lang="it">URL Transazione</value>
         <value xml:lang="zh_TW">交易網址</value>
+    </property>
+    <property key="AccountingAuthorizeNetTransactionUrlNotFound">
+        <value xml:lang="en">No payment.authorizedotnet.url found.</value>
+        <value xml:lang="it">Nessun url trovato.</value>
     </property>
     <property key="AccountingAvailableInternalOrganizations">
         <value xml:lang="ar">المؤسسات الداخلية المتوفرة</value>
@@ -2090,6 +2098,10 @@
         <value xml:lang="en">AP Payment Groups</value>
         <value xml:lang="fr">Groupes de paiement AP</value>
         <value xml:lang="zh_TW">應付支付群組</value>
+    </property>
+    <property key="AccountingClearCommerceCannotExecuteReport">
+        <value xml:lang="en">orderId is required.</value>
+        <value xml:lang="it">Numero ordine è richiesto.</value>
     </property>
     <property key="AccountingClosedTimePeriods">
         <value xml:lang="de">Abgeschlossener Buchungszeitraum</value>
@@ -5199,6 +5211,10 @@
         <value xml:lang="en">The amount value is mandatory</value>
         <value xml:lang="it">L'importo fattura è obbligatorio</value>
     </property>
+    <property key="AccountingInvoiceApplicationCreationError">
+        <value xml:lang="en">Error creating invoice application</value>
+        <value xml:lang="it">Errore durante la creazione delle applicazioni fattura</value>
+    </property>
     <property key="AccountingInvoiceBadInvoiceType">
         <value xml:lang="en">Bad invoiceTypeId ${invoiceType.invoiceTypeId}. Service createAcctgTransForCustomerReturnInvoice for type CUST_RTN_INVOICE.</value>
         <value xml:lang="it">Tipo fattura errato ${invoiceType.invoiceTypeId}. Il servizio createAcctgTransForCustomerReturnInvoice vuole il tipo CUST_RTN_INVOICE.</value>
@@ -5217,6 +5233,10 @@
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] ถูกยกเลิก, ไม่สามารถที่จะนำมาใช้ได้...</value>
         <value xml:lang="zh">发票[${invoiceId}]已取消，无法应用...</value>
         <value xml:lang="zh_TW">發票[${invoiceId}]已取消，無法應用...</value>
+    </property>
+    <property key="AccountingInvoiceCannotBeSettle">
+        <value xml:lang="en">Attempt to settle Invoice ${invoiceId} which contained none/multiple orders</value>
+        <value xml:lang="it">Attempt to settle Invoice ${invoiceId} which contained none/multiple orders</value>
     </property>
     <property key="AccountingInvoiceCannotChangeStatusToPaid">
         <value xml:lang="en">Cannot change status to 'paid', invoice ${invoice.invoiceId} has an unapplied balance of ${notApplied}</value>
@@ -5611,18 +5631,18 @@
         <value xml:lang="zh_TW">請求的金額是${tooMuch?currency(${isoCode})}，對于這個發票[${invoiceId}]來說太多了</value>
     </property>
     <property key="AccountingInvoiceNotFound">
-        <value xml:lang="de">Rechnung [${invoiceId}] Datensatz nicht gefunden</value>
-        <value xml:lang="en">Invoice [${invoiceId}] record not found</value>
-        <value xml:lang="es">Factura [${invoiceId}] registro no encontrado</value>
-        <value xml:lang="fr">Facture [${invoiceId}] pas trouvée</value>
-        <value xml:lang="hi_IN">चालान [${invoiceId}]का रेकार्ड नहीं मिला</value>
-        <value xml:lang="it">Fattura [${invoiceId}] record non trovato</value>
-        <value xml:lang="nl">Factuur [${invoiceId}] niet gevonden</value>
-        <value xml:lang="ro">Nu gaseste Record Factura [${invoiceId}]</value>
-        <value xml:lang="ru">Накладная [${invoiceId}]: запись не найдена</value>
-        <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] ไม่พบเรคคอร์ด</value>
-        <value xml:lang="zh">没有找到发票[${invoiceId}]的记录</value>
-        <value xml:lang="zh_TW">沒有找到發票[${invoiceId}]的記錄</value>
+        <value xml:lang="de">Rechnung ${invoiceId} Datensatz nicht gefunden</value>
+        <value xml:lang="en">Invoice ${invoiceId} record not found</value>
+        <value xml:lang="es">Factura ${invoiceId} registro no encontrado</value>
+        <value xml:lang="fr">Facture ${invoiceId} pas trouvée</value>
+        <value xml:lang="hi_IN">चालान ${invoiceId}का रेकार्ड नहीं मिला</value>
+        <value xml:lang="it">Fattura ${invoiceId} non trovata</value>
+        <value xml:lang="nl">Factuur ${invoiceId} niet gevonden</value>
+        <value xml:lang="ro">Nu gaseste Record Factura ${invoiceId}</value>
+        <value xml:lang="ru">Накладная ${invoiceId}: запись не найдена</value>
+        <value xml:lang="th">ใบกำกับสินค้า [{invoiceId}]ไม่พบเรคคอร์ด</value>
+        <value xml:lang="zh">没有找到发票${invoiceId}的记录</value>
+        <value xml:lang="zh_TW">沒有找到發票${invoiceId}的記錄</value>
     </property>
     <property key="AccountingInvoiceOverrideExpenseGlAccountId">
         <value xml:lang="de">Aufwandskonto für Rechnung überschreiben</value>
@@ -6984,6 +7004,18 @@
         <value xml:lang="zh">没有定单明细到发票，无法创建发票。</value>
         <value xml:lang="zh_TW">沒有訂單明細到發票，無法創建發票。</value>
     </property>
+    <property key="AccountingNoPaymentCreatedForInvoice">
+        <value xml:lang="en">No payment created for invoice ${invoiceId} and billing account ${billingAccountId}</value>
+        <value xml:lang="it">Nessun pagamento creato per la fattura ${invoiceId} e conto di fatturazione ${billingAccountId}</value>
+    </property>
+    <property key="AccountingNoPaymentGatewayResponseCreatedForInvoice">
+        <value xml:lang="en">No paymentGatewayResponse created for invoice ${invoiceId} and billing account ${billingAccountId}: Order with ID ${orderId} not found!</value>
+        <value xml:lang="it">Nessun risposta gateway pagamento creata per la fattura ${invoiceId} e conto di fatturazione ${billingAccountId}: Ordine ${orderId} non trovato!</value>
+    </property>
+    <property key="AccountingNoPaymentGatewayResponseCreatedForFailedService">
+        <value xml:lang="en">Unable to create PaymentGatewayResponse for failed service call!</value>
+        <value xml:lang="it">Non è possibile creare la risposta gateway pagamento per il fallimento al servizio!</value>
+    </property>
     <property key="AccountingNoPaymentMethodInformation">
         <value xml:lang="cs">Neuvedena žádná informace o způsobu platby</value>
         <value xml:lang="de">Keine Information zur Zahlungsmethode hinterlegt</value>
@@ -7850,6 +7882,54 @@
         <value xml:lang="hi_IN">FinAccountTrans के साथ जुड़े भुगतान अमान्य स्थिति में है</value>
         <value xml:lang="zh_TW">關連支付的財務科目交易有不符合狀態</value>
     </property>
+    <property key="AccountingPaymentAuthorizationFailed">
+        <value xml:lang="en">Authorization failed</value>
+        <value xml:lang="it">Autorizzazione fallita</value>
+    </property>
+    <property key="AccountingPaymentTestAuthorizationAlwaysFailed">
+        <value xml:lang="en">Test authorization always failed</value>
+        <value xml:lang="it">Test autorizzazione sempre fallita</value>
+    </property>
+    <property key="AccountingPaymentTestBadCardNumber">
+        <value xml:lang="en">This is a test processor; no payments were captured or authorized</value>
+        <value xml:lang="it">Questo è un test di cattura transazione; nessun pagamento verrà catturato o autorizzato</value>
+    </property>
+    <property key="AccountingPaymentTestCapture">
+        <value xml:lang="en">This is a test capture; no money was transferred</value>
+        <value xml:lang="it">Questo è un test di cattura transazione; i soldi non verranno trasferiti</value>
+    </property>
+    <property key="AccountingPaymentTestCaptureDeclined">
+        <value xml:lang="en">This is a test processor; no payments were captured or authorized</value>
+        <value xml:lang="it">Questo è un test di cattura transazione; nessun pagamento verrà catturato o autorizzato</value>
+    </property>
+     <property key="AccountingPaymentTestCaptureWithReauth">
+        <value xml:lang="en">This is a test capture; no money was transferred</value>
+        <value xml:lang="it">Questo è un test di cattura transazione; i soldi non verranno trasferiti</value>
+    </property>
+    <property key="AccountingPaymentTestProcessor">
+        <value xml:lang="en">This is a test processor; no payments were captured or authorized.</value>
+        <value xml:lang="it">Questo è un test di autorizzazione transazione; nessun pagamento verrà catturato o autorizzato</value>
+    </property>
+    <property key="AccountingPaymentTestProcessorDeclined">
+        <value xml:lang="en">This is a test processor; no payments were captured or authorized</value>
+        <value xml:lang="it">Questo è un test di autorizzazione transazione; nessun pagamento verrà catturato o autorizzato</value>
+    </property>
+    <property key="AccountingPaymentTestProcessorMinimumPurchase">
+        <value xml:lang="en">Sorry this processor requires at least a $100.00 purchase.</value>
+        <value xml:lang="it">Mi dispiace ma per questa autorizzazione sono necessari almeno $100 per l'acquisto</value>
+    </property>
+    <property key="AccountingPaymentTestRelease">
+        <value xml:lang="en">This is a test release; no authorizations exist</value>
+        <value xml:lang="it">Questo è un test di rilascio transazione; nessuna autorizzazione esiste</value>
+    </property>
+    <property key="AccountingPaymentTestRefund">
+        <value xml:lang="en">This is a test refund; no money was transferred</value>
+        <value xml:lang="it">Questo è un test di rimborso transazione; i soldi non verranno trasferiti</value>
+    </property>
+    <property key="AccountingPaymentTestRefundFailure">
+        <value xml:lang="en">This is a test refund failure; no money was transferred</value>
+        <value xml:lang="it">Questo è un test di fallimento rimborso transazione; i soldi non verranno trasferiti</value>
+    </property>
     <property key="AccountingPaymentCancelled">
         <value xml:lang="de">Zahlung [${paymentId}] wurde annulliert und kann nicht zugewiesen werden</value>
         <value xml:lang="en">Payment [${paymentId}] is cancelled and cannot be applied</value>
@@ -7863,6 +7943,10 @@
         <value xml:lang="th">การชำระเงิน [${paymentId}] ถูกยกเลิกและไม่สามารถนำไปใช้ได้</value>
         <value xml:lang="zh">支付[${paymentId}]被取消或无法应用</value>
         <value xml:lang="zh_TW">支付[${paymentId}]被取消或無法應用</value>
+    </property>
+    <property key="AccountingPaymentCannotBeCaptured">
+        <value xml:lang="en">Trouble running captureOrderPayments service</value>
+        <value xml:lang="it">Problemi durante l'esecuzione del servizio cattura pagamento ordine</value>
     </property>
     <property key="AccountingPaymentCheckMessage1">
         <value xml:lang="ar">آسف, لا تسديدات مختارة</value>
@@ -7893,6 +7977,26 @@
         <value xml:lang="zh">支付[${paymentId}]已确认然而无法应用</value>
         <value xml:lang="zh_TW">支付[${paymentId}]已確認然而無法應用</value>
     </property>
+    <property key="AccountingPaymentCreationError">
+        <value xml:lang="en">Error creating payment record</value>
+        <value xml:lang="it">Errore durante la creazione del pagamento</value>
+    </property>
+    <property key="AccountingPaymentCreditCardBillingAddressMssingMandatoryFields">
+        <value xml:lang="en">Credit card billing address is missing required fields.</value>
+        <value xml:lang="it">Campo richiesti mancanti per l'indirizzo di fatturazione della carta di credito.</value>
+    </property>
+    <property key="AccountingPaymentCreditCardEmailAddressCannotBeEmpty">
+        <value xml:lang="en">Email address field cannot be empty.</value>
+        <value xml:lang="it">Indirizzo e-mail non può essere vuoto.</value>
+    </property>
+    <property key="AccountingPaymentCreditCardMissingMandatoryFields">
+        <value xml:lang="en">Credit card is missing required fields.</value>
+        <value xml:lang="it">Campo richiesti mancanti per la carta di credito.</value>
+    </property>
+    <property key="AccountingPaymentCreditCardNotFound">
+        <value xml:lang="en">CreditCard object not found for paymentMethodId: ${paymentMethodId}</value>
+        <value xml:lang="it">Carta di credito non trovata per il metodo pagamento: ${paymentMethodId}</value>
+    </property>
     <property key="AccountingPaymentDate">
         <value xml:lang="ar">تاريخ التسديد</value>
         <value xml:lang="de">Zahlungsdatum</value>
@@ -7913,6 +8017,10 @@
     <property key="AccountingWithdrawalPaymentInFinAccount">
         <value xml:lang="en">Withdrawal Payment from: ${finAccount.finAccountName}</value>
         <value xml:lang="hi_IN">वित्तीय खाते द्वारा वापस भुगतान: ${finAccount.finAccountName}</value>
+    </property>
+    <property key="AccountingPaymentCreditError">
+        <value xml:lang="en">Trouble processing the release results: ${errorString}</value>
+        <value xml:lang="it">Problemi nel rilascio transazione chiesto al gateway pagamenti, risultato: ${errorString}</value>
     </property>
     <property key="AccountingPaymentGatewayApprove">
         <value xml:lang="de">Genehmigen</value>
@@ -8148,6 +8256,10 @@
         <value xml:lang="zh">支付[${paymentId}]有${paymentApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}</value>
         <value xml:lang="zh_TW">支付[${paymentId}]有${paymentApplyAvailable?currency(${isoCode})}要應用，但是請求的是${amountApplied?currency(${isoCode})}</value>
     </property>
+    <property key="AccountingPaymentManualAuthOnlyForCreditCard">
+        <value xml:lang="en">Manual CC auth service can only be used with PaymentMethodType of CREDIT_CARD</value>
+        <value xml:lang="it">Servizio maniale autorizzazione CC può essere usato con il tipo metodo pagamento CARTA DI CREDITO</value>
+    </property>
     <property key="AccountingPaymentMethod">
         <value xml:lang="de">Zahlungsmethode</value>
         <value xml:lang="en">Payment Method</value>
@@ -8340,6 +8452,22 @@
         <value xml:lang="zh">发自</value>
         <value xml:lang="zh_TW">發自</value>
     </property>
+    <property key="AccountingPaymentServiceCannotGetModel">
+        <value xml:lang="en">Cannot get model service for ${serviceName}</value>
+        <value xml:lang="it">Non è possibile ottenere il modello del servizio ${serviceName}</value>
+    </property>
+    <property key="AccountingPaymentServiceMissingAmount">
+        <value xml:lang="en">Service ${serviceName} does not have a captureAmount or processAmount. Its parameters are: ${inParams}</value>
+        <value xml:lang="it">Il servizio ${serviceName} non ha un'importo da catturare o autorizzare. I parametri sono: ${inParams}</value>
+    </property>
+    <property key="AccountingPaymentSettingNotFound">
+        <value xml:lang="en">No valid payment settings found for : ${productStoreId} / ${transactionType}</value>
+        <value xml:lang="it">Nessun configurazione pagamento trovata per : ${productStoreId} / ${transactionType}</value>
+    </property>
+    <property key="AccountingPaymentSettingNotValid">
+        <value xml:lang="en">Invalid product store payment settings</value>
+        <value xml:lang="it">Configurazione gateway pagamenti negozio non valida</value>
+    </property>
     <property key="AccountingPaymentTabApplications">
         <value xml:lang="ar">التطبيقات</value>
         <value xml:lang="de">Zuweisungen</value>
@@ -8432,7 +8560,7 @@
     </property>
     <property key="AccountingPaymentTabStatusToSent">
         <value xml:lang="ar">الوضعية إلى 'مرسل'</value>
-        <value xml:lang="de">Status auf 'Übermittelt'</value>        
+        <value xml:lang="de">Status auf 'Übermittelt'</value>
         <value xml:lang="en">Status to 'Sent'</value>
         <value xml:lang="es">Status a 'Enviado'</value>
         <value xml:lang="fr">Statut à 'Envoyé'</value>
@@ -8446,9 +8574,37 @@
         <value xml:lang="zh_TW">狀態改為'已發送'</value>
     </property>
     <property key="AccountingPaymentTabStatusToVoid">
-        <value xml:lang="de">Status auf 'Ungültig'</value>        
+        <value xml:lang="de">Status auf 'Ungültig'</value>
         <value xml:lang="en"> Status to 'Void'</value>
         <value xml:lang="hi_IN">स्थिति 'रिक्त' करने के लिए</value>
+    </property>
+    <property key="AccountingPaymentTransactionAuthorizationNotFoundCannotCapture">
+        <value xml:lang="en">No authorization transaction found; cannot capture</value>
+        <value xml:lang="it">Nessuna transazione di autorizzazione trovata; non è possibile catturare</value>
+    </property>
+    <property key="AccountingPaymentTransactionAuthorizationNotFoundCannotReauth">
+        <value xml:lang="en">No authorization transaction found; cannot re-auth</value>
+        <value xml:lang="it">Nessuna transazione di autorizzazione trovata; non è possibile ri-autorizzare</value>
+    </property>
+    <property key="AccountingPaymentTransactionAuthorizationNotFoundCannotRelease">
+        <value xml:lang="en">No authorization transaction found; cannot release</value>
+        <value xml:lang="it">Nessuna transazione di autorizzazione trovata; non è possibile rilasciare</value>
+    </property>
+    <property key="AccountingPaymentTransactionAuthorizationNotFoundCannotRefund">
+        <value xml:lang="en">No authorization transaction found; cannot refund</value>
+        <value xml:lang="it">Nessuna transazione di autorizzazione trovata; non è possibile rimborsare</value>
+    </property>
+    <property key="AccountingPaymentTransactionManualResult">
+        <value xml:lang="en">Transaction result ${msg} / ${code} Ref#: ${refNum}</value>
+        <value xml:lang="it">Risultato transazione ${msg} / ${code} Rif.: ${refNum}</value>
+    </property>
+    <property key="AccountingPaymentTransactionNotAuthorized">
+        <value xml:lang="en">You do not have permission for this transaction.</value>
+        <value xml:lang="it">Non sei autorizzato per questa transazione.</value>
+    </property>
+    <property key="AccountingPaymentTransactionNotYetSupported">
+        <value xml:lang="en">This transaction type is not yet supported.</value>
+        <value xml:lang="it">Questo tipo transazione non è ancora supportata.</value>
     </property>
     <property key="AccountingPaymentType">
         <value xml:lang="ar">نوع التسديد</value>
@@ -8549,6 +8705,18 @@
         <value xml:lang="zh">已收到的支付</value>
         <value xml:lang="zh_TW">已收到的支付</value>
     </property>
+    <property key="AccountingPaymentRefundError">
+        <value xml:lang="en">Refund processor problems; see logs</value>
+        <value xml:lang="it">Problemi nel rimborso chiesto al gateway pagamenti; controllare i logs</value>
+    </property>
+    <property key="AccountingPaymentRefundServiceNotDefined">
+        <value xml:lang="en">No refund service defined</value>
+        <value xml:lang="it">Nessun servizio per il rimborso definito</value>
+    </property>
+    <property key="AccountingPaymentServiceError">
+        <value xml:lang="en">Error calling service : ${paymentService} / ${authContext}</value>
+        <value xml:lang="it">Errore durante l'esecuzione del servizio : ${paymentService} / ${authContext}</value>
+    </property>
     <property key="AccountingPaymentsSend">
         <value xml:lang="ar">التسديدات المرسلة</value>
         <value xml:lang="de">Zahlungen übermitteln</value>
@@ -8592,6 +8760,10 @@
     <property key="AccountingPaymentStatusToNotPaid">
         <value xml:lang="en">Status to "Not Paid"</value>
         <value xml:lang="hi_IN">भुगतान नहीं दिया</value>
+    </property>
+    <property key="AccountingPaymentUnableToGetCCInfo">
+        <value xml:lang="en">Unable to obtain cc information from payment preference</value>
+        <value xml:lang="it">Non è possibile le informazioni della carta di carta dalle preferenze pagamento ordine</value>
     </property>
     <property key="AccountingPermissionError">
         <value xml:lang="ar">لا رخصة لديكم لهذه العملية</value>
@@ -10156,6 +10328,10 @@
         <value xml:lang="th">ปัญหาในการเรียก createOrderPaymentPreference service</value>
         <value xml:lang="zh">调用新建定单支付优先方法服务时出错</value>
         <value xml:lang="zh_TW">調用新建訂單支付優先方法服務時出錯</value>
+    </property>
+    <property key="AccountingTroubleCallingCreditOrderPaymentPreferenceService">
+        <value xml:lang="en">Credit failed for pref : ${paymentPref}</value>
+        <value xml:lang="it">Fallito credito per la preferenza pagamento: ${paymentPref}</value>
     </property>
     <property key="AccountingTroubleCallingReleaseOrderPaymentPreferenceService">
         <value xml:lang="en">Trouble calling releaseOrderPaymentPreference service</value>

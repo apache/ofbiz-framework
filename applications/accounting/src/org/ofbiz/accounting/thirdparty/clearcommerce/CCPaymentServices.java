@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -57,7 +58,7 @@ public class CCPaymentServices {
     public final static String module = CCPaymentServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-
+    public final static String resource = "AccountingUiLabels";
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, Object> context) {
         String ccAction = (String) context.get("ccAction");
@@ -118,11 +119,12 @@ public class CCPaymentServices {
     }
 
     public static Map<String, Object> ccCapture(DispatchContext dctx, Map<String, Object> context) {
-
+        Locale locale = (Locale) context.get("locale");
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found; cannot capture");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
 
         Document captureRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"),
@@ -151,11 +153,12 @@ public class CCPaymentServices {
     }
 
     public static Map<String, Object> ccRelease(DispatchContext dctx, Map<String, Object> context) {
-
+        Locale locale = (Locale) context.get("locale");
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found; cannot release");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
 
         Document releaseRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"), "Void", null);
@@ -183,11 +186,12 @@ public class CCPaymentServices {
     }
 
     public static Map<String, Object> ccReleaseNoop(DispatchContext dctx, Map<String, Object> context) {
-
+        Locale locale = (Locale) context.get("locale");
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found; cannot release");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -202,11 +206,12 @@ public class CCPaymentServices {
     }
 
     public static Map<String, Object> ccRefund(DispatchContext dctx, Map<String, Object> context) {
-
+        Locale locale = (Locale) context.get("locale");
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found; cannot refund");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
 
         // Although refunds are applied to captured transactions, using the auth reference number is ok here
@@ -237,11 +242,12 @@ public class CCPaymentServices {
     }
 
     public static Map<String, Object> ccReAuth(DispatchContext dctx, Map<String, Object> context) {
-
+        Locale locale = (Locale) context.get("locale");
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found; cannot re-auth.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotReauth", locale));
         }
 
         Document reauthRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"),
@@ -271,7 +277,8 @@ public class CCPaymentServices {
     }
 
     public static Map<String, Object> ccReport(DispatchContext dctx, Map<String, Object> context) {
-
+        Locale locale = (Locale) context.get("locale");
+         
         // configuration file
         String paymentConfig = (String) context.get("paymentConfig");
         if (UtilValidate.isEmpty(paymentConfig)) {
@@ -281,7 +288,8 @@ public class CCPaymentServices {
         // orderId
         String orderId = (String) context.get("orderId");
         if (UtilValidate.isEmpty(orderId)) {
-            return ServiceUtil.returnError("orderId is required......");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingClearCommerceCannotExecuteReport", locale));
         }
 
 

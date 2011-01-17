@@ -19,6 +19,7 @@
 package org.ofbiz.accounting.thirdparty.eway;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 import java.util.Map;
 
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
@@ -35,6 +36,7 @@ import org.ofbiz.service.ServiceUtil;
 public class EwayServices {
     
     public static final String module = EwayServices.class.getName();
+    public final static String resource = "AccountingUiLabels";
     
     // eway charge (auth w/ capture)
     public static Map<String, Object> ewayCharge(DispatchContext dctx, Map<String, Object> context) {        
@@ -112,11 +114,13 @@ public class EwayServices {
         Delegator delegator = dctx.getDelegator();
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         BigDecimal refundAmount = (BigDecimal) context.get("refundAmount");
+        Locale locale = (Locale) context.get("locale");
         
         // original charge transaction
         GenericValue chargeTrans = PaymentGatewayServices.getCaptureTransaction(paymentPref);
         if (chargeTrans == null) {
-            return ServiceUtil.returnError("No charge transaction found for the OrderPaymentPreference; cannot refund");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
         
         // credit card used for transaction
@@ -125,7 +129,8 @@ public class EwayServices {
             cc = delegator.getRelatedOne("CreditCard", paymentPref);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Unable to obtain credit card information from payment preference; cannot refund");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentUnableToGetCCInfo", locale));
         }
         
         // orig ref number
@@ -170,6 +175,7 @@ public class EwayServices {
         Delegator delegator = dctx.getDelegator();
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");        
         BigDecimal releaseAmount = (BigDecimal) context.get("releaseAmount");
+        Locale locale = (Locale) context.get("locale");
         
         // original charge transaction
         GenericValue chargeTrans = (GenericValue) context.get("authTrans");
@@ -178,7 +184,8 @@ public class EwayServices {
         }
 
         if (chargeTrans == null) {
-            return ServiceUtil.returnError("No charge transaction found for the OrderPaymentPreference; cannot refund (release)");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
         
         // credit card used for transaction
@@ -187,7 +194,8 @@ public class EwayServices {
             cc = delegator.getRelatedOne("CreditCard", paymentPref);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Unable to obtain credit card information from payment preference; cannot refund");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentUnableToGetCCInfo", locale));
         }
         
         // orig ref number

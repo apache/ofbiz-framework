@@ -21,8 +21,8 @@ package org.ofbiz.accounting.thirdparty.authorizedotnet;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import com.ibm.icu.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -44,9 +44,12 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
+import com.ibm.icu.util.Calendar;
+
 public class AIMPaymentServices {
 
     public static final String module = AIMPaymentServices.class.getName();
+    public final static String resource = "AccountingUiLabels";
 
     // The list of refund failure response codes that would cause the ccRefund service
     // to attempt to void the refund's associated authorization transaction.  This list
@@ -75,6 +78,7 @@ public class AIMPaymentServices {
 
     public static Map<String, Object> ccAuth(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> request = FastMap.newInstance();
         Properties props = buildAIMProperties(context, delegator);
@@ -91,13 +95,14 @@ public class AIMPaymentServices {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
-        Map<String, Object> reply = processCard(request, props);
+        Map<String, Object> reply = processCard(request, props, locale);
         //now we need to process the result
         processAuthTransResult(reply, results);
         return results;
     }
 
     public static Map<String, Object> ccCapture(DispatchContext ctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
@@ -105,11 +110,13 @@ public class AIMPaymentServices {
             creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Unable to obtain cc information from payment preference");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentUnableToGetCCInfo", locale));
         }
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot Capture");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
         context.put("creditCard", creditCard);
         context.put("authTransaction", authTransaction);
@@ -133,7 +140,7 @@ public class AIMPaymentServices {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
-        Map<String, Object> reply = processCard(request, props);
+        Map<String, Object> reply = processCard(request, props, locale);
         processCaptureTransResult(reply, results);
         // if there is no captureRefNum, then the capture failed
         if (results.get("captureRefNum") == null) {
@@ -143,6 +150,7 @@ public class AIMPaymentServices {
     }
 
     public static Map<String, Object> ccRefund(DispatchContext ctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue creditCard = null;
@@ -150,11 +158,13 @@ public class AIMPaymentServices {
             creditCard = delegator.getRelatedOne("CreditCard", orderPaymentPreference);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Unable to obtain cc information from payment preference");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentUnableToGetCCInfo", locale));
         }
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot Refund");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
         context.put("creditCard",creditCard);
         context.put("authTransaction",authTransaction);
@@ -173,7 +183,7 @@ public class AIMPaymentServices {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
-        Map<String, Object> reply = processCard(request, props);
+        Map<String, Object> reply = processCard(request, props, locale);
         results.putAll(processRefundTransResult(reply));
         boolean refundResult = ((Boolean)results.get("refundResult")).booleanValue();
         String refundFlag = (String)results.get("refundFlag");
@@ -216,7 +226,9 @@ public class AIMPaymentServices {
                 } else {
                     // TODO: Modify the code to (a) do a void of the whole transaction, and (b)
                     // create a new auth-capture of the difference.
-                    return ServiceUtil.returnFailure("Cannot perform a VOID transaction: authAmount [" + authAmount + "] is different than voidAmount [" + refundAmount + "]");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "AccountingAuthorizeNetCannotPerformVoidTransaction", 
+                            UtilMisc.toMap("authAmount", authAmount, "refundAmount", refundAmount), locale));
                 }
             }
         }
@@ -224,11 +236,13 @@ public class AIMPaymentServices {
     }
 
     public static Map<String, Object> ccRelease(DispatchContext ctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference [ID = " + orderPaymentPreference.getString("orderPaymentPreferenceId") + "]; cannot void");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
         Map<String, Object> reply = voidTransaction(authTransaction, context, delegator);
         if (ServiceUtil.isError(reply)) {
@@ -240,6 +254,7 @@ public class AIMPaymentServices {
     }
 
     private static Map<String, Object> voidTransaction(GenericValue authTransaction, Map<String, Object> context, Delegator delegator) {
+        Locale locale = (Locale) context.get("locale");
         context.put("authTransaction", authTransaction);
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> request = FastMap.newInstance();
@@ -255,7 +270,7 @@ public class AIMPaymentServices {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
-        return processCard(request, props);
+        return processCard(request, props, locale);
     }
 
     public static Map<String, Object> ccCredit(DispatchContext ctx, Map<String, Object> context) {
@@ -267,6 +282,7 @@ public class AIMPaymentServices {
 
     public static Map<String, Object> ccAuthCapture(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> request = FastMap.newInstance();
         Properties props = buildAIMProperties(context, delegator);
@@ -283,7 +299,7 @@ public class AIMPaymentServices {
             results.put(ModelService.ERROR_MESSAGE, "Validation Failed - invalid values");
             return results;
         }
-        Map<String, Object> reply = processCard(request, props);
+        Map<String, Object> reply = processCard(request, props, locale);
         //now we need to process the result
         processAuthCaptureTransResult(reply, results);
         // if there is no captureRefNum, then the capture failed
@@ -293,11 +309,12 @@ public class AIMPaymentServices {
         return results;
     }
 
-    private static Map<String, Object> processCard(Map<String, Object> request, Properties props) {
+    private static Map<String, Object> processCard(Map<String, Object> request, Properties props, Locale locale) {
         Map<String, Object> result = FastMap.newInstance();
         String url = props.getProperty("url");
         if (UtilValidate.isEmpty(url)) {
-            return ServiceUtil.returnFailure("No payment.authorizedotnet.url found.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingAuthorizeNetTransactionUrlNotFound", locale));
         }
         if (isTestMode()) {
             Debug.logInfo("TEST Authorize.net using url [" + url + "]", module);

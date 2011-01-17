@@ -251,6 +251,18 @@
         <value xml:lang="en">Unable to call refund service!</value>
         <value xml:lang="it">Non è possibile eseguire il servizio refund!</value>
     </property>
+    <property key="AccountingPaymentAmountIsNegative">
+        <value xml:lang="en">Amount entered ${overrideAmount} is negative.</value>
+        <value xml:lang="it">Importo inserito ${overrideAmount} è negativo.</value>
+    </property>
+    <property key="AccountingPaymentAmountIsZero">
+        <value xml:lang="en">Amount entered ${overrideAmount} is zero.</value>
+        <value xml:lang="it">Importo inserito ${overrideAmount} è zero.</value>
+    </property>
+    <property key="AccountingPaymentCannotBeAuthorized">
+        <value xml:lang="en">Error processing payment authorization: ${errorString}</value>
+        <value xml:lang="it">Errore esecuione autorizzazione pagamento: ${errorString}</value>
+    </property>
     <property key="AccountingPartyAcctgPreferenceNotDefine">
         <value xml:lang="en">Acctg preference not define</value>
         <value xml:lang="fr">Aucune configuration sur les préférences de gestion encore définie pour votre société</value>
