@@ -2861,6 +2861,14 @@
         <value xml:lang="hi_IN">साइबरसोर्स एपीआई(API) संस्करण</value>
         <value xml:lang="it">Versione API CyberSource</value>
     </property>
+    <property key="AccountingCyberSourceErrorGettingPaymentGatewayConfig">
+        <value xml:lang="en">ERROR: Getting CyberSource property configuration</value>
+        <value xml:lang="it">ERRORE: Non è possibile ottenere la configuration di CyberSource</value>
+    </property>
+    <property key="AccountingCyberSourceErrorCommunicateWithCyberSource">
+        <value xml:lang="en">Unable to communicate with CyberSource</value>
+        <value xml:lang="it">Non è possibile comunicare con Cybersource</value>
+    </property>
     <property key="AccountingCyberSourceAutoBill">
         <value xml:lang="en">Auto-Bill In Authorization (Capture)</value>
         <value xml:lang="hi_IN">ऑटो-विधेयक प्राधिकरण (अभिग्रहण) में</value>
