@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -32,6 +33,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -45,6 +47,7 @@ import org.ofbiz.service.ServiceUtil;
 public class SagePayPaymentServices {
 
     public static final String module = SagePayPaymentServices.class.getName();
+    public final static String resource = "AccountingUiLabels";
 
     private static Map<String, String> buildCustomerBillingInfo(Map<String, Object> context) {
 
@@ -295,12 +298,13 @@ public class SagePayPaymentServices {
     public static Map<String, Object> ccRefund(DispatchContext ctx, Map<String, Object> context) {
         Debug.logInfo("SagePay - Entered ccRefund", module);
         Debug.logInfo("SagePay ccRefund context : " + context, module);
-
+        Locale locale = (Locale) context.get("locale");
         Delegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue captureTransaction = PaymentGatewayServices.getCaptureTransaction(orderPaymentPreference);
         if (captureTransaction == null) {
-            return ServiceUtil.returnError("No captured transaction found for the OrderPaymentPreference; cannot Refund");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
         Debug.logInfo("SagePay ccRefund captureTransaction : " + captureTransaction, module);
         GenericValue creditCard = null;
@@ -308,7 +312,8 @@ public class SagePayPaymentServices {
             creditCard = delegator.getRelatedOne("CreditCard", orderPaymentPreference);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting CreditCard for OrderPaymentPreference : " + orderPaymentPreference, module);
-            return ServiceUtil.returnError("Unable to obtain cc information from payment preference");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentUnableToGetCCInfo", locale) + " " + orderPaymentPreference);
         }
         context.put("creditCard",creditCard);
         context.put("captureTransaction", captureTransaction);
