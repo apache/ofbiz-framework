@@ -113,9 +113,11 @@ width:expression(document.body.clientWidth < 782? "780px" : "auto");
 }
 
 hr {
-background-color: #999999;
-border: 0;
-height: 0.1em;
+border-bottom: #fafafa 0.2em solid;
+border-right: #fafafa 0.2em solid;
+border-left: #d9d9d9 0.2em solid;
+border-top: #d9d9d9 0.2em solid;
+line-height: 0.2em;
 margin: 0.5em 0 0.5em 0;
 }
 
