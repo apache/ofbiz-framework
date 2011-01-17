@@ -100,16 +100,18 @@ under the License.
              location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="createPerfReview" auth="true">
         <description>Create an Performance Review</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override type="String" mode="IN" name="perfReviewId" optional="true"/>
+        <attribute mode="IN" type="String" name="perfReviewId" optional="true"/>
+        <attribute mode="OUT" type="String" name="perfReviewId" optional="false"/>
+        <attribute mode="INOUT" type="String" name="employeePartyId" optional="false"/>
+        <attribute mode="INOUT" type="String" name="employeeRoleTypeId" optional="false"/>
     </service>
 
     <service name="updatePerfReview" engine="simple" default-entity-name="PerfReview"
              location="component://humanres/script/org/ofbiz/humanres/HumanResServices.xml" invoke="updatePerfReview" auth="true">
         <description>Update a Performance Review</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="INOUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 

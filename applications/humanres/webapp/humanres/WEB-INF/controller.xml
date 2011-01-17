@@ -142,12 +142,14 @@ under the License.
     <request-map uri="createPerfReview">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPerfReview"/>
-        <response name="success" type="view" value="EditPerfReviews"/>
+        <response name="error" type="view" value="EditPerfReviews"/>
+        <response name="success" type="request-redirect" value="EditPerfReview"/>
     </request-map>
     <request-map uri="updatePerfReview">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePerfReview"/>
-        <response name="success" type="view" value="EditPerfReviews"/>
+        <response name="error" type="view" value="EditPerfReviews"/>
+        <response name="success" type="view" value="EditPerfReview"/>
     </request-map>
     <request-map uri="deletePerfReview">
         <security https="true" auth="true"/>
