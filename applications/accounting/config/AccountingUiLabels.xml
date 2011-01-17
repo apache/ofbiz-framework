@@ -8773,6 +8773,18 @@
         <value xml:lang="en">Unable to obtain cc information from payment preference</value>
         <value xml:lang="it">Non è possibile le informazioni della carta di carta dalle preferenze pagamento ordine</value>
     </property>
+    <property key="AccountingPcChargeErrorGettingPaymentGatewayConfig">
+        <value xml:lang="en">PcCharge is not configured properly</value>
+        <value xml:lang="it">PcCharge non è configurato propriamente</value>
+    </property>
+    <property key="AccountingPcChargeCannotSupportReleasingPreAuth">
+        <value xml:lang="en">PcCharge does not support releasing pre-auths.</value>
+        <value xml:lang="it">PcCharge non supporta rilascio pre-autorizzazioni.</value>
+    </property>
+    <property key="AccountingPcChargeResultIsNull">
+        <value xml:lang="en">Receive a null result from PcCharge</value>
+        <value xml:lang="it">Ricevuto risultato nullo da PcCharge</value>
+    </property>
     <property key="AccountingPermissionError">
         <value xml:lang="ar">لا رخصة لديكم لهذه العملية</value>
         <value xml:lang="de">Sie haben keine Berechtigung für diese Funktion.</value>
@@ -8804,6 +8816,22 @@
     </property>
     <property key="AccountingPastDueInvoices">
         <value xml:lang="en">Past Due Invoices</value>
+    </property>
+    <property key="AccountingRitaErrorGettingPaymentGatewayConfig">
+        <value xml:lang="en">RiTA is not configured properly</value>
+        <value xml:lang="it">RiTA non è configurato propriamente</value>
+    </property>
+    <property key="AccountingRitaErrorServiceException">
+        <value xml:lang="en">Service invocation exception</value>
+        <value xml:lang="it">Eccezione durante l'invocazione del servizio</value>
+    </property>
+    <property key="AccountingRitaCannotSupportReleasingPreAuth">
+        <value xml:lang="en">RiTA does not support releasing pre-auths.</value>
+        <value xml:lang="it">RiTA non supporta rilascio pre-autorizzazioni.</value>
+    </property>
+    <property key="AccountingRitaResultIsNull">
+        <value xml:lang="en">Receive a null result from RiTA</value>
+        <value xml:lang="it">Ricevuto risultato nullo da RiTA</value>
     </property>
     <property key="AccountingOrgPartyId">
         <value xml:lang="en">Org Party Id</value>
