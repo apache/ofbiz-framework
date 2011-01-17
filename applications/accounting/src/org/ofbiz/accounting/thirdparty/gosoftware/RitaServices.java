@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -49,12 +50,16 @@ public class RitaServices {
     public static final String module = RitaServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+    public final static String resource = "AccountingUiLabels";
+    public static final String resourceOrder = "OrderUiLabels";
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Locale locale = (Locale) context.get("locale");
         Properties props = buildPccProperties(context);
         RitaApi api = getApi(props, "CREDIT");
         if (api == null) {
-            return ServiceUtil.returnError("RiTA is not configured properly");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingRitaErrorGettingPaymentGatewayConfig", locale));
         }
 
         try {
@@ -130,12 +135,14 @@ public class RitaServices {
             return result;
 
         } else {
-            return ServiceUtil.returnError("Receive a null result from RiTA");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingRitaResultIsNull", locale));
         }
     }
 
     public static Map<String, Object> ccCapture(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
+        Locale locale = (Locale) context.get("locale");
 
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
@@ -145,14 +152,16 @@ public class RitaServices {
         }
 
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot capture");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
 
         // setup the RiTA Interface
         Properties props = buildPccProperties(context);
         RitaApi api = getApi(props, "CREDIT");
         if (api == null) {
-            return ServiceUtil.returnError("RiTA is not configured properly");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingRitaErrorGettingPaymentGatewayConfig", locale));
         }
 
         api.set(RitaApi.ORIG_SEQ_NUM, authTransaction.getString("referenceNum"));
@@ -186,7 +195,8 @@ public class RitaServices {
 
             return result;
         } else {
-            return ServiceUtil.returnError("Receive a null result from RiTA");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingRitaResultIsNull", locale));
         }
     }
 
@@ -200,6 +210,7 @@ public class RitaServices {
 
     private static Map<String, Object> ccVoid(DispatchContext dctx, Map<String, ? extends Object> context, boolean isRefund) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
+        Locale locale = (Locale) context.get("locale");
 
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
@@ -209,14 +220,16 @@ public class RitaServices {
         }
 
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot release");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
 
         // setup the RiTA Interface
         Properties props = buildPccProperties(context);
         RitaApi api = getApi(props, "CREDIT");
         if (api == null) {
-            return ServiceUtil.returnError("RiTA is not configured properly");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingRitaErrorGettingPaymentGatewayConfig", locale));
         }
 
         api.set(RitaApi.TRANS_AMOUNT, getAmountString(context, isRefund ? "refundAmount" : "releaseAmount"));
@@ -225,7 +238,8 @@ public class RitaServices {
 
         // check to make sure we are configured for SALE mode
         if (!"1".equals(props.getProperty("autoBill"))) {
-            return ServiceUtil.returnError("RiTA does not support releasing pre-auths.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingRitaCannotSupportReleasingPreAuth", locale));
         }
 
         // send the transaction
@@ -256,12 +270,14 @@ public class RitaServices {
 
             return result;
         } else {
-            return ServiceUtil.returnError("Receive a null result from RiTA");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingRitaResultIsNull", locale));
         }
     }
 
     public static Map<String, Object> ccCreditRefund(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
+        Locale locale = (Locale) context.get("locale");
 
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
@@ -271,14 +287,16 @@ public class RitaServices {
         }
 
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot refund");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
 
         // setup the RiTA Interface
         Properties props = buildPccProperties(context);
         RitaApi api = getApi(props, "CREDIT");
         if (api == null) {
-            return ServiceUtil.returnError("RiTA is not configured properly");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingRitaErrorGettingPaymentGatewayConfig", locale));
         }
 
         // set the required cc info
@@ -320,7 +338,8 @@ public class RitaServices {
 
             return result;
         } else {
-            return ServiceUtil.returnError("Receive a null result from RiTA");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingRitaResultIsNull", locale));
         }
     }
 
@@ -328,12 +347,14 @@ public class RitaServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
+        Locale locale = (Locale) context.get("locale");
         GenericValue orderHeader = null;
         try {
             orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Unable to obtain order header information from payment preference");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
+                    "OrderOrderNotFound", UtilMisc.toMap("orderId", orderPaymentPreference.getString("orderId")), locale));
         }
 
         if (orderHeader != null) {
@@ -370,11 +391,13 @@ public class RitaServices {
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
-                return ServiceUtil.returnError("Service invocation exception");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
+                        "AccountingRitaErrorServiceException", locale));
             }
             return refundResp;
         } else {
-            return ServiceUtil.returnError("Unable to find order information; cannot complete the refund");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
+                    "OrderOrderNotFound", UtilMisc.toMap("orderId", orderPaymentPreference.getString("orderId")), locale));
         }
     }
 
