@@ -32,19 +32,20 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="listFindContent" type="list" target="" paginate-target="/CMSContentFind" view-size="20"
+    <form name="listFindContent" type="list" list-name="listIt" target="" paginate-target="/CMSContentFind" view-size="20"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="requestParameters"/>
                 <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="noConditionFind" value="Y"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
 
-        <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditAddContent">
+        <field name="caContentIdTo" title="${uiLabelMap.CommonEmptyHeader}">
+            <hyperlink also-hidden="false" description="${caContentIdTo}" target="EditAddContent">
                 <parameter param-name="MASTER_contentId" from-field="contentId"/>
                 <parameter param-name="MASTER_drDataResourceId" from-field="drDataResourceId"/>
                 <parameter param-name="MASTER_caContentIdTo" from-field="caContentIdTo"/>
@@ -63,7 +64,6 @@ under the License.
             </hyperlink>
 -->
         </field>
-        <field name="caContentIdTo"><display/></field>
         <field name="caMapKey"><display/></field>
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="contentId"><display/></field>
