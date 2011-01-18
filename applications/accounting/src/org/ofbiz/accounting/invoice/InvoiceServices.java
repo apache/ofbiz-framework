@@ -2211,12 +2211,10 @@ public class InvoiceServices {
                     createInvoiceItemResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemContext);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Service/other problem creating InvoiceItem from order header adjustment", module);
-                    ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                            "AccountingServiceErrorCreatingInvoiceItemFromOrder", locale) + ": " + e.toString());
+                    return adjAmount;
                 }
                 if (ServiceUtil.isError(createInvoiceItemResult)) {
-                    ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "AccountingErrorCreatingInvoiceItemFromOrder", locale), null, null, createInvoiceItemResult);
+                    return adjAmount;
                 }
 
                 // Create the OrderAdjustmentBilling record
@@ -2230,9 +2228,7 @@ public class InvoiceServices {
                 try {
                     dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
                 } catch (GenericServiceException e) {
-                    ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "AccountingErrorCreatingOrderAdjustmentBillingFromOrder", locale), null, null, createOrderAdjustmentBillingContext);
-                }
+                    return adjAmount;                }
 
             }
             amount = amount.setScale(decimals, rounding);
@@ -2271,12 +2267,10 @@ public class InvoiceServices {
                     createInvoiceItemResult = dispatcher.runSync("createInvoiceItem", createInvoiceItemContext);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Service/other problem creating InvoiceItem from order header adjustment", module);
-                    ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "AccountingServiceErrorCreatingInvoiceItemFromOrder", locale) + ": " + e.toString());
+                    return adjAmount;
                 }
                 if (ServiceUtil.isError(createInvoiceItemResult)) {
-                    ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "AccountingErrorCreatingInvoiceItemFromOrder", locale), null, null, createInvoiceItemResult);
+                    return adjAmount;
                 }
 
                 // Create the OrderAdjustmentBilling record
@@ -2290,8 +2284,7 @@ public class InvoiceServices {
                 try {
                     dispatcher.runSync("createOrderAdjustmentBilling", createOrderAdjustmentBillingContext);
                 } catch (GenericServiceException e) {
-                    ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "AccountingErrorCreatingOrderAdjustmentBillingFromOrder", locale), null, null, createOrderAdjustmentBillingContext);
+                    return adjAmount;
                 }
 
             }
@@ -2328,12 +2321,9 @@ public class InvoiceServices {
                     createInvoiceTermResult = dispatcher.runSync("createInvoiceTerm", createInvoiceTermContext);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Service/other problem creating InvoiceItem from order header adjustment", module);
-                    ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "AccountingServiceErrorCreatingInvoiceItemFromOrder", locale) + ": " + e.toString());
                 }
                 if (ServiceUtil.isError(createInvoiceTermResult)) {
-                    ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "AccountingErrorCreatingInvoiceTermFromOrder", locale), null, null, createInvoiceTermResult);
+                    Debug.logError("Service/other problem creating InvoiceItem from order header adjustment", module);
                 }
             }
         }
@@ -2471,7 +2461,7 @@ public class InvoiceServices {
             try {
                 payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
             } catch (GenericEntityException e) {
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
             if (payment == null) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
@@ -2505,7 +2495,7 @@ public class InvoiceServices {
             try {
                 toPayment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", toPaymentId));
             } catch (GenericEntityException e) {
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
             if (toPayment == null) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
@@ -2561,7 +2551,7 @@ public class InvoiceServices {
             try {
                 invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
             } catch (GenericEntityException e) {
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
 
             if (invoice == null) {
@@ -2581,7 +2571,7 @@ public class InvoiceServices {
                 billingAccount = delegator.findByPrimaryKey("BillingAccount", 
                         UtilMisc.toMap("billingAccountId", billingAccountId));
             } catch (GenericEntityException e) {
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
             if (billingAccount == null) {
                 errorMessageList.add(UtilProperties.getMessage(resource, 
@@ -2610,7 +2600,7 @@ public class InvoiceServices {
             try {
                 invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
             } catch (GenericEntityException e) {
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
 
             if (invoice == null) {
@@ -2690,7 +2680,7 @@ public class InvoiceServices {
                     invoiceItem = delegator.findByPrimaryKey("InvoiceItem",
                             UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId));
                 } catch (GenericEntityException e) {
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
 
                 if (invoiceItem == null) {
@@ -2765,7 +2755,7 @@ public class InvoiceServices {
                 paymentApplication = delegator.findByPrimaryKey("PaymentApplication", 
                         UtilMisc.toMap("paymentApplicationId", paymentApplicationId));
             } catch (GenericEntityException e) {
-                ServiceUtil.returnError(e.getMessage());
+                return ServiceUtil.returnError(e.getMessage());
             }
 
             if (paymentApplication == null) {
@@ -3053,7 +3043,7 @@ public class InvoiceServices {
                         try {
                             paymentApplications = currentInvoiceItem.getRelated("PaymentApplication");
                         } catch (GenericEntityException e) {
-                            ServiceUtil.returnError(e.getMessage());
+                            return ServiceUtil.returnError(e.getMessage());
                         }
                         BigDecimal tobeApplied = ZERO;
                         // item total amount - already applied (if any)
@@ -3225,7 +3215,7 @@ public class InvoiceServices {
                 try {
                     checkAppl.store();
                 } catch (GenericEntityException e) {
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
             } else if (paymentApplication.getString("paymentApplicationId").equals(checkAppl.getString("paymentApplicationId"))) {
                 // update existing record in-place
@@ -3234,7 +3224,7 @@ public class InvoiceServices {
                 try {
                     checkAppl.store();
                 } catch (GenericEntityException e) {
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
             } else    { // two existing records, an updated one added to the existing one
                 // add 2 amounts together
@@ -3245,14 +3235,14 @@ public class InvoiceServices {
                 try {
                     paymentApplication.remove();
                 } catch (GenericEntityException e) {
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
                 // update amount existing record
                 if (debug)     Debug.logInfo("Update paymentApplication record: " + checkAppl.getString("paymentApplicationId") + " with appliedAmount:" + checkAppl.getBigDecimal("amountApplied"), module);
                 try {
                     checkAppl.store();
                 } catch (GenericEntityException e) {
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
             }
         } else {
@@ -3264,7 +3254,7 @@ public class InvoiceServices {
                 try {
                     paymentApplication.create();
                 } catch (GenericEntityException e) {
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
             } else {
                 // update existing record (could not be found because a non existing combination of paymentId/invoiceId/invoiceSeqId/ etc... was provided
@@ -3272,7 +3262,7 @@ public class InvoiceServices {
                 try {
                     paymentApplication.store();
                 } catch (GenericEntityException e) {
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
             }
         }
