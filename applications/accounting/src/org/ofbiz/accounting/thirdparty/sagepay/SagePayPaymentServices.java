@@ -153,11 +153,14 @@ public class SagePayPaymentServices {
         Debug.logInfo("SagePay - Entered ccAuth", module);
         Debug.logInfo("SagePay ccAuth context : " + context, module);
         Map<String, Object> response = null;
+        String orderId = (String) context.get("orderId");
         Locale locale = (Locale) context.get("locale");
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
+        
         if (orderPaymentPreference == null) {
             response = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingProblemGettingOrderPaymentPreferences", locale));
+                    "AccountingSagePayOrderPaymenPreferenceIsNull",
+                    UtilMisc.toMap("orderId", orderId, "orderPaymentPreference", orderPaymentPreference), locale));
         } else {
             response = processCardAuthorisationPayment(dctx, context);
         }

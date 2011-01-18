@@ -9470,6 +9470,10 @@
         <value xml:lang="en">Exception in calling SagePayPaymentAuthorisation: ${errorString}</value>
         <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentAuthorisation: ${errorString}</value>
     </property>
+    <property key="AccountingSagePayOrderPaymenPreferenceIsNull">
+        <value xml:lang="en">OrderPaymentPreference for order : ${orderId } is null: ${orderPaymentPreference}</value>
+        <value xml:lang="it">Preferenze pagamento per l'ordine : ${orderId } è nullo: ${orderPaymentPreference}</value>
+    </property>
     <property key="AccountingSagePayPaymentRefundException">
         <value xml:lang="en">Exception in calling SagePayPaymentRefund: ${errorString}</value>
         <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentRefund: ${errorString}</value>
