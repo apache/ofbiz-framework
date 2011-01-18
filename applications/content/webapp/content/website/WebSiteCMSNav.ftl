@@ -132,6 +132,9 @@ var rawdata_errors = [
             "core" : {
                 "html_titles" : true,
             },
+            "ui" : {
+                "initially_select" : ["${parameters.contentId!}"]
+            },
             "json_data" : {
                 "data" : rawdata_subsites,
                 "progressive_render" : false
