@@ -28,7 +28,6 @@ import junit.framework.TestCase;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
@@ -51,8 +50,8 @@ public class SecurePayServiceTest extends OFBizTestCase{
     protected BigDecimal creditAmount = null;
     protected String configFile = null;
     protected GenericValue orderPaymentPreference = null;
-    protected List orderItems = null;
-    protected Map orderItemMap = null;
+    protected List<Object> orderItems = null;
+    protected Map<String, Object> orderItemMap = null;
     protected GenericValue billToParty = null;
     protected String paymentGatewayConfigId = null;
     protected BigDecimal refundAmount = null;
@@ -84,7 +83,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
                 "city","The customer city",
                 "stateProvinceGeoId", "NLD",
                 "postalCode","12345"));
-        orderItemMap = UtilMisc.toMap(
+        orderItemMap = UtilMisc.<String, Object>toMap(
                 "orderId", "Demo1002", 
                 "orderItemSeqId", "00001", 
                 "orderItemTypeId", "PRODUCT_ORDER_ITEM", 
@@ -94,7 +93,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
                 "unitPrice", new BigDecimal("59.00"),
                 "statusId" ,"ITEM_COMPLETED"
                 );
-        orderItems = UtilMisc.toList(orderItemMap);
+        orderItems = UtilMisc.<Object>toList(orderItemMap);
         billToParty = delegator.makeValue("Party" , UtilMisc.toMap("partyId", "DemoCustomer"));
         paymentGatewayConfigId = "SECUREPAY_CONFIG";
         refundAmount = new BigDecimal("100.08");
@@ -114,7 +113,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
     public void testAuth() throws Exception{
         Debug.logInfo("=====[testAuth] starting....", module);
         try {
-            Map serviceInput = UtilMisc.toMap(
+            Map<String, Object> serviceInput = UtilMisc.<String, Object>toMap(
                     "paymentConfig", configFile,
                     "billToParty", billToParty,
                     "billToEmail", emailAddr,
@@ -129,7 +128,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             serviceInput.put("processAmount", new BigDecimal("100.08"));
 
             // run the service
-            Map result = dispatcher.runSync("ofbScAuthorize",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScAuthorize",serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -166,7 +165,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
         Debug.logInfo("=====[testdoCapture] starting....", module);
         GenericValue paymentGatewayResponse = delegator.findOne("PaymentGatewayResponse", UtilMisc.toMap("paymentGatewayResponseId", "testOrder1000_01"), false);
         try {
-            Map serviceInput = UtilMisc.toMap(
+            Map<String, Object> serviceInput = UtilMisc.<String, Object>toMap(
                     "paymentConfig", configFile,
                     "orderPaymentPreference", orderPaymentPreference,
                     "authTrans", paymentGatewayResponse
@@ -174,7 +173,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             serviceInput.put("captureAmount", refundAmount);
 
             // run the service
-            Map result = dispatcher.runSync("ofbScCapture",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScCapture",serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -200,13 +199,13 @@ public class SecurePayServiceTest extends OFBizTestCase{
     public void testdoRefund() throws Exception {
         Debug.logInfo("=====[testdoRefund] starting....", module);
         try {
-            Map serviceInput = UtilMisc.toMap(
+            Map<String, Object> serviceInput = UtilMisc.toMap(
                     "paymentConfig", configFile,
                     "orderPaymentPreference", orderPaymentPreference
            );
             serviceInput.put("refundAmount", refundAmount);
             // run the service
-            Map result = dispatcher.runSync("ofbScRefund",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScRefund", serviceInput);
 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -228,7 +227,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
     public void testdoCredit() throws Exception{
         Debug.logInfo("=====[testdoCredit] starting....", module);
         try {
-            Map serviceInput = UtilMisc.toMap(
+            Map<String, Object> serviceInput = UtilMisc.toMap(
                     "paymentConfig", configFile,
                     "billToParty", billToParty,
                     "billToEmail", emailAddr,
@@ -240,7 +239,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
            );
             serviceInput.put("creditAmount", creditAmount);
             // run the service
-            Map result = dispatcher.runSync("ofbScCCCredit",serviceInput);
+            Map<String, Object> result = dispatcher.runSync("ofbScCCCredit",serviceInput);
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testdoCredit] responseMessage: " + responseMessage, module);

@@ -19,14 +19,13 @@
 package org.ofbiz.accounting.thirdparty.securepay;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -36,22 +35,24 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
-
 import securepay.jxa.api.Payment;
 import securepay.jxa.api.Txn;
 
 public class SecurePayPaymentServices {
 
     public static final String module = SecurePayPaymentServices.class.getName();
+    public final static String resource = "AccountingUiLabels";
 
     public static Map<String, Object> doAuth(DispatchContext dctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         BigDecimal processAmount = (BigDecimal) context.get("processAmount");
         // generate the request/properties
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError("ERROR: Getting SecurePay property configuration");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
         String merchantId = props.getProperty("merchantID");
@@ -103,7 +104,8 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError("Payment was not sent to server.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1) {
                 Txn resp = payment.getTxn(0);
@@ -129,6 +131,7 @@ public class SecurePayPaymentServices {
     }
 
     public static Map<String, Object> doCapture(DispatchContext dctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
@@ -136,12 +139,14 @@ public class SecurePayPaymentServices {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot Capture");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotCapture", locale));
         }
 
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError("ERROR: Getting SecurePay property configuration");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
         String merchantId = props.getProperty("merchantID");
@@ -181,7 +186,8 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError("Payment was not sent to server.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1){
                 Txn resp = payment.getTxn(0);
@@ -204,6 +210,7 @@ public class SecurePayPaymentServices {
     }
 
     public static Map<String, Object> doVoid(DispatchContext dctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
@@ -211,12 +218,14 @@ public class SecurePayPaymentServices {
             authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         }
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot Release");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
 
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError("ERROR: Getting SecurePay property configuration");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
         String merchantId = props.getProperty("merchantID");
@@ -256,7 +265,8 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError("Payment was not sent to server.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1){
                 Txn resp = payment.getTxn(0);
@@ -279,11 +289,13 @@ public class SecurePayPaymentServices {
     }
 
     public static Map<String, Object> doRefund(DispatchContext dctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot refund");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
 
         List<GenericValue> paymentGatewayResponse = null;
@@ -303,7 +315,8 @@ public class SecurePayPaymentServices {
 
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError("ERROR: Getting SecurePay property configuration");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
         String merchantId = props.getProperty("merchantID");
@@ -343,7 +356,8 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError("Payment was not sent to server.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1){
                 Txn resp = payment.getTxn(0);
@@ -366,11 +380,13 @@ public class SecurePayPaymentServices {
     }
 
     public static Map<String, Object> doCredit(DispatchContext dctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         // generate the request/properties
         Properties props = buildScProperties(context, delegator);
         if (props == null) {
-            return ServiceUtil.returnError("ERROR: Getting SecurePay property configuration");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayNotProperlyConfigurated", locale));
         }
 
         String merchantId = props.getProperty("merchantID");
@@ -419,7 +435,8 @@ public class SecurePayPaymentServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         if (UtilValidate.isEmpty(processed)) {
-            return ServiceUtil.returnError("Payment was not sent to server.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingSecurityPayPaymentWasNotSent", locale));
         } else {
             if (payment.getCount() == 1) {
                 Txn resp = payment.getTxn(0);
