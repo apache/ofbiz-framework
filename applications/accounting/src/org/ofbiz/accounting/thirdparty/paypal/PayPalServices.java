@@ -83,6 +83,8 @@ import com.paypal.sdk.services.NVPCallerServices;
 public class PayPalServices {
 
     public static final String module = PayPalServices.class.getName();
+    public final static String resource = "AccountingErrorUiLabels";
+    
     // Used to maintain a weak reference to the ShoppingCart for customers who have gone to PayPal to checkout
     // so that we can quickly grab the cart, perform shipment estimates and send the info back to PayPal.
     // The weak key is a simple wrapper for the checkout token String and is stored as a cart attribute. The value
@@ -94,12 +96,14 @@ public class PayPalServices {
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         Locale locale = cart.getLocale();
         if (cart == null || cart.items().size() <= 0) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingErrorUiLabels", "AccountingPayPalShoppingCartIsEmpty", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalShoppingCartIsEmpty", locale));
         }
 
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
         if (payPalConfig == null) {
-            return ServiceUtil.returnError("Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalPaymentGatewayConfigCannotFind", locale));
         }
 
 
@@ -136,7 +140,8 @@ public class PayPalServices {
             addCartDetails(encoder, cart);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("An error occurred while retreiving cart details");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalErrorDuringRetrievingCartDetails", locale));
         }
 
         NVPDecoder decoder;
@@ -343,13 +348,15 @@ public class PayPalServices {
     }
 
     public static Map<String, Object> getExpressCheckout(DispatchContext dctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
 
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
         if (payPalConfig == null) {
-            return ServiceUtil.returnError("Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalPaymentGatewayConfigCannotFind", locale));
         }
 
         NVPEncoder encoder = new NVPEncoder();
@@ -358,7 +365,8 @@ public class PayPalServices {
         if (UtilValidate.isNotEmpty(token)) {
             encoder.add("TOKEN", token);
         } else {
-            return ServiceUtil.returnError("Express Checkout token not present in cart, cannot get checkout details.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalTokenNotFound", locale));
         }
 
         NVPDecoder decoder;
@@ -665,6 +673,7 @@ public class PayPalServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         OrderReadHelper orh = new OrderReadHelper(delegator, paymentPref.getString("orderId"));
+        Locale locale = (Locale) context.get("locale");
 
         GenericValue payPalPaymentSetting = getPaymentMethodGatewayPayPal(dctx, context, null);
         GenericValue payPalPaymentMethod = null;
@@ -701,7 +710,8 @@ public class PayPalServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (decoder == null) {
-            return ServiceUtil.returnError("An error occurred while communicating with PayPal");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalUnknownError", locale));
         }
 
         Map<String, String> errorMessages = getErrorMessageMap(decoder);
@@ -744,6 +754,7 @@ public class PayPalServices {
         GenericValue payPalPaymentMethod = (GenericValue) context.get("payPalPaymentMethod");
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, PaymentGatewayServices.AUTH_SERVICE_TYPE);
+        Locale locale = (Locale) context.get("locale");
 
         NVPEncoder encoder = new NVPEncoder();
         encoder.add("METHOD", "DoAuthorization");
@@ -765,7 +776,8 @@ public class PayPalServices {
         }
 
         if (decoder == null) {
-            return ServiceUtil.returnError("An unknown error occurred while contacting PayPal");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalUnknownError", locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -796,6 +808,7 @@ public class PayPalServices {
         BigDecimal captureAmount = (BigDecimal) context.get("captureAmount");
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, PaymentGatewayServices.AUTH_SERVICE_TYPE);
         GenericValue authTrans = (GenericValue) context.get("authTrans");
+        Locale locale = (Locale) context.get("locale");
         if (authTrans == null) {
             authTrans = PaymentGatewayServices.getAuthTransaction(paymentPref);
         }
@@ -816,7 +829,8 @@ public class PayPalServices {
         }
 
         if (decoder == null) {
-            return ServiceUtil.returnError("An unknown error occurred while contacting PayPal");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalUnknownError", locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -844,8 +858,10 @@ public class PayPalServices {
 
     public static Map<String, Object> doVoid(DispatchContext dctx, Map<String, Object> context) {
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
+        Locale locale = (Locale) context.get("locale");
         if (payPalConfig == null) {
-            return ServiceUtil.returnError("Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalPaymentGatewayConfigCannotFind", locale));
         }
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTrans = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
@@ -861,7 +877,8 @@ public class PayPalServices {
         }
 
         if (decoder == null) {
-            return ServiceUtil.returnError("An unknown error occurred while contacting PayPal");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalUnknownError", locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -889,9 +906,11 @@ public class PayPalServices {
     }
 
     public static Map<String, Object> doRefund (DispatchContext dctx, Map<String, Object> context) {
+        Locale locale = (Locale) context.get("locale");
         GenericValue payPalConfig = getPaymentMethodGatewayPayPal(dctx, context, null);
         if (payPalConfig == null) {
-            return ServiceUtil.returnError("Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalPaymentGatewayConfigCannotFind", locale));
         }
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue captureTrans = PaymentGatewayServices.getCaptureTransaction(orderPaymentPreference);
@@ -912,7 +931,8 @@ public class PayPalServices {
         }
 
         if (decoder == null) {
-            return ServiceUtil.returnError("An unknown error occurred while contacting PayPal");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                    "AccountingPayPalUnknownError", locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -1035,6 +1055,7 @@ public class PayPalServices {
         return null;
     }
 
+    @SuppressWarnings("serial")
     public static class TokenWrapper implements Serializable {
         String theString;
         public TokenWrapper(String theString) {
