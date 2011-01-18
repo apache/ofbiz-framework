@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="LayoutDemoForm" type="single" target="${demoTargetUrl}" default-map-name="demoMap">
+        <field name="name" title="${uiLabelMap.CommonName}" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
+            <text />
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}" />
+                <option key="N" description="${uiLabelMap.CommonNo}" />
+            </drop-down>
+        </field>
+        <field name="checkBox" title="${uiLabelMap.CommonEnabled}">
+            <check/>
+        </field>
+        <field name="radioButton" title="${uiLabelMap.CommonEnabled}">
+            <radio>
+                <option key="Y" description="${uiLabelMap.CommonYes}" />
+                <option key="N" description="${uiLabelMap.CommonNo}" />
+            </radio>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+        <field name="cancelButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+            <hyperlink target="${demoTargetUrl}" description="${uiLabelMap.CommonCancel}"></hyperlink>
+        </field>
+    </form>
+
+    <form name="LayoutDemoList" type="list" list-name="demoList" paginate-target="${demoTargetUrl}" separate-columns="true"
+        odd-row-style="${altRowStyle}" header-row-style="${headerStyle}" default-table-style="${tableStyle}">
+        <field name="name" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="dropDown" title="${uiLabelMap.CommonEnabled}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}" />
+                <option key="N" description="${uiLabelMap.CommonNo}" />
+            </drop-down>
+        </field>
+        <field name="checkBox" title="${uiLabelMap.CommonEnabled}">
+            <check/>
+        </field>
+        <field name="radioButton" title="${uiLabelMap.CommonEnabled}">
+            <radio>
+                <option key="Y" description="${uiLabelMap.CommonYes}" />
+                <option key="N" description="${uiLabelMap.CommonNo}" />
+            </radio>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="button-col">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+</forms>

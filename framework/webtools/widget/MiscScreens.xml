@@ -53,4 +53,160 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="WebtoolsLayoutDemo">
+        <!-- Demonstrates UI layout best practices and serves as a visual theme test jig.
+        For more information:
+        https://cwiki.apache.org/OFBADMIN/user-interface-layout-best-practices.html
+        https://cwiki.apache.org/OFBADMIN/html-and-css-best-practices.html
+        https://cwiki.apache.org/OFBIZ/ofbiz-maincsscss-html-element-collection-styles.html
+        -->
+        <section>
+            <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="ExampleLayoutDemo"/>
+                <set field="headerItem" value="LayoutDemo"/>
+                <set field="tabButtonItem" value="Selected"/>
+                <set field="demoText" value="${uiLabelMap.WebtoolsLayoutDemoText}" global="true"/>
+                <set field="errorMessage" from-field="demoText" global="true"/>
+                <set field="eventMessage" from-field="demoText" global="true"/>
+                <set field="demoTargetUrl" value="WebtoolsLayoutDemo"/>
+                <set field="demoMap.name" value="${uiLabelMap.WebtoolsLayoutDemo}"/>
+                <set field="demoMap.description" value="${uiLabelMap.WebtoolsLayoutDemoText}"/>
+                <set field="demoMap.dropDown" value="Y"/>
+                <set field="demoMap.checkBox" value="Y"/>
+                <set field="demoMap.radioButton" value="Y"/>
+                <set field="demoList[]" from-field="demoMap"/>
+                <set field="demoList[]" from-field="demoMap"/>
+                <set field="demoList[]" from-field="demoMap"/>
+                <set field="altRowStyle" value=""/>
+                <set field="headerStyle" value="header-row-1"/>
+                <set field="tableStyle" value="basic-table light-grid"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="OFBTOOLS" action="_VIEW"/>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="LayoutDemo" location="component://webtools/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="OFBTOOLS" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section name="Standard Page Start">
+                                    <widgets>
+                                        <container style="page-title">
+                                            <label text="${uiLabelMap.WebtoolsLayoutDemo}"/>
+                                        </container>
+                                        <container style="button-bar button-style-1">
+                                            <!-- Typically used for intra-app links -->
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonNew}" style="create"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonSelected}" style="selected"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonEnabled}"/>
+                                            <link text="${uiLabelMap.CommonDisabled}" style="disabled"/>
+                                        </container>
+                                        <container style="button-bar button-style-2">
+                                            <!-- Typically used for inter-app links -->
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonNew}" style="create"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonSelected}" style="selected"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonEnabled}"/>
+                                            <link text="${uiLabelMap.CommonDisabled}" style="disabled"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <section name="h1-h6 Styles">
+                                    <widgets>
+                                        <horizontal-separator/>
+                                        <label style="h1" text="${demoText}"/>
+                                        <label style="h2" text="${demoText}"/>
+                                        <label style="h3" text="${demoText}"/>
+                                        <label style="h4" text="${demoText}"/>
+                                        <label style="h5" text="${demoText}"/>
+                                        <label style="h6" text="${demoText}"/>
+                                    </widgets>
+                                </section>
+                                <section name="Form/List Styles">
+                                    <widgets>
+                                        <horizontal-separator/>
+                                        <include-form name="LayoutDemoForm" location="component://webtools/widget/MiscForms.xml"/>
+                                        <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
+                                        <section>
+                                            <actions>
+                                                <set field="tableStyle" value="basic-table dark-grid"/>
+                                            </actions>
+                                            <widgets/>
+                                        </section>
+                                        <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
+                                        <section>
+                                            <actions>
+                                                <set field="altRowStyle" value="alternate-row"/>
+                                                <set field="headerStyle" value="header-row-2"/>
+                                                <set field="tableStyle" value="basic-table hover-bar"/>
+                                            </actions>
+                                            <widgets/>
+                                        </section>
+                                        <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
+                                    </widgets>
+                                </section>
+                                <section name="Screenlet Styles">
+                                    <widgets>
+                                        <horizontal-separator/>
+                                        <screenlet>
+                                            <label text="${demoText}"/>
+                                        </screenlet>
+                                        <screenlet title="${uiLabelMap.ExampleLayoutDemo}" id="screenlet-demo" collapsible="true">
+                                            <include-form name="LayoutDemoForm" location="component://webtools/widget/MiscForms.xml"/>
+                                        </screenlet>
+                                        <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" padded="false">
+                                            <section>
+                                                <actions>
+                                                    <set field="altRowStyle" value="alternate-row"/>
+                                                    <set field="headerStyle" value="header-row-1"/>
+                                                    <set field="tableStyle" value="basic-table light-grid hover-bar"/>
+                                                </actions>
+                                                <widgets/>
+                                            </section>
+                                            <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
+                                        </screenlet>
+                                        <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" padded="false">
+                                            <section>
+                                                <actions>
+                                                    <set field="altRowStyle" value="alternate-row"/>
+                                                    <set field="headerStyle" value="header-row-2"/>
+                                                    <set field="tableStyle" value="basic-table hover-bar"/>
+                                                    <set field="viewSize" value="1" type="Integer"/>
+                                                </actions>
+                                                <widgets/>
+                                            </section>
+                                            <container style="button-bar button-style-1">
+                                                <link target="${demoTargetUrl}" text="${uiLabelMap.CommonNew}" style="create"/>
+                                                <link target="${demoTargetUrl}" text="${uiLabelMap.CommonSelected}" style="selected"/>
+                                                <link target="${demoTargetUrl}" text="${uiLabelMap.CommonEnabled}"/>
+                                                <link text="${uiLabelMap.CommonDisabled}" style="disabled"/>
+                                            </container>
+                                            <include-form name="LayoutDemoList" location="component://webtools/widget/MiscForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.WebtoolsViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
