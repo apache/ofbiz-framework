@@ -144,7 +144,7 @@
             </link>
         </menu-item>
     </menu>
-    <menu name="ProfileSubTabBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+    <menu name="ProfileSubTabBar" menu-container-style="button-bar button-style-2">
         <menu-item name="createNew" title="${uiLabelMap.AccountingBillingAccount}" >
             <condition>
                 <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
