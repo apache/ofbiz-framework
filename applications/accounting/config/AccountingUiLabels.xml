@@ -9522,6 +9522,14 @@
         <value xml:lang="zh">卡的安全码</value>
         <value xml:lang="zh_TW">卡的安全碼</value>
     </property>
+    <property key="AccountingSecurityPayPaymentWasNotSent">
+        <value xml:lang="en">Payment was not sent to server.</value>
+        <value xml:lang="it">Pagamento non è stato inviato al server.</value>
+    </property>
+    <property key="AccountingSecurityPayNotProperlyConfigurated">
+        <value xml:lang="en">ERROR: Getting SecurePay property configuration</value>
+        <value xml:lang="it">ERRORE: Ricavando la configurazione di SecurePay</value>
+    </property>
     <property key="AccountingSelectAction">
         <value xml:lang="en">Select Action</value>
         <value xml:lang="hi_IN">कार्य चुनें</value>
