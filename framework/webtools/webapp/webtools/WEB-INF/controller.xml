@@ -587,6 +587,11 @@ under the License.
         <response name="success" type="view" value="FindUserLogin"/>
     </request-map>
     
+    <request-map uri="WebtoolsLayoutDemo">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WebtoolsLayoutDemo"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -685,5 +690,7 @@ under the License.
     <view-map name="LinkGeos" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#LinkGeos"/>
     <view-map name="LookupGeo" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#LookupGeo"/>    
     
+    <view-map name="WebtoolsLayoutDemo" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemo" type="screen"/>
+
     <!-- end of view mappings -->
 </site-conf>

@@ -2229,6 +2229,12 @@
         <value xml:lang="en">Total labels count</value>
         <value xml:lang="it">Numero totale label</value>
     </property>
+    <property key="WebtoolsLayoutDemo">
+        <value xml:lang="en">Layout Demo</value>
+    </property>
+    <property key="WebtoolsLayoutDemoText">
+        <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test page.</value>
+    </property>
     <property key="WebtoolsLeaveAllEntriesBlank">
         <value xml:lang="de">alle Einträge leer lassen</value>
         <value xml:lang="en">leave all entries blank</value>

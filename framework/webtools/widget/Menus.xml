@@ -61,6 +61,9 @@ under the License.
         <menu-item name="tests" title="Tests">
             <link target="selenium"/>
         </menu-item>
+        <menu-item name="LayoutDemo" title="${uiLabelMap.WebtoolsLayoutDemo}">
+            <link target="WebtoolsLayoutDemo" />
+        </menu-item>
     </menu>
 
     <menu name="configurationTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
@@ -279,4 +282,15 @@ under the License.
         </menu-item>
     </menu>
     
+    <menu name="LayoutDemo" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="Selected" title="${uiLabelMap.CommonSelected}" widget-style="selected">
+            <link target="${demoTargetUrl}"/>
+        </menu-item>
+        <menu-item name="Enabled" title="${uiLabelMap.CommonEnabled}">
+            <link target="${demoTargetUrl}"/>
+        </menu-item>
+        <menu-item name="Disabled" title="${uiLabelMap.CommonDisabled}" widget-style="disabled">
+        </menu-item>
+    </menu>
+
 </menus>
