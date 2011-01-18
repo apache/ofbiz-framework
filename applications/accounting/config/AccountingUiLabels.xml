@@ -9466,6 +9466,22 @@
         <value xml:lang="hi_IN">निरंतर कुल (बकाया राशि)</value>
         <value xml:lang="zh_TW">執行合計 (未清)</value>
     </property>
+    <property key="AccountingSagePayPaymentAuthorisationException">
+        <value xml:lang="en">Exception in calling SagePayPaymentAuthorisation: ${errorString}</value>
+        <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentAuthorisation: ${errorString}</value>
+    </property>
+    <property key="AccountingSagePayPaymentRefundException">
+        <value xml:lang="en">Exception in calling SagePayPaymentRefund: ${errorString}</value>
+        <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentRefund: ${errorString}</value>
+    </property>
+    <property key="AccountingSagePayPaymentReleaseException">
+        <value xml:lang="en">Exception in calling SagePayPaymentRelease: ${errorString}</value>
+        <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentRelease: ${errorString}</value>
+    </property>
+    <property key="AccountingSagePayPaymentVoidException">
+        <value xml:lang="en">Exception in calling SagePayPaymentVoid: ${errorString}</value>
+        <value xml:lang="it">Eccezione durante la chiamata a SagePayPaymentVoid: ${errorString}</value>
+    </property>
     <property key="AccountingSalesInvoiceToRevenue">
         <value xml:lang="de">Zuweisungen von Einkaufsrechnungsarten zu Ertragskonten</value>
         <value xml:lang="en">Sales Invoice type to Revenue GL Account Number assignment list</value>
@@ -10572,6 +10588,102 @@
         <value xml:lang="th">Use regular expression validation pattern</value>
         <value xml:lang="zh">使用正则表达式验证样式</value>
         <value xml:lang="zh_TW">使用正則運算式驗証樣式</value>
+    </property>
+    <property key="AccountingValueLinkGiftCardActivated">
+        <value xml:lang="en">Activation of physical card complete.</value>
+        <value xml:lang="it">Attivazione della carta completata.</value>
+    </property>
+    <property key="AccountingValueLinkCannotStoreWorkingKey">
+        <value xml:lang="en">Unable to store updated keys</value>
+        <value xml:lang="it">Non è possibile registrare chiavi aggiornate</value>
+    </property>
+    <property key="AccountingValueLinkCannotUpdateWorkingKey">
+        <value xml:lang="en">Unable to update MWK</value>
+        <value xml:lang="it">Non è possibile aggiornare MWK</value>
+    </property>
+    <property key="AccountingValueLinkFeatureTypeRequested">
+        <value xml:lang="en">Required feature type TYPE not found for product: ${productId}</value>
+        <value xml:lang="it">Richiesta tipo caratteristica TIPO non trovata per il prodotto: ${productId}</value>
+    </property>
+    <property key="AccountingValueLinkPinDisabled">
+        <value xml:lang="en">PIN disabled.</value>
+        <value xml:lang="it">PIN disabilitato.</value>
+    </property>
+    <property key="AccountingValueLinkPromoCodeInvalid">
+        <value xml:lang="en">Invalid promo code set on idCode field of feature type TYPE</value>
+        <value xml:lang="it">Codice promozione invalido imposta sul campo idCode del tipo caratteristica TIPO</value>
+    </property>
+    <property key="AccountingValueLinkReceivedEmptyResponse">
+        <value xml:lang="en">Received back an empty response from ValueLink</value>
+        <value xml:lang="it">Ricevuta indietro una risposta vuota da ValueLink</value>
+    </property>
+    <property key="AccountingValueLinkThisTransactionIsNotSupported">
+        <value xml:lang="en">This transaction is not supported by ValueLink</value>
+        <value xml:lang="it">Questa transazione non è supportata da ValueLink</value>
+    </property>
+    <property key="AccountingValueLinkTransactionFailed">
+        <value xml:lang="en">Transaction failed with response code: ${responseCode}</value>
+        <value xml:lang="it">Transazione fallita con codice risposta: ${responseCode}</value>
+    </property>
+    <property key="AccountingValueLinkTransactionNotValid">
+        <value xml:lang="en">Not a valid 0704 transaction</value>
+        <value xml:lang="it">Transazione 0704 non valida</value>
+    </property>
+    <property key="AccountingValueLinkUnableToActivateGiftCard">
+        <value xml:lang="en">Unable to activate gift card</value>
+        <value xml:lang="it">Non è possibile attivare la carta regalo</value>
+    </property>
+    <property key="AccountingValueLinkUnableToCallBalanceInquiry">
+        <value xml:lang="en">Unable to call balance inquire</value>
+        <value xml:lang="it">Non è possibile eseguire l'interrogazione bilancio</value>
+    </property>
+    <property key="AccountingValueLinkUnableToCallHistoryInquiry">
+        <value xml:lang="en">Unable to call history inquire</value>
+        <value xml:lang="it">Non è possibile eseguire l'interrogazione dello storico</value>
+    </property>
+    <property key="AccountingValueLinkUnableToDisablePin">
+        <value xml:lang="en">Unable to call disble pin</value>
+        <value xml:lang="it">Non è possibile eseguire la disabilitazione del pin</value>
+    </property>
+    <property key="AccountingValueLinkUnableToGetFeatureType">
+        <value xml:lang="en">Unable to get the required feature type TYPE from Product</value>
+        <value xml:lang="it">Non è possibile ottenete il tipo caratteristica TIPO richiesto da prodotto</value>
+    </property>
+    <property key="AccountingValueLinkUnableToLinkGiftCard">
+        <value xml:lang="en">Unable to link gift card(s)</value>
+        <value xml:lang="it">Non è possibile legare la carta(e) regalo</value>
+    </property>
+    <property key="AccountingValueLinkUnableToReleaseGiftCard">
+        <value xml:lang="en">Attempt to release GiftCard payment failed; not a valid GiftCard record</value>
+        <value xml:lang="it">Tentativo di rilascio pagamento carta regalo fallito; non c'è un record GiftCard valido</value>
+    </property>
+    <property key="AccountingValueLinkUnableToReloadGiftCard">
+        <value xml:lang="en">Unable to reload gift card</value>
+        <value xml:lang="it">Non è possibile ricaricare la carta regalo</value>
+    </property>
+    <property key="AccountingValueLinkUnableToReloadGiftCardFailed">
+        <value xml:lang="en">Gift Card Reload Failed: Processing Error; charges will be refunded</value>
+        <value xml:lang="it">Fallita ricarica carta regalo: errore durante autorizzazione; l'importo verrà rimborsato</value>
+    </property>
+    <property key="AccountingValueLinkUnableToRedeemGiftCard">
+        <value xml:lang="en">Unable to redeem gift card</value>
+        <value xml:lang="it">Non è possibile ritirare la carta regalo</value>
+    </property>
+    <property key="AccountingValueLinkUnableToRedeemGiftCardFailure">
+        <value xml:lang="en">Redeem service failed</value>
+        <value xml:lang="it">Fallito servizio di ritiro</value>
+    </property>
+    <property key="AccountingValueLinkUnableToRefundGiftCard">
+        <value xml:lang="en">Unable to refund gift card</value>
+        <value xml:lang="it">Non è possibile rimborsare la carta regalo</value>
+    </property>
+    <property key="AccountingValueLinkUnableToRefundGiftCardMaxBalanceExceeded">
+        <value xml:lang="en">Gift Card Reload Failed: Max Balance Exceeded; charges will be refunded</value>
+        <value xml:lang="it">Fallita ricarica carta regalo: bilancio massimo oltrepassato; l'importo verrà rimborsato</value>
+    </property>
+    <property key="AccountingValueLinkUnableToRefundGiftCardFailure">
+        <value xml:lang="en">Refund service failed</value>
+        <value xml:lang="it">Servizio rimborso fallito</value>
     </property>
     <property key="AccountingVarianceReasonGlAccounts">
         <value xml:lang="en">Variance Reason Gl Accounts</value>
