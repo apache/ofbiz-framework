@@ -284,11 +284,27 @@
         <value xml:lang="hi_IN">Paypal से संचार में समस्या, कृपया पुन: प्रयास करें या एक अलग Checkout पद्धति का चयन करें</value>
         <value xml:lang="it">Si è verificato un problema durante la comunicazione con PayPal, per favore provare di nuovo o selezionare un altro metodo di checkout</value>
     </property>
+    <property key="AccountingPayPalErrorDuringRetrievingCartDetails">
+        <value xml:lang="en">An error occurred while retreiving cart details</value>
+        <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
+    </property>
+    <property key="AccountingPayPalPaymentGatewayConfigCannotFind">
+        <value xml:lang="en">Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.</value>
+        <value xml:lang="it">Non è possibile ricavare un record PaymentGatewayConfigPayPal per Express Checkout, non è possibile continuare.</value>
+    </property>
     <property key="AccountingPayPalShoppingCartIsEmpty">
         <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
         <value xml:lang="fr">Votre panier est vide, vous ne pouvez pas effectuer une validation express</value>
         <value xml:lang="hi_IN">शॉपिंग कार्ट खाली है, एक्सप्रेस चेकआउट के साथ आगे नहीं बढ़ सकते</value>
         <value xml:lang="it">Il carrello è vuoto, non posso procedere con il checkout Express</value>
+    </property>
+    <property key="AccountingPayPalTokenNotFound">
+        <value xml:lang="en">Express Checkout token not present in cart, cannot get checkout details</value>
+        <value xml:lang="it">Il token per Express Checkout non è presente nel carrello, non è possibile ottenere i dettagli di checkout</value>
+    </property>
+    <property key="AccountingPayPalUnknownError">
+        <value xml:lang="en">An unknown error occurred while contacting PayPal</value>
+        <value xml:lang="it">Un'errore sconosciuto è accaduto mentre contattavi PayPal</value>
     </property>
     <property key="AccountingTaxIdInvalidFormat">
         <value xml:lang="en">The tax ID ${parameters.partyTaxId} was not in a valid format for the selected tax authority ${taxAuthority.taxIdFormatPattern}</value>
