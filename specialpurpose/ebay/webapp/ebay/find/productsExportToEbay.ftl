@@ -30,11 +30,13 @@ under the License.
 
      function activateSubmitButton() {
          categ = document.forms["ProductsExportToEbay"].ebayCategory.value;
-         if (categ != null && (categ.substring(0, 1) == 'Y' || categ == '')) {
-             document.forms["ProductsExportToEbay"].submitButton.disabled = false;
-         } else {
-             document.forms["ProductsExportToEbay"].submitButton.disabled = true;
-             document.forms["ProductsExportToEbay"].submitButton.value = "Please select a category";
+         if (document.forms["ProductsExportToEbay"].submitButton) {
+             if (categ != null && (categ.substring(0, 1) == 'Y' || categ == '')) {
+                 document.forms["ProductsExportToEbay"].submitButton.disabled = false;
+             } else {
+                 document.forms["ProductsExportToEbay"].submitButton.disabled = true;
+                 document.forms["ProductsExportToEbay"].submitButton.value = "Please select a category";
+             }
          }
     }
 </script>
@@ -57,7 +59,7 @@ under the License.
                     </select>
                 </td>
             </tr>
-            <#if hideExportOptions == "N">
+            <#if hideExportOptions?has_content && hideExportOptions == "N">
             <tr>
                 <td align="right" class="label">${uiLabelMap.CommonCountry}</td>
                 <td>&nbsp;</td>
