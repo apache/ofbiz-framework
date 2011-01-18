@@ -2936,7 +2936,6 @@ public class MacroFormRenderer implements FormStringRenderer {
             String alt = "";
             String imgTitle = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
-            String id = modelFormField.getCurrentContainerId(context);
 
             if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
                 event = modelFormField.getEvent();
@@ -2967,9 +2966,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
             StringWriter sr = new StringWriter();
             sr.append("<@makeHyperlinkString ");
-            sr.append("id=\"");
-            sr.append(id);
-            sr.append("\" linkStyle=\"");
+            sr.append("linkStyle=\"");
             sr.append(linkStyle==null?"":linkStyle);
             sr.append("\" hiddenFormName=\"");
             sr.append(hiddenFormName==null?"":hiddenFormName);
